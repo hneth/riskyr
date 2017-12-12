@@ -1,0 +1,606 @@
+---
+title: "Risk Literacy Toolbox"
+author: "Hansjörg Neth, SPDS, uni.kn"
+date: "2017 11 30"
+output:
+  html_document:
+    keep_tex: false
+    self_contained: true # true/false # TRUE can cause errors with rmdformats
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    code_folding: show # show/hide
+    highlight: kate # textmate default kate haddock monochrome #
+    lightbox: true # TRUE by default
+    gallery: false
+    use_bookdown: false
+    fig_width: 10 # in inches
+documentclass: article
+classoption: a4
+fontsize: 11pt
+geometry: margin=1.0in
+linkcolor: blue
+urlcolor: blue
+---
+
+```{r, preamble, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
+
+# (a) Housekeeping: 
+rm(list=ls()) # clean all.
+setwd("~/Desktop/stuff/Dropbox/_txt/_Konstanz/_research/_RiskLiteracyTools/") # set to current directory
+list.files() # all files + folders in current directory
+fileName <- "RiskLiteracyTools_now.Rmd"
+
+## (b) Packages:
+library(rmarkdown)
+library(knitr)
+library(rmdformats)
+# library(yarrr)
+
+## (c) Global options:
+options(max.print="75")
+opts_chunk$set(echo = TRUE,
+	             cache = TRUE,
+               prompt = FALSE,
+               tidy = FALSE,
+               collapse = TRUE, # set to TRUE in answers 
+               comment = "#>",
+               message = FALSE,
+               warning = FALSE,
+               fig.width = 10, fig.height = 6)
+opts_knit$set(width=75)
+
+## Graphic parameters:
+opar <- par() # saves original (default) par settings
+par(opar)  # restores original (default) par settings
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# (A) unikn.col palette (as RGB, without transparency): 
+
+# Define base color "seeblau":
+seeblau <- rgb(0, 169, 224, names = "seeblau", maxColorValue = 255) # seeblau.4 (non-transparent)
+
+# in one df (for the yarrr package): 
+unikn.pal = data.frame(
+  "seeblau1" = rgb(204, 238, 249, maxColorValue = 255), #  1. seeblau1 (non-transparent)
+  "seeblau2" = rgb(166, 225, 244, maxColorValue = 255), #  2. seeblau2 (non-transparent)
+  "seeblau3" = rgb( 89, 199, 235, maxColorValue = 255), #  3. seeblau3 (non-transparent)
+  "seeblau4" = rgb(  0, 169, 224, maxColorValue = 255), #  4. seeblau4 (= seeblau base color)
+  "black"    = rgb(  0,   0,   0, maxColorValue = 255), #  5. black
+  "seegrau4" = rgb(102, 102, 102, maxColorValue = 255), #  6. grey40 (non-transparent)
+  "seegrau3" = rgb(153, 153, 153, maxColorValue = 255), #  7. grey60 (non-transparent)
+  "seegrau2" = rgb(204, 204, 204, maxColorValue = 255), #  8. grey80 (non-transparent)
+  "seegrau1" = rgb(229, 229, 229, maxColorValue = 255), #  9. grey90 (non-transparent)
+  "white"    = rgb(255, 255, 255, maxColorValue = 255), # 10. white
+  stringsAsFactors = FALSE)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```
+
+Graphical settings (for `ggplot2`): 
+
+```{r, graphical_settings, eval = TRUE, echo = FALSE}
+# (1) Packages: 
+library(ggplot2)
+library(cowplot)
+library(RColorBrewer)
+
+## (2) Colors:
+# (a) Using yarrr:
+# col.pal <- yarrr::piratepal(palette = "basel",  trans = .5) # [does not work]
+
+## (b) Using RColorBrewer: 
+#display.brewer.all()
+# cols <- brewer.pal(4, "Set1")
+# brewer.pal.info["Reds",]
+# brewer.pal.info["Greens",]
+# brewer.pal.info["Blues",]
+
+## (c) Using color names:
+col.ppv <- "orange3" # firebrick" "red3"
+col.npv <- "steelblue4" # "green4" "gray50" "brown4" "chartreuse4"  
+
+## (3) ggplot Themes:  
+my.theme <-  theme_bw() +
+  theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
+        axis.title = element_text(face = "plain", size = 11, color = "black"),
+        axis.text = element_text(face = "plain", size = 10, color = "gray30"),
+        # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
+        axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1), 
+        #panel.background = element_rect(fill = "gray95", color = "gray20"),
+        panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
+        panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2),
+        #panel.grid.minor.x = element_blank(), 
+        #panel.grid.minor.y = element_blank(),
+        legend.position = "none"
+  )
+
+my.theme.legend <- theme_bw() +
+  theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
+        axis.title = element_text(face = "plain", size = 11, color = "black"),
+        axis.text = element_text(face = "plain", size = 10, color = "gray30"),
+        # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
+        axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1),   
+        #panel.background = element_rect(fill = "gray95", color = "gray20"),
+        panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
+        panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2)#,
+        # panel.grid.minor.x = element_blank(), 
+        # panel.grid.minor.y = element_blank()#,
+        # legend.position = "none"
+  )
+
+# utility functions:
+pc <- function(dec) {
+  return(round(dec*100, 2))
+}
+
+
+```
+
+---
+
+# Idea
+
+Provide some useful visualizations of risk information as interactive tools (in R or Shiny).
+
+Initial set of tools:
+
+1. Icon arrays
+
+2. Diagnostic measures based on natural frequencies (given N, prevalence, sensitivity, specificity).
+     a. as 2x2 confusion table  
+     b. as tree with natural frequencies
+     
+3. Graphical illustrations of PPV and NPV (given N, prevalence, sensitivity, specificity): 
+     a. 2D version: PPV and NPV as function of prevalence (on $x$-axis), with $sens$ and $spec$ as parameters to set.  
+     b. 3D version: PPV/NPV as function of $sens$ on $x$-axis, $spec$ on $z$-axis, with $prevalence$ as parameter to set.  
+
+4. Scientific reasoning: _Cell A bias_ and _biased evidence detection_.
+
+---
+
+# Tools
+
+## Icon arrays
+
+[To be discussed with Nathaniel.]
+
+```{r}
+N <- 1000 # N in population
+prev <- 0.01 # prevalence in population = p(true positive)
+sens <- .90 # sensitivity = p(positive decision | true positive)
+spec <- .91 # specificity = p(negative decision | true negative)
+
+
+
+
+
+```
+
+
+## 2x2 confusion table
+
+```{r confusion-table, echo = TRUE, eval = TRUE}
+# Inputs: 
+N <- 1000 # N in population
+prev <- 0.01 # prevalence in population = p(true positive)
+sens <- .90 # sensitivity = p(positive decision | true positive)
+spec <- .91 # specificity = p(negative decision | true negative)
+
+# Natural frequencies:
+# 1st row:
+n.true <- round((prev * N), 1)
+n.false <- (N - n.true)
+# 2nd row:
+n.hi <- round((sens * n.true), 0) # hits
+n.mi <- (n.true - n.hi) # misses
+n.cr <- round((spec * n.false), 0) # correct rejections
+n.fa <- (n.false - n.cr) # false alarms
+
+# Derived metrics:
+ppv <- n.hi / (n.hi + n.fa) # ppv = p(true positive | positive decision)
+npv <- n.cr / (n.cr + n.mi) # npv = p(true negative | negative decision)
+```
+
+### 2 x 2 confusion table
+
+| Decision: | __true__ | __false__ | Sums: |  
+|:----|--:|--:|---:|  
+| __positive__ | hi=__`r n.hi`__ | fa=__`r n.fa`__ | `r n.hi+n.fa` |  
+| __negative__ | mi=__`r n.mi`__ | cr=__`r n.cr`__ | `r n.mi+n.cr` |  
+| Sums:        | `r n.true`  | `r n.false` | N = `r N` |  
+
+PPV = `r ppv`, NPV = `r npv`.
+
+
+## Tree of natural frequencies
+
+1. N = `r N`  
+2. n.true = `r n.true` vs. n.false = `r n.false`  
+3. (n.hi = `r n.hi` vs. n.mi = `r n.mi`) vs. (n.fa = `r n.fa` vs. n.cr = `r n.cr`)
+4. PPV = `r ppv` and NPV = `r npv`
+
+```{r tree-diagram, include = TRUE, fig.width = 10, fig.height = 8}
+#install.packages("diagram")
+library(diagram)
+# demo("flowchart")
+
+## Example 1:
+#names <- c("A", "B", "C", "D")
+#M <- matrix(nrow = 4, ncol = 4, byrow = TRUE, data = 0)
+#plotmat(M, pos = c(1, 2, 1), name = names, lwd = 1, 
+#        box.lwd = 2, cex.txt = 0.8, box.size = 0.1, 
+#        box.type = "square", box.prop = 0.5)
+
+## Example 2:
+#M[2, 1] <- M[3, 1] <- M[4, 2] <- M[4, 3] <- "flow"
+#plotmat(M, pos = c(1, 2, 1), curve = 0, name = names, lwd = 1,
+#        box.lwd = 2, cex.txt = 0.8, box.type = "circle", box.prop = 1.0)
+
+# Tree with natural frequencies: 
+names <- c(paste0("N = ", N), 
+           paste0("true:\n", n.true), 
+           paste0("false:\n", n.false), 
+           paste0("hits:\n", n.hi), 
+           paste0("misses:\n", n.mi),
+           paste0("false alarms:\n", n.fa), 
+           paste0("correct rejections:\n", n.cr))
+
+M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
+# M
+M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
+M[3, 1] <- "(N - true)"
+M[4, 2] <- "sensitivity"
+M[5, 2] <- "(true - hi)"
+M[6, 3] <- "(false - cr)"
+M[7, 3] <- "specificity"
+
+# M
+plotmat(M, pos = c(1, 2, 4), 
+        curve = 0.0,
+        name = names, 
+        box.lwd = 1.5, # radx = 0.1, # rady = 0.05, 
+        box.size = .11, box.prop = 0.5, 
+        box.type = "square",
+        box.col = "lightyellow", 
+        shadow.col = "grey25", 
+        shadow.size = .000, # .01 
+        lwd = 1.2, cex.txt = .9,
+        main = "Tree of natural frequencies")
+```
+
+## Graphical illustrations of PPV/NPV
+
+### 2D graph
+
+The following graphs illustrate how -- for given test characteristics of `sens` and `spec` -- the metrics `PPV` and `NPV` crucially depend on the _prevalence_ (`prev`) in the population:
+
+```{r ppv-npv-by-prevalence, include = TRUE, fig.width = 10, fig.height = 8}
+sens <- .90 # sensitivity
+spec <- .91 # specificity
+
+# Specify a vector of prevalences:
+{
+  step.0 <- .10
+  prev.0 <- seq(0, 10*step.0, by = step.0)
+  step.1 <- .001
+  prev.1 <- seq(step.1, 10*step.1, by = step.1)
+  step.2 <- .01
+  prev.2 <- seq(step.2, 10*step.2, by = step.2)
+  step.3 <- .05
+  prev.3 <- seq(step.3, 20*step.3, by = step.3)
+  step.4 <- .01
+  prev.4 <- seq(.90, .90 + 10*step.4, by = step.4)
+  step.5 <- .001
+  prev.5 <- seq(.990, .990 + 10*step.5, by = step.5)
+  
+  prev <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
+  # prev
+  prev.scale <- sort(unique(c(step.0, 5*step.0, step.1, 5*step.1, step.2, 5*step.2, 9*step.0)))
+  # prev.scale
+}
+
+# (1) Compute PPV and NPV as a function of prev, sens, and spec:
+# (A) using Bayes formula:
+# as functions:
+get.PPV <- function(prev, sens, spec) {
+  PPV <- NA # initialize
+  num <- (prev * sens)
+  den1 <- num
+  den2 <- (1 - prev) * (1 - spec)
+  PPV <- num / (den1 + den2)
+  return(PPV)
+}
+
+get.NPV <- function(prev, sens, spec) {
+  NPV <- NA # initialize
+  num.n <- (1 - prev) * spec
+  den1.n <- num.n
+  den2.n <- (prev) * (1 - sens)
+  NPV <- num.n / (den1.n + den2.n)
+  return(NPV)
+}
+
+# Use functions to compute current values:
+PPV <- get.PPV(prev, sens, spec)
+NPV <- get.NPV(prev, sens, spec)
+
+# (B) using natural frequencies:
+# (a) choose some population (arbitrary, drops out later)
+N <- 10^6 
+# (b) 1st row:
+n.true <- (prev * N)
+n.false <- (N - n.true)
+# (c) 2nd row:
+n.hi <- (sens * n.true)  # hits
+n.mi <- (n.true - n.hi)  # misses
+n.cr <- (spec * n.false) # correct rejections
+n.fa <- (n.false - n.cr) # false alarms
+# (d) derived metrics:
+PPV.2 <- n.hi / (n.hi + n.fa) # ppv = p(true positive | positive decision)
+NPV.2 <- n.cr / (n.cr + n.mi) # npv = p(true negative | negative decision)
+
+# (C) Verify that both methods yield same results:
+all.equal(PPV, PPV.2) 
+all.equal(NPV, NPV.2) 
+
+# Plots: 
+# plot(PPV)
+# m1 <- glm(PPV ~ prev)
+# summary(m1)
+
+# (2) Store as data frame:
+df <- data.frame(prev, PPV, NPV)
+# head(df)
+
+# Reshape into long format:
+library("tidyr")
+library("dplyr") # for %>% operator
+df.long <- df %>%
+              gather(metric, value, c(PPV, NPV))
+# head(df.long)
+
+# factor(df.long$metric)
+df.long$metric <- factor(df.long$metric, levels = c("PPV", "NPV")) # ensure factor and level order
+# factor(df.long$metric)
+
+sens.spec <- paste0("(sens = ", 100*sens, "%, spec = ", 100*spec, "%)")
+
+# (3) Visualize as a line plot (with ggplot2):
+library(ggplot2)
+# ggplot(data = df, aes(x = 1:length(prev), y = PPV)) + geom_line()
+
+# A: on linear scale: 
+p.lin <- ggplot(data = df.long, aes(x = prev, y = value, group = metric)) +
+  geom_line(aes(color = metric), size = 1.2) +
+  geom_point(aes(color = metric, shape = metric), size = 2) +
+  #geom_smooth(aes(color = metric), size = 1.2) +
+  # scale_x_log10(breaks = prev) +
+  scale_x_continuous(breaks = seq(0, 1, by = .10)) +
+  labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (linear scale)", y = "Probability") +
+  scale_color_manual(values = c(col.ppv, col.npv)) +
+  # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
+  my.theme.legend
+p.lin
+
+# B: on log scale:
+p.log <- ggplot(data = df.long, aes(x = prev, y = value, group = metric)) +
+  geom_line(aes(color = metric), size = 1.2) +
+  geom_point(aes(color = metric, shape = metric), size = 2) +
+  #geom_smooth(aes(color = metric), size = 1.2) +
+  # scale_x_log10() +
+  scale_x_log10(breaks = prev.scale) +
+  # scale_x_continuous(breaks = seq(0, 1, by = .10)) +
+  labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (log scale)", y = "Probability") +
+  scale_color_manual(values = c(col.ppv, col.npv)) +
+  # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
+  my.theme.legend
+# p.log
+
+# C: Combine both plots into one:
+library(cowplot)
+p.both <- plot_grid(p.lin, p.log,
+                    labels = c("A", "B"),
+                    nrow = 2, rel_heights = c(.50, .50))
+p.both
+```
+
+### 3D graph
+
+The following graphs illustrate how -- for a given _prevalence_ (`prev`) in some population -- the metrics `PPV` and `NPV` vary as a function of the _sensitivity_ (`sens`) and the _specificity_ (`spec`) of the test:
+
+```{r ppv-npv-given-prevalence, include = TRUE, fig.width = 10, fig.height = 6}
+# Inputs:
+prev <- .50 # prevalence (to be set in parameter)
+sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
+spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values 
+
+# Compute PPV and NPV for entire matrix of values:
+get.matrix <- function(prev, sens, spec, metric) {
+  
+  # initializing DF (as matrix to store and return results):
+  n.rows <- length(sens)
+  n.cols <- length(spec)
+  matrix <- as.data.frame(matrix(NA, 
+                                 nrow = n.rows, 
+                                 ncol = n.cols)) 
+  names(matrix) <- sens 
+  
+  # loop through all rows and columns of pc.matrix: 
+  for (row in 1:n.rows) {
+    for (col in 1:n.cols) {
+      
+      # Compute the needed model DV for the current cell value:
+      cell.val <- NA 
+      
+      if (metric=="PPV") {cell.val <- get.PPV(prev, sens[row], spec[col])} # compute PPV
+      if (metric=="NPV") {cell.val <- get.NPV(prev, sens[row], spec[col])} # compute NPV
+      
+      # Store results:
+      matrix[row, col] <- cell.val 
+      
+    }
+  }
+  
+  return(matrix)
+  
+}
+
+# Use function to compute current values:
+PPV.mat <- get.matrix(prev, sens.range, spec.range, metric = "PPV")
+NPV.mat <- get.matrix(prev, sens.range, spec.range, metric = "NPV")
+
+### Visualize as 3D graph (via persp): 
+x <- sens.range
+y <- spec.range
+z.ppv <- as.matrix(PPV.mat)
+z.npv <- as.matrix(NPV.mat)
+
+z.lim <- c(0, 1) # range of z-axis
+
+# persp(x, y, z.ppv)
+# persp(x, y, z.ppv)
+
+# Set basic graph parameters:
+my.theta <- 40 # horizontal viewing angle (higher values: more rotation)
+my.phi <- 10   # vertical viewing angle (higher values: higher viewpoint)
+my.expand <- .9 # values < 1 shrink expansion in z-direction
+my.d <- 1.2 # values > 1 lessen perspective effect 
+
+# Plot both plots (next to each other):
+{
+par(mfrow=c(1,2)) # Combine 2 plots in 1 row x 2 columns.
+par(bg = "white")
+
+p.ppv <- persp(x, y, z.ppv, 
+               theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, col = col.ppv, ltheta = 200, shade = 0.10, 
+               ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
+               main = paste0("PPV (prevalence = ", 100 * prev, "%)"))
+
+p.npv <- persp(x, y, z.npv, 
+               theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, col = col.npv, ltheta = 200, shade = 0.10, 
+               ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
+               main = paste0("NPV (prevalence = ", 100 * prev, "%)"))
+
+par(mfrow=c(1,1)) # Remove special settings.
+} 
+  
+```
+
+
+## Cell A bias and biased sampling of evidence
+
+### Contingency table
+
+Assume the following:
+
+- 2 independent probabilities for features $A$ and $B$ that suggest a causal link (e.g., 
+  [$A$ = nuclear power station and $B$ = cancer] or 
+  [$A$ = aluminum deodorant and $B$ = cancer] etc.
+
+- $A$ and $B$ are statistically independent (not causally related)
+
+```{r causal_2x2, echo = TRUE, eval = TRUE}
+A.cat <- c("alu", "no_alu") # A is binary
+B.cat <- c("cancer", "healthy") # B is binary
+pA <- .66
+pB <- .10
+
+# Simulation:
+N <- 1000
+A <- sample(x = A.cat, size = N, replace = TRUE, prob = c(pA, 1 - pA))
+B <- sample(x = B.cat, size = N, replace = TRUE, prob = c(pB, 1 - pB))
+
+# Contingency table:
+BxA <- table(B, A)
+BxA
+
+# sums and percentages:
+colSums(BxA)
+rowSums(BxA)
+pc(BxA/sum(BxA)) 
+
+# 1st row percentages per column (pB):
+pc(BxA[1,1]/sum(BxA[ , 1]))
+pc(BxA[1,2]/sum(BxA[ , 2]))
+
+# 1st col percentages per row (pA)
+pc(BxA[1,1]/sum(BxA[1, ]))
+pc(BxA[2,1]/sum(BxA[2, ]))
+
+# Focus on row 1 suggests causal relationship A->B (which is simply due to pA). 
+
+
+# # Classify cases:
+# X <- rep(NA, N)
+# for (i in 1:length(A.cat)) {
+#  for (j in 1:length(B.cat)) {
+#    
+#    X[A == A.cat[i] & B == B.cat[j]] <- (i-1)*length(B.cat) + j
+# } 
+# }
+# table(X)
+```
+
+**ToDo:** Add measures of relatedness and causality (e.g., odds ratios, Matthew's correlation, etc.)
+
+
+### Biased sampling
+
+Now assume that we do not have access to the overall contingency table, but only instances of individual cases in memory, from which we _sample_ (or to which we _selectively attend_).
+
+- Unbiased sampling would approximate the true contingency table.
+
+- However, focusing on particular dimensions (of $A$ or $B$) would yield biased tables and estimates. 
+
+
++++ here now +++
+
+
+
+
+# Insights, Conclusions and Recommendations
+
+## Important Insights
+
+- The sensitivity and specificity of a test are insufficient to determine its PPV and NPV.  
+
+- PPV and NPV crucially depend on the specific _prevalence_ of a particular person. 
+Thus, always use an appropriate reference group to specify the risk of a particular person as accurately as possible.
+
+- PPV and NPV show _opposite_ trends (as a function of prevalence). When one is high, the other is often low (and vice versa).
+
+     - with increasing prevalence: PPV increases.
+     
+     - with increasing prevalence: NPV decreases.
+
+
+## Recommendations for the General Population
+
+- All people should be aware that any test has 2 possible correct and 2 possible incorrect outcomes.
+
+- Whenever receiving a (positive or negative) test result, a good question is: What is the _probability_ that this result is _wrong_?
+
+    - Whenver receiving a positive (undesirable) test result: What is the PPV vs. p(false alarm) for me (my reference group)?
+
+    - Whenever receiving a negative (desirable) test result: What is the NPV vs. p(miss) for me (my reference group)?
+
+
+## Recommendations for Health and Risk Professionals
+
+More challenging conclusions and demands:
+
+- All X should know how to evaluate evidence for and against treatments (as a function of all 4 cells, rather than cell A bias). 
+
+- All people professionally dealing with risky information should be able to define and distinguish between _sensitivity_ and _PPV_ (as opposite conditional probabilities), as well as _specificity_ and _NPV_ (sic).
+
+- All people professionally dealing with risky information should be able to use _natural frequency trees_ to solve Bayesian problems.
+
+
+
+--- 
+
+[``r fileName`` updated on `r Sys.time()` by [hn](http://neth.de/).]
+
+<!-- +++ finis eof -->
