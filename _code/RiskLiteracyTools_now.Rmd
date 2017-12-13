@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 11 30"
+date: "2017 12 13"
 output:
   html_document:
     keep_tex: false
@@ -24,21 +24,22 @@ linkcolor: blue
 urlcolor: blue
 ---
 
-```{r, preamble, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
-
-# (a) Housekeeping: 
+```{r preamble, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
+## (1) Housekeeping: 
 rm(list=ls()) # clean all.
-setwd("~/Desktop/stuff/Dropbox/_txt/_Konstanz/_research/_RiskLiteracyTools/") # set to current directory
-list.files() # all files + folders in current directory
+# cur.path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+# setwd(cur.path) # set to current directory
+setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_code/") # set to current directory
+# list.files() # all files + folders in current directory
 fileName <- "RiskLiteracyTools_now.Rmd"
 
-## (b) Packages:
+## (2) Packages:
 library(rmarkdown)
 library(knitr)
 library(rmdformats)
 # library(yarrr)
 
-## (c) Global options:
+## (3) Global options:
 options(max.print="75")
 opts_chunk$set(echo = TRUE,
 	             cache = TRUE,
@@ -50,15 +51,40 @@ opts_chunk$set(echo = TRUE,
                warning = FALSE,
                fig.width = 10, fig.height = 6)
 opts_knit$set(width=75)
+```
 
-## Graphic parameters:
+Graphical settings (for `ggplot2`): 
+
+```{r graphic_settings, eval = TRUE, echo = FALSE}
+## (1) Packages: 
+library(ggplot2)
+library(cowplot)
+library(RColorBrewer)
+
+## (2) Graphic parameters:
 opar <- par() # saves original (default) par settings
 par(opar)  # restores original (default) par settings
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# (A) unikn.col palette (as RGB, without transparency): 
+## (3) Colors:
+# (a) Using yarrr:
+# col.pal <- yarrr::piratepal(palette = "basel",  trans = .5) # [does not work]
 
-# Define base color "seeblau":
+## (b) Using RColorBrewer: 
+# display.brewer.all()
+# cols <- brewer.pal(4, "Set1")
+# brewer.pal.info["Reds",]
+# brewer.pal.info["Greens",]
+# brewer.pal.info["Blues",]
+col.reds <- brewer.pal(9, "Reds")
+col.greens <- brewer.pal(9, "Greens")
+
+## (c) Using color names:
+col.ppv <- "orange3" # firebrick" "red3"
+col.npv <- "steelblue4" # "green4" "gray50" "brown4" "chartreuse4"  
+
+## (d) unikn.col palette (as RGB, without transparency): 
+
+## Define base color "seeblau":
 seeblau <- rgb(0, 169, 224, names = "seeblau", maxColorValue = 255) # seeblau.4 (non-transparent)
 
 # in one df (for the yarrr package): 
@@ -74,34 +100,9 @@ unikn.pal = data.frame(
   "seegrau1" = rgb(229, 229, 229, maxColorValue = 255), #  9. grey90 (non-transparent)
   "white"    = rgb(255, 255, 255, maxColorValue = 255), # 10. white
   stringsAsFactors = FALSE)
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-```
-
-Graphical settings (for `ggplot2`): 
-
-```{r, graphical_settings, eval = TRUE, echo = FALSE}
-# (1) Packages: 
-library(ggplot2)
-library(cowplot)
-library(RColorBrewer)
-
-## (2) Colors:
-# (a) Using yarrr:
-# col.pal <- yarrr::piratepal(palette = "basel",  trans = .5) # [does not work]
-
-## (b) Using RColorBrewer: 
-#display.brewer.all()
-# cols <- brewer.pal(4, "Set1")
-# brewer.pal.info["Reds",]
-# brewer.pal.info["Greens",]
-# brewer.pal.info["Blues",]
-
-## (c) Using color names:
-col.ppv <- "orange3" # firebrick" "red3"
-col.npv <- "steelblue4" # "green4" "gray50" "brown4" "chartreuse4"  
-
-## (3) ggplot Themes:  
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## (4) ggplot Themes:  
 my.theme <-  theme_bw() +
   theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
         axis.title = element_text(face = "plain", size = 11, color = "black"),
@@ -134,8 +135,6 @@ my.theme.legend <- theme_bw() +
 pc <- function(dec) {
   return(round(dec*100, 2))
 }
-
-
 ```
 
 ---
@@ -160,45 +159,83 @@ Initial set of tools:
 
 ---
 
+# Basic parameters
+
+```{r main_parameters, echo = TRUE, eval = TRUE}
+## Inputs used in all representations:
+N <- 100 # N in population
+prev <- 0.25 # prevalence in population = p(true positive)
+sens <- .85 # sensitivity = p(positive decision | true positive)
+spec <- .70 # specificity = p(negative decision | true negative)
+```
+
 # Tools
 
 ## Icon arrays
 
-[To be discussed with Nathaniel.]
+```{r icon_array, echo = TRUE, eval = TRUE}
+## Initialize:
+population <- rep(NA, N)
 
-```{r}
-N <- 1000 # N in population
-prev <- 0.01 # prevalence in population = p(true positive)
-sens <- .90 # sensitivity = p(positive decision | true positive)
-spec <- .91 # specificity = p(negative decision | true negative)
+## (A) Determine truth:
+n.true <- round((prev * N), 0)
+n.false <- (N - n.true)
 
+truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
+# truth
+sum(truth)
 
+## (B) Determine decisions:
+n.hi <- round((sens * n.true), 0)  # hits
+# n.hi 
+n.cr <- round((spec * n.false), 0) # correct rejections
+# n.cr
+n.mi <- (n.true - n.hi)            # misses
+# n.mi
+n.fa <- (n.false - n.cr)           # false alarms
+# n.fa
 
+decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
+# decision
+# sum(decision)
 
+## (C) Combine truth and decisions:
+both.true <-  truth & decision 
+both.false <-  !truth & !decision
+population <- both.true | both.false 
+# length(population)
+# sum(population)
 
+## Checks:
+N == (n.hi + n.cr + n.mi + n.fa)
+length(truth) == length(decision)
+sum(truth) == n.hi + n.mi 
+sum(decision) == n.hi + n.fa 
+sum(both.true) == n.hi 
+sum(both.false) == n.cr
+sum(population) == n.hi + n.cr
 ```
 
+[To be discussed with Nathaniel.]
 
 ## 2x2 confusion table
 
 ```{r confusion-table, echo = TRUE, eval = TRUE}
-# Inputs: 
-N <- 1000 # N in population
-prev <- 0.01 # prevalence in population = p(true positive)
-sens <- .90 # sensitivity = p(positive decision | true positive)
-spec <- .91 # specificity = p(negative decision | true negative)
-
-# Natural frequencies:
-# 1st row:
-n.true <- round((prev * N), 1)
+## (1) Compute natural frequencies:
+## 1st row:
+n.true <- round((prev * N), 0)
 n.false <- (N - n.true)
-# 2nd row:
-n.hi <- round((sens * n.true), 0) # hits
-n.mi <- (n.true - n.hi) # misses
+## 2nd row:
+n.hi <- round((sens * n.true), 0)  # hits
 n.cr <- round((spec * n.false), 0) # correct rejections
-n.fa <- (n.false - n.cr) # false alarms
+n.mi <- (n.true - n.hi)            # misses
+n.fa <- (n.false - n.cr)           # false alarms
 
-# Derived metrics:
+# (2) Define some derived metrics:
+acc <- (n.hi + n.cr)/N 
+w.sens <- .50
+bacc <- (w.sens * n.hi/(n.hi + n.mi)) + ((1 - w.sens) * n.cr/(n.cr + n.fa))
+  
 ppv <- n.hi / (n.hi + n.fa) # ppv = p(true positive | positive decision)
 npv <- n.cr / (n.cr + n.mi) # npv = p(true negative | negative decision)
 ```
@@ -211,7 +248,16 @@ npv <- n.cr / (n.cr + n.mi) # npv = p(true negative | negative decision)
 | __negative__ | mi=__`r n.mi`__ | cr=__`r n.cr`__ | `r n.mi+n.cr` |  
 | Sums:        | `r n.true`  | `r n.false` | N = `r N` |  
 
+acc = `r acc`, bacc = `r bacc`,
+
 PPV = `r ppv`, NPV = `r npv`.
+
+
+### ToDo
+
+- Make table colored and interactive (using cell values as inputs) 
+- Express `prev` as vertical threshold (to be moved from left-to-right to range from 0 to 1)
+- Express `sensitivity` as horizontal threshold (...)
 
 
 ## Tree of natural frequencies
@@ -277,8 +323,8 @@ plotmat(M, pos = c(1, 2, 4),
 The following graphs illustrate how -- for given test characteristics of `sens` and `spec` -- the metrics `PPV` and `NPV` crucially depend on the _prevalence_ (`prev`) in the population:
 
 ```{r ppv-npv-by-prevalence, include = TRUE, fig.width = 10, fig.height = 8}
-sens <- .90 # sensitivity
-spec <- .91 # specificity
+# sens <- .90 # sensitivity
+# spec <- .91 # specificity
 
 # Specify a vector of prevalences:
 {
@@ -356,7 +402,7 @@ df <- data.frame(prev, PPV, NPV)
 
 # Reshape into long format:
 library("tidyr")
-library("dplyr") # for %>% operator
+library("dplyr")
 df.long <- df %>%
               gather(metric, value, c(PPV, NPV))
 # head(df.long)
@@ -411,7 +457,7 @@ p.both
 The following graphs illustrate how -- for a given _prevalence_ (`prev`) in some population -- the metrics `PPV` and `NPV` vary as a function of the _sensitivity_ (`sens`) and the _specificity_ (`spec`) of the test:
 
 ```{r ppv-npv-given-prevalence, include = TRUE, fig.width = 10, fig.height = 6}
-# Inputs:
+## Inputs:
 prev <- .50 # prevalence (to be set in parameter)
 sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
 spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values 
@@ -556,8 +602,6 @@ Now assume that we do not have access to the overall contingency table, but only
 
 
 +++ here now +++
-
-
 
 
 # Insights, Conclusions and Recommendations
