@@ -23,7 +23,11 @@ geometry: margin=1.0in
 linkcolor: blue
 urlcolor: blue
 editor_options: 
+<<<<<<< HEAD
 chunk_output_type: console
+=======
+  chunk_output_type: console
+>>>>>>> 71b6979c033353d6a2e65b11dac7970c73ddd106
 ---
 
 ```{r preamble, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
@@ -233,9 +237,15 @@ population <- rep(i, N)
 ## Populate the population with the values from above:
 population$tru <- truth
 population$dec <- decision
+<<<<<<< HEAD
 population$sdt[ population$tru &  population$dec] <- "hi"
 population$sdt[ population$tru & !population$dec] <- "mi"
 population$sdt[!population$tru &  population$dec] <- "fa"
+=======
+population$sdt[population$tru & population$dec]   <- "hi"
+population$sdt[population$tru & !population$dec]  <- "mi"
+population$sdt[!population$tru & population$dec]  <- "fa"
+>>>>>>> 71b6979c033353d6a2e65b11dac7970c73ddd106
 population$sdt[!population$tru & !population$dec] <- "cr"
 
 population$sdt <- factor(population$sdt, 
