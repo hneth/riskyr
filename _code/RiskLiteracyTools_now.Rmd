@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 13"
+date: "2017 12 14"
 output:
   html_document:
     keep_tex: false
@@ -22,6 +22,8 @@ fontsize: 11pt
 geometry: margin=1.0in
 linkcolor: blue
 urlcolor: blue
+editor_options: 
+chunk_output_type: console
 ---
 
 ```{r preamble, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
@@ -161,6 +163,8 @@ Initial set of tools:
 
 # Basic parameters
 
+The following variables should be used (and updated) by all parts:
+
 ```{r main_parameters, echo = TRUE, eval = TRUE}
 ## Inputs used in all representations:
 N <- 100 # N in population
@@ -173,17 +177,17 @@ spec <- .70 # specificity = p(negative decision | true negative)
 
 ## Icon arrays
 
-```{r icon_array, echo = TRUE, eval = TRUE}
-## Initialize:
-population <- rep(NA, N)
+1. Define some vectors of length `N` based on the above variables:
 
-## (A) Determine truth:
+```{r icon_array, echo = TRUE, eval = TRUE}
+## (A) Determine the truth:
 n.true <- round((prev * N), 0)
 n.false <- (N - n.true)
 
 truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
 # truth
 sum(truth)
+
 
 ## (B) Determine decisions:
 n.hi <- round((sens * n.true), 0)  # hits
@@ -202,9 +206,9 @@ decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.c
 ## (C) Combine truth and decisions:
 both.true <-  truth & decision 
 both.false <-  !truth & !decision
-population <- both.true | both.false 
-# length(population)
-# sum(population)
+correct.dec <- both.true | both.false 
+length(correct.dec)
+sum(correct.dec)/N
 
 ## Checks:
 N == (n.hi + n.cr + n.mi + n.fa)
@@ -213,40 +217,95 @@ sum(truth) == n.hi + n.mi
 sum(decision) == n.hi + n.fa 
 sum(both.true) == n.hi 
 sum(both.false) == n.cr
-sum(population) == n.hi + n.cr
+sum(correct.dec) == n.hi + n.cr
 ```
+
+2. Populate the (total) population:
+
+```{r}
+## Initialize individuals and population:
+i <- list(tru = NA, # true state of the individual (Boolean) 
+          dec = NA, # decision on the individual (Boolean)
+          sdt = ""  # category in SDT terms ("hi", "mi", "fa", "cr") 
+          )
+population <- rep(i, N) 
+
+## Populate the population with the values from above:
+population$tru <- truth
+population$dec <- decision
+population$sdt[ population$tru &  population$dec] <- "hi"
+population$sdt[ population$tru & !population$dec] <- "mi"
+population$sdt[!population$tru &  population$dec] <- "fa"
+population$sdt[!population$tru & !population$dec] <- "cr"
+
+population$sdt <- factor(population$sdt, 
+                         levels = c("hi", "mi", "fa", "cr"),
+                         # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
+                         labels = c("hi", "mi", "fa", "cr"), # implicit labels
+                         ordered = TRUE)
+# is.factor(population$sdt)
+
+## Checks:
+population$sdt
+table(population$sdt)
+(sum(population$sdt == "hi") + sum(population$sdt == "cr"))/N
+```
+
+3. Visualize the population:
 
 [To be discussed with Nathaniel.]
 
 ## 2x2 confusion table
 
 ```{r confusion-table, echo = TRUE, eval = TRUE}
-## (1) Compute natural frequencies:
+## Compute natural frequencies:
+
+## (1a) Generate from basic parameters (see above):
 ## 1st row:
-n.true <- round((prev * N), 0)
-n.false <- (N - n.true)
+# n.true <- round((prev * N), 0)
+# n.false <- (N - n.true)
 ## 2nd row:
-n.hi <- round((sens * n.true), 0)  # hits
-n.cr <- round((spec * n.false), 0) # correct rejections
-n.mi <- (n.true - n.hi)            # misses
-n.fa <- (n.false - n.cr)           # false alarms
+# n.hi <- round((sens * n.true), 0)  # hits
+# n.cr <- round((spec * n.false), 0) # correct rejections
+# n.mi <- (n.true - n.hi)            # misses
+# n.fa <- (n.false - n.cr)           # false alarms
+
+## (1b) get from current population:
+n.true <- sum(population$tru == TRUE)
+n.false <- sum(population$tru == FALSE)
+
+dec.pos <- sum(population$dec == TRUE)
+dec.neg <- sum(population$dec == FALSE)
+
+n.hi <- sum(population$sdt == "hi")
+n.mi <- sum(population$sdt == "mi")
+n.fa <- sum(population$sdt == "fa")
+n.cr <- sum(population$sdt == "cr")
+
+# Checks:
+N == n.true + n.false
+N == dec.pos + dec.neg
+n.true  == n.hi + n.mi
+n.false == n.fa + n.cr
+dec.pos == n.hi + n.fa
+dec.neg == n.mi + n.cr
 
 # (2) Define some derived metrics:
 acc <- (n.hi + n.cr)/N 
 w.sens <- .50
 bacc <- (w.sens * n.hi/(n.hi + n.mi)) + ((1 - w.sens) * n.cr/(n.cr + n.fa))
   
-ppv <- n.hi / (n.hi + n.fa) # ppv = p(true positive | positive decision)
-npv <- n.cr / (n.cr + n.mi) # npv = p(true negative | negative decision)
+ppv <- n.hi / dec.pos # ppv = p(true positive | positive decision)
+npv <- n.cr / dec.neg # npv = p(true negative | negative decision)
 ```
 
 ### 2 x 2 confusion table
 
 | Decision: | __true__ | __false__ | Sums: |  
 |:----|--:|--:|---:|  
-| __positive__ | hi=__`r n.hi`__ | fa=__`r n.fa`__ | `r n.hi+n.fa` |  
-| __negative__ | mi=__`r n.mi`__ | cr=__`r n.cr`__ | `r n.mi+n.cr` |  
-| Sums:        | `r n.true`  | `r n.false` | N = `r N` |  
+| __positive__ | hi=__`r n.hi`__ | fa=__`r n.fa`__ | `r dec.pos` |  
+| __negative__ | mi=__`r n.mi`__ | cr=__`r n.cr`__ | `r dec.neg` |  
+| Sums:        | `r n.true`      | `r n.false`     | N = `r N` |  
 
 acc = `r acc`, bacc = `r bacc`,
 
@@ -315,6 +374,7 @@ plotmat(M, pos = c(1, 2, 4),
         lwd = 1.2, cex.txt = .9,
         main = "Tree of natural frequencies")
 ```
+
 
 ## Graphical illustrations of PPV/NPV
 
@@ -480,8 +540,8 @@ get.matrix <- function(prev, sens, spec, metric) {
       # Compute the needed model DV for the current cell value:
       cell.val <- NA 
       
-      if (metric=="PPV") {cell.val <- get.PPV(prev, sens[row], spec[col])} # compute PPV
-      if (metric=="NPV") {cell.val <- get.NPV(prev, sens[row], spec[col])} # compute NPV
+      if (metric == "PPV") {cell.val <- get.PPV(prev, sens[row], spec[col])} # compute PPV
+      if (metric == "NPV") {cell.val <- get.NPV(prev, sens[row], spec[col])} # compute NPV
       
       # Store results:
       matrix[row, col] <- cell.val 
@@ -530,8 +590,7 @@ p.npv <- persp(x, y, z.npv,
                main = paste0("NPV (prevalence = ", 100 * prev, "%)"))
 
 par(mfrow=c(1,1)) # Remove special settings.
-} 
-  
+}
 ```
 
 
