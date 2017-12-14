@@ -1,13 +1,15 @@
 # riskyr
 
-A set of basic risk literacy tools in R
+A toolbox for teaching risk literacy.
+
+**Goal:** Develop and assemble a set of basic risk literacy tools in R
 
 We start with some global variables:
 
-- population size $N$
-- prevalence $p$ of some condition
-- sensitivity $sens$ of some test (or probability of treatment success)
-- specificity $spec$ of some test (or probability of side effects)
+- population size _N_
+- prevalence _prev_ of some condition
+- sensitivity _sens_ of some test (or probability of treatment success)
+- specificity _spec_ of some test (or probability of side effects)
 
 and provide a variety of perspectives on the consequences of and interplay between these variables:
 
