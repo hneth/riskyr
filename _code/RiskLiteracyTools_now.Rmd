@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 14"
+date: "2017 12 15"
 output:
   html_document:
     keep_tex: false
@@ -143,13 +143,15 @@ pc <- function(dec) {
 
 # Idea
 
-Provide some useful visualizations of risk information as interactive tools (in R or Shiny).
+Provide some useful visualizations of risk information as interactive tools (in R and Shiny).
 
-Initial set of tools:
+## Initial Set of Tools
 
-1. Icon arrays
+Based on a set of common parameters: N, prevalence, sensitivity, specificity (or false alarm rate).
 
-2. Diagnostic measures based on natural frequencies (given N, prevalence, sensitivity, specificity).
+1. Icon array
+
+2. Diagnostic measures based on natural frequencies: 
      a. as 2x2 confusion table  
      b. as tree with natural frequencies
      
@@ -157,29 +159,71 @@ Initial set of tools:
      a. 2D version: PPV and NPV as function of prevalence (on $x$-axis), with $sens$ and $spec$ as parameters to set.  
      b. 3D version: PPV/NPV as function of $sens$ on $x$-axis, $spec$ on $z$-axis, with $prevalence$ as parameter to set.  
 
-4. Scientific reasoning: _Cell A bias_ and _biased evidence detection_.
+Allow setting and playing with basic parameters or reading in examples from the literature.
+
+
+## Future Extensions
+
+1. Allow for randomization and sampling
+
+2. Extend to decisions on non-dichotomous distributions (SDT).
+
+3. Extend to the topics of scientific reasoning: _Cell A bias_ and _biased evidence detection_.
+
 
 ---
 
-# Basic parameters
+# Basics 
+
+## Main Parameters
 
 The following variables should be used (and updated) by all parts:
 
 ```{r main_parameters, echo = TRUE, eval = TRUE}
 ## Inputs used in all representations:
 N <- 100 # N in population
-prev <- 0.25 # prevalence in population = p(true positive)
+prev <- .15 # prevalence in population = p(true positive)
 sens <- .85 # sensitivity = p(positive decision | true positive)
 spec <- .70 # specificity = p(negative decision | true negative)
 ```
 
-# Tools
+Alternatively, we could define or read in a set of existing examples:
 
-## Icon arrays
+```{r examples, echo = TRUE, eval = FALSE}
+## 1. HIV (a) [Source: Gigerenzer (2013), p. 53]:
+N <- 100000     # women
+prev <- 1/10000 # p(HIV)
+sens <- 1.0     # p(pos | HIV ) 
+spec <- (1 - 5/100000) # 1 - p(fa) = 1 - (pos | no HIV)
 
-1. Define some vectors of length `N` based on the above variables:
+## 2. HIV (b) [Source: Gigerenzer (2013), p. 53]:
+N <- 250000     # women
+prev <- 1/10000 # p(HIV)
+sens <- 1.0     # p(pos | HIV ) 
+spec <- (1 - 1/250000) # 1 - p(fa) = 1 - (pos | no HIV)
 
-```{r icon_array, echo = TRUE, eval = TRUE}
+## 3. Breast cancer  [Source: Gigerenzer (2013), p. 213--221]:
+N <- 1000         # women (50yrs, no symptoms, routine mammography screening)
+prev <- 10/1000   # p(breast cancer)
+sens <- .90       # p(pos | breast cancer ) 
+spec <- (1 - .09) # 1 - p(fa) = 1 - (pos | no breast cancer)
+
+## 4. Down syndrome  [Source: Gigerenzer (2013), p. 222--226]:
+N <- 1000         # women (40yrs, pregnancy)
+prev <- 10/1000   # p(Down syndrome)
+sens <- .90       # p(pos | Down syndrome ) 
+spec <- (1 - .05) # 1 - p(fa) = 1 - (pos | no Down syndrome)
+
+## ToDo: Define examples (values and labels) as a data frame (which can be read in or exported).
+```
+
+Note that Gigerenzer (2013) provides the _false alarm rate_ (i.e., `1 - sens`), rather than the _sensitivity_ as a basic parameter.
+
+## Data Structures
+
+1. Define some vectors of length `N` based on the (current) main variables:
+
+```{r init_vectors, echo = TRUE, eval = TRUE}
 ## (A) Determine the truth:
 n.true <- round((prev * N), 0)
 n.false <- (N - n.true)
@@ -274,9 +318,17 @@ Note that defining `population` as a _data frame_ allows immediate access to its
 Additionally, a rectangular population can be easily displayed, ex- or imported, and sampled. 
 
 
-3. Visualize the population:
+# Tools
+
+**Goal:** Provide a range of different perspectives on the same statistical relationships.
+
+
+## Icon arrays
+
+Visualize the population, using a common scheme of colors and symbols in all representations.
 
 [To be discussed with Nathaniel.]
+
 
 ## 2x2 confusion table
 
@@ -622,6 +674,8 @@ par(mfrow=c(1,1)) # Remove special settings.
 ```
 
 
+# Related Topics
+
 ## Cell A bias and biased sampling of evidence
 
 ### Contingency table
@@ -688,10 +742,7 @@ Now assume that we do not have access to the overall contingency table, but only
 - However, focusing on particular dimensions (of $A$ or $B$) would yield biased tables and estimates. 
 
 
-+++ here now +++
-
-
-# Insights, Conclusions and Recommendations
+# Conclusion
 
 ## Important Insights
 
