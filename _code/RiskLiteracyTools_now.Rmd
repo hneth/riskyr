@@ -222,13 +222,17 @@ sum(correct.dec) == n.hi + n.cr
 
 2. Populate the (total) population:
 
-```{r}
-## Initialize individuals and population:
+**Goal:** Define a common (global) data structure that is used and updated by all representations.
+
+```{r init_population}
+## (1) Initialize the population of individuals:
+
+## (a) Population as a vector of lists (each of which is an individual):
 i <- list(tru = NA, # true state of the individual (Boolean) 
           dec = NA, # decision on the individual (Boolean)
           sdt = ""  # category in SDT terms ("hi", "mi", "fa", "cr") 
           )
-population <- rep(i, N) 
+population <- rep(i, N)
 
 ## Populate the population with the values from above:
 population$tru <- truth
@@ -239,6 +243,20 @@ population$sdt[population$tru & !population$dec]  <- "mi"
 population$sdt[!population$tru & population$dec]  <- "fa"
 population$sdt[!population$tru & !population$dec] <- "cr"
 
+## (b) Population as a data frame:
+population <- data.frame(tru = truth,
+                         dec = decision,
+                         sdt = NA)
+
+population$sdt[population$tru & population$dec]   <- "hi"
+population$sdt[population$tru & !population$dec]  <- "mi"
+population$sdt[!population$tru & population$dec]  <- "fa"
+population$sdt[!population$tru & !population$dec] <- "cr"
+
+# head(population)
+# dim(population)
+
+## (2) Make sdt an ordered factor:
 population$sdt <- factor(population$sdt, 
                          levels = c("hi", "mi", "fa", "cr"),
                          # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
@@ -247,10 +265,14 @@ population$sdt <- factor(population$sdt,
 # is.factor(population$sdt)
 
 ## Checks:
-population$sdt
+# population$sdt
 table(population$sdt)
-(sum(population$sdt == "hi") + sum(population$sdt == "cr"))/N
+(sum(population$sdt == "hi") + sum(population$sdt == "cr"))/N # => accuracy
 ```
+
+Note that defining `population` as a _data frame_ allows immediate access to its variables (columns), cases (rows), and cells. 
+Additionally, a rectangular population can be easily displayed, ex- or imported, and sampled. 
+
 
 3. Visualize the population:
 
@@ -355,24 +377,29 @@ names <- c(paste0("N = ", N),
 
 M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 # M
+
 M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
 M[3, 1] <- "(N - true)"
 M[4, 2] <- "sensitivity"
 M[5, 2] <- "(true - hi)"
 M[6, 3] <- "(false - cr)"
 M[7, 3] <- "specificity"
+M
 
-# M
-plotmat(M, pos = c(1, 2, 4), 
+## plot matrix M:
+plotmat(M, 
+        pos = c(1, 2, 4), 
         curve = 0.0,
         name = names, 
         box.lwd = 1.5, # radx = 0.1, # rady = 0.05, 
-        box.size = .11, box.prop = 0.5, 
+        box.size = .11, 
+        box.prop = 0.5, 
         box.type = "square",
         box.col = "lightyellow", 
         shadow.col = "grey25", 
         shadow.size = .000, # .01 
-        lwd = 1.2, cex.txt = .9,
+        lwd = 1.2, 
+        cex.txt = .9,
         main = "Tree of natural frequencies")
 ```
 
