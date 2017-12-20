@@ -1,6 +1,6 @@
 # riskyr
 
-A toolbox for teaching risk literacy.
+A toolbox for transparent communication and teaching of risk literacy.
 
 **Goal:** Develop and assemble a set of basic risk literacy tools in R
 
@@ -13,11 +13,11 @@ We start with some global variables:
 
 and provide a variety of perspectives on the consequences of and interplay between these variables:
 
-1. tree of natural frequencies
-2. icon array (with population vs. sample view)
-3. contingency table (leaves of the frequency tree)
+1. tree of natural frequencies  
+2. contingency table (leaves of the frequency tree)  
+3. icon array (with a population vs. sample view, sorted or randomized)  
 4. curves of PPV and NPV (as a function of prevalence or sensitivity/specificity)
-5. fact boxes (with additional details on benefits and harms)
+5. fact boxes (with additional details on benefits and harms of tests or treatments)
 
 All visualizations will be interactive and use a common color scheme.
 

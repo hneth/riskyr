@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 15"
+date: "2017 12 20"
 output:
   html_document:
     keep_tex: false
@@ -9,7 +9,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
-    number_sections: true
+    number_sections: false
     code_folding: show # show/hide
     highlight: kate # textmate default kate haddock monochrome #
     lightbox: true # TRUE by default
@@ -143,18 +143,19 @@ pc <- function(dec) {
 
 # Idea
 
-Provide some useful visualizations of risk information as interactive tools (in R and Shiny).
+Provide some useful visualizations of common risk information measures as interactive tools (in R and Shiny) for fostering transparent risk communication and teaching purposes.
 
 ## Initial Set of Tools
 
-Based on a set of common parameters: N, prevalence, sensitivity, specificity (or false alarm rate).
+Based on a set of common parameters: population size `N`, prevalence `prev`, sensitivity `sens`, specificity `spec` (or false alarm rate `fa = 1 - spec`).
 
-1. Icon array
 
-2. Diagnostic measures based on natural frequencies: 
-     a. as 2x2 confusion table  
+1. Diagnostic measures based on natural frequencies: 
+     a. as 2x2 confusion table (of hits, false alarms, misses, correct rejections)  
      b. as tree with natural frequencies
      
+2. Icon array
+
 3. Graphical illustrations of PPV and NPV (given N, prevalence, sensitivity, specificity): 
      a. 2D version: PPV and NPV as function of prevalence (on $x$-axis), with $sens$ and $spec$ as parameters to set.  
      b. 3D version: PPV/NPV as function of $sens$ on $x$-axis, $spec$ on $z$-axis, with $prevalence$ as parameter to set.  
@@ -322,15 +323,7 @@ Additionally, a rectangular population can be easily displayed, ex- or imported,
 
 **Goal:** Provide a range of different perspectives on the same statistical relationships.
 
-
-## Icon arrays
-
-Visualize the population, using a common scheme of colors and symbols in all representations.
-
-[To be discussed with Nathaniel.]
-
-
-## 2x2 confusion table
+## 1. 2x2 confusion table
 
 ```{r confusion-table, echo = TRUE, eval = TRUE}
 ## Compute natural frequencies:
@@ -374,7 +367,7 @@ ppv <- n.hi / dec.pos # ppv = p(true positive | positive decision)
 npv <- n.cr / dec.neg # npv = p(true negative | negative decision)
 ```
 
-### 2 x 2 confusion table
+### Showing 2 x 2 confusion table
 
 | Decision: | __true__ | __false__ | Sums: |  
 |:----|--:|--:|---:|  
@@ -386,7 +379,6 @@ acc = `r acc`, bacc = `r bacc`,
 
 PPV = `r ppv`, NPV = `r npv`.
 
-
 ### ToDo
 
 - Make table colored and interactive (using cell values as inputs) 
@@ -394,7 +386,7 @@ PPV = `r ppv`, NPV = `r npv`.
 - Express `sensitivity` as horizontal threshold (...)
 
 
-## Tree of natural frequencies
+## 2. Tree of natural frequencies
 
 1. N = `r N`  
 2. n.true = `r n.true` vs. n.false = `r n.false`  
@@ -456,7 +448,14 @@ plotmat(M,
 ```
 
 
-## Graphical illustrations of PPV/NPV
+## 3. Icon arrays
+
+Visualize the population, using a common scheme of colors and symbols in all representations.
+
+[To be discussed with Nathaniel.]
+
+
+## 4. Graphical illustrations of PPV/NPV
 
 ### 2D graph
 
@@ -672,6 +671,8 @@ p.npv <- persp(x, y, z.npv,
 par(mfrow=c(1,1)) # Remove special settings.
 }
 ```
+
+
 
 
 # Related Topics
