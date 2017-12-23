@@ -1,0 +1,1 @@
+Here could come general text about the riskyR app we'd like to have displayed in the showcase mode (simply change README.md).
