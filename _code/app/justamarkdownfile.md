@@ -1,11 +1,34 @@
 ---
-title: "Markdown integration example"
+title: "About riskyr"
 output: github_document
 ---
 
-# Welcome!
-                                
-On this page could be some information on what this app is about...
+# riskyr
+
+A toolbox for transparent communication and teaching of risk literacy.
+
+## Goal 
+
+We aim to develop and assemble a set of basic risk literacy tools in R. 
+
+We start with some global variables:
+
+- population size _N_
+- prevalence _prev_ of some condition
+- sensitivity _sens_ of some test (or probability of treatment success)
+- specificity _spec_ of some test (or probability of side effects)
+
+and provide a variety of perspectives on the consequences of and interplay between these variables:
+
+1. tree of natural frequencies  
+2. contingency table (leaves of the frequency tree)  
+3. icon array (with a population vs. sample view, sorted or randomized)  
+4. curves of PPV and NPV (as a function of prevalence or sensitivity/specificity)
+5. fact boxes (with additional details on benefits and harms of tests or treatments)
+
+All visualizations will be interactive and use a common color scheme.
+
+A set of examples illustrates cases with known data from the literature.
 
 ## Notes
 
@@ -15,12 +38,18 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
 + For even more visualisation or branding, we can use or create icons from [here](https://www.flaticon.com/authors/vectors-market).    
 + Static content goes in the www directory.    
 
-
-
-## To do list
+## To Do
 
 For UI:
 
-+ define colors    
-+ use logo of uni.kn?    
-+ add some dropdown menu tied to `switch` to have parameters from real studies (probably best placed in csv file in the static folder)    
+- read 4 basic variables from input
+- use inputs to construct representation as data frame
+- display data frame as table
+- display 2x2 contingency table
+- display contingency table as mosaic plot
+- use `diagram` to represent tree of natural frequencies
+- define colors (for hi, fa, mi, cr)    
+- define icon array
+- provide options for shuffling and sampling population
+- use logo of uni.kn
+- add some dropdown menu tied to `switch` to have parameters from real studies (placed in `.csv` file in the static folder)
