@@ -1,1 +1,1 @@
-Here could come general text about the riskyR app we'd like to have displayed in the showcase mode (simply change README.md).
+An interactive application (written in R shiny) that allows using the `riskyr` toolbox without any need for coding.
