@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 20"
+date: "2017 12 22"
 output:
   html_document:
     keep_tex: false
