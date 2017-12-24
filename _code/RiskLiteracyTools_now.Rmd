@@ -171,7 +171,6 @@ Allow setting and playing with basic parameters or reading in examples from the 
 
 3. Extend to the topics of scientific reasoning: _Cell A bias_ and _biased evidence detection_.
 
-
 ---
 
 # Basics 
@@ -185,7 +184,15 @@ The following variables should be used (and updated) by all parts:
 N <- 100 # N in population
 prev <- .15 # prevalence in population = p(true positive)
 sens <- .85 # sensitivity = p(positive decision | true positive)
-spec <- .70 # specificity = p(negative decision | true negative)
+spec <- .75 # specificity = p(negative decision | true negative)
+
+# As environment:
+e1 <- list("name" = "demo", # name (e.g., HIV, mammography, ...)
+           "N" = 100,       # N in population
+           "prev" = .15,    # prevalence in population = p(true positive)
+           "sens" = .85,    # sensitivity = p(positive decision | true positive)
+           "spec" = .75     # specificity = p(negative decision | true negative)
+           )
 ```
 
 Alternatively, we could define or read in a set of existing examples:
