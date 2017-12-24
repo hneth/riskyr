@@ -267,7 +267,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Risk Literacy Toolbox</h1>
 <h4 class="author"><em>Hansjörg Neth, SPDS, uni.kn</em></h4>
-<h4 class="date"><em>2017 12 22</em></h4>
+<h4 class="date"><em>2017 12 24</em></h4>
 
 </div>
 
@@ -316,7 +316,15 @@ div.tocify {
 N &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># N in population</span>
 prev &lt;-<span class="st"> </span>.<span class="dv">15</span> <span class="co"># prevalence in population = p(true positive)</span>
 sens &lt;-<span class="st"> </span>.<span class="dv">85</span> <span class="co"># sensitivity = p(positive decision | true positive)</span>
-spec &lt;-<span class="st"> </span>.<span class="dv">70</span> <span class="co"># specificity = p(negative decision | true negative)</span></code></pre></div>
+spec &lt;-<span class="st"> </span>.<span class="dv">75</span> <span class="co"># specificity = p(negative decision | true negative)</span>
+
+<span class="co"># As environment:</span>
+e1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;name&quot;</span> =<span class="st"> &quot;demo&quot;</span>, <span class="co"># name (e.g., HIV, mammography, ...)</span>
+           <span class="st">&quot;N&quot;</span> =<span class="st"> </span><span class="dv">100</span>,       <span class="co"># N in population</span>
+           <span class="st">&quot;prev&quot;</span> =<span class="st"> </span>.<span class="dv">15</span>,    <span class="co"># prevalence in population = p(true positive)</span>
+           <span class="st">&quot;sens&quot;</span> =<span class="st"> </span>.<span class="dv">85</span>,    <span class="co"># sensitivity = p(positive decision | true positive)</span>
+           <span class="st">&quot;spec&quot;</span> =<span class="st"> </span>.<span class="dv">75</span>     <span class="co"># specificity = p(negative decision | true negative)</span>
+           )</code></pre></div>
 <p>Alternatively, we could define or read in a set of existing examples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## 1. HIV (a) [Source: Gigerenzer (2013), p. 53]:
 N &lt;-<span class="st"> </span><span class="dv">100000</span>     <span class="co"># women</span>
@@ -350,7 +358,15 @@ spec &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-
 <ol style="list-style-type: decimal">
 <li>Define some vectors of length <code>N</code> based on the (current) main variables:</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## (A) Determine the truth:
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## (0) Get current parameters:
+cur.env &lt;-<span class="st"> </span>e1
+
+N &lt;-<span class="st"> </span>cur.env<span class="op">$</span>N
+prev &lt;-<span class="st"> </span>cur.env<span class="op">$</span>prev
+sens &lt;-<span class="st"> </span>cur.env<span class="op">$</span>sens
+spec &lt;-<span class="st"> </span>cur.env<span class="op">$</span>spec 
+
+## (1) Determine the truth:
 n.true &lt;-<span class="st"> </span><span class="kw">round</span>((prev <span class="op">*</span><span class="st"> </span>N), <span class="dv">0</span>)
 n.false &lt;-<span class="st"> </span>(N <span class="op">-</span><span class="st"> </span>n.true)
 
@@ -359,8 +375,7 @@ truth &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">r
 <span class="kw">sum</span>(truth)
 <span class="co">#&gt; [1] 15</span>
 
-
-## (B) Determine decisions:
+## (2) Determine decisions:
 n.hi &lt;-<span class="st"> </span><span class="kw">round</span>((sens <span class="op">*</span><span class="st"> </span>n.true), <span class="dv">0</span>)  <span class="co"># hits</span>
 <span class="co"># n.hi </span>
 n.cr &lt;-<span class="st"> </span><span class="kw">round</span>((spec <span class="op">*</span><span class="st"> </span>n.false), <span class="dv">0</span>) <span class="co"># correct rejections</span>
@@ -374,16 +389,16 @@ decision &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw
 <span class="co"># decision</span>
 <span class="co"># sum(decision)</span>
 
-## (C) Combine truth and decisions:
+## (3) Combine truth and decisions:
 both.true &lt;-<span class="st">  </span>truth <span class="op">&amp;</span><span class="st"> </span>decision 
 both.false &lt;-<span class="st">  </span><span class="op">!</span>truth <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>decision
 correct.dec &lt;-<span class="st"> </span>both.true <span class="op">|</span><span class="st"> </span>both.false 
 <span class="kw">length</span>(correct.dec)
 <span class="co">#&gt; [1] 100</span>
 <span class="kw">sum</span>(correct.dec)<span class="op">/</span>N
-<span class="co">#&gt; [1] 0.72</span>
+<span class="co">#&gt; [1] 0.77</span>
 
-## Checks:
+## (4) Checks:
 N <span class="op">==</span><span class="st"> </span>(n.hi <span class="op">+</span><span class="st"> </span>n.cr <span class="op">+</span><span class="st"> </span>n.mi <span class="op">+</span><span class="st"> </span>n.fa)
 <span class="co">#&gt; [1] TRUE</span>
 <span class="kw">length</span>(truth) <span class="op">==</span><span class="st"> </span><span class="kw">length</span>(decision)
@@ -952,7 +967,7 @@ BxA
 <li><p>All people professionally dealing with risky information should be able to use <em>natural frequency trees</em> to solve Bayesian problems.</p></li>
 </ul>
 <hr />
-<p>[<code>RiskLiteracyTools_now.Rmd</code> updated on 2017-12-23 22:14:18 by <a href="http://neth.de/">hn</a>.]</p>
+<p>[<code>RiskLiteracyTools_now.Rmd</code> updated on 2017-12-24 13:58:20 by <a href="http://neth.de/">hn</a>.]</p>
 <!-- +++ finis eof -->
 </div>
 </div>

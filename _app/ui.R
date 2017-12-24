@@ -1,11 +1,13 @@
 # Shiny ui.R
 # spds, uni.kn | 2017 12 24
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # Dependencies:
 library(markdown)
 library(shinyBS)
 library(DT)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # JavaScript: 
 # Source: https://stackoverflow.com/questions/30502870/shiny-slider-on-logarithmic-scale
 
@@ -40,7 +42,7 @@ logifySlider('log_slider2', sci = true)
 }, 5)})
 "
 
-
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Define user interface logic:
 shinyUI(
   
@@ -167,4 +169,5 @@ shinyUI(
   )
 )
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # eof. #

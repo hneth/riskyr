@@ -1,11 +1,14 @@
 # Shiny server.R
 # spds, uni.kn | 2017 12 24
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # Dependencies:
 library(shiny)
 library(shinyBS)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Initial environment:
+
 e1 <- list("name" = "demo", # name (e.g., HIV, mammography, ...)
            "N" = 100,       # N in population
            "prev" = .15,    # prevalence in population = p(true positive)
@@ -13,9 +16,62 @@ e1 <- list("name" = "demo", # name (e.g., HIV, mammography, ...)
            "spec" = .75     # specificity = p(negative decision | true negative)
            )
 
-# Functions for plots and tables:
-# ...
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## (0) Get current parameters:
+cur.env <- e1
 
+N <- cur.env$N
+prev <- cur.env$prev
+sens <- cur.env$sens
+spec <- cur.env$spec 
+
+## (1) Determine the truth:
+n.true <- round((prev * N), 0)
+n.false <- (N - n.true)
+
+truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
+# truth
+# sum(truth)
+
+## (2) Determine decisions:
+n.hi <- round((sens * n.true), 0)  # hits
+# n.hi 
+n.cr <- round((spec * n.false), 0) # correct rejections
+# n.cr
+n.mi <- (n.true - n.hi)            # misses
+# n.mi
+n.fa <- (n.false - n.cr)           # false alarms
+# n.fa
+
+decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
+# decision
+# sum(decision)
+
+## (3) Population as a data frame:
+population <- data.frame(tru = truth,
+                         dec = decision,
+                         sdt = NA)
+
+population$sdt[population$tru & population$dec]   <- "hi"
+population$sdt[population$tru & !population$dec]  <- "mi"
+population$sdt[!population$tru & population$dec]  <- "fa"
+population$sdt[!population$tru & !population$dec] <- "cr"
+
+# head(population)
+# dim(population)
+
+## (2) Make sdt (status decision-truth) an ordered factor:
+population$sdt <- factor(population$sdt, 
+                         levels = c("hi", "mi", "fa", "cr"),
+                         # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
+                         labels = c("hi", "mi", "fa", "cr"), # implicit labels
+                         ordered = TRUE)
+# is.factor(population$sdt)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+# Functions for plots and tables:
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Define server logic:
 shinyServer(function(input, output, session){
     
@@ -56,4 +112,5 @@ shinyServer(function(input, output, session){
   }
 )
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # eof. #

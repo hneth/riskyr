@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 22"
+date: "2017 12 24"
 output:
   html_document:
     keep_tex: false
@@ -67,6 +67,7 @@ library(RColorBrewer)
 opar <- par() # saves original (default) par settings
 par(opar)  # restores original (default) par settings
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## (3) Colors:
 # (a) Using yarrr:
 # col.pal <- yarrr::piratepal(palette = "basel",  trans = .5) # [does not work]
@@ -103,7 +104,7 @@ unikn.pal = data.frame(
   "white"    = rgb(255, 255, 255, maxColorValue = 255), # 10. white
   stringsAsFactors = FALSE)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## (4) ggplot Themes:  
 my.theme <-  theme_bw() +
   theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
@@ -133,6 +134,7 @@ my.theme.legend <- theme_bw() +
         # legend.position = "none"
   )
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # utility functions:
 pc <- function(dec) {
   return(round(dec*100, 2))
@@ -232,7 +234,15 @@ Note that Gigerenzer (2013) provides the _false alarm rate_ (i.e., `1 - sens`), 
 1. Define some vectors of length `N` based on the (current) main variables:
 
 ```{r init_vectors, echo = TRUE, eval = TRUE}
-## (A) Determine the truth:
+## (0) Get current parameters:
+cur.env <- e1
+
+N <- cur.env$N
+prev <- cur.env$prev
+sens <- cur.env$sens
+spec <- cur.env$spec 
+
+## (1) Determine the truth:
 n.true <- round((prev * N), 0)
 n.false <- (N - n.true)
 
@@ -240,8 +250,7 @@ truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
 # truth
 sum(truth)
 
-
-## (B) Determine decisions:
+## (2) Determine decisions:
 n.hi <- round((sens * n.true), 0)  # hits
 # n.hi 
 n.cr <- round((spec * n.false), 0) # correct rejections
@@ -255,14 +264,14 @@ decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.c
 # decision
 # sum(decision)
 
-## (C) Combine truth and decisions:
+## (3) Combine truth and decisions:
 both.true <-  truth & decision 
 both.false <-  !truth & !decision
 correct.dec <- both.true | both.false 
 length(correct.dec)
 sum(correct.dec)/N
 
-## Checks:
+## (4) Checks:
 N == (n.hi + n.cr + n.mi + n.fa)
 length(truth) == length(decision)
 sum(truth) == n.hi + n.mi 
