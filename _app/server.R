@@ -5,6 +5,7 @@
 # Dependencies:
 library(shiny)
 library(shinyBS)
+library(markdown)
 library(DT)
 library(diagram)
 
