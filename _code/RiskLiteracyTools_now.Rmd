@@ -403,9 +403,13 @@ npv <- n.cr / dec.neg # npv = p(true negative | negative decision)
 | __negative__ | mi=__`r n.mi`__ | cr=__`r n.cr`__ | `r dec.neg` |  
 | Sums:        | `r n.true`      | `r n.false`     | N = `r N` |  
 
-acc = `r acc`, bacc = `r bacc`,
 
-PPV = `r ppv`, NPV = `r npv`.
+**Derived metrics:**
+
+- Accuracy: acc = `r pc(acc)`%, bacc = `r pc(bacc)`%,
+
+- Test validities: PPV = `r pc(ppv)`%, NPV = `r pc(npv)`%.
+
 
 ### ToDo
 
@@ -438,42 +442,60 @@ library(diagram)
 #plotmat(M, pos = c(1, 2, 1), curve = 0, name = names, lwd = 1,
 #        box.lwd = 2, cex.txt = 0.8, box.type = "circle", box.prop = 1.0)
 
-# Tree with natural frequencies: 
-names <- c(paste0("N = ", N), 
-           paste0("true:\n", n.true), 
-           paste0("false:\n", n.false), 
-           paste0("hits:\n", n.hi), 
-           paste0("misses:\n", n.mi),
-           paste0("false alarms:\n", n.fa), 
-           paste0("correct rejections:\n", n.cr))
+## Function to make tree of natural frequencies:
+make.nftree <- function(env = cur.env) {
+  
+  ## (0) Get current parameters:
+  name <- cur.env$name
+  N <- cur.env$N
+  prev <- cur.env$prev
+  sens <- cur.env$sens
+  spec <- cur.env$spec
+  source <- cur.env$source
+  
+  ## Tree with natural frequencies: 
+  names <- c(paste0("N = ", N), # Note: Using global variables (NOT population as argument)
+             paste0("true:\n", n.true), 
+             paste0("false:\n", n.false), 
+             paste0("hits:\n", n.hi), 
+             paste0("misses:\n", n.mi),
+             paste0("false alarms:\n", n.fa), 
+             paste0("correct rejections:\n", n.cr))
+  
+  M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
+  
+  M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
+  M[3, 1] <- "(N - true)"
+  M[4, 2] <- "sensitivity"
+  M[5, 2] <- "(true - hi)"
+  M[6, 3] <- "(false - cr)"
+  M[7, 3] <- "specificity"
+  
+  ## plot matrix M:
+  pp <- plotmat(M,
+                pos = c(1, 2, 4), 
+                curve = 0.0,
+                name = names,
+                box.lwd = 1.5, # radx = 0.1, # rady = 0.05, 
+                box.size = .10, 
+                box.prop = 0.5,
+                box.type = "square", # "circle",
+                box.col = "lightyellow", # ... 
+                shadow.col = "steelblue4", # "grey25" 
+                shadow.size = 0.0, # .005 
+                lwd = 1.2,
+                cex.txt = .90,
+                main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
+                )
+  
+  return(pp)
+  
+}
 
-M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
-# M
+nftree <- make.nftree(cur.env)
 
-M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
-M[3, 1] <- "(N - true)"
-M[4, 2] <- "sensitivity"
-M[5, 2] <- "(true - hi)"
-M[6, 3] <- "(false - cr)"
-M[7, 3] <- "specificity"
-# M
-
-## plot matrix M:
-plotmat(M,
-        pos = c(1, 2, 4), 
-        curve = 0.0,
-        name = names,
-        box.lwd = 1.5, # radx = 0.1, # rady = 0.05, 
-        box.size = .10, 
-        box.prop = 0.5,
-        box.type = "square", # "circle",
-        box.col = "lightyellow", # ... 
-        shadow.col = "steelblue4", # "grey25" 
-        shadow.size = 0.0, # .005 
-        lwd = 1.2,
-        cex.txt = .90,
-        main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
-        )
+# typeof(nftree)
+# str(nftree)
 ```
 
 

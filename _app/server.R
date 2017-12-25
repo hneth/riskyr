@@ -6,6 +6,7 @@
 library(shiny)
 library(shinyBS)
 library(DT)
+library(diagram)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Initial environment:
@@ -70,7 +71,59 @@ init.population <- function(env = cur.env) {
 population <- init.population(cur.env)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# Functions for plots and tables:
+## Functions for plots and tables:
+
+## Function to make tree of natural frequencies:
+make.nftree <- function(env = cur.env) {
+  
+  ## (0) Get current parameters:
+  name <- cur.env$name
+  N <- cur.env$N
+  prev <- cur.env$prev
+  sens <- cur.env$sens
+  spec <- cur.env$spec
+  source <- cur.env$source
+  
+  ## Tree with natural frequencies: 
+  names <- c(paste0("N = ", N), # Note: Using global variables (NOT population as argument)
+             paste0("true:\n", n.true), 
+             paste0("false:\n", n.false), 
+             paste0("hits:\n", n.hi), 
+             paste0("misses:\n", n.mi),
+             paste0("false alarms:\n", n.fa), 
+             paste0("correct rejections:\n", n.cr))
+  
+  M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
+  
+  M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
+  M[3, 1] <- "(N - true)"
+  M[4, 2] <- "sensitivity"
+  M[5, 2] <- "(true - hi)"
+  M[6, 3] <- "(false - cr)"
+  M[7, 3] <- "specificity"
+  
+  ## plot matrix M:
+  pp <- plotmat(M,
+                pos = c(1, 2, 4), 
+                curve = 0.0,
+                name = names,
+                box.lwd = 1.5, # radx = 0.1, # rady = 0.05, 
+                box.size = .10, 
+                box.prop = 0.5,
+                box.type = "square", # "circle",
+                box.col = "lightyellow", # ... 
+                shadow.col = "steelblue4", # "grey25" 
+                shadow.size = 0.0, # .005 
+                lwd = 1.2,
+                cex.txt = .90,
+                main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
+                )
+  
+  return(pp)
+  
+}
+
+# make.nftree(cur.env)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Define server logic:
@@ -87,7 +140,7 @@ shinyServer(function(input, output, session){
     
     ## Outputs:
     
-    # (a) raw data table: 
+    # (a) Raw data table: 
     output$rawdatatable <- DT::renderDataTable(DT::datatable({population}))
     
     # (b) 2x2 confusion table:
@@ -103,12 +156,13 @@ shinyServer(function(input, output, session){
                                          rownames = TRUE,
                                          na = 'missing')  
     
-    # (c) mosaic plot:
+    # (c) Mosaic plot:
     output$mosaicplot <- renderPlot(mosaicplot(table(1:5, 5:1)))
     
-    # (d) tree of natural frequencies:
+    # (d) Tree of natural frequencies:
+    # output$nftree <- make.nftree(cur.env)
     
-    # (e) icon array:
+    # (e) Icon array:
     
   }
 )

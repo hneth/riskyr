@@ -121,20 +121,28 @@ shinyUI(
                           tabsetPanel(type = "tabs",
                                       tabPanel("Cases", br(),
                                                "Individual cases:", br(), br(), 
-                                               DT::dataTableOutput("rawdatatable")),
+                                               DT::dataTableOutput("rawdatatable")
+                                               ),
+                                      
                                       tabPanel("Table", br(), 
                                                "Aggregated cases:", br(), br(),  
-                                               tableOutput("confusiontable"), 
-                                               plotOutput("mosaicplot")),
+                                               tableOutput("confusiontable"),
+                                               plotOutput("mosaicplot")
+                                               ),
+                                      
                                       tabPanel("Tree", br(), 
                                                "Tree of natural frequencies:", br(), br(),  
-                                               plotOutput("tree")),
+                                               # plotOutput("nftree")
+                                               br()
+                                               ),
+                                      
                                       tabPanel("Icons", br(), 
                                                "Show icon array", br(), br()
-                                      ),
+                                               ),
+                                      
                                       tabPanel("...", br(), 
                                                "Here be some text", br()
-                                      )
+                                               )
                           )
                         )
                       )
