@@ -320,6 +320,7 @@ population$sdt[!population$tru & !population$dec] <- "cr"
 population <- data.frame(tru = truth,
                          dec = decision,
                          sdt = NA)
+names(population) <- c("truth", "decision", "sdt")
 
 population$sdt[population$tru & population$dec]   <- "hi"
 population$sdt[population$tru & !population$dec]  <- "mi"

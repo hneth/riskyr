@@ -1,29 +1,33 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 24
+# spds, uni.kn | 2017 12 25
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # Dependencies:
 library(shiny)
 library(shinyBS)
+library(DT)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Initial environment:
 
-e1 <- list("name" = "demo", # name (e.g., HIV, mammography, ...)
-           "N" = 100,       # N in population
-           "prev" = .15,    # prevalence in population = p(true positive)
-           "sens" = .85,    # sensitivity = p(positive decision | true positive)
-           "spec" = .75     # specificity = p(negative decision | true negative)
+e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
+           "N" = 100,        # N in population
+           "prev" = .15,     # prevalence in population = p(true positive)
+           "sens" = .85,     # sensitivity = p(positive decision | true positive)
+           "spec" = .75,     # specificity = p(negative decision | true negative)
+           "source" = "Source info" # information source (e.g., citation)
            )
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## (0) Get current parameters:
-cur.env <- e1
+cur.env <- e1 # from current environment
 
+name <- cur.env$name
 N <- cur.env$N
 prev <- cur.env$prev
 sens <- cur.env$sens
-spec <- cur.env$spec 
+spec <- cur.env$spec
+source <- cur.env$source
 
 ## (1) Determine the truth:
 n.true <- round((prev * N), 0)
@@ -51,6 +55,7 @@ decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.c
 population <- data.frame(tru = truth,
                          dec = decision,
                          sdt = NA)
+names(population) <- c("truth", "decision", "sdt")
 
 population$sdt[population$tru & population$dec]   <- "hi"
 population$sdt[population$tru & !population$dec]  <- "mi"
@@ -88,11 +93,11 @@ shinyServer(function(input, output, session){
     
     # (a) raw data table: 
     output$rawdatatable <- DT::renderDataTable(DT::datatable({
-      cars
+      population
     }))
     
     # (b) 2x2 confusion table:
-    output$confusiontable <- renderTable({ matrix(data = c(25, 130, 2500, 240.892), 
+    output$confusiontable <- renderTable({ matrix(data = c(n.hi, n.fa, n.mi, n.cr), 
                                                   nrow = 2, byrow = TRUE,
                                                   dimnames = list(c("dec pos", "dec neg"), c("true", "false"))) },  
                                          bordered = TRUE,  
