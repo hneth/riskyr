@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 24"
+date: "2017 12 25"
 output:
   html_document:
     keep_tex: false
@@ -183,17 +183,19 @@ The following variables should be used (and updated) by all parts:
 
 ```{r main_parameters, echo = TRUE, eval = TRUE}
 ## Inputs used in all representations:
+# (a) as parameters:
 N <- 100 # N in population
 prev <- .15 # prevalence in population = p(true positive)
 sens <- .85 # sensitivity = p(positive decision | true positive)
 spec <- .75 # specificity = p(negative decision | true negative)
 
-# As environment:
-e1 <- list("name" = "demo", # name (e.g., HIV, mammography, ...)
-           "N" = 100,       # N in population
-           "prev" = .15,    # prevalence in population = p(true positive)
-           "sens" = .85,    # sensitivity = p(positive decision | true positive)
-           "spec" = .75     # specificity = p(negative decision | true negative)
+# (b) as environment list:
+e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
+           "N" = 100,        # N in population
+           "prev" = .15,     # prevalence in population = p(true positive)
+           "sens" = .85,     # sensitivity = p(positive decision | true positive)
+           "spec" = .75,     # specificity = p(negative decision | true negative)
+           "source" = "Source info" # information source (e.g., citation)
            )
 ```
 
@@ -201,28 +203,36 @@ Alternatively, we could define or read in a set of existing examples:
 
 ```{r examples, echo = TRUE, eval = FALSE}
 ## 1. HIV (a) [Source: Gigerenzer (2013), p. 53]:
+name <- "HIVa"
 N <- 100000     # women
 prev <- 1/10000 # p(HIV)
 sens <- 1.0     # p(pos | HIV ) 
 spec <- (1 - 5/100000) # 1 - p(fa) = 1 - (pos | no HIV)
+source <- "Gigerenzer (2013), p. 53"
 
 ## 2. HIV (b) [Source: Gigerenzer (2013), p. 53]:
+name <- "HIVb"
 N <- 250000     # women
 prev <- 1/10000 # p(HIV)
 sens <- 1.0     # p(pos | HIV ) 
 spec <- (1 - 1/250000) # 1 - p(fa) = 1 - (pos | no HIV)
+source <- "Gigerenzer (2013), p. 53"
 
 ## 3. Breast cancer  [Source: Gigerenzer (2013), p. 213--221]:
+name <- "Breast cancer"
 N <- 1000         # women (50yrs, no symptoms, routine mammography screening)
 prev <- 10/1000   # p(breast cancer)
 sens <- .90       # p(pos | breast cancer ) 
 spec <- (1 - .09) # 1 - p(fa) = 1 - (pos | no breast cancer)
+source <- "Gigerenzer (2013), p. 213--221"
 
 ## 4. Down syndrome  [Source: Gigerenzer (2013), p. 222--226]:
+name <- "Down syndrome"
 N <- 1000         # women (40yrs, pregnancy)
 prev <- 10/1000   # p(Down syndrome)
 sens <- .90       # p(pos | Down syndrome ) 
 spec <- (1 - .05) # 1 - p(fa) = 1 - (pos | no Down syndrome)
+source <- "Gigerenzer (2013), p. 222--226"
 
 ## ToDo: Define examples (values and labels) as a data frame (which can be read in or exported).
 ```
@@ -237,11 +247,13 @@ Note that Gigerenzer (2013) provides the _false alarm rate_ (i.e., `1 - sens`), 
 ## (0) Get current parameters:
 cur.env <- e1
 
+name <- cur.env$name
 N <- cur.env$N
 prev <- cur.env$prev
 sens <- cur.env$sens
 spec <- cur.env$spec 
-
+source <- cur.env$source
+  
 ## (1) Determine the truth:
 n.true <- round((prev * N), 0)
 n.false <- (N - n.true)
@@ -444,23 +456,24 @@ M[4, 2] <- "sensitivity"
 M[5, 2] <- "(true - hi)"
 M[6, 3] <- "(false - cr)"
 M[7, 3] <- "specificity"
-M
+# M
 
 ## plot matrix M:
-plotmat(M, 
+plotmat(M,
         pos = c(1, 2, 4), 
         curve = 0.0,
-        name = names, 
+        name = names,
         box.lwd = 1.5, # radx = 0.1, # rady = 0.05, 
-        box.size = .11, 
-        box.prop = 0.5, 
-        box.type = "square",
-        box.col = "lightyellow", 
-        shadow.col = "grey25", 
-        shadow.size = .000, # .01 
-        lwd = 1.2, 
-        cex.txt = .9,
-        main = "Tree of natural frequencies")
+        box.size = .10, 
+        box.prop = 0.5,
+        box.type = "square", # "circle",
+        box.col = "lightyellow", # ... 
+        shadow.col = "steelblue4", # "grey25" 
+        shadow.size = 0.0, # .005 
+        lwd = 1.2,
+        cex.txt = .90,
+        main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
+        )
 ```
 
 
@@ -689,9 +702,9 @@ par(mfrow=c(1,1)) # Remove special settings.
 ```
 
 
-
-
 # Related Topics
+
+Some topics for future extensions:
 
 ## Cell A bias and biased sampling of evidence
 
@@ -749,7 +762,6 @@ pc(BxA[2,1]/sum(BxA[2, ]))
 
 **ToDo:** Add measures of relatedness and causality (e.g., odds ratios, Matthew's correlation, etc.)
 
-
 ### Biased sampling
 
 Now assume that we do not have access to the overall contingency table, but only instances of individual cases in memory, from which we _sample_ (or to which we _selectively attend_).
@@ -763,12 +775,14 @@ Now assume that we do not have access to the overall contingency table, but only
 
 ## Important Insights
 
-- The sensitivity and specificity of a test are insufficient to determine its PPV and NPV.  
+Materials for conclusions and possible quizzes:
 
-- PPV and NPV crucially depend on the specific _prevalence_ of a particular person. 
+- The sensitivity and specificity of a diagnostic test are insufficient to determine its PPV and NPV.
+
+- Both PPV and NPV crucially depend on the specific _prevalence_ of a particular person. 
 Thus, always use an appropriate reference group to specify the risk of a particular person as accurately as possible.
 
-- PPV and NPV show _opposite_ trends (as a function of prevalence). When one is high, the other is often low (and vice versa).
+- PPV and NPV show _opposite_ trends (as a function of prevalence): When one is high, the other one tends to be low (and vice versa).
 
      - with increasing prevalence: PPV increases.
      
@@ -777,26 +791,25 @@ Thus, always use an appropriate reference group to specify the risk of a particu
 
 ## Recommendations for the General Population
 
-- All people should be aware that any test has 2 possible correct and 2 possible incorrect outcomes.
+- A risk-literate person should be aware that any diagnostic test (or clinical judgment) has 4 possible outcomes: 2 possible correct and 2 possible incorrect judgments.
 
-- Whenever receiving a (positive or negative) test result, a good question is: What is the _probability_ that this result is _wrong_?
+- Whenever receiving a (positive or negative) test result, a good question is: 
+What is the _probability_ that this result is _wrong_?
 
-    - Whenver receiving a positive (undesirable) test result: What is the PPV vs. p(false alarm) for me (my reference group)?
+    - Whenver receiving a positive (undesirable) test result: What is the PPV vs. p(false alarm) for me (or a random person from my reference group)?
 
-    - Whenever receiving a negative (desirable) test result: What is the NPV vs. p(miss) for me (my reference group)?
+    - Whenever receiving a negative (desirable) test result: What is the NPV vs. p(miss) for me (or a random person from my reference group)?
 
 
-## Recommendations for Health and Risk Professionals
+## Recommendations for Risk Professionals (e.g., Medical Health Experts)
 
 More challenging conclusions and demands:
 
-- All X should know how to evaluate evidence for and against treatments (as a function of all 4 cells, rather than cell A bias). 
+- All risk professionals should know how to determine and evaluate evidence for and against treatments (as a function of all 4 cells, rather than committing cell A bias). 
 
-- All people professionally dealing with risky information should be able to define and distinguish between _sensitivity_ and _PPV_ (as opposite conditional probabilities), as well as _specificity_ and _NPV_ (sic).
+- All risk professionals should be able to define and distinguish between _sensitivity_ and _PPV_ (as opposite conditional probabilities), as well as _specificity_ and _NPV_ (sic).
 
-- All people professionally dealing with risky information should be able to use _natural frequency trees_ to solve Bayesian problems.
-
-
+- All risk professionals should be able to use _contingency tables_, _natural frequency trees_, and _icon arrays_ to solve Bayesian problems (of conditional probability).
 
 --- 
 
