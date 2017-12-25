@@ -148,7 +148,8 @@ shinyServer(function(input, output, session){
                                                           n.mi, n.cr, dec.neg, 
                                                           n.true, n.false, N), 
                                                  nrow = 3, byrow = TRUE,
-                                                 dimnames = list(c("dec pos", "dec neg", "dec sum"), c("true", "false", "sum"))) },  
+                                                 dimnames = list(c("dec pos:", "dec neg:", "dec sum:"), 
+                                                                 c("true:", "false:", "sum:"))) },  
                                          bordered = TRUE,  
                                          hover = TRUE,  
                                          align = 'r',  
@@ -160,7 +161,7 @@ shinyServer(function(input, output, session){
     output$mosaicplot <- renderPlot(mosaicplot(table(1:5, 5:1)))
     
     # (d) Tree of natural frequencies:
-    # output$nftree <- make.nftree(cur.env)
+    output$nftree <- renderPlot(make.nftree(cur.env))
     
     # (e) Icon array:
     

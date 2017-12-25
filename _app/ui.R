@@ -121,18 +121,20 @@ shinyUI(
                           tabsetPanel(type = "tabs",
                                       tabPanel("Cases", br(),
                                                "Individual cases:", br(), br(), 
-                                               DT::dataTableOutput("rawdatatable")
+                                               DT::dataTableOutput("rawdatatable"),
+                                               br() 
                                                ),
                                       
                                       tabPanel("Table", br(), 
                                                "Aggregated cases:", br(), br(),  
                                                tableOutput("confusiontable"),
-                                               plotOutput("mosaicplot")
+                                               plotOutput("mosaicplot"),
+                                               br() 
                                                ),
                                       
                                       tabPanel("Tree", br(), 
                                                "Tree of natural frequencies:", br(), br(),  
-                                               # plotOutput("nftree")
+                                               plotOutput("nftree"), 
                                                br()
                                                ),
                                       
