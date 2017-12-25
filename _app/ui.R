@@ -1,5 +1,5 @@
 # Shiny ui.R
-# spds, uni.kn | 2017 12 24
+# spds, uni.kn | 2017 12 25
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # Dependencies:
@@ -64,7 +64,7 @@ shinyUI(
                           # Input: Select all input values:
                           sliderInput("N",
                                       "Population size:",
-                                      value = 1000,
+                                      value = cur.env$N,
                                       min = 1,
                                       max = 1000000), # use log-scale!
                           
@@ -72,19 +72,19 @@ shinyUI(
                           
                           sliderInput("prev", 
                                       "Prevalence:",
-                                      value = 0.15,
-                                      min = 0,
-                                      max = 1),
-                          
-                          sliderInput("spec", 
-                                      "Specifity:",
-                                      value = 0.70,
+                                      value = cur.env$prev,
                                       min = 0,
                                       max = 1),
                           
                           sliderInput("sens", 
                                       "Sensitivity:",
-                                      value = 0.85,
+                                      value = cur.env$sens,
+                                      min = 0,
+                                      max = 1),
+                          
+                          sliderInput("spec", 
+                                      "Specificity:",
+                                      value = cur.env$spec,
                                       min = 0,
                                       max = 1),
                           
@@ -119,10 +119,22 @@ shinyUI(
                           
                           # Tabset w/ raw data, trees, and table,...
                           tabsetPanel(type = "tabs",
-                                      tabPanel("Raw data", br(), DT::dataTableOutput("rawdatatable")),
-                                      tabPanel("Tree", br(), plotOutput("tree")),
-                                      tabPanel("2 x 2 table", br(), tableOutput("confusiontable"), plotOutput("mosaicplot")),
-                                      tabPanel("...", br(), "Here be some text")
+                                      tabPanel("Cases", br(),
+                                               "Individual cases:", br(), br(), 
+                                               DT::dataTableOutput("rawdatatable")),
+                                      tabPanel("Table", br(), 
+                                               "Aggregated cases:", br(), br(),  
+                                               tableOutput("confusiontable"), 
+                                               plotOutput("mosaicplot")),
+                                      tabPanel("Tree", br(), 
+                                               "Tree of natural frequencies:", br(), br(),  
+                                               plotOutput("tree")),
+                                      tabPanel("Icons", br(), 
+                                               "Show icon array", br(), br()
+                                      ),
+                                      tabPanel("...", br(), 
+                                               "Here be some text", br()
+                                      )
                           )
                         )
                       )

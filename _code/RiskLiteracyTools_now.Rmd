@@ -347,7 +347,6 @@ table(population$sdt)
 Note that defining `population` as a _data frame_ allows immediate access to its variables (columns), cases (rows), and cells. 
 Additionally, a rectangular population can be easily displayed, ex- or imported, and sampled. 
 
-
 # Tools
 
 **Goal:** Provide a range of different perspectives on the same statistical relationships.

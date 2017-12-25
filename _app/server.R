@@ -22,56 +22,52 @@ e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
 ## (0) Get current parameters:
 cur.env <- e1 # from current environment
 
-name <- cur.env$name
-N <- cur.env$N
-prev <- cur.env$prev
-sens <- cur.env$sens
-spec <- cur.env$spec
-source <- cur.env$source
+init.population <- function(env = cur.env) {
 
-## (1) Determine the truth:
-n.true <- round((prev * N), 0)
-n.false <- (N - n.true)
+  ## (0) Get current parameters:
+  name <- cur.env$name
+  N <- cur.env$N
+  prev <- cur.env$prev
+  sens <- cur.env$sens
+  spec <- cur.env$spec
+  source <- cur.env$source
 
-truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
-# truth
-# sum(truth)
+  ## (1) Determine the truth:
+  n.true <- round((prev * N), 0)
+  n.false <- (N - n.true)
+  truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
 
-## (2) Determine decisions:
-n.hi <- round((sens * n.true), 0)  # hits
-# n.hi 
-n.cr <- round((spec * n.false), 0) # correct rejections
-# n.cr
-n.mi <- (n.true - n.hi)            # misses
-# n.mi
-n.fa <- (n.false - n.cr)           # false alarms
-# n.fa
+  ## (2) Determine decisions:        # Number of 
+  n.hi <- round((sens * n.true), 0)  # a. hits
+  n.cr <- round((spec * n.false), 0) # b. correct rejections
+  n.mi <- (n.true - n.hi)            # c. misses
+  n.fa <- (n.false - n.cr)           # d. false alarms
+  decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
+  
+  ## (3) Population:
+  ## (a) Initialize new data frame:
+  population <- data.frame(tru = truth,
+                           dec = decision,
+                           sdt = NA)
+  names(population) <- c("truth", "decision", "sdt")
+  
+  ## (b) Classify sdt by combination of truth and decision:
+  population$sdt[population$tru & population$dec]   <- "hi"
+  population$sdt[population$tru & !population$dec]  <- "mi"
+  population$sdt[!population$tru & population$dec]  <- "fa"
+  population$sdt[!population$tru & !population$dec] <- "cr"
+  
+  ## (c) Make sdt (status decision-truth) an ordered factor:
+  population$sdt <- factor(population$sdt, 
+                           levels = c("hi", "mi", "fa", "cr"),
+                           # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
+                           labels = c("hi", "mi", "fa", "cr"), # implicit labels
+                           ordered = TRUE)
+  
+  return(population)
+}
 
-decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
-# decision
-# sum(decision)
-
-## (3) Population as a data frame:
-population <- data.frame(tru = truth,
-                         dec = decision,
-                         sdt = NA)
-names(population) <- c("truth", "decision", "sdt")
-
-population$sdt[population$tru & population$dec]   <- "hi"
-population$sdt[population$tru & !population$dec]  <- "mi"
-population$sdt[!population$tru & population$dec]  <- "fa"
-population$sdt[!population$tru & !population$dec] <- "cr"
-
-# head(population)
-# dim(population)
-
-## (2) Make sdt (status decision-truth) an ordered factor:
-population$sdt <- factor(population$sdt, 
-                         levels = c("hi", "mi", "fa", "cr"),
-                         # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
-                         labels = c("hi", "mi", "fa", "cr"), # implicit labels
-                         ordered = TRUE)
-# is.factor(population$sdt)
+population <- init.population(cur.env)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Functions for plots and tables:
@@ -92,18 +88,18 @@ shinyServer(function(input, output, session){
     ## Outputs:
     
     # (a) raw data table: 
-    output$rawdatatable <- DT::renderDataTable(DT::datatable({
-      population
-    }))
+    output$rawdatatable <- DT::renderDataTable(DT::datatable({population}))
     
     # (b) 2x2 confusion table:
-    output$confusiontable <- renderTable({ matrix(data = c(n.hi, n.fa, n.mi, n.cr), 
-                                                  nrow = 2, byrow = TRUE,
-                                                  dimnames = list(c("dec pos", "dec neg"), c("true", "false"))) },  
+    output$confusiontable <- renderTable({matrix(data = c(n.hi, n.fa, dec.pos, 
+                                                          n.mi, n.cr, dec.neg, 
+                                                          n.true, n.false, N), 
+                                                 nrow = 3, byrow = TRUE,
+                                                 dimnames = list(c("dec pos", "dec neg", "dec sum"), c("true", "false", "sum"))) },  
                                          bordered = TRUE,  
                                          hover = TRUE,  
-                                         align = 'c',  
-                                         digits = 2, 
+                                         align = 'r',  
+                                         digits = 0, 
                                          rownames = TRUE,
                                          na = 'missing')  
     
