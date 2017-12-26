@@ -337,6 +337,7 @@ population$sdt <- factor(population$sdt,
                          labels = c("hi", "mi", "fa", "cr"), # implicit labels
                          ordered = TRUE)
 # is.factor(population$sdt)
+# levels(population$sdt)
 
 ## Checks:
 # population$sdt

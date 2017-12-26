@@ -67,8 +67,8 @@ shinyUI(
                           sliderInput("N",
                                       "Population size:",
                                       value = cur.env$N,
-                                      min = 1,
-                                      max = 1000000), # use log-scale!
+                                      min = 0,
+                                      max = 1000), # use log-scale from 1 to 10^9
                           
                           br(), # horizontal space
                           

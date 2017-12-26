@@ -1,5 +1,5 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 25
+# spds, uni.kn | 2017 12 26
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # Dependencies:
@@ -41,9 +41,9 @@ init.population <- function(env = cur.env) {
 
   ## (2) Determine decisions:        # Number of 
   n.hi <- round((sens * n.true), 0)  # a. hits
-  n.cr <- round((spec * n.false), 0) # b. correct rejections
-  n.mi <- (n.true - n.hi)            # c. misses
-  n.fa <- (n.false - n.cr)           # d. false alarms
+  n.mi <- (n.true - n.hi)            # b. misses
+  n.cr <- round((spec * n.false), 0) # d. correct rejections
+  n.fa <- (n.false - n.cr)           # c. false alarms
   decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
   
   ## (3) Population:
@@ -129,28 +129,89 @@ make.nftree <- function(env = cur.env) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Define server logic:
 shinyServer(function(input, output, session){
+
+  ## Define common data structure:
+  # Generate data structure dat.str as list of reactive elements:
+  dat.str <- reactiveValues(dat.str = NULL) 
+  
+  # Observe inputs and generate data used in outputs:
+  observeEvent({
+    # input$name   # name of current environment 
+    input$N      # N in population
+    input$prev   # prevalence in population = p(true positive)
+    input$sens   # sensitivity = p(positive decision | true positive)
+    input$spec   # specificity = p(negative decision | true negative)
+    # input$source # source of environment (reference)
+  }, {
     
-    ## Inputs used in all representations:
-    # N <- input$N       # N in population
-    # prev <- input$prev # prevalence in population = p(true positive)
-    # sens <- input$sens # sensitivity = p(positive decision | true positive)
-    # spec <- input$spec # specificity = p(negative decision | true negative)
+    ## (0) Basic parameters:
+    dat.str$N <- input$N
     
-    ## Define common data structure:
-    # Update current population (as df)
+    ## (1) Determine the truth:
+    dat.str$n.true <- round((input$prev * input$N), 0) # n.true cases
+    dat.str$n.false <- (input$N - dat.str$n.true)      # n.false cases
     
-    ## Outputs:
+    # Vector of true states:
+    dat.str$truth <- c(rep(TRUE, dat.str$n.true), rep(FALSE, dat.str$n.false)) 
+    
+    ## (2) Determine decisions:
+    dat.str$n.hi <- round((input$sens * dat.str$n.true), 0)  # a. hits
+    dat.str$n.mi <- (dat.str$n.true - dat.str$n.hi)          # b. misses
+    dat.str$n.cr <- round((input$spec * dat.str$n.false), 0) # d. correct rejections
+    dat.str$n.fa <- (dat.str$n.false - dat.str$n.cr)         # c. false alarms
+    
+    dat.str$dec.pos <- dat.str$n.hi + dat.str$n.fa # 1. positive decisions (true & false)
+    dat.str$dec.neg <- dat.str$n.mi + dat.str$n.cr # 2. negative decisions (true & false)
+    
+    # Vector of decisions (ordered by truth):
+    dat.str$decision <- c(rep(TRUE, dat.str$n.hi), rep(FALSE, dat.str$n.mi), 
+                          rep(TRUE, dat.str$n.fa), rep(FALSE, dat.str$n.cr))
+    
+    ## (3) SDT (status decision/truth):
+    dat.str$sdt <- c(rep("hi", dat.str$n.hi), rep("mi", dat.str$n.mi), 
+                     rep("fa", dat.str$n.fa), rep("cr", dat.str$n.cr))
+    
+    ## (4) Coerce vectors into ordered factors:
+    dat.str$truth <- factor(dat.str$truth, 
+                            levels = c(TRUE, FALSE),
+                            labels = c("condition true", "condition false"), # explicit labels
+                            ordered = TRUE)
+    
+    dat.str$decision <- factor(dat.str$decision, 
+                            levels = c(TRUE, FALSE),
+                            labels = c("positive decision", "negative decision"), # explicit labels
+                            ordered = TRUE)
+    
+    dat.str$sdt <- factor(dat.str$sdt, 
+                          levels = c("hi", "mi", "fa", "cr"),
+                          labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
+                          # labels = c("hi", "mi", "fa", "cr"), # implicit labels
+                          ordered = TRUE)
+    
+    ## (5) Combine vectors of length N in population data frame:
+    dat.str$population <- data.frame(tru = dat.str$truth,
+                                     dec = dat.str$decision,
+                                     sdt = dat.str$sdt)
+  })
+  
+  ## Outputs:
     
     # (a) Raw data table: 
-    output$rawdatatable <- DT::renderDataTable(DT::datatable({population}))
+    output$rawdatatable <- DT::renderDataTable(DT::datatable({dat.str$population}))
     
-    # (b) 2x2 confusion table:
-    output$confusiontable <- renderTable({matrix(data = c(n.hi, n.fa, dec.pos, 
-                                                          n.mi, n.cr, dec.neg, 
-                                                          n.true, n.false, N), 
+    # (b) 2x2 confusion table (ordered by rows/decisions):
+    output$confusiontable <- renderTable({matrix(data = c(dat.str$n.hi, dat.str$n.fa, dat.str$dec.pos, 
+                                                          dat.str$n.mi, dat.str$n.cr, dat.str$dec.neg, 
+                                                          dat.str$n.true, dat.str$n.false, dat.str$N), 
                                                  nrow = 3, byrow = TRUE,
-                                                 dimnames = list(c("dec pos:", "dec neg:", "dec sum:"), 
-                                                                 c("true:", "false:", "sum:"))) },  
+                                                 dimnames = list(c("Positive decision:", 
+                                                                   "Negative decision:", 
+                                                                   "Truth sums:"), 
+                                                                 c("Condition true:", 
+                                                                   "Condition false:", 
+                                                                   "Decision sums:"))
+                                                 )
+      },  
                                          bordered = TRUE,  
                                          hover = TRUE,  
                                          align = 'r',  
@@ -159,7 +220,13 @@ shinyServer(function(input, output, session){
                                          na = 'missing')  
     
     # (c) Mosaic plot:
-    output$mosaicplot <- renderPlot(mosaicplot(table(1:5, 5:1)))
+    output$mosaicplot <- renderPlot(mosaicplot(table(dat.str$population$tru,
+                                                     dat.str$population$dec),
+                                                xlab = "Truth",
+                                                ylab = "Decisions",
+                                                main = paste0("Mosaicplot (N = ", input$N, ")")
+                                               )
+                                    )
     
     # (d) Tree of natural frequencies:
     output$nftree <- renderPlot(make.nftree(cur.env))
