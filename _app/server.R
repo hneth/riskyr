@@ -10,6 +10,7 @@ library(shinyBS)
 library(markdown)
 library(DT)
 library(diagram)
+library(shape)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Functions for plots and tables:
@@ -64,21 +65,19 @@ make.nftree <- function(env, data) {
   
 }
 
-# make.nftree(env)
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # Define server logic:
 shinyServer(function(input, output, session){
 
   ## Define common data structure:
   # Generate data structures as lists of reactive elements:
-  env <- reactiveValues(env = NULL) 
-  data <- reactiveValues(data = NULL)
-  # population <- reactiveValues(population = NULL)
+  env <- reactiveValues(env = NULL) # list of current environment
+  data <- reactiveValues(data = NULL) # list of derived parameters
+  # population <- reactiveValues(population = NULL) # df of current population
   
   # Observe inputs and generate data used in outputs:
   observeEvent({
-    # input$name   # name of current environment 
+    input$name   # name of current environment 
     input$N      # N in population
     input$prev   # prevalence in population = p(true positive)
     input$sens   # sensitivity = p(positive decision | true positive)
@@ -88,7 +87,7 @@ shinyServer(function(input, output, session){
     
     ## (A) Environment parameters:  
     ## Set parameters of current environment:
-    env$name <- "Environment name"
+    env$name <- input$name
     env$N <- input$N
     env$prev <- input$prev
     env$sens <- input$sens
@@ -105,9 +104,9 @@ shinyServer(function(input, output, session){
     
     ## (2) Determine decisions:
     data$n.hi <- round((env$sens * data$n.true), 0)  # a. hits
-    data$n.mi <- (data$n.true - data$n.hi)          # b. misses
+    data$n.mi <- (data$n.true - data$n.hi)           # b. misses
     data$n.cr <- round((env$spec * data$n.false), 0) # d. correct rejections
-    data$n.fa <- (data$n.false - data$n.cr)         # c. false alarms
+    data$n.fa <- (data$n.false - data$n.cr)          # c. false alarms
     
     data$dec.pos <- data$n.hi + data$n.fa # 1. positive decisions (true & false)
     data$dec.neg <- data$n.mi + data$n.cr # 2. negative decisions (true & false)
@@ -141,50 +140,50 @@ shinyServer(function(input, output, session){
     data$population <- data.frame(tru = data$truth,
                                   dec = data$decision,
                                   sdt = data$sdt)
-    names(data$population) <- c("truth", "decision", "SDT")
-    
+    names(data$population) <- c("Truth", "Decision", "SDT")
+
   })
   
   ## Outputs:
-    
-    # (a) Raw data table: 
-    output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}))
-    
-    # (b) 2x2 confusion table (ordered by rows/decisions):
-    output$confusiontable <- renderTable({matrix(data = c(data$n.hi, data$n.fa, data$dec.pos, 
-                                                          data$n.mi, data$n.cr, data$dec.neg, 
-                                                          data$n.true, data$n.false, env$N),
-                                                 nrow = 3, byrow = TRUE,
-                                                 dimnames = list(c("Positive decision:", 
-                                                                   "Negative decision:", 
-                                                                   "Truth sums:"), 
-                                                                 c("Condition true:", 
-                                                                   "Condition false:", 
-                                                                   "Decision sums:"))
-                                                 )
-      },  
-                                         bordered = TRUE,  
-                                         hover = TRUE,  
-                                         align = 'r',  
-                                         digits = 0, 
-                                         rownames = TRUE,
-                                         na = 'missing')  
-    
-    # (c) Mosaic plot:
-    output$mosaicplot <- renderPlot(mosaicplot(table(data$population$tru,
-                                                     data$population$dec),
-                                                xlab = "Truth",
-                                                ylab = "Decisions",
-                                                main = paste0("Mosaicplot (N = ", env$N, ")")
-                                               )
-                                    )
-    
-    # (d) Tree of natural frequencies:
-    output$nftree <- renderPlot(make.nftree(env, data))
-    
-    # (e) Icon array:
-    
-  }
+  
+  # (a) Raw data table: 
+  output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}))
+  
+  # (b) 2x2 confusion table (ordered by rows/decisions):
+  output$confusiontable <- renderTable({matrix(data = c(data$n.hi, data$n.fa, data$dec.pos, 
+                                                        data$n.mi, data$n.cr, data$dec.neg, 
+                                                        data$n.true, data$n.false, env$N),
+                                               nrow = 3, byrow = TRUE,
+                                               dimnames = list(c("Positive decision:", 
+                                                                 "Negative decision:", 
+                                                                 "Truth sums:"), 
+                                                               c("Condition true:", 
+                                                                 "Condition false:", 
+                                                                 "Decision sums:"))
+  )
+  },
+  bordered = TRUE,  
+  hover = TRUE,  
+  align = 'r',  
+  digits = 0, 
+  rownames = TRUE,
+  na = 'missing')  
+  
+  # (c) Mosaic plot:
+  output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
+                                                   data$population$Decision),
+                                             xlab = "Truth",
+                                             ylab = "Decision",
+                                             main = paste0(env$name, "\n(N = ", env$N, ")")
+                                             )
+                                  )
+  
+  # (d) Tree of natural frequencies:
+  output$nftree <- renderPlot(make.nftree(env, data))
+  
+  # (e) Icon array:
+  
+}
 )
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 

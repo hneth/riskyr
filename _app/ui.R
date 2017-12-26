@@ -10,6 +10,7 @@ library(shinyBS)
 library(markdown)
 library(DT)
 library(diagram)
+library(shape)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # (0) Initial environment:
@@ -19,7 +20,7 @@ e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
            "prev" = .15,     # prevalence in population = p(true positive)
            "sens" = .85,     # sensitivity = p(positive decision | true positive)
            "spec" = .75,     # specificity = p(negative decision | true negative)
-           "source" = "Source info" # information source (e.g., citation)
+           "source" = "Source information" # information source (e.g., citation)
 )
 
 env <- e1 # from current environment
@@ -79,8 +80,14 @@ shinyUI(
                         sidebarPanel(
                           
                           # Input: Select all input values:
+                          textInput("name",
+                                    label = "Name or topic:",
+                                    value = "Example environment"),
+                          
+                          br(), # horizontal space
+                          
                           sliderInput("N",
-                                      "Population size:",
+                                      label = "Population size:",
                                       value = env$N,
                                       min = 0,
                                       max = 1000), # use log-scale from 1 to 10^9
@@ -143,24 +150,24 @@ shinyUI(
                                                ),
                                       
                                       tabPanel("Table", br(), 
-                                               "Aggregated cases:", br(), br(),  
+                                               paste0("Aggregated cases:"), br(), br(),  
                                                tableOutput("confusiontable"),
                                                plotOutput("mosaicplot"),
                                                br() 
                                                ),
                                       
                                       tabPanel("Tree", br(), 
-                                               "Tree of natural frequencies:", br(), br(),  
+                                               paste0("Tree of natural frequencies:"), br(), br(),  
                                                plotOutput("nftree"), 
                                                br()
                                                ),
                                       
                                       tabPanel("Icons", br(), 
-                                               "Show icon array:", br(), br()
+                                               paste0("Icon array:"), br(), br()
                                                ),
                                       
-                                      tabPanel("...", br(), 
-                                               "Here be some text", br()
+                                      tabPanel("More", br(),
+                                               paste0("PPV/NPV by prevalance:"), br(), br()
                                                )
                           )
                         )
