@@ -18,81 +18,81 @@ e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
            "sens" = .85,     # sensitivity = p(positive decision | true positive)
            "spec" = .75,     # specificity = p(negative decision | true negative)
            "source" = "Source info" # information source (e.g., citation)
-           )
+          )
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## (0) Get current parameters:
 cur.env <- e1 # from current environment
 
-init.population <- function(env = cur.env) {
+# init.population <- function(env = cur.env) {
+# 
+#   ## (0) Get current parameters:
+#   name <- cur.env$name
+#   N <- cur.env$N
+#   prev <- cur.env$prev
+#   sens <- cur.env$sens
+#   spec <- cur.env$spec
+#   source <- cur.env$source
+# 
+#   ## (1) Determine the truth:
+#   n.true <- round((prev * N), 0)
+#   n.false <- (N - n.true)
+#   truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
+# 
+#   ## (2) Determine decisions:        # Number of 
+#   n.hi <- round((sens * n.true), 0)  # a. hits
+#   n.mi <- (n.true - n.hi)            # b. misses
+#   n.cr <- round((spec * n.false), 0) # d. correct rejections
+#   n.fa <- (n.false - n.cr)           # c. false alarms
+#   decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
+#   
+#   ## (3) Population:
+#   ## (a) Initialize new data frame:
+#   population <- data.frame(tru = truth,
+#                            dec = decision,
+#                            sdt = NA)
+#   names(population) <- c("truth", "decision", "sdt")
+#   
+#   ## (b) Classify sdt by combination of truth and decision:
+#   population$sdt[population$tru & population$dec]   <- "hi"
+#   population$sdt[population$tru & !population$dec]  <- "mi"
+#   population$sdt[!population$tru & population$dec]  <- "fa"
+#   population$sdt[!population$tru & !population$dec] <- "cr"
+#   
+#   ## (c) Make sdt (status decision-truth) an ordered factor:
+#   population$sdt <- factor(population$sdt, 
+#                            levels = c("hi", "mi", "fa", "cr"),
+#                            # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
+#                            labels = c("hi", "mi", "fa", "cr"), # implicit labels
+#                            ordered = TRUE)
+#   
+#   return(population)
+# }
 
-  ## (0) Get current parameters:
-  name <- cur.env$name
-  N <- cur.env$N
-  prev <- cur.env$prev
-  sens <- cur.env$sens
-  spec <- cur.env$spec
-  source <- cur.env$source
-
-  ## (1) Determine the truth:
-  n.true <- round((prev * N), 0)
-  n.false <- (N - n.true)
-  truth <- c(rep(TRUE, n.true), rep(FALSE, n.false))
-
-  ## (2) Determine decisions:        # Number of 
-  n.hi <- round((sens * n.true), 0)  # a. hits
-  n.mi <- (n.true - n.hi)            # b. misses
-  n.cr <- round((spec * n.false), 0) # d. correct rejections
-  n.fa <- (n.false - n.cr)           # c. false alarms
-  decision <- c(rep(TRUE, n.hi), rep(FALSE, n.mi), rep(TRUE, n.fa), rep(FALSE, n.cr))
-  
-  ## (3) Population:
-  ## (a) Initialize new data frame:
-  population <- data.frame(tru = truth,
-                           dec = decision,
-                           sdt = NA)
-  names(population) <- c("truth", "decision", "sdt")
-  
-  ## (b) Classify sdt by combination of truth and decision:
-  population$sdt[population$tru & population$dec]   <- "hi"
-  population$sdt[population$tru & !population$dec]  <- "mi"
-  population$sdt[!population$tru & population$dec]  <- "fa"
-  population$sdt[!population$tru & !population$dec] <- "cr"
-  
-  ## (c) Make sdt (status decision-truth) an ordered factor:
-  population$sdt <- factor(population$sdt, 
-                           levels = c("hi", "mi", "fa", "cr"),
-                           # labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
-                           labels = c("hi", "mi", "fa", "cr"), # implicit labels
-                           ordered = TRUE)
-  
-  return(population)
-}
-
-population <- init.population(cur.env)
+# population <- init.population(cur.env)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Functions for plots and tables:
 
 ## Function to make tree of natural frequencies:
-make.nftree <- function(env = cur.env) {
+make.nftree <- function(env, data) {
   
   ## (0) Get current parameters:
-  name <- cur.env$name
-  N <- cur.env$N
-  prev <- cur.env$prev
-  sens <- cur.env$sens
-  spec <- cur.env$spec
-  source <- cur.env$source
+  name <- env$name
+  N <- env$N
+  prev <- env$prev
+  sens <- env$sens
+  spec <- env$spec
+  source <- env$source
   
   ## Tree with natural frequencies: 
   names <- c(paste0("N = ", N), # Note: Using global variables (NOT population as argument)
-             paste0("true:\n", n.true), 
-             paste0("false:\n", n.false), 
-             paste0("hits:\n", n.hi), 
-             paste0("misses:\n", n.mi),
-             paste0("false alarms:\n", n.fa), 
-             paste0("correct rejections:\n", n.cr))
+             paste0("true:\n", data$n.true), 
+             paste0("false:\n", data$n.false), 
+             paste0("hits:\n", data$n.hi), 
+             paste0("misses:\n", data$n.mi),
+             paste0("false alarms:\n", data$n.fa), 
+             paste0("correct rejections:\n", data$n.cr))
   
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
   
@@ -235,7 +235,7 @@ shinyServer(function(input, output, session){
                                     )
     
     # (d) Tree of natural frequencies:
-    output$nftree <- renderPlot(make.nftree(cur.env))
+    output$nftree <- renderPlot(make.nftree(env = cur.env, data = dat.str))
     
     # (e) Icon array:
     
