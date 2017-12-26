@@ -131,7 +131,8 @@ make.nftree <- function(env = cur.env) {
 shinyServer(function(input, output, session){
 
   ## Define common data structure:
-  # Generate data structure dat.str as list of reactive elements:
+  # Generate data structures as lists of reactive elements:
+  cur.env <- reactiveValues(cur.env = NULL) 
   dat.str <- reactiveValues(dat.str = NULL) 
   
   # Observe inputs and generate data used in outputs:
@@ -144,8 +145,13 @@ shinyServer(function(input, output, session){
     # input$source # source of environment (reference)
   }, {
     
-    ## (0) Basic parameters:
-    dat.str$N <- input$N
+    ## (0) Basic parameters of current environment:
+    cur.env$name <- "Environment name"
+    cur.env$N <- input$N
+    cur.env$prev <- input$prev
+    cur.env$sens <- input$sens
+    cur.env$spec <- input$spec
+    cur.env$source <- "Environment source"
     
     ## (1) Determine the truth:
     dat.str$n.true <- round((input$prev * input$N), 0) # n.true cases
@@ -202,7 +208,7 @@ shinyServer(function(input, output, session){
     # (b) 2x2 confusion table (ordered by rows/decisions):
     output$confusiontable <- renderTable({matrix(data = c(dat.str$n.hi, dat.str$n.fa, dat.str$dec.pos, 
                                                           dat.str$n.mi, dat.str$n.cr, dat.str$dec.neg, 
-                                                          dat.str$n.true, dat.str$n.false, dat.str$N), 
+                                                          dat.str$n.true, dat.str$n.false, cur.env$N),
                                                  nrow = 3, byrow = TRUE,
                                                  dimnames = list(c("Positive decision:", 
                                                                    "Negative decision:", 
@@ -224,7 +230,7 @@ shinyServer(function(input, output, session){
                                                      dat.str$population$dec),
                                                 xlab = "Truth",
                                                 ylab = "Decisions",
-                                                main = paste0("Mosaicplot (N = ", input$N, ")")
+                                                main = paste0("Mosaicplot (N = ", cur.env$N, ")")
                                                )
                                     )
     
