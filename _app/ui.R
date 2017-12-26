@@ -1,5 +1,5 @@
 # Shiny ui.R
-# spds, uni.kn | 2017 12 25
+# spds, uni.kn | 2017 12 26
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # Dependencies:
@@ -141,7 +141,7 @@ shinyUI(
                                                ),
                                       
                                       tabPanel("Icons", br(), 
-                                               "Show icon array", br(), br()
+                                               "Show icon array:", br(), br()
                                                ),
                                       
                                       tabPanel("...", br(), 
@@ -170,21 +170,21 @@ shinyUI(
                         # spacer
                         "----",
                         
-                        # first screen in dropdown navigation
-                        tabPanel("A Further readings",
+                        # 1st screen in dropdown navigation:
+                        tabPanel("Further information",
                                  icon = icon("book", lib = "glyphicon"),
-                                 "Hier Text in Panel A"
+                                 "Text of tab panel", br() 
                         ),
                         
                         # spacer
                         "----",
                         
-                        # second screen in dropdown navigation
+                        # 2nd screen in dropdown navigation: 
                         tabPanel("B Imprint",
                                  icon = icon("info-sign", lib = "glyphicon"),
-                                 "Hier Text für Panel B", br(),
-                                 a("uni.kn", href = "http://www.uni-konstanz.de"), br(),
-                                 tags$code("This text will be displayed as computer code.")
+                                 "Hier Text für Panel B", br(), br(),
+                                 a("SPDS@uni.kn", href = "https://www.spds.uni-konstanz.de"), br(), br(),
+                                 tags$code("This text will be displayed as computer code."), br() 
                         ),
                         
                         # spacer
