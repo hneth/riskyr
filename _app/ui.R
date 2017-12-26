@@ -2,12 +2,27 @@
 # spds, uni.kn | 2017 12 26
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
+rm(list=ls()) # clean all.
+
 # Dependencies:
 library(shiny)
 library(shinyBS)
 library(markdown)
 library(DT)
 library(diagram)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+# (0) Initial environment:
+
+e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
+           "N" = 100,        # N in population
+           "prev" = .15,     # prevalence in population = p(true positive)
+           "sens" = .85,     # sensitivity = p(positive decision | true positive)
+           "spec" = .75,     # specificity = p(negative decision | true negative)
+           "source" = "Source info" # information source (e.g., citation)
+)
+
+env <- e1 # from current environment
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # JavaScript: 
@@ -66,7 +81,7 @@ shinyUI(
                           # Input: Select all input values:
                           sliderInput("N",
                                       "Population size:",
-                                      value = cur.env$N,
+                                      value = env$N,
                                       min = 0,
                                       max = 1000), # use log-scale from 1 to 10^9
                           
@@ -74,19 +89,19 @@ shinyUI(
                           
                           sliderInput("prev", 
                                       "Prevalence:",
-                                      value = cur.env$prev,
+                                      value = env$prev,
                                       min = 0,
                                       max = 1),
                           
                           sliderInput("sens", 
                                       "Sensitivity:",
-                                      value = cur.env$sens,
+                                      value = env$sens,
                                       min = 0,
                                       max = 1),
                           
                           sliderInput("spec", 
                                       "Specificity:",
-                                      value = cur.env$spec,
+                                      value = env$spec,
                                       min = 0,
                                       max = 1),
                           
@@ -100,13 +115,13 @@ shinyUI(
                           bsTooltip(id = "N", title = "Size of population",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
-                          bsTooltip(id = "prev", title = "Probability of being affected",
+                          bsTooltip(id = "prev", title = "Probability of being affected:\np(true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")),
                           
-                          bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual",
+                          bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual:\np(positive decision | true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
-                          bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual",
+                          bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual:\np(negative decision | false)",
                                     placement = "right", trigger = "hover", options = list(container = "body"))
                         ),
                         
