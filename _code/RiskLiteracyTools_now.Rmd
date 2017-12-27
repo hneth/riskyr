@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 25"
+date: "2017 12 27"
 output:
   html_document:
     keep_tex: false
@@ -520,26 +520,26 @@ The following graphs illustrate how -- for given test characteristics of `sens` 
 # Specify a vector of prevalences:
 {
   step.0 <- .10
-  prev.0 <- seq(0, 10*step.0, by = step.0)
+  prev.0 <- seq(0, 10 * step.0, by = step.0)
   step.1 <- .001
-  prev.1 <- seq(step.1, 10*step.1, by = step.1)
+  prev.1 <- seq(step.1, 10 * step.1, by = step.1)
   step.2 <- .01
-  prev.2 <- seq(step.2, 10*step.2, by = step.2)
+  prev.2 <- seq(step.2, 10 * step.2, by = step.2)
   step.3 <- .05
-  prev.3 <- seq(step.3, 20*step.3, by = step.3)
+  prev.3 <- seq(step.3, 20 * step.3, by = step.3)
   step.4 <- .01
-  prev.4 <- seq(.90, .90 + 10*step.4, by = step.4)
+  prev.4 <- seq(.90, .90 + 10 * step.4, by = step.4)
   step.5 <- .001
-  prev.5 <- seq(.990, .990 + 10*step.5, by = step.5)
+  prev.5 <- seq(.990, .990 + 10 * step.5, by = step.5)
   
-  prev <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
-  # prev
+  prev.x <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
+  # prev.x
   prev.scale <- sort(unique(c(step.0, 5*step.0, step.1, 5*step.1, step.2, 5*step.2, 9*step.0)))
   # prev.scale
 }
 
 # (1) Compute PPV and NPV as a function of prev, sens, and spec:
-# (A) using Bayes formula:
+# (A) Using Bayes formula:
 # as functions:
 get.PPV <- function(prev, sens, spec) {
   PPV <- NA # initialize
@@ -560,14 +560,14 @@ get.NPV <- function(prev, sens, spec) {
 }
 
 # Use functions to compute current values:
-PPV <- get.PPV(prev, sens, spec)
-NPV <- get.NPV(prev, sens, spec)
+PPV <- get.PPV(prev.x, sens, spec)
+NPV <- get.NPV(prev.x, sens, spec)
 
-# (B) using natural frequencies:
+# (B) Using natural frequencies:
 # (a) choose some population (arbitrary, drops out later)
 N <- 10^6 
 # (b) 1st row:
-n.true <- (prev * N)
+n.true <- (prev.x * N)
 n.false <- (N - n.true)
 # (c) 2nd row:
 n.hi <- (sens * n.true)  # hits
@@ -582,13 +582,13 @@ NPV.2 <- n.cr / (n.cr + n.mi) # npv = p(true negative | negative decision)
 all.equal(PPV, PPV.2) 
 all.equal(NPV, NPV.2) 
 
-# Plots: 
+## Plots: 
 # plot(PPV)
 # m1 <- glm(PPV ~ prev)
 # summary(m1)
 
 # (2) Store as data frame:
-df <- data.frame(prev, PPV, NPV)
+df <- data.frame(prev.x, PPV, NPV)
 # head(df)
 
 # Reshape into long format:
@@ -599,38 +599,44 @@ df.long <- df %>%
 # head(df.long)
 
 # factor(df.long$metric)
-df.long$metric <- factor(df.long$metric, levels = c("PPV", "NPV")) # ensure factor and level order
+df.long$metric <- factor(df.long$metric, # ensure factor and level order:  
+                         levels = c("PPV", "NPV")#,
+                         # labels = c("PPV = p(true | positive decision)", 
+                         #            "NPV = p(false | negative decision)")
+                         )
 # factor(df.long$metric)
 
-sens.spec <- paste0("(sens = ", 100*sens, "%, spec = ", 100*spec, "%)")
+sens.spec <- paste0("(sens = ", 100 * sens, "%, spec = ", 100 * spec, "%)")
 
 # (3) Visualize as a line plot (with ggplot2):
 library(ggplot2)
 # ggplot(data = df, aes(x = 1:length(prev), y = PPV)) + geom_line()
 
-# A: on linear scale: 
-p.lin <- ggplot(data = df.long, aes(x = prev, y = value, group = metric)) +
+## A: Plot on linear scale: 
+p.lin <- ggplot(data = df.long, aes(x = prev.x, y = value, group = metric)) +
   geom_line(aes(color = metric), size = 1.2) +
   geom_point(aes(color = metric, shape = metric), size = 2) +
-  #geom_smooth(aes(color = metric), size = 1.2) +
+  geom_line(aes(x = prev), color = "firebrick", linetype = 3, size = 1) +
+  # geom_smooth(aes(color = metric), size = 1.2) +
   # scale_x_log10(breaks = prev) +
   scale_x_continuous(breaks = seq(0, 1, by = .10)) +
   labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (linear scale)", y = "Probability") +
-  scale_color_manual(values = c(col.ppv, col.npv)) +
+  scale_color_manual(values = c(col.ppv, col.npv, "firebrick")) +
   # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
   my.theme.legend
-p.lin
+# p.lin
 
-# B: on log scale:
-p.log <- ggplot(data = df.long, aes(x = prev, y = value, group = metric)) +
+## B: Plot on log scale:
+p.log <- ggplot(data = df.long, aes(x = prev.x, y = value, group = metric)) +
   geom_line(aes(color = metric), size = 1.2) +
   geom_point(aes(color = metric, shape = metric), size = 2) +
+  geom_line(aes(x = prev), color = "firebrick", linetype = 3, size = 1) +
   #geom_smooth(aes(color = metric), size = 1.2) +
   # scale_x_log10() +
   scale_x_log10(breaks = prev.scale) +
   # scale_x_continuous(breaks = seq(0, 1, by = .10)) +
   labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (log scale)", y = "Probability") +
-  scale_color_manual(values = c(col.ppv, col.npv)) +
+  scale_color_manual(values = c(col.ppv, col.npv, "firebrick")) +
   # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
   my.theme.legend
 # p.log
