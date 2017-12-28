@@ -1,5 +1,5 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 26
+# spds, uni.kn | 2017 12 28
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 rm(list=ls()) # clean all.
@@ -11,6 +11,9 @@ library(markdown)
 library(DT)
 library(diagram)
 library(shape)
+
+# Import ready-made and worked out example data:
+datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Functions for plots and tables:
@@ -144,6 +147,16 @@ shinyServer(function(input, output, session){
 
   })
   
+  ## Integrate worked out examples:
+  observeEvent(input$dataselection, {
+    if(input$dataselection != 1){ # if 1st option is not ("---")
+      updateSliderInput(session, "N", value = datasets[input$dataselection, "N" ]) 
+      updateSliderInput(session, "sens", value = datasets[input$dataselection, "sens" ])
+      updateSliderInput(session, "prev", value = datasets[input$dataselection, "prev" ])
+      updateSliderInput(session, "spec", value = datasets[input$dataselection, "spec" ]) 
+      output$sourceOutput <- renderText(datasets[input$dataselection, "source"]) }
+  }, ignoreInit = TRUE)
+  
   ## Outputs:
   
   # (a) Raw data table: 
@@ -172,6 +185,7 @@ shinyServer(function(input, output, session){
   # (c) Mosaic plot:
   output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
                                                    data$population$Decision),
+                                             col = rgb(62, 63, 58, max = 255), 
                                              xlab = "Truth",
                                              ylab = "Decision",
                                              main = paste0(env$name, "\n(N = ", env$N, ")")

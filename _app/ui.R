@@ -1,5 +1,5 @@
 # Shiny ui.R
-# spds, uni.kn | 2017 12 26
+# spds, uni.kn | 2017 12 28
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 rm(list=ls()) # clean all.
@@ -90,7 +90,7 @@ shinyUI(
                                       label = "Population size:",
                                       value = env$N,
                                       min = 0,
-                                      max = 1000), # use log-scale from 1 to 10^9
+                                      max = 1000000), # use log-scale from 1 to 10^9
                           
                           br(), # horizontal space
                           
@@ -113,6 +113,12 @@ shinyUI(
                                       max = 1),
                           
                           br(), # horizontal space
+                          
+                          # Provide existing data sets as drop-down list:
+                          selectInput("dataselection", label = "Or view an example:", 
+                                      choices = setNames(as.list(1:nrow(datasets)), # create choices from datasets
+                                                         datasets$dataset), 
+                                      selected = 1),
                           
                           bsButton("inputhelp", label = "Help", 
                                    icon = icon("question-sign", lib = "glyphicon"),
@@ -144,9 +150,13 @@ shinyUI(
                           # Tabset w/ raw data, trees, and table,...
                           tabsetPanel(type = "tabs",
                                       tabPanel("Cases", br(),
-                                               "Individual cases:", br(), br(), 
+                                               "Individual cases:", br(), br(),
+                                               conditionalPanel(condition = "input.dataselection != 1",
+                                                                "Source:",
+                                                                verbatimTextOutput("sourceOutput")
+                                               ),
                                                DT::dataTableOutput("rawdatatable"),
-                                               br() 
+                                               br()
                                                ),
                                       
                                       tabPanel("Table", br(), 
