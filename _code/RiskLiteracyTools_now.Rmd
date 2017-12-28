@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 27"
+date: "2017 12 28"
 output:
   html_document:
     keep_tex: false
@@ -83,7 +83,7 @@ col.greens <- brewer.pal(9, "Greens")
 
 ## (c) Using color names:
 col.ppv <- "orange3" # firebrick" "red3"
-col.npv <- "steelblue4" # "green4" "gray50" "brown4" "chartreuse4"  
+col.npv <- "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
 
 ## (d) unikn.col palette (as RGB, without transparency): 
 
@@ -137,7 +137,7 @@ my.theme.legend <- theme_bw() +
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # utility functions:
 pc <- function(dec) {
-  return(round(dec*100, 2))
+  return(round(dec * 100, 2))
 }
 ```
 
@@ -532,8 +532,8 @@ The following graphs illustrate how -- for given test characteristics of `sens` 
   step.5 <- .001
   prev.5 <- seq(.990, .990 + 10 * step.5, by = step.5)
   
-  prev.x <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
-  # prev.x
+  prev.range <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
+  # prev.range
   prev.scale <- sort(unique(c(step.0, 5*step.0, step.1, 5*step.1, step.2, 5*step.2, 9*step.0)))
   # prev.scale
 }
@@ -559,15 +559,15 @@ get.NPV <- function(prev, sens, spec) {
   return(NPV)
 }
 
-# Use functions to compute current values:
-PPV <- get.PPV(prev.x, sens, spec)
-NPV <- get.NPV(prev.x, sens, spec)
+# Compute current PPV and NPV values for prev.range:
+PPV <- get.PPV(prev.range, sens, spec)
+NPV <- get.NPV(prev.range, sens, spec)
 
 # (B) Using natural frequencies:
-# (a) choose some population (arbitrary, drops out later)
-N <- 10^6 
+# (a) choose some population: 
+N <- 10^6 # (arbitrary, drops out later)
 # (b) 1st row:
-n.true <- (prev.x * N)
+n.true <- (prev.range * N)
 n.false <- (N - n.true)
 # (c) 2nd row:
 n.hi <- (sens * n.true)  # hits
@@ -588,7 +588,7 @@ all.equal(NPV, NPV.2)
 # summary(m1)
 
 # (2) Store as data frame:
-df <- data.frame(prev.x, PPV, NPV)
+df <- data.frame(prev.range, PPV, NPV)
 # head(df)
 
 # Reshape into long format:
@@ -600,23 +600,27 @@ df.long <- df %>%
 
 # factor(df.long$metric)
 df.long$metric <- factor(df.long$metric, # ensure factor and level order:  
-                         levels = c("PPV", "NPV")#,
+                         levels = c("PPV", "NPV") #,
                          # labels = c("PPV = p(true | positive decision)", 
                          #            "NPV = p(false | negative decision)")
                          )
 # factor(df.long$metric)
 
-sens.spec <- paste0("(sens = ", 100 * sens, "%, spec = ", 100 * spec, "%)")
+sens.spec <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)")
 
 # (3) Visualize as a line plot (with ggplot2):
 library(ggplot2)
 # ggplot(data = df, aes(x = 1:length(prev), y = PPV)) + geom_line()
 
 ## A: Plot on linear scale: 
-p.lin <- ggplot(data = df.long, aes(x = prev.x, y = value, group = metric)) +
+p.lin <- ggplot(data = df.long, aes(x = prev.range, y = value, group = metric)) +
   geom_line(aes(color = metric), size = 1.2) +
   geom_point(aes(color = metric, shape = metric), size = 2) +
-  geom_line(aes(x = prev), color = "firebrick", linetype = 3, size = 1) +
+  geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
+  geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
+             color = col.ppv, shape = 21, size = 5) + # mark PPV
+  geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
+             color = col.npv, shape = 21, size = 5) + # mark NPV
   # geom_smooth(aes(color = metric), size = 1.2) +
   # scale_x_log10(breaks = prev) +
   scale_x_continuous(breaks = seq(0, 1, by = .10)) +
@@ -627,10 +631,14 @@ p.lin <- ggplot(data = df.long, aes(x = prev.x, y = value, group = metric)) +
 # p.lin
 
 ## B: Plot on log scale:
-p.log <- ggplot(data = df.long, aes(x = prev.x, y = value, group = metric)) +
+p.log <- ggplot(data = df.long, aes(x = prev.range, y = value, group = metric)) +
   geom_line(aes(color = metric), size = 1.2) +
   geom_point(aes(color = metric, shape = metric), size = 2) +
-  geom_line(aes(x = prev), color = "firebrick", linetype = 3, size = 1) +
+  geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
+  geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
+             color = col.ppv, shape = 21, size = 5) + # mark PPV
+  geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
+             color = col.npv, shape = 21, size = 5) + # mark NPV
   #geom_smooth(aes(color = metric), size = 1.2) +
   # scale_x_log10() +
   scale_x_log10(breaks = prev.scale) +

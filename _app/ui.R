@@ -2,7 +2,8 @@
 # spds, uni.kn | 2017 12 28
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
-rm(list=ls()) # clean all.
+# rm(list=ls()) # clean all.
+# setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
 
 # Dependencies:
 library(shiny)
@@ -11,6 +12,9 @@ library(markdown)
 library(DT)
 library(diagram)
 library(shape)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # (0) Initial environment:
@@ -176,8 +180,11 @@ shinyUI(
                                                paste0("Icon array:"), br(), br()
                                                ),
                                       
-                                      tabPanel("More", br(),
-                                               paste0("PPV/NPV by prevalance:"), br(), br()
+                                      tabPanel("PVs", br(),
+                                               paste0("PPV/NPV by prevalance:"), br(), br(),
+                                               plotOutput("PVs"), 
+                                               br(),
+                                               "(Add checkbox for logarithmic scale.)"
                                                )
                           )
                         )
