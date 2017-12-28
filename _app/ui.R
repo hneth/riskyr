@@ -184,7 +184,7 @@ shinyUI(
                                                paste0("PPV/NPV by prevalance:"), br(), br(),
                                                plotOutput("PVs"), 
                                                br(),
-                                               "(Add checkbox for logarithmic scale.)"
+                                               "(Add checkbox for toggling between linear and logarithmic scale.)"
                                                )
                           )
                         )

@@ -198,7 +198,8 @@ plot.PVs <- function(env) {
     ## Scales:
     ## (a) linear scale:
     scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
-    labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (linear scale)", y = "Probability") +
+    labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+         x = "Prevalence (linear scale)", y = "Probability") +
     ## (b) log scale:
     # scale_x_log10(breaks = prev.scale) +
     # labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (log scale)", y = "Probability") + 
