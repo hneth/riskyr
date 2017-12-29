@@ -81,7 +81,7 @@ datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 # Utility functions:
 {
   pc <- function(dec) {
-    return(round(dec * 100, 2))
+    return(round(dec * 100, 1))
   }
 }
 
@@ -223,21 +223,30 @@ plot.PVs <- function(env, log.scale = FALSE) {
   )
   
   ## Additional plot options:
-  sens.spec <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  cur.PPV <- get.PPV(prev, sens, spec)
+  cur.NPV <- get.NPV(prev, sens, spec) 
+  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
   
   if (!log.scale) { ## plot on linear scale: 
     p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
       geom_line(aes(color = metric), size = 1.2) +
       geom_point(aes(color = metric, shape = metric), size = 2) +
       geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
-      geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
+      ## Mark and label current PPV/NPV:
+      geom_point(aes(x = prev, y = cur.PPV), 
                  color = col.ppv, shape = 21, size = 5) + # mark PPV
-      geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
+      geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
+                color = col.ppv, hjust = -.15, vjust = +.50, size = 4) + # label PPV
+      geom_point(aes(x = prev, y = cur.NPV), 
                  color = col.npv, shape = 21, size = 5) + # mark NPV
+      geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
+                color = col.npv, hjust = -.15, vjust = +.50, size = 4) + # label NPV
       ## Scales:
       ## (a) linear scale:
       scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
-      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
            x = "Prevalence (linear scale)", y = "Probability") + 
       ## (b) log scale:
       # scale_x_log10(breaks = prev.scale) + 
@@ -254,10 +263,15 @@ plot.PVs <- function(env, log.scale = FALSE) {
       geom_line(aes(color = metric), size = 1.2) +
       geom_point(aes(color = metric, shape = metric), size = 2) +
       geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
-      geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
+      ## Mark and label current PPV/NPV:
+      geom_point(aes(x = prev, y = cur.PPV), 
                  color = col.ppv, shape = 21, size = 5) + # mark PPV
-      geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
+      geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
+                color = col.ppv, hjust = -.15, vjust = +.50, size = 4) + # label PPV
+      geom_point(aes(x = prev, y = cur.NPV), 
                  color = col.npv, shape = 21, size = 5) + # mark NPV
+      geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
+                color = col.npv, hjust = -.15, vjust = +.50, size = 4) + # label NPV
       ## Scales:
       ## (a) linear scale:
       # scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
@@ -265,7 +279,7 @@ plot.PVs <- function(env, log.scale = FALSE) {
       #      x = "Prevalence (linear scale)", y = "Probability") + 
       ## (b) log scale:
       scale_x_log10(breaks = prev.scale) + 
-      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
            x = "Prevalence (logarithmic scale)", y = "Probability") + 
       ## Colors: 
       scale_color_manual(values = c(col.ppv, col.npv)) +
