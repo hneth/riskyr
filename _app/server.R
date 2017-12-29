@@ -23,11 +23,30 @@ datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 ## Graphic settings: 
 {
   ## Color names:
+  ## Colors from https://bootswatch.com/sandstone/ 
+  col.sand.light <- rgb(248, 245, 240, max = 255)
+  col.sand.mid  <- rgb(142, 140, 132, max = 255)  
   col.sand.dark <- rgb(62, 63, 58, max = 255)
-  # col.sand.light <- rgb(62, 63, 58, max = 255) # ???
   
-  col.ppv <- "orange3" # "firebrick" "red3"
-  col.npv <- "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+  col.green.1 <- rgb(184, 217, 137, max = 255)
+  col.green.2 <- rgb(128, 177, 57, max = 255)
+  
+  col.red.1 <- rgb(230, 142, 140, max = 255)
+  col.red.2 <- rgb(210, 52, 48, max = 255)
+  
+  col.blue.1 <- rgb(115, 200, 234, max = 255)
+  col.blue.2 <- rgb(121, 149, 177, max = 255)
+  col.blue.3 <- rgb(29, 149, 198, max = 255)
+  col.blue.4 <- rgb(40, 74, 108, max = 255)
+
+  col.orange.1 <- rgb(247, 169, 127, max = 255)
+  col.orange.2 <- rgb(242, 100, 24, max = 255)
+  
+  col.grey.1 <- rgb(181, 179, 174, max = 255)
+  col.grey.2 <- rgb(123, 121, 113, max = 255)
+
+  col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
+  col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
   
   ## ggplot themes:
   my.theme <-  theme_bw() +
@@ -36,23 +55,23 @@ datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
           axis.text = element_text(face = "plain", size = 10, color = "gray30"),
           # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
           axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1), 
-          #panel.background = element_rect(fill = "gray95", color = "gray20"),
+          # panel.background = element_rect(fill = "gray95", color = "gray20"),
           panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
           panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2),
-          #panel.grid.minor.x = element_blank(), 
-          #panel.grid.minor.y = element_blank(),
+          # panel.grid.minor.x = element_blank(), 
+          # panel.grid.minor.y = element_blank(),
           legend.position = "none"
     )
   
   my.theme.legend <- theme_bw() +
-    theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
-          axis.title = element_text(face = "plain", size = 11, color = "black"),
-          axis.text = element_text(face = "plain", size = 10, color = "gray30"),
+    theme(plot.title = element_text(face = "bold", size = "12", color = col.sand.dark, hjust = 0.0),
+          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
           # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
-          axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1),   
-          #panel.background = element_rect(fill = "gray95", color = "gray20"),
-          panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
-          panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2)#,
+          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),   
+          # panel.background = element_rect(fill = "gray95", color = "gray20"),
+          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
           # panel.grid.minor.x = element_blank(), 
           # panel.grid.minor.y = element_blank()#,
           # legend.position = "none"
@@ -107,9 +126,9 @@ plot.nftree <- function(env, data) {
                 box.size = .10, 
                 box.prop = 0.5,
                 box.type = "square", # "circle",
-                box.col = "lightyellow", # ... 
-                shadow.col = "steelblue4", # "grey25" 
-                shadow.size = 0.0, # .005 
+                box.col = col.sand.light, # "lightyellow" 
+                shadow.col = col.sand.dark, # "steelblue4", "grey25"
+                shadow.size = 0, # .005 
                 lwd = 1.2,
                 cex.txt = .90,
                 main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
@@ -156,8 +175,11 @@ get.NPV <- function(prev, sens, spec) {
   prev.5 <- seq(.990, .990 + 10 * step.5, by = step.5)
   
   prev.range <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
+  prev.range <- prev.range[prev.range > 0] # remove first item of 0
+  # prev.range <- prev.range[prev.range < 1] # remove last item of 1
   # prev.range
   prev.scale <- sort(unique(c(step.0, 5*step.0, step.1, 5*step.1, step.2, 5*step.2, 9*step.0)))
+  # log10(prev.scale)
   # prev.scale
 }
 
@@ -317,7 +339,7 @@ shinyServer(function(input, output, session){
     data$population <- data.frame(tru = data$truth,
                                   dec = data$decision,
                                   sdt = data$sdt)
-    names(data$population) <- c("Truth", "Decision", "SDT")
+    names(data$population) <- c("Truth", "Decision", "sdt")
 
   })
   
@@ -332,12 +354,12 @@ shinyServer(function(input, output, session){
   }, ignoreInit = TRUE)
   
   ## PVplot panel: Checkbox for linear vs. logarithmic scale: 
-  observeEvent(input$checkboxPVlog, {
-    PV.log <- FALSE # initialize
-    if (!input$checkboxPVlog) {PV.log <- FALSE} # ERROR:
-    if (input$checkboxPVlog)  {PV.log <- TRUE}  # Does NOT seem to work!
-    }
-    )
+  # observeEvent(input$checkboxPVlog, {
+  #   PV.log <- FALSE # initialize
+  #  if (!input$checkboxPVlog) {PV.log <- FALSE} # ERROR:
+  #  if (input$checkboxPVlog)  {PV.log <- TRUE}  # Does NOT seem to work!
+  #  }
+  #  )
   
   ## Outputs:
   
@@ -367,7 +389,7 @@ shinyServer(function(input, output, session){
   # (c) Mosaic plot:
   output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
                                                    data$population$Decision),
-                                             col = col.sand.dark, 
+                                             col = c(col.sand.mid, col.sand.dark), # c(col.blue.2, col.blue.4), 
                                              xlab = "Truth",
                                              ylab = "Decision",
                                              main = paste0(env$name, "\n(N = ", env$N, ")")
@@ -380,7 +402,7 @@ shinyServer(function(input, output, session){
   # (e) Icon array:
 
   # (f) PPV and NPV as a function of prev.range:
-  output$PVs <- renderPlot(plot.PVs(env, log.scale = FALSE)) # should be: log.scale = PV.log
+  output$PVs <- renderPlot(plot.PVs(env, log.scale = input$checkboxPVlog))
   
 }
 )

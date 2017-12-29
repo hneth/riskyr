@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 28"
+date: "2017 12 29"
 output:
   html_document:
     keep_tex: false
@@ -82,8 +82,34 @@ col.reds <- brewer.pal(9, "Reds")
 col.greens <- brewer.pal(9, "Greens")
 
 ## (c) Using color names:
-col.ppv <- "orange3" # firebrick" "red3"
-col.npv <- "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+## Color names:
+## Colors from https://bootswatch.com/sandstone/ 
+col.sand.light <- rgb(248, 245, 240, max = 255)
+col.sand.mid  <- rgb(142, 140, 132, max = 255)  
+col.sand.dark <- rgb(62, 63, 58, max = 255)
+
+col.green.1 <- rgb(184, 217, 137, max = 255)
+col.green.2 <- rgb(128, 177, 57, max = 255)
+
+col.red.1 <- rgb(230, 142, 140, max = 255)
+col.red.2 <- rgb(210, 52, 48, max = 255)
+
+col.blue.1 <- rgb(115, 200, 234, max = 255)
+col.blue.2 <- rgb(121, 149, 177, max = 255)
+col.blue.3 <- rgb(29, 149, 198, max = 255)
+col.blue.4 <- rgb(40, 74, 108, max = 255)
+
+col.orange.1 <- rgb(247, 169, 127, max = 255)
+col.orange.2 <- rgb(242, 100, 24, max = 255)
+
+col.grey.1 <- rgb(181, 179, 174, max = 255)
+col.grey.2 <- rgb(123, 121, 113, max = 255)
+
+col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
+col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+
+
+
 
 ## (d) unikn.col palette (as RGB, without transparency): 
 
