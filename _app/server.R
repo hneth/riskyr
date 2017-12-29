@@ -175,9 +175,16 @@ get.NPV <- function(prev, sens, spec) {
   prev.5 <- seq(.990, .990 + 10 * step.5, by = step.5)
   
   prev.range <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
-  prev.range <- prev.range[prev.range > 0] # remove first item of 0
-  # prev.range <- prev.range[prev.range < 1] # remove last item of 1
+  # prev.range <- prev.range[prev.range > 0] # remove prev = 0
+  # prev.range <- prev.range[prev.range < 1] # remove prev = 1
+  ## Hack to prevent -Inf on log scale:
+  epsilon <- 1/1000000 # some very small constant
+  prev.range[prev.range == 0] <- 0 + epsilon # slightly more than 0
+  prev.range[prev.range == 1] <- 1 - epsilon # slightly less than 1 
   # prev.range
+  # log10(get.PPV(prev.range, .5, .5)) # => -Inf for prev = 0
+  # log10(get.NPV(prev.range, .5, .5)) # => -Inf for prev = 1 
+  
   prev.scale <- sort(unique(c(step.0, 5*step.0, step.1, 5*step.1, step.2, 5*step.2, 9*step.0)))
   # log10(prev.scale)
   # prev.scale
@@ -192,6 +199,12 @@ plot.PVs <- function(env, log.scale = FALSE) {
   sens <- env$sens
   spec <- env$spec
   source <- env$source
+  
+  ## Hack to prevent -Inf on log scale: 
+  if (log.scale) {
+    if (prev == 0) { prev <- 0 + epsilon } # slightly more than 0
+    if (prev == 1) { prev <- 1 - epsilon } # slightly less than 1
+  }
   
   ## Compute current PPV and NPV values for prev.range:
   PPV <- get.PPV(prev.range, sens, spec)
@@ -253,7 +266,7 @@ plot.PVs <- function(env, log.scale = FALSE) {
       ## (b) log scale:
       scale_x_log10(breaks = prev.scale) + 
       labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
-                          x = "Prevalence (logarithmic scale)", y = "Probability") + 
+           x = "Prevalence (logarithmic scale)", y = "Probability") + 
       ## Colors: 
       scale_color_manual(values = c(col.ppv, col.npv)) +
       # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +

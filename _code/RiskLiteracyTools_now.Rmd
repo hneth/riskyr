@@ -559,7 +559,16 @@ The following graphs illustrate how -- for given test characteristics of `sens` 
   prev.5 <- seq(.990, .990 + 10 * step.5, by = step.5)
   
   prev.range <- sort(unique(c(prev.0, prev.1, prev.2, prev.3, prev.4, prev.5)))
+  # prev.range <- prev.range[prev.range > 0] # remove prev = 0
+  # prev.range <- prev.range[prev.range < 1] # remove prev = 1
+  ## Hack to prevent -Inf on log scale:
+  epsilon <- 1/1000000 # some very small constant
+  prev.range[prev.range == 0] <- 0 + epsilon # slightly more than 0
+  prev.range[prev.range == 1] <- 1 - epsilon # slightly less than 1 
   # prev.range
+  # log10(get.PPV(prev.range, .5, .5)) # => -Inf for prev = 0
+  # log10(get.NPV(prev.range, .5, .5)) # => -Inf for prev = 1 
+  
   prev.scale <- sort(unique(c(step.0, 5*step.0, step.1, 5*step.1, step.2, 5*step.2, 9*step.0)))
   # prev.scale
 }

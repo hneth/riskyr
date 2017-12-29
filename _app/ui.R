@@ -181,10 +181,10 @@ shinyUI(
                                                ),
                                       
                                       tabPanel("PVs", br(),
-                                               paste0("PPV/NPV by prevalance:"), br(), br(),
+                                               paste0("Positive and negative predictive value (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"), 
                                                br(),
-                                               checkboxInput("checkboxPVlog", label = "Show prevalence on logarithmic scale", value = FALSE), 
+                                               checkboxInput("checkboxPVlog", label = "Plot prevalence on logarithmic scale", value = FALSE), 
                                                br() 
                                                )
                           )
