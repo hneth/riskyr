@@ -1,5 +1,5 @@
 # Shiny ui.R
-# spds, uni.kn | 2017 12 28
+# spds, uni.kn | 2017 12 29
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -184,7 +184,8 @@ shinyUI(
                                                paste0("PPV/NPV by prevalance:"), br(), br(),
                                                plotOutput("PVs"), 
                                                br(),
-                                               "(Add checkbox for toggling between linear and logarithmic scale.)"
+                                               checkboxInput("checkboxPVlog", label = "Show prevalence on logarithmic scale", value = FALSE), 
+                                               br() 
                                                )
                           )
                         )

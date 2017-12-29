@@ -1,5 +1,5 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 28
+# spds, uni.kn | 2017 12 29
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -19,11 +19,13 @@ library(ggplot2)
 # Import ready-made and worked out example data:
 datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Graphic settings: 
 {
   ## Color names:
+  col.sand.dark <- rgb(62, 63, 58, max = 255)
+  # col.sand.light <- rgb(62, 63, 58, max = 255) # ???
+  
   col.ppv <- "orange3" # "firebrick" "red3"
   col.npv <- "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
   
@@ -159,7 +161,7 @@ get.NPV <- function(prev, sens, spec) {
   # prev.scale
 }
 
-plot.PVs <- function(env) {
+plot.PVs <- function(env, log.scale = FALSE) {
   
   ## Current environment parameters:
   name <- env$name
@@ -185,28 +187,56 @@ plot.PVs <- function(env) {
                                #            "NPV = p(false | negative decision)")
   )
   
+  ## Additional plot options:
   sens.spec <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
   
-  p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
-    geom_line(aes(color = metric), size = 1.2) +
-    geom_point(aes(color = metric, shape = metric), size = 2) +
-    geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
-    geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
-               color = col.ppv, shape = 21, size = 5) + # mark PPV
-    geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
-               color = col.npv, shape = 21, size = 5) + # mark NPV
-    ## Scales:
-    ## (a) linear scale:
-    scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
-    labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
-         x = "Prevalence (linear scale)", y = "Probability") +
-    ## (b) log scale:
-    # scale_x_log10(breaks = prev.scale) +
-    # labs(title = paste0("PPV and NPV by prev ", sens.spec), x = "Prevalence (log scale)", y = "Probability") + 
-    ## Colors: 
-    scale_color_manual(values = c(col.ppv, col.npv, "firebrick")) +
-    # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
-    my.theme.legend
+  if (!log.scale) { ## plot on linear scale: 
+    p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
+      geom_line(aes(color = metric), size = 1.2) +
+      geom_point(aes(color = metric, shape = metric), size = 2) +
+      geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
+      geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
+                 color = col.ppv, shape = 21, size = 5) + # mark PPV
+      geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
+                 color = col.npv, shape = 21, size = 5) + # mark NPV
+      ## Scales:
+      ## (a) linear scale:
+      scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
+      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+           x = "Prevalence (linear scale)", y = "Probability") + 
+      ## (b) log scale:
+      # scale_x_log10(breaks = prev.scale) + 
+      # labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+      #                    x = "Prevalence (logarithmic scale)", y = "Probability") + 
+      ## Colors: 
+      scale_color_manual(values = c(col.ppv, col.npv)) +
+      # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
+      my.theme.legend
+  }
+  
+  if (log.scale) { ## plot on log scale: 
+    p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
+      geom_line(aes(color = metric), size = 1.2) +
+      geom_point(aes(color = metric, shape = metric), size = 2) +
+      geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
+      geom_point(aes(x = prev, y = get.PPV(prev, sens, spec)), 
+                 color = col.ppv, shape = 21, size = 5) + # mark PPV
+      geom_point(aes(x = prev, y = get.NPV(prev, sens, spec)), 
+                 color = col.npv, shape = 21, size = 5) + # mark NPV
+      ## Scales:
+      ## (a) linear scale:
+      # scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
+      # labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+      #      x = "Prevalence (linear scale)", y = "Probability") + 
+      ## (b) log scale:
+      scale_x_log10(breaks = prev.scale) + 
+      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+                          x = "Prevalence (logarithmic scale)", y = "Probability") + 
+      ## Colors: 
+      scale_color_manual(values = c(col.ppv, col.npv)) +
+      # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
+      my.theme.legend
+  }
   
   return(p.PVs)
   
@@ -293,13 +323,21 @@ shinyServer(function(input, output, session){
   
   ## Integrate worked out examples:
   observeEvent(input$dataselection, {
-    if(input$dataselection != 1){ # if 1st option is not ("---")
+    if (input$dataselection != 1) { # if 1st option is not ("---")
       updateSliderInput(session, "N", value = datasets[input$dataselection, "N" ]) 
       updateSliderInput(session, "sens", value = datasets[input$dataselection, "sens" ])
       updateSliderInput(session, "prev", value = datasets[input$dataselection, "prev" ])
       updateSliderInput(session, "spec", value = datasets[input$dataselection, "spec" ]) 
       output$sourceOutput <- renderText(datasets[input$dataselection, "source"]) }
   }, ignoreInit = TRUE)
+  
+  ## PVplot panel: Checkbox for linear vs. logarithmic scale: 
+  observeEvent(input$checkboxPVlog, {
+    PV.log <- FALSE # initialize
+    if (!input$checkboxPVlog) {PV.log <- FALSE} # ERROR:
+    if (input$checkboxPVlog)  {PV.log <- TRUE}  # Does NOT seem to work!
+    }
+    )
   
   ## Outputs:
   
@@ -329,7 +367,7 @@ shinyServer(function(input, output, session){
   # (c) Mosaic plot:
   output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
                                                    data$population$Decision),
-                                             col = rgb(62, 63, 58, max = 255), 
+                                             col = col.sand.dark, 
                                              xlab = "Truth",
                                              ylab = "Decision",
                                              main = paste0(env$name, "\n(N = ", env$N, ")")
@@ -342,7 +380,7 @@ shinyServer(function(input, output, session){
   # (e) Icon array:
 
   # (f) PPV and NPV as a function of prev.range:
-  output$PVs <- renderPlot(plot.PVs(env))
+  output$PVs <- renderPlot(plot.PVs(env, log.scale = FALSE)) # should be: log.scale = PV.log
   
 }
 )
