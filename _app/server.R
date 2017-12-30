@@ -3,9 +3,10 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
-# setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
 
-# Dependencies:
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Dependencies:
+
 library(shiny)
 library(shinyBS)
 library(markdown)
@@ -16,72 +17,87 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 
-# Import ready-made and worked out example data:
-datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Paths:
+
+# cur.path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+# setwd(cur.path) # set to current directory
+# setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Graphic settings: 
 {
   ## Color names:
-  ## Colors from https://bootswatch.com/sandstone/ 
-  col.sand.light <- rgb(248, 245, 240, max = 255)
-  col.sand.mid  <- rgb(142, 140, 132, max = 255)  
-  col.sand.dark <- rgb(62, 63, 58, max = 255)
-  
-  col.green.1 <- rgb(184, 217, 137, max = 255)
-  col.green.2 <- rgb(128, 177, 57, max = 255)
-  
-  col.red.1 <- rgb(230, 142, 140, max = 255)
-  col.red.2 <- rgb(210, 52, 48, max = 255)
-  
-  col.blue.1 <- rgb(115, 200, 234, max = 255)
-  col.blue.2 <- rgb(121, 149, 177, max = 255)
-  col.blue.3 <- rgb(29, 149, 198, max = 255)
-  col.blue.4 <- rgb(40, 74, 108, max = 255)
-
-  col.orange.1 <- rgb(247, 169, 127, max = 255)
-  col.orange.2 <- rgb(242, 100, 24, max = 255)
-  
-  col.grey.1 <- rgb(181, 179, 174, max = 255)
-  col.grey.2 <- rgb(123, 121, 113, max = 255)
-
-  col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
-  col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+  {
+    ## from uni.kn: 
+    seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
+    
+    ## from https://bootswatch.com/sandstone/ 
+    col.sand.light <- rgb(248, 245, 240, max = 255)
+    col.sand.mid   <- rgb(142, 140, 132, max = 255)  
+    col.sand.dark  <- rgb(62, 63, 58, max = 255)
+    
+    col.green.1 <- rgb(184, 217, 137, max = 255)
+    col.green.2 <- rgb(128, 177, 57, max = 255)
+    
+    col.red.1 <- rgb(230, 142, 140, max = 255)
+    col.red.2 <- rgb(210, 52, 48, max = 255)
+    
+    col.blue.1 <- rgb(115, 200, 234, max = 255)
+    col.blue.2 <- rgb(121, 149, 177, max = 255)
+    col.blue.3 <- rgb(29, 149, 198, max = 255)
+    col.blue.4 <- rgb(40, 74, 108, max = 255)
+    
+    col.orange.1 <- rgb(247, 169, 127, max = 255)
+    col.orange.2 <- rgb(242, 100, 24, max = 255)
+    
+    col.grey.1 <- rgb(181, 179, 174, max = 255)
+    col.grey.2 <- rgb(123, 121, 113, max = 255)
+    col.grey.3 <- "grey25"
+    col.grey.4 <- "grey10"
+    
+    col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
+    col.npv <- col.blue.3 # seeblau "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+  }
   
   ## ggplot themes:
-  my.theme <-  theme_bw() +
-    theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
-          axis.title = element_text(face = "plain", size = 11, color = "black"),
-          axis.text = element_text(face = "plain", size = 10, color = "gray30"),
-          # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
-          axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1), 
-          # panel.background = element_rect(fill = "gray95", color = "gray20"),
-          panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
-          panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2),
-          # panel.grid.minor.x = element_blank(), 
-          # panel.grid.minor.y = element_blank(),
-          legend.position = "none"
-    )
-  
-  my.theme.legend <- theme_bw() +
-    theme(plot.title = element_text(face = "bold", size = "12", color = col.sand.dark, hjust = 0.0),
-          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-          # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
-          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),   
-          # panel.background = element_rect(fill = "gray95", color = "gray20"),
-          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
-          # panel.grid.minor.x = element_blank(), 
-          # panel.grid.minor.y = element_blank()#,
-          # legend.position = "none"
-    )
+  {
+    my.theme <-  theme_bw() +
+      theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+            axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+            axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+            # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
+            axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1), 
+            panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+            panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+            panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
+            # panel.grid.minor.x = element_blank(), 
+            # panel.grid.minor.y = element_blank(),
+            legend.position = "none"
+      )
+    
+    my.theme.legend <- theme_bw() +
+      theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+            axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+            axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+            # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
+            axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),   
+            panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+            panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+            panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
+            # panel.grid.minor.x = element_blank(), 
+            # panel.grid.minor.y = element_blank()#,
+            # legend.position = "none"
+      )
+  }
+
 }
 
-# Utility functions:
+## Utility functions:
 {
-  pc <- function(dec) {
-    return(round(dec * 100, 1))
+  # Round percentage to 1 decimal:
+  pc <- function(num) {
+    return(round(num * 100, 1)) 
   }
 }
 
@@ -139,8 +155,8 @@ plot.nftree <- function(env, data) {
 }
 
 ## Functions for PPV/NPV:
-# (1) Compute PPV and NPV as a function of prev, sens, and spec:
-#     using Bayes' formula:
+## (1) Compute PPV and NPV as a function of prev, sens, and spec:
+##     using Bayes' formula:
 get.PPV <- function(prev, sens, spec) {
   PPV <- NA # initialize
   num <- (prev * sens)
@@ -159,7 +175,7 @@ get.NPV <- function(prev, sens, spec) {
   return(NPV)
 }
 
-# Specify a vector of prevalences:
+## Specify a vector of prevalences:
 {
   step.0 <- .10
   prev.0 <- seq(0, 10 * step.0, by = step.0)
@@ -428,7 +444,10 @@ shinyServer(function(input, output, session){
   # (c) Mosaic plot:
   output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
                                                    data$population$Decision),
-                                             col = c(col.sand.mid, col.sand.dark), # c(col.blue.2, col.blue.4), 
+                                             col = c(col.sand.light, col.sand.mid),
+                                                   # c(col.sand.mid, col.sand.dark), 
+                                                   # c(col.blue.2, col.blue.4),
+                                                   # c(col.green.1, col.red.1),
                                              xlab = "Truth",
                                              ylab = "Decision",
                                              main = paste0(env$name, "\n(N = ", env$N, ")")

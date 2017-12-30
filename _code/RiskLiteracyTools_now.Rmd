@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 29"
+date: "2017 12 30"
 output:
   html_document:
     keep_tex: false
@@ -58,7 +58,10 @@ opts_knit$set(width=75)
 Graphical settings (for `ggplot2`): 
 
 ```{r graphic_settings, eval = TRUE, echo = FALSE}
-## (1) Packages: 
+## (1) Packages:
+library(markdown)
+library(tidyr)
+library(dplyr)
 library(ggplot2)
 library(cowplot)
 library(RColorBrewer)
@@ -68,7 +71,7 @@ opar <- par() # saves original (default) par settings
 par(opar)  # restores original (default) par settings
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-## (3) Colors:
+## Colors:
 # (a) Using yarrr:
 # col.pal <- yarrr::piratepal(palette = "basel",  trans = .5) # [does not work]
 
@@ -83,38 +86,39 @@ col.greens <- brewer.pal(9, "Greens")
 
 ## (c) Using color names:
 ## Color names:
-## Colors from https://bootswatch.com/sandstone/ 
-col.sand.light <- rgb(248, 245, 240, max = 255)
-col.sand.mid  <- rgb(142, 140, 132, max = 255)  
-col.sand.dark <- rgb(62, 63, 58, max = 255)
-
-col.green.1 <- rgb(184, 217, 137, max = 255)
-col.green.2 <- rgb(128, 177, 57, max = 255)
-
-col.red.1 <- rgb(230, 142, 140, max = 255)
-col.red.2 <- rgb(210, 52, 48, max = 255)
-
-col.blue.1 <- rgb(115, 200, 234, max = 255)
-col.blue.2 <- rgb(121, 149, 177, max = 255)
-col.blue.3 <- rgb(29, 149, 198, max = 255)
-col.blue.4 <- rgb(40, 74, 108, max = 255)
-
-col.orange.1 <- rgb(247, 169, 127, max = 255)
-col.orange.2 <- rgb(242, 100, 24, max = 255)
-
-col.grey.1 <- rgb(181, 179, 174, max = 255)
-col.grey.2 <- rgb(123, 121, 113, max = 255)
-
-col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
-col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
-
-
-
+{
+  ## Colors from https://bootswatch.com/sandstone/ 
+  col.sand.light <- rgb(248, 245, 240, max = 255)
+  col.sand.mid  <- rgb(142, 140, 132, max = 255)  
+  col.sand.dark <- rgb(62, 63, 58, max = 255)
+  
+  col.green.1 <- rgb(184, 217, 137, max = 255)
+  col.green.2 <- rgb(128, 177, 57, max = 255)
+  
+  col.red.1 <- rgb(230, 142, 140, max = 255)
+  col.red.2 <- rgb(210, 52, 48, max = 255)
+  
+  col.blue.1 <- rgb(115, 200, 234, max = 255)
+  col.blue.2 <- rgb(121, 149, 177, max = 255)
+  col.blue.3 <- rgb(29, 149, 198, max = 255)
+  col.blue.4 <- rgb(40, 74, 108, max = 255)
+  
+  col.orange.1 <- rgb(247, 169, 127, max = 255)
+  col.orange.2 <- rgb(242, 100, 24, max = 255)
+  
+  col.grey.1 <- rgb(181, 179, 174, max = 255)
+  col.grey.2 <- rgb(123, 121, 113, max = 255)
+  col.grey.3 <- "grey25"
+  col.grey.4 <- "grey10"
+  
+  col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
+  col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+}
 
 ## (d) unikn.col palette (as RGB, without transparency): 
 
 ## Define base color "seeblau":
-seeblau <- rgb(0, 169, 224, names = "seeblau", maxColorValue = 255) # seeblau.4 (non-transparent)
+seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
 
 # in one df (for the yarrr package): 
 unikn.pal = data.frame(
@@ -131,40 +135,45 @@ unikn.pal = data.frame(
   stringsAsFactors = FALSE)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-## (4) ggplot Themes:  
-my.theme <-  theme_bw() +
-  theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
-        axis.title = element_text(face = "plain", size = 11, color = "black"),
-        axis.text = element_text(face = "plain", size = 10, color = "gray30"),
-        # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
-        axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1), 
-        #panel.background = element_rect(fill = "gray95", color = "gray20"),
-        panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
-        panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2),
-        #panel.grid.minor.x = element_blank(), 
-        #panel.grid.minor.y = element_blank(),
-        legend.position = "none"
-  )
-
-my.theme.legend <- theme_bw() +
-  theme(plot.title = element_text(face = "bold", size = "12", color = "black", hjust = 0.0),
-        axis.title = element_text(face = "plain", size = 11, color = "black"),
-        axis.text = element_text(face = "plain", size = 10, color = "gray30"),
-        # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
-        axis.ticks = element_line(size = 0.75, color = "gray10", linetype = 1),   
-        #panel.background = element_rect(fill = "gray95", color = "gray20"),
-        panel.grid.major.x = element_line(color = "gray66", linetype = 1, size = .2),
-        panel.grid.major.y = element_line(color = "gray33", linetype = 1, size = .2)#,
-        # panel.grid.minor.x = element_blank(), 
-        # panel.grid.minor.y = element_blank()#,
-        # legend.position = "none"
-  )
+## ggplot themes:
+{
+  my.theme <-  theme_bw() +
+    theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+          # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
+          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1), 
+          panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
+          # panel.grid.minor.x = element_blank(), 
+          # panel.grid.minor.y = element_blank(),
+          legend.position = "none"
+    )
+  
+  my.theme.legend <- theme_bw() +
+    theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+          # axis.line = element_line(size = 0.75, color = "black", linetype = 1), 
+          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),   
+          panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
+          # panel.grid.minor.x = element_blank(), 
+          # panel.grid.minor.y = element_blank()#,
+          # legend.position = "none"
+    )
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# utility functions:
-pc <- function(dec) {
-  return(round(dec * 100, 1))
+## Utility functions:
+
+# Round percentage to 1 decimal:
+pc <- function(num) {
+    return(round(num * 100, 1)) 
 }
+
 ```
 
 ---
@@ -455,6 +464,7 @@ npv <- n.cr / dec.neg # npv = p(true negative | negative decision)
 ```{r tree-diagram, include = TRUE, fig.width = 10, fig.height = 8}
 #install.packages("diagram")
 library(diagram)
+library(shape)
 # demo("flowchart")
 
 ## Example 1:
@@ -641,12 +651,16 @@ df.long$metric <- factor(df.long$metric, # ensure factor and level order:
                          )
 # factor(df.long$metric)
 
-## Additional plot options:
-cur.PPV <- get.PPV(prev, sens, spec)
-cur.NPV <- get.NPV(prev, sens, spec) 
-cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
-cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
-sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  ## Additional plot options:
+  cur.PPV <- get.PPV(prev, sens, spec)
+  cur.NPV <- get.NPV(prev, sens, spec) 
+  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  prev.label <- paste0("prev = ", pc(prev), "%")
+  col.prev <- col.grey.2
+  sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  x.just <- -.20
+  y.just <- +.50
 
 # (3) Visualize as a line plot (with ggplot2):
 library(ggplot2)
@@ -654,25 +668,35 @@ library(ggplot2)
 
 ## A: Plot on linear scale: 
 p.lin <- ggplot(data = df.long, aes(x = prev.range, y = value, group = metric)) +
-  geom_line(aes(color = metric), size = 1.2) +
-  geom_point(aes(color = metric, shape = metric), size = 2) +
-  geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
-  ## Mark and label current PPV/NPV:
-  geom_point(aes(x = prev, y = cur.PPV), 
-             color = col.ppv, shape = 21, size = 5) + # mark PPV
-  geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
-            color = col.ppv, hjust = -.15, vjust = +.50, size = 4) + # label PPV
-  geom_point(aes(x = prev, y = cur.NPV), 
-             color = col.npv, shape = 21, size = 5) + # mark NPV
-  geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
-            color = col.npv, hjust = -.15, vjust = +.50, size = 4) + # label NPV
-  # geom_smooth(aes(color = metric), size = 1.2) +
-  # scale_x_log10(breaks = prev) +
-  scale_x_continuous(breaks = seq(0, 1, by = .10)) +
-  labs(title = paste0("PPV and NPV by prev ", sens.spec.label), x = "Prevalence (linear scale)", y = "Probability") +
-  scale_color_manual(values = c(col.ppv, col.npv), name = "Metric:") +
-  # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
-  my.theme.legend
+      geom_line(aes(color = metric), size = 1.2) +
+      # geom_point(aes(color = metric, shape = metric), size = 2) +
+      ## Mark and label prev:
+      geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
+      geom_point(aes(x = prev, y = 0), color = col.prev, shape = 21, size = 5) + # mark (prev, 0)
+      geom_text(aes(x = prev, y = 0, label = prev.label), 
+                color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
+      ## Mark and label current PPV/NPV:
+      geom_point(aes(x = prev, y = cur.PPV), 
+                 color = col.ppv, shape = 21, size = 5) + # mark (prev, PPV)
+      geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
+                color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
+      geom_point(aes(x = prev, y = cur.NPV), 
+                 color = col.npv, shape = 21, size = 5) + # mark (prev, NPV)
+      geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
+                color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
+      ## Scales:
+      ## (a) linear scale:
+      scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
+      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
+           x = "Prevalence (linear scale)", y = "Probability") + 
+      ## (b) log scale:
+      # scale_x_log10(breaks = prev.scale) + 
+      # labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
+      #                    x = "Prevalence (logarithmic scale)", y = "Probability") + 
+      ## Colors: 
+      scale_color_manual(values = c(col.ppv, col.npv)) +
+      # scale_fill_manual(values = c(col.ppv, col.npv), name = "Metric:") +
+      my.theme.legend
 p.lin
 
 ## B: Plot on log scale:

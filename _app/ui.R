@@ -3,21 +3,9 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
-# setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
-
-# Dependencies:
-library(shiny)
-library(shinyBS)
-library(markdown)
-library(DT)
-library(diagram)
-library(shape)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# (0) Initial environment:
+## Initial environment:
 
 e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
            "N" = 100,        # N in population
@@ -28,6 +16,9 @@ e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
 )
 
 env <- e1 # from current environment
+
+## Import ready-made and worked out example data:
+datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 # JavaScript: 
@@ -163,11 +154,15 @@ shinyUI(
                                                br()
                                                ),
                                       
+                                      tabPanel("Icons", br(), 
+                                               paste0("Icon array:"), br(), br()
+                                               ),
+                                      
                                       tabPanel("Table", br(), 
                                                paste0("Aggregated cases:"), br(), br(),  
                                                tableOutput("confusiontable"),
                                                plotOutput("mosaicplot"),
-                                               br() 
+                                               br()
                                                ),
                                       
                                       tabPanel("Tree", br(), 
@@ -176,12 +171,8 @@ shinyUI(
                                                br()
                                                ),
                                       
-                                      tabPanel("Icons", br(), 
-                                               paste0("Icon array:"), br(), br()
-                                               ),
-                                      
                                       tabPanel("PVs", br(),
-                                               paste0("Positive and negative predictive value (PPV/NPV) by prevalance:"), br(), br(),
+                                               paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"), 
                                                br(),
                                                checkboxInput("checkboxPVlog", label = "Plot prevalence on logarithmic scale", value = FALSE), 
