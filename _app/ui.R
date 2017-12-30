@@ -157,6 +157,12 @@ shinyUI(
                                       tabPanel("Icons", br(), 
                                                paste0("Icon array:"), br(), br()
                                                ),
+
+                                      tabPanel("Tree", br(), 
+                                               paste0("Tree of natural frequencies:"), br(), br(),  
+                                               plotOutput("nftree"), 
+                                               br()
+                                               ),
                                       
                                       tabPanel("Table", br(), 
                                                paste0("Aggregated cases:"), br(), br(),  
@@ -164,13 +170,7 @@ shinyUI(
                                                plotOutput("mosaicplot"),
                                                br()
                                                ),
-                                      
-                                      tabPanel("Tree", br(), 
-                                               paste0("Tree of natural frequencies:"), br(), br(),  
-                                               plotOutput("nftree"), 
-                                               br()
-                                               ),
-                                      
+
                                       tabPanel("PVs", br(),
                                                paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"), 
