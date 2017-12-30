@@ -1,5 +1,5 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 29
+# spds, uni.kn | 2017 12 30
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -213,9 +213,9 @@ plot.PVs <- function(env, log.scale = FALSE) {
   ## As data frame df:
   df.PVs <- data.frame(prev.range, PPV, NPV)
   
-  ## Reshape into long format:
+  ## Reshape df.PVs into long format:
   df.PVs.long <- df.PVs %>% gather(metric, value, c(PPV, NPV))
-  
+  # names(df.PVs.long) <- c("prevalence", "metric", "value")
   df.PVs.long$metric <- factor(df.PVs.long$metric, # ensure factor and level order:  
                                levels = c("PPV", "NPV") #,
                                # labels = c("PPV = p(true | positive decision)", 
@@ -227,22 +227,30 @@ plot.PVs <- function(env, log.scale = FALSE) {
   cur.NPV <- get.NPV(prev, sens, spec) 
   cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
   cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  prev.label <- paste0("prev = ", pc(prev), "%")
+  col.prev <- col.grey.2
   sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  x.just <- -.20
+  y.just <- +.50
   
   if (!log.scale) { ## plot on linear scale: 
     p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
       geom_line(aes(color = metric), size = 1.2) +
-      geom_point(aes(color = metric, shape = metric), size = 2) +
-      geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
+      # geom_point(aes(color = metric, shape = metric), size = 2) +
+      ## Mark and label prev:
+      geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
+      geom_point(aes(x = prev, y = 0), color = col.prev, shape = 21, size = 5) + # mark (prev, 0)
+      geom_text(aes(x = prev, y = 0, label = prev.label), 
+                color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
       ## Mark and label current PPV/NPV:
       geom_point(aes(x = prev, y = cur.PPV), 
-                 color = col.ppv, shape = 21, size = 5) + # mark PPV
+                 color = col.ppv, shape = 21, size = 5) + # mark (prev, PPV)
       geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
-                color = col.ppv, hjust = -.15, vjust = +.50, size = 4) + # label PPV
+                color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
       geom_point(aes(x = prev, y = cur.NPV), 
-                 color = col.npv, shape = 21, size = 5) + # mark NPV
+                 color = col.npv, shape = 21, size = 5) + # mark (prev, NPV)
       geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
-                color = col.npv, hjust = -.15, vjust = +.50, size = 4) + # label NPV
+                color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
       ## Scales:
       ## (a) linear scale:
       scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
@@ -261,17 +269,21 @@ plot.PVs <- function(env, log.scale = FALSE) {
   if (log.scale) { ## plot on log scale: 
     p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
       geom_line(aes(color = metric), size = 1.2) +
-      geom_point(aes(color = metric, shape = metric), size = 2) +
-      geom_line(aes(x = prev), color = "grey25", linetype = 3, size = .6) + # vertical line at prev
+      # geom_point(aes(color = metric, shape = metric), size = 2) +
+      ## Mark and label prev:
+      geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
+      geom_point(aes(x = prev, y = 0), color = col.prev, shape = 21, size = 5) + # mark (prev, 0)
+      geom_text(aes(x = prev, y = 0, label = prev.label), 
+                color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
       ## Mark and label current PPV/NPV:
       geom_point(aes(x = prev, y = cur.PPV), 
-                 color = col.ppv, shape = 21, size = 5) + # mark PPV
+                 color = col.ppv, shape = 21, size = 5) + # mark (prev, PPV)
       geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
-                color = col.ppv, hjust = -.15, vjust = +.50, size = 4) + # label PPV
+                color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
       geom_point(aes(x = prev, y = cur.NPV), 
-                 color = col.npv, shape = 21, size = 5) + # mark NPV
+                 color = col.npv, shape = 21, size = 5) + # mark (prev, NPV)
       geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
-                color = col.npv, hjust = -.15, vjust = +.50, size = 4) + # label NPV
+                color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
       ## Scales:
       ## (a) linear scale:
       # scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
