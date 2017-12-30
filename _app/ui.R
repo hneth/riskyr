@@ -1,5 +1,5 @@
 # Shiny ui.R
-# spds, uni.kn | 2017 12 30
+# spds, uni.kn | 2017 12 31
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -171,14 +171,65 @@ shinyUI(
                                                br()
                                                ),
 
-                                      tabPanel("PVs", br(),
+                                      tabPanel("PV curves", br(),
                                                paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"), 
                                                br(),
                                                checkboxInput("checkboxPVlog", label = "Plot prevalence on logarithmic scale", value = FALSE), 
                                                br() 
+                                               ),
+                                      
+                                      tabPanel("PV cubes", br(),
+                                               paste0("Predictive values (PPV/NPV) by sensitivity and specificity:"), br(), br(),
+                                               plotOutput("PVplanes"), 
+                                               br(),
+                                               "Rotate perspective:", 
+                                               br(),
+                                               sliderInput("theta", 
+                                                           "Horizontal angle:",
+                                                           value = 45,
+                                                           min = -90,
+                                                           max = +90), 
+                                               # br(), 
+                                               sliderInput("phi", 
+                                                           "Vertical angle:",
+                                                           value = 10,
+                                                           min =  0,
+                                                           max = 90), 
+                                               br(),
+                                               # "Perspective effects:",
+                                               # br(),
+                                               # sliderInput("d", 
+                                               #             "D (in-/decrease perspective effect):",
+                                               #             value = 1.2,
+                                               #             min = 0.1,
+                                               #             max = 2), 
+                                               # # br(),
+                                               # sliderInput("expand", 
+                                               #             "Expansion (in z-direction):",
+                                               #             value = 0.9,
+                                               #             min = 0.1,
+                                               #             max = 2), 
+                                               # br(),
+                                               # "Color effects:",
+                                               # br(),
+                                               # sliderInput("ltheta", 
+                                               #             "Ltheta (...):",
+                                               #             value = 200,
+                                               #             min = 0,
+                                               #             max = 1000), 
+                                               # # br(),
+                                               # sliderInput("shade", 
+                                               #             "Shade (...):",
+                                               #             value = 0.10,
+                                               #             min = 0,
+                                               #             max = 1), 
+                                               # br(),
+                                               # checkboxInput("checkboxX", label = "Checkbox label", value = FALSE), 
+                                               br()
                                                )
-                          )
+
+                              )
                         )
                       )
              ),

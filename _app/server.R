@@ -1,5 +1,5 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 30
+# spds, uni.kn | 2017 12 31
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -154,7 +154,11 @@ plot.nftree <- function(env, data) {
   
 }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Functions for PPV/NPV:
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## 2D graph:
+
 ## (1) Compute PPV and NPV as a function of prev, sens, and spec:
 ##     using Bayes' formula:
 get.PPV <- function(prev, sens, spec) {
@@ -175,7 +179,7 @@ get.NPV <- function(prev, sens, spec) {
   return(NPV)
 }
 
-## Specify a vector of prevalences:
+## (2) Specify range of prevalences:
 {
   step.0 <- .10
   prev.0 <- seq(0, 10 * step.0, by = step.0)
@@ -206,6 +210,7 @@ get.NPV <- function(prev, sens, spec) {
   # prev.scale
 }
 
+## (3) Plot PPV and NPV as a function of prev.range:
 plot.PVs <- function(env, log.scale = FALSE) {
   
   ## Current environment parameters:
@@ -316,6 +321,98 @@ plot.PVs <- function(env, log.scale = FALSE) {
   }
   
   return(p.PVs)
+  
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## 3D graph:
+
+## (1) Define parameters:
+{ # Basic graph parameters:
+  my.theta <- 40  # horizontal viewing angle (higher values: more rotation)
+  my.phi <- 10    # vertical viewing angle (higher values: higher viewpoint)
+  my.expand <- .9 # values < 1 shrink expansion in z-direction
+  my.d <- 1.2     # values > 1 lessen perspective effect 
+}
+
+## (2) Compute PPV and NPV for an entire matrix of values:
+pv.matrix <- function(prev, sens, spec, metric) {
+  
+  # initializing DF (as matrix to store and return results):
+  n.rows <- length(sens)
+  n.cols <- length(spec)
+  matrix <- as.data.frame(matrix(NA, 
+                                 nrow = n.rows, 
+                                 ncol = n.cols)) 
+  names(matrix) <- sens 
+  
+  # loop through all rows and columns of pc.matrix: 
+  for (row in 1:n.rows) {
+    for (col in 1:n.cols) {
+      
+      # Compute the needed model DV for the current cell value:
+      cell.val <- NA 
+      
+      if (metric == "PPV") {cell.val <- get.PPV(prev, sens[row], spec[col])} # compute PPV
+      if (metric == "NPV") {cell.val <- get.NPV(prev, sens[row], spec[col])} # compute NPV
+      
+      # Store results:
+      matrix[row, col] <- cell.val 
+      
+    }
+  }
+  
+  return(matrix)
+  
+}
+
+## (3) Plot both PPV and NPV in adjacent plots:
+plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade) {
+  
+  ## Current environment parameters:
+  name <- env$name
+  N <- env$N
+  prev <- env$prev
+  sens <- env$sens
+  spec <- env$spec
+  source <- env$source
+  
+  ## Ranges on x- and y-axes:
+  sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
+  spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values 
+  
+  ## Compute PPV and NPV matrices:
+  PPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "PPV")
+  NPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "NPV")
+  
+  ## Graph parameters:
+  x <- sens.range
+  y <- spec.range
+  z.ppv <- as.matrix(PPV.mat)
+  z.npv <- as.matrix(NPV.mat)
+  z.lim <- c(0, 1) # range of z-axis
+  
+  # Plot 2 plots (adjacent to each other):
+  {
+    par(mfrow = c(1, 2)) # Combine 2 plots in 1 row x 2 columns.
+    par(bg = "white")
+    
+    p.ppv <- persp(x, y, z.ppv, 
+                   theta = cur.theta, phi = cur.phi,  d = cur.d, expand = cur.expand, 
+                   col = col.ppv, ltheta = cur.ltheta, shade = cur.shade, 
+                   ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
+                   main = paste0("PPV (prev = ", pc(prev), "%)")
+                   )
+    
+    p.npv <- persp(x, y, z.npv, 
+                   theta = cur.theta, phi = cur.phi,  d = cur.d, expand = cur.expand, 
+                   col = col.npv, ltheta = cur.ltheta, shade = cur.shade, 
+                   ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
+                   main = paste0("NPV (prev = ", pc(prev), "%)")
+                   )
+    
+    par(mfrow = c(1, 1)) # Remove special settings.
+  }
   
 }
 
@@ -459,8 +556,20 @@ shinyServer(function(input, output, session){
   
   # (e) Icon array:
 
-  # (f) PPV and NPV as a function of prev.range:
-  output$PVs <- renderPlot(plot.PVs(env, log.scale = input$checkboxPVlog))
+  # (f) 2D plot of PPV and NPV as a function of prev.range:
+  output$PVs <- renderPlot(plot.PVs(env, 
+                                    log.scale = input$checkboxPVlog)
+                           )
+
+  # (g) 3D plots of PPV and NPV planes:
+  output$PVplanes <- renderPlot(plot.PVplanes(env, 
+                                              cur.theta = input$theta, # horizontal rotation
+                                              cur.phi = input$phi, # vertical rotation
+                                              cur.d = 1.2,      # input$d,
+                                              cur.expand = 1.0, # input$expand,
+                                              cur.ltheta = 200, # input$ltheta,
+                                              cur.shade = .10   # input$shade
+                                              ))
   
 }
 )
