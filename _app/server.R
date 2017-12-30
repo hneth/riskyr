@@ -255,16 +255,16 @@ plot.PVs <- function(env, log.scale = FALSE) {
       # geom_point(aes(color = metric, shape = metric), size = 2) +
       ## Mark and label prev:
       geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
-      geom_point(aes(x = prev, y = 0), color = col.prev, shape = 21, size = 5) + # mark (prev, 0)
+      geom_point(aes(x = prev, y = 0), color = col.grey.3, fill = col.prev, shape = 21, size = 3) + # mark (prev, 0)
       geom_text(aes(x = prev, y = 0, label = prev.label), 
                 color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
       ## Mark and label current PPV/NPV:
       geom_point(aes(x = prev, y = cur.PPV), 
-                 color = col.ppv, shape = 21, size = 5) + # mark (prev, PPV)
+                 color = col.grey.3, fill = col.ppv, shape = 21, size = 3) + # mark (prev, PPV)
       geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
                 color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
       geom_point(aes(x = prev, y = cur.NPV), 
-                 color = col.npv, shape = 21, size = 5) + # mark (prev, NPV)
+                 color = col.grey.3, fill = col.npv, shape = 21, size = 3) + # mark (prev, NPV)
       geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
                 color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
       ## Scales:
@@ -288,16 +288,16 @@ plot.PVs <- function(env, log.scale = FALSE) {
       # geom_point(aes(color = metric, shape = metric), size = 2) +
       ## Mark and label prev:
       geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
-      geom_point(aes(x = prev, y = 0), color = col.prev, shape = 21, size = 5) + # mark (prev, 0)
+      geom_point(aes(x = prev, y = 0), color = col.grey.3, fill = col.prev, shape = 21, size = 3) + # mark (prev, 0)
       geom_text(aes(x = prev, y = 0, label = prev.label), 
                 color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
       ## Mark and label current PPV/NPV:
       geom_point(aes(x = prev, y = cur.PPV), 
-                 color = col.ppv, shape = 21, size = 5) + # mark (prev, PPV)
+                 color = col.grey.3, fill = col.ppv, shape = 21, size = 3) + # mark (prev, PPV)
       geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
                 color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
       geom_point(aes(x = prev, y = cur.NPV), 
-                 color = col.npv, shape = 21, size = 5) + # mark (prev, NPV)
+                 color = col.grey.3, fill = col.npv, shape = 21, size = 3) + # mark (prev, NPV)
       geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
                 color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
       ## Scales:
