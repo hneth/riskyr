@@ -367,7 +367,8 @@ pv.matrix <- function(prev, sens, spec, metric) {
 }
 
 ## (3) Plot both PPV and NPV in adjacent plots:
-plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade) {
+plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade, 
+                          show.PVpoints = TRUE) {
   
   ## Current environment parameters:
   name <- env$name
@@ -377,9 +378,13 @@ plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta
   spec <- env$spec
   source <- env$source
   
+  ## Compute PPV and NPV:
+  cur.PPV <- get.PPV(prev, sens, spec)
+  cur.NPV <- get.NPV(prev, sens, spec) 
+  
   ## Ranges on x- and y-axes:
-  sens.range <- seq(0.0, 1.0, by = .10) # range of sensitivity values 
-  spec.range <- seq(0.0, 1.0, by = .10) # range of specificity values 
+  sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
+  spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values 
   
   ## Compute PPV and NPV matrices:
   PPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "PPV")
@@ -397,19 +402,37 @@ plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta
     par(mfrow = c(1, 2)) # Combine 2 plots in 1 row x 2 columns.
     par(bg = "white")
     
+    ## 3D plot for PPV:
     p.ppv <- persp(x, y, z.ppv, 
                    theta = cur.theta, phi = cur.phi,  d = cur.d, expand = cur.expand, 
-                   col = col.ppv, ltheta = cur.ltheta, shade = cur.shade, 
-                   ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
+                   col = col.ppv, border = NA, # col.grey.4, # col.orange.1, 
+                   ltheta = cur.ltheta, shade = cur.shade, 
+                   ticktype = "detailed", nticks = 6, 
+                   xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
                    main = paste0("PPV (prev = ", pc(prev), "%)")
-                   )
+    )
     
+    if (show.PVpoints) { # Add cur.PPV to plot:
+      pmat <- p.ppv
+      add.PPV <- trans3d(sens, spec, cur.PPV, pmat)
+      points(add.PPV, pch = 21, col = "grey95", bg = col.ppv, lwd = 1.2, cex = 1.5)
+    }
+    
+    ## 3D plot for NPV:    
     p.npv <- persp(x, y, z.npv, 
                    theta = cur.theta, phi = cur.phi,  d = cur.d, expand = cur.expand, 
-                   col = col.npv, ltheta = cur.ltheta, shade = cur.shade, 
-                   ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
+                   col = col.npv, border = NA, # col.grey.4, # col.blue.1, 
+                   ltheta = cur.ltheta, shade = cur.shade, 
+                   ticktype = "detailed", nticks = 6, 
+                   xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
                    main = paste0("NPV (prev = ", pc(prev), "%)")
-                   )
+    )
+    
+    if (show.PVpoints) { # Add cur.NPV to plot:
+      pmat <- p.npv
+      add.NPV <- trans3d(sens, spec, cur.NPV, pmat)
+      points(add.NPV, pch = 21, col = "grey95", bg = col.npv, lwd = 1.2, cex = 1.5)
+    }
     
     par(mfrow = c(1, 1)) # Remove special settings.
   }
@@ -568,7 +591,8 @@ shinyServer(function(input, output, session){
                                               cur.d = 1.5,      # input$d,
                                               cur.expand = 1.0, # input$expand,
                                               cur.ltheta = 200, # input$ltheta,
-                                              cur.shade = .10   # input$shade
+                                              cur.shade = .10,  # input$shade
+                                              show.PVpoints = input$checkboxPVpoints
                                               ))
   
 }

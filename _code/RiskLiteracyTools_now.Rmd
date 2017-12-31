@@ -734,6 +734,11 @@ The following graphs illustrate how -- for a given _prevalence_ (`prev`) in some
 ## (1) Define parameters:
 {
   ## Inputs:
+  
+  ## Compute PPV and NPV:
+  cur.PPV <- get.PPV(prev, sens, spec)
+  cur.NPV <- get.NPV(prev, sens, spec) 
+  
   # prev <- .15 # prevalence (to be set in parameter)
   sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
   spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values 
@@ -795,24 +800,40 @@ z.npv <- as.matrix(NPV.mat)
 par(mfrow = c(1, 2)) # Combine 2 plots in 1 row x 2 columns.
 par(bg = "white")
 
+## 3D plot for PPV:
 p.ppv <- persp(x, y, z.ppv, 
                theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, 
-               col = col.ppv, ltheta = 200, shade = 0.10, 
-               ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
+               col = col.ppv, border = NA, 
+               ltheta = 200, shade = 0.10, 
+               ticktype = "detailed", 
+               xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
                main = paste0("PPV (prev = ", pc(prev), "%)"))
 
+# Add cur.PPV to plot:
+pmat <- p.ppv
+mypoints <- trans3d(sens, spec, cur.PPV, pmat)
+points(mypoints, pch = 21, col = "grey95", bg = col.ppv, cex = 1.5)
+
+## 3D plot for NPV:
 p.npv <- persp(x, y, z.npv, 
                theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, 
-               col = col.npv, ltheta = 200, shade = 0.10, 
-               ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
+               col = col.npv, border = NA, 
+               ltheta = 200, shade = 0.10, 
+               ticktype = "detailed", 
+               xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
                main = paste0("NPV (prev = ", pc(prev), "%)"))
+
+# Add cur.NPV to plot:
+pmat <- p.npv
+add.NPV <- trans3d(sens, spec, cur.NPV, pmat)
+points(add.NPV, pch = 21, col = "grey95", bg = col.npv, lwd = 1.2, cex = 1.5)
 
 par(mfrow = c(1, 1)) # Remove special settings.
 }
 
 ## (3) As a function:
 ## (a) PPV only:
-plot.PV.plane <- function(prev, sens.range, spec.range, metric = "PPV") {
+plot.PV.plane <- function(prev, metric = "PPV") {
   
   PV.mat <- pv.matrix(prev, sens.range, spec.range, metric)
  
@@ -822,8 +843,8 @@ plot.PV.plane <- function(prev, sens.range, spec.range, metric = "PPV") {
   
   p.pv <- persp(x, y, z.pv, 
                theta = my.theta, phi = my.phi, d = my.d, expand = my.expand, 
-               col = col.ppv, 
-               ltheta = 200, shade = 0.10, 
+               col = col.ppv, border = col.grey.3,  
+               ltheta = 200, shade = 0.10,
                ticktype = "detailed", xlab = "sens", ylab = "spec", 
                zlab = "PPV", 
                zlim = z.lim, 
@@ -832,10 +853,10 @@ plot.PV.plane <- function(prev, sens.range, spec.range, metric = "PPV") {
 }
 
 ## Check: 
-plot.PV.plane(prev, sens.range, spec.range, metric = "PPV")
+plot.PV.plane(prev, metric = "PPV")
 
 ## (b) Both in 1 plot:
-plot.PV.planes <- function(prev, sens.range, spec.range) {
+plot.PV.planes <- function(prev) {
   
   PPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "PPV")
   NPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "NPV")
@@ -852,13 +873,15 @@ plot.PV.planes <- function(prev, sens.range, spec.range) {
     
     p.ppv <- persp(x, y, z.ppv, 
                    theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, 
-                   col = col.ppv, ltheta = 200, shade = 0.10, 
+                   col = col.ppv, border = col.grey.3, 
+                   ltheta = 200, shade = 0.10, 
                    ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
                    main = paste0("PPV (prev = ", pc(prev), "%)"))
     
     p.npv <- persp(x, y, z.npv, 
                    theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, 
-                   col = col.npv, ltheta = 200, shade = 0.10, 
+                   col = col.npv, border = col.grey.3, 
+                   ltheta = 200, shade = 0.10, 
                    ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
                    main = paste0("NPV (prev = ", pc(prev), "%)"))
     
@@ -868,7 +891,7 @@ plot.PV.planes <- function(prev, sens.range, spec.range) {
 }
 
 # Check: 
-plot.PV.planes(prev, sens.range, spec.range)
+plot.PV.planes(prev)
 ```
 
 
