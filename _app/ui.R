@@ -5,6 +5,19 @@
 # rm(list=ls()) # clean all.
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Dependencies:
+
+library(shiny)
+library(shinyBS)
+library(markdown)
+library(DT)
+library(diagram)
+library(shape)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Initial environment:
 
 e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)

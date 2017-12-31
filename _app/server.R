@@ -378,8 +378,8 @@ plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta
   source <- env$source
   
   ## Ranges on x- and y-axes:
-  sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
-  spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values 
+  sens.range <- seq(0.0, 1.0, by = .10) # range of sensitivity values 
+  spec.range <- seq(0.0, 1.0, by = .10) # range of specificity values 
   
   ## Compute PPV and NPV matrices:
   PPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "PPV")
@@ -565,7 +565,7 @@ shinyServer(function(input, output, session){
   output$PVplanes <- renderPlot(plot.PVplanes(env, 
                                               cur.theta = input$theta, # horizontal rotation
                                               cur.phi = input$phi, # vertical rotation
-                                              cur.d = 1.2,      # input$d,
+                                              cur.d = 1.5,      # input$d,
                                               cur.expand = 1.0, # input$expand,
                                               cur.ltheta = 200, # input$ltheta,
                                               cur.shade = .10   # input$shade
