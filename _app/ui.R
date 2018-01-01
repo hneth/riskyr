@@ -275,7 +275,7 @@ shinyUI(
              #####
              tabPanel("3: About", 
                       icon = icon("home", lib = "glyphicon"),
-                      includeMarkdown("justamarkdownfile.md")
+                      includeMarkdown("about_riskyr.md")
              ),
              
              #####

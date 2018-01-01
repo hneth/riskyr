@@ -9,7 +9,7 @@ A toolbox for transparent communication and teaching of risk literacy.
 
 ## Goal 
 
-We aim to develop and assemble a set of basic risk literacy tools in R. 
+We aim to render risk literacy more transparent by developing and providing a set of risk literacy tools (and corresponding representations). 
 
 We start with some global variables:
 
