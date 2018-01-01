@@ -1,4 +1,4 @@
-# Shiny ui.R
+# riskyr | R Shiny ui.R
 # spds, uni.kn | 2018 01 01
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
@@ -98,7 +98,9 @@ shinyUI(
                                       label = "Population size:",
                                       value = env$N,
                                       min = 0,
-                                      max = 1000000), # use log-scale from 1 to 10^9
+                                      max = 10^6,
+                                      step = 10^2
+                                      ), # use log-scale from 1 to 10^9
                           
                           br(), # horizontal space
                           
@@ -106,19 +108,25 @@ shinyUI(
                                       "Prevalence:",
                                       value = env$prev,
                                       min = 0,
-                                      max = 1),
+                                      max = 1,
+                                      step = .01
+                                      ),
                           
                           sliderInput("sens", 
                                       "Sensitivity:",
                                       value = env$sens,
                                       min = 0,
-                                      max = 1),
+                                      max = 1,
+                                      step = .01
+                                      ),
                           
                           sliderInput("spec", 
                                       "Specificity:",
                                       value = env$spec,
                                       min = 0,
-                                      max = 1),
+                                      max = 1, 
+                                      step = .01
+                                      ),
                           
                           br(), # horizontal space
                           

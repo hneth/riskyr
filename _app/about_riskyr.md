@@ -9,7 +9,6 @@ output: github_document
 
 The `riskyr` package provides a toolbox for transparent communication and teaching of risk literacy.
 
-
 ## Goal 
 
 The `riskyr` package aims to render risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
@@ -43,7 +42,7 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
 
 ## To Do
 
-For UI:
+### Done
 
 - read 4 basic variables from input
 - use inputs to construct representation as data frame
@@ -51,12 +50,47 @@ For UI:
 - display 2x2 contingency table
 - display contingency table as mosaic plot
 - use `diagram` to represent tree of natural frequencies
-- define colors (for hi, fa, mi, cr)    
-- define icon array
-- provide options for shuffling and sampling population
+- define some basic colors (e.g, for hi, fa, mi, cr, but also PPV and NPV)   
+- provide 2D plot for curves of PPV/NPV by `prev` range
+- provide 3D plot for planes of PPV/NPV by `sens` and `spec` (for given `prev`)
+- provide options to show current PPV/NPV in plots
+- add option to load environments (parameter sets of examples and real studies (from `.csv` file)
+
+### Yet To Do
+
+#### Basic functionality:
+
+- enable slider inputs of population size _N_ on log scale (to allow precise small and large numbers)
+- enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g. as ratios) 
+- define plot of icon array
+- provide options for 
+     - shuffling current population and 
+     - sampling from population 
+  in data table and icon array)
+  
+#### For UI:
+
+- add current colors and metrics to tabs of nf `tree`, contingency `table`, and mosaic plot.
+- make current set of colors user customizable 
+- allow saving and exporting current parameters set (environments)
+- allow saving and exports of graphs 
+
+#### For background info:
+
+- add definitions, verbal explanations, and examples (and corresponding help and tooltips)
+- add more environments from existing examples (into `.csv` file)
 - use logo of uni.kn
-- add some dropdown menu tied to `switch` to have parameters from real studies (placed in `.csv` file in the static folder)
+- add quizz to test knowledge
+
+#### For package and app development:
+
+- restructure code according to recommendations on 
+    - http://r-pkgs.had.co.nz/ and 
+    - https://deanattali.com/2015/04/21/r-package-shiny-app/ 
+- provide explanatory help vignettes
 
 ## Contact
 
-Contact us at http://spds.uni-konstanz.de.
+Feel free to contact us at http://spds.uni-konstanz.de.
+
+<!-- eof -->

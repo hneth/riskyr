@@ -1,4 +1,4 @@
-# Shiny server.R
+# riskyr | R Shiny server.R
 # spds, uni.kn | 2018 01 01
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
@@ -262,6 +262,8 @@ plot.PV.curves <- function(env,
   prev.label <- paste0("prev = ", pc(prev), "%")
   col.prev <- col.grey.2
   sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  y.min <- 0
+  y.max <- 1
   x.just <- -.20
   y.just <- +.50
   
@@ -270,11 +272,12 @@ plot.PV.curves <- function(env,
       geom_line(aes(color = metric), size = 1.2) +
       # geom_point(aes(color = metric, shape = metric), size = 2) + 
       ## Scales:
-      ## (a) linear scale:
+      scale_y_continuous(breaks = seq(y.min, y.max, by = .10), limits = c(y.min, y.max)) + 
+      ## (a) linear x scale:
       scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
       labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
            x = "Prevalence (linear scale)", y = "Probability") + 
-      ## (b) log scale:
+      ## (b) log x scale:
       # scale_x_log10(breaks = prev.scale) + 
       # labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
       #                    x = "Prevalence (logarithmic scale)", y = "Probability") + 
@@ -289,11 +292,11 @@ plot.PV.curves <- function(env,
       geom_line(aes(color = metric), size = 1.2) +
       # geom_point(aes(color = metric, shape = metric), size = 2) +
       ## Scales:
-      ## (a) linear scale:
+      ## (a) linear x scale:
       # scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
       # labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec, "\n(", source, ")"),
       #      x = "Prevalence (linear scale)", y = "Probability") + 
-      ## (b) log scale:
+      ## (b) log x scale:
       scale_x_log10(breaks = prev.scale) + 
       labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
            x = "Prevalence (logarithmic scale)", y = "Probability") + 
@@ -375,7 +378,7 @@ pv.matrix <- function(prev, sens, spec, metric) {
 }
 
 ## (3) Plot both PPV and NPV in adjacent plots:
-plot.PV.planes <- function(env, 
+plot.PV.planes <- function(env,
                            cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade, 
                            show.PVpoints = TRUE) {
   
