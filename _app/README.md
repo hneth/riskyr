@@ -1,3 +1,6 @@
+---
+title: "Readme"
+---
 
 ### The `riskyr` Shiny app
 

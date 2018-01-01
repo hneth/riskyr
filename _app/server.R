@@ -1,5 +1,5 @@
-# riskyr | R Shiny server.R
-# spds, uni.kn | 2018 01 01
+# server.R
+# riskyr | R Shiny | spds, uni.kn | 2018 01 01
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
