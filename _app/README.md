@@ -1,5 +1,5 @@
 ---
-title: "riskyr"
+title: "Readme"
 ---
 
 ### The `riskyr` Shiny App
