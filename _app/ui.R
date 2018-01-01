@@ -25,7 +25,7 @@ e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
            "prev" = .15,     # prevalence in population = p(true positive)
            "sens" = .85,     # sensitivity = p(positive decision | true positive)
            "spec" = .75,     # specificity = p(negative decision | true negative)
-           "source" = "Source information" # information source (e.g., citation)
+           "source" = "source information" # information source (e.g., citation)
 )
 
 env <- e1 # from current environment

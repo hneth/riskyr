@@ -261,7 +261,7 @@ plot.PV.curves <- function(env,
   ## Additional plot options:
   prev.label <- paste0("prev = ", pc(prev), "%")
   col.prev <- col.grey.2
-  sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  cur.par.label <- paste0("(", prev.label, ", sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
   y.min <- 0
   y.max <- 1
   x.just <- -.20
@@ -275,7 +275,9 @@ plot.PV.curves <- function(env,
       scale_y_continuous(breaks = seq(y.min, y.max, by = .10), limits = c(y.min, y.max)) + 
       ## (a) linear x scale:
       scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
-      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
+      labs(title = paste0("PPV and NPV by prevalence:\n", 
+                          cur.PPV.label, ", ", cur.NPV.label, " ", cur.par.label, 
+                          "\n[", name, ", ", source, "]"), 
            x = "Prevalence (linear scale)", y = "Probability") + 
       ## (b) log x scale:
       # scale_x_log10(breaks = prev.scale) + 
@@ -298,7 +300,9 @@ plot.PV.curves <- function(env,
       #      x = "Prevalence (linear scale)", y = "Probability") + 
       ## (b) log x scale:
       scale_x_log10(breaks = prev.scale) + 
-      labs(title = paste0(name, ":\nPPV and NPV by prevalence ", sens.spec.label, "\n(", source, ")"),
+      labs(title = paste0("PPV and NPV by prevalence:\n", 
+                          cur.PPV.label, ", ", cur.NPV.label, " ", cur.par.label, 
+                          "\n[", name, ", ", source, "]"), 
            x = "Prevalence (logarithmic scale)", y = "Probability") + 
       ## Colors: 
       scale_color_manual(values = c(col.ppv, col.npv)) +
@@ -491,7 +495,7 @@ shinyServer(function(input, output, session){
     env$prev <- input$prev
     env$sens <- input$sens
     env$spec <- input$spec
-    env$source <- "Environment source"
+    env$source <- "source information"
     
     ## (B) Derive data:
     ## (1) Determine the truth:
