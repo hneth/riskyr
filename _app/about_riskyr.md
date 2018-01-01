@@ -58,7 +58,7 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
 
 ### Yet To Do
 
-#### Basic functionality:
+#### A. Basic functionality:
 
 - enable slider inputs of population size _N_ on log scale (to allow precise small and large numbers)
 - enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g. as ratios) 
@@ -68,21 +68,21 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
      - sampling from population 
   in data table and icon array)
   
-#### For UI:
+#### B. User interface:
 
 - add current colors and metrics to tabs of nf `tree`, contingency `table`, and mosaic plot.
 - make current set of colors user customizable 
 - allow saving and exporting current parameters set (environments)
 - allow saving and exports of graphs 
 
-#### For background info:
+#### C. Background info:
 
 - add definitions, verbal explanations, and examples (and corresponding help and tooltips)
 - add more environments from existing examples (into `.csv` file)
 - use logo of uni.kn
 - add quizz to test knowledge
 
-#### For package and app development:
+#### D. Package and app development:
 
 - restructure code according to recommendations on 
     - http://r-pkgs.had.co.nz/ and 

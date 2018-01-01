@@ -97,7 +97,7 @@ library(ggplot2)
 {
   # Round percentage to 1 decimal:
   pc <- function(num) {
-    return(round(num * 100, 1)) 
+    return(round(num * 100, 2)) 
   }
 }
 

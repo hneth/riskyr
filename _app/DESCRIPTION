@@ -1,7 +1,7 @@
 Title: riskyr
-Author: SPDS@uni.kn
+Author: spds@uni.kn
 AuthorUrl: http://spds.uni-konstanz.de/
 License: ---
 DisplayMode: Showcase
-Tags: risk, prevalence, sensitivity, specifity, predictive values, PPV, NPV 
+Tags: risk, risk literacy, prevalence, sensitivity, specificity, predictive value, PPV, NPV 
 Type: Shiny
