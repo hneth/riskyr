@@ -3,5 +3,5 @@ Author: SPDS@uni.kn
 AuthorUrl: http://spds.uni-konstanz.de/
 License: ---
 DisplayMode: Showcase
-Tags: risk, prevalence, sensitivity, specifity, predictive values (PPV, NPV) 
+Tags: risk, prevalence, sensitivity, specifity, predictive values, PPV, NPV 
 Type: Shiny

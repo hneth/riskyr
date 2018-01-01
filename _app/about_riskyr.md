@@ -5,13 +5,13 @@ date: "2018 01 01"
 output: github_document
 ---
 
-# riskyr
+# About `riskyr`
 
-The _riskyr_ package provides a toolbox for transparent communication and teaching of risk literacy.
+The `riskyr` package provides a toolbox for transparent communication and teaching of risk literacy.
 
 ## Goal 
 
-We aim to render risk literacy more transparent by developing and providing a set of risk literacy tools (and corresponding representations). 
+The `riskyr` package aims to render risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
 
 We start with some global variables:
 
