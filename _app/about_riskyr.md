@@ -7,7 +7,7 @@ output: github_document
 
 # riskyr
 
-A toolbox for transparent communication and teaching of risk literacy.
+The _riskyr_ package provides a toolbox for transparent communication and teaching of risk literacy.
 
 ## Goal 
 
@@ -55,3 +55,7 @@ For UI:
 - provide options for shuffling and sampling population
 - use logo of uni.kn
 - add some dropdown menu tied to `switch` to have parameters from real studies (placed in `.csv` file in the static folder)
+
+## Contact
+
+Contact us at http://spds.uni-konstanz.de.
