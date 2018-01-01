@@ -15,36 +15,40 @@ The `riskyr` package aims to render risk literacy more transparent by providing 
 
 We start with some global variables:
 
-- population size _N_
-- prevalence _prev_ of some condition
-- sensitivity _sens_ of some test (or probability of treatment success)
-- specificity _spec_ of some test (or probability of side effects)
+- population size `N`
+- prevalence `prev` of some condition
+- sensitivity `sens` of some test (or probability of treatment success)
+- specificity `spec` of some test (or probability of side effects)
 
-and provide a variety of perspectives on the consequences of and interplay between these variables:
+and provide a variety of perspectives on (and representations of) the consequences of and interplay between these variables:
 
-1. tree of natural frequencies  
-2. contingency table (leaves of the frequency tree)  
-3. icon array (with a population vs. sample view, sorted or randomized)  
-4. curves of PPV and NPV (as a function of prevalence or sensitivity/specificity)
-5. fact boxes (with additional details on benefits and harms of tests or treatments)
+1. a table of individual cases
+2. an icon array (with a population vs. sample view, sorted or randomized) 
+3. a tree of natural frequencies  
+4. a 2x2 confusion/contingency table (corresponding to the leaves of the frequency tree)  
+5. a mosaic plot (illustrating the confusion table) 
+6. curves of PPV and NPV (as a function of `prev`) 
+7. planes of PPV and NPV (as a function of `sens` and `spec` for given `prev`)
+8. fact boxes (with additional details on benefits and harms of tests or treatments)
 
-All visualizations will be interactive and use a common color scheme.
+All visualizations shall be interactive and use a common color scheme.
 
 A set of examples illustrates cases with known data from the literature.
 
 ## Notes
 
-The easiest way to quickly incorporate text into this shiny app would be to change the contents of `justamarkdownfile.md` (actually, this file contains what's displayed here).   
+The easiest way to quickly incorporate text into this shiny app would be to change the contents of `about_riskyr.md` (actually, this file contains what's displayed here).   
+
++ All static content goes in the www directory.
 + Nice CSS designs are available at [Bootswatch](https://bootswatch.com/3/).    
 + Bootstrap also provides [these icons](https://www.w3schools.com/icons/bootstrap_icons_glyphicons.asp), so let's use them.   
 + For even more visualisation or branding, we can use or create icons from [here](https://www.flaticon.com/authors/vectors-market).    
-+ Static content goes in the www directory.    
 
-## To Do
+## Agenda
 
 ### Done
 
-- read 4 basic variables from input
+- read environment (4 basic variables) from input
 - use inputs to construct representation as data frame
 - display data frame as table
 - display 2x2 contingency table
@@ -56,7 +60,7 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
 - provide options to show current PPV/NPV in plots
 - add option to load environments (parameter sets of examples and real studies (from `.csv` file)
 
-### Yet To Do
+### Yet to do
 
 #### A. Basic functionality:
 

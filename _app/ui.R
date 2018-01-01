@@ -21,7 +21,7 @@ library(ggplot2)
 ## Initial environment:
 
 e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
-           "N" = 100,        # N in population
+           "N" = 1000,       # N in population
            "prev" = .15,     # prevalence in population = p(true positive)
            "sens" = .85,     # sensitivity = p(positive decision | true positive)
            "spec" = .75,     # specificity = p(negative decision | true negative)
