@@ -1,5 +1,7 @@
 ---
 title: "About riskyr"
+author: "SPDS, uni.kn"
+date: "2018 01 01"
 output: github_document
 ---
 

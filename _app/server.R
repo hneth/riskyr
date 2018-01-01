@@ -417,7 +417,7 @@ plot.PV.planes <- function(env,
   #                         "prev = ", pc(prev), "%, ", 
   #                         "sens = ", pc(sens), "%, ", 
   #                         "spec = ", pc(spec), "%)")
-  cur.par.label <- paste0("(prevalence = ", pc(prev), "%)")
+  cur.par.label <- paste0("(prev = ", pc(prev), "%)")
   
   # Plot 2 plots (adjacent to each other):
   {
@@ -437,7 +437,7 @@ plot.PV.planes <- function(env,
     if (show.PVpoints) { # add cur.PPV to plot:
       pmat <- p.ppv
       add.PPV <- trans3d(sens, spec, cur.PPV, pmat)
-      points(add.PPV, pch = 21, col = "grey85", bg = col.ppv, lwd = 1.0, cex = 1.5)
+      points(add.PPV, pch = 21, col = "grey88", bg = col.ppv, lwd = 1.0, cex = 1.3)
     }
     
     ## 3D plot for NPV:    
@@ -453,7 +453,7 @@ plot.PV.planes <- function(env,
     if (show.PVpoints) { # add cur.NPV to plot:
       pmat <- p.npv
       add.NPV <- trans3d(sens, spec, cur.NPV, pmat)
-      points(add.NPV, pch = 21, col = "grey85", bg = col.npv, lwd = 1.0, cex = 1.5)
+      points(add.NPV, pch = 21, col = "grey88", bg = col.npv, lwd = 1.0, cex = 1.3)
     }
     
     par(mfrow = c(1, 1)) # Remove special settings.
