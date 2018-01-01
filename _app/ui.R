@@ -1,5 +1,5 @@
 # Shiny ui.R
-# spds, uni.kn | 2017 12 31
+# spds, uni.kn | 2018 01 01
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -157,8 +157,10 @@ shinyUI(
                           
                           # Tabset w/ raw data, trees, and table,...
                           tabsetPanel(type = "tabs",
-                                      tabPanel("Cases", br(),
-                                               "Individual cases:", br(), br(),
+                                      tabPanel("Cases", 
+                                               br(),
+                                               "Individual cases:", 
+                                               br(), br(),
                                                conditionalPanel(condition = "input.dataselection != 1",
                                                                 "Source:",
                                                                 verbatimTextOutput("sourceOutput")
@@ -167,51 +169,67 @@ shinyUI(
                                                br()
                                                ),
                                       
-                                      tabPanel("Icons", br(), 
-                                               paste0("Icon array:"), br(), br()
+                                      tabPanel("Icons", 
+                                               br(), 
+                                               paste0("Icon array:"), 
+                                               br(), br()
                                                ),
 
-                                      tabPanel("Tree", br(), 
-                                               paste0("Tree of natural frequencies:"), br(), br(),  
+                                      tabPanel("Tree", 
+                                               br(), 
+                                               paste0("Tree of natural frequencies:"), 
+                                               br(), br(),  
                                                plotOutput("nftree"), 
                                                br()
                                                ),
                                       
-                                      tabPanel("Table", br(), 
-                                               paste0("Aggregated cases:"), br(), br(),  
+                                      tabPanel("Table", 
+                                               br(), 
+                                               paste0("Aggregated cases:"), 
+                                               br(), br(),  
                                                tableOutput("confusiontable"),
                                                plotOutput("mosaicplot"),
                                                br()
                                                ),
 
-                                      tabPanel("PV curves", br(),
-                                               paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
-                                               plotOutput("PVs"), 
+                                      tabPanel("PV curves", 
                                                br(),
-                                               checkboxInput("checkboxPVlog", label = "Plot prevalence on logarithmic scale", value = FALSE), 
+                                               paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
+                                               plotOutput("PVs"),
+                                               br(),
+                                               # paste0("PPV = ", data$PPV, ", NPV = ", data$NPV), 
+                                               # ERROR: object of type 'closure' is not subsettable ???
+                                               checkboxInput("boxPVprev", label = "Show current prevalence in plot", value = TRUE), 
+                                               checkboxInput("boxPVpoints1", label = "Show current PPV/NPV in plot", value = TRUE),
+                                               # br(),
+                                               checkboxInput("boxPVlog", label = "Show prevalence on logarithmic scale", value = FALSE), 
                                                br() 
                                                ),
                                       
-                                      tabPanel("PV cubes", br(),
+                                      tabPanel("PV cubes", 
+                                               br(),
                                                paste0("Predictive values (PPV/NPV) by sensitivity and specificity:"), br(), br(),
                                                plotOutput("PVplanes"), 
                                                br(),
-                                               "Rotate plots:", br(),
+                                               # paste0("PPV = ", data$PPV, ", NPV = ", data$NPV), 
+                                               # ERROR: object of type 'closure' is not subsettable ???  
+                                               # br(),
+                                               checkboxInput("boxPVpoints2", label = "Show current PPV/NPV in plots", value = TRUE), 
+                                               # br(), 
+                                               "Change perspective by rotating plots:", 
                                                br(),
                                                sliderInput("theta", 
-                                                           "Horizontal perspective:",
-                                                           value = 40,
-                                                           min = -90,
-                                                           max = +90), 
+                                                           "Horizontal viewing angle:",
+                                                           value = -45,
+                                                           min   = -90,
+                                                           max   = +90), 
                                                # br(), 
                                                sliderInput("phi", 
-                                                           "Vertical perspective:",
-                                                           value = 5,
-                                                           min =  0,
-                                                           max = 90), 
-                                               br(),
-                                               checkboxInput("checkboxPVpoints", label = "Show current PPV/NPV", value = TRUE), 
-                                               br(), 
+                                                           "Vertical viewing angle:",
+                                                           value = 0,
+                                                           min =   0,
+                                                           max =  90), 
+                                               # br(), 
                                                # "Perspective effects:",
                                                # br(),
                                                # sliderInput("d", 

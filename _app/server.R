@@ -1,5 +1,5 @@
 # Shiny server.R
-# spds, uni.kn | 2017 12 31
+# spds, uni.kn | 2018 01 01
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -211,7 +211,10 @@ get.NPV <- function(prev, sens, spec) {
 }
 
 ## (3) Plot PPV and NPV as a function of prev.range:
-plot.PVs <- function(env, log.scale = FALSE) {
+plot.PV.curves <- function(env,
+                           show.PVprev = TRUE, 
+                           show.PVpoints = TRUE, 
+                           log.scale = FALSE) {
   
   ## Current environment parameters:
   name <- env$name
@@ -220,6 +223,18 @@ plot.PVs <- function(env, log.scale = FALSE) {
   sens <- env$sens
   spec <- env$spec
   source <- env$source
+  
+  ## Current PPV and NPV values and labels:
+  ## (a) from current data:
+  # cur.PPV <- data$PPV # get.PPV(prev, sens, spec)
+  # cur.NPV <- data$NPV # get.NPV(prev, sens, spec) 
+  # cur.PPV.label <- data$PPV.label # paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+  # cur.NPV.label <- data$NPV.label # paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  ## (b) Compute from scratch:
+  cur.PPV <- get.PPV(prev, sens, spec)
+  cur.NPV <- get.NPV(prev, sens, spec) 
+  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
   
   ## Hack to prevent -Inf on log scale: 
   if (log.scale) {
@@ -244,10 +259,6 @@ plot.PVs <- function(env, log.scale = FALSE) {
   )
   
   ## Additional plot options:
-  cur.PPV <- get.PPV(prev, sens, spec)
-  cur.NPV <- get.NPV(prev, sens, spec) 
-  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
-  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
   prev.label <- paste0("prev = ", pc(prev), "%")
   col.prev <- col.grey.2
   sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
@@ -257,21 +268,7 @@ plot.PVs <- function(env, log.scale = FALSE) {
   if (!log.scale) { ## plot on linear scale: 
     p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
       geom_line(aes(color = metric), size = 1.2) +
-      # geom_point(aes(color = metric, shape = metric), size = 2) +
-      ## Mark and label prev:
-      geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
-      geom_point(aes(x = prev, y = 0), color = col.grey.3, fill = col.prev, shape = 21, size = 3) + # mark (prev, 0)
-      geom_text(aes(x = prev, y = 0, label = prev.label), 
-                color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
-      ## Mark and label current PPV/NPV:
-      geom_point(aes(x = prev, y = cur.PPV), 
-                 color = col.grey.3, fill = col.ppv, shape = 21, size = 3) + # mark (prev, PPV)
-      geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
-                color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
-      geom_point(aes(x = prev, y = cur.NPV), 
-                 color = col.grey.3, fill = col.npv, shape = 21, size = 3) + # mark (prev, NPV)
-      geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
-                color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
+      # geom_point(aes(color = metric, shape = metric), size = 2) + 
       ## Scales:
       ## (a) linear scale:
       scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
@@ -291,20 +288,6 @@ plot.PVs <- function(env, log.scale = FALSE) {
     p.PVs <- ggplot(data = df.PVs.long, aes(x = prev.range, y = value, group = metric)) +
       geom_line(aes(color = metric), size = 1.2) +
       # geom_point(aes(color = metric, shape = metric), size = 2) +
-      ## Mark and label prev:
-      geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
-      geom_point(aes(x = prev, y = 0), color = col.grey.3, fill = col.prev, shape = 21, size = 3) + # mark (prev, 0)
-      geom_text(aes(x = prev, y = 0, label = prev.label), 
-                color = col.prev, hjust = x.just, vjust = y.just, size = 4) + # label prev
-      ## Mark and label current PPV/NPV:
-      geom_point(aes(x = prev, y = cur.PPV), 
-                 color = col.grey.3, fill = col.ppv, shape = 21, size = 3) + # mark (prev, PPV)
-      geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
-                color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
-      geom_point(aes(x = prev, y = cur.NPV), 
-                 color = col.grey.3, fill = col.npv, shape = 21, size = 3) + # mark (prev, NPV)
-      geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
-                color = col.npv, hjust = x.just, vjust = y.just, size = 4) + # label NPV
       ## Scales:
       ## (a) linear scale:
       # scale_x_continuous(breaks = seq(0, 1, by = .10)) + 
@@ -320,6 +303,29 @@ plot.PVs <- function(env, log.scale = FALSE) {
       my.theme.legend
   }
   
+  if (show.PVprev) {
+    p.PVs <- p.PVs +
+      ## Mark and label prev:
+      geom_line(aes(x = prev), color = col.prev, linetype = 3, size = .6) + # vertical line at prev
+      geom_point(aes(x = prev, y = 0), color = col.grey.3, fill = col.prev, shape = 21, size = 3) + # mark (prev, 0)
+      geom_text(aes(x = prev, y = 0, label = prev.label), 
+                color = col.prev, hjust = x.just, vjust = y.just, size = 4) # + # label prev  
+  }
+  
+  if (show.PVpoints) {
+    p.PVs <- p.PVs +
+      ## Mark and label current PPV/NPV:
+      geom_point(aes(x = prev, y = cur.PPV), 
+                 color = col.grey.3, fill = col.ppv, shape = 21, size = 3) + # mark (prev, PPV)
+      geom_text(aes(x = prev, y = cur.PPV, label = cur.PPV.label), 
+                color = col.ppv, hjust = x.just, vjust = y.just, size = 4) + # label PPV
+      geom_point(aes(x = prev, y = cur.NPV), 
+                 color = col.grey.3, fill = col.npv, shape = 21, size = 3) + # mark (prev, NPV)
+      geom_text(aes(x = prev, y = cur.NPV, label = cur.NPV.label), 
+                color = col.npv, hjust = x.just, vjust = y.just, size = 4) # + # label NPV
+  }
+  
+  
   return(p.PVs)
   
 }
@@ -329,10 +335,12 @@ plot.PVs <- function(env, log.scale = FALSE) {
 
 ## (1) Define parameters:
 { # Basic graph parameters:
-  my.theta <- 40  # horizontal viewing angle (higher values: more rotation)
-  my.phi <- 10    # vertical viewing angle (higher values: higher viewpoint)
-  my.expand <- .9 # values < 1 shrink expansion in z-direction
-  my.d <- 1.2     # values > 1 lessen perspective effect 
+  my.theta  <- -45 # horizontal viewing angle (higher values: more rotation)
+  my.phi    <-   0 # vertical viewing angle (higher values: higher viewpoint)
+  my.expand <- 1.1 # values < 1 shrink expansion in z-direction
+  my.d      <- 1.5 # values > 1 reduce perspective effect 
+  my.ltheta <- 200 # surface is illuminated from the direction specified by azimuth ltheta
+  my.shade  <- .25 # values towards 1 yield shading similar to a point light source model and values towards 0 produce no shading.
 }
 
 ## (2) Compute PPV and NPV for an entire matrix of values:
@@ -367,20 +375,29 @@ pv.matrix <- function(prev, sens, spec, metric) {
 }
 
 ## (3) Plot both PPV and NPV in adjacent plots:
-plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade, 
-                          show.PVpoints = TRUE) {
+plot.PV.planes <- function(env, 
+                           cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade, 
+                           show.PVpoints = TRUE) {
   
   ## Current environment parameters:
   name <- env$name
-  N <- env$N
+  N    <- env$N
   prev <- env$prev
   sens <- env$sens
   spec <- env$spec
   source <- env$source
   
-  ## Compute PPV and NPV:
+  ## Current PPV and NPV values and labels:
+  ## (a) from current data:
+  # cur.PPV <- data$PPV # get.PPV(prev, sens, spec)
+  # cur.NPV <- data$NPV # get.NPV(prev, sens, spec) 
+  # cur.PPV.label <- data$PPV.label # paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+  # cur.NPV.label <- data$NPV.label # paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  ## (b) Compute from scratch:
   cur.PPV <- get.PPV(prev, sens, spec)
   cur.NPV <- get.NPV(prev, sens, spec) 
+  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
   
   ## Ranges on x- and y-axes:
   sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values 
@@ -396,6 +413,11 @@ plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta
   z.ppv <- as.matrix(PPV.mat)
   z.npv <- as.matrix(NPV.mat)
   z.lim <- c(0, 1) # range of z-axis
+  # cur.par.label <- paste0("(", 
+  #                         "prev = ", pc(prev), "%, ", 
+  #                         "sens = ", pc(sens), "%, ", 
+  #                         "spec = ", pc(spec), "%)")
+  cur.par.label <- paste0("(prevalence = ", pc(prev), "%)")
   
   # Plot 2 plots (adjacent to each other):
   {
@@ -405,33 +427,33 @@ plot.PVplanes <- function(env, cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta
     ## 3D plot for PPV:
     p.ppv <- persp(x, y, z.ppv, 
                    theta = cur.theta, phi = cur.phi,  d = cur.d, expand = cur.expand, 
-                   col = col.ppv, border = NA, # col.grey.4, # col.orange.1, 
+                   col = col.ppv, border = NA, # col.ppv, col.orange.1, 
                    ltheta = cur.ltheta, shade = cur.shade, 
                    ticktype = "detailed", nticks = 6, 
                    xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
-                   main = paste0("PPV (prev = ", pc(prev), "%)")
+                   main = paste0(cur.PPV.label, "\n", cur.par.label)
     )
     
-    if (show.PVpoints) { # Add cur.PPV to plot:
+    if (show.PVpoints) { # add cur.PPV to plot:
       pmat <- p.ppv
       add.PPV <- trans3d(sens, spec, cur.PPV, pmat)
-      points(add.PPV, pch = 21, col = "grey95", bg = col.ppv, lwd = 1.2, cex = 1.5)
+      points(add.PPV, pch = 21, col = "grey85", bg = col.ppv, lwd = 1.0, cex = 1.5)
     }
     
     ## 3D plot for NPV:    
     p.npv <- persp(x, y, z.npv, 
                    theta = cur.theta, phi = cur.phi,  d = cur.d, expand = cur.expand, 
-                   col = col.npv, border = NA, # col.grey.4, # col.blue.1, 
+                   col = col.npv, border = NA, # col.npv, col.blue.1, 
                    ltheta = cur.ltheta, shade = cur.shade, 
                    ticktype = "detailed", nticks = 6, 
                    xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
-                   main = paste0("NPV (prev = ", pc(prev), "%)")
+                   main = paste0(cur.NPV.label, "\n", cur.par.label)
     )
     
-    if (show.PVpoints) { # Add cur.NPV to plot:
+    if (show.PVpoints) { # add cur.NPV to plot:
       pmat <- p.npv
       add.NPV <- trans3d(sens, spec, cur.NPV, pmat)
-      points(add.NPV, pch = 21, col = "grey95", bg = col.npv, lwd = 1.2, cex = 1.5)
+      points(add.NPV, pch = 21, col = "grey85", bg = col.npv, lwd = 1.0, cex = 1.5)
     }
     
     par(mfrow = c(1, 1)) # Remove special settings.
@@ -487,7 +509,7 @@ shinyServer(function(input, output, session){
     
     # Vector of decisions (ordered by truth):
     data$decision <- c(rep(TRUE, data$n.hi), rep(FALSE, data$n.mi), 
-                          rep(TRUE, data$n.fa), rep(FALSE, data$n.cr))
+                       rep(TRUE, data$n.fa), rep(FALSE, data$n.cr))
     
     ## (3) SDT (status decision/truth):
     data$sdt <- c(rep("hi", data$n.hi), rep("mi", data$n.mi), 
@@ -495,9 +517,9 @@ shinyServer(function(input, output, session){
     
     ## (4) Coerce vectors into ordered factors:
     data$truth <- factor(data$truth, 
-                            levels = c(TRUE, FALSE),
-                            labels = c("condition true", "condition false"), # explicit labels
-                            ordered = TRUE)
+                         levels = c(TRUE, FALSE),
+                         labels = c("condition true", "condition false"), # explicit labels
+                         ordered = TRUE)
     
     data$decision <- factor(data$decision, 
                             levels = c(TRUE, FALSE),
@@ -515,7 +537,13 @@ shinyServer(function(input, output, session){
                                   dec = data$decision,
                                   sdt = data$sdt)
     names(data$population) <- c("Truth", "Decision", "sdt")
-
+    
+    ## (6) Compute and store current PPV and NPV values (to use in graphs and labels):
+    data$PPV <- get.PPV(env$prev, env$sens, env$spec)
+    data$NPV <- get.NPV(env$prev, env$sens, env$spec)
+    # data$PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
+    # data$NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+    
   })
   
   ## Integrate worked out examples:
@@ -541,7 +569,10 @@ shinyServer(function(input, output, session){
   # (a) Raw data table: 
   output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}))
   
-  # (b) 2x2 confusion table (ordered by rows/decisions):
+  # (b) Icon array:
+  # ... 
+  
+  # (c) 2x2 confusion table (ordered by rows/decisions):
   output$confusiontable <- renderTable({matrix(data = c(data$n.hi, data$n.fa, data$dec.pos, 
                                                         data$n.mi, data$n.cr, data$dec.neg, 
                                                         data$n.true, data$n.false, env$N),
@@ -551,17 +582,19 @@ shinyServer(function(input, output, session){
                                                                  "Truth sums:"), 
                                                                c("Condition true:", 
                                                                  "Condition false:", 
-                                                                 "Decision sums:"))
-  )
-  },
-  bordered = TRUE,  
-  hover = TRUE,  
-  align = 'r',  
-  digits = 0, 
-  rownames = TRUE,
-  na = 'missing')  
+                                                                 "Decision sums:")
+                                                               )
+                                               )
+    },
+    bordered = TRUE,  
+    hover = TRUE,  
+    align = 'r',  
+    digits = 0, 
+    rownames = TRUE,
+    na = 'missing'
+    )  
   
-  # (c) Mosaic plot:
+  # (d) Mosaic plot:
   output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
                                                    data$population$Decision),
                                              col = c(col.sand.light, col.sand.mid),
@@ -574,26 +607,28 @@ shinyServer(function(input, output, session){
                                              )
                                   )
   
-  # (d) Tree of natural frequencies:
+  # (e) Tree with natural frequencies:
   output$nftree <- renderPlot(plot.nftree(env, data))
   
-  # (e) Icon array:
-
   # (f) 2D plot of PPV and NPV as a function of prev.range:
-  output$PVs <- renderPlot(plot.PVs(env, 
-                                    log.scale = input$checkboxPVlog)
+  output$PVs <- renderPlot(plot.PV.curves(env, # use current environment parameters
+                                          show.PVprev = input$boxPVprev, # mark current prevalence in plot                
+                                          show.PVpoints = input$boxPVpoints1, # mark cur.PPV/cur.NPV in plot
+                                          log.scale = input$boxPVlog
+                                          )
                            )
 
   # (g) 3D plots of PPV and NPV planes:
-  output$PVplanes <- renderPlot(plot.PVplanes(env, 
+  output$PVplanes <- renderPlot(plot.PV.planes(env, # use current environment parameters
                                               cur.theta = input$theta, # horizontal rotation
-                                              cur.phi = input$phi, # vertical rotation
-                                              cur.d = 1.5,      # input$d,
-                                              cur.expand = 1.0, # input$expand,
-                                              cur.ltheta = 200, # input$ltheta,
-                                              cur.shade = .10,  # input$shade
-                                              show.PVpoints = input$checkboxPVpoints
-                                              ))
+                                              cur.phi = input$phi,     # vertical rotation
+                                              cur.d = my.d,            # input$d,
+                                              cur.expand = my.expand,  # input$expand,
+                                              cur.ltheta = my.ltheta,  # input$ltheta,
+                                              cur.shade = my.shade,    # input$shade
+                                              show.PVpoints = input$boxPVpoints2 # mark cur.PPV/cur.NPV in plot
+                                              )
+                                )
   
 }
 )
