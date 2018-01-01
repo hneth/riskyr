@@ -21,7 +21,7 @@ library(ggplot2)
 ## Initial environment:
 
 e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
-           "N" = 1000,       # N in population
+           "N" = 100,        # N in population
            "prev" = .15,     # prevalence in population = p(true positive)
            "sens" = .85,     # sensitivity = p(positive decision | true positive)
            "spec" = .75,     # specificity = p(negative decision | true negative)
@@ -144,13 +144,13 @@ shinyUI(
                           bsTooltip(id = "N", title = "Size of population",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
-                          bsTooltip(id = "prev", title = "Probability of being affected:\np(true)",
+                          bsTooltip(id = "prev", title = "Probability of being affected: p(true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")),
                           
-                          bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual:\np(positive decision | true)",
+                          bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual: p(positive decision | true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
-                          bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual:\np(negative decision | false)",
+                          bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual: p(negative decision | false) = 1 - FA",
                                     placement = "right", trigger = "hover", options = list(container = "body"))
                         ),
                         

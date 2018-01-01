@@ -64,17 +64,25 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
 
 #### A. Basic functionality:
 
+User inputs:
+
+- display 4 current environment parameters on left column
+- make current title smaller and add current source information in 2nd text field
 - enable slider inputs of population size _N_ on log scale (to allow precise small and large numbers)
 - enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g. as ratios) 
-- define plot of icon array
+
+Representations:
+
+- add current metrics (accuracy measures, PPV/NPV) to tabs of nf `tree`, contingency `table`, and mosaic plot  
+- define plot and options for _icon array_
 - provide options for 
      - shuffling current population and 
      - sampling from population 
   in data table and icon array)
-  
+
 #### B. User interface:
 
-- add current colors and metrics to tabs of nf `tree`, contingency `table`, and mosaic plot.
+- add current colors to tabs of nf `tree`, contingency `table`, and mosaic plot.
 - make current set of colors user customizable 
 - allow saving and exporting current parameters set (environments)
 - allow saving and exports of graphs 
