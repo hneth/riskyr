@@ -9,6 +9,7 @@ output: github_document
 
 The `riskyr` package provides a toolbox for transparent communication and teaching of risk literacy.
 
+
 ## Goal 
 
 The `riskyr` package aims to render risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.

@@ -1,6 +1,3 @@
----
-title: "riskyr"
----
 
 ### The `riskyr` Shiny App
 
@@ -10,4 +7,4 @@ The app is written in [R Shiny](https://shiny.rstudio.com/) and allows using the
 
 #### Contact
 
-Contact us at http://spds.uni-konstanz.de.
+Contact us at [SPDS.uni.kn](http://spds.uni-konstanz.de).
