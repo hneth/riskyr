@@ -7,7 +7,7 @@ output: github_document
 
 # riskyr
 
-A toolbox for transparent communication and teaching of risk literacy.
+The _riskyr_ package provides a toolbox for transparent communication and teaching of risk literacy.
 
 ## Goal 
 
