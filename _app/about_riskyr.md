@@ -91,7 +91,7 @@ Representations:
 
 - add definitions, verbal explanations, and examples (and corresponding help and tooltips)
 - add more environments from existing examples (into `.csv` file)
-- use logo of uni.kn
+- use logo for app and of uni.kn?
 - add quizz to test knowledge
 
 #### D. Package and app development:
@@ -104,3 +104,5 @@ Representations:
 ## Contact
 
 Contact us at [spds.uni.kn](http://spds.uni-konstanz.de).
+
+Why incomplete final line here?
