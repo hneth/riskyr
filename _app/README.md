@@ -10,6 +10,4 @@ The app is written in [R Shiny](https://shiny.rstudio.com/) and allows using the
 
 #### Contact
 
-Feel free to contact us at [SPDS.uni.kn](http://spds.uni-konstanz.de).
-
-<!-- eof -->
+Contact us at [spds.uni.kn](http://spds.uni-konstanz.de).

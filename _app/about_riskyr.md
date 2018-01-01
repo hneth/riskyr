@@ -91,6 +91,4 @@ The easiest way to quickly incorporate text into this shiny app would be to chan
 
 ## Contact
 
-Feel free to contact us at http://spds.uni-konstanz.de.
-
-<!-- eof -->
+Contact us at http://spds.uni-konstanz.de.
