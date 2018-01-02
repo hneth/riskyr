@@ -1,5 +1,5 @@
 # server.R
-# riskyr | R Shiny | spds, uni.kn | 2018 01 01
+# riskyr | R Shiny | spds, uni.kn | 2018 01 02
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -95,10 +95,12 @@ library(ggplot2)
 
 ## Utility functions:
 {
-  # Round percentage to 1 decimal:
-  pc <- function(num) {
+  
+  ## Percentage rounded to 1 decimal digit: 
+  pc <- function(num) { 
     return(round(num * 100, 1)) 
   }
+  
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
@@ -179,7 +181,8 @@ get.NPV <- function(prev, sens, spec) {
   return(NPV)
 }
 
-## (2) Specify range of prevalences:
+## (2) Specify a range of prevalences
+##     (with finer steps at both extremes):
 {
   step.0 <- .10
   prev.0 <- seq(0, 10 * step.0, by = step.0)
@@ -211,10 +214,7 @@ get.NPV <- function(prev, sens, spec) {
 }
 
 ## (3) Plot PPV and NPV as a function of prev.range:
-plot.PV.curves <- function(env,
-                           show.PVprev = TRUE, 
-                           show.PVpoints = TRUE, 
-                           log.scale = FALSE) {
+plot.PV.curves <- function(env, show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE) {
   
   ## Current environment parameters:
   name <- env$name
@@ -382,9 +382,8 @@ pv.matrix <- function(prev, sens, spec, metric) {
 }
 
 ## (3) Plot both PPV and NPV in adjacent plots:
-plot.PV.planes <- function(env,
-                           cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade, 
-                           show.PVpoints = TRUE) {
+plot.PV.planes <- function(env, show.PVpoints = TRUE, 
+                           cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade) {
   
   ## Current environment parameters:
   name <- env$name
@@ -472,13 +471,13 @@ plot.PV.planes <- function(env,
 # Define server logic:
 shinyServer(function(input, output, session){
 
-  ## Define common data structure:
-  # Generate data structures as lists of reactive elements:
+  ## Define a common data structure:
+  ## Generate data structures as lists of reactive elements:
   env <- reactiveValues(env = NULL) # list of current environment
   data <- reactiveValues(data = NULL) # list of derived parameters
   # population <- reactiveValues(population = NULL) # df of current population
   
-  # Observe inputs and generate data used in outputs:
+  ## Observe inputs and generate data used in outputs:
   observeEvent({
     input$name   # name of current environment 
     input$N      # N in population
@@ -502,7 +501,7 @@ shinyServer(function(input, output, session){
     data$n.true <- round((env$prev * env$N), 0) # n.true cases
     data$n.false <- (env$N - data$n.true)      # n.false cases
     
-    # Vector of true states:
+    ## Vector of true states:
     data$truth <- c(rep(TRUE, data$n.true), rep(FALSE, data$n.false)) 
     
     ## (2) Determine decisions:
@@ -514,7 +513,7 @@ shinyServer(function(input, output, session){
     data$dec.pos <- data$n.hi + data$n.fa # 1. positive decisions (true & false)
     data$dec.neg <- data$n.mi + data$n.cr # 2. negative decisions (true & false)
     
-    # Vector of decisions (ordered by truth):
+    ## Vector of decisions (ordered by truth values):
     data$decision <- c(rep(TRUE, data$n.hi), rep(FALSE, data$n.mi), 
                        rep(TRUE, data$n.fa), rep(FALSE, data$n.cr))
     
@@ -522,7 +521,7 @@ shinyServer(function(input, output, session){
     data$sdt <- c(rep("hi", data$n.hi), rep("mi", data$n.mi), 
                   rep("fa", data$n.fa), rep("cr", data$n.cr))
     
-    ## (4) Coerce vectors into ordered factors:
+    ## (4) Coerce 3 vectors into ordered factors:
     data$truth <- factor(data$truth, 
                          levels = c(TRUE, FALSE),
                          labels = c("condition true", "condition false"), # explicit labels
@@ -573,13 +572,13 @@ shinyServer(function(input, output, session){
   
   ## Outputs:
   
-  # (a) Raw data table: 
+  ## (a) Raw data table: 
   output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}))
   
-  # (b) Icon array:
-  # ... 
+  ## (b) Icon array:
+  ## ... 
   
-  # (c) 2x2 confusion table (ordered by rows/decisions):
+  ## (c) 2x2 confusion table (ordered by rows/decisions):
   output$confusiontable <- renderTable({matrix(data = c(data$n.hi, data$n.fa, data$dec.pos, 
                                                         data$n.mi, data$n.cr, data$dec.neg, 
                                                         data$n.true, data$n.false, env$N),
@@ -601,7 +600,7 @@ shinyServer(function(input, output, session){
     na = 'missing'
     )  
   
-  # (d) Mosaic plot:
+  ## (d) Mosaic plot:
   output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
                                                    data$population$Decision),
                                              col = c(col.sand.light, col.sand.mid),
@@ -614,27 +613,30 @@ shinyServer(function(input, output, session){
                                              )
                                   )
   
-  # (e) Tree with natural frequencies:
-  output$nftree <- renderPlot(plot.nftree(env, data))
+  ## (e) Tree with natural frequencies:
+  output$nftree <- renderPlot(plot.nftree(env, # use current environment parameters     
+                                          data # use current data (hi, mi, fa, cr)
+                                          )
+                              )
   
-  # (f) 2D plot of PPV and NPV as a function of prev.range:
+  ## (f) 2D plot of PPV and NPV as a function of prev.range:
   output$PVs <- renderPlot(plot.PV.curves(env, # use current environment parameters
                                           show.PVprev = input$boxPVprev, # mark current prevalence in plot                
                                           show.PVpoints = input$boxPVpoints1, # mark cur.PPV/cur.NPV in plot
-                                          log.scale = input$boxPVlog
+                                          log.scale = input$boxPVlog # plot x on log scale 
                                           )
                            )
 
-  # (g) 3D plots of PPV and NPV planes:
+  ## (g) 3D plots of PPV and NPV planes as functions of sens and spec:
   output$PVplanes <- renderPlot(plot.PV.planes(env, # use current environment parameters
-                                              cur.theta = input$theta, # horizontal rotation
-                                              cur.phi = input$phi,     # vertical rotation
-                                              cur.d = my.d,            # input$d,
-                                              cur.expand = my.expand,  # input$expand,
-                                              cur.ltheta = my.ltheta,  # input$ltheta,
-                                              cur.shade = my.shade,    # input$shade
-                                              show.PVpoints = input$boxPVpoints2 # mark cur.PPV/cur.NPV in plot
-                                              )
+                                               show.PVpoints = input$boxPVpoints2, # mark cur.PPV/cur.NPV in plot
+                                               cur.theta = input$theta, # horizontal rotation
+                                               cur.phi = input$phi,     # vertical rotation
+                                               cur.d = my.d,            # input$d,
+                                               cur.expand = my.expand,  # input$expand,
+                                               cur.ltheta = my.ltheta,  # input$ltheta,
+                                               cur.shade = my.shade     # input$shade
+                                               )
                                 )
   
 }

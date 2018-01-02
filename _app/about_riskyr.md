@@ -68,7 +68,7 @@ Agenda
 
 User inputs:
 
--   display 4 current environment parameters on left column
+-   display the 4 current environment parameters (in the left panel)
 -   make current title smaller and add current source information in 2nd text field
 -   enable slider inputs of population size *N* on log scale (to allow precise small and large numbers)
 -   enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g. as ratios)
@@ -83,6 +83,7 @@ Representations:
 
 #### B. User interface:
 
+-   update environment name and source (used in plots) when loading a data set
 -   add current colors to tabs of nf `tree`, contingency `table`, and mosaic plot.
 -   make current set of colors user customizable
 -   allow saving and exporting current parameters set (environments)
@@ -90,13 +91,15 @@ Representations:
 
 #### C. Background info:
 
--   add definitions, verbal explanations, and examples (and corresponding help and tooltips)
+-   add definitions and explanations
+-   add help information and tooltips
 -   add more environments from existing examples (into `.csv` file)
--   use logo for app and of uni.kn?
--   add quizz to test knowledge
+-   use logos for app and institutions
+-   add a quizz to test user knowledge (or motivate to explore app)
 
 #### D. Package and app development:
 
+-   choose a license for code sharing
 -   restructure code according to recommendations on
     -   <http://r-pkgs.had.co.nz/> and
     -   <https://deanattali.com/2015/04/21/r-package-shiny-app/>
