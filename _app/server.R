@@ -1,10 +1,10 @@
-# server.R
-# riskyr | R Shiny | spds, uni.kn | 2018 01 02
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## server.R
+## riskyr | R Shiny | spds, uni.kn | 2018 01 02
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Dependencies:
 
 library(shiny)
@@ -17,15 +17,16 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Paths:
 
 # cur.path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 # setwd(cur.path) # set to current directory
 # setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Graphic settings: 
+
 {
   ## Color names:
   {
@@ -103,7 +104,7 @@ library(ggplot2)
   
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Functions for plots and tables:
 
 ## Function to draw tree of natural frequencies:
@@ -156,9 +157,9 @@ plot.nftree <- function(env, data) {
   
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Functions for PPV/NPV:
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## 2D graph:
 
 ## (1) Compute PPV and NPV as a function of prev, sens, and spec:
@@ -337,7 +338,7 @@ plot.PV.curves <- function(env, show.PVprev = TRUE, show.PVpoints = TRUE, log.sc
   
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## 3D graph:
 
 ## (1) Define parameters:
@@ -467,8 +468,9 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
   
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# Define server logic:
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Define server logic:
+
 shinyServer(function(input, output, session){
 
   ## Define a common data structure:
@@ -642,5 +644,5 @@ shinyServer(function(input, output, session){
 }
 )
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# eof. #
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## eof. #

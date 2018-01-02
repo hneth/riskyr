@@ -7,4 +7,4 @@ The app is written in [R Shiny](https://shiny.rstudio.com/) and allows using the
 
 #### Contact
 
-Contact us at [spds.uni.kn](http://spds.uni-konstanz.de).
+Contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de). 

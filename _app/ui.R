@@ -1,10 +1,10 @@
-# ui.R
-# riskyr | R Shiny | spds, uni.kn | 2018 01 01
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ui.R
+## riskyr | R Shiny | spds, uni.kn | 2018 01 01
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Dependencies:
 
 library(shiny)
@@ -17,7 +17,7 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Initial environment:
 
 e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
@@ -33,13 +33,15 @@ env <- e1 # from current environment
 ## Import ready-made and worked out example data:
 datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# JavaScript: 
-# Source: https://stackoverflow.com/questions/30502870/shiny-slider-on-logarithmic-scale
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## JavaScript:
 
-# logifySlider javascript function
-JS.logify <-
-  "
+{
+  ## Source: https://stackoverflow.com/questions/30502870/shiny-slider-on-logarithmic-scale
+  
+  ## logifySlider javascript function: 
+  JS.logify <-
+    "
 // function to logify a sliderInput
 function logifySlider (sliderId, sci = false) {
 if (sci) {
@@ -55,7 +57,7 @@ $('#'+sliderId).data('ionRangeSlider').update({
 }
 }"
 
-# call logifySlider for each relevant sliderInput
+## call logifySlider for each relevant sliderInput: 
 JS.onload <-
   "
 // execute upon document loading: 
@@ -68,8 +70,11 @@ logifySlider('log_slider2', sci = true)
 }, 5)})
 "
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# Define user interface logic:
+}
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Define user interface logic:
+
 shinyUI(
   
   # tags$head(tags$script(HTML(JS.logify))),
@@ -92,7 +97,7 @@ shinyUI(
                                     label = "Name or topic:",
                                     value = "Example environment"),
                           
-                          br(), # horizontal space
+                          br(), # add horizontal space
                           
                           sliderInput("N",
                                       label = "Population size:",
@@ -102,7 +107,7 @@ shinyUI(
                                       step = 10^2
                                       ), # use log-scale from 1 to 10^9
                           
-                          br(), # horizontal space
+                          br(),
                           
                           sliderInput("prev", 
                                       "Prevalence:",
@@ -128,9 +133,9 @@ shinyUI(
                                       step = .01
                                       ),
                           
-                          br(), # horizontal space
+                          br(), 
                           
-                          # Provide existing data sets as drop-down list:
+                          ## Provide existing data sets as drop-down list:
                           selectInput("dataselection", label = "Or view an example:", 
                                       choices = setNames(as.list(1:nrow(datasets)), # create choices from datasets
                                                          datasets$dataset), 
@@ -140,7 +145,7 @@ shinyUI(
                                    icon = icon("question-sign", lib = "glyphicon"),
                                    style = "default", type = "action"),
                           
-                          # Tooltips on inputs:
+                          ## Tooltips on inputs:
                           bsTooltip(id = "N", title = "Size of population",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
@@ -157,13 +162,13 @@ shinyUI(
                         ## Main panel for displaying different aspects about risk:
                         mainPanel(
                           
-                          # help modal
+                          ## Help modal:
                           bsModal(id = "modalinputhelp", 
                                   title = "So you want to know more about the inputs", 
-                                  "Here, we could give some theoretical background...",
-                                  trigger = "inputhelp", size = "large"),
+                                  "Here, we will provide some theoretical background information.",
+                                  trigger = "inputhelp", size = "medium"),
                           
-                          # Tabset w/ raw data, trees, and table,...
+                          ## Tabset with raw data table, icon array, nf tree, confusion table, and PV graphs: 
                           tabsetPanel(type = "tabs",
                                       tabPanel("Cases", 
                                                br(),
@@ -315,5 +320,5 @@ shinyUI(
   )
 )
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-# eof. #
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## eof. #

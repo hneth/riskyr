@@ -108,4 +108,4 @@ Representations:
 Contact
 -------
 
-Contact us at [spds.uni.kn](http://spds.uni-konstanz.de).
+Contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de).
