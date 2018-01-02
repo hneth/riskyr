@@ -1,8 +1,16 @@
 ## server.R
 ## riskyr | R Shiny | spds, uni.kn | 2018 01 02
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Clean up:
 
 # rm(list=ls()) # clean all.
+
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## Paths:
+
+# cur.path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+# setwd(cur.path) # set to current directory
+# setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Dependencies:
@@ -16,13 +24,14 @@ library(shape)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
+library(vcd)
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-## Paths:
+## Import ready-made and worked out example data 
+## (in both ui.R and server.R):
 
-# cur.path <- dirname(rstudioapi::getActiveDocumentContext()$path)
-# setwd(cur.path) # set to current directory
-# setwd("~/Desktop/stuff/Dropbox/GitHub/riskyr/_app/") # set to current directory
+datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
+          # read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Graphic settings: 
@@ -38,6 +47,11 @@ library(ggplot2)
     col.sand.mid   <- rgb(142, 140, 132, max = 255)  
     col.sand.dark  <- rgb(62, 63, 58, max = 255)
     
+    col.grey.1 <- rgb(181, 179, 174, max = 255)
+    col.grey.2 <- rgb(123, 121, 113, max = 255)
+    col.grey.3 <- "grey25"
+    col.grey.4 <- "grey10"
+    
     col.green.1 <- rgb(184, 217, 137, max = 255)
     col.green.2 <- rgb(128, 177, 57, max = 255)
     
@@ -51,15 +65,14 @@ library(ggplot2)
     
     col.orange.1 <- rgb(247, 169, 127, max = 255)
     col.orange.2 <- rgb(242, 100, 24, max = 255)
-    
-    col.grey.1 <- rgb(181, 179, 174, max = 255)
-    col.grey.2 <- rgb(123, 121, 113, max = 255)
-    col.grey.3 <- "grey25"
-    col.grey.4 <- "grey10"
-    
-    col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
-    col.npv <- col.blue.3 # seeblau "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+  
   }
+  
+  ## Define named colors for app display:
+  col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
+  col.npv <- col.blue.3 # seeblau "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+  sdt.colors <- setNames(c(col.green.1, col.red.1, col.green.2, col.red.2), 
+                         c("hi", "mi", "cr", "fa"))
   
   ## ggplot themes:
   {
@@ -145,7 +158,7 @@ plot.nftree <- function(env, data) {
                 box.size = .10, 
                 box.prop = 0.5,
                 box.type = "square", # "circle",
-                box.col = col.sand.light, # "lightyellow" 
+                box.col = c(rep(col.sand.light, 3), sdt.colors[c("hi", "mi", "fa", "cr")]), # "lightyellow"
                 shadow.col = col.sand.dark, # "steelblue4", "grey25"
                 shadow.size = 0, # .005 
                 lwd = 1.2,
@@ -255,8 +268,8 @@ plot.PV.curves <- function(env, show.PVprev = TRUE, show.PVpoints = TRUE, log.sc
   # names(df.PVs.long) <- c("prevalence", "metric", "value")
   df.PVs.long$metric <- factor(df.PVs.long$metric, # ensure factor and level order:  
                                levels = c("PPV", "NPV") #,
-                               # labels = c("PPV = p(true | positive decision)", 
-                               #            "NPV = p(false | negative decision)")
+                               # labels = c("PPV = p(condition true | decision positive)", 
+                               #            "NPV = p(condition false | decision negative)")
   )
   
   ## Additional plot options:
@@ -484,8 +497,8 @@ shinyServer(function(input, output, session){
     input$name   # name of current environment 
     input$N      # N in population
     input$prev   # prevalence in population = p(true positive)
-    input$sens   # sensitivity = p(positive decision | true positive)
-    input$spec   # specificity = p(negative decision | true negative)
+    input$sens   # sensitivity = p(decision positive | condition positive)
+    input$spec   # specificity = p(decision negative | condition negative)
     # input$source # source of environment (reference)
   }, {
     
@@ -512,8 +525,8 @@ shinyServer(function(input, output, session){
     data$n.cr <- round((env$spec * data$n.false), 0) # d. correct rejections
     data$n.fa <- (data$n.false - data$n.cr)          # c. false alarms
     
-    data$dec.pos <- data$n.hi + data$n.fa # 1. positive decisions (true & false)
-    data$dec.neg <- data$n.mi + data$n.cr # 2. negative decisions (true & false)
+    data$dec.pos <- data$n.hi + data$n.fa # 1. decision positives (true & false)
+    data$dec.neg <- data$n.mi + data$n.cr # 2. decision negatives (true & false)
     
     ## Vector of decisions (ordered by truth values):
     data$decision <- c(rep(TRUE, data$n.hi), rep(FALSE, data$n.mi), 
@@ -531,7 +544,7 @@ shinyServer(function(input, output, session){
     
     data$decision <- factor(data$decision, 
                             levels = c(TRUE, FALSE),
-                            labels = c("positive decision", "negative decision"), # explicit labels
+                            labels = c("decision positive", "decision negative"), # explicit labels
                             ordered = TRUE)
     
     data$sdt <- factor(data$sdt, 
@@ -575,7 +588,11 @@ shinyServer(function(input, output, session){
   ## Outputs:
   
   ## (a) Raw data table: 
-  output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}))
+  output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}) %>%
+                                               formatStyle("sdt", target = "row", 
+                                                           backgroundColor = styleEqual(levels = c("hit", "miss", "false alarm", "correct rejection"), 
+                                                                                        values = sdt.colors[c("hi", "mi", "fa", "cr")]))
+  )
   
   ## (b) Icon array:
   ## ... 
@@ -585,8 +602,8 @@ shinyServer(function(input, output, session){
                                                         data$n.mi, data$n.cr, data$dec.neg, 
                                                         data$n.true, data$n.false, env$N),
                                                nrow = 3, byrow = TRUE,
-                                               dimnames = list(c("Positive decision:", 
-                                                                 "Negative decision:", 
+                                               dimnames = list(c("Decision positive:", 
+                                                                 "Decision negative:", 
                                                                  "Truth sums:"), 
                                                                c("Condition true:", 
                                                                  "Condition false:", 
@@ -603,17 +620,13 @@ shinyServer(function(input, output, session){
     )  
   
   ## (d) Mosaic plot:
-  output$mosaicplot <- renderPlot(mosaicplot(table(data$population$Truth,
-                                                   data$population$Decision),
-                                             col = c(col.sand.light, col.sand.mid),
-                                                   # c(col.sand.mid, col.sand.dark), 
-                                                   # c(col.blue.2, col.blue.4),
-                                                   # c(col.green.1, col.red.1),
-                                             xlab = "Truth",
-                                             ylab = "Decision",
-                                             main = paste0(env$name, "\n(N = ", env$N, ")")
-                                             )
-                                  )
+  output$mosaicplot <- renderPlot( { 
+    mosaic(Truth ~ Decision, data = data$population,
+           shade=TRUE, colorize = TRUE, 
+           gp = gpar(fill = matrix(data = sdt.colors[c("hi", "mi", "fa", "cr")], 
+                                    nrow = 2, ncol = 2, byrow = FALSE)),
+           main_gp = gpar(fontsize = 12, fontface = "bold"),
+           main = paste0(env$name, "\n(N = ", env$N, ")"))})
   
   ## (e) Tree with natural frequencies:
   output$nftree <- renderPlot(plot.nftree(env, # use current environment parameters     
