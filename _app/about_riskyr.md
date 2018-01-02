@@ -66,6 +66,11 @@ Agenda
 
 #### A. Basic functionality:
 
+Bug fixes:
+
+-   fix bug when loading datasets
+
+
 User inputs:
 
 -   display the 4 current environment parameters (in the left panel)

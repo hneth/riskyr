@@ -1,5 +1,5 @@
 ## ui.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 01
+## riskyr | R Shiny | spds, uni.kn | 2018 01 02
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -31,7 +31,8 @@ e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
 env <- e1 # from current environment
 
 ## Import ready-made and worked out example data:
-datasets <- read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
+datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
+            # WAS: read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## JavaScript:
