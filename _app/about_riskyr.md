@@ -61,6 +61,8 @@ Agenda
 -   provide 3D plot for planes of PPV/NPV by `sens` and `spec` (for given `prev`)
 -   provide options to show current PPV/NPV in plots
 -   add option to load environments (parameter sets of examples and real studies (from `.csv` file)
+-   add current sdt-colors to tabs of _data table_, _nf-tree_ and _mosaic plot_ 
+-   fix bug when loading datasets
 
 ### Yet to do
 
@@ -68,31 +70,30 @@ Agenda
 
 Bug fixes:
 
--   fix bug when loading datasets
-
+-   some data sets are not represented accurately (due to limited accuracy of input sliders)
 
 User inputs:
 
--   display the 4 current environment parameters (in the left panel)
--   make current title smaller and add current source information in 2nd text field
--   enable slider inputs of population size *N* on log scale (to allow precise small and large numbers)
+-   enable slider inputs of population size _N_ on log scale (to allow precise small and large numbers)
 -   enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g. as ratios)
 
 Representations:
 
--   add current metrics (accuracy measures, PPV/NPV) to tabs of nf `tree`, contingency `table`, and mosaic plot
--   define plot and options for *icon array*
--   provide options for
+-   add current metrics (accuracy measures, PPV/NPV) to tabs of _nf-tree_, _contingency table_, and _mosaic plot_
+-   define plot and options for _icon array_ (in current sdt-colors)
+-   provide options for: 
     -   shuffling current population and
     -   sampling from population in data table and icon array)
 
 #### B. User interface:
 
 -   update environment name and source (used in plots) when loading a data set
--   add current colors to tabs of nf `tree`, contingency `table`, and mosaic plot.
+-   display the 4 current environment parameters (in the left panel)
+-   make current title smaller and add current source information in 2nd text field
+-   add current sdt-colors to 4 cells of _contingency table_
 -   make current set of colors user customizable
 -   allow saving and exporting current parameters set (environments)
--   allow saving and exports of graphs
+-   allow saving and exports of graphs (as pdf or png files)
 
 #### C. Background info:
 
