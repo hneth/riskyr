@@ -3,7 +3,6 @@ riskyr
 SPDS, uni.kn
 2018 01 02
 
----
 
 The `riskyr` package
 ====================
@@ -44,12 +43,10 @@ All visualizations can be explored interactively and use a common color scheme.
 
 A set of environments illustrates example cases with known data from the literature.
 
----
 
 Contact
 -------
 
 Contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de).
 
----
 
