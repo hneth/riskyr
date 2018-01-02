@@ -1,6 +1,7 @@
-dataset,N,prev,sens,spec,source
----,10000,0.15,0.7,0.85,
-HIV (a),100000,0.0001,1,0.99995,"Gigerenzer (2013), p. 53 "
-HIV (b),250000,0.0001,1,0.999996,"Gigerenzer (2013), p. 53 "
-Breast cancer,1000,0.01,0.9,0.91,"Gigerenzer (2013), p. 213-221 "
-Down syndrome,1000,0.01,0.9,0.95,"Gigerenzer (2013), p. 222-226 "
+dataset, N, prev, sens, spec, source
+---, 1000, .10, .90,  .85, "no source"
+Breast cancer, 1000, .01, .9, .91, "Gigerenzer (2013), p. 213-221"
+Down syndrome, 1000, .01, .9, .95, "Gigerenzer (2013), p. 222-226"
+HIV (a), 100000, .0001, 1, .99995, "Gigerenzer (2013), p. 53"
+HIV (b), 250000, .0001, 1, .999996, "Gigerenzer (2013), p. 53"
+

@@ -1,7 +1,7 @@
 ---
 title: "Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2017 12 31"
+date: "2018 01 02"
 output:
   html_document:
     keep_tex: false
@@ -25,6 +25,12 @@ urlcolor: blue
 editor_options: 
 chunk_output_type: console
 ---
+
+# Basics
+
+Note that this file serves as a original test bed for the `riskyr` package and Shiny app. (Check there to view the latest versions of all code.)
+
+## Preamble
 
 ```{r preamble, eval = TRUE, echo = FALSE, results = 'hide', warning = FALSE, message = FALSE}
 ## (1) Housekeeping: 
@@ -54,6 +60,8 @@ opts_chunk$set(echo = TRUE,
                fig.width = 10, fig.height = 6)
 opts_knit$set(width=75)
 ```
+
+## Graphical settings
 
 Graphical settings (for `ggplot2`): 
 
