@@ -89,6 +89,7 @@ shinyUI(
              tabPanel("1: Representations",
                       icon = icon("tree-deciduous", lib = "glyphicon"),
                       
+                      #####
                       sidebarLayout(
                         
                         # Sidebar panel for inputs:
@@ -96,44 +97,71 @@ shinyUI(
                           
                           # Input: Select all input values:
                           textInput("name",
-                                    label = "Name or topic:",
-                                    value = "Example environment"),
+                                    label = "Condition name:",
+                                    value = "Condition X"),
                           
                           br(), # add horizontal space
-                          
+
+                          tags$b("Population size:"),
+                          tags$br("(Use slider or enter number)"),
                           sliderInput("N",
-                                      label = "Population size:",
-                                      value = env$N,
+                                      label = NULL,
+                                      value = 100,
                                       min = 0,
                                       max = 10^6,
-                                      step = 10^2
+                                      step = 10
                                       ), # use log-scale from 1 to 10^9
-                          
+                          numericInput("numN", 
+                                       label = NULL, 
+                                       value = 100,
+                                       min = 0,
+                                       max = 10^6,
+                                       step = 10),
                           br(),
-                          
+                          tags$b("Prevalence:"),
+                          tags$br("(Use slider or enter number)"),
                           sliderInput("prev", 
-                                      "Prevalence:",
-                                      value = env$prev,
+                                      label = NULL, sep = "",
+                                      value = 0.15, 
                                       min = 0,
                                       max = 1,
-                                      step = .01
-                                      ),
-                          
+                                      step = 10^-3),
+                          numericInput("numprev", 
+                                       label = NULL, 
+                                       value = 0.15,
+                                       min = 0,
+                                       max = 1,
+                                       step = 10^-3),
+                          br(),
+                          tags$b("Sensitivity:"),
+                          tags$br("(Use slider or enter number)"),
                           sliderInput("sens", 
-                                      "Sensitivity:",
-                                      value = env$sens,
+                                      label = NULL, sep = "",
+                                      value = 0.85,
                                       min = 0,
                                       max = 1,
-                                      step = .01
-                                      ),
-                          
+                                      step = 10^-3),
+                          numericInput("numsens", 
+                                       label = NULL, 
+                                       value = 0.85,
+                                       min = 0,
+                                       max = 1,
+                                       step = 10^-3),
+                          br(),
+                          tags$b("Specificity:"),
+                          tags$br("(Use slider or enter number)"),
                           sliderInput("spec", 
-                                      "Specificity:",
-                                      value = env$spec,
+                                      label = NULL, sep = "",
+                                      value = 0.75,
                                       min = 0,
                                       max = 1, 
-                                      step = .01
-                                      ),
+                                      step = 10^-3),
+                          numericInput("numspec", 
+                                       label = NULL, 
+                                       value = 0.75,
+                                       min = 0,
+                                       max = 1,
+                                       step = 10^-3),
                           
                           br(), 
                           
@@ -148,19 +176,19 @@ shinyUI(
                                    style = "default", type = "action"),
                           
                           ## Tooltips on inputs:
-                          bsTooltip(id = "N", title = "Size of population",
+                          bsTooltip(id = "N", title = "Number of individuals making up the population",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
                           bsTooltip(id = "prev", title = "Probability of being affected: p(true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")),
                           
-                          bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual: p(positive decision | true)",
+                          bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual: p(decision positive | condition true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")), 
                           
-                          bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual: p(negative decision | false) = 1 - FA",
+                          bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual: p(decision negative | condition false) = 1 - FA",
                                     placement = "right", trigger = "hover", options = list(container = "body"))
                         ),
-                        
+                        #####
                         ## Main panel for displaying different aspects about risk:
                         mainPanel(
                           
@@ -172,6 +200,21 @@ shinyUI(
                           
                           ## Tabset with raw data table, icon array, nf tree, confusion table, and PV graphs: 
                           tabsetPanel(type = "tabs",
+                                      tabPanel("Intro",
+                                               br(),
+                                               "This is just a quick page for displaying rendered text based on inputs.",
+                                               "Spacing doesn't work yet, but that's only formatting...",
+                                               textOutput("N"),
+                                               textOutput("prev"),
+                                               textOutput("sens"),
+                                               textOutput("spec")
+                                               ),
+                                      tabPanel("Stats",
+                                               br(),
+                                               "This page will explain, define, and compute the current value some common metrics. Here is a first example: ",
+                                               br(), br(), 
+                                               uiOutput("PPV")
+                                               ),
                                       tabPanel("Cases", 
                                                br(),
                                                "Individual cases:", 

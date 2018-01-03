@@ -492,6 +492,29 @@ shinyServer(function(input, output, session){
   data <- reactiveValues(data = NULL) # 2. list of derived parameters (list of only scalars/atomic vectors)
   # population <- reactiveValues(population = NULL) # 3. current population (as df of 3 vectors)
   
+  
+  ## couple numeric and slider inputs
+  observeEvent({input$numN},
+               {updateSliderInput(session, "N", value = input$numN)})
+  observeEvent({input$N},
+               {updateSliderInput(session, "numN", value = input$N)})
+  
+  observeEvent({input$numprev},
+               {updateSliderInput(session, "prev", value = input$numprev)})
+  observeEvent({input$prev},
+               {updateSliderInput(session, "numprev", value = input$prev)})
+  
+  observeEvent({input$numsens},
+               {updateSliderInput(session, "sens", value = input$numsens)})
+  observeEvent({input$sens},
+               {updateSliderInput(session, "numsens", value = input$sens)})
+  
+  observeEvent({input$numspec},
+               {updateSliderInput(session, "spec", value = input$numspec)})
+  observeEvent({input$spec},
+               {updateSliderInput(session, "numspec", value = input$spec)})
+  
+  
   ## Observe inputs and generate data used in outputs:
   observeEvent({
     input$name   # name of current environment 
@@ -586,6 +609,24 @@ shinyServer(function(input, output, session){
   #  )
   
   ## Outputs:
+  
+  ## (1) Intro tab:
+  ## get all current inputs within text statements as outputs
+  output$N <- renderText({ paste0("- We are currently considering a population of ", input$N, " individuals. ") })
+  output$prev <- renderText({ paste0("- Prevalence describes the probability of being affected: p(true).  The current prevalence is ", input$prev, ". ")})
+  output$sens <- renderText({ paste0("- Sensitivity describes the probability of correctly detecting an affected individual: p(decision positive | condition true).  The current sensitivity is ", input$sens, ". ") })
+  output$spec <- renderText({ paste0("- Specificity describes the probability of correctly rejecting an unaffected individual: p(decision negative | condition false) = 1 - FA.  The current specificity is ", input$spec, ". ") })
+  
+  ## (2) Stats tab:
+  output$PPV <- renderUI({
+    
+    ppv <- round(data$PPV, 3)
+    withMathJax(paste0("- PPV describes the p(condition true | decision positive) and is defined as follows: ", 
+      "$$PPV = \\frac{\\text{sensitivity} \\times \\text{prevalence}}
+      {\\text{sensitivity} \\times \\text{prevalence} + 
+      (1 - \\text{specificity}) \\times (1 - \\text{prevalence})} = ", ppv, "$$"
+    ))}
+    )
   
   ## (a) Raw data table: 
   output$rawdatatable <- DT::renderDataTable(DT::datatable({data$population}) %>%
