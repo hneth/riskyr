@@ -612,10 +612,10 @@ shinyServer(function(input, output, session){
   
   ## (1) Intro tab:
   ## get all current inputs within text statements as outputs
-  output$N <- renderText({ paste0("- We are currently considering a population of ", input$N, " individuals. ") })
-  output$prev <- renderText({ paste0("- Prevalence describes the probability of being affected: p(true).  The current prevalence is ", input$prev, ". ")})
-  output$sens <- renderText({ paste0("- Sensitivity describes the probability of correctly detecting an affected individual: p(decision positive | condition true).  The current sensitivity is ", input$sens, ". ") })
-  output$spec <- renderText({ paste0("- Specificity describes the probability of correctly rejecting an unaffected individual: p(decision negative | condition false) = 1 - FA.  The current specificity is ", input$spec, ". ") })
+  output$N <- renderText({ paste0("1. Population size: We are considering a population of ", input$N, " individuals. ") })
+  output$prev <- renderText({ paste0("2. Prevalence describes the probability of being affected: p(true).  The current prevalence is ", input$prev, ". ")})
+  output$sens <- renderText({ paste0("3. Sensitivity describes the probability of correctly detecting an affected individual: p(decision positive | condition true).  The current sensitivity is ", input$sens, ". ") })
+  output$spec <- renderText({ paste0("4. Specificity describes the probability of correctly rejecting an unaffected individual: p(decision negative | condition false) = 1 - FA.  The current specificity is ", input$spec, ". ") })
   
   ## (2) Stats tab:
   output$PPV <- renderUI({
