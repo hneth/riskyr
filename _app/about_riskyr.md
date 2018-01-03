@@ -1,7 +1,7 @@
 About riskyr
 ================
 SPDS, uni.kn
-2018 01 02
+2018 01 03
 
 About `riskyr`
 ==============
@@ -79,6 +79,10 @@ User inputs:
 
 Representations:
 
+-   refine basic data structure into 3 components: 
+    1. environment `env`, 
+    2. derived scalars (e.g., n.true/n.false, hi, mi, fa, cr, acc, PPV/NPV), and 
+    3. population (as df)
 -   add current metrics (accuracy measures, PPV/NPV) to tabs of _nf-tree_, _contingency table_, and _mosaic plot_
 -   define plot and options for _icon array_ (in current sdt-colors)
 -   provide options for: 
@@ -87,12 +91,15 @@ Representations:
 
 #### B. User interface:
 
--   update environment name and source (used in plots) when loading a data set
+-   include a new tab `intro` that explains the 4 basic parameters
+-   inlcude a new tab `stats` that defines and computes basic metrics
+-   update the environment name/condition and source (used in plots) when loading a data set
 -   display the 4 current environment parameters (in the left panel)
 -   make current title smaller and add current source information in 2nd text field
+-   add customization option to re-define the factor labels of the 4 cells
 -   add current sdt-colors to 4 cells of _contingency table_
--   make current set of colors user customizable
--   allow saving and exporting current parameters set (environments)
+-   add customization option for current set of colors
+-   allow saving and exporting current parameter set (environment)
 -   allow saving and exports of graphs (as pdf or png files)
 
 #### C. Background info:
