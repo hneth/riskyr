@@ -1,5 +1,5 @@
 ## ui.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 02
+## riskyr | R Shiny | spds, uni.kn | 2018 01 03
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -203,6 +203,9 @@ shinyUI(
                                                paste0("Aggregated cases:"), 
                                                br(), br(),  
                                                tableOutput("confusiontable"),
+                                               br(),
+                                               paste0("The following mosaic plot shows the cell frequencies as area sizes:"), 
+                                               br(),  br(), 
                                                plotOutput("mosaicplot"),
                                                br()
                                                ),
@@ -212,7 +215,8 @@ shinyUI(
                                                paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"),
                                                br(),
-                                               # paste0("PPV = ", data$PPV, ", NPV = ", data$NPV), 
+                                               paste0("PPV = ", data()$PPV, ", NPV = ", data()$NPV), 
+                                               # print(data()$PPV),
                                                # ERROR: object of type 'closure' is not subsettable ???
                                                checkboxInput("boxPVprev", label = "Show current prevalence in plot", value = TRUE), 
                                                checkboxInput("boxPVpoints1", label = "Show current PPV/NPV in plot", value = TRUE),

@@ -1,5 +1,5 @@
 ## server.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 02
+## riskyr | R Shiny | spds, uni.kn | 2018 01 03
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Clean up:
 
@@ -71,7 +71,7 @@ datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
   ## Define named colors for app display:
   col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
   col.npv <- col.blue.3 # seeblau "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
-  sdt.colors <- setNames(c(col.green.1, col.red.1, col.green.2, col.red.2), 
+  sdt.colors <- setNames(c(col.green.2, col.red.2, col.green.1, col.red.1), 
                          c("hi", "mi", "cr", "fa"))
   
   ## ggplot themes:
@@ -414,8 +414,8 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
   # cur.PPV.label <- data$PPV.label # paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
   # cur.NPV.label <- data$NPV.label # paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
   ## (b) Compute from scratch:
-  cur.PPV <- get.PPV(prev, sens, spec)
-  cur.NPV <- get.NPV(prev, sens, spec) 
+  cur.PPV <- get.PPV(prev, sens, spec) # data()$PPV
+  cur.NPV <- get.NPV(prev, sens, spec) # data()$NPV 
   cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
   cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
   
@@ -487,10 +487,10 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
 shinyServer(function(input, output, session){
 
   ## Define a common data structure:
-  ## Generate data structures as lists of reactive elements:
-  env <- reactiveValues(env = NULL) # list of current environment
-  data <- reactiveValues(data = NULL) # list of derived parameters
-  # population <- reactiveValues(population = NULL) # df of current population
+  ## Generate 3 data structures as lists of reactive elements:
+  env <- reactiveValues(env = NULL)   # 1. a list of current environment parameters (inputs)
+  data <- reactiveValues(data = NULL) # 2. list of derived parameters (list of only scalars/atomic vectors)
+  # population <- reactiveValues(population = NULL) # 3. current population (as df of 3 vectors)
   
   ## Observe inputs and generate data used in outputs:
   observeEvent({
