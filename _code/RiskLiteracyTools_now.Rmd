@@ -1,7 +1,7 @@
 ---
-title: "Risk Literacy Toolbox"
+title: "Towards a Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 01 02"
+date: "2018 01 03"
 output:
   html_document:
     keep_tex: false
@@ -10,7 +10,7 @@ output:
     toc_depth: 3
     toc_float: true
     number_sections: false
-    code_folding: show # show/hide
+    code_folding: hide # show/hide
     highlight: kate # textmate default kate haddock monochrome #
     lightbox: true # TRUE by default
     gallery: false
@@ -28,7 +28,7 @@ chunk_output_type: console
 
 # Basics
 
-Note that this file serves as a original test bed for the `riskyr` package and Shiny app. (Check there to view the latest versions of all code.)
+Note that this file serves as an original test bed for the `riskyr` package and Shiny app. (The latest code versions will be stored there.)
 
 ## Preamble
 
