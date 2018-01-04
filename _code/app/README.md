@@ -1,1 +1,0 @@
-An interactive application (written in R shiny) that allows using the `riskyr` toolbox without any need for coding.
