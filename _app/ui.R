@@ -1,5 +1,5 @@
 ## ui.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 03
+## riskyr | R Shiny | spds, uni.kn | 2018 01 04
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -7,16 +7,16 @@
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Dependencies:
 
-library(shiny)
-library(shinyBS)
-library(markdown)
-library(DT)
-library(diagram)
-library(shape)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(vcd)
+library("shiny")
+library("shinyBS")
+library("markdown")
+library("DT")
+library("diagram")
+library("shape")
+library("tidyr")
+library("dplyr")
+library("ggplot2")
+library("vcd")
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Initial environment:

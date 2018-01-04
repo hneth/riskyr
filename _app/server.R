@@ -1,5 +1,5 @@
 ## server.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 03
+## riskyr | R Shiny | spds, uni.kn | 2018 01 04
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Clean up:
 
@@ -15,16 +15,16 @@
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Dependencies:
 
-library(shiny)
-library(shinyBS)
-library(markdown)
-library(DT)
-library(diagram)
-library(shape)
-library(tidyr)
-library(dplyr)
-library(ggplot2)
-library(vcd)
+library("shiny")
+library("shinyBS")
+library("markdown")
+library("DT")
+library("diagram")
+library("shape")
+library("tidyr")
+library("dplyr")
+library("ggplot2")
+library("vcd")
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Import ready-made and worked out example data 
@@ -33,11 +33,38 @@ library(vcd)
 datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
           # read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
-## Graphic settings: 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+## Customizations
+
+## A. Text labels:
+
+{
+  ## Initialize text labels with generic terminology:
+  ## (and make user-customizable later):
+  
+  # (a) True condition:
+  condition.lbl <- "Current condition"
+  cond.true.lbl <- "Condition true"   # "has condition", "is affected"
+  cond.false.lbl <- "Condition false" # "does not have condition", "is unaffected"
+  # (b) Decisions:
+  decision.lbl <- "Diagnostic decision"
+  dec.true.lbl <- "Decision positive"  # "has condition", "is affected"
+  dec.false.lbl <- "Decision negative" # "does not have condition", "is unaffected"
+  # (c) sdt cases (combinations):
+  sdt.hi.lbl <- "hit"   # "has condition and is detected as such",     p(dec true  | cond true)
+  sdt.mi.lbl <- "miss"  # "has condition and is NOT detected as such", p(dec false | cond true)
+  sdt.fa.lbl <- "false alarm" # ...
+  sdt.cr.lbl <- "correct rejection" # ... 
+  # (d) PPV/NPV:
+  # (...)
+  
+}
+
+## B. Graphical settings: 
 
 {
   ## Color names:
+  ## (make user-customizable later):
   {
     ## from uni.kn: 
     seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
@@ -107,7 +134,8 @@ datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
   
 }
 
-## Utility functions:
+## C. Generic utility functions:
+
 {
   
   ## Percentage rounded to 1 decimal digit: 
@@ -133,12 +161,12 @@ plot.nftree <- function(env, data) {
   
   ## Tree with natural frequencies: 
   names <- c(paste0("N = ", N), # Note: Using global variables (NOT population as argument)
-             paste0("true:\n", data$n.true), 
-             paste0("false:\n", data$n.false), 
-             paste0("hits:\n", data$n.hi), 
-             paste0("misses:\n", data$n.mi),
-             paste0("false alarms:\n", data$n.fa), 
-             paste0("correct rejections:\n", data$n.cr))
+             paste0(cond.true.lbl, ":\n", data$n.true), 
+             paste0(cond.false.lbl, ":\n", data$n.false), 
+             paste0(sdt.hi.lbl, "s:\n", data$n.hi), 
+             paste0(sdt.mi.lbl, "es:\n", data$n.mi),
+             paste0(sdt.fa.lbl, "s:\n", data$n.fa), 
+             paste0(sdt.cr.lbl, "s:\n", data$n.cr))
   
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
   
@@ -147,7 +175,7 @@ plot.nftree <- function(env, data) {
   M[4, 2] <- "sensitivity"
   M[5, 2] <- "(true - hi)"
   M[6, 3] <- "(false - cr)"
-  M[7, 3] <- "specificity"
+  M[7, 3] <- "specificity (1 - FA)"
   
   ## plot matrix M:
   pm <- plotmat(M,
@@ -562,17 +590,17 @@ shinyServer(function(input, output, session){
     ## (4) Coerce 3 vectors into ordered factors:
     data$truth <- factor(data$truth, 
                          levels = c(TRUE, FALSE),
-                         labels = c("condition true", "condition false"), # explicit labels
+                         labels = c(cond.true.lbl, cond.false.lbl), # explicit labels
                          ordered = TRUE)
     
     data$decision <- factor(data$decision, 
                             levels = c(TRUE, FALSE),
-                            labels = c("decision positive", "decision negative"), # explicit labels
+                            labels = c(dec.true.lbl, dec.false.lbl), # explicit labels
                             ordered = TRUE)
     
     data$sdt <- factor(data$sdt, 
                           levels = c("hi", "mi", "fa", "cr"),
-                          labels = c("hit", "miss", "false alarm", "correct rejection"), # explicit labels
+                          labels = c(sdt.hi.lbl, sdt.mi.lbl, sdt.fa.lbl, sdt.cr.lbl), # explicit labels
                           # labels = c("hi", "mi", "fa", "cr"), # implicit labels
                           ordered = TRUE)
     
@@ -643,11 +671,11 @@ shinyServer(function(input, output, session){
                                                         data$n.mi, data$n.cr, data$dec.neg, 
                                                         data$n.true, data$n.false, env$N),
                                                nrow = 3, byrow = TRUE,
-                                               dimnames = list(c("Decision positive:", 
-                                                                 "Decision negative:", 
+                                               dimnames = list(c(dec.true.lbl,  # "Decision positive:", 
+                                                                 dec.false.lbl, # "Decision negative:", 
                                                                  "Truth sums:"), 
-                                                               c("Condition true:", 
-                                                                 "Condition false:", 
+                                                               c(cond.true.lbl,  # "Condition true:", 
+                                                                 cond.false.lbl, # "Condition false:", 
                                                                  "Decision sums:")
                                                                )
                                                )
