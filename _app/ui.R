@@ -83,7 +83,16 @@ shinyUI(
   # tags$head(tags$script(HTML(JS.onload))),
   
   navbarPage(title = "riskyr",
-             theme = "bootstrap.sandstone.css", # or any other bootsstrap theme https://bootswatch.com/3/
+             theme = "bootstrap.sandstone.css",
+             ## or another bootsstrap theme https://bootswatch.com/3/, e.g., 
+             # theme = "bootstrap.yeti.css",
+             # theme = "bootstrap.simplex.css",
+             # theme = "bootstrap.lumen.css", 
+             # theme = "bootstrap.paper.css",
+             # theme = "bootstrap.cosmo.css",
+             # theme = "bootstrap.spacelab.css",
+             # theme = "bootstrap.flatly.css",
+             # theme = "bootstrap.slate.css",
              
              #####               
              tabPanel("1: Representations",
