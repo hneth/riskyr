@@ -200,6 +200,7 @@ shinyUI(
                           
                           ## Tabset with raw data table, icon array, nf tree, confusion table, and PV graphs: 
                           tabsetPanel(type = "tabs",
+                                      
                                       tabPanel("Intro",
                                                br(),
                                                "This is just a quick page for displaying rendered text based on inputs. ",
@@ -212,6 +213,7 @@ shinyUI(
                                                textOutput("sens"),
                                                textOutput("spec")
                                                ),
+                                      
                                       tabPanel("Stats",
                                                br(),
                                                "This page will explain, define, and compute the current value some common metrics. ",
@@ -220,6 +222,7 @@ shinyUI(
                                                br(), br(), 
                                                uiOutput("PPV")
                                                ),
+                                      
                                       tabPanel("Cases", 
                                                br(),
                                                "Individual cases:", 
@@ -263,7 +266,7 @@ shinyUI(
                                                paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"),
                                                br(),
-                                               paste0("PPV = ", data()$PPV, ", NPV = ", data()$NPV), 
+                                               # paste0("PPV = ", data()$PPV, ", NPV = ", data()$NPV), 
                                                # print(data()$PPV),
                                                # ERROR: object of type 'closure' is not subsettable ???
                                                checkboxInput("boxPVprev", label = "Show current prevalence in plot", value = TRUE), 
