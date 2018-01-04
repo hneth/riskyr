@@ -1,7 +1,7 @@
 ---
 title: "Towards a Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 01 03"
+date: "2018 01 04"
 output:
   html_document:
     keep_tex: false
@@ -28,7 +28,8 @@ chunk_output_type: console
 
 # Basics
 
-Note that this file serves as an original test bed for the `riskyr` package and Shiny app. (The latest code versions will be stored there.)
+Note that this file serves as an original test bed for the `riskyr` package and the corresponding Shiny app. 
+(The latest code versions will be stored there, _not_ here.)
 
 ## Preamble
 
@@ -61,9 +62,37 @@ opts_chunk$set(echo = TRUE,
 opts_knit$set(width=75)
 ```
 
-## Graphical settings
+## Customizations
 
-Graphical settings (for `ggplot2`): 
+### Text labels
+
+Define some text labels:
+
+```{r text_settings, eval = TRUE, echo = FALSE}
+## Initialize text labels with generic terminology:
+## (and make user-customizable later):
+  
+# (a) True condition:
+  condition.lbl <- "Current condition"
+  cond.true.lbl <- "Condition true"   # "has condition", "is affected"
+  cond.false.lbl <- "Condition false" # "does not have condition", "is unaffected"
+  # (b) Decisions:
+  decision.lbl <- "Diagnostic decision"
+  dec.true.lbl <- "Decision positive"  # "has condition", "is affected"
+  dec.false.lbl <- "Decision negative" # "does not have condition", "is unaffected"
+  # (c) sdt cases (combinations):
+  sdt.hi.lbl <- "hit"   # "has condition and is detected as such",     p(dec true  | cond true)
+  sdt.mi.lbl <- "miss"  # "has condition and is NOT detected as such", p(dec false | cond true)
+  sdt.fa.lbl <- "false alarm" # ...
+  sdt.cr.lbl <- "correct rejection" # ... 
+  # (d) PPV/NPV:
+  # (...)
+  
+```
+
+### Graphical settings
+
+Define graphical settings (e.g., colors and `ggplot2` themes): 
 
 ```{r graphic_settings, eval = TRUE, echo = FALSE}
 ## (1) Packages:
@@ -120,7 +149,9 @@ col.greens <- brewer.pal(9, "Greens")
   col.grey.4 <- "grey10"
   
   col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
-  col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"  
+  col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"
+  sdt.colors <- setNames(c(col.green.2, col.red.2, col.green.1, col.red.1), 
+                         c("hi", "mi", "cr", "fa"))
 }
 
 ## (d) unikn.col palette (as RGB, without transparency): 
@@ -181,7 +212,6 @@ unikn.pal = data.frame(
 pc <- function(num) {
     return(round(num * 100, 1)) 
 }
-
 ```
 
 ---
@@ -469,28 +499,33 @@ npv <- n.cr / dec.neg # npv = p(true negative | negative decision)
 3. (n.hi = `r n.hi` vs. n.mi = `r n.mi`) vs. (n.fa = `r n.fa` vs. n.cr = `r n.cr`)
 4. PPV = `r ppv` and NPV = `r npv`
 
-```{r tree-diagram, include = TRUE, fig.width = 10, fig.height = 8}
-#install.packages("diagram")
-library(diagram)
-library(shape)
-# demo("flowchart")
+```{r nf-tree-diagram, include = TRUE, fig.width = 10, fig.height = 8}
+## Load required packages:
+library("diagram")
+library("shape")
 
-## Example 1:
-#names <- c("A", "B", "C", "D")
-#M <- matrix(nrow = 4, ncol = 4, byrow = TRUE, data = 0)
-#plotmat(M, pos = c(1, 2, 1), name = names, lwd = 1, 
-#        box.lwd = 2, cex.txt = 0.8, box.size = 0.1, 
-#        box.type = "square", box.prop = 0.5)
-
-## Example 2:
-#M[2, 1] <- M[3, 1] <- M[4, 2] <- M[4, 3] <- "flow"
-#plotmat(M, pos = c(1, 2, 1), curve = 0, name = names, lwd = 1,
-#        box.lwd = 2, cex.txt = 0.8, box.type = "circle", box.prop = 1.0)
-
-## Function to make tree of natural frequencies:
+{
+  # demo("flowchart")
+  
+  ## Example 1:
+  #names <- c("A", "B", "C", "D")
+  #M <- matrix(nrow = 4, ncol = 4, byrow = TRUE, data = 0)
+  #plotmat(M, pos = c(1, 2, 1), name = names, lwd = 1, 
+  #        box.lwd = 2, cex.txt = 0.8, box.size = 0.1, 
+  #        box.type = "square", box.prop = 0.5)
+  
+  ## Example 2:
+  #M[2, 1] <- M[3, 1] <- M[4, 2] <- M[4, 3] <- "flow"
+  #plotmat(M, pos = c(1, 2, 1), curve = 0, name = names, lwd = 1,
+  #        box.lwd = 2, cex.txt = 0.8, box.type = "circle", box.prop = 1.0)
+}
+  
+  
+## Function to plot tree of natural frequencies 
+## (using current environment variables (NOT population) as argument:
 make.nftree <- function(env = cur.env) {
   
-  ## (0) Get current parameters:
+  ## Get current parameters:
   name <- cur.env$name
   N <- cur.env$N
   prev <- cur.env$prev
@@ -498,15 +533,18 @@ make.nftree <- function(env = cur.env) {
   spec <- cur.env$spec
   source <- cur.env$source
   
-  ## Tree with natural frequencies: 
+  ## Tree with natural frequencies:
+  ## Define names:
   names <- c(paste0("N = ", N), # Note: Using global variables (NOT population as argument)
-             paste0("true:\n", n.true), 
-             paste0("false:\n", n.false), 
-             paste0("hits:\n", n.hi), 
-             paste0("misses:\n", n.mi),
-             paste0("false alarms:\n", n.fa), 
-             paste0("correct rejections:\n", n.cr))
+             paste0(cond.true.lbl, ":\n",  n.true), 
+             paste0(cond.false.lbl, ":\n", n.false), 
+             paste0(sdt.hi.lbl, "s:\n",  n.hi), 
+             paste0(sdt.mi.lbl, "es:\n", n.mi),
+             paste0(sdt.fa.lbl, "s:\n",  n.fa), 
+             paste0(sdt.cr.lbl, "s:\n",  n.cr)
+  )
   
+  ## Make matrix M:
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
   
   M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
@@ -516,7 +554,7 @@ make.nftree <- function(env = cur.env) {
   M[6, 3] <- "(false - cr)"
   M[7, 3] <- "specificity"
   
-  ## plot matrix M:
+  ## Plot matrix M:
   pp <- plotmat(M,
                 pos = c(1, 2, 4), 
                 curve = 0.0,
@@ -525,18 +563,19 @@ make.nftree <- function(env = cur.env) {
                 box.size = .10, 
                 box.prop = 0.5,
                 box.type = "square", # "circle",
-                box.col = "lightyellow", # ... 
+                box.col = c(rep(col.sand.light, 3), sdt.colors[c("hi", "mi", "fa", "cr")]), # "lightyellow"
                 shadow.col = "steelblue4", # "grey25" 
                 shadow.size = 0.0, # .005 
                 lwd = 1.2,
                 cex.txt = .90,
                 main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
-                )
+  )
   
   return(pp)
   
 }
 
+## Check: 
 nftree <- make.nftree(cur.env)
 
 # typeof(nftree)

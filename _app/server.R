@@ -159,7 +159,8 @@ plot.nftree <- function(env, data) {
   spec <- env$spec
   source <- env$source
   
-  ## Tree with natural frequencies: 
+  ## Tree with natural frequencies:
+  ## Define names (with current labels):
   names <- c(paste0("N = ", N), # Note: Using global variables (NOT population as argument)
              paste0(cond.true.lbl, ":\n", data$n.true), 
              paste0(cond.false.lbl, ":\n", data$n.false), 
@@ -168,6 +169,7 @@ plot.nftree <- function(env, data) {
              paste0(sdt.fa.lbl, "s:\n", data$n.fa), 
              paste0(sdt.cr.lbl, "s:\n", data$n.cr))
   
+  ## Make matrix:
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
   
   M[2, 1] <- "prevalence" # paste0("prevalence = ", as.character(prev)) 
@@ -177,7 +179,7 @@ plot.nftree <- function(env, data) {
   M[6, 3] <- "(false - cr)"
   M[7, 3] <- "specificity (1 - FA)"
   
-  ## plot matrix M:
+  ## Plot matrix M:
   pm <- plotmat(M,
                 pos = c(1, 2, 4), 
                 curve = 0.0,
@@ -194,6 +196,7 @@ plot.nftree <- function(env, data) {
                 main = paste0(name, ":\nTree of natural frequencies\n", "(", source, ")")
                 )
   
+  ## Return plot:
   return(pm)
   
 }
@@ -374,7 +377,7 @@ plot.PV.curves <- function(env, show.PVprev = TRUE, show.PVpoints = TRUE, log.sc
                 color = col.npv, hjust = x.just, vjust = y.just, size = 4) # + # label NPV
   }
   
-  
+  ## Return plot:
   return(p.PVs)
   
 }
@@ -403,7 +406,7 @@ pv.matrix <- function(prev, sens, spec, metric) {
                                  ncol = n.cols)) 
   names(matrix) <- sens 
   
-  # loop through all rows and columns of pc.matrix: 
+  ## Loop through all rows and columns of pc.matrix: 
   for (row in 1:n.rows) {
     for (col in 1:n.cols) {
       
@@ -419,6 +422,7 @@ pv.matrix <- function(prev, sens, spec, metric) {
     }
   }
   
+  ## Return matrix:
   return(matrix)
   
 }
@@ -469,7 +473,9 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
   
   # Plot 2 plots (adjacent to each other):
   {
-    par(mfrow = c(1, 2)) # Combine 2 plots in 1 row x 2 columns.
+    
+    ## Define special graphic settings:
+    par(mfrow = c(1, 2)) # Combine 2 plots in 1 row x 2 columns:
     par(bg = "white")
     
     ## 3D plot for PPV:
@@ -504,7 +510,8 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
       points(add.NPV, pch = 21, col = "grey88", bg = col.npv, lwd = 1.0, cex = 1.3)
     }
     
-    par(mfrow = c(1, 1)) # Remove special settings.
+    ## Remove special graphic settings:
+    par(mfrow = c(1, 1)) 
   }
   
 }
