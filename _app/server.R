@@ -528,27 +528,26 @@ shinyServer(function(input, output, session){
   # population <- reactiveValues(population = NULL) # 3. current population (as df of 3 vectors)
   
   
-  ## couple numeric and slider inputs
-  observeEvent({input$numN},
+  ## Couple numeric and slider inputs:
+  observeEvent(input$numN,
                {updateSliderInput(session, "N", value = input$numN)})
-  observeEvent({input$N},
-               {updateSliderInput(session, "numN", value = input$N)})
+  observeEvent(input$N,
+               {updateNumericInput(session, "numN", value = input$N)})
   
-  observeEvent({input$numprev},
+  observeEvent(input$numprev,
                {updateSliderInput(session, "prev", value = input$numprev)})
-  observeEvent({input$prev},
-               {updateSliderInput(session, "numprev", value = input$prev)})
+  observeEvent(input$prev,
+               {updateNumericInput(session, "numprev", value = input$prev)})
   
-  observeEvent({input$numsens},
+  observeEvent(input$numsens,
                {updateSliderInput(session, "sens", value = input$numsens)})
-  observeEvent({input$sens},
-               {updateSliderInput(session, "numsens", value = input$sens)})
+  observeEvent(input$sens,
+               {updateNumericInput(session, "numsens", value = input$sens)})
   
-  observeEvent({input$numspec},
+  observeEvent(input$numspec,
                {updateSliderInput(session, "spec", value = input$numspec)})
-  observeEvent({input$spec},
-               {updateSliderInput(session, "numspec", value = input$spec)})
-  
+  observeEvent(input$spec,
+               {updateNumericInput(session, "numspec", value = input$spec)})
   
   ## Observe inputs and generate data used in outputs:
   observeEvent({
