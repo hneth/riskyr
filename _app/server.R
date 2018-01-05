@@ -41,7 +41,8 @@ datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
 {
   ## Initialize text labels with generic terminology:
   ## (and make user-customizable later):
-  
+  # cus$target.population.lbl <- "population description"
+  # cus$scenario.txt <- "Describe the scenario in a paragraph here."
   # (a) True condition:
   condition.lbl <- "Current condition"
   cond.true.lbl <- "Condition true"   # "has condition", "is affected"

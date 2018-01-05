@@ -71,7 +71,7 @@ Agenda
 
 - Split current project into R package vs. Shiny app
 
-##### `riskyr` pck:
+##### `riskyR` pck:
 
 - pck: Restruture code accoding to [R packages](http://r-pkgs.had.co.nz/)
 - pck: Revise data structure into 
@@ -80,11 +80,11 @@ Agenda
     3. `pop` (df of 3 vectors)
 - pck: Add statistical function definitions as Markdown docs
 
-#### `riskyrApp` app:
+#### `riskyRapp` app:
 
 - app: Develop according to Dean Attali's [recommendations](https://deanattali.com/2015/04/21/r-package-shiny-app/)
 - app: Initial panel with 2 types of _inputs_:
-    a. problem definition (specify condition, target population, 
+    a. problem definition (specify `condition`, `target population`, 
        condition and decision labels, and other features of the dataset), 
     b. environment (1+3+1 parameters: `N`, `prev`, `sens`, `spec`/`fart`), 
 - app: 3 types of _outputs_: 

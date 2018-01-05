@@ -1,5 +1,5 @@
 ## ui.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 04
+## riskyr | R Shiny | spds, uni.kn | 2018 01 05
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 
 # rm(list=ls()) # clean all.
@@ -82,7 +82,7 @@ shinyUI(
   # tags$head(tags$script(HTML(JS.logify))),
   # tags$head(tags$script(HTML(JS.onload))),
   
-  navbarPage(title = "riskyr",
+  navbarPage(title = "riskyR",
              theme = "bootstrap.sandstone.css",
              ## or another bootsstrap theme https://bootswatch.com/3/, e.g., 
              # theme = "bootstrap.yeti.css",
