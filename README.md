@@ -1,10 +1,10 @@
-riskyr
+riskyR
 ================
 SPDS, uni.kn
-2018 01 02
+2018 01 05
 
 
-The `riskyr` package
+The `riskyR` package
 ====================
 
 A toolbox for transparent communication and teaching of risk literacy.
@@ -12,11 +12,11 @@ A toolbox for transparent communication and teaching of risk literacy.
 Goal
 ----
 
-Develop and assemble a set of basic risk literacy tools in R.
+Develop and assemble a set of basic risk literacy tools in R: 
 
-The `riskyr` package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
+- The `riskyR` package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
 
-A corresponding R Shiny app allows using the `riskyr` toolbox in an interactive fashion without any coding.
+- The corresponding R Shiny app `riskyRapp` allows using the `riskyr` toolbox in an interactive fashion without any coding.
 
 Rationale
 ---------
