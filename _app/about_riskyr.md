@@ -1,7 +1,7 @@
 About riskyr
 ================
 SPDS, uni.kn
-2018 01 03
+2018 01 05
 
 About `riskyr`
 ==============
@@ -63,19 +63,42 @@ Agenda
 -   add option to load environments (parameter sets of examples and real studies (from `.csv` file)
 -   add current sdt-colors to tabs of _data table_, _nf-tree_ and _mosaic plot_ 
 -   fix bug when loading datasets
+-   couple input sliders with text fields to allow for wider range and more precise inputs
 
 ### Yet to do
 
+#### Revise structure
+
+- Split current project into R package vs. Shiny app
+
+##### `riskyr` pck:
+
+- pck: Restruture code accoding to [R packages](http://r-pkgs.had.co.nz/)
+- pck: Revise data structure into 
+    1. `env` (list of input parameters), 
+    2. `dat` (list of derived scalars) vs. 
+    3. `pop` (df of 3 vectors)
+- pck: Add statistical function definitions as Markdown docs
+
+#### `riskyrApp` app:
+
+- app: Develop according to Dean Attali's [recommendations](https://deanattali.com/2015/04/21/r-package-shiny-app/)
+- app: Initial panel with 2 types of _inputs_:
+    a. problem definition (specify condition, target population, 
+       condition and decision labels, and other features of the dataset), 
+    b. environment (1+3+1 parameters: `N`, `prev`, `sens`, `spec`/`fart`), 
+- app: 3 types of _outputs_: 
+    a. cases,
+    b. categorized cases, 
+    c. PV plots.
+- app: Allow input of false alarm rate `fart` rather than `spec` (and compute/adjust the other parameter)
+
 #### A. Basic functionality:
-
-Bug fixes:
-
--   some data sets are not represented accurately (due to limited accuracy of input sliders)
 
 User inputs:
 
 -   enable slider inputs of population size _N_ on log scale (to allow precise small and large numbers)
--   enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g. as ratios)
+-   enable precise inputs of parameters `prev`, `sens`, and `spec` (e.g., input as ratios)
 
 Representations:
 
