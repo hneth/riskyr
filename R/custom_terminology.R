@@ -1,4 +1,4 @@
-## riskyr
+## riskyR
 ## 2018 01 06
 ## -----------------------------------------------
 ## Define and initialize current terminology
@@ -22,6 +22,9 @@ terminology <- list(
   sdt.fa.lbl = "false alarm",      # "false positive", p(dec TRUE | cond FALSE)
   sdt.cr.lbl = "correct rejection" # "true negative",  p(dec FALSE | cond FALSE)
   )
+
+## ToDo:
+## - Add terminology to cus object?
 
 ## -----------------------------------------------
 ## eof.

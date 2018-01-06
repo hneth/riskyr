@@ -1,10 +1,9 @@
-## riskyr
+## riskyR
 ## 2018 01 06
 ## -----------------------------------------------
 ## Define and initialize current color information:
 
-## Named colors:
-## (Use color palettes and make user-customizable later):
+## (1) Define some named colors:
 
 {
   ## (1) from uni.kn:
@@ -36,8 +35,8 @@
 
 }
 
-## Used colors:
-## Define default colors for plots and app display:
+## (2) Select and name colors by their function
+##     (to set default colors for plots and app display):
 
 {
   col.hi <- col.green.2
@@ -49,9 +48,14 @@
                          c("hi", "mi", "cr", "fa")
   )
 
-  col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
-  col.npv <- col.blue.3   # seeblau "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"
+  col.ppv <- col.orange.2 # "orange3" "firebrick" "red3"
+  col.npv <- col.blue.3   # "steelblue3" "green4" "gray50" "brown4" "chartreuse4"
 }
+
+## (+) ToDo:
+## - Add colors to cus object?
+## - Add pre-defined color palettes and
+## - make colors user-customizable.
 
 ## -----------------------------------------------
 ## eof.
