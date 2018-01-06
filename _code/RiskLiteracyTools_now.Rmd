@@ -1,7 +1,7 @@
 ---
 title: "Towards a Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 01 04"
+date: "2018 01 06"
 output:
   html_document:
     keep_tex: false
@@ -216,14 +216,258 @@ pc <- function(num) {
 
 ---
 
-# Idea
+# Basic Idea
 
 Provide some useful visualizations of common risk information measures as interactive tools (in R and Shiny) for fostering transparent risk communication and teaching purposes.
+
+## Mathematical Background
+
+### Bayesian inference
+
+```{r}
+H.lbl <- "H" # Hypothesis
+E.lbl <- "E" # Evidence (E) or Decision (D)
+```
+
+_Bayes' rule_ describes the probability $p$ of a hypothesis $`r H.lbl`$ given some evidence $`r E.lbl`$ as: 
+
+$$ p(`r H.lbl`|`r E.lbl`) = \frac{p(`r E.lbl`|`r H.lbl`) \times\ p(`r H.lbl`)} 
+{p(`r E.lbl`)} $$
+
+By further decomposing the denominator $p(`r E.lbl`)$ into two mutually exclusive parts 
+$p(`r E.lbl`|`r H.lbl`) \times\ p(`r H.lbl`) + 
+ p(`r E.lbl`|\neg `r H.lbl`) \times\ p(\neg `r H.lbl`)$ 
+we get:
+
+$$ p(`r H.lbl`|`r E.lbl`) = \frac{p(`r E.lbl`|`r H.lbl`) \times\ p(`r H.lbl`)} 
+{p(`r E.lbl`|`r H.lbl`) \times\ p(`r H.lbl`) + 
+ p(`r E.lbl`|\neg `r H.lbl`) \times\ p(\neg `r H.lbl`)} $$
+
+### Probabilities vs. natural frequencies
+
+Information (e.g., clinical variables) is often expressed as _probabilities_ (e.g., `prev`) or even as _conditional probabilities_ (`sens`/`spec`, `ppv`/`npv`).
+
+Many quantities can be expressed either as _probabilities_ or as _natural frequencies_. Although both representations are mathematically equivalent, a basic claim (e.g., by Gigerenzer et al.) is that people struggle when information is expressed in terms of probabilities, but not when the same information is expressed in terms of natural frequencies.
+
+The notion of "Bayesian inference" looks and sounds complicated, but --- at its core --- we typically aim to understand the interplay between a small set of variables for a specific scenario.
+
+### Scenario
+
+### Scenario
+
+Any example problem starts with the definition of a concrete _scenario_:
+
+1. A specific _population_ of size `N`;
+2. A _condition_ that is being considered 
+   (with 2 states `TRUE` vs. `FALSE`);
+3. A _decision_ (clinical judgment) that classifies the condition 
+   (into positive or negative, or a _judgment_ of `TRUE` vs. `FALSE`);
+4. Some _parameters_ (typically _probabilities_) that are _provided_ (see below);
+5. Some _parameters_ (typically _probabilities_) that are _asked_ (see below).
+
+### Environment parameters
+
+Any specific scenario contains several numeric parameters that are either inputs or outputs.
+
+#### Inputs
+
+1. _Prevalence_: 
+    `prev`  
+    
+2. _Sensitivity_: 
+   `sens` = $p$(decision positive | condition true)  
+   
+3. _Specificity_: 
+   `spec` = $p$(decision negative | condition false)  
+
+or 
+
+4. _False alarm rate_:  
+   `fart`
+
+#### Outputs 
+
+5. _Positive predictive value_ `ppv` 
+
+6. _Negative predictive value_ `npv` 
+
+
+#### Notes
+
+- All these parameters are _probabilities_ 
+  (on a scale from 0 to 1 or as percentages from 0% to 100%).
+- Parameters 2. to 5. are defined as _conditional probabilities_.
+
+
+### Number of cases
+
+Note that we immediately translate _probabilities_ into _natural frequencies_: 
+
+#### Truth conditions
+
+1. Actual number of _true cases_:  
+
+`n.true` = `N` $\times$ `prev`
+
+2. Actual number of _false cases_: 
+
+`n.false` = 1 -- `n.true`  
+          = `N` $\times$ (1 -- `prev`)
+
+#### Decisions 
+
+1. Number of _positive decisions_: 
+
+`n.pos` = ...
+
+2. Number of _negative decisions_:
+
+`n.neg` = ...
+
+
+#### Combinations (SDT) 
+
+1. Number of _hits_ (aka. _true positives_):  
+
+`n.hi` = `n.true`            $\times$ `sens`    
+       = `N` $\times$ `prev` $\times$ `sens`   
+       = `n.true` - `n.mi`  
+
+2. Number of _misses_ (aka. _false negatives_ or _omissions_) `n.mi`:
+
+`n.mi` = `n.true` $\times$ (1 -- `sens`)   
+       = (`N` $\times$ `prev`) $\times$ (1 -- `sens`)  
+       = `n.true` -- `n.hi`   
+
+3. Number of _false alarms_ (aka. _false positives_): 
+
+`n.fa` = `n.false`                  $\times$ `fart`    
+       = `N` $\times$ (1 -- `prev`) $\times$ `fart`   
+       = `N` $\times$ (1 -- `prev`) $\times$ (1 -- `spec`)     
+       = `n.false` -- `n.cr`   
+
+4. Number of _correct rejections_ (aka. _true negatives_): 
+
+`n.cr` = `n.false`                  $\times$ `spec`   
+       = `N` $\times$ (1 -- `prev`) $\times$ `spec`  
+       = `n.false` -- `n.fa`   
+
+
+### Predictive values
+
+#### Positive predictive value ($PPV$)
+
+**Definition:** In statistics and diagnostic tests, 
+the _positive predictive value_ ($PPV$) is the proportion 
+of positive decisions that are true positives (hits).
+
+In terms of natural frequencies, the $PPV$ is defined (quite simply) as: 
+
+$$
+\begin{aligned}
+PPV &= \frac{\textrm{true positives}}{\textrm{positive decisions}}\\
+    &= \frac{\textrm{true positives}}{\textrm{true positives} + \textrm{false positives}}\\ 
+    &= \frac{\textrm{hits}}{\textrm{hits} + \textrm{false alarms}} 
+\end{aligned}
+$$
+
+However, given that 
+
+- `n.hi` = `N` $\times$ `prev` $\times$ `sens` 
+- `n.fa` = `N` $\times$ (1 -- `prev`) $\times$ (1 -- `spec`) 
+    
+we can express this (considerably more obscurely) as a fraction of probabilities: 
+
+$$ 
+\begin{aligned}
+PPV &= \frac{(N \times\ prev) \times\ sens}
+            {(N \times\ prev) \times\ sens + 
+             [N \times\ (1 - prev)] \times\ (1 - spec)}\\
+    &= \frac{prev \times\ sens}
+            {prev \times\ sens + (1 - prev) \times\ (1 - spec)} 
+\end{aligned}
+$$
+
+3. $PPV$ is the _reversed conditional probability_ of `sens`:
+
+- $PPV$  = $p$(condition true | decision positive)
+- `sens` = $p$(decision positive | condition true)
+
+4. The _complement_ of $PPV$ is the _false discovery rate_ ($FDR$):
+
+$$ FDR = 1 - PPV $$
+
+
+#### Negative predictive value ($NPV$)
+
+**Definition:** In statistics and diagnostic tests, 
+the _negative predictive value_ ($NPV$) is the proportion 
+of negative decisions that are true negatives (correct rejections).
+
+1. In terms of natural frequencies, the $NPV$ is defined (quite simply) as: 
+
+$$ 
+\begin{aligned}
+NPV &= \frac{true\ negatives}{negative\ decisions}\\
+    &= \frac{true\ negatives}{true\ negatives + false\ negatives}\\ 
+    &= \frac{correct\ rejections}{correct\ rejections\ + misses} 
+\end{aligned}
+$$
+       
+2. However, given that
+
+- `n.cr` = `N` $\times$ (1 -- `prev`) $\times$ `spec`
+- `n.mi` = `N` $\times$ `prev` $\times$ (1 -- `sens`)
+
+we can express this (considerably more obscurely) as a fraction of probabilities:  
+
+$$ 
+\begin{aligned}
+NPV &= \frac{N \times\ (1 - prev) \times\ spec}
+            {(N \times\ (1 - prev) \times\ spec) + 
+             [N \times\ prev \times\ (1 - sens)]} \\
+    &= \frac{(1 - prev) \times\ spec}
+            {(1 - prev) \times\ spec + prev \times\ (1 - sens)}
+\end{aligned}
+$$
+
+3. $NPV$ is the _reversed conditional probability_ of `spec`:
+
+- $NPV$  = $p$(condition false | decision negative)
+- `spec` = $p$(decision negative | condition false)
+
+4. The _complement_ of the $NPV$ is the _false omission rate_ ($FOR$):
+
+$$ FOR = 1 - NPV $$
+
+
+## Functionality
+
+Our approach: From theories to tools (rather than the reverse, Gigerenzer, 1991a). 
+
+### Levels and perspectives
+
+3 different levels with alternative perspectives:
+
+1. Viewing population as collection of individuals or cases: table vs. icon array
+
+2. Aggregation and categorization (SDT): confusion table, mosaic plot, tree of natural frequencies
+
+3. Resulting posteriors: PV curves and planes
+
+
+### Interactions: Sorting, sliding, and sampling: 
+
+1. _Sorting_ is the opposite of _shuffling_ (randomization):
+
+2. _Sliders_ and observing corresponding interactive and dynamic shifts of outputs as a function of own actions encourages viewing inputs as continuous variables (Gigerenzer et al., 1988) and thus may help to make cognitive illusions disappear (Gigerenzer, 1991b). 
+
+3. _Sampling_ encourages differentiation of _population_ vs. _sample_ and a perspective _by description_ and one _by experience_. Allows developing and testing intuitions about sample size (Sedlmeier & Gigerenzer, 1997).
+
 
 ## Initial Set of Tools
 
 Based on a set of common parameters: population size `N`, prevalence `prev`, sensitivity `sens`, specificity `spec` (or false alarm rate `fa = 1 - spec`).
-
 
 1. Diagnostic measures based on natural frequencies: 
      a. as 2x2 confusion table (of hits, false alarms, misses, correct rejections)  
@@ -238,13 +482,15 @@ Based on a set of common parameters: population size `N`, prevalence `prev`, sen
 Allow setting and playing with basic parameters or reading in examples from the literature.
 
 
-## Future Extensions
+## Future extensions
 
 1. Allow for randomization and sampling
 
 2. Extend to decisions on non-dichotomous distributions (SDT).
 
 3. Extend to the topics of scientific reasoning: _Cell A bias_ and _biased evidence detection_.
+
+4. Include info on screening biases (lead time vs. over-diagnosis bias).
 
 ---
 
