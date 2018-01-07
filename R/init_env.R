@@ -180,7 +180,7 @@ init_env <- function(cur.val = val, cur.N = NA, cur.txt = txt, cur.pal = pal) {
     "N" = NA,
 
     ## 3. txt:
-    "name" = cur.txt$scenario.name,
+    "name" = cur.txt$scenario.lbl, # Note: "name", rather than "lbl".
     "text" = cur.txt$scenario.text,
     "source" = cur.txt$scenario.source,
     "popu.lbl" = cur.txt$target.population.lbl,

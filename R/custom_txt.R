@@ -5,8 +5,8 @@
 ## (i.e., text labels and longer text elements):
 
 txt <- list(
-  scenario.name = "Scenario name",
-  scenario.text = "Describe the current scenario in a short paragraph here.\nThis description may include several sentences.",
+  scenario.lbl = "Scenario name",
+  scenario.text = "Describe the current scenario in a short paragraph of text here.\nThis description may include several sentences.",
   scenario.source = "Describe the source information for this scenario here",
 
   target.population.lbl = "Describe the target population in a few words here",
@@ -22,10 +22,10 @@ txt <- list(
   dec.false.lbl = "Decision negative", # "is not called", "is judged to not have condition", "is classified as unaffected"
 
   ## (c) Labels for the 4 SDT cases (combinations):
-  sdt.hi.lbl = "true positive",  # "hit", "true positive", "has condition and is detected as such", "set(dec POS & cond TRUE)"
-  sdt.mi.lbl = "false negative", # "miss", "false negative", "omission", "has condition and is NOT detected as such", "set(dec NEG & cond TRUE)"
-  sdt.fa.lbl = "false positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
-  sdt.cr.lbl = "true negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
+  sdt.hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected as such", "set(dec POS & cond TRUE)"
+  sdt.mi.lbl = "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected as such", "set(dec NEG & cond TRUE)"
+  sdt.fa.lbl = "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
+  sdt.cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
   )
 
 ## ToDo:

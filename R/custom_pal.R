@@ -70,6 +70,8 @@ pal <- setNames(object = pal,
 ## ggplot themes:
 
 {
+  library("ggplot2")
+
   my.theme <-  theme_bw() +
     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
