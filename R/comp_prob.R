@@ -2,9 +2,10 @@
 ## 2018 01 07
 ## -----------------------------------------------
 ## Compute current probabilities (prob) based on env
-## (using only X necessary parameters of env):
+## (using only the necessary parameters of env):
 
-## (1) Basic functions (based on probabilities):
+## -----------------------------------------------
+## (1) Basic functions for predictive values (based on probabilities):
 
 ## 1. Positive predictive value (PPV) from probabilities:
 comp_PPV <- function(prev = env$prev, sens = env$sens, spec = env$spec) {
@@ -131,14 +132,22 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 ## (3) Compare alternative calculations:
 
 {
+  # ## A: Using default settings:
   # env$N
+  # freq <- comp_freq(round = TRUE)
   # freq
   #
   # comp_PPV()
-  # comp_PPV_freq() # ToDo: Deviation due to rounding of freq to nearest integers???
+  # comp_PPV_freq() # Note: Deviation due to rounding of freq to nearest integers!
   #
   # comp_NPV()
-  # comp_NPV_freq() # ToDo: Deviation due to rounding of freq to nearest integers???
+  # comp_NPV_freq() # Note: Deviation due to rounding of freq to nearest integers!
+  #
+  # ## B: But when using exact frequencies for freq:
+  # freq <- comp_freq(round = FALSE) # do NOT round to nearest integers:
+  # all.equal(comp_PPV_freq(), comp_PPV()) # => TRUE
+  # all.equal(comp_NPV_freq(), comp_NPV()) # => TRUE
+
 }
 
 ## -----------------------------------------------
@@ -169,15 +178,15 @@ comp_prob <- function(prev = env$prev, sens = env$sens, spec = env$spec) {
 
 }
 
+## Apply:
 cur.prob <- comp_prob()
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
 ## - compute alternative prob from freq with
-##   N of dec.pos (rather than N of fa) and
-##   N of dec.neg (rather than N of mi) provided.
-## - compare results of alternative calculations.
+##   a. N of dec.pos (rather than N of fa) and
+##   b. N of dec.neg (rather than N of mi) provided.
 
 ## -----------------------------------------------
 ## eof.
