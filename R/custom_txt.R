@@ -1,12 +1,14 @@
-## riskyR
+## custom_txt.R | riskyR
 ## 2018 01 07
 ## -----------------------------------------------
 ## Define and initialize current terminology (txt)
 ## (i.e., text labels and longer text elements):
 
 txt <- list(
-  scenario.lbl = "Scenario name",
-  scenario.txt = "Describe the current scenario in a short paragraph here.\nThis description may include several sentences.",
+  scenario.name = "Scenario name",
+  scenario.text = "Describe the current scenario in a short paragraph here.\nThis description may include several sentences.",
+  scenario.source = "Describe the source information for this scenario here",
+
   target.population.lbl = "Describe the target population in a few words here",
 
   ## (a) Condition:

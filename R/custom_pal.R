@@ -1,4 +1,4 @@
-## riskyR
+## custom_pal.R | riskyR
 ## 2018 01 07
 ## -----------------------------------------------
 ## Define and initialize current colors (pal):
@@ -60,8 +60,10 @@
 ## -----------------------------------------------
 ## (3) Define corresponding color palette:
 
-pal <- setNames(c(sdt.colors, col.ppv, col.npv),
-                c(names(sdt.colors), "ppv", "npv")
+pal <- c(sdt.colors, col.ppv, col.npv) # vector of colors
+
+pal <- setNames(object = pal,
+                nm = c(names(sdt.colors), "ppv", "npv")
                 )
 
 ## (+) ToDo:
