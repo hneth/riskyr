@@ -66,7 +66,42 @@ pal <- setNames(object = pal,
                 nm = c(names(sdt.colors), "ppv", "npv")
                 )
 
+## -----------------------------------------------
+## ggplot themes:
+
+{
+  my.theme <-  theme_bw() +
+    theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+          # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
+          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
+          panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
+          # panel.grid.minor.x = element_blank(),
+          # panel.grid.minor.y = element_blank(),
+          legend.position = "none"
+    )
+
+  my.theme.legend <- theme_bw() +
+    theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+          # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
+          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
+          panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
+          # panel.grid.minor.x = element_blank(),
+          # panel.grid.minor.y = element_blank()#,
+          # legend.position = "none"
+    )
+}
+
+## -----------------------------------------------
 ## (+) ToDo:
+
 ## - add color pal cus objects
 ## - add pre-defined color palettes
 ## - make colors user-customizable

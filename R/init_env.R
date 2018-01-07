@@ -1,13 +1,16 @@
 ## init_env.R | riskyR
 ## 2018 01 07
 ## -----------------------------------------------
-## Initialize environment env:
+## Initialize an environment (env) that contains
+## all scenario-specific user inputs and customizations:
 
-## The minimal set of numeric parameters consists of 3 probabilities:
+## The minimal set of numeric input parameters
+## consists of 3 probabilities (+ 1 complement):
+
 val <- list("prev" = .15, # prevalence in target population = p(condition TRUE)
-            "sens" = .85, # sensitivity = p(decision POS | condition TRUE)  [conditional]
-            "spec" = .75, # specificity = p(decision NEG | condition FALSE) [conditional]
-            "fart" = NA   # false alarm rate = 1 - spec
+            "sens" = .85, # sensitivity = p(decision POS | condition TRUE)  [conditional p]
+            "spec" = .75, # specificity = p(decision NEG | condition FALSE) [conditional p]
+            "fart" = NA   # false alarm rate = 1 - spec                [complement of spec]
             )
 
 ## -----------------------------------------------
@@ -181,8 +184,13 @@ env <- list(
 ## Compute N of env (if NA):
 
 if (is.na(env$N)) {
-  env$N <- get_min_N(prev = env$prev)
+  env$N <- get_min_N(prev = env$prev,
+                     sens = env$sens,
+                     spec = env$spec
+                     )
 }
+
+# env$N
 
 ## -----------------------------------------------
 ## Import ready-made and worked out example data
