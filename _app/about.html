@@ -34,7 +34,7 @@ if (window.hljs) {
   hljs.configure({languages: []});
   hljs.initHighlightingOnLoad();
   if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
 }
 </script>
@@ -122,15 +122,15 @@ $(document).ready(function () {
 
 
 <div id="about-riskyr" class="section level1">
-<h1>About riskyr</h1>
-<p>SPDS, uni.kn 2018 01 05</p>
+<h1>About riskyR</h1>
+<p>SPDS, uni.kn 2018 01 06</p>
 </div>
 <div id="about-riskyr-1" class="section level1">
-<h1>About <code>riskyr</code></h1>
+<h1>About <code>riskyR</code></h1>
 <p>A toolbox for transparent communication and teaching of risk literacy.</p>
 <div id="goal" class="section level2">
 <h2>Goal</h2>
-<p>The <code>riskyr</code> package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.</p>
+<p>The <code>riskyR</code> package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.</p>
 <p>We begin with some basic variables:</p>
 <ul>
 <li>a population size <code>N</code></li>
@@ -284,9 +284,28 @@ $(document).ready(function () {
 </div>
 </div>
 </div>
-<div id="contact" class="section level2">
-<h2>Contact</h2>
-<p>Contact us at <a href="http://spds.uni-konstanz.de">http://spds.uni.kn</a>.</p>
+<div id="about" class="section level2">
+<h2>About</h2>
+<p>We are still developing this software and have yet to choose a license for it. Please <a href="http://spds.uni-konstanz.de">contact us</a> in case you want to use or share any of it.</p>
+<div id="contact" class="section level3">
+<h3>Contact</h3>
+<p>In case of comments or questions, please contact us at <a href="http://spds.uni-konstanz.de">http://spds.uni.kn</a>.</p>
+</div>
+<div id="reference" class="section level3">
+<h3>Reference</h3>
+<p>In APA format:</p>
+<ul>
+<li>Neth, H., Gaissbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2018). <code>riskyR</code>: A toolbox for transparent communication and teaching of risk literacy [Computer software]. Retrieved from <a href="https://github.com/hneth/riskyR" class="uri">https://github.com/hneth/riskyR</a> (R package version 0.0.1)</li>
+</ul>
+<p>As BibTeX reference:</p>
+<pre><code>@manual{NethEtAl18_R,
+  title = {{riskyR}: A toolbox for transparent communication and teaching of risk literacy},
+  author = {Neth, Hansj\&quot;{o}rg and Gaissbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
+  year = 2018,
+  note = {R package version 0.0.1},
+  url = {https://github.com/hneth/riskyR}
+}</code></pre>
+</div>
 </div>
 </div>
 

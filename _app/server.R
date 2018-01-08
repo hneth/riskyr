@@ -1,5 +1,5 @@
 ## server.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 04
+## riskyR | R Shiny | spds, uni.kn | 2018 01 06
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 ## Clean up:
 

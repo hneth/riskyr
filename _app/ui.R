@@ -1,10 +1,10 @@
 ## ui.R
-## riskyr | R Shiny | spds, uni.kn | 2018 01 05
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## riskyR | R Shiny | spds, uni.kn | 2018 01 07
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 # rm(list=ls()) # clean all.
 
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 ## Dependencies:
 
 library("shiny")
@@ -18,7 +18,7 @@ library("dplyr")
 library("ggplot2")
 library("vcd")
 
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 ## Initial environment:
 
 e1 <- list("name" = "Demo",  # name (e.g., HIV, mammography, ...)
@@ -35,13 +35,13 @@ env <- e1 # from current environment
 datasets <- read.csv2("./www/datasets_riskyr.csv", stringsAsFactors = FALSE)
             # WAS: read.csv("./www/riskyR_datasets.csv", stringsAsFactors = FALSE)
 
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 ## JavaScript:
 
 {
   ## Source: https://stackoverflow.com/questions/30502870/shiny-slider-on-logarithmic-scale
-  
-  ## logifySlider javascript function: 
+
+  ## logifySlider javascript function:
   JS.logify <-
     "
 // function to logify a sliderInput
@@ -59,10 +59,10 @@ $('#'+sliderId).data('ionRangeSlider').update({
 }
 }"
 
-## call logifySlider for each relevant sliderInput: 
+## call logifySlider for each relevant sliderInput:
 JS.onload <-
   "
-// execute upon document loading: 
+// execute upon document loading:
 $(document).ready(function() {
 // wait a few ms to allow other scripts to execute
 setTimeout(function() {
@@ -74,41 +74,41 @@ logifySlider('log_slider2', sci = true)
 
 }
 
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 ## Define user interface logic:
 
 shinyUI(
-  
+
   # tags$head(tags$script(HTML(JS.logify))),
   # tags$head(tags$script(HTML(JS.onload))),
-  
+
   navbarPage(title = "riskyR",
              theme = "bootstrap.sandstone.css",
-             ## or another bootsstrap theme https://bootswatch.com/3/, e.g., 
+             ## or another bootsstrap theme https://bootswatch.com/3/, e.g.,
              # theme = "bootstrap.yeti.css",
              # theme = "bootstrap.simplex.css",
-             # theme = "bootstrap.lumen.css", 
+             # theme = "bootstrap.lumen.css",
              # theme = "bootstrap.paper.css",
              # theme = "bootstrap.cosmo.css",
              # theme = "bootstrap.spacelab.css",
              # theme = "bootstrap.flatly.css",
              # theme = "bootstrap.slate.css",
-             
-             #####               
+
+             #####
              tabPanel("1: Representations",
                       icon = icon("tree-deciduous", lib = "glyphicon"),
-                      
+
                       #####
                       sidebarLayout(
-                        
+
                         # Sidebar panel for inputs:
                         sidebarPanel(
-                          
+
                           # Input: Select all input values:
                           textInput("name",
                                     label = "Condition name:",
                                     value = "Condition X"),
-                          
+
                           br(), # add horizontal space
 
                           tags$b("Population size:"),
@@ -120,8 +120,8 @@ shinyUI(
                                       max = 10^6,
                                       step = 10
                                       ), # use log-scale from 1 to 10^9
-                          numericInput("numN", 
-                                       label = NULL, 
+                          numericInput("numN",
+                                       label = NULL,
                                        value = 100,
                                        min = 0,
                                        max = 10^6,
@@ -129,14 +129,14 @@ shinyUI(
                           br(),
                           tags$b("Prevalence:"),
                           tags$br("(Use slider or enter number)"),
-                          sliderInput("prev", 
+                          sliderInput("prev",
                                       label = NULL, sep = "",
-                                      value = 0.15, 
+                                      value = 0.15,
                                       min = 0,
                                       max = 1,
                                       step = 10^-6),
-                          numericInput("numprev", 
-                                       label = NULL, 
+                          numericInput("numprev",
+                                       label = NULL,
                                        value = 0.15,
                                        min = 0,
                                        max = 1,
@@ -144,14 +144,14 @@ shinyUI(
                           br(),
                           tags$b("Sensitivity:"),
                           tags$br("(Use slider or enter number)"),
-                          sliderInput("sens", 
+                          sliderInput("sens",
                                       label = NULL, sep = "",
                                       value = 0.85,
                                       min = 0,
                                       max = 1,
                                       step = 10^-6),
-                          numericInput("numsens", 
-                                       label = NULL, 
+                          numericInput("numsens",
+                                       label = NULL,
                                        value = 0.85,
                                        min = 0,
                                        max = 1,
@@ -159,82 +159,82 @@ shinyUI(
                           br(),
                           tags$b("Specificity:"),
                           tags$br("(Use slider or enter number)"),
-                          sliderInput("spec", 
+                          sliderInput("spec",
                                       label = NULL, sep = "",
                                       value = 0.75,
                                       min = 0,
-                                      max = 1, 
+                                      max = 1,
                                       step = 10^-6),
-                          numericInput("numspec", 
-                                       label = NULL, 
+                          numericInput("numspec",
+                                       label = NULL,
                                        value = 0.75,
                                        min = 0,
                                        max = 1,
                                        step = 10^-6),
-                          
-                          br(), 
-                          
+
+                          br(),
+
                           ## Provide existing data sets as drop-down list:
-                          selectInput("dataselection", label = "Or view an example:", 
+                          selectInput("dataselection", label = "Or view an example:",
                                       choices = setNames(as.list(1:nrow(datasets)), # create choices from datasets
-                                                         datasets$dataset), 
+                                                         datasets$dataset),
                                       selected = 1),
-                          
-                          bsButton("inputhelp", label = "Help", 
+
+                          bsButton("inputhelp", label = "Help",
                                    icon = icon("question-sign", lib = "glyphicon"),
                                    style = "default", type = "action"),
-                          
+
                           ## Tooltips on inputs:
                           bsTooltip(id = "N", title = "Number of individuals making up the population",
-                                    placement = "right", trigger = "hover", options = list(container = "body")), 
-                          
+                                    placement = "right", trigger = "hover", options = list(container = "body")),
+
                           bsTooltip(id = "prev", title = "Probability of being affected: p(true)",
                                     placement = "right", trigger = "hover", options = list(container = "body")),
-                          
+
                           bsTooltip(id = "sens", title = "Probability of correctly detecting an affected individual: p(decision positive | condition true)",
-                                    placement = "right", trigger = "hover", options = list(container = "body")), 
-                          
+                                    placement = "right", trigger = "hover", options = list(container = "body")),
+
                           bsTooltip(id = "spec", title = "Probability of correctly rejecting an unaffected individual: p(decision negative | condition false) = 1 - FA",
                                     placement = "right", trigger = "hover", options = list(container = "body"))
                         ),
                         #####
                         ## Main panel for displaying different aspects about risk:
                         mainPanel(
-                          
+
                           ## Help modal:
-                          bsModal(id = "modalinputhelp", 
-                                  title = "So you want to know more about the inputs", 
+                          bsModal(id = "modalinputhelp",
+                                  title = "So you want to know more about the inputs",
                                   "Here, we will provide some theoretical background information.",
                                   trigger = "inputhelp", size = "medium"),
-                          
-                          ## Tabset with raw data table, icon array, nf tree, confusion table, and PV graphs: 
+
+                          ## Tabset with raw data table, icon array, nf tree, confusion table, and PV graphs:
                           tabsetPanel(type = "tabs",
-                                      
+
                                       tabPanel("Intro",
                                                br(),
                                                "This is just a quick page for displaying rendered text based on inputs. ",
                                                "Spacing doesn't work yet, but that's only formatting... ",
-                                               br(), br(), 
-                                               "The current set of parameters are as follows:", 
-                                               br(), br(), 
+                                               br(), br(),
+                                               "The current set of parameters are as follows:",
+                                               br(), br(),
                                                textOutput("N"),
                                                textOutput("prev"),
                                                textOutput("sens"),
                                                textOutput("spec")
                                                ),
-                                      
+
                                       tabPanel("Stats",
                                                br(),
                                                "This page will explain, define, and compute the current value some common metrics. ",
-                                               br(), br(), 
+                                               br(), br(),
                                                "Here is a first example: ",
-                                               br(), br(), 
+                                               br(), br(),
                                                uiOutput("PPV")
                                                ),
-                                      
-                                      tabPanel("Cases", 
+
+                                      tabPanel("Cases",
                                                br(),
-                                               "Individual cases:", 
+                                               "Individual cases:",
                                                br(), br(),
                                                conditionalPanel(condition = "input.dataselection != 1",
                                                                 "Source:",
@@ -243,99 +243,99 @@ shinyUI(
                                                DT::dataTableOutput("rawdatatable"),
                                                br()
                                                ),
-                                      
-                                      tabPanel("Icons", 
-                                               br(), 
-                                               paste0("Icon array:"), 
+
+                                      tabPanel("Icons",
+                                               br(),
+                                               paste0("Icon array:"),
                                                br(), br()
                                                ),
 
-                                      tabPanel("Tree", 
-                                               br(), 
-                                               paste0("Tree of natural frequencies:"), 
-                                               br(), br(),  
-                                               plotOutput("nftree"), 
+                                      tabPanel("Tree",
+                                               br(),
+                                               paste0("Tree of natural frequencies:"),
+                                               br(), br(),
+                                               plotOutput("nftree"),
                                                br()
                                                ),
-                                      
-                                      tabPanel("Table", 
-                                               br(), 
-                                               paste0("Aggregated cases:"), 
-                                               br(), br(),  
+
+                                      tabPanel("Table",
+                                               br(),
+                                               paste0("Aggregated cases:"),
+                                               br(), br(),
                                                tableOutput("confusiontable"),
                                                br(),
-                                               paste0("The following mosaic plot shows the cell frequencies as area sizes:"), 
-                                               br(),  br(), 
+                                               paste0("The following mosaic plot shows the cell frequencies as area sizes:"),
+                                               br(),  br(),
                                                plotOutput("mosaicplot"),
                                                br()
                                                ),
 
-                                      tabPanel("PV curves", 
+                                      tabPanel("PV curves",
                                                br(),
                                                paste0("Predictive values (PPV/NPV) by prevalance:"), br(), br(),
                                                plotOutput("PVs"),
                                                br(),
-                                               # paste0("PPV = ", data()$PPV, ", NPV = ", data()$NPV), 
+                                               # paste0("PPV = ", data()$PPV, ", NPV = ", data()$NPV),
                                                # print(data()$PPV),
                                                # ERROR: object of type 'closure' is not subsettable ???
-                                               checkboxInput("boxPVprev", label = "Show current prevalence in plot", value = TRUE), 
+                                               checkboxInput("boxPVprev", label = "Show current prevalence in plot", value = TRUE),
                                                checkboxInput("boxPVpoints1", label = "Show current PPV/NPV in plot", value = TRUE),
                                                # br(),
-                                               checkboxInput("boxPVlog", label = "Show prevalence on logarithmic scale", value = FALSE), 
-                                               br() 
+                                               checkboxInput("boxPVlog", label = "Show prevalence on logarithmic scale", value = FALSE),
+                                               br()
                                                ),
-                                      
-                                      tabPanel("PV cubes", 
+
+                                      tabPanel("PV cubes",
                                                br(),
                                                paste0("Predictive values (PPV/NPV) by sensitivity and specificity:"), br(), br(),
-                                               plotOutput("PVplanes"), 
+                                               plotOutput("PVplanes"),
                                                br(),
-                                               # paste0("PPV = ", data$PPV, ", NPV = ", data$NPV), 
-                                               # ERROR: object of type 'closure' is not subsettable ???  
+                                               # paste0("PPV = ", data$PPV, ", NPV = ", data$NPV),
+                                               # ERROR: object of type 'closure' is not subsettable ???
                                                # br(),
-                                               checkboxInput("boxPVpoints2", label = "Show current PPV/NPV in plots", value = TRUE), 
-                                               # br(), 
-                                               "Change perspective by rotating plots:", 
+                                               checkboxInput("boxPVpoints2", label = "Show current PPV/NPV in plots", value = TRUE),
+                                               # br(),
+                                               "Change perspective by rotating plots:",
                                                br(),
-                                               sliderInput("theta", 
+                                               sliderInput("theta",
                                                            "Horizontal viewing angle:",
                                                            value = -45,
                                                            min   = -90,
-                                                           max   = +90), 
-                                               # br(), 
-                                               sliderInput("phi", 
+                                                           max   = +90),
+                                               # br(),
+                                               sliderInput("phi",
                                                            "Vertical viewing angle:",
                                                            value = 0,
                                                            min =   0,
-                                                           max =  90), 
-                                               # br(), 
+                                                           max =  90),
+                                               # br(),
                                                # "Perspective effects:",
                                                # br(),
-                                               # sliderInput("d", 
+                                               # sliderInput("d",
                                                #             "D (in-/decrease perspective effect):",
                                                #             value = 1.2,
                                                #             min = 0.1,
-                                               #             max = 2), 
+                                               #             max = 2),
                                                # # br(),
-                                               # sliderInput("expand", 
+                                               # sliderInput("expand",
                                                #             "Expansion (in z-direction):",
                                                #             value = 0.9,
                                                #             min = 0.1,
-                                               #             max = 2), 
+                                               #             max = 2),
                                                # br(),
                                                # "Color effects:",
                                                # br(),
-                                               # sliderInput("ltheta", 
+                                               # sliderInput("ltheta",
                                                #             "Ltheta (...):",
                                                #             value = 200,
                                                #             min = 0,
-                                               #             max = 1000), 
+                                               #             max = 1000),
                                                # # br(),
-                                               # sliderInput("shade", 
+                                               # sliderInput("shade",
                                                #             "Shade (...):",
                                                #             value = 0.10,
                                                #             min = 0,
-                                               #             max = 1), 
+                                               #             max = 1),
                                                # br(),
                                                br()
                                                )
@@ -344,47 +344,47 @@ shinyUI(
                         )
                       )
              ),
-             
-             #####        
+
+             #####
              tabPanel("2: Information",
                       icon = icon("education", lib = "glyphicon")
-                      
+
              ),
-             
+
              #####
-             tabPanel("3: About", 
+             tabPanel("3: About",
                       icon = icon("home", lib = "glyphicon"),
-                      includeMarkdown("about_riskyr.md")
+                      includeMarkdown("about.md")
              ),
-             
+
              #####
              navbarMenu("Dropdown-Navigation",
-                        
+
                         # spacer
                         "----",
-                        
+
                         # 1st screen in dropdown navigation:
                         tabPanel("Further information",
                                  icon = icon("book", lib = "glyphicon"),
-                                 "Text of tab panel", br() 
+                                 "Text of tab panel", br()
                         ),
-                        
+
                         # spacer
                         "----",
-                        
-                        # 2nd screen in dropdown navigation: 
+
+                        # 2nd screen in dropdown navigation:
                         tabPanel("B Imprint",
                                  icon = icon("info-sign", lib = "glyphicon"),
                                  "Hier Text für Panel B", br(), br(),
                                  a("SPDS@uni.kn", href = "https://www.spds.uni-konstanz.de"), br(), br(),
-                                 tags$code("This text will be displayed as computer code."), br() 
+                                 tags$code("This text will be displayed as computer code."), br()
                         ),
-                        
+
                         # spacer
                         "----"
              )
   )
 )
 
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 ## eof. #
