@@ -14,16 +14,11 @@ comp_PPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   PPV <- NA # initialize
 
-  ## Bayesian formula contains 3 terms:
-  num <- (prev * sens)
-  den1 <- num
-  den2 <- (1 - prev) * (1 - spec)
+  ## PPV = hits / positive decision = hits / (hits + false alarms):
+  hi <- (prev * sens)
+  fa <- (1 - prev) * (1 - spec)
 
-  if (den1 + den2 == 0) {
-    warning( "Warning: Division by zero [comp_PPV()]." )
-  }
-
-  PPV <- num / (den1 + den2) # combine
+  PPV <- hi / (hi + fa)
 
   return(PPV)
 }
@@ -34,16 +29,7 @@ comp_FDR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
   PPV <- NA # initialize
   FDR <- NA
 
-  ## Bayesian formula contains 3 terms:
-  num <- (prev * sens)
-  den1 <- num
-  den2 <- (1 - prev) * (1 - spec)
-
-  if (den1 + den2 == 0) {
-    warning( "Warning: Division by zero [comp_FDR()]." )
-  }
-
-  PPV <- num / (den1 + den2) # combine
+  PPV <- comp_PPV(prev, sens, spec)
   FDR <- (1 - PPV) # FDR is the complement of PPV
 
   return(FDR)
@@ -54,16 +40,11 @@ comp_NPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   NPV <- NA # initialize
 
-  ## Bayesian formula contains 3 terms:
-  num <- (1 - prev) * spec
-  den1 <- num
-  den2 <- (prev) * (1 - sens)
+  ## NPV = cr / negative decision = cr / (cr + mi):
+  cr <- (1 - prev) * spec
+  mi <- prev * (1 - sens)
 
-  if (den1 + den2 == 0) {
-    warning( "Warning: Division by zero [comp_NPV()]." )
-  }
-
-  NPV <- num / (den1 + den2) # combine
+  NPV <- cr / (cr + mi)
 
   return(NPV)
 }
@@ -74,17 +55,8 @@ comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
   NPV <- NA # initialize
   FOR <- NA
 
-  ## Bayesian formula contains 3 terms:
-  num <- (1 - prev) * spec
-  den1 <- num
-  den2 <- (prev) * (1 - sens)
-
-  if (den1 + den2 == 0) {
-    warning( "Warning: Division by zero [comp_FOR()]." )
-  }
-
-  NPV <- num / (den1 + den2) # combine
-  FOR <- (1 - NPV)
+  NPV <- comp_NPV(prev, sens, spec)
+  FOR <- (1 - NPV) # FOR is the complement of NPV
 
   return(FOR)
 }
@@ -99,14 +71,12 @@ comp_PPV_freq <- function(n.hi = freq$hi, n.fa = freq$fa) {
 
   ## PPV = hits / positive decisions
   ##     = hits / (hits + false alarms)
-  num <- n.hi
-  den <- n.hi + n.fa
 
-  if (den == 0) {
-    warning( "Warning: Division by zero [comp_PPV_freq()]." )
+  if ((n.hi + n.fa) == 0) {
+    stop( "Stop: Division by zero: n.hi + n.fa = 0 [comp_PPV_freq()]." )
   }
 
-  PPV <- num / den # combine
+  PPV <- n.hi / (n.hi + n.fa)
 
   return(PPV)
 }
@@ -118,14 +88,12 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 
   ## NPV = correct rejections / negative decisions
   ##     = correct rejections / (correct rejections + misses)
-  num <- n.cr
-  den <- n.cr + n.mi
 
-  if (den == 0) {
-    warning( "Warning: Division by zero [comp_NPV_freq()]." )
+  if ((n.cr + n.mi) == 0) {
+    stop( "Stop: Division by zero: n.cr + n.mi = 0 [comp_NPV_freq()]." )
   }
 
-  NPV <- num / den # combine
+  NPV <- n.cr / (n.cr + n.mi)
 
   return(NPV)
 }

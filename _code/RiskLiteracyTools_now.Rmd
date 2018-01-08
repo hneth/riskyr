@@ -1,7 +1,7 @@
 ---
 title: "Towards a Risk Literacy Toolbox"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 01 06"
+date: "2018 01 08"
 output:
   html_document:
     keep_tex: false
@@ -208,9 +208,34 @@ unikn.pal = data.frame(
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Utility functions:
 
-# Round percentage to 1 decimal:
-pc <- function(num) {
-    return(round(num * 100, 1)) 
+## Toggle between percentages and probabilities:
+
+## Probability as percentage (rounded to 2 decimals):
+as_pc <- function(prob, n.digits = 2) {
+
+  if (any(prob < 0) | any(prob > 1)) {
+    warning( "Warning: prob is not in range 0 to 1." )
+  }
+
+  perc <- NA # initialize
+
+  perc <- round(prob * 100, n.digits) # compute
+
+  return(perc)
+  }
+
+## Percentage as probability (rounded to 4 decimals):
+as_pb <- function(perc, n.digits = 4) {
+
+  if (any(perc < 0) | any(perc > 100)) {
+    warning( "Warning: perc is not in range 0 to 100." )
+  }
+
+  prob <- NA # initialize
+
+  prob <- round(perc/100, n.digits) # compute
+
+  return(prob)
 }
 ```
 
@@ -726,9 +751,9 @@ npv <- n.cr / dec.neg # npv = p(true negative | negative decision)
 
 **Derived metrics:**
 
-- Accuracy: acc = `r pc(acc)`%, bacc = `r pc(bacc)`%,
+- Accuracy: acc = `r as_pc(acc)`%, bacc = `r as_pc(bacc)`%,
 
-- Test validities: PPV = `r pc(ppv)`%, NPV = `r pc(npv)`%.
+- Test validities: PPV = `r as_pc(ppv)`%, NPV = `r as_pc(npv)`%.
 
 
 ### ToDo
@@ -842,6 +867,8 @@ Visualize the population, using a common scheme of colors and symbols in all rep
 
 The following graphs illustrate how -- for given test characteristics of `sens` and `spec` -- the metrics `PPV` and `NPV` crucially depend on the _prevalence_ (`prev`) in the population:
 
+#### Using `ggplot2`
+
 ```{r ppv-npv-by-prevalence, include = TRUE, fig.width = 10, fig.height = 8}
 # sens <- .90 # sensitivity
 # spec <- .91 # specificity
@@ -947,11 +974,11 @@ df.long$metric <- factor(df.long$metric, # ensure factor and level order:
   ## Additional plot options:
   cur.PPV <- get.PPV(prev, sens, spec)
   cur.NPV <- get.NPV(prev, sens, spec) 
-  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
-  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
-  prev.label <- paste0("prev = ", pc(prev), "%")
+  cur.PPV.label <- paste0("PPV = ", as_pc(cur.PPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.PPV), "%)")
+  cur.NPV.label <- paste0("NPV = ", as_pc(cur.NPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.NPV), "%)")
+  prev.label <- paste0("prev = ", as_pc(prev), "%")
   col.prev <- col.grey.2
-  sens.spec.label <- paste0("(sens = ", pc(sens), "%, spec = ", pc(spec), "%)") # label
+  sens.spec.label <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)") # label
   x.just <- -.20
   y.just <- +.50
 
@@ -1017,6 +1044,108 @@ p.both <- plot_grid(p.lin, p.log,
                     labels = c("A", "B"),
                     nrow = 2, rel_heights = c(.50, .50))
 p.both
+```
+
+#### Plot PV curves using base R:
+
+Generic functions for PPV and NPV:
+
+```{r PV_functions}
+## (1) Positive predictive value (PPV) from probabilities:
+comp_PPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
+
+  PPV <- NA # initialize
+
+  ## PPV = hits / positive decision = hits / (hits + false alarms):
+  hi <- (prev * sens)
+  fa <- (1 - prev) * (1 - spec)
+
+  PPV <- hi / (hi + fa)
+
+  return(PPV)
+}
+
+## (2) Negative predictive value (NPV) from probabilities:
+comp_NPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
+
+  NPV <- NA # initialize
+
+  ## NPV = cr / negative decision = cr / (cr + mi):
+  cr <- (1 - prev) * spec
+  mi <- prev * (1 - sens)
+
+  NPV <- cr / (cr + mi)
+
+  return(NPV)
+}
+
+comp_PPV(.1, .8, .9)
+
+```
+
+Plot both curves:
+
+```{r pv_curves_base_R}
+# Basic numeric parameters:
+prev <- .33
+sens <- .93
+spec <- .86
+
+PPV <- comp_PPV(prev, sens, spec)
+NPV <- comp_NPV(prev, sens, spec)
+PPV.lbl <- paste0("PPV = ", as_pc(PPV), "%")
+NPV.lbl <- paste0("NPV = ", as_pc(NPV), "%")
+
+eps <- 0
+
+
+# Define plot area: 
+plot(0, xlim = c(0, 1), ylim = c(0, 1), type = "n", 
+     main = "PV curves", ylab = "probability", xlab = "prevalence")
+abline(h = 0) # x-axis
+abline(v = 0) # y-axis
+grid()
+
+## Curves:
+## PPV:
+curve(expr = comp_PPV(x, sens, spec), from = 0, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.ppv)
+## NPV:
+curve(expr = comp_NPV(x, sens, spec), from = 0, to = 1, add = TRUE,  lty = 1, lwd = 2, col = col.npv)
+
+## Lines:
+abline(v = prev, lty = 2, lwd = 1, col = grey(.25, .50)) # show prevalence
+# abline(h = PPV, lty = 3, lwd = 1, col = col.ppv) # show PPV
+# abline(h = NPV, lty = 3, lwd = 1, col = col.npv) # show NPV
+
+segments(x0 = 0, y0 = PPV, x1 = prev + eps, y1 = PPV, lty = 2, lwd = 1.5, col = col.ppv) # show PPV segment
+segments(x0 = 0, y0 = NPV, x1 = prev + eps, y1 = NPV, lty = 2, lwd = 1.5, col = col.npv) # show NPV segment
+
+## Points:
+## PPV: 
+points(x = prev, y = PPV, pch = 21, cex = 2, lwd = 1.5, col = grey(.25, .50), bg = col.ppv)
+## NPV:
+points(x = prev, y = NPV, pch = 21, cex = 2, lwd = 1.5, col = grey(.25, .50), bg = col.npv)
+
+## Text:
+## PPV label:
+if (PPV < .75) {
+  text(x = prev + .12, y = PPV + .000, labels = PPV.lbl, col = col.ppv, cex = .8)
+} else {
+  text(x = prev - .12, y = PPV + .025, labels = PPV.lbl, col = col.ppv, cex = .8)
+}
+## NPV label: 
+if (NPV > .75) {
+  text(x = prev + .12, y = NPV + .025, labels = NPV.lbl, col = col.npv, cex = .8)
+} else {
+  text(x = prev - .12, y = NPV - .025, labels = NPV.lbl, col = col.npv, cex = .8)
+}
+
+## Legend:
+legend("bottom",
+       legend = c("PPV", "NPV"), 
+       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "n")
+
+
 ```
 
 ### 3D graph
@@ -1100,7 +1229,7 @@ p.ppv <- persp(x, y, z.ppv,
                ltheta = 200, shade = 0.10, 
                ticktype = "detailed", 
                xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
-               main = paste0("PPV (prev = ", pc(prev), "%)"))
+               main = paste0("PPV (prev = ", as_pc(prev), "%)"))
 
 # Add cur.PPV to plot:
 pmat <- p.ppv
@@ -1114,7 +1243,7 @@ p.npv <- persp(x, y, z.npv,
                ltheta = 200, shade = 0.10, 
                ticktype = "detailed", 
                xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
-               main = paste0("NPV (prev = ", pc(prev), "%)"))
+               main = paste0("NPV (prev = ", as_pc(prev), "%)"))
 
 # Add cur.NPV to plot:
 pmat <- p.npv
@@ -1141,7 +1270,7 @@ plot.PV.plane <- function(prev, metric = "PPV") {
                ticktype = "detailed", xlab = "sens", ylab = "spec", 
                zlab = "PPV", 
                zlim = z.lim, 
-               main = paste0("PPV (prev = ", pc(prev), "%)"))
+               main = paste0("PPV (prev = ", as_pc(prev), "%)"))
   
 }
 
@@ -1169,14 +1298,14 @@ plot.PV.planes <- function(prev) {
                    col = col.ppv, border = col.grey.3, 
                    ltheta = 200, shade = 0.10, 
                    ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z.lim, 
-                   main = paste0("PPV (prev = ", pc(prev), "%)"))
+                   main = paste0("PPV (prev = ", as_pc(prev), "%)"))
     
     p.npv <- persp(x, y, z.npv, 
                    theta = my.theta, phi = my.phi,  d = my.d, expand = my.expand, 
                    col = col.npv, border = col.grey.3, 
                    ltheta = 200, shade = 0.10, 
                    ticktype = "detailed", xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z.lim, 
-                   main = paste0("NPV (prev = ", pc(prev), "%)"))
+                   main = paste0("NPV (prev = ", as_pc(prev), "%)"))
     
     par(mfrow = c(1, 1)) # Remove special settings.
   }
@@ -1222,15 +1351,15 @@ BxA
 # sums and percentages:
 colSums(BxA)
 rowSums(BxA)
-pc(BxA/sum(BxA)) 
+as_pc(BxA/sum(BxA)) 
 
 # 1st row percentages per column (pB):
-pc(BxA[1,1]/sum(BxA[ , 1]))
-pc(BxA[1,2]/sum(BxA[ , 2]))
+as_pc(BxA[1,1]/sum(BxA[ , 1]))
+as_pc(BxA[1,2]/sum(BxA[ , 2]))
 
 # 1st col percentages per row (pA)
-pc(BxA[1,1]/sum(BxA[1, ]))
-pc(BxA[2,1]/sum(BxA[2, ]))
+as_pc(BxA[1,1]/sum(BxA[1, ]))
+as_pc(BxA[2,1]/sum(BxA[2, ]))
 
 # Focus on row 1 suggests causal relationship A->B (which is simply due to pA). 
 
