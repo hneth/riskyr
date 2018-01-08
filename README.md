@@ -1,7 +1,7 @@
 riskyR
 ================
 SPDS, uni.kn
-2018 01 05
+2018 01 06
 
 
 The `riskyR` package
@@ -44,9 +44,29 @@ All visualizations can be explored interactively and use a common color scheme.
 A set of environments illustrates example cases with known data from the literature.
 
 
-Contact
--------
+## About
 
-Contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de).
+We are still developing this software and have yet to choose a license for it. Please [contact us](http://spds.uni-konstanz.de) in case you want to use or share it.
 
+### Contact
+
+In case of comments or questions, please contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de). 
+
+### Reference
+
+In APA format:
+
+- Neth, H., Gaissbauer, F., Gradwohl, N., & Gaissmaier, W. (2018). 
+`riskyR`: A toolbox for transparent communication and teaching of risk literacy 
+[Computer software]. Retrieved from https://github.com/hneth/riskyR (R package version 0.0.1)
+
+As BibTeX reference: 
+
+    @manual{NethEtAl18_R,
+      title = {{riskyR}: A toolbox for transparent communication and teaching of risk literacy},
+      author = {Neth, Hansj\"{o}rg and Gaissbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
+      year = 2018,
+      note = {R package version 0.0.1},
+      url = {https://github.com/hneth/riskyR}
+    }
 
