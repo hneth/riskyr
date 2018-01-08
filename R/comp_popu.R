@@ -3,19 +3,19 @@
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the necessary parameters of:
-##  [a. the current N from prm (not needed)]
+##  [a. the current N from num (not needed)]
 ##   b. the current frequencies of freq
 ##   c. the current text labels of txt
 
 ## Notes:
 ## - Called "popu" rather than "pop" as it is an output,
 ##   rather than an input!
-## - Always use prm (essential) rather than env (NON-essential)!
+## - Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
 ## Compute current population (popu):
 
-comp_popu <- function(## N = prm$N, ## (not needed)
+comp_popu <- function(## N = num$N, ## (not needed)
   ## frequencies from freq:
   n.true = freq$cond.true, n.false = freq$cond.false,
   n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,

@@ -1,8 +1,8 @@
-## init_prm.R | riskyR
+## init_num.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
-## Initialize basic input parameters (prm) that contain
-## all numeric user inputs:
+## Initialize a list of basic input parameters (num)
+## that contains all numeric user inputs:
 
 ## -----------------------------------------------
 ## (1) Basic functions on probabilities:
@@ -89,27 +89,27 @@ get_min_N <- function(prev, sens, spec, min.freq = 1) {
 }
 
 ## -----------------------------------------------
-## (3) Define and initialize prm:
+## (3) Define and initialize num:
 
-## The minimal set of numeric input parameters prm
+## The minimal set of numeric input parameters num
 ## consists of 3 probabilities (+ 1 complement):
 
-## Define defaults for prm:   # Description:                                     # Type of input:
-prm.def <- list("prev" = .15, # prevalence in target population = p(condition TRUE)     [basic p]
+## Define defaults for num:   # Description:                                     # Type of input:
+num.def <- list("prev" = .15, # prevalence in target population = p(condition TRUE)     [basic p]
                 "sens" = .85, # sensitivity = p(decision POS | condition TRUE)    [conditional p]
                 "spec" = .75, # specificity = p(decision NEG | condition FALSE)   [conditional p]
                 "fart" = NA,  # false alarm rate = 1 - spec        [optional, complement of spec]
                 "N"    = NA   # population size (N of individuals in population)  [optional freq]
                 )
 
-init_prm <- function(prev = prm.def$prev, sens = prm.def$sens, spec = prm.def$spec,
-                     fart = prm.def$fart, N = prm.def$N) {
+init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$spec,
+                     fart = num.def$fart, N = num.def$N) {
 
   ## (a) Verify that 3 essential probabilities are provided:
-  if (is.na(prev)) {stop("A prevalence value (prev) is missing but necessary [init_prm()].")}
-  if (is.na(sens)) {stop("A sensitivity value (sens) is missing but necessary [init_prm()].")}
+  if (is.na(prev)) {stop("A prevalence value (prev) is missing but necessary [init_num()].")}
+  if (is.na(sens)) {stop("A sensitivity value (sens) is missing but necessary [init_num()].")}
   if (is.na(spec) & is.na(fart)) {
-    stop("Either a specificity value (spec) OR a false alarm rate (fart) is necessary [init_prm()].")}
+    stop("Either a specificity value (spec) OR a false alarm rate (fart) is necessary [init_num()].")}
 
   ## (+) ToDo: Verify that input parameters are in the correct range [0; 1].
 
@@ -123,50 +123,50 @@ init_prm <- function(prev = prm.def$prev, sens = prm.def$sens, spec = prm.def$sp
   ## (c) Compute missing N (5th argument) value (if applicable):
   if (is.na(N)) {N <- get_min_N(prev, sens, spec, min.freq = 1)}
 
-  ## (d) Initialize prm:   # Description:                                       # Type of input:
-  prm <- list("prev"  = NA, # prevalence in target population = p(condition TRUE)       [basic p]
+  ## (d) Initialize num:   # Description:                                       # Type of input:
+  num <- list("prev"  = NA, # prevalence in target population = p(condition TRUE)       [basic p]
               "sens"  = NA, # sensitivity = p(decision POS | condition TRUE)      [conditional p]
               "spec"  = NA, # specificity = p(decision NEG | condition FALSE)     [conditional p]
               "fart"  = NA, # false alarm rate = 1 - spec          [optional, complement of spec]
               "N"     = NA  # population size (N of individuals in population)    [optional freq]
               )
 
-  ## (e) Initialize prm with current arguments:
-  prm$prev <- prev
-  prm$sens <- sens
-  prm$spec <- spec
-  prm$fart <- fart
-  prm$N    <- N
+  ## (e) Initialize num with current arguments:
+  num$prev <- prev
+  num$sens <- sens
+  num$spec <- spec
+  num$fart <- fart
+  num$N    <- N
 
-  ## (f) Return the entire list prm:
-  return(prm)
+  ## (f) Return the entire list num:
+  return(num)
 
 }
 
 ## Checks:
 {
-  # init_prm(prev = NA) # => fails
-  # init_prm(prev = .1, sens = NA) # => fails
-  # init_prm(prev = .1, sens = .1, spec = NA, fart = NA) # => fails
-  # init_prm(.5, .5, 1/3) # => succeeds
-  # init_prm(.5, .5, 1/3, NA, 999) # => succeeds
-  # init_prm(11, 22, 1/3, NA, 999) # => succeeds, but should not (as prev and sens are not in correct range)
+  # init_num(prev = NA) # => fails
+  # init_num(prev = .1, sens = NA) # => fails
+  # init_num(prev = .1, sens = .1, spec = NA, fart = NA) # => fails
+  # init_num(.5, .5, 1/3) # => succeeds
+  # init_num(.5, .5, 1/3, NA, 999) # => succeeds
+  # init_num(11, 22, 1/3, NA, 999) # => succeeds, but should not (as prev and sens are not in correct range)
 }
 
 ## Apply:
-prm <- init_prm()
-prm
+num <- init_num()
+num
 
 ## -----------------------------------------------
-## (4) Compute fart (4th parameter) of prm (if NA):
-##     (moved to init_prm() above)
+## (4) Compute fart (4th parameter) of num (if NA):
+##     (moved to init_num() above)
 {
-# if (is.na(prm$fart)) {
-#   prm$fart <- get_fart(prm$spec)
+# if (is.na(num$fart)) {
+#   num$fart <- get_fart(num$spec)
 # }
 #
-# if (is.na(prm$spec)) {
-#   prm$spec <- get_spec(prm$fart)
+# if (is.na(num$spec)) {
+#   num$spec <- get_spec(num$fart)
 # }
 }
 
@@ -182,8 +182,8 @@ prm
 ## - re-organize "scenarios.xls" according to data structure of env.
 ## - read in pre-defined datasets ("scenarios.csv") from "/data".
 ##
-## - [init_prm]: Verify that input parameters are in the correct range [0; 1].
-## - [init_prm]: If both spec and fart values are provided,
+## - [init_num]: Verify that input parameters are in the correct range [0; 1].
+## - [init_num]: If both spec and fart values are provided,
 ##   make sure that they are complements of each other.
 
 ## -----------------------------------------------

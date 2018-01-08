@@ -1,15 +1,15 @@
 ## comp_freq.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
-## Compute all current frequencies (freq) based on prm
-## (using only the 4 necessary parameters of prm):
+## Compute all current frequencies (freq) based on num
+## (using only the 4 necessary parameters of num):
 
-## Note: Always use prm (essential) rather than env (NON-essential)!
+## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
 ## Compute all current frequencies:
 
-comp_freq <- function(N = prm$N, prev = prm$prev, sens = prm$sens, spec = prm$spec, round = TRUE) {
+comp_freq <- function(N = num$N, prev = num$prev, sens = num$sens, spec = num$spec, round = TRUE) {
 
   ## (1) Initialize freq as a list:
   freq <- list(
@@ -34,7 +34,7 @@ comp_freq <- function(N = prm$N, prev = prm$prev, sens = prm$sens, spec = prm$sp
   )
 
   ## (2) Compute all values of freq based on arguments:
-  freq$N <- N # copy N from argument/prm (input)
+  freq$N <- N # copy N from argument/num (input)
 
   ## (A) Number of true cases by condition:
   ##     (= 1st level of natural frequency tree):
@@ -68,8 +68,8 @@ comp_freq <- function(N = prm$N, prev = prm$prev, sens = prm$sens, spec = prm$sp
   ## (3) Checks:
   if ((freq$cond.true != freq$hi + freq$mi) |
       (freq$cond.false != freq$fa + freq$cr) |
-      (prm$N != freq$cond.true + freq$cond.false) |
-      (prm$N != freq$hi + freq$mi + freq$fa + freq$cr)) {
+      (num$N != freq$cond.true + freq$cond.false) |
+      (num$N != freq$hi + freq$mi + freq$fa + freq$cr)) {
     warning( "Warning: Something fishy in freq [comp_freq()]." )
   }
 

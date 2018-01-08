@@ -1,16 +1,16 @@
 ## comp_prob.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
-## Compute current probabilities (prob) based on prm
-## (using only the necessary parameters of prm):
+## Compute current probabilities (prob) based on num
+## (using only the necessary parameters of num):
 
-## Note: Always use prm (essential) rather than env (NON-essential)!
+## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
 ## (1) Basic functions for predictive values (based on probabilities):
 
 ## 1. Positive predictive value (PPV) from probabilities:
-comp_PPV <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
+comp_PPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   PPV <- NA # initialize
 
@@ -29,7 +29,7 @@ comp_PPV <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
 }
 
 ## 2. False discovery/detection rate (FDR = complement of PPV):
-comp_FDR <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
+comp_FDR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   PPV <- NA # initialize
   FDR <- NA
@@ -50,7 +50,7 @@ comp_FDR <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
 }
 
 ## 3. Negative predictive value (NPV) from probabilities:
-comp_NPV <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
+comp_NPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   NPV <- NA # initialize
 
@@ -69,7 +69,7 @@ comp_NPV <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
 }
 
 ## 4. False omission rate (FOR = complement of NPV):
-comp_FOR <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
+comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   NPV <- NA # initialize
   FOR <- NA
@@ -135,7 +135,7 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 
 {
   # ## A: Using default settings:
-  # prm$N
+  # num$N
   # freq <- comp_freq(round = TRUE)
   # freq
   #
@@ -157,7 +157,7 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 ##     Specifically, compute current values of PPV and NPV
 ##     as functions of prev, sens, and spec using Bayes' formula:
 
-comp_prob <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
+comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   ## (1) Initialize prob as a list:
   prob <- list(

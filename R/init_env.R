@@ -4,7 +4,7 @@
 ## Initialize an environment (env) that contains
 ## all scenario-specific user inputs and customizations:
 
-## Note: With the introduction of N into prm
+## Note: With the introduction of N into num
 ##       env has become entirely OPTIONAL and NON-essential.
 ##
 ##       It is kept to store ALL settings in a single list
@@ -15,17 +15,17 @@
 ## (5) Define and initialize environment (env):
 
 ## A complete environment (env) consists of:
-## 1. 4 basic parameter values (from prm[1:4])
-## 2. 1 population size value  (from prm$N)
+## 1. 4 basic parameter values (from num[1:4])
+## 2. 1 population size value  (from num$N)
 ## 3. current text information (labels and descriptions) (txt)
 ## 4. current color information (pal)
 ## Thus,
-##        env = prm + txt + pal
+##        env = num + txt + pal
 
 ## (a) env as a list of lists:
 ##     (short definition, but complex object):
 
-# env <- list(prm,
+# env <- list(num,
 #             "N" = NA,
 #             txt,
 #             pal
@@ -34,19 +34,19 @@
 ## (b) Define and initialize env as a list of scalars:
 ##    (long definition, but simple object):
 
-init_env <- function(cur.prm = prm, cur.txt = txt, cur.pal = pal) {
+init_env <- function(cur.num = num, cur.txt = txt, cur.pal = pal) {
 
   ## (a) Define and initialize env as a list of scalars:
   env <- list(
 
-    ## 1. prm[1:4]:
-    "prev" = cur.prm$prev,
-    "sens" = cur.prm$sens,
-    "spec" = cur.prm$spec,
-    "fart" = cur.prm$fart,
+    ## 1. num[1:4]:
+    "prev" = cur.num$prev,
+    "sens" = cur.num$sens,
+    "spec" = cur.num$spec,
+    "fart" = cur.num$fart,
 
     ## 2. N:
-    "N" = cur.prm$N,
+    "N" = cur.num$N,
 
     ## 3. txt:
     "name" = cur.txt$scenario.lbl, # Note: "name", rather than "lbl".
@@ -73,7 +73,7 @@ init_env <- function(cur.prm = prm, cur.txt = txt, cur.pal = pal) {
     "pal.npv" = cur.pal["npv"]
   )
 
-  ## WAS moved to init_prm():
+  ## WAS moved to init_num():
   ## (x) Compute a good N for current env (if NA):
   # if (is.na(env$N)) {
   #   env$N <- get_min_N(prev = env$prev,
