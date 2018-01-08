@@ -4,7 +4,7 @@
 ## Compute current probabilities (prob) based on prm
 ## (using only the necessary parameters of prm):
 
-## Note: Use prm (essential) rather than env (non-essential).
+## Note: Always use prm (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
 ## (1) Basic functions for predictive values (based on probabilities):
@@ -153,14 +153,14 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 }
 
 ## -----------------------------------------------
-## (4) Compute PPV and NPV as a function of prev, sens, and spec:
+## (4) Compute all current probabilities:
+##     Compute PPV and NPV as a function of prev, sens, and spec:
 ##     using Bayes' formula:
 
 comp_prob <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
 
   ## (1) Initialize prob as a list:
   prob <- list(
-
     ## predictive values (PVs):
     "ppv" = NA, # positive predictive value
     "npv" = NA  # negative predictive value
@@ -176,16 +176,19 @@ comp_prob <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
     warning( "Warning: Something peculiar about PVs [comp_prob()]." )
   }
 
+  ## (4) Return the entire list:
   return(prob)
 
 }
 
 ## Apply:
 cur.prob <- comp_prob()
+# cur.prob
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - allow using fart instead of spec to comp_prob()
 ## - compute alternative prob from freq with
 ##   a. N of dec.pos (rather than N of fa) and
 ##   b. N of dec.neg (rather than N of mi) provided.

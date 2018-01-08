@@ -1,10 +1,13 @@
 ## comp_freq.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
-## Compute current frequencies (freq) based on prm
-## (using only 4 necessary parameters of prm):
+## Compute all current frequencies (freq) based on prm
+## (using only the 4 necessary parameters of prm):
 
-## Note: Use prm (essential) rather than env (non-essential).
+## Note: Always use prm (essential) rather than env (NON-essential)!
+
+## -----------------------------------------------
+## Compute all current frequencies:
 
 comp_freq <- function(N = prm$N, prev = prm$prev, sens = prm$sens, spec = prm$spec, round = TRUE) {
 
