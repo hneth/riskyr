@@ -67,10 +67,14 @@
 ## (3) Define corresponding color palette:
 
 pal <- c(sdt.colors, col.ppv, col.npv) # vector of colors
-
 pal <- setNames(object = pal,
                 nm = c(names(sdt.colors), "ppv", "npv")
                 )
+
+## Checks:
+# pal
+# length(pal)
+# pal[4] == pal["cr"]
 
 ## -----------------------------------------------
 ## ggplot themes:

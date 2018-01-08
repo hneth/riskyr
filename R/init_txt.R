@@ -10,19 +10,19 @@
 ## Set defaults for all text inputs (txt):
 
 txt <- list(
-  scenario.lbl    = "Scenario name",
-  scenario.text   = "Describe the current scenario in a short paragraph of text here.\nThis description may include several sentences.",
-  scenario.source = "Describe the source information for this scenario here",
+  scen.lbl = "Scenario name",
+  scen.txt = "Describe the current scenario in a short paragraph of text here.\nThis description may include several sentences.",
+  scen.src = "Describe the source information for this scenario here",
 
-  target.population.lbl = "Describe the target population in a few words here",
+  popu.lbl = "Describe the target population in a few words here",
 
   ## (a) Condition:
-  condition.lbl  = "Condition",       # "disease", "Breast cancer", "HIV", "Sepsis" etc.
+  cond.lbl = "Condition",       # "disease", "Breast cancer", "HIV", "Sepsis" etc.
   cond.true.lbl  = "Condition true",  # "has condition", "is affected"
   cond.false.lbl = "Condition false", # "does not have condition", "is unaffected"
 
   ## (b) Decision/predicted condition:
-  decision.lbl  = "Decision",          # "Predicted condition", "diagnostic decision", "Mammography", "HIV test"
+  dec.lbl = "Decision",          # "Predicted condition", "diagnostic decision", "Mammography", "HIV test"
   dec.true.lbl  = "Decision positive", # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec.false.lbl = "Decision negative", # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 

@@ -98,8 +98,8 @@ get_min_N <- function(prev, sens, spec, min.freq = 1) {
 num.def <- list("prev" = .15, # prevalence in target population = p(condition TRUE)     [basic p]
                 "sens" = .85, # sensitivity = p(decision POS | condition TRUE)    [conditional p]
                 "spec" = .75, # specificity = p(decision NEG | condition FALSE)   [conditional p]
-                "fart" = NA,  # false alarm rate = 1 - spec        [optional, complement of spec]
-                "N"    = NA   # population size (N of individuals in population)  [optional freq]
+                "fart" =  NA, # false alarm rate = 1 - spec        [optional, complement of spec]
+                "N"    =  NA  # population size (N of individuals in population)  [optional freq]
                 )
 
 init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$spec,

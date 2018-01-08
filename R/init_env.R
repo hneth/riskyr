@@ -32,39 +32,39 @@
 #             )
 
 ## (b) Define and initialize env as a list of scalars:
-##    (long definition, but simple object):
+##    (long definition using lists as arguments, but simple output object):
 
 init_env <- function(cur.num = num, cur.txt = txt, cur.pal = pal) {
 
   ## (a) Define and initialize env as a list of scalars:
   env <- list(
 
-    ## 1. num[1:4]:
+    ## 1. Basic parameters num[1:4]:
     "prev" = cur.num$prev,
     "sens" = cur.num$sens,
     "spec" = cur.num$spec,
     "fart" = cur.num$fart,
 
-    ## 2. N:
+    ## 2. Population size N:
     "N" = cur.num$N,
 
-    ## 3. txt:
-    "name" = cur.txt$scenario.lbl, # Note: "name", rather than "lbl".
-    "text" = cur.txt$scenario.text,
-    "source" = cur.txt$scenario.source,
-    "popu.lbl" = cur.txt$target.population.lbl,
-    "condition.lbl" = cur.txt$condition.lbl,
-    "cond.true.lbl" = cur.txt$cond.true.lbl,
+    ## 3. Text (txt):              # Note some changes (wrt. earlier versions):
+    "scen.lbl" = cur.txt$scen.lbl, # WAS "name", rather than "scen.lbl"
+    "scen.txt" = cur.txt$scen.txt, # WAS "text", rather than "scen.txt"
+    "scen.src" = cur.txt$scen.src, # WAS "source", rather than "scen.source"
+    "popu.lbl" = cur.txt$popu.lbl, # WAS "popu", rather than "popu.lbl"
+    "cond.lbl"       = cur.txt$cond.lbl, # WAS "condition.lbl" rather than "cond.lbl"
+    "cond.true.lbl"  = cur.txt$cond.true.lbl,
     "cond.false.lbl" = cur.txt$cond.false.lbl,
-    "decision.lbl" = cur.txt$decision.lbl,
-    "dec.true.lbl" = cur.txt$dec.true.lbl,
-    "dec.false.lbl" = cur.txt$dec.false.lbl,
+    "dec.lbl"        = cur.txt$dec.lbl,  # WAS "decision.lbl" rather than "dec.lbl"
+    "dec.true.lbl"   = cur.txt$dec.true.lbl,
+    "dec.false.lbl"  = cur.txt$dec.false.lbl,
     "sdt.hi.lbl" = cur.txt$sdt.hi.lbl,
     "sdt.mi.lbl" = cur.txt$sdt.mi.lbl,
     "sdt.fa.lbl" = cur.txt$sdt.fa.lbl,
     "sdt.cr.lbl" = cur.txt$sdt.cr.lbl,
 
-    ## 4. pal:
+    ## 4. Colors (pal):
     "pal.hi" = cur.pal["hi"],
     "pal.mi" = cur.pal["mi"],
     "pal.fa" = cur.pal["fa"],
@@ -89,7 +89,7 @@ init_env <- function(cur.num = num, cur.txt = txt, cur.pal = pal) {
 
 ## Apply:
 env <- init_env()
-# env
+env
 
 ## Note: As env is non-essential, all code should still work
 ##       when env is deleted or remains undefined!
