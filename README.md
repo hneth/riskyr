@@ -56,15 +56,15 @@ In case of comments or questions, please contact us at [http://spds.uni.kn](http
 
 In APA format:
 
-- Neth, H., Gaissbauer, F., Gradwohl, N., & Gaissmaier, W. (2018). 
-`riskyR`: A toolbox for transparent communication and teaching of risk literacy 
-[Computer software]. Retrieved from https://github.com/hneth/riskyR (R package version 0.0.1)
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
+`riskyR`: A toolbox for transparent communication and teaching of risk literacy [Computer software]. 
+Retrieved from https://github.com/hneth/riskyR (R package version 0.0.1)
 
 As BibTeX reference: 
 
     @manual{NethEtAl18_R,
       title = {{riskyR}: A toolbox for transparent communication and teaching of risk literacy},
-      author = {Neth, Hansj\"{o}rg and Gaissbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
+      author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
       note = {R package version 0.0.1},
       url = {https://github.com/hneth/riskyR}
