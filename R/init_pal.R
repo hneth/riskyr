@@ -1,4 +1,4 @@
-## cust_pal.R | riskyR
+## init_pal.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
 ## Define and initialize current set of

@@ -1,4 +1,4 @@
-## cust_txt.R | riskyR
+## init_txt.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
 ## Define and initialize current set of
