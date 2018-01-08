@@ -154,8 +154,8 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 
 ## -----------------------------------------------
 ## (4) Compute all current probabilities:
-##     Compute PPV and NPV as a function of prev, sens, and spec:
-##     using Bayes' formula:
+##     Specifically, compute current values of PPV and NPV
+##     as functions of prev, sens, and spec using Bayes' formula:
 
 comp_prob <- function(prev = prm$prev, sens = prm$sens, spec = prm$spec) {
 
