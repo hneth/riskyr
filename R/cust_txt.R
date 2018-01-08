@@ -1,8 +1,13 @@
-## custom_txt.R | riskyR
-## 2018 01 07
+## cust_txt.R | riskyR
+## 2018 01 08
 ## -----------------------------------------------
-## Define and initialize current terminology (txt)
-## (i.e., text labels and longer text elements):
+## Define and initialize current set of
+## custom text elements (txt):
+
+## Note that txt contains defaults for user inputs.
+
+## -----------------------------------------------
+## Set defaults for all text inputs (txt):
 
 txt <- list(
   scenario.lbl = "Scenario name",

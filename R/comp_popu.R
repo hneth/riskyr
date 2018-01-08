@@ -1,26 +1,29 @@
-## comp_pop.R | riskyR
+## comp_popu.R | riskyR
 ## 2018 01 08
 ## -----------------------------------------------
-## Compute a population (pop) as 3 x N data frame
+## Compute a population (popu) as 3 x N data frame
 ## based on only the necessary parameters of:
 ##  [a. the current N from prm (not needed)]
 ##   b. the current frequencies of freq
 ##   c. the current text labels of txt
 
-## Note: Always use prm (essential) rather than env (NON-essential)!
+## Notes:
+## - Called "popu" rather than "pop" as it is an output,
+##   rather than an input!
+## - Always use prm (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## ## Compute current population:
+## Compute current population (popu):
 
-comp_pop <- function(## N = prm$N, ## (not needed)
-                     ## frequencies from freq:
-                     n.true = freq$cond.true, n.false = freq$cond.false,
-                     n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
-                     ## text labels from txt:
-                     cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-                     dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
-                     sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
-                     sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl) {
+comp_popu <- function(## N = prm$N, ## (not needed)
+  ## frequencies from freq:
+  n.true = freq$cond.true, n.false = freq$cond.false,
+  n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
+  ## text labels from txt:
+  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
+  dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
+  sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
+  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl) {
 
   ## (1) Define and initialize 3 vectors of length N:
   ## (a) Truth:
@@ -56,24 +59,24 @@ comp_pop <- function(## N = prm$N, ## (not needed)
                 ordered = TRUE)
 
   ## (5) Combine 3 vectors in a population data frame pop:
-  pop <- data.frame(tru = truth,
-                    dec = decision,
-                    sdt = sdt)
-  names(pop) <- c("Truth", "Decision", "STD")
+  popu <- data.frame(tru = truth,
+                     dec = decision,
+                     sdt = sdt)
+  names(popu) <- c("Truth", "Decision", "STD")
 
   ## (6) Return the entire data frame pop:
-  return(pop)
+  return(popu)
 
 }
 
 ## Apply:
-pop <- comp_pop()
-# pop
+popu <- comp_popu()
+# popu
 
 ## Checks:
-# dim(pop)
-# head(pop)
-# tail(pop)
+# dim(popu)
+# head(popu)
+# tail(popu)
 
 ## -----------------------------------------------
 ## (+) ToDo:

@@ -1,7 +1,13 @@
-## custom_pal.R | riskyR
-## 2018 01 07
+## cust_pal.R | riskyR
+## 2018 01 08
 ## -----------------------------------------------
-## Define and initialize current colors (pal):
+## Define and initialize current set of
+## custom colors (pal):
+
+## Note that pal contains defaults for user inputs.
+
+## -----------------------------------------------
+## Set defaults for all color inputs (pal):
 
 ## -----------------------------------------------
 ## (1) Define some named colors:
@@ -104,7 +110,7 @@ pal <- setNames(object = pal,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add color pal cus objects
+## - add color pal cus objects (inputs)
 ## - add pre-defined color palettes
 ## - make colors user-customizable
 

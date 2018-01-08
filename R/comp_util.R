@@ -1,5 +1,5 @@
-## fun_util.R | riskyR
-## 2018 01 07
+## comp_util.R | riskyR
+## 2018 01 08
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -20,6 +20,7 @@ as.perc <- function(prob, n.digits = 2) {
 
   return(perc)
   }
+
 
 ## (b) Percentage as probability (rounded to 4 decimals):
 as.prob <- function(perc, n.digits = 4) {
