@@ -1,4 +1,4 @@
-## plot_code.R | riskyR
+## plot_PV.R | riskyR
 ## 2018 01 09
 ## -----------------------------------------------
 
@@ -49,7 +49,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
   cex.lbl <- .8 # size of text labels
 
   if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }
-  if (log.scale) { h.shift <- prev * 2.5 } else { h.shift <- .080 }
+  if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .080 }
   v.shift <- .025
   low.PV  <- .200 # threshold value for judging PPV or NPV to be low
   v.raise <- .700 # vertical raise of y-prev when PPV or NPV < low.PV
@@ -131,7 +131,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
   if (show.PVpoints) {
     ## PPV label:
     if ((PPV < .75 & !(prev > 1 - h.shift)) | (prev < h.shift)) {
-      text(x = prev + h.shift, y = PPV + .000, labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on right
+      text(x = prev + h.shift, y = PPV + v.shift, labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on right
     } else {
       text(x = prev - h.shift, y = PPV + v.shift, labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on left+
     }
@@ -153,19 +153,22 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
 
 ## Check:
 {
-  # plot_PV()
-  # plot_PV(prev = .0001, sens = .95, spec = .95, log.scale = TRUE)
+  plot_PV() # default
   # plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.45, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.55, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.99, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE,
   #         col.ppv = "firebrick", col.npv = "steelblue3")
+  ## log scale:
+  # plot_PV(prev = .0001, sens = .95, spec = .66, log.scale = TRUE)
+  # plot_PV(prev = .0010, sens = .95, spec = .66, log.scale = TRUE)
+  # plot_PV(prev = .0100, sens = .95, spec = .66, log.scale = TRUE)
 }
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - fine-tune positions of labels and legend
+## - fine-tune positions of labels and legend (on linear vs. log scale)
 ## - prettify plot (titles, axes, grid, colors, transparency)
 
 ## -----------------------------------------------
