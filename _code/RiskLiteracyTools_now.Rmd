@@ -1085,11 +1085,13 @@ comp_PPV(.1, .8, .9)
 
 Plot both curves:
 
++++ here now +++
+
 ```{r pv_curves_base_R}
 # Basic numeric parameters:
-prev <- .33
-sens <- .93
-spec <- .86
+prev <- .01
+sens <- .80
+spec <- .90
 
 PPV <- comp_PPV(prev, sens, spec)
 NPV <- comp_NPV(prev, sens, spec)
@@ -1097,14 +1099,20 @@ PPV.lbl <- paste0("PPV = ", as_pc(PPV), "%")
 NPV.lbl <- paste0("NPV = ", as_pc(NPV), "%")
 
 eps <- 0
-
+h.shift <- .125
+v.shift <- .025
 
 # Define plot area: 
 plot(0, xlim = c(0, 1), ylim = c(0, 1), type = "n", 
      main = "PV curves", ylab = "probability", xlab = "prevalence")
-abline(h = 0) # x-axis
-abline(v = 0) # y-axis
-grid()
+# abline(h = 0) # x-axis
+# abline(v = 0) # y-axis
+
+axis(side = 1, at = seq(0, 1, by = .1), col.axis = grey(.33, .6), col.ticks = grey(.66, .6))
+axis(side = 2, at = seq(0, 1, by = .1), col.axis = grey(.33, .6), col.ticks = grey(.66, .6))
+
+grid(nx = 10, ny = 10, col = grey(.8, .8))
+
 
 ## Curves:
 ## PPV:
@@ -1128,22 +1136,22 @@ points(x = prev, y = NPV, pch = 21, cex = 2, lwd = 1.5, col = grey(.25, .50), bg
 
 ## Text:
 ## PPV label:
-if (PPV < .75) {
-  text(x = prev + .12, y = PPV + .000, labels = PPV.lbl, col = col.ppv, cex = .8)
+if ((PPV < .75 & !(prev > 1 - h.shift)) | (prev < h.shift)) {
+  text(x = prev + h.shift, y = PPV + .000, labels = PPV.lbl, col = col.ppv, cex = .8) # on right
 } else {
-  text(x = prev - .12, y = PPV + .025, labels = PPV.lbl, col = col.ppv, cex = .8)
+  text(x = prev - h.shift, y = PPV + .025, labels = PPV.lbl, col = col.ppv, cex = .8) # on left+
 }
 ## NPV label: 
-if (NPV > .75) {
-  text(x = prev + .12, y = NPV + .025, labels = NPV.lbl, col = col.npv, cex = .8)
+if (NPV > .75 | (prev < h.shift)) {
+  text(x = prev + h.shift, y = NPV + v.shift, labels = NPV.lbl, col = col.npv, cex = .8) # on right+
 } else {
-  text(x = prev - .12, y = NPV - .025, labels = NPV.lbl, col = col.npv, cex = .8)
+  text(x = prev - h.shift, y = NPV - v.shift, labels = NPV.lbl, col = col.npv, cex = .8) # on left-
 }
 
 ## Legend:
 legend("bottom",
        legend = c("PPV", "NPV"), 
-       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "n")
+       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
 
 
 ```
