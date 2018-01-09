@@ -23,6 +23,7 @@ geometry: margin=1.0in
 linkcolor: blue
 urlcolor: blue
 editor_options: 
+  chunk_output_type: console
 chunk_output_type: console
 ---
 
@@ -1089,8 +1090,8 @@ Plot both curves:
 ```{r pv_curves_base_R}
 # Basic numeric parameters:
 prev <- .01
-sens <- .80
-spec <- .90
+sens <- .95
+spec <- .77
 
 ## Utility function from 
 ## https://stackoverflow.com/questions/3932038/plot-a-legend-outside-of-the-plotting-area-in-base-graphics
@@ -1101,18 +1102,20 @@ add_legend <- function(...) {
   legend(...)
 }
 
-plot_PV <- function(prev, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE) {
+plot_PV <- function(prev, sens, spec, 
+                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE) {
   
   ## Compute current PVs:
   PPV <- comp_PPV(prev, sens, spec)
   NPV <- comp_NPV(prev, sens, spec)
   
   ## Text labels:
-  title.lbl <- "PV plot of current scenario"
   prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   PPV.lbl <- paste0("PPV = ", as_pc(PPV), "%")
   NPV.lbl <- paste0("NPV = ", as_pc(NPV), "%")
-  
+  sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
+  title.lbl <- paste0("PV plot of current scenario", "\n", sens.spec.lbl)
+    
   ## Parameters:
   col.prev <- grey(.50, alpha = .99) # prevalence # WAS: col.green.2
   col.axes <- grey(.10, alpha = .99) # axes
@@ -1126,15 +1129,18 @@ plot_PV <- function(prev, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE, 
   ## Plot area:
   plot(0, xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = "Prevalence", type = "n")
   
-  title(title.lbl, adj = 0.0, line = 2)
+  ## Title: 
+  title(title.lbl, adj = 0.0, line = 1.0)
   
   ## Axes: 
-  # abline(h = 0) # x-axis
-  # abline(v = 0) # y-axis
-  axis(side = 1, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1), pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at bottom
-  axis(side = 1, at = seq(0, 1, by = .1), labels = FALSE,              pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at top
-  axis(side = 2, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1), pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at left
-  axis(side = 4, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1), pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at right
+  axis(side = 1, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1), 
+       pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at bottom
+  axis(side = 1, at = seq(0, 1, by = .1), labels = FALSE,              
+       pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at top
+  axis(side = 2, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1), 
+       pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at left
+  axis(side = 4, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1), 
+       pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at right
   
   ## Grid:
   grid(col = grey(.8, .8))
@@ -1213,7 +1219,9 @@ plot_PV <- function(prev, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE, 
 }
 
 ## Check: 
-plot_PV(.33, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+# plot_PV(.50, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+# plot_PV(.99, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
 ```
 
 +++ here now +++
