@@ -138,7 +138,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
   prob$ppv <- comp_PPV(prev, sens, spec)
   prob$npv <- comp_NPV(prev, sens, spec)
 
-  ## (3) Checks:
+  ## (3) Check:
   if ( is.na(prob$ppv) | (prob$ppv < 0) | (prob$ppv > 1) |
        is.na(prob$npv) | (prob$npv < 0) | (prob$npv > 1) ) {
     warning( "Warning: Something peculiar about PVs [comp_prob()]." )

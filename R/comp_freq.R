@@ -65,7 +65,7 @@ comp_freq <- function(N = num$N, prev = num$prev, sens = num$sens, spec = num$sp
   freq$dec.pos <- freq$hi + freq$fa # 1. positive decisions (true & false positives)
   freq$dec.neg <- freq$mi + freq$cr # 2. negative decisions (false & true negatives)
 
-  ## (3) Checks:
+  ## (3) Check:
   if ((freq$cond.true != freq$hi + freq$mi) |
       (freq$cond.false != freq$fa + freq$cr) |
       (num$N != freq$cond.true + freq$cond.false) |

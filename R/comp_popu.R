@@ -73,7 +73,7 @@ comp_popu <- function(## N = num$N, ## (not needed)
 popu <- comp_popu()
 # popu
 
-## Checks:
+## Check:
 # dim(popu)
 # head(popu)
 # tail(popu)

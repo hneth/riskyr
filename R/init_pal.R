@@ -71,7 +71,7 @@ pal <- setNames(object = pal,
                 nm = c(names(sdt.colors), "ppv", "npv")
                 )
 
-## Checks:
+## Check:
 # pal
 # length(pal)
 # pal[4] == pal["cr"]

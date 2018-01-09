@@ -34,7 +34,7 @@ get_spec <- function(fart) {
   return(spec)
 }
 
-## Checks:
+## Check:
 {
   # get_fart(2)
   # get_fart(1/3)
@@ -76,7 +76,7 @@ get_min_N <- function(prev, sens, spec, min.freq = 1) {
 
 }
 
-## Checks:
+## Check:
 {
   # get_min_N(0, 0, 0) # => 1
   # get_min_N(1, 1, 1) # => 1
@@ -143,7 +143,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$sp
 
 }
 
-## Checks:
+## Check:
 {
   # init_num(prev = NA) # => fails
   # init_num(prev = .1, sens = NA) # => fails

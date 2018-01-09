@@ -17,12 +17,12 @@ txt <- list(
   popu.lbl = "Describe the target population in a few words here",
 
   ## (a) Condition:
-  cond.lbl = "Condition",       # "disease", "Breast cancer", "HIV", "Sepsis" etc.
+  cond.lbl = "Condition",             # "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
   cond.true.lbl  = "Condition true",  # "has condition", "is affected"
   cond.false.lbl = "Condition false", # "does not have condition", "is unaffected"
 
-  ## (b) Decision/predicted condition:
-  dec.lbl = "Decision",          # "Predicted condition", "diagnostic decision", "Mammography", "HIV test"
+  ## (b) Decision/prediction/predicted condition:
+  dec.lbl = "Decision",                # "Prediction", "Diagnostic decision", "Mammography", "HIV test"
   dec.true.lbl  = "Decision positive", # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec.false.lbl = "Decision negative", # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
@@ -33,8 +33,13 @@ txt <- list(
   sdt.cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
   )
 
-## ToDo:
-## - add txt to cus object?
+
+length(txt)
+
+## -----------------------------------------------
+## (+) ToDo:
+
+## - add txt to a cus object?
 ## - make txt user-customizable!
 
 ## -----------------------------------------------

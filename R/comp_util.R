@@ -36,7 +36,7 @@ as_pb <- function(perc, n.digits = 4) {
   return(prob)
 }
 
-## Checks:
+## Check:
 {
   # as_pc(1/3)          # => perc (rounded to 2 decimals)
   # as_pb(as_pc(2/3)) # => prob (rounded to 4 decimals)

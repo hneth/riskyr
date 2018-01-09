@@ -94,7 +94,7 @@ env
 ## Note: As env is non-essential, all code should still work
 ##       when env is deleted or remains undefined!
 
-## Checks:
+## Check:
 # length(env) == length(val) + 1 + length(txt) + length(pal)
 
 ## -----------------------------------------------

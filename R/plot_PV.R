@@ -154,7 +154,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
 ## Check:
 {
   plot_PV() # default
-  # plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+  plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.45, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.55, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.99, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE,
@@ -162,7 +162,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
   ## log scale:
   # plot_PV(prev = .0001, sens = .95, spec = .66, log.scale = TRUE)
   # plot_PV(prev = .0010, sens = .95, spec = .66, log.scale = TRUE)
-  # plot_PV(prev = .0100, sens = .95, spec = .66, log.scale = TRUE)
+  # plot_PV(prev = .99, sens = .95, spec = .66, log.scale = TRUE)
 }
 
 ## -----------------------------------------------
