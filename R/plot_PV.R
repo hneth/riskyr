@@ -14,43 +14,65 @@ add_legend <- function(...) {
 }
 
 plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
-                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE) {
+                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE,
+                    scen.lbl = txt$scen.lbl, col.ppv = pal["ppv"], col.npv = pal["npv"]) {
 
   ## Compute current PVs:
   PPV <- comp_PPV(prev, sens, spec)
   NPV <- comp_NPV(prev, sens, spec)
 
-  ## Text labels:
+  ## Labels:
   prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   PPV.lbl <- paste0("PPV = ", as_pc(PPV), "%")
   NPV.lbl <- paste0("NPV = ", as_pc(NPV), "%")
   sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
-  title.lbl <- paste0("PV plot of current scenario", "\n", sens.spec.lbl)
+  title.lbl <- paste0("Predictive Values of ", scen.lbl, "\n", sens.spec.lbl)
+  if (log.scale) {
+    x.ax.lbl <- "Prevalence (on logarithmic scale)"
+    } else {
+      x.ax.lbl <- "Prevalence"
+  }
+  if (log.scale) {
+    x.seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)
+    x.lbl <- paste0(as_pc(x.seq, n.digits = 5), "%") # log percentages (rounded to 5 decimals)
+  } else {
+    x.seq <- seq(0, 1, by = .1)
+    x.lbl <- paste0(as_pc(x.seq), "%") # linear percentages
+  }
+  y.seq <- seq(0, 1, by = .1)
+  y.lbl <- paste0(as_pc(y.seq), "%") # linear percentages
 
   ## Parameters:
   col.prev <- grey(.50, alpha = .99) # prevalence # WAS: col.green.2
   col.axes <- grey(.10, alpha = .99) # axes
   col.bord <- grey(.10, alpha = .50) # borders (e.g., of points)
   cex.lbl <- .8 # size of text labels
-  h.shift <- .088
-  v.shift <- .030
+
+  if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }
+  if (log.scale) { h.shift <- prev * 2.5 } else { h.shift <- .080 }
+  v.shift <- .025
   low.PV  <- .200 # threshold value for judging PPV or NPV to be low
   v.raise <- .700 # vertical raise of y-prev when PPV or NPV < low.PV
 
-  ## Plot area:
-  plot(0, xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = "Prevalence", type = "n")
+
+  ## Initialize plot:
+  if (log.scale) {
+    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, log = "x", ylab = "Probability", xlab = x.ax.lbl, type = "n")
+  } else {
+    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = x.ax.lbl, type = "n")
+  }
 
   ## Title:
-  title(title.lbl, adj = 0.0, line = 1.0)
+  title(title.lbl, adj = 0.0, line = 1.0, font.main = 1)
 
-  ## Axes:
-  axis(side = 1, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1),
+  ## Axes (on 4 sides):
+  axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex.lbl, las = 1,
        pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at bottom
-  axis(side = 1, at = seq(0, 1, by = .1), labels = FALSE,
-       pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at top
-  axis(side = 2, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1),
-       pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at left
-  axis(side = 4, at = seq(0, 1, by = .1), labels = seq(0, 1, by = .1),
+  axis(side = 1, at = x.seq, labels = FALSE, cex.axis = cex.lbl, las = 1,
+       pos = 1, tck = -.01, col.axis = col.axes, col.ticks = col.axes) # x at top
+  axis(side = 2, at = y.seq, labels = y.lbl, cex.axis = cex.lbl, las = 1,
+       pos = x.min, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at left
+  axis(side = 4, at = y.seq, labels = y.lbl, cex.axis = cex.lbl, las = 1,
        pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at right
 
   ## Grid:
@@ -58,9 +80,9 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
 
   ## Curves:
   ## PPV:
-  curve(expr = comp_PPV(x, sens, spec), from = 0, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.ppv)
+  curve(expr = comp_PPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.ppv)
   ## NPV:
-  curve(expr = comp_NPV(x, sens, spec), from = 0, to = 1, add = TRUE,  lty = 1, lwd = 2, col = col.npv)
+  curve(expr = comp_NPV(x, sens, spec), from = x.min, to = 1, add = TRUE,  lty = 1, lwd = 2, col = col.npv)
 
   ## Lines:
   if (show.PVprev){
@@ -125,23 +147,26 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
   # legend("bottom", legend = c("PPV", "NPV"),
   #       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
   add_legend("topright", legend = c("PPV", "NPV"), lwd = 2, col = c(col.ppv, col.npv),
-             horiz = TRUE, bty = 'n')
+             horiz = FALSE, bty = 'n')
 
 }
 
 ## Check:
-# plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
-# plot_PV(.50, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
-plot_PV(.99, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+{
+  # plot_PV()
+  # plot_PV(prev = .0001, sens = .95, spec = .95, log.scale = TRUE)
+  # plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+  # plot_PV(.45, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+  # plot_PV(.55, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+  # plot_PV(.99, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE,
+  #         col.ppv = "firebrick", col.npv = "steelblue3")
+}
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add txt info (to use in title, ...)
-## - add log.scale = TRUE option
-## - express axes labels as percentages as well?
 ## - fine-tune positions of labels and legend
-## - prettify plot
+## - prettify plot (titles, axes, grid, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.

@@ -1,5 +1,5 @@
 ## init_txt.R | riskyR
-## 2018 01 08
+## 2018 01 09
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom text elements (txt):
@@ -10,7 +10,7 @@
 ## Set defaults for all text inputs (txt):
 
 txt <- list(
-  scen.lbl = "Scenario name",
+  scen.lbl = "Scenario Title", # in Title Caps (to print in plot titles)
   scen.txt = "Describe the current scenario in a short paragraph of text here.\nThis description may include several sentences.",
   scen.src = "Describe the source information for this scenario here",
 
