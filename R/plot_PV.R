@@ -1,21 +1,22 @@
 ## plot_PV.R | riskyR
-## 2018 01 09
+## 2018 01 10
 ## -----------------------------------------------
+## plot_PV: PPV and NPV curves as functions of prevalence
 
+## -----------------------------------------------
+## Utility function:
+
+## add_legend() moved to comp_util.R
+
+## -----------------------------------------------
 ## Plot PV curves: PPV and NPV as functions of prevalence
+## (using only necessary arguments with good defaults):
 
-## Utility function from
-## https://stackoverflow.com/questions/3932038/plot-a-legend-outside-of-the-plotting-area-in-base-graphics
-add_legend <- function(...) {
-  opar <- par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
-  on.exit(par(opar))
-  plot(0, 0, type = 'n', bty = 'n', xaxt = 'n', yaxt = 'n')
-  legend(...)
-}
-
-plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
-                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE,
-                    scen.lbl = txt$scen.lbl, col.ppv = pal["ppv"], col.npv = pal["npv"]) {
+plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,           # key parameters
+                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE, # options [adjustable by user inputs]
+                    scen.lbl = txt$scen.lbl,                   # custom labels
+                    col.ppv = pal["ppv"], col.npv = pal["npv"] # custom colors
+                    ) {
 
   ## Compute current PVs:
   PPV <- comp_PPV(prev, sens, spec)
@@ -79,10 +80,8 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
   grid(col = grey(.8, .8))
 
   ## Curves:
-  ## PPV:
-  curve(expr = comp_PPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.ppv)
-  ## NPV:
-  curve(expr = comp_NPV(x, sens, spec), from = x.min, to = 1, add = TRUE,  lty = 1, lwd = 2, col = col.npv)
+  curve(expr = comp_PPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.ppv) # PPV curve
+  curve(expr = comp_NPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.npv) # NPV curve
 
   ## Lines:
   if (show.PVprev){
@@ -153,8 +152,8 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
 
 ## Check:
 {
-  plot_PV() # default
-  plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
+  # plot_PV() # default
+  # plot_PV(.01, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.45, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.55, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE)
   # plot_PV(.99, sens, spec, show.PVprev = TRUE, show.PVpoints = TRUE,
@@ -169,7 +168,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,
 ## (+) ToDo:
 
 ## - fine-tune positions of labels and legend (on linear vs. log scale)
-## - prettify plot (titles, axes, grid, colors, transparency)
+## - pimp plot (titles, axes, grid, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.

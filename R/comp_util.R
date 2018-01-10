@@ -1,13 +1,12 @@
 ## comp_util.R | riskyR
-## 2018 01 08
+## 2018 01 10
 ## -----------------------------------------------
 ## Generic utility functions:
 
 ## -----------------------------------------------
-## (1) Toggle display formats between
-##     probabilities and percentages:
+## Toggle between showing probabilities and percentages:
 
-## Probability as percentage (rounded to 2 decimals):
+## Probability as percentage (2 decimals):
 as_pc <- function(prob, n.digits = 2) {
 
   if (any(prob < 0) | any(prob > 1)) {
@@ -21,8 +20,7 @@ as_pc <- function(prob, n.digits = 2) {
   return(perc)
   }
 
-
-## Percentage as probability (rounded to 4 decimals):
+## Percentage as probability (4 decimals):
 as_pb <- function(perc, n.digits = 4) {
 
   if (any(perc < 0) | any(perc > 100)) {
@@ -46,6 +44,25 @@ as_pb <- function(perc, n.digits = 4) {
   # as_pb(s.perc)
   # s.prob == as_pb(as_pc(s.prob)) # some FALSE due to rounding errors!
   # round(s.prob, 4) == as_pb(as_pc(s.prob)) # all TRUE (as both rounded to 4 decimals)
+}
+
+## -----------------------------------------------
+## Reformat the plotting area to allow placing legend outside of a plot:
+
+add_legend <- function(...) {
+  ## Reformat the plotting area to allow placing legend outside of a plot
+  ## Source: https://stackoverflow.com/questions/3932038/plot-a-legend-outside-of-the-plotting-area-in-base-graphics
+
+  opar <- par(fig = c(0, 1, 0, 1),
+              oma = c(0, 0, 0, 0),
+              mar = c(0, 0, 0, 0),
+              new = TRUE)
+
+  on.exit(par(opar))
+
+  plot(0, 0, type = 'n', bty = 'n', xaxt = 'n', yaxt = 'n')
+
+  legend(...)
 }
 
 ## -----------------------------------------------

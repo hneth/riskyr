@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyR
-## 2018 01 08
+## 2018 01 10
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the necessary parameters of:
@@ -70,7 +70,7 @@ comp_popu <- function(## N = num$N, ## (not needed)
 }
 
 ## Apply:
-popu <- comp_popu()
+# popu <- comp_popu()
 # popu
 
 ## Check:

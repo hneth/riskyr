@@ -1,5 +1,5 @@
 ## comp_prob.R | riskyR
-## 2018 01 08
+## 2018 01 10
 ## -----------------------------------------------
 ## Compute current probabilities (prob) based on num
 ## (using only the necessary parameters of num):
@@ -7,7 +7,7 @@
 ## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## (1) Basic functions for predictive values (based on probabilities):
+## (A) Predictive values (based on probabilities):
 
 ## 1. Positive predictive value (PPV) from probabilities:
 comp_PPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
@@ -62,7 +62,8 @@ comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 }
 
 ## -----------------------------------------------
-## (2) Alternative versions (based on frequencies):
+## (B) Predictive values (alternative versions
+##     based on frequencies):
 
 ## 1. Positive predictive value (PPV) from frequencies:
 comp_PPV_freq <- function(n.hi = freq$hi, n.fa = freq$fa) {
@@ -99,7 +100,7 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 }
 
 ## -----------------------------------------------
-## (3) Compare alternative calculations:
+## Compare alternative PV calculations:
 
 {
   # ## A: Using default settings:
@@ -120,10 +121,11 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 
 }
 
+
 ## -----------------------------------------------
-## (4) Compute all current probabilities:
-##     Specifically, compute current values of PPV and NPV
-##     as functions of prev, sens, and spec using Bayes' formula:
+## Compute ALL current probabilities:
+## So far: Compute current values of PPV and NPV
+##         as functions of prev, sens, and spec (using Bayes):
 
 comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
@@ -135,7 +137,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
   )
 
   ## (2) Compute all values of prob based on arguments:
-  prob$ppv <- comp_PPV(prev, sens, spec)
+  prob$ppv <- comp_PPV(prev, sens, spec) # Note: using probabilistic version (Bayes)
   prob$npv <- comp_NPV(prev, sens, spec)
 
   ## (3) Check:
@@ -149,9 +151,45 @@ comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
 }
 
+
 ## Apply:
-cur.prob <- comp_prob()
-# cur.prob
+# prob <- comp_prob()
+# prob
+# prob$ppv
+
+
+## -----------------------------------------------
+## Compute either PPV or NPV for an entire matrix of values
+## (when sens and spec are given as vectors):
+
+comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
+
+  # Initialize matrix as df:
+  n.rows <- length(sens)
+  n.cols <- length(spec)
+  matrix <- as.data.frame(matrix(NA,
+                                 nrow = n.rows,
+                                 ncol = n.cols))
+  names(matrix) <- sens
+
+  ## Loop through rows and columns of matrix:
+  for (row in 1:n.rows) {
+    for (col in 1:n.cols) {
+
+      cell.val <- NA # initialize current cell value
+
+      if (metric == "PPV") {cell.val <- get.PPV(prev, sens[row], spec[col])} # compute PPV
+      if (metric == "NPV") {cell.val <- get.NPV(prev, sens[row], spec[col])} # compute NPV
+
+      matrix[row, col] <- cell.val # store result in matrix
+
+    }
+  }
+
+  return(matrix)
+
+}
+
 
 ## -----------------------------------------------
 ## (+) ToDo:
