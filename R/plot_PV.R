@@ -13,9 +13,8 @@
 ## (using only necessary arguments with good defaults):
 
 plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,           # key parameters
-                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE, # options [adjustable by user inputs]
-                    scen.lbl = txt$scen.lbl,                   # custom labels
-                    col.ppv = pal["ppv"], col.npv = pal["npv"] # custom colors
+                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE, # user options [adjustable by inputs]
+                    title.lbl = txt$scen.lbl, col.ppv = pal["ppv"], col.npv = pal["npv"] # custom labels and colors
                     ) {
 
   ## Compute current PVs:
@@ -27,7 +26,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
   PPV.lbl <- paste0("PPV = ", as_pc(PPV), "%")
   NPV.lbl <- paste0("NPV = ", as_pc(NPV), "%")
   sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
-  title.lbl <- paste0("Predictive Values of ", scen.lbl, "\n", sens.spec.lbl)
+  p.title.lbl <- paste0("Predictive Values of ", title.lbl, "\n", sens.spec.lbl)
   if (log.scale) {
     x.ax.lbl <- "Prevalence (on logarithmic scale)"
     } else {
@@ -64,7 +63,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
   }
 
   ## Title:
-  title(title.lbl, adj = 0.0, line = 1.0, font.main = 1)
+  title(p.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 
   ## Axes (on 4 sides):
   axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex.lbl, las = 1,
