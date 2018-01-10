@@ -1,9 +1,9 @@
-About riskyR
-================
+About riskyr
+============
 SPDS, uni.kn
 2018 01 06
 
-About `riskyR`
+About `riskyr`
 ==============
 
 A toolbox for transparent communication and teaching of risk literacy.
@@ -11,7 +11,7 @@ A toolbox for transparent communication and teaching of risk literacy.
 Goal
 ----
 
-The `riskyR` package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
+The `riskyr` package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
 
 We begin with some basic variables:
 
@@ -71,7 +71,7 @@ Agenda
 
 - Split current project into R package vs. Shiny app
 
-##### `riskyR` pck:
+##### `riskyr` pck:
 
 - pck: Restruture code accoding to [R packages](http://r-pkgs.had.co.nz/)
 - pck: Revise data structure into 
@@ -80,7 +80,7 @@ Agenda
     3. `pop` (df of 3 vectors)
 - pck: Add statistical function definitions as Markdown docs
 
-#### `riskyRapp` app:
+#### `riskyrApp` online platform:
 
 - app: Develop according to Dean Attali's [recommendations](https://deanattali.com/2015/04/21/r-package-shiny-app/)
 - app: Initial panel with 2 types of _inputs_:
@@ -158,16 +158,16 @@ In case of comments or questions, please contact us at [http://spds.uni.kn](http
 In APA format:
 
 - Neth, H., Gaissbauer, F., Gradwohl, N., & Gaissmaier, W. (2018). 
-`riskyR`: A toolbox for transparent communication and teaching of risk literacy 
-[Computer software]. Retrieved from https://github.com/hneth/riskyR (R package version 0.0.1)
+`riskyr`: A toolbox for transparent communication and teaching of risk literacy 
+[Computer software]. Retrieved from https://github.com/hneth/riskyr (R package version 0.0.1)
 
 As BibTeX reference: 
 
     @manual{NethEtAl18_R,
-      title = {{riskyR}: A toolbox for transparent communication and teaching of risk literacy},
+      title = {{riskyr}: A toolbox for transparent communication and teaching of risk literacy},
       author = {Neth, Hansj\"{o}rg and Gaissbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
       note = {R package version 0.0.1},
-      url = {https://github.com/hneth/riskyR}
+      url = {https://github.com/hneth/riskyr}
     }
 
