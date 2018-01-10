@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 08
+## 2018 01 10
 ## -----------------------------------------------
 ## Initialize a list of basic input parameters (num)
 ## that contains all numeric user inputs:
@@ -8,7 +8,7 @@
 ## (1) Basic functions on probabilities:
 ## Specificity (spec) is the complement of the false alarm rate (fart):
 
-get_fart <- function(spec) {
+comp_fart <- function(spec) {
 
   if ((spec < 0) | (spec > 1)) {
     warning( "Warning: spec is no probability (range from 0 to 1)." )
@@ -21,7 +21,7 @@ get_fart <- function(spec) {
   return(fart)
 }
 
-get_spec <- function(fart) {
+comp_spec <- function(fart) {
 
   if ((fart < 0) | (fart > 1)) {
     warning( "Warning: fart is no probability (range from 0 to 1)." )
@@ -36,16 +36,16 @@ get_spec <- function(fart) {
 
 ## Check:
 {
-  # get_fart(2)
-  # get_fart(1/3)
-  # get_spec(get_fart(2/3))
+  # comp_fart(2)
+  # comp_fart(1/3)
+  # comp_spec(comp_fart(2/3))
 }
 
 ## -----------------------------------------------
 ## (2) Determine a good number for population size N:
 ##     Criterion: All 4 SDT cells should have a minimal frequency of min.freq:
 
-get_min_N <- function(prev, sens, spec, min.freq = 1) {
+comp_min_N <- function(prev, sens, spec, min.freq = 1) {
 
   N <- 10^0 # initialize
 
@@ -78,14 +78,14 @@ get_min_N <- function(prev, sens, spec, min.freq = 1) {
 
 ## Check:
 {
-  # get_min_N(0, 0, 0) # => 1
-  # get_min_N(1, 1, 1) # => 1
-  # get_min_N(1, 1, 1, min.freq = 10) # =>  10
-  # get_min_N(1, 1, 1, min.freq = 99) # => 100
-  # get_min_N(.1, .1, .1)       # => 100       = 10^2
-  # get_min_N(.001, .1, .1)     # => 10 000    = 10^4
-  # get_min_N(.001, .001, .1)   # => 1 000 000 = 10^6
-  # get_min_N(.001, .001, .001) # => 1 000 000 = 10^6
+  # comp_min_N(0, 0, 0) # => 1
+  # comp_min_N(1, 1, 1) # => 1
+  # comp_min_N(1, 1, 1, min.freq = 10) # =>  10
+  # comp_min_N(1, 1, 1, min.freq = 99) # => 100
+  # comp_min_N(.1, .1, .1)       # => 100       = 10^2
+  # comp_min_N(.001, .1, .1)     # => 10 000    = 10^4
+  # comp_min_N(.001, .001, .1)   # => 1 000 000 = 10^6
+  # comp_min_N(.001, .001, .001) # => 1 000 000 = 10^6
 }
 
 ## -----------------------------------------------
@@ -117,11 +117,11 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$sp
   ##           make sure that they are complements of each other.
 
   ## (b) Compute missing fart (4th argument) value (if applicable):
-  if (is.na(fart)) {fart <- get_fart(spec)}
-  if (is.na(spec)) {spec <- get_spec(fart)}
+  if (is.na(fart)) {fart <- comp_fart(spec)}
+  if (is.na(spec)) {spec <- comp_spec(fart)}
 
   ## (c) Compute missing N (5th argument) value (if applicable):
-  if (is.na(N)) {N <- get_min_N(prev, sens, spec, min.freq = 1)}
+  if (is.na(N)) {N <- comp_min_N(prev, sens, spec, min.freq = 1)}
 
   ## (d) Initialize num:   # Description:                                       # Type of input:
   num <- list("prev"  = NA, # prevalence in target population = p(condition TRUE)       [basic p]
@@ -162,11 +162,11 @@ num
 ##     (moved to init_num() above)
 {
 # if (is.na(num$fart)) {
-#   num$fart <- get_fart(num$spec)
+#   num$fart <- comp_fart(num$spec)
 # }
 #
 # if (is.na(num$spec)) {
-#   num$spec <- get_spec(num$fart)
+#   num$spec <- comp_spec(num$fart)
 # }
 }
 
