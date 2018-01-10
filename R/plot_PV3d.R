@@ -94,11 +94,14 @@ plot_PV3d()
 #           cur.theta = -45, cur.phi = 45, cur.expand = 1.4, col.pv = "firebrick")
 
 ## -----------------------------------------------
-## OLDER CODE:
+## OLDER function (no longer used):
 
-## Plot both PPV and NPV in 2 adjacent plots (combined into 1 plot):
+## Plot both PPV and NPV planes in 2 adjacent plots
+## (combined into 1 plot):
 plot.PV.planes <- function(env, show.PVpoints = TRUE,
-                           cur.theta, cur.phi, cur.d, cur.expand, cur.ltheta, cur.shade) {
+                           cur.theta = -45, cur.phi = 0, # persp() parameters [adjustable by user inputs]
+                           cur.d = 1.5, cur.expand = 1.1, cur.ltheta = 200, cur.shade = .25 # persp() parameters [fixed]
+                           ) {
 
   ## Current environment parameters:
   name <- env$name
@@ -112,21 +115,21 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
   ## (a) from current data:
   # cur.PPV <- data$PPV # get.PPV(prev, sens, spec)
   # cur.NPV <- data$NPV # get.NPV(prev, sens, spec)
-  # cur.PPV.label <- data$PPV.label # paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
-  # cur.NPV.label <- data$NPV.label # paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  # cur.PPV.label <- data$PPV.label # paste0("PPV = ", as_pc(cur.PPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.PPV), "%)")
+  # cur.NPV.label <- data$NPV.label # paste0("NPV = ", as_pc(cur.NPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.NPV), "%)")
   ## (b) Compute from scratch:
-  cur.PPV <- get.PPV(prev, sens, spec) # data()$PPV
-  cur.NPV <- get.NPV(prev, sens, spec) # data()$NPV
-  cur.PPV.label <- paste0("PPV = ", pc(cur.PPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.PPV), "%)")
-  cur.NPV.label <- paste0("NPV = ", pc(cur.NPV), "%") # paste0("(", pc(prev), "%; ", pc(cur.NPV), "%)")
+  cur.PPV <- comp_PPV(prev, sens, spec) # data()$PPV
+  cur.NPV <- comp_NPV(prev, sens, spec) # data()$NPV
+  cur.PPV.label <- paste0("PPV = ", as_pc(cur.PPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.PPV), "%)")
+  cur.NPV.label <- paste0("NPV = ", as_pc(cur.NPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.NPV), "%)")
 
   ## Ranges on x- and y-axes:
   sens.range <- seq(0.0, 1.0, by = .05) # range of sensitivity values
   spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values
 
   ## Compute PPV and NPV matrices:
-  PPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "PPV")
-  NPV.mat <- pv.matrix(prev, sens.range, spec.range, metric = "NPV")
+  PPV.mat <- comp_PV_matrix(prev, sens.range, spec.range, metric = "PPV")
+  NPV.mat <- comp_PV_matrix(prev, sens.range, spec.range, metric = "NPV")
 
   ## Graph parameters:
   x <- sens.range
@@ -135,10 +138,10 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
   z.npv <- as.matrix(NPV.mat)
   z.lim <- c(0, 1) # range of z-axis
   # cur.par.label <- paste0("(",
-  #                         "prev = ", pc(prev), "%, ",
-  #                         "sens = ", pc(sens), "%, ",
-  #                         "spec = ", pc(spec), "%)")
-  cur.par.label <- paste0("(prev = ", pc(prev), "%)")
+  #                         "prev = ", as_pc(prev), "%, ",
+  #                         "sens = ", as_pc(sens), "%, ",
+  #                         "spec = ", as_pc(spec), "%)")
+  cur.par.label <- paste0("(prev = ", as_pc(prev), "%)")
 
   # Plot 2 plots (adjacent to each other):
   {
@@ -184,6 +187,9 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
   }
 
 }
+
+## Check:
+# plot.PV.planes(env, show.PVpoints = TRUE)
 
 ## -----------------------------------------------
 ## (+) ToDo:
