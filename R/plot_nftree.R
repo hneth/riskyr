@@ -31,17 +31,15 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                         sdt.fa.lbl = txt$sdt.fa.lbl,
                         sdt.cr.lbl = txt$sdt.cr.lbl,
                         # custom colors:
-                        col.N = col.sand.light, col.true = col.N, col.false = col.N,
+                        col.txt = grey(.01, alpha = .99), # black
+                        col.border = col.grey.4,
+                        col.N = col.sand.light,
+                        col.true = col.N, col.false = col.N,
                         col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
                         # shadow options:
-                        col.shadow = col.sand.dark, siz.shadow = 0 # [allow using shadows]
+                        col.shadow = col.sand.dark, cex.shadow = 0 # [allow using shadows]
                         ){
 
-    ## Graphic parameters (not adjusted by user):
-    # col.txt = grey(.01, alpha = .99)   # text
-    # col.border <- grey(.01, alpha = .99) # borders, shadows, ...
-    cex.txt <- 0.8 # adjust text size (on edges only?)
-    cex.lwd <- 2.0 # adjust line width
 
     ## Labels:                                          # NOT used yet:
     names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl
@@ -66,19 +64,33 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     M[7, 3] <- "specificity"
 
     ## Plot matrix M:
-    pp <- plotmat(M,
+    pp <- plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
                   pos = c(1, 2, 4),
                   curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
                   name = names,
-                  box.lwd = cex.lwd,
-                  box.size = .10,
-                  box.prop = 2/3,
-                  box.type = "square", # "circle",
+                  relsize	= .95, # a scaling factor for the size of the graph
+                  lwd = 2.0,
+                  ## Boxes:
+                  box.size = .10, # length of box
+                  box.prop = 2/3, # proportionality (length/width) ratio of box
+                  box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
                   box.col = c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
-                  shadow.col = col.shadow,
-                  shadow.size = siz.shadow, # .005
-                  lwd = cex.lwd,
-                  cex.txt = cex.txt #,
+                  box.lcol = col.border,
+                  box.lwd = 2.0,
+                  lcol = col.border, # default color for box and arrow lines
+                  ## Text in Boxes:
+                  txt.col = col.txt,
+                  box.cex = 1.1, # relative size of text in boxes
+                  txt.font = 1, # 1 = plain, 2 = bold, ...
+                  ## Arrows:
+                  cex.txt = .90, # relative size of arrow text
+                  arr.pos = .50, # relative position of arrowhead on arrow segment/curve
+                  arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
+                  arr.length = .40,
+                  arr.width = .30,
+                  arr.col = col.border,
+                  shadow.size = cex.shadow, # .005
+                  shadow.col = col.shadow #,
                   # main = paste0(title.lbl, ":\n", "Tree of natural frequencies (N = ", N, ")")
                   )
 
@@ -91,9 +103,9 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 }
 
 ## Check:
-# plot_nftree()
-# plot_nftree(siz.shadow = .015)
-# plot_nftree(col.N = "lightyellow", col.shadow = "steelblue3", siz.shadow = .015)
+plot_nftree()
+# plot_nftree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
+# plot_nftree(col.N = "lightyellow", col.shadow = "steelblue3", cex.shadow = .015)
 
 ## -----------------------------------------------
 ## (+) ToDo:
