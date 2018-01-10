@@ -76,10 +76,10 @@ init_env <- function(cur.num = num, cur.txt = txt, cur.pal = pal) {
   ## WAS moved to init_num():
   ## (x) Compute a good N for current env (if NA):
   # if (is.na(env$N)) {
-  #   env$N <- get_min_N(prev = env$prev,
-  #                      sens = env$sens,
-  #                      spec = env$spec
-  #                      )
+  #   env$N <- comp_min_N(prev = env$prev,
+  #                       sens = env$sens,
+  #                       spec = env$spec
+  #                       )
   # }
 
   ## (c) Return the entire list env:
@@ -89,7 +89,7 @@ init_env <- function(cur.num = num, cur.txt = txt, cur.pal = pal) {
 
 ## Apply:
 env <- init_env()
-env
+env # should NOW be NON-essential!
 
 ## Note: As env is non-essential, all code should still work
 ##       when env is deleted or remains undefined!

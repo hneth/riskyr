@@ -14,6 +14,7 @@ Description: Provides a set of basic risk literacy tools in R.
     Based on 3 basic probabilities (prevalence, sensitivity, specificity) the package provides a range of metrics and alternative representations of propabilities and frequencies (for a population of N individuals). 
     By offering a variety of perspectives on the interplay between these parameters, the package renders teaching and training of risk literacy more transparent. 
 Encoding: UTF-8
+Imports: diagram (>= 1.6.4)
 LazyData: true
 License: No license yet. 
 BugReports: https://github.com/hneth/riskyR/issues
