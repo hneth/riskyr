@@ -66,16 +66,17 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
   col.pt <- if (is.ppv) {"yellow1"} else {"yellow1"} # point color should provide high contrasts to col.pv of ppv and npv
   cex.pt <- 1.5 # adjust size of points
 
-  ## 3D plot for PV:
+  ## Create 3D plot for PV:
   p.pv <- persp(x, y, z.pv,
                 theta = cur.theta, phi = cur.phi, d = cur.d, expand = cur.expand,
                 col = col.pv, border = NA, # col.ppv, col.orange.1,
                 ltheta = cur.ltheta, shade = cur.shade,
-                ticktype = "detailed", nticks = 6, # ToDo: Adjust nticks according step.size
+                ticktype = "detailed", nticks = 6, # at 20% intervals
                 xlab = "sens", ylab = "spec", zlab = z.lbl, zlim = z.lim #,
-                # main = p.title.lbl,
+                # main = p.title.lbl # (defined below)
   )
 
+  ## Title:
   title(p.title.lbl, adj = 0.0, line = 0.0, font.main = 1)
 
   if (show.PVpoints) { # add cur.PV to the plot:
@@ -86,7 +87,7 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
 }
 
 ## Check:
-# plot_PV3d()
+plot_PV3d()
 # plot_PV3d(prev = .5, show.PVpoints = FALSE, step.size = .5)
 # plot_PV3d(prev = .5, is.ppv = FALSE, col.pv = pal["npv"])
 # plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "A test",
@@ -187,6 +188,8 @@ plot.PV.planes <- function(env, show.PVpoints = TRUE,
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - add current PPV/NPV value and label somewhere (with all current paramters)
+## - change labels for all axes to percentages (as in plot_PV)
 ## - pimp plot (titles, axes, grid, colors, transparency)
 
 ## -----------------------------------------------
