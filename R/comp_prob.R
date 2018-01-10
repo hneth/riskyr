@@ -178,8 +178,8 @@ comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
 
       cell.val <- NA # initialize current cell value
 
-      if (metric == "PPV") {cell.val <- get.PPV(prev, sens[row], spec[col])} # compute PPV
-      if (metric == "NPV") {cell.val <- get.NPV(prev, sens[row], spec[col])} # compute NPV
+      if (metric == "PPV") {cell.val <- comp_PPV(prev, sens[row], spec[col])} # compute PPV
+      if (metric == "NPV") {cell.val <- comp_NPV(prev, sens[row], spec[col])} # compute NPV
 
       matrix[row, col] <- cell.val # store result in matrix
 

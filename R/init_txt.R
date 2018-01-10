@@ -33,8 +33,7 @@ txt <- list(
   sdt.cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
   )
 
-
-length(txt)
+# length(txt)
 
 ## -----------------------------------------------
 ## (+) ToDo:

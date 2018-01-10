@@ -13,11 +13,11 @@
 ## Plot a 3d-plane of PPV or NPV (using persp):
 
 plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key parameters
-                      is.ppv = TRUE, # switch to toggle between PPV (TRUE) and NPV (FALSE)
-                      step.size = .05, # detail of matrix resolution (sens.range and spec.range)
-                      show.PVpoints = TRUE, # options [adjustable by user inputs]
-                      cur.theta = -45, cur.phi = 0, # persp() parameters [adjustable by user inputs]
-                      cur.d = 1.5, cur.expand = 1.1, cur.ltheta = 200, cur.shade = .25, # persp() parameters [fixed]
+                      is.ppv = TRUE,   # switch to toggle between PPV (TRUE) and NPV (FALSE)
+                      step.size = .05, # resolution of matrix (sens.range and spec.range)
+                      show.PVpoints = TRUE, # user options [adjustable by inputs]
+                      cur.theta = -45, cur.phi = 0, # user options for persp() [adjustable inputs]
+                      cur.d = 1.5, cur.expand = 1.1, cur.ltheta = 200, cur.shade = .25, # other persp() parameters [fixed]
                       title.lbl = txt$scen.lbl, col.pv = pal["ppv"] # custom labels and colors
 ) {
 
@@ -58,9 +58,9 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
   z.lbl <- if (is.ppv) {"PPV"} else {"NPV"}
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
   if (is.ppv) {
-    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV) for prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
+    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV) for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
   } else {
-    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV) for prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
+    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV) for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
   }
   col.bord <- grey(.01, alpha = .99) # borders (e.g., of points)
   col.pt <- if (is.ppv) {"yellow1"} else {"yellow1"} # point color should provide high contrasts to col.pv of ppv and npv
@@ -77,7 +77,7 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
   )
 
   ## Title:
-  title(p.title.lbl, adj = 0.0, line = 0.0, font.main = 1)
+  title(p.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 
   if (show.PVpoints) { # add cur.PV to the plot:
     p.pv.pt <- trans3d(sens, spec, cur.PV, p.pv)
