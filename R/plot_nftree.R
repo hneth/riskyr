@@ -41,7 +41,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                         ){
 
 
-    ## Labels:                                          # NOT used yet:
+    ## Text/labels in 7 boxes:                          # NOT used yet:
     names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl
                paste0(cond.true.lbl, ":\n",  n.true),
                paste0(cond.false.lbl, ":\n", n.false),
@@ -57,7 +57,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     ## ToDo: Use more informative arrow/edge labels:
     prev.lbl <- paste0("prev = ", as_pc(prev), "%")
 
-    M[2, 1] <- "prevalence"     # ERROR: WHY does prev.lbl not work???
+    M[2, 1] <- "prevalence" # ERROR: WHY does prev.lbl not work with spaces???
     M[3, 1] <- "(N - n.true)"
     M[4, 2] <- "sensitivity"
     M[5, 2] <- "(n.true - n.hi)"
@@ -87,8 +87,8 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   cex.txt = .90, # relative size of arrow text
                   arr.pos = .50, # relative position of arrowhead on arrow segment/curve
                   arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
-                  arr.length = .33,
-                  arr.width = .25,
+                  arr.length = .20,
+                  arr.width = .15,
                   arr.col = col.border,
                   shadow.size = cex.shadow, # .005
                   shadow.col = col.shadow #,
@@ -111,6 +111,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 # plot_nftree()
 # plot_nftree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
 # plot_nftree(col.N = "lightyellow", col.shadow = "steelblue3", cex.shadow = .015)
+
 
 ## -----------------------------------------------
 ## (+) ToDo:
