@@ -1,5 +1,5 @@
 ## plot_PV3d.R | riskyR
-## 2018 01 10
+## 2018 01 11
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
 ## as a function of both sens and spec (given prev)
@@ -58,9 +58,9 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
   z.lbl <- if (is.ppv) {"PPV"} else {"NPV"}
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
   if (is.ppv) {
-    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV) for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
+    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV)") #, " for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
   } else {
-    p.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV) for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
+    p.title.lbl <- paste0(title.lbl, ":\n", "Negative predictive values (NPV)") #, " for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
   }
   col.bord <- grey(.01, alpha = .99) # borders (e.g., of points)
   col.pt <- if (is.ppv) {"yellow1"} else {"yellow1"} # point color should provide high contrasts to col.pv of ppv and npv
@@ -79,6 +79,13 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
   ## Title:
   title(p.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 
+  ## Text on margins:
+  if (show.PVpoints) {
+    mtext(paste0(cur.PV.lbl), side = 1, line = 2, adj = 1, col = col.pv, cex = .90, font = 1)
+    }
+  mtext(paste0(cur.par.lbl), side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .80)
+
+
   if (show.PVpoints) { # add cur.PV to the plot:
     p.pv.pt <- trans3d(sens, spec, cur.PV, p.pv)
     p.pv <- points(p.pv.pt, pch = 21, col = col.bord, bg = col.pt, lwd = 1.0, cex = cex.pt)
@@ -87,9 +94,9 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
 }
 
 ## Check:
-plot_PV3d()
+# plot_PV3d()
 # plot_PV3d(prev = .5, show.PVpoints = FALSE, step.size = .5)
-# plot_PV3d(prev = .5, is.ppv = FALSE, col.pv = pal["npv"])
+plot_PV3d(prev = .5, is.ppv = FALSE, col.pv = pal["npv"])
 # plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "A test",
 #           cur.theta = -45, cur.phi = 45, cur.expand = 1.4, col.pv = "firebrick")
 
