@@ -1,5 +1,5 @@
 ## plot_nftree.R | riskyR
-## 2018 01 10
+## 2018 01 11
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 
@@ -54,6 +54,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     ## Make matrix M:
     M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 
+    ## ToDo: Use more informative arrow/edge labels:
     prev.lbl <- paste0("prev = ", as_pc(prev), "%")
 
     M[2, 1] <- "prevalence"     # ERROR: WHY does prev.lbl not work???
@@ -63,15 +64,15 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     M[6, 3] <- "(n.false - n.cr)"
     M[7, 3] <- "specificity"
 
-    ## Plot matrix M:
-    pp <- plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
+    ## Plot matrix M (from diagram package):
+    pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
                   pos = c(1, 2, 4),
                   curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
                   name = names,
-                  relsize	= .95, # a scaling factor for the size of the graph
-                  lwd = 2.0,
+                  relsize	= .98, # a scaling factor for the size of the graph
+                  lwd = 1.5,
                   ## Boxes:
-                  box.size = .10, # length of box
+                  box.size = .11, # length of box
                   box.prop = 2/3, # proportionality (length/width) ratio of box
                   box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
                   box.col = c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
@@ -80,14 +81,14 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   lcol = col.border, # default color for box and arrow lines
                   ## Text in Boxes:
                   txt.col = col.txt,
-                  box.cex = 1.1, # relative size of text in boxes
+                  box.cex = .95, # relative size of text in boxes
                   txt.font = 1, # 1 = plain, 2 = bold, ...
                   ## Arrows:
                   cex.txt = .90, # relative size of arrow text
                   arr.pos = .50, # relative position of arrowhead on arrow segment/curve
                   arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
-                  arr.length = .40,
-                  arr.width = .30,
+                  arr.length = .33,
+                  arr.width = .25,
                   arr.col = col.border,
                   shadow.size = cex.shadow, # .005
                   shadow.col = col.shadow #,
@@ -96,14 +97,17 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 
     ## Title:
     p.title.lbl = paste0(title.lbl, ":\n", "Tree of natural frequencies") # , "(N = ", N, ")")
-    title(p.title.lbl, adj = 0.5, line = -1.5, font.main = 1) # (left, raised, normal font)
+    title(p.title.lbl, adj = 0.5, line = -1.0, font.main = 1) # (left, lowered, normal font)
 
-    # return(pp)
+    ## Text on margins:
+    # mtext("[note]", side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .8)
+
+    # return(pp) # returns elements of diagram object
 
 }
 
 ## Check:
-plot_nftree()
+# plot_nftree()
 # plot_nftree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
 # plot_nftree(col.N = "lightyellow", col.shadow = "steelblue3", cex.shadow = .015)
 
