@@ -7,7 +7,7 @@ Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
               person("Felix", "Gaisbauer", role = "aut"),
               person("Nico", "Gradwohl", role = "aut"))
-Author:  Hansjoerg Neth [aut, cre],
+Author: Hansjoerg Neth [aut, cre],
   Felix Gaisbauer [aut],
   Nico Gradwohl [aut]
 AuthorUrl: http://neth.de
@@ -44,3 +44,4 @@ LazyData: true
 License: No license yet.
 BugReports: https://github.com/hneth/riskyR/issues
 VignetteBuilder: knitr
+RoxygenNote: 6.0.1

@@ -96,7 +96,7 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
 ## Check:
 # plot_PV3d()
 # plot_PV3d(prev = .5, show.PVpoints = FALSE, step.size = .5)
-plot_PV3d(prev = .5, is.ppv = FALSE, col.pv = pal["npv"])
+# plot_PV3d(prev = .5, is.ppv = FALSE, col.pv = pal["npv"])
 # plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "A test",
 #           cur.theta = -45, cur.phi = 45, cur.expand = 1.4, col.pv = "firebrick")
 
