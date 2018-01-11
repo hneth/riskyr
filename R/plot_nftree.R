@@ -96,18 +96,19 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   )
 
     ## Title:
-    p.title.lbl = paste0(title.lbl, ":\n", "Tree of natural frequencies") # , "(N = ", N, ")")
-    title(p.title.lbl, adj = 0.5, line = -1.0, font.main = 1) # (left, lowered, normal font)
+    cur.title.lbl = paste0(title.lbl, ":\n", "Tree of natural frequencies") # , "(N = ", N, ")")
+    title(cur.title.lbl, adj = 0.5, line = -1.0, font.main = 1) # (left, lowered, normal font)
 
-    ## Text on margins:
-    # mtext("[note]", side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .8)
+    ## Margin text:
+    cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
+    mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
 
     # return(pp) # returns elements of diagram object
 
 }
 
 ## Check:
-# plot_nftree()
+plot_nftree()
 # plot_nftree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
 # plot_nftree(col.N = "lightyellow", col.shadow = "steelblue3", cex.shadow = .015)
 
