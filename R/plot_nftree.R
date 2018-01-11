@@ -108,7 +108,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 }
 
 ## Check:
-plot_nftree()
+# plot_nftree()
 # plot_nftree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
 # plot_nftree(col.N = "lightyellow", col.shadow = "steelblue3", cex.shadow = .015)
 
