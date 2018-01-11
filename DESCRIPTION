@@ -1,24 +1,46 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for transparent communication and teaching of risk literacy
-Version: 0.0.0.900
+Version: 0.0.0.901
 Date: 2018-01-05
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
               person("Felix", "Gaisbauer", role = "aut"),
               person("Nico", "Gradwohl", role = "aut"))
-AuthorUrl: http://neth.de
-Maintainer: Hansjoerg Neth <h.neth@uni.kn>
-Description: Provides a set of basic risk literacy tools in R.
-    We begin with a condition (e.g., a disease) and a corresponding decision (e.g., a clinical judgment or the result of a diagnostic test). 
-    Based on 3 basic probabilities (prevalence, sensitivity, specificity) the package provides a range of metrics and alternative representations of propabilities and frequencies (for a population of N individuals). 
-    By offering a variety of perspectives on the interplay between these parameters, the package renders teaching and training of risk literacy more transparent. 
-Encoding: UTF-8
-Imports: diagram (>= 1.6.4)
-LazyData: true
-License: No license yet. 
-BugReports: https://github.com/hneth/riskyR/issues
 Author:  Hansjoerg Neth [aut, cre],
   Felix Gaisbauer [aut],
   Nico Gradwohl [aut]
-
+AuthorUrl: http://neth.de
+Maintainer: Hansjoerg Neth <h.neth@uni.kn>
+Description: Provides a set of basic risk literacy tools in R.
+    Starting with a condition (e.g., a disease), a corresponding decision (e.g., based on a clinical judgment or diagnostic test), 
+    and basic probabilities (prevalence, sensitivity, specificity) we provide a range of metrics and alternative representations of 
+    probabilities and frequencies (for a population of N individuals). By offering a variety of perspectives on the interplay 
+    between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
+Depends:
+    R (>= 3.2),
+    diagram (>= 1.6.4)
+Imports: 
+    diagram
+Suggests:
+    knitr,
+    devtools,
+    roxygen2
+Collate: 'init_txt.R'
+         'init_pal.R'
+         'init_num.R'
+         'init_env.R'
+         'comp_util.R'
+         'comp_prob.R'
+         'comp_freq.R'
+         'comp_popu.R'
+         'plot_iconarray.R'
+         'plot_nftree.R'
+         'plot_PV.R'
+         'plot_PV3d.R'
+         'temp_code.R'
+Encoding: UTF-8
+LazyData: true
+License: No license yet.
+BugReports: https://github.com/hneth/riskyR/issues
+VignetteBuilder: knitr
