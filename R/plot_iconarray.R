@@ -11,13 +11,16 @@
 
 ## - ...
 
-dev.new(width = 5, height = 5)  # create device with known aspect ratio.
+dev.new(width = 5, height = 15)  # create device with known aspect ratio.
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # define parameters:
 pop <- 73 # define population size.
 ncols <- 10  # define number of columns (to be filled by row)
 
 nrows <- ceiling(pop / ncols)
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # create raw plot to accomodate the icons:
 plot(1, 1, type = "n", xlim = c(0.5, 10 + 0.5), ylim = c(0.5, 10 + 0.5))
@@ -54,6 +57,17 @@ for(i in 1:nrow(design.matrix)){
 lines(par("usr")[1], par("usr")[2], col = "red")
 
 lines(x = c(1, 5), y = c(5, 5), col = "red")
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Test functionality of plotting icons:
+
+plot(1, 1, type = "n", xlim = c(0.5, 10 + 0.5), ylim = c(0.5, 10 + 0.5))
+
+points(1, 1, pch = 15)  # points are independent of the size of the plotting device!
+
+design.matrix <- expand.grid(1:ncols, 10:(1 + ncols - nrows))  # create a matrix for positions.
+design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
+
 
 ## -----------------------------------------------
 ## eof.
