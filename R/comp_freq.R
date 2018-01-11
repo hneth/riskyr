@@ -1,5 +1,5 @@
 ## comp_freq.R | riskyR
-## 2018 01 08
+## 2018 01 11
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -79,7 +79,7 @@ comp_freq <- function(N = num$N, prev = num$prev, sens = num$sens, spec = num$sp
 
 ## Apply:
 freq <- comp_freq()
-freq
+# freq
 
 ## -----------------------------------------------
 ## (+) ToDo:
