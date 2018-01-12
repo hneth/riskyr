@@ -87,8 +87,8 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   cex.txt = .90, # relative size of arrow text
                   arr.pos = .50, # relative position of arrowhead on arrow segment/curve
                   arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
-                  arr.length = .20,
-                  arr.width = .15,
+                  arr.length = .30,
+                  arr.width = .20,
                   arr.col = col.border,
                   shadow.size = cex.shadow, # .005
                   shadow.col = col.shadow #,
