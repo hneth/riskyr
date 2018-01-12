@@ -1,5 +1,5 @@
 ## plot_nftree.R | riskyR
-## 2018 01 11
+## 2018 01 12
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 
@@ -18,6 +18,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                         N = freq$N, n.true = freq$cond.true, n.false = freq$cond.false,     # freq info
                         n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
                         show.stuff = TRUE,           # user options [adjustable by inputs]
+                        ## Labels:
                         title.lbl = txt$scen.lbl,    # custom labels
                         popu.lbl = txt$popu.lbl,
                         cond.lbl = txt$cond.lbl,     # condition
@@ -30,14 +31,16 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                         sdt.mi.lbl = txt$sdt.mi.lbl,
                         sdt.fa.lbl = txt$sdt.fa.lbl,
                         sdt.cr.lbl = txt$sdt.cr.lbl,
-                        # custom colors:
+                        ## Colors:
+                        col.boxes = pal[1:7],
+                        # col.N = col.sand.light,
+                        # col.true = col.N, col.false = col.N,
+                        # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
                         col.txt = grey(.01, alpha = .99), # black
                         col.border = col.grey.4,
-                        col.N = col.sand.light,
-                        col.true = col.N, col.false = col.N,
-                        col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                        # shadow options:
-                        col.shadow = col.sand.dark, cex.shadow = 0 # [allow using shadows]
+                        ## Shadows:
+                        col.shadow = col.sand.dark,
+                        cex.shadow = 0 # [allow using shadows]
                         ){
 
 
@@ -75,7 +78,8 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   box.size = .11, # length of box
                   box.prop = 2/3, # proportionality (length/width) ratio of box
                   box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                  box.col = c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
+                  box.col = col.boxes, # scalar or vector of length 7.
+                    # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                   box.lcol = col.border,
                   box.lwd = 2.0,
                   lcol = col.border, # default color for box and arrow lines

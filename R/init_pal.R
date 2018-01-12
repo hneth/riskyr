@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 08
+## 2018 01 12
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
@@ -47,18 +47,28 @@
 ##     (to set default colors for plots and app display):
 
 {
-  ## Define 4 colors for SDT cases:
+  ## (a) Define base color (for population N):
+  col.N <- grey(.95, .99) # "white", col.grey.1
+
+  ## (b) Define 2 colors for condition cases:
+  col.true <- "yellow" # "gold", col.orange.1, "yellow2"
+  col.false <- col.blue.1
+  ## Combine:
+  cond.colors <- setNames(c(col.true, col.false),
+                         c("true", "false")
+  )
+
+  ## (c) Define 4 colors for SDT cases:
   col.hi <- col.green.2
   col.mi <- col.red.2
   col.fa <- col.red.1
   col.cr <- col.green.1
-
   ## Combine:
   sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
                          c("hi", "mi", "fa", "cr")
                          )
 
-  ## Define 2 colors for PVs:
+  ## (d) Define 2 colors for PVs:
   col.ppv <- col.orange.2 # "orange3" "firebrick" "red3"
   col.npv <- col.blue.3   # "steelblue3" "green4" "gray50" "brown4" "chartreuse4"
 }
@@ -66,15 +76,15 @@
 ## -----------------------------------------------
 ## (3) Define corresponding color palette:
 
-pal <- c(sdt.colors, col.ppv, col.npv) # vector of colors
+pal <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of all colors
 pal <- setNames(object = pal,
-                nm = c(names(sdt.colors), "ppv", "npv")
+                nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
                 )
 
 ## Check:
 # pal
 # length(pal)
-# pal[4] == pal["cr"]
+# pal[2] == pal["true"]
 
 ## -----------------------------------------------
 ## ggplot themes:
@@ -114,8 +124,8 @@ pal <- setNames(object = pal,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add color pal cus objects (inputs)
-## - add pre-defined color palettes
+## - use standard colors as default
+## - add pre-defined color palettes & transparency
 ## - make colors user-customizable
 
 ## -----------------------------------------------
