@@ -1,7 +1,9 @@
-## plot_nftree.R | riskyR
+## plot_areatree.R | riskyR
 ## 2018 01 12
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
+## in which box size corresponds to frequency
+## (i.e., to link to mosaicplot)
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -14,7 +16,7 @@
 
 ## Assuming that freq (+ num txt pal) are known!
 
-plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
+plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
                         N = freq$N, n.true = freq$cond.true, n.false = freq$cond.false,     # freq info
                         n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
                         show.stuff = TRUE,           # user options [adjustable by inputs]
@@ -67,6 +69,16 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     M[6, 3] <- "(n.false - n.cr)"
     M[7, 3] <- "specificity"
 
+    ## Determine box lengths by freq:
+    x.pop <- .10 # box length of N: N = x.pop^2
+    x.true <- n.true/N * x.pop
+    x.false <- n.false/N * x.pop
+    x.hi <- n.hi/N * x.pop
+    x.mi <- n.mi/N * x.pop
+    x.fa <- n.fa/N * x.pop
+    x.cr <- n.cr/N * x.pop
+    x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
+
     ## Plot matrix M (from diagram package):
     pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
                   pos = c(1, 2, 4),
@@ -75,8 +87,8 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   relsize	= .98, # a scaling factor for the size of the graph
                   lwd = 1.5,
                   ## Boxes:
-                  box.size = .11, # length of box
-                  box.prop = 2/3, # proportionality (length/width) ratio of box
+                  box.size = x.boxes, # lengths of boxes
+                  box.prop = 1/1, # proportionality (length/width) ratio of box
                   box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
                   box.col = col.boxes, # scalar or vector of length 7.
                     # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
@@ -85,14 +97,14 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   lcol = col.border, # default color for box and arrow lines
                   ## Text in Boxes:
                   txt.col = col.txt,
-                  box.cex = .95, # relative size of text in boxes
+                  box.cex = .85, # relative size of text in boxes
                   txt.font = 1, # 1 = plain, 2 = bold, ...
                   ## Arrows:
-                  cex.txt = .90, # relative size of arrow text
+                  cex.txt = .80, # relative size of arrow text
                   arr.pos = .50, # relative position of arrowhead on arrow segment/curve
                   arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
-                  arr.length = .30,
-                  arr.width = .20,
+                  arr.length = .20,
+                  arr.width = .15,
                   arr.col = col.border,
                   shadow.size = cex.shadow, # .005
                   shadow.col = col.shadow #,
@@ -100,8 +112,8 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                   )
 
     ## Title:
-    cur.title.lbl = paste0(title.lbl, ":\n", "Tree of natural frequencies") # , "(N = ", N, ")")
-    title(cur.title.lbl, adj = 0.5, line = -1.0, font.main = 1) # (left, lowered, normal font)
+    cur.title.lbl = paste0(title.lbl, ":\n", "Area tree of natural frequencies") # , "(N = ", N, ")")
+    title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
 
     ## Margin text:
     cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
@@ -112,20 +124,23 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 }
 
 ## Check:
-# plot_nftree()
-# plot_nftree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
-# plot_nftree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .015)
+# plot_areatree()
+# plot_areatree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
+# plot_areatree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .015)
 
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - fix ERROR above!
-## - provide more info on current numeric inputs (prev, sens, spec, fart) on edges
-## - Note: Parameters of num (prev, sens, spec, fart, N) are not USED above.
-##         Make a version with option for re-calculating freq for current values!
-## - make text color adjustable (using col.txt)
-## - pimp plot (labels, colors, transparency)
+## Make different versions:
+
+## 1. All as squares: areas of each level add up to N
+
+## 2. Smarter:
+## - Constraint: Areas on each level must sum to area of N
+##   But:
+## - Make condition level (2) 2 rectangles that dissect the population square by prev
+## - Make SDT level (3) 4 rectangles that correspond to the areas of the mosaic plot
 
 ## -----------------------------------------------
 ## eof.
