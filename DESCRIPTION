@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for transparent communication and teaching of risk literacy
-Version: 0.0.0.902
+Version: 0.0.0.903
 Date: 2018-01-05
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
@@ -36,6 +36,7 @@ Collate: 'init_txt.R'
          'comp_popu.R'
          'plot_iconarray.R'
          'plot_nftree.R'
+         'plot_areatree.R'
          'plot_PV.R'
          'plot_PV3d.R'
          'temp_code.R'
