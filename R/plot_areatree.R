@@ -1,5 +1,5 @@
 ## plot_areatree.R | riskyR
-## 2018 01 12
+## 2018 01 13
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## in which box size corresponds to frequency
@@ -16,7 +16,7 @@
 
 ## Assuming that freq (+ num txt pal) are known!
 
-plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
+plot_sumtree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
                         N = freq$N, n.true = freq$cond.true, n.false = freq$cond.false,     # freq info
                         n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
                         show.stuff = TRUE,           # user options [adjustable by inputs]
@@ -55,6 +55,15 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
                paste0(sdt.fa.lbl, ":\n", n.fa),
                paste0(sdt.cr.lbl, ":\n", n.cr)
     )
+    ## Reduced names (as areas get quite small):
+    names <- c(paste0("N = ", N),  # popu.lbl
+               paste0("true:\n",  n.true),
+               paste0("false:\n", n.false),
+               paste0("hi:\n", n.hi),
+               paste0("mi:\n", n.mi),
+               paste0("fa:\n", n.fa),
+               paste0("cr:\n", n.cr)
+    )
 
     ## Make matrix M:
     M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
@@ -71,13 +80,31 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
 
     ## Determine box lengths by freq:
     x.pop <- .10 # box length of N: N = x.pop^2
-    x.true <- n.true/N * x.pop
-    x.false <- n.false/N * x.pop
-    x.hi <- n.hi/N * x.pop
-    x.mi <- n.mi/N * x.pop
-    x.fa <- n.fa/N * x.pop
-    x.cr <- n.cr/N * x.pop
+
+    x.true <- sqrt(n.true/N * x.pop^2)
+    x.true
+    x.false <- sqrt(n.false/N * x.pop^2)
+    x.false
+    if (!all.equal(x.pop^2, sum(x.true^2, x.false^2))) {
+      warning("sumtree 1: Sum of True and False area differs from Population area.")
+    }
+
+    x.hi <- sqrt(n.hi/N * x.pop^2)
+    x.mi <- sqrt(n.mi/N * x.pop^2)
+    x.fa <- sqrt(n.fa/N * x.pop^2)
+    x.cr <- sqrt(n.cr/N * x.pop^2)
+    if (!all.equal(x.true^2, sum(x.hi^2, x.mi^2))) {
+      warning("sumtree 2: Sum of HI and MI area differs from cond True area.")
+    }
+    if (!all.equal(x.false^2, sum(x.fa^2, x.cr^2))) {
+      warning("sumtree 3: Sum of FA and CR area differs from cond False area.")
+    }
+    if (!all.equal(x.pop^2, sum(x.hi^2, x.mi^2, x.fa^2, x.cr^2))) {
+      warning("sumtree 4: Population area differs from the area sum of all 4 SDT cases.")
+    }
+
     x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
+
 
     ## Plot matrix M (from diagram package):
     pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
@@ -108,11 +135,11 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
                   arr.col = col.border,
                   shadow.size = cex.shadow, # .005
                   shadow.col = col.shadow #,
-                  # main = paste0(title.lbl, ":\n", "Tree of natural frequencies (N = ", N, ")")
+                  # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
                   )
 
     ## Title:
-    cur.title.lbl = paste0(title.lbl, ":\n", "Area tree of natural frequencies") # , "(N = ", N, ")")
+    cur.title.lbl = paste0(title.lbl, ":\n", "Sum tree of natural frequencies") # , "(N = ", N, ")")
     title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
 
     ## Margin text:
@@ -124,9 +151,9 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
 }
 
 ## Check:
-# plot_areatree()
-# plot_areatree(col.txt = "black", col.border = col.sand.dark,  cex.shadow = .011)
-# plot_areatree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .015)
+# plot_sumtree()
+# plot_sumtree(col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
+# plot_sumtree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .005)
 
 
 ## -----------------------------------------------
@@ -134,11 +161,12 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
 
 ## Make different versions:
 
-## 1. All as squares: areas of each level add up to N
+## 1. Sum tree:
+## All as squares: areas of each level add up to N
 
-## 2. Smarter:
+## 2. Area tree:
 ## - Constraint: Areas on each level must sum to area of N
-##   But:
+##   But levels 2 and 3 contain rectangles that visually add up to area on next higher level:
 ## - Make condition level (2) 2 rectangles that dissect the population square by prev
 ## - Make SDT level (3) 4 rectangles that correspond to the areas of the mosaic plot
 
