@@ -1,5 +1,5 @@
 ## plot_areatree.R | riskyR
-## 2018 01 13
+## 2018 01 14
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## in which box size corresponds to frequency
@@ -16,45 +16,48 @@
 
 ## Assuming that freq (+ num txt pal) are known!
 
-plot_sumtree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
-                        N = freq$N, n.true = freq$cond.true, n.false = freq$cond.false,     # freq info
-                        n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
-                        show.stuff = TRUE,           # user options [adjustable by inputs]
-                        ## Labels:
-                        title.lbl = txt$scen.lbl,    # custom labels
-                        popu.lbl = txt$popu.lbl,
-                        cond.lbl = txt$cond.lbl,     # condition
-                        cond.true.lbl = txt$cond.true.lbl,
-                        cond.false.lbl = txt$cond.false.lbl,
-                        dec.lbl = txt$dec.lbl,       # decision
-                        dec.true.lbl = txt$dec.true.lbl,
-                        dec.false.lbl = txt$dec.false.lbl,
-                        sdt.hi.lbl = txt$sdt.hi.lbl, # SDT combinations
-                        sdt.mi.lbl = txt$sdt.mi.lbl,
-                        sdt.fa.lbl = txt$sdt.fa.lbl,
-                        sdt.cr.lbl = txt$sdt.cr.lbl,
-                        ## Colors:
-                        col.boxes = pal[1:7],
-                        # col.N = col.sand.light,
-                        # col.true = col.N, col.false = col.N,
-                        # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                        col.txt = grey(.01, alpha = .99), # black
-                        col.border = col.grey.4,
-                        ## Shadows:
-                        col.shadow = col.sand.dark,
-                        cex.shadow = 0 # [allow using shadows]
-                        ){
+plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
+                          N = freq$N, n.true = freq$cond.true, n.false = freq$cond.false,     # freq info
+                          n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
+                          box.area = "o", # "o"...other (default), "s"...square, "r"...rectangular
+                          ## Labels:
+                          title.lbl = txt$scen.lbl,    # custom labels
+                          popu.lbl = txt$popu.lbl,
+                          cond.lbl = txt$cond.lbl,     # condition
+                          cond.true.lbl = txt$cond.true.lbl,
+                          cond.false.lbl = txt$cond.false.lbl,
+                          dec.lbl = txt$dec.lbl,       # decision
+                          dec.true.lbl = txt$dec.true.lbl,
+                          dec.false.lbl = txt$dec.false.lbl,
+                          sdt.hi.lbl = txt$sdt.hi.lbl, # SDT combinations
+                          sdt.mi.lbl = txt$sdt.mi.lbl,
+                          sdt.fa.lbl = txt$sdt.fa.lbl,
+                          sdt.cr.lbl = txt$sdt.cr.lbl,
+                          ## Colors:
+                          col.boxes = pal[1:7],
+                          # col.N = col.sand.light,
+                          # col.true = col.N, col.false = col.N,
+                          # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
+                          col.txt = grey(.01, alpha = .99), # black
+                          col.border = col.grey.4,
+                          ## Shadows:
+                          col.shadow = col.sand.dark,
+                          cex.shadow = 0 # [allow using shadows]
+){
 
 
-    ## Text/labels in 7 boxes:                          # NOT used yet:
-    names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl
-               paste0(cond.true.lbl, ":\n",  n.true),
-               paste0(cond.false.lbl, ":\n", n.false),
-               paste0(sdt.hi.lbl, ":\n", n.hi),
-               paste0(sdt.mi.lbl, ":\n", n.mi),
-               paste0(sdt.fa.lbl, ":\n", n.fa),
-               paste0(sdt.cr.lbl, ":\n", n.cr)
-    )
+  ## Text/labels in 7 boxes:                          # NOT used yet:
+  ## Default:
+  names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl
+             paste0(cond.true.lbl, ":\n",  n.true),
+             paste0(cond.false.lbl, ":\n", n.false),
+             paste0(sdt.hi.lbl, ":\n", n.hi),
+             paste0(sdt.mi.lbl, ":\n", n.mi),
+             paste0(sdt.fa.lbl, ":\n", n.fa),
+             paste0(sdt.cr.lbl, ":\n", n.cr)
+  )
+  ## Alternative:
+  if (box.area != "o") {
     ## Reduced names (as areas get quite small):
     names <- c(paste0("N = ", N),  # popu.lbl
                paste0("true:\n",  n.true),
@@ -64,27 +67,37 @@ plot_sumtree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart
                paste0("fa:\n", n.fa),
                paste0("cr:\n", n.cr)
     )
+  }
 
-    ## Make matrix M:
-    M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
+  ## Make matrix M:
+  M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 
-    ## ToDo: Use more informative arrow/edge labels:
-    prev.lbl <- paste0("prev = ", as_pc(prev), "%")
+  ## ToDo: Use more informative arrow/edge labels:
+  prev.lbl <- paste0("prev = ", as_pc(prev), "%")
 
-    M[2, 1] <- "prevalence" # ERROR: WHY does prev.lbl not work with spaces???
-    M[3, 1] <- "(N - n.true)"
-    M[4, 2] <- "sensitivity"
-    M[5, 2] <- "(n.true - n.hi)"
-    M[6, 3] <- "(n.false - n.cr)"
-    M[7, 3] <- "specificity"
+  M[2, 1] <- "prevalence" # ERROR: WHY does prev.lbl not work with spaces???
+  M[3, 1] <- "(N - n.true)"
+  M[4, 2] <- "sensitivity"
+  M[5, 2] <- "(n.true - n.hi)"
+  M[6, 3] <- "(n.false - n.cr)"
+  M[7, 3] <- "specificity"
 
-    ## Determine box lengths by freq:
-    x.pop <- .10 # box length of N: N = x.pop^2
+  ## Distinguish between 3 different plot types (based on box.area setting):
+  ## 1. default case: Rectangles of same width and height (non-proportional)
+  if (box.area == "o") {
+    x.pop <- .11 # width of population box
+    x.boxes <- rep(x.pop, 7) # all boxes have same width
+    x.y.prop <- 2/3
+  }
 
+  ## 2. squares that sum to area at next higher level:
+  if (box.area == "s") {
+
+    x.pop <- .10 # width of population box: Area N = x.pop^2
+
+    ## Determine other box widths by proportions in freq:
     x.true <- sqrt(n.true/N * x.pop^2)
-    x.true
     x.false <- sqrt(n.false/N * x.pop^2)
-    x.false
     if (!all.equal(x.pop^2, sum(x.true^2, x.false^2))) {
       warning("sumtree 1: Sum of True and False area differs from Population area.")
     }
@@ -104,56 +117,93 @@ plot_sumtree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart
     }
 
     x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
+    x.y.prop <- 1/1 # square
+  }
 
+  ## 3. rectangles that sum to area at next higher level:
+  if (box.area == "r") {
 
-    ## Plot matrix M (from diagram package):
-    pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
-                  pos = c(1, 2, 4),
-                  curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
-                  name = names,
-                  relsize	= .98, # a scaling factor for the size of the graph
-                  lwd = 1.5,
-                  ## Boxes:
-                  box.size = x.boxes, # lengths of boxes
-                  box.prop = 1/1, # proportionality (length/width) ratio of box
-                  box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                  box.col = col.boxes, # scalar or vector of length 7.
-                    # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
-                  box.lcol = col.border,
-                  box.lwd = 2.0,
-                  lcol = col.border, # default color for box and arrow lines
-                  ## Text in Boxes:
-                  txt.col = col.txt,
-                  box.cex = .85, # relative size of text in boxes
-                  txt.font = 1, # 1 = plain, 2 = bold, ...
-                  ## Arrows:
-                  cex.txt = .80, # relative size of arrow text
-                  arr.pos = .50, # relative position of arrowhead on arrow segment/curve
-                  arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
-                  arr.length = .20,
-                  arr.width = .15,
-                  arr.col = col.border,
-                  shadow.size = cex.shadow, # .005
-                  shadow.col = col.shadow #,
-                  # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
-                  )
+    x.pop <- .10 # width of population box: Area N = x.pop^2
+    x.y.pop <- 1/1
 
-    ## Title:
-    cur.title.lbl = paste0(title.lbl, ":\n", "Sum tree of natural frequencies") # , "(N = ", N, ")")
-    title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
+    ## Determine other box widths by proportions in freq:
+    x.true <- n.true/N * x.pop
+    x.y.true <- x.true/x.y.pop
 
-    ## Margin text:
-    cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
-    mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
+    x.false <- n.false/N * x.pop
+    x.y.false <- x.y.pop/x.false
 
-    # return(pp) # returns elements of diagram object
+    if (FALSE) {
+      warning("rectree 1: Sum of True and False area differs from Population area.")
+    }
+
+    x.hi <- sqrt(n.hi/N * x.pop^2)
+    x.mi <- sqrt(n.mi/N * x.pop^2)
+    x.fa <- sqrt(n.fa/N * x.pop^2)
+    x.cr <- sqrt(n.cr/N * x.pop^2)
+    if (FALSE) {
+      warning("rectree 2: Sum of HI and MI area differs from cond True area.")
+    }
+    if (FALSE) {
+      warning("rectree 3: Sum of FA and CR area differs from cond False area.")
+    }
+    if (FALSE) {
+      warning("rectree 4: Population area differs from the area sum of all 4 SDT cases.")
+    }
+
+    x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
+    x.y.prop <- c(x.y.pop, x.y.true, x.y.false, 1, 1, 1, 1) # rectangles
+  }
+
+  ## Plot matrix M (from diagram package):
+  pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
+                         pos = c(1, 2, 4),
+                         curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
+                         name = names,
+                         relsize	= .98, # a scaling factor for the size of the graph
+                         lwd = 1.5,
+                         ## Boxes:
+                         box.size = x.boxes,  # widths of boxes
+                         box.prop = x.y.prop, # proportionality (length/width) ratio of boxes
+                         box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
+                         box.col = col.boxes, # scalar or vector of length 7.
+                         # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
+                         box.lcol = col.border,
+                         box.lwd = 2.0,
+                         lcol = col.border, # default color for box and arrow lines
+                         ## Text in Boxes:
+                         txt.col = col.txt,
+                         box.cex = .85, # relative size of text in boxes
+                         txt.font = 1, # 1 = plain, 2 = bold, ...
+                         ## Arrows:
+                         cex.txt = .80, # relative size of arrow text
+                         arr.pos = .50, # relative position of arrowhead on arrow segment/curve
+                         arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
+                         arr.length = .20,
+                         arr.width = .15,
+                         arr.col = col.border,
+                         shadow.size = cex.shadow, # .005
+                         shadow.col = col.shadow #,
+                         # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
+                         )
+
+  ## Title:
+  cur.title.lbl = paste0(title.lbl, ":\n", "Sum tree of natural frequencies") # , "(N = ", N, ")")
+  title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
+
+  ## Margin text:
+  cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
+  mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
+
+  # return(pp) # returns elements of diagram object
 
 }
 
 ## Check:
-# plot_sumtree()
-# plot_sumtree(col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
-# plot_sumtree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .005)
+plot_areatree(box.area = "r")
+
+# plot_areatree(col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
+# plot_areatree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .005)
 
 
 ## -----------------------------------------------
