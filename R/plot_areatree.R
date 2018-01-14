@@ -123,24 +123,33 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
   ## 3. rectangles that sum to area at next higher level:
   if (box.area == "r") {
 
-    x.pop <- .10 # width of population box: Area N = x.pop^2
+    x.pop <- .10 # width x of population box: Area N = x.pop^2
     x.y.pop <- 1/1
 
     ## Determine other box widths by proportions in freq:
-    x.true <- n.true/N * x.pop
-    x.y.true <- x.true/x.y.pop
+    x.true <- (n.true/N) * x.pop # scale x.pop by proportion
+    x.y.true <- x.pop/x.true
 
-    x.false <- n.false/N * x.pop
-    x.y.false <- x.y.pop/x.false
+    x.false <- n.false/N * x.pop # scale x.pop by proportion
+    x.y.false <- x.pop/x.false
 
     if (FALSE) {
       warning("rectree 1: Sum of True and False area differs from Population area.")
     }
 
-    x.hi <- sqrt(n.hi/N * x.pop^2)
-    x.mi <- sqrt(n.mi/N * x.pop^2)
-    x.fa <- sqrt(n.fa/N * x.pop^2)
-    x.cr <- sqrt(n.cr/N * x.pop^2)
+    x.hi <- (n.hi/n.true) * x.pop # scale x.pop by sens
+    x.y.hi <- x.true/x.hi
+
+    x.mi <-  (1 - (n.hi/n.true)) * x.pop # scale x.pop by (1 - sens)
+    x.y.mi <- x.true/x.mi
+
+    x.cr <- (n.cr/n.false) * x.pop # scale x.pop by spec
+    x.y.cr <- x.false/x.cr
+
+    x.fa <- (1 - (n.cr/n.false)) * x.pop # scale x.pop by (1 - spec)
+    x.y.fa <- x.false/x.fa
+
+
     if (FALSE) {
       warning("rectree 2: Sum of HI and MI area differs from cond True area.")
     }
@@ -152,7 +161,7 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
     }
 
     x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
-    x.y.prop <- c(x.y.pop, x.y.true, x.y.false, 1, 1, 1, 1) # rectangles
+    x.y.prop <- c(x.y.pop, x.y.true, x.y.false, x.y.hi, x.y.mi, x.y.fa, x.y.cr) # rectangles
   }
 
   ## Plot matrix M (from diagram package):
@@ -188,7 +197,10 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
                          )
 
   ## Title:
-  cur.title.lbl = paste0(title.lbl, ":\n", "Sum tree of natural frequencies") # , "(N = ", N, ")")
+  if (box.area == "o") {type.lbl <- "Tree"}
+  if (box.area == "s") {type.lbl <- "Area (square) tree"}
+  if (box.area == "r") {type.lbl <- "Area (rectangle) tree"}
+  cur.title.lbl <- paste0(title.lbl, ":\n", type.lbl, " of natural frequencies") # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
 
   ## Margin text:
@@ -200,11 +212,9 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
 }
 
 ## Check:
-plot_areatree(box.area = "r")
-
-# plot_areatree(col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
-# plot_areatree(col.boxes = "gold", col.shadow = "steelblue3", cex.shadow = .005)
-
+# plot_areatree(box.area = "o")
+# plot_areatree(box.area = "r", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
+# plot_areatree(box.area = "s", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
 
 ## -----------------------------------------------
 ## (+) ToDo:
