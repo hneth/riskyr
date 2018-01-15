@@ -2,9 +2,13 @@
 ## 2018 01 15
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
-## in which box size corresponds to frequency
+## in which box size (area) corresponds to frequency
 ## (i.e., to link to mosaicplot)
 
+## Note: Now OBSOLETE, as box.area = "s" and "r" options
+##       were incorporated into plot_nftree().
+
+## -----------------------------------------------
 ## 3 different versions of plot_areatree():
 
 ## 0. nftree (box.area = "o"):
@@ -25,7 +29,7 @@
 # library("diagram") # moved to "Imports:" in in DESCRIPTION!
 
 ## -----------------------------------------------
-## plot_nftree: Plot tree diagram of natural frequencies
+## plot_areatree: Plot tree diagram of natural frequencies
 ## (using only necessary arguments with good defaults):
 
 ## Assuming that freq$N (+ num txt pal) is known!
@@ -245,12 +249,14 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
-## - 2. Make version with options for
+## - 1. Make variant of "box.area = "r" that flips the 4 SDT boxes
+##      (to correspond exactly to plot_mosaic )
+## - 2. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
+## - 3. Make version with options for
 ##         a - providing fart rather than spec
 ##         b - freq rather than prev, sens, spec
-## - 3. make text color adjustable (using col.txt)
-## - 4. pimp plot (labels, colors, transparency)
+## - 4. make text color adjustable (using col.txt)
+## - 5. pimp plot (labels, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.

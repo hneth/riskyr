@@ -2,6 +2,20 @@
 ## 2018 01 15
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
+## -----------------------------------------------
+## 3 different versions of plot_nftree():
+
+## 0. Basic nftree (box.area = "o"):
+##    Default box sizes (identical areas) carry no meaning.
+
+## 1. Sum tree (box.area = "s"):
+##    Frequencies as squares: Areas of each level add up to N.
+
+## 2. Area tree (box.area = "r"):
+##    - Constraint: Areas on each level must sum to area of N
+##      But levels 2 and 3 contain rectangles that visually add up to area on next higher level:
+##    - Make condition level (2) 2 rectangles that dissect the population square by prev
+##    - Make SDT level (3) 4 rectangles that correspond to the areas of the mosaic plot
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -229,12 +243,14 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
-## - 2. Make version with options for
+## - 1. Make variant of "box.area = "r" that flips the 4 SDT boxes
+##      (to correspond exactly to plot_mosaic )
+## - 2. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
+## - 3. Make version with options for
 ##         a - providing fart rather than spec
 ##         b - freq rather than prev, sens, spec
-## - 3. make text color adjustable (using col.txt)
-## - 4. pimp plot (labels, colors, transparency)
+## - 4. make text color adjustable (using col.txt)
+## - 5. pimp plot (labels, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.
