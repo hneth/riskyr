@@ -21,8 +21,8 @@ Depends:
     R (>= 3.2),
     diagram (>= 1.6.4),
     vcd (>= 1.4)
-Imports: 
-    diagram
+Imports:
+    grid
 Suggests:
     knitr,
     devtools,
