@@ -42,7 +42,7 @@ plot_mosaic <- function(pop = popu,
   vcd::mosaic(Decision ~ Truth, data = pop,
               shade = TRUE, colorize = TRUE,
               split_vertical = TRUE,
-              gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = FALSE)),
+              gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = TRUE)),
               main_gp = grid::gpar(fontsize = 12, fontface = 1),
               main = paste0(cur.title.lbl)#, "\n", cur.par.lbl)
               )
