@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 12
+## 2018 01 15
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
@@ -51,8 +51,8 @@
   col.N <- grey(.95, .99) # "white", col.grey.1
 
   ## (b) Define 2 colors for condition cases:
-  col.true <- "yellow" # "gold", col.orange.1, "yellow2"
-  col.false <- col.blue.1
+  col.true <- "lightgoldenrod1" # "gold1", "gold", col.orange.1, "yellow2"
+  col.false <- "lightskyblue2" # col.blue.1
   ## Combine:
   cond.colors <- setNames(c(col.true, col.false),
                          c("true", "false")

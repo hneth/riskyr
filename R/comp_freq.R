@@ -68,8 +68,8 @@ comp_freq <- function(N = num$N, prev = num$prev, sens = num$sens, spec = num$sp
   ## (3) Check:
   if ((freq$cond.true != freq$hi + freq$mi) |
       (freq$cond.false != freq$fa + freq$cr) |
-      (num$N != freq$cond.true + freq$cond.false) |
-      (num$N != freq$hi + freq$mi + freq$fa + freq$cr)) {
+      (freq$N != freq$cond.true + freq$cond.false) |
+      (freq$N != freq$hi + freq$mi + freq$fa + freq$cr)) {
     warning( "Warning: Something fishy in freq [comp_freq()]." )
   }
 
@@ -84,7 +84,7 @@ freq <- comp_freq()
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - allow providing fart as an alternative to spec
+## - Allow providing fart as an alternative to spec
 ##   (spec = 1 - fart)
 
 ## -----------------------------------------------
