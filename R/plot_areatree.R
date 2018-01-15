@@ -1,9 +1,23 @@
 ## plot_areatree.R | riskyR
-## 2018 01 14
+## 2018 01 15
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## in which box size corresponds to frequency
 ## (i.e., to link to mosaicplot)
+
+## 3 different versions of plot_areatree():
+
+## 0. nftree (box.area = "o"):
+##    Box sizes (areas) carry no meaning.
+
+## 1. Sum tree (box.area = "s"):
+##    All as squares: Areas of each level add up to N.
+
+## 2. Area tree (box.area = "r"):
+##    - Constraint: Areas on each level must sum to area of N
+##      But levels 2 and 3 contain rectangles that visually add up to area on next higher level:
+##    - Make condition level (2) 2 rectangles that dissect the population square by prev
+##    - Make SDT level (3) 4 rectangles that correspond to the areas of the mosaic plot
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -14,11 +28,10 @@
 ## plot_nftree: Plot tree diagram of natural frequencies
 ## (using only necessary arguments with good defaults):
 
-## Assuming that freq (+ num txt pal) are known!
+## Assuming that freq$N (+ num txt pal) is known!
 
 plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
-                          N = freq$N, n.true = freq$cond.true, n.false = freq$cond.false,     # freq info
-                          n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
+                          N = freq$N,     # freq info
                           box.area = "o", # "o"...other (default), "s"...square, "r"...rectangular
                           ## Labels:
                           title.lbl = txt$scen.lbl,    # custom labels
@@ -45,6 +58,16 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
                           cex.shadow = 0 # [allow using shadows]
 ){
 
+
+  ## Compute cur.freq based on current parameters:
+  cur.freq <- comp_freq(N, prev, sens, spec, round = TRUE)
+  n.true <- cur.freq$cond.true
+  n.true = cur.freq$cond.true
+  n.false = cur.freq$cond.false
+  n.hi = cur.freq$hi
+  n.mi = cur.freq$mi
+  n.fa = cur.freq$fa
+  n.cr = cur.freq$cr
 
   ## Text/labels in 7 boxes:                          # NOT used yet:
   ## Default:
@@ -85,15 +108,18 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
   ## Distinguish between 3 different plot types (based on box.area setting):
   ## 1. default case: Rectangles of same width and height (non-proportional)
   if (box.area == "o") {
-    x.pop <- .11 # width of population box
-    x.boxes <- rep(x.pop, 7) # all boxes have same width
-    x.y.prop <- 2/3
+    x.pop <- .11   # basic width of population box
+    x.y.pop <- 2/3 # basic proportion is rectangular (width > height)
+
+    x.boxes <- rep(x.pop, 7)    # all boxes have the same width
+    x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion
   }
 
   ## 2. squares that sum to area at next higher level:
   if (box.area == "s") {
 
-    x.pop <- .10 # width of population box: Area N = x.pop^2
+    x.pop <- .10 # basic width of population box: Area N = x.pop^2
+    x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
     x.true <- sqrt(n.true/N * x.pop^2)
@@ -117,14 +143,14 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
     }
 
     x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
-    x.y.prop <- 1/1 # square
+    x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion (squares)
   }
 
   ## 3. rectangles that sum to area at next higher level:
   if (box.area == "r") {
 
-    x.pop <- .10 # width x of population box: Area N = x.pop^2
-    x.y.pop <- 1/1
+    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
+    x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
     x.true <- (n.true/N) * x.pop # scale x.pop by proportion
@@ -133,8 +159,8 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
     x.false <- n.false/N * x.pop # scale x.pop by proportion
     x.y.false <- x.pop/x.false
 
-    if (FALSE) {
-      warning("rectree 1: Sum of True and False area differs from Population area.")
+    if (!all.equal(x.pop^2, sum((x.true * x.pop), (x.false * x.pop)))) {
+      warning("rectree 1: Sum of True + False areas differs from Population area.")
     }
 
     x.hi <- (n.hi/n.true) * x.pop # scale x.pop by sens
@@ -150,18 +176,18 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
     x.y.fa <- x.false/x.fa
 
 
-    if (FALSE) {
-      warning("rectree 2: Sum of HI and MI area differs from cond True area.")
+    if (!all.equal((x.true * x.pop), sum((x.hi * x.true), (x.mi * x.true)))) {
+      warning("rectree 2: Sum of HI + MI area differs from cond True area.")
     }
-    if (FALSE) {
-      warning("rectree 3: Sum of FA and CR area differs from cond False area.")
+    if (!all.equal((x.false * x.pop), sum((x.fa * x.false), (x.cr * x.false)))) {
+      warning("rectree 3: Sum of FA + CR area differs from cond False area.")
     }
-    if (FALSE) {
+    if (!all.equal((x.pop^2), sum((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)))) {
       warning("rectree 4: Population area differs from the area sum of all 4 SDT cases.")
     }
 
-    x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
-    x.y.prop <- c(x.y.pop, x.y.true, x.y.false, x.y.hi, x.y.mi, x.y.fa, x.y.cr) # rectangles
+    x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr) # specific widths
+    x.y.prop <- c(x.y.pop, x.y.true, x.y.false, x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
   }
 
   ## Plot matrix M (from diagram package):
@@ -212,23 +238,19 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
 }
 
 ## Check:
-# plot_areatree(box.area = "o")
-# plot_areatree(box.area = "r", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
+# plot_areatree(prev = .15, sens = .33, spec = .88, N = 1000, box.area = "r")
 # plot_areatree(box.area = "s", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
+# plot_areatree(box.area = "r", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## Make different versions:
-
-## 1. Sum tree:
-## All as squares: areas of each level add up to N
-
-## 2. Area tree:
-## - Constraint: Areas on each level must sum to area of N
-##   But levels 2 and 3 contain rectangles that visually add up to area on next higher level:
-## - Make condition level (2) 2 rectangles that dissect the population square by prev
-## - Make SDT level (3) 4 rectangles that correspond to the areas of the mosaic plot
+## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
+## - 2. Make version with options for
+##         a - providing fart rather than spec
+##         b - freq rather than prev, sens, spec
+## - 3. make text color adjustable (using col.txt)
+## - 4. pimp plot (labels, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.
