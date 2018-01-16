@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 15
+## 2018 01 16
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
@@ -52,25 +52,25 @@
 
   ## (b) Define 2 colors for condition cases:
   col.true <- "lightgoldenrod1" # "gold1", "gold", col.orange.1, "yellow2"
-  col.false <- "lightskyblue2" # col.blue.1
+  col.false <- "lightskyblue2" # "deepskyblue1" # "lightskyblue2" # col.blue.1
   ## Combine:
   cond.colors <- setNames(c(col.true, col.false),
                          c("true", "false")
   )
 
   ## (c) Define 4 colors for SDT cases:
-  col.hi <- col.green.2
-  col.mi <- col.red.2
-  col.fa <- col.red.1
-  col.cr <- col.green.1
+  col.hi <- "olivedrab4" # "palegreen4" # col.green.2
+  col.mi <- "tomato3" # "orangered3" # "firebrick3", col.red.2
+  col.fa <- "tomato1" # "orangered1" # "firebrick1", col.red.1
+  col.cr <- "olivedrab3" # "springgreen2" # "palegreen3" # col.green.1
   ## Combine:
   sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
                          c("hi", "mi", "fa", "cr")
                          )
 
   ## (d) Define 2 colors for PVs:
-  col.ppv <- col.orange.2 # "orange3" "firebrick" "red3"
-  col.npv <- col.blue.3   # "steelblue3" "green4" "gray50" "brown4" "chartreuse4"
+  col.ppv <- "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
+  col.npv <- "steelblue3" # col.blue.3, "green4" "gray50" "brown4" "chartreuse4"
 }
 
 ## -----------------------------------------------

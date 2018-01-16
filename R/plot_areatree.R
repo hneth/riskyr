@@ -295,7 +295,7 @@ plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, far
                          shadow.size = cex.shadow, # .005
                          shadow.col = col.shadow #,
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
-                         )
+  )
 
   ## Title:
   if (box.area == "no") {type.lbl <- "Tree"}

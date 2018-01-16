@@ -19,7 +19,7 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
                       cur.theta = -45, cur.phi = 0, # user options for persp() [adjustable inputs]
                       cur.d = 1.5, cur.expand = 1.1, cur.ltheta = 200, cur.shade = .25, # other persp() parameters [fixed]
                       title.lbl = txt$scen.lbl, col.pv = pal["ppv"] # custom labels and colors
-) {
+                      ) {
 
   ## Current environment parameters:
   # name <- env$name

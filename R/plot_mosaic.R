@@ -19,7 +19,7 @@
 plot_mosaic <- function(pop = popu,
                         title.lbl = txt$scen.lbl,
                         col.sdt = pal[4:7]
-                        ) {
+) {
 
   ## Define plot area:
   # plot(0, type = 'n')

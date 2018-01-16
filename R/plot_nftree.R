@@ -55,7 +55,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                         ## Shadows:
                         col.shadow = col.sand.dark,
                         cex.shadow = 0 # [allow using shadows]
-                        ){
+){
 
   ## Compute cur.freq based on current parameters (N and probabilities):
   cur.freq <- comp_freq(N, prev, sens, spec, round = TRUE)
