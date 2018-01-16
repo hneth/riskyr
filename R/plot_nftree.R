@@ -1,21 +1,22 @@
 ## plot_nftree.R | riskyR
-## 2018 01 15
+## 2018 01 16
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
-## 3 different versions of plot_nftree():
+## 4 different versions of plot_nftree():
 
-## 0. Basic nftree (box.area = "o"):
+## 1. Basic nftree (box.area = "no"):
 ##    Default box sizes (identical areas) carry no meaning.
 
-## 1. Sum tree (box.area = "s"):
+## 2. Sum tree (box.area = "sq"):
 ##    Frequencies as squares: Areas of each level add up to N.
 
-## 2. Area tree (box.area = "r"):
+## 3. Area tree (box.area = "hr" and "vr"):
 ##    - Constraint: Areas on each level must sum to area of N
 ##      But levels 2 and 3 contain rectangles that visually add up to area on next higher level:
-##    - Make condition level (2) 2 rectangles that dissect the population square by prev
-##    - Make SDT level (3) 4 rectangles that correspond to the areas of the mosaic plot
+##    - Condition areas (on level 2): 2 rectangles that add up to the population square
+##    - SDT areas (on level 3): 4 rectangles that correspond to both the condition areas (level 2) and population area (level 1)
+##      Note that "hr" dissects the condition areas more clearly, whereas "vr" corresponds to the rectangles in the mosaic plot.
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -29,35 +30,34 @@
 ## Assuming that freq$N (+ num txt pal) is known!
 
 plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
-                          N = freq$N,     # freq info
-                          box.area = "o", # "o"...other (default), "s"...square, "r"...rectangular
-                          ## Labels:
-                          title.lbl = txt$scen.lbl,    # custom labels
-                          popu.lbl = txt$popu.lbl,
-                          cond.lbl = txt$cond.lbl,     # condition
-                          cond.true.lbl = txt$cond.true.lbl,
-                          cond.false.lbl = txt$cond.false.lbl,
-                          dec.lbl = txt$dec.lbl,       # decision
-                          dec.true.lbl = txt$dec.true.lbl,
-                          dec.false.lbl = txt$dec.false.lbl,
-                          sdt.hi.lbl = txt$sdt.hi.lbl, # SDT combinations
-                          sdt.mi.lbl = txt$sdt.mi.lbl,
-                          sdt.fa.lbl = txt$sdt.fa.lbl,
-                          sdt.cr.lbl = txt$sdt.cr.lbl,
-                          ## Colors:
-                          col.boxes = pal[1:7],
-                          # col.N = col.sand.light,
-                          # col.true = col.N, col.false = col.N,
-                          # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                          col.txt = grey(.01, alpha = .99), # black
-                          col.border = col.grey.4,
-                          ## Shadows:
-                          col.shadow = col.sand.dark,
-                          cex.shadow = 0 # [allow using shadows]
-){
+                        N = freq$N,      # freq info
+                        box.area = "no", # "no"...none (default), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles
+                        ## Labels:
+                        title.lbl = txt$scen.lbl, # custom labels
+                        popu.lbl = txt$popu.lbl,
+                        cond.lbl = txt$cond.lbl,  # condition labels
+                        cond.true.lbl = txt$cond.true.lbl,
+                        cond.false.lbl = txt$cond.false.lbl,
+                        dec.lbl = txt$dec.lbl,    # decision labels
+                        dec.true.lbl = txt$dec.true.lbl,
+                        dec.false.lbl = txt$dec.false.lbl,
+                        sdt.hi.lbl = txt$sdt.hi.lbl, # SDT combinations
+                        sdt.mi.lbl = txt$sdt.mi.lbl,
+                        sdt.fa.lbl = txt$sdt.fa.lbl,
+                        sdt.cr.lbl = txt$sdt.cr.lbl,
+                        ## Colors:
+                        col.boxes = pal[1:7],
+                        # col.N = col.sand.light,
+                        # col.true = col.N, col.false = col.N,
+                        # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
+                        col.txt = grey(.01, alpha = .99), # black
+                        col.border = col.grey.4,
+                        ## Shadows:
+                        col.shadow = col.sand.dark,
+                        cex.shadow = 0 # [allow using shadows]
+                        ){
 
-
-  ## Compute cur.freq based on current parameters:
+  ## Compute cur.freq based on current parameters (N and probabilities):
   cur.freq <- comp_freq(N, prev, sens, spec, round = TRUE)
   n.true <- cur.freq$cond.true
   n.true = cur.freq$cond.true
@@ -77,8 +77,8 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
              paste0(sdt.fa.lbl, ":\n", n.fa),
              paste0(sdt.cr.lbl, ":\n", n.cr)
   )
-  ## Alternative:
-  if (box.area != "o") {
+  ## Alternative: Shorter labels
+  if (box.area != "no") {
     ## Reduced names (as areas get quite small):
     names <- c(paste0("N = ", N),  # popu.lbl
                paste0("true:\n",  n.true),
@@ -103,29 +103,34 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   M[6, 3] <- "(n.false - n.cr)"
   M[7, 3] <- "specificity"
 
-  ## Distinguish between 3 different plot types (based on box.area setting):
-  ## 1. default case: Rectangles of same width and height (non-proportional)
-  if (box.area == "o") {
+  ## Distinguish between 4 different plot types (based on box.area setting):
+  ## 1. Default case: Rectangles of same width and height (non-proportional)
+  if (box.area == "no") {
+
     x.pop <- .11   # basic width of population box
     x.y.pop <- 2/3 # basic proportion is rectangular (width > height)
 
+    ## Collect all sizes and proportions:
     x.boxes <- rep(x.pop, 7)    # all boxes have the same width
     x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion
   }
 
-  ## 2. squares that sum to area at next higher level:
-  if (box.area == "s") {
+  ## 2. Squares that sum to the area of the next higher level:
+  if (box.area == "sq") {
 
+    ## Level 1: Population square
     x.pop <- .10 # basic width of population box: Area N = x.pop^2
     x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
+    ## Level 2: Condition squares
     x.true <- sqrt(n.true/N * x.pop^2)
     x.false <- sqrt(n.false/N * x.pop^2)
     if (!all.equal(x.pop^2, sum(x.true^2, x.false^2))) {
       warning("sumtree 1: Sum of True and False area differs from Population area.")
     }
 
+    ## Level 3: 4 SDT squares
     x.hi <- sqrt(n.hi/N * x.pop^2)
     x.mi <- sqrt(n.mi/N * x.pop^2)
     x.fa <- sqrt(n.fa/N * x.pop^2)
@@ -140,17 +145,20 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
       warning("sumtree 4: Population area differs from the area sum of all 4 SDT cases.")
     }
 
+    ## Collect all sizes and proportions:
     x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr)
     x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion (squares)
   }
 
-  ## 3. rectangles that sum to area at next higher level:
-  if (box.area == "r") {
+  ## 3. Rectangles that sum to the area of the next higher level:
+  if (box.area == "hr") {
 
+    ## Level 1: Population square
     x.pop <- .10   # basic width x of population box: Area N = x.pop^2
     x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
+    ## Level 2: 2 vertical rectangles
     x.true <- (n.true/N) * x.pop # scale x.pop by proportion
     x.y.true <- x.pop/x.true
 
@@ -158,14 +166,20 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     x.y.false <- x.pop/x.false
 
     if (!all.equal(x.pop^2, sum((x.true * x.pop), (x.false * x.pop)))) {
-      warning("rectree 1: Sum of True + False areas differs from Population area.")
+      warning("hrectree 1: Sum of True + False areas differs from Population area.")
     }
 
+    ## Level 3: 4 horizontal rectangles
     x.hi <- (n.hi/n.true) * x.pop # scale x.pop by sens
     x.y.hi <- x.true/x.hi
 
     x.mi <-  (1 - (n.hi/n.true)) * x.pop # scale x.pop by (1 - sens)
     x.y.mi <- x.true/x.mi
+
+    if (!all.equal((x.true * x.pop),
+                   sum((x.hi * x.true), (x.mi * x.true)))) {
+      warning("hrectree 2: Sum of HI + MI area differs from Cond TRUE area.")
+    }
 
     x.cr <- (n.cr/n.false) * x.pop # scale x.pop by spec
     x.y.cr <- x.false/x.cr
@@ -173,17 +187,75 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
     x.fa <- (1 - (n.cr/n.false)) * x.pop # scale x.pop by (1 - spec)
     x.y.fa <- x.false/x.fa
 
-
-    if (!all.equal((x.true * x.pop), sum((x.hi * x.true), (x.mi * x.true)))) {
-      warning("rectree 2: Sum of HI + MI area differs from cond True area.")
-    }
-    if (!all.equal((x.false * x.pop), sum((x.fa * x.false), (x.cr * x.false)))) {
-      warning("rectree 3: Sum of FA + CR area differs from cond False area.")
-    }
-    if (!all.equal((x.pop^2), sum((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)))) {
-      warning("rectree 4: Population area differs from the area sum of all 4 SDT cases.")
+    if (!all.equal((x.false * x.pop),
+                   sum((x.fa * x.false), (x.cr * x.false)))) {
+      warning("hrectree 3: Sum of FA + CR area differs from Cond FALSE area.")
     }
 
+    if (!all.equal((x.pop^2),
+                   sum((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)))) {
+      warning("hrectree 4: Population area differs from the area sum of all 4 SDT cases.")
+    }
+
+    ## Collect all sizes and proportions:
+    x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr) # specific widths
+    x.y.prop <- c(x.y.pop, x.y.true, x.y.false, x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
+  }
+
+  ## 4. Rectangles that sum to the area of the next higher level
+  ##    (= 3. flipped by 90 degrees on Level 3 to correspond to 4 SDT areas of mosaic plot):
+  if (box.area == "vr") {
+
+    ## Level 1: Population square
+    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
+    x.y.pop <- 1/1 # square
+
+    ## Determine other box widths by proportions in freq:
+    ## Level 2: 2 vertical rectangles
+    x.true <- (n.true/N) * x.pop # scale x.pop by proportion true
+    x.y.true <- x.pop/x.true
+
+    x.false <- n.false/N * x.pop # scale x.pop by proportion false
+    x.y.false <- x.pop/x.false
+
+    if (!all.equal(x.pop^2, sum((x.true * x.pop), (x.false * x.pop)))) {
+      warning("vrectree 1: Sum of True + False areas differs from Population area.")
+    }
+
+    ## Level 3: 4 horizontal rectangles
+    x.hi <- x.true # keep constant
+    x.y.hi <- x.y.true * (n.hi/n.true) # scale previous prop by prop hi
+
+    x.mi <- x.true # keep constant
+    x.y.mi <- x.y.true * (n.mi/n.true) # scale previous prop by prop mi
+
+    if (!all.equal((x.true * x.pop),
+                   sum((x.hi * (x.hi * x.y.hi)), (x.mi * (x.mi * x.y.mi))))) {
+      warning("vrectree 2: Sum of HI + MI area differs from Cond TRUE area.")
+    }
+
+    # +++ here now +++
+
+    x.fa <- x.false # keep constant
+    x.y.fa <- x.y.false * (n.fa/n.false) # scale previous prop by prop fa
+
+    x.cr <- x.false # keep constant
+    x.y.cr <- x.y.false * (n.cr/n.false) # scale previous prop by prop cr
+
+    if (!all.equal((x.false * x.pop),
+                   sum((x.fa * (x.fa * x.y.fa)), (x.cr * (x.cr * x.y.cr))))) {
+      warning("vrectree 3: Sum of FA + CR area differs from Cond FALSE area.")
+    }
+
+    if (!all.equal((x.pop^2),
+                   sum((x.hi * (x.hi * x.y.hi)),
+                       (x.mi * (x.mi * x.y.mi)),
+                       (x.fa * (x.fa * x.y.fa)),
+                       (x.cr * (x.cr * x.y.cr))))) {
+      warning("vrectree 4: Population area differs from the area sum of all 4 SDT cases.")
+    }
+
+    ## Collect all sizes and proportions:
     x.boxes <- c(x.pop, x.true, x.false, x.hi, x.mi, x.fa, x.cr) # specific widths
     x.y.prop <- c(x.y.pop, x.y.true, x.y.false, x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
   }
@@ -221,9 +293,10 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   )
 
   ## Title:
-  if (box.area == "o") {type.lbl <- "Tree"}
-  if (box.area == "s") {type.lbl <- "Area (square) tree"}
-  if (box.area == "r") {type.lbl <- "Area (rectangle) tree"}
+  if (box.area == "no") {type.lbl <- "Tree"}
+  if (box.area == "sq") {type.lbl <- "Area (square) tree"}
+  if (box.area == "hr") {type.lbl <- "Area (horizontal rectangle) tree"}
+  if (box.area == "vr") {type.lbl <- "Area (vertical rectangle) tree"}
   cur.title.lbl <- paste0(title.lbl, ":\n", type.lbl, " of natural frequencies") # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
 
@@ -236,21 +309,20 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 }
 
 ## Check:
-# plot_nftree(prev = .20, sens = .75, spec = .90, N = 100, box.area = "r")
-# plot_nftree(box.area = "s", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-# plot_nftree(box.area = "r", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
+# plot_nftree(box.area = "vr")
+# plot_nftree(prev = .08, sens = .92, spec = .95, N = 10000, box.area = "hr")
+# plot_nftree(box.area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
+# plot_nftree(box.area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - 1. Make variant of "box.area = "r" that flips the 4 SDT boxes
-##      (to correspond exactly to plot_mosaic )
-## - 2. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
-## - 3. Make version with options for
+## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
+## - 2. Make version with options for
 ##         a - providing fart rather than spec
 ##         b - freq rather than prev, sens, spec
-## - 4. make text color adjustable (using col.txt)
-## - 5. pimp plot (labels, colors, transparency)
+## - 3. make text color adjustable (using col.txt)
+## - 4. pimp plot (labels, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.
