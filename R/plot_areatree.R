@@ -37,7 +37,7 @@
 
 plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
                           N = freq$N,      # freq info
-                          box.area = "no", # "no"...none (default), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles
+                          box.area = "vr", # "no"...none (nftree), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles (default)
                           ## Labels:
                           title.lbl = txt$scen.lbl, # custom labels
                           popu.lbl = txt$popu.lbl,
