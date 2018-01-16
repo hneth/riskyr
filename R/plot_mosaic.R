@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyR
-## 2018 01 15
+## 2018 01 16
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -60,8 +60,9 @@ plot_mosaic <- function(pop = popu,
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - make mosaic plot dependent on basic parameters
+##   (i.e., compute comp_popu(), rather than providing it as input)?
 ## - add a simpler version that only shows cond.true vs. cond.false
-## - make mosaic plot dependent on basic parameters (i.e., use comp_popu())?
 ## - adjust parameters (zero size and gap width)
 ## - add labels (frequencies) to plot?
 

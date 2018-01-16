@@ -65,15 +65,15 @@ In case of comments or questions, please contact us at [http://spds.uni.kn](http
 In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
-`riskyr`: A toolbox for transparent communication and teaching of risk literacy [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.902)
+`riskyr`: A toolbox for teaching and training risk literacy more transparently [Computer software]. 
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.904)
 
 As BibTeX reference: 
 
     @manual{riskyr2018,
-      title = {{riskyr}: A toolbox for transparent communication and teaching of risk literacy},
+      title = {{riskyr}: A toolbox for teaching and training risk literacy more transparently},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.902},
+      note = {R package version 0.0.0.904},
       url = {https://github.com/hneth/riskyr}
     }
