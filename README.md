@@ -1,7 +1,7 @@
 riskyr
 ======
 SPDS, uni.kn
-2018 01 05
+2018 01 01
 
 The `riskyr` package
 ====================
@@ -11,7 +11,7 @@ A toolbox for teaching and training risk literacy more transparently
 Goal
 ----
 
-Assemble and develop a set of basic risk literacy tools in R: 
+Collect and develop a set of basic risk literacy tools in R: 
 
 - The `riskyr` package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
 
@@ -21,11 +21,19 @@ Assemble and develop a set of basic risk literacy tools in R:
 Motivation
 ----------
 
+> Solving a problem simply means representing it<br>
+> so as to make the solution transparent.[^1]
+
+[^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
+
+
 The basic motivations behind `riskyr` are the following:
 
 - Effective training in risk literacy requires simple and transparent representations. 
-- We aim to provide a set of tools that allow alternative views on the interplay between probabilities and frequencies. Different representations are not isolated, but complement and explain each other.
-- All visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameters. By providing many options, uses can customize them to their goals and needs.
+
+- We provide a set of tools that allow alternative views on the interplay between probabilities and frequencies. Different representations are not isolated, but complement and explain each other.
+
+- All visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameters. By providing many options, users can customize representations to suit their goals and needs.
 
 
 Rationale
@@ -66,7 +74,7 @@ In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
 `riskyr`: A toolbox for teaching and training risk literacy more transparently [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.904)
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.905)
 
 As BibTeX reference: 
 
@@ -74,6 +82,6 @@ As BibTeX reference:
       title = {{riskyr}: A toolbox for teaching and training risk literacy more transparently},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.904},
+      note = {R package version 0.0.0.905},
       url = {https://github.com/hneth/riskyr}
     }
