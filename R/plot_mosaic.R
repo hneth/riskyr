@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyR
-## 2018 01 16
+## 2018 01 17
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -17,9 +17,15 @@
 ## Assuming that df of popu is known [see comp_popu()]
 
 plot_mosaic <- function(pop = popu,
+                        vsplit = TRUE, # option: toggle vertical vs. horizontal split in plot
                         title.lbl = txt$scen.lbl,
                         col.sdt = pal[4:7]
 ) {
+
+  ## Get probabilities from global numeric parameters (num):
+  prev <- num$prev
+  sens <- num$sens
+  spec <- num$spec
 
   ## Define plot area:
   # plot(0, type = 'n')
@@ -29,23 +35,35 @@ plot_mosaic <- function(pop = popu,
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
 
   ## Mosaic plot:
-  ## (a) original version:
-  # vcd::mosaic(Truth ~ Decision, data = pop,
-  #             shade = TRUE, colorize = TRUE,
-  #             split_vertical = FALSE,
-  #             gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = FALSE)),
-  #             main_gp = grid::gpar(fontsize = 12, fontface = 1),
-  #             main = paste0(cur.title.lbl)#, "\n", cur.par.lbl)
-  #             )
 
-  ## (b) flipped version:
-  vcd::mosaic(Decision ~ Truth, data = pop,
-              shade = TRUE, colorize = TRUE,
-              split_vertical = TRUE,
-              gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = TRUE)),
-              main_gp = grid::gpar(fontsize = 12, fontface = 1),
-              main = paste0(cur.title.lbl)#, "\n", cur.par.lbl)
-              )
+  if (vsplit) {
+
+    ## (a) vertical split:
+    vcd::mosaic(Decision ~ Truth, data = pop,
+                shade = TRUE, colorize = TRUE,
+                split_vertical = TRUE,
+                gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = TRUE)),
+                main_gp = grid::gpar(fontsize = 12, fontface = 1, adj = 0),
+                sub_gp = grid::gpar(fontsize = 10, fontface = 1, adj = 1),
+                main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
+                sub = paste0(cur.par.lbl)
+                )
+  }
+
+  else {
+
+    ## (b) horizontal split:
+    vcd::mosaic(Truth ~ Decision, data = pop,
+                shade = TRUE, colorize = TRUE,
+                split_vertical = FALSE,
+                gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = FALSE)),
+                main_gp = grid::gpar(fontsize = 12, fontface = 1),
+                sub_gp = grid::gpar(fontsize = 10, fontface = 1),
+                main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
+                sub = paste0(cur.par.lbl)
+                )
+
+  }
 
   ## Title and margin text:
   # title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
@@ -55,13 +73,15 @@ plot_mosaic <- function(pop = popu,
 
 ## Check:
 # plot_mosaic()
+# plot_mosaic(vsplit = FALSE)
 # plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
 ## - make mosaic plot dependent on basic parameters
-##   (i.e., compute comp_popu(), rather than providing it as input)?
+##   (i.e., compute comp_popu() from probabilities and N,
+##    rather than providing it as input)?
 ## - add a simpler version that only shows cond.true vs. cond.false
 ## - adjust parameters (zero size and gap width)
 ## - add labels (frequencies) to plot?
