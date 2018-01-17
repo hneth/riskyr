@@ -155,7 +155,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$sp
 
 ## Apply:
 num <- init_num()
-num
+# num
 
 ## -----------------------------------------------
 ## (4) Compute fart (4th parameter) of num (if NA):
