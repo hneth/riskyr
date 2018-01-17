@@ -68,6 +68,87 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
 
 # (C) Translating these dimensions into code:
 
+  # 1. initialize vectors of positions:
+  # TODO: Change data structure?
+  posx_vec <- NULL
+  posy_vec <- NULL
+
+  # 2. Initialize vector of identities:
+  ident_vec <- NULL
+
+  ident_vec <- sdt
+
+  # option 1 to obtain colors:
+  icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
+                   rep(sdt.colors["fa"], n.fa), rep(sdt.colors["cr"], n.cr))
+
+  # option 2 to obtain colors:
+  color_types <- sdt.colors
+  ident_types <- unique(ident_vec)  # get number of unique types.
+  icon_colors2 <- ident_vec  # initialize colors as identities.
+  for(i in ident_types){
+    # replace the identities with their respective colors:
+    icon_colors2[ident_vec == i] <- color_types[i]
+  }
+
+  # sum(icon_colors != icon_colors2)  # test for all equal.
+
+  col_vec <- icon_colors2
+
+# (D) Plotting dependent on this information:
+  plotx_dim <- c(0, 1)
+  ploty_dim <- c(0, 1)  # assuming square plot x = y.
+
+# --------------------------------------------------------------------------
+  # A1 Random position, random colors:
+    # 1) Define positions:
+      # 1a) draw random positions:
+      posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
+      posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
+
+        # checking for duplicates:
+        pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
+        # no duplicated coordinates.
+
+    # 2) Randomize vector:
+      col_vec <- sample(icon_colors, replace = FALSE)
+
+    # 3) Plot:
+      plot(x = 1, xlim = plotx_dim, ylim = ploty_dim)
+
+      # 3a) set plotting character:
+      pch <- 15  # filled square as default.
+      cex <- 2
+
+      points(x = posx_vec, posy_vec, # positions.
+             # visual details:
+             pch = pch, col = col_vec, cex = cex, bty = "o")
+
+  # A1 Random position, clustered colors:
+    # 1) Define positions:
+    # 1a) draw random positions:
+    posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
+    posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
+
+    # checking for duplicates:
+    pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
+    # no duplicated coordinates.
+
+    # 2) Randomize vector:
+    col_vec <- sample(icon_colors, replace = FALSE)
+
+    # 3) Plot:
+    plot(x = 1, xlim = plotx_dim, ylim = ploty_dim)
+
+    # 3a) set plotting character:
+    pch <- 15  # filled square as default.
+    cex <- 2
+
+    points(x = posx_vec, posy_vec, # positions.
+           # visual details:
+           pch = pch, col = col_vec, cex = cex, bty = "o")
+
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Plotting rectangles:----------------------------
