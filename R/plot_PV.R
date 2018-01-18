@@ -1,5 +1,5 @@
 ## plot_PV.R | riskyR
-## 2018 01 10
+## 2018 01 11
 ## -----------------------------------------------
 ## plot_PV: PPV and NPV curves as functions of prevalence
 
@@ -18,15 +18,17 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
                     ) {
 
   ## Compute current PVs:
-  PPV <- comp_PPV(prev, sens, spec)
-  NPV <- comp_NPV(prev, sens, spec)
+  cur.PPV <- comp_PPV(prev, sens, spec)
+  cur.NPV <- comp_NPV(prev, sens, spec)
 
   ## Labels:
   prev.lbl <- paste0("prev = ", as_pc(prev), "%")
-  PPV.lbl <- paste0("PPV = ", as_pc(PPV), "%")
-  NPV.lbl <- paste0("NPV = ", as_pc(NPV), "%")
-  sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
-  p.title.lbl <- paste0("Predictive Values of ", title.lbl, "\n", sens.spec.lbl)
+  cur.PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV), "%")
+  cur.NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV), "%")
+  cur.PV.lbl <- paste0(cur.PPV.lbl, ", ", cur.NPV.lbl)
+  cur.sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
+  cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
+  cur.title.lbl <- paste0(title.lbl, ":\n", "Positive and Negative Predictive Values") #, "\n", cur.sens.spec.lbl)
   if (log.scale) {
     x.ax.lbl <- "Prevalence (on logarithmic scale)"
     } else {
@@ -62,9 +64,6 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
     plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = x.ax.lbl, type = "n")
   }
 
-  ## Title:
-  title(p.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
-
   ## Axes (on 4 sides):
   axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex.lbl, las = 1,
        pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at bottom
@@ -94,7 +93,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
   ## Points:
   ## prev:
   if (show.PVprev){
-    if ((NPV < low.PV) | (PPV < low.PV)) { # y at v.raise:
+    if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
       points(x = prev, y = 0 + v.raise, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.prev)
     } else { # y at bottom (y = 0):
       points(x = prev, y = 0, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.prev)
@@ -103,49 +102,70 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
 
   if (show.PVpoints) {
     ## PPV:
-    points(x = prev, y = PPV, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.ppv)
+    points(x = prev, y = cur.PPV, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.ppv)
     ## NPV:
-    points(x = prev, y = NPV, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.npv)
+    points(x = prev, y = cur.NPV, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.npv)
   }
 
   ## Labels:
   ## prev label:
   if (show.PVprev){
-    if ((NPV < low.PV) | (PPV < low.PV)) { # y at v.raise:
+    if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
       if ((prev < .50) | !(prev > 1 - h.shift)) {
-        text(x = prev + h.shift, y = 0 + v.raise, labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
+        text(x = prev + h.shift, y = 0 + v.raise,
+             labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
       } else {
-        text(x = prev - h.shift, y = 0 + v.raise, labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
+        text(x = prev - h.shift, y = 0 + v.raise,
+             labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
       }
     } else { # y at bottom (y = 0):
       if ((prev < .50) | !(prev > 1 - h.shift)) {
-        text(x = prev + h.shift, y = 0 + v.shift, labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
+        text(x = prev + h.shift, y = 0 + v.shift,
+             labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
       } else {
-        text(x = prev - h.shift, y = 0 + v.shift, labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
+        text(x = prev - h.shift, y = 0 + v.shift,
+             labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
       }
     }
   }
 
   if (show.PVpoints) {
     ## PPV label:
-    if ((PPV < .75 & !(prev > 1 - h.shift)) | (prev < h.shift)) {
-      text(x = prev + h.shift, y = PPV + v.shift, labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on right
+    if ((cur.PPV < .75 & !(prev > 1 - h.shift)) | (prev < h.shift)) {
+      text(x = prev + h.shift, y = cur.PPV + v.shift,
+           labels = cur.PPV.lbl, col = col.ppv, cex = cex.lbl) # on right
     } else {
-      text(x = prev - h.shift, y = PPV + v.shift, labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on left+
+      text(x = prev - h.shift, y = cur.PPV + v.shift,
+           labels = cur.PPV.lbl, col = col.ppv, cex = cex.lbl) # on left+
     }
     ## NPV label:
-    if (NPV > .75 | (prev < h.shift)) {
-      text(x = prev + h.shift, y = NPV + v.shift, labels = NPV.lbl, col = col.npv, cex = cex.lbl) # on right+
+    if (cur.NPV > .75 | (prev < h.shift)) {
+      text(x = prev + h.shift, y = cur.NPV + v.shift,
+           labels = cur.NPV.lbl, col = col.npv, cex = cex.lbl) # on right+
     } else {
-      text(x = prev - h.shift, y = NPV - v.shift, labels = NPV.lbl, col = col.npv, cex = cex.lbl) # on left-
+      text(x = prev - h.shift, y = cur.NPV - v.shift,
+           labels = cur.NPV.lbl, col = col.npv, cex = cex.lbl) # on left-
     }
   }
+
+  ## Title:
+  title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
+
+  ## Margin text:
+  # if (show.PVpoints) {
+  #  mtext(paste0(cur.PV.lbl), side = 1, line = 2, adj = 1, col = grey(.11, .99), cex = .90, font = 1)
+  # }
+  # mtext(paste0(cur.par.lbl), side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .80)
+  mtext(paste0(cur.sens.spec.lbl), side = 1, line = 2, adj = 1, col = grey(.11, .99), cex = .90)
+
 
   ## Legend:
   # legend("bottom", legend = c("PPV", "NPV"),
   #       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
   add_legend("topright", legend = c("PPV", "NPV"), lwd = 2, col = c(col.ppv, col.npv),
              horiz = FALSE, bty = 'n')
+
+  ## no return?
 
 }
 

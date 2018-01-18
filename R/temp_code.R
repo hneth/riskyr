@@ -1,10 +1,9 @@
 ## temp_code.R | riskyR
-## 2018 01 08
+## 2018 01 11
 ## -----------------------------------------------
-
-## Function: What is this code for?
-
-## Title:
+## State function: What is this code for?
+## This file serves as a template for code
+## in the /R folder.
 
 ## code
 

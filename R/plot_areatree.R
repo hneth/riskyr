@@ -1,9 +1,15 @@
-## plot_nftree.R | riskyR
+## plot_areatree.R | riskyR
 ## 2018 01 16
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
+## in which box size (area) corresponds to frequency
+## (i.e., to link to mosaicplot)
+
+## Note: Now OBSOLETE, as box.area = "s" and "r" options
+##       were incorporated into plot_nftree().
+
 ## -----------------------------------------------
-## 4 different versions of plot_nftree():
+## 4 different versions of plot_areatree():
 
 ## 1. Basic nftree (box.area = "no"):
 ##    Default box sizes (identical areas) carry no meaning.
@@ -24,40 +30,41 @@
 # library("diagram") # moved to "Imports:" in in DESCRIPTION!
 
 ## -----------------------------------------------
-## plot_nftree: Plot tree diagram of natural frequencies
+## plot_areatree: Plot tree diagram of natural frequencies
 ## (using only necessary arguments with good defaults):
 
 ## Assuming that freq$N (+ num txt pal) is known!
 
-plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
-                        N = freq$N,      # freq info
-                        box.area = "no", # "no"...none (default), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles
-                        ## Labels:
-                        title.lbl = txt$scen.lbl, # custom labels
-                        popu.lbl = txt$popu.lbl,
-                        cond.lbl = txt$cond.lbl,  # condition labels
-                        cond.true.lbl = txt$cond.true.lbl,
-                        cond.false.lbl = txt$cond.false.lbl,
-                        dec.lbl = txt$dec.lbl,    # decision labels
-                        dec.true.lbl = txt$dec.true.lbl,
-                        dec.false.lbl = txt$dec.false.lbl,
-                        sdt.hi.lbl = txt$sdt.hi.lbl, # SDT combinations
-                        sdt.mi.lbl = txt$sdt.mi.lbl,
-                        sdt.fa.lbl = txt$sdt.fa.lbl,
-                        sdt.cr.lbl = txt$sdt.cr.lbl,
-                        ## Colors:
-                        col.boxes = pal[1:7],
-                        # col.N = col.sand.light,
-                        # col.true = col.N, col.false = col.N,
-                        # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                        col.txt = grey(.01, alpha = .99), # black
-                        col.border = col.grey.4,
-                        ## Shadows:
-                        col.shadow = col.sand.dark,
-                        cex.shadow = 0 # [allow using shadows]
+plot_areatree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart = num$fart, # key parameters
+                          N = freq$N,      # freq info
+                          box.area = "vr", # "no"...none (nftree), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles (default)
+                          ## Labels:
+                          title.lbl = txt$scen.lbl, # custom labels
+                          popu.lbl = txt$popu.lbl,
+                          cond.lbl = txt$cond.lbl,  # condition labels
+                          cond.true.lbl = txt$cond.true.lbl,
+                          cond.false.lbl = txt$cond.false.lbl,
+                          dec.lbl = txt$dec.lbl,    # decision labels
+                          dec.true.lbl = txt$dec.true.lbl,
+                          dec.false.lbl = txt$dec.false.lbl,
+                          sdt.hi.lbl = txt$sdt.hi.lbl, # SDT combinations
+                          sdt.mi.lbl = txt$sdt.mi.lbl,
+                          sdt.fa.lbl = txt$sdt.fa.lbl,
+                          sdt.cr.lbl = txt$sdt.cr.lbl,
+                          ## Colors:
+                          col.boxes = pal[1:7],
+                          # col.N = col.sand.light,
+                          # col.true = col.N, col.false = col.N,
+                          # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
+                          col.txt = grey(.01, alpha = .99), # black
+                          col.border = col.grey.4,
+                          ## Shadows:
+                          col.shadow = col.sand.dark,
+                          cex.shadow = 0 # [allow using shadows]
 ){
 
-  ## Compute cur.freq based on current parameters (N and probabilities):
+
+  ## Compute cur.freq based on current parameters:
   cur.freq <- comp_freq(N, prev, sens, spec, round = TRUE)
   n.true <- cur.freq$cond.true
   n.true = cur.freq$cond.true
@@ -77,7 +84,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
              paste0(sdt.fa.lbl, ":\n", n.fa),
              paste0(sdt.cr.lbl, ":\n", n.cr)
   )
-  ## Alternative: Shorter labels
+  ## Alternative:
   if (box.area != "no") {
     ## Reduced names (as areas get quite small):
     names <- c(paste0("N = ", N),  # popu.lbl
@@ -119,7 +126,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   if (box.area == "sq") {
 
     ## Level 1: Population square
-    x.pop <- .10 # basic width of population box: Area N = x.pop^2
+    x.pop <- .11 # basic width of population box: Area N = x.pop^2
     x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
@@ -154,7 +161,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   if (box.area == "hr") {
 
     ## Level 1: Population square
-    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
+    x.pop <- .11   # basic width x of population box: Area N = x.pop^2
     x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
@@ -207,7 +214,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   if (box.area == "vr") {
 
     ## Level 1: Population square
-    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
+    x.pop <- .11   # basic width x of population box: Area N = x.pop^2
     x.y.pop <- 1/1 # square
 
     ## Determine other box widths by proportions in freq:
@@ -233,8 +240,6 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
                    sum((x.hi * (x.hi * x.y.hi)), (x.mi * (x.mi * x.y.mi))))) {
       warning("vrectree 2: Sum of HI + MI area differs from Cond TRUE area.")
     }
-
-    # +++ here now +++
 
     x.fa <- x.false # keep constant
     x.y.fa <- x.y.false * (n.fa/n.false) # scale previous prop by prop fa
@@ -309,10 +314,10 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
 }
 
 ## Check:
-# plot_nftree(box.area = "vr")
-# plot_nftree(prev = .08, sens = .92, spec = .95, N = 10000, box.area = "hr")
-# plot_nftree(box.area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-# plot_nftree(box.area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
+# plot_areatree(prev = .15, sens = .33, spec = .88, N = 1000, box.area = "vr")
+# plot_areatree(prev = .05, sens = .77, spec = .07, N = 1000, box.area = "sq")
+# plot_areatree(box.area = "hr", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
+# plot_areatree(box.area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = "steelblue4", cex.shadow = .005, col.shadow = "black")
 
 ## -----------------------------------------------
 ## (+) ToDo:
