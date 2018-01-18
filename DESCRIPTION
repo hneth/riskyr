@@ -1,6 +1,6 @@
 Package: riskyr
 Type: Package
-Title: A toolbox for teaching and training risk literacy more transparently
+Title: A toolbox for rendering risk literacy more transparent
 Version: 0.0.0.905
 Date: 2018-01-15
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
