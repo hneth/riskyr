@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 17
+## 2018 01 18
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
@@ -125,12 +125,13 @@ makeTransparent = function(..., alpha = .50) {
 ## -----------------------------------------------
 ## Documentation:
 
-#' Initialize all color information.
+#' List current color information.
 #'
 #' \code{pal} is initialized to a vector of named elements
-#' to define all colors used throughout the \code{riskyr} package.
+#' to define the color scheme for the current scenario that is
+#' used throughout the \code{riskyr} package.
 #'
-#' All color information of the current scenario
+#' All color information corresponding to the current scenario
 #' is stored as named elements (colors) in a vector \code{pal}.
 #' To change a color, assign a new color to an existing element name.
 #'
@@ -155,6 +156,7 @@ makeTransparent = function(..., alpha = .50) {
 #' pal["hi"] # displays the current color for hits (true positives)
 #' pal["hi"] <- "green3" # defines a new color for hits (true positives)
 #'
+#' @family lists containing basic scenario settings
 #' @seealso \code{\link{num}} for numeric parameters; \code{\link{txt}} for text labels and titles
 
 ## -----------------------------------------------

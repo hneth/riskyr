@@ -148,6 +148,46 @@ comp_spec <- function(fart) {
 ## (2) Determine a good number for population size N:
 ##     Criterion: All 4 SDT cells should have a minimal frequency of min.freq:
 
+#' Compute a suitable minimum value of population size (N).
+#'
+#' \code{comp_min_N} is a function that computes the population size \code{N} (an integer
+#' as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
+#' (i.e., the cells of the confusion table, or bottom row of boxes in the natural frequency tree)
+#' reach or exceed a minimum threshold \code{min.freq} given basic parameters
+#' \code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
+#'
+#' The purpose of this function is to avoid excessively small decimal values
+#' when expressing combinations of conditions and decisions as natural frequencies.
+#' As values of zero (0) are ok, the function only increases \code{N} (in powers of 10)
+#' while the current value of any cell is positive but below \code{min.freq}.
+#'
+#' Note that \code{\link{comp_freq}} still needs to round to avoid decimal values
+#' in frequencies \code{\link{freq}}.
+#'
+#' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
+#' @param sens A decision's sensitivity value (i.e., the conditional probability
+#' of a positive decision provided that the condition is TRUE).
+#' @param spec A specificity value (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
+#' @param min.freq The minimum frequency of each combination of
+#' a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
+#' Default: \code{min.freq = 1}.
+#'
+#' @return An integer value \code{N} (as a power of 10).
+#'
+#' @examples
+#' comp_min_N(0, 0, 0) # => 1
+#' comp_min_N(1, 1, 1) # => 1
+#' comp_min_N(1, 1, 1, min.freq = 10) # =>  10
+#' comp_min_N(1, 1, 1, min.freq = 99) # => 100
+#' comp_min_N(.1, .1, .1)             # => 100       = 10^2
+#' comp_min_N(.001, .1, .1)           # =>    10 000 = 10^4
+#' comp_min_N(.001, .001, .1)         # => 1 000 000 = 10^6
+#' comp_min_N(.001, .001, .001)       # => 1 000 000 = 10^6
+#'
+#' @seealso \code{\link{comp_freq}} to compute frequencies based on current probabilities
+
+
 comp_min_N <- function(prev, sens, spec, min.freq = 1) {
 
   N <- 10^0 # initialize
@@ -205,6 +245,38 @@ num.def <- list("prev" = .15, # prevalence in target population = p(condition TR
                 "N"    =  NA  # population size (N of individuals in population)  [optional freq]
                 )
 
+#' Initialize basic numeric elements.
+#'
+#' \code{init_num} initializes basic numeric parameters to define \code{num}
+#' as a list of named elements containing 4 basic probabilities
+#' (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
+#' and 1 frequency (the population size \code{N}).
+#'
+#' If \code{spec} is provided, its complement \code{fart} is optional.
+#' If \code{fart} is provided, its complement \code{spec} is optional.
+#' If no \code{N} is provided, it is computed by \code{\link{comp_min_N}}.
+#'
+#' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
+#' @param sens A decision's sensitivity value (i.e., the conditional probability
+#' of a positive decision provided that the condition is TRUE).
+#' @param spec A specificity value (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
+#' \code{spec} is optional when is complement \code{fart} is provided.
+#' @param fart A false alarm rate (i.e., the conditional probability
+#' of a positive decision provided that the condition is FALSE).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @return A list containing 4 probabilities (\code{prev}, \code{sens},
+#' \code{spec}, and \code{fart}) and 1 frequency (\code{N}).
+#'
+#' @examples
+#' num <- init_num()  # initializes the default parameters values
+#' init_num(prev = .5, sens = .5, spec = 1/3)  # yields the same as:
+#' init_num(prev = .5, sens = .5, spec = NA, fart = 2/3)
+#'
+#' @seealso \code{\link{num}} to store basic parameter values;
+#' \code{\link{comp_min_N}} to get a minimum value of population size N
+
 init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$spec,
                      fart = num.def$fart, N = num.def$N) {
 
@@ -251,10 +323,20 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$sp
   # init_num(prev = NA) # => fails
   # init_num(prev = .1, sens = NA) # => fails
   # init_num(prev = .1, sens = .1, spec = NA, fart = NA) # => fails
-  # init_num(.5, .5, 1/3) # => succeeds
+  # init_num(prev = .5, sens = .5, fart = 1/3)
+  # init_num(prev = .5, sens = .5, spec = NA, fart = 2/3)
   # init_num(.5, .5, 1/3, NA, 999) # => succeeds
   # init_num(11, 22, 1/3, NA, 999) # => succeeds, but should not (as prev and sens are not in correct range)
 }
+
+#' List basic numeric elements (probabilities and population size).
+#'
+#' \code{num} is initialized to a list of named elements containing
+#' 4 basic probabilities (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
+#' and 1 frequency (the population size \code{N}).
+#'
+#' @family lists containing basic scenario settings
+#' @seealso \code{\link{init_num}} to initialize basic parameter values
 
 ## Apply:
 num <- init_num()

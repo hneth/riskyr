@@ -1,5 +1,5 @@
 ## init_txt.R | riskyR
-## 2018 01 17
+## 2018 01 18
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom text elements (txt):
@@ -8,10 +8,11 @@
 ## -----------------------------------------------
 ## Documentation:
 
-#' Initialize all text elements.
+#' List current text elements.
 #'
 #' \code{txt} is initialized to a list of named elements
-#' to define all titles and labels used throughout the \code{riskyr} package.
+#' to define all titles and labels corresponding to the current scenario
+#' and used throughout the \code{riskyr} package.
 #'
 #' All textual elements that specify titles and details of the current scenario
 #' are stored as named elements (of type character) in a list \code{txt}.
@@ -46,6 +47,7 @@
 #' txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
 #' txt$scen.lbl <- "My favorite example" # defines a new scenario label
 #'
+#' @family lists containing basic scenario settings
 #' @seealso \code{\link{num}} for numeric parameters; \code{\link{pal}} for color settings
 
 ## -----------------------------------------------
