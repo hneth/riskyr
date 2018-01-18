@@ -1,10 +1,10 @@
 ## init_pal.R | riskyR
-## 2018 01 16
+## 2018 01 17
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
 
-## Note that pal contains defaults for user inputs.
+## pal contains defaults for user inputs.
 
 ## -----------------------------------------------
 ## Set defaults for all color inputs (pal):
@@ -32,8 +32,6 @@ makeTransparent = function(..., alpha = .50) {
   return(newColor)
 
 }
-
-
 
 ## -----------------------------------------------
 ## (1) Define some named colors:
@@ -91,8 +89,6 @@ makeTransparent = function(..., alpha = .50) {
 
 }
 
-
-
 ## -----------------------------------------------
 ## (2) Select and name some colors by their function
 ##     (to set default colors for plots and app display):
@@ -126,6 +122,42 @@ makeTransparent = function(..., alpha = .50) {
 
 ## -----------------------------------------------
 ## (3) Define corresponding color palette:
+## -----------------------------------------------
+## Documentation:
+
+#' Initialize all color information.
+#'
+#' \code{pal} is initialized to a vector of named elements
+#' to define all colors used throughout the \code{riskyr} package.
+#'
+#' All color information of the current scenario
+#' is stored as named elements (colors) in a vector \code{pal}.
+#' To change a color, assign a new color to an existing element name.
+#'
+#' @param N Color representing the \emph{population} (of N cases or individuals).
+#' @param true Color representing cases for which the current condition is \code{TRUE}.
+#' @param false Color representing cases for which the current condition is \code{FALSE}.
+#' @param hi Color representing \emph{hits} or true positives
+#' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
+#' @param mi Color representing \emph{misses} or false negatives
+#' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
+#' @param fa Color representing \emph{false alarms} or false positives
+#' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
+#' @param cr Color representing \emph{correct rejections} or true negatives
+#' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
+#' @param ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
+#' the condition is TRUE, provided that the decision is positive).
+#' @param npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
+#' the condition is FALSE, provided that the decision is negative).
+#'
+#' @examples
+#' pal       # displays the vector of all current color names and values
+#' pal["hi"] # displays the current color for hits (true positives)
+#' pal["hi"] <- "green3" # defines a new color for hits (true positives)
+#'
+#' @seealso \code{\link{num}} for numeric parameters; \code{\link{txt}} for text labels and titles
+
+## -----------------------------------------------
 
 pal <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of all colors
 pal <- setNames(object = pal,
