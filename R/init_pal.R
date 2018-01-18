@@ -1,13 +1,37 @@
 ## init_pal.R | riskyR
-## 2018 01 08
+## 2018 01 17
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
 
-## Note that pal contains defaults for user inputs.
+## pal contains defaults for user inputs.
 
 ## -----------------------------------------------
 ## Set defaults for all color inputs (pal):
+
+## Utility function:
+
+makeTransparent = function(..., alpha = .50) {
+
+  if (alpha < 0 | alpha > 1) {
+    stop("alpha must be between 0 and 1")
+  }
+
+  alpha <- floor(255 * alpha)
+  newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
+
+  .makeTransparent <- function(col, alpha) {
+    rgb(red = col[1],
+        green = col[2],
+        blue=col[3],
+        alpha = alpha, maxColorValue = 255)
+  }
+
+  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
+
+  return(newColor)
+
+}
 
 ## -----------------------------------------------
 ## (1) Define some named colors:
@@ -40,6 +64,29 @@
   col.orange.1 <- rgb(247, 169, 127, max = 255)
   col.orange.2 <- rgb(242, 100, 24, max = 255)
 
+  ## (3) basic colors + transparency:
+  my.red  <- "tomato3"
+  my.blue <- "steelblue3"
+  my.green <- "olivedrab4"
+
+  my.yellow <- "lightgoldenrod1"
+  my.orange <- "sienna1"
+
+  green.1 <- makeTransparent(my.green, alpha = .50)
+  green.2 <- makeTransparent(my.green, alpha = 1.0)
+
+  red.1 <- makeTransparent(my.red, alpha = .50)
+  red.2 <- makeTransparent(my.red, alpha = 1.0)
+
+  blue.1 <- makeTransparent(my.blue, alpha = .50)
+  blue.2 <- makeTransparent(my.blue, alpha = 1.0)
+
+  yellow.1  <- makeTransparent(my.yellow, alpha = .50)
+  yellow.2  <- makeTransparent(my.yellow, alpha = 1.0)
+
+  orange.1  <- makeTransparent(my.orange, alpha = .50)
+  orange.2  <- makeTransparent(my.orange, alpha = 1.0)
+
 }
 
 ## -----------------------------------------------
@@ -47,34 +94,80 @@
 ##     (to set default colors for plots and app display):
 
 {
-  ## Define 4 colors for SDT cases:
-  col.hi <- col.green.2
-  col.mi <- col.red.2
-  col.fa <- col.red.1
-  col.cr <- col.green.1
+  ## (a) Define base color (for population N):
+  col.N <- grey(.95, .99) # "white", col.grey.1
 
+  ## (b) Define 2 colors for condition cases:
+  col.true <- my.yellow # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
+  col.false <- "lightskyblue2" #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
+  ## Combine:
+  cond.colors <- setNames(c(col.true, col.false),
+                         c("true", "false")
+  )
+
+  ## (c) Define 4 colors for SDT cases:
+  col.hi <- my.green # "olivedrab4", "palegreen4", col.green.2
+  col.mi <- my.red   # "tomato3", "orangered3", "firebrick3", col.red.2
+  col.fa <- "lightsalmon2" # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
+  col.cr <- "olivedrab3"   # "springgreen2" # "palegreen3" # col.green.1
   ## Combine:
   sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
                          c("hi", "mi", "fa", "cr")
                          )
 
-  ## Define 2 colors for PVs:
-  col.ppv <- col.orange.2 # "orange3" "firebrick" "red3"
-  col.npv <- col.blue.3   # "steelblue3" "green4" "gray50" "brown4" "chartreuse4"
+  ## (d) Define 2 colors for PVs:
+  col.ppv <- my.orange # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
+  col.npv <- my.blue # "steelblue3", col.blue.3, "green4" "gray50" "brown4" "chartreuse4"
 }
 
 ## -----------------------------------------------
 ## (3) Define corresponding color palette:
+## -----------------------------------------------
+## Documentation:
 
-pal <- c(sdt.colors, col.ppv, col.npv) # vector of colors
+#' Initialize all color information.
+#'
+#' \code{pal} is initialized to a vector of named elements
+#' to define all colors used throughout the \code{riskyr} package.
+#'
+#' All color information of the current scenario
+#' is stored as named elements (colors) in a vector \code{pal}.
+#' To change a color, assign a new color to an existing element name.
+#'
+#' @param N Color representing the \emph{population} (of N cases or individuals).
+#' @param true Color representing cases for which the current condition is \code{TRUE}.
+#' @param false Color representing cases for which the current condition is \code{FALSE}.
+#' @param hi Color representing \emph{hits} or true positives
+#' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
+#' @param mi Color representing \emph{misses} or false negatives
+#' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
+#' @param fa Color representing \emph{false alarms} or false positives
+#' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
+#' @param cr Color representing \emph{correct rejections} or true negatives
+#' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
+#' @param ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
+#' the condition is TRUE, provided that the decision is positive).
+#' @param npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
+#' the condition is FALSE, provided that the decision is negative).
+#'
+#' @examples
+#' pal       # displays the vector of all current color names and values
+#' pal["hi"] # displays the current color for hits (true positives)
+#' pal["hi"] <- "green3" # defines a new color for hits (true positives)
+#'
+#' @seealso \code{\link{num}} for numeric parameters; \code{\link{txt}} for text labels and titles
+
+## -----------------------------------------------
+
+pal <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of all colors
 pal <- setNames(object = pal,
-                nm = c(names(sdt.colors), "ppv", "npv")
+                nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
                 )
 
 ## Check:
 # pal
 # length(pal)
-# pal[4] == pal["cr"]
+# pal[2] == pal["true"]
 
 ## -----------------------------------------------
 ## ggplot themes:
@@ -114,8 +207,8 @@ pal <- setNames(object = pal,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add color pal cus objects (inputs)
-## - add pre-defined color palettes
+## - use standard colors as default
+## - add pre-defined color palettes & transparency
 ## - make colors user-customizable
 
 ## -----------------------------------------------

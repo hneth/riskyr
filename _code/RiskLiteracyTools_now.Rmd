@@ -29,8 +29,8 @@ chunk_output_type: console
 
 # Basics
 
-Note that this file serves as an original test bed for the `riskyr` package and the corresponding Shiny app. 
-(The latest code versions will be stored there, _not_ here.)
+Note that this file served as an original test bed for the `riskyr` package and the corresponding Shiny app. 
+(The latest code versions are now stored there, _not_ here.)
 
 ## Preamble
 
@@ -110,10 +110,10 @@ par(opar)  # restores original (default) par settings
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ # 
 ## Colors:
-# (a) Using yarrr:
+# (A) Using yarrr:
 # col.pal <- yarrr::piratepal(palette = "basel",  trans = .5) # [does not work]
 
-## (b) Using RColorBrewer: 
+## (B) Using RColorBrewer: 
 # display.brewer.all()
 # cols <- brewer.pal(4, "Set1")
 # brewer.pal.info["Reds",]
@@ -122,7 +122,8 @@ par(opar)  # restores original (default) par settings
 col.reds <- brewer.pal(9, "Reds")
 col.greens <- brewer.pal(9, "Greens")
 
-## (c) Using color names:
+## (C) Using color names:
+
 ## Color names:
 {
   ## Colors from https://bootswatch.com/sandstone/ 
@@ -149,13 +150,35 @@ col.greens <- brewer.pal(9, "Greens")
   col.grey.3 <- "grey25"
   col.grey.4 <- "grey10"
   
-  col.ppv <- col.orange.2 # "orange3" # "firebrick" "red3"
-  col.npv <- col.blue.3 # "steelblue3" # "green4" "gray50" "brown4" "chartreuse4"
-  sdt.colors <- setNames(c(col.green.2, col.red.2, col.green.1, col.red.1), 
-                         c("hi", "mi", "cr", "fa"))
+  ## Define named colors:
+  
+  ## (a) Define base color (for population N):
+  col.N <- grey(.95, .99) # "white", col.grey.1
+
+  ## (b) Define 2 colors for condition cases:
+  col.true <- "lightgoldenrod1" # "gold1", "gold", col.orange.1, "yellow2"
+  col.false <- "lightskyblue2" # col.blue.1
+  ## Combine:
+  cond.colors <- setNames(c(col.true, col.false),
+                         c("true", "false")
+  )
+
+  ## (c) Define 4 colors for SDT cases:
+  col.hi <- col.green.2
+  col.mi <- col.red.2
+  col.fa <- col.red.1
+  col.cr <- col.green.1
+  ## Combine:
+  sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
+                         c("hi", "mi", "fa", "cr")
+                         )
+
+  ## (d) Define 2 colors for PVs:
+  col.ppv <- col.orange.2 # "orange3" "firebrick" "red3"
+  col.npv <- col.blue.3   # "steelblue3" "green4" "gray50" "brown4" "chartreuse4"
 }
 
-## (d) unikn.col palette (as RGB, without transparency): 
+## (D) unikn.col palette (as RGB, without transparency): 
 
 ## Define base color "seeblau":
 seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)

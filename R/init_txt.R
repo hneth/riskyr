@@ -1,10 +1,52 @@
 ## init_txt.R | riskyR
-## 2018 01 09
+## 2018 01 17
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom text elements (txt):
 
 ## Note that txt contains defaults for user inputs.
+## -----------------------------------------------
+## Documentation:
+
+#' Initialize all text elements.
+#'
+#' \code{txt} is initialized to a list of named elements
+#' to define all titles and labels used throughout the \code{riskyr} package.
+#'
+#' All textual elements that specify titles and details of the current scenario
+#' are stored as named elements (of type character) in a list \code{txt}.
+#' To change an element, assign a new character object to an existing name.
+#'
+#' @param scen.lbl The current scenario title (sometimes in Title Caps).
+#' @param scen.txt A longer text description of the current scenario
+#' (which may extend over several lines).
+#' @param scen.src The source information for the current scenario.
+#'
+#' @param popu.lbl A brief description of the current target population or sample.
+#'
+#' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+#' @param cond.true.lbl A label for the \emph{presence} of the current condition (the condition's true state of TRUE).
+#' @param cond.false.lbl A label for the \emph{absence} of the current condition (the condition's true state of FALSE).
+#'
+#' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+#' @param dec.true.lbl A label for a \emph{positive} decision (e.g., predicting the presence of the condition).
+#' @param dec.false.lbl A label for a \emph{negative} decision (e.g., predicting the absence of the condition).
+#'
+#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} (i.e., a correct decision
+#' of the presence of the condition, when the condition is actually present).
+#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} (i.e., an incorrect decision
+#' of the absence of the condition when the condition is actually present).
+#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} (i.e., an incorrect decision
+#' of the presence of the condition when the condition is actually absent).
+#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} (i.e., a correct decision
+#' of the absence of the condition, when the condition is actually absent).
+#'
+#' @examples
+#' txt          # displays all current names and elements
+#' txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
+#' txt$scen.lbl <- "My favorite example" # defines a new scenario label
+#'
+#' @seealso \code{\link{num}} for numeric parameters; \code{\link{pal}} for color settings
 
 ## -----------------------------------------------
 ## Set defaults for all text inputs (txt):

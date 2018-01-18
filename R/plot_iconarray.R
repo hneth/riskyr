@@ -251,6 +251,7 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
         # calculate number of observations in each compartment.
         comps <- cbind(comps, comp_n)  # bind to martix.
 
+
         for(i in 1:nrow(comps)){
           minx <- comps[i, 1]
           maxx <- comps[i, 2]
@@ -463,6 +464,11 @@ design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population siz
 
 
 
+
+# dev.new(width = 5, height = 5)
+# plot(4, 4, type = "n", xlim = c(0, 4), ylim = c(0, 4))
+# rect(1, 1, 2, 2, asp = 1)
+# points(3, 3, pch = 15)
 
 ## -----------------------------------------------
 ## eof.

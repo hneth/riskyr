@@ -70,7 +70,7 @@ comp_popu <- function(## N = num$N, ## (not needed)
 }
 
 ## Apply:
-# popu <- comp_popu()
+popu <- comp_popu()
 # popu
 
 ## Check:

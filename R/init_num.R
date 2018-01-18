@@ -1,35 +1,136 @@
 ## init_num.R | riskyR
-## 2018 01 10
+## 2018 01 18
 ## -----------------------------------------------
 ## Initialize a list of basic input parameters (num)
 ## that contains all numeric user inputs:
+
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("Welcome to riskyr!")
+}
+
+## -----------------------------------------------
+## Documentation:
+
+#' Check whether an input is a probability.
+#'
+#' \code{is_prob} is a function that checks whether its single argument \code{x}
+#' is a probability: A number in the range from 0 to 1.
+#'
+#' @param x A single (typically numeric) argument.
+#'
+#' @return A Boolean value: \code{TRUE} if \code{x} is a probability, otherwise \code{FALSE}.
+#'
+#' @examples
+#' is_prob("Laplace") # => FALSE + Warning that x is not numeric
+#' is_prob(2)         # => FALSE + Warning that x is not in 0 to 1 range
+#' is_prob(1/2)       # => TRUE, but does NOT return the probability .5
+#'
+#' @family checking functions
+#' @seealso \code{\link{as_pc}} to display a probability as a percentage
+
+is_prob <- function(x) {
+
+  val <- FALSE # initialize
+
+  if (!is.numeric(x)) {
+    warning(paste0(x, " is not numeric."))
+  }
+  else if ((x < 0) | (x > 1)) {
+    warning(paste0(x, " is no probability (range from 0 to 1)."))
+  }
+  else {
+    val <- TRUE
+  }
+
+  return(val)
+
+}
+
+## Checks:
+# is_prob("Laplace") # => FALSE + Warning
+# is_prob(2)         # => FALSE + Warning
+# is_prob(1/2)       # => TRUE
 
 ## -----------------------------------------------
 ## (1) Basic functions on probabilities:
 ## Specificity (spec) is the complement of the false alarm rate (fart):
 
+#' Compute a decision's false alarm rate from its specificity.
+#'
+#' \code{comp_fart} is a function that takes a \emph{specificity} \code{spec}
+#' -- given as a probability (i.e., a number in the range from 0 to 1) --
+#' as its input, and returns the corresponding \emph{false alarm rate} \code{fart}
+#' -- also as a probability -- as its output.
+#'
+#' Specificity and false alarm rate are both features of the decision process
+#' (e.g., a diagnostic test).
+#' The false alarm rate and specificity are complements (i.e., \code{fart = 1 - spec}).
+#'
+#' @param spec A \emph{specificity} given as a probability
+#' (i.e., a number in the range from 0 to 1).
+#'
+#' @return A \emph{false alarm rate} given as a probability
+#' (i.e., a number in the range from 0 to 1).
+#'
+#' @examples
+#' comp_fart(2)   # NA + Warning that 2 is not in 0 to 1 range
+#' comp_fart(1/3) # 0.6666667
+#' comp_fart(comp_spec(0.123)) # 0.123
+
+#' @family conversion functions
+#' @seealso \code{\link{as_pc}} to display a probability as a percentage
+
 comp_fart <- function(spec) {
 
-  if ((spec < 0) | (spec > 1)) {
-    warning( "Warning: spec is no probability (range from 0 to 1)." )
-  }
+  # if ((spec < 0) | (spec > 1)) {
+  #   warning( "Warning: spec is no probability (range from 0 to 1)." )
+  # }
 
   fart <- NA # initialize
 
-  fart <- 1 - spec # compute complement
+  if (is_prob(spec)) {
+    fart <- 1 - spec # compute complement
+  }
 
   return(fart)
 }
 
+#' Compute a decision's specificity from its false alarm rate.
+#'
+#' \code{comp_spec} is a function that takes a \emph{false alarm rate} \code{fart}
+#' -- given as a probability (i.e., a number in the range from 0 to 1) --
+#' as its input, and returns the corresponding \emph{specificity} \code{spec}
+#' -- also as a probability -- as its output.
+#'
+#' False alarm rate and specificity are both features of the decision process
+#' (e.g., a diagnostic test).
+#' The specificity and false alarm rate are complements (i.e., \code{spec = 1 - fart}).
+#'
+#' @param fart A \emph{false alarm rate} given as a probability
+#' (i.e., a number in the range from 0 to 1).
+#'
+#' @return A \emph{specificity} given as a probability
+#' (i.e., a number in the range from 0 to 1).
+#'
+#' @examples
+#' comp_spec(2)   # NA + Warning that 2 is not in 0 to 1 range
+#' comp_spec(2/3) # 0.3333333
+#' comp_spec(comp_fart(0.123)) # 0.123
+
+#' @family conversion functions
+#' @seealso \code{\link{as_pc}} to display a probability as a percentage
+
 comp_spec <- function(fart) {
 
-  if ((fart < 0) | (fart > 1)) {
-    warning( "Warning: fart is no probability (range from 0 to 1)." )
-  }
+  # if ((fart < 0) | (fart > 1)) {
+  #   warning( "Warning: fart is no probability (range from 0 to 1)." )
+  # }
 
   spec <- NA # initialize
 
-  spec <- 1 - fart # compute complement
+  if (is_prob(fart)) {
+    spec <- 1 - fart # compute complement
+  }
 
   return(spec)
 }
@@ -38,6 +139,8 @@ comp_spec <- function(fart) {
 {
   # comp_fart(2)
   # comp_fart(1/3)
+  # comp_spec(2)
+  # comp_spec("one third")
   # comp_spec(comp_fart(2/3))
 }
 
@@ -155,7 +258,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, spec = num.def$sp
 
 ## Apply:
 num <- init_num()
-num
+# num
 
 ## -----------------------------------------------
 ## (4) Compute fart (4th parameter) of num (if NA):

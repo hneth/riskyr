@@ -1,24 +1,31 @@
 riskyr
 ======
 SPDS, uni.kn
-2018 01 06
+2018 01 01
 
-The `riskyr` package
-====================
+# The `riskyr` package
 
-A toolbox for transparent communication and teaching of risk literacy.
+A toolbox for rendering risk literacy more transparent
 
-Goal
-----
 
-Develop and assemble a set of basic risk literacy tools in R: 
+## Motivation
 
-- The `riskyr` package renders risk literacy more transparent by providing a set of risk literacy tools and corresponding representations.
+> Solving a problem simply means representing it<br>
+> so as to make the solution transparent. (H.A. Simon)[^1]
 
-- The corresponding R Shiny app `riskyrApp` allows using the `riskyr` toolbox in an interactive fashion without any coding.
+[^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
-Rationale
----------
+
+The basic assumptions and motivations behind `riskyr` are the following:
+
+- Effective training in risk literacy requires simple and transparent representations. 
+
+- We provide a set of tools that allow alternative views on the interplay between probabilities and frequencies. Different representations are not isolated, but complement and explain each other.
+
+- All visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameters. By providing many options, users can customize representations to suit their goals and needs.
+
+
+## Rationale
 
 We begin with some basic variables:
 
@@ -38,9 +45,19 @@ and provide a variety of _perspectives_ on (and representations of) the _consequ
 7.  a plane of _predictive values_ (PPV and NPV) as a function of `sens` and `spec` for a given `prev`  
     <!-- 8. fact boxes (with additional details on benefits and harms of tests or treatments)  -->
 
-All visualizations can be explored interactively via the corresponding `riskyrApp` and customized extensively.
-
 A _library of scenarios_ illustrates example cases with known data from the literature.
+
+
+## Package and Application
+
+Our objective is to collect and develop a set of basic risk literacy tools in R.  To maximise impact, we split our efforts into two complementary projects:
+
+1. The `riskyr` package renders risk literacy more transparent by providing a set of risk-related tools and corresponding representations.
+
+2. The corresponding R Shiny app `riskyrApp` allows using the `riskyr` toolbox in an interactive fashion without any coding.
+
+The combination of package and application facilitates risk communication and supports instruction and training efforts in promoting risk literacy.
+
 
 ## About
 
@@ -55,15 +72,15 @@ In case of comments or questions, please contact us at [http://spds.uni.kn](http
 In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
-`riskyr`: A toolbox for transparent communication and teaching of risk literacy [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.900)
+`riskyr`: A toolbox for rendering risk literacy more transparent [Computer software]. 
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.905)
 
 As BibTeX reference: 
 
     @manual{riskyr2018,
-      title = {{riskyr}: A toolbox for transparent communication and teaching of risk literacy},
+      title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.900},
+      note = {R package version 0.0.0.905},
       url = {https://github.com/hneth/riskyr}
     }
