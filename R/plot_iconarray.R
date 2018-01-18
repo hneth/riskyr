@@ -1,5 +1,5 @@
-## temp_code.R | riskyR
-## 2018 01 08
+## plot_iconarray.R | riskyR
+## 2018 01 18
 ## -----------------------------------------------
 
 ##  This function plots an iconarray flexibly, dependent on population size
@@ -10,7 +10,7 @@
 
 ## -----------------------------------------------
 
-dev.new(width = 5, height = 15)  # create device with known aspect ratio.
+# dev.new(width = 5, height = 15)  # create device with known aspect ratio.
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -25,13 +25,21 @@ nrows_fix <- 10  # fix number of rows (for each block) to some value.
 
 nrows <- ceiling(pop / ncols)  # calculate the required number of rows (for one block).
 
-source("R/init_num.R")
-source("R/init_pal.R")
-source("R/comp_freq.R")
+source("./R/init_txt.R")
+source("./R/init_pal.R")
+source("./R/init_num.R")
+source("./R/comp_freq.R")
+source("./R/comp_popu.R")
+
+popu
 
 sdt.colors
 
-freq <- comp_freq(N = pop)
+N <- freq$N
+
+freq <- comp_freq(N = 117)
+# freq
+
 
 ## (c) SDT (status decision/truth):
 
@@ -40,12 +48,11 @@ n.mi <- freq$mi
 n.fa <- freq$fa
 n.cr <- freq$cr
 
-
 sdt <- c(rep("hi", n.hi), rep("mi", n.mi),
   rep("fa", n.fa), rep("cr", n.cr))
 
-icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
-                 rep(sdt.colors["fa"], n.fa), rep(sdt.colors["cr"], n.cr))
+# icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
+#                 rep(sdt.colors["fa"], n.fa), rep(sdt.colors["cr"], n.cr))
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -73,20 +80,22 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
   posx_vec <- NULL
   posy_vec <- NULL
 
-  # 2. Initialize vector of identities:
+  # 2. Initialize vector of identities / class membership:
   ident_vec <- NULL
-
   ident_vec <- sdt
 
   # option 1 to obtain colors:
   icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
                    rep(sdt.colors["fa"], n.fa), rep(sdt.colors["cr"], n.cr))
 
+  icon_colors <- adjustcolor(icon_colors, alpha.f = .66) # make transparent
+
   # option 2 to obtain colors:
   color_types <- sdt.colors
   ident_types <- unique(ident_vec)  # get number of unique types.
   icon_colors2 <- ident_vec  # initialize colors as identities.
-  for(i in ident_types){
+
+  for (i in ident_types) {
     # replace the identities with their respective colors:
     icon_colors2[ident_vec == i] <- color_types[i]
   }
@@ -117,45 +126,45 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
       plot(x = 1, xlim = plotx_dim, ylim = ploty_dim, type = "n")
 
       # 3a) set plotting character:
-      pch <- 15  # filled square as default.
+      pch <- 21  # filled square as default.
       cex <- 2
 
       points(x = posx_vec, posy_vec, # positions.
              # visual details:
-             pch = pch, col = col_vec, cex = cex, bty = "o")
+             pch = pch, col = grey(.10, .66), bg = col_vec, cex = cex, bty = "o")
 
 # --------------------------------------------------------------------------
   # A2 Random position, clustered colors:
     # 1) Define positions:
     # 1a) draw random positions:
-    posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
-    posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
+      posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
+      posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
 
-    # 1b) sort dependent on parameter:
-    type_sort <- "equal"  # options:
-    # right: from left to right, top: from top to bottom,
-    # equal: in equal spaces of the plot, mosaic: relative to area.
+      # 1b) sort dependent on parameter:
+      type_sort <- "equal"  # options:
+      # right: from left to right, top: from top to bottom,
+      # equal: in equal spaces of the plot, mosaic: relative to area.
 
-    if(!type_sort %in% c("right", "top", "equal", "mosaic")){
-      warning('type_sort has to be either "right", "top", "equal", or "mosaic"')
-      # maybe add stop and error message?
-    }else{
+      if (!type_sort %in% c("right", "top", "equal", "mosaic")) {
+        warning('type_sort has to be either "right", "top", "equal", or "mosaic"')
+        # maybe add stop and error message?
+      } else {
 
-      # type: from left to right:
-      if(type_sort == "right"){
-        posx_vec <- sort(posx_vec)
-      }
+        # type: from left to right:
+        if (type_sort == "right") {
+          posx_vec <- sort(posx_vec)
+        }
 
-      # type: from top to bottom:
-      if(type_sort == "top"){
-        posy_vec <- sort(posy_vec)
-      }
+        # type: from top to bottom:
+        if(type_sort == "top"){
+          posy_vec <- sort(posy_vec)
+        }
 
       # equal compartments:
-      if(type_sort == "equal"){  # density varies, area is constant.
+      if (type_sort == "equal") {  # density varies, area is constant.
 
         # Distance parameteror distance between blocks:
-        block_d <- 0.1
+        block_d <- 0.01
 
         # create n = "ident_type" compartments of the plot:
         comp_n <- length(ident_types)  # number of compartments for x and y.
@@ -174,7 +183,7 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
         min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
         max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
 
-        # add distance:
+        # add distance between icon blocks:
         global_min <- min(min_ranges)  # get global minimum of minima.
         global_max <- max(max_ranges)  # get global maximum of maxima.
         min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block_d
@@ -192,9 +201,9 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
         # calculate number of observations in each compartment retaining original order:
         type_n <- sapply(unique(ident_vec), function(x) sum(ident_vec == x))
 
-
        # sample the coordinates from the deterimined ranges:
        for(i in 1:nrow(min_ranges)){
+
           minx <- min_ranges$x_min[i]
           maxx <- max_ranges$x_max[i]
           miny <- min_ranges$y_min[i]
@@ -212,7 +221,8 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
       }
 
       # mosaic style:
-      if(type_sort == "mosaic"){
+      if (type_sort == "mosaic") {
+
         # here we need to define the compartments flexibly (holding density constant):
         # create "ident_type" compartments of the plot:
         comp_n <- length(ident_types)  # number of compartments for x and y.
@@ -225,7 +235,7 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
         prev <- comp_p["hi"] + comp_p["mi"]  # prevalence (or number of true conditions).
         p_corr <- comp_p["hi"] + comp_p["cr"]  # proportion of yes-responses.
 
-
+        # Quadrant dimensions:
         comp1 <- c(0, p_corr, 0, prev)
         comp2 <- c(p_corr, 1, 0, prev)
         comp3 <- c(p_corr, 1, prev, 1)
@@ -238,7 +248,7 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
         posy_vec <- NULL
 
         # set distance parameter:
-        block_d <- 0.075  # this parameter may not be half the size of the distance between min and max.
+        block_d <- 0.000  # this parameter may not be half the size of the distance between min and max.
         # for the example of prevalence == 0.15 it may not exceed 0.075.
 
         # diff(comps)
@@ -283,14 +293,14 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
     plot(x = 1, xlim = plotx_dim, ylim = ploty_dim, type = "n")
 
     # 3a) set plotting character:
-    pch <- 15  # filled square as default.
+    pch <- 22  # filled square as default.
     cex <- 2
 
     test <- paste(round(posx_vec, 1), round(posy_vec, 1))
 
     points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
-           pch = pch, col = col_vec, cex = cex, bty = "o")
+           pch = pch, col = grey(0, .66), bg = col_vec, cex = cex, bty = "o")
 
     # optional: add ablines.
 
@@ -336,9 +346,9 @@ for(i in 1:nrow(design.matrix)){
 
 # points(3, 3, pch = 15)  # does not really work with cex...; maybe try later.
 
-lines(par("usr")[1], par("usr")[2], col = "red")
+# lines(par("usr")[1], par("usr")[2], col = "red")
 
-lines(x = c(1, 5), y = c(5, 5), col = "red")
+# lines(x = c(1, 5), y = c(5, 5), col = "red")
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Blocking A:
@@ -409,6 +419,7 @@ system.time({
 })
 
 system.time({
+
   plot(1, 1, type = "n",
        xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
        xlab = "",
@@ -430,11 +441,15 @@ system.time({
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # comparison to pch:
+
 system.time({
+
   plot(design.matrix$Var1, design.matrix$Var2,
-       col = design.matrix$icon_colors,
-       pch = 5,
-       cex = 22,
+       pch = 22,
+       cex = 5,
+       col = grey(.33, .66), # sample(design.matrix$icon_colors),
+       bg = sample(design.matrix$icon_colors),
+       lwd = 5,
        xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
        xlab = "",
        ylab = "")
