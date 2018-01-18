@@ -114,7 +114,7 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
       col_vec <- sample(icon_colors, replace = FALSE)
 
     # 3) Plot:
-      plot(x = 1, xlim = plotx_dim, ylim = ploty_dim)
+      plot(x = 1, xlim = plotx_dim, ylim = ploty_dim, type = "n")
 
       # 3a) set plotting character:
       pch <- 15  # filled square as default.
@@ -124,29 +124,175 @@ icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
              # visual details:
              pch = pch, col = col_vec, cex = cex, bty = "o")
 
-  # A1 Random position, clustered colors:
+# --------------------------------------------------------------------------
+  # A2 Random position, clustered colors:
     # 1) Define positions:
     # 1a) draw random positions:
     posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
     posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
 
+    # 1b) sort dependent on parameter:
+    type_sort <- "equal"  # options:
+    # right: from left to right, top: from top to bottom,
+    # equal: in equal spaces of the plot, mosaic: relative to area.
+
+    if(!type_sort %in% c("right", "top", "equal", "mosaic")){
+      warning('type_sort has to be either "right", "top", "equal", or "mosaic"')
+      # maybe add stop and error message?
+    }else{
+
+      # type: from left to right:
+      if(type_sort == "right"){
+        posx_vec <- sort(posx_vec)
+      }
+
+      # type: from top to bottom:
+      if(type_sort == "top"){
+        posy_vec <- sort(posy_vec)
+      }
+
+      # equal compartments:
+      if(type_sort == "equal"){  # density varies, area is constant.
+
+        # Distance parameteror distance between blocks:
+        block_d <- 0.1
+
+        # create n = "ident_type" compartments of the plot:
+        comp_n <- length(ident_types)  # number of compartments for x and y.
+        # TODO: not final; they should be distributed.
+
+        # determine breakpoints:
+
+        # !!!Currently for square numbers only:
+        # TODO: include non-square points (e.g., by enlarging the plot area).
+        comp_sq <- sqrt(comp_n)  # take square root.
+
+        # create list of breakpoints including ident_types:
+        seq_min <- (0:(comp_sq-1)) / comp_sq  # of minimal coordinates.
+        seq_max <- (1:comp_sq) / comp_sq
+
+        min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
+        max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
+
+        # add distance:
+        global_min <- min(min_ranges)  # get global minimum of minima.
+        global_max <- max(max_ranges)  # get global maximum of maxima.
+        min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block_d
+        # we don't want distance at the global minima nad maxima.
+        max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block_d
+
+        # TODO: flipping by swapping x and y or by changing vector of frequencies?
+        # ToDo: Bind ranges into one object?
+        # TODO: notice the overlap!  Use cut?
+
+        # reset position vectors:
+        posx_vec <- NULL
+        posy_vec <- NULL
+
+        # calculate number of observations in each compartment retaining original order:
+        type_n <- sapply(unique(ident_vec), function(x) sum(ident_vec == x))
+
+
+       # sample the coordinates from the deterimined ranges:
+       for(i in 1:nrow(min_ranges)){
+          minx <- min_ranges$x_min[i]
+          maxx <- max_ranges$x_max[i]
+          miny <- min_ranges$y_min[i]
+          maxy <- max_ranges$y_max[i]
+          # TODO: This only holds for equal compartments.
+
+          # sample vectors from compartments:
+          posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
+          posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
+
+          posx_vec <- c(posx_vec, posx_vec_i)
+          posy_vec <- c(posy_vec, posy_vec_i)
+        }
+
+      }
+
+      # mosaic style:
+      if(type_sort == "mosaic"){
+        # here we need to define the compartments flexibly (holding density constant):
+        # create "ident_type" compartments of the plot:
+        comp_n <- length(ident_types)  # number of compartments for x and y.
+
+        # calculate number of observations in each compartment retaining original order:
+        type_n <- sapply(unique(ident_vec), function(x) sum(ident_vec == x))
+
+        comp_p <- type_n / sum(type_n)  # proportion in each compartment.
+
+        prev <- comp_p["hi"] + comp_p["mi"]  # prevalence (or number of true conditions).
+        p_corr <- comp_p["hi"] + comp_p["cr"]  # proportion of yes-responses.
+
+
+        comp1 <- c(0, p_corr, 0, prev)
+        comp2 <- c(p_corr, 1, 0, prev)
+        comp3 <- c(p_corr, 1, prev, 1)
+        comp4 <- c(0, p_corr, prev, 1)
+
+        # TODO: not general yet!  How to make it general?  Calculation of area proportions?
+
+        # reset vectors:
+        posx_vec <- NULL
+        posy_vec <- NULL
+
+        # set distance parameter:
+        block_d <- 0.075  # this parameter may not be half the size of the distance between min and max.
+        # for the example of prevalence == 0.15 it may not exceed 0.075.
+
+        # diff(comps)
+
+        # bind vectors together.
+        comps <- rbind(comp1, comp2, comp3, comp4)
+        comps[, c(1, 3)] <- comps[, c(1, 3)] + block_d
+        comps[, c(2, 4)] <- comps[, c(2, 4)] - block_d
+        comp_n <- sapply(unique(ident_vec),function(x)sum(ident_vec==x))
+        # calculate number of observations in each compartment.
+        comps <- cbind(comps, comp_n)  # bind to martix.
+
+        for(i in 1:nrow(comps)){
+          minx <- comps[i, 1]
+          maxx <- comps[i, 2]
+          miny <- comps[i, 3]
+          maxy <- comps[i, 4]
+          # TODO: This only holds for equal compartments.
+
+          # sample vectors from compartments:
+          posx_vec_i <- runif(n = comps[i, 5], min = minx, max = maxx)
+          posy_vec_i <- runif(n = comps[i, 5], min = miny, max = maxy)
+
+          posx_vec <- c(posx_vec, posx_vec_i)
+          posy_vec <- c(posy_vec, posy_vec_i)
+
+      }
+      }
+    }
+
+
+
     # checking for duplicates:
-    pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
+    (pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec))))
     # no duplicated coordinates.
 
     # 2) Randomize vector:
-    col_vec <- sample(icon_colors, replace = FALSE)
+    col_vec <- icon_colors
 
     # 3) Plot:
-    plot(x = 1, xlim = plotx_dim, ylim = ploty_dim)
+    plot(x = 1, xlim = plotx_dim, ylim = ploty_dim, type = "n")
 
     # 3a) set plotting character:
     pch <- 15  # filled square as default.
     cex <- 2
 
-    points(x = posx_vec, posy_vec, # positions.
+    test <- paste(round(posx_vec, 1), round(posy_vec, 1))
+
+    points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
            pch = pch, col = col_vec, cex = cex, bty = "o")
+
+    # optional: add ablines.
+
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -307,7 +453,7 @@ design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population siz
 
 ## -----------------------------------------------
 ## (+) ToDo:
-
+## - Understand cex --> how does it work, when does it change size, when not?
 ## - should icons be apt to alteration (e.g., circles)?
 ## - how to proceed for larger populations (i.e., > 100)?
   ## * create blocks of 10x10 via mfrow, with each block being an own plot?
