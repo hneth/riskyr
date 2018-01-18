@@ -3,7 +3,9 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rbuildignore
 .DS_Store
 _code/RiskLiteracyTools_now_cache
 _code/RiskLiteracyTools_now_files
 _stuff
+test_loadingPackage.R
