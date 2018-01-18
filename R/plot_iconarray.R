@@ -37,7 +37,7 @@ sdt.colors
 
 N <- freq$N
 
-freq <- comp_freq(N = 117)
+freq <- comp_freq(N = pop)
 # freq
 
 
