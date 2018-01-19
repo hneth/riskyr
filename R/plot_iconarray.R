@@ -25,11 +25,11 @@ nrows_fix <- 10  # fix number of rows (for each block) to some value.
 
 nrows <- ceiling(pop / ncols)  # calculate the required number of rows (for one block).
 
-source("./R/init_txt.R")
-source("./R/init_pal.R")
-source("./R/init_num.R")
-source("./R/comp_freq.R")
-source("./R/comp_popu.R")
+# source("./R/init_txt.R")
+# source("./R/init_pal.R")
+# source("./R/init_num.R")
+# source("./R/comp_freq.R")
+# source("./R/comp_popu.R")
 
 popu
 
@@ -445,8 +445,8 @@ system.time({
 system.time({
 
   plot(design.matrix$Var1, design.matrix$Var2,
-       pch = 22,
-       cex = 5,
+       pch = 21,
+       cex = 10,
        col = grey(.33, .66), # sample(design.matrix$icon_colors),
        bg = sample(design.matrix$icon_colors),
        lwd = 5,
