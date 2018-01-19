@@ -1,5 +1,5 @@
 ## init_txt.R | riskyR
-## 2018 01 18
+## 2018 01 19
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom text elements (txt):
@@ -8,7 +8,7 @@
 ## -----------------------------------------------
 ## Documentation:
 
-#' List current text elements.
+#' List current values of basic text elements.
 #'
 #' \code{txt} is initialized to a list of named elements
 #' to define all titles and labels corresponding to the current scenario

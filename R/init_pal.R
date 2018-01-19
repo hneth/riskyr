@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 18
+## 2018 01 19
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom colors (pal):
@@ -125,7 +125,7 @@ makeTransparent = function(..., alpha = .50) {
 ## -----------------------------------------------
 ## Documentation:
 
-#' List current color information.
+#' List current values of basic color information.
 #'
 #' \code{pal} is initialized to a vector of named elements
 #' to define the color scheme for the current scenario that is
