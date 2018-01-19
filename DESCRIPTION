@@ -13,22 +13,22 @@ Author: Hansjoerg Neth [aut, cre],
 AuthorUrl: http://neth.de
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
 Description: Provides a set of basic risk literacy tools in R.
-    Starting with a condition (e.g., a disease), a corresponding decision (e.g., based on a clinical judgment or diagnostic test), and basic probabilities (prevalence, sensitivity, specificity) we provide a range of metrics and alternative representations of probabilities and frequencies (for a population of N individuals). By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
+    Starting with a condition (e.g., a disease), a corresponding decision (e.g., based on a clinical judgment or diagnostic test), and basic probabilities (prevalence, sensitivity, specificity) we provide a range of metrics and alternative representations of risk-related information (as probabilities and frequencies for a population of N individuals). By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
 Depends:
-    R (>= 3.2),
-    diagram (>= 1.6.4),
-    vcd (>= 1.4)
+    R (>= 3.2)
 Imports:
-    grid
+    diagram (>= 1.6.4),
+    vcd (>= 1.4),
+    grid (>= 3.4.3)
 Suggests:
-    knitr,
     devtools,
+    knitr,
     roxygen2
-Collate: 'init_txt.R'
+Collate: 'comp_util.R'
+         'init_txt.R'
          'init_pal.R'
          'init_num.R'
          'init_env.R'
-         'comp_util.R'
          'comp_prob.R'
          'comp_freq.R'
          'comp_popu.R'
@@ -39,6 +39,7 @@ Collate: 'init_txt.R'
          'plot_PV.R'
          'plot_PV3d.R'
          'temp_code.R'
+         'init_riskyr.R'
 Encoding: UTF-8
 LazyData: true
 License: No license yet.
