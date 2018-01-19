@@ -68,7 +68,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   n.cr = cur.freq$cr
 
   ## Text/labels in 7 boxes:                          # NOT used yet:
-  ## Default:
+  ## Defaults:
   names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl
              paste0(cond.true.lbl, ":\n",  n.true),
              paste0(cond.false.lbl, ":\n", n.false),
@@ -77,6 +77,7 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
              paste0(sdt.fa.lbl, ":\n", n.fa),
              paste0(sdt.cr.lbl, ":\n", n.cr)
   )
+
   ## Alternative: Shorter labels
   if (box.area != "no") {
     ## Reduced names (as areas get quite small):
@@ -93,15 +94,28 @@ plot_nftree <- function(prev = num$prev, sens = num$sens, spec = num$spec, fart 
   ## Make matrix M:
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 
+  ## Arrow/edge labels:
   ## ToDo: Use more informative arrow/edge labels:
   prev.lbl <- paste0("prev = ", as_pc(prev), "%")
 
+  ## Defaults:
   M[2, 1] <- "prevalence" # ERROR: WHY does prev.lbl not work with spaces???
   M[3, 1] <- "(N - n.true)"
   M[4, 2] <- "sensitivity"
   M[5, 2] <- "(n.true - n.hi)"
   M[6, 3] <- "(n.false - n.cr)"
   M[7, 3] <- "specificity"
+
+  ## Alternative: Shorter labels
+  if (box.area != "no") {
+    ## Reduced arrow/edge labels:
+    M[2, 1] <- "prev" # ERROR: WHY does prev.lbl not work with spaces???
+    M[3, 1] <- "n(N - true)"
+    M[4, 2] <- "sens"
+    M[5, 2] <- "n(true - hi)"
+    M[6, 3] <- "n(false - cr)"
+    M[7, 3] <- "spec"
+  }
 
   ## Distinguish between 4 different plot types (based on box.area setting):
   ## 1. Default case: Rectangles of same width and height (non-proportional)
