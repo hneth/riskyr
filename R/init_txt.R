@@ -1,12 +1,11 @@
 ## init_txt.R | riskyR
-## 2018 01 19
+## 2018 01 20
 ## -----------------------------------------------
 ## Define and initialize current set of
 ## custom text elements (txt):
 
-## Note that txt contains defaults for user inputs.
+## Initially, txt contains defaults for user inputs.
 ## -----------------------------------------------
-## Documentation:
 
 #' List current values of basic text elements.
 #'
@@ -51,7 +50,7 @@
 #' @seealso \code{\link{num}} for numeric parameters; \code{\link{pal}} for color settings
 
 ## -----------------------------------------------
-## Set defaults for all text inputs (txt):
+## Defaults for all titles and labels (txt):
 
 txt <- list(
   scen.lbl = "Scenario Title", # in Title Caps (to print in plot titles)
@@ -77,6 +76,8 @@ txt <- list(
   sdt.cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
   )
 
+## Check:
+# txt
 # length(txt)
 
 ## -----------------------------------------------

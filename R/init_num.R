@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 19
+## 2018 01 20
 ## -----------------------------------------------
 ## Initialize a list of basic input parameters (num)
 ## that contains all numeric user inputs:
@@ -259,18 +259,18 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
 
   ## (1) Verify that 3 basic parameters are provided:
-  if (is_prob(prev) & is_prob(sens) &                                  # a) prev and sens are probabilities
-      is_sufficient(prev, sens, spec, fart)                            # b) 3 essential probabilities are provided
+  if (is_prob(prev) & is_prob(sens) &                 # a) prev and sens are probabilities
+      is_sufficient(prev, sens, spec, fart)           # b) 3 essential probabilities are provided
   )
   {
 
-    ## (2) Compute missing fart (4th argument) value (if applicable):
+    ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     if (is.na(fart) & !is.na(spec)) { fart <- comp_fart(spec) }
     if (is.na(spec) & !is.na(fart)) { spec <- comp_spec(fart) }
 
     ## (3) Ensure that spec and fart are complements:
     if (!is_complement(spec, fart)) {
-      warning("Specificity (spec) and false alarm rate (fart) are not complements.")
+      warning("Specificity (spec) and false alarm rate (fart) are NOT complements.")
     }
 
     ## (4) Compute a missing value for N (5th argument) value (if applicable):
@@ -288,7 +288,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
   } ## if(...)
 
-  ## Return the entire list num:
+  ## (6) Return the entire list num:
   return(num)
 
 }
