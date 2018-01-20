@@ -105,6 +105,80 @@ comp_spec <- function(fart) {
   # comp_spec(comp_fart(2/3))
 }
 
+## -----------------------------------------------
+
+#' Compute a probability's complement (if missing).
+#'
+#' \code{comp_complement} is a function that takes one or two probabilities
+#' --  a specificity \code{spec} and a false alarm rate \code{fart} --
+#' as inputs. If either of them is missing (\code{NA}), it computes the complement
+#' of the other one and returns both probabilities.
+#'
+#' This function does nothing when both arguments are provided
+#' (i.e., \code{!is.na(spec) & !is.na(fart)}) and only issues
+#' a warning if both arguments are missing
+#' (i.e., \code{is.na(spec) & is.na(fart)}).
+#' Use \code{\link{is_complement}} to verify that
+#' two provided values actually are complements.
+#'
+#' @param spec A specificity value (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
+#' \code{spec} is optional when is complement \code{fart} is provided.
+#' @param fart A false alarm rate (i.e., the conditional probability
+#' of a positive decision provided that the condition is FALSE).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @return A vector \code{v} containing two scalars \code{c(spec, fart)}
+#' with \code{spec <- v[1]} and \code{fart <- v[2]}).
+#'
+#' @examples
+#' comp_complement(1, 0)   # => 1 0
+#' comp_complement(0, 1)   # => 0 1
+#' comp_complement(1, NA)  # => 1 0
+#' comp_complement(NA, 1)  # => 0 1
+#'
+#' comp_complement(NA, NA) # => NA NA + warning
+#' comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
+#' comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
+#'
+#' @family conversion functions
+#' @seealso \code{\link{is_complement}} to verify numeric complements;
+#' \code{\link{is_valid}} to verify valid quadruples of probabilities
+
+comp_complement <- function(spec, fart){
+
+  pair <- c(NULL, NULL) # initialize
+  missing <- NA
+
+  if (is.na(spec) & is.na(fart)) {
+    warning("One argument (either spec or fart) is necessary.")
+    pair <- c(NA, NA)                      # - set to NA NA
+  } else if (!is.na(spec) & is.na(fart)) { # only spec is provided:
+    missing <- comp_fart(spec)             # - compute fart
+    pair <- c(spec, missing)               # - define pair
+  } else if (!is.na(fart) & is.na(spec)) { # only fart is provided:
+    missing <- comp_spec(fart)             # - compute spec
+    pair <- c(missing, fart)               # - define pair
+  } else {
+    pair <- c(spec, fart)                  # - set to inputs
+
+  }
+
+  return(pair)  # always return pair c(spec, fart)
+
+}
+
+## Check:
+{
+  # comp_complement(1, 0)   # => 1 0
+  # comp_complement(0, 1)   # => 0 1
+  # comp_complement(1, NA)  # => 1 0
+  # comp_complement(NA, 1)  # => 0 1
+  #
+  # comp_complement(NA, NA) # => NA NA + warning
+  # comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
+  # comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
+}
 
 ## -----------------------------------------------
 ## (3) Determine a good number for population size N:
@@ -140,16 +214,16 @@ comp_spec <- function(fart) {
 #' @return An integer value \code{N} (as a power of 10).
 #'
 #' @examples
-#' comp_min_N(0, 0, 0) # => 1
-#' comp_min_N(1, 1, 1) # => 1
+#' comp_min_N(0, 0, 0)  # => 1
+#' comp_min_N(1, 1, 1)  # => 1
 #'
-#' comp_min_N(1, 1, 1, min.freq = 10) # =>  10
-#' comp_min_N(1, 1, 1, min.freq = 99) # => 100
+#' comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
+#' comp_min_N(1, 1, 1, min.freq = 99)  # => 100
 #'
-#' comp_min_N(.1, .1, .1)             # => 100       = 10^2
-#' comp_min_N(.001, .1, .1)           # =>    10 000 = 10^4
-#' comp_min_N(.001, .001, .1)         # => 1 000 000 = 10^6
-#' comp_min_N(.001, .001, .001)       # => 1 000 000 = 10^6
+#' comp_min_N(.1, .1, .1)        # =>       100 = 10^2
+#' comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
+#' comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
+#' comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 #'
 #' @family functions turning probabilities into frequencies
 #' @seealso \code{\link{comp_freq}} computes frequencies from probabilities
@@ -187,14 +261,14 @@ comp_min_N <- function(prev, sens, spec, min.freq = 1) {
 
 ## Check:
 {
-  # comp_min_N(0, 0, 0) # => 1
-  # comp_min_N(1, 1, 1) # => 1
-  # comp_min_N(1, 1, 1, min.freq = 10) # =>  10
-  # comp_min_N(1, 1, 1, min.freq = 99) # => 100
-  # comp_min_N(.1, .1, .1)       # => 100       = 10^2
-  # comp_min_N(.001, .1, .1)     # => 10 000    = 10^4
-  # comp_min_N(.001, .001, .1)   # => 1 000 000 = 10^6
-  # comp_min_N(.001, .001, .001) # => 1 000 000 = 10^6
+  # comp_min_N(0, 0, 0)  # => 1
+  # comp_min_N(1, 1, 1)  # => 1
+  # comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
+  # comp_min_N(1, 1, 1, min.freq = 99)  # => 100
+  # comp_min_N(.1, .1, .1)        # =>       100 = 10^2
+  # comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
+  # comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
+  # comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 }
 
 ## -----------------------------------------------
@@ -204,10 +278,10 @@ comp_min_N <- function(prev, sens, spec, min.freq = 1) {
 ## consists of 3 probabilities (+ 1 complement):
 
 ## Define defaults for num:     # Description:                                     # Type of input:
-num.def <- list("prev" = .15,   # prevalence in target population = p(condition TRUE)     [basic p]
-                "sens" = .85,   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
-                "spec" = .75,   # specificity = p(decision NEG | condition FALSE)   [conditional p]
-                "fart" =  NA,   # false alarm rate = 1 - spec        [optional, complement of spec]
+num.def <- list("prev" =  .15,  # prevalence in target population = p(condition TRUE)     [basic p]
+                "sens" =  .85,  # sensitivity = p(decision POS | condition TRUE)    [conditional p]
+                "spec" =  .75,  # specificity = p(decision NEG | condition FALSE)   [conditional p]
+                "fart" =   NA,  # false alarm rate = 1 - spec        [optional, complement of spec]
                 "N"    =  1000  # population size (N of individuals in population)  [optional freq]
                 )
 
@@ -276,21 +350,17 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   {
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-    if (is.na(fart) & !is.na(spec)) { fart <- comp_fart(spec) }
-    if (is.na(spec) & !is.na(fart)) { spec <- comp_spec(fart) }
+    cur.spec.fart <- comp_complement(spec, fart)
+    spec <- cur.spec.fart[1] # 1st argument
+    fart <- cur.spec.fart[2] # 2nd argument
 
-    ## (3) Ensure that spec and fart are complements:
-    # if (!is_complement(spec, fart)) {
-    #   warning("Specificity (spec) and false alarm rate (fart) are NOT complements.")
-    # }
-
-    ## (4) Compute a missing value for N (5th argument) value (if applicable):
+    ## (3) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
       message(paste0("Computed a suitable minimal population size value N = ", N))
       }
 
-    ## (5) Initialize num with current arguments:
+    ## (4) Initialize num with current arguments:
     num$prev <- prev
     num$sens <- sens
     num$spec <- spec
@@ -299,7 +369,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
   } ## if(...)
 
-  ## (6) Return the entire list num:
+  ## (5) Return the entire list num:
   return(num)
 
 }

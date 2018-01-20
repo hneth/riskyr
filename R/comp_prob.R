@@ -1,5 +1,5 @@
 ## comp_prob.R | riskyR
-## 2018 01 10
+## 2018 01 20
 ## -----------------------------------------------
 ## Compute current probabilities (prob) based on num
 ## (using only the necessary parameters of num):

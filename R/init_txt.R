@@ -48,6 +48,8 @@ txt.def <- list(
 #' \code{init_txt} allows changing elements by assigning new character
 #' objects to existing names.
 #'
+#' @aliases init_text
+#'
 #' @param scen.lbl The current scenario title (sometimes in Title Caps).
 #' @param scen.txt A longer text description of the current scenario
 #' (which may extend over several lines).
@@ -73,9 +75,9 @@ txt.def <- list(
 #' of the absence of the condition, when the condition is actually absent).
 #'
 #' @examples
-#' init_txt()          # => returns list of default text elements
+#' init_txt()          # => define and return a list of (default) text elements
 #' length(init_txt())  # => 14
-#' txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius") # => customizes elements of txt
+#' txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius")  # => set elements of txt
 #'
 #' @family functions to initialize scenario settings
 #'
@@ -133,9 +135,11 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 }
 
 ## Check:
-init_txt()          # => returns list of default text elements
-length(init_txt())  # => 14
-init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius") # => customizes current text elements
+{
+  # init_txt()          # => defines and returns a list of (default) text elements
+  # length(init_txt())  # => 14
+  # txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius") # => customizes current text elements
+}
 
 ## -----------------------------------------------
 ## (C) Initialize a list txt to contain
@@ -150,6 +154,8 @@ init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius") # =>
 #' All textual elements that specify titles and details of the current scenario
 #' are stored as named elements (of type character) in a list \code{txt}.
 #' To change an element, assign a new character object to an existing name.
+#'
+#' @aliases text
 #'
 #' @param scen.lbl The current scenario title (sometimes in Title Caps).
 #' @param scen.txt A longer text description of the current scenario
@@ -176,14 +182,22 @@ init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius") # =>
 #' of the absence of the condition, when the condition is actually absent).
 #'
 #' @examples
-#' txt          # displays all current names and elements
-#' txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
-#' txt$scen.lbl <- "My favorite example" # defines a new scenario label
+#' txt           # => show  all current names and elements
+#' txt$scen.lbl  # => show the current scenario label (e.g., used in plot titles)
+#' txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 #'
 #' @family lists containing basic scenario settings
 #' @seealso \code{\link{num}} for numeric parameters; \code{\link{pal}} for color settings
 
+## Apply:
 txt <- init_txt()
+
+## Check:
+{
+  # txt          # displays all current names and elements
+  # txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
+  # txt$scen.lbl <- "My favorite example" # sets a new scenario title
+}
 
 ## -----------------------------------------------
 ## (+) ToDo:

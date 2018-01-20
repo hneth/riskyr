@@ -12,47 +12,47 @@
 
 start_riskyr <- function(...) {
 
-
   ## (1) Initialize riskyr.lst:
-  riskyr.lst <- list(mes = "NA",
-                     txt = NULL,
-                     num = NULL
-                     )
+  riskyr.lst <- list(txt = NULL,
+                     pal = NULL,
+                     num = NULL,
+                     freq = NULL)
 
   ## (2) Source some files:
   # source("./R/comp_util.R")  # utility functions
-
-  ## (3) Initialize basic variables:
   # source("./R/init_txt.R")   # 1. initialize txt
-  txt <- init_txt()
-
   # source("./R/init_pal.R")   # 2. initialize pal
-
   # source("./R/init_num.R")   # 3. initialize num
+
+  ## (3) Initialize basic scenario settings
+  ##     (using init_xxx functions and defaults):
+  txt <- init_txt()
+  pal <- init_pal()
   num <- init_num()
 
-  ## B: Compute derived data structures and variables:
+  ## (4) Compute derived data structures and variables:
   # source("./R/comp_freq.R")  # 1. derive freq (list)
   # source("./R/comp_prob.R")  # 2. derive prob (list)
   # source("./R/comp_popu.R")  # 3. derive popu (data frame)
+  freq <- comp_freq()
 
-
-  ## (7) Insert computed values into riskyr.lst:
+  ## (5) Insert computed values into riskyr.lst:
   riskyr.lst <- list(txt = txt,
-                     num = num
-  )
+                     pal = pal,
+                     num = num,
+                     freq = freq)
 
-  ## (8) Message:
+  ## (6) Message:
   message("Ready to riskyr it...")
 
-  ## (9) Return entire riskyr.lst:
+  ## (7) Return entire riskyr.lst:
   return(riskyr.lst)
 
 }
 
 ## Apply:
 scenario <- start_riskyr()
-# scenario$txt
+# scenario
 
 ## -----------------------------------------------
 ## (3) Import ready-made and worked out example data

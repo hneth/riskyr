@@ -1,13 +1,16 @@
 ## init_pal.R | riskyR
-## 2018 01 19
+## 2018 01 20
 ## -----------------------------------------------
-## Define and initialize current set of
-## custom colors (pal):
+## Define and initialize the current set
+## of custom colors (pal):
 
 ## pal contains defaults for user inputs.
 
 ## -----------------------------------------------
-## (1) Define some named colors:
+## (A) Define colors:
+
+## -----------------------------------------------
+## (1) Choose and name some colors:
 
 {
   ## (1) from uni.kn:
@@ -63,7 +66,7 @@
 }
 
 ## -----------------------------------------------
-## (2) Select and name some colors by their function
+## (2) Assign some colors to recurring elements/roles
 ##     (to set default colors for plots and app display):
 
 {
@@ -77,6 +80,8 @@
   cond.colors <- setNames(c(col.true, col.false),
                          c("true", "false")
   )
+
+  ## ToDo: Define 2 decision colors ##
 
   ## (c) Define 4 colors for SDT cases:
   col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2
@@ -94,23 +99,134 @@
 }
 
 ## -----------------------------------------------
-## (3) Define corresponding color palette:
+## (3) Define corresponding default palette:
+
+pal.def <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of colors
+pal.def <- setNames(object = pal.def,
+                    nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
+                    )
+n.colors <- length(pal.def)  # number of colors for which defaults are defined
+
 ## -----------------------------------------------
-## Documentation:
+## (B) Initialization function for all color
+##     elements (all titles and labels):
+
+#' Initialize basic color information.
+#'
+#' \code{init_pal} initializes basic color information
+#' (i.e., all colors corresponding to functional roles in
+#' the current scenario and used throughout the \code{riskyr} package).
+#'
+#' All color information of the current scenario
+#' is stored as named colors in a list \code{pal}.
+#' \code{init_pal} allows changing colors by assigning
+#' new colors to existing names.
+#'
+#' @aliases init_col
+#'
+#' @param col.N Color representing the \emph{population} (of N cases or individuals).
+#'
+#' @param col.true Color representing cases for which the current condition is \code{TRUE}.
+#' @param col.false Color representing cases for which the current condition is \code{FALSE}.
+#'
+#' @param col.hi Color representing \emph{hits} or true positives
+#' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
+#' @param col.mi Color representing \emph{misses} or false negatives
+#' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
+#' @param col.fa Color representing \emph{false alarms} or false positives
+#' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
+#' @param col.cr Color representing \emph{correct rejections} or true negatives
+#' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
+#'
+#' @param col.ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
+#' the condition is TRUE, provided that the decision is positive).
+#' @param col.npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
+#' the condition is FALSE, provided that the decision is negative).
+#'
+#' @examples
+#' init_pal()          # => define and return a vector of current (default) colors
+#' length(init_pal())  # => 9
+#' pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+#'
+#' @family functions to initialize scenario settings
+#'
+#' @seealso \code{\link{pal}} for current color information;
+#' \code{\link{txt}} for current text elements;
+#' \code{\link{num}} for current numeric parameters
+
+init_pal <- function(col.N = pal.def["N"],          # population N
+                     ## Conditions:
+                     col.true  = pal.def["true"],   # condition true
+                     col.false = pal.def["false"],  # condition false
+                     ## ToDo: Define 2 decision colors ##
+                     ## Combinations:
+                     col.hi = pal.def["hi"],        # hits / true positives
+                     col.mi = pal.def["mi"],        # misses / false negatives
+                     col.fa = pal.def["fa"],        # false alarms / false positives
+                     col.cr = pal.def["cr"],        # correct rejections / true negatives
+                     ## Derived conditional probabilities:
+                     col.ppv = pal.def["ppv"],      # positive predictive values
+                     col.npv = pal.def["npv"]       # negative predictive values
+) {
+
+
+  ## 1. Initialize pal as a VECTOR:
+  pal <- rep(NA, n.colors)
+
+  ## 2. Pass arguments to VECTOR:
+  pal <- c(col.N,      # population N
+           ## Conditions:
+           col.true,   # condition true
+           col.false,  # condition false
+           ## ToDo: Define 2 decision colors ##
+           ## Combinations:
+           col.hi,     # hits / true positives
+           col.mi,     # misses / false negatives
+           col.fa,     # false alarms / false positives
+           col.cr,     # correct rejections / true negatives
+           ## Derived conditional probabilities:
+           col.ppv,    # positive predictive values
+           col.npv     # negative predictive values
+  )
+
+  ## 3. Name vector elements:
+  pal <- setNames(object = pal,
+                  nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
+                  )
+
+  ## 4. Return vector:
+  return(pal)
+
+}
+
+## Check:
+{
+  # init_pal()          # => returns vector of current colors
+  # length(init_pal())  # => 9
+  # pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+}
+
+## -----------------------------------------------
+## (C) Initialize a vector pal to contain
+##     all current color information:
 
 #' List current values of basic color information.
 #'
-#' \code{pal} is initialized to a vector of named elements
+#' \code{pal} is initialized to a vector of named elements (colors)
 #' to define the color scheme for the current scenario that is
 #' used throughout the \code{riskyr} package.
 #'
 #' All color information corresponding to the current scenario
-#' is stored as named elements (colors) in a vector \code{pal}.
+#' is stored as named colors in a vector \code{pal}.
 #' To change a color, assign a new color to an existing element name.
 #'
+#' @aliases col
+#'
 #' @param N Color representing the \emph{population} (of N cases or individuals).
+#'
 #' @param true Color representing cases for which the current condition is \code{TRUE}.
 #' @param false Color representing cases for which the current condition is \code{FALSE}.
+#'
 #' @param hi Color representing \emph{hits} or true positives
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
 #' @param mi Color representing \emph{misses} or false negatives
@@ -119,6 +235,7 @@
 #' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
 #' @param cr Color representing \emph{correct rejections} or true negatives
 #' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
+#'
 #' @param ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
 #' the condition is TRUE, provided that the decision is positive).
 #' @param npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
@@ -130,12 +247,10 @@
 #' pal["hi"] <- "green3" # defines a new color for hits (true positives)
 #'
 #' @family lists containing basic scenario settings
-#' @seealso \code{\link{num}} for numeric parameters; \code{\link{txt}} for text labels and titles
+#' @seealso \code{\link{init_pal}} to initialize color information
 
-pal <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of all colors
-pal <- setNames(object = pal,
-                nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
-                )
+## Apply:
+pal <- init_pal()
 
 ## Check:
 {
@@ -182,9 +297,10 @@ pal <- setNames(object = pal,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - use standard colors as default
-## - add pre-defined color palettes & transparency
-## - make colors user-customizable
+## - Define 2 decision colors!
+## - Use standard colors as default
+## - Add pre-defined color palettes & transparency
+## - Make colors user-customizable
 
 ## -----------------------------------------------
 ## eof.
