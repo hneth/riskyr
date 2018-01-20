@@ -228,7 +228,8 @@ comp_complement <- function(spec, fart){
 #' @family functions turning probabilities into frequencies
 #' @seealso \code{\link{comp_freq}} computes frequencies from probabilities
 
-comp_min_N <- function(prev, sens, spec, min.freq = 1) {
+comp_min_N <- function(prev, sens, spec,
+                       min.freq = 1) {
 
   N <- 10^0 # initialize
 
@@ -346,8 +347,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
 
   ## (1) Verify basic input parameters are valid:
-  if (is_valid(prev, sens, spec, fart, tol = .01))
-  {
+  if (is_valid(prev, sens, spec, fart, tol = .01)){
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     cur.spec.fart <- comp_complement(spec, fart)
@@ -357,7 +357,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
     ## (3) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
-      message(paste0("Computed a suitable minimal population size value N = ", N))
+      warning(paste0("Unknown population size N. A minimum N = ", N, " was computed."))
       }
 
     ## (4) Initialize num with current arguments:

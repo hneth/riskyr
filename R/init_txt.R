@@ -48,8 +48,6 @@ txt.def <- list(
 #' \code{init_txt} allows changing elements by assigning new character
 #' objects to existing names.
 #'
-#' @aliases init_text
-#'
 #' @param scen.lbl The current scenario title (sometimes in Title Caps).
 #' @param scen.txt A longer text description of the current scenario
 #' (which may extend over several lines).
@@ -154,8 +152,6 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' All textual elements that specify titles and details of the current scenario
 #' are stored as named elements (of type character) in a list \code{txt}.
 #' To change an element, assign a new character object to an existing name.
-#'
-#' @aliases text
 #'
 #' @param scen.lbl The current scenario title (sometimes in Title Caps).
 #' @param scen.txt A longer text description of the current scenario

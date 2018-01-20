@@ -122,8 +122,6 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' \code{init_pal} allows changing colors by assigning
 #' new colors to existing names.
 #'
-#' @aliases init_col
-#'
 #' @param col.N Color representing the \emph{population} (of N cases or individuals).
 #'
 #' @param col.true Color representing cases for which the current condition is \code{TRUE}.
@@ -219,8 +217,6 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' All color information corresponding to the current scenario
 #' is stored as named colors in a vector \code{pal}.
 #' To change a color, assign a new color to an existing element name.
-#'
-#' @aliases col
 #'
 #' @param N Color representing the \emph{population} (of N cases or individuals).
 #'

@@ -7,7 +7,7 @@
 ## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## Compute all current frequencies:
+## Compute current frequencies:
 
 #' Compute frequencies from basic probabilities.
 #'
@@ -106,7 +106,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     ## (3) Compute missing population size value N (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
-      warning(paste0("Population size N is missing.\n A minimum value of N = ", N, " was computed."))
+      warning(paste0("Unknown population size N. A minimum N = ", N, " was computed."))
     }
 
     ## (4) Set or compute all values of freq:

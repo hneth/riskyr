@@ -445,10 +445,10 @@ system.time({
 system.time({
 
   plot(design.matrix$Var1, design.matrix$Var2,
-       pch = 21,
-       cex = 10,
+       pch = 22,
+       cex = 6,
        col = grey(.33, .66), # sample(design.matrix$icon_colors),
-       bg = sample(design.matrix$icon_colors),
+       bg = design.matrix$icon_colors, # sample(design.matrix$icon_colors),
        lwd = 5,
        xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
        xlab = "",
