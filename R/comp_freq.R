@@ -29,7 +29,8 @@
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param N The number of individuals in the population.
+#' @param N The number of individuals in the population:
+#' the value of \code{\link{N}} is computed, if not provided.
 #'
 #' @param round A Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
@@ -60,14 +61,14 @@
 #' comp_freq(1,  8, 1, NA, 100)  # => NAs + warning: sens no probability
 #' comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerated range
 #'
-#' @family functions turning probabilities into frequencies
+#' @family functions computing frequencies from probabilities
 #'
 #' @seealso \code{\link{freq}} contains current frequency information;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{is_valid}} verifies the validity of probability inputs;
 #' \code{\link{comp_complement}} computes complementary probability (if missing);
-#' \code{\link{comp_min_N}} computes a suitable population size N (if missing)
+#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
 comp_freq <- function(prev = num$prev, sens = num$sens,
                       spec = num$spec, fart = num$fart,

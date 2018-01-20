@@ -82,7 +82,7 @@ sens <- .85 # default sensitivity
 #' \code{\link{comp_spec}} allows computing \code{spec}
 #' as the complement of \code{\link{fart}}.
 
-spec <- .75
+spec <- .75 # default specificity
 
 ## -----------------------------------------------
 ## (d) fart:
@@ -112,22 +112,25 @@ spec <- .75
 #' \code{\link{comp_fart}} allows computing \code{fart}
 #' as the complement of \code{\link{spec}}.
 
-fart <- NA
+fart <- NA # default false alarm rate
 
 ## -----------------------------------------------
 ## (e) N:
 
-#' The number of individuals in a population.
+#' The number of individuals in the population.
 #'
 #' \code{N} defines how many individuals make up
-#' some specific population.
+#' some specific (current) population.
 #'
-#' A frequency value (typically as an integer).
+#' A frequency (integer) value.
 #'
-#' Relationships for natural frequencies:
-#' N = n(condition true) + n(condition false)
-#' N = n(hi) + n(mi) + n(fa) + n(cr)
-#' N = n(decision positive) + n(decision negative)
+#' The following relationships hold for natural
+#' frequencies in a population:
+#' \itemize{
+#'   \item N = n(condition true) + n(condition false)
+#'   \item n(positive decisions) + n(negative decisions)
+#'   \item N = n(hi) + n(mi) + n(fa) + n(cr)
+#' }
 #'
 #' @examples
 #' N <- 1000   # => sets a population size of 1000
@@ -143,7 +146,7 @@ fart <- NA
 #' \code{\link{comp_min_N}} allows computing a suitable
 #' minimum value of \code{N} for given probabilities.
 
-N <- 1000
+N <- 1000 # default population
 
 ## -----------------------------------------------
 ## (2) Basic functions on probabilities:
@@ -366,8 +369,12 @@ comp_complement <- function(spec, fart){
 #' comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 #' comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 #'
-#' @family functions turning probabilities into frequencies
-#' @seealso \code{\link{comp_freq}} computes frequencies from probabilities
+#' @family functions computing frequencies from probabilities
+#'
+#' @seealso
+#' population size \code{\link{N}};
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes frequencies from probabilities
 
 comp_min_N <- function(prev, sens, spec,
                        min.freq = 1) {
@@ -472,7 +479,7 @@ num.def <- list("prev" = prev,  # prevalence in target population = p(condition 
 #'
 #' @family functions to initialize scenario settings
 #' @seealso \code{\link{num}} to store basic parameter values;
-#' \code{\link{comp_min_N}} to get a minimum value of population size N
+#' \code{\link{comp_min_N}} to compute a suitable minimum population size \code{\link{N}}
 
 init_num <- function(prev = num.def$prev, sens = num.def$sens,
                      spec = num.def$spec, fart = num.def$fart,

@@ -37,6 +37,12 @@
 #' or \code{fart} (\code{spec = 1 - fart})
 #' -- and a population of \code{N} individuals.
 #'
+#' The option \code{area} (as 2 characters) allows specifying
+#' four different box sizes: "no" shows all boxes in the same size (default);
+#' "sq" shows boxes as squares with area sizes proportional to frequencies;
+#' "hr" shows boxes as horizontal rectangles of area sizes proportional to frequencies;
+#' "vr" shows boxes as vertical rectangles of area sizes proportional to frequencies.
+#'
 #' If a prevalence value \code{prev} is provided, a new list of
 #' \code{\link{freq}} is computed by \code{\link{comp_freq}}.
 #' If no prevalence value \code{prev} is provided, the values currently
@@ -44,7 +50,11 @@
 #' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 #' to avoid decimal values in \code{\link{freq}}.
 #'
-#' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
+#' \code{plot_tree} requires and uses the R package "diagram"
+#' (\code{library("diagram")}).
+#'
+#' @param prev The condition's prevalence value (i.e.,
+#' the probability of condition being TRUE).
 #' @param sens A decision's sensitivity value (i.e., the conditional probability
 #' of a positive decision provided that the condition is TRUE).
 #' @param spec A specificity value (i.e., the conditional probability
@@ -54,13 +64,14 @@
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param N A population size value \code{N} (computed, if missing).
+#' @param N The number of individuals in the population:
+#' the value of \code{\link{N}} is computed, if not provided.
 #'
-#' @param area  A character option with four options:
-#' - "no" ... all boxes share same size (default);
-#' - "sq" ... boxes as squares of area proportional to frequencies;
-#' - "hr" ... boxes as horizontal rectangles of area proportional to frequencies;
-#' - "vr" ... boxes as vertical rectangles of area proportional to frequencies.
+#' @param area  A character option for four different box sizes:
+#' - "no" ... all boxes are shown with the same size (default);
+#' - "sq" ... boxes as squares of area sizes proportional to frequencies;
+#' - "hr" ... boxes as horizontal rectangles of area sizes proportional to frequencies;
+#' - "vr" ... boxes as vertical rectangles of area sizes proportional to frequencies.
 #'
 #' @param round A Boolean option that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
@@ -102,7 +113,7 @@
 #' @seealso \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities;
 #' \code{\link{comp_complement}} computes complementary probability (if missing);
-#' \code{\link{comp_min_N}} computes a suitable population size N (if missing)
+#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
 plot_tree <- function(prev = num$prev,  # probabilities
                       sens = num$sens,
@@ -457,7 +468,7 @@ plot_tree <- function(prev = num$prev,  # probabilities
 ## (+) ToDo:
 
 ## - 0. Add complementary tree(s) that split(s)
-##      level 1 by Decision (rather than Condition)!
+##      level 1 by Decision (rather than by condition)!
 ##
 ## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
 ## - 2. Make version with options for
