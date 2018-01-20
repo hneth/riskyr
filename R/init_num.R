@@ -3,6 +3,147 @@
 ## -----------------------------------------------
 ## Initialize a list of basic input parameters (num)
 ## that contains all numeric user inputs:
+## -----------------------------------------------
+
+## (1) Basic parameters:
+## -----------------------------------------------
+## (a) prev:
+
+#' The prevalence (baseline probability) of some condition.
+#'
+#' \code{prev} defines some condition's prevalence value:
+#' The baseline probability of the condition being TRUE.
+#'
+#' A simple probability: p(condition = TRUE).
+#'
+#' @examples
+#' prev <- .10    # => sets a prevalence of 10%
+#' is_prob(prev)  # => TRUE
+#'
+#' @family basic parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{is_prob}} verifies probability inputs
+
+prev <- .10 # default prevalence
+
+## -----------------------------------------------
+## (b) sens:
+
+#' The sensitivity of a decision process or diagnostic procedure.
+#'
+#' \code{sens} defines some decision's sensitivity value:
+#' The conditional probability of the decision being positive
+#' if the condition is TRUE.
+#'
+#' A conditional probability for a correct positive decision:
+#' p(decision positive | condition = TRUE).
+#'
+#' @examples
+#' sens <- .85    # => sets a sensitivity of 85%
+#' is_prob(sens)  # => TRUE
+#'
+#' @family basic parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{is_prob}} verifies probability inputs
+
+sens <- .85 # default sensitivity
+
+## -----------------------------------------------
+## (c) spec:
+
+#' The specificity of a decision process or diagnostic procedure.
+#'
+#' \code{spec} defines some decision's specificity value:
+#' The conditional probability of the decision being negative
+#' if the condition is FALSE.
+#'
+#' A conditional probability for a correct negative decision:
+#' p(decision negative | condition = FALSE).
+#'
+#' The specificity \code{spec} is the complement of
+#' the false alarm rate \code{fart}: \code{spec = 1 - fart}.
+#'
+#' @examples
+#' spec <- .75    # => sets a specificity of 75%
+#' is_prob(spec)  # => TRUE
+#'
+#' @family basic parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{is_prob}} verifies probability inputs;
+#' \code{\link{comp_spec}} allows computing \code{spec}
+#' as the complement of \code{\link{fart}}.
+
+spec <- .75
+
+## -----------------------------------------------
+## (d) fart:
+
+#' The false alarm rate of a decision process or diagnostic procedure.
+#'
+#' \code{fart} defines some decision's false alarm rate
+#' (or rate of false positives): The conditional probability
+#' of the decision being positive if the condition is FALSE.
+#'
+#' A conditional probability for an incorrect positive decision:
+#' p(decision positive | condition = FALSE).
+#'
+#' The false alarm rate \code{fart} is the complement of
+#' the specificity \code{spec}: \code{fart = 1 - spec}.
+#'
+#' @examples
+#' fart <- .25    # => sets a false alarm rate of 25%
+#' is_prob(fart)  # => TRUE
+#'
+#' @family basic parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{is_prob}} verifies probability inputs;
+#' \code{\link{comp_fart}} allows computing \code{fart}
+#' as the complement of \code{\link{spec}}.
+
+fart <- NA
+
+## -----------------------------------------------
+## (e) N:
+
+#' The number of individuals in a population.
+#'
+#' \code{N} defines how many individuals make up
+#' some specific population.
+#'
+#' A frequency value (typically as an integer).
+#'
+#' Relationships for natural frequencies:
+#' N = n(condition true) + n(condition false)
+#' N = n(hi) + n(mi) + n(fa) + n(cr)
+#' N = n(decision positive) + n(decision negative)
+#'
+#' @examples
+#' N <- 1000   # => sets a population size of 1000
+#' is_prob(N)  # => FALSE
+#'
+#' @family basic parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{freq}} contains basic frequency variables;
+#' \code{\link{comp_freq}} computes basic frequency variables;
+#' \code{\link{comp_min_N}} allows computing a suitable
+#' minimum value of \code{N} for given probabilities.
+
+N <- 1000
 
 ## -----------------------------------------------
 ## (2) Basic functions on probabilities:
@@ -279,9 +420,9 @@ comp_min_N <- function(prev, sens, spec,
 ## consists of 3 probabilities (+ 1 complement):
 
 ## Define defaults for num:     # Description:                                     # Type of input:
-num.def <- list("prev" =  .15,  # prevalence in target population = p(condition TRUE)     [basic p]
-                "sens" =  .85,  # sensitivity = p(decision POS | condition TRUE)    [conditional p]
-                "spec" =  .75,  # specificity = p(decision NEG | condition FALSE)   [conditional p]
+num.def <- list("prev" = prev,  # prevalence in target population = p(condition TRUE)     [basic p]
+                "sens" = sens,  # sensitivity = p(decision POS | condition TRUE)    [conditional p]
+                "spec" = spec,  # specificity = p(decision NEG | condition FALSE)   [conditional p]
                 "fart" =   NA,  # false alarm rate = 1 - spec        [optional, complement of spec]
                 "N"    =  1000  # population size (N of individuals in population)  [optional freq]
                 )

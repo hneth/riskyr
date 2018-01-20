@@ -37,7 +37,7 @@ txt.def <- list(
 ## (B) Initialization function for all text
 ##     elements (all titles and labels):
 
-#' Initialize basic text elements (titles and labels).
+#' Initialize basic text elements.
 #'
 #' \code{init_txt} initializes basic text elements
 #' (i.e., all titles and labels corresponding to the current scenario

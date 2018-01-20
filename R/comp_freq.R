@@ -29,7 +29,7 @@
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param N A population size value \code{N}.
+#' @param N The number of individuals in the population.
 #'
 #' @param round A Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
