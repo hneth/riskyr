@@ -118,10 +118,12 @@ comp_spec <- function(fart) {
 #' reach or exceed a minimum value \code{min.freq} given the basic parameters
 #' \code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
 #'
-#' The purpose of this function is to avoid excessively small decimal values
+#' Using this function helps avoiding excessively small decimal values in categories
+#' (esp. true positives, false negatives, false positives, and true negatives)
 #' when expressing combinations of conditions and decisions as natural frequencies.
-#' As values of zero (0) are ok, the function only increases \code{N} (in powers of 10)
-#' while the current value of any cell is positive but below \code{min.freq}.
+#' As values of zero (0) are tolerable, the function only increases \code{N}
+#' (in powers of 10) while the current value of any frequency (cell in confusion table or
+#' leaf of tree) is positive but below \code{min.freq}.
 #'
 #' Note that \code{\link{comp_freq}} still needs to round to avoid decimal values
 #' in frequencies \code{\link{freq}}.
@@ -140,14 +142,17 @@ comp_spec <- function(fart) {
 #' @examples
 #' comp_min_N(0, 0, 0) # => 1
 #' comp_min_N(1, 1, 1) # => 1
+#'
 #' comp_min_N(1, 1, 1, min.freq = 10) # =>  10
 #' comp_min_N(1, 1, 1, min.freq = 99) # => 100
+#'
 #' comp_min_N(.1, .1, .1)             # => 100       = 10^2
 #' comp_min_N(.001, .1, .1)           # =>    10 000 = 10^4
 #' comp_min_N(.001, .001, .1)         # => 1 000 000 = 10^6
 #' comp_min_N(.001, .001, .001)       # => 1 000 000 = 10^6
 #'
-#' @seealso \code{\link{comp_freq}} to compute frequencies based on current probabilities
+#' @family functions turning probabilities into frequencies
+#' @seealso \code{\link{comp_freq}} computes frequencies from probabilities
 
 comp_min_N <- function(prev, sens, spec, min.freq = 1) {
 
@@ -206,12 +211,12 @@ num.def <- list("prev" = .15,   # prevalence in target population = p(condition 
                 "N"    =  1000  # population size (N of individuals in population)  [optional freq]
                 )
 
-#' Initialize basic numeric elements.
+#' Initialize basic numeric variables.
 #'
-#' \code{init_num} initializes basic numeric parameters to define \code{num}
-#' as a list of named elements containing 4 basic probabilities
+#' \code{init_num} initializes basic numeric variables to define \code{num}
+#' as a list of named elements containing four basic probabilities
 #' (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-#' and 1 frequency (the population size \code{N}).
+#' and one frequency parameter (the population size \code{N}).
 #'
 #' If \code{spec} is provided, its complement \code{fart} is optional.
 #' If \code{fart} is provided, its complement \code{spec} is optional.
@@ -227,21 +232,29 @@ num.def <- list("prev" = .15,   # prevalence in target population = p(condition 
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @return A list containing 4 probabilities
+#' @return A list containing a valid quadruple of probabilities
 #' (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-#' and 1 frequency (\code{N}).
+#' and one frequency (population size \code{N}).
 #'
 #' @examples
-#' init_num(prev = NA)                                   # => returns NAs + warnings
-#' init_num(prev = .1, sens = NA)                        # => returns NAs + warnings
-#' init_num(prev = .1, sens = .5, spec = NA, fart = NA)  # => returns NAs + warnings
-#' init_num(11, 22, 1/3, NA, 999)                        # => returns NAs and warnings
-#' init_num(prev = .5, sens = .5, spec = 1/3, fart = NA) # => succeeds (with message that N was computed)
-#' init_num(prev = .5, sens = .5, spec = NA, fart = 2/3) # => succeeds (with message that N was computed)
-#' init_num(.5, .5, 1/3, NA, 999)                        # => succeeds
-#' init_num(.5, .5, NA, 2/3, 999)                        # => succeeds
-
+#' init_num(1, 1, 1, 0, 100)  # => succeeds
+#' init_num(1, 1, 0, 1, 100)  # => succeeds
 #'
+#' init_num(1, 1, 0, 1)           # => succeeds (with N computed)
+#' init_num(1, 1, NA, 1, 100)     # => succeeds (with spec computed)
+#' init_num(1, 1, 0, NA, 100)     # => succeeds (with fart computed)
+#' init_num(1, 1, NA, 1)          # => succeeds (with spec and N computed)
+#' init_num(1, 1, 0, NA)          # => succeeds (with fart and N computed)
+#' init_num(1, 1, .51, .50, 100)  # => succeeds (as spec and fart are within tolarated range)
+#'
+#' init_num(prev = NA)                   # => NAs + warning that prev is not numeric
+#' init_num(prev = 88)                   # => NAs + warning that prev is no probability
+#' init_num(prev =  1, sens = NA)        # => NAs + warning that sens is not numeric
+#' init_num(1, 1, spec = NA, fart = NA)  # => NAs + warning that spec or fart is necessary
+#' init_num(1, 1, 1, 1)                  # => NAs + warning that spec and fart are not complements (in tolerated range)
+#' init_num(1, 1, .52, .50, 100)         # => NAs + warning that spec and fart are not complements (in tolerated range)
+#'
+#' @family functions to initialize scenario settings
 #' @seealso \code{\link{num}} to store basic parameter values;
 #' \code{\link{comp_min_N}} to get a minimum value of population size N
 
@@ -258,10 +271,8 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   )
 
 
-  ## (1) Verify that 3 basic parameters are provided:
-  if (is_prob(prev) & is_prob(sens) &                 # a) prev and sens are probabilities
-      is_sufficient(prev, sens, spec, fart)           # b) 3 essential probabilities are provided
-  )
+  ## (1) Verify basic input parameters are valid:
+  if (is_valid(prev, sens, spec, fart, tol = .01))
   {
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
@@ -269,9 +280,9 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
     if (is.na(spec) & !is.na(fart)) { spec <- comp_spec(fart) }
 
     ## (3) Ensure that spec and fart are complements:
-    if (!is_complement(spec, fart)) {
-      warning("Specificity (spec) and false alarm rate (fart) are NOT complements.")
-    }
+    # if (!is_complement(spec, fart)) {
+    #   warning("Specificity (spec) and false alarm rate (fart) are NOT complements.")
+    # }
 
     ## (4) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
@@ -295,21 +306,29 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
 ## Check:
 {
-  # init_num(prev = NA)                                   # => returns NAs + warnings
-  # init_num(prev = .1, sens = NA)                        # => returns NAs + warnings
-  # init_num(prev = .1, sens = .5, spec = NA, fart = NA)  # => returns NAs + warnings
-  # init_num(11, 22, 1/3, NA, 999)                        # => returns NAs and warnings
-  # init_num(prev = .5, sens = .5, spec = 1/3, fart = NA) # => succeeds (with message that N was computed)
-  # init_num(prev = .5, sens = .5, spec = NA, fart = 2/3) # => succeeds (with message that N was computed)
-  # init_num(.5, .5, 1/3, NA, 999)                        # => succeeds
-  # init_num(.5, .5, NA, 2/3, 999)                        # => succeeds
+  # init_num(1, 1, 1, 0, 100)  # => succeeds
+  # init_num(1, 1, 0, 1, 100)  # => succeeds
+  #
+  # init_num(1, 1, 0, 1)           # => succeeds (with N computed)
+  # init_num(1, 1, NA, 1, 100)     # => succeeds (with spec computed)
+  # init_num(1, 1, 0, NA, 100)     # => succeeds (with fart computed)
+  # init_num(1, 1, NA, 1)          # => succeeds (with spec and N computed)
+  # init_num(1, 1, 0, NA)          # => succeeds (with fart and N computed)
+  # init_num(1, 1, .51, .50, 100)  # => succeeds (as spec and fart are within tolarated range)
+  #
+  # init_num(prev = NA)                                  # => NAs + warning that prev is not numeric
+  # init_num(prev = 88)                                  # => NAs + warning that prev is no probability
+  # init_num(prev =  1, sens = NA)                       # => NAs + warning that sens is not numeric
+  # init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning that spec or fart is necessary
+  # init_num(1, 1, 1, 1)                                 # => NAs + warning that spec and fart are not complements (in tolerated range)
+  # init_num(1, 1, .52, .50, 100)                        # => NAs + warning that spec and fart are not complements (in tolerated range)
 }
 
-#' List current values of basic numeric elements.
+#' List current values of basic numeric variables.
 #'
-#' \code{num} is initialized to a list of named elements containing
-#' 4 basic probabilities (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-#' and 1 frequency (the population size \code{N}).
+#' \code{num} is initialized to a list of named numeric variables containing
+#' four basic probabilities (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
+#' and one frequency parameter (the population size \code{N}).
 #'
 #' @family lists containing basic scenario settings
 #' @seealso \code{\link{init_num}} to initialize basic parameter values

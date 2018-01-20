@@ -1,5 +1,5 @@
 ## comp_util.R | riskyR
-## 2018 01 19
+## 2018 01 20
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -36,13 +36,14 @@ is_prob <- function(prob) {
 
   val <- FALSE # initialize
 
+  ## many ways to fail:
   if (all(!is.numeric(prob))) {
     warning(paste0(prob, " is not numeric."))
   }
   else if (all((prob < 0) | (prob > 1))) {
     warning(paste0(prob, " is no probability (range from 0 to 1)."))
   }
-  else {
+  else { ## one way to succeed:
     val <- TRUE
   }
 
@@ -108,7 +109,7 @@ is_perc <- function(perc) {
 #' Verify that a sufficient number of probabilities are provided.
 #'
 #' \code{is_sufficient} is a function that
-#' takes 3 or 4 arguments (probabilities) as inputs and
+#' takes 3 or 4 arguments (typically probabilities) as inputs and
 #' verifies that they are sufficient to compute the
 #' frequencies and conditional probabilities
 #' for a population of N individuals.
@@ -121,7 +122,7 @@ is_perc <- function(perc) {
 #'
 #' Note that this function does not verify the type, range or
 #' consistency of its arguments. See \code{\link{is_prob}} and
-#' \code{\link{is_consistent}} for this purpose.
+#' \code{\link{is_complement}} for this purpose.
 #'
 #' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
 #' @param sens A decision's sensitivity value (i.e., the conditional probability
@@ -153,13 +154,14 @@ is_sufficient <- function(prev, sens, spec = NA, fart = NA) {
 
   val <- FALSE # initialize
 
+  ## Many ways to fail:
   if (is.na(prev)) {
     warning("A prevalence value (prev) is missing but necessary.")}
   else if (is.na(sens)) {
     warning("A sensitivity value (sens) is missing but necessary.")}
   else if (is.na(spec) & is.na(fart)) {
     warning("Either a specificity value (spec) OR a false alarm rate (fart) is necessary.")
-  } else {
+  } else {  ## one way to succeed:
     val <- TRUE
   }
 
@@ -253,6 +255,103 @@ is_complement <- function(spec, fart, tol = .01) {
   # is_complement(.33, .66)  # => TRUE
   # is_complement(.3, .6)    # => FALSE + Warning that difference exceeds tolerance.
   # is_complement(.3, .6, tol = .10) # => TRUE (due to increased tolerance)
+}
+
+## -----------------------------------------------
+# Verify that 3 or 4 probabilities are valid inputs:
+
+#' Verify that basic probabilities are valid inputs.
+#'
+#' \code{is_valid} is a function that takes
+#' 3 or 4 numeric arguments as inputs and
+#' verifies that they can be interpreted as a
+#' valid quadruple of probabilities.
+#'
+#' \code{is_valid} is a wrapper function that combines
+#' \code{\link{is_prob}}, \code{\link{is_sufficient}},
+#' and \code{\link{is_complement}} in one function.
+#'
+#' Note that \code{is_valid} only verifies the validity of inputs,
+#' but does not compute or return numeric variables.
+#' Use \code{\link{init_num}} for initializing basic parameters.
+#'
+#' Both \code{prev} and \code{sens} and
+#' either \code{spec} or \code{fart} are necessary arguments.
+#' The argument \code{tol} is optional (with a default value of .01)
+#' and used as the tolerance value of \code{\link{is_complement}}.
+#'
+#' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
+#' @param sens A decision's sensitivity value (i.e., the conditional probability
+#' of a positive decision provided that the condition is TRUE).
+#' @param spec A specificity value (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
+#' \code{spec} is optional when is complement \code{fart} is provided.
+#' @param fart A false alarm rate (i.e., the conditional probability
+#' of a positive decision provided that the condition is FALSE).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @param tol A numeric tolerance value used by \code{\link{is_complement}}.
+#'
+#' @return A Boolean value: \code{TRUE} if the parameters provided are valid,
+#' otherwise \code{FALSE}.
+#'
+#' @examples
+#' is_valid(1, 1, 1, 0)   # => TRUE
+#' is_valid(1, 1, 0, 1)   # => TRUE
+#' is_valid(1, 1, 1, NA)  # => TRUE
+#' is_valid(1, 1, NA, 1)  # => TRUE
+#'
+#' is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
+#' is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
+#' is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
+#' is_valid(1, 8, 1, 0)   # => FALSE + warning that is_prob(sens) fails
+#' is_valid(1, 1, 8, NA)  # => FALSE + warning that is_prob(spec) fails
+#' is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
+#'
+#' @family verification functions
+#' @seealso \code{\link{init_num}} for initializing basic parameters
+
+is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
+
+  val <- NA  # initialize
+
+  ## many ways to fail:
+  if (!is_prob(prev))      { val <- FALSE }                          # 1. prev is a probability
+  else if (!is_prob(sens)) { val <- FALSE }                          # 2. sens is a probability
+  else if (!is_sufficient(prev, sens, spec, fart)) { val <- FALSE }  # 3. sufficient (3 of 4 parameters)
+
+  else if (is.na(fart)) {                                            # 4a. if only spec is provided:
+    if (!is_prob(spec)) { val <- FALSE } else { val <- TRUE }        #     spec is a probability
+  }
+  else if (is.na(spec)) {                                            # 4b. if only fart is provided:
+    if (!is_prob(fart)) { val <- FALSE } else { val <- TRUE }        #     fart is a probability
+  }
+  else if (!is.na(spec) & !is.na(fart)) {                            # 4c. if both spec + fart are provided:
+    if (!is_complement(spec, fart, tol)) {                           #     spec and fart are complements (within tol)
+      val <- FALSE
+    } else {
+      val <- TRUE
+    }
+  }
+  else { ## only one way to succeed:
+    val <- TRUE
+  }
+
+  return(val)
+}
+
+## Check:
+{
+# is_valid(1, 1, 1, 0)   # => TRUE
+# is_valid(1, 1, 0, 1)   # => TRUE
+# is_valid(1, 1, 1, NA)  # => TRUE
+# is_valid(1, 1, NA, 1)  # => TRUE
+#
+# is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
+# is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
+# is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
+# is_valid(1, 8, 1, 0)   # => FALSE + warning that is_prob(sens) fails
+# is_valid(1, 1, 8, NA)  # => FALSE + warning that is_prob(spec) fails
+# is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
 }
 
 ## -----------------------------------------------
