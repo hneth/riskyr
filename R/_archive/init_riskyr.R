@@ -1,5 +1,5 @@
 ## init_riskyr.R | riskyr
-## 2018 01 19
+## 2018 01 20
 ## -----------------------------------------------
 ## (1) Initialize the package:
 
@@ -10,17 +10,21 @@
 ## -----------------------------------------------
 ## (2) Run some code:
 
-init_riskyr <- function() {
+init_riskyr <- function(...) {
 
   # source("./R/comp_util.R")  # utility functions
 
-  source("./R/init_txt.R")   # initialize txt
-  source("./R/init_pal.R")   # initialize pal
-  source("./R/init_num.R")   # initialize num
+  ## A: Initialize basic variables:
+  source("./R/init_txt.R")   # 1. initialize txt
+  source("./R/init_pal.R")   # 2. initialize pal
+  source("./R/init_num.R")   # 3. initialize num
 
-  source("./R/comp_freq.R")  # derive freq (list)
-  source("./R/comp_prob.R")  # derive prob (list)
-  source("./R/comp_popu.R")  # derive popu (data frame)
+  ## B: Compute derived data structures and variables:
+  source("./R/comp_freq.R")  # 1. derive freq (list)
+  source("./R/comp_prob.R")  # 2. derive prob (list)
+  source("./R/comp_popu.R")  # 3. derive popu (data frame)
+
+  ## Return riskyr object (as a list of lists?)
 
 }
 
