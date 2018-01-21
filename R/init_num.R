@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 20
+## 2018 01 21
 ## -----------------------------------------------
 ## Initialize a list of basic input parameters (num)
 ## that contains all numeric user inputs:
@@ -12,13 +12,39 @@
 #' The prevalence (baseline probability) of some condition.
 #'
 #' \code{prev} defines some condition's prevalence value:
-#' The baseline probability of the condition being TRUE.
+#' The baseline probability of the condition being \code{TRUE}.
 #'
-#' A simple probability: p(condition = TRUE).
+#' Understanding or obtaining the prevalence value \code{prev}:
+#'
+#' \itemize{
+#'
+#'   \item \code{prev} is the simple probability:
+#'
+#'   \code{prev = p(condition = TRUE)}
+#'
+#'   \item In natural frequencies,
+#'   \code{prev} is the ratio of individuals for which
+#'   \code{condition = TRUE} divided by the
+#'   number \code{\link{N}} of all individuals
+#'   in the population:
+#'
+#'   \code{prev = n(condition = TRUE)/\code{\link{N}}}
+#'
+#'   \item \code{prev} is a feature of the population
+#'   and condition, but independent of the decision process
+#'   or diagnostic procedure.
+#'
+#'   \item The value of \code{prev} must be considered for
+#'   computing the conditional probabilities
+#'   \code{\link{sens}}, \code{\link{spec}}, \code{\link{fart}},
+#'   \code{\link{ppv}}, and \code{\link{npv}}.
+#'
+#' }
 #'
 #' @examples
-#' prev <- .10    # => sets a prevalence of 10%
-#' is_prob(prev)  # => TRUE
+#' prev <- .10     # => sets a prevalence value of 10%
+#' prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
+#' is_prob(prev)   # => TRUE (as prev is a probability)
 #'
 #' @family basic parameters
 #'
@@ -34,16 +60,46 @@ prev <- .10 # default prevalence
 
 #' The sensitivity of a decision process or diagnostic procedure.
 #'
-#' \code{sens} defines some decision's sensitivity value:
+#' \code{sens} defines some decision's sensitivity value
+#' or the rate of true positive decisions:
 #' The conditional probability of the decision being positive
-#' if the condition is TRUE.
+#' if the condition is \code{TRUE}.
 #'
-#' A conditional probability for a correct positive decision:
-#' p(decision positive | condition = TRUE).
+#' Understanding or obtaining the sensitivity value \code{sens}:
+#'
+#' \itemize{
+#'
+#'   \item \code{sens} is the conditional probability
+#'   for a (correct) positive decision given that
+#'   the condition is \code{TRUE}:
+#'
+#'   \code{sens = p(decision = positive | condition = TRUE)}
+#'
+#'   \code{sens} is the opposite conditional probability
+#'   (but not the complement)
+#'   of the positive predictive value \code{\link{ppv}}.
+#'
+#'   \item In natural frequencies,
+#'   \code{sens} is the ratio of individuals for which
+#'   \code{decision = positive} divided by the number of
+#'   individuals for which \code{condition = TRUE}:
+#'
+#'   \code{sens = n(decision = positive)/n(condition = TRUE)}
+#'
+#'   \item \code{sens} is a feature of a decision process
+#'   or diagnostic procedure and a measure of
+#'   correct decisions (true positives).
+#'
+#'   However, due to being a conditional probability,
+#'   the value of \code{sens} also depends on the
+#'   condition's prevalence value \code{\link{prev}}.
+#'
+#' }
 #'
 #' @examples
-#' sens <- .85    # => sets a sensitivity of 85%
-#' is_prob(sens)  # => TRUE
+#' sens <- .85     # => sets a sensitivity value of 85%
+#' sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
+#' is_prob(sens)   # => TRUE (as sens is a probability)
 #'
 #' @family basic parameters
 #'
@@ -59,19 +115,51 @@ sens <- .85 # default sensitivity
 
 #' The specificity of a decision process or diagnostic procedure.
 #'
-#' \code{spec} defines some decision's specificity value:
+#' \code{spec} defines some decision's specificity value
+#' or the rate of true negative decisions:
 #' The conditional probability of the decision being negative
 #' if the condition is FALSE.
 #'
-#' A conditional probability for a correct negative decision:
-#' p(decision negative | condition = FALSE).
+#' Understanding or obtaining the specificity value \code{spec}:
 #'
-#' The specificity \code{spec} is the complement of
-#' the false alarm rate \code{fart}: \code{spec = 1 - fart}.
+#' \itemize{
+#'
+#'   \item \code{spec} is the conditional probability
+#'   for a (correct) negative decision given that
+#'   the condition is \code{FALSE}:
+#'
+#'   \code{spec = p(decision = negative | condition = FALSE)}
+#'
+#'   \code{spec} is the opposite conditional probability
+#'   (but not the complement)
+#'   of the negative predictive value \code{\link{npv}}.
+#'
+#'   \item \code{spec} is the complement of the
+#'   false alarm rate \code{\link{fart}}:
+#'
+#'   \code{spec = 1 - fart}
+#'
+#'   \item In natural frequencies,
+#'   \code{spec} is the ratio of individuals for which
+#'   \code{decision = negative} divided by the number of
+#'   individuals for which \code{condition = FALSE}:
+#'
+#'   \code{spec = n(decision = negative)/n(condition = FALSE)}
+#'
+#'   \item \code{spec} is a feature of a decision process
+#'   or diagnostic procedure and a measure of
+#'   correct decisions (true negatives).
+#'
+#'   However, due to being a conditional probability,
+#'   the value of \code{spec} also depends on the
+#'   condition's prevalence value \code{\link{prev}}.
+#'
+#' }
 #'
 #' @examples
-#' spec <- .75    # => sets a specificity of 75%
-#' is_prob(spec)  # => TRUE
+#' spec <- .75     # => sets a specificity value of 75%
+#' spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
+#' is_prob(spec)   # => TRUE (as spec is a probability)
 #'
 #' @family basic parameters
 #'
@@ -90,18 +178,45 @@ spec <- .75 # default specificity
 #' The false alarm rate of a decision process or diagnostic procedure.
 #'
 #' \code{fart} defines some decision's false alarm rate
-#' (or rate of false positives): The conditional probability
+#' or the rate of false positive decisions: The conditional probability
 #' of the decision being positive if the condition is FALSE.
 #'
-#' A conditional probability for an incorrect positive decision:
-#' p(decision positive | condition = FALSE).
+#' Understanding or obtaining the false alarm rate \code{fart}:
 #'
-#' The false alarm rate \code{fart} is the complement of
-#' the specificity \code{spec}: \code{fart = 1 - spec}.
+#' \itemize{
+#'
+#'   \item \code{fart} is the conditional probability
+#'   for an (incorrect) positive decision given that
+#'   the condition is \code{FALSE}:
+#'
+#'   \code{fart = p(decision = positive | condition = FALSE)}
+#'
+#'   \item \code{fart} is the complement of the
+#'   specificity \code{\link{spec}}:
+#'
+#'   \code{fart = 1 - spec}
+#'
+#'   \item In natural frequencies,
+#'   \code{fart} is the ratio of individuals for which
+#'   \code{decision = positive} divided by the number of
+#'   individuals for which \code{condition = FALSE}:
+#'
+#'   \code{fart = n(decision = positive)/n(condition = FALSE)}
+#'
+#'   \item \code{fart} is a feature of a decision process
+#'   or diagnostic procedure and a measure of
+#'   incorrect decisions (false positives).
+#'
+#'   However, due to being a conditional probability,
+#'   the value of \code{fart} also depends on the
+#'   condition's prevalence value \code{\link{prev}}.
+#'
+#' }
 #'
 #' @examples
-#' fart <- .25    # => sets a false alarm rate of 25%
-#' is_prob(fart)  # => TRUE
+#' fart <- .25     # => sets a false alarm rate of 25%
+#' fart <- 25/100  # => (decision = positive) for 25 people out of 100 people for which (condition = FALSE)
+#' is_prob(fart)   # => TRUE (as fart is a probability)
 #'
 #' @family basic parameters
 #'
@@ -126,15 +241,19 @@ fart <- NA # default false alarm rate
 #'
 #' The following relationships hold for natural
 #' frequencies in a population:
+#'
 #' \itemize{
+#'
 #'   \item N = n(condition true) + n(condition false)
+#'
 #'   \item n(positive decisions) + n(negative decisions)
+#'
 #'   \item N = n(hi) + n(mi) + n(fa) + n(cr)
 #' }
 #'
 #' @examples
 #' N <- 1000   # => sets a population size of 1000
-#' is_prob(N)  # => FALSE
+#' is_prob(N)  # => FALSE (as N is no probability)
 #'
 #' @family basic parameters
 #'
