@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyR
-## 2018 01 17
+## 2018 01 21
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)

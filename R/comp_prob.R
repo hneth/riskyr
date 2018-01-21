@@ -70,7 +70,7 @@
 #' PPV <- 55/100  # => (condition = TRUE) for 55 people out of 100 people for which (decision = positive)
 #' is_prob(PPV)   # => TRUE (as PPV is a probability)
 #'
-#' @family derived probabilities
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
@@ -134,7 +134,7 @@ PPV <- NA # default positive predictive value (PPV)
 #'
 #' }
 #'
-#' @family derived probabilities
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
@@ -210,7 +210,7 @@ NPV <- NA # default negative predictive value (NPV)
 #' FDR <- 45/100  # => (condition = FALSE) for 45 people out of 100 people for which (decision = positive)
 #' is_prob(FDR)   # => TRUE (as FDR is a probability)
 #'
-#' @family derived probabilities
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{comp_FDR}} computes \code{FDR} as the complement of \code{\link{PPV}};
@@ -274,7 +274,7 @@ FDR <- NA # default false discorvery rate (FDR)
 #'
 #' }
 #'
-#' @family derived probabilities
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{comp_FOR}} computes \code{FOR} as the complement of \code{\link{NPV}};
@@ -667,7 +667,6 @@ comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
   return(matrix)
 
 }
-
 
 ## -----------------------------------------------
 ## (+) ToDo:

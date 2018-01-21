@@ -59,9 +59,9 @@ txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 
 }
 \seealso{
-\code{\link{num}} for numeric parameters; \code{\link{pal}} for color settings
+\code{\link{num}} for basic numeric parameters;
+\code{\link{pal}} for current color settings
 
-Other lists containing basic scenario settings: \code{\link{num}},
-  \code{\link{pal}}
+Other lists containing basic scenario settings: \code{\link{pal}}
 }
 \keyword{datasets}

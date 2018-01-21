@@ -16,26 +16,31 @@ plot_tree(prev = num$prev, sens = num$sens, spec = num$spec, fart = NA,
   cex.shadow = 0)
 }
 \arguments{
-\item{prev}{The condition's prevalence value (i.e., the probability of condition being TRUE).}
+\item{prev}{The condition's prevalence value \code{\link{prev}}
+(i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{A decision's sensitivity value (i.e., the conditional probability
-of a positive decision provided that the condition is TRUE).}
+\item{sens}{The decision's sensitivity value \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{TRUE}).}
 
-\item{spec}{A specificity value (i.e., the conditional probability
-of a negative decision provided that the condition is FALSE).
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
+of a negative decision provided that the condition is \code{FALSE}).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
-of a positive decision provided that the condition is FALSE).
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
+of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{N}{A population size value \code{N} (computed, if missing).}
+\item{N}{The number of individuals in the population:
+a suitable value of \code{\link{N}} is computed, if not provided.}
 
-\item{area}{A character option with four options:
-- "no" ... all boxes share same size (default);
-- "sq" ... boxes as squares of area proportional to frequencies;
-- "hr" ... boxes as horizontal rectangles of area proportional to frequencies;
-- "vr" ... boxes as vertical rectangles of area proportional to frequencies.}
+\item{area}{A character option for 4 different box sizes:
+- "no" ... all boxes are shown with the same size (default);
+- "sq" ... boxes as squares of area sizes proportional to frequencies;
+- "hr" ... boxes as horizontal rectangles of area sizes proportional to frequencies;
+- "vr" ... boxes as vertical rectangles of area sizes proportional to frequencies.}
 
 \item{round}{A Boolean option that determines whether frequencies are
 rounded to the nearest integer. Default: \code{round = TRUE}.}
@@ -45,7 +50,7 @@ rounded to the nearest integer. Default: \code{round = TRUE}.}
 \item{col.boxes}{Colors of boxes (a single color or vector of 7 colors).}
 }
 \value{
-Nothing.
+Nothing (NULL).
 }
 \description{
 \code{plot_tree} computes and visualizes a tree diagram of
@@ -55,20 +60,30 @@ or \code{fart} (\code{spec = 1 - fart})
 -- and a population of \code{N} individuals.
 }
 \details{
+The option \code{area} (as 2 characters) allows specifying
+four different box sizes: "no" shows all boxes in the same size (default);
+"sq" shows boxes as squares with area sizes proportional to frequencies;
+"hr" shows boxes as horizontal rectangles of area sizes proportional to frequencies;
+"vr" shows boxes as vertical rectangles of area sizes proportional to frequencies.
+
 If a prevalence value \code{prev} is provided, a new list of
 \code{\link{freq}} is computed by \code{\link{comp_freq}}.
 If no prevalence value \code{prev} is provided, the values currently
 contained in \code{freq} are used.
 By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 to avoid decimal values in \code{\link{freq}}.
+
+\code{plot_tree} requires and uses the R package "diagram"
+(\code{library("diagram")}).
 }
 \examples{
-## Using freq:
+# Plotting existing freq:
 plot_tree()
+plot_tree(title.lbl = "")
 plot_tree(N = 33)
 plot_tree(N = NA)
 
-## Computing new frequencies:
+## Computing and plotting new frequencies:
 plot_tree(prev = 1/3)
 plot_tree(prev = 1/3, N = 55)
 plot_tree(prev = 1/3, N = NA)
@@ -91,8 +106,13 @@ plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 
 }
 \seealso{
+\code{\link{num}} for basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric variables;
 \code{\link{freq}} contains current frequency information;
-\code{\link{comp_freq}} computes natural frequencies from probabilities;
-\code{\link{comp_complement}} computes complementary probability (if missing);
-\code{\link{comp_min_N}} computes a suitable population size N (if missing)
+\code{\link{comp_freq}} computes frequencies from probabilities;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{pal}} for current color settings;
+\code{\link{txt}} for current text settings;
+\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 }

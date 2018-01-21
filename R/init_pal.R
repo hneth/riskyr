@@ -148,9 +148,10 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #'
 #' @family functions to initialize scenario settings
 #'
-#' @seealso \code{\link{pal}} for current color information;
-#' \code{\link{txt}} for current text elements;
-#' \code{\link{num}} for current numeric parameters
+#' @seealso
+#' \code{\link{pal}} for current color settings;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{num}} for basic numeric parameters
 
 init_pal <- function(col.N = pal.def["N"],          # population N
                      ## Conditions:

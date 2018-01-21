@@ -1,5 +1,5 @@
 ## init_txt.R | riskyR
-## 2018 01 20
+## 2018 01 21
 ## -----------------------------------------------
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
@@ -8,7 +8,7 @@
 ## (A) Defaults for all titles and labels (txt):
 
 txt.def <- list(
-  scen.lbl = "Scenario Title", # in Title Caps (to print in plot titles)
+  scen.lbl = "Scenario name", # put scenario label in Title Caps (if desired in plot titles)
   scen.txt = "Describe the current scenario in a short paragraph of text here.\nThis description may include several sentences.",
   scen.src = "Describe the source information for this scenario here",
 
@@ -79,9 +79,10 @@ txt.def <- list(
 #'
 #' @family functions to initialize scenario settings
 #'
-#' @seealso \code{\link{txt}} for current text values;
+#' @seealso
+#' \code{\link{txt}} for current text settings;
 #' \code{\link{pal}} for current color settings;
-#' \code{\link{num}} for current numeric parameters
+#' \code{\link{num}} for basic numeric parameters
 
 init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      scen.txt = txt.def$scen.txt,  # text with scenario description
@@ -183,7 +184,10 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 #'
 #' @family lists containing basic scenario settings
-#' @seealso \code{\link{num}} for numeric parameters; \code{\link{pal}} for color settings
+#'
+#' @seealso
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{pal}} for current color settings
 
 ## Apply:
 txt <- init_txt()

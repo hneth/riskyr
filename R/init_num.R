@@ -9,9 +9,9 @@
 ## -----------------------------------------------
 ## (a) prev:
 
-#' The prevalence (baseline probability) of some condition.
+#' The prevalence (baseline probability) of a condition.
 #'
-#' \code{prev} defines some condition's prevalence value:
+#' \code{prev} defines a condition's prevalence value:
 #' The baseline probability of the condition being \code{TRUE}.
 #'
 #' Understanding or obtaining the prevalence value \code{prev}:
@@ -65,7 +65,7 @@ prev <- .10 # default prevalence
 
 #' The sensitivity of a decision process or diagnostic procedure.
 #'
-#' \code{sens} defines some decision's sensitivity value:
+#' \code{sens} defines a decision's sensitivity value:
 #' The conditional probability of the decision being positive
 #' if the condition is \code{TRUE}.
 #'
@@ -123,7 +123,7 @@ sens <- .85 # default sensitivity
 
 #' The specificity of a decision process or diagnostic procedure.
 #'
-#' \code{spec} defines some decision's specificity value:
+#' \code{spec} defines a decision's specificity value:
 #' The conditional probability of the decision being negative
 #' if the condition is FALSE.
 #'
@@ -188,7 +188,7 @@ spec <- .75 # default specificity
 
 #' The false alarm rate of a decision process or diagnostic procedure.
 #'
-#' \code{fart} defines some decision's false alarm rate
+#' \code{fart} defines a decision's false alarm rate
 #' or the rate of false positive decisions: The conditional probability
 #' of the decision being positive if the condition is FALSE.
 #'
@@ -248,7 +248,8 @@ fart <- NA # default false alarm rate
 #' The number of individuals in the population.
 #'
 #' \code{N} defines how many individuals make up
-#' some specific (current) population.
+#' the current population (i.e., the overall
+#' number of cases considered).
 #'
 #' A frequency (integer) value.
 #'
@@ -264,8 +265,16 @@ fart <- NA # default false alarm rate
 #'   \item N = n(hi) + n(mi) + n(fa) + n(cr)
 #' }
 #'
+#' The current frequency information is computed by
+#' \code{\link{comp_freq}} and contained in a list
+#' \code{\link{freq}}.
+#'
+#' If \code{N} is unknown, a suitable minimum value
+#' can be computed by \code{\link{comp_min_N}}.
+#'
 #' @examples
 #' N <- 1000   # => sets a population size of 1000
+#' is_freq(N)  # => TRUE
 #' is_prob(N)  # => FALSE (as N is no probability)
 #'
 #' @family basic parameters
@@ -287,9 +296,9 @@ N <- 1000 # default population
 
 #' Compute a decision's false alarm rate from its specificity.
 #'
-#' \code{comp_fart} is a conversion function that takes a specificity \code{spec}
+#' \code{comp_fart} is a conversion function that takes a specificity \code{\link{spec}}
 #' -- given as a probability (i.e., a numeric value in the range from 0 to 1) --
-#' as its input, and returns the corresponding false alarm rate \code{fart}
+#' as its input, and returns the corresponding false alarm rate \code{\link{fart}}
 #' -- also as a probability -- as its output.
 #'
 #' Specificity and false alarm rate are both features of the decision process
@@ -299,10 +308,11 @@ N <- 1000 # default population
 #' \code{comp_fart} is complementary to the conversion function
 #' \code{\link{comp_spec}}.
 #'
-#' @param spec A specificity given as a probability
-#' (i.e., a numeric value in the range from 0 to 1).
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
 #'
-#' @return A false alarm rate as a probability
+#' @return A false alarm rate \code{\link{fart}} as a probability
 #' (i.e., a numeric value in the range from 0 to 1).
 #'
 #' @examples
@@ -310,12 +320,13 @@ N <- 1000 # default population
 #' comp_fart(1/3)               # => 0.6666667
 #' comp_fart(comp_spec(0.123))  # => 0.123
 #'
-#' @family conversion functions
+#' @family functions computing probabilities
 #'
 #' @seealso
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_complement}} verifies numeric complements;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{comp_prob}} computes derived probabilities
 
 comp_fart <- function(spec) {
 
@@ -346,8 +357,9 @@ comp_fart <- function(spec) {
 #' \code{comp_spec} is complementary to the conversion function
 #' \code{\link{comp_fart}}.
 #'
-#' @param fart A false alarm rate given as a probability
-#' (i.e., a numeric value in the range from 0 to 1).
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is FALSE).
 #'
 #' @return A specificity as a probability
 #' (i.e., a numeric value in the range from 0 to 1).
@@ -357,7 +369,7 @@ comp_fart <- function(spec) {
 #' comp_spec(2/3)               # => 0.3333333
 #' comp_spec(comp_fart(0.123))  # => 0.123
 #'
-#' @family conversion functions
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{is_complement}} verifies numeric complements;
@@ -404,10 +416,12 @@ comp_spec <- function(fart) {
 #' Use \code{\link{is_complement}} to verify that
 #' two provided values actually are complements.
 #'
-#' @param spec A specificity value (i.e., the conditional probability
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
 #' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart A false alarm rate (i.e., the conditional probability
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
@@ -424,7 +438,7 @@ comp_spec <- function(fart) {
 #' comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
 #' comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
 #'
-#' @family conversion functions
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{is_complement}} verifies numeric complements;
@@ -587,13 +601,17 @@ num.def <- list("prev" = prev,  # prevalence in target population = p(condition 
 #' If \code{fart} is provided, its complement \code{spec} is optional.
 #' If no \code{N} is provided, it is computed by \code{\link{comp_min_N}}.
 #'
-#' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
-#' @param sens A decision's sensitivity value (i.e., the conditional probability
-#' of a positive decision provided that the condition is TRUE).
-#' @param spec A specificity value (i.e., the conditional probability
+#' @param prev The condition's prevalence value \code{\link{prev}}
+#' (i.e., the probability of condition being TRUE).
+#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is TRUE).
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
 #' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart A false alarm rate (i.e., the conditional probability
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
@@ -647,7 +665,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
     ## (3) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
-      warning(paste0("Unknown population size N. A minimum N = ", N, " was computed."))
+      warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
       }
 
     ## (4) Initialize num with current arguments:
@@ -684,20 +702,33 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   # init_num(1, 1, .52, .50, 100)                        # => NAs + warning that spec and fart are not complements (in tolerated range)
 }
 
-#' List current values of basic numeric variables.
-#'
-#' \code{num} is initialized to a list of named numeric variables containing
-#' four basic probabilities (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-#' and one frequency parameter (the population size \code{N}).
-#'
-#' @family lists containing basic scenario settings
-#' @seealso \code{\link{init_num}} to initialize basic parameter values
-
 ## -----------------------------------------------
 ## (5) Apply to initialize num:
 
-num <- init_num()
-# num
+#' List current values of basic numeric variables.
+#'
+#' \code{num} is a list of named numeric variables containing
+#' 4 basic probabilities (\code{\link{prev}}, \code{\link{sens}},
+#' \code{\link{spec}}, and \code{\link{fart}})
+#' and 1 frequency parameter (the population size \code{N}).
+#'
+#' @family lists containing scenario settings
+#'
+#' @examples
+#' num <- init_num()  # => initialize num to default parameters
+#' num                # => show defaults
+#' length(num)        # => 5
+#'
+#' @seealso
+#' \code{\link{init_num}} to initialize basic parameter values;
+#' \code{\link{freq}} contains basic frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information
+
+num <- init_num()  # => initialize num to default parameters
+# num              # => show current values
+# length(num)      # => 5
 
 ## -----------------------------------------------
 ## (6) Compute fart (4th parameter) of num (if NA):

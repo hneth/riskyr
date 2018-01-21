@@ -9,14 +9,25 @@
 num
 }
 \description{
-\code{num} is initialized to a list of named numeric variables containing
-four basic probabilities (\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-and one frequency parameter (the population size \code{N}).
+\code{num} is a list of named numeric variables containing
+4 basic probabilities (\code{\link{prev}}, \code{\link{sens}},
+\code{\link{spec}}, and \code{\link{fart}})
+and 1 frequency parameter (the population size \code{N}).
+}
+\examples{
+num <- init_num()  # => initialize num to default parameters
+num                # => show defaults
+length(num)        # => 5
+
 }
 \seealso{
-\code{\link{init_num}} to initialize basic parameter values
+\code{\link{init_num}} to initialize basic parameter values;
+\code{\link{freq}} contains basic frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information
 
-Other lists containing basic scenario settings: \code{\link{pal}},
-  \code{\link{txt}}
+Other lists containing scenario settings: \code{\link{freq}},
+  \code{\link{prob}}
 }
 \keyword{datasets}

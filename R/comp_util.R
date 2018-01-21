@@ -532,11 +532,20 @@ is_perfect <- function(prev, sens) {
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' is_valid(1, 1, 1, 0)   # => TRUE
-#' is_valid(1, 1, 0, 1)   # => TRUE
-#' is_valid(1, 1, 1, NA)  # => TRUE
-#' is_valid(1, 1, NA, 1)  # => TRUE
+#' # ways to succeed:
+#' is_valid(.1, .9, .8, .2)      # => TRUE
+#' is_valid(.1, .9, NA, .2)      # => TRUE
+#' is_valid(.1, .9, .8, NA)      # => TRUE
+#' is_valid(.1, .9, .8, .3, .1)  # => TRUE
 #'
+#' # watch out for:
+#' is_valid(1, 1, 1, NA, 0)  # => TRUE, but NO warning about extreme case!
+#' is_valid(1, 1, 1, 0)      # => TRUE, but NO warning about extreme case!
+#' is_valid(1, 1, 0, 1)      # => TRUE, but NO warning about extreme case!
+#' is_valid(1, 1, 1, NA)     # => TRUE, but NO warning about extreme case!
+#' is_valid(1, 1, NA, 1)     # => TRUE, but NO warning about extreme case!
+#'
+#' # ways to fail:
 #' is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
 #' is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
 #' is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
@@ -592,21 +601,26 @@ is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
 
 ## Check:
 {
-is_valid(1, 1, 1, NA, 0)
-is_valid(1, 1, 1, 0)   # => TRUE, but warning (as npv cannot be computed when prev and sens are both 1).
+  ## ways to succeed:
+  # is_valid(.1, .9, .8, .2)      # => TRUE
+  # is_valid(.1, .9, NA, .2)      # => TRUE
+  # is_valid(.1, .9, .8, NA)      # => TRUE
+  # is_valid(.1, .9, .8, .3, .1)  # => TRUE
 
+  ## watch out for:
+  # is_valid(1, 1, 1, NA, 0)  # => TRUE, but NO warning about extreme case!
+  # is_valid(1, 1, 1, 0)      # => TRUE, but NO warning about extreme case!
+  # is_valid(1, 1, 0, 1)      # => TRUE, but NO warning about extreme case!
+  # is_valid(1, 1, 1, NA)     # => TRUE, but NO warning about extreme case!
+  # is_valid(1, 1, NA, 1)     # => TRUE, but NO warning about extreme case!
 
-
-# is_valid(1, 1, 0, 1)   # => TRUE
-# is_valid(1, 1, 1, NA)  # => TRUE
-# is_valid(1, 1, NA, 1)  # => TRUE
-#
-is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
-# is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
-# is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
-# is_valid(1, 8, 1, 0)   # => FALSE + warning that is_prob(sens) fails
-# is_valid(1, 1, 8, NA)  # => FALSE + warning that is_prob(spec) fails
-# is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
+  ## ways to fail:
+  # is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
+  # is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
+  # is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
+  # is_valid(1, 8, 1, 0)   # => FALSE + warning that is_prob(sens) fails
+  # is_valid(1, 1, 8, NA)  # => FALSE + warning that is_prob(spec) fails
+  # is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
 }
 
 ## -----------------------------------------------

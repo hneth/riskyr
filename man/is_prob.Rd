@@ -17,20 +17,33 @@ A Boolean value: \code{TRUE} if \code{prob} is a probability, otherwise \code{FA
 is a probability (i.e., a numeric value in the range from 0 to 1).
 }
 \examples{
-is_prob("Laplace")  # => FALSE + warning that prob is not numeric
-is_prob(2)          # => FALSE + warning that prob is not in 0 to 1 range
+# ways to succeed:
+is_prob(1/2)            # => TRUE
+p.seq <- seq(0, 1, by = .1)
+is_prob(p.seq)          # => TRUE (for vector)
 
-is_prob(1/2)        # => TRUE, but does NOT return the probability .5
-
-prob.seq <- seq(0, 1, by = 1/10)
-is_prob(prob.seq)   # => TRUE (for vector)
+# ways to fail:
+is_prob(8)              # => FALSE + warning (outside range)
+is_prob(c(.5, 8))       # => FALSE + warning (for vector)
+is_prob(NA)             # => FALSE + warning (NA values)
+is_prob(0/0)            # => FALSE + warning (NA + NaN values)
+is_prob("Laplace")      # => FALSE + warning (non-numeric values)
+is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
 
 }
 \seealso{
-\code{\link{as_pc}} to display a probability as a percentage;
-\code{\link{as_pb}} to display a percentage as probability
+\code{\link{num}} contains basic numeric variables;
+\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{as_pc}} displays a probability as a percentage;
+\code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_perc}}, \code{\link{is_sufficient}},
+  \code{\link{is_freq}}, \code{\link{is_perc}},
+  \code{\link{is_perfect}}, \code{\link{is_sufficient}},
   \code{\link{is_valid}}
 }

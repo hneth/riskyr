@@ -2,7 +2,7 @@
 % Please edit documentation in R/init_txt.R
 \name{init_txt}
 \alias{init_txt}
-\title{Initialize basic text elements (titles and labels).}
+\title{Initialize basic text elements.}
 \usage{
 init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
   scen.src = txt.def$scen.src, popu.lbl = txt.def$popu.lbl,
@@ -65,9 +65,9 @@ txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius
 
 }
 \seealso{
-\code{\link{txt}} for current text values;
+\code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings;
-\code{\link{num}} for current numeric parameters
+\code{\link{num}} for basic numeric parameters
 
 Other functions to initialize scenario settings: \code{\link{init_num}},
   \code{\link{init_pal}}

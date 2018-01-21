@@ -7,11 +7,13 @@
 comp_complement(spec, fart)
 }
 \arguments{
-\item{spec}{A specificity value (i.e., the conditional probability
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
 of a negative decision provided that the condition is FALSE).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
 of a positive decision provided that the condition is FALSE).
 \code{fart} is optional when its complement \code{spec} is provided.}
 }
@@ -45,9 +47,12 @@ comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not ap
 
 }
 \seealso{
-\code{\link{is_complement}} to verify numeric complements;
-\code{\link{is_valid}} to verify valid quadruples of probabilities
+\code{\link{is_complement}} verifies numeric complements;
+\code{\link{is_valid}} verifies valid quadruples of probabilities;
+\code{\link{comp_prob}} computes derived probabilities
 
-Other conversion functions: \code{\link{comp_fart}},
+Other functions computing probabilities: \code{\link{FDR}},
+  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
+  \code{\link{comp_fart}}, \code{\link{comp_prob}},
   \code{\link{comp_spec}}
 }

@@ -8,16 +8,20 @@ init_num(prev = num.def$prev, sens = num.def$sens, spec = num.def$spec,
   fart = num.def$fart, N = num.def$N)
 }
 \arguments{
-\item{prev}{The condition's prevalence value (i.e., the probability of condition being TRUE).}
+\item{prev}{The condition's prevalence value \code{\link{prev}}
+(i.e., the probability of condition being TRUE).}
 
-\item{sens}{A decision's sensitivity value (i.e., the conditional probability
-of a positive decision provided that the condition is TRUE).}
+\item{sens}{The decision's sensitivity value \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is TRUE).}
 
-\item{spec}{A specificity value (i.e., the conditional probability
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
 of a negative decision provided that the condition is FALSE).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
 of a positive decision provided that the condition is FALSE).
 \code{fart} is optional when its complement \code{spec} is provided.}
 }
@@ -58,7 +62,7 @@ init_num(1, 1, .52, .50, 100)         # => NAs + warning that spec and fart are 
 }
 \seealso{
 \code{\link{num}} to store basic parameter values;
-\code{\link{comp_min_N}} to get a minimum value of population size N
+\code{\link{comp_min_N}} to compute a suitable minimum population size \code{\link{N}}
 
 Other functions to initialize scenario settings: \code{\link{init_pal}},
   \code{\link{init_txt}}

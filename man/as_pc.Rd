@@ -43,8 +43,16 @@ round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # all TRUE (both rounded to 4 deci
 
 }
 \seealso{
-\code{\link{is_perc}} to verify a percentage;
-\code{\link{is_prob}} to verify a probability
+\code{\link{is_prob}} verifies a probability;
+\code{\link{is_perc}} verifies a percentage;
+\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{num}} contains basic numeric variables;
+\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{comp_complement}} computes complements
 
 Other utility functions: \code{\link{as_pb}}
 }

@@ -8,20 +8,25 @@ comp_freq(prev = num$prev, sens = num$sens, spec = num$spec,
   fart = num$fart, N = num$N, round = TRUE)
 }
 \arguments{
-\item{prev}{The condition's prevalence value (i.e., the probability of condition being TRUE).}
+\item{prev}{The condition's prevalence value \code{\link{prev}}
+(i.e., the probability of condition being TRUE).}
 
-\item{sens}{A decision's sensitivity value (i.e., the conditional probability
-of a positive decision provided that the condition is TRUE).}
+\item{sens}{The decision's sensitivity value \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is TRUE).}
 
-\item{spec}{A specificity value (i.e., the conditional probability
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
 of a negative decision provided that the condition is FALSE).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
 of a positive decision provided that the condition is FALSE).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{N}{A population size value \code{N}.}
+\item{N}{The number of individuals in the population:
+a suitable value of \code{\link{N}} is computed, if not provided.}
 
 \item{round}{A Boolean value that determines whether frequencies are
 rounded to the nearest integer. Default: \code{round = TRUE}.}
@@ -34,8 +39,13 @@ A list \code{freq} containing 9 frequency values.
 rounded integers) given basic probabilities --
 \code{prev} and \code{sens}, and \code{spec} or \code{fart} (\code{spec = 1 - fart})
 -- for a population of \code{N} individuals.
+It returns a list of 9 frequencies \code{\link{freq}}
+as its output.
 }
 \details{
+\code{comp_freq} is the frequency counterpart to the
+probability function \code{\link{comp_prob}}.
+
 By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 to avoid decimal values in \code{\link{freq}}.
 }
@@ -65,12 +75,14 @@ comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerat
 
 }
 \seealso{
-\code{\link{freq}} contains current frequency information;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
+\code{\link{freq}} contains current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
 \code{\link{is_valid}} verifies the validity of probability inputs;
-\code{\link{comp_complement}} computes complementary probability (if missing);
-\code{\link{comp_min_N}} computes a suitable population size N (if missing)
+\code{\link{comp_complement}} computes a complementary probability (if missing);
+\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
-Other functions turning probabilities into frequencies: \code{\link{comp_min_N}}
+Other functions computing frequencies: \code{\link{comp_min_N}}
 }

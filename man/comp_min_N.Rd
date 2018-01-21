@@ -54,7 +54,9 @@ comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 
 }
 \seealso{
+population size \code{\link{N}};
+\code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes frequencies from probabilities
 
-Other functions turning probabilities into frequencies: \code{\link{comp_freq}}
+Other functions computing frequencies: \code{\link{comp_freq}}
 }

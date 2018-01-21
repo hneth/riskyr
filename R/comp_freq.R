@@ -7,7 +7,7 @@
 ## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## Compute current frequencies:
+## (1) Compute current frequencies:
 
 #' Compute frequencies from basic probabilities.
 #'
@@ -15,6 +15,11 @@
 #' rounded integers) given basic probabilities --
 #' \code{prev} and \code{sens}, and \code{spec} or \code{fart} (\code{spec = 1 - fart})
 #' -- for a population of \code{N} individuals.
+#' It returns a list of 9 frequencies \code{\link{freq}}
+#' as its output.
+#'
+#' \code{comp_freq} is the frequency counterpart to the
+#' probability function \code{\link{comp_prob}}.
 #'
 #' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 #' to avoid decimal values in \code{\link{freq}}.
@@ -34,7 +39,7 @@
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
 #' @param N The number of individuals in the population:
-#' the value of \code{\link{N}} is computed, if not provided.
+#' a suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #' @param round A Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
@@ -74,7 +79,7 @@
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_valid}} verifies the validity of probability inputs;
-#' \code{\link{comp_complement}} computes complementary probability (if missing);
+#' \code{\link{comp_complement}} computes a complementary probability (if missing);
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
 comp_freq <- function(prev = num$prev, sens = num$sens,
@@ -114,7 +119,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     ## (3) Compute missing population size value N (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
-      warning(paste0("Unknown population size N. A minimum N = ", N, " was computed."))
+      warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
     }
 
     ## (4) Set or compute all values of freq:
@@ -190,9 +195,52 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
   # comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerated range
 }
 
-## Apply:
-freq <- comp_freq()
-# freq
+## -----------------------------------------------
+## (2) Apply to initialize freq:
+
+#' List current frequency information.
+#'
+#' \code{freq} is a list of named numeric variables
+#' containing 9 (natural) frequencies:
+#' \enumerate{
+#'  \item the population size \code{\link{N}}
+#'  \item the number of cases for which \code{cond.true}
+#'  \item the number of cases for which \code{cond.false}
+#'  \item the number of cases for which \code{dec.pos}
+#'  \item the number of cases for which \code{dec.neg}
+#'  \item the number true positives, or hits \code{hi}
+#'  \item the number false negatives, or misses \code{mi}
+#'  \item the number false positives, or false alarms \code{fa}
+#'  \item the number true negatives, or correct rejections \code{cr}
+#' }
+#'
+#' These frequencies are computed from basic probabilities
+#' (contained in \code{\link{num}}) and computed by using
+#' \code{\link{comp_freq}}.
+#'
+#' The list \code{freq} is the frequency counterpart
+#' to the list containing probability information \code{\link{prob}}.
+#'
+#' Natural frequencies are always expressed in
+#' relation to the current population of
+#' size \code{\link{N}}.
+#'
+#' @examples
+#' freq <- comp_freq()  # => initialize freq to default parameters
+#' freq                 # => show current values
+#' length(freq)         # => 9
+#'
+#' @family lists containing scenario settings
+#'
+#' @seealso
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{prob}} contains current probability information
+
+freq <- comp_freq()  # => initialize freq to default parameters
+# freq               # => show current values
+# length(freq)       # => 9
 
 ## -----------------------------------------------
 ## (+) ToDo:

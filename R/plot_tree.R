@@ -68,7 +68,7 @@
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
 #' @param N The number of individuals in the population:
-#' the value of \code{\link{N}} is computed, if not provided.
+#' a suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #' @param area  A character option for 4 different box sizes:
 #' - "no" ... all boxes are shown with the same size (default);
@@ -129,8 +129,8 @@
 plot_tree <- function(prev = num$prev,  # probabilities
                       sens = num$sens,
                       spec = num$spec,
-                      fart = NA,        # num$fart,
-                      N = freq$N,       # freq info
+                      fart = NA,        # was: num$fart,
+                      N = freq$N,       # only freq used (so far)
                       ## Options:
                       area = "no",      # "no"...none (default), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles
                       round = TRUE,     # round freq (if computed)

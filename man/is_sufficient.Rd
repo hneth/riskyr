@@ -7,16 +7,20 @@
 is_sufficient(prev, sens, spec = NA, fart = NA)
 }
 \arguments{
-\item{prev}{The condition's prevalence value (i.e., the probability of condition being TRUE).}
+\item{prev}{The condition's prevalence value \code{\link{prev}}
+(i.e., the probability of condition being TRUE).}
 
-\item{sens}{A decision's sensitivity value (i.e., the conditional probability
-of a positive decision provided that the condition is TRUE).}
+\item{sens}{The decision's sensitivity value \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is TRUE).}
 
-\item{spec}{A specificity value (i.e., the conditional probability
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
 of a negative decision provided that the condition is FALSE).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
 of a positive decision provided that the condition is FALSE).
 \code{fart} is optional when its complement \code{spec} is provided.}
 }
@@ -33,10 +37,10 @@ for a population of N individuals.
 }
 \details{
 While no alternative input option for frequencies is provided,
-specification of \code{prev} and \code{sens} are always
+specification of \code{\link{prev}} and \code{\link{sens}} are always
 necessary. One additional probability parameter is necessary:
-If \code{spec} is provided, its complement \code{fart} is optional.
-If \code{fart} is provided, its complement \code{spec} is optional.
+If \code{\link{spec}} is provided, its complement \code{\link{fart}} is optional.
+If \code{\link{fart}} is provided, its complement \code{\link{spec}} is optional.
 
 Note that this function does not verify the type, range or
 consistency of its arguments. See \code{\link{is_prob}} and
@@ -54,9 +58,18 @@ is_sufficient(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob wo
 
 }
 \seealso{
-\code{\link{as_pc}} to display a probability as a percentage
+\code{\link{num}} contains basic numeric variables;
+\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{as_pc}} displays a probability as a percentage;
+\code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_perc}}, \code{\link{is_prob}},
+  \code{\link{is_freq}}, \code{\link{is_perc}},
+  \code{\link{is_perfect}}, \code{\link{is_prob}},
   \code{\link{is_valid}}
 }

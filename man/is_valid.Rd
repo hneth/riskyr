@@ -7,16 +7,20 @@
 is_valid(prev, sens, spec = NA, fart = NA, tol = 0.01)
 }
 \arguments{
-\item{prev}{The condition's prevalence value (i.e., the probability of condition being TRUE).}
+\item{prev}{The condition's prevalence value \code{\link{prev}}
+(i.e., the probability of condition being TRUE).}
 
-\item{sens}{A decision's sensitivity value (i.e., the conditional probability
-of a positive decision provided that the condition is TRUE).}
+\item{sens}{The decision's sensitivity value \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is TRUE).}
 
-\item{spec}{A specificity value (i.e., the conditional probability
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
 of a negative decision provided that the condition is FALSE).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
 of a positive decision provided that the condition is FALSE).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
@@ -47,11 +51,20 @@ The argument \code{tol} is optional (with a default value of .01)
 and used as the tolerance value of \code{\link{is_complement}}.
 }
 \examples{
-is_valid(1, 1, 1, 0)   # => TRUE
-is_valid(1, 1, 0, 1)   # => TRUE
-is_valid(1, 1, 1, NA)  # => TRUE
-is_valid(1, 1, NA, 1)  # => TRUE
+# ways to succeed:
+is_valid(.1, .9, .8, .2)      # => TRUE
+is_valid(.1, .9, NA, .2)      # => TRUE
+is_valid(.1, .9, .8, NA)      # => TRUE
+is_valid(.1, .9, .8, .3, .1)  # => TRUE
 
+# watch out for:
+is_valid(1, 1, 1, NA, 0)  # => TRUE, but NO warning about extreme case!
+is_valid(1, 1, 1, 0)      # => TRUE, but NO warning about extreme case!
+is_valid(1, 1, 0, 1)      # => TRUE, but NO warning about extreme case!
+is_valid(1, 1, 1, NA)     # => TRUE, but NO warning about extreme case!
+is_valid(1, 1, NA, 1)     # => TRUE, but NO warning about extreme case!
+
+# ways to fail:
 is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
 is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
 is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
@@ -61,9 +74,18 @@ is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
 
 }
 \seealso{
-\code{\link{init_num}} for initializing basic parameters
+\code{\link{num}} contains basic numeric variables;
+\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{as_pc}} displays a probability as a percentage;
+\code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_perc}}, \code{\link{is_prob}},
+  \code{\link{is_freq}}, \code{\link{is_perc}},
+  \code{\link{is_perfect}}, \code{\link{is_prob}},
   \code{\link{is_sufficient}}
 }

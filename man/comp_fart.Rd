@@ -7,17 +7,18 @@
 comp_fart(spec)
 }
 \arguments{
-\item{spec}{A specificity given as a probability
-(i.e., a numeric value in the range from 0 to 1).}
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
+of a negative decision provided that the condition is FALSE).}
 }
 \value{
-A false alarm rate as a probability
+A false alarm rate \code{\link{fart}} as a probability
 (i.e., a numeric value in the range from 0 to 1).
 }
 \description{
-\code{comp_fart} is a conversion function that takes a specificity \code{spec}
+\code{comp_fart} is a conversion function that takes a specificity \code{\link{spec}}
 -- given as a probability (i.e., a numeric value in the range from 0 to 1) --
-as its input, and returns the corresponding false alarm rate \code{fart}
+as its input, and returns the corresponding false alarm rate \code{\link{fart}}
 -- also as a probability -- as its output.
 }
 \details{
@@ -32,11 +33,16 @@ The false alarm rate and specificity are complements (i.e., \code{fart = 1 - spe
 comp_fart(2)                 # => NA + Warning that 2 is not in 0 to 1 range
 comp_fart(1/3)               # => 0.6666667
 comp_fart(comp_spec(0.123))  # => 0.123
+
 }
 \seealso{
-\code{\link{is_complement}} to verify numeric complements;
-\code{\link{as_pc}} to display a probability as a percentage
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{is_complement}} verifies numeric complements;
+\code{\link{as_pc}} displays a probability as a percentage;
 
-Other conversion functions: \code{\link{comp_complement}},
+Other functions computing probabilities: \code{\link{FDR}},
+  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
+  \code{\link{comp_complement}}, \code{\link{comp_prob}},
   \code{\link{comp_spec}}
 }

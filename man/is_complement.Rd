@@ -7,11 +7,15 @@
 is_complement(spec, fart, tol = 0.01)
 }
 \arguments{
-\item{spec}{A specificity value (i.e., the conditional probability
-of a negative decision provided that the condition is FALSE).}
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
+of a negative decision provided that the condition is FALSE).
+\code{spec} is optional when is complement \code{fart} is provided.}
 
-\item{fart}{A false alarm rate (i.e., the conditional probability
-of a positive decision provided that the condition is FALSE).}
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
+of a positive decision provided that the condition is FALSE).
+\code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{tol}{A numeric tolerance value.}
 }
@@ -47,9 +51,19 @@ is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 
 }
 \seealso{
-\code{\link{as_pc}} to display a probability as a percentage
+\code{\link{comp_complement}} computes complements;
+\code{\link{num}} contains basic numeric variables;
+\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{as_pc}} displays a probability as a percentage;
+\code{\link{as_pb}} displays a percentage as probability
 
-Other verification functions: \code{\link{is_perc}},
+Other verification functions: \code{\link{is_freq}},
+  \code{\link{is_perc}}, \code{\link{is_perfect}},
   \code{\link{is_prob}}, \code{\link{is_sufficient}},
   \code{\link{is_valid}}
 }

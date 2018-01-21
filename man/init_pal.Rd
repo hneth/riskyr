@@ -52,9 +52,9 @@ pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in 
 
 }
 \seealso{
-\code{\link{pal}} for current color information;
-\code{\link{txt}} for current text elements;
-\code{\link{num}} for current numeric parameters
+\code{\link{pal}} for current color settings;
+\code{\link{txt}} for current text settings;
+\code{\link{num}} for basic numeric parameters
 
 Other functions to initialize scenario settings: \code{\link{init_num}},
   \code{\link{init_txt}}

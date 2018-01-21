@@ -52,7 +52,6 @@ pal["hi"] <- "green3" # defines a new color for hits (true positives)
 \seealso{
 \code{\link{init_pal}} to initialize color information
 
-Other lists containing basic scenario settings: \code{\link{num}},
-  \code{\link{txt}}
+Other lists containing basic scenario settings: \code{\link{txt}}
 }
 \keyword{datasets}
