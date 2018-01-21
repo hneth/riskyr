@@ -18,7 +18,7 @@
 #'
 #' \itemize{
 #'
-#'   \item \code{prev} is the simple probability:
+#'   \item \code{prev} is the (non-conditional) probability:
 #'
 #'   \code{prev = p(condition = TRUE)}
 #'
@@ -28,16 +28,19 @@
 #'   number \code{\link{N}} of all individuals
 #'   in the population:
 #'
-#'   \code{prev = n(condition = TRUE)/\code{\link{N}}}
+#'   \code{prev = n(condition = TRUE) / \link{N}}
 #'
 #'   \item \code{prev} is a feature of the population
 #'   and condition, but independent of the decision process
 #'   or diagnostic procedure.
 #'
-#'   \item The value of \code{prev} must be considered for
+#'   \item The value of \code{prev} does not depend
+#'   on features of the decision process or diagnostic procedure.
+#'   However, \code{prev} must be taken into account when
 #'   computing the conditional probabilities
 #'   \code{\link{sens}}, \code{\link{spec}}, \code{\link{fart}},
-#'   \code{\link{ppv}}, and \code{\link{npv}}.
+#'   \code{\link{ppv}}, and \code{\link{npv}}
+#'   (as derived parameters).
 #'
 #' }
 #'
@@ -51,7 +54,9 @@
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs
+#' \code{\link{is_prob}} verifies probability inputs;
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities
 
 prev <- .10 # default prevalence
 
@@ -60,8 +65,7 @@ prev <- .10 # default prevalence
 
 #' The sensitivity of a decision process or diagnostic procedure.
 #'
-#' \code{sens} defines some decision's sensitivity value
-#' or the rate of true positive decisions:
+#' \code{sens} defines some decision's sensitivity value:
 #' The conditional probability of the decision being positive
 #' if the condition is \code{TRUE}.
 #'
@@ -76,15 +80,17 @@ prev <- .10 # default prevalence
 #'   \code{sens = p(decision = positive | condition = TRUE)}
 #'
 #'   \code{sens} is the opposite conditional probability
-#'   (but not the complement)
-#'   of the positive predictive value \code{\link{ppv}}.
+#'   -- but not the complement --
+#'   of the positive predictive value \code{\link{ppv}}:
+#'
+#'   \code{ppv = p(condition = TRUE | decision = positive)}
 #'
 #'   \item In natural frequencies,
 #'   \code{sens} is the ratio of individuals for which
 #'   \code{decision = positive} divided by the number of
 #'   individuals for which \code{condition = TRUE}:
 #'
-#'   \code{sens = n(decision = positive)/n(condition = TRUE)}
+#'   \code{sens = n(decision = positive) / n(condition = TRUE)}
 #'
 #'   \item \code{sens} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
@@ -106,7 +112,9 @@ prev <- .10 # default prevalence
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs
+#' \code{\link{is_prob}} verifies probability inputs;
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities
 
 sens <- .85 # default sensitivity
 
@@ -115,8 +123,7 @@ sens <- .85 # default sensitivity
 
 #' The specificity of a decision process or diagnostic procedure.
 #'
-#' \code{spec} defines some decision's specificity value
-#' or the rate of true negative decisions:
+#' \code{spec} defines some decision's specificity value:
 #' The conditional probability of the decision being negative
 #' if the condition is FALSE.
 #'
@@ -131,8 +138,10 @@ sens <- .85 # default sensitivity
 #'   \code{spec = p(decision = negative | condition = FALSE)}
 #'
 #'   \code{spec} is the opposite conditional probability
-#'   (but not the complement)
-#'   of the negative predictive value \code{\link{npv}}.
+#'   -- but not the complement --
+#'   of the negative predictive value \code{\link{npv}}:
+#'
+#'   \code{npv = p(condition = FALSE | decision = negative)}
 #'
 #'   \item \code{spec} is the complement of the
 #'   false alarm rate \code{\link{fart}}:
@@ -144,7 +153,7 @@ sens <- .85 # default sensitivity
 #'   \code{decision = negative} divided by the number of
 #'   individuals for which \code{condition = FALSE}:
 #'
-#'   \code{spec = n(decision = negative)/n(condition = FALSE)}
+#'   \code{spec = n(decision = negative) / n(condition = FALSE)}
 #'
 #'   \item \code{spec} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
@@ -167,8 +176,10 @@ sens <- .85 # default sensitivity
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_spec}} allows computing \code{spec}
-#' as the complement of \code{\link{fart}}.
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
+#' \code{\link{comp_spec}} computes \code{spec}
+#' as the complement of \code{\link{fart}}
 
 spec <- .75 # default specificity
 
@@ -201,7 +212,7 @@ spec <- .75 # default specificity
 #'   \code{decision = positive} divided by the number of
 #'   individuals for which \code{condition = FALSE}:
 #'
-#'   \code{fart = n(decision = positive)/n(condition = FALSE)}
+#'   \code{fart = n(decision = positive) / n(condition = FALSE)}
 #'
 #'   \item \code{fart} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
@@ -224,8 +235,10 @@ spec <- .75 # default specificity
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_fart}} allows computing \code{fart}
-#' as the complement of \code{\link{spec}}.
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
+#' \code{\link{comp_fart}} computes \code{fart}
+#' as the complement of \code{\link{spec}}
 
 fart <- NA # default false alarm rate
 
@@ -258,12 +271,13 @@ fart <- NA # default false alarm rate
 #' @family basic parameters
 #'
 #' @seealso
+#' \code{\link{comp_min_N}} computes a suitable
+#' minimum value of \code{N} for given probabilities;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{freq}} contains basic frequency variables;
-#' \code{\link{comp_freq}} computes basic frequency variables;
-#' \code{\link{comp_min_N}} allows computing a suitable
-#' minimum value of \code{N} for given probabilities.
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
+#' \code{\link{comp_prob}} computes derived probabilities
 
 N <- 1000 # default population
 
@@ -295,10 +309,13 @@ N <- 1000 # default population
 #' comp_fart(2)                 # => NA + Warning that 2 is not in 0 to 1 range
 #' comp_fart(1/3)               # => 0.6666667
 #' comp_fart(comp_spec(0.123))  # => 0.123
-
+#'
 #' @family conversion functions
-#' @seealso \code{\link{is_complement}} to verify numeric complements;
-#' \code{\link{as_pc}} to display a probability as a percentage
+#'
+#' @seealso
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{as_pc}} displays a probability as a percentage;
+#' \code{\link{comp_prob}} computes derived probabilities
 
 comp_fart <- function(spec) {
 
@@ -339,10 +356,13 @@ comp_fart <- function(spec) {
 #' comp_spec(2)                 # => NA + Warning that 2 is not in 0 to 1 range
 #' comp_spec(2/3)               # => 0.3333333
 #' comp_spec(comp_fart(0.123))  # => 0.123
-
+#'
 #' @family conversion functions
-#' @seealso \code{\link{is_complement}} to verify numeric complements;
-#' \code{\link{as_pc}} to display a probability as a percentage
+#'
+#' @seealso
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{as_pc}} displays a probability as a percentage;
+#' \code{\link{comp_prob}} computes derived probabilities
 
 comp_spec <- function(fart) {
 
@@ -405,8 +425,11 @@ comp_spec <- function(fart) {
 #' comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
 #'
 #' @family conversion functions
-#' @seealso \code{\link{is_complement}} to verify numeric complements;
-#' \code{\link{is_valid}} to verify valid quadruples of probabilities
+#'
+#' @seealso
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{is_valid}} verifies valid quadruples of probabilities;
+#' \code{\link{comp_prob}} computes derived probabilities
 
 comp_complement <- function(spec, fart){
 
@@ -488,7 +511,7 @@ comp_complement <- function(spec, fart){
 #' comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 #' comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 #'
-#' @family functions computing frequencies from probabilities
+#' @family functions computing frequencies
 #'
 #' @seealso
 #' population size \code{\link{N}};

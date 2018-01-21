@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyR
-## 2018 01 20
+## 2018 01 21
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -53,14 +53,17 @@
 #' \code{plot_tree} requires and uses the R package "diagram"
 #' (\code{library("diagram")}).
 #'
-#' @param prev The condition's prevalence value (i.e.,
-#' the probability of condition being TRUE).
-#' @param sens A decision's sensitivity value (i.e., the conditional probability
-#' of a positive decision provided that the condition is TRUE).
-#' @param spec A specificity value (i.e., the conditional probability
+#' @param prev The condition's prevalence value \code{\link{prev}}
+#' (i.e., the probability of condition being TRUE).
+#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is TRUE).
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
 #' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart A false alarm rate (i.e., the conditional probability
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'

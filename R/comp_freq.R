@@ -19,13 +19,17 @@
 #' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 #' to avoid decimal values in \code{\link{freq}}.
 #'
-#' @param prev The condition's prevalence value (i.e., the probability of condition being TRUE).
-#' @param sens A decision's sensitivity value (i.e., the conditional probability
-#' of a positive decision provided that the condition is TRUE).
-#' @param spec A specificity value (i.e., the conditional probability
+#' @param prev The condition's prevalence value \code{\link{prev}}
+#' (i.e., the probability of condition being TRUE).
+#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is TRUE).
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
 #' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart A false alarm rate (i.e., the conditional probability
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
 #' of a positive decision provided that the condition is FALSE).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
@@ -61,11 +65,14 @@
 #' comp_freq(1,  8, 1, NA, 100)  # => NAs + warning: sens no probability
 #' comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerated range
 #'
-#' @family functions computing frequencies from probabilities
+#' @family functions computing frequencies
 #'
-#' @seealso \code{\link{freq}} contains current frequency information;
+#' @seealso
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_valid}} verifies the validity of probability inputs;
 #' \code{\link{comp_complement}} computes complementary probability (if missing);
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
