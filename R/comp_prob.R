@@ -1,5 +1,5 @@
 ## comp_prob.R | riskyR
-## 2018 01 20
+## 2018 01 21
 ## -----------------------------------------------
 ## Compute current probabilities (prob) based on num
 ## (using only the necessary parameters of num):
@@ -7,12 +7,161 @@
 ## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## (A) Predictive values (based on probabilities):
+## (A) ToDo: Compute basic parameters (prev, sens, spec, fart)
+##           from existing frequencies!
+
+## -----------------------------------------------
+## (B) Define predictive values (ppv and npv)
+##     with corresponding documentation:
+## -----------------------------------------------
+## (a) ppv:
+
+#' The positive predictive value of a decision process or diagnostic procedure.
+#'
+#' \code{ppv} defines some decision's positive predictive value (PPV):
+#' The conditional probability of the condition being \code{TRUE}
+#' if the decision is positive.
+#'
+#' Understanding or obtaining the positive predictive value \code{ppv}:
+#'
+#' \itemize{
+#'
+#'   \item \code{ppv} is the conditional probability
+#'   for the condition being \code{TRUE}
+#'   given a positive decision:
+#'
+#'   \code{ppv = p(condition = TRUE | decision = positive)}
+#'
+#'   \code{ppv} is the opposite conditional probability
+#'   -- but not the complement --
+#'   of the sensitivity \code{\link{sens}}:
+#'
+#'   \code{sens = p(decision = positive | condition = TRUE)}
+#'
+#'   \item \code{ppv} is the complement of the
+#'   false discovery or false detection rate \code{\link{FDR}}:
+#'
+#'   \code{ppv = 1 - FDR}
+#'
+#'   \item In natural frequencies,
+#'   \code{ppv} is the ratio of individuals for which
+#'   \code{decision = positive} and \code{condition = TRUE}
+#'   divided by the number of all individuals for which
+#'   \code{decision = positive}:
+#'
+#'   \code{ppv = n(decision = positive & condition = TRUE) / n(decision = positive)}
+#'
+#'   \code{ppv = n.hi / (n.hi + n.fa) }
+#'
+#'   \item \code{ppv} is a feature of a decision process
+#'   or diagnostic procedure and
+#'   -- similar to the sensitivity \code{\link{sens}} --
+#'   a measure of correct decisions (positive decisions
+#'   that are actually TRUE).
+#'
+#'   However, due to being a conditional probability,
+#'   the value of \code{ppv} also depends on the
+#'   condition's prevalence value \code{\link{prev}}.
+#'
+#' }
+#'
+#' @examples
+#' ppv <- .55     # => sets a positive predictive value of 55%
+#' ppv <- 55/100  # => (condition = TRUE) for 55 people out of 100 people for which (decision = positive)
+#' is_prob(ppv)   # => TRUE (as ppv is a probability)
+#'
+#' @family derived parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{comp_PPV}} and \code{\link{comp_PPV_freq}} compute PPVs;
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{is_prob}} verifies probability inputs;
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+
+ppv <- NA # default positive predictive value (PPV)
+
+## -----------------------------------------------
+## (b) npv:
+
+#' The negative predictive value of a decision process or diagnostic procedure.
+#'
+#' \code{npv} defines some decision's negative predictive value (NPV):
+#' The conditional probability of the condition being FALSE
+#' if the decision is negative.
+#'
+#' Understanding or obtaining the negative predictive value \code{npv}:
+#'
+#' \itemize{
+#'
+#'   \item \code{npv} is the conditional probability
+#'   for the condition being \code{FALSE}
+#'   given a negative decision:
+#'
+#'   \code{npv = p(condition = FALSE | decision = negative)}
+#'
+#'   \code{npv} is the opposite conditional probability
+#'   -- but not the complement --
+#'   of the specificity \code{\link{spec}}:
+#'
+#'   \code{spec = p(decision = negative | condition = FALSE)}
+#'
+#'   \item \code{npv} is the complement of the
+#'   false omission rate \code{\link{FOR}}:
+#'
+#'   \code{npv = 1 - FOR}
+#'
+#'   \item In natural frequencies,
+#'   \code{npv} is the ratio of individuals for which
+#'   \code{decision = negative} and \code{condition = FALSE}
+#'   divided by the number of all individuals for which
+#'   \code{decision = negative}:
+#'
+#'   \code{npv = n(decision = negative & condition = FALSE) / n(decision = negative)}
+#'
+#'   \code{npv = n.cr / (n.mi + n.cr)}
+#'
+#'   \item \code{npv} is a feature of a decision process
+#'   or diagnostic procedure and
+#'   -- similar to the specificity \code{\link{spec}} --
+#'   a measure of correct decisions (negative decisions
+#'   that are actually FALSE).
+#'
+#'   However, due to being a conditional probability,
+#'   the value of \code{npv} also depends on the
+#'   condition's prevalence value \code{\link{prev}}.
+#'
+#' }
+#'
+#' @family derived parameters
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{comp_NPV}} and \code{\link{comp_NPV_freq}} compute PPVs;
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{is_prob}} verifies probability inputs;
+#' \code{\link{comp_prob}} computes derived probabilities;
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#'
+#' @examples
+#' npv <- .95     # => sets a negative predictive value of 95%
+#' npv <- 95/100  # => (condition = FALSE) for 95 people out of 100 people for which (decision = negative)
+#' is_prob(npv)   # => TRUE (as npv is a probability)
+
+npv <- NA # default negative predictive value (NPV)
+
+## -----------------------------------------------
+## (C) Compute predictive values
+##  C1: from probabilities:
 
 ## 1. Positive predictive value (PPV) from probabilities:
 comp_PPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   PPV <- NA # initialize
+
+  ## ToDo: Add condition
+  ## if (is_valid(prev, sens, spec, fart)) { ... }
 
   ## PPV = hits / positive decision = hits / (hits + false alarms):
   hi <- (prev * sens)
@@ -20,14 +169,25 @@ comp_PPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   PPV <- hi / (hi + fa)
 
+  ## Check:
+  if (is.nan(PPV)) {
+    warning("PPV is NaN.")
+  }
+
   return(PPV)
 }
+
+## Check:
+comp_PPV(0, 0, 1)  # => NaN, as hi = 0 and fa = 0:  0/0
 
 ## 2. False discovery/detection rate (FDR = complement of PPV):
 comp_FDR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   PPV <- NA # initialize
   FDR <- NA
+
+  ## ToDo: Add condition
+  ## if (is_valid(prev, sens, spec, fart)) { ... }
 
   PPV <- comp_PPV(prev, sens, spec)
   FDR <- (1 - PPV) # FDR is the complement of PPV
@@ -40,20 +200,35 @@ comp_NPV <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   NPV <- NA # initialize
 
+  ## ToDo: Add condition
+  ## if (is_valid(prev, sens, spec, fart)) { ... }
+
   ## NPV = cr / negative decision = cr / (cr + mi):
   cr <- (1 - prev) * spec
   mi <- prev * (1 - sens)
 
   NPV <- cr / (cr + mi)
 
+  ## Check:
+  if (is.nan(NPV)) {
+    warning("NPV is NaN.")
+  }
+
   return(NPV)
 }
+
+# Check:
+comp_NPV(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
+comp_NPV(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
 
 ## 4. False omission rate (FOR = complement of NPV):
 comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 
   NPV <- NA # initialize
   FOR <- NA
+
+  ## ToDo: Add condition
+  ## if (is_valid(prev, sens, spec, fart)) { ... }
 
   NPV <- comp_NPV(prev, sens, spec)
   FOR <- (1 - NPV) # FOR is the complement of NPV
@@ -62,8 +237,8 @@ comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 }
 
 ## -----------------------------------------------
-## (B) Predictive values (alternative versions
-##     based on frequencies):
+## (C) Compute predictive values
+##  C2: from frequencies (alternative versions):
 
 ## 1. Positive predictive value (PPV) from frequencies:
 comp_PPV_freq <- function(n.hi = freq$hi, n.fa = freq$fa) {
@@ -100,7 +275,7 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 }
 
 ## -----------------------------------------------
-## Compare alternative PV calculations:
+## C3: Comparing the alternative PV calculations:
 
 {
   # ## A: Using default settings:
@@ -123,40 +298,174 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 
 
 ## -----------------------------------------------
-## Compute ALL current probabilities:
-## So far: Compute current values of PPV and NPV
-##         as functions of prev, sens, and spec (using Bayes):
+## (D) Compute the set of ALL current probabilities:
+##     So far: Compute current values of PPV and NPV
+##             as functions of prev, sens, and spec (using Bayes):
 
-comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
+#' Compute derived probabilities from basic probabilities.
+#'
+#' \code{comp_prob} is a function that computes derived probabilities (typically
+#' conditional probabilities) given basic probabilities --
+#' \code{prev} and \code{sens}, and \code{spec} or \code{fart} (\code{spec = 1 - fart}).
+#'
+#' By default, \code{\link{comp_prob}} assumes that
+#' basic probabilities (e.g., \code{\link{prev}}, \code{\link{sens}}, and
+#' either \code{\link{spec}} or \code{\link{fart}}) are provided as inputs and
+#' adds some derived probabilities (e.g., the predictive values
+#' \code{\link{ppv}} and \code{\link{npv}})
+#' to its output of a list \code{\link{prob}}.
+#'
+#' \code{comp_prob} is the probability counterpart to the
+#' frequency function \code{\link{comp_freq}}.
+#'
+#' Note that inputs of extreme probabilities may yield unexpected values
+#' (e.g., an \code{\link{npv}} value of NaN when \code{\link{is_perfect}}
+#' is TRUE).
+#'
+#' @param prev The condition's prevalence value \code{\link{prev}}
+#' (i.e., the probability of condition being TRUE).
+#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is TRUE).
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
+#' \code{spec} is optional when is complement \code{fart} is provided.
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is FALSE).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @return A list \code{prob} containing 8 probability values.
+#'
+#' @examples
+#' comp_prob()          # => ok, using current defaults
+#' length(comp_prob())  # => 8
+#'
+#' # Ways to succeed:
+#' comp_prob(1, 1, 1)      # => ok, but with warnings (as npv is NaN)
+#' comp_prob(1, 1, 1, NA)  # => ok, but with warnings (as npv is NaN)
+#' comp_prob(.999, 1, 1)   # => ok
+#' comp_prob(1, .999, 1)   # => ok
+#'
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{comp_complement}} computes complementary probability (if missing);
+#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
-  ## (1) Initialize prob as a list:
+comp_prob <- function(prev = num$prev, sens = num$sens,
+                      spec = num$spec, fart = NA) {
+
+  ## (0) Initialize prob as a list:
   prob <- list(
-    ## predictive values (PVs):
-    "ppv" = NA, # positive predictive value
-    "npv" = NA  # negative predictive value
+
+    ## (a) basic probability parameters:
+    "prev" = NA,  # simple p
+    "sens" = NA,  # conditional p
+    "spec" = NA,  # conditional p: 1 - fart
+    "fart" = NA,  # conditional p: 1 - spec
+
+    ## (b) derived predictive values (PVs):
+    "ppv" = NA,   # conditional p: reversal of sens
+    "npv" = NA,   # conditional p: reversal of spec
+    "FDR" = NA,   # conditional p: 1 - ppv
+    "FOR" = NA    # conditional p: 1 - npv
   )
 
-  ## (2) Compute all values of prob based on arguments:
-  prob$ppv <- comp_PPV(prev, sens, spec) # Note: using probabilistic version (Bayes)
-  prob$npv <- comp_NPV(prev, sens, spec)
+  ## (1) Only if basic quadruple of probabilities is valid:
+  if (is_valid(prev, sens, spec, fart)) {
 
-  ## (3) Check:
-  if ( is.na(prob$ppv) | (prob$ppv < 0) | (prob$ppv > 1) |
-       is.na(prob$npv) | (prob$npv < 0) | (prob$npv > 1) ) {
-    warning( "Warning: Something peculiar about PVs [comp_prob()]." )
-  }
+    ## (2) Compute missing fart or spec (4th argument) value (if applicable):
+    cur.spec.fart <- comp_complement(spec, fart)
+    spec <- cur.spec.fart[1] # 1st argument
+    fart <- cur.spec.fart[2] # 2nd argument
 
-  ## (4) Return the entire list:
+    ## (3) Assign all values of prob based on current parameter values:
+    ## (a) basic probability parameters:
+    prob$prev <- prev
+    prob$sens <- sens
+    prob$spec <- spec
+    prob$fart <- fart
+    ## (b) derived predictive values (PVs):
+    prob$ppv <- comp_PPV(prev, sens, spec) # Note: using probabilistic version (Bayes)
+    prob$npv <- comp_NPV(prev, sens, spec)
+    prob$FDR <- comp_FDR(prev, sens, spec)
+    prob$FOR <- comp_FOR(prev, sens, spec)
+
+    ## (4) Check derived PVs:
+    if ( is.na(prob$ppv) | is.nan(prob$ppv) | !is_prob(prob$ppv) |
+         is.na(prob$npv) | is.nan(prob$npv) | !is_prob(prob$npv) |
+         is.na(prob$FDR) | is.nan(prob$FDR) | !is_prob(prob$FDR) |
+         is.na(prob$FOR) | is.nan(prob$FOR) | !is_prob(prob$FOR) ) {
+
+      warning( "Some PVs are peculiar. Check for extreme probabilities..." )
+
+      is_perfect(prev, sens)  # issues a warning if TRUE
+
+    }
+
+  } # if (is_valid(prev, sens, spec, fart))
+
+  ## (5) Return the entire list prob:
   return(prob)
 
 }
 
+## Check:
+{
+  comp_prob()          # => ok, using current defaults
+  length(comp_prob())  # => 8
+
+  # Ways to succeed:
+  comp_prob(1, 1, 1)      # => ok, but with warnings (as npv is NaN)
+  comp_prob(1, 1, 1, NA)  # => ok, but with warnings (as npv is NaN)
+  comp_prob(.999, 1, 1)   # => ok
+  comp_prob(1, .999, 1)   # => ok
+
+  # +++ here now +++
+
+  #' comp_freq(1, 1, NA, 1, 100)  # => ok, N hits
+  #' comp_freq(1, 0, 1, NA, 100)  # => ok, N misses
+  #' comp_freq(1, 0, NA, 1, 100)  # => ok, N misses
+  #' comp_freq(0, 1, 1, NA, 100)  # => ok, N correct rejections
+  #' comp_freq(0, 1, NA, 1, 100)  # => ok, N false alarms
+  #'
+  #' comp_freq(1, 1, 1, 0, N = NA)  # => ok, but warning that N = 1 was computed
+  #' comp_freq(1, 1, 1, 0, N =  0)  # => ok, but all 0
+  #' comp_freq(.5, .5, .5, NA, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
+  #' comp_freq(.5, .5, .5, NA, N = 10, round = FALSE) # => ok, but not rounded
+  #'
+  #' # Ways to fail:
+  #' comp_freq(NA, 1, 1, NA, 100)  # => NAs + warning: prev not numeric
+  #' comp_freq(1, NA, 1, NA, 100)  # => NAs + warning: sens not numeric
+  #' comp_freq(8,  1, 1, NA, 100)  # => NAs + warning: prev no probability
+  #' comp_freq(1,  8, 1, NA, 100)  # => NAs + warning: sens no probability
+  #' comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerated range
+
+}
+
+## -----------------------------------------------
+## Define and initialize the list prob
+## (in analogy to freq):
+
+## ToDo:
+
+# +++ here now +++
+
+# prob ## define in analogy to freq
 
 ## Apply:
 # prob <- comp_prob()
 # prob
 # prob$ppv
-
 
 ## -----------------------------------------------
 ## Compute either PPV or NPV for an entire matrix of values
@@ -194,8 +503,12 @@ comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - allow using fart instead of spec to comp_prob()
-## - compute alternative prob from freq with
+## - Compute basic parameters (prev, sens, spec, fart)
+##   from existing frequencies!
+##
+## - Allow using fart instead of spec to comp_prob()
+##
+## - Compute alternative prob from freq with
 ##   a. N of dec.pos (rather than N of fa) and
 ##   b. N of dec.neg (rather than N of mi) provided.
 
