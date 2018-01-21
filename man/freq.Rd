@@ -17,10 +17,10 @@ containing 9 (natural) frequencies:
  \item the number of cases for which \code{cond.false}
  \item the number of cases for which \code{dec.pos}
  \item the number of cases for which \code{dec.neg}
- \item the number true positives, or hits \code{hi}
- \item the number false negatives, or misses \code{mi}
- \item the number false positives, or false alarms \code{fa}
- \item the number true negatives, or correct rejections \code{cr}
+ \item the number true positives, or hits (\code{hi})
+ \item the number false negatives, or misses (\code{mi})
+ \item the number false positives, or false alarms (\code{fa})
+ \item the number true negatives, or correct rejections (\code{cr})
 }
 }
 \details{
@@ -34,6 +34,10 @@ to the list containing probability information \code{\link{prob}}.
 Natural frequencies are always expressed in
 relation to the current population of
 size \code{\link{N}}.
+
+Visualizations of the current frequency information
+are provided by \code{\link{plot_tree}} and
+\code{\link{plot_mosaic}}.
 }
 \examples{
 freq <- comp_freq()  # => initialize freq to default parameters

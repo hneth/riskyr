@@ -12,7 +12,7 @@ num
 \code{num} is a list of named numeric variables containing
 4 basic probabilities (\code{\link{prev}}, \code{\link{sens}},
 \code{\link{spec}}, and \code{\link{fart}})
-and 1 frequency parameter (the population size \code{N}).
+and 1 frequency parameter (the population size \code{\link{N}}).
 }
 \examples{
 num <- init_num()  # => initialize num to default parameters

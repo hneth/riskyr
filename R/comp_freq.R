@@ -1,5 +1,5 @@
 ## comp_freq.R | riskyR
-## 2018 01 20
+## 2018 01 21
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -21,8 +21,9 @@
 #' \code{comp_freq} is the frequency counterpart to the
 #' probability function \code{\link{comp_prob}}.
 #'
-#' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
-#' to avoid decimal values in \code{\link{freq}}.
+#' By default, \code{\link{comp_freq}} rounds frequencies
+#' to nearest integers to avoid decimal values in
+#' \code{\link{freq}}.
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being TRUE).
@@ -208,10 +209,10 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
 #'  \item the number of cases for which \code{cond.false}
 #'  \item the number of cases for which \code{dec.pos}
 #'  \item the number of cases for which \code{dec.neg}
-#'  \item the number true positives, or hits \code{hi}
-#'  \item the number false negatives, or misses \code{mi}
-#'  \item the number false positives, or false alarms \code{fa}
-#'  \item the number true negatives, or correct rejections \code{cr}
+#'  \item the number true positives, or hits (\code{hi})
+#'  \item the number false negatives, or misses (\code{mi})
+#'  \item the number false positives, or false alarms (\code{fa})
+#'  \item the number true negatives, or correct rejections (\code{cr})
 #' }
 #'
 #' These frequencies are computed from basic probabilities
@@ -224,6 +225,10 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
 #' Natural frequencies are always expressed in
 #' relation to the current population of
 #' size \code{\link{N}}.
+#'
+#' Visualizations of the current frequency information
+#' are provided by \code{\link{plot_tree}} and
+#' \code{\link{plot_mosaic}}.
 #'
 #' @examples
 #' freq <- comp_freq()  # => initialize freq to default parameters

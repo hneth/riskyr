@@ -9,37 +9,39 @@ init_num(prev = num.def$prev, sens = num.def$sens, spec = num.def$spec,
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
-(i.e., the probability of condition being TRUE).}
+(i.e., the probability of condition being \code{TRUE}).}
 
 \item{sens}{The decision's sensitivity value \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
-provided that the condition is TRUE).}
+provided that the condition is \code{TRUE}).}
 
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
-of a negative decision provided that the condition is FALSE).
+of a negative decision provided that the condition is \code{FALSE}).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
-of a positive decision provided that the condition is FALSE).
+of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 }
 \value{
 A list containing a valid quadruple of probabilities
-(\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-and one frequency (population size \code{N}).
+(\code{\link{prev}}, \code{\link{sens}},
+\code{\link{spec}}, and \code{\link{fart}})
+and one frequency (population size \code{\link{N}}).
 }
 \description{
-\code{init_num} initializes basic numeric variables to define \code{num}
+\code{init_num} initializes basic numeric variables to define \code{\link{num}}
 as a list of named elements containing four basic probabilities
-(\code{prev}, \code{sens}, \code{spec}, and \code{fart})
-and one frequency parameter (the population size \code{N}).
+(\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}, and \code{\link{fart}})
+and one frequency parameter (the population size \code{\link{N}}).
 }
 \details{
-If \code{spec} is provided, its complement \code{fart} is optional.
-If \code{fart} is provided, its complement \code{spec} is optional.
-If no \code{N} is provided, it is computed by \code{\link{comp_min_N}}.
+If \code{\link{spec}} is provided, its complement \code{\link{fart}} is optional.
+If \code{\link{fart}} is provided, its complement \code{\link{spec}} is optional.
+If no \code{\link{N}} is provided, a suitable minimum value is
+computed by \code{\link{comp_min_N}}.
 }
 \examples{
 init_num(1, 1, 1, 0, 100)  # => succeeds
@@ -61,7 +63,7 @@ init_num(1, 1, .52, .50, 100)         # => NAs + warning that spec and fart are 
 
 }
 \seealso{
-\code{\link{num}} to store basic parameter values;
+\code{\link{num}} contains basic parameter values;
 \code{\link{comp_min_N}} to compute a suitable minimum population size \code{\link{N}}
 
 Other functions to initialize scenario settings: \code{\link{init_pal}},

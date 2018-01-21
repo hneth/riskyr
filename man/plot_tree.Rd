@@ -37,10 +37,10 @@ of a positive decision provided that the condition is \code{FALSE}).
 a suitable value of \code{\link{N}} is computed, if not provided.}
 
 \item{area}{A character option for 4 different box sizes:
-- "no" ... all boxes are shown with the same size (default);
-- "sq" ... boxes as squares of area sizes proportional to frequencies;
-- "hr" ... boxes as horizontal rectangles of area sizes proportional to frequencies;
-- "vr" ... boxes as vertical rectangles of area sizes proportional to frequencies.}
+- \code{"no"} ... all boxes are shown with the same size (default);
+- \code{"sq"} ... boxes as squares of area sizes proportional to frequencies;
+- \code{"hr"} ... boxes as horizontal rectangles of area sizes proportional to frequencies;
+- \code{"vr"} ... boxes as vertical rectangles of area sizes proportional to frequencies.}
 
 \item{round}{A Boolean option that determines whether frequencies are
 rounded to the nearest integer. Default: \code{round = TRUE}.}
@@ -55,21 +55,26 @@ Nothing (NULL).
 \description{
 \code{plot_tree} computes and visualizes a tree diagram of
 natural frequencies (typically rounded integers) given basic
-probabilities -- \code{prev} and \code{sens}, and \code{spec}
-or \code{fart} (\code{spec = 1 - fart})
--- and a population of \code{N} individuals.
+probabilities -- \code{\link{prev}} and \code{\link{sens}},
+and \code{\link{spec}} or \code{\link{fart}} (\code{spec = 1 - fart})
+-- and a population size of \code{\link{N}} individuals.
 }
 \details{
 The option \code{area} (as 2 characters) allows specifying
-four different box sizes: "no" shows all boxes in the same size (default);
-"sq" shows boxes as squares with area sizes proportional to frequencies;
-"hr" shows boxes as horizontal rectangles of area sizes proportional to frequencies;
-"vr" shows boxes as vertical rectangles of area sizes proportional to frequencies.
+4 different box shapes and sizes:
 
-If a prevalence value \code{prev} is provided, a new list of
-\code{\link{freq}} is computed by \code{\link{comp_freq}}.
-If no prevalence value \code{prev} is provided, the values currently
-contained in \code{freq} are used.
+\enumerate{
+ \item \code{"no"} shows all boxes in the same size (default);
+ \item \code{"sq"} shows boxes as squares with area sizes proportional to frequencies;
+ \item \code{"hr"} shows boxes as horizontal rectangles of area sizes proportional to frequencies;
+ \item \code{"vr"} shows boxes as vertical rectangles of area sizes proportional to frequencies.
+The resulting shapes and their relative proportions correspond to the areas in \code{\link{plot_mosaic}}.
+}
+
+If a prevalence value \code{\link{prev}} is provided, a new list of
+natural frequencies \code{\link{freq}} is computed by \code{\link{comp_freq}}.
+By contrast, if no prevalence value \code{\link{prev}} is provided,
+the values currently contained in \code{\link{freq}} are used.
 By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 to avoid decimal values in \code{\link{freq}}.
 

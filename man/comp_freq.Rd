@@ -46,8 +46,9 @@ as its output.
 \code{comp_freq} is the frequency counterpart to the
 probability function \code{\link{comp_prob}}.
 
-By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
-to avoid decimal values in \code{\link{freq}}.
+By default, \code{\link{comp_freq}} rounds frequencies
+to nearest integers to avoid decimal values in
+\code{\link{freq}}.
 }
 \examples{
 comp_freq()                  # => ok, using current defaults
