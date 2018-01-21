@@ -54,23 +54,23 @@
 #' (\code{library("diagram")}).
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being TRUE).
+#' (i.e., the probability of condition being \code{TRUE}).
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
-#' provided that the condition is TRUE).
+#' provided that the condition is \code{TRUE}).
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
+#' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when is complement \code{fart} is provided.
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
+#' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
 #' @param N The number of individuals in the population:
 #' the value of \code{\link{N}} is computed, if not provided.
 #'
-#' @param area  A character option for four different box sizes:
+#' @param area  A character option for 4 different box sizes:
 #' - "no" ... all boxes are shown with the same size (default);
 #' - "sq" ... boxes as squares of area sizes proportional to frequencies;
 #' - "hr" ... boxes as horizontal rectangles of area sizes proportional to frequencies;
@@ -80,13 +80,15 @@
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
 #'
 #' @param title.lbl Text label to set plot title.
+#'
 #' @param col.boxes Colors of boxes (a single color or vector of 7 colors).
 #'
 #' @return Nothing (NULL).
 #'
 #' @examples
-#' ## Plotting existing freq:
+#' # Plotting existing freq:
 #' plot_tree()
+#' plot_tree(title.lbl = "")
 #' plot_tree(N = 33)
 #' plot_tree(N = NA)
 #'
@@ -113,9 +115,15 @@
 #'
 #' @family visualization functions
 #'
-#' @seealso \code{\link{freq}} contains current frequency information;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
-#' \code{\link{comp_complement}} computes complementary probability (if missing);
+#' @seealso
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes frequencies from probabilities;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{pal}} for current color settings;
+#' \code{\link{txt}} for current text settings;
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
 plot_tree <- function(prev = num$prev,  # probabilities
@@ -430,7 +438,8 @@ plot_tree <- function(prev = num$prev,  # probabilities
   if (area == "sq") {type.lbl <- "Area (square) tree"}
   if (area == "hr") {type.lbl <- "Area (horizontal rectangle) tree"}
   if (area == "vr") {type.lbl <- "Area (vertical rectangle) tree"}
-  cur.title.lbl <- paste0(title.lbl, ":\n", type.lbl, " of natural frequencies") # , "(N = ", N, ")")
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  cur.title.lbl <- paste0(title.lbl, type.lbl, " of natural frequencies") # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1) # (centered, raised, normal font)
 
   ## (8) Margin text:
@@ -446,6 +455,7 @@ plot_tree <- function(prev = num$prev,  # probabilities
 ## Check:
 {
   # plot_tree()
+  # plot_tree(title.lbl = "")
   # plot_tree(N = 33)
   # plot_tree(N = NA)
   # plot_tree(prev = 1/3)

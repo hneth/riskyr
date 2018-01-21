@@ -31,7 +31,8 @@ plot_mosaic <- function(pop = popu,
   # plot(0, type = 'n')
 
   ## Text labels:
-  cur.title.lbl <- paste0(title.lbl, ":\n", "Mosaic plot") # , "(N = ", N, ")")
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
 
   ## Mosaic plot:
@@ -73,6 +74,7 @@ plot_mosaic <- function(pop = popu,
 
 ## Check:
 # plot_mosaic()
+# plot_mosaic(title.lbl = "")
 # plot_mosaic(vsplit = FALSE)
 # plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
 
