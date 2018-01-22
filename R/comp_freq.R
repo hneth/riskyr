@@ -117,16 +117,19 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     spec <- cur.spec.fart[1] # 1st argument
     fart <- cur.spec.fart[2] # 2nd argument
 
-    ## (3) Compute missing population size value N (if applicable):
+    ## (3) Issue a warning if probabilities describe an extreme case:
+    is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
+
+    ## (4) Compute missing population size value N (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
     }
 
-    ## (4) Set or compute all values of freq:
+    ## (5) Set or compute all values of freq:
     freq$N <- N # copy N from argument OR num (input)
 
-    ## (5) Number of true cases by condition:
+    ## (6) Number of true cases by condition:
     ##     (= 1st level of natural frequency tree):
     if (round) {
       freq$cond.true <- round((N * prev), 0)  # 1a. cond.true  = N x prev [rounded to nearest integer]
@@ -135,7 +138,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     }
     freq$cond.false <- (N - freq$cond.true)   # 2. cond.false = complement of cond.true (to N)
 
-    ## (6) Number of SDT combinations:
+    ## (7) Number of SDT combinations:
     ##     (= 2nd level/leaves of natural frequency tree):
     if (round) {
       freq$hi <- round((sens * freq$cond.true), 0)  # a1. N of hi [rounded to nearest integer]
@@ -151,21 +154,22 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     }
     freq$fa <- (freq$cond.false - freq$cr)          # d.  N of fa - complement of cr (to cond.false)
 
-    ## (7) Number of decisions:
+    ## (8) Number of decisions:
     freq$dec.pos <- freq$hi + freq$fa # 1. positive decisions (true & false positives)
     freq$dec.neg <- freq$mi + freq$cr # 2. negative decisions (false & true negatives)
 
-    ## (8) Check:
+    ## (9) Check:
     if ((freq$cond.true != freq$hi + freq$mi) |
         (freq$cond.false != freq$fa + freq$cr) |
         (freq$N != freq$cond.true + freq$cond.false) |
         (freq$N != freq$hi + freq$mi + freq$fa + freq$cr)) {
-      warning("Warning: Frequencies do not add up (to n.true, n.false, or N).")
+
+      warning("Current frequencies do NOT add up (to n.true, n.false, or N).")
     }
 
   } # if (is_valid(prev, sens, spec, fart))
 
-  ## (9) Return entire list freq:
+  ## (10) Return entire list freq:
   return(freq)
 
 }

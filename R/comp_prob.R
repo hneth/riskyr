@@ -418,9 +418,10 @@ comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 #' \code{comp_prob} is the probability counterpart to the
 #' frequency function \code{\link{comp_freq}}.
 #'
-#' Note that inputs of extreme probabilities (of 0 or 1)
-#' may yield unexpected values (e.g., an \code{\link{NPV}}
-#' value of NaN when \code{\link{is_perfect}}
+#' Extreme probabilities (sets containing two or more
+#' probabilities of 0 or 1) may yield unexpected values
+#' (e.g., predictive values \code{\link{PPV} or \code{\link{NPV}}
+#' turning \code{NaN} when \code{\link{is_extreme}}
 #' evaluates to \code{TRUE}).
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
@@ -504,7 +505,10 @@ comp_prob <- function(prev = num$prev, sens = num$sens,
     spec <- cur.spec.fart[1] # 1st argument
     fart <- cur.spec.fart[2] # 2nd argument
 
-    ## (3) Assign all values of prob based on current parameter values:
+    ## (3) Issue a warning if probabilities describe an extreme case:
+    is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
+
+    ## (4) Assign all values of prob based on current parameter values:
     ## (a) basic probability parameters:
     prob$prev <- prev
     prob$sens <- sens
@@ -516,21 +520,19 @@ comp_prob <- function(prev = num$prev, sens = num$sens,
     prob$FDR <- comp_FDR(prev, sens, spec)
     prob$FOR <- comp_FOR(prev, sens, spec)
 
-    ## (4) Check derived PVs:
+    ## (5) Check derived PVs:
     if ( is.na(prob$PPV) | is.nan(prob$PPV) | !is_prob(prob$PPV) |
          is.na(prob$NPV) | is.nan(prob$NPV) | !is_prob(prob$NPV) |
          is.na(prob$FDR) | is.nan(prob$FDR) | !is_prob(prob$FDR) |
          is.na(prob$FOR) | is.nan(prob$FOR) | !is_prob(prob$FOR) ) {
 
-      warning( "Some PVs are peculiar. Check for extreme probabilities..." )
-
-      is_perfect(prev, sens)  # issues a warning if TRUE
+      warning( "Some PVs are peculiar. Check for extreme probabilities!" )
 
     }
 
   } # if (is_valid(prev, sens, spec, fart))
 
-  ## (5) Return the entire list prob:
+  ## (6) Return the entire list prob:
   return(prob)
 
 }

@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 21
+## 2018 01 22
 ## -----------------------------------------------
 ## Initialize a list of basic input parameters (num)
 ## that contains all numeric user inputs:
@@ -658,7 +658,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   )
 
 
-  ## (1) Verify basic input parameters are valid:
+  ## (1) Verify validity of basic input parameters:
   if (is_valid(prev, sens, spec, fart, tol = .01)){
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
@@ -666,13 +666,16 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
     spec <- cur.spec.fart[1] # 1st argument
     fart <- cur.spec.fart[2] # 2nd argument
 
-    ## (3) Compute a missing value for N (5th argument) value (if applicable):
+    ## (3) Issue a warning if probabilities describe an extreme case:
+    is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
+
+    ## (4) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
       }
 
-    ## (4) Initialize num with current arguments:
+    ## (5) Initialize num with current arguments:
     num$prev <- prev
     num$sens <- sens
     num$spec <- spec
@@ -681,7 +684,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
   } ## if(...)
 
-  ## (5) Return the entire list num:
+  ## (6) Return the entire list num:
   return(num)
 
 }
