@@ -1,5 +1,5 @@
 ## comp_prob.R | riskyR
-## 2018 01 21
+## 2018 01 22
 ## -----------------------------------------------
 ## Compute current probabilities (prob) based on num
 ## (using only the necessary parameters of num):
@@ -26,22 +26,30 @@
 #'
 #' \itemize{
 #'
-#'   \item \code{PPV} is the conditional probability
+#'   \item Definition:
+#'   \code{PPV} is the conditional probability
 #'   for the condition being \code{TRUE}
 #'   given a positive decision:
 #'
 #'   \code{PPV = p(condition = TRUE | decision = positive)}
 #'
-#'   \code{PPV} is the opposite conditional probability
+#'   or the probability of a positive decision being correct.
+#'
+#'   \item Alternative names:
+#'   \code{precision}
+#'
+#'   \item Relationships:
+#'
+#'   a. \code{PPV} is the complement of the
+#'   false discovery or false detection rate \code{\link{FDR}}:
+#'
+#'   \code{PPV = 1 - FDR}
+#'
+#'   b. \code{PPV} is the opposite conditional probability
 #'   -- but not the complement --
 #'   of the sensitivity \code{\link{sens}}:
 #'
 #'   \code{sens = p(decision = positive | condition = TRUE)}
-#'
-#'   \item \code{PPV} is the complement of the
-#'   false discovery or false detection rate \code{\link{FDR}}:
-#'
-#'   \code{PPV = 1 - FDR}
 #'
 #'   \item In natural frequencies,
 #'   \code{PPV} is the ratio of individuals for which
@@ -64,6 +72,12 @@
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
+#'
+#' @aliases
+#' precision
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
 #' @examples
 #' PPV <- .55     # => sets a positive predictive value of 55%
@@ -95,22 +109,27 @@ PPV <- NA # default positive predictive value (PPV)
 #'
 #' \itemize{
 #'
-#'   \item \code{NPV} is the conditional probability
+#'   \item Definition:
+#'   \code{NPV} is the conditional probability
 #'   for the condition being \code{FALSE}
 #'   given a negative decision:
 #'
 #'   \code{NPV = p(condition = FALSE | decision = negative)}
 #'
-#'   \code{NPV} is the opposite conditional probability
+#'   or the probability of a negative decision being correct.
+#'
+#'   \item Relationships:
+#'
+#'   a. \code{NPV} is the complement of the
+#'   false omission rate \code{\link{FOR}}:
+#'
+#'   \code{NPV = 1 - FOR}
+#'
+#'   b. \code{NPV} is the opposite conditional probability
 #'   -- but not the complement --
 #'   of the specificity \code{\link{spec}}:
 #'
 #'   \code{spec = p(decision = negative | condition = FALSE)}
-#'
-#'   \item \code{NPV} is the complement of the
-#'   false omission rate \code{\link{FOR}}:
-#'
-#'   \code{NPV = 1 - FOR}
 #'
 #'   \item In natural frequencies,
 #'   \code{NPV} is the ratio of individuals for which
@@ -133,6 +152,9 @@ PPV <- NA # default positive predictive value (PPV)
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
 #' @family functions computing probabilities
 #'
@@ -166,22 +188,25 @@ NPV <- NA # default negative predictive value (NPV)
 #'
 #' \itemize{
 #'
-#'   \item \code{FDR} is the conditional probability
+#'   \item Definition:
+#'   \code{FDR} is the conditional probability
 #'   for the condition being \code{FALSE}
 #'   given a positive decision:
 #'
 #'   \code{FDR = p(condition = FALSE | decision = positive)}
 #'
-#'   \code{FDR} is the opposite conditional probability
+#'   \item Relationships:
+#'
+#'   a. \code{FDR} is the complement of the
+#'   positive predictive value \code{\link{PPV}}:
+#'
+#'   \code{FDR = 1 - PPV}
+#'
+#'   b. \code{FDR} is the opposite conditional probability
 #'   -- but not the complement --
 #'   of the false alarm rate \code{\link{fart}}:
 #'
 #'   \code{sens = p(decision = positive | condition = FALSE)}
-#'
-#'   \item \code{FDR} is the complement of the
-#'   positive predictive value \code{\link{PPV}}:
-#'
-#'   \code{FDR = 1 - PPV}
 #'
 #'   \item In natural frequencies,
 #'   \code{FDR} is the ratio of individuals for which
@@ -205,10 +230,8 @@ NPV <- NA # default negative predictive value (NPV)
 #'
 #' }
 #'
-#' @examples
-#' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
-#' FDR <- 45/100  # => (condition = FALSE) for 45 people out of 100 people for which (decision = positive)
-#' is_prob(FDR)   # => TRUE (as FDR is a probability)
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
 #' @family functions computing probabilities
 #'
@@ -220,6 +243,11 @@ NPV <- NA # default negative predictive value (NPV)
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{comp_prob}} computes derived probabilities;
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#'
+#' @examples
+#' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
+#' FDR <- 45/100  # => (condition = FALSE) for 45 people out of 100 people for which (decision = positive)
+#' is_prob(FDR)   # => TRUE (as FDR is a probability)
 
 FDR <- NA # default false discorvery rate (FDR)
 
@@ -236,22 +264,25 @@ FDR <- NA # default false discorvery rate (FDR)
 #'
 #' \itemize{
 #'
-#'   \item \code{FOR} is the conditional probability
+#'   \item Definition:
+#'   \code{FOR} is the conditional probability
 #'   for the condition being \code{TRUE}
 #'   given a negative decision:
 #'
 #'   \code{FOR = p(condition = TRUE | decision = negative)}
 #'
-#'   \code{FOR} is the opposite conditional probability
+#'   \item Relationships:
+#'
+#'   a. \code{FOR} is the complement of the
+#'   negative predictive value \code{\link{NPV}}:
+#'
+#'   \code{FOR = 1 - NPV}
+#'
+#'   b. \code{FOR} is the opposite conditional probability
 #'   -- but not the complement --
 #'   of the missing rate (\code{1 - \link{sens}}):
 #'
 #'   \code{missing rate = p(decision = negative | condition = TRUE)}
-#'
-#'   \item \code{FOR} is the complement of the
-#'   negative predictive value \code{\link{NPV}}:
-#'
-#'   \code{FOR = 1 - NPV}
 #'
 #'   \item In natural frequencies,
 #'   \code{FOR} is the ratio of individuals for which
@@ -273,6 +304,9 @@ FDR <- NA # default false discorvery rate (FDR)
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
 #' @family functions computing probabilities
 #'

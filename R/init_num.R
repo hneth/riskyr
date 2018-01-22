@@ -18,9 +18,16 @@
 #'
 #' \itemize{
 #'
-#'   \item \code{prev} is the (non-conditional) probability:
+#'   \item Definition:
+#'   \code{prev} is the (non-conditional) probability:
 #'
 #'   \code{prev = p(condition = TRUE)}
+#'
+#'   or the (baseline) probability of the condition's occurrence.
+#'
+#'   \item Alternative names:
+#'   \code{baseline}, proportion affected;
+#'   to be distinguished from \emph{incidence rate} (i.e., new cases within a certain time period)
 #'
 #'   \item In natural frequencies,
 #'   \code{prev} is the ratio of individuals for which
@@ -44,6 +51,9 @@
 #'
 #' }
 #'
+#' @aliases
+#' baseline
+#'
 #' @examples
 #' prev <- .10     # => sets a prevalence value of 10%
 #' prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
@@ -57,6 +67,9 @@
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{comp_prob}} computes derived probabilities;
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additional information.
 
 prev <- .10 # default prevalence
 
@@ -73,17 +86,30 @@ prev <- .10 # default prevalence
 #'
 #' \itemize{
 #'
-#'   \item \code{sens} is the conditional probability
+#'   \item Definition: \code{sens} is the conditional probability
 #'   for a (correct) positive decision given that
 #'   the condition is \code{TRUE}:
 #'
 #'   \code{sens = p(decision = positive | condition = TRUE)}
 #'
-#'   \code{sens} is the opposite conditional probability
-#'   -- but not the complement --
-#'   of the positive predictive value \code{\link{ppv}}:
+#'   or the probability of correctly detecting true cases
+#'   (\code{condition = TRUE}).
 #'
-#'   \code{ppv = p(condition = TRUE | decision = positive)}
+#'   \item Alternative names:
+#'   \code{recall}, true positive rate (\code{TPR}), probability of detection
+#'
+#'   \item Relationships:
+#'
+#'   a. \code{sens} is the complement of the miss rate or
+#'   false negative rate (\code{FNR}):
+#'
+#'   \code{sens = 1 - miss rate = 1 - FNR}
+#'
+#'   b. \code{sens} is the opposite conditional probability
+#'   -- but not the complement --
+#'   of the positive predictive value \code{\link{PPV}}:
+#'
+#'   \code{PPV = p(condition = TRUE | decision = positive)}
 #'
 #'   \item In natural frequencies,
 #'   \code{sens} is the ratio of individuals for which
@@ -102,10 +128,12 @@ prev <- .10 # default prevalence
 #'
 #' }
 #'
-#' @examples
-#' sens <- .85     # => sets a sensitivity value of 85%
-#' sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
-#' is_prob(sens)   # => TRUE (as sens is a probability)
+#' @aliases
+#' recall
+#' TPR
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
 #' @family basic parameters
 #'
@@ -115,6 +143,11 @@ prev <- .10 # default prevalence
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{comp_prob}} computes derived probabilities;
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#'
+#' @examples
+#' sens <- .85     # => sets a sensitivity value of 85%
+#' sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
+#' is_prob(sens)   # => TRUE (as sens is a probability)
 
 sens <- .85 # default sensitivity
 
@@ -131,22 +164,31 @@ sens <- .85 # default sensitivity
 #'
 #' \itemize{
 #'
-#'   \item \code{spec} is the conditional probability
+#'   \item Definition:
+#'   \code{spec} is the conditional probability
 #'   for a (correct) negative decision given that
 #'   the condition is \code{FALSE}:
 #'
 #'   \code{spec = p(decision = negative | condition = FALSE)}
 #'
-#'   \code{spec} is the opposite conditional probability
-#'   -- but not the complement --
-#'   of the negative predictive value \code{\link{npv}}:
+#'   or the probability of correctly detecting false cases
+#'   (\code{condition = FALSE}).
 #'
-#'   \code{npv = p(condition = FALSE | decision = negative)}
+#'   \item Alternative names:
+#'   true negative rate (\code{TNR})
 #'
-#'   \item \code{spec} is the complement of the
+#'   \item Relationships:
+#'
+#'   a. \code{spec} is the complement of the
 #'   false alarm rate \code{\link{fart}}:
 #'
 #'   \code{spec = 1 - fart}
+#'
+#'   b. \code{spec} is the opposite conditional probability
+#'   -- but not the complement --
+#'   of the negative predictive value \code{\link{NPV}}:
+#'
+#'   \code{NPV = p(condition = FALSE | decision = negative)}
 #'
 #'   \item In natural frequencies,
 #'   \code{spec} is the ratio of individuals for which
@@ -165,10 +207,11 @@ sens <- .85 # default sensitivity
 #'
 #' }
 #'
-#' @examples
-#' spec <- .75     # => sets a specificity value of 75%
-#' spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
-#' is_prob(spec)   # => TRUE (as spec is a probability)
+#' @aliases
+#' TNR
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
 #' @family basic parameters
 #'
@@ -180,6 +223,11 @@ sens <- .85 # default sensitivity
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities;
 #' \code{\link{comp_spec}} computes \code{spec}
 #' as the complement of \code{\link{fart}}
+#'
+#' @examples
+#' spec <- .75     # => sets a specificity value of 75%
+#' spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
+#' is_prob(spec)   # => TRUE (as spec is a probability)
 
 spec <- .75 # default specificity
 
@@ -196,13 +244,21 @@ spec <- .75 # default specificity
 #'
 #' \itemize{
 #'
-#'   \item \code{fart} is the conditional probability
+#'   \item Definition:
+#'   \code{fart} is the conditional probability
 #'   for an (incorrect) positive decision given that
 #'   the condition is \code{FALSE}:
 #'
 #'   \code{fart = p(decision = positive | condition = FALSE)}
 #'
-#'   \item \code{fart} is the complement of the
+#'   or the probability of a false alarm.
+#'
+#'   \item Alternative names:
+#'   \code{fallout}, false positive rate (\code{FPR})
+#'
+#'   \item Relationships:
+#'
+#'   \code{fart} is the complement of the
 #'   specificity \code{\link{spec}}:
 #'
 #'   \code{fart = 1 - spec}
@@ -224,10 +280,12 @@ spec <- .75 # default specificity
 #'
 #' }
 #'
-#' @examples
-#' fart <- .25     # => sets a false alarm rate of 25%
-#' fart <- 25/100  # => (decision = positive) for 25 people out of 100 people for which (condition = FALSE)
-#' is_prob(fart)   # => TRUE (as fart is a probability)
+#' @aliases
+#' fallout
+#' FPR
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
 #' @family basic parameters
 #'
@@ -239,6 +297,11 @@ spec <- .75 # default specificity
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities;
 #' \code{\link{comp_fart}} computes \code{fart}
 #' as the complement of \code{\link{spec}}
+#'
+#' @examples
+#' fart <- .25     # => sets a false alarm rate of 25%
+#' fart <- 25/100  # => (decision = positive) for 25 people out of 100 people for which (condition = FALSE)
+#' is_prob(fart)   # => TRUE (as fart is a probability)
 
 fart <- NA # default false alarm rate
 
