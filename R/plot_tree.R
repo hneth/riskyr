@@ -231,21 +231,21 @@ plot_tree <- function(prev = num$prev,  # probabilities
   prev.lbl <- paste0("prev = ", as_pc(prev), "%")
 
   ## Defaults:
-  M[2, 1] <- "prevalence" # ERROR: WHY does prev.lbl not work with spaces???
-  M[3, 1] <- "(N - n.true)"
+  M[2, 1] <- "prevalence"  # ERROR: WHY does prev.lbl not work with spaces???
+  M[3, 1] <- "(1 - prev)"  # "(N - n.true)"
   M[4, 2] <- "sensitivity"
-  M[5, 2] <- "(n.true - n.hi)"
-  M[6, 3] <- "(n.false - n.cr)"
+  M[5, 2] <- "(1 - sens)"  # "n(true - hi)"  # mirt = missing rate
+  M[6, 3] <- "(1 - spec)"  # "n(false - cr)" # fart = false alarm rate
   M[7, 3] <- "specificity"
 
   ## Alternative: Shorter labels
   if (area != "no") {
     ## Reduced arrow/edge labels:
-    M[2, 1] <- "prev" # ERROR: WHY does prev.lbl not work with spaces???
-    M[3, 1] <- "n(N - true)"
+    M[2, 1] <- "prev"  # ERROR: WHY does prev.lbl not work with spaces???
+    M[3, 1] <- "(1 - prev)"    # "n(N - true)"
     M[4, 2] <- "sens"
-    M[5, 2] <- "n(true - hi)"
-    M[6, 3] <- "n(false - cr)"
+    M[5, 2] <- "(1 - sens)"    # mirt = "n(true - hi)"
+    M[6, 3] <- "(1 - spec)"    # fart = "n(false - cr)"
     M[7, 3] <- "spec"
   }
 
@@ -487,9 +487,12 @@ plot_tree <- function(prev = num$prev,  # probabilities
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - Allow shorter edge labels:
+##   prev;  sens, mirt,  fart, spec
+
 ## - 0. Add complementary tree(s) that split(s)
 ##      level 1 by Decision (rather than by condition)!
-##
+
 ## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
 ## - 2. Make version with options for
 ##         a - providing fart rather than spec
