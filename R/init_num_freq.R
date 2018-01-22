@@ -1,4 +1,4 @@
-## comp_freq.R | riskyR
+## init_num_freq.R | riskyR
 ## 2018 01 22
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
@@ -7,7 +7,41 @@
 ## Note: Always use num (essential) rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## (1) Compute current frequencies:
+## Table of current terminology:
+
+# probabilities:                    frequencies:
+# -------------                     ------------------
+# (a) basic:
+#                                          N
+# prev                              n.true | n.false
+
+# sens = hit rate = TPR             hi = TP
+# mirt = miss rate = FNR            mi = FN
+# fart = false alarm rate = FPR     fa = FP
+# spec = true negative rate = TNR   cr = TN
+
+# (b) derived:
+#                                   dec.pos | dec.neg
+
+# PPV = pos. pred. value
+# FDR = false detection rate
+# FOR = false omission rate
+# NPV = neg. pred. value
+
+## -----------------------------------------------
+## Two basic directions:
+
+## 1: Bayesian: starting with 3 basic probabilities:
+## - given:   prev;  sens, spec
+## - derived: all other values
+
+## 2: Natural frequencies:
+## - given:   N;  hi, mi, fa, cr
+## - derived: all other values
+
+
+## -----------------------------------------------
+## (1) Compute frequencies from probabilities:
 
 #' Compute frequencies from basic probabilities.
 #'
@@ -59,6 +93,7 @@
 #' comp_freq(0, 1, 1, NA, 100)  # => ok, N correct rejections
 #' comp_freq(0, 1, NA, 1, 100)  # => ok, N false alarms
 #'
+#' # Watch out for:
 #' comp_freq(1, 1, 1, 0, N = NA)  # => ok, but warning that N = 1 was computed
 #' comp_freq(1, 1, 1, 0, N =  0)  # => ok, but all 0
 #' comp_freq(.5, .5, .5, NA, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
@@ -181,7 +216,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
   # comp_freq()                  # => ok, using current defaults
   # length(comp_freq())          # => 9
   #
-  # ## Ways to succeed:
+  # # Ways to succeed:
   # comp_freq(1, 1, 1, NA, 100)  # => ok, N hits
   # comp_freq(1, 1, NA, 1, 100)  # => ok, N hits
   # comp_freq(1, 0, 1, NA, 100)  # => ok, N misses
@@ -189,12 +224,13 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
   # comp_freq(0, 1, 1, NA, 100)  # => ok, N correct rejections
   # comp_freq(0, 1, NA, 1, 100)  # => ok, N false alarms
   #
+  # # Watch out for:
   # comp_freq(1, 1, 1, 0, N = NA)  # => ok, but warning that N = 1 was computed
   # comp_freq(1, 1, 1, 0, N =  0)  # => ok, but all 0
   # comp_freq(.5, .5, .5, NA, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
   # comp_freq(.5, .5, .5, NA, N = 10, round = FALSE) # => ok, but not rounded
   #
-  # ## Ways to fail:
+  # # Ways to fail:
   # comp_freq(NA, 1, 1, NA, 100)  # => NAs + warning: prev not numeric
   # comp_freq(1, NA, 1, NA, 100)  # => NAs + warning: sens not numeric
   # comp_freq(8,  1, 1, NA, 100)  # => NAs + warning: prev no probability
