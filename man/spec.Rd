@@ -3,6 +3,7 @@
 \docType{data}
 \name{spec}
 \alias{spec}
+\alias{TNR}
 \title{The specificity of a decision process or diagnostic procedure.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -18,22 +19,31 @@ Understanding or obtaining the specificity value \code{spec}:
 
 \itemize{
 
-\item \code{spec} is the conditional probability
+\item Definition:
+  \code{spec} is the conditional probability
   for a (correct) negative decision given that
   the condition is \code{FALSE}:
 
 \code{spec = p(decision = negative | condition = FALSE)}
 
-\code{spec} is the opposite conditional probability
-  -- but not the complement --
-  of the negative predictive value \code{\link{npv}}:
+or the probability of correctly detecting false cases
+  (\code{condition = FALSE}).
 
-\code{npv = p(condition = FALSE | decision = negative)}
+\item Alternative names:
+  true negative rate (\code{TNR})
 
-\item \code{spec} is the complement of the
+\item Relationships:
+
+a. \code{spec} is the complement of the
   false alarm rate \code{\link{fart}}:
 
 \code{spec = 1 - fart}
+
+b. \code{spec} is the opposite conditional probability
+  -- but not the complement --
+  of the negative predictive value \code{\link{NPV}}:
+
+\code{NPV = p(condition = FALSE | decision = negative)}
 
 \item In natural frequencies,
   \code{spec} is the ratio of individuals for which
@@ -56,7 +66,9 @@ However, due to being a conditional probability,
 spec <- .75     # => sets a specificity value of 75\%
 spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
 is_prob(spec)   # => TRUE (as spec is a probability)
-
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{num}} contains basic numeric variables;

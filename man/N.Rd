@@ -16,16 +16,17 @@ number of cases considered).
 \details{
 A frequency (integer) value.
 
-The following relationships hold for natural
-frequencies in a population:
+Relationships: For natural frequencies
+in a population of size \code{N}
+the following relationships hold:
 
-\itemize{
+\enumerate{
 
 \item N = n(condition true) + n(condition false)
 
 \item n(positive decisions) + n(negative decisions)
 
-\item N = n(hi) + n(mi) + n(fa) + n(cr)
+\item N = [n(hi) + n(mi)] + [n(fa) + n(cr)]
 }
 
 The current frequency information is computed by
@@ -39,7 +40,9 @@ can be computed by \code{\link{comp_min_N}}.
 N <- 1000   # => sets a population size of 1000
 is_freq(N)  # => TRUE
 is_prob(N)  # => FALSE (as N is no probability)
-
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{comp_min_N}} computes a suitable

@@ -8,20 +8,20 @@ is_sufficient(prev, sens, spec = NA, fart = NA)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
-(i.e., the probability of condition being TRUE).}
+(i.e., the probability of condition being \code{TRUE}).}
 
 \item{sens}{The decision's sensitivity value \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
-provided that the condition is TRUE).}
+provided that the condition is \code{TRUE}).}
 
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
-of a negative decision provided that the condition is FALSE).
+of a negative decision provided that the condition is \code{FALSE}).
 \code{spec} is optional when is complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
-of a positive decision provided that the condition is FALSE).
+of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 }
 \value{
@@ -69,7 +69,7 @@ is_sufficient(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob wo
 \code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_freq}}, \code{\link{is_perc}},
-  \code{\link{is_perfect}}, \code{\link{is_prob}},
+  \code{\link{is_extreme}}, \code{\link{is_freq}},
+  \code{\link{is_perc}}, \code{\link{is_prob}},
   \code{\link{is_valid}}
 }

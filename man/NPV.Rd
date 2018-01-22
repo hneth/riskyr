@@ -18,22 +18,27 @@ Understanding or obtaining the negative predictive value \code{NPV}:
 
 \itemize{
 
-\item \code{NPV} is the conditional probability
+\item Definition:
+  \code{NPV} is the conditional probability
   for the condition being \code{FALSE}
   given a negative decision:
 
 \code{NPV = p(condition = FALSE | decision = negative)}
 
-\code{NPV} is the opposite conditional probability
+or the probability of a negative decision being correct.
+
+\item Relationships:
+
+a. \code{NPV} is the complement of the
+  false omission rate \code{\link{FOR}}:
+
+\code{NPV = 1 - FOR}
+
+b. \code{NPV} is the opposite conditional probability
   -- but not the complement --
   of the specificity \code{\link{spec}}:
 
 \code{spec = p(decision = negative | condition = FALSE)}
-
-\item \code{NPV} is the complement of the
-  false omission rate \code{\link{FOR}}:
-
-\code{NPV = 1 - FOR}
 
 \item In natural frequencies,
   \code{NPV} is the ratio of individuals for which
@@ -61,6 +66,9 @@ However, due to being a conditional probability,
 NPV <- .95     # => sets a negative predictive value of 95\%
 NPV <- 95/100  # => (condition = FALSE) for 95 people out of 100 people for which (decision = negative)
 is_prob(NPV)   # => TRUE (as NPV is a probability)
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{num}} contains basic numeric variables;

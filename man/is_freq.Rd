@@ -43,7 +43,7 @@ is.integer(2)  # => FALSE!
 \code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_perc}}, \code{\link{is_perfect}},
+  \code{\link{is_extreme}}, \code{\link{is_perc}},
   \code{\link{is_prob}}, \code{\link{is_sufficient}},
   \code{\link{is_valid}}
 }

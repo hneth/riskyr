@@ -3,6 +3,8 @@
 \docType{data}
 \name{fart}
 \alias{fart}
+\alias{fallout}
+\alias{FPR}
 \title{The false alarm rate of a decision process or diagnostic procedure.}
 \format{An object of class \code{logical} of length 1.}
 \usage{
@@ -18,13 +20,22 @@ Understanding or obtaining the false alarm rate \code{fart}:
 
 \itemize{
 
-\item \code{fart} is the conditional probability
+\item Definition:
+  \code{fart} is the conditional probability
   for an (incorrect) positive decision given that
   the condition is \code{FALSE}:
 
 \code{fart = p(decision = positive | condition = FALSE)}
 
-\item \code{fart} is the complement of the
+or the probability of a false alarm.
+
+\item Alternative names:
+  \code{fallout}, false positive rate (\code{FPR}),
+  rate of Type I errors
+
+\item Relationships:
+
+\code{fart} is the complement of the
   specificity \code{\link{spec}}:
 
 \code{fart = 1 - spec}
@@ -50,7 +61,9 @@ However, due to being a conditional probability,
 fart <- .25     # => sets a false alarm rate of 25\%
 fart <- 25/100  # => (decision = positive) for 25 people out of 100 people for which (condition = FALSE)
 is_prob(fart)   # => TRUE (as fart is a probability)
-
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{num}} contains basic numeric variables;

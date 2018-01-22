@@ -3,6 +3,7 @@
 \docType{data}
 \name{prev}
 \alias{prev}
+\alias{baseline}
 \title{The prevalence (baseline probability) of a condition.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -17,9 +18,16 @@ Understanding or obtaining the prevalence value \code{prev}:
 
 \itemize{
 
-\item \code{prev} is the (non-conditional) probability:
+\item Definition:
+  \code{prev} is the (non-conditional) probability:
 
 \code{prev = p(condition = TRUE)}
+
+or the (baseline) probability of the condition's occurrence.
+
+\item Alternative names:
+  \code{baseline}, proportion affected;
+  to be distinguished from \emph{incidence rate} (i.e., new cases within a certain time period)
 
 \item In natural frequencies,
   \code{prev} is the ratio of individuals for which
@@ -48,6 +56,9 @@ prev <- .10     # => sets a prevalence value of 10\%
 prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
 is_prob(prev)   # => TRUE (as prev is a probability)
 
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{num}} contains basic numeric variables;

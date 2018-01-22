@@ -18,22 +18,25 @@ Understanding or obtaining the false omission rate \code{FOR}:
 
 \itemize{
 
-\item \code{FOR} is the conditional probability
+\item Definition:
+  \code{FOR} is the conditional probability
   for the condition being \code{TRUE}
   given a negative decision:
 
 \code{FOR = p(condition = TRUE | decision = negative)}
 
-\code{FOR} is the opposite conditional probability
+\item Relationships:
+
+a. \code{FOR} is the complement of the
+  negative predictive value \code{\link{NPV}}:
+
+\code{FOR = 1 - NPV}
+
+b. \code{FOR} is the opposite conditional probability
   -- but not the complement --
   of the missing rate (\code{1 - \link{sens}}):
 
 \code{missing rate = p(decision = negative | condition = TRUE)}
-
-\item \code{FOR} is the complement of the
-  negative predictive value \code{\link{NPV}}:
-
-\code{FOR = 1 - NPV}
 
 \item In natural frequencies,
   \code{FOR} is the ratio of individuals for which
@@ -60,6 +63,9 @@ However, due to being a conditional probability,
 FOR <- .05     # => sets a false omission rate of 5\%
 FOR <- 5/100   # => (condition = TRUE) for 5 people out of 100 people for which (decision = negative)
 is_prob(FOR)   # => TRUE (as FOR is a probability)
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{comp_FOR}} computes \code{FOR} as the complement of \code{\link{NPV}};

@@ -20,22 +20,25 @@ false detection rate (\code{FDR}):
 
 \itemize{
 
-\item \code{FDR} is the conditional probability
+\item Definition:
+  \code{FDR} is the conditional probability
   for the condition being \code{FALSE}
   given a positive decision:
 
 \code{FDR = p(condition = FALSE | decision = positive)}
 
-\code{FDR} is the opposite conditional probability
+\item Relationships:
+
+a. \code{FDR} is the complement of the
+  positive predictive value \code{\link{PPV}}:
+
+\code{FDR = 1 - PPV}
+
+b. \code{FDR} is the opposite conditional probability
   -- but not the complement --
   of the false alarm rate \code{\link{fart}}:
 
 \code{sens = p(decision = positive | condition = FALSE)}
-
-\item \code{FDR} is the complement of the
-  positive predictive value \code{\link{PPV}}:
-
-\code{FDR = 1 - PPV}
 
 \item In natural frequencies,
   \code{FDR} is the ratio of individuals for which
@@ -63,7 +66,9 @@ However, due to being a conditional probability,
 FDR <- .45     # => sets a false discovery rate (FDR) of 45\%
 FDR <- 45/100  # => (condition = FALSE) for 45 people out of 100 people for which (decision = positive)
 is_prob(FDR)   # => TRUE (as FDR is a probability)
-
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{comp_FDR}} computes \code{FDR} as the complement of \code{\link{PPV}};

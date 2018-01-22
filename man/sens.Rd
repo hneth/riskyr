@@ -3,6 +3,8 @@
 \docType{data}
 \name{sens}
 \alias{sens}
+\alias{recall}
+\alias{TPR}
 \title{The sensitivity of a decision process or diagnostic procedure.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -18,17 +20,31 @@ Understanding or obtaining the sensitivity value \code{sens}:
 
 \itemize{
 
-\item \code{sens} is the conditional probability
+\item Definition: \code{sens} is the conditional probability
   for a (correct) positive decision given that
   the condition is \code{TRUE}:
 
 \code{sens = p(decision = positive | condition = TRUE)}
 
-\code{sens} is the opposite conditional probability
-  -- but not the complement --
-  of the positive predictive value \code{\link{ppv}}:
+or the probability of correctly detecting true cases
+  (\code{condition = TRUE}).
 
-\code{ppv = p(condition = TRUE | decision = positive)}
+\item Alternative names:
+  \code{recall}, true positive rate (\code{TPR}), probability of detection
+
+\item Relationships:
+
+a. \code{sens} is the complement of the miss rate
+  (aka. false negative rate \code{FNR} or the
+  rate of Type II errors):
+
+\code{sens = (1 - miss rate) = (1 - FNR)}
+
+b. \code{sens} is the opposite conditional probability
+  -- but not the complement --
+  of the positive predictive value \code{\link{PPV}}:
+
+\code{PPV = p(condition = TRUE | decision = positive)}
 
 \item In natural frequencies,
   \code{sens} is the ratio of individuals for which
@@ -51,7 +67,9 @@ However, due to being a conditional probability,
 sens <- .85     # => sets a sensitivity value of 85\%
 sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
 is_prob(sens)   # => TRUE (as sens is a probability)
-
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{num}} contains basic numeric variables;

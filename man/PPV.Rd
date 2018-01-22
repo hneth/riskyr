@@ -3,6 +3,7 @@
 \docType{data}
 \name{PPV}
 \alias{PPV}
+\alias{precision}
 \title{The positive predictive value of a decision process or diagnostic procedure.}
 \format{An object of class \code{logical} of length 1.}
 \usage{
@@ -18,22 +19,30 @@ Understanding or obtaining the positive predictive value \code{PPV}:
 
 \itemize{
 
-\item \code{PPV} is the conditional probability
+\item Definition:
+  \code{PPV} is the conditional probability
   for the condition being \code{TRUE}
   given a positive decision:
 
 \code{PPV = p(condition = TRUE | decision = positive)}
 
-\code{PPV} is the opposite conditional probability
+or the probability of a positive decision being correct.
+
+\item Alternative names:
+  \code{precision}
+
+\item Relationships:
+
+a. \code{PPV} is the complement of the
+  false discovery or false detection rate \code{\link{FDR}}:
+
+\code{PPV = 1 - FDR}
+
+b. \code{PPV} is the opposite conditional probability
   -- but not the complement --
   of the sensitivity \code{\link{sens}}:
 
 \code{sens = p(decision = positive | condition = TRUE)}
-
-\item \code{PPV} is the complement of the
-  false discovery or false detection rate \code{\link{FDR}}:
-
-\code{PPV = 1 - FDR}
 
 \item In natural frequencies,
   \code{PPV} is the ratio of individuals for which
@@ -62,6 +71,9 @@ PPV <- .55     # => sets a positive predictive value of 55\%
 PPV <- 55/100  # => (condition = TRUE) for 55 people out of 100 people for which (decision = positive)
 is_prob(PPV)   # => TRUE (as PPV is a probability)
 
+}
+\references{
+Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
 \code{\link{num}} contains basic numeric variables;

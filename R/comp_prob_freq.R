@@ -1,5 +1,5 @@
 ## comp_prob_freq.R | riskyR
-## 2018 01 21
+## 2018 01 22
 ## -----------------------------------------------
 ## Compute probabilities (prob) from frequencies (freq):
 
@@ -7,13 +7,30 @@
 ##       rather than env (NON-essential)!
 
 ## -----------------------------------------------
-## (A) ToDo: Compute basic parameters (prev, sens, spec, fart)
-##           from existing frequencies!
+## ToDo:
+
+## 1. Define 4 basic frequencies
+
+# 1 - hi = true positive (TP)
+# 2 - mi = false negative (FN)
+# 3 - fa = false positive (FP)
+# 4 - cr = true negative (TN)
+
+##  2. Compute basic parameters (prev, sens, spec, fart)
+##     from existing frequencies!
+
+# ALL probabilities can be computed from 4 frequencies
+# of the confusion table!
+
+# See https://en.wikipedia.org/wiki/Confusion_matrix
+# for a collection of metrics.
+
 
 ## (...)
 
+
 ## -----------------------------------------------
-## (B) Compute predictive values (PVs:
+## (X) Compute predictive values (PVs:
 ##     PPV and NPV, FDR and FOR)
 ##     from various frequencies (alternative versions):
 

@@ -100,10 +100,11 @@ prev <- .10 # default prevalence
 #'
 #'   \item Relationships:
 #'
-#'   a. \code{sens} is the complement of the miss rate or
-#'   false negative rate (\code{FNR}):
+#'   a. \code{sens} is the complement of the miss rate
+#'   (aka. false negative rate \code{FNR} or the
+#'   rate of Type II errors):
 #'
-#'   \code{sens = 1 - miss rate = 1 - FNR}
+#'   \code{sens = (1 - miss rate) = (1 - FNR)}
 #'
 #'   b. \code{sens} is the opposite conditional probability
 #'   -- but not the complement --
@@ -254,7 +255,8 @@ spec <- .75 # default specificity
 #'   or the probability of a false alarm.
 #'
 #'   \item Alternative names:
-#'   \code{fallout}, false positive rate (\code{FPR})
+#'   \code{fallout}, false positive rate (\code{FPR}),
+#'   rate of Type I errors
 #'
 #'   \item Relationships:
 #'
@@ -316,16 +318,17 @@ fart <- NA # default false alarm rate
 #'
 #' A frequency (integer) value.
 #'
-#' The following relationships hold for natural
-#' frequencies in a population:
+#' Relationships: For natural frequencies
+#' in a population of size \code{N}
+#' the following relationships hold:
 #'
-#' \itemize{
+#' \enumerate{
 #'
 #'   \item N = n(condition true) + n(condition false)
 #'
 #'   \item n(positive decisions) + n(negative decisions)
 #'
-#'   \item N = n(hi) + n(mi) + n(fa) + n(cr)
+#'   \item N = [n(hi) + n(mi)] + [n(fa) + n(cr)]
 #' }
 #'
 #' The current frequency information is computed by
@@ -335,10 +338,8 @@ fart <- NA # default false alarm rate
 #' If \code{N} is unknown, a suitable minimum value
 #' can be computed by \code{\link{comp_min_N}}.
 #'
-#' @examples
-#' N <- 1000   # => sets a population size of 1000
-#' is_freq(N)  # => TRUE
-#' is_prob(N)  # => FALSE (as N is no probability)
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
 #'
 #' @family basic parameters
 #'
@@ -350,6 +351,11 @@ fart <- NA # default false alarm rate
 #' \code{\link{freq}} contains basic frequency variables;
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities;
 #' \code{\link{comp_prob}} computes derived probabilities
+#'
+#' @examples
+#' N <- 1000   # => sets a population size of 1000
+#' is_freq(N)  # => TRUE
+#' is_prob(N)  # => FALSE (as N is no probability)
 
 N <- 1000 # default population
 

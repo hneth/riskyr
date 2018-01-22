@@ -45,9 +45,10 @@ as its output (a list of probabilities \code{\link{prob}}).
 \code{comp_prob} is the probability counterpart to the
 frequency function \code{\link{comp_freq}}.
 
-Note that inputs of extreme probabilities (of 0 or 1)
-may yield unexpected values (e.g., an \code{\link{NPV}}
-value of NaN when \code{\link{is_perfect}}
+Extreme probabilities (sets containing two or more
+probabilities of 0 or 1) may yield unexpected values
+(e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
+turning \code{NaN} when \code{\link{is_extreme}}
 evaluates to \code{TRUE}).
 }
 \examples{

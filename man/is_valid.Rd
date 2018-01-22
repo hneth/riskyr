@@ -43,7 +43,9 @@ and \code{\link{is_complement}} in one function.
 
 Note that \code{is_valid} only verifies the validity of inputs,
 but does not compute or return numeric variables.
-Use \code{\link{init_num}} for initializing basic parameters.
+Use \code{\link{is_extreme}} to verify sets of probabilities
+that describe extreme cases and \code{\link{init_num}}
+for initializing basic parameters.
 
 Both \code{prev} and \code{sens} and
 either \code{spec} or \code{fart} are necessary arguments.
@@ -85,7 +87,7 @@ is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
 \code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_freq}}, \code{\link{is_perc}},
-  \code{\link{is_perfect}}, \code{\link{is_prob}},
+  \code{\link{is_extreme}}, \code{\link{is_freq}},
+  \code{\link{is_perc}}, \code{\link{is_prob}},
   \code{\link{is_sufficient}}
 }
