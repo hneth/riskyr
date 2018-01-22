@@ -420,7 +420,7 @@ comp_FOR <- function(prev = num$prev, sens = num$sens, spec = num$spec) {
 #'
 #' Extreme probabilities (sets containing two or more
 #' probabilities of 0 or 1) may yield unexpected values
-#' (e.g., predictive values \code{\link{PPV} or \code{\link{NPV}}
+#' (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
 #' turning \code{NaN} when \code{\link{is_extreme}}
 #' evaluates to \code{TRUE}).
 #'

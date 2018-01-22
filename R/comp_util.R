@@ -579,7 +579,7 @@ is_extreme <- function(prev, sens, spec, fart) {
 #'
 #' Note that \code{is_valid} only verifies the validity of inputs,
 #' but does not compute or return numeric variables.
-#' Use \code\link{is_extreme} to verify sets of probabilities
+#' Use \code{\link{is_extreme}} to verify sets of probabilities
 #' that describe extreme cases and \code{\link{init_num}}
 #' for initializing basic parameters.
 #'
