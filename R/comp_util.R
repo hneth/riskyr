@@ -1,5 +1,5 @@
 ## comp_util.R | riskyR
-## 2018 01 21
+## 2018 01 22
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -9,7 +9,7 @@
 ## 2. is_perc
 ## 3. is_sufficient
 ## 4. is_complement
-## 5. is_perfect (to be generalized to is_extreme)
+## 5. is_extreme
 ## 6. is_valid
 
 #' Verify that a numeric input is a probability (from 0 to 1).
@@ -251,17 +251,17 @@ is_freq <- function(freq) {
 #' \code{\link{is_complement}} for this purpose.
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being TRUE).
+#' (i.e., the probability of condition being \code{TRUE}).
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
-#' provided that the condition is TRUE).
+#' provided that the condition is \code{TRUE}).
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
+#' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when is complement \code{fart} is provided.
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
+#' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
 #' @return A Boolean value: \code{TRUE} if the parameters provided are sufficient,
@@ -415,79 +415,153 @@ is_complement <- function(spec, fart, tol = .01) {
 
 ## -----------------------------------------------
 ## (E) Beware of extreme cases:
+##     Verify if the current set of (sufficient) probabilities
+##     describe an extreme case:
 
-# (e1) Verify if prev and sens are both perfect (value of 1):
-
-#' Verify that a condition's prevalence and a decision's
-#' sensitivity are both perfect.
+#' Verify that probabilities provided describe an extreme case.
 #'
-#' \code{is_perfect} verifies that the current prevalence
-#' value \code{\link{prev}} and sensitivity value \code{\link{sens}}
-#' are both perfect (i.e., both have a maximum value of 1)
-#' at the same time.
+#' \code{is_extreme} verifies that the current combination
+#' of probabilities provided (i.e., \code{\link{prev}}
+#' and \code{\link{sens}}, and \code{\link{spec}} or
+#' \code{\link{fart}}) describe an extreme case.
 #'
-#' If \code{TRUE}, a warning message is printed,
-#' as there are no false decisions (i.e., no false negatives
-#' and no false positives) and some derived probabilities
-#' (e.g., the conditional probabilities \code{\link{npv}}
-#' and \code{\link{FOR}}) cannot be computed.
+#' If \code{TRUE}, a warning message describing the
+#' nature of the extreme case is printed to allow
+#' anticipating peculiar effects (e.g., that
+#' PPV or NPV values cannot be computed or are \code{NaN}).
+#'
+#' This function does not verify the type, range, sufficiency,
+#' or consistency of its arguments. See \code{\link{is_prob}},
+#' \code{\link{is_sufficient}}, and \code{\link{is_complement}}
+#' for this purpose.
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being TRUE).
+#' (i.e., the probability of condition being \code{TRUE}).
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
-#' provided that the condition is TRUE).
+#' provided that the condition is \code{TRUE}).
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when is complement \code{fart} is provided.
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @return A Boolean value: \code{TRUE} if \code{\link{prev}}
-#' and \code{\link{sens}} are both 1, otherwise \code{FALSE}.
+#' @return A Boolean value: \code{TRUE} if an extreme case is identified,
+#' otherwise \code{FALSE}.
 #'
 #' @examples
-#' is_perfect(1, 1)           # => TRUE + warning (as npv cannot be computed)
+#' # Identify 4 extreme cases (+2 variants):
+#' is_extreme(1, 1)           # => TRUE + warning: N true positives
+#' plot_tree(1, 1, N = 100)   # => illustrates this case
 #'
-#' is_perfect(1, 2)           # => FALSE
-#' is_perfect(1, 1 - 10^-12)  # => FALSE
+#' is_extreme(1, 0)           # => TRUE + warning: N false negatives
+#' plot_tree(1, 0, N = 100)   # => illustrates this case
+#'
+#' sens <- .50
+#' is_extreme(0, sens, 0)              # => TRUE + warning: N false positives
+#' plot_tree(0, sens, 0, N = 100)      # => illustrates this case
+#' # Variant:
+#' is_extreme(0, sens, NA, 1)          # => TRUE + warning: N false positives
+#' plot_tree(0, sens, NA, 1, N = 100)  # => illustrates this case
+#'
+#' is_extreme(0, sens, 1)              # => TRUE + warning: N true negatives
+#' plot_tree(0, sens, 1, N = 100)      # => illustrates this case
+#' # Variant:
+#' is_extreme(0, sens, NA, 0)          # => TRUE + warning: N true negatives
+#' plot_tree(0, sens, NA, 0, N = 100)  # => illustrates this case
 #'
 #' @family verification functions
 #'
 #' @seealso
+#' \code{\link{is_valid}} uses \code{is_extreme}
+#' to verify the validity of probability inputs;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 
-is_perfect <- function(prev, sens) {
+is_extreme <- function(prev, sens, spec, fart) {
 
-  val <- FALSE  # initialize
+  ## (1) Initialize:
+  val <- NA
 
-  if ((prev == 1) & (sens == 1)) {  # prev and sens are both perfect:
-    warning("If prev and sens are both 1, there are NO false decisions (npv = NaN).")
-    val <- TRUE # nevertheless
+  ## (2) Compute missing fart or spec (4th argument) value (if applicable):
+  cur.spec.fart <- comp_complement(spec, fart)
+  spec <- cur.spec.fart[1] # 1st argument
+  fart <- cur.spec.fart[2] # 2nd argument
 
-  } else {  # prev and sens are not both perfect:
+  ## (3) Check cases:
+  if ((prev == 1) & (sens == 1)) {         # 1. prev and sens are both perfect:
+
+    warning("Extreme case (prev = 1 & sens = 1):\n N true positives; no cond.false or dec.false cases; NPV = NaN.")
+    val <- TRUE
+
+  } else if ((prev == 1) & (sens == 0)) {  # 2. prev perfect and sens zero:
+
+    warning("Extreme case (prev = 1 & sens = 0):\n N false negatives; no cond.false or dec.true cases; PPV = NaN.")
+    val <- TRUE
+
+  } else if ((prev == 0) & (spec == 0)) {  # 3a. prev and spec are both zero:
+
+    warning("Extreme case (prev = 0 & spec = 0):\n N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    val <- TRUE
+
+  } else if ((prev == 0) & (fart == 1)) {  # 3b. prev zero and fart perfect (i.e., spec zero):
+
+    warning("Extreme case (prev = 0 & fart = 1):\n N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    val <- TRUE
+
+  } else if ((prev == 0) & (spec == 1)) {  # 4a. prev zero and spec perfect:
+
+    warning("Extreme case (prev = 0 & spec = 1):\n N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    val <- TRUE
+
+  } else if ((prev == 0) & (fart == 0)) {  # 4b. prev zero and fart zero (i.e., spec perfect):
+
+    warning("Extreme case (prev = 0 & fart = 0):\n N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    val <- TRUE
+
+  } else {  # not an extreme case:
 
     val <- FALSE
 
   }
 
+  ## (4) Return value:
   return(val)
+
 }
 
 ## Check:
-# is_perfect(1, 1)           # => TRUE + warning (as npv cannot be computed)
-# is_perfect(1, 2)           # => FALSE
-# is_perfect(1, 1 - 10^-12)  # => FALSE
+{
+  # # Identify 4 extreme cases (+2 variants):
+  # is_extreme(1, 1)           # => TRUE + warning: N true positives
+  # plot_tree(1, 1, N = 100)   # => illustrates this case
+  #
+  # is_extreme(1, 0)           # => TRUE + warning: N false negatives
+  # plot_tree(1, 0, N = 100)   # => illustrates this case
+  #
+  # sens <- .50
+  # is_extreme(0, sens, 0)              # => TRUE + warning: N false positives
+  # plot_tree(0, sens, 0, N = 100)      # => illustrates this case
+  # # Variant:
+  # is_extreme(0, sens, NA, 1)          # => TRUE + warning: N false positives
+  # plot_tree(0, sens, NA, 1, N = 100)  # => illustrates this case
+  #
+  # is_extreme(0, sens, 1)              # => TRUE + warning: N true negatives
+  # plot_tree(0, sens, 1, N = 100)      # => illustrates this case
+  # # Variant:
+  # is_extreme(0, sens, NA, 0)          # => TRUE + warning: N true negatives
+  # plot_tree(0, sens, NA, 0, N = 100)  # => illustrates this case
+}
 
-## -----------------------------------------------
-## (e+) ToDo: Generalize is_perfect to
-## is_extreme to incorporate other extreme cases:
-
-## prev = 0, spec = 0: only fa cases
-## prev = 0, spec = 1: only cr cases
 
 ## -----------------------------------------------
 # Verify that 3 or 4 probabilities are valid inputs:
@@ -505,7 +579,9 @@ is_perfect <- function(prev, sens) {
 #'
 #' Note that \code{is_valid} only verifies the validity of inputs,
 #' but does not compute or return numeric variables.
-#' Use \code{\link{init_num}} for initializing basic parameters.
+#' Use \code\link{is_extreme} to verify sets of probabilities
+#' that describe extreme cases and \code{\link{init_num}}
+#' for initializing basic parameters.
 #'
 #' Both \code{prev} and \code{sens} and
 #' either \code{spec} or \code{fart} are necessary arguments.
@@ -594,7 +670,8 @@ is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
     }
   }
 
-  # is_perfect(sens, spec)  # issue a warning when condition is met
+  ## Issue a warning if probabilities describe an extreme case:
+  # is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE # NOT ALWAYS done (to avoid multiple messages)!
 
   return(val)
 }
