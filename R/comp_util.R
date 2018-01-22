@@ -487,7 +487,7 @@ is_complement <- function(spec, fart, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 
-is_extreme <- function(prev, sens, spec, fart) {
+is_extreme <- function(prev, sens, spec = NA, fart = NA) {
 
   ## (1) Initialize:
   val <- NA
@@ -500,32 +500,32 @@ is_extreme <- function(prev, sens, spec, fart) {
   ## (3) Check cases:
   if ((prev == 1) & (sens == 1)) {         # 1. prev and sens are both perfect:
 
-    warning("Extreme case (prev = 1 & sens = 1):\n N true positives; no cond.false or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 1 & sens = 1):\n  N true positives; no cond.false or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 1) & (sens == 0)) {  # 2. prev perfect and sens zero:
 
-    warning("Extreme case (prev = 1 & sens = 0):\n N false negatives; no cond.false or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 1 & sens = 0):\n  N false negatives; no cond.false or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (spec == 0)) {  # 3a. prev and spec are both zero:
 
-    warning("Extreme case (prev = 0 & spec = 0):\n N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & spec = 0):\n  N false positives; no cond.true or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 1)) {  # 3b. prev zero and fart perfect (i.e., spec zero):
 
-    warning("Extreme case (prev = 0 & fart = 1):\n N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 1):\n  N false positives; no cond.true or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (spec == 1)) {  # 4a. prev zero and spec perfect:
 
-    warning("Extreme case (prev = 0 & spec = 1):\n N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & spec = 1):\n  N true negatives; no cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 0)) {  # 4b. prev zero and fart zero (i.e., spec perfect):
 
-    warning("Extreme case (prev = 0 & fart = 0):\n N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 0):\n  N true negatives; no cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else {  # not an extreme case:

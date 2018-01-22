@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyR
-## 2018 01 21
+## 2018 01 22
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -168,7 +168,9 @@ plot_tree <- function(prev = num$prev,  # probabilities
   if (is_valid(prev, sens, spec, fart)) { # probabilities are provided:
 
     ## (a) Compute cur.freq based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev, sens, spec, fart, N, round)
+    cur.freq <- comp_freq(prev, sens, spec, fart, N, round)  # compute freq
+
+    ## Assign elements of cur.freq:
     N <- cur.freq$N
     n.true  <- cur.freq$cond.true
     n.true  <- cur.freq$cond.true

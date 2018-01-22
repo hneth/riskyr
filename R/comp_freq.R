@@ -1,5 +1,5 @@
 ## comp_freq.R | riskyR
-## 2018 01 21
+## 2018 01 22
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -114,15 +114,17 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     cur.spec.fart <- comp_complement(spec, fart)
-    spec <- cur.spec.fart[1] # 1st argument
-    fart <- cur.spec.fart[2] # 2nd argument
+    spec <- cur.spec.fart[1]  # 1st argument
+    fart <- cur.spec.fart[2]  # 2nd argument
 
     ## (3) Issue a warning if probabilities describe an extreme case:
     is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
 
     ## (4) Compute missing population size value N (if applicable):
     if (is.na(N)) {
+
       N <- comp_min_N(prev, sens, spec, min.freq = 1)
+
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
     }
 
@@ -141,18 +143,18 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     ## (7) Number of SDT combinations:
     ##     (= 2nd level/leaves of natural frequency tree):
     if (round) {
-      freq$hi <- round((sens * freq$cond.true), 0)  # a1. N of hi [rounded to nearest integer]
+      freq$hi <- round((sens * freq$cond.true), 0)   # a1. N of hi [rounded to nearest integer]
     } else {
-      freq$hi <- (sens * freq$cond.true)            # a2. N of hi [not rounded]
+      freq$hi <- (sens * freq$cond.true)             # a2. N of hi [not rounded]
     }
-    freq$mi <- (freq$cond.true - freq$hi)           # b.  N of mi = complement of hi (to cond.true)
+    freq$mi <- (freq$cond.true - freq$hi)            # b.  N of mi = complement of hi (to cond.true)
 
     if (round) {
-      freq$cr <- round((spec * freq$cond.false), 0) # c1. N of cr [rounded to nearest integer]
+      freq$cr <- round((spec * freq$cond.false), 0)  # c1. N of cr [rounded to nearest integer]
     } else {
-      freq$cr <- (spec * freq$cond.false)           # c2. N of cr [not rounded]
+      freq$cr <- (spec * freq$cond.false)            # c2. N of cr [not rounded]
     }
-    freq$fa <- (freq$cond.false - freq$cr)          # d.  N of fa - complement of cr (to cond.false)
+    freq$fa <- (freq$cond.false - freq$cr)           # d.  N of fa - complement of cr (to cond.false)
 
     ## (8) Number of decisions:
     freq$dec.pos <- freq$hi + freq$fa # 1. positive decisions (true & false positives)
