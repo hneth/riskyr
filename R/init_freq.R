@@ -1,49 +1,51 @@
 ## init_freq.R | riskyR
-## 2018 01 22
+## 2018 01 23
 ## -----------------------------------------------
-## Define and initialize basic frequencies
+## Define and initialize ALL frequencies
 ## -----------------------------------------------
 
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# probabilities (9):                frequencies (9):
+# Probabilities (9):                Frequencies (9):
 # ------------------                ------------------
-# (A) basic:
-#                                          N
-# prev*                             n.true | n.false
+# (A) Basic:
+# non-conditional:                          N
+# prev*                           cond.true | cond.false
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
 
 # [Note: *...is essential]
 
 
-# (B) derived:
-#                                   dec.pos | dec.neg
+# (B) Derived probabilities:     Combined frequencies:
 
-# PPV = pos. pred. value
+# PPV = pos. pred. value           dec.pos | dec.neg
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
 
 ## -----------------------------------------------
-## Two basic directions:
+## Data flow: Two basic directions:
 
 ## 1: Bayesian: starting with 3 basic probabilities:
 ## - given:   prev;  sens, spec
 ## - derived: all other values
 
 ## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
+## - given:   N = hi, mi, fa, cr
 ## - derived: all other values
 
 ## -----------------------------------------------
-## (A) Basic frequencies:
+
 ## -----------------------------------------------
-## (0) N:
+## (A) Define and initializes BASIC frequencies:
+## -----------------------------------------------
+## (0) N: population size
 
 #' The number of individuals in the population.
 #'
@@ -76,7 +78,7 @@
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
 #'
-#' @family basic parameters
+#' @family basic frequencies
 #'
 #' @seealso
 #' \code{\link{comp_min_N}} computes a suitable
@@ -92,17 +94,60 @@
 #' is_freq(N)  # => TRUE
 #' is_prob(N)  # => FALSE (as N is no probability)
 
-N <- 100  # default population size
+N <- 99  # default population size
+
+## -----------------------------------------------
+## *essential frequencies: hi mi fa cr
+## -----------------------------------------------
+## (1) hi = TP:
+
+#' Frequency of hits or true positives (TP).
+#'
+#' \code{hi} is the frequency of hits or true positives (TP)
+#' in a population of \code{\link{N}} individuals.
+#'
+#' @aliases
+#' TP
+#'
+#' @family basic frequencies
+#'
+#' @seealso
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{freq}} contains basic frequency variables.
+
+hi <- NA
+
+## -----------------------------------------------
+## (2) mi = FN:
+## -----------------------------------------------
+## (3) fa = FP:
+## -----------------------------------------------
+## (4) cr = TN:
 
 
 ## -----------------------------------------------
+## (B) Define and initialize COMBINED frequencies:
 ## -----------------------------------------------
+
+## -----------------------------------------------
+## (a) cond.true cond.false
+## -----------------------------------------------
+
+## cond.true  cond.false
+
+## -----------------------------------------------
+## (b) dec.pos dec.neg
+## -----------------------------------------------
+
+## -----------------------------------------------
+## dec.pos  dec.neg
+
 ## -----------------------------------------------
 ## (+) ToDo:
 
-# cond.true  cond.false
-# hi mi fa cr
-# dec.pos  dec.neg
+
+
+
 
 ## -----------------------------------------------
 ## eof.
