@@ -1,49 +1,25 @@
 ## init_pal.R | riskyR
-## 2018 01 17
+## 2018 01 20
 ## -----------------------------------------------
-## Define and initialize current set of
-## custom colors (pal):
+## Define and initialize the current set
+## of custom colors (pal):
 
 ## pal contains defaults for user inputs.
 
 ## -----------------------------------------------
-## Set defaults for all color inputs (pal):
-
-## Utility function:
-
-makeTransparent = function(..., alpha = .50) {
-
-  if (alpha < 0 | alpha > 1) {
-    stop("alpha must be between 0 and 1")
-  }
-
-  alpha <- floor(255 * alpha)
-  newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
-
-  .makeTransparent <- function(col, alpha) {
-    rgb(red = col[1],
-        green = col[2],
-        blue=col[3],
-        alpha = alpha, maxColorValue = 255)
-  }
-
-  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
-
-  return(newColor)
-
-}
+## (A) Define colors:
 
 ## -----------------------------------------------
-## (1) Define some named colors:
+## (1) Choose and name some colors:
 
 {
   ## (1) from uni.kn:
   seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
 
   ## (2) from https://bootswatch.com/sandstone/:
-  col.sand.light = rgb(248, 245, 240, max = 255)
-  col.sand.mid   = rgb(142, 140, 132, max = 255)
-  col.sand.dark  = rgb(62, 63, 58, max = 255)
+  col.sand.light <- rgb(248, 245, 240, max = 255)
+  col.sand.mid   <- rgb(142, 140, 132, max = 255)
+  col.sand.dark  <- rgb(62, 63, 58, max = 255)
 
   col.grey.1 <- rgb(181, 179, 174, max = 255)
   col.grey.2 <- rgb(123, 121, 113, max = 255)
@@ -65,8 +41,8 @@ makeTransparent = function(..., alpha = .50) {
   col.orange.2 <- rgb(242, 100, 24, max = 255)
 
   ## (3) basic colors + transparency:
-  my.red  <- "tomato3"
-  my.blue <- "steelblue3"
+  my.red   <- "tomato3"
+  my.blue  <- "steelblue3"
   my.green <- "olivedrab4"
 
   my.yellow <- "lightgoldenrod1"
@@ -81,62 +57,173 @@ makeTransparent = function(..., alpha = .50) {
   blue.1 <- makeTransparent(my.blue, alpha = .50)
   blue.2 <- makeTransparent(my.blue, alpha = 1.0)
 
-  yellow.1  <- makeTransparent(my.yellow, alpha = .50)
-  yellow.2  <- makeTransparent(my.yellow, alpha = 1.0)
+  yellow.1 <- makeTransparent(my.yellow, alpha = .50)
+  yellow.2 <- makeTransparent(my.yellow, alpha = 1.0)
 
-  orange.1  <- makeTransparent(my.orange, alpha = .50)
-  orange.2  <- makeTransparent(my.orange, alpha = 1.0)
+  orange.1 <- makeTransparent(my.orange, alpha = .50)
+  orange.2 <- makeTransparent(my.orange, alpha = 1.0)
 
 }
 
 ## -----------------------------------------------
-## (2) Select and name some colors by their function
+## (2) Assign some colors to recurring elements/roles
 ##     (to set default colors for plots and app display):
 
 {
   ## (a) Define base color (for population N):
-  col.N <- grey(.95, .99) # "white", col.grey.1
+  col.N <- grey(.95, .99)       # "white", col.grey.1
 
   ## (b) Define 2 colors for condition cases:
-  col.true <- my.yellow # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
-  col.false <- "lightskyblue2" #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
-  ## Combine:
+  col.true <- my.yellow         # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
+  col.false <- "lightskyblue2"  #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
+  ## Combine in named vector:
   cond.colors <- setNames(c(col.true, col.false),
                          c("true", "false")
   )
 
+  ## ToDo: Define 2 decision colors ##
+
   ## (c) Define 4 colors for SDT cases:
-  col.hi <- my.green # "olivedrab4", "palegreen4", col.green.2
-  col.mi <- my.red   # "tomato3", "orangered3", "firebrick3", col.red.2
-  col.fa <- "lightsalmon2" # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
-  col.cr <- "olivedrab3"   # "springgreen2" # "palegreen3" # col.green.1
-  ## Combine:
+  col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2
+  col.mi <- my.red          # "tomato3", "orangered3", "firebrick3", col.red.2
+  col.fa <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
+  col.cr <- "olivedrab3"    # "springgreen2" # "palegreen3" # col.green.1
+  ## Combine in named vector:
   sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
                          c("hi", "mi", "fa", "cr")
                          )
 
   ## (d) Define 2 colors for PVs:
-  col.ppv <- my.orange # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
-  col.npv <- my.blue # "steelblue3", col.blue.3, "green4" "gray50" "brown4" "chartreuse4"
+  col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
+  col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4" "chartreuse4"
 }
 
 ## -----------------------------------------------
-## (3) Define corresponding color palette:
-## -----------------------------------------------
-## Documentation:
+## (3) Define corresponding default palette:
 
-#' Initialize all color information.
+pal.def <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of colors
+pal.def <- setNames(object = pal.def,
+                    nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
+                    )
+n.colors <- length(pal.def)  # number of colors for which defaults are defined
+
+## -----------------------------------------------
+## (B) Initialization function for all color
+##     elements (all titles and labels):
+
+#' Initialize basic color information.
 #'
-#' \code{pal} is initialized to a vector of named elements
-#' to define all colors used throughout the \code{riskyr} package.
+#' \code{init_pal} initializes basic color information
+#' (i.e., all colors corresponding to functional roles in
+#' the current scenario and used throughout the \code{riskyr} package).
 #'
 #' All color information of the current scenario
-#' is stored as named elements (colors) in a vector \code{pal}.
+#' is stored as named colors in a list \code{pal}.
+#' \code{init_pal} allows changing colors by assigning
+#' new colors to existing names.
+#'
+#' @param col.N Color representing the \emph{population} (of N cases or individuals).
+#'
+#' @param col.true Color representing cases for which the current condition is \code{TRUE}.
+#' @param col.false Color representing cases for which the current condition is \code{FALSE}.
+#'
+#' @param col.hi Color representing \emph{hits} or true positives
+#' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
+#' @param col.mi Color representing \emph{misses} or false negatives
+#' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
+#' @param col.fa Color representing \emph{false alarms} or false positives
+#' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
+#' @param col.cr Color representing \emph{correct rejections} or true negatives
+#' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
+#'
+#' @param col.ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
+#' the condition is TRUE, provided that the decision is positive).
+#' @param col.npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
+#' the condition is FALSE, provided that the decision is negative).
+#'
+#' @examples
+#' init_pal()          # => define and return a vector of current (default) colors
+#' length(init_pal())  # => 9
+#' pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+#'
+#' @family functions to initialize scenario settings
+#'
+#' @seealso
+#' \code{\link{pal}} for current color settings;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{num}} for basic numeric parameters
+
+init_pal <- function(col.N = pal.def["N"],          # population N
+                     ## Conditions:
+                     col.true  = pal.def["true"],   # condition true
+                     col.false = pal.def["false"],  # condition false
+                     ## ToDo: Define 2 decision colors ##
+                     ## Combinations:
+                     col.hi = pal.def["hi"],        # hits / true positives
+                     col.mi = pal.def["mi"],        # misses / false negatives
+                     col.fa = pal.def["fa"],        # false alarms / false positives
+                     col.cr = pal.def["cr"],        # correct rejections / true negatives
+                     ## Derived conditional probabilities:
+                     col.ppv = pal.def["ppv"],      # positive predictive values
+                     col.npv = pal.def["npv"]       # negative predictive values
+) {
+
+
+  ## 1. Initialize pal as a VECTOR:
+  pal <- rep(NA, n.colors)
+
+  ## 2. Pass arguments to VECTOR:
+  pal <- c(col.N,      # population N
+           ## Conditions:
+           col.true,   # condition true
+           col.false,  # condition false
+           ## ToDo: Define 2 decision colors ##
+           ## Combinations:
+           col.hi,     # hits / true positives
+           col.mi,     # misses / false negatives
+           col.fa,     # false alarms / false positives
+           col.cr,     # correct rejections / true negatives
+           ## Derived conditional probabilities:
+           col.ppv,    # positive predictive values
+           col.npv     # negative predictive values
+  )
+
+  ## 3. Name vector elements:
+  pal <- setNames(object = pal,
+                  nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
+                  )
+
+  ## 4. Return vector:
+  return(pal)
+
+}
+
+## Check:
+{
+  # init_pal()          # => returns vector of current colors
+  # length(init_pal())  # => 9
+  # pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+}
+
+## -----------------------------------------------
+## (C) Initialize a vector pal to contain
+##     all current color information:
+
+#' List current values of basic color information.
+#'
+#' \code{pal} is initialized to a vector of named elements (colors)
+#' to define the color scheme for the current scenario that is
+#' used throughout the \code{riskyr} package.
+#'
+#' All color information corresponding to the current scenario
+#' is stored as named colors in a vector \code{pal}.
 #' To change a color, assign a new color to an existing element name.
 #'
 #' @param N Color representing the \emph{population} (of N cases or individuals).
+#'
 #' @param true Color representing cases for which the current condition is \code{TRUE}.
 #' @param false Color representing cases for which the current condition is \code{FALSE}.
+#'
 #' @param hi Color representing \emph{hits} or true positives
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
 #' @param mi Color representing \emph{misses} or false negatives
@@ -145,6 +232,7 @@ makeTransparent = function(..., alpha = .50) {
 #' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
 #' @param cr Color representing \emph{correct rejections} or true negatives
 #' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
+#'
 #' @param ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
 #' the condition is TRUE, provided that the decision is positive).
 #' @param npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
@@ -155,61 +243,61 @@ makeTransparent = function(..., alpha = .50) {
 #' pal["hi"] # displays the current color for hits (true positives)
 #' pal["hi"] <- "green3" # defines a new color for hits (true positives)
 #'
-#' @seealso \code{\link{num}} for numeric parameters; \code{\link{txt}} for text labels and titles
+#' @family lists containing basic scenario settings
+#' @seealso \code{\link{init_pal}} to initialize color information
 
-## -----------------------------------------------
-
-pal <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of all colors
-pal <- setNames(object = pal,
-                nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
-                )
+## Apply:
+pal <- init_pal()
 
 ## Check:
-# pal
-# length(pal)
-# pal[2] == pal["true"]
+{
+  # pal
+  # length(pal)
+  # pal[2] == pal["true"]
+}
 
 ## -----------------------------------------------
 ## ggplot themes:
 
 {
-  library("ggplot2")
-
-  my.theme <-  theme_bw() +
-    theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
-          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-          # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
-          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
-          panel.background = element_rect(fill = "grey99", color = col.sand.dark),
-          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
-          # panel.grid.minor.x = element_blank(),
-          # panel.grid.minor.y = element_blank(),
-          legend.position = "none"
-    )
-
-  my.theme.legend <- theme_bw() +
-    theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
-          axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-          axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-          # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
-          axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
-          panel.background = element_rect(fill = "grey99", color = col.sand.dark),
-          panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-          panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
-          # panel.grid.minor.x = element_blank(),
-          # panel.grid.minor.y = element_blank()#,
-          # legend.position = "none"
-    )
+  #   library("ggplot2")
+  #
+  #   my.theme <-  theme_bw() +
+  #     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+  #           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+  #           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+  #           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
+  #           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
+  #           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+  #           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+  #           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
+  #           # panel.grid.minor.x = element_blank(),
+  #           # panel.grid.minor.y = element_blank(),
+  #           legend.position = "none"
+  #     )
+  #
+  #   my.theme.legend <- theme_bw() +
+  #     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+  #           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+  #           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+  #           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
+  #           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
+  #           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+  #           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+  #           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
+  #           # panel.grid.minor.x = element_blank(),
+  #           # panel.grid.minor.y = element_blank()#,
+  #           # legend.position = "none"
+  #     )
 }
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - use standard colors as default
-## - add pre-defined color palettes & transparency
-## - make colors user-customizable
+## - Define 2 decision colors!
+## - Use standard colors as default
+## - Add pre-defined color palettes & transparency
+## - Make colors user-customizable
 
 ## -----------------------------------------------
 ## eof.

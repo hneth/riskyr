@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.905
+Version: 0.0.0.907
 Date: 2018-01-15
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
@@ -13,32 +13,35 @@ Author: Hansjoerg Neth [aut, cre],
 AuthorUrl: http://neth.de
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
 Description: Provides a set of basic risk literacy tools in R.
-    Starting with a condition (e.g., a disease), a corresponding decision (e.g., based on a clinical judgment or diagnostic test), and basic probabilities (prevalence, sensitivity, specificity) we provide a range of metrics and alternative representations of probabilities and frequencies (for a population of N individuals). By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
+    Starting with a condition (e.g., a disease), a corresponding decision (e.g., based on a clinical judgment or diagnostic test), and basic probabilities (prevalence, sensitivity, specificity) we provide a range of metrics and alternative representations of risk-related information (as probabilities and frequencies for a population of N individuals). By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
 Depends:
-    R (>= 3.2),
-    diagram (>= 1.6.4),
-    vcd (>= 1.4)
+    R (>= 3.2)
 Imports:
-    grid
+    diagram (>= 1.6.4),
+    vcd (>= 1.4),
+    grid (>= 3.4.3)
 Suggests:
-    knitr,
     devtools,
+    knitr,
     roxygen2
-Collate: 'init_txt.R'
+Collate: 'comp_util.R'
+         'init_txt.R'
          'init_pal.R'
+         'init_prob.R'
+         'comp_prob_prob.R'
+         'init_freq.R'
+         'comp_freq_prob.R'
          'init_num.R'
-         'init_env.R'
-         'comp_util.R'
-         'comp_prob.R'
-         'comp_freq.R'
+         'init_num_prob.R'
+         'init_num_freq.R'
+         'comp_prob_freq.R'
          'comp_popu.R'
          'plot_iconarray.R'
-         'plot_nftree.R'
-         'plot_areatree.R'
          'plot_mosaic.R'
+         'plot_tree.R'
          'plot_PV.R'
          'plot_PV3d.R'
-         'temp_code.R'
+         'start_riskyr.R'
 Encoding: UTF-8
 LazyData: true
 License: No license yet.

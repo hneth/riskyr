@@ -1,7 +1,7 @@
 riskyr
 ======
 SPDS, uni.kn
-2018 01 01
+2017 12 20
 
 # The `riskyr` package
 
@@ -57,6 +57,21 @@ Our objective is to collect and develop a set of basic risk literacy tools in R.
 2. The corresponding R Shiny app `riskyrApp` allows using the `riskyr` toolbox in an interactive fashion without any coding.
 
 The combination of package and application facilitates risk communication and supports instruction and training efforts in promoting risk literacy.
+
+
+## ToDo
+
+Things to implement in the near future:
+
+- Restructure to define 5 basic vs. 4 derived probabilities, 9 basic frequencies, initialize `num`, 9 probabilities in `probs`, and 9 frequencies in `freq`.
+
+- Miss rate `mirt` (as a complement to `sens`), to complete the quadruple of probabilities (yielding the 4 SDT cases or leaves of natural frequency tree).
+
+- `hi`, `mi`, `fa`, `rt` as 4 basic frequencies (corresponding to rates).
+
+- functions that compute all basic probabilities (`prev`, `sens`, `spec`, `fart`, and `mirt`) from 4 basic frequencies (in `freq`)
+
+- All metrics (accuracy, etc.) on 2x2 confusion table
 
 
 ## About
