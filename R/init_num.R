@@ -8,16 +8,18 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# 9 probabilities:                  9 frequencies:
-# ----------------                  ------------------
+# probabilities (9):                frequencies (9):
+# ------------------                ------------------
 # (A) basic:
 #                                          N
-# prev                              n.true | n.false
+# prev*                             n.true | n.false
 
-# sens = hit rate = TPR             hi = TP
-# mirt = miss rate = FNR            mi = FN
-# fart = false alarm rate = FPR     fa = FP
-# spec = true negative rate = TNR   cr = TN
+# sens* = hit rate = TPR             hi* = TP
+# mirt  = miss rate = FNR            mi* = FN
+# fart  = false alarm rate = FPR     fa* = FP
+# spec* = true negative rate = TNR   cr* = TN
+
+# [Note: *...is essential]
 
 
 # (B) derived:
@@ -125,7 +127,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   if (is_valid(prev, sens, spec, fart, tol = .01)){
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-    cur.spec.fart <- comp_complement(spec, fart)
+    cur.spec.fart <- comp_comp_pair(spec, fart)
     spec <- cur.spec.fart[1] # 1st argument
     fart <- cur.spec.fart[2] # 2nd argument
 

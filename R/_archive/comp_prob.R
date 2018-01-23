@@ -170,6 +170,8 @@ comp_spec <- function(fart) {
 ## a. sens + mirt
 ## b. spec + fart
 
+## -----------------------------------------------
+
 #' Compute a probability's complement (if missing).
 #'
 #' \code{comp_complement} is a function that takes one or two probabilities
@@ -216,6 +218,90 @@ comp_spec <- function(fart) {
 #' \code{\link{comp_prob}} computes derived probabilities
 
 comp_complement <- function(spec, fart){
+
+  pair <- c(NULL, NULL) # initialize
+  missing <- NA
+
+  if (is.na(spec) & is.na(fart)) {
+    warning("One argument (either spec or fart) is necessary.")
+    pair <- c(NA, NA)                      # - set to NA NA
+  } else if (!is.na(spec) & is.na(fart)) { # only spec is provided:
+    missing <- comp_fart(spec)             # - compute fart
+    pair <- c(spec, missing)               # - define pair
+  } else if (!is.na(fart) & is.na(spec)) { # only fart is provided:
+    missing <- comp_spec(fart)             # - compute spec
+    pair <- c(missing, fart)               # - define pair
+  } else {
+    pair <- c(spec, fart)                  # - set to inputs
+
+  }
+
+  return(pair)  # always return pair c(spec, fart)
+
+}
+
+## Check:
+{
+  # comp_complement(1, 0)   # => 1 0
+  # comp_complement(0, 1)   # => 0 1
+  # comp_complement(1, NA)  # => 1 0
+  # comp_complement(NA, 1)  # => 0 1
+  #
+  # comp_complement(NA, NA) # => NA NA + warning
+  # comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
+  # comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
+}
+
+## -----------------------------------------------
+
+#' Compute a probability's complement (if missing).
+#'
+#' \code{comp_complement_obs} is a *obsolete* function that
+#' takes one or two probabilities that are complements
+#' -- either a sensitivity \code{\link{sens}} and miss rate \code{\link{mirt}}
+#' -- or a specificity \code{\link{spec}} and false alarm rate \code{\link{fart}} --
+#' as inputs. If either of them is missing (\code{NA}), it computes the complement
+#' of the other one and returns both probabilities.
+#'
+#' This function is *obsolete* and *replaced* by \code{\link{comp_comp_pair}}!
+#'
+#' This function does nothing when both arguments are provided
+#' (i.e., \code{!is.na(spec) & !is.na(fart)}) and only issues
+#' a warning if both arguments are missing
+#' (i.e., \code{is.na(spec) & is.na(fart)}).
+#' Use \code{\link{is_complement}} to verify that
+#' two provided values actually are complements.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is FALSE).
+#' \code{spec} is optional when is complement \code{fart} is provided.
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is FALSE).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @return A vector \code{v} containing two scalars \code{c(spec, fart)}
+#' with \code{spec <- v[1]} and \code{fart <- v[2]}).
+#'
+#' @examples
+#' comp_complement(1, 0)   # => 1 0
+#' comp_complement(0, 1)   # => 0 1
+#' comp_complement(1, NA)  # => 1 0
+#' comp_complement(NA, 1)  # => 0 1
+#'
+#' comp_complement(NA, NA) # => NA NA + warning
+#' comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
+#' comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{is_valid}} verifies valid quadruples of probabilities;
+#' \code{\link{comp_prob}} computes derived probabilities
+
+comp_complement_obs <- function(spec, fart){
 
   pair <- c(NULL, NULL) # initialize
   missing <- NA
@@ -628,6 +714,8 @@ comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
   return(matrix)
 
 }
+
+
 
 ## -----------------------------------------------
 ## (+) ToDo:

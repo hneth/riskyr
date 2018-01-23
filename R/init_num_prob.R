@@ -6,16 +6,19 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# 9 probabilities:                  9 frequencies:
-# ----------------                  ------------------
+
+# probabilities (9):                frequencies (9):
+# ------------------                ------------------
 # (A) basic:
 #                                          N
-# prev                              n.true | n.false
+# prev*                             n.true | n.false
 
-# sens = hit rate = TPR             hi = TP
-# mirt = miss rate = FNR            mi = FN
-# fart = false alarm rate = FPR     fa = FP
-# spec = true negative rate = TNR   cr = TN
+# sens* = hit rate = TPR             hi* = TP
+# mirt  = miss rate = FNR            mi* = FN
+# fart  = false alarm rate = FPR     fa* = FP
+# spec* = true negative rate = TNR   cr* = TN
+
+# [Note: *...is essential]
 
 
 # (B) derived:
@@ -121,8 +124,9 @@
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_valid}} verifies the validity of probability inputs;
-#' \code{\link{comp_complement}} computes a complementary probability (if missing);
-#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_comp_pair}} computes pairs of complements;
+#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
 comp_prob <- function(prev = num$prev, sens = num$sens,
                       spec = num$spec, fart = NA) {
@@ -147,7 +151,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens,
   if (is_valid(prev, sens, spec, fart)) {
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-    cur.spec.fart <- comp_complement(spec, fart)
+    cur.spec.fart <- comp_comp_pair(spec, fart)
     spec <- cur.spec.fart[1] # 1st argument
     fart <- cur.spec.fart[2] # 2nd argument
 

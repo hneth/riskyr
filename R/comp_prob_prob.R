@@ -1,10 +1,7 @@
 ## comp_prob_prob.R | riskyR
 ## 2018 01 22
 ## -----------------------------------------------
-## Compute probabilities from probabilities
-## based on num (using only the necessary parameters of num):
-
-## Note: Always use num (essential) rather than env (NON-essential)!
+## Compute probabilities from probabilities:
 
 ## -----------------------------------------------
 ## (A) ToDo: Compute basic parameters (prev; sens + spec, mirt + fart)
@@ -13,17 +10,18 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# 9 probabilities:                  9 frequencies:
-# ----------------                  ------------------
+# probabilities (9):                frequencies (9):
+# ------------------                ------------------
 # (A) basic:
 #                                          N
-# prev                              n.true | n.false
+# prev*                             n.true | n.false
 
-# sens = hit rate = TPR             hi = TP
-# mirt = miss rate = FNR            mi = FN
-# fart = false alarm rate = FPR     fa = FP
-# spec = true negative rate = TNR   cr = TN
+# sens* = hit rate = TPR             hi* = TP
+# mirt  = miss rate = FNR            mi* = FN
+# fart  = false alarm rate = FPR     fa* = FP
+# spec* = true negative rate = TNR   cr* = TN
 
+# [Note: *...is essential]
 
 # (B) derived:
 #                                   dec.pos | dec.neg
@@ -42,7 +40,7 @@
 ## - derived: all other values
 
 ## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
+## - given:   N = hi, mi, fa, cr
 ## - derived: all other values
 
 ## -----------------------------------------------
@@ -56,9 +54,142 @@
 ## -----------------------------------------------
 ## Computing complementary probabilities:
 ## -----------------------------------------------
+## A general approach:
+
+#' Compute a probability's complement probability.
+#'
+#' \code{comp_prob_comp} computes the
+#' probability complement of a
+#' given probability \code{prob}.
+#'
+#' The type and range of \code{prob} is
+#' verified with \code{\link{is_prob}}.
+#'
+#' @param prob A numeric probability value
+#' (in range from 0 to 1).
+#'
+#' @return A numeric probability value
+#' (in range from 0 to 1).
+#'
+#' @examples
+#' comp_prob_comp(0)    # => 1
+#' comp_prob_comp(1)    # => 0
+#'
+#' comp_prob_comp(2)    # => NA + warning (beyond range)
+#' comp_prob_comp("p")  # => NA + warning (non-numeric)
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{is_prob}} verifies probabilities;
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{comp_comp_pair}} returns a probability and its complement.
+
+comp_prob_comp <- function(prob) {
+
+  comp <- NA
+
+  if (is_prob(prob)) {  # verify
+    comp <- 1 - prob    # complement
+  }
+
+  return(comp)
+}
+
+## Check:
+{
+  # comp_prob_comp(0)   # => 1
+  # comp_prob_comp(1)   # => 0
+  #
+  # comp_prob_comp(2)   # => NA + warning (beyond range)
+  # comp_prob_comp("")  # => NA + warning (non-numeric)
+}
+
+## -----------------------------------------------
 ## (a) mirt from sens:
+
+#' Compute a decision's miss rate from its sensitivity.
+#'
+#' \code{comp_mirt} is a conversion function that takes a sensitivity \code{\link{sens}}
+#' -- given as a probability (i.e., a numeric value in the range from 0 to 1) --
+#' as its input, and returns the corresponding miss rate \code{\link{mirt}}
+#' -- also as a probability -- as its output.
+#'
+#' The miss rate \code{\link{mirt}} and sensitivity \code{\link{sens}}
+#' are complements (\code{mirt = 1 - sens}) and both features of
+#' the decision process (e.g., a diagnostic test).
+#'
+#' The function \code{comp_mirt} is complementary to the conversion function
+#' \code{\link{comp_sens}} and uses the generic function
+#' \code{\link{comp_prob_comp}}.
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}.
+#'
+#' @return The decision's miss rate \code{\link{mirt}}.
+#'
+#' @examples
+#' comp_mirt(2)                      # => NA + warning (beyond range)
+#' comp_mirt(1/3)                    # => 0.6666667
+#' comp_mirt(comp_prob_comp(0.123))  # => 0.123
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information.
+
+comp_mirt <- function(sens) {
+
+  mirt <- comp_prob_comp(sens)  # use generic function
+
+  return(mirt)
+}
+
+
 ## -----------------------------------------------
 ## (b) sens from mirt:
+
+#' Compute a decision's sensitivity from its miss rate.
+#'
+#' \code{comp_sens} is a conversion function that takes a miss rate \code{\link{mirt}}
+#' -- given as a probability (i.e., a numeric value in the range from 0 to 1) --
+#' as its input, and returns the corresponding sensitivity \code{\link{sens}}
+#' -- also as a probability -- as its output.
+#'
+#' The sensitivity \code{\link{sens}} and miss rate \code{\link{mirt}}
+#' are complements (\code{sens = 1 - mirt}) and both features of
+#' the decision process (e.g., a diagnostic test).
+#'
+#' The function \code{comp_sens} is complementary to the conversion function
+#' \code{\link{comp_mirt}} and uses the generic function
+#' \code{\link{comp_prob_comp}}.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}.
+#'
+#' @return The decision's sensitivity \code{\link{sens}}.
+#'
+#' @examples
+#' comp_sens(2)                      # => NA + warning (beyond range)
+#' comp_sens(1/3)                    # => 0.6666667
+#' comp_sens(comp_prob_comp(0.123))  # => 0.123
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information.
+
+comp_sens <- function(mirt) {
+
+  sens <- comp_prob_comp(mirt)  # use generic function
+
+  return(sens)
+}
+
 ## -----------------------------------------------
 ## (c) fart from spec:
 
@@ -69,40 +200,34 @@
 #' as its input, and returns the corresponding false alarm rate \code{\link{fart}}
 #' -- also as a probability -- as its output.
 #'
-#' Specificity and false alarm rate are both features of the decision process
-#' (e.g., a diagnostic test).
-#' The false alarm rate and specificity are complements (i.e., \code{fart = 1 - spec}).
+#' The false alarm rate \code{\link{fart}} and specificity \code{\link{spec}}
+#' are complements (\code{fart = 1 - spec}) and both features of
+#' the decision process (e.g., a diagnostic test).
 #'
-#' \code{comp_fart} is complementary to the conversion function
-#' \code{\link{comp_spec}}.
+#' The function \code{comp_fart} is complementary to the conversion function
+#' \code{\link{comp_spec}} and uses the generic function
+#' \code{\link{comp_prob_comp}}.
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
+#' @param spec The decision's specificity value \code{\link{spec}}.
 #'
-#' @return A false alarm rate \code{\link{fart}} as a probability
-#' (i.e., a numeric value in the range from 0 to 1).
+#' @return The decision's false alarm rate \code{\link{fart}}.
 #'
 #' @examples
-#' comp_fart(2)                 # => NA + Warning that 2 is not in 0 to 1 range
-#' comp_fart(1/3)               # => 0.6666667
-#' comp_fart(comp_spec(0.123))  # => 0.123
+#' comp_fart(2)                      # => NA + warning (beyond range)
+#' comp_fart(1/3)                    # => 0.6666667
+#' comp_fart(comp_prob_comp(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{is_complement}} verifies numeric complements;
-#' \code{\link{as_pc}} displays a probability as a percentage;
+#' \code{\link{prob}} contains current probability information.
 
 comp_fart <- function(spec) {
 
-  fart <- NA # initialize
-
-  if (is_prob(spec)) {
-    fart <- 1 - spec # compute complement
-  }
+  fart <- comp_prob_comp(spec)  # use generic function
 
   return(fart)
 }
@@ -112,101 +237,86 @@ comp_fart <- function(spec) {
 
 #' Compute a decision's specificity from its false alarm rate.
 #'
-#' \code{comp_spec} is a function that takes a false alarm rate \code{fart}
+#' \code{comp_spec} is a conversion function that takes a false alarm rate \code{\link{fart}}
 #' -- given as a probability (i.e., a numeric value in the range from 0 to 1) --
-#' as its input, and returns the corresponding specificity \code{spec}
+#' as its input, and returns the corresponding specificity \code{\link{spec}}
 #' -- also as a probability -- as its output.
 #'
-#' False alarm rate and specificity are both features of the decision process
-#' (e.g., a diagnostic test).
-#' The specificity and false alarm rate are complements (i.e., \code{spec = 1 - fart}).
+#' The specificity \code{\link{spec}} and the false alarm rate \code{\link{fart}}
+#' are complements (\code{spec = 1 - fart}) and both features of
+#' the decision process (e.g., a diagnostic test).
 #'
-#' \code{comp_spec} is complementary to the conversion function
-#' \code{\link{comp_fart}}.
+#' The function \code{comp_spec} is complementary to the conversion function
+#' \code{\link{comp_fart}} and uses the generic function
+#' \code{\link{comp_prob_comp}}.
 #'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
+#' @param fart The decision's false alarm rate \code{\link{fart}}.
 #'
-#' @return A specificity as a probability
-#' (i.e., a numeric value in the range from 0 to 1).
+#' @return The decision's specificity \code{\link{spec}}.
 #'
 #' @examples
-#' comp_spec(2)                 # => NA + Warning that 2 is not in 0 to 1 range
-#' comp_spec(2/3)               # => 0.3333333
-#' comp_spec(comp_fart(0.123))  # => 0.123
+#' comp_spec(2)                      # => NA + warning (beyond range)
+#' comp_spec(1/3)                    # => 0.6666667
+#' comp_spec(comp_prob_comp(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{is_complement}} verifies numeric complements;
-#' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{comp_prob}} computes derived probabilities
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information.
 
 comp_spec <- function(fart) {
 
-  spec <- NA # initialize
-
-  if (is_prob(fart)) {
-    spec <- 1 - fart # compute complement
-  }
+  spec <- comp_prob_comp(fart)  # use generic function
 
   return(spec)
 }
 
-## Check:
-{
-  # comp_fart(2)
-  # comp_fart(1/3)
-  # comp_spec(2)
-  # comp_spec("one third")
-  # comp_spec(comp_fart(2/3))
-}
 
 ## -----------------------------------------------
-## (+) More general approach:
+## Pairs of complements:
 
-## ToDo: Generalize comp_complement function to 2 types of pairs:
-## a. sens + mirt
-## b. spec + fart
-
-#' Compute a probability's complement (if missing).
+#' Compute a probability's (missing) complement and return both.
 #'
-#' \code{comp_complement} is a function that takes one or two probabilities
-#' that are complements
-#' -- either a sensitivity \code{\link{sens}} and miss rate \code{\link{mirt}}
-#' -- or a specificity \code{\link{spec}} and false alarm rate \code{\link{fart}} --
-#' as inputs. If either of them is missing (\code{NA}), it computes the complement
+#' \code{comp_comp_pair} is a function that takes 0, 1, or 2
+#' probabilities (\code{p1} and \code{p2}) as inputs.
+#' If either of them is missing (\code{NA}), it computes the complement
 #' of the other one and returns both probabilities.
 #'
-#' This function does nothing when both arguments are provided
-#' (i.e., \code{!is.na(spec) & !is.na(fart)}) and only issues
+#' \code{comp_comp_pair} does *nothing* when both arguments are provided
+#' (i.e., \code{!is.na(p1) & !is.na(p2)}) and only issues
 #' a warning if both arguments are missing
-#' (i.e., \code{is.na(spec) & is.na(fart)}).
-#' Use \code{\link{is_complement}} to verify that
-#' two provided values actually are complements.
+#' (i.e., \code{is.na(p1) & is.na(p2)}).
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
-#' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' Inputs are *not* verified:
+#' Use \code{\link{is_prob}} to verify that an input is
+#' a probability and \code{\link{is_complement}} to verify
+#' that two provided values actually are complements.
 #'
-#' @return A vector \code{v} containing two scalars \code{c(spec, fart)}
-#' with \code{spec <- v[1]} and \code{fart <- v[2]}).
+#' @param p1 A numeric probability value
+#' (in range from 0 to 1).
+#' \code{p1} is optional when \code{p2} is provided.
+#'
+#' @param p2 A numeric probability value
+#' (in range from 0 to 1).
+#' \code{p2} is optional when \code{p1} is provided.
+#'
+#' @return A vector \code{v} containing 2 numeric probability values
+#' (in range from 0 to 1): \code{v = c(p1, p2)}.
 #'
 #' @examples
-#' comp_complement(1, 0)   # => 1 0
-#' comp_complement(0, 1)   # => 0 1
-#' comp_complement(1, NA)  # => 1 0
-#' comp_complement(NA, 1)  # => 0 1
+#' # ways to work:
+#' comp_comp_pair(1, 0)   # => 1 0
+#' comp_comp_pair(0, 1)   # => 0 1
+#' comp_comp_pair(1, NA)  # => 1 0
+#' comp_comp_pair(NA, 1)  # => 0 1
 #'
-#' comp_complement(NA, NA) # => NA NA + warning
-#' comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
-#' comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
+#' # watch out for:
+#' comp_comp_pair(NA, NA) # => NA NA + warning
+#' comp_comp_pair(8, 8)   # => 8 8 + NO warning (as is_prob is not verified)
+#' comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
 #'
 #' @family functions computing probabilities
 #'
@@ -215,39 +325,40 @@ comp_spec <- function(fart) {
 #' \code{\link{is_valid}} verifies valid quadruples of probabilities;
 #' \code{\link{comp_prob}} computes derived probabilities
 
-comp_complement <- function(spec, fart){
+comp_comp_pair <- function(p1 = NA, p2 = NA){
 
   pair <- c(NULL, NULL) # initialize
   missing <- NA
 
-  if (is.na(spec) & is.na(fart)) {
-    warning("One argument (either spec or fart) is necessary.")
-    pair <- c(NA, NA)                      # - set to NA NA
-  } else if (!is.na(spec) & is.na(fart)) { # only spec is provided:
-    missing <- comp_fart(spec)             # - compute fart
-    pair <- c(spec, missing)               # - define pair
-  } else if (!is.na(fart) & is.na(spec)) { # only fart is provided:
-    missing <- comp_spec(fart)             # - compute spec
-    pair <- c(missing, fart)               # - define pair
-  } else {
-    pair <- c(spec, fart)                  # - set to inputs
-
+  if (is.na(p1) & is.na(p2)) {
+    warning("One argument (either p1 or p2) is necessary.")
+    pair <- c(NA, NA)
+  } else if (!is.na(p1) & is.na(p2)) {  # 1: only p1 provided:
+    missing <- comp_prob_comp(p1)       #    - compute its comp
+    pair <- c(p1, missing)              #    - define pair (leaving input order intact)
+  } else if (!is.na(p2) & is.na(p1)) {  # 2: only p2 is provided:
+    missing <- comp_prob_comp(p2)       #    - compute spec
+    pair <- c(missing, p2)              #    - define pair (leaving input order intact)
+  } else {                              # 3: both are provided
+    pair <- c(p1, p2)                   #    - leave inputs intact
   }
 
-  return(pair)  # always return pair c(spec, fart)
+  return(pair)  # always return pair in order c(p1, p2)
 
 }
 
 ## Check:
 {
-  # comp_complement(1, 0)   # => 1 0
-  # comp_complement(0, 1)   # => 0 1
-  # comp_complement(1, NA)  # => 1 0
-  # comp_complement(NA, 1)  # => 0 1
+  # # ways to work:
+  # comp_comp_pair(1, 0)   # => 1 0
+  # comp_comp_pair(0, 1)   # => 0 1
+  # comp_comp_pair(1, NA)  # => 1 0
+  # comp_comp_pair(NA, 1)  # => 0 1
   #
-  # comp_complement(NA, NA) # => NA NA + warning
-  # comp_complement(1, 1)   # => 1 1 + NO warning (as is_complement is not applied here)
-  # comp_complement(8, 8)   # => 8 8 + NO warning (as is_prob or is_valid are not applied here)
+  # # watch out for:
+  # comp_comp_pair(NA, NA) # => NA NA + warning
+  # comp_comp_pair(8, 8)   # => 8 8 + NO warning (as is_prob is not verified)
+  # comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
 }
 
 
@@ -285,6 +396,8 @@ comp_PPV <- function(prev, sens, spec) {
 ## -----------------------------------------------
 ## 2. False discovery/detection rate (FDR = complement of PPV):
 
+## (a) from basic probabilities:
+
 comp_FDR <- function(prev, sens, spec) {
 
   PPV <- NA # initialize
@@ -294,10 +407,21 @@ comp_FDR <- function(prev, sens, spec) {
   ## if (is_valid(prev, sens, spec, fart)) { ... }
 
   PPV <- comp_PPV(prev, sens, spec)
-  FDR <- (1 - PPV) # FDR is the complement of PPV
+  FDR <- comp_prob_comp(PPV)  # FDR is the complement of PPV
 
   return(FDR)
 }
+
+## (b) FDR = 1 - PPV:
+
+comp_FDR_PPV <- function(PPV) {
+
+  FDR <- comp_prob_comp(PPV)  # FDR is the complement of PPV
+
+  return(FDR)
+}
+
+
 
 ## -----------------------------------------------
 ## 3. Negative predictive value (NPV) from probabilities:
@@ -340,7 +464,7 @@ comp_FOR <- function(prev, sens, spec) {
   ## if (is_valid(prev, sens, spec, fart)) { ... }
 
   NPV <- comp_NPV(prev, sens, spec)
-  FOR <- (1 - NPV) # FOR is the complement of NPV
+  FOR <- comp_prob_comp(NPV)  # FDR is the complement of NPV
 
   return(FOR)
 }

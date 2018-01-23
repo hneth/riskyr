@@ -7,8 +7,8 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# 9 probabilities:                  9 frequencies:
-# ----------------                  ------------------
+# probabilities (9):                frequencies (9):
+# ------------------                ------------------
 # (A) basic:
 #                                          N
 # prev                              n.true | n.false
@@ -35,7 +35,7 @@
 ## - derived: all other values
 
 ## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
+## - given:   N = hi, mi, fa, cr
 ## - derived: all other values
 
 ## -----------------------------------------------
@@ -64,7 +64,7 @@
 #'   \code{baseline}, proportion affected,
 #'   rate of condition = \code{TRUE} cases
 #'
-#'   to be distinguished from the *incidence* rate (i.e., *new* cases within a certain time period)
+#'   to be distinguished from the incidence rate (i.e., new cases within a certain time period)
 #'
 #'   \item In natural frequencies,
 #'   \code{prev} is the ratio of individuals for which
@@ -139,14 +139,14 @@ prev <- .10 # default prevalence
 #'
 #'   \item Relationships:
 #'
-#'   a. \code{sens} is the *complement* of the miss rate
+#'   a. \code{sens} is the complement of the miss rate
 #'   \code{\link{mirt}} (aka. false negative rate \code{FNR} or the
 #'   rate of Type-II errors):
 #'
 #'   \code{sens = (1 - miss rate) = (1 - FNR)}
 #'
-#'   b. \code{sens} is the *opposite* conditional probability
-#'   -- but *not* the complement --
+#'   b. \code{sens} is the opposite conditional probability
+#'   -- but not the complement --
 #'   of the positive predictive value \code{\link{PPV}}:
 #'
 #'   \code{PPV = p(condition = TRUE | decision = positive)}
@@ -206,12 +206,12 @@ sens <- .85  # default sensitivity
 #' \itemize{
 #'
 #'   \item Definition: \code{sens} is the conditional probability
-#'   for an *incorrect* negative decision given that
+#'   for an incorrect negative decision given that
 #'   the condition is \code{TRUE}:
 #'
 #'   \code{mirt = p(decision = negative | condition = TRUE)}
 #'
-#'   or the probability of *failing to* detect true cases
+#'   or the probability of failing to detect true cases
 #'   (\code{condition = TRUE}).
 #'
 #'   \item Alternative names:
@@ -220,13 +220,13 @@ sens <- .85  # default sensitivity
 #'
 #'   \item Relationships:
 #'
-#'   a. \code{mirt} is the *complement* of the
+#'   a. \code{mirt} is the complement of the
 #'   sensitivity \code{\link{sens}} (aka. hit rate \code{HR}):
 #'
 #'   \code{mirt = (1 - sens) = (1 - HR)}
 #'
-#'   b. \code{mirt} is the *opposite* conditional probability
-#'   -- but *not* the complement --
+#'   b. \code{mirt} is the _opposite_ conditional probability
+#'   -- but not the complement --
 #'   of the false omission rate \code{\link{FOR}}:
 #'
 #'   \code{FOR = p(condition = TRUE | decision = negative)}
@@ -242,7 +242,7 @@ sens <- .85  # default sensitivity
 #'
 #'   \item \code{mirt} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
-#'   *incorrect* decisions (false negatives).
+#'   incorrect decisions (false negatives).
 #'
 #'   However, due to being a conditional probability,
 #'   the value of \code{mirt} also depends on the
@@ -367,7 +367,7 @@ spec <- .75 # default specificity
 #'
 #'   \item Definition:
 #'   \code{fart} is the conditional probability
-#'   for an *incorrect* positive decision given that
+#'   for an incorrect positive decision given that
 #'   the condition is \code{FALSE}:
 #'
 #'   \code{fart = p(decision = positive | condition = FALSE)}
@@ -385,8 +385,8 @@ spec <- .75 # default specificity
 #'
 #'   \code{fart = 1 - spec}
 #'
-#'   b. \code{fart} is the *opposite* conditional probability
-#'   -- but *not* the complement --
+#'   b. \code{fart} is the opposite conditional probability
+#'   -- but not the complement --
 #'   of the false discovery rate
 #'   or false detection rate \code{\link{FDR}}:
 #'
@@ -401,7 +401,7 @@ spec <- .75 # default specificity
 #'
 #'   \item \code{fart} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
-#'   *incorrect* decisions (false positives).
+#'   incorrect decisions (false positives).
 #'
 #'   However, due to being a conditional probability,
 #'   the value of \code{fart} also depends on the
@@ -549,8 +549,8 @@ PPV <- NA  # default of positive predictive value (PPV)
 #'
 #'   \code{FDR = 1 - PPV}
 #'
-#'   b. \code{FDR} is the *opposite* conditional probability
-#'   -- but *not* the complement --
+#'   b. \code{FDR} is the opposite conditional probability
+#'   -- but not the complement --
 #'   of the false alarm rate \code{\link{fart}}:
 #'
 #'   \code{fart = p(decision = positive | condition = FALSE)}
@@ -589,7 +589,7 @@ PPV <- NA  # default of positive predictive value (PPV)
 #' \code{\link{comp_prob}} computes derived probabilities;
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities.
 #'
 #' @examples
 #' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
@@ -667,7 +667,7 @@ FDR <- NA  # default of false discorvery rate (FDR)
 #' \code{\link{comp_prob}} computes derived probabilities;
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities.
 #'
 #' @examples
 #' NPV <- .95     # => sets a negative predictive value of 95%
@@ -699,13 +699,13 @@ NPV <- NA  # default of negative predictive value (NPV)
 #'
 #'   \item Relationships:
 #'
-#'   a. \code{FOR} is the *complement* of the
+#'   a. \code{FOR} is the complement of the
 #'   negative predictive value \code{\link{NPV}}:
 #'
 #'   \code{FOR = 1 - NPV}
 #'
-#'   b. \code{FOR} is the *opposite* conditional probability
-#'   -- but *not* the complement --
+#'   b. \code{FOR} is the opposite conditional probability
+#'   -- but not the complement --
 #'   of the miss rate \code{\link{mirt}}
 #'   (aka. false negative rate \code{FDR}):
 #'
@@ -757,7 +757,10 @@ FOR <- NA  # default of false omission rate (FOR)
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - ...
+## - Correct formulas mentioned in
+##   "in natural frequencies" sections
+##   after writing corresponding functions
+##   in comp_prob_freq.R.
 
 ## -----------------------------------------------
 ## eof.

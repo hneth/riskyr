@@ -365,7 +365,8 @@ is_sufficient <- function(prev, sens, spec = NA, fart = NA) {
 #' @family verification functions
 #'
 #' @seealso
-#' \code{\link{comp_complement}} computes complements;
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
@@ -493,7 +494,7 @@ is_extreme <- function(prev, sens, spec = NA, fart = NA) {
   val <- NA
 
   ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-  cur.spec.fart <- comp_complement(spec, fart)
+  cur.spec.fart <- comp_comp_pair(spec, fart)
   spec <- cur.spec.fart[1] # 1st argument
   fart <- cur.spec.fart[2] # 2nd argument
 
@@ -640,7 +641,7 @@ is_extreme <- function(prev, sens, spec = NA, fart = NA) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_valid}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 
 is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
 
@@ -747,7 +748,8 @@ is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{comp_complement}} computes complements
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_comp_pair}} computes pairs of complements.
 
 ## Probability as percentage (2 decimals):
 
@@ -819,7 +821,8 @@ as_pc <- function(prob, n.digits = 2) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{comp_complement}} computes complements
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_comp_pair}} computes pairs of complements.
 
 as_pb <- function(perc, n.digits = 4) {
 

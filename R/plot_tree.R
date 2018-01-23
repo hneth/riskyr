@@ -181,7 +181,7 @@ plot_tree <- function(prev = num$prev,  # probabilities
     n.cr <- cur.freq$cr
 
     ## Compute missing fart or spec (4th argument) value (if applicable):
-    cur.spec.fart <- comp_complement(spec, fart)
+    cur.spec.fart <- comp_comp_pair(spec, fart)
     spec <- cur.spec.fart[1] # 1st argument
     fart <- cur.spec.fart[2] # 2nd argument
 
@@ -381,8 +381,6 @@ plot_tree <- function(prev = num$prev,  # probabilities
                    sum((x.hi * (x.hi * x.y.hi)), (x.mi * (x.mi * x.y.mi))))) {
       warning("vrectree 2: Sum of HI + MI area differs from Cond TRUE area.")
     }
-
-    # +++ here now +++
 
     x.fa <- x.false # keep constant
     x.y.fa <- x.y.false * (n.fa/n.false) # scale previous prop by prop fa
