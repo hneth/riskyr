@@ -84,7 +84,7 @@ is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_valid}} verifies the validity of probability inputs;
 \code{\link{as_pc}} displays a probability as a percentage;
-\code{\link{as_pb}} displays a percentage as probability
+\code{\link{as_pb}} displays a percentage as probability.
 
 Other verification functions: \code{\link{is_complement}},
   \code{\link{is_extreme}}, \code{\link{is_freq}},

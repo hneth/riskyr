@@ -27,13 +27,13 @@ Understanding or obtaining the false omission rate \code{FOR}:
 
 \item Relationships:
 
-a. \code{FOR} is the *complement* of the
+a. \code{FOR} is the complement of the
   negative predictive value \code{\link{NPV}}:
 
 \code{FOR = 1 - NPV}
 
-b. \code{FOR} is the *opposite* conditional probability
-  -- but *not* the complement --
+b. \code{FOR} is the opposite conditional probability
+  -- but not the complement --
   of the miss rate \code{\link{mirt}}
   (aka. false negative rate \code{FDR}):
 
@@ -79,7 +79,9 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_complement}}, \code{\link{comp_fart}},
-  \code{\link{comp_prob}}, \code{\link{comp_spec}}
+  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
+  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
+  \code{\link{comp_prob}}, \code{\link{comp_sens}},
+  \code{\link{comp_spec}}
 }
 \keyword{datasets}

@@ -51,7 +51,8 @@ is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 
 }
 \seealso{
-\code{\link{comp_complement}} computes complements;
+\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_comp_pair}} computes pairs of complements;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{prob}} contains current probability information;

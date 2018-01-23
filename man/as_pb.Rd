@@ -48,7 +48,8 @@ round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # all TRUE (both rounded to 4 deci
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{comp_complement}} computes complements
+\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_comp_pair}} computes pairs of complements.
 
 Other utility functions: \code{\link{as_pc}}
 }

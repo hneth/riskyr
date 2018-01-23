@@ -7,41 +7,41 @@
 comp_spec(fart)
 }
 \arguments{
-\item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is FALSE).}
+\item{fart}{The decision's false alarm rate \code{\link{fart}}.}
 }
 \value{
-A specificity as a probability
-(i.e., a numeric value in the range from 0 to 1).
+The decision's specificity \code{\link{spec}}.
 }
 \description{
-\code{comp_spec} is a function that takes a false alarm rate \code{fart}
+\code{comp_spec} is a conversion function that takes a false alarm rate \code{\link{fart}}
 -- given as a probability (i.e., a numeric value in the range from 0 to 1) --
-as its input, and returns the corresponding specificity \code{spec}
+as its input, and returns the corresponding specificity \code{\link{spec}}
 -- also as a probability -- as its output.
 }
 \details{
-False alarm rate and specificity are both features of the decision process
-(e.g., a diagnostic test).
-The specificity and false alarm rate are complements (i.e., \code{spec = 1 - fart}).
+The specificity \code{\link{spec}} and the false alarm rate \code{\link{fart}}
+are complements (\code{spec = 1 - fart}) and both features of
+the decision process (e.g., a diagnostic test).
 
-\code{comp_spec} is complementary to the conversion function
-\code{\link{comp_fart}}.
+The function \code{comp_spec} is complementary to the conversion function
+\code{\link{comp_fart}} and uses the generic function
+\code{\link{comp_prob_comp}}.
 }
 \examples{
-comp_spec(2)                 # => NA + Warning that 2 is not in 0 to 1 range
-comp_spec(2/3)               # => 0.3333333
-comp_spec(comp_fart(0.123))  # => 0.123
+comp_spec(2)                      # => NA + warning (beyond range)
+comp_spec(1/3)                    # => 0.6666667
+comp_spec(comp_prob_comp(0.123))  # => 0.123
 
 }
 \seealso{
-\code{\link{is_complement}} verifies numeric complements;
-\code{\link{as_pc}} displays a probability as a percentage;
-\code{\link{comp_prob}} computes derived probabilities
+\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{is_complement}} verifies probability complements;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{prob}} contains current probability information.
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_complement}}, \code{\link{comp_fart}},
-  \code{\link{comp_prob}}
+  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
+  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
+  \code{\link{comp_prob}}, \code{\link{comp_sens}}
 }

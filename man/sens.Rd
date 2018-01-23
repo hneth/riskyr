@@ -37,14 +37,14 @@ or the probability of correctly detecting true cases
 
 \item Relationships:
 
-a. \code{sens} is the *complement* of the miss rate
+a. \code{sens} is the complement of the miss rate
   \code{\link{mirt}} (aka. false negative rate \code{FNR} or the
   rate of Type-II errors):
 
 \code{sens = (1 - miss rate) = (1 - FNR)}
 
-b. \code{sens} is the *opposite* conditional probability
-  -- but *not* the complement --
+b. \code{sens} is the opposite conditional probability
+  -- but not the complement --
   of the positive predictive value \code{\link{PPV}}:
 
 \code{PPV = p(condition = TRUE | decision = positive)}

@@ -30,7 +30,7 @@ or the (baseline) probability of the condition's occurrence.
   \code{baseline}, proportion affected,
   rate of condition = \code{TRUE} cases
 
-to be distinguished from the *incidence* rate (i.e., *new* cases within a certain time period)
+to be distinguished from the incidence rate (i.e., new cases within a certain time period)
 
 \item In natural frequencies,
   \code{prev} is the ratio of individuals for which

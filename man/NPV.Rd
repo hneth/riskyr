@@ -76,11 +76,13 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_prob}} computes derived probabilities;
 \code{\link{is_prob}} verifies probability inputs;
 \code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities
+\code{\link{comp_freq}} computes natural frequencies from probabilities.
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{FOR}}, \code{\link{PPV}},
-  \code{\link{comp_complement}}, \code{\link{comp_fart}},
-  \code{\link{comp_prob}}, \code{\link{comp_spec}}
+  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
+  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
+  \code{\link{comp_prob}}, \code{\link{comp_sens}},
+  \code{\link{comp_spec}}
 }
 \keyword{datasets}

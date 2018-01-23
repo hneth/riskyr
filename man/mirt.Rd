@@ -20,12 +20,12 @@ Understanding or obtaining the miss rate \code{mirt}:
 \itemize{
 
 \item Definition: \code{sens} is the conditional probability
-  for an *incorrect* negative decision given that
+  for an incorrect negative decision given that
   the condition is \code{TRUE}:
 
 \code{mirt = p(decision = negative | condition = TRUE)}
 
-or the probability of *failing to* detect true cases
+or the probability of failing to detect true cases
   (\code{condition = TRUE}).
 
 \item Alternative names:
@@ -34,13 +34,13 @@ or the probability of *failing to* detect true cases
 
 \item Relationships:
 
-a. \code{mirt} is the *complement* of the
+a. \code{mirt} is the complement of the
   sensitivity \code{\link{sens}} (aka. hit rate \code{HR}):
 
 \code{mirt = (1 - sens) = (1 - HR)}
 
-b. \code{mirt} is the *opposite* conditional probability
-  -- but *not* the complement --
+b. \code{mirt} is the _opposite_ conditional probability
+  -- but not the complement --
   of the false omission rate \code{\link{FOR}}:
 
 \code{FOR = p(condition = TRUE | decision = negative)}
@@ -56,7 +56,7 @@ b. \code{mirt} is the *opposite* conditional probability
 
 \item \code{mirt} is a feature of a decision process
   or diagnostic procedure and a measure of
-  *incorrect* decisions (false negatives).
+  incorrect decisions (false negatives).
 
 However, due to being a conditional probability,
   the value of \code{mirt} also depends on the

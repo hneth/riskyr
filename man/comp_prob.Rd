@@ -85,11 +85,13 @@ comp_prob(1,  1, 1,  1)  # => NAs and warning: is_complement not in tolerated ra
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{is_valid}} verifies the validity of probability inputs;
-\code{\link{comp_complement}} computes a complementary probability (if missing);
-\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
+\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_comp_pair}} computes pairs of complements;
+\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_complement}}, \code{\link{comp_fart}},
-  \code{\link{comp_spec}}
+  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
+  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
+  \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

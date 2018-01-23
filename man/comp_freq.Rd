@@ -83,8 +83,9 @@ comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerat
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{is_valid}} verifies the validity of probability inputs;
-\code{\link{comp_complement}} computes a complementary probability (if missing);
-\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
+\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_comp_pair}} computes pairs of complements;
+\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
 Other functions computing frequencies: \code{\link{comp_min_N}}
 }

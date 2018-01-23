@@ -22,7 +22,7 @@ Understanding or obtaining the false alarm rate \code{fart}:
 
 \item Definition:
   \code{fart} is the conditional probability
-  for an *incorrect* positive decision given that
+  for an incorrect positive decision given that
   the condition is \code{FALSE}:
 
 \code{fart = p(decision = positive | condition = FALSE)}
@@ -40,8 +40,8 @@ a. \code{fart} is the complement of the
 
 \code{fart = 1 - spec}
 
-b. \code{fart} is the *opposite* conditional probability
-  -- but *not* the complement --
+b. \code{fart} is the opposite conditional probability
+  -- but not the complement --
   of the false discovery rate
   or false detection rate \code{\link{FDR}}:
 
@@ -56,7 +56,7 @@ b. \code{fart} is the *opposite* conditional probability
 
 \item \code{fart} is a feature of a decision process
   or diagnostic procedure and a measure of
-  *incorrect* decisions (false positives).
+  incorrect decisions (false positives).
 
 However, due to being a conditional probability,
   the value of \code{fart} also depends on the
