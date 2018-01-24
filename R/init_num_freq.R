@@ -153,8 +153,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
   )
 
   ## (1) Only if 3 essential probabilities are valid:
-  if (is_valid_prob_triple(prev = prev, sens = sens, spec = spec)) {
-  # if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
+  if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
+  # if (is_valid_prob_triple(prev = prev, sens = sens, spec = spec)) {
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     # cur.spec.fart <- comp_comp_pair(spec, fart)  # (do only when needed)
@@ -167,7 +167,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     ## (4) Compute missing population size value N (if applicable):
     if (is.na(N)) {
 
-      N <- comp_min_N(prev, sens, spec, min.freq = 1)
+      N <- comp_min_N(prev = prev, sens = sens, spec = spec, min.freq = 1)
 
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
     }

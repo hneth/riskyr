@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyR
-## 2018 01 22
+## 2018 01 24
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -32,14 +32,14 @@
 #' Plot a tree diagram of natural frequencies.
 #'
 #' \code{plot_tree} computes and visualizes a tree diagram of
-#' natural frequencies (typically rounded integers) given basic
-#' probabilities -- \code{\link{prev}} and \code{\link{sens}},
-#' and \code{\link{spec}} or \code{\link{fart}} (\code{spec = 1 - fart})
-#' -- and a population size of \code{\link{N}} individuals.
+#' natural frequencies (typically rounded integers) given a set of
+#' probabilities (\code{\link{prev}}, and
+#' \code{\link{sens}} or its complement \code{\link{mirt}}, and
+#' \code{\link{spec}} or its complement \code{\link{fart}})
+#' and a population size of \code{\link{N}} individuals.
 #'
 #' The option \code{area} (as 2 characters) allows specifying
 #' 4 different box shapes and sizes:
-#'
 #' \enumerate{
 #'  \item \code{"no"} shows all boxes in the same size (default);
 #'  \item \code{"sq"} shows boxes as squares with area sizes proportional to frequencies;
@@ -58,22 +58,31 @@
 #' \code{plot_tree} requires and uses the R package "diagram"
 #' (\code{library("diagram")}).
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
+#' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
-#' @param sens The decision's sensitivity value \code{\link{sens}}
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{fart} is provided.
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param N The number of individuals in the population:
-#' a suitable value of \code{\link{N}} is computed, if not provided.
+#' @param N The number of individuals in the population.
+#' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #' @param area  A character option for 4 different box sizes:
 #' - \code{"no"} ... all boxes are shown with the same size (default);
@@ -121,21 +130,20 @@
 #' @family visualization functions
 #'
 #' @seealso
-#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes frequencies from probabilities;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{pal}} for current color settings;
-#' \code{\link{txt}} for current text settings;
-#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
+#' \code{\link{pal}} contains current color settings;
+#' \code{\link{txt}} contains current text settings;
+#' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-plot_tree <- function(prev = num$prev,  # probabilities
-                      sens = num$sens,
-                      spec = num$spec,
-                      fart = NA,        # was: num$fart,
-                      N = freq$N,       # only freq used (so far)
+plot_tree <- function(prev = num$prev,             # probabilities
+                      sens = num$sens, mirt = NA,
+                      spec = num$spec, fart = NA,  # was: num$fart,
+                      N = freq$N,       # ONLY freq used (so far)
                       ## Options:
                       area = "no",      # "no"...none (default), "sq"...square, "hr"...horizontal rectangles, "vr"...vertical rectangles
                       round = TRUE,     # round freq (if computed)
@@ -164,11 +172,18 @@ plot_tree <- function(prev = num$prev,  # probabilities
                       cex.shadow = 0 # [allow using shadows]
                       ){
 
-  ## (1) Compute or gather natural frequencies:
-  if (is_valid(prev, sens, spec, fart)) { # probabilities are provided:
+  ## (1) Compute or collect current frequencies:
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
 
-    ## (a) Compute cur.freq based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev, sens, spec, fart, N, round)  # compute freq
+    ## (a) Compute the complete quintet of probabilities:
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+    sens <- prob_quintet[2] # gets sens (if not provided)
+    mirt <- prob_quintet[3] # gets mirt (if not provided)
+    spec <- prob_quintet[4] # gets spec (if not provided)
+    fart <- prob_quintet[5] # gets fart (if not provided)
+
+    ## (b) Compute cur.freq based on current parameters (N and probabilities):
+    cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq
 
     ## Assign elements of cur.freq:
     N <- cur.freq$N
@@ -180,12 +195,7 @@ plot_tree <- function(prev = num$prev,  # probabilities
     n.fa <- cur.freq$fa
     n.cr <- cur.freq$cr
 
-    ## Compute missing fart or spec (4th argument) value (if applicable):
-    cur.spec.fart <- comp_comp_pair(spec, fart)
-    spec <- cur.spec.fart[1] # 1st argument
-    fart <- cur.spec.fart[2] # 2nd argument
-
-  } else { # prev is NA:
+  } else { # NO valid set of probabilities provided:
 
     ## (b) Plot current values of freq:
     N <- freq$N

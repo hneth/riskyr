@@ -1,5 +1,5 @@
 ## plot_PV3d.R | riskyR
-## 2018 01 11
+## 2018 01 24
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
 ## as a function of both sens and spec (given prev)
@@ -12,31 +12,72 @@
 ## -----------------------------------------------
 ## Plot a 3d-plane of PPV or NPV (using persp):
 
-plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key parameters
-                      is.ppv = TRUE,   # switch to toggle between PPV (TRUE) and NPV (FALSE)
-                      step.size = .05, # resolution of matrix (sens.range and spec.range)
-                      show.PVpoints = TRUE, # user options [adjustable by inputs]
-                      cur.theta = -45, cur.phi = 0, # user options for persp() [adjustable inputs]
-                      cur.d = 1.5, cur.expand = 1.1, cur.ltheta = 200, cur.shade = .25, # other persp() parameters [fixed]
-                      title.lbl = txt$scen.lbl, col.pv = pal["ppv"] # custom labels and colors
+plot_PV3d <- function(prev = num$prev,             # probabilities
+                      sens = num$sens, mirt = NA,
+                      spec = num$spec, fart = NA,
+
+                      is.ppv = TRUE,         # switch to toggle between PPV (TRUE) and NPV (FALSE)
+                      step.size = .05,       # resolution of matrix (sens.range and spec.range)
+                      show.PVpoints = TRUE,  # user options [adjustable by inputs]
+                      cur.theta = -45, cur.phi = 0,  # user options for persp() [adjustable inputs]
+                      cur.d = 1.5, cur.expand = 1.1, cur.ltheta = 200, cur.shade = .25,  # other persp() parameters [fixed]
+                      title.lbl = txt$scen.lbl, col.pv = pal["ppv"]  # custom labels and colors
                       ) {
 
-  ## Current environment parameters:
-  # name <- env$name
-  # N    <- env$N
-  # source <- env$source
 
-  ## Current PPV/NPV value and label:
-  ## (a) from current data [assumes prior call of comp_prob()]
-  ## (b) compute again:
-  prob <- comp_prob(prev, sens, spec)
-  if (is.ppv) {
-    cur.PV <- prob$ppv
-    cur.PV.lbl <- paste0("PPV = ", as_pc(cur.PV), "%")
+
+  ## (0) Compute or collect current probabilities:
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
+
+    ## (1) A provided set of probabilities is valid:
+
+    ## (a) Compute the complete quintet of probabilities:
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+    sens <- prob_quintet[2] # gets sens (if not provided)
+    mirt <- prob_quintet[3] # gets mirt (if not provided)
+    spec <- prob_quintet[4] # gets spec (if not provided)
+    fart <- prob_quintet[5] # gets fart (if not provided)
+
+    ## (b) Compute cur.prob from scratch based on current parameters (N and probabilities):
+    # cur.prob <- comp_prob(prev = prev, sens = sens, spec = spec, fart = fart)  # compute prob from scratch
+
+    ## Assign newly computed elements:
+    if (is.ppv) {
+      cur.PV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
+      cur.PV.lbl <- paste0("PPV = ", as_pc(cur.PV), "%")
+    } else {
+      cur.PV <- comp_NPV(prev, sens, spec)  # compute NPV from probabilities
+      cur.PV.lbl <- paste0("NPV = ", as_pc(cur.PV), "%")
+    }
+
   } else {
-    cur.PV <- prob$npv
-    cur.PV.lbl <- paste0("NPV = ", as_pc(cur.PV), "%")
+
+    ## (2) NO valid set of probabilities is provided:
+    ## Use current values of prob to assign collected elements:
+
+    if (is.ppv) {
+      cur.PV <- prob$PPV                    # use PPV from prob
+      cur.PV.lbl <- paste0("PPV = ", as_pc(cur.PV), "%")
+    } else {
+      cur.PV <- prob$NPV                    # use NPV from prob
+      cur.PV.lbl <- paste0("NPV = ", as_pc(cur.PV), "%")
+    }
+
   }
+
+  # ## Current PPV/NPV value and label:
+  # ## (a) from current data
+  # ##     [assumes prior call of comp_prob()]
+  #
+  # ## (b) compute from scratch:
+  # prob <- comp_prob(prev = prev, sens = sens, spec = spec, fart = fart)  # compute prob from scratch
+  # if (is.ppv) {
+  #   cur.PV <- prob$PPV
+  #   cur.PV.lbl <- paste0("PPV = ", as_pc(cur.PV), "%")
+  # } else {
+  #   cur.PV <- prob$NPV
+  #   cur.PV.lbl <- paste0("NPV = ", as_pc(cur.PV), "%")
+  # }
 
   ## Ranges on x- and y-axes:
   ## ToDo: Check that step.size is a reasonable value in [0, 1] range!
@@ -45,9 +86,9 @@ plot_PV3d <- function(prev = num$prev, sens = num$sens, spec = num$spec, # key p
 
   ## Compute matrices of PPV/NPV values (using utility function):
   if (is.ppv) {
-    PV.mat <- comp_PV_matrix(prev, sens.range, spec.range, metric = "PPV")
+    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "PPV")
   } else {
-    PV.mat <- comp_PV_matrix(prev, sens.range, spec.range, metric = "NPV")
+    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "NPV")
   }
 
   ## Graph parameters and labels:

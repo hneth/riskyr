@@ -15,6 +15,7 @@
 ## 6. is_extreme_prob_set
 ## 7. is_valid_prob_pair
 ## 8. is_valid_prob_set
+## 9. is_valid_prob_triple [deprecated]
 
 ## -----------------------------------------------
 ## is_prob:
@@ -32,17 +33,20 @@
 #'
 #' @examples
 #' # ways to succeed:
-#' is_prob(1/2)            # => TRUE
+#' is_prob(1/2)                  # => TRUE
 #' p.seq <- seq(0, 1, by = .1)
-#' is_prob(p.seq)          # => TRUE (for vector)
+#' is_prob(p.seq)                # => TRUE (for vector)
+#'
+#' # watch out for:
+#' is_prob(NA)                   # => FALSE + NO warning!
+#  is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
+#' is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+#' is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
 #'
 #' # ways to fail:
-#' is_prob(8)              # => FALSE + warning (outside range)
-#' is_prob(c(.5, 8))       # => FALSE + warning (for vector)
-#' is_prob(NA)             # => FALSE + warning (NA values)
-#' is_prob(0/0)            # => FALSE + warning (NA + NaN values)
-#' is_prob("Laplace")      # => FALSE + warning (non-numeric values)
-#' is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
+#' is_prob(8)                    # => FALSE + warning (outside range)
+#' is_prob(c(.5, 8))             # => FALSE + warning (for vector)
+#' is_prob("Laplace")            # => FALSE + warning (non-numeric values)
 #'
 #' @family verification functions
 #'
@@ -57,7 +61,7 @@
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 
-is_prob <- function(prob) {
+is_prob <- function(prob, NA.warn = FALSE) {
 
   val <- NA  # initialize
 
@@ -66,7 +70,9 @@ is_prob <- function(prob) {
 
     val <- FALSE
 
-    warning(paste0(prob, " contains NA values. "))
+    if (NA.warn) {
+      warning(paste0(prob, " contains NA values. "))
+    }
   }
 
   else if (sum(is.nan(prob)) > 0) {
@@ -101,19 +107,21 @@ is_prob <- function(prob) {
 
 ## Checks:
 {
-
-  ## ways to succeed:
-  # is_prob(1/2)            # => TRUE
-  # prob.seq <- seq(0, 1, by = .1)
-  # is_prob(prob.seq)       # => TRUE (for vector)
-
-  ## ways to fail:
-  # is_prob(8)              # => FALSE + warning (outside range)
-  # is_prob(c(.5, 8))       # => FALSE + warning (for vector)
-  # is_prob(NA)             # => FALSE + warning (NA values)
-  # is_prob(0/0)            # => FALSE + warning (NA + NaN values)
-  # is_prob("Laplace")      # => FALSE + warning (non-numeric values)
-  # is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
+  # # ways to succeed:
+  # is_prob(1/2)                  # => TRUE
+  # p.seq <- seq(0, 1, by = .1)
+  # is_prob(p.seq)                # => TRUE (for vector)
+  #
+  # # watch out for:
+  # is_prob(NA)                   # => FALSE + NO warning!
+  # is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
+  # is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+  # is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
+  #
+  # # ways to fail:
+  # is_prob(8)                    # => FALSE + warning (outside range)
+  # is_prob(c(.5, 8))             # => FALSE + warning (for vector)
+  # is_prob("Laplace")            # => FALSE + warning (non-numeric values)
 }
 
 ## -----------------------------------------------
@@ -603,10 +611,10 @@ is_complement <- function(p1, p2, tol = .01) {
 #' @examples
 #' # Identify 4 extreme cases (+ 2 variants):
 #' is_extreme_prob_set(1, 1, NA, 1)         # => TRUE + warning: N true positives
-#' plot_tree(1, 1, N = 100)                 # => illustrates this case
+#' plot_tree(1, 1, NA, 1, N = 100)          # => illustrates this case
 #'
 #' is_extreme_prob_set(1, 0, NA, 1)         # => TRUE + warning: N false negatives
-#' plot_tree(1, 0, N = 100)                 # => illustrates this case
+#' plot_tree(1, 0, NA, 1, N = 100)          # => illustrates this case
 #'
 #' sens <- .50
 #' is_extreme_prob_set(0, sens, NA, 0, NA)  # => TRUE + warning: N false positives
@@ -637,8 +645,8 @@ is_complement <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pb}} displays a percentage as probability
 
 is_extreme_prob_set <- function(prev,
-                       sens = NA, mirt = NA,
-                       spec = NA, fart = NA) {
+                                sens = NA, mirt = NA,
+                                spec = NA, fart = NA) {
 
   ## (1) Initialize:
   val <- NA
@@ -655,32 +663,32 @@ is_extreme_prob_set <- function(prev,
   ## (3) Check cases:
   if ((prev == 1) & (sens == 1)) {         # 1. prev and sens are both perfect:
 
-    warning("Extreme case (prev = 1 & sens = 1):\n  N true positives; no cond.false or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 1 & sens = 1):\n  N hits (TP); no cond.false or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 1) & (sens == 0)) {  # 2. prev perfect and sens zero:
 
-    warning("Extreme case (prev = 1 & sens = 0):\n  N false negatives; no cond.false or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 1 & sens = 0):\n  N misses (FN); no cond.false or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (spec == 0)) {  # 3a. prev and spec are both zero:
 
-    warning("Extreme case (prev = 0 & spec = 0):\n  N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & spec = 0):\n  N false alarms (FP); no cond.true or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 1)) {  # 3b. prev zero and fart perfect (i.e., spec zero):
 
-    warning("Extreme case (prev = 0 & fart = 1):\n  N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 1):\n  N false alarms (FP); no cond.true or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (spec == 1)) {  # 4a. prev zero and spec perfect:
 
-    warning("Extreme case (prev = 0 & spec = 1):\n  N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & spec = 1):\n  N correct rejections (TN); no cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 0)) {  # 4b. prev zero and fart zero (i.e., spec perfect):
 
-    warning("Extreme case (prev = 0 & fart = 0):\n  N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 0):\n  N correct rejections (TN); no cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else {  # not an extreme case:
@@ -698,23 +706,23 @@ is_extreme_prob_set <- function(prev,
 {
   # # Identify 4 extreme cases (+2 variants):
   # is_extreme_prob_set(1, 1, NA, 1)           # => TRUE + warning: N true positives
-  # plot_tree(1, 1, N = 100)          # => illustrates this case
+  # plot_tree(1, 1, N = 100)                   # => illustrates this case
   #
   # is_extreme_prob_set(1, 0, NA, 1)           # => TRUE + warning: N false negatives
-  # plot_tree(1, 0, N = 100)          # => illustrates this case
+  # plot_tree(1, 0, N = 100)                   # => illustrates this case
   #
   # sens <- .50
-  # is_extreme_prob_set(0, sens, NA, 0, NA)          # => TRUE + warning: N false positives
-  # plot_tree(0, sens, NA, 0, N = 100)      # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, 0, NA)    # => TRUE + warning: N false positives
+  # plot_tree(0, sens, NA, 0, N = 100)         # => illustrates this case
   # # Variant:
-  # is_extreme_prob_set(0, sens, NA, NA, 1)          # => TRUE + warning: N false positives
-  # plot_tree(0, sens, NA, NA, 1, N = 100)  # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, NA, 1)    # => TRUE + warning: N false positives
+  # plot_tree(0, sens, NA, NA, 1, N = 100)     # => illustrates this case
   #
-  # is_extreme_prob_set(0, sens, NA, 1)              # => TRUE + warning: N true negatives
-  # plot_tree(0, sens, NA, NA, 1, N = 100)  # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, 1)        # => TRUE + warning: N true negatives
+  # plot_tree(0, sens, NA, NA, 1, N = 100)     # => illustrates this case
   # # Variant:
-  # is_extreme_prob_set(0, sens, NA, NA, 0)          # => TRUE + warning: N true negatives
-  # plot_tree(0, sens, NA, NA, 0, N = 100)  # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
+  # plot_tree(0, sens, NA, NA, 0, N = 100)     # => illustrates this case
 }
 
 
@@ -930,8 +938,8 @@ is_valid_prob_set <- function(prev,
 
   val <- FALSE  # initialize
 
-  if ( is_prob(prev) &
-       is_valid_prob_pair(sens, mirt, tol) &
+  if ( is_prob(prev) &&
+       is_valid_prob_pair(sens, mirt, tol) &&
        is_valid_prob_pair(spec, fart, tol) ) {
     val <- TRUE
   }
@@ -967,6 +975,89 @@ is_valid_prob_set <- function(prev,
   # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
 }
 
+## -----------------------------------------------
+# Verify that a triple of inputs can
+# be interpreted as valid set of 3 essential probabilites:
+
+#' Verify that a triple of essential probability inputs is valid.
+#'
+#' \code{is_valid_prob_triple} is a \strong{deprecated} function that verifies that
+#' a set of 3 numeric inputs can be interpreted as a
+#' valid set of 3 probabilities.
+#'
+#' \code{is_valid_prob_triple} is a simplified version
+#' of \code{\link{is_valid_prob_set}}.
+#' It is a quick wrapper function that only verifies
+#' \code{\link{is_prob}} for all of its 3 arguments.
+#'
+#' \code{is_valid_prob_triple} does not compute or return numeric variables.
+#' Use \code{\link{is_extreme_prob_set}} to verify extreme cases and
+#' \code{\link{comp_complete_prob_set}} to complete sets of valid probabilities.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#' @return A Boolean value:
+#' \code{TRUE} if the probabilities provided are valid;
+#' otherwise \code{FALSE}.
+#'
+#' @examples
+#' ## Check:
+#' is_valid_prob_triple(0, 0, 0)    # => TRUE
+#' is_valid_prob_triple(1, 1, 1)    # => TRUE
+#'
+#' # ways to fail:
+#' is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+#' is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+#' is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+#' is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+#'
+#' @family verification functions
+#'
+#' @seealso
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
+#' \code{\link{is_valid_prob_pair}} verifies that probability pairs are complements;
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{as_pc}} displays a probability as a percentage;
+#' \code{\link{as_pb}} displays a percentage as probability.
+
+is_valid_prob_triple <- function(prev, sens, spec) {
+
+  val <- FALSE  # initialize
+
+  if ( is_prob(prev) && is_prob(sens) && is_prob(spec) ) {
+    val <- TRUE
+  }
+
+  return(val)
+
+}
+
+## Check:
+{
+  # is_valid_prob_triple(0, 0, 0)
+  # is_valid_prob_triple(1, 1, 1)
+  #
+  # # ways to fail:
+  # is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+  # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+  # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+  # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+}
 
 ## -----------------------------------------------
 ## (B) Display functions:
@@ -1031,9 +1122,19 @@ as_pc <- function(prob, n.digits = 2) {
 
     perc <- round(prob * 100, n.digits) # compute
 
-  } else {
-    warning("Probability (prob) is not in range 0 to 1.")
-    perc <- round(prob * 100, n.digits) # still compute
+  }
+
+  # else if (is.nan(prob)) {
+  #
+  #  perc <- "NaN"
+  #
+  #}
+
+  else {
+
+    warning("Argument (prob) is no probability.")
+
+    perc <- round(prob * 100, n.digits) # still try to compute
   }
 
   return(perc)
@@ -1046,6 +1147,7 @@ as_pc <- function(prob, n.digits = 2) {
   # as_pc(1/3, n.digits = 0)  # =>  33
   # as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
   # as_pc(as_pb(12.3))        # =>  12.3
+  # as_pc(0/0)
 }
 
 ## -----------------------------------------------

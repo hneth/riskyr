@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 22
+## 2018 01 24
 ## -----------------------------------------------
 ## Define and initialize a list of basic input parameters (num)
 ## that contains numeric user inputs:
@@ -14,16 +14,15 @@
 #                                          N
 # prev*                             n.true | n.false
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# sens* = hit rate  = TPR              hi* = TP
+# mirt  = miss rate = FNR              mi* = FN
+# fart  = false alarm rate = FPR       fa* = FP
+# spec* = true negative rate = TNR     cr* = TN
 
 # [Note: *...is essential]
 
-
 # (B) derived:
-#                                   dec.pos | dec.neg
+#                                  dec.pos | dec.neg
 
 # PPV = pos. pred. value
 # FDR = false detection rate
@@ -33,13 +32,15 @@
 ## -----------------------------------------------
 ## Two basic directions:
 
-## 1: Bayesian computations: starting with 3 basic probabilities:
+## 1: Bayesian: starting with 3 basic probabilities:
 ## - given:   prev;  sens, spec
 ## - derived: all other values
 
 ## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
+## - given:   N = hi, mi, fa, cr
 ## - derived: all other values
+
+## -----------------------------------------------
 
 ## -----------------------------------------------
 ## (1) Define and initialize num:
@@ -69,17 +70,20 @@ num.def <- list("prev" = prev,  # prevalence in target population = p(condition 
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{fart} is provided.
+#' \code{spec} is optional when is complement \code{\link{fart}} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
 #' @return A list containing a valid quadruple of probabilities
 #' (\code{\link{prev}}, \code{\link{sens}},
@@ -87,9 +91,11 @@ num.def <- list("prev" = prev,  # prevalence in target population = p(condition 
 #' and one frequency (population size \code{\link{N}}).
 #'
 #' @examples
+#' # ways to succeed:
 #' init_num(1, 1, 1, 0, 100)  # => succeeds
 #' init_num(1, 1, 0, 1, 100)  # => succeeds
 #'
+#' # watch out for:
 #' init_num(1, 1, 0, 1)           # => succeeds (with N computed)
 #' init_num(1, 1, NA, 1, 100)     # => succeeds (with spec computed)
 #' init_num(1, 1, 0, NA, 100)     # => succeeds (with fart computed)
@@ -97,18 +103,26 @@ num.def <- list("prev" = prev,  # prevalence in target population = p(condition 
 #' init_num(1, 1, 0, NA)          # => succeeds (with fart and N computed)
 #' init_num(1, 1, .51, .50, 100)  # => succeeds (as spec and fart are within tolarated range)
 #'
-#' init_num(prev = NA)                   # => NAs + warning that prev is not numeric
-#' init_num(prev = 88)                   # => NAs + warning that prev is no probability
-#' init_num(prev =  1, sens = NA)        # => NAs + warning that sens is not numeric
-#' init_num(1, 1, spec = NA, fart = NA)  # => NAs + warning that spec or fart is necessary
-#' init_num(1, 1, 1, 1)                  # => NAs + warning that spec and fart are not complements (in tolerated range)
-#' init_num(1, 1, .52, .50, 100)         # => NAs + warning that spec and fart are not complements (in tolerated range)
+#' # ways to fail:
+#' init_num(prev = NA)                                  # => NAs + warning (NA)
+#' init_num(prev = 88)                                  # => NAs + warning (beyond range)
+#' init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
+#' init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
+#' init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
 #'
 #' @family functions to initialize scenario settings
 #'
 #' @seealso
 #' \code{\link{num}} contains basic parameter values;
-#' \code{\link{comp_min_N}} to compute a suitable minimum population size \code{\link{N}}
+#' \code{\link{pal}} contains current color settings;
+#' \code{\link{txt}} contains current text settings;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes frequencies from probabilities;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
+#' \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
+#' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 init_num <- function(prev = num.def$prev, sens = num.def$sens,
                      spec = num.def$spec, fart = num.def$fart,
@@ -123,8 +137,8 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   )
 
 
-  ## (1) Verify validity of basic input parameters:
-  if (is_valid(prev, sens, spec, fart, tol = .01)){
+  ## (1) Only if basic quadruple of probabilities is valid:
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     cur.spec.fart <- comp_comp_pair(spec, fart)
@@ -132,12 +146,15 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
     fart <- cur.spec.fart[2] # 2nd argument
 
     ## (3) Issue a warning if probabilities describe an extreme case:
-    is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
+    is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
     ## (4) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
-      N <- comp_min_N(prev, sens, spec, min.freq = 1)
+
+      N <- comp_min_N(prev = prev, sens = sens, spec = spec, min.freq = 1)
+
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
+
       }
 
     ## (5) Initialize num with current arguments:
@@ -147,7 +164,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
     num$fart <- fart
     num$N    <- N
 
-  } ## if(...)
+  } ## if(is_valid_prob_set...
 
   ## (6) Return the entire list num:
   return(num)
@@ -156,9 +173,11 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 
 ## Check:
 {
+  # # ways to succeed:
   # init_num(1, 1, 1, 0, 100)  # => succeeds
   # init_num(1, 1, 0, 1, 100)  # => succeeds
   #
+  # # watch out for:
   # init_num(1, 1, 0, 1)           # => succeeds (with N computed)
   # init_num(1, 1, NA, 1, 100)     # => succeeds (with spec computed)
   # init_num(1, 1, 0, NA, 100)     # => succeeds (with fart computed)
@@ -166,12 +185,12 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
   # init_num(1, 1, 0, NA)          # => succeeds (with fart and N computed)
   # init_num(1, 1, .51, .50, 100)  # => succeeds (as spec and fart are within tolarated range)
   #
-  # init_num(prev = NA)                                  # => NAs + warning that prev is not numeric
-  # init_num(prev = 88)                                  # => NAs + warning that prev is no probability
-  # init_num(prev =  1, sens = NA)                       # => NAs + warning that sens is not numeric
-  # init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning that spec or fart is necessary
-  # init_num(1, 1, 1, 1)                                 # => NAs + warning that spec and fart are not complements (in tolerated range)
-  # init_num(1, 1, .52, .50, 100)                        # => NAs + warning that spec and fart are not complements (in tolerated range)
+  # # ways to fail:
+  # init_num(prev = NA)                                  # => NAs + warning (NA)
+  # init_num(prev = 88)                                  # => NAs + warning (beyond range)
+  # init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
+  # init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
+  # init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
 }
 
 ## -----------------------------------------------
@@ -206,14 +225,12 @@ num <- init_num()  # => initialize num to default parameters
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## 1. Add comp_mirt (1a) and comp_sens (1b) above!
-
-## 2. Generalize comp_complement function to 2 types of pairs:
-##    a. sens + mirt
-##    b. spec + fart
-
-## 3. re-organize "scenarios.xls" according to data structure of env.
+## 1. Re-organize "scenarios.xls" according to data structure of num.
 ##    and read in pre-defined datasets ("scenarios.csv") from "/data".
+
+## 2. Use either spec as basic probability (and compute fart from it)
+##            OR fart as basic probability (and compute spec from it).
+##    num should always contain both (with is_complement = TRUE).
 
 ## - [init_num]: Verify that input parameters are in the correct range [0; 1].
 ## - [init_num]: If both spec and fart values are provided,

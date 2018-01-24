@@ -16,15 +16,15 @@
 #                                          N
 # prev*                             n.true | n.false
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# sens* = hit rate = TPR              hi* = TP
+# mirt  = miss rate = FNR             mi* = FN
+# fart  = false alarm rate = FPR      fa* = FP
+# spec* = true negative rate = TNR    cr* = TN
 
 # [Note: *...is essential]
 
 # (B) derived:
-#                                   dec.pos | dec.neg
+#                                 dec.pos | dec.neg
 
 # PPV = pos. pred. value
 # FDR = false detection rate
@@ -324,6 +324,7 @@ comp_spec <- function(fart) {
 #' \code{\link{is_complement}} verifies numeric complements;
 #' \code{\link{is_valid_prob_set}} verifies sets of probabilities;
 #' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information.
 
@@ -333,14 +334,20 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
   missing <- NA
 
   if (is.na(p1) & is.na(p2)) {
+
     warning("One argument (either p1 or p2) is necessary.")
     pair <- c(NA, NA)
+
   } else if (!is.na(p1) & is.na(p2)) {  # 1: only p1 provided:
+
     missing <- comp_prob_comp(p1)       #    - compute its comp
     pair <- c(p1, missing)              #    - define pair (leaving input order intact)
+
   } else if (!is.na(p2) & is.na(p1)) {  # 2: only p2 is provided:
+
     missing <- comp_prob_comp(p2)       #    - compute spec
     pair <- c(missing, p2)              #    - define pair (leaving input order intact)
+
   } else {                              # 3: both are provided
     pair <- c(p1, p2)                   #    - leave inputs intact
   }
@@ -420,6 +427,7 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 #'
 #' @seealso
 #' \code{\link{is_valid_prob_set}} verifies a set of probability inputs;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{is_complement}} verifies numeric complements;
 #' \code{\link{is_prob}} verifies probabilities;
@@ -434,7 +442,7 @@ comp_complete_prob_set <- function(prev,
 ) {
 
   # (1) initialize:
-  prob_set <- rep(NA, 5)
+  prob_quintet <- rep(NA, 5)
 
   ## (2) Compute missing sens or mirt (if applicable):
   cur.sens.mirt <- comp_comp_pair(sens, mirt)
@@ -447,10 +455,10 @@ comp_complete_prob_set <- function(prev,
   fart <- cur.spec.fart[2]  # 2nd argument
 
   ## (4) Assemble all probabilities:
-  prob_set <- c(prev, sens, mirt, spec, fart)
+  prob_quintet <- c(prev, sens, mirt, spec, fart)
 
   ## (5) return vector:
-  return(prob_set)
+  return(prob_quintet)
 
 }
 
@@ -497,6 +505,8 @@ comp_PPV <- function(prev, sens, spec) {
 ## Check:
 ## for extreme values:
 ## comp_PPV(0, 0, 1)  # => NaN, as hi = 0 and fa = 0:  0/0
+
+## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
 ## -----------------------------------------------
 ## 2. False discovery/detection rate (FDR = complement of PPV):
@@ -554,6 +564,8 @@ comp_NPV <- function(prev, sens, spec) {
 ## for extreme values:
 ## comp_NPV(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
 ## comp_NPV(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
+
+## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
 ## -----------------------------------------------
 ## 4. False omission rate (FOR = complement of NPV):

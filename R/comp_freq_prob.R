@@ -64,9 +64,11 @@
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being TRUE).
+#'
 #' @param sens The decision's sensitivity value  \code{\link{sens}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is TRUE).
+#'
 #' @param spec The specificity value  \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
@@ -96,34 +98,43 @@
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes frequencies from probabilities
 
-comp_min_N <- function(prev, sens, spec,
+comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
                        min.freq = 1) {
 
-  N <- 10^0 # initialize
+  ## (1) initialize:
+  N <- 10^0
 
-  ## Compute frequency of 4 SDT cases:
-  n.hi <- N * prev * sens
-  n.mi <- N * prev * (1 - sens)
-  n.cr <- N * (1 - prev) * spec
-  n.fa <- N * (1 - prev) * (1 - spec)
+  ## (2) Only if triple of essential probabilities is valid:
+  if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
 
-  ## Freq of 4 SDT cases:
-  while ((n.hi > 0 & n.hi < min.freq) |
-         (n.mi > 0 & n.mi < min.freq) |
-         (n.cr > 0 & n.cr < min.freq) |
-         (n.fa > 0 & n.fa < min.freq)) {
+    ## (3) Issue a warning if probabilities describe an extreme case:
+    is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
-    N <- (N * 10) # multiply N by 10
-
-    ## Update frequency of 4 SDT cases:
+    ## (4) Compute frequency of 4 SDT cases:
     n.hi <- N * prev * sens
     n.mi <- N * prev * (1 - sens)
     n.cr <- N * (1 - prev) * spec
     n.fa <- N * (1 - prev) * (1 - spec)
 
+    ## (5) While freq of 4 SDT cases < min.freq:
+    while ((n.hi > 0 & n.hi < min.freq) |
+           (n.mi > 0 & n.mi < min.freq) |
+           (n.cr > 0 & n.cr < min.freq) |
+           (n.fa > 0 & n.fa < min.freq)) {
+
+      ## (a) Multiply N by 10:
+      N <- (N * 10)
+
+      ## (b) Update frequency of 4 SDT cases for new N:
+      n.hi <- N * prev * sens
+      n.mi <- N * prev * (1 - sens)
+      n.cr <- N * (1 - prev) * spec
+      n.fa <- N * (1 - prev) * (1 - spec)
+
+    }
   }
 
-  ## Return number N:
+  ## (6) Return number N:
   return(N)
 
 }

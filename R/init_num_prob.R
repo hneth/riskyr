@@ -1,11 +1,10 @@
 ## init_num_prob.R | riskyR
-## 2018 01 22
+## 2018 01 24
 ## -----------------------------------------------
 ## Define and initialize prob by using num:
 
 ## -----------------------------------------------
 ## Table of current terminology:
-
 
 # probabilities (9):                frequencies (9):
 # ------------------                ------------------
@@ -13,22 +12,20 @@
 #                                          N
 # prev*                             n.true | n.false
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# sens* = hit rate  = TPR              hi* = TP
+# mirt  = miss rate = FNR              mi* = FN
+# fart  = false alarm rate = FPR       fa* = FP
+# spec* = true negative rate = TNR     cr* = TN
 
 # [Note: *...is essential]
 
-
 # (B) derived:
-#                                   dec.pos | dec.neg
+#                                  dec.pos | dec.neg
 
 # PPV = pos. pred. value
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
-
 
 ## -----------------------------------------------
 ## Two basic directions:
@@ -38,7 +35,7 @@
 ## - derived: all other values
 
 ## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
+## - given:   N = hi, mi, fa, cr
 ## - derived: all other values
 
 ## -----------------------------------------------
@@ -75,19 +72,22 @@
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{fart} is provided.
+#' \code{spec} is optional when is complement \code{\link{fart}} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
-#' @return A list \code{prob} containing 8 probability values.
+#' @return A list \code{\link{prob}} containing 8 probability values.
 #'
 #' @examples
 #' comp_prob()             # => ok, using current defaults
@@ -118,18 +118,20 @@
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{freq}} contains current frequency information;
 #' \code{\link{prob}} contains current probability information;
-#' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
-#' \code{\link{comp_comp_pair}} computes pairs of complements;
-#' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
+#' \code{\link{num}} contains basic parameter values;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{pal}} contains current color settings;
+#' \code{\link{txt}} contains current text settings;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes frequencies from probabilities;
+#' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
+#' \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
+#' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-comp_prob <- function(prev = num$prev, sens = num$sens,
-                      spec = num$spec, fart = NA) {
+
+comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec,  # 3 essential probabilities
+                      fart = NA) {                                        # 1 optional probability (fart)
 
   ## (0) Initialize prob as a list:
   prob <- list(
@@ -148,7 +150,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens,
   )
 
   ## (1) Only if basic quadruple of probabilities is valid:
-  if (is_valid(prev, sens, spec, fart)) {
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     cur.spec.fart <- comp_comp_pair(spec, fart)
@@ -156,7 +158,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens,
     fart <- cur.spec.fart[2] # 2nd argument
 
     ## (3) Issue a warning if probabilities describe an extreme case:
-    is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
+    is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
     ## (4) Assign all values of prob based on current parameter values:
     ## (a) basic probability parameters:
@@ -180,7 +182,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens,
 
     }
 
-  } # if (is_valid(prev, sens, spec, fart))
+  } # if (is_valid_prob_set(...
 
   ## (6) Return the entire list prob:
   return(prob)
