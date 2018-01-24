@@ -3,30 +3,28 @@
 \docType{data}
 \name{N}
 \alias{N}
-\title{The number of individuals in the population.}
+\title{Number of individuals in the population.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
 N
 }
 \description{
-\code{N} defines how many individuals make up
-the current population (i.e., the overall
-number of cases considered).
+\code{N} is a frequency that describes the
+number of individuals in the current population
+(i.e., the overall number of cases considered).
 }
 \details{
-A frequency (integer) value.
-
-Relationships: For natural frequencies
-in a population of size \code{N}
+\emph{Relationships}:
+In a population of size \code{\link{N}}
 the following relationships hold:
 
-\enumerate{
+\itemize{
 
-\item N = n(condition true) + n(condition false)
+\item \code{\link{N} = \link{cond.true} + \link{cond.false}}
 
-\item n(positive decisions) + n(negative decisions)
+\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 
-\item N = [n(hi) + n(mi)] + [n(fa) + n(cr)]
+\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
 }
 
 The current frequency information is computed by
@@ -45,14 +43,15 @@ is_prob(N)  # => FALSE (as N is no probability)
 Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{comp_min_N}} computes a suitable
-minimum value of \code{N} for given probabilities;
-\code{\link{num}} contains basic numeric variables;
-\code{\link{init_num}} initializes basic numeric variables;
-\code{\link{freq}} contains basic frequency variables;
-\code{\link{comp_freq}} computes natural frequencies from probabilities;
-\code{\link{comp_prob}} computes derived probabilities
+\code{\link{is_freq}} verifies frequencies;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information.
 
-Other basic frequencies: \code{\link{hi}}
+Other frequencies: \code{\link{cr}}, \code{\link{fa}},
+  \code{\link{hi}}, \code{\link{mi}}
 }
 \keyword{datasets}
