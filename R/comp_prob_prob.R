@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 22
+## 2018 01 24
 ## -----------------------------------------------
 ## Compute probabilities from probabilities:
 
@@ -285,12 +285,12 @@ comp_spec <- function(fart) {
 #' If either of them is missing (\code{NA}), it computes the complement
 #' of the other one and returns both probabilities.
 #'
-#' \code{comp_comp_pair} does *nothing* when both arguments are provided
+#' \code{comp_comp_pair} does \emph{nothing} when both arguments are provided
 #' (i.e., \code{!is.na(p1) & !is.na(p2)}) and only issues
 #' a warning if both arguments are missing
 #' (i.e., \code{is.na(p1) & is.na(p2)}).
 #'
-#' Inputs are *not* verified:
+#' Inputs are \emph{not} verified:
 #' Use \code{\link{is_prob}} to verify that an input is
 #' a probability and \code{\link{is_complement}} to verify
 #' that two provided values actually are complements.
@@ -322,8 +322,10 @@ comp_spec <- function(fart) {
 #'
 #' @seealso
 #' \code{\link{is_complement}} verifies numeric complements;
-#' \code{\link{is_valid}} verifies valid quadruples of probabilities;
-#' \code{\link{comp_prob}} computes derived probabilities
+#' \code{\link{is_valid_prob_set}} verifies sets of probabilities;
+#' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information.
 
 comp_comp_pair <- function(p1 = NA, p2 = NA){
 
@@ -361,6 +363,109 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
   # comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
 }
 
+## -----------------------------------------------
+# Complete a valid set of probability inputs:
+
+#' Complete a valid set of probability inputs.
+#'
+#' \code{comp_complete_prob_set} is a function takes a
+#' valid set of (3 to 5) probabilities as inputs (as a vector)
+#' and returns the complete set of
+#' (3 essential and 2 optional) probabilities.
+#'
+#' Assuming that \code{\link{is_valid_prob_set} = TRUE}
+#' this function uses \code{\link{comp_comp_pair}} on the
+#' two optional pairs (i.e.,
+#' \code{\link{sens}} and \code{\link{mirt}}, and
+#' \code{\link{spec}} and \code{\link{fart}}) and
+#' returns the complete set of 5 probabilities.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @return A vector of 5 probabilities:
+#' \code{c(\link{prev}, \link{sens}, \link{mirt}, \link{spec}, \link{fart})}.
+#'
+#' @examples
+#' comp_complete_prob_set(1, .8, NA, .7, NA)  # => 1.0 0.8 0.2 0.7 0.3
+#' comp_complete_prob_set(1, NA, .8, NA, .4)  # => 1.0 0.2 0.8 0.6 0.4
+#'
+#' # Watch out for:
+#' comp_complete_prob_set(8)                  # => 8 NA NA NA NA       + warnings that comp_comp_pair needs 1 argument
+#' comp_complete_prob_set(8, 7, 6, 5, 4)      # => 8 7 6 5 4           + no warning (as valid set assumed)!
+#' comp_complete_prob_set(8, .8, NA, .7, NA)  # => 8.0 0.8 0.2 0.7 0.3 + no warning (as valid set assumed)!
+#' comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{is_valid_prob_set}} verifies a set of probability inputs;
+#' \code{\link{comp_comp_pair}} computes pairs of complements;
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{is_prob}} verifies probabilities;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{num}} contains basic numeric variables.
+
+comp_complete_prob_set <- function(prev,
+                                   sens = NA, mirt = NA,
+                                   spec = NA, fart = NA
+) {
+
+  # (1) initialize:
+  prob_set <- rep(NA, 5)
+
+  ## (2) Compute missing sens or mirt (if applicable):
+  cur.sens.mirt <- comp_comp_pair(sens, mirt)
+  sens <- cur.sens.mirt[1]  # 1st argument
+  mirt <- cur.sens.mirt[2]  # 2nd argument
+
+  ## (3) Compute missing spec or fart (if applicable):
+  cur.spec.fart <- comp_comp_pair(spec, fart)
+  spec <- cur.spec.fart[1]  # 1st argument
+  fart <- cur.spec.fart[2]  # 2nd argument
+
+  ## (4) Assemble all probabilities:
+  prob_set <- c(prev, sens, mirt, spec, fart)
+
+  ## (5) return vector:
+  return(prob_set)
+
+}
+
+## Check:
+{
+  #   comp_complete_prob_set(1, .8, NA, .7, NA)  # => 1.0 0.8 0.2 0.7 0.3
+  #   comp_complete_prob_set(1, NA, .8, NA, .4)  # => 1.0 0.2 0.8 0.6 0.4
+  #
+  #   # Watch out for:
+  #   comp_complete_prob_set(8)                  # => 8 NA NA NA NA       + warnings that comp_comp_pair needs 1 argument
+  #   comp_complete_prob_set(8, 7, 6, 5, 4)      # => 8 7 6 5 4           + no warning (as valid set assumed)!
+  #   comp_complete_prob_set(8, .8, NA, .7, NA)  # => 8.0 0.8 0.2 0.7 0.3 + no warning (as valid set assumed)!
+  #   comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
+}
+
 
 ## -----------------------------------------------
 ## (B) Compute derived probabilities (predictive values PVs)
@@ -373,7 +478,7 @@ comp_PPV <- function(prev, sens, spec) {
   PPV <- NA # initialize
 
   ## ToDo: Add condition
-  ## if (is_valid(prev, sens, spec, fart)) { ... }
+  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
 
   ## PPV = hits / positive decision = hits / (hits + false alarms):
   hi <- (prev * sens)
@@ -404,7 +509,7 @@ comp_FDR <- function(prev, sens, spec) {
   FDR <- NA
 
   ## ToDo: Add condition
-  ## if (is_valid(prev, sens, spec, fart)) { ... }
+  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
 
   PPV <- comp_PPV(prev, sens, spec)
   FDR <- comp_prob_comp(PPV)  # FDR is the complement of PPV
@@ -421,8 +526,6 @@ comp_FDR_PPV <- function(PPV) {
   return(FDR)
 }
 
-
-
 ## -----------------------------------------------
 ## 3. Negative predictive value (NPV) from probabilities:
 
@@ -431,7 +534,7 @@ comp_NPV <- function(prev, sens, spec) {
   NPV <- NA # initialize
 
   ## ToDo: Add condition
-  ## if (is_valid(prev, sens, spec, fart)) { ... }
+  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
 
   ## NPV = cr / negative decision = cr / (cr + mi):
   cr <- (1 - prev) * spec
@@ -461,7 +564,7 @@ comp_FOR <- function(prev, sens, spec) {
   FOR <- NA
 
   ## ToDo: Add condition
-  ## if (is_valid(prev, sens, spec, fart)) { ... }
+  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
 
   NPV <- comp_NPV(prev, sens, spec)
   FOR <- comp_prob_comp(NPV)  # FDR is the complement of NPV
@@ -511,6 +614,7 @@ comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
   return(matrix)
 
 }
+
 
 ## -----------------------------------------------
 ## (+) ToDo:

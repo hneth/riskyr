@@ -1,10 +1,10 @@
 ## comp_util.R | riskyR
-## 2018 01 23
+## 2018 01 24
 ## -----------------------------------------------
 ## Generic utility functions:
 
 ## -----------------------------------------------
-## (1) Verification functions:
+## (A) Verification functions:
 
 ## 1. is_prob
 ## 2. is_perc
@@ -26,7 +26,9 @@
 #'
 #' @param prob A numeric argument (scalar or vector).
 #'
-#' @return A Boolean value: \code{TRUE} if \code{prob} is a probability, otherwise \code{FALSE}.
+#' @return A Boolean value:
+#' \code{TRUE} if \code{prob} is a probability,
+#' otherwise \code{FALSE}.
 #'
 #' @examples
 #' # ways to succeed:
@@ -63,24 +65,28 @@ is_prob <- function(prob) {
   if (sum(is.na(prob)) > 0) {
 
     val <- FALSE
+
     warning(paste0(prob, " contains NA values. "))
   }
 
   else if (sum(is.nan(prob)) > 0) {
 
     val <- FALSE
+
     warning(paste0(prob, " contains NaN values. "))
   }
 
   else if (sum(!is.numeric(prob)) > 0) {
 
     val <- FALSE
+
     warning(paste0(prob, " contains non-numeric values. "))
   }
 
-  else if (sum((prob < 0) | (prob > 1)) > 0) {
+  else if (sum((prob < 0) || (prob > 1)) > 0) {
 
     val <- FALSE
+
     warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
   }
 
@@ -155,12 +161,16 @@ is_perc <- function(perc) {
   val <- NA  # initialize
 
   if (sum(is.na(perc)) > 0) {
+
     val <- FALSE
+
     warning(paste0(perc, " contains NA values. "))
   }
 
   else if (sum(is.nan(perc)) > 0) {
+
     val <- FALSE
+
     warning(paste0(perc, " contains NaN values. "))
   }
 
@@ -169,12 +179,15 @@ is_perc <- function(perc) {
     warning(paste0(perc, " contains non-numeric values. "))
   }
 
-  else if (sum((perc < 0) | (perc > 100)) > 0) {
+  else if (sum((perc < 0) || (perc > 100)) > 0) {
+
     val <- FALSE
+
     warning(paste0(perc, " contains values beyond the range from 0 to 100. "))
   }
 
   else {  # one way to succeed:
+
     val <- TRUE
   }
 
@@ -226,32 +239,43 @@ is_freq <- function(freq) {
   val <- NA  # initialize
 
   if (sum(is.na(freq)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains NA values. "))
   }
 
   else if (sum(is.nan(freq)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains NaN values. "))
   }
 
   else if (sum(!is.numeric(freq)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains non-numeric values. "))
   }
 
   else if (sum((freq < 0)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains negative values (< 0). "))
   }
 
   # else if (!all.equal(freq, as.integer(freq))) {
   else if (sum( freq %% 1 != 0) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains non-integer values. "))
   }
 
   else {  # one way to succeed:
+
     val <- TRUE
   }
 
@@ -260,9 +284,9 @@ is_freq <- function(freq) {
 }
 
 ## -----------------------------------------------
-# Verify that sufficient probabilities are provided:
+# Verify that sufficient set of probabilities is provided:
 
-#' Verify that input provides a sufficient number of probabilities.
+#' Verify a sufficient set of probability inputs.
 #'
 #' \code{is_suff_prob_set} is a function that
 #' takes 3 to 5 probabilities as inputs and
@@ -286,7 +310,7 @@ is_freq <- function(freq) {
 #'
 #' }
 #'
-#' \code{is_suff_prob_set} does not verify the type, range or
+#' \code{is_suff_prob_set} does not verify the type, range, or
 #' consistency of its arguments. See \code{\link{is_prob}} and
 #' \code{\link{is_complement}} for this purpose.
 #'
@@ -297,6 +321,7 @@ is_freq <- function(freq) {
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
 #' @param mirt The decision's miss rate \code{\link{mirt}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{TRUE}).
@@ -306,6 +331,7 @@ is_freq <- function(freq) {
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when its complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
@@ -346,8 +372,8 @@ is_freq <- function(freq) {
 #' \code{\link{as_pb}} displays a percentage as probability.
 
 is_suff_prob_set <- function(prev,
-                         sens = NA, mirt = NA,
-                         spec = NA, fart = NA) {
+                             sens = NA, mirt = NA,
+                             spec = NA, fart = NA) {
 
   val <- NA  # initialize
 
@@ -355,16 +381,19 @@ is_suff_prob_set <- function(prev,
   if (is.na(prev)) {
 
     val <- FALSE
+
     warning("A prevalence (prev) is missing but necessary.")}
 
   else if (is.na(sens) & is.na(mirt)) {
 
     val <- FALSE
+
     warning("Either a sensitivity (sens) OR a miss rate (mirt) is necessary.")
 
   } else if (is.na(spec) & is.na(fart)) {
 
     val <- FALSE
+
     warning("Either a specificity (spec) OR a false alarm rate (fart) is necessary.")
 
   } else {  # one way to succeed:
@@ -405,13 +434,15 @@ is_suff_prob_set <- function(prev,
 ## -----------------------------------------------
 ## Verify that 2 numbers are complements of each other:
 
-#' Verify that two probabilities are complements.
+#' Verify that two numbers are complements.
 #'
 #' \code{is_complement} is a function that
-#' takes 2 numeric arguments (probabilities) as inputs and
-#' verifies that they are complements (i.e., add up to 1).
+#' takes 2 numeric arguments (typically probabilities) as inputs and
+#' verifies that they are \emph{complements} (i.e., add up to 1).
 #'
 #' Both \code{p1} and \code{p2} are necessary arguments.
+#' If one or both arguments are \code{NA}, \code{is_complement}
+#' returns \code{NA} (i.e., neither \code{TRUE} nor \code{FALSE}).
 #'
 #' The argument \code{tol} is optional (with a default value of .01)
 #' Numeric near-complements that differ by less than this
@@ -422,12 +453,16 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{is_suff_prob_set}} for this purpose.
 #'
 #' @param p1 A numeric argument (typically probability in range from 0 to 1).
+
 #' @param p2 A numeric argument (typically probability in range from 0 to 1).
 #'
-#' @param tol A numeric tolerance value.
+#' @param tol A numeric tolerance value;
+#' default: \code{tol = .01}.
 #'
-#' @return A Boolean value:
-#' \code{TRUE} if both arguments are complements,
+#' @return \code{NA} or a Boolean value:
+#' \code{NA} if one or both arguments are \code{NA};
+#' \code{TRUE} if both arguments are provided
+#' and complements (in \code{tol} range);
 #' otherwise \code{FALSE}.
 #'
 #' @examples
@@ -437,9 +472,10 @@ is_suff_prob_set <- function(prev,
 # is_complement(.33, .66)       # => TRUE
 #'
 #' # watch out for:
+#' is_complement(NA, NA)            # => NA (but not FALSE)
+#' is_complement(1, NA)             # => NA (but not FALSE)
 #' is_complement(2, -1)             # => TRUE + warnings (p1 and p2 beyond range)
 #' is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
-#' is_complement(1, NA)             # => NA (but not FALSE)
 #' is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
 #' is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 #'
@@ -447,7 +483,6 @@ is_suff_prob_set <- function(prev,
 #' is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
 #' is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
 #' is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
-#'
 #'
 #' @family verification functions
 #'
@@ -524,9 +559,9 @@ is_complement <- function(p1, p2, tol = .01) {
 ##     Verify if the current set of (sufficient) probabilities
 ##     describe an extreme case:
 
-#' Verify that probabilities provided describe an extreme case.
+#' Verify that a set of probabilities describes an extreme case.
 #'
-#' \code{is_extreme_prob_set} verifies that a provided set
+#' \code{is_extreme_prob_set} verifies that a set
 #' of probabilities (i.e., \code{\link{prev}},
 #' and \code{\link{sens}} or \code{\link{mirt}},
 #' and \code{\link{spec}} or \code{\link{fart}})
@@ -546,41 +581,45 @@ is_complement <- function(p1, p2, tol = .01) {
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when is complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @return A Boolean value: \code{TRUE} if an extreme case is identified,
+#' @return A Boolean value:
+#' \code{TRUE} if an extreme case is identified;
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' # Identify 4 extreme cases (+2 variants):
-#' is_extreme_prob_set(1, 1, NA, 1)           # => TRUE + warning: N true positives
-#' plot_tree(1, 1, N = 100)          # => illustrates this case
+#' # Identify 4 extreme cases (+ 2 variants):
+#' is_extreme_prob_set(1, 1, NA, 1)         # => TRUE + warning: N true positives
+#' plot_tree(1, 1, N = 100)                 # => illustrates this case
 #'
-#' is_extreme_prob_set(1, 0, NA, 1)           # => TRUE + warning: N false negatives
-#' plot_tree(1, 0, N = 100)          # => illustrates this case
+#' is_extreme_prob_set(1, 0, NA, 1)         # => TRUE + warning: N false negatives
+#' plot_tree(1, 0, N = 100)                 # => illustrates this case
 #'
 #' sens <- .50
-#' is_extreme_prob_set(0, sens, NA, 0, NA)          # => TRUE + warning: N false positives
-#' plot_tree(0, sens, NA, 0, N = 100)      # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, 0, NA)  # => TRUE + warning: N false positives
+#' plot_tree(0, sens, NA, 0, N = 100)       # => illustrates this case
 #' # Variant:
-#' is_extreme_prob_set(0, sens, NA, NA, 1)          # => TRUE + warning: N false positives
-#' plot_tree(0, sens, NA, NA, 1, N = 100)  # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, NA, 1)  # => TRUE + warning: N false positives
+#' plot_tree(0, sens, NA, NA, 1, N = 100)   # => illustrates this case
 #'
-#' is_extreme_prob_set(0, sens, NA, 1)              # => TRUE + warning: N true negatives
-#' plot_tree(0, sens, NA, NA, 1, N = 100)  # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, 1)      # => TRUE + warning: N true negatives
+#' plot_tree(0, sens, NA, NA, 1, N = 100)   # => illustrates this case
 #' # Variant:
-#' is_extreme_prob_set(0, sens, NA, NA, 0)          # => TRUE + warning: N true negatives
-#' plot_tree(0, sens, NA, NA, 0, N = 100)  # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, NA, 0)  # => TRUE + warning: N true negatives
+#' plot_tree(0, sens, NA, NA, 0, N = 100)   # => illustrates this case
 #'
 #'
 #' @family verification functions
@@ -606,12 +645,12 @@ is_extreme_prob_set <- function(prev,
 
   ## (2) Compute missing probability complement values (if applicable):
   cur.sens.mirt <- comp_comp_pair(sens, mirt)
-  sens <- cur.sens.mirt[1] # 1st argument
-  mirt <- cur.sens.mirt[2] # 2nd argument
+  sens <- cur.sens.mirt[1]  # 1st argument
+  mirt <- cur.sens.mirt[2]  # 2nd argument
 
   cur.spec.fart <- comp_comp_pair(spec, fart)
-  spec <- cur.spec.fart[1] # 1st argument
-  fart <- cur.spec.fart[2] # 2nd argument
+  spec <- cur.spec.fart[1]  # 1st argument
+  fart <- cur.spec.fart[2]  # 2nd argument
 
   ## (3) Check cases:
   if ((prev == 1) & (sens == 1)) {         # 1. prev and sens are both perfect:
@@ -688,7 +727,7 @@ is_extreme_prob_set <- function(prev,
 #'
 #' \code{is_valid_prob_pair} is a function that verifies that
 #' a pair of 2 numeric inputs \code{p1} and \code{p2}
-#' can be interpreted as a valid pair of 2 probabilities.
+#' can be interpreted as a valid pair of probabilities.
 #'
 #' \code{is_valid_prob_pair} is a wrapper function
 #' that combines \code{\link{is_prob}} and
@@ -704,8 +743,11 @@ is_extreme_prob_set <- function(prev,
 #' Numeric near-complements that differ by less than this
 #' value are still considered to be complements.
 #'
-#' @param p1 A numeric argument (typically probability in range from 0 to 1).
-#' @param p2 A numeric argument (typically probability in range from 0 to 1).
+#' @param p1 A numeric argument
+#' (typically probability in range from 0 to 1).
+#'
+#' @param p2 A numeric argument
+#' (typically probability in range from 0 to 1).
 #'
 #' @param tol A numeric tolerance value.
 #'
@@ -731,6 +773,8 @@ is_extreme_prob_set <- function(prev,
 #'
 #' @seealso
 #' \code{\link{is_valid_prob_set}} uses this function to verify sets of probability inputs;
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{is_prob}} verifies probabilities;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
@@ -745,10 +789,13 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
   val <- FALSE
 
   if ( ( is.na(p1) && !is.na(p2) && is_prob(p2) ) |  # only p2 is provided and is_prob
+
        ( is.na(p2) && !is.na(p1) && is_prob(p1) ) |  # only p1 is provided and is_prob
+
        ( # !is.na(p1)  && !is.na(p2)  &&  # commented out to suppress NA warning messages
          is_prob(p1) && is_prob(p2) &&               # both p1 and p2 are provided
          is_complement(p1, p2, tol) ) ) {            # and both are complements
+
     val <- TRUE
   }
 
@@ -775,10 +822,10 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 # Verify that a set of up to 5 probabilities can
 # be interpreted as valid probability inputs:
 
-#' Verify that a set of probability inputs are valid.
+#' Verify that a set of probability inputs is valid.
 #'
 #' \code{is_valid_prob_set} is a function that verifies that
-#' a set of 3 to 5 numeric inputs can be interpreted as a
+#' a set of (3 to 5) numeric inputs can be interpreted as a
 #' valid set of (3 essential and 2 optional) probabilities.
 #'
 #' \code{is_valid_prob_set} is a wrapper function that combines
@@ -787,9 +834,8 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #'
 #' While no alternative input option for frequencies is provided,
 #' specification of the essential probability \code{\link{prev}}
-#' is always necessary.
-#'
-#' However, for two other essential probabilities there is a choice:
+#' is always necessary. However, for 2 other essential
+#' probabilities there is a choice:
 #'
 #' \enumerate{
 #'
@@ -817,6 +863,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
 #' @param mirt The decision's miss rate \code{\link{mirt}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{TRUE}).
@@ -826,6 +873,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when its complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
@@ -833,7 +881,8 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #'
 #' @param tol A numeric tolerance value used by \code{\link{is_complement}}.
 #'
-#' @return A Boolean value: \code{TRUE} if the probabilities provided are valid,
+#' @return A Boolean value:
+#' \code{TRUE} if the probabilities provided are valid;
 #' otherwise \code{FALSE}.
 #'
 #' @examples
@@ -860,7 +909,6 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
 #' is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
 #' is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
-#'
 #'
 #' @family verification functions
 #'
@@ -919,7 +967,11 @@ is_valid_prob_set <- function(prev,
   # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
 }
 
+
 ## -----------------------------------------------
+## (B) Display functions:
+## -----------------------------------------------
+
 ## Toggle between showing probabilities and percentages:
 
 #' Display a probability as a (rounded) percentage.
