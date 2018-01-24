@@ -1,5 +1,5 @@
 ## init_num_freq.R | riskyR
-## 2018 01 22
+## 2018 01 24
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -44,37 +44,42 @@
 
 
 ## -----------------------------------------------
-## (1) Compute frequencies from probabilities:
+## (1) Compute frequencies from 3 essential probabilities:
 
 #' Compute frequencies from basic probabilities.
 #'
-#' \code{comp_freq} is a function that computes natural frequencies (typically
-#' rounded integers) given basic probabilities --
-#' \code{prev} and \code{sens}, and \code{spec} or \code{fart} (\code{spec = 1 - fart})
-#' -- for a population of \code{N} individuals.
+#' \code{comp_freq} computes frequencies (typically
+#' as rounded integers) given 3 basic probabilities --
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} --
+#' -- for a population of \code{\link{N}} individuals.
 #' It returns a list of 9 frequencies \code{\link{freq}}
 #' as its output.
+#'
+#' In addition to \code{\link{prev}}, both
+#' \code{\link{sens}} and \code{\link{spec}} are necessary arguments.
+#' If only their complements \code{\link{mirt}} or \code{\link{fart}}
+#' are known, first use \code{\link{comp_prob_comp}},
+#' \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
+#' to obtain all necessary arguments.
 #'
 #' \code{comp_freq} is the frequency counterpart to the
 #' probability function \code{\link{comp_prob}}.
 #'
 #' By default, \code{\link{comp_freq}} rounds frequencies
 #' to nearest integers to avoid decimal values in
-#' \code{\link{freq}}.
+#' \code{\link{freq}}. Use \code{round = FALSE}
+#' to switch off rounding.
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being TRUE).
-#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
-#' provided that the condition is TRUE).
+#' provided that the condition is \code{TRUE}).
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
-#' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' of a negative decision provided that the condition is \code{FALSE}).
 #'
 #' @param N The number of individuals in the population:
 #' a suitable value of \code{\link{N}} is computed, if not provided.
@@ -88,26 +93,26 @@
 #' comp_freq()                  # => ok, using current defaults
 #' length(comp_freq())          # => 9
 #'
-#' # Ways to succeed:
-#' comp_freq(1, 1, 1, NA, 100)  # => ok, N hits
-#' comp_freq(1, 1, NA, 1, 100)  # => ok, N hits
-#' comp_freq(1, 0, 1, NA, 100)  # => ok, N misses
-#' comp_freq(1, 0, NA, 1, 100)  # => ok, N misses
-#' comp_freq(0, 1, 1, NA, 100)  # => ok, N correct rejections
-#' comp_freq(0, 1, NA, 1, 100)  # => ok, N false alarms
+#' Ways to succeed:
+#' comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
+#' comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
+#' comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
+#' comp_freq(prev = 1, sens = 0, spec = 0, 100)  # => ok, N misses
+#' comp_freq(prev = 0, sens = 1, spec = 1, 100)  # => ok, N correct rejections (TN)
+#' comp_freq(prev = 0, sens = 1, spec = 0, 100)  # => ok, N false alarms (FP)
 #'
 #' # Watch out for:
-#' comp_freq(1, 1, 1, 0, N = NA)  # => ok, but warning that N = 1 was computed
-#' comp_freq(1, 1, 1, 0, N =  0)  # => ok, but all 0
-#' comp_freq(.5, .5, .5, NA, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
-#' comp_freq(.5, .5, .5, NA, N = 10, round = FALSE) # => ok, but not rounded
+#' comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
+#' comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
+#' comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
+#' comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
 #'
 #' # Ways to fail:
-#' comp_freq(NA, 1, 1, NA, 100)  # => NAs + warning: prev not numeric
-#' comp_freq(1, NA, 1, NA, 100)  # => NAs + warning: sens not numeric
-#' comp_freq(8,  1, 1, NA, 100)  # => NAs + warning: prev no probability
-#' comp_freq(1,  8, 1, NA, 100)  # => NAs + warning: sens no probability
-#' comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerated range
+#' comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
+#' comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
+#' comp_freq(prev = 1,  sens = 1,  spec = NA, 100)  # => NAs + warning (spec NA)
+#' comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
+#' comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
 #'
 #' @family functions computing frequencies
 #'
@@ -117,13 +122,12 @@
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
 #' \code{\link{comp_prob_comp}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
+#' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
-comp_freq <- function(prev = num$prev, sens = num$sens,
-                      spec = num$spec, fart = num$fart,
+comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (removed: fart = num$fart, )
                       N = num$N,
                       round = TRUE) {
 
@@ -148,16 +152,17 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
     "cr" = NA  # true negative
   )
 
-  ## (1) Only if basic quadruple of probabilities is valid:
-  if (is_valid(prev, sens, spec, fart)) {
+  ## (1) Only if 3 essential probabilities are valid:
+  if (is_valid_prob_triple(prev = prev, sens = sens, spec = spec)) {
+  # if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-    cur.spec.fart <- comp_comp_pair(spec, fart)
-    spec <- cur.spec.fart[1]  # 1st argument
-    fart <- cur.spec.fart[2]  # 2nd argument
+    # cur.spec.fart <- comp_comp_pair(spec, fart)  # (do only when needed)
+    # spec <- cur.spec.fart[1]  # 1st argument
+    # fart <- cur.spec.fart[2]  # 2nd argument
 
-    ## (3) Issue a warning if probabilities describe an extreme case:
-    is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE
+    ## (3) Issue a warning if essential probabilities describe an extreme case:
+    is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
     ## (4) Compute missing population size value N (if applicable):
     if (is.na(N)) {
@@ -221,25 +226,25 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
   # length(comp_freq())          # => 9
   #
   # # Ways to succeed:
-  # comp_freq(1, 1, 1, NA, 100)  # => ok, N hits
-  # comp_freq(1, 1, NA, 1, 100)  # => ok, N hits
-  # comp_freq(1, 0, 1, NA, 100)  # => ok, N misses
-  # comp_freq(1, 0, NA, 1, 100)  # => ok, N misses
-  # comp_freq(0, 1, 1, NA, 100)  # => ok, N correct rejections
-  # comp_freq(0, 1, NA, 1, 100)  # => ok, N false alarms
+  # comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
+  # comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
+  # comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
+  # comp_freq(prev = 1, sens = 0, spec = 0, 100)  # => ok, N misses
+  # comp_freq(prev = 0, sens = 1, spec = 1, 100)  # => ok, N correct rejections (TN)
+  # comp_freq(prev = 0, sens = 1, spec = 0, 100)  # => ok, N false alarms (FP)
   #
   # # Watch out for:
-  # comp_freq(1, 1, 1, 0, N = NA)  # => ok, but warning that N = 1 was computed
-  # comp_freq(1, 1, 1, 0, N =  0)  # => ok, but all 0
-  # comp_freq(.5, .5, .5, NA, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
-  # comp_freq(.5, .5, .5, NA, N = 10, round = FALSE) # => ok, but not rounded
+  # comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
+  # comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
+  # comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
+  # comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
   #
   # # Ways to fail:
-  # comp_freq(NA, 1, 1, NA, 100)  # => NAs + warning: prev not numeric
-  # comp_freq(1, NA, 1, NA, 100)  # => NAs + warning: sens not numeric
-  # comp_freq(8,  1, 1, NA, 100)  # => NAs + warning: prev no probability
-  # comp_freq(1,  8, 1, NA, 100)  # => NAs + warning: sens no probability
-  # comp_freq(1,  1, 1,  1, 100)  # => NAs and warning: is_complement not in tolerated range
+  # comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
+  # comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
+  # comp_freq(prev = 1,  sens = 1,  spec = NA, 100)  # => NAs + warning (spec NA)
+  # comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
+  # comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
 }
 
 ## -----------------------------------------------
