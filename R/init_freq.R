@@ -47,25 +47,23 @@
 ## -----------------------------------------------
 ## (0) N: population size
 
-#' The number of individuals in the population.
+#' Number of individuals in the population.
 #'
-#' \code{N} defines how many individuals make up
-#' the current population (i.e., the overall
-#' number of cases considered).
+#' \code{N} is a frequency that describes the
+#' number of individuals in the current population
+#' (i.e., the overall number of cases considered).
 #'
-#' A frequency (integer) value.
-#'
-#' Relationships: For natural frequencies
-#' in a population of size \code{N}
+#' \emph{Relationships}:
+#' In a population of size \code{\link{N}}
 #' the following relationships hold:
 #'
-#' \enumerate{
+#' \itemize{
 #'
-#'   \item N = n(condition true) + n(condition false)
+#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
-#'   \item n(positive decisions) + n(negative decisions)
+#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
-#'   \item N = [n(hi) + n(mi)] + [n(fa) + n(cr)]
+#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
 #' }
 #'
 #' The current frequency information is computed by
@@ -78,23 +76,23 @@
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
 #'
-#' @family basic frequencies
+#' @family frequencies
 #'
 #' @seealso
-#' \code{\link{comp_min_N}} computes a suitable
-#' minimum value of \code{N} for given probabilities;
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{freq}} contains basic frequency variables;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
-#' \code{\link{comp_prob}} computes derived probabilities
+#' \code{\link{is_freq}} verifies frequencies;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
 #'
 #' @examples
 #' N <- 1000   # => sets a population size of 1000
 #' is_freq(N)  # => TRUE
 #' is_prob(N)  # => FALSE (as N is no probability)
 
-N <- 99  # default population size
+N <- 100  # default population size N
 
 ## -----------------------------------------------
 ## *essential frequencies: hi mi fa cr
@@ -103,27 +101,185 @@ N <- 99  # default population size
 
 #' Frequency of hits or true positives (TP).
 #'
-#' \code{hi} is the frequency of hits or true positives (TP)
+#' \code{hi} is the frequency of hits
+#' or true positives (\code{TP})
 #' in a population of \code{\link{N}} individuals.
 #'
-#' @aliases
-#' TP
+#' Definition: \code{hi} are individuals for which
+#' \code{cond.true} and \code{dec.pos}
+#' holds simultaneously.
 #'
-#' @family basic frequencies
+#' \code{hi} are cases of correct classifications.
+#'
+#' Relationships:
+#' In a population of size \code{\link{N}}
+#' the following relationships hold:
+#'
+#' \itemize{
+#'
+#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'
+#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
+#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#' }
+#'
+#' @aliases TP
+#'
+#' @family essential parameters
+#' @family frequencies
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{freq}} contains basic frequency variables.
+#' \code{\link{sens}} is the probability of hits or hit rate \code{\link{HR}};
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{is_freq}} verifies frequencies.
 
-hi <- NA
+hi <- NA  # default hits (TP)
 
 ## -----------------------------------------------
 ## (2) mi = FN:
+
+#' Frequency of misses or false negatives (FN).
+#'
+#' \code{mi} is the frequency of misses
+#' or false negatives (\code{FN})
+#' in a population of \code{\link{N}} individuals.
+#'
+#' Definition: Individuals for which
+#' \code{cond.true} and \code{dec.neg}
+#' holds simultaneously.
+#'
+#' \code{mi} are cases of incorrect
+#' classifications (type-II errors).
+#'
+#' Relationships:
+#' In a population of size \code{\link{N}}
+#' the following relationships hold:
+#'
+#' \itemize{
+#'
+#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'
+#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
+#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#' }
+#'
+#' @aliases FN
+#' type-II-errors
+#'
+#' @family essential parameters
+#' @family frequencies
+#'
+#' @seealso
+#' \code{\link{mirt}} is the probability or rate of misses;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{is_freq}} verifies frequencies.
+
+mi <- NA  # default misses (FN)
+
 ## -----------------------------------------------
 ## (3) fa = FP:
+
+#' Frequency of false alarms or false positives (FP).
+#'
+#' \code{fa} is the frequency of false alarms
+#' or false positives (\code{FP})
+#' in a population of \code{\link{N}} individuals.
+#'
+#' Definition: \code{fa} are individuals for which
+#' \code{cond.false} and \code{dec.pos}
+#' holds simultaneously.
+#'
+#' \code{fa} are cases of incorrect classifications
+#' (type-I-errors).
+#'
+#' Relationships:
+#' In a population of size \code{\link{N}}
+#' the following relationships hold:
+#'
+#' \itemize{
+#'
+#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'
+#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
+#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#' }
+#'
+#' @aliases FP
+#'
+#' @family essential parameters
+#' @family frequencies
+#'
+#' @seealso
+#' \code{\link{fart}} is the probability of false alarms
+#' (aka. false positive rate \code{\link{FPR}} or \code{\link{fallout}});
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{is_freq}} verifies frequencies.
+
+fa <- NA  # default false alarms (FP)
+
 ## -----------------------------------------------
 ## (4) cr = TN:
 
+#' Frequency of correct rejections or true negatives (TN).
+#'
+#' \code{cr} is the frequency of correct rejections
+#' or true negatives (\code{TN})
+#' in a population of \code{\link{N}} individuals.
+#'
+#' Definition: \code{cr} are individuals for which
+#' \code{cond.false} and \code{dec.neg}
+#' holds simultaneously.
+#'
+#' \code{cr} are cases of correct classifications.
+#'
+#' Relationships:
+#' In a population of size \code{\link{N}}
+#' the following relationships hold:
+#'
+#' \itemize{
+#'
+#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'
+#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
+#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#' }
+#'
+#' @aliases TN
+#'
+#' @family essential parameters
+#' @family frequencies
+#'
+#' @seealso
+#' \code{\link{spec}} is the specificity or correct rejection rate
+#' (aka. true negative rate \code{\link{TNR}});
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{is_freq}} verifies frequencies.
+
+cr <- NA  # default correct rejections (TN)
 
 ## -----------------------------------------------
 ## (B) Define and initialize COMBINED frequencies:
@@ -144,9 +300,6 @@ hi <- NA
 
 ## -----------------------------------------------
 ## (+) ToDo:
-
-
-
 
 
 ## -----------------------------------------------

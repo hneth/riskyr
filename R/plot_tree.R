@@ -131,9 +131,9 @@
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric parameters;
-#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{freq}} contains current frequency information;
-#' \code{\link{comp_freq}} computes frequencies from probabilities;
+#' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{pal}} contains current color settings;
