@@ -70,8 +70,8 @@ Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additiona
 \code{\link{comp_prob}} computes derived probabilities;
 \code{\link{comp_freq}} computes natural frequencies from probabilities
 
-Other basic parameters: \code{\link{N}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other basic probabilities: \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}

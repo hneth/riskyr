@@ -73,14 +73,16 @@ is_prob(mirt)   # => TRUE (as mirt is a probability)
 Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{num}} contains basic numeric variables;
-\code{\link{init_num}} initializes basic numeric variables;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities
+\code{\link{comp_mirt}} computes \code{mirt} as the complement of \code{\link{sens}};
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other basic parameters: \code{\link{N}},
-  \code{\link{fart}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other basic probabilities: \code{\link{fart}},
+  \code{\link{prev}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}

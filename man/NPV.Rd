@@ -80,9 +80,10 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{FOR}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+  \code{\link{comp_comp_pair}},
+  \code{\link{comp_complete_prob_set}},
+  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
+  \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
+  \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }
 \keyword{datasets}

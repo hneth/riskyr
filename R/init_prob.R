@@ -186,11 +186,13 @@ prev <- .10 # default prevalence
 #' @family basic probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{comp_sens}} computes \code{sens} as the complement of \code{\link{mirt}};
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
 #' sens <- .85     # => sets a sensitivity value of 85%
@@ -266,11 +268,13 @@ sens <- .85  # default sensitivity
 #' @family basic probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{comp_mirt}} computes \code{mirt} as the complement of \code{\link{sens}};
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
 #' mirt <- .15     # => sets a miss rate of 15%
@@ -344,13 +348,13 @@ mirt <- 1 - sens  # default miss rate
 #' @family basic probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
-#' \code{\link{comp_spec}} computes \code{spec}
-#' as the complement of \code{\link{fart}}
+#' \code{\link{comp_spec}} computes \code{spec} as the complement of \code{\link{fart}};
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
 #' spec <- .75     # => sets a specificity value of 75%
@@ -423,16 +427,16 @@ spec <- .75 # default specificity
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
-#' @family basic parameters
+#' @family basic probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
-#' \code{\link{comp_fart}} computes \code{fart}
-#' as the complement of \code{\link{spec}}
+#' \code{\link{comp_fart}} computes \code{fart} as the complement of \code{\link{spec}}
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
 #' fart <- .25     # => sets a false alarm rate of 25%

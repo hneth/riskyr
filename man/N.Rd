@@ -53,8 +53,6 @@ minimum value of \code{N} for given probabilities;
 \code{\link{comp_freq}} computes natural frequencies from probabilities;
 \code{\link{comp_prob}} computes derived probabilities
 
-Other basic parameters: \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other basic frequencies: \code{\link{hi}}
 }
 \keyword{datasets}

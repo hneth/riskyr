@@ -17,15 +17,15 @@ provided that the condition is \code{TRUE}).}
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when is complement \code{fart} is provided.}
+\code{spec} is optional when is complement \code{\link{fart}} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
 of a positive decision provided that the condition is \code{FALSE}).
-\code{fart} is optional when its complement \code{spec} is provided.}
+\code{fart} is optional when its complement \code{\link{spec}} is provided.}
 }
 \value{
-A list \code{prob} containing 8 probability values.
+A list \code{\link{prob}} containing 8 probability values.
 }
 \description{
 \code{comp_prob} is a function that computes derived probabilities
@@ -79,19 +79,22 @@ comp_prob(1,  1, 1,  1)  # => NAs and warning: is_complement not in tolerated ra
 
 }
 \seealso{
-\code{\link{num}} contains basic numeric variables;
-\code{\link{init_num}} initializes basic numeric variables;
-\code{\link{freq}} contains current frequency information;
 \code{\link{prob}} contains current probability information;
-\code{\link{comp_prob}} computes current probability information;
-\code{\link{is_valid}} verifies the validity of probability inputs;
-\code{\link{comp_prob_comp}} computes a probability's complement;
-\code{\link{comp_comp_pair}} computes pairs of complements;
-\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
+\code{\link{num}} contains basic parameter values;
+\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{pal}} contains current color settings;
+\code{\link{txt}} contains current text settings;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes frequencies from probabilities;
+\code{\link{is_valid_prob_set}} verifies sets of probability inputs;
+\code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
+\code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_sens}}, \code{\link{comp_spec}}
+  \code{\link{comp_comp_pair}},
+  \code{\link{comp_complete_prob_set}},
+  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
+  \code{\link{comp_prob_comp}}, \code{\link{comp_sens}},
+  \code{\link{comp_spec}}
 }

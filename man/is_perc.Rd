@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_util.R
 \name{is_perc}
 \alias{is_perc}
-\title{Verify that a numeric input is a percentage (from 0 to 100).}
+\title{Verify that input is a percentage (numeric value from 0 to 100).}
 \usage{
 is_perc(perc)
 }
@@ -10,7 +10,8 @@ is_perc(perc)
 \item{perc}{A single (typically numeric) argument.}
 }
 \value{
-A Boolean value: \code{TRUE} if \code{perc} is a percentage (proportion),
+A Boolean value:
+\code{TRUE} if \code{perc} is a percentage (proportion),
 otherwise \code{FALSE}.
 }
 \description{
@@ -38,12 +39,14 @@ is_perc(101)         # => FALSE + warning (beyond range)
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 \code{\link{as_pc}} displays a probability as a percentage;
 \code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_extreme}}, \code{\link{is_freq}},
-  \code{\link{is_prob}}, \code{\link{is_sufficient}},
-  \code{\link{is_valid}}
+  \code{\link{is_extreme_prob_set}}, \code{\link{is_freq}},
+  \code{\link{is_prob}}, \code{\link{is_suff_prob_set}},
+  \code{\link{is_valid_prob_pair}},
+  \code{\link{is_valid_prob_set}},
+  \code{\link{is_valid_prob_triple}}
 }

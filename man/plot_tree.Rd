@@ -4,37 +4,43 @@
 \alias{plot_tree}
 \title{Plot a tree diagram of natural frequencies.}
 \usage{
-plot_tree(prev = num$prev, sens = num$sens, spec = num$spec, fart = NA,
-  N = freq$N, area = "no", round = TRUE, title.lbl = txt$scen.lbl,
-  popu.lbl = txt$popu.lbl, cond.lbl = txt$cond.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.lbl = txt$dec.lbl, dec.true.lbl = txt$dec.true.lbl,
-  dec.false.lbl = txt$dec.false.lbl, sdt.hi.lbl = txt$sdt.hi.lbl,
-  sdt.mi.lbl = txt$sdt.mi.lbl, sdt.fa.lbl = txt$sdt.fa.lbl,
-  sdt.cr.lbl = txt$sdt.cr.lbl, col.boxes = pal[1:7], col.txt = grey(0.01,
-  alpha = 0.99), col.border = col.grey.4, col.shadow = col.sand.dark,
-  cex.shadow = 0)
+plot_tree(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
+  fart = NA, N = freq$N, area = "no", round = TRUE,
+  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
+  dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
+  sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
+  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl,
+  col.boxes = pal[1:7], col.txt = grey(0.01, alpha = 0.99),
+  col.border = col.grey.4, col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
-\item{prev}{The condition's prevalence value \code{\link{prev}}
+\item{prev}{The condition's prevalence \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity value \code{\link{sens}}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
-provided that the condition is \code{TRUE}).}
+provided that the condition is \code{TRUE}).
+\code{sens} is optional when its complement \code{mirt} is provided.}
+
+\item{mirt}{The decision's miss rate \code{\link{mirt}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{TRUE}).
+\code{mirt} is optional when its complement \code{sens} is provided.}
 
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when is complement \code{fart} is provided.}
+\code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
 of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{N}{The number of individuals in the population:
-a suitable value of \code{\link{N}} is computed, if not provided.}
+\item{N}{The number of individuals in the population.
+A suitable value of \code{\link{N}} is computed, if not provided.}
 
 \item{area}{A character option for 4 different box sizes:
 - \code{"no"} ... all boxes are shown with the same size (default);
@@ -54,15 +60,15 @@ Nothing (NULL).
 }
 \description{
 \code{plot_tree} computes and visualizes a tree diagram of
-natural frequencies (typically rounded integers) given basic
-probabilities -- \code{\link{prev}} and \code{\link{sens}},
-and \code{\link{spec}} or \code{\link{fart}} (\code{spec = 1 - fart})
--- and a population size of \code{\link{N}} individuals.
+natural frequencies (typically rounded integers) given a set of
+probabilities (\code{\link{prev}}, and
+\code{\link{sens}} or its complement \code{\link{mirt}}, and
+\code{\link{spec}} or its complement \code{\link{fart}})
+and a population size of \code{\link{N}} individuals.
 }
 \details{
 The option \code{area} (as 2 characters) allows specifying
 4 different box shapes and sizes:
-
 \enumerate{
  \item \code{"no"} shows all boxes in the same size (default);
  \item \code{"sq"} shows boxes as squares with area sizes proportional to frequencies;
@@ -111,13 +117,13 @@ plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 
 }
 \seealso{
-\code{\link{num}} for basic numeric parameters;
+\code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes frequencies from probabilities;
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{pal}} for current color settings;
-\code{\link{txt}} for current text settings;
-\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
+\code{\link{pal}} contains current color settings;
+\code{\link{txt}} contains current text settings;
+\code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 }

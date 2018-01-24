@@ -26,12 +26,12 @@ If either of them is missing (\code{NA}), it computes the complement
 of the other one and returns both probabilities.
 }
 \details{
-\code{comp_comp_pair} does *nothing* when both arguments are provided
+\code{comp_comp_pair} does \emph{nothing} when both arguments are provided
 (i.e., \code{!is.na(p1) & !is.na(p2)}) and only issues
 a warning if both arguments are missing
 (i.e., \code{is.na(p1) & is.na(p2)}).
 
-Inputs are *not* verified:
+Inputs are \emph{not} verified:
 Use \code{\link{is_prob}} to verify that an input is
 a probability and \code{\link{is_complement}} to verify
 that two provided values actually are complements.
@@ -51,11 +51,15 @@ comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
 }
 \seealso{
 \code{\link{is_complement}} verifies numeric complements;
-\code{\link{is_valid}} verifies valid quadruples of probabilities;
-\code{\link{comp_prob}} computes derived probabilities
+\code{\link{is_valid_prob_set}} verifies sets of probabilities;
+\code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
+\code{\link{is_extreme_prob_set}} verifies extreme cases;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{prob}} contains current probability information.
 
 Other functions computing probabilities: \code{\link{FDR}},
   \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
+  \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
   \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
   \code{\link{comp_sens}}, \code{\link{comp_spec}}

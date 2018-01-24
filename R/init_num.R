@@ -113,7 +113,7 @@ num.def <- list("prev" = prev,  # prevalence in target population = p(condition 
 #' @family functions to initialize scenario settings
 #'
 #' @seealso
-#' \code{\link{num}} contains basic parameter values;
+#' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{pal}} contains current color settings;
 #' \code{\link{txt}} contains current text settings;
 #' \code{\link{freq}} contains current frequency information;

@@ -2,15 +2,17 @@
 % Please edit documentation in R/comp_util.R
 \name{is_prob}
 \alias{is_prob}
-\title{Verify that a numeric input is a probability (from 0 to 1).}
+\title{Verify that input is a probability (numeric value from 0 to 1).}
 \usage{
-is_prob(prob)
+is_prob(prob, NA.warn = FALSE)
 }
 \arguments{
 \item{prob}{A numeric argument (scalar or vector).}
 }
 \value{
-A Boolean value: \code{TRUE} if \code{prob} is a probability, otherwise \code{FALSE}.
+A Boolean value:
+\code{TRUE} if \code{prob} is a probability,
+otherwise \code{FALSE}.
 }
 \description{
 \code{is_prob} is a function that checks whether its argument \code{prob}
@@ -18,17 +20,19 @@ is a probability (i.e., a numeric value in the range from 0 to 1).
 }
 \examples{
 # ways to succeed:
-is_prob(1/2)            # => TRUE
+is_prob(1/2)                  # => TRUE
 p.seq <- seq(0, 1, by = .1)
-is_prob(p.seq)          # => TRUE (for vector)
+is_prob(p.seq)                # => TRUE (for vector)
+
+# watch out for:
+is_prob(NA)                   # => FALSE + NO warning!
+is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
 
 # ways to fail:
-is_prob(8)              # => FALSE + warning (outside range)
-is_prob(c(.5, 8))       # => FALSE + warning (for vector)
-is_prob(NA)             # => FALSE + warning (NA values)
-is_prob(0/0)            # => FALSE + warning (NA + NaN values)
-is_prob("Laplace")      # => FALSE + warning (non-numeric values)
-is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
+is_prob(8)                    # => FALSE + warning (outside range)
+is_prob(c(.5, 8))             # => FALSE + warning (for vector)
+is_prob("Laplace")            # => FALSE + warning (non-numeric values)
 
 }
 \seealso{
@@ -38,12 +42,14 @@ is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 \code{\link{as_pc}} displays a probability as a percentage;
-\code{\link{as_pb}} displays a percentage as probability
+\code{\link{as_pb}} displays a percentage as probability.
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_extreme}}, \code{\link{is_freq}},
-  \code{\link{is_perc}}, \code{\link{is_sufficient}},
-  \code{\link{is_valid}}
+  \code{\link{is_extreme_prob_set}}, \code{\link{is_freq}},
+  \code{\link{is_perc}}, \code{\link{is_suff_prob_set}},
+  \code{\link{is_valid_prob_pair}},
+  \code{\link{is_valid_prob_set}},
+  \code{\link{is_valid_prob_triple}}
 }
