@@ -526,9 +526,9 @@ fart <- 1 - spec   # default false alarm rate
 ## -----------------------------------------------
 ## B: Define by decision:
 ## -----------------------------------------------
-## (0) Base rate of positive decisions: (PR?)
+## (0) Base rate of positive decisions (PR):
 
-## (0) ppod = base rate of decisions being positive:
+## (0) ppod = base rate of decisions being positive (PR):
 
 #' The proportion (or baseline) of a positive decision.
 #'

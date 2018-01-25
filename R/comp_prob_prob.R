@@ -10,23 +10,29 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# probabilities (9):                frequencies (9):
-# ------------------                ------------------
-# (A) basic:
-#                                          N
-# prev*                             n.true | n.false
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
 
-# sens* = hit rate = TPR              hi* = TP
-# mirt  = miss rate = FNR             mi* = FN
-# fart  = false alarm rate = FPR      fa* = FP
-# spec* = true negative rate = TNR    cr* = TN
+# non-conditional:                          N
+# prev*                           cond.true | cond.false
+
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
 
 # [Note: *...is essential]
 
-# (B) derived:
-#                                 dec.pos | dec.neg
 
-# PPV = pos. pred. value
+# (B) by decision:                 Combined frequencies:
+
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
@@ -474,10 +480,58 @@ comp_complete_prob_set <- function(prev,
   #   comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
 }
 
+## -----------------------------------------------
+## Compute derived probabilities:
+## -----------------------------------------------
 
 ## -----------------------------------------------
-## (B) Compute derived probabilities (predictive values PVs)
-##     from probabilities:
+## B: Perspective: by decision:
+## -----------------------------------------------
+
+## -----------------------------------------------
+## (0) ppod = base rate of decisions being positive (PR):
+
+comp_ppod <- function(prev, sens, spec) {
+
+  ppod <- NA # initialize
+
+  ## ToDo: Add condition
+  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+
+  ## Definition: ppod = dec.pos / N  =  (hi + fa) / (hi + mi + fa + cr)
+
+  ## Computation:
+  hi <- prev * sens
+  mi <- prev * (1 - sens)
+  cr <- (1 - prev) * spec
+  fa <- (1 - prev) * (1 - spec)
+
+  ppod <- (hi + fa) / (hi + mi + fa + cr)
+
+  ## Check:
+  if (is.nan(ppod)) {
+    warning("ppod is NaN.")
+  }
+
+  return(ppod)
+}
+
+## Check:
+comp_ppod(1, 1, 1)  #  => 1
+comp_ppod(1, 1, 0)  #  => 1
+
+comp_ppod(1, 0, 1)  #  => 0
+comp_ppod(1, 0, 0)  #  => 0
+
+comp_ppod(0, 1, 1)  #  => 0
+comp_ppod(0, 1, 0)  #  => 1
+
+comp_ppod(0, 0, 1)  #  => 0
+comp_ppod(0, 0, 0)  #  => 1
+
+## for extreme values:
+## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+
 ## -----------------------------------------------
 ## 1. Positive predictive value (PPV) from probabilities:
 
@@ -485,11 +539,12 @@ comp_PPV <- function(prev, sens, spec) {
 
   PPV <- NA # initialize
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
+  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## PPV = hits / positive decision = hits / (hits + false alarms):
-  hi <- (prev * sens)
+  ## Definition: PPV = hi / dec.pos  =  hi / (hi + fa)
+
+  ## Computation:
+  hi <- prev * sens
   fa <- (1 - prev) * (1 - spec)
 
   PPV <- hi / (hi + fa)
@@ -508,33 +563,45 @@ comp_PPV <- function(prev, sens, spec) {
 
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
+
 ## -----------------------------------------------
 ## 2. False discovery/detection rate (FDR = complement of PPV):
 
 ## (a) from basic probabilities:
-
 comp_FDR <- function(prev, sens, spec) {
 
-  PPV <- NA # initialize
-  FDR <- NA
+  FDR <- NA # initialize
+  # PPV <- NA
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
+  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  PPV <- comp_PPV(prev, sens, spec)
-  FDR <- comp_prob_comp(PPV)  # FDR is the complement of PPV
+  ## Definition: FDR = fa / dec.pos  =  fa / (hi + fa)
+
+  ## Computation:
+  hi <- prev * sens
+  fa <- (1 - prev) * (1 - spec)
+
+  FDR <- fa / (hi + fa)
+
+  ## Check:
+  if (is.nan(FDR)) {
+    warning("FDR is NaN.")
+  }
 
   return(FDR)
 }
+
 
 ## (b) FDR = 1 - PPV:
-
 comp_FDR_PPV <- function(PPV) {
+
+  FDR <- NA  # initialize
 
   FDR <- comp_prob_comp(PPV)  # FDR is the complement of PPV
 
   return(FDR)
 }
+
 
 ## -----------------------------------------------
 ## 3. Negative predictive value (NPV) from probabilities:
@@ -543,14 +610,15 @@ comp_NPV <- function(prev, sens, spec) {
 
   NPV <- NA # initialize
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
+  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## NPV = cr / negative decision = cr / (cr + mi):
-  cr <- (1 - prev) * spec
+  ## Definition: NPV = cr / dec.neg  =  cr / (mi + cr)
+
+  ## Computation:
   mi <- prev * (1 - sens)
+  cr <- (1 - prev) * spec
 
-  NPV <- cr / (cr + mi)
+  NPV <- cr / (mi + cr)
 
   ## Check:
   if (is.nan(NPV)) {
@@ -572,17 +640,48 @@ comp_NPV <- function(prev, sens, spec) {
 
 comp_FOR <- function(prev, sens, spec) {
 
-  NPV <- NA # initialize
-  FOR <- NA
+  FOR <- NA  # initialize
+  # NPV <- NA
 
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, spec, fart)) { ... }
+  ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  NPV <- comp_NPV(prev, sens, spec)
-  FOR <- comp_prob_comp(NPV)  # FDR is the complement of NPV
+  ## Definition: FOR =  mi / dec.neg  =  mi / (cr + mi)
+
+  ## Computation:
+  mi <- prev * (1 - sens)
+  cr <- (1 - prev) * spec
+
+  FOR <- mi / (mi + cr)
+
+  ## Check:
+  if (is.nan(FOR)) {
+    warning("FOR is NaN.")
+  }
+
+  ## Alternative computation:
+  # NPV <- comp_NPV(prev, sens, spec)
+  # FOR <- comp_prob_comp(NPV)   # FDR = 1 - NPV
 
   return(FOR)
 }
+
+## Check:
+## for extreme values:
+# comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
+
+## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+
+## (b) FOR = 1 - NPV:
+comp_FOR_NPV <- function(NPV) {
+
+  FOR <- NA  # initialize
+
+  FOR <- comp_prob_comp(NPV)  # FOR is the complement of NPV
+
+  return(FOR)
+}
+
 
 ## -----------------------------------------------
 ## (C) Compute predictive values
@@ -599,7 +698,8 @@ comp_FOR <- function(prev, sens, spec) {
 ## Compute either PPV or NPV for an entire matrix of values
 ## (when sens and spec are given as vectors):
 
-comp_PV_matrix <- function(prev, sens, spec, metric = "PPV") {
+comp_PV_matrix <- function(prev, sens, spec,
+                           metric = "PPV") {
 
   # Initialize matrix as df:
   n.rows <- length(sens)

@@ -1,28 +1,36 @@
 ## init_num_prob.R | riskyR
-## 2018 01 24
+## 2018 01 25
 ## -----------------------------------------------
-## Define and initialize prob by using num:
+## Define and initialize probability information prob
+## by using basic parameter values of num:
 
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# probabilities (9):                frequencies (9):
-# ------------------                ------------------
-# (A) basic:
-#                                          N
-# prev*                             n.true | n.false
 
-# sens* = hit rate  = TPR              hi* = TP
-# mirt  = miss rate = FNR              mi* = FN
-# fart  = false alarm rate = FPR       fa* = FP
-# spec* = true negative rate = TNR     cr* = TN
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
+
+# non-conditional:                          N
+# prev*                           cond.true | cond.false
+
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
 
 # [Note: *...is essential]
 
-# (B) derived:
-#                                  dec.pos | dec.neg
 
-# PPV = pos. pred. value
+# (B) by decision:                 Combined frequencies:
+
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
@@ -76,11 +84,17 @@
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{\link{mirt}} is provided.
+#'
+#' @param mirt The decision's miss rate value \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{\link{sens}} is provided.
 #'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{\link{fart}} is provided.
+#' \code{spec} is optional when its complement \code{\link{fart}} is provided.
 #'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
@@ -130,19 +144,25 @@
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 
-comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec,  # 3 essential probabilities
-                      fart = NA) {                                        # 1 optional probability (fart)
+comp_prob <- function(prev = num$prev,             # probabilities:
+                      sens = num$sens, mirt = NA,  # 3 essential (prev, sens, spec)
+                      spec = num$spec, fart = NA   # 2 optional  (      mirt, fart)
+                      ) {
 
   ## (0) Initialize prob as a list:
   prob <- list(
 
-    ## (a) basic probability parameters:
-    "prev" = NA,  # simple p
+    ## (a) By condition: basic probability parameters:
+    "prev" = NA,  # simple p of cond.true
+
     "sens" = NA,  # conditional p
-    "spec" = NA,  # conditional p: 1 - fart
+    "mirt" = NA,  # conditional p: 1 - sens
+    "spec" = NA,  # conditional p:
     "fart" = NA,  # conditional p: 1 - spec
 
-    ## (b) derived predictive values (PVs):
+    ## (b) By decision: derived probabilities and predictive values (PVs):
+    "ppod" = NA,  # simple p of dec.pos
+
     "PPV" = NA,   # conditional p: reversal of sens
     "NPV" = NA,   # conditional p: reversal of spec
     "FDR" = NA,   # conditional p: 1 - PPV
@@ -150,33 +170,42 @@ comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec,  # 3 es
   )
 
   ## (1) Only if basic quadruple of probabilities is valid:
-  if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
 
-    ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-    cur.spec.fart <- comp_comp_pair(spec, fart)
-    spec <- cur.spec.fart[1] # 1st argument
-    fart <- cur.spec.fart[2] # 2nd argument
+    ## (2) Compute the complete quintet of probabilities:
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+    sens <- prob_quintet[2] # gets sens (if not provided)
+    mirt <- prob_quintet[3] # gets mirt (if not provided)
+    spec <- prob_quintet[4] # gets spec (if not provided)
+    fart <- prob_quintet[5] # gets fart (if not provided)
 
     ## (3) Issue a warning if probabilities describe an extreme case:
     is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
     ## (4) Assign all values of prob based on current parameter values:
-    ## (a) basic probability parameters:
+
+    ## (a) By condition: basic probability parameters:
     prob$prev <- prev
+
     prob$sens <- sens
+    prob$mirt <- mirt
     prob$spec <- spec
     prob$fart <- fart
-    ## (b) derived predictive values (PVs):
-    prob$PPV <- comp_PPV(prev, sens, spec) # Note: using probabilistic version (Bayes)
-    prob$NPV <- comp_NPV(prev, sens, spec)
-    prob$FDR <- comp_FDR(prev, sens, spec)
-    prob$FOR <- comp_FOR(prev, sens, spec)
+
+    ## (b) By decision: derived probabilities and predictive values (PVs):
+    prob$ppod <- comp_ppod(prev, sens, spec)  # Note: using probabilistic versions (Bayes)
+
+    prob$PPV  <- comp_PPV(prev, sens, spec)
+    prob$NPV  <- comp_NPV(prev, sens, spec)
+    prob$FDR  <- comp_FDR(prev, sens, spec)
+    prob$FOR  <- comp_FOR(prev, sens, spec)
 
     ## (5) Check derived PVs:
-    if ( is.na(prob$PPV) | is.nan(prob$PPV) | !is_prob(prob$PPV) |
-         is.na(prob$NPV) | is.nan(prob$NPV) | !is_prob(prob$NPV) |
-         is.na(prob$FDR) | is.nan(prob$FDR) | !is_prob(prob$FDR) |
-         is.na(prob$FOR) | is.nan(prob$FOR) | !is_prob(prob$FOR) ) {
+    if ( is.na(prob$ppod) | is.nan(prob$ppod) | !is_prob(prob$ppod) |
+         is.na(prob$PPV)  | is.nan(prob$PPV)  | !is_prob(prob$PPV)  |
+         is.na(prob$NPV)  | is.nan(prob$NPV)  | !is_prob(prob$NPV)  |
+         is.na(prob$FDR)  | is.nan(prob$FDR)  | !is_prob(prob$FDR)  |
+         is.na(prob$FOR)  | is.nan(prob$FOR)  | !is_prob(prob$FOR) ) {
 
       warning( "Some PVs are peculiar. Check for extreme probabilities!" )
 
@@ -223,25 +252,36 @@ comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec,  # 3 es
 #' List current probability information.
 #'
 #' \code{prob} is a list of named numeric variables
-#' containing 4 basic (1 non-conditional and 3 conditional) probabilities
-#' and 4 derived (conditional) probabilities:
+#' containing 3 essential (1 non-conditional and 2 conditional) probabilities
+#' and 7 derived (1 non-conditional and 6 conditional) probabilities:
 #'
 #' \enumerate{
 #'
-#'  \item the condition's prevalence value \code{\link{prev}}
-#'  (i.e., the probability of condition being \code{TRUE}).
+#'  \item the condition's prevalence \code{\link{prev}}
+#'  (i.e., the probability of condition being \code{TRUE}):
+#'  \code{prev = \link{cond.true}/\link{N}}.
 #'
-#'  \item the decision's sensitivity value \code{\link{sens}}
+#'  \item the decision's sensitivity \code{\link{sens}}
 #'  (i.e., the conditional probability of a positive decision
 #'  provided that the condition is \code{TRUE}).
 #'
-#'  \item the decision's specificity value \code{\link{spec}}
+#'  \item the decision's miss rate \code{\link{mirt}}
+#'  (i.e., the conditional probability of a negative decision
+#'  provided that the condition is \code{TRUE}).
+#'
+#'  \item the decision's specificity \code{\link{spec}}
 #'  (i.e., the conditional probability
 #'  of a negative decision provided that the condition is \code{FALSE}).
 #'
 #'  \item the decision's false alarm rate \code{\link{fart}}
 #'  (i.e., the conditional probability
 #'  of a positive decision provided that the condition is \code{FALSE}).
+#'
+#'
+#'  \item the proportion (baseline probability or rate)
+#'  of positive decisions \code{\link{ppod}}
+#'  (but not necessarily true decisions):
+#'  \code{ppod = \link{dec.pos}/\link{N}}.
 #'
 #'  \item the decision's positive predictive value \code{\link{PPV}}
 #' (i.e., the conditional probability of the condition being \code{TRUE}
@@ -285,6 +325,7 @@ comp_prob <- function(prev = num$prev, sens = num$sens, spec = num$spec,  # 3 es
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information
+
 
 prob <- comp_prob()  # => initialize prob to default parameters
 # prob               # => show current values
