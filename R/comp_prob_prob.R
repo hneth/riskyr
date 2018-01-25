@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 24
+## 2018 01 25
 ## -----------------------------------------------
 ## Compute probabilities from probabilities:
 
@@ -373,7 +373,7 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 ## -----------------------------------------------
 # Complete a valid set of probability inputs:
 
-#' Complete a valid set of probability inputs.
+#' Compute a complete set of probabilities from valid probability inputs.
 #'
 #' \code{comp_complete_prob_set} is a function takes a
 #' valid set of (3 to 5) probabilities as inputs (as a vector)
