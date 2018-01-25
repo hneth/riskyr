@@ -36,11 +36,11 @@ the following relationships hold:
 
 \itemize{
 
-\item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+\item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
    }
 }
 }

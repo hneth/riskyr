@@ -51,6 +51,47 @@ By default, \code{\link{comp_freq}} rounds frequencies
 to nearest integers to avoid decimal values in
 \code{\link{freq}}. Use \code{round = FALSE}
 to switch off rounding.
+
+Key relationships:
+
+\enumerate{
+
+\item to probabilities:
+A population of \code{\link{N}} individuals can be split into 2 subsets
+in 2 different ways:
+
+\enumerate{
+  \item by condition:
+  The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+  and
+  the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+
+\item by decision:
+  The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+  and
+  the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+
+}
+
+The population size \code{\link{N}} is a free parameter (independent of the
+essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+
+If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+
+\item to other frequencies:
+  In a population of size \code{\link{N}}
+  the following relationships hold:
+
+\itemize{
+
+\item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+
+\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+
+\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+  }
+
+}
 }
 \examples{
 comp_freq()                  # => ok, using current defaults
