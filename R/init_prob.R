@@ -1,5 +1,5 @@
 ## init_prob.R | riskyR
-## 2018 01 23
+## 2018 01 25
 ## -----------------------------------------------
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
@@ -7,9 +7,10 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# Probabilities (9):                Frequencies (9):
-# ------------------                ------------------
-# (A) Basic:
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
+
 # non-conditional:                          N
 # prev*                           cond.true | cond.false
 
@@ -22,9 +23,13 @@
 # [Note: *...is essential]
 
 
-# (B) Derived probabilities:     Combined frequencies:
+# (B) by decision:                 Combined frequencies:
 
-# PPV = pos. pred. value           dec.pos | dec.neg
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
@@ -41,14 +46,14 @@
 ## - derived: all other values
 
 ## -----------------------------------------------
-## A: Define and initialize BASIC probabilities:
+## A: Define probabilities by condition:
 ## -----------------------------------------------
 
 ## -----------------------------------------------
-## *: 3 essential probabilities: prev; sens, spec
+## ***: 3 essential probabilities: prev; sens, spec
 ## -----------------------------------------------
 
-## (0) prev:
+## (0) prev*** = base rate of condition:
 
 #' The prevalence (baseline probability) of a condition.
 #'
@@ -65,45 +70,62 @@
 #'
 #'   \code{prev = p(condition = TRUE)}
 #'
-#'   or the (baseline) probability of the condition's occurrence.
+#'   or the base rate (or baseline probability)
+#'   of the condition's occurrence.
+#'
+#'
+#'   \item Perspective:
+#'   \code{prev} classifies a population of \code{\link{N}} individuals
+#'   by condition (\code{prev = cond.true/N}).
+#'
+#'   \code{prev} is the "by condition" counterpart to \code{\link{ppod}}
+#'   (which adopts a "by decision" perspective).
+#'
 #'
 #'   \item Alternative names:
-#'   \code{baseline}, proportion affected,
-#'   rate of condition = \code{TRUE} cases
+#'   base rate of condition,
+#'   proportion affected,
+#'   rate of condition \code{= TRUE} cases
 #'
-#'   to be distinguished from the incidence rate (i.e., new cases within a certain time period)
+#'   \code{prev} is often distinguished from the \emph{incidence rate}
+#'   (i.e., the rate of new cases within a certain time period).
 #'
-#'   \item In natural frequencies,
-#'   \code{prev} is the ratio of individuals for which
-#'   \code{condition = TRUE} divided by the
-#'   number \code{\link{N}} of all individuals
-#'   in the population:
 #'
-#'   \code{prev = n(condition = TRUE) / \link{N}}
+#'   \item In terms of frequencies,
+#'   \code{prev} is the ratio of
+#'   \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+#'   divided by \code{\link{N}} (i.e.,
+#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 #'
-#'   \item \code{prev} is a feature of the population
+#'   \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+#'
+#'
+#'   \item Dependencies:
+#'   \code{prev} is a feature of the population
 #'   and condition, but independent of the decision process
 #'   or diagnostic procedure.
 #'
-#'   \item The value of \code{prev} does not depend
+#'   The value of \code{prev} does \emph{not} depend
 #'   on features of the decision process or diagnostic procedure.
 #'   However, \code{prev} must be taken into account when
 #'   computing the conditional probabilities
-#'   \code{\link{sens}}, \code{\link{spec}}, \code{\link{fart}},
-#'   \code{\link{ppv}}, and \code{\link{npv}}
-#'   (as derived parameters).
+#'   \code{\link{sens}}, \code{\link{mirt}},
+#'   \code{\link{spec}}, \code{\link{fart}},
+#'   \code{\link{PPV}}, and \code{\link{NPV}}
+#'   (as they partly depend on \code{prev}).
 #'
 #' }
 #'
 #' @aliases
-#' baseline
+#' baserate_cond.true
 #'
 #' @examples
 #' prev <- .10     # => sets a prevalence value of 10%
 #' prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
 #' is_prob(prev)   # => TRUE (as prev is a probability)
 #'
-#' @family basic probabilities
+#' @family probabilities
+#' @family essential parameters
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
@@ -115,10 +137,10 @@
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additional information.
 
-prev <- .10 # default prevalence
+prev <- 1/2  # default prevalence
 
 ## -----------------------------------------------
-## (1) sens:
+## (1) sens*** = TPR:
 
 #' The sensitivity (or hit rate) of a decision process or diagnostic procedure.
 #'
@@ -140,9 +162,20 @@ prev <- .10 # default prevalence
 #'   or the probability of correctly detecting true cases
 #'   (\code{condition = TRUE}).
 #'
+#'
+#'   \item Perspective:
+#'   \code{sens} further classifies
+#'   the subset of \code{\link{cond.true}} individuals
+#'   by decision (\code{sens = hi/cond.true}).
+#'
+#'
 #'   \item Alternative names:
-#'   \code{recall}, true positive rate (\code{TPR}),
-#'   hit rate (\code{HR}), probability of detection
+#'   true positive rate (\code{TPR}),
+#'   hit rate (\code{HR}),
+#'   probability of detection,
+#'   \code{power = 1 - beta},
+#'   \code{recall}
+
 #'
 #'   \item Relationships:
 #'
@@ -157,33 +190,37 @@ prev <- .10 # default prevalence
 #'   of the positive predictive value \code{\link{PPV}}:
 #'
 #'   \code{PPV = p(condition = TRUE | decision = positive)}
+
 #'
-#'   \item In natural frequencies,
-#'   \code{sens} is the ratio of individuals for which
-#'   \code{decision = positive} divided by the number of
-#'   individuals for which \code{condition = TRUE}:
+#'   \item In terms of frequencies,
+#'   \code{sens} is the ratio of
+#'   \code{\link{hi}} divided by
+#'   \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}}):
 #'
-#'   \code{sens = n(decision = positive) / n(condition = TRUE)}
+#'   \code{sens = hi/cond.true = hi/(hi + mi)}
 #'
-#'   \item \code{sens} is a feature of a decision process
+#'
+#'   \item Dependencies:
+#'   \code{sens} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
 #'   correct decisions (true positives).
 #'
-#'   However, due to being a conditional probability,
-#'   the value of \code{sens} also depends on the
+#'   Due to being a conditional probability,
+#'   the value of \code{sens} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
 #'
 #' @aliases
-#' recall
-#' HR
-#' TPR
+#' TPR HR
+#' power recall
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
-#' @family basic probabilities
+#' @family probabilities
+#' @family essential parameters
 #'
 #' @seealso
 #' \code{\link{comp_sens}} computes \code{sens} as the complement of \code{\link{mirt}};
@@ -199,10 +236,10 @@ prev <- .10 # default prevalence
 #' sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
 #' is_prob(sens)   # => TRUE (as sens is a probability)
 
-sens <- .85  # default sensitivity
+sens <- 1/2  # default sensitivity
 
 ## -----------------------------------------------
-## (2) mirt:
+## (2) mirt = FNR:
 
 #' The miss rate of a decision process or diagnostic procedure.
 #'
@@ -223,10 +260,18 @@ sens <- .85  # default sensitivity
 #'   or the probability of failing to detect true cases
 #'   (\code{condition = TRUE}).
 #'
+
+#'   \item Perspective:
+#'   \code{mirt} further classifies
+#'   the subset of \code{\link{cond.true}} individuals
+#'   by decision (\code{mirt = mi/cond.true}).
+#'
+#'
 #'   \item Alternative names:
 #'   false negative rate (\code{FNR}),
-#'   rate of Type-II errors
+#'   rate of type-II errors (\code{beta})
 #'
+
 #'   \item Relationships:
 #'
 #'   a. \code{mirt} is the complement of the
@@ -240,32 +285,35 @@ sens <- .85  # default sensitivity
 #'
 #'   \code{FOR = p(condition = TRUE | decision = negative)}
 #'
-#'   \item In natural frequencies,
-#'   \code{mirt} is the ratio of individuals for which
-#'   \code{decision = negative}
-#'   (number of misses \code{link{mi}}) divided by the number of
-#'   individuals for which \code{condition = TRUE}
-#'   (\code{\link{n.true}}):
+
+#'   \item In terms of frequencies,
+#'   \code{mirt} is the ratio of
+#'   \code{\link{mi}} divided by \code{\link{cond.true}}
+#'   (i.e., \code{\link{hi} + \link{mi}}):
 #'
-#'   \code{mirt = n(decision = negative) / n(condition = TRUE)}
+#'   \code{mirt = mi/cond.true = mi/(hi + mi)}
 #'
-#'   \item \code{mirt} is a feature of a decision process
+#'
+#'   \item Dependencies:
+#'   \code{mirt} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
 #'   incorrect decisions (false negatives).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{mirt} also depends on the
+#'   the value of \code{mirt} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
 #'
 #' @aliases
 #' FNR
+#' beta
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
-#' @family basic probabilities
+#' @family probabilities
 #'
 #' @seealso
 #' \code{\link{comp_mirt}} computes \code{mirt} as the complement of \code{\link{sens}};
@@ -284,7 +332,7 @@ sens <- .85  # default sensitivity
 mirt <- 1 - sens  # default miss rate
 
 ## -----------------------------------------------
-## (3) spec:
+## (3) spec*** = TNR:
 
 #' The specificity of a decision process or diagnostic procedure.
 #'
@@ -306,8 +354,17 @@ mirt <- 1 - sens  # default miss rate
 #'   or the probability of correctly detecting false cases
 #'   (\code{condition = FALSE}).
 #'
+#'   \item Perspective:
+#'   \code{spec} further classifies
+#'   the subset of \code{\link{cond.false}} individuals
+#'   by decision (\code{spec = cr/cond.false}).
+#'
+#'
 #'   \item Alternative names:
-#'   true negative rate (\code{TNR}), correct rejection rate
+#'   true negative rate (\code{TNR}),
+#'   correct rejection rate,
+#'   \code{1 - alpha}
+#'
 #'
 #'   \item Relationships:
 #'
@@ -322,19 +379,23 @@ mirt <- 1 - sens  # default miss rate
 #'
 #'   \code{NPV = p(condition = FALSE | decision = negative)}
 #'
-#'   \item In natural frequencies,
-#'   \code{spec} is the ratio of individuals for which
-#'   \code{decision = negative} divided by the number of
-#'   individuals for which \code{condition = FALSE}:
 #'
-#'   \code{spec = n(decision = negative) / n(condition = FALSE)}
+#'   \item In terms of frequencies,
+#'   \code{spec} is the ratio of
+#'   \code{\link{cr}} divided by \code{\link{cond.false}}
+#'   (i.e., \code{\link{fa} + \link{cr}}):
 #'
-#'   \item \code{spec} is a feature of a decision process
+#'   \code{spec = cr/cond.false = cr/(fa + cr)}
+#'
+#'
+#'   \item Dependencies:
+#'   \code{spec} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
 #'   correct decisions (true negatives).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{spec} also depends on the
+#'   the value of \code{spec} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
@@ -345,7 +406,8 @@ mirt <- 1 - sens  # default miss rate
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
-#' @family basic probabilities
+#' @family probabilities
+#' @family essential parameters
 #'
 #' @seealso
 #' \code{\link{comp_spec}} computes \code{spec} as the complement of \code{\link{fart}};
@@ -361,10 +423,10 @@ mirt <- 1 - sens  # default miss rate
 #' spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
 #' is_prob(spec)   # => TRUE (as spec is a probability)
 
-spec <- .75 # default specificity
+spec <- 1/2 # default specificity
 
 ## -----------------------------------------------
-## (4) fart:
+## (4) fart = FPR:
 
 #' The false alarm rate (or false positive rate) of a decision process or diagnostic procedure.
 #'
@@ -385,9 +447,19 @@ spec <- .75 # default specificity
 #'
 #'   or the probability of a false alarm.
 #'
+#'
+#'   \item Perspective:
+#'   \code{fart} further classifies
+#'   the subset of \code{\link{cond.false}} individuals
+#'   by decision (\code{fart = fa/cond.false}).
+#'
+#'
 #'   \item Alternative names:
-#'   \code{fallout}, false positive rate (\code{FPR}),
-#'   rate of type-I errors
+#'   false positive rate (\code{FPR}),
+#'   rate of type-I errors (\code{alpha}),
+#'   statistical significance level,
+#'   \code{fallout}
+#'
 #'
 #'   \item Relationships:
 #'
@@ -403,31 +475,36 @@ spec <- .75 # default specificity
 #'
 #'   \code{FDR = p(condition = FALSE | decision = negative)}
 #'
-#'   \item In natural frequencies,
-#'   \code{fart} is the ratio of individuals for which
-#'   \code{decision = positive} divided by the number of
-#'   individuals for which \code{condition = FALSE}:
 #'
-#'   \code{fart = n(decision = positive) / n(condition = FALSE)}
+#'   \item In terms of frequencies,
+#'   \code{fart} is the ratio of
+#'   \code{\link{fa}} divided by \code{\link{cond.false}}
+#'   (i.e., \code{\link{fa} + \link{cr}}):
 #'
-#'   \item \code{fart} is a feature of a decision process
+#'   \code{fart = fa/cond.false = fa/(fa + cr)}
+#'
+#'
+#'   \item Dependencies:
+#'   \code{fart} is a feature of a decision process
 #'   or diagnostic procedure and a measure of
 #'   incorrect decisions (false positives).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{fart} also depends on the
+#'   the value of \code{fart} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
 #'
 #' @aliases
-#' fallout
 #' FPR
+#' alpha
+#' fallout
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 #'
-#' @family basic probabilities
+#' @family probabilities
 #'
 #' @seealso
 #' \code{\link{comp_fart}} computes \code{fart} as the complement of \code{\link{spec}}
@@ -447,9 +524,92 @@ fart <- 1 - spec   # default false alarm rate
 
 
 ## -----------------------------------------------
-## B: Define and initialize DERIVED probabilities:
+## B: Define by decision:
+## -----------------------------------------------
+## (0) Base rate of positive decisions: (PR?)
+
+## (0) ppod = base rate of decisions being positive:
+
+#' The proportion (or baseline) of a positive decision.
+#'
+#' \code{ppod} defines the proportion (baseline probability or rate):
+#' a decision being \code{positive} (but not necessarily true).
+#'
+#' Understanding or obtaining the proportion of positive decisions \code{ppod}:
+#'
+#' \itemize{
+#'
+#'   \item Definition:
+#'   \code{ppod} is the (non-conditional) probability:
+#'
+#'   \code{ppod = p(decision = positive)}
+#'
+#'   or the base rate (or baseline probability)
+#'   of a decision being positive (but not necessarily true).
+#'
+#'
+#'   \item Perspective:
+#'   \code{ppod} classifies a population of \code{\link{N}} individuals
+#'   by decision (\code{ppod = dec.pos/N}).
+#'
+#'   \code{ppod} is the "by decision" counterpart to \code{\link{prev}}
+#'   (which adopts a "by condition" perspective).
+#'
+#'
+#'   \item Alternative names:
+#'   base rate of positive decisions (\code{PR}),
+#'   proportion predicted or diagnosed,
+#'   rate of decision \code{= positive} cases
+#'
+#'
+#'   \item In terms of frequencies,
+#'   \code{ppod} is the ratio of
+#'   \code{\link{dec.pos}} (i.e., \code{\link{hi} + \link{fa}})
+#'   divided by \code{\link{N}} (i.e.,
+#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+#'
+#'   \code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
+#'
+#'
+#'   \item Dependencies:
+#'   \code{ppod} is a feature of the decision process
+#'   or diagnostic procedure.
+#'
+#'   However, the conditional probabilities
+#'   \code{\link{sens}}, \code{\link{mirt}},
+#'   \code{\link{spec}}, \code{\link{fart}},
+#'   \code{\link{PPV}}, and \code{\link{NPV}}
+#'   also depend on the condition's prevalence \code{\link{prev}}.
+#'
+#' }
+#'
+#' @aliases
+#' baserate_dec.pos PR
+#'
+#' @examples
+#' ppod <- .50     # => sets a rate of positive decisions of 50%
+#' ppod <- 50/100  # => (decision = TRUE) for 50 out of 100 individuals
+#' is_prob(ppod)   # => TRUE (as ppod is a probability)
+#'
+#' @family probabilities
+#'
+#' @seealso
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
+#'
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
+
+ppod <- 1/2  # default rate of positive decisions
+
 ## -----------------------------------------------
 ## Predictive values (PVs):
+
 
 ## (1) PPV: positive predictive value
 
@@ -472,8 +632,16 @@ fart <- 1 - spec   # default false alarm rate
 #'
 #'   or the probability of a positive decision being correct.
 #'
+#'
+#'   \item Perspective:
+#'   \code{PPV} further classifies
+#'   the subset of \code{\link{dec.pos}} individuals
+#'   by condition (\code{PPV = hi/dec.pos = hi/(hi + fa)}).
+#'
+#'
 #'   \item Alternative names:
 #'   \code{precision}
+#'
 #'
 #'   \item Relationships:
 #'
@@ -487,25 +655,26 @@ fart <- 1 - spec   # default false alarm rate
 #'   of the sensitivity \code{\link{sens}}:
 #'
 #'   \code{sens = p(decision = positive | condition = TRUE)}
+
 #'
-#'   \item In natural frequencies,
-#'   \code{PPV} is the ratio of individuals for which
-#'   \code{decision = positive} and \code{condition = TRUE}
-#'   divided by the number of all individuals for which
-#'   \code{decision = positive}:
+#'   \item In terms of frequencies,
+#'   \code{PPV} is the ratio of
+#'   \code{\link{hi}} divided by \code{\link{dec.pos}}
+#'   (i.e., \code{\link{hi} + \link{fa}}):
 #'
-#'   \code{PPV = n(decision = positive & condition = TRUE) / n(decision = positive)}
+#'   \code{PPV = hi/dec.pos = hi/(hi + fa)}
 #'
-#'   \code{PPV = n.hi / (n.hi + n.fa) }
 #'
-#'   \item \code{PPV} is a feature of a decision process
+#'   \item Dependencies:
+#'   \code{PPV} is a feature of a decision process
 #'   or diagnostic procedure and
 #'   -- similar to the sensitivity \code{\link{sens}} --
 #'   a measure of correct decisions (positive decisions
 #'   that are actually TRUE).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{PPV} also depends on the
+#'   the value of \code{PPV} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
@@ -521,17 +690,18 @@ fart <- 1 - spec   # default false alarm rate
 #' PPV <- 55/100  # => (condition = TRUE) for 55 people out of 100 people for which (decision = positive)
 #' is_prob(PPV)   # => TRUE (as PPV is a probability)
 #'
-#' @family functions computing probabilities
+#' @family probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{comp_PPV}} and \code{\link{comp_PPV_freq}} compute PPVs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{comp_PPV}} computes \code{PPV};
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 
-PPV <- NA  # default of positive predictive value (PPV)
+PPV <- 1/2  # default of positive predictive value (PPV)
 
 
 ## -----------------------------------------------
@@ -555,6 +725,17 @@ PPV <- NA  # default of positive predictive value (PPV)
 #'
 #'   \code{FDR = p(condition = FALSE | decision = positive)}
 #'
+#'
+#'   \item Perspective:
+#'   \code{FDR} further classifies
+#'   the subset of \code{\link{dec.pos}} individuals
+#'   by condition (\code{FDR = fa/dec.pos = fa/(hi + fa)}).
+#'
+#'
+#'   \item Alternative names:
+#'   false discovery rate
+#'
+#'
 #'   \item Relationships:
 #'
 #'   a. \code{FDR} is the complement of the
@@ -568,24 +749,23 @@ PPV <- NA  # default of positive predictive value (PPV)
 #'
 #'   \code{fart = p(decision = positive | condition = FALSE)}
 #'
-#'   \item In natural frequencies,
-#'   \code{FDR} is the ratio of individuals for which
-#'   \code{decision = positive} and \code{condition = FALSE}
-#'   (aka. false positives)
-#'   divided by the number of all individuals for which
-#'   \code{decision = positive} (true positives and false positives):
+#'   \item In terms of frequencies,
+#'   \code{FDR} is the ratio of
+#'   \code{\link{fa}} divided by \code{\link{dec.pos}}
+#'   (i.e., \code{\link{hi} + \link{fa}}):
 #'
-#'   \code{FDR = n(decision = positive & condition = FALSE) / n(decision = positive)}
+#'   \code{FDR = fa/dec.pos = fa/(hi + fa)}
 #'
-#'   \code{FDR = n.fa / (n.hi + n.fa) }
 #'
-#'   \item \code{FDR} is a feature of a decision process
+#'   \item Dependencies:
+#'   \code{FDR} is a feature of a decision process
 #'   or diagnostic procedure and
 #'   a measure of incorrect decisions (positive decisions
 #'   that are actually \code{FALSE}).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{FDR} also depends on the
+#'   the value of \code{FDR} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
@@ -593,23 +773,23 @@ PPV <- NA  # default of positive predictive value (PPV)
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
-#' @family functions computing probabilities
+#' @family probabilities
 #'
 #' @seealso
 #' \code{\link{comp_FDR}} computes \code{FDR} as the complement of \code{\link{PPV}};
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{comp_PPV}} and \code{\link{comp_PPV_freq}} compute PPVs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities.
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
 #' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
 #' FDR <- 45/100  # => (condition = FALSE) for 45 people out of 100 people for which (decision = positive)
 #' is_prob(FDR)   # => TRUE (as FDR is a probability)
 
-FDR <- NA  # default of false discorvery rate (FDR)
+FDR <- 1 - PPV  # default of false discorvery rate (FDR)
 
 
 ## -----------------------------------------------
@@ -634,6 +814,16 @@ FDR <- NA  # default of false discorvery rate (FDR)
 #'
 #'   or the probability of a negative decision being correct.
 #'
+#'   \item Perspective:
+#'   \code{NPV} further classifies
+#'   the subset of \code{\link{dec.neg}} individuals
+#'   by condition (\code{NPV = cr/dec.neg = cr/(mi + cr)}).
+#'
+#'
+#'   \item Alternative names:
+#'   true omission rate
+#'
+#'
 #'   \item Relationships:
 #'
 #'   a. \code{NPV} is the complement of the
@@ -647,24 +837,25 @@ FDR <- NA  # default of false discorvery rate (FDR)
 #'
 #'   \code{spec = p(decision = negative | condition = FALSE)}
 #'
-#'   \item In natural frequencies,
-#'   \code{NPV} is the ratio of individuals for which
-#'   \code{decision = negative} and \code{condition = FALSE}
-#'   divided by the number of all individuals for which
-#'   \code{decision = negative}:
 #'
-#'   \code{NPV = n(decision = negative & condition = FALSE) / n(decision = negative)}
+#'   \item In terms of frequencies,
+#'   \code{NPV} is the ratio of
+#'   \code{\link{cr}} divided by \code{\link{dec.neg}}
+#'   (i.e., \code{\link{cr} + \link{mi}}):
 #'
-#'   \code{NPV = n.cr / (n.mi + n.cr)}
+#'   \code{NPV = cr/dec.neg = cr/(cr + mi)}
 #'
-#'   \item \code{NPV} is a feature of a decision process
+#'
+#'   \item Dependencies:
+#'   \code{NPV} is a feature of a decision process
 #'   or diagnostic procedure and
 #'   -- similar to the specificity \code{\link{spec}} --
 #'   a measure of correct decisions (negative decisions
 #'   that are actually FALSE).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{NPV} also depends on the
+#'   the value of \code{NPV} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
@@ -672,22 +863,23 @@ FDR <- NA  # default of false discorvery rate (FDR)
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
-#' @family functions computing probabilities
+#' @family probabilities
 #'
 #' @seealso
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{comp_NPV}} and \code{\link{comp_NPV_freq}} compute PPVs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities.
+#' \code{\link{comp_NPV}} computes \code{NPV};
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
 #' NPV <- .95     # => sets a negative predictive value of 95%
 #' NPV <- 95/100  # => (condition = FALSE) for 95 people out of 100 people for which (decision = negative)
 #' is_prob(NPV)   # => TRUE (as NPV is a probability)
 
-NPV <- NA  # default of negative predictive value (NPV)
+NPV <- 1/2  # default of negative predictive value (NPV)
 
 
 ## -----------------------------------------------
@@ -710,6 +902,16 @@ NPV <- NA  # default of negative predictive value (NPV)
 #'
 #'   \code{FOR = p(condition = TRUE | decision = negative)}
 #'
+#'   \item Perspective:
+#'   \code{FOR} further classifies
+#'   the subset of \code{\link{dec.neg}} individuals
+#'   by condition (\code{FOR = mi/dec.neg = mi/(mi + cr)}).
+#'
+#'
+#'   \item Alternative names:
+#'   none?
+#'
+#'
 #'   \item Relationships:
 #'
 #'   a. \code{FOR} is the complement of the
@@ -724,23 +926,23 @@ NPV <- NA  # default of negative predictive value (NPV)
 #'
 #'   \code{mirt = p(decision = negative | condition = TRUE)}
 #'
-#'   \item In natural frequencies,
-#'   \code{FOR} is the ratio of individuals for which
-#'   \code{decision = negative} and \code{condition = TRUE}
-#'   (aka. false negatives)
-#'   divided by the number of all individuals for which
-#'   \code{decision = negative} (true negatives and false negatives):
 #'
-#'   \code{FOR = n(decision = negative & condition = TRUE) / n(decision = negative)}
+#'   \item In terms of frequencies,
+#'   \code{FOR} is the ratio of
+#'   \code{\link{mi}} divided by \code{\link{dec.neg}}
+#'   (i.e., \code{\link{mi} + \link{cr}}):
 #'
-#'   \code{FOR = n.mi / (n.mi + n.cr)}
+#'   \code{NPV = mi/dec.neg = mi/(mi + cr)}
 #'
-#'   \item \code{FOR} is a feature of a decision process
+#'
+#'   \item Dependencies:
+#'   \code{FOR} is a feature of a decision process
 #'   or diagnostic procedure and a measure of incorrect
 #'   decisions (negative decisions that are actually \code{FALSE}).
 #'
 #'   However, due to being a conditional probability,
-#'   the value of \code{FOR} also depends on the
+#'   the value of \code{FOR} is not intrinsic to
+#'   the decision process, but also depends on the
 #'   condition's prevalence value \code{\link{prev}}.
 #'
 #' }
@@ -748,32 +950,31 @@ NPV <- NA  # default of negative predictive value (NPV)
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
-#' @family functions computing probabilities
+#' @family probabilities
 #'
 #' @seealso
 #' \code{\link{comp_FOR}} computes \code{FOR} as the complement of \code{\link{NPV}};
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{comp_NPV}} and \code{\link{comp_NPV_freq}} compute PPVs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{is_prob}} verifies probability inputs;
-#' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{is_prob}} verifies probability inputs.
+#'
 #'
 #' @examples
 #' FOR <- .05     # => sets a false omission rate of 5%
 #' FOR <- 5/100   # => (condition = TRUE) for 5 people out of 100 people for which (decision = negative)
 #' is_prob(FOR)   # => TRUE (as FOR is a probability)
 
-FOR <- NA  # default of false omission rate (FOR)
+FOR <- 1 - NPV  # default of false omission rate (FOR)
 
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Correct formulas mentioned in
-##   "in natural frequencies" sections
-##   after writing corresponding functions
-##   in comp_prob_freq.R.
+## - Check all documentation
+##   (for correctness and consistency).
 
 ## -----------------------------------------------
 ## eof.
