@@ -13,7 +13,9 @@ comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
 \value{
 A data frame \code{popu}
 containing \code{\link{N}} rows (individual cases)
-and 3 columns (\code{"Condition", "Decision", "SDT"}).
+and 3 columns (\code{"Truth", "Decision", "SDT"})
+encoded as ordered factors
+(with 2, 2, and 4 levels, respectively).
 }
 \description{
 \code{comp_popu} is a function that computes
@@ -35,6 +37,7 @@ comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
 popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 dim(popu)            # => N x 3
 head(popu)           # => shows head of data frame
+
 
 }
 \seealso{
