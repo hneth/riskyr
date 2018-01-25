@@ -1,5 +1,5 @@
 ## init_freq.R | riskyR
-## 2018 01 24
+## 2018 01 25
 ## -----------------------------------------------
 ## Define and initialize ALL frequencies
 ## -----------------------------------------------
@@ -7,9 +7,10 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# Probabilities (9):                Frequencies (9):
-# ------------------                ------------------
-# (A) Basic:
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
+
 # non-conditional:                          N
 # prev*                           cond.true | cond.false
 
@@ -22,12 +23,17 @@
 # [Note: *...is essential]
 
 
-# (B) Derived probabilities:     Combined frequencies:
+# (B) by decision:                 Combined frequencies:
 
-# PPV = pos. pred. value           dec.pos | dec.neg
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
+
 
 ## -----------------------------------------------
 ## Data flow: Two basic directions:
@@ -54,6 +60,30 @@
 #' (i.e., the overall number of cases considered).
 #'
 #' \emph{Relationships}:
+#' \enumerate{
+#'
+#' \item to probabilities:
+#' A population of \code{N} individuals can be split into 2 subsets
+#' in 2 different ways:
+#'
+#' \enumerate{
+#' \item by condition:
+#' The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#' and
+#' the frequency \code{\link{cond.false}} depends on the prevalence complement \code{1 - \link{prev}}.
+#'
+#' \item by decision:
+#' The frequency \code{\link{dec.pos}} depends on the prevalence \code{\link{prev}}
+#' and
+#' the frequency \code{\link{dec.neg}} depends on the prevalence complement \code{1 - \link{prev}}.
+#'
+#' }
+#'
+#' The frequency \code{cr} depends on the specificity \code{\link{spec}}
+#' (aka. true negative rate, TNR)
+#' and is conditional on the prevalence \code{\link{prev}}.
+#'
+#' \item to other frequencies:
 #' In a population of size \code{\link{N}}
 #' the following relationships hold:
 #'
@@ -64,6 +94,8 @@
 #'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
 #'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#' }
+#'
 #' }
 #'
 #' The current frequency information is computed by
@@ -92,12 +124,12 @@
 #' is_freq(N)  # => TRUE
 #' is_prob(N)  # => FALSE (as N is no probability)
 
-N <- 100  # default population size N
+N <- 0  # default population size N
 
 ## -----------------------------------------------
-## *essential frequencies: hi mi fa cr
+## ***: 4 essential frequencies: hi mi fa cr
 ## -----------------------------------------------
-## (1) hi = TP:
+## (1) hi*** = TP:
 
 #' Frequency of hits or true positives (TP).
 #'
@@ -105,29 +137,38 @@ N <- 100  # default population size N
 #' or true positives (\code{TP})
 #' in a population of \code{\link{N}} individuals.
 #'
-#' Definition: \code{hi} are individuals for which
-#' \code{cond.true} and \code{dec.pos}
-#' holds simultaneously.
+#' Definition: \code{hi}
+#' is the frequency of individuals for which
+#' \code{Condition = TRUE} and \code{Decision = TRUE} (positive).
 #'
-#' \code{hi} are cases of correct classifications.
+#' \code{hi} is a measure of correct classifications,
+#' not an individual case.
 #'
 #' Relationships:
+#' \enumerate{
+#' \item to probabilities:
+#' The frequency \code{hi} depends on the sensitivity \code{\link{sens}}
+#' (aka. hit rate or true positive rate, TPR)
+#' and is conditional on the prevalence \code{\link{prev}}.
+#'
+#' \item to other frequencies:
 #' In a population of size \code{\link{N}}
 #' the following relationships hold:
 #'
-#' \itemize{
+#'   \itemize{
 #'
 #'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
 #'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
 #'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'    }
 #' }
 #'
 #' @aliases TP
 #'
-#' @family essential parameters
 #' @family frequencies
+#' @family essential parameters
 #'
 #' @seealso
 #' \code{\link{sens}} is the probability of hits or hit rate \code{\link{HR}};
@@ -139,10 +180,10 @@ N <- 100  # default population size N
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_freq}} verifies frequencies.
 
-hi <- NA  # default hits (TP)
+hi <- 0  # default hits (TP)
 
 ## -----------------------------------------------
-## (2) mi = FN:
+## (2) mi*** = FN:
 
 #' Frequency of misses or false negatives (FN).
 #'
@@ -150,24 +191,32 @@ hi <- NA  # default hits (TP)
 #' or false negatives (\code{FN})
 #' in a population of \code{\link{N}} individuals.
 #'
-#' Definition: Individuals for which
-#' \code{cond.true} and \code{dec.neg}
-#' holds simultaneously.
+#' Definition:
+#' \code{mi} is the frequency of individuals for which
+#' \code{Condition = TRUE} and \code{Decision = FALSE} (negative).
 #'
-#' \code{mi} are cases of incorrect
-#' classifications (type-II errors).
+#' \code{mi} is a measure of incorrect classifications
+#' (type-II errors), not an individual case.
 #'
 #' Relationships:
+#' \enumerate{
+#' \item to probabilities:
+#' The frequency \code{mi} depends on the miss rate \code{\link{mirt}}
+#' (aka. false negative rate, FNR)
+#' and is conditional on the prevalence \code{\link{prev}}.
+#'
+#' \item to other frequencies:
 #' In a population of size \code{\link{N}}
 #' the following relationships hold:
 #'
-#' \itemize{
+#'   \itemize{
 #'
 #'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
 #'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
 #'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'    }
 #' }
 #'
 #' @aliases FN
@@ -186,10 +235,10 @@ hi <- NA  # default hits (TP)
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_freq}} verifies frequencies.
 
-mi <- NA  # default misses (FN)
+mi <- 0  # default misses (FN)
 
 ## -----------------------------------------------
-## (3) fa = FP:
+## (3) fa*** = FP:
 
 #' Frequency of false alarms or false positives (FP).
 #'
@@ -197,24 +246,32 @@ mi <- NA  # default misses (FN)
 #' or false positives (\code{FP})
 #' in a population of \code{\link{N}} individuals.
 #'
-#' Definition: \code{fa} are individuals for which
-#' \code{cond.false} and \code{dec.pos}
-#' holds simultaneously.
+#' Definition:
+#' \code{fa} is the frequency of individuals for which
+#' \code{Condition = FALSE} and \code{Decision = TRUE} (positive).
 #'
-#' \code{fa} are cases of incorrect classifications
-#' (type-I-errors).
+#' \code{fa} is a measure of incorrect classifications
+#' (type-I-errors), not an individual case.
 #'
 #' Relationships:
+#' \enumerate{
+#' \item to probabilities:
+#' The frequency \code{fa} depends on the false alarm rate \code{\link{fart}}
+#' (aka. false positive rate, FPR)
+#' and is conditional on the prevalence \code{\link{prev}}.
+#'
+#' \item to other frequencies:
 #' In a population of size \code{\link{N}}
 #' the following relationships hold:
 #'
-#' \itemize{
+#'   \itemize{
 #'
 #'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
 #'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
 #'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'    }
 #' }
 #'
 #' @aliases FP
@@ -233,10 +290,10 @@ mi <- NA  # default misses (FN)
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_freq}} verifies frequencies.
 
-fa <- NA  # default false alarms (FP)
+fa <- 0  # default false alarms (FP)
 
 ## -----------------------------------------------
-## (4) cr = TN:
+## (4) cr*** = TN:
 
 #' Frequency of correct rejections or true negatives (TN).
 #'
@@ -244,23 +301,32 @@ fa <- NA  # default false alarms (FP)
 #' or true negatives (\code{TN})
 #' in a population of \code{\link{N}} individuals.
 #'
-#' Definition: \code{cr} are individuals for which
-#' \code{cond.false} and \code{dec.neg}
-#' holds simultaneously.
+#' Definition:
+#' \code{cr} is the frequency of individuals for which
+#' \code{Condition = FALSE} and \code{Decision = FALSE} (negative).
 #'
-#' \code{cr} are cases of correct classifications.
+#' \code{cr} is a measure of correct classifications,
+#' not an individual case.
 #'
 #' Relationships:
+#' \enumerate{
+#' \item to probabilities:
+#' The frequency \code{cr} depends on the specificity \code{\link{spec}}
+#' (aka. true negative rate, TNR)
+#' and is conditional on the prevalence \code{\link{prev}}.
+#'
+#' \item to other frequencies:
 #' In a population of size \code{\link{N}}
 #' the following relationships hold:
 #'
-#' \itemize{
+#'   \itemize{
 #'
 #'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
 #'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
 #'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'    }
 #' }
 #'
 #' @aliases TN
@@ -279,7 +345,7 @@ fa <- NA  # default false alarms (FP)
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{is_freq}} verifies frequencies.
 
-cr <- NA  # default correct rejections (TN)
+cr <- 0  # default correct rejections (TN)
 
 ## -----------------------------------------------
 ## (B) Define and initialize COMBINED frequencies:
@@ -287,17 +353,13 @@ cr <- NA  # default correct rejections (TN)
 
 # +++ here now +++
 
-
-
 ## -----------------------------------------------
 ## (a) cond.true cond.false
 ## -----------------------------------------------
 
-
 ## -----------------------------------------------
 ## (b) dec.pos dec.neg
 ## -----------------------------------------------
-
 
 ## -----------------------------------------------
 ## (+) ToDo:
