@@ -1,5 +1,5 @@
 ## init_num_freq.R | riskyR
-## 2018 01 24
+## 2018 01 25
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -9,37 +9,43 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# probabilities (9):                frequencies (9):
-# ------------------                ------------------
-# (A) basic:
-#                                          N
-# prev*                             n.true | n.false
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# non-conditional:                          N
+# prev*                           cond.true | cond.false
+
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
 
 # [Note: *...is essential]
 
 
-# (B) derived:
-#                                   dec.pos | dec.neg
+# (B) by decision:                 Combined frequencies:
 
-# PPV = pos. pred. value
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+
 ## -----------------------------------------------
-## Two basic directions:
+## Data flow: Two basic directions:
 
 ## 1: Bayesian: starting with 3 basic probabilities:
 ## - given:   prev;  sens, spec
 ## - derived: all other values
 
 ## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
+## - given:   N = hi, mi, fa, cr
 ## - derived: all other values
 
 
@@ -69,6 +75,47 @@
 #' to nearest integers to avoid decimal values in
 #' \code{\link{freq}}. Use \code{round = FALSE}
 #' to switch off rounding.
+#'
+#' Key relationships:
+#'
+#' \enumerate{
+#'
+#' \item to probabilities:
+#' A population of \code{\link{N}} individuals can be split into 2 subsets
+#' in 2 different ways:
+#'
+#' \enumerate{
+#'   \item by condition:
+#'   The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'   and
+#'   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'
+#'   \item by decision:
+#'   The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'   and
+#'   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'
+#' }
+#'
+#' The population size \code{\link{N}} is a free parameter (independent of the
+#' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+#'
+#' If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#'
+#'   \item to other frequencies:
+#'   In a population of size \code{\link{N}}
+#'   the following relationships hold:
+#'
+#'   \itemize{
+#'
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+#'
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'   }
+#'
+#' }
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -276,6 +323,47 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' Natural frequencies are always expressed in
 #' relation to the current population of
 #' size \code{\link{N}}.
+#'
+#' Key relationships:
+#'
+#' \enumerate{
+#'
+#' \item to probabilities:
+#' A population of \code{\link{N}} individuals can be split into 2 subsets
+#' in 2 different ways:
+#'
+#' \enumerate{
+#'   \item by condition:
+#'   The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'   and
+#'   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'
+#'   \item by decision:
+#'   The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'   and
+#'   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'
+#' }
+#'
+#' The population size \code{\link{N}} is a free parameter (independent of the
+#' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+#'
+#' If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#'
+#'   \item to other frequencies:
+#'   In a population of size \code{\link{N}}
+#'   the following relationships hold:
+#'
+#'   \itemize{
+#'
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+#'
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'   }
+#'
+#' }
 #'
 #' Visualizations of the current frequency information
 #' are provided by \code{\link{plot_tree}} and

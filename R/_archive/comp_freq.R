@@ -118,7 +118,8 @@
 #' \code{\link{comp_comp_pair}} computes a pair of complements (if missing);
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
 
-comp_freq <- function(prev = num$prev, sens = num$sens,
+comp_freq <- function(prev = num$prev,
+                      sens = num$sens, mirt = num$mirt,
                       spec = num$spec, fart = num$fart,
                       N = num$N,
                       round = TRUE) {
@@ -145,7 +146,9 @@ comp_freq <- function(prev = num$prev, sens = num$sens,
   )
 
   ## (1) Only if basic quadruple of probabilities is valid:
-  if (is_valid(prev, sens, spec, fart)) {
+  if (is_valid_prob_set(prev, sens, mirt, spec, fart)) {
+
+    # +++ here now +++ : REDUCE complexity: only use prev, sens, spec (as mirt and fart can always be generated)
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     cur.spec.fart <- comp_comp_pair(spec, fart)

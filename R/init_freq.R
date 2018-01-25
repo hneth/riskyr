@@ -59,51 +59,51 @@
 #' number of individuals in the current population
 #' (i.e., the overall number of cases considered).
 #'
-#' \emph{Relationships}:
+#' Key relationships:
+#'
 #' \enumerate{
 #'
 #' \item to probabilities:
-#' A population of \code{N} individuals can be split into 2 subsets
+#' A population of \code{\link{N}} individuals can be split into 2 subsets
 #' in 2 different ways:
 #'
 #' \enumerate{
-#' \item by condition:
-#' The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
-#' and
-#' the frequency \code{\link{cond.false}} depends on the prevalence complement \code{1 - \link{prev}}.
+#'   \item by condition:
+#'   The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'   and
+#'   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
 #'
-#' \item by decision:
-#' The frequency \code{\link{dec.pos}} depends on the prevalence \code{\link{prev}}
-#' and
-#' the frequency \code{\link{dec.neg}} depends on the prevalence complement \code{1 - \link{prev}}.
-#'
-#' }
-#'
-#' The frequency \code{cr} depends on the specificity \code{\link{spec}}
-#' (aka. true negative rate, TNR)
-#' and is conditional on the prevalence \code{\link{prev}}.
-#'
-#' \item to other frequencies:
-#' In a population of size \code{\link{N}}
-#' the following relationships hold:
-#'
-#' \itemize{
-#'
-#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
-#'
-#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
-#'
-#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
-#' }
+#'   \item by decision:
+#'   The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'   and
+#'   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
 #' }
 #'
-#' The current frequency information is computed by
+#' The population size \code{\link{N}} is a free parameter (independent of the
+#' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+#'
+#' If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#'
+#'   \item to other frequencies:
+#'   In a population of size \code{\link{N}}
+#'   the following relationships hold:
+#'
+#'   \itemize{
+#'
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+#'
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'   }
+#'
+#' }
+#'
+#' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
 #'
-#' If \code{N} is unknown, a suitable minimum value
-#' can be computed by \code{\link{comp_min_N}}.
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
@@ -157,11 +157,11 @@ N <- 0  # default population size N
 #'
 #'   \itemize{
 #'
-#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
-#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
-#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
 #' }
 #'
@@ -211,11 +211,11 @@ hi <- 0  # default hits (TP)
 #'
 #'   \itemize{
 #'
-#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
-#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
-#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
 #' }
 #'
@@ -266,11 +266,11 @@ mi <- 0  # default misses (FN)
 #'
 #'   \itemize{
 #'
-#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
-#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
-#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
 #' }
 #'
@@ -321,11 +321,11 @@ fa <- 0  # default false alarms (FP)
 #'
 #'   \itemize{
 #'
-#'   \item \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
-#'   \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
-#'   \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
 #' }
 #'

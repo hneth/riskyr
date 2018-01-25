@@ -69,10 +69,10 @@ comp_popu <- function(
   # dec.neg <- (mi + cr)
 
   ## (2) Define and initialize 3 vectors of length N:
-  ## (a) Condition (= true state or truth):
-  # condition <- c(rep(TRUE, cond.true), rep(FALSE, cond.false))  # a. using combined freq
-  condition <- c(rep(TRUE, hi), rep(TRUE, mi),   # = cond true  # b. using 4 essential freq
-                 rep(FALSE, fa), rep(FALSE, cr)) # = cond.false
+  ## (a) Truth (= true condition or state):
+  # truth <- c(rep(TRUE, cond.true), rep(FALSE, cond.false))  # a. using combined freq
+  truth <- c(rep(TRUE, hi), rep(TRUE, mi),   # = cond true  # b. using 4 essential freq
+             rep(FALSE, fa), rep(FALSE, cr)) # = cond.false
 
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- c(rep(TRUE, hi), rep(FALSE, mi),
@@ -84,10 +84,10 @@ comp_popu <- function(
 
   ## (2) Coerce 3 vectors into ordered factors:
   ## (a) Condition (truth):
-  condition <- factor(condition,
-                      levels = c(TRUE, FALSE),                   # as Booleans
-                      labels = c(cond.true.lbl, cond.false.lbl), # explicit labels: "true" vs. "false"
-                      ordered = TRUE)
+  truth <- factor(truth,
+                  levels = c(TRUE, FALSE),                   # as Booleans
+                  labels = c(cond.true.lbl, cond.false.lbl), # explicit labels: "true" vs. "false"
+                  ordered = TRUE)
 
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
@@ -103,10 +103,10 @@ comp_popu <- function(
                 ordered = TRUE)
 
   ## (3) Combine 3 vectors in a population data frame pop:
-  popu <- data.frame(condition = condition,
+  popu <- data.frame(truth = truth,
                      decision = decision,
                      sdt = sdt)
-  names(popu) <- c("Condition", "Decision", "STD")
+  names(popu) <- c("Truth", "Decision", "STD")
 
   ## (4) Return the entire data frame pop:
   return(popu)
