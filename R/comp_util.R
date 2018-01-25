@@ -1,5 +1,5 @@
 ## comp_util.R | riskyR
-## 2018 01 24
+## 2018 01 25
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -609,7 +609,7 @@ is_complement <- function(p1, p2, tol = .01) {
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' # Identify 4 extreme cases (+ 2 variants):
+#' # Identify 5 extreme cases (+ 3 variants):
 #' is_extreme_prob_set(1, 1, NA, 1)         # => TRUE + warning: N true positives
 #' plot_tree(1, 1, NA, 1, N = 100)          # => illustrates this case
 #'
@@ -628,6 +628,13 @@ is_complement <- function(p1, p2, tol = .01) {
 #' # Variant:
 #' is_extreme_prob_set(0, sens, NA, NA, 0)  # => TRUE + warning: N true negatives
 #' plot_tree(0, sens, NA, NA, 0, N = 100)   # => illustrates this case
+#'
+#' spec <- .50
+#' is_extreme_prob_set(spec, 0, NA, 1, NA)  # => TRUE + warning: 0 hi and 0 fa
+#' plot_tree(spec, 0, NA, 1, NA, N = 100)   # => illustrates this case
+#' # Variant:
+#' is_extreme_prob_set(spec, 0, 0, NA, 0)   # => TRUE + warning: 0 hi and 0 fa
+#' plot_tree(spec, 0, NA, 1, NA, N = 100)   # => illustrates this case
 #'
 #'
 #' @family verification functions
@@ -691,7 +698,19 @@ is_extreme_prob_set <- function(prev,
     warning("Extreme case (prev = 0 & fart = 0):\n  N correct rejections (TN); no cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
-  } else {  # not an extreme case:
+  } else if ((sens == 0) & (spec == 1)) {  # 5a. sens zero and spec perfect (i.e., spec perfect):
+
+    warning("Extreme case (sens = 0 & spec = 1):\n  0 hi and 0 fa cases; PPV = NaN.")
+    val <- TRUE
+
+  } else if ((sens == 0) & (fart == 0)) {  # 5b. sens zero and fart zero (i.e., spec perfect):
+
+    warning("Extreme case (sens = 0 & fart = 0):\n  0 hi and 0 fa cases; PPV = NaN.")
+    val <- TRUE
+
+  }
+
+  else {  # not (detected as) an extreme case:
 
     val <- FALSE
 
@@ -704,25 +723,32 @@ is_extreme_prob_set <- function(prev,
 
 ## Check:
 {
-  # # Identify 4 extreme cases (+2 variants):
+  # # Identify 5 extreme cases (+ 3 variants):
   # is_extreme_prob_set(1, 1, NA, 1)           # => TRUE + warning: N true positives
   # plot_tree(1, 1, N = 100)                   # => illustrates this case
-  #
+
   # is_extreme_prob_set(1, 0, NA, 1)           # => TRUE + warning: N false negatives
   # plot_tree(1, 0, N = 100)                   # => illustrates this case
-  #
+
   # sens <- .50
   # is_extreme_prob_set(0, sens, NA, 0, NA)    # => TRUE + warning: N false positives
   # plot_tree(0, sens, NA, 0, N = 100)         # => illustrates this case
   # # Variant:
   # is_extreme_prob_set(0, sens, NA, NA, 1)    # => TRUE + warning: N false positives
   # plot_tree(0, sens, NA, NA, 1, N = 100)     # => illustrates this case
-  #
+
   # is_extreme_prob_set(0, sens, NA, 1)        # => TRUE + warning: N true negatives
   # plot_tree(0, sens, NA, NA, 1, N = 100)     # => illustrates this case
   # # Variant:
   # is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
   # plot_tree(0, sens, NA, NA, 0, N = 100)     # => illustrates this case
+
+  # spec <- .50
+  # is_extreme_prob_set(spec, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa
+  # plot_tree(spec, 0, NA, 1, NA, N = 100)     # => illustrates this case
+  # # Variant:
+  # is_extreme_prob_set(spec, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa
+  # plot_tree(spec, 0, NA, 1, NA, N = 100)     # => illustrates this case
 }
 
 

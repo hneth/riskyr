@@ -558,10 +558,17 @@ comp_PPV <- function(prev, sens, spec) {
 }
 
 ## Check:
-## for extreme values:
-## comp_PPV(0, 0, 1)  # => NaN, as hi = 0 and fa = 0:  0/0
 
-## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+## Watch out for extreme values:
+
+# comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => TRUE + warning
+
+# comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => TRUE + warning
+
+# comp_PPV(prev = .5, sens = 0, spec = 1)               # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = .5, sens = 0, spec = 1)    # => TRUE + warning: hi = 0 and fa = 0: PPV = 0/0 = NaN
 
 
 ## -----------------------------------------------
@@ -710,13 +717,68 @@ comp_PV_matrix <- function(prev, sens, spec,
   names(matrix) <- sens
 
   ## Loop through rows and columns of matrix:
-  for (row in 1:n.rows) {
-    for (col in 1:n.cols) {
+  for (row in 1:n.rows) {    # row = sens
+    for (col in 1:n.cols) {  # col = spec
 
-      cell.val <- NA # initialize current cell value
+      cell.val <- NA        # initialize
+      eps <- 10^-9          # some very small value
 
-      if (metric == "PPV") {cell.val <- comp_PPV(prev, sens[row], spec[col])} # compute PPV
-      if (metric == "NPV") {cell.val <- comp_NPV(prev, sens[row], spec[col])} # compute NPV
+      cur.sens <- sens[row]
+      cur.spec <- spec[col]
+
+      ## (A) metric == PPV:
+      if (metric == "PPV") {
+
+        ## (1) Catch extreme cases:
+        ##     PPV is NaN when
+        ##     (a)  prev == 1  &&  sens == 0 OR
+        ##     (b)  prev == 0  &&  spec == 1 OR
+        ##     (c)  sens == 0  &&  spec == 1 :
+
+        ## (a) Extreme case 1: Only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+        if ((prev == 1) && (cur.sens == 0)) {
+
+          # warning("Extreme case 1 occurred!")
+
+          cur.sens <- (cur.sens + eps)  # adjust upwards
+
+        }
+
+        ## (b) Extreme case 2: Only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+        if ((prev == 1) && (cur.spec == 1)) {
+
+          # warning("Extreme case 2 occurred!")
+
+          cur.spec <- (cur.spec - eps)  # adjust downwards
+
+        }
+
+        ## (c) Extreme case 3: Only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+        if ((cur.sens == 0) && (cur.spec == 1)) {
+
+          # warning("Extreme case 3 occurred!")
+
+          cur.sens <- (cur.sens + eps)  # adjust upwards
+          cur.spec <- (cur.spec - eps)  # adjust downwards
+
+        }
+
+        ## (2) Compute PPV:
+        cell.val <- comp_PPV(prev, cur.sens, cur.spec)
+
+      }
+
+      ## (B) metric == NPV:
+      if (metric == "NPV") {
+
+        ## (1) Catch extreme cases:
+        ##     NPV is NaN when ...
+
+        ##      +++ here now +++
+
+        cell.val <- comp_NPV(prev, cur.sens, cur.spec)  # compute NPV
+
+      }
 
       matrix[row, col] <- cell.val # store result in matrix
 
