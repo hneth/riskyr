@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.907
+Version: 0.0.0.908
 Date: 2018-01-15
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
@@ -36,7 +36,6 @@ Collate: 'comp_util.R'
          'init_num_freq.R'
          'comp_prob_freq.R'
          'comp_popu.R'
-         'plot_iconarray.R'
          'plot_mosaic.R'
          'plot_tree.R'
          'plot_PV.R'
@@ -44,7 +43,7 @@ Collate: 'comp_util.R'
          'start_riskyr.R'
 Encoding: UTF-8
 LazyData: true
-License: No license yet.
-BugReports: https://github.com/hneth/riskyR/issues
+License: CC0
+BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

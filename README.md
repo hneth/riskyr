@@ -76,7 +76,8 @@ Things to implement in the near future:
 
 ## About
 
-We are still developing this software and have yet to choose a license for it. Please [contact us](http://spds.uni-konstanz.de) in case you want to use or share it.
+This software is released to the public domain ([CC0](https://tldrlegal.com/license/creative-commons-cc0-1.0-universal)) 
+and can be freely used by anyone for any purpose. [Contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share it.
 
 ### Contact
 
@@ -88,7 +89,7 @@ In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
 `riskyr`: A toolbox for rendering risk literacy more transparent [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.905)
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.908)
 
 As BibTeX reference: 
 
@@ -96,6 +97,6 @@ As BibTeX reference:
       title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.905},
+      note = {R package version 0.0.0.908},
       url = {https://github.com/hneth/riskyr}
     }
