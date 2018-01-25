@@ -6,7 +6,7 @@
 \alias{FN}
 \alias{type-II-errors}
 \title{Frequency of misses or false negatives (FN).}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 mi
 }
@@ -16,14 +16,21 @@ or false negatives (\code{FN})
 in a population of \code{\link{N}} individuals.
 }
 \details{
-Definition: Individuals for which
-\code{cond.true} and \code{dec.neg}
-holds simultaneously.
+Definition:
+\code{mi} is the frequency of individuals for which
+\code{Condition = TRUE} and \code{Decision = FALSE} (negative).
 
-\code{mi} are cases of incorrect
-classifications (type-II errors).
+\code{mi} is a measure of incorrect classifications
+(type-II errors), not an individual case.
 
 Relationships:
+\enumerate{
+\item to probabilities:
+The frequency \code{mi} depends on the miss rate \code{\link{mirt}}
+(aka. false negative rate, FNR)
+and is conditional on the prevalence \code{\link{prev}}.
+
+\item to other frequencies:
 In a population of size \code{\link{N}}
 the following relationships hold:
 
@@ -34,6 +41,7 @@ the following relationships hold:
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+   }
 }
 }
 \seealso{
@@ -47,7 +55,8 @@ the following relationships hold:
 \code{\link{is_freq}} verifies frequencies.
 
 Other essential parameters: \code{\link{cr}},
-  \code{\link{fa}}, \code{\link{hi}}
+  \code{\link{fa}}, \code{\link{hi}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 
 Other frequencies: \code{\link{N}}, \code{\link{cr}},
   \code{\link{fa}}, \code{\link{hi}}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{prev}
 \alias{prev}
-\alias{baseline}
+\alias{baserate_cond.true}
 \title{The prevalence (baseline probability) of a condition.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -24,33 +24,45 @@ Understanding or obtaining the prevalence value \code{prev}:
 
 \code{prev = p(condition = TRUE)}
 
-or the (baseline) probability of the condition's occurrence.
+or the base rate (or baseline probability)
+  of the condition's occurrence.
+
+\item Perspective:
+  \code{prev} classifies a population of \code{\link{N}} individuals
+  by condition (\code{prev = cond.true/N}).
+
+\code{prev} is the "by condition" counterpart to \code{\link{ppod}}
+  (which adopts a "by decision" perspective).
 
 \item Alternative names:
-  \code{baseline}, proportion affected,
-  rate of condition = \code{TRUE} cases
+  base rate of condition,
+  proportion affected,
+  rate of condition \code{= TRUE} cases
 
-to be distinguished from the incidence rate (i.e., new cases within a certain time period)
+\code{prev} is often distinguished from the \emph{incidence rate}
+  (i.e., the rate of new cases within a certain time period).
 
-\item In natural frequencies,
-  \code{prev} is the ratio of individuals for which
-  \code{condition = TRUE} divided by the
-  number \code{\link{N}} of all individuals
-  in the population:
+\item In terms of frequencies,
+  \code{prev} is the ratio of
+  \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+  divided by \code{\link{N}} (i.e.,
+  \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{prev = n(condition = TRUE) / \link{N}}
+\code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 
-\item \code{prev} is a feature of the population
+\item Dependencies:
+  \code{prev} is a feature of the population
   and condition, but independent of the decision process
   or diagnostic procedure.
 
-\item The value of \code{prev} does not depend
+The value of \code{prev} does \emph{not} depend
   on features of the decision process or diagnostic procedure.
   However, \code{prev} must be taken into account when
   computing the conditional probabilities
-  \code{\link{sens}}, \code{\link{spec}}, \code{\link{fart}},
-  \code{\link{ppv}}, and \code{\link{npv}}
-  (as derived parameters).
+  \code{\link{sens}}, \code{\link{mirt}},
+  \code{\link{spec}}, \code{\link{fart}},
+  \code{\link{PPV}}, and \code{\link{NPV}}
+  (as they partly depend on \code{prev}).
 
 }
 }
@@ -70,8 +82,13 @@ Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additiona
 \code{\link{comp_prob}} computes derived probabilities;
 \code{\link{comp_freq}} computes natural frequencies from probabilities
 
-Other basic probabilities: \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{sens}},
-  \code{\link{spec}}
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{sens}}, \code{\link{spec}}
+
+Other essential parameters: \code{\link{cr}},
+  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
 \keyword{datasets}

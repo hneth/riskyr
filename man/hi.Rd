@@ -5,7 +5,7 @@
 \alias{hi}
 \alias{TP}
 \title{Frequency of hits or true positives (TP).}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 hi
 }
@@ -15,13 +15,21 @@ or true positives (\code{TP})
 in a population of \code{\link{N}} individuals.
 }
 \details{
-Definition: \code{hi} are individuals for which
-\code{cond.true} and \code{dec.pos}
-holds simultaneously.
+Definition: \code{hi}
+is the frequency of individuals for which
+\code{Condition = TRUE} and \code{Decision = TRUE} (positive).
 
-\code{hi} are cases of correct classifications.
+\code{hi} is a measure of correct classifications,
+not an individual case.
 
 Relationships:
+\enumerate{
+\item to probabilities:
+The frequency \code{hi} depends on the sensitivity \code{\link{sens}}
+(aka. hit rate or true positive rate, TPR)
+and is conditional on the prevalence \code{\link{prev}}.
+
+\item to other frequencies:
 In a population of size \code{\link{N}}
 the following relationships hold:
 
@@ -32,6 +40,7 @@ the following relationships hold:
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+   }
 }
 }
 \seealso{
@@ -44,10 +53,11 @@ the following relationships hold:
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{is_freq}} verifies frequencies.
 
-Other essential parameters: \code{\link{cr}},
-  \code{\link{fa}}, \code{\link{mi}}
-
 Other frequencies: \code{\link{N}}, \code{\link{cr}},
   \code{\link{fa}}, \code{\link{mi}}
+
+Other essential parameters: \code{\link{cr}},
+  \code{\link{fa}}, \code{\link{mi}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
 \keyword{datasets}

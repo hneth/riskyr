@@ -15,6 +15,30 @@ number of individuals in the current population
 }
 \details{
 \emph{Relationships}:
+\enumerate{
+
+\item to probabilities:
+A population of \code{N} individuals can be split into 2 subsets
+in 2 different ways:
+
+\enumerate{
+\item by condition:
+The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+and
+the frequency \code{\link{cond.false}} depends on the prevalence complement \code{1 - \link{prev}}.
+
+\item by decision:
+The frequency \code{\link{dec.pos}} depends on the prevalence \code{\link{prev}}
+and
+the frequency \code{\link{dec.neg}} depends on the prevalence complement \code{1 - \link{prev}}.
+
+}
+
+The frequency \code{cr} depends on the specificity \code{\link{spec}}
+(aka. true negative rate, TNR)
+and is conditional on the prevalence \code{\link{prev}}.
+
+\item to other frequencies:
 In a population of size \code{\link{N}}
 the following relationships hold:
 
@@ -25,6 +49,8 @@ the following relationships hold:
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+}
+
 }
 
 The current frequency information is computed by

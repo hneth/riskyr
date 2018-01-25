@@ -4,32 +4,42 @@
 \name{prob}
 \alias{prob}
 \title{List current probability information.}
-\format{An object of class \code{list} of length 8.}
+\format{An object of class \code{list} of length 10.}
 \usage{
 prob
 }
 \description{
 \code{prob} is a list of named numeric variables
-containing 4 basic (1 non-conditional and 3 conditional) probabilities
-and 4 derived (conditional) probabilities:
+containing 3 essential (1 non-conditional and 2 conditional) probabilities
+and 7 derived (1 non-conditional and 6 conditional) probabilities:
 }
 \details{
 \enumerate{
 
-\item the condition's prevalence value \code{\link{prev}}
- (i.e., the probability of condition being \code{TRUE}).
+\item the condition's prevalence \code{\link{prev}}
+ (i.e., the probability of condition being \code{TRUE}):
+ \code{prev = \link{cond.true}/\link{N}}.
 
-\item the decision's sensitivity value \code{\link{sens}}
+\item the decision's sensitivity \code{\link{sens}}
  (i.e., the conditional probability of a positive decision
  provided that the condition is \code{TRUE}).
 
-\item the decision's specificity value \code{\link{spec}}
+\item the decision's miss rate \code{\link{mirt}}
+ (i.e., the conditional probability of a negative decision
+ provided that the condition is \code{TRUE}).
+
+\item the decision's specificity \code{\link{spec}}
  (i.e., the conditional probability
  of a negative decision provided that the condition is \code{FALSE}).
 
 \item the decision's false alarm rate \code{\link{fart}}
  (i.e., the conditional probability
  of a positive decision provided that the condition is \code{FALSE}).
+
+\item the proportion (baseline probability or rate)
+ of positive decisions \code{\link{ppod}}
+ (but not necessarily true decisions):
+ \code{ppod = \link{dec.pos}/\link{N}}.
 
 \item the decision's positive predictive value \code{\link{PPV}}
 (i.e., the conditional probability of the condition being \code{TRUE}

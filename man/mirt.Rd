@@ -4,6 +4,7 @@
 \name{mirt}
 \alias{mirt}
 \alias{FNR}
+\alias{beta}
 \title{The miss rate of a decision process or diagnostic procedure.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -28,9 +29,14 @@ Understanding or obtaining the miss rate \code{mirt}:
 or the probability of failing to detect true cases
   (\code{condition = TRUE}).
 
+\item Perspective:
+  \code{mirt} further classifies
+  the subset of \code{\link{cond.true}} individuals
+  by decision (\code{mirt = mi/cond.true}).
+
 \item Alternative names:
   false negative rate (\code{FNR}),
-  rate of Type-II errors
+  rate of type-II errors (\code{beta})
 
 \item Relationships:
 
@@ -45,21 +51,21 @@ b. \code{mirt} is the _opposite_ conditional probability
 
 \code{FOR = p(condition = TRUE | decision = negative)}
 
-\item In natural frequencies,
-  \code{mirt} is the ratio of individuals for which
-  \code{decision = negative}
-  (number of misses \code{link{mi}}) divided by the number of
-  individuals for which \code{condition = TRUE}
-  (\code{\link{n.true}}):
+\item In terms of frequencies,
+  \code{mirt} is the ratio of
+  \code{\link{mi}} divided by \code{\link{cond.true}}
+  (i.e., \code{\link{hi} + \link{mi}}):
 
-\code{mirt = n(decision = negative) / n(condition = TRUE)}
+\code{mirt = mi/cond.true = mi/(hi + mi)}
 
-\item \code{mirt} is a feature of a decision process
+\item Dependencies:
+  \code{mirt} is a feature of a decision process
   or diagnostic procedure and a measure of
   incorrect decisions (false negatives).
 
 However, due to being a conditional probability,
-  the value of \code{mirt} also depends on the
+  the value of \code{mirt} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -81,8 +87,9 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probability inputs.
 
-Other basic probabilities: \code{\link{fart}},
-  \code{\link{prev}}, \code{\link{sens}},
-  \code{\link{spec}}
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{ppod}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
 \keyword{datasets}

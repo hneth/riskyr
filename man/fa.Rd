@@ -5,7 +5,7 @@
 \alias{fa}
 \alias{FP}
 \title{Frequency of false alarms or false positives (FP).}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 fa
 }
@@ -15,14 +15,21 @@ or false positives (\code{FP})
 in a population of \code{\link{N}} individuals.
 }
 \details{
-Definition: \code{fa} are individuals for which
-\code{cond.false} and \code{dec.pos}
-holds simultaneously.
+Definition:
+\code{fa} is the frequency of individuals for which
+\code{Condition = FALSE} and \code{Decision = TRUE} (positive).
 
-\code{fa} are cases of incorrect classifications
-(type-I-errors).
+\code{fa} is a measure of incorrect classifications
+(type-I-errors), not an individual case.
 
 Relationships:
+\enumerate{
+\item to probabilities:
+The frequency \code{fa} depends on the false alarm rate \code{\link{fart}}
+(aka. false positive rate, FPR)
+and is conditional on the prevalence \code{\link{prev}}.
+
+\item to other frequencies:
 In a population of size \code{\link{N}}
 the following relationships hold:
 
@@ -33,6 +40,7 @@ the following relationships hold:
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+   }
 }
 }
 \seealso{
@@ -47,7 +55,8 @@ the following relationships hold:
 \code{\link{is_freq}} verifies frequencies.
 
 Other essential parameters: \code{\link{cr}},
-  \code{\link{hi}}, \code{\link{mi}}
+  \code{\link{hi}}, \code{\link{mi}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 
 Other frequencies: \code{\link{N}}, \code{\link{cr}},
   \code{\link{hi}}, \code{\link{mi}}

@@ -4,7 +4,8 @@
 \alias{comp_prob}
 \title{Compute derived probabilities from basic probabilities.}
 \usage{
-comp_prob(prev = num$prev, sens = num$sens, spec = num$spec, fart = NA)
+comp_prob(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
+  fart = NA)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -12,12 +13,18 @@ comp_prob(prev = num$prev, sens = num$sens, spec = num$spec, fart = NA)
 
 \item{sens}{The decision's sensitivity value \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
-provided that the condition is \code{TRUE}).}
+provided that the condition is \code{TRUE}).
+\code{sens} is optional when its complement \code{\link{mirt}} is provided.}
+
+\item{mirt}{The decision's miss rate value \code{\link{mirt}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{TRUE}).
+\code{mirt} is optional when its complement \code{\link{sens}} is provided.}
 
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when is complement \code{\link{fart}} is provided.}
+\code{spec} is optional when its complement \code{\link{fart}} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
@@ -90,9 +97,7 @@ comp_prob(1,  1, 1,  1)  # => NAs and warning: is_complement not in tolerated ra
 \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}},
+Other functions computing probabilities: \code{\link{comp_comp_pair}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
   \code{\link{comp_prob_comp}}, \code{\link{comp_sens}},

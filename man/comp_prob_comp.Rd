@@ -36,9 +36,7 @@ comp_prob_comp("p")  # => NA + warning (non-numeric)
 \code{\link{is_complement}} verifies numeric complements;
 \code{\link{comp_comp_pair}} returns a probability and its complement.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}},
+Other functions computing probabilities: \code{\link{comp_comp_pair}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
   \code{\link{comp_prob}}, \code{\link{comp_sens}},

@@ -4,8 +4,7 @@
 \alias{comp_popu}
 \title{Compute a population table from frequencies.}
 \usage{
-comp_popu(n.true = freq$cond.true, n.false = freq$cond.false,
-  n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
+comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
   dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
@@ -14,7 +13,7 @@ comp_popu(n.true = freq$cond.true, n.false = freq$cond.false,
 \value{
 A data frame \code{popu}
 containing \code{\link{N}} rows (individual cases)
-and 3 columns (\code{"Truth", "Decision", "SDT"}).
+and 3 columns (\code{"Condition", "Decision", "SDT"}).
 }
 \description{
 \code{comp_popu} is a function that computes
@@ -31,7 +30,9 @@ contained in \code{\link{popu}}
 is provided by \code{\link{plot_iconarray}}.
 }
 \examples{
-popu <- comp_popu()  # => initializes popu with current values of freq and txt
+comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
+
+popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 dim(popu)            # => N x 3
 head(popu)           # => shows head of data frame
 
@@ -39,6 +40,7 @@ head(popu)           # => shows head of data frame
 \seealso{
 The corresponding data frame \code{\link{popu}};
 \code{\link{num}} for basic numeric parameters;
+\code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings
 }

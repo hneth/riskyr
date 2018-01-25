@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_prob_prob.R
 \name{comp_complete_prob_set}
 \alias{comp_complete_prob_set}
-\title{Complete a valid set of probability inputs.}
+\title{Compute a complete set of probabilities from valid probability inputs.}
 \usage{
 comp_complete_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
 }
@@ -70,10 +70,8 @@ comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{num}} contains basic numeric variables.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+Other functions computing probabilities: \code{\link{comp_comp_pair}},
+  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
+  \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
+  \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

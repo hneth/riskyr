@@ -5,7 +5,7 @@
 \alias{cr}
 \alias{TN}
 \title{Frequency of correct rejections or true negatives (TN).}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 cr
 }
@@ -15,13 +15,21 @@ or true negatives (\code{TN})
 in a population of \code{\link{N}} individuals.
 }
 \details{
-Definition: \code{cr} are individuals for which
-\code{cond.false} and \code{dec.neg}
-holds simultaneously.
+Definition:
+\code{cr} is the frequency of individuals for which
+\code{Condition = FALSE} and \code{Decision = FALSE} (negative).
 
-\code{cr} are cases of correct classifications.
+\code{cr} is a measure of correct classifications,
+not an individual case.
 
 Relationships:
+\enumerate{
+\item to probabilities:
+The frequency \code{cr} depends on the specificity \code{\link{spec}}
+(aka. true negative rate, TNR)
+and is conditional on the prevalence \code{\link{prev}}.
+
+\item to other frequencies:
 In a population of size \code{\link{N}}
 the following relationships hold:
 
@@ -32,6 +40,7 @@ the following relationships hold:
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}}
+   }
 }
 }
 \seealso{
@@ -46,7 +55,8 @@ the following relationships hold:
 \code{\link{is_freq}} verifies frequencies.
 
 Other essential parameters: \code{\link{fa}},
-  \code{\link{hi}}, \code{\link{mi}}
+  \code{\link{hi}}, \code{\link{mi}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 
 Other frequencies: \code{\link{N}}, \code{\link{fa}},
   \code{\link{hi}}, \code{\link{mi}}

@@ -3,8 +3,9 @@
 \docType{data}
 \name{fart}
 \alias{fart}
-\alias{fallout}
 \alias{FPR}
+\alias{alpha}
+\alias{fallout}
 \title{The false alarm rate (or false positive rate) of a decision process or diagnostic procedure.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -29,9 +30,16 @@ Understanding or obtaining the false alarm rate \code{fart}:
 
 or the probability of a false alarm.
 
+\item Perspective:
+  \code{fart} further classifies
+  the subset of \code{\link{cond.false}} individuals
+  by decision (\code{fart = fa/cond.false}).
+
 \item Alternative names:
-  \code{fallout}, false positive rate (\code{FPR}),
-  rate of type-I errors
+  false positive rate (\code{FPR}),
+  rate of type-I errors (\code{alpha}),
+  statistical significance level,
+  \code{fallout}
 
 \item Relationships:
 
@@ -47,19 +55,21 @@ b. \code{fart} is the opposite conditional probability
 
 \code{FDR = p(condition = FALSE | decision = negative)}
 
-\item In natural frequencies,
-  \code{fart} is the ratio of individuals for which
-  \code{decision = positive} divided by the number of
-  individuals for which \code{condition = FALSE}:
+\item In terms of frequencies,
+  \code{fart} is the ratio of
+  \code{\link{fa}} divided by \code{\link{cond.false}}
+  (i.e., \code{\link{fa} + \link{cr}}):
 
-\code{fart = n(decision = positive) / n(condition = FALSE)}
+\code{fart = fa/cond.false = fa/(fa + cr)}
 
-\item \code{fart} is a feature of a decision process
+\item Dependencies:
+  \code{fart} is a feature of a decision process
   or diagnostic procedure and a measure of
   incorrect decisions (false positives).
 
 However, due to being a conditional probability,
-  the value of \code{fart} also depends on the
+  the value of \code{fart} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -81,8 +91,9 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probability inputs.
 
-Other basic probabilities: \code{\link{mirt}},
-  \code{\link{prev}}, \code{\link{sens}},
-  \code{\link{spec}}
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{mirt}},
+  \code{\link{ppod}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
 \keyword{datasets}

@@ -39,9 +39,7 @@ comp_mirt(comp_prob_comp(0.123))  # => 0.123
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{prob}} contains current probability information.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}},
+Other functions computing probabilities: \code{\link{comp_comp_pair}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_prob_comp}},
   \code{\link{comp_prob}}, \code{\link{comp_sens}},

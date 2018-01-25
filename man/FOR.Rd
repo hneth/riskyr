@@ -4,7 +4,7 @@
 \name{FOR}
 \alias{FOR}
 \title{The false omission rate (FOR) of a decision process or diagnostic procedure.}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 FOR
 }
@@ -25,6 +25,14 @@ Understanding or obtaining the false omission rate \code{FOR}:
 
 \code{FOR = p(condition = TRUE | decision = negative)}
 
+\item Perspective:
+  \code{FOR} further classifies
+  the subset of \code{\link{dec.neg}} individuals
+  by condition (\code{FOR = mi/dec.neg = mi/(mi + cr)}).
+
+\item Alternative names:
+  none?
+
 \item Relationships:
 
 a. \code{FOR} is the complement of the
@@ -39,23 +47,21 @@ b. \code{FOR} is the opposite conditional probability
 
 \code{mirt = p(decision = negative | condition = TRUE)}
 
-\item In natural frequencies,
-  \code{FOR} is the ratio of individuals for which
-  \code{decision = negative} and \code{condition = TRUE}
-  (aka. false negatives)
-  divided by the number of all individuals for which
-  \code{decision = negative} (true negatives and false negatives):
+\item In terms of frequencies,
+  \code{FOR} is the ratio of
+  \code{\link{mi}} divided by \code{\link{dec.neg}}
+  (i.e., \code{\link{mi} + \link{cr}}):
 
-\code{FOR = n(decision = negative & condition = TRUE) / n(decision = negative)}
+\code{NPV = mi/dec.neg = mi/(mi + cr)}
 
-\code{FOR = n.mi / (n.mi + n.cr)}
-
-\item \code{FOR} is a feature of a decision process
+\item Dependencies:
+  \code{FOR} is a feature of a decision process
   or diagnostic procedure and a measure of incorrect
   decisions (negative decisions that are actually \code{FALSE}).
 
 However, due to being a conditional probability,
-  the value of \code{FOR} also depends on the
+  the value of \code{FOR} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -70,19 +76,17 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 }
 \seealso{
 \code{\link{comp_FOR}} computes \code{FOR} as the complement of \code{\link{NPV}};
-\code{\link{num}} contains basic numeric variables;
-\code{\link{comp_NPV}} and \code{\link{comp_NPV_freq}} compute PPVs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}},
-  \code{\link{comp_complete_prob_set}},
-  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
-  \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
-  \code{\link{comp_sens}}, \code{\link{comp_spec}}
+Other probabilities: \code{\link{FDR}}, \code{\link{NPV}},
+  \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{prev}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}
