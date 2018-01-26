@@ -461,9 +461,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
   mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
 
-  ## (9)
-  # return(pp)  # returns diagram object
-  return()      # returns nothing
+  ## (9) Return what?
+  # return(pp)      # returns diagram object
+  # return()        # returns nothing
+  # return("nice")  # returns nothing
 
 }
 

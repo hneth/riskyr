@@ -1,4 +1,4 @@
-## plot_PV3d.R | riskyR
+## plot_PV3d.R | riskyr
 ## 2018 01 26
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
@@ -12,10 +12,9 @@
 ## -----------------------------------------------
 ## Plot a 3d-plane of PPV or NPV (using persp):
 
-plot_PV3d <- function(prev = num$prev,             # probabilities
+plot_PV3d <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                       sens = num$sens, mirt = NA,
                       spec = num$spec, fart = NA,
-
                       is.ppv = TRUE,         # switch to toggle between PPV (TRUE) and NPV (FALSE)
                       step.size = .05,       # resolution of matrix (sens.range and spec.range)
                       show.PVpoints = TRUE,  # user options [adjustable by inputs]
@@ -41,7 +40,7 @@ plot_PV3d <- function(prev = num$prev,             # probabilities
     ## (b) Compute cur.prob from scratch based on current parameters (N and probabilities):
     # cur.prob <- comp_prob(prev = prev, sens = sens, spec = spec, fart = fart)  # compute prob from scratch
 
-    ## Assign newly computed elements:
+    ## Compute and assign current PVs:
     if (is.ppv) {
       cur.PV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
       cur.PV.lbl <- paste0("PPV = ", as_pc(cur.PV), "%")
@@ -53,13 +52,13 @@ plot_PV3d <- function(prev = num$prev,             # probabilities
   } else {
 
     ## (2) NO valid set of probabilities is provided:
-    ## Use current values of prob to assign collected elements:
+    ## Use current PVs of prob:
 
     if (is.ppv) {
-      cur.PV <- prob$PPV                    # use PPV from prob
+      cur.PV <- prob$PPV  # use PPV from prob
       cur.PV.lbl <- paste0("PPV = ", as_pc(cur.PV), "%")
     } else {
-      cur.PV <- prob$NPV                    # use NPV from prob
+      cur.PV <- prob$NPV  # use NPV from prob
       cur.PV.lbl <- paste0("NPV = ", as_pc(cur.PV), "%")
     }
 
@@ -159,6 +158,11 @@ plot_PV3d <- function(prev = num$prev,             # probabilities
     p.pv <- points(p.pv.pt, pch = 21, col = col.bord, bg = col.pt, lwd = 1.0, cex = cex.pt)
 
   }
+
+  ## Return what?
+  # return(p.pv)    # returns plot
+  # return()      # returns nothing
+  # return("wow!")  # returns "..."
 
 }
 

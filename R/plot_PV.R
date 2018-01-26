@@ -1,5 +1,5 @@
-## plot_PV.R | riskyR
-## 2018 01 11
+## plot_PV.R | riskyr
+## 2018 01 26
 ## -----------------------------------------------
 ## plot_PV: PPV and NPV curves as functions of prevalence
 
@@ -12,14 +12,46 @@
 ## Plot PV curves: PPV and NPV as functions of prevalence
 ## (using only necessary arguments with good defaults):
 
-plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,           # key parameters
-                    show.PVprev = TRUE, show.PVpoints = TRUE, log.scale = FALSE, # user options [adjustable by inputs]
-                    title.lbl = txt$scen.lbl, col.ppv = pal["ppv"], col.npv = pal["npv"] # custom labels and colors
+plot_PV <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
+                    sens = num$sens, mirt = NA,
+                    spec = num$spec, fart = NA,
+                    show.PVprev = TRUE,          # user options [adjustable by inputs]
+                    show.PVpoints = TRUE,
+                    log.scale = FALSE,
+                    title.lbl = txt$scen.lbl,    # custom labels and colors
+                    col.ppv = pal["ppv"],
+                    col.npv = pal["npv"]
                     ) {
 
-  ## Compute current PVs:
-  cur.PPV <- comp_PPV(prev, sens, spec)
-  cur.NPV <- comp_NPV(prev, sens, spec)
+  ## (0) Compute or collect current probabilities:
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
+
+    ## (1) A provided set of probabilities is valid:
+
+    ## (a) Compute the complete quintet of probabilities:
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+    sens <- prob_quintet[2] # gets sens (if not provided)
+    mirt <- prob_quintet[3] # gets mirt (if not provided)
+    spec <- prob_quintet[4] # gets spec (if not provided)
+    fart <- prob_quintet[5] # gets fart (if not provided)
+
+    ## (b) Compute cur.prob from scratch based on current parameters (N and probabilities):
+    # cur.prob <- comp_prob(prev = prev, sens = sens, spec = spec, fart = fart)  # compute prob from scratch
+
+    ## Compute and assign current PVs:
+    cur.PPV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
+    cur.NPV <- comp_NPV(prev, sens, spec)  # compute NPV from probabilities
+
+  } else {
+
+    ## (2) NO valid set of probabilities is provided:
+
+    ## Use current PVs of prob:
+    cur.PPV <- prob$PPV  # use PPV from prob
+    cur.NPV <- prob$NPV  # use NPV from prob
+
+  }
+
 
   ## Labels:
   prev.lbl <- paste0("prev = ", as_pc(prev), "%")
@@ -29,40 +61,48 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
   cur.sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
   cur.title.lbl <- paste0(title.lbl, ":\n", "Positive and Negative Predictive Values") #, "\n", cur.sens.spec.lbl)
+
   if (log.scale) {
     x.ax.lbl <- "Prevalence (on logarithmic scale)"
     } else {
       x.ax.lbl <- "Prevalence"
-  }
+    }
+
   if (log.scale) {
     x.seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)
-    x.lbl <- paste0(as_pc(x.seq, n.digits = 5), "%") # log percentages (rounded to 5 decimals)
+    x.lbl <- paste0(as_pc(x.seq, n.digits = 5), "%")  # log percentages (rounded to 5 decimals)
   } else {
     x.seq <- seq(0, 1, by = .1)
-    x.lbl <- paste0(as_pc(x.seq), "%") # linear percentages
+    x.lbl <- paste0(as_pc(x.seq), "%")  # linear percentages
   }
+
   y.seq <- seq(0, 1, by = .1)
-  y.lbl <- paste0(as_pc(y.seq), "%") # linear percentages
+  y.lbl <- paste0(as_pc(y.seq), "%")  # linear percentages
+
 
   ## Parameters:
-  col.prev <- grey(.50, alpha = .99) # prevalence # WAS: col.green.2
-  col.axes <- grey(.10, alpha = .99) # axes
-  col.bord <- grey(.10, alpha = .50) # borders (e.g., of points)
+  col.prev <- grey(.50, alpha = .99)  # prevalence # WAS: col.green.2
+  col.axes <- grey(.10, alpha = .99)  # axes
+  col.bord <- grey(.10, alpha = .50)  # borders (e.g., of points)
   cex.lbl <- .8 # size of text labels
 
-  if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }
+  if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }  # different x.min values for different scales
   if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .080 }
   v.shift <- .025
-  low.PV  <- .200 # threshold value for judging PPV or NPV to be low
-  v.raise <- .700 # vertical raise of y-prev when PPV or NPV < low.PV
+  low.PV  <- .200  # threshold value for judging PPV or NPV to be low
+  v.raise <- .700  # vertical raise of y-prev when PPV or NPV < low.PV
 
 
   ## Initialize plot:
   if (log.scale) {
+
     plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, log = "x", ylab = "Probability", xlab = x.ax.lbl, type = "n")
-  } else {
-    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = x.ax.lbl, type = "n")
-  }
+
+    } else {
+
+      plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = x.ax.lbl, type = "n")
+
+      }
 
   ## Axes (on 4 sides):
   axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex.lbl, las = 1,
@@ -76,6 +116,9 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
 
   ## Grid:
   grid(col = grey(.8, .8))
+
+
+  ## Plot stuff: ##
 
   ## Curves:
   curve(expr = comp_PPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = 1, lwd = 2, col = col.ppv) # PPV curve
@@ -108,6 +151,7 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
   }
 
   ## Labels:
+
   ## prev label:
   if (show.PVprev){
     if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
@@ -165,7 +209,11 @@ plot_PV <- function(prev = num$prev, sens = num$sens, spec = num$spec,          
   add_legend("topright", legend = c("PPV", "NPV"), lwd = 2, col = c(col.ppv, col.npv),
              horiz = FALSE, bty = 'n')
 
-  ## no return?
+
+  ## Return what?
+  # return(pp)    # returns plot (as diagram object)
+  # return()      # returns nothing
+  # return("neat")  # returns "..."
 
 }
 

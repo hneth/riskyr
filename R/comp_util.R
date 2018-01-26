@@ -675,7 +675,7 @@ is_extreme_prob_set <- function(prev,
   # fart <- prob_quintet[5] # gets fart (if not provided)
 
   ## Problem: This does not work yet (as comp_complete_prob_set is only defined later)
-  ## Hack / workaround: 4 possible ways to complete an NA value:
+  ## Hack fix: 4 possible ways to complete an NA value:
   if (is.na(sens) && is_prob(mirt)) { sens <- 1 - mirt }  # 1. compute sens if only mirt is provided.
   if (is.na(mirt) && is_prob(sens)) { mirt <- 1 - sens }  # 2. compute mirt if only sens is provided.
   if (is.na(spec) && is_prob(fart)) { spec <- 1 - fart }  # 3. compute spec if only fart is provided.
@@ -683,17 +683,17 @@ is_extreme_prob_set <- function(prev,
   ## Note: This does NOT check for consistency of complements (e.g., inputs of both spec = 1 & fart = 1)
 
 
-  ## List cases in which PPV or NPV are NaN:
+  ## Beware of cases in which PPV or NPV are NaN:
 
   ## (1) PPV is NaN if:
-  ##     (a)  (prev = 1) & (sens = 0) OR
-  ##     (b)  (prev = 0) & (spec = 1) OR
-  ##     (c)  (sens = 0) & (spec = 1).
+  ##     (a)  (prev = 1) & (sens = 0)
+  ##     (b)  (prev = 0) & (spec = 1)
+  ##     (c)  (sens = 0) & (spec = 1)
 
   ## (2) NPV is NaN if:
-  ##     (a)  (prev = 1) & (sens = 1) OR
-  ##     (b)  (prev = 1) & (sens = 0) OR
-  ##     (c)  (sens = 1) & (spec = 0).
+  ##     (a)  (prev = 1) & (sens = 1)
+  ##     (b)  (prev = 1) & (sens = 0)
+  ##     (c)  (sens = 1) & (spec = 0)
 
 
   ## (3) Check cases (specific combinations of prev, sens, and spec/fart):
