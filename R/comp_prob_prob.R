@@ -87,9 +87,9 @@
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{is_prob}} verifies probabilities;
 #' \code{\link{is_complement}} verifies numeric complements;
-#' \code{\link{comp_comp_pair}} returns a probability and its complement.
+#' \code{\link{comp_comp_pair}} returns a probability and its complement;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_prob_comp <- function(prob) {
 
@@ -122,16 +122,16 @@ comp_prob_comp <- function(prob) {
 #' -- also as a probability -- as its output.
 #'
 #' The miss rate \code{\link{mirt}} and sensitivity \code{\link{sens}}
-#' are complements (\code{mirt = 1 - sens}) and both features of
+#' are complements (\code{mirt = (1 - sens)}) and both features of
 #' the decision process (e.g., a diagnostic test).
 #'
 #' The function \code{comp_mirt} is complementary to the conversion function
 #' \code{\link{comp_sens}} and uses the generic function
 #' \code{\link{comp_prob_comp}}.
 #'
-#' @param sens The decision's sensitivity \code{\link{sens}}.
+#' @param sens The decision's sensitivity \code{\link{sens}} as a probability.
 #'
-#' @return The decision's miss rate \code{\link{mirt}}.
+#' @return The decision's miss rate \code{\link{mirt}} as a probability.
 #'
 #' @examples
 #' comp_mirt(2)                      # => NA + warning (beyond range)
@@ -144,7 +144,8 @@ comp_prob_comp <- function(prob) {
 #' \code{\link{comp_prob_comp}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{prob}} contains current probability information.
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_mirt <- function(sens) {
 
@@ -165,16 +166,16 @@ comp_mirt <- function(sens) {
 #' -- also as a probability -- as its output.
 #'
 #' The sensitivity \code{\link{sens}} and miss rate \code{\link{mirt}}
-#' are complements (\code{sens = 1 - mirt}) and both features of
+#' are complements (\code{sens = (1 - mirt)}) and both features of
 #' the decision process (e.g., a diagnostic test).
 #'
 #' The function \code{comp_sens} is complementary to the conversion function
 #' \code{\link{comp_mirt}} and uses the generic function
 #' \code{\link{comp_prob_comp}}.
 #'
-#' @param mirt The decision's miss rate \code{\link{mirt}}.
+#' @param mirt The decision's miss rate \code{\link{mirt}} as a probability.
 #'
-#' @return The decision's sensitivity \code{\link{sens}}.
+#' @return The decision's sensitivity \code{\link{sens}} as a probability.
 #'
 #' @examples
 #' comp_sens(2)                      # => NA + warning (beyond range)
@@ -187,7 +188,8 @@ comp_mirt <- function(sens) {
 #' \code{\link{comp_prob_comp}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{prob}} contains current probability information.
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_sens <- function(mirt) {
 
@@ -207,16 +209,16 @@ comp_sens <- function(mirt) {
 #' -- also as a probability -- as its output.
 #'
 #' The false alarm rate \code{\link{fart}} and specificity \code{\link{spec}}
-#' are complements (\code{fart = 1 - spec}) and both features of
+#' are complements (\code{fart = (1 - spec)}) and both features of
 #' the decision process (e.g., a diagnostic test).
 #'
 #' The function \code{comp_fart} is complementary to the conversion function
 #' \code{\link{comp_spec}} and uses the generic function
 #' \code{\link{comp_prob_comp}}.
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}.
+#' @param spec The decision's specificity value \code{\link{spec}} as a probability.
 #'
-#' @return The decision's false alarm rate \code{\link{fart}}.
+#' @return The decision's false alarm rate \code{\link{fart}} as a probability.
 #'
 #' @examples
 #' comp_fart(2)                      # => NA + warning (beyond range)
@@ -229,7 +231,8 @@ comp_sens <- function(mirt) {
 #' \code{\link{comp_prob_comp}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{prob}} contains current probability information.
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_fart <- function(spec) {
 
@@ -249,16 +252,16 @@ comp_fart <- function(spec) {
 #' -- also as a probability -- as its output.
 #'
 #' The specificity \code{\link{spec}} and the false alarm rate \code{\link{fart}}
-#' are complements (\code{spec = 1 - fart}) and both features of
+#' are complements (\code{spec = (1 - fart)}) and both features of
 #' the decision process (e.g., a diagnostic test).
 #'
 #' The function \code{comp_spec} is complementary to the conversion function
 #' \code{\link{comp_fart}} and uses the generic function
 #' \code{\link{comp_prob_comp}}.
 #'
-#' @param fart The decision's false alarm rate \code{\link{fart}}.
+#' @param fart The decision's false alarm rate \code{\link{fart}} as a probability.
 #'
-#' @return The decision's specificity \code{\link{spec}}.
+#' @return The decision's specificity \code{\link{spec}} as a probability.
 #'
 #' @examples
 #' comp_spec(2)                      # => NA + warning (beyond range)
@@ -271,7 +274,8 @@ comp_fart <- function(spec) {
 #' \code{\link{comp_prob_comp}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{prob}} contains current probability information.
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_spec <- function(fart) {
 
@@ -332,7 +336,8 @@ comp_spec <- function(fart) {
 #' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{prob}} contains current probability information.
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_comp_pair <- function(p1 = NA, p2 = NA){
 
@@ -535,6 +540,65 @@ comp_ppod(0, 0, 0)  #  => 1
 ## -----------------------------------------------
 ## 1. Positive predictive value (PPV) from probabilities:
 
+
+#' Compute a decision's positive predictive value (PPV) from probabilities.
+#'
+#' \code{comp_PPV} computes the positive predictive value \code{\link{PPV}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_PPV} uses probabilities (not frequencies)
+#' and does not round results.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#'
+#' @return The positive predictive value \code{\link{PPV}} as a probability.
+#' A warning is provided for NaN values.
+#'
+#'
+#' @examples
+#' # (1) Ways to work:
+#' comp_PPV(.50, .500, .500)  # => PPV = 0.5
+#' comp_PPV(.50, .333, .666)  # => PPV = 0.499
+#'
+#' # (2) Watch out for vectors:
+#' prev <- seq(0, 1, .1)
+#' comp_PPV(prev, .5, .5)  # => without NaN values
+#' comp_PPV(prev,  0,  1)  # => with NaN values
+#'
+#' # (3) Watch out for extreme values:
+#' comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+#' is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
+#'
+#' comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+#' is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
+#'
+#' comp_PPV(prev = .5, sens = 0, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+#' is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
+#'
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_sens}} and \code{\link{comp_NPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+
+
 comp_PPV <- function(prev, sens, spec) {
 
   PPV <- NA # initialize
@@ -559,25 +623,75 @@ comp_PPV <- function(prev, sens, spec) {
 
 ## Check:
 
-## (1) Watch out for extreme values:
-#
-# comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-# is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
-#
-# comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-# is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
-#
-# comp_PPV(prev = .5, sens = 0, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-# is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
+{
+  ## (1) Ways to work:
+  # comp_PPV(.50, .500, .500)  # => PPV = 0.5
+  # comp_PPV(.50, .333, .666)  # => PPV = 0.499
 
-## (2) Watch out for vectors:
-# prev <- seq(0, 1, .1)
-# comp_PPV(prev, .5, .5)  # => without NaN values
-# comp_PPV(prev,  0,  1)  # => with NaN values
+  ## (2) Watch out for vectors:
+  # prev <- seq(0, 1, .1)
+  # comp_PPV(prev, .5, .5)  # => without NaN values
+  # comp_PPV(prev,  0,  1)  # => with NaN values
+
+  ## (3) Watch out for extreme values:
+  # comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+  # is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
+  #
+  # comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+  # is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
+  #
+  # comp_PPV(prev = .5, sens = 0, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+  # is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
+}
+
 
 
 ## -----------------------------------------------
 ## 2. False discovery/detection rate (FDR = complement of PPV):
+
+#' Compute a decision's false detection rate (FDR) from probabilities.
+#'
+#' \code{comp_FDR} computes the false detection rate \code{\link{FDR}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_FDR} uses probabilities (not frequencies)
+#' and does not round results.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#'
+#' @return The false detection rate \code{\link{FDR}} as a probability.
+#' A warning is provided for NaN values.
+#'
+#'
+#' @examples
+#' # (1) Ways to work:
+#' comp_FDR(.50, .500, .500)  # => FDR = 0.5    = (1 - PPV)
+#' comp_FDR(.50, .333, .666)  # => FDR = 0.5007 = (1 - PPV)
+#'
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+
 
 ## (a) from basic probabilities:
 comp_FDR <- function(prev, sens, spec) {
@@ -618,6 +732,60 @@ comp_FDR_PPV <- function(PPV) {
 ## -----------------------------------------------
 ## 3. Negative predictive value (NPV) from probabilities:
 
+#' Compute a decision's negative predictive value (NPV) from probabilities.
+#'
+#' \code{comp_NPV} computes the negative predictive value \code{\link{NPV}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_NPV} uses probabilities (not frequencies)
+#' and does not round results.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#'
+#' @return The negative predictive value \code{\link{NPV}} as a probability.
+#' A warning is provided for NaN values.
+#'
+#'
+#' @examples
+#' # (1) Ways to work:
+#' comp_NPV(.50, .500, .500)  # => NPV = 0.5
+#' comp_NPV(.50, .333, .666)  # => NPV = 0.4996
+#'
+#' # (2) Watch out for vectors:
+#' prev <- seq(0, 1, .1)
+#' comp_NPV(prev, .5, .5)  # => without NaN values
+#' comp_NPV(prev,  1,  0)  # => with NaN values
+#'
+#' # (3) Watch out for extreme values:
+#' comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
+#' comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
+#' comp_NPV(.5, sens = 1, spec = 0)              # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+#' is_extreme_prob_set(.5, sens = 1, spec = 0)   # => verifies extreme cases
+#'
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_spec}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+
 comp_NPV <- function(prev, sens, spec) {
 
   NPV <- NA # initialize
@@ -641,23 +809,73 @@ comp_NPV <- function(prev, sens, spec) {
 }
 
 ## Check:
-## (1) Watch out for extreme values:
-# comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_NPV(.5, sens = 1, spec = 0)               # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
-# is_extreme_prob_set(.5, sens = 1, spec = 0)    # => verifies extreme cases
+{
+  # # (1) Ways to work:
+  # comp_NPV(.50, .500, .500)  # => PPV = 0.5
+  # comp_NPV(.50, .333, .666)  # => PPV = 0.4996
 
-## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+  ## (2) Watch out for vectors:
+  # prev <- seq(0, 1, .1)
+  # comp_NPV(prev, .5, .5)  # => without NaN values
+  # comp_NPV(prev,  1,  0)  # => with NaN values
 
-## (2) Watch out for vectors:
-# prev <- seq(0, 1, .1)
-# comp_NPV(prev, .5, .5)  # => without NaN values
-# comp_NPV(prev,  1,  0)  # => with NaN values
+  ## (3) Watch out for extreme values:
+  # comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
+  # comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
+  # comp_NPV(.5, sens = 1, spec = 0)               # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+  # is_extreme_prob_set(.5, sens = 1, spec = 0)    # => verifies extreme cases
+
+  ## \code{\link{is_extreme_prob_set}} verifies extreme cases
+}
+
 
 
 
 ## -----------------------------------------------
 ## 4. False omission rate (FOR = complement of NPV):
+
+#' Compute a decision's false omission rate (FOR) from probabilities.
+#'
+#' \code{comp_FOR} computes the false omission rate \code{\link{FOR}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_FOR} uses probabilities (not frequencies)
+#' and does not round results.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#'
+#' @return The false omission rate \code{\link{FOR}} as a probability.
+#' A warning is provided for NaN values.
+#'
+#'
+#' @examples
+#' # (1) Ways to work:
+#' comp_FOR(.50, .500, .500)  # => FOR = 0.5    = (1 - NPV)
+#' comp_FOR(.50, .333, .666)  # => FOR = 0.5004 = (1 - NPV)
+#'
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_spec}} and \code{\link{comp_NPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
 
 comp_FOR <- function(prev, sens, spec) {
 
@@ -874,18 +1092,18 @@ comp_PV_matrix <- function(prev, sens, spec,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Document comp_PPV, comp_NPV, ... etc.
-##
-## - Allow using fart instead of spec in all functions
-##   (defined above)
-##
+## - Add documentation.
+##   Document comp_PPV, comp_NPV, ... etc.
+
+## - Allow using fart & mirt in addition to sens & spec in all functions
+##   defined above
+
 ## - Add alternative ways to compute probabilities
 ##   from frequencies (based on various elements of freq)!
-##
-## - Compute alternative prob from freq with
-##   a. N of dec.pos (rather than N of fa) and
-##   b. N of dec.neg (rather than N of mi) provided.
-##
+##   - Compute alternative prob from freq with
+##     a. N of dec.pos (rather than N of fa) and
+##     b. N of dec.neg (rather than N of mi) provided.
+
 ## - Compute basic parameters (probabilities and frequencies)
 ##   from MIX of existing probabilities and frequencies!
 
