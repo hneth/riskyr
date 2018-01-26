@@ -1,4 +1,4 @@
-## comp_freq_prob.R | riskyR
+## comp_freq_prob.R | riskyr
 ## 2018 01 22
 ## -----------------------------------------------
 ## Compute frequencies from probabilities:
@@ -7,38 +7,50 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# probabilities (9):                frequencies (9):
-# ------------------                ------------------
-# (A) basic:
-#                                          N
-# prev*                             n.true | n.false
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# non-conditional:                          N
+# prev*                           cond.true | cond.false
+
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
 
 # [Note: *...is essential]
 
 
-# (B) derived:
-#                                   dec.pos | dec.neg
+# (B) by decision:                 Combined frequencies:
 
-# PPV = pos. pred. value
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+
 ## -----------------------------------------------
-## Two basic directions:
+## Data flow: Two basic directions:
 
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
 
-## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
-## - derived: all other values
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
+
+
+## -----------------------------------------------
+## ad (1) Probabilities ==> frequencies:
 
 ## -----------------------------------------------
 ## (1) Determine a suitable population size N:

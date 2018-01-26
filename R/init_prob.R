@@ -1,5 +1,5 @@
-## init_prob.R | riskyR
-## 2018 01 25
+## init_prob.R | riskyr
+## 2018 01 26
 ## -----------------------------------------------
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
@@ -37,13 +37,16 @@
 ## -----------------------------------------------
 ## Data flow: Two basic directions:
 
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
 
-## 2: Natural frequencies:
-## - given:   N = hi, mi, fa, cr
-## - derived: all other values
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
+
 
 ## -----------------------------------------------
 ## A: Define probabilities by condition:
@@ -74,6 +77,15 @@
 #'   of the condition's occurrence.
 #'
 #'
+#'   \item In terms of frequencies,
+#'   \code{prev} is the ratio of
+#'   \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+#'   divided by \code{\link{N}} (i.e.,
+#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+#'
+#'   \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+#'
+#'
 #'   \item Perspective:
 #'   \code{prev} classifies a population of \code{\link{N}} individuals
 #'   by condition (\code{prev = cond.true/N}).
@@ -89,15 +101,6 @@
 #'
 #'   \code{prev} is often distinguished from the \emph{incidence rate}
 #'   (i.e., the rate of new cases within a certain time period).
-#'
-#'
-#'   \item In terms of frequencies,
-#'   \code{prev} is the ratio of
-#'   \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
-#'   divided by \code{\link{N}} (i.e.,
-#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
-#'
-#'   \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
 #'
 #'   \item Dependencies:
@@ -598,6 +601,7 @@ fart <- 1 - spec   # default false alarm rate
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_prob}} verifies probability inputs.
 #'

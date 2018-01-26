@@ -50,9 +50,49 @@
 
 
 ## -----------------------------------------------
-## (1) Compute the set of ALL current probabilities:
+## (1) Initialize prob as a list (of NA values)
+##     of 10 probabilities (3 essential ones):
+
+init_prob <- function() {
+
+  ## (0) Initialize prob as a list:
+  prob <- list(
+
+    ## (a) By condition: 3 essential + 2 optional probabilities:
+
+    "prev" = NA,  # simple p of cond.true
+
+    "sens" = NA,  # conditional p
+    "mirt" = NA,  # conditional p: 1 - sens
+    "spec" = NA,  # conditional p:
+    "fart" = NA,  # conditional p: 1 - spec
+
+    ## (b) By decision: 5 derived probabilities and predictive values (PVs):
+
+    "ppod" = NA,  # simple p of dec.pos
+
+    "PPV" = NA,   # conditional p: reversal of sens
+    "NPV" = NA,   # conditional p: reversal of spec
+    "FDR" = NA,   # conditional p: 1 - PPV
+    "FOR" = NA    # conditional p: 1 - NPV
+  )
+
+  ## Return entire list prob:
+  return(prob)
+
+}
+
+
+## Check:
+# init_prob()          # initializes empty prob
+# length(init_prob())  # => 10 probabilities
+
+
+## -----------------------------------------------
+## (2) Compute the set of ALL current probabilities:
 ##     So far: Compute current values of PPV and NPV
 ##     as functions of prev, sens, and spec (using Bayes):
+
 
 #' Compute derived probabilities from basic probabilities.
 #'
@@ -150,24 +190,27 @@ comp_prob <- function(prev = num$prev,             # probabilities:
                       ) {
 
   ## (0) Initialize prob as a list:
-  prob <- list(
+  # prob <- list(
+  #
+  #   ## (a) By condition: 3 essential + 2 optional probabilities:
+  #   "prev" = NA,  # simple p of cond.true
+  #
+  #   "sens" = NA,  # conditional p
+  #   "mirt" = NA,  # conditional p: 1 - sens
+  #   "spec" = NA,  # conditional p:
+  #   "fart" = NA,  # conditional p: 1 - spec
+  #
+  #   ## (b) By decision: 5 derived probabilities and predictive values (PVs):
+  #   "ppod" = NA,  # simple p of dec.pos
+  #
+  #   "PPV" = NA,   # conditional p: reversal of sens
+  #   "NPV" = NA,   # conditional p: reversal of spec
+  #   "FDR" = NA,   # conditional p: 1 - PPV
+  #   "FOR" = NA    # conditional p: 1 - NPV
+  # )
 
-    ## (a) By condition: basic probability parameters:
-    "prev" = NA,  # simple p of cond.true
+  prob <- init_prob()  # initialize prob (containing only NA values)
 
-    "sens" = NA,  # conditional p
-    "mirt" = NA,  # conditional p: 1 - sens
-    "spec" = NA,  # conditional p:
-    "fart" = NA,  # conditional p: 1 - spec
-
-    ## (b) By decision: derived probabilities and predictive values (PVs):
-    "ppod" = NA,  # simple p of dec.pos
-
-    "PPV" = NA,   # conditional p: reversal of sens
-    "NPV" = NA,   # conditional p: reversal of spec
-    "FDR" = NA,   # conditional p: 1 - PPV
-    "FOR" = NA    # conditional p: 1 - NPV
-  )
 
   ## (1) Only if basic quadruple of probabilities is valid:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
@@ -247,7 +290,8 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 }
 
 ## -----------------------------------------------
-## (E) Apply to initialize prob:
+## (3) Apply to initialize prob:
+
 
 #' List current probability information.
 #'

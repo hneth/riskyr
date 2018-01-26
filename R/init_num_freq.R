@@ -1,4 +1,4 @@
-## init_num_freq.R | riskyR
+## init_num_freq.R | riskyr
 ## 2018 01 25
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
@@ -40,17 +40,55 @@
 ## -----------------------------------------------
 ## Data flow: Two basic directions:
 
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
 
-## 2: Natural frequencies:
-## - given:   N = hi, mi, fa, cr
-## - derived: all other values
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
 
 
 ## -----------------------------------------------
-## (1) Compute frequencies from 3 essential probabilities:
+## (1) Initialize freq as a list (of NA values)
+##     of 9 frequencies (4 essential ones):
+
+init_freq <- function() {
+
+  ## (0) Initialize freq as a list:
+  freq <- list(
+
+    ## Population size:
+    "N" = NA, # Number of cases overall
+
+    ## Number of true cases by condition:
+    "cond.true"  = NA, # N of cond TRUE
+    "cond.false" = NA, # N of cond FALSE
+
+    ## Number of decisions:
+    "dec.pos" = NA, # N of dec POS [was: dec.true]
+    "dec.neg" = NA, # N of dec NEG [was: dec.false]
+
+    ## SDT combinations:
+    "hi" = NA, # true positive
+    "mi" = NA, # false negative
+    "fa" = NA, # false positive
+    "cr" = NA  # true negative
+    )
+
+  ## Return entire list freq:
+  return(freq)
+
+}
+
+## Check:
+# init_freq()          # initializes empty freq
+# length(init_freq())  # =>  9 frequencies
+
+## -----------------------------------------------
+## (2) Compute 9 frequencies from 3 essential probabilities:
 
 #' Compute frequencies from basic probabilities.
 #'
@@ -128,13 +166,14 @@
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
-#' @param N The number of individuals in the population:
-#' a suitable value of \code{\link{N}} is computed, if not provided.
+#' @param N The number of individuals in the population.
+#' If \code{\link{N}} is unknown (\code{NA}),
+#' a suitable minimum value is computed by \code{\link{comp_min_N}}.
 #'
 #' @param round A Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
 #'
-#' @return A list \code{freq} containing 9 frequency values.
+#' @return A list \code{\link{freq}} containing 9 frequency values.
 #'
 #'
 #' @examples
@@ -181,26 +220,9 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
                       N = num$N,
                       round = TRUE) {
 
-  ## (0) Initialize freq as a list:
-  freq <- list(
+  ## (0) Initialize freq:
+  freq <- init_freq()  # initialize freq (containing only NA values)
 
-    ## Population size:
-    "N" = NA, # Number of cases overall
-
-    ## Number of true cases by condition:
-    "cond.true"  = NA, # N of cond TRUE
-    "cond.false" = NA, # N of cond FALSE
-
-    ## Number of decisions:
-    "dec.pos" = NA, # N of dec POS [was: dec.true]
-    "dec.neg" = NA, # N of dec NEG [was: dec.false]
-
-    ## SDT combinations:
-    "hi" = NA, # true positive
-    "mi" = NA, # false negative
-    "fa" = NA, # false positive
-    "cr" = NA  # true negative
-  )
 
   ## (1) Only if 3 essential probabilities are valid:
   if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
@@ -254,13 +276,16 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     freq$dec.pos <- freq$hi + freq$fa # 1. positive decisions (true & false positives)
     freq$dec.neg <- freq$mi + freq$cr # 2. negative decisions (false & true negatives)
 
-    ## (9) Check:
-    if ((freq$cond.true != freq$hi + freq$mi) |
-        (freq$cond.false != freq$fa + freq$cr) |
-        (freq$N != freq$cond.true + freq$cond.false) |
-        (freq$N != freq$hi + freq$mi + freq$fa + freq$cr)) {
+    ## (9) Check for consistency:
+    if ((freq$N != freq$hi + freq$mi + freq$fa + freq$cr) ||
+        (freq$cond.true  != freq$hi + freq$mi)            ||
+        (freq$cond.false != freq$fa + freq$cr)            ||
+        (freq$dec.pos != freq$hi + freq$fa)               ||
+        (freq$dec.neg != freq$mi + freq$cr)               ||
+        (freq$N != freq$cond.true + freq$cond.false)      ||
+        (freq$N != freq$dec.pos + freq$dec.neg)            ) {
 
-      warning("Current frequencies do NOT add up (to n.true, n.false, or N).")
+      warning("Current frequencies do NOT add up.")
     }
 
   } # if (is_valid(prev, sens, spec, fart))
@@ -298,28 +323,28 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 }
 
 ## -----------------------------------------------
-## (2) Apply to initialize freq:
+## (3) Apply to initialize freq:
 
 #' List current frequency information.
 #'
 #' \code{freq} is a list of named numeric variables
 #' containing 9 (natural) frequencies:
-
+#'
 #' \enumerate{
-
+#'
 #'  \item the population size \code{\link{N}}
-
+#'
 #'  \item the number of cases for which \code{\link{cond.true}}
 #'  \item the number of cases for which \code{\link{cond.false}}
-
+#'
 #'  \item the number of cases for which \code{\link{dec.pos}}
 #'  \item the number of cases for which \code{\link{dec.neg}}
-
+#'
 #'  \item the number true positives, or hits \code{\link{hi}}
 #'  \item the number false negatives, or misses \code{\link{mi}}
 #'  \item the number false positives, or false alarms \code{\link{fa}}
 #'  \item the number true negatives, or correct rejections \code{\link{cr}}
-
+#'
 #' }
 #'
 #' These frequencies are computed from basic probabilities

@@ -1,5 +1,5 @@
 ## init_freq.R | riskyR
-## 2018 01 25
+## 2018 01 26
 ## -----------------------------------------------
 ## Define and initialize ALL frequencies
 ## -----------------------------------------------
@@ -38,15 +38,16 @@
 ## -----------------------------------------------
 ## Data flow: Two basic directions:
 
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
 
-## 2: Natural frequencies:
-## - given:   N = hi, mi, fa, cr
-## - derived: all other values
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
 
-## -----------------------------------------------
 
 ## -----------------------------------------------
 ## (A) Define and initializes BASIC frequencies:
