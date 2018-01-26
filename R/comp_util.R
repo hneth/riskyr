@@ -683,6 +683,19 @@ is_extreme_prob_set <- function(prev,
   ## Note: This does NOT check for consistency of complements (e.g., inputs of both spec = 1 & fart = 1)
 
 
+  ## List cases in which PPV or NPV are NaN:
+
+  ## (1) PPV is NaN if:
+  ##     (a)  (prev = 1) & (sens = 0) OR
+  ##     (b)  (prev = 0) & (spec = 1) OR
+  ##     (c)  (sens = 0) & (spec = 1).
+
+  ## (2) NPV is NaN if:
+  ##     (a)  (prev = 1) & (sens = 1) OR
+  ##     (b)  (prev = 1) & (sens = 0) OR
+  ##     (c)  (sens = 1) & (spec = 0).
+
+
   ## (3) Check cases (specific combinations of prev, sens, and spec/fart):
 
   if ((prev == 1) & (sens == 1)) {        # 1. prev and sens are both perfect:

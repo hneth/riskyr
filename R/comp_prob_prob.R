@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 25
+## 2018 01 26
 ## -----------------------------------------------
 ## Compute probabilities from probabilities:
 
@@ -508,7 +508,7 @@ comp_ppod <- function(prev, sens, spec) {
 
   ppod <- (hi + fa) / (hi + mi + fa + cr)
 
-  ## Check:
+  ## Print a warning if NaN:
   if (is.nan(ppod)) {
     warning("ppod is NaN.")
   }
@@ -549,7 +549,7 @@ comp_PPV <- function(prev, sens, spec) {
 
   PPV <- hi / (hi + fa)
 
-  ## Check:
+  ## Print a warning if NaN:
   if (is.nan(PPV)) {
     warning("PPV is NaN.")
   }
@@ -590,7 +590,7 @@ comp_FDR <- function(prev, sens, spec) {
 
   FDR <- fa / (hi + fa)
 
-  ## Check:
+  ## Print a warning if NaN:
   if (is.nan(FDR)) {
     warning("FDR is NaN.")
   }
@@ -627,7 +627,7 @@ comp_NPV <- function(prev, sens, spec) {
 
   NPV <- cr / (mi + cr)
 
-  ## Check:
+  ## Print a warning if NaN:
   if (is.nan(NPV)) {
     warning("NPV is NaN.")
   }
@@ -660,7 +660,7 @@ comp_FOR <- function(prev, sens, spec) {
 
   FOR <- mi / (mi + cr)
 
-  ## Check:
+  ## Print a warning if NaN:
   if (is.nan(FOR)) {
     warning("FOR is NaN.")
   }
@@ -706,7 +706,8 @@ comp_FOR_NPV <- function(NPV) {
 ## (when sens and spec are given as vectors):
 
 comp_PV_matrix <- function(prev, sens, spec,
-                           metric = "PPV") {
+                           metric = "PPV",
+                           nan.adjust = FALSE) {
 
   # Initialize matrix as df:
   n.rows <- length(sens)
@@ -729,37 +730,44 @@ comp_PV_matrix <- function(prev, sens, spec,
       ## (A) metric == PPV:
       if (metric == "PPV") {
 
-        ## (1) Catch extreme cases:
-        ##     PPV is NaN when
-        ##     (a)  prev == 1  &&  sens == 0 OR
-        ##     (b)  prev == 0  &&  spec == 1 OR
-        ##     (c)  sens == 0  &&  spec == 1 :
+        ## (1) List cases in which PPV is NaN:
+        ## PPV is NaN if:
+        ##     (1a)  (prev = 1) & (sens = 0) OR
+        ##     (1b)  (prev = 0) & (spec = 1) OR
+        ##     (1c)  (sens = 0) & (spec = 1).
 
-        ## (a) Extreme case 1: Only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-        if ((prev == 1) && (cur.sens == 0)) {
+        if (nan.adjust) {
+          ## Catch 3 cases:
+          ## (1a) (prev = 1) & (sens = 0): Only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+          if ((prev == 1) && (cur.sens == 0)) {
 
-          # warning("Extreme case 1 occurred!")
+            warning("Adjusting for extreme case (PPV:a): (prev = 1) & (sens = 0)!")
 
-          cur.sens <- (cur.sens + eps)  # adjust upwards
+            ## Adjustment (to prevent NaN):
+            cur.sens <- (cur.sens + eps)  # adjust upwards
 
-        }
+          }
 
-        ## (b) Extreme case 2: Only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-        if ((prev == 1) && (cur.spec == 1)) {
+          ## (1b) (prev = 0) & (spec = 1): Only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+          if ((prev == 0) && (cur.spec == 1)) {
 
-          # warning("Extreme case 2 occurred!")
+            warning("Adjusting for extreme case (PPV:b): (prev = 0) & (spec = 1)!")
 
-          cur.spec <- (cur.spec - eps)  # adjust downwards
+            ## Adjustment (to prevent NaN):
+            cur.spec <- (cur.spec - eps)  # adjust downwards
 
-        }
+          }
 
-        ## (c) Extreme case 3: Only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-        if ((cur.sens == 0) && (cur.spec == 1)) {
+          ## (1c) (sens = 0) & (spec = 1): Only mi + cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+          if ((cur.sens == 0) && (cur.spec == 1)) {
 
-          # warning("Extreme case 3 occurred!")
+            warning("Adjusting for extreme case (PPV:c): (sens = 0) & (spec = 1)!")
 
-          cur.sens <- (cur.sens + eps)  # adjust upwards
-          cur.spec <- (cur.spec - eps)  # adjust downwards
+            ## Adjustment (to prevent NaN):
+            cur.sens <- (cur.sens + eps)  # adjust upwards
+            cur.spec <- (cur.spec - eps)  # adjust downwards
+
+          }
 
         }
 
@@ -771,11 +779,47 @@ comp_PV_matrix <- function(prev, sens, spec,
       ## (B) metric == NPV:
       if (metric == "NPV") {
 
-        ## (1) Catch extreme cases:
-        ##     NPV is NaN when ...
+        ## (1) List cases in which NPV is NaN:
+        ## NPV is NaN if:
+        ##     (2a)  (prev = 1) & (sens = 1) OR
+        ##     (2b)  (prev = 1) & (sens = 0) OR
+        ##     (2c)  (sens = 1) & (spec = 0).
 
-        ##      +++ here now +++
+        if (nan.adjust) {
+          ## Catch 3 cases:
+          ## (2a) (prev = 1) & (sens = 1): NPV = 0/0 = NaN
+          if ((prev == 1) && (cur.sens == 1)) {
 
+            warning("Adjusting for extreme case (NPV:a): (prev = 1) & (sens = 1)!")
+
+            ## Adjustment (to prevent NaN):
+            cur.sens <- (cur.sens - eps)  # adjust downwards
+
+          }
+
+          ## (2b) (prev = 1) & (spec = 0): NPV = 0/0 = NaN
+          if ((prev == 1) && (cur.spec == 0)) {
+
+            warning("Adjusting for extreme case (NPV:b): (prev = 1) & (spec = 0)!")
+
+            ## Adjustment (to prevent NaN):
+            cur.spec <- (cur.spec + eps)  # adjust upwards
+
+          }
+
+          ## (2c) (sens = 1) & (spec = 0): NPV = 0/0 = NaN
+          if ((cur.sens == 1) && (cur.spec == 0)) {
+
+            warning("Adjusting for extreme case (NPV:c): (sens = 1) & (spec = 0)!")
+
+            ## Adjustment (to prevent NaN):
+            cur.sens <- (cur.sens - eps)  # adjust downwards
+            cur.spec <- (cur.spec + eps)  # adjust upwards
+
+          }
+        }
+
+        ## (2) Compute NPV:
         cell.val <- comp_NPV(prev, cur.sens, cur.spec)  # compute NPV
 
       }
@@ -789,6 +833,19 @@ comp_PV_matrix <- function(prev, sens, spec,
 
 }
 
+## Check:
+{
+  # sens.seq <- seq(0, 1, by = .10)
+  # spec.seq <- seq(0, 1, by = .10)
+  #
+  # # Contrast without and with NaN adjustment:
+  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = FALSE)
+  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = TRUE)
+  #
+  # # Contrast without and with NaN adjustment:
+  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = FALSE)
+  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = TRUE)
+}
 
 ## -----------------------------------------------
 ## (+) ToDo:
