@@ -1,5 +1,5 @@
 ## plot_PV3d.R | riskyR
-## 2018 01 24
+## 2018 01 26
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
 ## as a function of both sens and spec (given prev)
@@ -84,11 +84,29 @@ plot_PV3d <- function(prev = num$prev,             # probabilities
   sens.range <- seq(0, 1, by = step.size) # range of sensitivity values (x)
   spec.range <- seq(0, 1, by = step.size) # range of specificity values (y)
 
-  ## Compute matrices of PPV/NPV values (using utility function):
+  ## Beware of cases in which PPV or NPV are NaN:
+
+  ## (1) PPV is NaN if:
+  ##     (a)  (prev = 1) & (sens = 0)
+  ##     (b)  (prev = 0) & (spec = 1)
+  ##     (c)  (sens = 0) & (spec = 1)  ==> always occurs in ranges above!
+
+  ## (2) NPV is NaN if:
+  ##     (a)  (prev = 1) & (sens = 1)
+  ##     (b)  (prev = 1) & (sens = 0)
+  ##     (c)  (sens = 1) & (spec = 0)  ==> always occurs in ranges above!
+
+  ## Hack fix: Prevent values of 0 from occurring:
+  eps <- 10^-9  # some very small value
+  sens.range[1] <- sens.range[1] + eps  # to prevent sens = 0 case
+  spec.range[1] <- spec.range[1] + eps  # to prevent spec = 0 case
+
+
+  ## Compute matrices of PPV/NPV values (using dedicated function):
   if (is.ppv) {
-    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "PPV")
+    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "PPV", nan.adjust = FALSE)
   } else {
-    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "NPV")
+    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "NPV", nan.adjust = FALSE)
   }
 
   ## Graph parameters and labels:
@@ -107,15 +125,22 @@ plot_PV3d <- function(prev = num$prev,             # probabilities
   col.pt <- if (is.ppv) {"yellow1"} else {"yellow1"} # point color should provide high contrasts to col.pv of ppv and npv
   cex.pt <- 1.5 # adjust size of points
 
+
   ## Create 3D plot for PV:
   p.pv <- persp(x, y, z.pv,
                 theta = cur.theta, phi = cur.phi, d = cur.d, expand = cur.expand,
                 col = col.pv, border = NA, # col.ppv, col.orange.1,
-                ltheta = cur.ltheta, shade = cur.shade,
-                ticktype = "detailed", nticks = 6, # at 20% intervals
-                xlab = "sens", ylab = "spec", zlab = z.lbl, zlim = z.lim #,
+                ltheta = cur.ltheta,
+                shade = cur.shade,
+                ticktype = "detailed",
+                nticks = 6, # at 20% intervals
+                xlab = "sens",
+                ylab = "spec",
+                zlab = z.lbl,
+                zlim = z.lim #,
                 # main = cur.title.lbl # (defined below)
   )
+
 
   ## Title:
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
@@ -126,10 +151,13 @@ plot_PV3d <- function(prev = num$prev,             # probabilities
     }
   mtext(paste0(cur.par.lbl), side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .80)
 
+
   ## Add points to plot:
   if (show.PVpoints) { # add cur.PV to the plot:
+
     p.pv.pt <- trans3d(sens, spec, cur.PV, p.pv)
     p.pv <- points(p.pv.pt, pch = 21, col = col.bord, bg = col.pt, lwd = 1.0, cex = cex.pt)
+
   }
 
 }
