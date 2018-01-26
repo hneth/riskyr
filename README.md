@@ -16,13 +16,22 @@ A toolbox for rendering risk literacy more transparent
 [^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
 
-The basic assumptions and motivations behind `riskyr` are the following:
+The issues addressed by `riskyr` are less of a _computational_ than of a _representational_ nature (i.e., concerning the translation between different information formats).  Whereas people find it difficult to understand and compute information expressed in terms of _probabilities_, the same information content expressed in terms of _frequencies_ is often easy to understand and compute. 
 
-- Effective training in risk literacy requires simple and transparent representations. 
+However, rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in transparent and interactive visualizations.
 
-- We provide a set of tools that allow alternative views on the interplay between probabilities and frequencies. Different representations are not isolated, but complement and explain each other.
 
-- All visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameters. By providing many options, users can customize representations to suit their goals and needs.
+The basic assumptions and goals motivating the development of `riskyr` are the following:
+
+1. Effective training in risk literacy requires simple tools and transparent representations. 
+
+2. We provide a set of (computational and representational) tools that allow various calculations and translations, 
+as well as alternative views on the interplay between probabilities and frequencies. 
+The toolbox of functions and representations are not isolated, but complement and explain each other.
+
+3. To facilitate active and explorative learning, all visualizations can be explored interactively, 
+providing immediate feedback on the effect of changes in parameters.  
+By providing many options, users can customize representations to suit their goals and needs.
 
 
 ## Rationale
@@ -46,6 +55,8 @@ and provide a variety of _perspectives_ on (and representations of) the _consequ
     <!-- 8. fact boxes (with additional details on benefits and harms of tests or treatments)  -->
 
 A _library of scenarios_ illustrates example cases with known data from the literature.
+
+
 
 
 ## Package and Application
