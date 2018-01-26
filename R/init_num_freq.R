@@ -1,5 +1,5 @@
 ## init_num_freq.R | riskyr
-## 2018 01 25
+## 2018 01 26
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):

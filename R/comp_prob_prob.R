@@ -3,9 +3,6 @@
 ## -----------------------------------------------
 ## Compute probabilities from probabilities:
 
-## -----------------------------------------------
-## (A) ToDo: Compute basic parameters (prev; sens + spec, mirt + fart)
-##           from existing frequencies (N;   hi + cr,     mi   + fa)
 
 ## -----------------------------------------------
 ## Table of current terminology:

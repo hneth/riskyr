@@ -64,6 +64,10 @@
 #' contained in \code{\link{prob}} from 4 essential frequencies
 #' (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 #'
+#' \code{comp_prob_freq} is an analog to \code{\link{comp_freq_freq}}
+#' that computes all \emph{frequencies} contained in \code{\link{freq}}
+#' from the same 4 essential frequencies.
+#'
 #' The following relationships hold (and are used in computations):
 #'
 #' \enumerate{
@@ -131,6 +135,11 @@
 #'
 #'
 #' @examples
+#' ## Basics:
+#' comp_prob_freq()
+#' all.equal(prob, comp_prob_freq())  # => should be TRUE!
+#'
+#'
 #' ## Circular chain:
 #' # 1. Current numeric parameters:
 #' num
@@ -150,7 +159,7 @@
 #' all.equal(prob, prob_freq)  # => should be TRUE
 #'
 #'
-#' @family functions computing probabilities from frequencies
+#' @family functions computing probabilities
 #'
 #'
 #' @seealso
@@ -171,27 +180,43 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
                            # N.new,       # to verify sum OR re-scale to new population size if different from freq$N?
                            ) {
 
-  ## Initialize prob:
+  ## Initialize:
+  N <- NA
+  cond.true  <- NA
+  cond.false <- NA
+  dec.pos    <- NA
+  dec.neg    <- NA
+
   prob <- init_prob()  # initialize prob (containing only NA values)
 
+
   ## Compute 5 other freq from 4 essential freq:
-  cond.true  <- sum(hi, mi, na.rm = TRUE)   # freq of cond.true cases
-  cond.false <- sum(fa, cr, na.rm = TRUE)   # freq of cond.false cases
-  dec.pos <- sum(hi, fa, na.rm = TRUE)      # freq of dec.pos cases
-  dec.neg <- sum(mi, cr, na.rm = TRUE)      # freq of dec.neg cases
-  N <- sum(cond.true, cond.false)           # N
+  N  <- sum(c(hi, mi, fa, cr), na.rm = TRUE)   # N
+  cond.true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond.true cases
+  cond.false <- sum(c(fa, cr), na.rm = TRUE)   # freq of cond.false cases
+  dec.pos  <-   sum(c(hi, fa), na.rm = TRUE)   # freq of dec.pos cases
+  dec.neg  <-   sum(c(mi, cr), na.rm = TRUE)   # freq of dec.neg cases
 
-  ## Check for consistency:
-  if ( (N != hi + mi + fa + cr)      ||
-       (N != cond.true + cond.false) ||
-       (N != dec.pos + dec.neg)      ||
-       (cond.true != hi + mi)        ||
-       (cond.false != fa + cr)       ||
-       (dec.pos != hi + fa)          ||
-       (dec.neg != mi + cr)           )
-  {
 
-    warning("Current frequencies do NOT add up.")
+  ## Check for existence:
+  if (is.na(N)) {
+
+    warning("N is NA. At least one essential frequency is required.")
+
+  } else {
+
+    ## Check for consistency:
+    if ( (N != (hi + mi + fa + cr))      ||
+         (N != (cond.true + cond.false)) ||
+         (N != (dec.pos + dec.neg))      ||
+         (cond.true != (hi + mi))        ||
+         (cond.false != (fa + cr))       ||
+         (dec.pos != (hi + fa))          ||
+         (dec.neg != (mi + cr))   ){
+
+      warning("Current frequencies fail to add up.")
+
+    }
   }
 
   ## Compute all 10 probabilities in prob from frequencies:
@@ -215,6 +240,9 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 ## Check:
 
 {
+  ## Basics:
+  # comp_prob_freq()
+
   ## Circular chain:
   #
   # # 1. Current numeric parameters:
