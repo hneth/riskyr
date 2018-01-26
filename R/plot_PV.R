@@ -234,6 +234,7 @@ plot_PV <- function(prev = num$prev,             # probabilities (3 essential, 2
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - Add documentation.
 ## - fine-tune positions of labels and legend (on linear vs. log scale)
 ## - pimp plot (titles, axes, grid, colors, transparency)
 

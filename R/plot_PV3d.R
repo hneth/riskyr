@@ -278,9 +278,9 @@ plot_PV3d <- function(prev = num$prev,             # probabilities (3 essential,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add current PPV/NPV value and label somewhere (with all current paramters)
-## - change labels for all axes to percentages (as in plot_PV)
-## - pimp plot (titles, axes, grid, colors, transparency)
+## - Add documentation.
+## - Change labels for all axes to percentages (as in plot_PV)
+## - Pimp plot (titles, axes, grid, colors, transparency)
 
 ## -----------------------------------------------
 ## eof.
