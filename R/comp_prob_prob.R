@@ -509,7 +509,7 @@ comp_ppod <- function(prev, sens, spec) {
   ppod <- (hi + fa) / (hi + mi + fa + cr)
 
   ## Print a warning if NaN:
-  if (is.nan(ppod)) {
+  if (any(is.nan(ppod))) {
     warning("ppod is NaN.")
   }
 
@@ -550,7 +550,7 @@ comp_PPV <- function(prev, sens, spec) {
   PPV <- hi / (hi + fa)
 
   ## Print a warning if NaN:
-  if (is.nan(PPV)) {
+  if (any(is.nan(PPV))) {
     warning("PPV is NaN.")
   }
 
@@ -559,16 +559,21 @@ comp_PPV <- function(prev, sens, spec) {
 
 ## Check:
 
-## Watch out for extreme values:
-
+## (1) Watch out for extreme values:
+#
 # comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-# is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => TRUE + warning
-
+# is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
+#
 # comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-# is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => TRUE + warning
+# is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
+#
+# comp_PPV(prev = .5, sens = 0, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
 
-# comp_PPV(prev = .5, sens = 0, spec = 1)               # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-# is_extreme_prob_set(prev = .5, sens = 0, spec = 1)    # => TRUE + warning: hi = 0 and fa = 0: PPV = 0/0 = NaN
+## (2) Watch out for vectors:
+# prev <- seq(0, 1, .1)
+# comp_PPV(prev, .5, .5)  # => without NaN values
+# comp_PPV(prev,  0,  1)  # => with NaN values
 
 
 ## -----------------------------------------------
@@ -591,7 +596,7 @@ comp_FDR <- function(prev, sens, spec) {
   FDR <- fa / (hi + fa)
 
   ## Print a warning if NaN:
-  if (is.nan(FDR)) {
+  if (any(is.nan(FDR))) {
     warning("FDR is NaN.")
   }
 
@@ -628,7 +633,7 @@ comp_NPV <- function(prev, sens, spec) {
   NPV <- cr / (mi + cr)
 
   ## Print a warning if NaN:
-  if (is.nan(NPV)) {
+  if (any(is.nan(NPV))) {
     warning("NPV is NaN.")
   }
 
@@ -636,11 +641,20 @@ comp_NPV <- function(prev, sens, spec) {
 }
 
 ## Check:
-## for extreme values:
-## comp_NPV(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
-## comp_NPV(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
+## (1) Watch out for extreme values:
+# comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_NPV(.5, sens = 1, spec = 0)               # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# is_extreme_prob_set(.5, sens = 1, spec = 0)    # => verifies extreme cases
 
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+
+## (2) Watch out for vectors:
+# prev <- seq(0, 1, .1)
+# comp_NPV(prev, .5, .5)  # => without NaN values
+# comp_NPV(prev,  1,  0)  # => with NaN values
+
+
 
 ## -----------------------------------------------
 ## 4. False omission rate (FOR = complement of NPV):
@@ -661,7 +675,7 @@ comp_FOR <- function(prev, sens, spec) {
   FOR <- mi / (mi + cr)
 
   ## Print a warning if NaN:
-  if (is.nan(FOR)) {
+  if (any(is.nan(FOR))) {
     warning("FOR is NaN.")
   }
 
@@ -676,8 +690,8 @@ comp_FOR <- function(prev, sens, spec) {
 ## for extreme values:
 # comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
 # comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
-
-## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+# comp_FOR(.5, sens = 1, spec = 0)                    # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
 
 ## (b) FOR = 1 - NPV:
 comp_FOR_NPV <- function(NPV) {
@@ -701,6 +715,7 @@ comp_FOR_NPV <- function(NPV) {
 
 ## -----------------------------------------------
 
+
 ## -----------------------------------------------
 ## Compute either PPV or NPV for an entire matrix of values
 ## (when sens and spec are given as vectors):
@@ -721,8 +736,7 @@ comp_PV_matrix <- function(prev, sens, spec,
   for (row in 1:n.rows) {    # row = sens
     for (col in 1:n.cols) {  # col = spec
 
-      cell.val <- NA        # initialize
-      eps <- 10^-9          # some very small value
+      cell.val <- NA  # initialize
 
       cur.sens <- sens[row]
       cur.spec <- spec[col]
@@ -730,14 +744,19 @@ comp_PV_matrix <- function(prev, sens, spec,
       ## (A) metric == PPV:
       if (metric == "PPV") {
 
-        ## (1) List cases in which PPV is NaN:
-        ## PPV is NaN if:
-        ##     (1a)  (prev = 1) & (sens = 0) OR
-        ##     (1b)  (prev = 0) & (spec = 1) OR
-        ##     (1c)  (sens = 0) & (spec = 1).
+        ## Beware of cases in which PPV or NPV are NaN:
 
-        if (nan.adjust) {
-          ## Catch 3 cases:
+        ## (1) PPV is NaN if:
+        ##     (a)  (prev = 1) & (sens = 0)
+        ##     (b)  (prev = 0) & (spec = 1)
+        ##     (c)  (sens = 0) & (spec = 1)
+
+        if (nan.adjust) {  ## Hack fix:
+
+          eps <- 10^-9    # some very small value
+
+          ## Catch and adjust in 3 cases:
+
           ## (1a) (prev = 1) & (sens = 0): Only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
           if ((prev == 1) && (cur.sens == 0)) {
 
@@ -779,14 +798,19 @@ comp_PV_matrix <- function(prev, sens, spec,
       ## (B) metric == NPV:
       if (metric == "NPV") {
 
-        ## (1) List cases in which NPV is NaN:
-        ## NPV is NaN if:
-        ##     (2a)  (prev = 1) & (sens = 1) OR
-        ##     (2b)  (prev = 1) & (sens = 0) OR
-        ##     (2c)  (sens = 1) & (spec = 0).
+        ## Beware of cases in which PPV or NPV are NaN:
 
-        if (nan.adjust) {
-          ## Catch 3 cases:
+        ## (2) NPV is NaN if:
+        ##     (a)  (prev = 1) & (sens = 1)
+        ##     (b)  (prev = 1) & (sens = 0)
+        ##     (c)  (sens = 1) & (spec = 0)
+
+        if (nan.adjust) {  ## Hack fix:
+
+          eps <- 10^-9    # some very small value
+
+          ## Catch and adjust in 3 cases:
+
           ## (2a) (prev = 1) & (sens = 1): NPV = 0/0 = NaN
           if ((prev == 1) && (cur.sens == 1)) {
 
