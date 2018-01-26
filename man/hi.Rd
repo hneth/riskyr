@@ -53,8 +53,10 @@ the following relationships hold:
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{is_freq}} verifies frequencies.
 
-Other frequencies: \code{\link{N}}, \code{\link{cr}},
-  \code{\link{fa}}, \code{\link{mi}}
+Other frequencies: \code{\link{N}},
+  \code{\link{cond.false}}, \code{\link{cond.true}},
+  \code{\link{cr}}, \code{\link{dec.neg}},
+  \code{\link{dec.pos}}, \code{\link{fa}}, \code{\link{mi}}
 
 Other essential parameters: \code{\link{cr}},
   \code{\link{fa}}, \code{\link{mi}}, \code{\link{prev}},

@@ -10,7 +10,7 @@ NPV
 }
 \description{
 \code{NPV} defines some decision's negative predictive value (NPV):
-The conditional probability of the condition being FALSE
+The conditional probability of the condition being \code{FALSE}
 provided that the decision is negative.
 }
 \details{

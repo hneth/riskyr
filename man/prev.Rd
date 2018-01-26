@@ -27,6 +27,14 @@ Understanding or obtaining the prevalence value \code{prev}:
 or the base rate (or baseline probability)
   of the condition's occurrence.
 
+\item In terms of frequencies,
+  \code{prev} is the ratio of
+  \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+  divided by \code{\link{N}} (i.e.,
+  \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+
+\code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+
 \item Perspective:
   \code{prev} classifies a population of \code{\link{N}} individuals
   by condition (\code{prev = cond.true/N}).
@@ -41,14 +49,6 @@ or the base rate (or baseline probability)
 
 \code{prev} is often distinguished from the \emph{incidence rate}
   (i.e., the rate of new cases within a certain time period).
-
-\item In terms of frequencies,
-  \code{prev} is the ratio of
-  \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
-  divided by \code{\link{N}} (i.e.,
-  \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
-
-\code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 
 \item Dependencies:
   \code{prev} is a feature of the population

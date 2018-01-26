@@ -55,10 +55,15 @@ comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
 \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 \code{\link{is_extreme_prob_set}} verifies extreme cases;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{prob}} contains current probability information.
+\code{\link{prob}} contains current probability information;
+\code{\link{is_prob}} verifies probabilities.
 
-Other functions computing probabilities: \code{\link{comp_complete_prob_set}},
+Other functions computing probabilities: \code{\link{comp_FDR}},
+  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
+  \code{\link{comp_PPV}},
+  \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
-  \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
+  \code{\link{comp_prob_comp}},
+  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
   \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

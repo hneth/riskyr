@@ -97,9 +97,12 @@ comp_prob(1,  1, 1,  1)  # => NAs and warning: is_complement not in tolerated ra
 \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-Other functions computing probabilities: \code{\link{comp_comp_pair}},
+Other functions computing probabilities: \code{\link{comp_FDR}},
+  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
+  \code{\link{comp_PPV}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
-  \code{\link{comp_prob_comp}}, \code{\link{comp_sens}},
+  \code{\link{comp_prob_comp}},
+  \code{\link{comp_prob_freq}}, \code{\link{comp_sens}},
   \code{\link{comp_spec}}
 }

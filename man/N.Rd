@@ -65,7 +65,7 @@ is_freq(N)  # => TRUE
 is_prob(N)  # => FALSE (as N is no probability)
 }
 \references{
-Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
+Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia: Statistical population} for additional information.
 }
 \seealso{
 \code{\link{is_freq}} verifies frequencies;
@@ -76,7 +76,9 @@ Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} f
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other frequencies: \code{\link{cr}}, \code{\link{fa}},
-  \code{\link{hi}}, \code{\link{mi}}
+Other frequencies: \code{\link{cond.false}},
+  \code{\link{cond.true}}, \code{\link{cr}},
+  \code{\link{dec.neg}}, \code{\link{dec.pos}},
+  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
 \keyword{datasets}

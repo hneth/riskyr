@@ -11,19 +11,25 @@ freq
 \description{
 \code{freq} is a list of named numeric variables
 containing 9 (natural) frequencies:
-\enumerate{
- \item the population size \code{\link{N}}
- \item the number of cases for which \code{cond.true}
- \item the number of cases for which \code{cond.false}
- \item the number of cases for which \code{dec.pos}
- \item the number of cases for which \code{dec.neg}
- \item the number true positives, or hits (\code{hi})
- \item the number false negatives, or misses (\code{mi})
- \item the number false positives, or false alarms (\code{fa})
- \item the number true negatives, or correct rejections (\code{cr})
-}
 }
 \details{
+\enumerate{
+
+\item the population size \code{\link{N}}
+
+\item the number of cases for which \code{\link{cond.true}}
+ \item the number of cases for which \code{\link{cond.false}}
+
+\item the number of cases for which \code{\link{dec.pos}}
+ \item the number of cases for which \code{\link{dec.neg}}
+
+\item the number true positives, or hits \code{\link{hi}}
+ \item the number false negatives, or misses \code{\link{mi}}
+ \item the number false positives, or false alarms \code{\link{fa}}
+ \item the number true negatives, or correct rejections \code{\link{cr}}
+
+}
+
 These frequencies are computed from basic probabilities
 (contained in \code{\link{num}}) and computed by using
 \code{\link{comp_freq}}.
@@ -47,12 +53,12 @@ in 2 different ways:
   \item by condition:
   The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
   and
-  the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+  the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{(1 - \link{prev})}.
 
 \item by decision:
   The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
   and
-  the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+  the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{(1 - \link{ppod})}.
 
 }
 
@@ -84,6 +90,7 @@ are provided by \code{\link{plot_tree}} and
 freq <- comp_freq()  # => initialize freq to default parameters
 freq                 # => show current values
 length(freq)         # => 9
+
 
 }
 \seealso{

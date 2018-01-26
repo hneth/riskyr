@@ -70,8 +70,11 @@ comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{num}} contains basic numeric variables.
 
-Other functions computing probabilities: \code{\link{comp_comp_pair}},
+Other functions computing probabilities: \code{\link{comp_FDR}},
+  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
+  \code{\link{comp_PPV}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
-  \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
+  \code{\link{comp_prob_comp}},
+  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
   \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

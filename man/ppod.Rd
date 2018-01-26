@@ -73,6 +73,7 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probability inputs.
 

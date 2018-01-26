@@ -7,10 +7,10 @@
 comp_fart(spec)
 }
 \arguments{
-\item{spec}{The decision's specificity value \code{\link{spec}}.}
+\item{spec}{The decision's specificity value \code{\link{spec}} as a probability.}
 }
 \value{
-The decision's false alarm rate \code{\link{fart}}.
+The decision's false alarm rate \code{\link{fart}} as a probability.
 }
 \description{
 \code{comp_fart} is a conversion function that takes a specificity \code{\link{spec}}
@@ -20,7 +20,7 @@ as its input, and returns the corresponding false alarm rate \code{\link{fart}}
 }
 \details{
 The false alarm rate \code{\link{fart}} and specificity \code{\link{spec}}
-are complements (\code{fart = 1 - spec}) and both features of
+are complements (\code{fart = (1 - spec)}) and both features of
 the decision process (e.g., a diagnostic test).
 
 The function \code{comp_fart} is complementary to the conversion function
@@ -37,11 +37,14 @@ comp_fart(comp_prob_comp(0.123))  # => 0.123
 \code{\link{comp_prob_comp}} computes a probability's complement;
 \code{\link{is_complement}} verifies probability complements;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{prob}} contains current probability information.
+\code{\link{prob}} contains current probability information;
+\code{\link{is_prob}} verifies probabilities.
 
-Other functions computing probabilities: \code{\link{comp_comp_pair}},
+Other functions computing probabilities: \code{\link{comp_FDR}},
+  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
+  \code{\link{comp_PPV}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
+  \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

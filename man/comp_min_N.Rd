@@ -61,5 +61,6 @@ population size \code{\link{N}};
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes frequencies from probabilities
 
-Other functions computing frequencies: \code{\link{comp_freq}}
+Other functions computing frequencies: \code{\link{comp_freq_freq}},
+  \code{\link{comp_freq}}, \code{\link{trans_prob}}
 }

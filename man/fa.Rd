@@ -58,7 +58,9 @@ Other essential parameters: \code{\link{cr}},
   \code{\link{hi}}, \code{\link{mi}}, \code{\link{prev}},
   \code{\link{sens}}, \code{\link{spec}}
 
-Other frequencies: \code{\link{N}}, \code{\link{cr}},
-  \code{\link{hi}}, \code{\link{mi}}
+Other frequencies: \code{\link{N}},
+  \code{\link{cond.false}}, \code{\link{cond.true}},
+  \code{\link{cr}}, \code{\link{dec.neg}},
+  \code{\link{dec.pos}}, \code{\link{hi}}, \code{\link{mi}}
 }
 \keyword{datasets}
