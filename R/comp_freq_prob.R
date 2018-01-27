@@ -48,9 +48,19 @@
 ##   - given:   N = hi, mi, fa, cr
 ##   - derived: all other values
 
+## -----------------------------------------------
+## 2 functions convert between formats:
+
+## a. comp_freq_prob: Computes freq from prob
+## b. comp_prob_freq: Computes prob from freq
+
+## -----------------------------------------------
+
 
 ## -----------------------------------------------
 ## ad (1) Probabilities ==> frequencies:
+## -----------------------------------------------
+
 
 ## -----------------------------------------------
 ## (1) Determine a suitable population size N:
@@ -89,7 +99,9 @@
 #' a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
 #' Default: \code{min.freq = 1}.
 #'
+#'
 #' @return An integer value \code{\link{N}} (as a power of 10).
+#'
 #'
 #' @examples
 #' comp_min_N(0, 0, 0)  # => 1

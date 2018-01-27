@@ -1,8 +1,12 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 26
+## 2018 01 27
 ## -----------------------------------------------
-## Compute probabilities from probabilities:
+## Compute other probabilities from probabilities:
 
+## Note: For computing ALL prob from 3 basic probabilities
+##       see comp_prob in file "init_num_prob.R".
+
+## -----------------------------------------------
 
 ## -----------------------------------------------
 ## Table of current terminology:
@@ -36,15 +40,26 @@
 
 
 ## -----------------------------------------------
-## Two basic directions:
+## Data flow: Two basic directions:
 
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
 
-## 2: Natural frequencies:
-## - given:   N = hi, mi, fa, cr
-## - derived: all other values
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
+
+## -----------------------------------------------
+## 2 functions convert between formats:
+
+## a. comp_freq_prob: Computes freq from prob
+## b. comp_prob_freq: Computes prob from freq
+
+## -----------------------------------------------
+
 
 ## -----------------------------------------------
 ## ad 1: Bayesian computations with probabilities:
@@ -61,7 +76,7 @@
 
 #' Compute a probability's complement probability.
 #'
-#' \code{comp_prob_comp} computes the
+#' \code{comp_complement} computes the
 #' probability complement of a
 #' given probability \code{prob}.
 #'
@@ -75,11 +90,11 @@
 #' (in range from 0 to 1).
 #'
 #' @examples
-#' comp_prob_comp(0)    # => 1
-#' comp_prob_comp(1)    # => 0
+#' comp_complement(0)    # => 1
+#' comp_complement(1)    # => 0
 #'
-#' comp_prob_comp(2)    # => NA + warning (beyond range)
-#' comp_prob_comp("p")  # => NA + warning (non-numeric)
+#' comp_complement(2)    # => NA + warning (beyond range)
+#' comp_complement("p")  # => NA + warning (non-numeric)
 #'
 #' @family functions computing probabilities
 #'
@@ -88,7 +103,7 @@
 #' \code{\link{comp_comp_pair}} returns a probability and its complement;
 #' \code{\link{is_prob}} verifies probabilities.
 
-comp_prob_comp <- function(prob) {
+comp_complement <- function(prob) {
 
   comp <- NA
 
@@ -101,11 +116,11 @@ comp_prob_comp <- function(prob) {
 
 ## Check:
 {
-  # comp_prob_comp(0)   # => 1
-  # comp_prob_comp(1)   # => 0
+  # comp_complement(0)   # => 1
+  # comp_complement(1)   # => 0
   #
-  # comp_prob_comp(2)   # => NA + warning (beyond range)
-  # comp_prob_comp("")  # => NA + warning (non-numeric)
+  # comp_complement(2)   # => NA + warning (beyond range)
+  # comp_complement("")  # => NA + warning (non-numeric)
 }
 
 ## -----------------------------------------------
@@ -124,7 +139,7 @@ comp_prob_comp <- function(prob) {
 #'
 #' The function \code{comp_mirt} is complementary to the conversion function
 #' \code{\link{comp_sens}} and uses the generic function
-#' \code{\link{comp_prob_comp}}.
+#' \code{\link{comp_complement}}.
 #'
 #' @param sens The decision's sensitivity \code{\link{sens}} as a probability.
 #'
@@ -133,12 +148,12 @@ comp_prob_comp <- function(prob) {
 #' @examples
 #' comp_mirt(2)                      # => NA + warning (beyond range)
 #' comp_mirt(1/3)                    # => 0.6666667
-#' comp_mirt(comp_prob_comp(0.123))  # => 0.123
+#' comp_mirt(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -146,7 +161,7 @@ comp_prob_comp <- function(prob) {
 
 comp_mirt <- function(sens) {
 
-  mirt <- comp_prob_comp(sens)  # use generic function
+  mirt <- comp_complement(sens)  # use generic function
 
   return(mirt)
 }
@@ -168,7 +183,7 @@ comp_mirt <- function(sens) {
 #'
 #' The function \code{comp_sens} is complementary to the conversion function
 #' \code{\link{comp_mirt}} and uses the generic function
-#' \code{\link{comp_prob_comp}}.
+#' \code{\link{comp_complement}}.
 #'
 #' @param mirt The decision's miss rate \code{\link{mirt}} as a probability.
 #'
@@ -177,12 +192,12 @@ comp_mirt <- function(sens) {
 #' @examples
 #' comp_sens(2)                      # => NA + warning (beyond range)
 #' comp_sens(1/3)                    # => 0.6666667
-#' comp_sens(comp_prob_comp(0.123))  # => 0.123
+#' comp_sens(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -190,7 +205,7 @@ comp_mirt <- function(sens) {
 
 comp_sens <- function(mirt) {
 
-  sens <- comp_prob_comp(mirt)  # use generic function
+  sens <- comp_complement(mirt)  # use generic function
 
   return(sens)
 }
@@ -211,7 +226,7 @@ comp_sens <- function(mirt) {
 #'
 #' The function \code{comp_fart} is complementary to the conversion function
 #' \code{\link{comp_spec}} and uses the generic function
-#' \code{\link{comp_prob_comp}}.
+#' \code{\link{comp_complement}}.
 #'
 #' @param spec The decision's specificity value \code{\link{spec}} as a probability.
 #'
@@ -220,12 +235,12 @@ comp_sens <- function(mirt) {
 #' @examples
 #' comp_fart(2)                      # => NA + warning (beyond range)
 #' comp_fart(1/3)                    # => 0.6666667
-#' comp_fart(comp_prob_comp(0.123))  # => 0.123
+#' comp_fart(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -233,7 +248,7 @@ comp_sens <- function(mirt) {
 
 comp_fart <- function(spec) {
 
-  fart <- comp_prob_comp(spec)  # use generic function
+  fart <- comp_complement(spec)  # use generic function
 
   return(fart)
 }
@@ -254,7 +269,7 @@ comp_fart <- function(spec) {
 #'
 #' The function \code{comp_spec} is complementary to the conversion function
 #' \code{\link{comp_fart}} and uses the generic function
-#' \code{\link{comp_prob_comp}}.
+#' \code{\link{comp_complement}}.
 #'
 #' @param fart The decision's false alarm rate \code{\link{fart}} as a probability.
 #'
@@ -263,12 +278,12 @@ comp_fart <- function(spec) {
 #' @examples
 #' comp_spec(2)                      # => NA + warning (beyond range)
 #' comp_spec(1/3)                    # => 0.6666667
-#' comp_spec(comp_prob_comp(0.123))  # => 0.123
+#' comp_spec(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -276,7 +291,7 @@ comp_fart <- function(spec) {
 
 comp_spec <- function(fart) {
 
-  spec <- comp_prob_comp(fart)  # use generic function
+  spec <- comp_complement(fart)  # use generic function
 
   return(spec)
 }
@@ -348,12 +363,12 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 
   } else if (!is.na(p1) & is.na(p2)) {  # 1: only p1 provided:
 
-    missing <- comp_prob_comp(p1)       #    - compute its comp
+    missing <- comp_complement(p1)       #    - compute its comp
     pair <- c(p1, missing)              #    - define pair (leaving input order intact)
 
   } else if (!is.na(p2) & is.na(p1)) {  # 2: only p2 is provided:
 
-    missing <- comp_prob_comp(p2)       #    - compute spec
+    missing <- comp_complement(p2)       #    - compute spec
     pair <- c(missing, p2)              #    - define pair (leaving input order intact)
 
   } else {                              # 3: both are provided
@@ -589,7 +604,7 @@ comp_ppod(0, 0, 0)  #  => 1
 #' @seealso
 #' \code{\link{comp_sens}} and \code{\link{comp_NPV}} compute related probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -683,7 +698,7 @@ comp_PPV <- function(prev, sens, spec) {
 #' @seealso
 #' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -720,7 +735,7 @@ comp_FDR_PPV <- function(PPV) {
 
   FDR <- NA  # initialize
 
-  FDR <- comp_prob_comp(PPV)  # FDR is the complement of PPV
+  FDR <- comp_complement(PPV)  # FDR is the complement of PPV
 
   return(FDR)
 }
@@ -777,7 +792,7 @@ comp_FDR_PPV <- function(PPV) {
 #' @seealso
 #' \code{\link{comp_spec}} and \code{\link{comp_PPV}} compute related probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -868,7 +883,7 @@ comp_NPV <- function(prev, sens, spec) {
 #' @seealso
 #' \code{\link{comp_spec}} and \code{\link{comp_NPV}} compute related probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{is_complement}} verifies probability complements;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -896,7 +911,7 @@ comp_FOR <- function(prev, sens, spec) {
 
   ## Alternative computation:
   # NPV <- comp_NPV(prev, sens, spec)
-  # FOR <- comp_prob_comp(NPV)   # FDR = 1 - NPV
+  # FOR <- comp_complement(NPV)   # FDR = 1 - NPV
 
   return(FOR)
 }
@@ -913,7 +928,7 @@ comp_FOR_NPV <- function(NPV) {
 
   FOR <- NA  # initialize
 
-  FOR <- comp_prob_comp(NPV)  # FOR is the complement of NPV
+  FOR <- comp_complement(NPV)  # FOR is the complement of NPV
 
   return(FOR)
 }
