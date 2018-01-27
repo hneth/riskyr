@@ -1,5 +1,5 @@
-## comp_popu.R | riskyR
-## 2018 01 25
+## comp_popu.R | riskyr
+## 2018 01 27
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
@@ -62,7 +62,7 @@ comp_popu <- function(
   hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, # 4 essential frequencies!
   ## text labels (from txt):
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl) {
 
@@ -97,7 +97,7 @@ comp_popu <- function(
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
                      levels = c(TRUE, FALSE),                 # also as Booleans, NOT: (-1, +1) or (0, 1)
-                     labels = c(dec.true.lbl, dec.false.lbl), # explicit labels: "pos" vs. "neg"
+                     labels = c(dec.pos.lbl, dec.neg.lbl), # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
   ## (c) SDT (status decision/truth):

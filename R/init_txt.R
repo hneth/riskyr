@@ -1,5 +1,5 @@
 ## init_txt.R | riskyR
-## 2018 01 21
+## 2018 01 27
 ## -----------------------------------------------
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
@@ -21,8 +21,8 @@ txt.def <- list(
 
   ## (b) Decision/prediction/predicted condition:
   dec.lbl = "Decision",                # "Prediction", "Diagnostic decision", "Mammography", "HIV test"
-  dec.true.lbl  = "Decision positive", # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
-  dec.false.lbl = "Decision negative", # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
+  dec.pos.lbl  = "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
+  dec.neg.lbl = "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
   ## (c) Labels for the 4 SDT cases (combinations):
   sdt.hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
@@ -45,7 +45,7 @@ txt.def <- list(
 #'
 #' All textual elements that specify titles and details of the current scenario
 #' are stored as named elements (of type character) in a list \code{txt}.
-#' \code{init_txt} allows changing elements by assigning new character
+#' \code{\link{init_txt}} allows changing elements by assigning new character
 #' objects to existing names.
 #'
 #' @param scen.lbl The current scenario title (sometimes in Title Caps).
@@ -53,24 +53,28 @@ txt.def <- list(
 #' (which may extend over several lines).
 #' @param scen.src The source information for the current scenario.
 #'
-#' @param popu.lbl A brief description of the current target population or sample.
+#' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
 #' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true.lbl A label for the \emph{presence} of the current condition (the condition's true state of TRUE).
-#' @param cond.false.lbl A label for the \emph{absence} of the current condition (the condition's true state of FALSE).
+#' @param cond.true.lbl A label for the \emph{presence} of the current condition
+#' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
+#' @param cond.false.lbl A label for the \emph{absence} of the current condition
+#' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 #'
 #' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.true.lbl A label for a \emph{positive} decision (e.g., predicting the presence of the condition).
-#' @param dec.false.lbl A label for a \emph{negative} decision (e.g., predicting the absence of the condition).
+#' @param dec.pos.lbl A label for \emph{positive} decisions
+#' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
+#' @param dec.neg.lbl A label for \emph{negative} decisions
+#' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} (i.e., a correct decision
-#' of the presence of the condition, when the condition is actually present).
-#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} (i.e., an incorrect decision
-#' of the absence of the condition when the condition is actually present).
-#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} (i.e., an incorrect decision
-#' of the presence of the condition when the condition is actually absent).
-#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} (i.e., a correct decision
-#' of the absence of the condition, when the condition is actually absent).
+#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
+#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
+#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
+#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' @examples
 #' init_txt()          # => define and return a list of (default) text elements
@@ -93,9 +97,9 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      cond.true.lbl  = txt.def$cond.true.lbl,   # Condition true
                      cond.false.lbl = txt.def$cond.false.lbl,  # Condition false
                      ## (b) Decision/prediction/predicted condition:
-                     dec.lbl = txt.def$dec.lbl,              # Decision
-                     dec.true.lbl  = txt.def$dec.true.lbl,   # "Decision positive"
-                     dec.false.lbl = txt.def$dec.false.lbl,  # "Decision negative"
+                     dec.lbl = txt.def$dec.lbl,                # Decision
+                     dec.pos.lbl  = txt.def$dec.pos.lbl,       # "Decision positive"
+                     dec.neg.lbl = txt.def$dec.neg.lbl,        # "Decision negative"
                      ## (c) Labels for the 4 SDT cases (combinations):
                      sdt.hi.lbl = txt.def$sdt.hi.lbl,  # hits               = "True positive"
                      sdt.mi.lbl = txt.def$sdt.mi.lbl,  # misses             = "False negative"
@@ -119,8 +123,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
     cond.false.lbl = cond.false.lbl,
     ## (b) Decision/prediction/predicted condition:
     dec.lbl = dec.lbl,
-    dec.true.lbl  = dec.true.lbl,
-    dec.false.lbl = dec.false.lbl,
+    dec.pos.lbl = dec.pos.lbl,
+    dec.neg.lbl = dec.neg.lbl,
     ## (c) Labels for the 4 SDT cases (combinations):
     sdt.hi.lbl = sdt.hi.lbl,
     sdt.mi.lbl = sdt.mi.lbl,
@@ -159,24 +163,28 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' (which may extend over several lines).
 #' @param scen.src The source information for the current scenario.
 #'
-#' @param popu.lbl A brief description of the current target population or sample.
+#' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
 #' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true.lbl A label for the \emph{presence} of the current condition (the condition's true state of TRUE).
-#' @param cond.false.lbl A label for the \emph{absence} of the current condition (the condition's true state of FALSE).
+#' @param cond.true.lbl A label for the \emph{presence} of the current condition
+#' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
+#' @param cond.false.lbl A label for the \emph{absence} of the current condition
+#' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 #'
 #' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.true.lbl A label for a \emph{positive} decision (e.g., predicting the presence of the condition).
-#' @param dec.false.lbl A label for a \emph{negative} decision (e.g., predicting the absence of the condition).
+#' @param dec.pos.lbl A label for \emph{positive} decisions
+#' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
+#' @param dec.neg.lbl A label for \emph{negative} decisions
+#' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} (i.e., a correct decision
-#' of the presence of the condition, when the condition is actually present).
-#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} (i.e., an incorrect decision
-#' of the absence of the condition when the condition is actually present).
-#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} (i.e., an incorrect decision
-#' of the presence of the condition when the condition is actually absent).
-#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} (i.e., a correct decision
-#' of the absence of the condition, when the condition is actually absent).
+#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
+#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
+#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
+#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' @examples
 #' txt           # => show  all current names and elements
