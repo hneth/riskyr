@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_freq_freq.R
 \name{comp_freq_freq}
 \alias{comp_freq_freq}
-\title{Compute full set of frequencies from essential frequencies.}
+\title{Compute frequencies from (4 essential) frequencies.}
 \usage{
 comp_freq_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
 }
@@ -15,17 +15,96 @@ comp_freq_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
 
 \item{cr}{The number true negatives, or correct rejections \code{\link{cr}}}
 
-\item{N}{The population size \code{\link{N}} (not used yet, use for scaling to new population sizes)}
+\item{N.new}{A new population size \code{\link{N}}
+(not used yet, but could be used for scaling to new population sizes)}
 }
 \description{
-\code{comp_freq_freq} computes all frequencies
-contained in \code{\link{freq}} from 4 essential frequencies
+\code{comp_freq_freq} computes current frequency information
+from 4 essential frequencies
 (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+It returns a list of 9 frequencies \code{\link{freq}}
+for a population of \code{\link{N}} individuals
+as its output.
 }
 \details{
-\code{comp_freq_freq} is an analog to \code{\link{comp_prob_freq}}
-that computes all \emph{probabilities} contained in \code{\link{prob}}
-from the same 4 essential frequencies.
+Key relationships:
+
+\itemize{
+
+\item Other functions translating between representational formats:
+
+\enumerate{
+
+\item \code{comp_freq_freq} (defined here) is
+   an analog to 3 other format conversion functions:
+
+\item \code{\link{comp_freq_prob}} computes
+   current \emph{frequency} information contained in \code{\link{freq}}
+   from 3 essential probabilities
+   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
+
+\item \code{\link{comp_prob_freq}} computes
+   current \emph{probability} information contained in \code{\link{prob}}
+   from 4 essential frequencies
+   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+
+\item \code{\link{comp_prob_prob}} computes
+   current \emph{probability} information contained in \code{\link{prob}}
+   from 3 essential probabilities
+   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
+
+}
+
+\item Two perspectives:
+
+A population of \code{\link{N}} individuals can be split into 2 subsets
+in 2 different ways:
+
+\enumerate{
+
+\item by condition:
+
+The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+   and
+   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+
+\item by decision:
+
+The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+   and
+   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+
+}
+
+The population size \code{\link{N}} is a free parameter (independent of the
+essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+
+If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+
+\item Combinations of frequencies:
+
+In a population of size \code{\link{N}} the following relationships hold:
+
+\enumerate{
+
+\item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
+
+\item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
+
+\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+
+}
+
+The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
+  (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
+  in 2 different ways.
+
+
+
+\item Defining probabilities in terms of frequencies:
+
+Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+Thus, they can be computed as ratios between frequencies.
 
 The following relationships hold (and are used in computations):
 
@@ -75,6 +154,7 @@ The following relationships hold (and are used in computations):
 
 }
 }
+}
 \examples{
 ## Basics:
 comp_freq_freq()
@@ -102,7 +182,9 @@ all.equal(freq, freq_freq)  # => should be TRUE!
 
 }
 \seealso{
-\code{\link{comp_prob_freq}} computes full probability information from essential frequencies;
+\code{\link{comp_freq_prob}} computes current frequency information from (3 essential) probabilities;
+\code{\link{comp_prob_freq}} computes current probability information from (4 essential) frequencies;
+\code{\link{comp_prob_prob}} computes current probability information from (3 essential) probabilities;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{prob}} contains current probability information;
@@ -112,6 +194,11 @@ all.equal(freq, freq_freq)  # => should be TRUE!
 \code{\link{is_prob}} verifies probability inputs;
 \code{\link{is_freq}} verifies frequency inputs.
 
-Other functions computing frequencies: \code{\link{comp_freq}},
-  \code{\link{comp_min_N}}, \code{\link{trans_prob}}
+Other functions computing frequencies: \code{\link{comp_freq_prob}},
+  \code{\link{comp_freq}}, \code{\link{comp_min_N}},
+  \code{\link{comp_prob_prob}}
+
+Other format conversion functions: \code{\link{comp_freq_prob}},
+  \code{\link{comp_prob_freq}},
+  \code{\link{comp_prob_prob}}
 }

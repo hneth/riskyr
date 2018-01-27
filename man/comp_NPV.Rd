@@ -52,7 +52,7 @@ is_extreme_prob_set(.5, sens = 1, spec = 0)   # => verifies extreme cases
 \seealso{
 \code{\link{comp_spec}} and \code{\link{comp_PPV}} compute related probabilities;
 \code{\link{is_extreme_prob_set}} verifies extreme cases;
-\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_complement}} computes a probability's complement;
 \code{\link{is_complement}} verifies probability complements;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{prob}} contains current probability information;
@@ -61,9 +61,9 @@ is_extreme_prob_set(.5, sens = 1, spec = 0)   # => verifies extreme cases
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_PPV}},
   \code{\link{comp_comp_pair}},
+  \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
-  \code{\link{comp_prob_comp}},
   \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
   \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

@@ -59,11 +59,13 @@ rounded to the nearest integer. Default: \code{round = TRUE}.}
 Nothing (NULL).
 }
 \description{
-\code{plot_tree} computes and visualizes a tree diagram of
-natural frequencies (typically rounded integers) given a set of
-probabilities (\code{\link{prev}}, and
+\code{plot_tree} draws a tree diagram of
+frequencies (as nodes) and probabilities (as edges)
+from a sufficient and valid set of 3 essential probabilities
+(\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}})
+or existing frequency information \code{\link{freq}}
 and a population size of \code{\link{N}} individuals.
 }
 \details{

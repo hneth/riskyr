@@ -11,8 +11,8 @@ is_complement(p1, p2, tol = 0.01)
 
 \item{p2}{A numeric argument (typically probability in range from 0 to 1).}
 
-\item{tol}{A numeric tolerance value;
-default: \code{tol = .01}.}
+\item{tol}{A numeric tolerance value.
+Default: \code{tol = .01}.}
 }
 \value{
 \code{NA} or a Boolean value:
@@ -40,7 +40,11 @@ of the inputs provided. See \code{\link{is_prob}} and
 \code{\link{is_suff_prob_set}} for this purpose.
 }
 \examples{
-# ways to succeed:
+# Basics:
+is_complement(0, 1)           # => TRUE
+is_complement(1/3, 2/3)       # => TRUE
+is_complement(.33, .66)       # => TRUE  (as within default tol = .01)
+is_complement(.33, .65)       # => FALSE (as beyond default tol = .01)
 
 # watch out for:
 is_complement(NA, NA)            # => NA (but not FALSE)
@@ -55,9 +59,10 @@ is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
 is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
 is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
 
+
 }
 \seealso{
-\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_complement}} computes a probability's complement;
 \code{\link{comp_comp_pair}} computes pairs of complements;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;

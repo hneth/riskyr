@@ -4,6 +4,7 @@
 \name{fa}
 \alias{fa}
 \alias{FP}
+\alias{type-I-errors}
 \title{Frequency of false alarms or false positives (FP).}
 \format{An object of class \code{numeric} of length 1.}
 \usage{

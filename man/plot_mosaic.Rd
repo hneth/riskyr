@@ -8,7 +8,7 @@ plot_mosaic(pop = popu, vsplit = TRUE, title.lbl = txt$scen.lbl,
   col.sdt = pal[4:7])
 }
 \description{
-\code{plot_mosaic} visualizes a mosaic plot that
+\code{plot_mosaic} draws a mosaic plot that
 represents the proportions of frequencies in the current
 population \code{\link{popu}} as relatives sizes of
 rectangular areas.
