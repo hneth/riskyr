@@ -20,7 +20,7 @@
 
 #' Plot a mosaic plot of population frequencies.
 #'
-#' \code{plot_mosaic} visualizes a mosaic plot that
+#' \code{plot_mosaic} draws a mosaic plot that
 #' represents the proportions of frequencies in the current
 #' population \code{\link{popu}} as relatives sizes of
 #' rectangular areas.
@@ -49,7 +49,7 @@ plot_mosaic <- function(pop = popu,
                         vsplit = TRUE, # option: toggle vertical vs. horizontal split in plot
                         title.lbl = txt$scen.lbl,
                         col.sdt = pal[4:7]
-) {
+                        ) {
 
   ## Get probabilities from global numeric parameters (num):
   prev <- num$prev

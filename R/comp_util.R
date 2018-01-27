@@ -1,5 +1,5 @@
 ## comp_util.R | riskyR
-## 2018 01 26
+## 2018 01 27
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -464,8 +464,9 @@ is_suff_prob_set <- function(prev,
 
 #' @param p2 A numeric argument (typically probability in range from 0 to 1).
 #'
-#' @param tol A numeric tolerance value;
-#' default: \code{tol = .01}.
+#' @param tol A numeric tolerance value.
+#' Default: \code{tol = .01}.
+#'
 #'
 #' @return \code{NA} or a Boolean value:
 #' \code{NA} if one or both arguments are \code{NA};
@@ -473,11 +474,13 @@ is_suff_prob_set <- function(prev,
 #' and complements (in \code{tol} range);
 #' otherwise \code{FALSE}.
 #'
+#'
 #' @examples
-#' # ways to succeed:
-# is_complement(0, 1)           # => TRUE
-# is_complement(1/3, 2/3)       # => TRUE
-# is_complement(.33, .66)       # => TRUE
+#' # Basics:
+#' is_complement(0, 1)           # => TRUE
+#' is_complement(1/3, 2/3)       # => TRUE
+#' is_complement(.33, .66)       # => TRUE  (as within default tol = .01)
+#' is_complement(.33, .65)       # => FALSE (as beyond default tol = .01)
 #'
 #' # watch out for:
 #' is_complement(NA, NA)            # => NA (but not FALSE)
@@ -492,10 +495,12 @@ is_suff_prob_set <- function(prev,
 #' is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
 #' is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
 #'
+#'
 #' @family verification functions
 #'
+#'
 #' @seealso
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
@@ -1197,7 +1202,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 
 ## Probability as percentage (2 decimals):
@@ -1281,7 +1286,7 @@ as_pc <- function(prob, n.digits = 2) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 
 as_pb <- function(perc, n.digits = 4) {

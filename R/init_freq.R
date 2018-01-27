@@ -1,5 +1,5 @@
 ## init_freq.R | riskyR
-## 2018 01 26
+## 2018 01 27
 ## -----------------------------------------------
 ## Define and initialize ALL frequencies
 ## -----------------------------------------------
@@ -166,7 +166,8 @@ N <- 0  # default population size N
 #'    }
 #' }
 #'
-#' @aliases TP
+#' @aliases
+#' TP
 #'
 #' @family frequencies
 #' @family essential parameters
@@ -220,7 +221,8 @@ hi <- 0  # default hits (TP)
 #'    }
 #' }
 #'
-#' @aliases FN
+#' @aliases
+#' FN
 #' type-II-errors
 #'
 #' @family essential parameters
@@ -275,7 +277,9 @@ mi <- 0  # default misses (FN)
 #'    }
 #' }
 #'
-#' @aliases FP
+#' @aliases
+#' FP
+#' type-I-errors
 #'
 #' @family essential parameters
 #' @family frequencies

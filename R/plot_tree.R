@@ -31,11 +31,13 @@
 
 #' Plot a tree diagram of natural frequencies.
 #'
-#' \code{plot_tree} computes and visualizes a tree diagram of
-#' natural frequencies (typically rounded integers) given a set of
-#' probabilities (\code{\link{prev}}, and
+#' \code{plot_tree} draws a tree diagram of
+#' frequencies (as nodes) and probabilities (as edges)
+#' from a sufficient and valid set of 3 essential probabilities
+#' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}})
+#' or existing frequency information \code{\link{freq}}
 #' and a population size of \code{\link{N}} individuals.
 #'
 #' The option \code{area} (as 2 characters) allows specifying
@@ -172,8 +174,11 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0 # [allow using shadows]
                       ){
 
-  ## (1) Compute or collect current frequencies:
-  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) { # provided probabilities are valid:
+
+  ## (1) Compute or collect all current frequencies:
+
+  ## (A) If a valid set of probabilities was provided:
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
     ## (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
@@ -195,9 +200,9 @@ plot_tree <- function(prev = num$prev,             # probabilities
     n.fa <- cur.freq$fa
     n.cr <- cur.freq$cr
 
-  } else { # NO valid set of probabilities provided:
+  } else { # (B) NO valid set of probabilities was provided:
 
-    ## (b) Plot current values of freq:
+    ## Use the current values of freq:
     N <- freq$N
     n.true  <- freq$cond.true
     n.true  <- freq$cond.true

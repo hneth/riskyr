@@ -57,6 +57,30 @@ and provide a variety of _perspectives_ on (and representations of) the _consequ
 A _library of scenarios_ illustrates example cases with known data from the literature.
 
 
+## Features
+
+### Ontology 
+
+The `riskyr` universe describes the interplay between a total of 10 probabilities (3 of which are essential) 
+and 9 frequencies (4 of which are essential). 
+
+### Two perspectives
+
+Classification results can be viewed from two perspectives, 
+which correspond to two possible ways to split a population of `N` indivduals into subsets:
+
+1. By _condition_: `TRUE` vs. `FALSE`, then by _decision_: `hi`, `mi`, `fa`, `cr`
+
+2. By _decision_: `pos` vs. `neg`, then by _condition_: `hi`, `mi`, `fa`, `cr`
+
+
+### Translating between representational formats
+
+A scenario is represented both in terms of probabilities and in terms of frequencies. 
+
+A set of conversion functions allow switching back and forth between both formats (i.e., compute frequencies from probabilities and probabilities from frequencies). 
+
+
 
 
 ## Package and Application
@@ -74,15 +98,9 @@ The combination of package and application facilitates risk communication and su
 
 Things to implement in the near future:
 
-- Restructure to define 5 basic vs. 4 derived probabilities, 9 basic frequencies, initialize `num`, 9 probabilities in `probs`, and 9 frequencies in `freq`.
+- Enhanced tree function (to include `by decision` perspective) and all 10 probabilities (as edges).
 
-- Miss rate `mirt` (as a complement to `sens`), to complete the quadruple of probabilities (yielding the 4 SDT cases or leaves of natural frequency tree).
-
-- `hi`, `mi`, `fa`, `rt` as 4 basic frequencies (corresponding to rates).
-
-- functions that compute all basic probabilities (`prev`, `sens`, `spec`, `fart`, and `mirt`) from 4 basic frequencies (in `freq`)
-
-- All metrics (accuracy, etc.) on 2x2 confusion table
+- Derived metrics (accuracy, etc.) of the 2x2 confusion table
 
 
 ## About

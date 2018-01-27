@@ -1,12 +1,13 @@
 ## init_num_prob.R | riskyR
-## 2018 01 25
+## 2018 01 27
 ## -----------------------------------------------
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
 
 ## -----------------------------------------------
-## Table of current terminology:
 
+## -----------------------------------------------
+## Table of current terminology:
 
 # Probabilities (10):               Frequencies (9):
 # -------------------               ------------------
@@ -35,19 +36,22 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
-## -----------------------------------------------
-## Two basic directions:
-
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
-
-## 2: Natural frequencies:
-## - given:   N = hi, mi, fa, cr
-## - derived: all other values
 
 ## -----------------------------------------------
+## Data flow: Two basic directions:
 
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
+
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
+
+
+## -----------------------------------------------
 
 ## -----------------------------------------------
 ## (1) Initialize prob as a list (of NA values)
@@ -94,23 +98,29 @@ init_prob <- function() {
 ##     as functions of prev, sens, and spec (using Bayes):
 
 
-#' Compute derived probabilities from basic probabilities.
+#' Compute probabilities from (3 essential) probabilities.
 #'
-#' \code{comp_prob} is a function that computes derived probabilities
-#' (typically conditional probabilities) from basic probabilities --
-#' \code{\link{prev}} and \code{\link{sens}}, and
-#' \code{\link{spec}} or \code{\link{fart}} (\code{spec = 1 - fart}).
+#' \code{comp_prob} computes current probability information
+#' from 3 essential probabilities
+#' (\code{\link{prev}},
+#' \code{\link{sens}} or \code{\link{mirt}},
+#' \code{\link{spec}} or \code{\link{fart}}).
+#' It returns a list of 10 probabilities \code{\link{prob}}
+#' as its output.
 #'
-#' By default, \code{comp_prob} assumes that sufficient
-#' basic probabilities (e.g., \code{\link{prev}}, \code{\link{sens}},
-#' and either \code{\link{spec}} or \code{\link{fart}}) are provided
-#' as inputs and then computes and returns derived probabilities (e.g., the
-#' predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
+#' \code{comp_prob} assumes that a sufficient and
+#' consistent set of essential probabilities
+#' (i.e., \code{\link{prev}} and
+#' either \code{\link{sens}} or its complement \code{\link{mirt}}, and
+#' either \code{\link{spec}} or its complement \code{\link{fart}})
+#' is provided.
+#'
+#' \code{comp_prob} computes and returns a full set of basic and
+#' various derived probabilities (e.g.,
+#' the probability of a positive decision \code{\link{ppod}},
+#' the predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
 #' as their complements \code{\link{FDR}} and \code{\link{FOR}})
-#' as its output (a list of probabilities \code{\link{prob}}).
-#'
-#' \code{comp_prob} is the probability counterpart to the
-#' frequency function \code{\link{comp_freq}}.
+#' in its output of a list \code{\link{prob}}.
 #'
 #' Extreme probabilities (sets containing two or more
 #' probabilities of 0 or 1) may yield unexpected values
@@ -118,8 +128,150 @@ init_prob <- function() {
 #' turning \code{NaN} when \code{\link{is_extreme}}
 #' evaluates to \code{TRUE}).
 #'
+#' \code{comp_prob} is the probability counterpart to the
+#' frequency function \code{\link{comp_freq}}.
+#'
+#' Key relationships:
+#'
+#' \itemize{
+#'
+#' \item Other functions translating between representational formats:
+#'
+#'    \enumerate{
+#'
+#'    \item \code{comp_prob_prob} (defined here) is
+#'    a wrapper function for \code{\link{comp_prob}} and
+#'    an analog to 3 other format conversion functions:
+#'
+#'    \item \code{\link{comp_prob_freq}} computes
+#'    current \emph{probability} information contained in \code{\link{prob}}
+#'    from 4 essential frequencies
+#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+#'
+#'    \item \code{\link{comp_freq_prob}} computes
+#'    current \emph{frequency} information contained in \code{\link{freq}}
+#'    from 3 essential probabilities
+#'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
+#'
+#'    \item \code{\link{comp_freq_freq}} computes
+#'    current \emph{frequency} information contained in \code{\link{freq}}
+#'    from 4 essential frequencies
+#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+#'
+#'    }
+#'
+#' \item Two perspectives:
+#'
+#' A population of \code{\link{N}} individuals can be split into 2 subsets
+#' in 2 different ways:
+#'
+#'    \enumerate{
+#'
+#'    \item by condition:
+#'
+#'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'    and
+#'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'
+#'    \item by decision:
+#'
+#'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'    and
+#'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'
+#'    }
+#'
+#' The population size \code{\link{N}} is a free parameter (independent of the
+#' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+#'
+#' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#'
+#'
+#' \item Combinations of frequencies:
+#'
+#'    In a population of size \code{\link{N}} the following relationships hold:
+#'
+#'    \enumerate{
+#'
+#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
+#'
+#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
+#'
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'
+#'    }
+#'
+#'   The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
+#'   (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
+#'   in 2 different ways.
+#'
+#'
+#' \item Defining probabilities in terms of frequencies:
+#'
+#' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+#' Thus, they can be computed as ratios between frequencies:
+#'
+#'   \enumerate{
+#'
+#'   \item prevalence \code{\link{prev}}:
+#'
+#'   \code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
+#'
+#'   \item sensitivity \code{\link{sens}}:
+#'
+#'   \code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
+#'
+#'
+#'   \item miss rate \code{\link{mirt}}:
+#'
+#'   \code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
+#'
+#'
+#'   \item specificity \code{\link{spec}}:
+#'
+#'   \code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
+#'
+#'
+#'   \item false alarm rate \code{\link{fart}}:
+#'
+#'   \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
+#'
+#'
+#'
+#'   \item proportion of positive decisions \code{\link{ppod}}:
+#'
+#'   \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
+#'
+#'   \item positive predictive value \code{\link{PPV}}:
+#'
+#'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
+#'
+#'
+#'   \item negative predictive value \code{\link{NPV}}:
+#'
+#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+#'
+#'
+#'   \item false detection rate \code{\link{FDR}}:
+#'
+#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+#'
+#'
+#'   \item false omission rate \code{\link{FOR}}:
+#'
+#'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
+#'
+#'    }
+#'
+#' }
+#'
+#'
+#'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#'
 #'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
@@ -131,6 +283,7 @@ init_prob <- function() {
 #' provided that the condition is \code{TRUE}).
 #' \code{mirt} is optional when its complement \code{\link{sens}} is provided.
 #'
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
@@ -141,13 +294,16 @@ init_prob <- function() {
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
-#' @return A list \code{\link{prob}} containing 8 probability values.
+#'
+#' @return A list \code{\link{prob}} containing 10 probability values.
+#'
 #'
 #' @examples
+#' # Basics:
 #' comp_prob()             # => ok, using current defaults
 #' length(comp_prob())     # => 8
 #'
-#' # Ways to succeed:
+#' # Ways to work:
 #' comp_prob(.999, 1, 1)   # => ok
 #' comp_prob(1, .999, 1)   # => ok
 #'
@@ -170,6 +326,7 @@ init_prob <- function() {
 #' comp_prob(1,  1, 1,  1)  # => NAs and warning: is_complement not in tolerated range
 #'
 #' @family functions computing probabilities
+#' @family format conversion functions
 #'
 #' @seealso
 #' \code{\link{prob}} contains current probability information;

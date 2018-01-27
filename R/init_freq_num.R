@@ -1,5 +1,5 @@
-## init_num_freq.R | riskyr
-## 2018 01 26
+## init_freq_num.R | riskyr
+## 2018 01 27
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -90,7 +90,7 @@ init_freq <- function() {
 ## -----------------------------------------------
 ## (2) Compute 9 frequencies from 3 essential probabilities:
 
-#' Compute frequencies from basic probabilities.
+#' Compute frequencies from (3 essential) probabilities.
 #'
 #' \code{comp_freq} computes frequencies (typically
 #' as rounded integers) given 3 basic probabilities --
@@ -102,9 +102,13 @@ init_freq <- function() {
 #' In addition to \code{\link{prev}}, both
 #' \code{\link{sens}} and \code{\link{spec}} are necessary arguments.
 #' If only their complements \code{\link{mirt}} or \code{\link{fart}}
-#' are known, first use \code{\link{comp_prob_comp}},
+#' are known, use the wrapper function \code{\link{comp_freq_prob}}
+#' which also accepts \code{\link{mirt}} and \code{\link{fart}} as inputs
+#' (but requires that the entire set of provided probabilities is
+#' sufficient and consistent).
+#' Alternatively, use \code{\link{comp_complement}},
 #' \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
-#' to obtain all necessary arguments.
+#' to obtain the 3 essential probabilities.
 #'
 #' \code{comp_freq} is the frequency counterpart to the
 #' probability function \code{\link{comp_prob}}.
@@ -166,6 +170,7 @@ init_freq <- function() {
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
+#'
 #' @param N The number of individuals in the population.
 #' If \code{\link{N}} is unknown (\code{NA}),
 #' a suitable minimum value is computed by \code{\link{comp_min_N}}.
@@ -210,13 +215,13 @@ init_freq <- function() {
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
 
-comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (removed: fart = num$fart, )
+comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
                       N = num$N,
                       round = TRUE) {
 
