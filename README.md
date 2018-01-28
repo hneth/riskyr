@@ -118,7 +118,7 @@ In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
 `riskyr`: A toolbox for rendering risk literacy more transparent [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.908)
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.910)
 
 As BibTeX reference: 
 
@@ -126,6 +126,6 @@ As BibTeX reference:
       title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.908},
+      note = {R package version 0.0.0.910},
       url = {https://github.com/hneth/riskyr}
     }

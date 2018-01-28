@@ -23,7 +23,8 @@ Imports:
 Suggests:
     devtools,
     knitr,
-    roxygen2
+    roxygen2,
+    rmarkdown
 Collate: 'comp_util.R'
          'init_txt.R'
          'init_pal.R'

@@ -487,15 +487,15 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #'  \item the decision's negative predictive value \code{\link{NPV}}
 #' (i.e., the conditional probability of the condition being \code{FALSE}
-#' provided that the decision is negative)
+#' provided that the decision is negative).
 #'
 #'  \item the decision's false discovery or false detection rate \code{\link{FDR}}
 #' (i.e., the conditional probability of the condition being \code{FALSE}
-#' provided that the decision is positive)
+#' provided that the decision is positive).
 #'
 #'  \item the decision's false omission rate \code{\link{FOR}}
 #' (i.e., the conditional probability of the condition being \code{TRUE}
-#' provided that the decision is negative)
+#' provided that the decision is negative).
 #'
 #' }
 #'

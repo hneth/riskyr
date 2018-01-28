@@ -333,7 +333,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' List current frequency information.
 #'
 #' \code{freq} is a list of named numeric variables
-#' containing 9 (natural) frequencies:
+#' containing 9 frequencies:
 #'
 #' \enumerate{
 #'
@@ -345,14 +345,14 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'  \item the number of cases for which \code{\link{dec.pos}}
 #'  \item the number of cases for which \code{\link{dec.neg}}
 #'
-#'  \item the number true positives, or hits \code{\link{hi}}
-#'  \item the number false negatives, or misses \code{\link{mi}}
-#'  \item the number false positives, or false alarms \code{\link{fa}}
-#'  \item the number true negatives, or correct rejections \code{\link{cr}}
+#'  \item the number of true positives, or hits \code{\link{hi}}
+#'  \item the number of false negatives, or misses \code{\link{mi}}
+#'  \item the number of false positives, or false alarms \code{\link{fa}}
+#'  \item the number of true negatives, or correct rejections \code{\link{cr}}
 #'
 #' }
 #'
-#' These frequencies are computed from basic probabilities
+#' These frequencies are computed from basic parameters
 #' (contained in \code{\link{num}}) and computed by using
 #' \code{\link{comp_freq}}.
 #'
