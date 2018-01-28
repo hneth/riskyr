@@ -6,7 +6,7 @@
 \usage{
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl)
 }

@@ -5,33 +5,38 @@
 \title{Initialize basic color information.}
 \usage{
 init_pal(col.N = pal.def["N"], col.true = pal.def["true"],
-  col.false = pal.def["false"], col.hi = pal.def["hi"],
+  col.false = pal.def["false"], col.pos = pal.def["pos"],
+  col.neg = pal.def["neg"], col.hi = pal.def["hi"],
   col.mi = pal.def["mi"], col.fa = pal.def["fa"], col.cr = pal.def["cr"],
   col.ppv = pal.def["ppv"], col.npv = pal.def["npv"])
 }
 \arguments{
-\item{col.N}{Color representing the \emph{population} (of N cases or individuals).}
+\item{col.N}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}
 
-\item{col.true}{Color representing cases for which the current condition is \code{TRUE}.}
+\item{col.true}{Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.}
 
-\item{col.false}{Color representing cases for which the current condition is \code{FALSE}.}
+\item{col.false}{Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.}
 
-\item{col.hi}{Color representing \emph{hits} or true positives
+\item{col.pos}{Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.}
+
+\item{col.neg}{Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.}
+
+\item{col.hi}{Color representing \emph{hits} or true positives in \code{\link{hi}}
 (i.e., correct cases for which the current condition is TRUE and the decision is positive).}
 
-\item{col.mi}{Color representing \emph{misses} or false negatives
+\item{col.mi}{Color representing \emph{misses} or false negatives in \code{\link{mi}}
 (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).}
 
-\item{col.fa}{Color representing \emph{false alarms} or false positives
+\item{col.fa}{Color representing \emph{false alarms} or false positives in \code{\link{fa}}
 (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).}
 
-\item{col.cr}{Color representing \emph{correct rejections} or true negatives
+\item{col.cr}{Color representing \emph{correct rejections} or true negatives in \code{\link{cr}}
 (i.e., correct cases for which the current condition is FALSE and the decision is negative).}
 
-\item{col.ppv}{Color representing \emph{positive predictive values} (i.e., the conditional probability that
+\item{col.ppv}{Color representing \emph{positive predictive values} \code{\link{PPV}} (i.e., the conditional probability that
 the condition is TRUE, provided that the decision is positive).}
 
-\item{col.npv}{Color representing \emph{negative predictive values} (i.e., the conditional probability that
+\item{col.npv}{Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 the condition is FALSE, provided that the decision is negative).}
 }
 \description{
@@ -47,7 +52,7 @@ new colors to existing names.
 }
 \examples{
 init_pal()          # => define and return a vector of current (default) colors
-length(init_pal())  # => 9
+length(init_pal())  # => 11 colors
 pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
 
 }

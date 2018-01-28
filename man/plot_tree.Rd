@@ -2,17 +2,17 @@
 % Please edit documentation in R/plot_tree.R
 \name{plot_tree}
 \alias{plot_tree}
-\title{Plot a tree diagram of natural frequencies.}
+\title{Plot a tree diagram of frequencies and probabilities.}
 \usage{
 plot_tree(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, area = "no", round = TRUE,
-  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  fart = NA, N = freq$N, by = "cd", area = "no", round = TRUE,
+  p.lbl = "mix", title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
   cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
   cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
-  dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl,
-  col.boxes = pal[1:7], col.txt = grey(0.01, alpha = 0.99),
+  col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
   col.border = col.grey.4, col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
@@ -42,18 +42,38 @@ of a positive decision provided that the condition is \code{FALSE}).
 \item{N}{The number of individuals in the population.
 A suitable value of \code{\link{N}} is computed, if not provided.}
 
-\item{area}{A character option for 4 different box sizes:
-- \code{"no"} ... all boxes are shown with the same size (default);
-- \code{"sq"} ... boxes as squares of area sizes proportional to frequencies;
-- \code{"hr"} ... boxes as horizontal rectangles of area sizes proportional to frequencies;
-- \code{"vr"} ... boxes as vertical rectangles of area sizes proportional to frequencies.}
+\item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
+\enumerate{
+\item \code{"cd"} ... by condition;
+\item \code{"dc"} ... by decision;
+\item \code{"cddc"} ... by condition and by decision;
+\item \code{"dccd"} ... by decision and by condition.
+}}
 
-\item{round}{A Boolean option that determines whether frequencies are
-rounded to the nearest integer. Default: \code{round = TRUE}.}
+\item{area}{A character code specifying the area of the boxes (or their relative sizes) with 4 options:
+\enumerate{
+\item \code{"no"} ... all boxes are shown with the same size (default);
+\item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies;
+\item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
+\item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
+}}
+
+\item{round}{A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.}
+
+\item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
+  \enumerate{
+  \item \code{"nam"} ... names of probabilities;
+  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals);
+  \item \code{"mix"} ... names of essential probabilities, values of complements (default);
+  \item \code{"min"} ... minimal labels: names of essential probabilities.
+  }
+
+Various other options allow the customization of text labels and colors:}
 
 \item{title.lbl}{Text label to set plot title.}
 
-\item{col.boxes}{Colors of boxes (a single color or vector of 7 colors).}
+\item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
+Default: Current color information contained in \code{\link{pal}}.}
 }
 \value{
 Nothing (NULL).
@@ -92,11 +112,14 @@ to avoid decimal values in \code{\link{freq}}.
 \examples{
 # Plotting existing freq:
 plot_tree()
+plot_tree(by = "dc")
+plot_tree(area = "sq")
+plot_tree(p.lbl = "num")
 plot_tree(title.lbl = "")
 plot_tree(N = 33)
 plot_tree(N = NA)
 
-## Computing and plotting new frequencies:
+# Computing and plotting new frequencies:
 plot_tree(prev = 1/3)
 plot_tree(prev = 1/3, N = 55)
 plot_tree(prev = 1/3, N = NA)
@@ -106,13 +129,19 @@ plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
 plot_tree(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
 plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
 
-## Area trees:
+# Area options:
 plot_tree(area = "sq")
 plot_tree(area = "sq", round = FALSE)
 plot_tree(area = "hr")
 plot_tree(area = "vr", round = FALSE)
 
-## Custom colors and shadows:
+# Perspectives, areas, and label options:
+plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
+plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
+plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
+plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+
+# Custom colors and shadows:
 plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
 plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
 plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))

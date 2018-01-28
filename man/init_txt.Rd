@@ -8,10 +8,9 @@ init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
   scen.src = txt.def$scen.src, popu.lbl = txt.def$popu.lbl,
   cond.lbl = txt.def$cond.lbl, cond.true.lbl = txt.def$cond.true.lbl,
   cond.false.lbl = txt.def$cond.false.lbl, dec.lbl = txt.def$dec.lbl,
-  dec.true.lbl = txt.def$dec.true.lbl,
-  dec.false.lbl = txt.def$dec.false.lbl, sdt.hi.lbl = txt.def$sdt.hi.lbl,
-  sdt.mi.lbl = txt.def$sdt.mi.lbl, sdt.fa.lbl = txt.def$sdt.fa.lbl,
-  sdt.cr.lbl = txt.def$sdt.cr.lbl)
+  dec.pos.lbl = txt.def$dec.pos.lbl, dec.neg.lbl = txt.def$dec.neg.lbl,
+  sdt.hi.lbl = txt.def$sdt.hi.lbl, sdt.mi.lbl = txt.def$sdt.mi.lbl,
+  sdt.fa.lbl = txt.def$sdt.fa.lbl, sdt.cr.lbl = txt.def$sdt.cr.lbl)
 }
 \arguments{
 \item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
@@ -21,31 +20,35 @@ init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
 
 \item{scen.src}{The source information for the current scenario.}
 
-\item{popu.lbl}{A brief description of the current target population or sample.}
+\item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
 
 \item{cond.lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
 
-\item{cond.true.lbl}{A label for the \emph{presence} of the current condition (the condition's true state of TRUE).}
+\item{cond.true.lbl}{A label for the \emph{presence} of the current condition
+or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false.lbl}{A label for the \emph{absence} of the current condition (the condition's true state of FALSE).}
+\item{cond.false.lbl}{A label for the \emph{absence} of the current condition
+or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
 
 \item{dec.lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
 
-\item{dec.true.lbl}{A label for a \emph{positive} decision (e.g., predicting the presence of the condition).}
+\item{dec.pos.lbl}{A label for \emph{positive} decisions
+or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.false.lbl}{A label for a \emph{negative} decision (e.g., predicting the absence of the condition).}
+\item{dec.neg.lbl}{A label for \emph{negative} decisions
+or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
-\item{sdt.hi.lbl}{A label for \emph{hits} or \emph{true positives} (i.e., a correct decision
-of the presence of the condition, when the condition is actually present).}
+\item{sdt.hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+(i.e., correct decisions of the presence of the condition, when the condition is actually present).}
 
-\item{sdt.mi.lbl}{A label for \emph{misses} or \emph{false negatives} (i.e., an incorrect decision
-of the absence of the condition when the condition is actually present).}
+\item{sdt.mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+(i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
 
-\item{sdt.fa.lbl}{A label for \emph{false alarms} or \emph{false positives} (i.e., an incorrect decision
-of the presence of the condition when the condition is actually absent).}
+\item{sdt.fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+(i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
 
-\item{sdt.cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} (i.e., a correct decision
-of the absence of the condition, when the condition is actually absent).}
+\item{sdt.cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+(i.e., a correct decision of the absence of the condition, when the condition is actually absent).}
 }
 \description{
 \code{init_txt} initializes basic text elements
@@ -55,7 +58,7 @@ and used throughout the \code{riskyr} package).
 \details{
 All textual elements that specify titles and details of the current scenario
 are stored as named elements (of type character) in a list \code{txt}.
-\code{init_txt} allows changing elements by assigning new character
+\code{\link{init_txt}} allows changing elements by assigning new character
 objects to existing names.
 }
 \examples{
