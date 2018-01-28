@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 27
+## 2018 01 28
 ## -----------------------------------------------
 ## Define and initialize the current set
 ## of custom colors (pal):
@@ -85,8 +85,8 @@
                           )
 
   ## (c) by decision: Define 3 colors for decision cases:
-  col.pos <- my.whitish
-  col.neg <- my.bluish
+  col.pos <- "rosybrown3" # "khaki", my.whitish
+  col.neg <- "lightsteelblue2" #  "wheat", "lightsteelblue1", my.bluish
   ## Combine in a named vector:
   dec.colors <- setNames(c(col.pos, col.neg),
                          c("pos", "neg")
