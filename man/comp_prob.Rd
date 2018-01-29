@@ -64,7 +64,7 @@ in its output of a list \code{\link{prob}}.
 Extreme probabilities (sets containing two or more
 probabilities of 0 or 1) may yield unexpected values
 (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
-turning \code{NaN} when \code{\link{is_extreme}}
+turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
 \code{comp_prob} is the probability counterpart to the

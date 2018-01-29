@@ -29,7 +29,7 @@ contained in \code{\link{txt}}.
 
 A visualization of the current population
 contained in \code{\link{popu}}
-is provided by \code{\link{plot_iconarray}}.
+is provided by \code{plot_iconarray}.
 }
 \examples{
 comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases

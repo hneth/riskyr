@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 01 27
+## 2018 01 29
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
@@ -30,7 +30,7 @@
 #'
 #' A visualization of the current population
 #' contained in \code{\link{popu}}
-#' is provided by \code{\link{plot_iconarray}}.
+#' is provided by \code{plot_iconarray}.
 #'
 #'
 #' @return A data frame \code{popu}

@@ -68,7 +68,7 @@ to the list containing frequency information \code{\link{freq}}.
 
 Note that inputs of extreme probabilities (of 0 or 1)
 may yield unexpected values (e.g., an \code{\link{NPV}}
-value of NaN when \code{\link{is_perfect}}
+value of NaN when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 }
 \examples{

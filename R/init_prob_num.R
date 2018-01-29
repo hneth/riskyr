@@ -125,7 +125,7 @@ init_prob <- function() {
 #' Extreme probabilities (sets containing two or more
 #' probabilities of 0 or 1) may yield unexpected values
 #' (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
-#' turning \code{NaN} when \code{\link{is_extreme}}
+#' turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
 #'
 #' \code{comp_prob} is the probability counterpart to the
@@ -508,7 +508,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #' Note that inputs of extreme probabilities (of 0 or 1)
 #' may yield unexpected values (e.g., an \code{\link{NPV}}
-#' value of NaN when \code{\link{is_perfect}}
+#' value of NaN when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
 #'
 #' @examples

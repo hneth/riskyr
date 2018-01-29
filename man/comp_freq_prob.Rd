@@ -263,7 +263,7 @@ comp_freq_prob(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens 
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{freq}} contains current frequency information;
-\code{\link{init_freq}} initializes frequency information;
+\code{\link{comp_freq}} computes current frequency information;
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{comp_complement}} computes a probability's complement;

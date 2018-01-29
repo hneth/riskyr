@@ -64,7 +64,7 @@ in its output of a list \code{\link{prob}}.
 Extreme probabilities (sets containing two or more
 probabilities of 0 or 1) may yield unexpected values
 (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
-turning \code{NaN} when \code{\link{is_extreme}}
+turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
 Key relationships:
@@ -230,7 +230,7 @@ comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated 
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{freq}} contains current frequency information;
-\code{\link{init_freq}} initializes frequency information;
+\code{\link{comp_freq}} computes current frequency information;
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{comp_complement}} computes a probability's complement;
