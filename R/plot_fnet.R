@@ -136,52 +136,54 @@
 #' @return Nothing (NULL).
 #'
 #' @examples
-#' # Plotting existing freq:
-#' plot_fnet()
-#' plot_fnet(by = "dc")
-#' plot_fnet(area = "sq")
-#' plot_fnet(p.lbl = "num")
-#' plot_fnet(title.lbl = "")
-#' plot_fnet(N = 33)
-#' plot_fnet(N = NA)
+# # Plotting existing freq:
+# plot_fnet()  # => plot current freq with default options
+# plot_fnet(by = "dccd")
+# plot_fnet(area = "no")
+# plot_fnet(p.lbl = "num")
+# plot_fnet(title.lbl = "")
+# plot_fnet(N = 33)
+# plot_fnet(N = NA)
+#
+# # Computing and plotting new frequencies from probabilities:
+# plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
+# plot_fnet(prev = 1/3, N = 55)
+# plot_fnet(prev = 1/3, N = NA)
+# plot_fnet(prev = 1/3, round = FALSE)
+# plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
+# plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
+# plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
+# plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
+#
+# # Perspective options:
+# plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
+# plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
+# plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
+# plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
+#
+# # Area options:
+# plot_fnet(area = "sq")  # => (default)
+# plot_fnet(area = "no")
+# plot_fnet(area = "sq", round = FALSE)
+# plot_fnet(area = "hr")
+# plot_fnet(area = "vr", round = FALSE)
+#
+# # Combining perspectives, areas, and label options:
+# plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
+# plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
+# plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
+# plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+#
+# # Rounding:
+# plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)  # => mi = 0
+# plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE) # => mi = 0.3
+#
+# # Custom colors and shadows:
+# plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
+# plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
+# plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 #'
-#' # Computing and plotting new frequencies:
-#' plot_fnet(prev = 1/3)
-#' plot_fnet(prev = 1/3, N = 55)
-#' plot_fnet(prev = 1/3, N = NA)
-#' plot_fnet(prev = 1/3, round = FALSE)
-#' plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
-#' plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
-#' plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
-#' plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
 #'
-#' # Perspective options:
-#' plot_fnet(by = "cd")   # => 1. Tree diagram (by condition)
-#' plot_fnet(by = "dc")   # => 2. Tree diagram (by decision)
-#' plot_fnet(by = "cddc") # => 3. Network diagram (1st by condition, 2nd by decision)
-#' # NOT working yet: plot_fnet(by = "dccd") # => 4. Network diagram (1st by decision, 2nd by condition)
-#'
-#' # Area options:
-#' plot_fnet(area = "sq")
-#' plot_fnet(area = "sq", round = FALSE)
-#' plot_fnet(area = "hr")
-#' plot_fnet(area = "vr", round = FALSE)
-#'
-#' # Combining perspectives, areas, and label options:
-#' plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-#' plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-#' plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-#' plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
-#'
-#' # Rounding:
-#' plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)  # => mi = 0
-#' plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE) # => mi = 0.3
-#'
-#' # Custom colors and shadows:
-#' plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-#' plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-#' plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
-
 #' @family visualization functions
 #'
 #' @seealso
@@ -202,8 +204,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       spec = num$spec, fart = NA,  # was: num$fart,
                       N = freq$N,    # ONLY freq used (so far)
                       ## Options:
-                      by = "cddc",   # 4 perspectives: "cd" by condition, "dc" by decision; "cddc" (default), "dccd" (ToDo)
-                      area = "no",   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles
+                      by = "cddc",   # 4 perspectives: "cd" by condition, "dc" by decision; "cddc" by condition and decision (default), "dccd" by decision and condition
+                      area = "sq",   # 4 area types: "no" none, "sq" square (default), "hr" horizontal rectangles, "vr" vertical rectangles
                       round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
                       p.lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
                       ## Labels:
@@ -252,10 +254,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     n.false <- cur.freq$cond.false
     n.pos <- cur.freq$dec.pos
     n.neg <- cur.freq$dec.neg
-    n.hi <- cur.freq$hi
-    n.mi <- cur.freq$mi
-    n.fa <- cur.freq$fa
-    n.cr <- cur.freq$cr
+    n.hi  <- cur.freq$hi
+    n.mi  <- cur.freq$mi
+    n.fa  <- cur.freq$fa
+    n.cr  <- cur.freq$cr
 
   } else { # (B) NO valid set of probabilities was provided:
 
@@ -265,10 +267,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     n.false <- freq$cond.false
     n.pos <- freq$dec.pos
     n.neg <- freq$dec.neg
-    n.hi <- freq$hi
-    n.mi <- freq$mi
-    n.fa <- freq$fa
-    n.cr <- freq$cr
+    n.hi  <- freq$hi
+    n.mi  <- freq$mi
+    n.fa  <- freq$fa
+    n.cr  <- freq$cr
 
   } # if (is_valid_prob_set...)
 
@@ -307,15 +309,26 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                    pal["pos"], pal["neg"],
                    pal["N"])
 
+  } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+
+    ## 10 boxes (top: dec.pos and dec.neg; bot: cond.true and cond.false):
+    # col.boxes <- col.boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
+    col.boxes <- c(pal["N"],
+                   pal["pos"], pal["neg"],
+                   pal["hi"], pal["mi"], pal["fa"], pal["cr"],
+                   pal["true"], pal["false"],
+                   pal["N"])
+
+  } else { col.boxes <- pal["N"]  # to prevent errors for other entries
   } # if (by...)
 
-  # warning(paste0("n.pos = ", n.pos, "; n.neg = ", n.neg))
 
   ## (2) Text/labels in 7 boxes:
-  if (by == "cd") {  # (b) by condition:
+  if (by == "cd") {  # (a) by condition:
 
     if (area == "no") {  # default box labels:
 
+      ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
                  paste0(cond.false.lbl, ":\n", round(n.false, 2)),
@@ -327,7 +340,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } else {  # shorter box labels:
 
-      ## Reduced names (as areas get quite small):
+      ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu.lbl
                  paste0("true:\n",  round(n.true, 2)),
                  paste0("false:\n", round(n.false, 2)),
@@ -339,10 +352,11 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     }  # if (area...)
 
-  } else if (by == "dc") {  # by decision:
+  } else if (by == "dc") {  # (b) by decision:
 
     if (area == "no") {  # default box labels:
 
+      ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(dec.pos.lbl, ":\n",  round(n.pos, 2)),
                  paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
@@ -354,7 +368,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } else {  # shorter box labels:
 
-      ## Reduced names (as areas get quite small):
+      ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu.lbl
                  paste0("positive:\n",  round(n.pos, 2)),
                  paste0("negative:\n", round(n.neg, 2)),
@@ -370,6 +384,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     if (area == "no") {  # default box labels:
 
+      ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
                  paste0(cond.false.lbl, ":\n", round(n.false, 2)),
@@ -384,7 +399,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } else {  # shorter box labels:
 
-      ## Reduced names (as areas get quite small):
+      ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu.lbl
                  paste0("true:\n",  round(n.true, 2)),
                  paste0("false:\n", round(n.false, 2)),
@@ -394,6 +409,40 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                  paste0("cr:\n", round(n.cr, 2)),
                  paste0("positive:\n",  round(n.pos, 2)),
                  paste0("negative:\n", round(n.neg, 2)),
+                 paste0("N = ", N)   # popu.lbl
+      )
+
+    }  # if (area...)
+
+  } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+
+    if (area == "no") {  # default box labels:
+
+      ## Full box labels (label: value):
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
+                 paste0(dec.pos.lbl, ":\n", round(n.pos, 2)),
+                 paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
+                 paste0(sdt.hi.lbl, ":\n", round(n.hi, 2)),
+                 paste0(sdt.mi.lbl, ":\n", round(n.mi, 2)),
+                 paste0(sdt.fa.lbl, ":\n", round(n.fa, 2)),
+                 paste0(sdt.cr.lbl, ":\n", round(n.cr, 2)),
+                 paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
+                 paste0(cond.false.lbl, ":\n", round(n.false, 2)),
+                 paste0("Population", ":\n", "N = ", N)  # popu.lbl
+      )
+
+    } else {  # shorter box labels:
+
+      ## Reduced labels (as areas get quite small):
+      names <- c(paste0("N = ", N),  # popu.lbl
+                 paste0("positive:\n",  round(n.pos, 2)),
+                 paste0("negative:\n", round(n.neg, 2)),
+                 paste0("hi:\n", round(n.hi, 2)),
+                 paste0("mi:\n", round(n.mi, 2)),
+                 paste0("fa:\n", round(n.fa, 2)),
+                 paste0("cr:\n", round(n.cr, 2)),
+                 paste0("true:\n",  round(n.true, 2)),
+                 paste0("false:\n", round(n.false, 2)),
                  paste0("N = ", N)   # popu.lbl
       )
 
@@ -571,6 +620,75 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } # (p.lbl ==...
 
+  } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+
+    # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
+    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+
+      M[2, 1] <- "ppod"        # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[3, 1] <- "(1 - ppod)"  # (1 - ppod) = "n(N - dec.pos)"
+      M[4, 2] <- "PPV"         # PPV
+      M[6, 2] <- "FDR"         # FDR = (1 - PPV) = "n(pos - hi)"
+      M[5, 3] <- "FOR"         # FOR = (1 - NPV) = "n(neg - cr)"
+      M[7, 3] <- "NPV"         # NPV
+
+      M[4, 8]  <- "sens"         # "sensitivity"
+      M[5, 8]  <- "mirt"         # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
+      M[6, 9]  <- "fart"         # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
+      M[7, 9]  <- "spec"         # "specificity"
+      M[8, 10] <- "prev"         # "prevalence"
+      M[9, 10] <- "(1 - prev)"   # "(N - n.true)"
+
+    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+
+      M[2, 1] <- round(ppod, 3)        # ppod
+      M[3, 1] <- round((1 - ppod), 3)  # "n(N - dec.pos)"
+      M[4, 2] <- round(PPV, 3)         # PPV
+      M[6, 2] <- round((1 - PPV), 3)   # FDR = (1 - PPV) = "n(pos - hi)"
+      M[5, 3] <- round((1 - NPV), 3)   # FOR = (1 - NPV) = "n(neg - cr)"
+      M[7, 3] <- round(NPV, 3)         # NPV
+
+      M[4, 8]  <- round(sens, 3)
+      M[5, 8]  <- round((1 - sens), 3)  # mirt = (1 - sens) = "n(true - hi)"
+      M[6, 9]  <- round((1 - spec), 3)  # fart = (1 - spec) = "n(false - cr)"
+      M[7, 9]  <- round(spec, 3)
+      M[8, 10] <- round(prev, 3)
+      M[9, 10] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
+
+    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+
+      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[3, 1] <- round((1 - ppod), 3)  # (1 - ppod) = "n(N - dec.pos)"
+      M[4, 2] <- "PPV"                 # PPV
+      M[6, 2] <- round((1 - PPV), 3)   # FDR = (1 - PPV) = "n(pos - hi)"
+      M[5, 3] <- round((1 - NPV), 3)   # FOR = (1 - NPV) = "n(neg - cr)"
+      M[7, 3] <- "NPV"                 # NPV
+
+      M[4, 8]  <- "sens"                # "sensitivity"
+      M[5, 8]  <- round((1 - sens), 3)  # mirt = (1 - sens) = "n(true - hi)"
+      M[6, 9]  <- round((1 - spec), 3)  # fart = (1 - spec) = "n(false - cr)"
+      M[7, 9]  <- "spec"                # "specificity"
+      M[8, 10] <- "prev"                # "prevalence"
+      M[9, 10] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
+
+    } else {  # "min" minimal labels:
+
+      M[2, 1] <- "ppod"        # ppod   ERROR: WHY does prev.lbl not work with spaces???
+      M[3, 1] <-  ""           # (1 - ppod) = "n(N - dec.pos)"
+      M[4, 2] <- "PPV"         # PPV
+      M[6, 2] <- ""            # FDR = (1 - PPV) = "n(pos - hi)"
+      M[5, 3] <- ""            # FOR = (1 - NPV) = "n(neg - cr)"
+      M[7, 3] <- "NPV"         # NPV
+
+      M[4, 8]  <- "sens"         # "sensitivity"
+      M[5, 8]  <- ""             # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
+      M[6, 9]  <- ""             # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
+      M[7, 9]  <- "spec"         # "specificity"
+      M[8, 10] <- "prev"         # "prevalence"
+      M[9, 10] <- ""             # "(N - n.true)"
+
+    } # (p.lbl ==...
+
   } # if (by...)
 
 
@@ -716,21 +834,37 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (by == "cd") {  # (a) by condition:
 
       ## Widths and proportions of 7 boxes:
-      x.boxes <- c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)
+      x.boxes <- c(x.pop,
+                   x.true, x.false,
+                   x.hi, x.mi, x.fa, x.cr)
       x.y.prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## Widths and proportions of 7 boxes:
-      x.boxes <- c(x.pop,  x.pos, x.neg,  x.hi, x.mi, x.fa, x.cr)
+      x.boxes <- c(x.pop,
+                   x.pos, x.neg,
+                   x.hi, x.mi, x.fa, x.cr)
       x.y.prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
 
-    } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
+    } else if (by == "cddc") {  # (c) by condition and by decision:
 
       ## Widths and proportions of 10 boxes:
-      x.boxes <- c(x.pop,  x.true, x.false,
+      x.boxes <- c(x.pop,
+                   x.true, x.false,
                    x.hi, x.mi, x.fa, x.cr,
-                   x.pos, x.neg,  x.pop)
+                   x.pos, x.neg,
+                   x.pop)
+      x.y.prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
+
+    } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
+
+      ## Widths and proportions of 10 boxes:
+      x.boxes <- c(x.pop,
+                   x.pos, x.neg,
+                   x.hi, x.mi, x.fa, x.cr,
+                   x.true, x.false,
+                   x.pop)
       x.y.prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
 
     } # (if by...)
@@ -799,7 +933,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.boxes <-  c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)  # specific widths
       x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
 
+
     } else if (by == "dc") {  # (b) by decision:
+
 
       ## Level 2: 2 vertical rectangles
 
@@ -852,10 +988,16 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x.boxes <-  c(x.pop,  x.pos, x.neg,  x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.pos, x.y.neg,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
+      x.boxes <-  c(x.pop,
+                    x.pos, x.neg,
+                    x.hi, x.mi, x.fa, x.cr)  # specific widths
+      x.y.prop <- c(x.y.pop,
+                    x.y.pos, x.y.neg,
+                    x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
 
-    } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
+
+    } else if (by == "cddc") {  # (c) by condition and by decision:
+
 
       ## Level 1: Population square
       x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
@@ -869,7 +1011,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.y.false <- x.pop/x.false
 
       if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
-        warning("hrectree 1c: Sum of cond.true + cond.false areas differs from population area.")
+        warning("hrectree 1cddc: Sum of cond.true + cond.false areas differs from population area.")
       }
 
       ## Level 2 (bot): 2 vertical rectangles by decision:
@@ -880,7 +1022,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.y.neg <- x.pop/x.neg
 
       if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
-        warning("hrectree 1d: Sum of dec.pos + dec.neg areas differs from population area.")
+        warning("hrectree 1c: Sum of dec.pos + dec.neg areas differs from population area.")
       }
 
 
@@ -926,28 +1068,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
                     x.y.pos, x.y.neg,  x.y.pop)  # specific proportions
 
-    } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
+
+    } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
 
       ## Level 1: Population square
       x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
       x.y.pop <- 1/1  # square
 
-      ## Level 2 (top): 2 vertical rectangles by condition:
-      x.true <- (n.true/N) * x.pop  # scale x.pop by proportion of cond.true cases
-      x.y.true <- x.pop/x.true
 
-      x.false <- n.false/N * x.pop  # scale x.pop by proportion of cond.false cases
-      x.y.false <- x.pop/x.false
-
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
-        warning("hrectree 1c: Sum of cond.true + cond.false areas differs from population area.")
-      }
-
-      ## Level 2 (bot): 2 vertical rectangles by decision:
+      ## Level 2 (top): 2 vertical rectangles by decision:
       x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos cases
       x.y.pos <- x.pop/x.pos
 
-      x.neg <- n.neg/N * x.pop  # scale x.pop by proportion of dec.neg cases
+      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg cases
       x.y.neg <- x.pop/x.neg
 
       if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
@@ -955,52 +1088,66 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
 
-      ## Level 3:  (Note: Simply copied from (by == "cd") above!)
+      ## Level 2 (bot): 2 vertical rectangles by condition:
+      x.true <- (n.true/N) * x.pop  # scale x.pop by proportion of cond.true cases
+      x.y.true <- x.pop/x.true
+
+      x.false <- (n.false/N) * x.pop  # scale x.pop by proportion of cond.false cases
+      x.y.false <- x.pop/x.false
+
+      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+        warning("hrectree 1d: Sum of cond.true + cond.false areas differs from population area.")
+      }
+
+
+      ## Level 3:
       ## 4 rectangles with heights matching the widths of the Level 2 (top) rectangles
       ## (and their widths summing up to the height of the Level 2 rectangles of (top) by condition)
 
-      ## Box cond.true = hi + mi:
-      x.hi <- (n.hi/n.true) * x.pop  # hi: scale x.pop by sens = n.hi/n.true
-      x.y.hi <- x.true/x.hi
+      ## Box dec.POS = hi + FA:
+      x.hi <- (n.hi/n.pos) * x.pop  # hi: scale x.pop by PPV = n.hi/n.pos
+      x.y.hi <- x.pos/x.hi
 
-      x.mi <-  (1 - (n.hi/n.true)) * x.pop  # mi: scale x.pop by mirt = (1 - sens)
-      x.y.mi <- x.true/x.mi
+      x.fa <- (1 - (n.hi/n.pos)) * x.pop  # FA: scale x.pop by (1 - PPV) = FDR
+      x.y.fa <- x.pos/x.fa
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * x.true), (x.mi * x.true)), na.rm = TRUE))) {
-        warning("hrectree 2c: Sum of HI + MI area differs from cond.TRUE area.")
+      if (!all.equal((x.pos * x.pop),
+                     sum(c((x.hi * x.pos), (x.fa * x.pos)), na.rm = TRUE))) {
+        warning("hrectree 2d: Sum of HI + FA area differs from dec.POS area.")
       }
 
-      ## Box cond.false = fa + cr:
-      x.cr <- (n.cr/n.false) * x.pop  # cr: scale x.pop by spec = n.cr/n.false
-      x.y.cr <- x.false/x.cr
+      ## Box dec.NEG = cr + MI:
+      x.cr <- (n.cr/n.neg) * x.pop  # cr: scale x.pop by NPV = n.cr/n.neg
+      x.y.cr <- x.neg/x.cr
 
-      x.fa <- (1 - (n.cr/n.false)) * x.pop  # fa: scale x.pop by (1 - spec)
-      x.y.fa <- x.false/x.fa
+      x.mi <-  (1 - (n.cr/n.neg)) * x.pop  # MI: scale x.pop by (1 - NPV) = FOR
+      x.y.mi <- x.neg/x.mi
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
-        warning("hrectree 3c: Sum of FA + CR area differs from cond.FALSE area.")
+      if (!all.equal((x.neg * x.pop),
+                     sum(c((x.mi * x.neg), (x.cr * x.neg)), na.rm = TRUE))) {
+        warning("hrectree 3d: Sum of MI + CR area differs from dec.NEG area.")
       }
 
       if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
-        warning("hrectree 4c: Population area differs from the area sum of all 4 SDT cases.")
+                     sum(c((x.hi * x.pos), (x.mi * x.neg), (x.fa * x.pos), (x.cr * x.neg)), na.rm = TRUE))) {
+        warning("hrectree 4d: Population area differs from the area sum of all 4 SDT cases.")
       }
 
-
       ## Collect widths and proportions of 10 boxes:
-      x.boxes <-  c(x.pop,  x.true, x.false,
+      x.boxes <-  c(x.pop,
+                    x.pos, x.neg,
                     x.hi, x.mi, x.fa, x.cr,
-                    x.pos, x.neg,  x.pop)        # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,
+                    x.true, x.false,
+                    x.pop)        # specific widths
+      x.y.prop <- c(x.y.pop,
+                    x.y.pos, x.y.neg,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
-                    x.y.pos, x.y.neg,  x.y.pop)  # specific proportions
+                    x.y.true, x.y.false,
+                    x.y.pop)  # specific proportions
 
     } # (if by...)
 
   } # if (area == "hr")...
-
 
 
   ## 5d. Rectangles that sum to the area of the next higher level
@@ -1124,7 +1271,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
 
 
-    } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
+    } else if (by == "cddc") {  # (c) by condition and by decision:
 
 
       ## Level 1: Population square
@@ -1201,7 +1348,90 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
                     x.y.pos, x.y.neg,  x.y.pop)      # specific proportions
 
-      ## +++ here now +++ ##
+
+    } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
+
+
+      ## Level 1: Population square
+      x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
+      x.y.pop <- 1/1  # square
+
+
+      ## Level 2 (top):
+      ## 2 vertical rectangles for b) dec.pos vs. dec.neg:
+      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos
+      x.y.pos <- x.pop/x.pos
+
+      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg
+      x.y.neg <- x.pop/x.neg
+
+      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+        warning("vrectree 1d: Sum of dec.POS + dec.FALSE areas differs from Population area.")
+      }
+
+      ## Level 2 (bot):
+      ## 2 vertical rectangles for a) cond.true vs.cond.false:
+      x.true <- (n.true/N) * x.pop # scale x.pop by proportion true
+      x.y.true <- x.pop/x.true
+
+      x.false <- (n.false/N) * x.pop # scale x.pop by proportion false
+      x.y.false <- x.pop/x.false
+
+      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+        warning("vrectree 1d: Sum of cond.TRUE + cond.FALSE areas differs from Population area.")
+      }
+
+
+      ## Level 3:
+      ## 4 rectangles with widths matching the widths of the Level 2 rectangles
+      ## (and their heights summing up to the height of the Level 2 rectangles)
+
+      ## dec.POS cases:
+      x.hi <- x.pos  # keep constant
+      x.y.hi <- x.y.pos * (n.hi/n.pos)  # scale previous prop by prop n.hi/n.pos (PPV)
+
+      x.fa <- x.pos  # keep constant
+      x.y.fa <- x.y.pos * (n.fa/n.pos)  # scale previous prop by prop n.FA/n.pos (1 - PPV)
+
+      if (!all.equal((x.pos * x.pop),
+                     sum(c((x.hi * (x.hi * x.y.hi)), (x.fa * (x.fa * x.y.fa))), na.rm = TRUE))) {
+        warning("vrectree 2d: Sum of HI + FA area differs from dec.POS area.")
+      }
+
+
+      ## dec.NEG cases:
+      x.cr <- x.neg  # keep constant
+      x.y.cr <- x.y.neg * (n.cr/n.neg)  # scale previous prop by prop n.cr/n.neg (NPV)
+
+      x.mi <- x.neg # keep constant
+      x.y.mi <- x.y.neg * (n.mi/n.neg)  # scale previous prop by prop n.mi/n.neg (1 - NPV)
+
+
+      if (!all.equal((x.neg * x.pop),
+                     sum(c((x.mi * (x.mi * x.y.mi)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+        warning("vrectree 3d: Sum of MI + CR area differs from dec.NEG area.")
+      }
+
+      if (!all.equal((x.pop^2),
+                     sum(c((x.hi * (x.hi * x.y.hi)),
+                           (x.mi * (x.mi * x.y.mi)),
+                           (x.fa * (x.fa * x.y.fa)),
+                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+        warning("vrectree 4d: Population area differs from the area sum of all 4 SDT cases.")
+      }
+
+
+      ## Collect widths and proportions of 10 boxes:
+      x.boxes <- c(x.pop,
+                   x.pos, x.neg,
+                   x.hi, x.mi, x.fa, x.cr,
+                   x.true, x.false,
+                   x.pop)             # specific widths
+      x.y.prop <- c(x.y.pop,
+                    x.y.pos, x.y.neg,
+                    x.y.hi, x.y.mi, x.y.fa, x.y.cr,
+                    x.y.true, x.y.false,
+                    x.y.pop)      # specific proportions
 
     } # (if by...)
 
@@ -1255,17 +1485,18 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ## (7) Title:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
+
   if (area == "no") {area.lbl <- ""}
-  if (area == "sq") {area.lbl <- "Square sizes represent relative frequencies."}
-  if (area == "hr") {area.lbl <- "Rectangle sizes represent relative frequencies."}
-  if (area == "vr") {area.lbl <- "Rectangle sizes represent relative frequencies."}
-  if (by == "cd") {
-    by.lbl <- "(by condition)"
-  } else if (by == "dc") {
-    by.lbl <- "(by decision)"
-  } else if (by == "cddc") {  # (c) by condition + decision:
-    by.lbl <- "(by condition and decision)"
-  }
+  else if (area == "sq") {area.lbl <- "Square sizes represent relative frequencies."}
+  else if (area == "hr") {area.lbl <- "Rectangle sizes represent relative frequencies."}
+  else if (area == "vr") {area.lbl <- "Rectangle sizes represent relative frequencies."}
+  else {area.lbl <- ""}  # to prevent errors for other entries
+
+  if (by == "cd") {by.lbl <- "(by condition)"}
+  else if (by == "dc") {by.lbl <- "(by decision)"}
+  else if (by == "cddc") {by.lbl <- "(by condition and decision)"}
+  else if (by == "dccd") {by.lbl <- "(by decision and condition)"}
+  else {by.lbl <- ""}  # to prevent errors for other entries
 
   cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
@@ -1281,7 +1512,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   }
 
-  if (area != "no") { # area represents frequencies:
+  if (area != "no") { # Note that areas represent frequencies:
 
     mar.area.lbl <- paste0("", area.lbl, "")
     mtext(mar.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .90)
@@ -1299,16 +1530,16 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 {
 
   # # Plotting existing freq:
-  # plot_fnet()
-  # plot_fnet(by = "dc")
-  # plot_fnet(area = "sq")
+  # plot_fnet()  # => plot current freq with default options
+  # plot_fnet(by = "dccd")
+  # plot_fnet(area = "no")
   # plot_fnet(p.lbl = "num")
   # plot_fnet(title.lbl = "")
   # plot_fnet(N = 33)
   # plot_fnet(N = NA)
   #
-  # # Computing and plotting new frequencies:
-  # plot_fnet(prev = 1/3)
+  # # Computing and plotting new frequencies from probabilities:
+  # plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
   # plot_fnet(prev = 1/3, N = 55)
   # plot_fnet(prev = 1/3, N = NA)
   # plot_fnet(prev = 1/3, round = FALSE)
@@ -1318,13 +1549,14 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   # plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
   #
   # # Perspective options:
-  # plot_fnet(by = "cd")   # => 1. Tree diagram (by condition)
-  # plot_fnet(by = "dc")   # => 2. Tree diagram (by decision)
-  # plot_fnet(by = "cddc") # => 3. Network diagram (1st by condition, 2nd by decision)
-  # # NOT working yet: plot_fnet(by = "dccd") # => 4. Network diagram (1st by decision, 2nd by condition)
+  # plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
+  # plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
+  # plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
+  # plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
   #
   # # Area options:
-  # plot_fnet(area = "sq")
+  # plot_fnet(area = "sq")  # => (default)
+  # plot_fnet(area = "no")
   # plot_fnet(area = "sq", round = FALSE)
   # plot_fnet(area = "hr")
   # plot_fnet(area = "vr", round = FALSE)
@@ -1349,7 +1581,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Add (by = "dccd") version
+## ...
 
 ## -----------------------------------------------
 ## eof.
