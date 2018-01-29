@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 28
+## 2018 01 29
 ## -----------------------------------------------
 ## Define and initialize the current set
 ## of custom colors (pal):
@@ -86,14 +86,14 @@
 
   ## (c) by decision: Define 3 colors for decision cases:
   col.pos <- "rosybrown3" # "khaki", my.whitish
-  col.neg <- "lightsteelblue2" #  "wheat", "lightsteelblue1", my.bluish
+  col.neg <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my.bluish, "chartreuse4"
   ## Combine in a named vector:
   dec.colors <- setNames(c(col.pos, col.neg),
                          c("pos", "neg")
                          )
 
   ## (c) by condition x decision: Define 4 colors for SDT cases:
-  col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2
+  col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2, "chartreuse4"
   col.mi <- my.red          # "tomato3", "orangered3", "firebrick3", col.red.2
   col.fa <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
   col.cr <- "olivedrab3"    # "springgreen2" # "palegreen3" # col.green.1
@@ -104,7 +104,7 @@
 
   ## (d) Define 2 colors for PVs:
   col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
-  col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4" "chartreuse4"
+  col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
 }
 
 ## -----------------------------------------------
