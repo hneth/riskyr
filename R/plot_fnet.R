@@ -230,8 +230,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       # col.N = col.sand.light,
                       # col.true = col.N, col.false = col.N,
                       # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                      col.txt = grey(.01, alpha = .99),  # black
-                      col.border = col.grey.4,
+                      col.txt = grey(.01, alpha = .99),     # black
+                      col.border = grey(.33, alpha = .99),  # grey
                       ## Widths of arrows and box borders:
                       lwd = 1.5,      # width of arrows
                       box.lwd = 1.5,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
@@ -281,7 +281,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   } # if (is_valid_prob_set...)
 
-  if (by != "cd") {  # for any tree NOT solely by condition:
+  if (by != "cd") {  # in ANY case NOT solely by condition:
 
     # Compute current PVs from current frequencies:
     ppod <- n.pos/N
@@ -292,48 +292,57 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
   ## (1) Color of boxes:
-  if (by == "cd") {  # (a) by condition:
 
-    ## 7 boxes (including cond.true and cond.false):
-    # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-    col.boxes <- c(pal["N"], pal["true"], pal["false"],
-                   pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+  if ((length(col.boxes) == length(pal)) &&
+      all.equal(col.boxes, pal)) {  # no change from default:
 
-  } else if (by == "dc") {  # (b) by decision:
+    ## Use current color information of pal:
 
-    ## 7 boxes (including dec.pos and dec.neg):
-    # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-    col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
-                   pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+    if (by == "cd") {  # (a) by condition:
 
-  } else if (by == "cddc") {  # (c) by condition + decision:
+      ## 7 boxes (including cond.true and cond.false):
+      # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
+      col.boxes <- c(pal["N"], pal["true"], pal["false"],
+                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 
-    ## 10 boxes (top: cond.true and cond.false; bot: dec.pos and dec.neg):
-    # col.boxes <- col.boxes[c(1:3, 6:9, 4:5, 1)  ]  # select 9 of 9 colors
-    col.boxes <- c(pal["N"],
-                   pal["true"], pal["false"],
-                   pal["hi"], pal["mi"], pal["fa"], pal["cr"],
-                   pal["pos"], pal["neg"],
-                   pal["N"])
+    } else if (by == "dc") {  # (b) by decision:
 
-  } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+      ## 7 boxes (including dec.pos and dec.neg):
+      # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
+      col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
+                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 
-    ## 10 boxes (top: dec.pos and dec.neg; bot: cond.true and cond.false):
-    # col.boxes <- col.boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
-    col.boxes <- c(pal["N"],
-                   pal["pos"], pal["neg"],
-                   pal["hi"], pal["mi"], pal["fa"], pal["cr"],
-                   pal["true"], pal["false"],
-                   pal["N"])
+    } else if (by == "cddc") {  # (c) by condition + decision:
 
-  } else {  # ANY other by-setting:
+      ## 10 boxes (top: cond.true and cond.false; bot: dec.pos and dec.neg):
+      # col.boxes <- col.boxes[c(1:3, 6:9, 4:5, 1)  ]  # select 9 of 9 colors
+      col.boxes <- c(pal["N"],
+                     pal["true"], pal["false"],
+                     pal["hi"], pal["mi"], pal["fa"], pal["cr"],
+                     pal["pos"], pal["neg"],
+                     pal["N"])
 
-    col.boxes <- pal["N"]  # to prevent errors for other entries
+    } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
 
-  } # if (by...)
+      ## 10 boxes (top: dec.pos and dec.neg; bot: cond.true and cond.false):
+      # col.boxes <- col.boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
+      col.boxes <- c(pal["N"],
+                     pal["pos"], pal["neg"],
+                     pal["hi"], pal["mi"], pal["fa"], pal["cr"],
+                     pal["true"], pal["false"],
+                     pal["N"])
+
+    } else {  # ANY other by-setting:
+
+      col.boxes <- pal["N"]  # to prevent errors for other entries
+
+    } # if (by...)
+
+  } # if (all.equal(col.boxes, pal))...
 
 
-  ## (2) Text/labels in 7 boxes:
+  ## (2) Text/labels in 7 or 10 boxes:
+
   if (by == "cd") {  # (a) by condition:
 
     if (area == "no") {  # default box labels:
@@ -1507,7 +1516,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          ## Boxes:
                          box.size = x.boxes,   # widths of boxes
                          box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
-                         box.type = "rect",  # "rect", "ellipse", "diamond", "circle", "hexa", "multi", "none"
+                         box.type = "rect",    # "rect", "ellipse", "diamond", "circle", "hexa", "multi", "none"
                          box.col = col.boxes,  # scalar or vector of length 7.
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                          box.lcol = col.border,  # col.boxes,
@@ -1516,7 +1525,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          ## Text in Boxes:
                          txt.col = col.txt,
                          box.cex = box.cex,  # relative size of text in boxes
-                         txt.font = 1,   # 1 = plain, 2 = bold, ...
+                         txt.font = 1,       # 1 = plain, 2 = bold, ...
                          ## Arrows:
                          cex.txt = .80,  # relative size of arrow text
                          arr.pos = .50,  # relative position of arrowhead on arrow segment/curve
@@ -1524,8 +1533,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          arr.length = .20,
                          arr.width = .15,
                          arr.col = col.border,
-                         shadow.size = cex.shadow, # .005
-                         shadow.col = col.shadow #,
+                         shadow.size = cex.shadow,  # .005
+                         shadow.col = col.shadow    #,
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 

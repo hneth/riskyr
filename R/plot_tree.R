@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyR
-## 2018 01 28
+## 2018 01 30
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -81,12 +81,13 @@
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #'
-#' @param by A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
+#' @param round A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.
+#'
+#'
+#' @param by A character code specifying the perspective (or category by which the population is split into subsets) with 2 options:
 #'   \enumerate{
 #'   \item \code{"cd"} ... by condition;
-#'   \item \code{"dc"} ... by decision;
-#'   \item \code{"cddc"} ... by condition and by decision;
-#'   \item \code{"dccd"} ... by decision and by condition.
+#'   \item \code{"dc"} ... by decision.
 #'   }
 #'
 #' @param area A character code specifying the area of the boxes (or their relative sizes) with 4 options:
@@ -96,8 +97,6 @@
 #'   \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
 #'   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 #'   }
-#'
-#' @param round A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.
 #'
 #' @param p.lbl A character code specifying the type of probability information (on edges) with 4 options:
 #'   \enumerate{
@@ -174,9 +173,9 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       spec = num$spec, fart = NA,  # was: num$fart,
                       N = freq$N,    # ONLY freq used (so far)
                       ## Options:
-                      by = "cd",     # 4 perspectives: "cd" by condition, "dc" by decision;  ToDo: "cddc", "dccd"
-                      area = "no",   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles
                       round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
+                      by = "cd",     # 4 perspectives: "cd" by condition, "dc" by decision.
+                      area = "no",   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles.
                       p.lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
                       ## Labels:
                       title.lbl = txt$scen.lbl,     # custom text labels
@@ -191,13 +190,17 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       sdt.mi.lbl = txt$sdt.mi.lbl,
                       sdt.fa.lbl = txt$sdt.fa.lbl,
                       sdt.cr.lbl = txt$sdt.cr.lbl,
+                      box.cex = .90,                # relative size of text in boxes
                       ## Colors:
                       col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
                       # col.N = col.sand.light,
                       # col.true = col.N, col.false = col.N,
                       # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                      col.txt = grey(.01, alpha = .99),  # black
-                      col.border = col.grey.4,
+                      col.txt = grey(.01, alpha = .99),     # black
+                      col.border = grey(.33, alpha = .99),  # grey
+                      ## Widths of arrows and box borders:
+                      lwd = 1.6,      # width of arrows
+                      box.lwd = 1.8,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
                       col.shadow = col.sand.dark,
                       cex.shadow = 0  # [values > 0 show shadows]
@@ -244,7 +247,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   }
 
-  if (by != "cd") {  # for any tree NOT solely by condition:
+  if (by != "cd") {  # in ANY case NOT solely by condition:
 
     # Compute current PVs from current frequencies:
     ppod <- n.pos/N
@@ -253,26 +256,36 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   }
 
+
   ## (1) Color of boxes:
-  if (by == "cd") {  # (a) by condition:
 
-    ## 7 boxes (including cond.true and cond.false):
-    # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-    col.boxes <- c(pal["N"], pal["true"], pal["false"],
-                   pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+  if ((length(col.boxes) == length(pal)) &&
+      all.equal(col.boxes, pal)) {  # no change from default:
 
-  } else if (by == "dc") {  # (b) by decision:
+    ## Use current color information of pal:
 
-    ## 7 boxes (including dec.pos and dec.neg):
-    # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-    col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
-                   pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+    if (by == "cd") {  # (a) by condition:
 
-  }
+      ## 7 boxes (including cond.true and cond.false):
+      # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
+      col.boxes <- c(pal["N"], pal["true"], pal["false"],
+                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 
-  # warning(paste0("n.pos = ", n.pos, "; n.neg = ", n.neg))
+    } else if (by == "dc") {  # (b) by decision:
+
+      ## 7 boxes (including dec.pos and dec.neg):
+      # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
+      col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
+                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+
+    } # if (by...)
+
+  } # if (all.equal(col.boxes, pal))...
+
+
 
   ## (2) Text/labels in 7 boxes:
+
   if (by == "cd") {  # (b) by condition:
 
     if (area == "no") {  # default box labels:
@@ -793,29 +806,29 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
                          name = names,
                          relsize	= .98, # a scaling factor for the size of the graph
-                         lwd = 1.5,
+                         lwd = lwd,  # width of arrows
                          ## Boxes:
-                         box.size = x.boxes,  # widths of boxes
-                         box.prop = x.y.prop, # proportionality (length/width) ratio of boxes
-                         box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes, # scalar or vector of length 7.
+                         box.size = x.boxes,   # widths of boxes
+                         box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
+                         box.type = "rect",    # "ellipse", "diamond", "circle", "hexa", "multi", "none"
+                         box.col = col.boxes,  # scalar or vector of length 7.
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                          box.lcol = col.border,
-                         box.lwd = 2.0,
-                         lcol = col.border, # default color for box and arrow lines
+                         box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
+                         lcol = col.border,  # default color for box and arrow lines
                          ## Text in Boxes:
                          txt.col = col.txt,
-                         box.cex = .85, # relative size of text in boxes
-                         txt.font = 1, # 1 = plain, 2 = bold, ...
+                         box.cex = box.cex,  # relative size of text in boxes
+                         txt.font = 1,       # 1 = plain, 2 = bold, ...
                          ## Arrows:
-                         cex.txt = .80, # relative size of arrow text
-                         arr.pos = .50, # relative position of arrowhead on arrow segment/curve
+                         cex.txt = .80,  # relative size of arrow text
+                         arr.pos = .50,  # relative position of arrowhead on arrow segment/curve
                          arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
                          arr.length = .20,
                          arr.width = .15,
                          arr.col = col.border,
                          shadow.size = cex.shadow, # .005
-                         shadow.col = col.shadow #,
+                         shadow.col = col.shadow  #,
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
