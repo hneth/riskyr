@@ -81,12 +81,15 @@ txt.def <- list(
 #' length(init_txt())  # => 14
 #' txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius")  # => set elements of txt
 #'
-#' @family functions to initialize scenario settings
+#' @family functions initializing scenario information
 #'
 #' @seealso
 #' \code{\link{txt}} for current text settings;
 #' \code{\link{pal}} for current color settings;
 #' \code{\link{num}} for basic numeric parameters
+#'
+#' @export
+#'
 
 init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      scen.txt = txt.def$scen.txt,  # text with scenario description
@@ -186,16 +189,29 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
+#'
 #' @examples
 #' txt           # => show  all current names and elements
 #' txt$scen.lbl  # => show the current scenario label (e.g., used in plot titles)
 #' txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 #'
-#' @family lists containing basic scenario settings
+#'
+#' @family lists containing current scenario information
+#'
 #'
 #' @seealso
-#' \code{\link{num}} for basic numeric parameters;
-#' \code{\link{pal}} for current color settings
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 ## Apply:
 txt <- init_txt()

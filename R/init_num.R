@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 25
+## 2018 01 30
 ## -----------------------------------------------
 ## Define and initialize a list of basic input parameters (num)
 ## that contains numeric user inputs:
@@ -93,10 +93,12 @@ num.def <- list("prev" = round(runif(1, 0, 1), 1),   # prevalence in target popu
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
+#'
 #' @return A list containing a valid quadruple of probabilities
 #' (\code{\link{prev}}, \code{\link{sens}},
 #' \code{\link{spec}}, and \code{\link{fart}})
 #' and one frequency (population size \code{\link{N}}).
+#'
 #'
 #' @examples
 #' # ways to succeed:
@@ -118,7 +120,9 @@ num.def <- list("prev" = round(runif(1, 0, 1), 1),   # prevalence in target popu
 #' init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
 #' init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
 #'
-#' @family functions to initialize scenario settings
+#'
+#' @family functions initializing scenario information
+#'
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric parameters;
@@ -131,6 +135,9 @@ num.def <- list("prev" = round(runif(1, 0, 1), 1),   # prevalence in target popu
 #' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
 #' \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+#'
+#' @export
+#'
 
 init_num <- function(prev = num.def$prev, sens = num.def$sens,
                      spec = num.def$spec, fart = num.def$fart,
@@ -211,7 +218,9 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 #' \code{\link{spec}}, and \code{\link{fart}})
 #' and 1 frequency parameter (the population size \code{\link{N}}).
 #'
-#' @family lists containing scenario settings
+#'
+#' @family lists containing current scenario information
+#'
 #'
 #' @examples
 #' num <- init_num()  # => initialize num to default parameters
@@ -219,11 +228,18 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens,
 #' length(num)        # => 5
 #'
 #' @seealso
-#' \code{\link{init_num}} to initialize basic parameter values;
-#' \code{\link{freq}} contains basic frequency information;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{prob}} contains current probability information;
-#' \code{\link{comp_prob}} computes current probability information
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 num <- init_num()  # => initialize num to default parameters
 # num              # => show current values

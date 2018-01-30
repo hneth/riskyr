@@ -342,16 +342,18 @@ init_prob <- function() {
 #'
 #' @seealso
 #' \code{\link{prob}} contains current probability information;
-#' \code{\link{num}} contains basic parameter values;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{pal}} contains current color settings;
-#' \code{\link{txt}} contains current text settings;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{txt}} contains current text information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes frequencies from probabilities;
 #' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
 #' \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
-
+#'
+#' @export
+#'
 
 comp_prob <- function(prev = num$prev,             # probabilities:
                       sens = num$sens, mirt = NA,  # 3 essential (prev, sens, spec)
@@ -516,14 +518,22 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' prob                 # => show current values
 #' length(prob)         # => 8
 #'
-#' @family lists containing scenario settings
+#' @family lists containing current scenario information
 #'
 #' @seealso
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{num}} contains basic numeric variables;
-#' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{prob}} contains current probability information
-
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 prob <- comp_prob()  # => initialize prob to default parameters
 # prob               # => show current values

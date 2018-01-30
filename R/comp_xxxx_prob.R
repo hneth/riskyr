@@ -334,7 +334,6 @@
 #' @family functions computing frequencies
 #' @family format conversion functions
 #'
-#' @export
 #'
 #' @seealso
 #' \code{\link{comp_freq_freq}} computes current frequency information from (4 essential) frequencies;
@@ -350,6 +349,9 @@
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
+#'
+#' @export
+#'
 
 comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (removed: mirt & fart ):
                            sens = prob$sens, mirt = NA, # using current probability info contained in prob!
@@ -670,7 +672,6 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' @family functions computing frequencies
 #' @family format conversion functions
 #'
-#' @export
 #'
 #' @seealso
 #' \code{\link{comp_freq_prob}} computes current frequency information from (3 essential) probabilities;
@@ -686,6 +687,9 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
+#'
+#' @export
+#'
 
 
 comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 essential (prev; sens, spec)

@@ -534,17 +534,19 @@ comp_ppod <- function(prev, sens, spec) {
 }
 
 ## Check:
-comp_ppod(1, 1, 1)  #  => 1
-comp_ppod(1, 1, 0)  #  => 1
-
-comp_ppod(1, 0, 1)  #  => 0
-comp_ppod(1, 0, 0)  #  => 0
-
-comp_ppod(0, 1, 1)  #  => 0
-comp_ppod(0, 1, 0)  #  => 1
-
-comp_ppod(0, 0, 1)  #  => 0
-comp_ppod(0, 0, 0)  #  => 1
+{
+  # comp_ppod(1, 1, 1)  #  => 1
+  # comp_ppod(1, 1, 0)  #  => 1
+  #
+  # comp_ppod(1, 0, 1)  #  => 0
+  # comp_ppod(1, 0, 0)  #  => 0
+  #
+  # comp_ppod(0, 1, 1)  #  => 0
+  # comp_ppod(0, 1, 0)  #  => 1
+  #
+  # comp_ppod(0, 0, 1)  #  => 0
+  # comp_ppod(0, 0, 0)  #  => 1
+}
 
 ## for extreme values:
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
@@ -798,6 +800,7 @@ comp_FDR_PPV <- function(PPV) {
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
 
+
 comp_NPV <- function(prev, sens, spec) {
 
   NPV <- NA # initialize
@@ -839,8 +842,6 @@ comp_NPV <- function(prev, sens, spec) {
 
   ## \code{\link{is_extreme_prob_set}} verifies extreme cases
 }
-
-
 
 
 ## -----------------------------------------------

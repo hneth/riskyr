@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 01 29
+## 2018 01 30
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
@@ -53,7 +53,9 @@
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings;
-#' \code{\link{pal}} for current color settings
+#' \code{\link{pal}} for current color settings.
+#'
+#' @export
 
 comp_popu <- function(
   # N = num$N, # (not needed!)
@@ -167,6 +169,8 @@ comp_popu <- function(
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings.
+#'
+#' @export
 
 popu <- comp_popu()
 # popu

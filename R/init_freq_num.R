@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 01 27
+## 2018 01 30
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -209,6 +209,7 @@ init_freq <- function() {
 #'
 #' @family functions computing frequencies
 #'
+#'
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
@@ -219,6 +220,9 @@ init_freq <- function() {
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
+#'
+#' @export
+#'
 
 
 comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
@@ -408,19 +412,30 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' are provided by \code{\link{plot_tree}} and
 #' \code{\link{plot_mosaic}}.
 #'
+#'
 #' @examples
 #' freq <- comp_freq()  # => initialize freq to default parameters
 #' freq                 # => show current values
 #' length(freq)         # => 9
 #'
 #'
-#' @family lists containing scenario settings
+#' @family lists containing current scenario information
+#'
 #'
 #' @seealso
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{prob}} contains current probability information
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+#'
 
 freq <- comp_freq()  # => initialize freq to default parameters
 # freq               # => show current values

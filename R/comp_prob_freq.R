@@ -253,7 +253,6 @@
 #' @family functions computing probabilities
 #' @family format conversion functions
 #'
-#' @export
 #'
 #' @seealso
 #' \code{\link{comp_freq_freq}} computes current frequency information from (4 essential) frequencies;
@@ -267,6 +266,9 @@
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{is_freq}} verifies frequency inputs.
+#'
+#' @export
+#'
 
 comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
                            mi = freq$mi,

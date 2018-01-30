@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 29
+## 2018 01 30
 ## -----------------------------------------------
 ## Define and initialize the current set
 ## of custom colors (pal):
@@ -158,12 +158,24 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' length(init_pal())  # => 11 colors
 #' pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
 #'
-#' @family functions to initialize scenario settings
+#'
+#' @family functions initializing scenario information
+#'
 #'
 #' @seealso
-#' \code{\link{pal}} for current color settings;
-#' \code{\link{txt}} for current text settings;
-#' \code{\link{num}} for basic numeric parameters
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 init_pal <- function(col.N = pal.def["N"],          # population N
                      ## by condition:
@@ -264,10 +276,22 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' pal["hi"] <- "green3" # defines a new color for hits (true positives)
 #'
 #'
-#' @family lists containing basic scenario settings
+#' @family lists containing current scenario information
+#'
 #'
 #' @seealso
-#' \code{\link{init_pal}} to initialize color information
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 ## Apply:
 pal <- init_pal()

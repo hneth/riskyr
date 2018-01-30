@@ -84,6 +84,7 @@
 #' Note that \code{\link{comp_freq}} still needs to round to avoid decimal values
 #' in frequencies \code{\link{freq}}.
 #'
+#'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being TRUE).
 #'
@@ -115,7 +116,9 @@
 #' comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 #' comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 #'
+#'
 #' @family functions computing frequencies
+#'
 #'
 #' @seealso
 #' population size \code{\link{N}};
