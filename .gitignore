@@ -5,7 +5,9 @@
 .Ruserdata
 .Rbuildignore
 .DS_Store
+R/_archive
 _code/RiskLiteracyTools_now_cache
 _code/RiskLiteracyTools_now_files
 _stuff
 test_loadingPackage.R
+inst/doc

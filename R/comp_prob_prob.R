@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 27
+## 2018 01 30
 ## -----------------------------------------------
 ## Compute other probabilities from probabilities:
 
@@ -233,8 +233,8 @@ comp_sens <- function(mirt) {
 #' @return The decision's false alarm rate \code{\link{fart}} as a probability.
 #'
 #' @examples
-#' comp_fart(2)                      # => NA + warning (beyond range)
-#' comp_fart(1/3)                    # => 0.6666667
+#' comp_fart(2)                       # => NA + warning (beyond range)
+#' comp_fart(1/3)                     # => 0.6666667
 #' comp_fart(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
@@ -458,6 +458,8 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{num}} contains basic numeric variables.
+#'
+#' @export
 
 comp_complete_prob_set <- function(prev,
                                    sens = NA, mirt = NA,
@@ -507,6 +509,71 @@ comp_complete_prob_set <- function(prev,
 
 ## -----------------------------------------------
 ## (0) ppod = base rate of decisions being positive (PR):
+
+#' Compute the proportion of positive decisions (ppod) from probabilities.
+#'
+#' \code{comp_ppod} computes the proportion of positive decisions \code{\link{ppod}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_ppod} uses probabilities (not frequencies)
+#' and does not round results.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#'
+#' @return The proportion of positive decisions \code{\link{ppod}} as a probability.
+#' A warning is provided for NaN values.
+#'
+#'
+#' @examples
+#' # (1) Ways to work:
+#' comp_ppod(.10, .200, .300)  # => ppod = 0.65
+#' comp_ppod(.50, .333, .666)  # => ppod = 0.3335
+#'
+#' # (2) Watch out for vectors:
+#' prev <- seq(0, 1, .1)
+#' comp_ppod(prev, .8, .5)  # => 0.50 0.53 0.56 0.59 0.62 0.65 0.68 0.71 0.74 0.77 0.80
+#' comp_ppod(prev,  0,  1)  # => 0 0 0 0 0 0 0 0 0 0 0
+#'
+#' # (3) Watch out for extreme values:
+#'
+#' comp_ppod(1, 1, 1)  #  => 1
+#' comp_ppod(1, 1, 0)  #  => 1
+#'
+#' comp_ppod(1, 0, 1)  #  => 0
+#' comp_ppod(1, 0, 0)  #  => 0
+#'
+#' comp_ppod(0, 1, 1)  #  => 0
+#' comp_ppod(0, 1, 0)  #  => 1
+#'
+#' comp_ppod(0, 0, 1)  #  => 0
+#' comp_ppod(0, 0, 0)  #  => 1
+#'
+#'
+#' @family functions computing probabilities
+#'
+#' @seealso
+#' \code{\link{comp_sens}} and \code{\link{comp_NPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_complement}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
+
 
 comp_ppod <- function(prev, sens, spec) {
 
@@ -564,6 +631,7 @@ comp_ppod <- function(prev, sens, spec) {
 #' \code{comp_PPV} uses probabilities (not frequencies)
 #' and does not round results.
 #'
+#'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
@@ -611,6 +679,8 @@ comp_ppod <- function(prev, sens, spec) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 
 comp_PPV <- function(prev, sens, spec) {
@@ -799,6 +869,8 @@ comp_FDR_PPV <- function(PPV) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 
 comp_NPV <- function(prev, sens, spec) {
