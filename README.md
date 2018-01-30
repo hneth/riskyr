@@ -16,22 +16,18 @@ A toolbox for rendering risk literacy more transparent
 [^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
 
-The issues addressed by `riskyr` are less of a _computational_ than of a _representational_ nature (i.e., concerning the translation between different information formats).  Whereas people find it difficult to understand and compute information expressed in terms of _probabilities_, the same information content expressed in terms of _frequencies_ is often easy to understand and compute. 
+The issues addressed by `riskyr` are less of a _computational_ than of a _representational_ nature (i.e., concerning the representation in and translation between different formats of information).  Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive visualizations.
 
-However, rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in transparent and interactive visualizations.
-
-
-The basic assumptions and goals motivating the development of `riskyr` are the following:
+The basic assumptions and goals driving the development of `riskyr` are the following:
 
 1. Effective training in risk literacy requires simple tools and transparent representations. 
 
-2. We provide a set of (computational and representational) tools that allow various calculations and translations, 
-as well as alternative views on the interplay between probabilities and frequencies. 
-The toolbox of functions and representations are not isolated, but complement and explain each other.
+2. We provide a set of (computational and representational) tools that allow various calculations, translations between formats, 
+and many alternative views on the interplay between probabilities and frequencies. The functions and representations in the `riskyr` toolbox are not isolated, but complement, support and explain each other.
 
 3. To facilitate active and explorative learning, all visualizations can be explored interactively, 
 providing immediate feedback on the effect of changes in parameters.  
-By providing many options, users can customize representations to suit their goals and needs.
+By providing many customization options, users can design and shape representations of risk-related information to suit their goals and needs.
 
 
 ## Rationale
@@ -81,8 +77,6 @@ A scenario is represented both in terms of probabilities and in terms of frequen
 A set of conversion functions allow switching back and forth between both formats (i.e., compute frequencies from probabilities and probabilities from frequencies). 
 
 
-
-
 ## Package and Application
 
 Our objective is to collect and develop a set of basic risk literacy tools in R.  To maximise impact, we split our efforts into two complementary projects:
@@ -129,3 +123,5 @@ As BibTeX reference:
       note = {R package version 0.0.0.910},
       url = {https://github.com/hneth/riskyr}
     }
+
+<!-- eof -->
