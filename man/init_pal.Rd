@@ -55,12 +55,20 @@ init_pal()          # => define and return a vector of current (default) colors
 length(init_pal())  # => 11 colors
 pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
 
+
 }
 \seealso{
-\code{\link{pal}} for current color settings;
-\code{\link{txt}} for current text settings;
-\code{\link{num}} for basic numeric parameters
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{txt}} contains current text information;
+\code{\link{init_txt}} initializes text information;
+\code{\link{pal}} contains current color information;
+\code{\link{init_pal}} initializes color information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information.
 
-Other functions to initialize scenario settings: \code{\link{init_num}},
+Other functions initializing scenario information: \code{\link{init_num}},
   \code{\link{init_txt}}
 }

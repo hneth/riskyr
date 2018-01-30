@@ -45,5 +45,5 @@ The corresponding data frame \code{\link{popu}};
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;
-\code{\link{pal}} for current color settings
+\code{\link{pal}} for current color settings.
 }

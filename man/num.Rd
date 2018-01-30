@@ -21,13 +21,17 @@ length(num)        # => 5
 
 }
 \seealso{
-\code{\link{init_num}} to initialize basic parameter values;
-\code{\link{freq}} contains basic frequency information;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{txt}} contains current text information;
+\code{\link{init_txt}} initializes text information;
+\code{\link{pal}} contains current color information;
+\code{\link{init_pal}} initializes color information;
+\code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{prob}} contains current probability information;
-\code{\link{comp_prob}} computes current probability information
+\code{\link{comp_prob}} computes current probability information.
 
-Other lists containing scenario settings: \code{\link{freq}},
-  \code{\link{prob}}
+Other lists containing current scenario information: \code{\link{freq}},
+  \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 }
 \keyword{datasets}

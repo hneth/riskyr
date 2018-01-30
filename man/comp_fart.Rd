@@ -28,8 +28,8 @@ The function \code{comp_fart} is complementary to the conversion function
 \code{\link{comp_complement}}.
 }
 \examples{
-comp_fart(2)                      # => NA + warning (beyond range)
-comp_fart(1/3)                    # => 0.6666667
+comp_fart(2)                       # => NA + warning (beyond range)
+comp_fart(1/3)                     # => 0.6666667
 comp_fart(comp_complement(0.123))  # => 0.123
 
 }
@@ -45,7 +45,7 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_PPV}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_freq}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+  \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
+  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
+  \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

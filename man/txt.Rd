@@ -61,11 +61,20 @@ txt           # => show  all current names and elements
 txt$scen.lbl  # => show the current scenario label (e.g., used in plot titles)
 txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 
+
 }
 \seealso{
-\code{\link{num}} for basic numeric parameters;
-\code{\link{pal}} for current color settings
+\code{\link{init_txt}} initializes text information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{pal}} contains current color information;
+\code{\link{init_pal}} initializes color information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information.
 
-Other lists containing basic scenario settings: \code{\link{pal}}
+Other lists containing current scenario information: \code{\link{freq}},
+  \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}}
 }
 \keyword{datasets}

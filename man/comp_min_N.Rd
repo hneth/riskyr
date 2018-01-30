@@ -55,6 +55,7 @@ comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
 comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 
+
 }
 \seealso{
 population size \code{\link{N}};

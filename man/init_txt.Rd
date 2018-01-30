@@ -72,6 +72,6 @@ txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius
 \code{\link{pal}} for current color settings;
 \code{\link{num}} for basic numeric parameters
 
-Other functions to initialize scenario settings: \code{\link{init_num}},
+Other functions initializing scenario information: \code{\link{init_num}},
   \code{\link{init_pal}}
 }

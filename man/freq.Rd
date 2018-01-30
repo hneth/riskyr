@@ -97,9 +97,15 @@ length(freq)         # => 9
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
-\code{\link{prob}} contains current probability information
+\code{\link{prob}} contains current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{txt}} contains current text information;
+\code{\link{init_txt}} initializes text information;
+\code{\link{pal}} contains current color information;
+\code{\link{init_pal}} initializes color information.
 
-Other lists containing scenario settings: \code{\link{num}},
-  \code{\link{prob}}
+Other lists containing current scenario information: \code{\link{num}},
+  \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 }
 \keyword{datasets}

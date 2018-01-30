@@ -63,6 +63,7 @@ init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
 init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
 init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
 
+
 }
 \seealso{
 \code{\link{num}} contains basic numeric parameters;
@@ -76,6 +77,6 @@ init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complem
 \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-Other functions to initialize scenario settings: \code{\link{init_pal}},
+Other functions initializing scenario information: \code{\link{init_pal}},
   \code{\link{init_txt}}
 }

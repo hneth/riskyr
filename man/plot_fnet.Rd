@@ -5,15 +5,16 @@
 \title{Plot a network diagram of frequencies and probabilities.}
 \usage{
 plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, by = "cddc", area = "no", round = TRUE,
-  p.lbl = "mix", title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  fart = NA, N = freq$N, round = TRUE, by = "cddc", area = "sq",
+  p.lbl = "num", title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
   cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
   cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl,
-  col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
-  col.border = col.grey.4, col.shadow = col.sand.dark, cex.shadow = 0)
+  box.cex = 0.85, col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
+  col.border = col.grey.4, lwd = 1.5, box.lwd = 1.5,
+  col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -42,6 +43,9 @@ of a positive decision provided that the condition is \code{FALSE}).
 \item{N}{The number of individuals in the population.
 A suitable value of \code{\link{N}} is computed, if not provided.}
 
+\item{round}{A Boolean option specifying whether computed frequencies
+are rounded to integers. Default: \code{round = TRUE}.}
+
 \item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
 \enumerate{
 \item \code{"cd"} ... by condition;
@@ -52,19 +56,17 @@ A suitable value of \code{\link{N}} is computed, if not provided.}
 
 \item{area}{A character code specifying the area of the boxes (or their relative sizes) with 4 options:
 \enumerate{
-\item \code{"no"} ... all boxes are shown with the same size (default);
-\item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies;
+\item \code{"no"} ... all boxes are shown with the same size;
+\item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
 \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
 \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 }}
 
-\item{round}{A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.}
-
 \item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
   \enumerate{
   \item \code{"nam"} ... names of probabilities;
-  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals);
-  \item \code{"mix"} ... names of essential probabilities, values of complements (default);
+  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
+  \item \code{"mix"} ... names of essential probabilities, values of complements;
   \item \code{"min"} ... minimal labels: names of essential probabilities.
   }
 
@@ -126,16 +128,16 @@ to avoid decimal values in \code{\link{freq}}.
 }
 \examples{
 # Plotting existing freq:
-plot_fnet()
-plot_fnet(by = "dc")
-plot_fnet(area = "sq")
+plot_fnet()  # => plot current freq with default options
+plot_fnet(by = "dccd")
+plot_fnet(area = "no")
 plot_fnet(p.lbl = "num")
 plot_fnet(title.lbl = "")
 plot_fnet(N = 33)
 plot_fnet(N = NA)
 
-# Computing and plotting new frequencies:
-plot_fnet(prev = 1/3)
+# Computing and plotting new frequencies from probabilities:
+plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
 plot_fnet(prev = 1/3, N = 55)
 plot_fnet(prev = 1/3, N = NA)
 plot_fnet(prev = 1/3, round = FALSE)
@@ -144,14 +146,19 @@ plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
 plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
 plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
 
+# Rounding:
+plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)   # => mi = 0
+plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE)  # => mi = 0.3
+
 # Perspective options:
-plot_fnet(by = "cd")   # => 1. Tree diagram (by condition)
-plot_fnet(by = "dc")   # => 2. Tree diagram (by decision)
-plot_fnet(by = "cddc") # => 3. Network diagram (1st by condition, 2nd by decision)
-# NOT working yet: plot_fnet(by = "dccd") # => 4. Network diagram (1st by decision, 2nd by condition)
+plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
+plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
+plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
+plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
 
 # Area options:
-plot_fnet(area = "sq")
+plot_fnet(area = "sq")  # => (default)
+plot_fnet(area = "no")
 plot_fnet(area = "sq", round = FALSE)
 plot_fnet(area = "hr")
 plot_fnet(area = "vr", round = FALSE)
@@ -162,14 +169,12 @@ plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal
 plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
 plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
 
-# Rounding:
-plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)  # => mi = 0
-plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE) # => mi = 0.3
-
 # Custom colors and shadows:
 plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
 plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
 plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+
+
 }
 \seealso{
 \code{\link{num}} contains basic numeric parameters;
