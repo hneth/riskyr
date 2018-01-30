@@ -326,7 +326,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                    pal["true"], pal["false"],
                    pal["N"])
 
-  } else { col.boxes <- pal["N"]  # to prevent errors for other entries
+  } else {  # ANY other by-setting:
+
+    col.boxes <- pal["N"]  # to prevent errors for other entries
+
   } # if (by...)
 
 
@@ -421,7 +424,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     }  # if (area...)
 
-  } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+  # } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+
+  } else {  # ANY other by-case:
 
     if (area == "no") {  # default box labels:
 
@@ -463,7 +468,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 
-  } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
+    # } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
+
+  } else { # ANY other setting:
 
     M <- matrix(nrow = 10, ncol = 11, byrow = TRUE, data = 0)
 
@@ -627,7 +634,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } # (p.lbl ==...
 
-  } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+    # } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+
+  } else { # ANY other by-setting:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
     if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
@@ -729,7 +738,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
   ## 5b. Squares that sum to the area of the next higher level:
-  if (area == "sq") {
+
+  else if (area == "sq") {
 
     ## Level 1: Population square
 
@@ -880,7 +890,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
   ## 5c. Rectangles that sum to the area of the next higher level:
-  if (area == "hr") {
+
+  else if (area == "hr") {
 
     ## Level 1: Population square
 
@@ -1159,7 +1170,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   ## 5d. Rectangles that sum to the area of the next higher level
   ##     (= 3. flipped by 90 degrees on Level 3 to correspond to 4 SDT areas of mosaic plot):
-  if (area == "vr") {
+  else if (area == "vr") {
 
     ## Level 1: Population square
     x.pop <- .10   # basic width x of population box: Area N = x.pop^2
@@ -1444,6 +1455,30 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   } # (area == "vr")...
 
+  else {  # 5e. ANY other area-setting:
+
+    if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
+
+      ## Box size and proportions:
+      x.pop <- .10    # basic width of population box
+      x.y.pop <- 2/3  # basic proportion is rectangular (width > height)
+
+      ## Collect all sizes and proportions:
+      x.boxes <- rep(x.pop, 7)     # all boxes have the same width
+      x.y.prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
+
+    } else {  # (c) + (d) + ANY other by-setting:
+
+      x.pop <- .05    # basic width of population box
+      x.y.pop <- 1/1  # basic proportion is square (width = height)
+
+      ## Collect all sizes and proportions:
+      x.boxes <- rep(x.pop, 10)     # all boxes have the same width
+      x.y.prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
+
+    } # if (by...)
+
+  } # if (area == ...)
 
 
 
@@ -1456,7 +1491,12 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     box.pos = c(1, 2, 4, 2, 1)  # 10 boxes
 
+  } else { # ANY other by-setting:
+
+    box.pos = c(1, 2, 4, 2, 1)  # 10 boxes
+
   } # if (by...)
+
 
   pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
                          pos = box.pos,  # 7 or 10 boxes
