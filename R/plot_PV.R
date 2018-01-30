@@ -1,5 +1,5 @@
 ## plot_PV.R | riskyr
-## 2018 01 26
+## 2018 01 30
 ## -----------------------------------------------
 ## plot_PV: PPV and NPV curves as functions of prevalence
 
@@ -12,9 +12,81 @@
 ## Plot PV curves: PPV and NPV as functions of prevalence
 ## (using only necessary arguments with good defaults):
 
+
+#' Plot predictive values (PPV and NPV) as a function of prevalence.
+#'
+#' \code{plot_PV} draws curves that illustrate
+#' the positive predictive value (\code{\link{PPV}})
+#' and negative predictive value (\code{\link{NPV}})
+#' as a function of the prevalence (\code{\link{prev}}).
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @param show.PVprev Option for showing current
+#' prevalence \code{\link{prev}} in the plot (as a vertical line).
+#' Default: \code{show.PVprev = TRUE}.
+#'
+#' @param show.PVpoints Option for showing current
+#' predictive values (\code{\link{PPV}} and \code{\link{NPV}})
+#' on the corresponding curve.
+#' Default: \code{show.PVpoints = TRUE}.
+#'
+#' @param log.scale Boolean value for switching from a linear
+#' to a logarithmic x-axis. Default: \code{log.scale = FALSE}.
+#'
+#' @param title.lbl The title of the current plot.
+#'
+#' @param col.ppv The color in which PPV is shown.
+#'
+#'
+#' @examples
+#' plot_PV()
+#' plot_PV(prev = .0001, log.scale = TRUE)
+#' plot_PV(title.lbl = "My favorite scenario", show.PVprev = FALSE)
+#' plot_PV(title.lbl = "", col.ppv = "firebrick3", col.npv = "steelblue3")
+#'
+#'
+#' @family visualization functions
+#'
+#'
+#' @seealso
+#' \code{\link{comp_popu}} computes the current population;
+#' \code{\link{popu}} contains the current population;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{pal}} for current color settings
+#'
+#' @export
+
+
 plot_PV <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                     sens = num$sens, mirt = NA,
                     spec = num$spec, fart = NA,
+                    ## Options: ##
                     show.PVprev = TRUE,          # user options [adjustable by inputs]
                     show.PVpoints = TRUE,
                     log.scale = FALSE,
@@ -60,7 +132,8 @@ plot_PV <- function(prev = num$prev,             # probabilities (3 essential, 2
   cur.PV.lbl <- paste0(cur.PPV.lbl, ", ", cur.NPV.lbl)
   cur.sens.spec.lbl <- paste0("(sens = ", as_pc(sens), "%, spec = ", as_pc(spec), "%)")
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
-  cur.title.lbl <- paste0(title.lbl, ":\n", "Positive and Negative Predictive Values") #, "\n", cur.sens.spec.lbl)
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  cur.title.lbl <- paste0(title.lbl, "Positive and Negative Predictive Values") #, "\n", cur.sens.spec.lbl)
 
   if (log.scale) {
     x.ax.lbl <- "Prevalence (on logarithmic scale)"

@@ -1,5 +1,5 @@
 ## plot_PV3d.R | riskyr
-## 2018 01 26
+## 2018 01 30
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
 ## as a function of both sens and spec (given prev)
@@ -12,9 +12,93 @@
 ## -----------------------------------------------
 ## Plot a 3d-plane of PPV or NPV (using persp):
 
+#' Plot predictive values (PPV or NPV) as a function of
+#' sensitivity and specificity.
+#'
+#' \code{plot_PV3d} draws a plane that illustrates
+#' either the positive predictive value (\code{\link{PPV}})
+#' or the negative predictive value (\code{\link{NPV}})
+#' as a function of
+#' a decision's sensitivity \code{\link{sens}} and
+#' a decision's specificity value \code{\link{spec}}
+#' for a given prevalence (\code{\link{prev}}).
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#'
+#' @param is.ppv Option for showing either
+#' \code{\link{PPV}} or \code{\link{NPV}}.
+#' Default: \code{is.ppv = TRUE}.
+#'
+#' @param step.size Option for the step size of the range of
+#' \code{\link{sens}} and \code{\link{spec}} values shown.
+#' Default: \code{step.size = .05}.
+#'
+#' @param show.PVpoints Option for showing current
+#' \code{\link{PPV}} or \code{\link{NPV}})
+#' on the corresponding plane.
+#' Default: \code{show.PVpoints = TRUE}.
+#'
+#' @param cur.theta Horizontal rotation angle (used by \code{\link{persp}}).
+#' Default: \code{cur.theta = -45}.
+#'
+#' @param cur.phi Vertical rotation angle (used by \code{\link{persp}}).
+#' Default: \code{cur.phi = 0}.
+#'
+#' @param title.lbl The title of the current plot.
+#'
+#' @param col.pv The color in which the selected predictive value is shown.
+#'
+#'
+#' @examples
+#' plot_PV3d()  # => shows PPV plane (using current defaults)
+#' plot_PV3d(prev = .5, show.PVpoints = FALSE, step.size = .5, title.lbl = "Quick test")
+#' plot_PV3d(prev = .3, is.ppv = FALSE, col.pv = pal["npv"])
+#' plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "",
+#'           cur.theta = -45, cur.phi = 45, cur.expand = 1.4, col.pv = "firebrick3")
+#'
+#'
+#' @family visualization functions
+#'
+#'
+#' @seealso
+#' \code{\link{comp_popu}} computes the current population;
+#' \code{\link{popu}} contains the current population;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{pal}} for current color settings
+#'
+#' @export
+
+
 plot_PV3d <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                       sens = num$sens, mirt = NA,
                       spec = num$spec, fart = NA,
+                      ## Options: ##
                       is.ppv = TRUE,         # switch to toggle between PPV (TRUE) and NPV (FALSE)
                       step.size = .05,       # resolution of matrix (sens.range and spec.range)
                       show.PVpoints = TRUE,  # user options [adjustable by inputs]
@@ -115,10 +199,11 @@ plot_PV3d <- function(prev = num$prev,             # probabilities (3 essential,
   z.lim <- c(0, 1) # range of z-axis
   z.lbl <- if (is.ppv) {"PPV"} else {"NPV"}
   cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   if (is.ppv) {
-    cur.title.lbl <- paste0(title.lbl, ":\n", "Positive predictive values (PPV)") #, " for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
+    cur.title.lbl <- paste0(title.lbl, "Positive predictive values (PPV)") #, " for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
   } else {
-    cur.title.lbl <- paste0(title.lbl, ":\n", "Negative predictive values (NPV)") #, " for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
+    cur.title.lbl <- paste0(title.lbl, "Negative predictive values (NPV)") #, " for a prevalence of ",  as_pc(prev), "%") #, "\n", cur.par.lbl)
   }
   col.bord <- grey(.01, alpha = .99) # borders (e.g., of points)
   col.pt <- if (is.ppv) {"yellow1"} else {"yellow1"} # point color should provide high contrasts to col.pv of ppv and npv
