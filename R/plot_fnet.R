@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyR
-## 2018 01 29
+## 2018 01 30
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -7,9 +7,9 @@
 ## Version 4: Generalization of plot_tree
 
 ## Options available in this version:
-## - by    ... "cd", "dc", "cddc".
-## - area  ... "no", "sq", "hr", "vr".
-## - p.lbl ... "nam", "num", "mix", "min".
+## - by    ... "cd", "dc", "cddc" (default), "dccd".
+## - area  ... "no", "sq" (default), "hr", "vr".
+## - p.lbl ... "nam", "num" (default), "mix", "min".
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -99,6 +99,10 @@
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #'
+#' @param round A Boolean option specifying whether computed frequencies
+#' are rounded to integers. Default: \code{round = TRUE}.
+#'
+#'
 #' @param by A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
 #'   \enumerate{
 #'   \item \code{"cd"} ... by condition;
@@ -109,19 +113,17 @@
 #'
 #' @param area A character code specifying the area of the boxes (or their relative sizes) with 4 options:
 #'   \enumerate{
-#'   \item \code{"no"} ... all boxes are shown with the same size (default);
-#'   \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies;
+#'   \item \code{"no"} ... all boxes are shown with the same size;
+#'   \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
 #'   \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
 #'   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 #'   }
 #'
-#' @param round A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.
-#'
 #' @param p.lbl A character code specifying the type of probability information (on edges) with 4 options:
 #'   \enumerate{
 #'   \item \code{"nam"} ... names of probabilities;
-#'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals);
-#'   \item \code{"mix"} ... names of essential probabilities, values of complements (default);
+#'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
+#'   \item \code{"mix"} ... names of essential probabilities, values of complements;
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
 #'
@@ -135,53 +137,54 @@
 #'
 #' @return Nothing (NULL).
 #'
+#'
 #' @examples
-# # Plotting existing freq:
-# plot_fnet()  # => plot current freq with default options
-# plot_fnet(by = "dccd")
-# plot_fnet(area = "no")
-# plot_fnet(p.lbl = "num")
-# plot_fnet(title.lbl = "")
-# plot_fnet(N = 33)
-# plot_fnet(N = NA)
-#
-# # Computing and plotting new frequencies from probabilities:
-# plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
-# plot_fnet(prev = 1/3, N = 55)
-# plot_fnet(prev = 1/3, N = NA)
-# plot_fnet(prev = 1/3, round = FALSE)
-# plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
-# plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
-# plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
-# plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
-#
-# # Perspective options:
-# plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
-# plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
-# plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
-# plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
-#
-# # Area options:
-# plot_fnet(area = "sq")  # => (default)
-# plot_fnet(area = "no")
-# plot_fnet(area = "sq", round = FALSE)
-# plot_fnet(area = "hr")
-# plot_fnet(area = "vr", round = FALSE)
-#
-# # Combining perspectives, areas, and label options:
-# plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-# plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-# plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-# plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
-#
-# # Rounding:
-# plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)  # => mi = 0
-# plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE) # => mi = 0.3
-#
-# # Custom colors and shadows:
-# plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-# plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-# plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+#' # Plotting existing freq:
+#' plot_fnet()  # => plot current freq with default options
+#' plot_fnet(by = "dccd")
+#' plot_fnet(area = "no")
+#' plot_fnet(p.lbl = "num")
+#' plot_fnet(title.lbl = "")
+#' plot_fnet(N = 33)
+#' plot_fnet(N = NA)
+#'
+#' # Computing and plotting new frequencies from probabilities:
+#' plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
+#' plot_fnet(prev = 1/3, N = 55)
+#' plot_fnet(prev = 1/3, N = NA)
+#' plot_fnet(prev = 1/3, round = FALSE)
+#' plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
+#' plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
+#' plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
+#' plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
+#'
+#' # Rounding:
+#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)   # => mi = 0
+#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE)  # => mi = 0.3
+#'
+#' # Perspective options:
+#' plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
+#' plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
+#' plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
+#' plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
+#'
+#' # Area options:
+#' plot_fnet(area = "sq")  # => (default)
+#' plot_fnet(area = "no")
+#' plot_fnet(area = "sq", round = FALSE)
+#' plot_fnet(area = "hr")
+#' plot_fnet(area = "vr", round = FALSE)
+#'
+#' # Combining perspectives, areas, and label options:
+#' plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
+#' plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
+#' plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
+#' plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+#'
+#' # Custom colors and shadows:
+#' plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
+#' plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
+#' plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 #'
 #'
 #' @family visualization functions
@@ -204,10 +207,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       spec = num$spec, fart = NA,  # was: num$fart,
                       N = freq$N,    # ONLY freq used (so far)
                       ## Options:
-                      by = "cddc",   # 4 perspectives: "cd" by condition, "dc" by decision; "cddc" by condition and decision (default), "dccd" by decision and condition
-                      area = "sq",   # 4 area types: "no" none, "sq" square (default), "hr" horizontal rectangles, "vr" vertical rectangles
                       round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
-                      p.lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
+                      by = "cddc",   # 4 perspectives: "cd" by condition, "dc" by decision; "cddc" by condition and decision (default), "dccd" by decision and condition.
+                      area = "sq",   # 4 area types: "no" none, "sq" square (default), "hr" horizontal rectangles, "vr" vertical rectangles
+                      p.lbl = "num", # 4 probability (edge) label types: "nam" names, "num" numeric values (default), "mix" essential names + complement values, "min" minimal.
                       ## Labels:
                       title.lbl = txt$scen.lbl,     # custom text labels
                       popu.lbl = txt$popu.lbl,
@@ -221,6 +224,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       sdt.mi.lbl = txt$sdt.mi.lbl,
                       sdt.fa.lbl = txt$sdt.fa.lbl,
                       sdt.cr.lbl = txt$sdt.cr.lbl,
+                      box.cex = .85,                # relative size of text in boxes
                       ## Colors:
                       col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
                       # col.N = col.sand.light,
@@ -228,6 +232,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
                       col.txt = grey(.01, alpha = .99),  # black
                       col.border = col.grey.4,
+                      ## Widths of arrows and box borders:
+                      lwd = 1.5,      # width of arrows
+                      box.lwd = 1.5,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
                       col.shadow = col.sand.dark,
                       cex.shadow = 0  # [values > 0 show shadows]
@@ -1456,23 +1463,23 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
                          name = names,
                          relsize	= .98, # a scaling factor for the size of the graph
-                         lwd = 1.5,
+                         lwd = lwd,  # width of arrows
                          ## Boxes:
-                         box.size = x.boxes,  # widths of boxes
-                         box.prop = x.y.prop, # proportionality (length/width) ratio of boxes
-                         box.type = "rect", # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes, # scalar or vector of length 7.
+                         box.size = x.boxes,   # widths of boxes
+                         box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
+                         box.type = "rect",  # "rect", "ellipse", "diamond", "circle", "hexa", "multi", "none"
+                         box.col = col.boxes,  # scalar or vector of length 7.
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
-                         box.lcol = col.border,
-                         box.lwd = 2.0,
-                         lcol = col.border, # default color for box and arrow lines
+                         box.lcol = col.border,  # col.boxes,
+                         box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
+                         lcol = col.border,  # default color for box and arrow lines
                          ## Text in Boxes:
                          txt.col = col.txt,
-                         box.cex = .85, # relative size of text in boxes
-                         txt.font = 1, # 1 = plain, 2 = bold, ...
+                         box.cex = box.cex,  # relative size of text in boxes
+                         txt.font = 1,   # 1 = plain, 2 = bold, ...
                          ## Arrows:
-                         cex.txt = .80, # relative size of arrow text
-                         arr.pos = .50, # relative position of arrowhead on arrow segment/curve
+                         cex.txt = .80,  # relative size of arrow text
+                         arr.pos = .50,  # relative position of arrowhead on arrow segment/curve
                          arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
                          arr.length = .20,
                          arr.width = .15,
