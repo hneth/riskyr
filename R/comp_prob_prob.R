@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 30
+## 2018 01 31
 ## -----------------------------------------------
 ## Compute other probabilities from probabilities:
 
@@ -83,11 +83,13 @@
 #' The type and range of \code{prob} is
 #' verified with \code{\link{is_prob}}.
 #'
+#'
 #' @param prob A numeric probability value
 #' (in range from 0 to 1).
 #'
 #' @return A numeric probability value
 #' (in range from 0 to 1).
+#'
 #'
 #' @examples
 #' comp_complement(0)    # => 1
@@ -96,12 +98,16 @@
 #' comp_complement(2)    # => NA + warning (beyond range)
 #' comp_complement("p")  # => NA + warning (non-numeric)
 #'
+#'
 #' @family functions computing probabilities
 #'
 #' @seealso
 #' \code{\link{is_complement}} verifies numeric complements;
 #' \code{\link{comp_comp_pair}} returns a probability and its complement;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
+#'
 
 comp_complement <- function(prob) {
 
@@ -775,6 +781,8 @@ comp_PPV <- function(prev, sens, spec) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 
 ## (a) from basic probabilities:
@@ -872,7 +880,6 @@ comp_FDR_PPV <- function(PPV) {
 #'
 #' @export
 
-
 comp_NPV <- function(prev, sens, spec) {
 
   NPV <- NA # initialize
@@ -961,6 +968,8 @@ comp_NPV <- function(prev, sens, spec) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 comp_FOR <- function(prev, sens, spec) {
 

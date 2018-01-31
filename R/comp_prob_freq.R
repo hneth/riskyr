@@ -1,5 +1,5 @@
 ## comp_prob_freq.R | riskyr
-## 2018 01 26
+## 2018 01 31
 ## -----------------------------------------------
 ## Compute probabilities (prob) from frequencies (freq):
 
