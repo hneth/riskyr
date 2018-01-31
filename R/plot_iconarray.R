@@ -51,15 +51,15 @@
 
 ## (c) SDT (status decision/truth):
 # calculate to be independent from source
-pop <- 100 # define population size.
+pop <- 10000 # define population size.
 sens <- 0.80
 spec <- 0.90
-prev <- 0.70
+prev <- 0.30
 
-n.hi <- pop * prev * sens
-n.mi <- 14 # pop * prev * (1 - sens)
-n.fa <- 3 # pop * (1 - prev) * (1 - spec)
-n.cr <- pop * (1 - prev) * spec
+n.hi <- round(pop * prev * sens)
+n.mi <- round(pop * prev * (1 - sens))
+n.fa <- round(pop * (1 - prev) * (1 - spec))
+n.cr <- round(pop * (1 - prev) * spec)
 
 length(rep("hi", n.hi))
 length(rep("mi", 14))  # too short???  Apparently a failure in updating...
@@ -317,25 +317,81 @@ sum(n.hi, n.mi, n.fa, n.cr)
   #
 
   # 0. define nrows, ncols, and blocks (with option to calculate them later as well as blocks).
-  nrows <- 10
-  ncols <- 10
-  blocks <- 4
-  col_blocks <- 3
-  row_blocks <- 2
-  block_size <- 5  # maybe generalize in block cols and rows.
+
+    ## Test A (9 6x2 blocks, pop = 90): --------------------------
+      # nrows <- 6
+      # ncols <- 15
+      # blocks <- 9
+      # col_blocks <- 3
+      # row_blocks <- 3
+      # block_size <- 5  # maybe generalize in block cols and rows.
+      # block_size_col <- 5
+      # block_size_row <- 2
+
+    ## Test B (4 5x5 blocks, pop = 100):-------------------------
+      # nrows <- 10
+      # ncols <- 10
+      # blocks <- 4
+      # col_blocks <- 2
+      # row_blocks <- 2
+      # block_size_col <- 5
+      # block_size_row <- 5
+
+    ## Test C (5x4 2x2 blocks, pop = 100):--------------------------
+      ncols <- 100
+      nrows <- 100
+      blocks <- 100
+      col_blocks <- 10
+      row_blocks <- 10
+      block_size_col <- 10
+      block_size_row <- 10
+
+# Define positions:-----------------------------------------------
   block_d <- 0.4  # same name as above?
+
+  # TODO: This needs plausi checks!
 
   # 1. Create matrix of positions:
     design.matrix <- expand.grid(0:(ncols  - 1), (nrows - 1):0)  # create a matrix for positions.
     design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
     # TODO: Can likely be ommitted in favor of the below solution.
 
+    # Test alternative approach:
+    # TODO: I don't need the design matrix for that...
+      # find adjustment parameter for distances:
+      max_posx <- (ncols - 1) - (block_d * (col_blocks - 1))
+      # now find a monotonically increasing sequence, resulting in exactly this endpoint.
+      adj_posx <- seq(0, max_posx, length.out = ncols)
+
+      max_posy <- (nrows - 1) - (block_d * (row_blocks - 1))
+      # now find a monotonically increasing sequence, resulting in exactly this endpoint.
+      adj_posy <- seq(max_posy, 0, length.out = nrows)
+
+    test_mx <- matrix(adj_posx, nrow = nrows, ncol = ncols, byrow = TRUE)
+    test_my <- matrix(adj_posy, nrow = nrows, ncol = ncols)
+
+    # add testwise a sequence to the x matrix:
+      # For x:
+      test_seq <- seq(0, (col_blocks - 1) * block_d, by = block_d)
+      test_seqx <- rep(test_seq, each = block_size_col)
+      test_mx2 <- test_mx + rep(test_seqx, each = nrow(test_mx))
+
+      # For y:
+      test_seq <- seq((row_blocks - 1) * block_d, 0, by = -block_d)  # create sequence of number to add.
+      test_seqy <- rep(test_seq, each = block_size_row)  # repeat to number of rows.
+      test_my2 <- test_my + test_seqy
+
+      # test plotting:
+      plot(test_mx2, test_my2)
+
+
+# Old approaches: ------------------------------------------------------------------------
     # Get block breakpoints:
-    block_breaks_col <- seq(block_size, by = block_size, length.out = col_blocks - 1)
-    block_breaks_row <- seq(block_size, by = block_size, length.out = row_blocks - 1)
+    block_breaks_col <- seq(0, ncols, by = block_size_col)
+    block_breaks_row <- seq(nrows, 0, by = -block_size_row)
 
   # 2. Define block membership to determine order:
-    # 2.1. Row-wise filling:
+    # 2.1. Row-wise filling (for colwise reverse x and y):
 
     # For two x two blocks:
       # y >= block_size: block 1 or 2 (thinking in rows)
@@ -348,25 +404,47 @@ sum(n.hi, n.mi, n.fa, n.cr)
                     ifelse(!block_1_2 & !block_2_4, 3, 4))
              )
 
+    # For two x two blocks (slightly more general):
+
+
     # For x times y blocks:
-      blocks <- expand.grid(1:col_blocks, 1:row_blocks)
-      blocks <- cbind(blocks, block_num = 1:nrow(blocks))
+      block_dict <- expand.grid(1:col_blocks, row_blocks:1)
+      block_dict <- cbind(block_dict, block_num = 1:nrow(block_dict))
 
-      blocks <- expand.grid(block_breaks_col, block_breaks_row)
 
-    # use workaround for sorting for the moment (as order and sort do not work as expected):
-    order_vec <- 1:length(block_vec)
-    block_order <- rep(NA, length(block_vec))
-    for (i in unique(block_vec)) {
-      i_log <- block_vec == i  # get logical vector of all 1st block entries.
-      len <- sum(i_log)  # get the respective length.
-      block_order[i_log] <- order_vec[1:len]  # take the first len elements from the order vec.
-      order_vec <- order_vec[(len + 1):length(order_vec)]  # remove the used elements.
-    }
+      design.matrix
 
+      # preliminarily use a loop:
+      block <- rep(NA, nrow(design.matrix))
+
+      for (i in 1:nrow(block_dict)) {
+        x <- design.matrix$Var1
+        y <- design.matrix$Var2
+
+        cond_x1 <- block_breaks_col[block_dict$Var1[i]]
+        cond_x2 <- block_breaks_col[block_dict$Var1[i]+1]
+
+        cond_y1 <- block_breaks_row[block_dict$Var2[i]]
+        cond_y2 <- block_breaks_row[block_dict$Var2[i]+1]
+
+        cond_x <- x >= cond_x1 & x < cond_x2
+        cond_y <- y >= cond_y2 & y < cond_y1
+
+        block[cond_x & cond_y] <- block_dict$block_num[i]
+      }
+
+      design.matrix$block <- block
+      design.matrix
+
+
+# Color sorting ------------------------------------------------------------
+    # !!!Sorting:
     # sort colors accordingly:
-    col_vec <- col_vec[block_order]
+    col_vec <- icon_colors2
+    col_vec <- col_vec[order(order(design.matrix$block))]
+      # TODO: Find out WHY ON EARTH order(order()) works!
 
+# Old approaches:-----------------------------------------------------------
   # 3. Define positions:
     minx <- min(design.matrix$Var1)
     maxx <- max(design.matrix$Var1)
@@ -374,15 +452,15 @@ sum(n.hi, n.mi, n.fa, n.cr)
     maxy <- max(design.matrix$Var2)
 
     # find adjustment parameter for distances:
-    max_posx <- max(design.matrix$Var1) - block_d
+    max_posx <- max(design.matrix$Var1) - (block_d * (col_blocks - 1))
       # now find a monotonically increasing sequence, resulting in exactly this endpoint.
     adj_posx <- seq(0, max_posx, length.out = ncols)
-    design.matrix$Var1 <- adj_posx
+    design.matrix$Var1 <- rep(adj_posx, times = col_blocks)
 
-    max_posy <- max(design.matrix$Var2) - block_d
+    max_posy <- max(design.matrix$Var2) - (block_d * (row_blocks - 1))
     # now find a monotonically increasing sequence, resulting in exactly this endpoint.
     adj_posy <- seq(max_posy, 0, length.out = nrows)
-    design.matrix$Var2 <- rep(adj_posy , each = nrows)
+    design.matrix$Var2 <- rep(adj_posy, each = row_blocks)
 
     # TODO: To make it more general one will likely have to include a factor on block_d following n.blocks - 1.
 
@@ -401,23 +479,50 @@ sum(n.hi, n.mi, n.fa, n.cr)
     # design.matrix$Var2[!design.matrix$Var2 %in% c(maxy)] <-
     #   design.matrix$Var2[!design.matrix$Var2 %in% c(maxy)] + adjy
 
-    block_size_adj <- block_size - block_d  # block size needs to be adjusted for comparison.
+    # block_size_adj <- col_blocks - block_d  # block size needs to be adjusted for comparison.
+
 
     # calculate block borders:
     block_size_adjx <- adj_posx[block_size + 1]
     block_size_adjy <- adj_posy[block_size + 1]
 
-    # design.matrix <- design.matrix / 1.2
-    design.matrix$Var1[design.matrix$Var1 >= (block_size_adjx)] <-
-      design.matrix$Var1[design.matrix$Var1 >= (block_size_adjx)] + block_d
+    block_breaks_col
+    block_breaks_row
 
-    design.matrix$Var2[design.matrix$Var2 > (block_size_adjy)] <-
-      design.matrix$Var2[design.matrix$Var2 > (block_size_adjy)] + block_d
+    # TODO: I need x-and y blocks!
+    block_dict <- block_dict - 1
 
+    # TODO: link block dictionary and design matrix!
+    # Quick (preliminary?) loop:
+    design.matrix$block <- design.matrix$block - 1
+    design.matrix$block_x <- NULL
+    design.matrix$block_y <- NULL
+
+      for(i in block_dict$block_num) {
+        design.matrix$block_x[design.matrix$block == i] <- block_dict$Var1[block_dict$block_num == i]
+        design.matrix$block_y[design.matrix$block == i] <- block_dict$Var2[block_dict$block_num == i]
+      }
+
+    # add (block - 1) * the distance:
+    design.matrix$Var1_block <- design.matrix$Var1 + (design.matrix$block_x * block_d)
+    design.matrix$Var2_block <- design.matrix$Var2 + (design.matrix$block_y * block_d)
+
+    # TODO: Do leave the maxima and minima unaffected!
+
+
+    # # design.matrix <- design.matrix / 1.2
+    # design.matrix$Var1[design.matrix$Var1 >= (block_size_adjx)] <-
+    #   design.matrix$Var1[design.matrix$Var1 >= (block_size_adjx)] + block_d
+    #
+    # design.matrix$Var2[design.matrix$Var2 > (block_size_adjy)] <-
+    #   design.matrix$Var2[design.matrix$Var2 > (block_size_adjy)] + block_d
+
+
+# Plotting preparations: ------------------------------------------------------
 
     # save into respective vectors and norm on 0,1 space.
-    posx_vec <- design.matrix$Var1 / (ncols - 1)
-    posy_vec <- design.matrix$Var2 / (nrows - 1)
+    posx_vec <- test_mx2 / (ncols - 1)
+    posy_vec <- test_my2/ (nrows - 1)
 
     # TODO: Not in region anymore --> change plot dimensions or decrease standard distance.
 
@@ -440,7 +545,7 @@ sum(n.hi, n.mi, n.fa, n.cr)
 
     # 3a) set plotting character:
     pch <- 22  # filled square as default.
-    cex <- 3
+    cex <- 0.5
 
     test <- paste(round(posx_vec, 1), round(posy_vec, 1))
 
@@ -454,6 +559,17 @@ sum(n.hi, n.mi, n.fa, n.cr)
 
 
 # ---------------------------------------------------------------
+    # Examples and tests:
+
+# Minimal example to understand what is happening when sorting :~~~~~~~~~~~~~~~~~~~
+    a <- c(1,1,2,2,1,1,2,2,1,1,2,2,3,3,4,4,3,3,4,4)
+    a
+    order(a)
+    sort(a)
+    # order() gives positions of the original numbers in the index position of the ordered object.
+    order(order(a))
+    # maybe, this works, as it gets where in a new (sorted) order elements now are...?
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Test functionality of plotting icons:
     par("pin")  # this is likely the appropriate value to scale cex...
