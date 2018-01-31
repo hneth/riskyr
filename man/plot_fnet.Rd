@@ -13,7 +13,7 @@ plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl,
   box.cex = 0.85, col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
-  col.border = col.grey.4, lwd = 1.5, box.lwd = 1.5,
+  col.border = grey(0.33, alpha = 0.99), lwd = 1.5, box.lwd = 1.5,
   col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
@@ -187,5 +187,7 @@ plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 \code{\link{txt}} contains current text settings;
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-Other visualization functions: \code{\link{plot_tree}}
+Other visualization functions: \code{\link{plot_PV3d}},
+  \code{\link{plot_PV}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_tree}}
 }

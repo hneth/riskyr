@@ -5,15 +5,16 @@
 \title{Plot a tree diagram of frequencies and probabilities.}
 \usage{
 plot_tree(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, by = "cd", area = "no", round = TRUE,
+  fart = NA, N = freq$N, round = TRUE, by = "cd", area = "no",
   p.lbl = "mix", title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
   cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
   cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
-  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl,
+  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl, box.cex = 0.9,
   col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
-  col.border = col.grey.4, col.shadow = col.sand.dark, cex.shadow = 0)
+  col.border = grey(0.33, alpha = 0.99), lwd = 1.6, box.lwd = 1.8,
+  col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -42,12 +43,12 @@ of a positive decision provided that the condition is \code{FALSE}).
 \item{N}{The number of individuals in the population.
 A suitable value of \code{\link{N}} is computed, if not provided.}
 
-\item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
+\item{round}{A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.}
+
+\item{by}{A character code specifying the perspective (or category by which the population is split into subsets) with 2 options:
 \enumerate{
 \item \code{"cd"} ... by condition;
-\item \code{"dc"} ... by decision;
-\item \code{"cddc"} ... by condition and by decision;
-\item \code{"dccd"} ... by decision and by condition.
+\item \code{"dc"} ... by decision.
 }}
 
 \item{area}{A character code specifying the area of the boxes (or their relative sizes) with 4 options:
@@ -57,8 +58,6 @@ A suitable value of \code{\link{N}} is computed, if not provided.}
 \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
 \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 }}
-
-\item{round}{A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.}
 
 \item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
   \enumerate{
@@ -158,5 +157,7 @@ plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 \code{\link{txt}} contains current text settings;
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-Other visualization functions: \code{\link{plot_fnet}}
+Other visualization functions: \code{\link{plot_PV3d}},
+  \code{\link{plot_PV}}, \code{\link{plot_fnet}},
+  \code{\link{plot_mosaic}}
 }

@@ -242,7 +242,11 @@ comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 \code{\link{comp_freq}} computes frequencies from probabilities;
 \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
 \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
-\code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+\code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}};
+\code{\link{comp_freq_freq}} computes current frequency information from (4 essential) frequencies;
+\code{\link{comp_freq_prob}} computes current frequency information from (3 essential) probabilities;
+\code{\link{comp_prob_freq}} computes current probability information from (4 essential) frequencies;
+\code{\link{comp_prob_prob}} computes current probability information from (3 essential) probabilities.
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},

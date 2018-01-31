@@ -3,6 +3,9 @@
 \name{comp_popu}
 \alias{comp_popu}
 \title{Compute a population table from frequencies.}
+\format{An object of class \code{data.frame}
+with \code{\link{N}} rows
+and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
@@ -29,7 +32,7 @@ contained in \code{\link{txt}}.
 
 A visualization of the current population
 contained in \code{\link{popu}}
-is provided by \code{plot_iconarray}.
+is provided by \code{plot_icon}.
 }
 \examples{
 comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
