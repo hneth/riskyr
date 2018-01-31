@@ -51,7 +51,7 @@
 
 ## (c) SDT (status decision/truth):
 # calculate to be independent from source
-pop <- 10000 # define population size.
+pop <- 100 # define population size.
 sens <- 0.80
 spec <- 0.90
 prev <- 0.30
@@ -329,13 +329,13 @@ sum(n.hi, n.mi, n.fa, n.cr)
       # block_size_row <- 2
 
     ## Test B (4 5x5 blocks, pop = 100):-------------------------
-      # nrows <- 10
-      # ncols <- 10
-      # blocks <- 4
-      # col_blocks <- 2
-      # row_blocks <- 2
-      # block_size_col <- 5
-      # block_size_row <- 5
+      nrows <- 10
+      ncols <- 10
+      blocks <- 4
+      col_blocks <- 2
+      row_blocks <- 2
+      block_size_col <- 5
+      block_size_row <- 5
 
     ## Test C (5x4 2x2 blocks, pop = 100):--------------------------
       ncols <- 100
@@ -352,11 +352,6 @@ sum(n.hi, n.mi, n.fa, n.cr)
   # TODO: This needs plausi checks!
 
   # 1. Create matrix of positions:
-    design.matrix <- expand.grid(0:(ncols  - 1), (nrows - 1):0)  # create a matrix for positions.
-    design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
-    # TODO: Can likely be ommitted in favor of the below solution.
-
-    # Test alternative approach:
     # TODO: I don't need the design matrix for that...
       # find adjustment parameter for distances:
       max_posx <- (ncols - 1) - (block_d * (col_blocks - 1))
@@ -384,139 +379,12 @@ sum(n.hi, n.mi, n.fa, n.cr)
       # test plotting:
       plot(test_mx2, test_my2)
 
-
-# Old approaches: ------------------------------------------------------------------------
-    # Get block breakpoints:
-    block_breaks_col <- seq(0, ncols, by = block_size_col)
-    block_breaks_row <- seq(nrows, 0, by = -block_size_row)
-
-  # 2. Define block membership to determine order:
-    # 2.1. Row-wise filling (for colwise reverse x and y):
-
-    # For two x two blocks:
-      # y >= block_size: block 1 or 2 (thinking in rows)
-      block_1_2 <- design.matrix$Var2 >= block_size
-      # x >= block size: block 2 or 4
-      block_2_4 <- design.matrix$Var1 >= block_size
-
-      block_vec <- ifelse(block_1_2 & !block_2_4, 1,
-             ifelse(block_1_2 & block_2_4, 2,
-                    ifelse(!block_1_2 & !block_2_4, 3, 4))
-             )
-
-    # For two x two blocks (slightly more general):
-
-
-    # For x times y blocks:
-      block_dict <- expand.grid(1:col_blocks, row_blocks:1)
-      block_dict <- cbind(block_dict, block_num = 1:nrow(block_dict))
-
-
-      design.matrix
-
-      # preliminarily use a loop:
-      block <- rep(NA, nrow(design.matrix))
-
-      for (i in 1:nrow(block_dict)) {
-        x <- design.matrix$Var1
-        y <- design.matrix$Var2
-
-        cond_x1 <- block_breaks_col[block_dict$Var1[i]]
-        cond_x2 <- block_breaks_col[block_dict$Var1[i]+1]
-
-        cond_y1 <- block_breaks_row[block_dict$Var2[i]]
-        cond_y2 <- block_breaks_row[block_dict$Var2[i]+1]
-
-        cond_x <- x >= cond_x1 & x < cond_x2
-        cond_y <- y >= cond_y2 & y < cond_y1
-
-        block[cond_x & cond_y] <- block_dict$block_num[i]
-      }
-
-      design.matrix$block <- block
-      design.matrix
-
-
 # Color sorting ------------------------------------------------------------
     # !!!Sorting:
     # sort colors accordingly:
     col_vec <- icon_colors2
     col_vec <- col_vec[order(order(design.matrix$block))]
       # TODO: Find out WHY ON EARTH order(order()) works!
-
-# Old approaches:-----------------------------------------------------------
-  # 3. Define positions:
-    minx <- min(design.matrix$Var1)
-    maxx <- max(design.matrix$Var1)
-    miny <- min(design.matrix$Var2)
-    maxy <- max(design.matrix$Var2)
-
-    # find adjustment parameter for distances:
-    max_posx <- max(design.matrix$Var1) - (block_d * (col_blocks - 1))
-      # now find a monotonically increasing sequence, resulting in exactly this endpoint.
-    adj_posx <- seq(0, max_posx, length.out = ncols)
-    design.matrix$Var1 <- rep(adj_posx, times = col_blocks)
-
-    max_posy <- max(design.matrix$Var2) - (block_d * (row_blocks - 1))
-    # now find a monotonically increasing sequence, resulting in exactly this endpoint.
-    adj_posy <- seq(max_posy, 0, length.out = nrows)
-    design.matrix$Var2 <- rep(adj_posy, each = row_blocks)
-
-    # TODO: To make it more general one will likely have to include a factor on block_d following n.blocks - 1.
-
-    # # adjustment sequences:
-    # adjx <- rep(
-    #   seq(1, max(design.matrix$Var1)), length.out = length(design.matrix$Var1[!design.matrix$Var1 %in% c(minx)])) *
-    #   block_d
-    #
-    # # adjy <- rep(
-    # #   seq(1, max(design.matrix$Var2)), each = block_size,
-    # #   length.out = length(design.matrix$Var2[!design.matrix$Var2 %in% c(miny)])) *
-    # #   block_d
-    #
-    # design.matrix$Var1[!design.matrix$Var1 %in% c(minx)] <-
-    #   design.matrix$Var1[!design.matrix$Var1 %in% c(minx)] - adjx
-    # design.matrix$Var2[!design.matrix$Var2 %in% c(maxy)] <-
-    #   design.matrix$Var2[!design.matrix$Var2 %in% c(maxy)] + adjy
-
-    # block_size_adj <- col_blocks - block_d  # block size needs to be adjusted for comparison.
-
-
-    # calculate block borders:
-    block_size_adjx <- adj_posx[block_size + 1]
-    block_size_adjy <- adj_posy[block_size + 1]
-
-    block_breaks_col
-    block_breaks_row
-
-    # TODO: I need x-and y blocks!
-    block_dict <- block_dict - 1
-
-    # TODO: link block dictionary and design matrix!
-    # Quick (preliminary?) loop:
-    design.matrix$block <- design.matrix$block - 1
-    design.matrix$block_x <- NULL
-    design.matrix$block_y <- NULL
-
-      for(i in block_dict$block_num) {
-        design.matrix$block_x[design.matrix$block == i] <- block_dict$Var1[block_dict$block_num == i]
-        design.matrix$block_y[design.matrix$block == i] <- block_dict$Var2[block_dict$block_num == i]
-      }
-
-    # add (block - 1) * the distance:
-    design.matrix$Var1_block <- design.matrix$Var1 + (design.matrix$block_x * block_d)
-    design.matrix$Var2_block <- design.matrix$Var2 + (design.matrix$block_y * block_d)
-
-    # TODO: Do leave the maxima and minima unaffected!
-
-
-    # # design.matrix <- design.matrix / 1.2
-    # design.matrix$Var1[design.matrix$Var1 >= (block_size_adjx)] <-
-    #   design.matrix$Var1[design.matrix$Var1 >= (block_size_adjx)] + block_d
-    #
-    # design.matrix$Var2[design.matrix$Var2 > (block_size_adjy)] <-
-    #   design.matrix$Var2[design.matrix$Var2 > (block_size_adjy)] + block_d
-
 
 # Plotting preparations: ------------------------------------------------------
 
