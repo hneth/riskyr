@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyR
-## 2018 01 30
+## 2018 02 01
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -9,6 +9,7 @@
 ## - by    ... "cd", "dc".
 ## - area  ... "no", "sq", "hr", "vr".
 ## - p.lbl ... "nam", "num", "mix", "min".
+## - show.accu ... show current accuracy metrics.
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -106,6 +107,15 @@
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
 #'
+#' @param show.accu Option for showing current
+#' accuracy metrics \code{\link{accu}} in the plot.
+#' Default: \code{show.accu = TRUE}.
+#'
+#' @param w.acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' Default: \code{w.acc = .50}.
+#'
+#'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param title.lbl Text label to set plot title.
@@ -177,6 +187,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       by = "cd",     # 4 perspectives: "cd" by condition, "dc" by decision.
                       area = "no",   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles.
                       p.lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
+                      show.accu = TRUE,  # compute and show accuracy metrics
+                      w.acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
                       title.lbl = txt$scen.lbl,     # custom text labels
                       popu.lbl = txt$popu.lbl,
@@ -844,18 +856,34 @@ plot_tree <- function(prev = num$prev,             # probabilities
   cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  ## (8) Margin text:
-  cur.par.lbl <- paste0("(", "prev = ", as_pc(prev, n.digits = 1), "%, ", "sens = ", as_pc(sens, n.digits = 1), "%, ", "spec = ", as_pc(spec, n.digits = 1), "%)")
-  mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
+  ## (8) Accuracy:
+  if (show.accu) {
+    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+    cur.accu.lbl <- paste0("Accuracy: ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), "")
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+  }
+
+
+  ## (9) Margin text:
+  cur.par.lbl <- paste0("Basics: ", "prev = ", as_pc(prev, n.digits = 1), "%, ", "sens = ", as_pc(sens, n.digits = 1), "%, ", "spec = ", as_pc(spec, n.digits = 1), "%")
+  mtext(cur.par.lbl, side = 1, line = 1, adj = 0, col = grey(.33, .99), cex = .85)
 
   if (by != "cd") { # (b) by decision: additional label of PVs:
 
-    add.dc.lbl <- paste0("(", "ppod = ", as_pc(ppod, n.digits = 1), "%, ", "PPV = ", as_pc(PPV, n.digits = 1), "%, ", "NPV = ", as_pc(NPV, n.digits = 1), "%)")
-    mtext(add.dc.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .90)
+    add.dc.lbl <- paste0("", "ppod = ", as_pc(ppod, n.digits = 1), "%, ", "PPV = ", as_pc(PPV, n.digits = 1), "%, ", "NPV = ", as_pc(NPV, n.digits = 1), "%")
+    mtext(add.dc.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
 
   }
 
-  ## (9) Return what?
+  if (area != "no") { # Note that areas represent frequencies:
+
+    area.lbl <- "Areas represent relative frequencies"
+    mar.area.lbl <- paste0("(", area.lbl, ")")
+    mtext(mar.area.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
+
+  }
+
+  ## (10) Return what?
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing

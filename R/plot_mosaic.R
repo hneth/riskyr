@@ -1,5 +1,5 @@
-## plot_mosaic.R | riskyR
-## 2018 01 31
+## plot_mosaic.R | riskyr
+## 2018 02 01
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -73,6 +73,18 @@
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
 #'
+#' @param vsplit Option for toggling between
+#' vertical and horizontal split.
+#' Default: \code{vsplit = TRUE}.
+#'
+#' @param show.accu Option for showing current
+#' accuracy metrics \code{\link{accu}} in the plot.
+#' Default: \code{show.accu = TRUE}.
+#'
+#' @param w.acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' Default: \code{w.acc = .50}.
+#'
 #'
 #' @examples
 #' plot_mosaic()
@@ -100,7 +112,10 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                         spec = num$spec, fart = NA,
                         N = num$N,                   # not needed in Mosaic plot (but used in comp_freq below)
                         ## Options: ##
-                        vsplit = TRUE, # option: toggle vertical vs. horizontal split in plot
+                        vsplit = TRUE,    # toggle vertical vs. horizontal split
+                        show.accu = TRUE, # compute and show accuracy metrics
+                        w.acc = .50,      # weight w for wacc (from 0 to 1)
+                        ## Text and color options: ##
                         title.lbl = txt$scen.lbl,
                         col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 ) {
@@ -147,17 +162,24 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   } # if (is_valid_prob_set...)
 
+  ## (2) Accuracy:
+  if (show.accu) {
+    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+    cur.accu.lbl <- paste0("Accuracy: ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), ".")
+  }
 
-
-  ## (2) Define plot area:
+  ## (3) Define plot area:
   # plot(0, type = 'n')
 
-  ## (3) Text labels:
+  ## (4) Text labels:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
-  cur.par.lbl <-  paste0("(", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%)")
+  cur.par.lbl <-  paste0("Basics: ", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%.")
 
-  ## (4) Mosaic plot:
+  cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")
+
+
+  ## (5) Mosaic plot:
 
   if (vsplit) {
 
@@ -186,11 +208,10 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                 sub = paste0(cur.par.lbl)
     )
 
-  }
+  } # if (vsplit)...
 
   ## Title and margin text:
   # title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
-  # mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
 
 }
 

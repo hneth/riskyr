@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyR
-## 2018 01 30
+## 2018 02 01
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -10,6 +10,7 @@
 ## - by    ... "cd", "dc", "cddc" (default), "dccd".
 ## - area  ... "no", "sq" (default), "hr", "vr".
 ## - p.lbl ... "nam", "num" (default), "mix", "min".
+## - show.accu ... show current accuracy metrics.
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -127,6 +128,16 @@
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
 #'
+#'
+#' @param show.accu Option for showing current
+#' accuracy metrics \code{\link{accu}} in the plot.
+#' Default: \code{show.accu = TRUE}.
+#'
+#' @param w.acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' Default: \code{w.acc = .50}.
+#'
+#'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param title.lbl Text label to set plot title.
@@ -211,6 +222,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       by = "cddc",   # 4 perspectives: "cd" by condition, "dc" by decision; "cddc" by condition and decision (default), "dccd" by decision and condition.
                       area = "sq",   # 4 area types: "no" none, "sq" square (default), "hr" horizontal rectangles, "vr" vertical rectangles
                       p.lbl = "num", # 4 probability (edge) label types: "nam" names, "num" numeric values (default), "mix" essential names + complement values, "min" minimal.
+                      show.accu = TRUE,  # compute and show accuracy metrics
+                      w.acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
                       title.lbl = txt$scen.lbl,     # custom text labels
                       popu.lbl = txt$popu.lbl,
@@ -1543,9 +1556,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
 
   if (area == "no") {area.lbl <- ""}
-  else if (area == "sq") {area.lbl <- "Square sizes represent relative frequencies."}
-  else if (area == "hr") {area.lbl <- "Rectangle sizes represent relative frequencies."}
-  else if (area == "vr") {area.lbl <- "Rectangle sizes represent relative frequencies."}
+  else if (area == "sq") {area.lbl <- "Areas represent relative frequencies"}
+  else if (area == "hr") {area.lbl <- "Areas represent relative frequencies"}
+  else if (area == "vr") {area.lbl <- "Areas represent relative frequencies"}
   else {area.lbl <- ""}  # to prevent errors for other entries
 
   if (by == "cd") {by.lbl <- "(by condition)"}
@@ -1557,25 +1570,34 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  ## (8) Margin text:
-  cur.par.lbl <- paste0("(", "prev = ", as_pc(prev, n.digits = 1), "%, ", "sens = ", as_pc(sens, n.digits = 1), "%, ", "spec = ", as_pc(spec, n.digits = 1), "%)")
-  mtext(cur.par.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
+
+  ## (8) Accuracy:
+  if (show.accu) {
+    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+    cur.accu.lbl <- paste0("Accuracy: ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), "")
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+  }
+
+
+  ## (9) Margin text:
+  cur.par.lbl <- paste0("Basics: ", "prev = ", as_pc(prev, n.digits = 1), "%, ", "sens = ", as_pc(sens, n.digits = 1), "%, ", "spec = ", as_pc(spec, n.digits = 1), "%")
+  mtext(cur.par.lbl, side = 1, line = 1, adj = 0, col = grey(.33, .99), cex = .85)
 
   if (by != "cd") { # (b) by decision: additional label of PVs:
 
-    mar.dc.lbl <- paste0("(", "ppod = ", as_pc(ppod, n.digits = 1), "%, ", "PPV = ", as_pc(PPV, n.digits = 1), "%, ", "NPV = ", as_pc(NPV, n.digits = 1), "%)")
-    mtext(mar.dc.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .90)
+    mar.dc.lbl <- paste0("", "ppod = ", as_pc(ppod, n.digits = 1), "%, ", "PPV = ", as_pc(PPV, n.digits = 1), "%, ", "NPV = ", as_pc(NPV, n.digits = 1), "%")
+    mtext(mar.dc.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .85)
 
   }
 
   if (area != "no") { # Note that areas represent frequencies:
 
-    mar.area.lbl <- paste0("", area.lbl, "")
-    mtext(mar.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .90)
+    mar.area.lbl <- paste0("(", area.lbl, ")")
+    mtext(mar.area.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
 
   }
 
-  ## (9) Return what?
+  ## (10) Return what?
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing
