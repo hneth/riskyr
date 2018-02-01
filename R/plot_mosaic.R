@@ -1,8 +1,10 @@
 ## plot_mosaic.R | riskyR
-## 2018 01 30
+## 2018 01 31
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
+## from 3 essential probabilities (prev, sens, spec)
+## or current population data.frame popu.
 
 ## -----------------------------------------------
 ## Dependencies:

@@ -394,8 +394,8 @@ comp_prob <- function(prev = num$prev,             # probabilities:
     prob$ppod <- comp_ppod(prev, sens, spec)  # Note: using probabilistic versions (Bayes)
     prob$PPV  <- comp_PPV(prev, sens, spec)
     prob$NPV  <- comp_NPV(prev, sens, spec)
-    prob$FDR  <- comp_FDR(prev, sens, spec)
-    prob$FOR  <- comp_FOR(prev, sens, spec)
+    prob$FDR  <- comp_FDR(prev, sens, spec)   # FDR = (1 - PPV)
+    prob$FOR  <- comp_FOR(prev, sens, spec)   # FOR = (1 - NPV)
 
     ## (5) Check derived PVs:
     if ( is.na(prob$ppod) | is.nan(prob$ppod) | !is_prob(prob$ppod) |

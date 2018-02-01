@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 01 30
+## 2018 01 31
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
@@ -30,8 +30,12 @@
 #'
 #' A visualization of the current population
 #' contained in \code{\link{popu}}
-#' is provided by \code{plot_iconarray}.
+#' is provided by \code{plot_icon}.
 #'
+#'
+#' @format An object of class \code{data.frame}
+#' with \code{\link{N}} rows
+#' and 3 columns (\code{"Truth", "Decision", "SDT"}).
 #'
 #' @return A data frame \code{popu}
 #' containing \code{\link{N}} rows (individual cases)
@@ -57,16 +61,15 @@
 #'
 #' @export
 
-comp_popu <- function(
-  # N = num$N, # (not needed!)
-  ## frequencies (from freq):
-  # n.true = freq$cond.true, n.false = freq$cond.false, # (not needed!)
-  hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, # 4 essential frequencies!
-  ## text labels (from txt):
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
-  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl) {
+comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
+                      mi = freq$mi,
+                      fa = freq$fa,
+                      cr = freq$cr,
+                      ## text labels (from txt): ##
+                      cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
+                      dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+                      sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
+                      sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl) {
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond.true  <- (hi + fa)
