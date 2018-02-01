@@ -89,7 +89,8 @@ length(prob)         # => 8
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other lists containing current scenario information: \code{\link{freq}},
-  \code{\link{num}}, \code{\link{pal}}, \code{\link{txt}}
+Other lists containing current scenario information: \code{\link{accu}},
+  \code{\link{freq}}, \code{\link{num}}, \code{\link{pal}},
+  \code{\link{txt}}
 }
 \keyword{datasets}

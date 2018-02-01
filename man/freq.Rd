@@ -105,7 +105,8 @@ length(freq)         # => 9
 \code{\link{pal}} contains current color information;
 \code{\link{init_pal}} initializes color information.
 
-Other lists containing current scenario information: \code{\link{num}},
-  \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
+Other lists containing current scenario information: \code{\link{accu}},
+  \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt}}
 }
 \keyword{datasets}

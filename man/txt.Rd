@@ -74,7 +74,8 @@ txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other lists containing current scenario information: \code{\link{freq}},
-  \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}}
+Other lists containing current scenario information: \code{\link{accu}},
+  \code{\link{freq}}, \code{\link{num}}, \code{\link{pal}},
+  \code{\link{prob}}
 }
 \keyword{datasets}
