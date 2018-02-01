@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 01 31
+## 2018 02 01
 ## -----------------------------------------------
 ## (1) Initialize the package:
 
@@ -16,8 +16,9 @@ start_riskyr <- function(...) {
   riskyr.lst <- list(txt = NULL,
                      pal = NULL,
                      num = NULL,
+                     prob = NULL,
                      freq = NULL,
-                     prob = NULL)
+                     accu = NULL)
 
   ## (2) Source some files:
   # source("./R/comp_util.R")  # utility functions
@@ -35,15 +36,17 @@ start_riskyr <- function(...) {
   # source("./R/comp_freq.R")  # 1. derive freq (list)
   # source("./R/comp_prob.R")  # 2. derive prob (list)
   # source("./R/comp_popu.R")  # 3. derive popu (data frame)
-  freq <- comp_freq()
   prob <- comp_prob()
+  freq <- comp_freq()
+  accu <- comp_accu()
 
   ## (5) Insert computed values into riskyr.lst:
   riskyr.lst <- list(txt = txt,
                      pal = pal,
                      num = num,
+                     prob = prob,
                      freq = freq,
-                     prob = prob)
+                     accu = accu)
 
   ## (6) Message:
   message("Ready to riskyr it...")

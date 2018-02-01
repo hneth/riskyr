@@ -21,13 +21,15 @@
 #' that constitute the current confusion matrix and
 #' are contained in \code{\link{freq}}.
 #'
-#' Current metrics include:
+#' Currently computed metrics include:
 #'
 #' \enumerate{
 #'
-#'    \item \code{acc}: Accuracy as the proportion or probability of cases correctly classified:
+#'    \item \code{acc}: Accuracy as the proportion (or probability)
+#'    of correctly classifying cases:
 #'
 #'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
+#'
 #'
 #'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
 #'    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
@@ -39,6 +41,7 @@
 #'
 #'    \code{wacc = (w * sens) + ((1 - w) * spec)}.
 #'
+#'
 #'    \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
 #'    (aka. \code{\link{precision}})
 #'    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
@@ -46,23 +49,27 @@
 #'
 #'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
 #'
-#'    Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score}
-#' for additional information.
+#'    Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+#'
 #'
 #'    \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
 #'
 #'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
 #'
 #'    Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
-#' for additional information.
+#'    for additional information.
 #' }
 #'
+#' Note that some accuracy metrics can be interpreted
+#' as probabilities (e.g., \code{acc})
+#' or correlations (e.g., \code{mcc}).
 #'
-#' @return A list \code{\link{accu}} containing all current accuracy metrics.
+#' @return A list \code{\link{accu}} containing current accuracy metrics.
 #'
 #'
 #' @examples
-#' comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
+#' comp_accu()  # => computes accuracy metrics for current default scenario
+#' comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi
 #'
 #' # Extreme cases:
 #' comp_accu(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
@@ -80,6 +87,7 @@
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
 #'
 #' @family metrics
+#' @family functions computing probabilities
 #'
 #' @seealso
 #' The corresponding data frame ;
@@ -182,9 +190,49 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' returned by the corresponding generating function
 #' \code{\link{comp_accu}}.
 #'
-#' @examples
-#' accu <- comp_accu()  # => computes current accuracy information and stores result in accu
+#' Current metrics include:
 #'
+#' \enumerate{
+#'
+#'    \item \code{acc}: Accuracy as the proportion (or probability)
+#'    of correctly classifying cases:
+#'
+#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
+#'
+#'
+#'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
+#'    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
+#'    \code{\link{power}} or \code{\link{recall}})
+#'    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
+#'    in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
+#'    (ranging from 0 to 1) and  \code{\link{spec}} is multiplied by the complement
+#'    \code{(1 - w)}:
+#'
+#'    \code{wacc = (w * sens) + ((1 - w) * spec)}.
+#'
+#'
+#'    \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
+#'    (aka. \code{\link{precision}})
+#'    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
+#'    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
+#'
+#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
+#'
+#'    Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+#'
+#'
+#'    \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
+#'
+#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
+#'
+#'    Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+#'    for additional information.
+#' }
+#'
+#'
+#' @examples
+#' accu <- comp_accu()  # => computes current accuracy information and saves results in accu
+#' accu                 # => shows current accuracy information
 #'
 #' @family lists containing current scenario information
 #'
@@ -201,8 +249,6 @@ accu <- comp_accu()
 # accu
 
 ## Check:
-
-# +++ here now +++
 
 ## -----------------------------------------------
 ## (+) ToDo:

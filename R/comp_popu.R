@@ -43,7 +43,6 @@
 #' encoded as ordered factors
 #' (with 2, 2, and 4 levels, respectively).
 #'
-#'
 #' @examples
 #' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
 #'
@@ -51,6 +50,8 @@
 #' dim(popu)            # => N x 3
 #' head(popu)           # => shows head of data frame
 #'
+#'
+#' @family functions computing frequencies
 #'
 #' @seealso
 #' The corresponding data frame \code{\link{popu}};
