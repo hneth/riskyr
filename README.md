@@ -92,10 +92,9 @@ The combination of package and application facilitates risk communication and su
 
 Things to implement in the near future:
 
-- Enhanced tree function (to include `by decision` perspective) and all 10 probabilities (as edges).
-
-- Derived metrics (accuracy, etc.) of the 2x2 confusion table
-
+- enriched data set of example scenarios 
+- show accuracy metrics in plots
+- write vignettes
 
 ## About
 
@@ -112,15 +111,15 @@ In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
 `riskyr`: A toolbox for rendering risk literacy more transparent [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.910)
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.912)
 
 As BibTeX reference: 
 
-    @manual{riskyr2018,
+    @manual{riskyr,
       title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.910},
+      note = {R package version 0.0.0.912},
       url = {https://github.com/hneth/riskyr}
     }
 
