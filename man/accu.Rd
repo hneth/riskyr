@@ -13,9 +13,46 @@ accu
 returned by the corresponding generating function
 \code{\link{comp_accu}}.
 }
-\examples{
-accu <- comp_accu()  # => computes current accuracy information and stores result in accu
+\details{
+Current metrics include:
 
+\enumerate{
+
+\item \code{acc}: Accuracy as the proportion (or probability)
+   of correctly classifying cases:
+
+\code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
+
+\item \code{wacc}: Weighted accuracy, as a weighted average of the
+   sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
+   \code{\link{power}} or \code{\link{recall}})
+   and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
+   in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
+   (ranging from 0 to 1) and  \code{\link{spec}} is multiplied by the complement
+   \code{(1 - w)}:
+
+\code{wacc = (w * sens) + ((1 - w) * spec)}.
+
+\item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
+   (aka. \code{\link{precision}})
+   and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
+   \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
+
+\code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
+
+Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+
+\item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
+
+\code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
+
+Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+   for additional information.
+}
+}
+\examples{
+accu <- comp_accu()  # => computes current accuracy information and saves results in accu
+accu                 # => shows current accuracy information
 
 }
 \seealso{

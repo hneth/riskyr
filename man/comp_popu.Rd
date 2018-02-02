@@ -49,4 +49,8 @@ The corresponding data frame \code{\link{popu}};
 \code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
+
+Other functions computing frequencies: \code{\link{comp_freq_freq}},
+  \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
+  \code{\link{comp_min_N}}, \code{\link{comp_prob_prob}}
 }

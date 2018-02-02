@@ -6,7 +6,8 @@
 \usage{
 plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, round = TRUE, by = "cddc", area = "sq",
-  p.lbl = "num", title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  p.lbl = "num", show.accu = TRUE, w.acc = 0.5,
+  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
   cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
   cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
@@ -63,12 +64,21 @@ are rounded to integers. Default: \code{round = TRUE}.}
 }}
 
 \item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
-  \enumerate{
-  \item \code{"nam"} ... names of probabilities;
-  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
-  \item \code{"mix"} ... names of essential probabilities, values of complements;
-  \item \code{"min"} ... minimal labels: names of essential probabilities.
-  }
+\enumerate{
+\item \code{"nam"} ... names of probabilities;
+\item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
+\item \code{"mix"} ... names of essential probabilities, values of complements;
+\item \code{"min"} ... minimal labels: names of essential probabilities.
+}}
+
+\item{show.accu}{Option for showing current
+accuracy metrics \code{\link{accu}} in the plot.
+Default: \code{show.accu = TRUE}.}
+
+\item{w.acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+Default: \code{w.acc = .50}.
+
 
 Various other options allow the customization of text labels and colors:}
 

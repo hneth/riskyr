@@ -8,7 +8,7 @@ comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   w = 0.5)
 }
 \value{
-A list \code{\link{accu}} containing all current accuracy metrics.
+A list \code{\link{accu}} containing current accuracy metrics.
 }
 \description{
 \code{comp_accu} computes current accuracy metrics
@@ -18,11 +18,12 @@ that constitute the current confusion matrix and
 are contained in \code{\link{freq}}.
 }
 \details{
-Current metrics include:
+Currently computed metrics include:
 
 \enumerate{
 
-\item \code{acc}: Accuracy as the proportion or probability of cases correctly classified:
+\item \code{acc}: Accuracy as the proportion (or probability)
+   of correctly classifying cases:
 
 \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
 
@@ -43,19 +44,23 @@ Current metrics include:
 
 \code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
 
-Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score}
-for additional information.
+Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
 
 \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
 
 \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
 
 Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
-for additional information.
+   for additional information.
 }
+
+Note that some accuracy metrics can be interpreted
+as probabilities (e.g., \code{acc})
+or correlations (e.g., \code{mcc}).
 }
 \examples{
-comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
+comp_accu()  # => computes accuracy metrics for current default scenario
+comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi
 
 # Extreme cases:
 comp_accu(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
@@ -80,4 +85,14 @@ The corresponding data frame ;
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
+
+Other functions computing probabilities: \code{\link{comp_FDR}},
+  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
+  \code{\link{comp_PPV}}, \code{\link{comp_comp_pair}},
+  \code{\link{comp_complement}},
+  \code{\link{comp_complete_prob_set}},
+  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
+  \code{\link{comp_ppod}}, \code{\link{comp_prob_freq}},
+  \code{\link{comp_prob}}, \code{\link{comp_sens}},
+  \code{\link{comp_spec}}
 }

@@ -138,5 +138,5 @@ comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond 
 
 Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}}, \code{\link{comp_min_N}},
-  \code{\link{comp_prob_prob}}
+  \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 }

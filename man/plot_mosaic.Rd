@@ -6,8 +6,8 @@
 \usage{
 plot_mosaic(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, vsplit = TRUE,
-  title.lbl = txt$scen.lbl, col.sdt = c(pal["hi"], pal["mi"], pal["fa"],
-  pal["cr"]))
+  show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
+  col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -38,6 +38,18 @@ of a positive decision provided that the condition is \code{FALSE}).
 but used when new frequency information \code{\link{freq}}
 and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
+
+\item{vsplit}{Option for toggling between
+vertical and horizontal split.
+Default: \code{vsplit = TRUE}.}
+
+\item{show.accu}{Option for showing current
+accuracy metrics \code{\link{accu}} in the plot.
+Default: \code{show.accu = TRUE}.}
+
+\item{w.acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+Default: \code{w.acc = .50}.}
 }
 \description{
 \code{plot_mosaic} draws a mosaic plot that

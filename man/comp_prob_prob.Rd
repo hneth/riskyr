@@ -240,7 +240,7 @@ comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated 
 
 Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
-  \code{\link{comp_min_N}}
+  \code{\link{comp_min_N}}, \code{\link{comp_popu}}
 
 Other format conversion functions: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}},

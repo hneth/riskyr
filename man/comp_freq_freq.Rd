@@ -196,7 +196,7 @@ all.equal(freq, freq_freq)  # => should be TRUE!
 
 Other functions computing frequencies: \code{\link{comp_freq_prob}},
   \code{\link{comp_freq}}, \code{\link{comp_min_N}},
-  \code{\link{comp_prob_prob}}
+  \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 
 Other format conversion functions: \code{\link{comp_freq_prob}},
   \code{\link{comp_prob_freq}},

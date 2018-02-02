@@ -273,7 +273,7 @@ comp_freq_prob(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens 
 
 Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq}}, \code{\link{comp_min_N}},
-  \code{\link{comp_prob_prob}}
+  \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 
 Other format conversion functions: \code{\link{comp_freq_freq}},
   \code{\link{comp_prob_freq}},
