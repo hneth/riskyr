@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyR
-## 2018 02 01
+## 2018 02 02
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -850,40 +850,62 @@ plot_tree <- function(prev = num$prev,             # probabilities
   if (area == "hr") {type.lbl <- "Area (horizontal rectangle) tree"}
   if (area == "vr") {type.lbl <- "Area (vertical rectangle) tree"}
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+
   if (by == "cd") { by.lbl <- "(by condition)"}
   else if (by == "dc") { by.lbl <- "(by decision)"}
 
   cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  ## (8) Accuracy:
+  if (area == "no") {area.lbl <- ""}
+  else if (area == "sq") {area.lbl <- "Areas represent relative frequencies"}
+  else if (area == "hr") {area.lbl <- "Areas represent relative frequencies"}
+  else if (area == "vr") {area.lbl <- "Areas represent relative frequencies"}
+  else {area.lbl <- ""}  # to prevent errors for other entries
+
+  ## (8) Margin text:
+
+  ## (a) by condition: 3 basic probabilities
+  cur.par.lbl <- paste0("Conditions: ",
+                        "prev = ", as_pc(prev, n.digits = 1), "%, ",
+                        "sens = ", as_pc(sens, n.digits = 1), "%, ",
+                        "spec = ", as_pc(spec, n.digits = 1), "%")
+  mtext(paste0(cur.par.lbl), # "; ", cur.pv.lbl),
+        side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+
+  # (b) by decision: additional label of PVs:
+  if (by != "cd") {
+
+    cur.pv.lbl <- paste0("Decisions:  ",
+                         "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
+                         "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
+                         "NPV = ", as_pc(NPV, n.digits = 1), "%")
+    mtext(cur.pv.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)
+
+  } else {
+    cur.pv.lbl <- ""
+  }
+
+  ## (c) Accuracy: Compute and show accuracy metrics
   if (show.accu) {
     cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-    cur.accu.lbl <- paste0("Accuracy: ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), "")
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+    cur.accu.lbl <- paste0("Accuracy: ",
+                           "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
+                           "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ",
+                           "mcc = ", round(cur.accu$mcc, 2), "")
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
+  }
+
+  ## (d) Note that areas represent frequencies:
+  if (area != "no") {
+
+    cur.area.lbl <- paste0("(", area.lbl, ")")
+    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)
+
   }
 
 
-  ## (9) Margin text:
-  cur.par.lbl <- paste0("Basics: ", "prev = ", as_pc(prev, n.digits = 1), "%, ", "sens = ", as_pc(sens, n.digits = 1), "%, ", "spec = ", as_pc(spec, n.digits = 1), "%")
-  mtext(cur.par.lbl, side = 1, line = 1, adj = 0, col = grey(.33, .99), cex = .85)
-
-  if (by != "cd") { # (b) by decision: additional label of PVs:
-
-    add.dc.lbl <- paste0("", "ppod = ", as_pc(ppod, n.digits = 1), "%, ", "PPV = ", as_pc(PPV, n.digits = 1), "%, ", "NPV = ", as_pc(NPV, n.digits = 1), "%")
-    mtext(add.dc.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .90)
-
-  }
-
-  if (area != "no") { # Note that areas represent frequencies:
-
-    area.lbl <- "Areas represent relative frequencies"
-    mar.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(mar.area.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-
-  }
-
-  ## (10) Return what?
+  ## (9) Return what?
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing

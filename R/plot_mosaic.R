@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 02 01
+## 2018 02 02
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -165,7 +165,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   ## (2) Accuracy:
   if (show.accu) {
     cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-    cur.accu.lbl <- paste0("Accuracy: ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), ".")
+    cur.accu.lbl <- paste0("Accuracy:  ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), "")
   }
 
   ## (3) Define plot area:
@@ -174,7 +174,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   ## (4) Text labels:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
-  cur.par.lbl <-  paste0("Basics: ", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%.")
+  cur.par.lbl <-  paste0("Conditions: ", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%")
 
   cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")
 

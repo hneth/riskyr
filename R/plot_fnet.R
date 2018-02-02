@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyR
-## 2018 02 01
+## 2018 02 02
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -446,7 +446,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     }  # if (area...)
 
-  # } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
+    # } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
 
   } else {  # ANY other by-case:
 
@@ -1571,33 +1571,50 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
 
-  ## (8) Accuracy:
+
+  ## (8) Margin text:
+
+  ## (a) by condition: 3 basic probabilities
+  cur.par.lbl <- paste0("Conditions: ",
+                        "prev = ", as_pc(prev, n.digits = 1), "%, ",
+                        "sens = ", as_pc(sens, n.digits = 1), "%, ",
+                        "spec = ", as_pc(spec, n.digits = 1), "%")
+  mtext(paste0(cur.par.lbl), # "; ", cur.pv.lbl),
+        side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+
+  # (b) by decision: additional label of PVs:
+  if (by != "cd") {
+
+    cur.pv.lbl <- paste0("Decisions:  ",
+                         "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
+                         "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
+                         "NPV = ", as_pc(NPV, n.digits = 1), "%")
+    mtext(cur.pv.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)
+
+  } else {
+    cur.pv.lbl <- ""
+  }
+
+  ## (c) Accuracy: Compute and show accuracy metrics
   if (show.accu) {
     cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-    cur.accu.lbl <- paste0("Accuracy: ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), "")
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+    cur.accu.lbl <- paste0("Accuracy: ",
+                           "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
+                           "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ",
+                           "mcc = ", round(cur.accu$mcc, 2), "")
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
+  }
+
+  ## (d) Note that areas represent frequencies:
+  if (area != "no") {
+
+    cur.area.lbl <- paste0("(", area.lbl, ")")
+    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)
+
   }
 
 
-  ## (9) Margin text:
-  cur.par.lbl <- paste0("Basics: ", "prev = ", as_pc(prev, n.digits = 1), "%, ", "sens = ", as_pc(sens, n.digits = 1), "%, ", "spec = ", as_pc(spec, n.digits = 1), "%")
-  mtext(cur.par.lbl, side = 1, line = 1, adj = 0, col = grey(.33, .99), cex = .85)
-
-  if (by != "cd") { # (b) by decision: additional label of PVs:
-
-    mar.dc.lbl <- paste0("", "ppod = ", as_pc(ppod, n.digits = 1), "%, ", "PPV = ", as_pc(PPV, n.digits = 1), "%, ", "NPV = ", as_pc(NPV, n.digits = 1), "%")
-    mtext(mar.dc.lbl, side = 1, line = 1, adj = 1, col = grey(.33, .99), cex = .85)
-
-  }
-
-  if (area != "no") { # Note that areas represent frequencies:
-
-    mar.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(mar.area.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-
-  }
-
-  ## (10) Return what?
+  ## (9) Return what?
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing
