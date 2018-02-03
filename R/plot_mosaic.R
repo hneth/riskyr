@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 02 02
+## 2018 02 03
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -87,10 +87,15 @@
 #'
 #'
 #' @examples
-#' plot_mosaic()
-#' plot_mosaic(title.lbl = "")
-#' plot_mosaic(vsplit = FALSE)
+#' plot_mosaic()                # => default options
+#' plot_mosaic(title.lbl = "")  # => no title
+#' plot_mosaic(vsplit = FALSE)  # => horizontal split
 #' plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
+#'
+#' # Accuracy:
+#' plot_mosaic(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+#' plot_mosaic(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
+#' plot_mosaic(show.accu = FALSE)              # => no accuracy info.
 #'
 #'
 #' @family visualization functions
@@ -162,21 +167,35 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   } # if (is_valid_prob_set...)
 
-  ## (2) Accuracy:
-  if (show.accu) {
-    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-    cur.accu.lbl <- paste0("Accuracy:  ", "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ", "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ", "mcc = ", round(cur.accu$mcc, 2), "")
-  }
-
-  ## (3) Define plot area:
-  # plot(0, type = 'n')
-
-  ## (4) Text labels:
+  ## (2) Text labels:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
   cur.par.lbl <-  paste0("Conditions: ", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%")
 
-  cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")
+  ## (3) Accuracy:
+
+  if (show.accu) {
+    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+
+    if (w.acc == .50) {  # wacc is bacc:
+      wacc.lbl <- paste0("bacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ")
+    } else {  # show wacc with w:
+      wacc.lbl <- paste0("wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "% ",
+                         "(w = ", round(w.acc, 2), "), ")
+    }
+
+    cur.accu.lbl <- paste0("",
+                           "Acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
+                           wacc.lbl,
+                           "mcc = ", round(cur.accu$mcc, 2), "")
+
+    # mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
+    cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n") # add accuracy lbl
+  }
+
+
+  ## (4) Define plot area:
+  # plot(0, type = 'n')
 
 
   ## (5) Mosaic plot:

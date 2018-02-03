@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyR
-## 2018 02 02
+## 2018 02 03
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -10,7 +10,7 @@
 ## - by    ... "cd", "dc", "cddc" (default), "dccd".
 ## - area  ... "no", "sq" (default), "hr", "vr".
 ## - p.lbl ... "nam", "num" (default), "mix", "min".
-## - show.accu ... show current accuracy metrics.
+## - show.accu ... show current accuracy metrics (with bacc/wacc).
 
 ## -----------------------------------------------
 ## Dependencies:
@@ -169,10 +169,6 @@
 #' plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
 #' plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
 #'
-#' # Rounding:
-#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)   # => mi = 0
-#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE)  # => mi = 0.3
-#'
 #' # Perspective options:
 #' plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
 #' plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
@@ -185,6 +181,15 @@
 #' plot_fnet(area = "sq", round = FALSE)
 #' plot_fnet(area = "hr")
 #' plot_fnet(area = "vr", round = FALSE)
+#'
+#' # Accuracy:
+#' plot_fnet(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+#' plot_fnet(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
+#' plot_fnet(show.accu = FALSE)              # => no accuracy info.
+#'
+#' # Rounding:
+#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)   # => mi = 0
+#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE)  # => mi = 0.3
 #'
 #' # Combining perspectives, areas, and label options:
 #' plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
@@ -1598,10 +1603,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ## (c) Accuracy: Compute and show accuracy metrics
   if (show.accu) {
     cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-    cur.accu.lbl <- paste0("Accuracy: ",
-                           "acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
-                           "wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ",
+
+    if (w.acc == .50) {  # wacc is bacc:
+      wacc.lbl <- paste0("bacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ")
+    } else {  # show wacc with w:
+      wacc.lbl <- paste0("wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "% ",
+                         "(w = ", round(w.acc, 2), "), ")
+    }
+
+    cur.accu.lbl <- paste0("",
+                           "Acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
+                           wacc.lbl,
                            "mcc = ", round(cur.accu$mcc, 2), "")
+
     mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
   }
 
