@@ -139,7 +139,7 @@ num.def <- list("prev" = round(runif(1, 0, 1), 1),   # prevalence in target popu
 #' @export
 #'
 
-init_num <- function(prev = num.def$prev, sens = num.def$sens,
+init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
                      spec = num.def$spec, fart = num.def$fart,
                      N = num.def$N) {
 
