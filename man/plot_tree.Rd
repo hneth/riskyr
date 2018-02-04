@@ -144,6 +144,11 @@ plot_tree(area = "sq", round = FALSE)
 plot_tree(area = "hr")
 plot_tree(area = "vr", round = FALSE)
 
+# Accuracy:
+plot_tree(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+plot_tree(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
+plot_tree(show.accu = FALSE)              # => no accuracy info.
+
 # Perspectives, areas, and label options:
 plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
 plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers

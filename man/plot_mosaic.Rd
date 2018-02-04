@@ -76,10 +76,15 @@ and \code{\link{plot_fnet}}.
 "grid" (\code{library("vcd", "grid")}).
 }
 \examples{
-plot_mosaic()
-plot_mosaic(title.lbl = "")
-plot_mosaic(vsplit = FALSE)
+plot_mosaic()                # => default options
+plot_mosaic(title.lbl = "")  # => no title
+plot_mosaic(vsplit = FALSE)  # => horizontal split
 plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
+
+# Accuracy:
+plot_mosaic(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+plot_mosaic(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
+plot_mosaic(show.accu = FALSE)              # => no accuracy info.
 
 
 }
