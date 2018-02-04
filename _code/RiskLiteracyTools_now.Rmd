@@ -275,7 +275,7 @@ Provide some useful visualizations of common risk information measures as intera
 
 ```{r}
 H.lbl <- "H" # Hypothesis
-E.lbl <- "E" # Evidence (E) or Decision (D)
+E.lbl <- "D" # Evidence (E) or Decision/Data (D)
 ```
 
 _Bayes' rule_ describes the probability $p$ of a hypothesis $`r H.lbl`$ given some evidence $`r E.lbl`$ as: 
@@ -494,6 +494,7 @@ $$ FOR = 1 - NPV $$
 
 Our approach: From theories to tools (rather than the reverse, Gigerenzer, 1991a). 
 
+
 ### Levels and perspectives
 
 3 different levels with alternative perspectives:
@@ -542,6 +543,7 @@ Allow setting and playing with basic parameters or reading in examples from the 
 4. Include info on screening biases (lead time vs. over-diagnosis bias).
 
 ---
+
 
 # Basics 
 
