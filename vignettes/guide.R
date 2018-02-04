@@ -89,36 +89,35 @@ all.equal(freq$mi, rand.f[2])
 all.equal(freq$fa, rand.f[3])
 all.equal(freq$cr, rand.f[4])
 
-## ----plot_tree, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a sample of N = 1000 individuals."----
+## ----plot_tree_cd, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."----
 plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 
-## ----plot_mosaic, fig.width = 6, fig.height = 5, fig.show = 'asis'-------
+## ----plot_mosaic_cd, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."----
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             title.lbl = "Mammography screening")
 
-## ----plot_tree_dc, fig.width = 7.1, fig.height = 6, fig.show = 'asis'----
+## ----plot_tree_dc, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."----
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc", 
           title.lbl = "Mammography screening",
           dec.pos.lbl = "positive test",
           dec.neg.lbl = "negative test")
 
-## ----plot_fnet, fig.width = 7.1, fig.height = 7, fig.show = 'asis'-------
+## ----plot_mosaic_dc, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
+plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
+            vsplit = FALSE, 
+            title.lbl = "Mammography screening")
+
+## ----plot_tree_dc_vr, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."----
+plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+          by = "dc",
+          area = "hr", 
+          title.lbl = "Mammography screening",
+          dec.pos.lbl = "positive test",
+          dec.neg.lbl = "negative test")
+
+## ----plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."----
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
-
-# init_riskyr(prev = .01, sens = .80, fart = .096, N = 1000)
-
-## ----all_in_one, fig.width = 7.1, fig.height = 7, fig.show = 'asis'------
-
-# init_riskyr(prev = .01, sens = .80, fart = .096, N = 1000)
-
-
-## ---- fig.show='hold'----------------------------------------------------
-plot(1:10)
-plot(10:1)
-
-## ---- echo=FALSE, results='asis'-----------------------------------------
-knitr::kable(head(mtcars, 10))
 

@@ -39,12 +39,11 @@ The problems presented and scientific discussion surrounding them is discussed i
 
 However, this separation is an abstract and artificial one. In reality, both representations are intimately intertwined, as the following network plot shows:
 
-```{r plot_fnet, fig.width = 7.1, fig.height = 7, fig.show = 'asis'}
+```{r plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis'}
 plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
           area = "no", 
           title.lbl = "Mammography screening")
 ```
-
 
 ### Motivation
 
@@ -132,8 +131,8 @@ The following 9 frequencies are stored in `freq`:
 
 #### Terminology
 
-| Nr. | Variable | Description |
-|--:|:---|:------------------------------------------------------|
+|Nr.| Variable | Description |
+|--:|:---      |:------------------------------------------------------|
 |  1. | `N`          | number of cases (or individuals) in the population |
 |  2. | `cond.true`  | number of cases for which the condition is present (`TRUE`)  |
 |  3. | `cond.false` | number of cases for which the condition is absent (`FALSE`)  |
@@ -143,7 +142,6 @@ The following 9 frequencies are stored in `freq`:
 |  7. | `mi` | number of misses (false negatives: condition `TRUE` & decision `FALSE`) |
 |  8. | `fa` | number of false alarms (false positives: condition `FALSE` & decision `TRUE`) |
 |  9. | `cr` | number of correct rejections (true negatives: condition `FALSE` & decision `FALSE`) |
-
 
 All frequency values are integers.
 

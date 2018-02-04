@@ -129,10 +129,9 @@ and can still be expressed by its complement (the test's _specificity_):
 
 Rather than asking us to compute a conditional probability (i.e., the `PPV`), the task now prompts us to imagine a new representative sample of women from our target population and focuses on the women with a positive test result. It then asks for a _frequency_: "How many of these women" do we expect to have cancer? 
 
-To provide any answer in terms of frequencies, we need to imagine a specific sample size $N$. As the problem referred to a population of $1000$ women, we conveniently pick a sample size of $N = 1000$ women with identical characteristics (which is suggested by mentioning a "representative" sample) and ask: How many women with a positive test result actually have cancer?^[The actual sample size $N$ chosen is irrelevant, but the numbers are easier to calculate when $N$ is a round number and at least as large as the frequencies mentioned in the problem.] 
+To provide any answer in terms of frequencies, we need to imagine a specific sample size $N$. As the problem referred to a population of $1000$ women, we conveniently pick a sample size of $N = 1000$ women with identical characteristics (which is suggested by mentioning a "representative" sample) and ask: How many women with a positive test result actually have cancer?^[The actual sample size `N` chosen is irrelevant, but the numbers are easier to calculate when `N` is a round number and at least as large as the frequencies mentioned in the problem.] 
 
 In this new sample, the frequency of women with cancer and with a positive test result should match the numbers of the original sample. Hence, we can assume that $10$ out of $1000$ women have cancer (`prev`) and $8$ of the $10$ women with cancer receive a positive test resul (`sens`). Importantly, $95$ out of the $990$ women without cancer also receive a positive test result (`fart`). Thus, the number of women with a positive test result is $8 + 95 = 103$, but only $8$ of them actually have cancer. Of course the ratio $\frac{8}{103}$ is identical to our previous probability (of slightly below 7.8\%). 
-
 Incidentally, the reformulation in terms of frequencies protected us from erroneously taking the sensitivity (of `sens` = $\frac{8}{10} = 80\%$) as an estimate of the desired frequency. Whereas it is easy to confuse the term $p( \mathrm{positive\ test}\ |\ \mathrm{cancer} )$ with $p( \mathrm{cancer}\ |\ \mathrm{positive\ test} )$ when the task is expressed in terms of probabilities, it is clearly unreasonable to assume that about 800 of 1000 women (i.e., 80%) actually have cancer (since the prevalence in the population was specified to be 10 in 1000, i.e., 10\%). Thus, reframing the problem in terms of frequencies made us immune against a typical mistake.
 
 
@@ -142,7 +141,9 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 `riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, but rather of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
 
-Here is how we could address the above problem by using `riskyr`:
+Here is how we could address the above problem by using three types of 
+tools provided by `riskyr`:
+
 
 #### A. A fancy calculator 
 
@@ -197,7 +198,7 @@ Another function of `riskyr` is to translate between representational formats.
 This translation comes in two varieties: 
 
 
-##### 1. Computing frequencies from probabilities
+##### Computing frequencies from probabilities
 
 ```{r comp_freq_prob_1}
 # Compute frequencies from probabilities:
@@ -230,7 +231,7 @@ f1
 In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](data_formats.html) for details on all frequencies.)
 
 
-##### 2. Computing probabilities from frequencies
+##### Computing probabilities from frequencies
 
 A translator between 2 representational formats should work in both directions. 
 Consequently, `riskyr` also allows to compute probabilities by providing frequencies: 
@@ -248,7 +249,7 @@ all.equal(p5, p4)
 ```
 
 
-##### 3. Switching back and forth
+##### Switching back and forth
 
 More generally, when we translate between formats twice --- first from probabilities to frequencies and then from the resulting frequencies to probabilities --- the original probabilities appear again:
 
@@ -308,7 +309,7 @@ Here are some examples that depict the scenario described above:
 
 Perhaps the most intuitive visualization of the probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
 
-```{r plot_tree, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a sample of N = 1000 individuals."}
+```{r plot_tree_cd, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
 plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 ```
@@ -318,28 +319,25 @@ Importantly, the `plot_tree` function is called with the same 3 essential probab
 For details and additional options of the `plot_tree` function, see the documentation of `?plot_tree`.
 
 
-+++ here now +++ 
+##### Mosaic plot
 
+An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following mosaic plot, the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-#### Mosaic plot
-
-A population is split in subgroups. 
-Population as square and magnitude of various frequencies and probabilities expressed as relative area sizes:
-
-```{r plot_mosaic, fig.width = 6, fig.height = 5, fig.show = 'asis'}
+```{r plot_mosaic_cd, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             title.lbl = "Mammography screening")
 ```
 
-For details, see the documentation on `?plot_mosaic`.
+The vertical split dissects the population into two subgroups that correspond to the frequency of `cond.true` and `cond.false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left.
 
-#### Network plot
+For details and additional options of the `plot_mosaic` function, see the documentation of `?plot_mosaic`.
 
-The tree diagram above adopted a particular perspective by splitting the population into 2 subgroups by condition. 
 
-An alternative perspective would ask: How many people are detected as positive vs. negative by the test?
+##### Alternative perspectives
 
-```{r plot_tree_dc, fig.width = 7.1, fig.height = 6, fig.show = 'asis'}
+Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population into `dec.pos` and `dec.neg` cases: 
+
+```{r plot_tree_dc, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc", 
           title.lbl = "Mammography screening",
@@ -347,23 +345,38 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           dec.neg.lbl = "negative test")
 ```
 
-Generalization of the tree, but adopting 2 perspectives at once: By condition vs. by decision
+Similarly, the population area of the mosaic plot can be split horizontally by using the option `vsplit = FALSE`:
 
-```{r plot_fnet, fig.width = 7.1, fig.height = 7, fig.show = 'asis'}
+```{r plot_mosaic_dc, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
+            vsplit = FALSE, 
+            title.lbl = "Mammography screening")
+```
+
+`riskyr` uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option `area = "hr"` further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:
+
+```{r plot_tree_dc_vr, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."}
+plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+          by = "dc",
+          area = "hr", 
+          title.lbl = "Mammography screening",
+          dec.pos.lbl = "positive test",
+          dec.neg.lbl = "negative test")
+```
+
+
+##### Network plot
+
+The following network diagram is a generalization of the tree diagram. It plots all 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts all 10 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
+
+```{r plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
-
-# init_riskyr(prev = .01, sens = .80, fart = .096, N = 1000)
 ```
 
-For details, see the documentation on `?plot_fnet`.
+In addition to showing the interplay between all key frequencies and probabilities, the network diagram notes accuracy metrics that are based on the confusion matrix depicted as the middle row 4 central nodes (`hi`, `mi`, `fa`, and `cr`).
 
-```{r all_in_one, fig.width = 7.1, fig.height = 7, fig.show = 'asis'}
-
-# init_riskyr(prev = .01, sens = .80, fart = .096, N = 1000)
-
-```
-
+For details and additional options of the `plot_fnet` function, see the documentation of `?plot_fnet`.
 
 
 ## References
@@ -407,178 +420,3 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
 _Journal of Experimental Psychology: General_, _130_, 380--400.
-
-
-# Material
-
-<!-- quote: --> 
-
-> "Solving a problem simply means representing it so as to make the solution transparent."<br>
-> (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
-
-
-
-
-
-
-The problems addressed by `riskyr` are less of a computational than of a representational nature. 
-
-Ordinary people and experts struggle alike: aptly-named "confusion matrix".
-
-Measures are simple, but complex in their abundance (see examples) and inter-dependence. 
-
-
-Our goal: Promoting understanding, fostering transparency. 
-
-The method to our solution is a matter of organization and visualization.
-
-
-## Probabilities and Frequencies
-
-### Motivation
-
-A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
-
-(provide example here)
-
-Problems of this type tend to provide three probabilities:
-
-1. the prevalence `prev` of some condition $C$;  
-2. the sensitivity `sens` of some decision $D$ (e.g., the outcome of some test or diagnostic procedure); 
-3. the specificity `spec` of $D$;
-
-and ask for one or more other probabilities:
-
-- the probability of a positive (or negative) decision; 
-- the positive predictive value `PPV` of $D$;  
-- the negative predictive value `NPV` of $D$. 
-
-Standard observation: People are confused and perplexed. Frequently, they even find it difficult to understand the question, let alone have a systematic way of answering it. In a majority of cases, they either have no clue what to respond, or provide some number close to the provided values `sens` or `spec` as a rough estimate.
-
-Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
-
-### Probabilities
-
-#### Terminology
-
-The list `prob` contains 10 probabilities: 
-
-1. the condition's prevalence  `prev`:<br>
-The probability of condition being `TRUE` (`prev = cond.true/N`).
-
-2. the decision's sensitivity  `sens`:<br>
-The conditional probability of a positive decision provided that the condition is `TRUE`.
-
-3. the decision's miss rate  `mirt`:<br>
-The conditional probability of a negative decision provided that the condition is `TRUE`).
-
-4. the decision's specificity  `spec`:<br> 
-The conditional probability of a negative decision provided that the condition is `FALSE`).
-
-5. the decision's false alarm rate `fart`:<br> 
-The conditional probability of a positive decision provided that the condition is `FALSE`).
-
-6. the proportion (baseline probability or rate) of positive decisions `ppod` (but not necessarily true decisions): `ppod = dec.pos/N`.
-
-7. the decision's positive predictive value  `PPV`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is positive)
-
-8. the decision's negative predictive value  `NPV`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is negative).
-
-9. the decision's false discovery or false detection rate  `FDR`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is positive).
-
-10. the decision's false omission rate  `FOR`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is negative).
-
-
-Other ways to classify probabilities: 
-
-Non-conditional vs. conditional probabilities.
-
-3 essential (1 non-conditional and 2 conditional) probabilities 
-and 7 derived (1 non-conditional and 6 conditional) probabilities:
-
-
-
-
-
-
-#### Basic knowledge
-
-Basic knowledge about probabilities:
-
-- Probabilities can be expressed as or defined in terms of _ratios_ (e.g., the probability of it being Monday $p(\mathrm{Monday}) = \frac{1}{7}$). When expressed as a decimal number, probabilites are numbers in the range from 0 to 1 (e.g., $p(\mathrm{Monday}) = \frac{1}{7}~=~$ `r 1/7`.).
-
-- If some event $E$ has a probability $p(E)$, the probability of $not~E$ (sometimes denoted as $\bar{E}$ or $\neg{E}$) is $p(\bar{E}) = 1 - p$ and is called the _complement_ of $p(E)$.
-
-- Conditional probabilities are not reversable.
-
-- Conditional probabilities can be computed with Bayesian formula or in terms of natural frequencies.  The former is difficult, the latter simple and transparent.
-
-
-### Frequencies
-
-The following frequencies are stored in `freq`:
-
-1. the population size `N`
-2. the number of cases for which `cond.true`
-3. the number of cases for which `cond.false`
-4. the number of cases for which `dec.pos`
-5. the number of cases for which `dec.neg`
-6. the number true positives, or hits `hi`
-7. the number false negatives, or misses `mi`
-8. the number false positives, or false alarms `fa`
-9. the number true negatives, or correct rejections `cr`
-
-
-## Template
-
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
