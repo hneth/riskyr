@@ -169,18 +169,24 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
 
   # - Each of the plot types may be a potential function.  Then it is more modular!
 
+# for default:
+  num <- riskyr:::num
+  freq <- riskyr:::freq
+
+
 plot_iconarray <- function (
-                            # prev = num$prev,  # probabilities
-                            # sens = num$sens,
-                            # spec = num$spec,
-                            # fart = NA,        # was: num$fart,
-                            N = freq$N,
+                            prev = num$prev,             # probabilities
+                            sens = num$sens, mirt = NA,
+                            spec = num$spec, fart = NA,  # was: num$fart,
+                            N = freq$N,    # ONLY freq used (so far)
+                            ident.order = c("hi", "mi", "fa", "cr"),
                             random.position = FALSE,  # are positions randomly drawn?
                             random.identities = FALSE,  # are identities randomly assigned to positions?
                             # defaults to classic icon array!
                             # TODO: rather name these?
-                            col.vec = col_vec,  # use one color for each usual type.
+                            col.vec = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]),  # use one color for each usual type.
                             pch.vec = 22,  # plotting characters; default square with border.
+                            pch.border = grey(.66, 0.70),  # border of characters.
                             # one can also enter a full vector of length N.
                             block.d = 0.01,  # distance between blocks (where applicable).
 
@@ -225,6 +231,21 @@ plot_iconarray <- function (
       # Check, whether the color vector contains one color per type...
       # But what are types?
       # TODO!!!!!
+
+      # get the frequencies if the color vector does not depict the population:
+      if (!is.null(names(col.vec))) {
+        if (names(col.vec) %in% ident.order) { col.vec[ident.order] }
+      }
+
+      rep_ix <- rep(1:length(col.vec), times = freq[ident.order])  # create index to repeat matrix.
+      col_vec <- icon_colors[rep_ix]
+    }
+
+  if (length(pch.vec) != N) {
+      if (length(pch.vec) > 1) {
+        pch.vec <- pch.vec[rep_ix]
+      }
+
     }
 
   # TODO: I need to ensure that:
@@ -234,7 +255,7 @@ plot_iconarray <- function (
 
     if(random.position) {
       if (is.null(N)) {
-
+        N <- length(col.vec)
       }
     }
 
@@ -252,8 +273,17 @@ plot_iconarray <- function (
       posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
       posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
 
-    # 2) Randomize vector:
-    icon_colors <- sample(col.vec, replace = FALSE)
+    # 2) Randomize vectors:
+    rand_ix <- sample(1:length(col.vec), replace = FALSE)  # create random vector.
+    col.vec <- col.vec[rand_ix]  # randomize colors and
+
+    if (length(pch.vec) == length(posx_vec)) {
+      pch.vec <- pch.vec[rand_ix]  # characters accordingy.
+    } else {
+      pch.vec <- pch.vec[1]
+      warning("pch.vec was not of length N.  Only first element used. ")
+    }
+
 
   }  # end A1: random position & random colors.
 
@@ -384,7 +414,7 @@ plot_iconarray <- function (
           blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
           block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
           # calculate number of observations in each compartment.
-          blocks <- cbind(blocks, block_n)  # bind to martix.
+          blocks <- cbind(blocks, block_n)  # bind to matrix.
 
 
           for(i in 1:nrow(blocks)){
@@ -527,7 +557,10 @@ plot_iconarray <- function (
         # if the color vector already has the appropriate length:
         if (length(col.vec) == length(m)) {
           col.vec <- col.vec[m]  # order the color vector.
+        }
 
+        if (length(pch.vec) == length(m)) {
+          pch.vec <- pch.vec[m]  # order the character vector.
         }
 
 
@@ -545,7 +578,17 @@ plot_iconarray <- function (
 
         }
 
-        # col_mat <- matrix(col.vec, nrow = nrows, ncol = ncols, byrow = FALSE)  # needs to be matrix?
+        if (length(pch.vec) < length(m) & length(pch.vec) > 1) {
+
+          len_diff <- length(pos_mx) - length(pch.vec)  # calculate difference.
+          pch.vec <- c(pch.vec, rep(NA, len_diff))  # enlarge the color vector.
+
+          # mute the respective positions:
+          pch.vec <- pch.vec[m]  # order character vector.
+          posx_vec[is.na(pch.vec)] <- NA  # set NA x positions...
+          posy_vec[is.na(pch.vec)] <- NA  # ... and y positions.
+
+        }
 
       }  # end fixed identities (A4).
 
@@ -554,16 +597,36 @@ plot_iconarray <- function (
       # For A3:-------------------------------------------------
       if (random.identities) {
 
-        col.vec <- sample(col.vec, replace = FALSE)  # sample from the vector of colors.
+        rand_ix <- sample(1:length(col.vec), replace = FALSE)  # random index.
+        col.vec <- col.vec[rand_ix]  # sample from the vector of colors.
 
-        # fi the color vector is too short.
-        if (length(col.vec) < (ncols * nrows)) {
+        if (length(pch.vec) > 1) {
+          pch.vec <- pch.vec[rand_ix]  # analog sample from character vector.
+        }
 
+
+        # if the color vector is too short.
+        if (length(col.vec) < (ncols * nrows) & length(col.vec) > 1) {
+
+          # for colors:
           len_diff <- (ncols * nrows) - length(col.vec)
-          border.vec <- c(border.vec, rep(NA, len_diff))
+          if (length(pch.border) > 1) {
+            pch.border <- c(pch.border, rep(NA, len_diff))
+          }
+
           col.vec <- c(col.vec, rep(NA, len_diff))
 
         }
+
+        # if the character vector is too short:
+        if (length(pch.vec) < (ncols * nrows) & length(pch.vec) > 1) {
+
+          # for colors:
+          len_diff <- (ncols * nrows) - length(pch.vec)
+          pch.vec <- c(pch.vec, rep(NA, len_diff))
+
+        }
+
 
       }  # end random identities (A3).
 
@@ -591,7 +654,7 @@ plot_iconarray <- function (
     if (any(!pch.vec %in% (22:25))) {
       # if any of the plotting characters is not in the ones with border,
       # omit border and color accordingly.
-      border.vec <- col.vec
+      pch.border <- col.vec
     }
 
     # 3) Plot:
@@ -599,12 +662,12 @@ plot_iconarray <- function (
        ylab = "")
 
     # 3a) set plotting character:
-    pch <- 22  # filled square as default.
+    # pch <- 22  # filled square as default.
     # cex <- 0.5
 
     points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
-           pch = pch, col = border.vec, bg = col.vec, cex = cex, bty = "o")
+           pch = pch.vec, col = pch.border, bg = col.vec, cex = cex, bty = "o")
 
     # optional for testing: add ablines.
     # abline(v = c(0, 1), h = c(0, 1))
@@ -615,6 +678,11 @@ plot_iconarray <- function (
 }  # end of function.
 
 
+# This should work but doesn't...
+plot_iconarray(nrows = 10, ncols = 10,
+               block_size_col = 10, block_size_row = 10)
+
+# ncols and nrows must be calculated!
 
 # Currently not used parts ---------------------------------------
 
@@ -629,9 +697,11 @@ plot_iconarray <- function (
   # create a repeated vector from it.
   ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
   col_vec <- icon_colors[ind_col_num]
+  pch_vec <- c(22,22,23,23)[ind_col_num]
 
   # random positions:
-  plot_iconarray(N = 10000, col.vec = col_vec, random.position = TRUE, random.identities = TRUE)
+  plot_iconarray(N = 10000, col.vec = col_vec, pch.vec = pch_vec,
+                 random.position = TRUE, random.identities = TRUE)
 
   plot_iconarray(N = 10000, col.vec = col_vec,
                  random.position = TRUE, random.identities = FALSE,
@@ -640,7 +710,7 @@ plot_iconarray <- function (
   # Example C:
 
   # non-random positions:
-  plot_iconarray(N = 10000, col.vec = col_vec,
+  plot_iconarray(N = 10000, col.vec = col_vec, pch.vec = pch_vec,
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 0.5,
                  block.d = 0.5,
@@ -677,8 +747,9 @@ plot_iconarray <- function (
   # create a repeated vector from it.
   ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
   col_vec <- icon_colors[ind_col_num]
+  pch_vec <- c(22,22,23,23)[ind_col_num]
 
-  plot_iconarray(N = 90, col.vec = col_vec,
+  plot_iconarray(N = 90, col.vec = col_vec, #pch.vec = pch_vec,
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 3,
                  block.d = 0.5,
@@ -714,9 +785,12 @@ plot_iconarray <- function (
   # create a repeated vector from it.
   ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
   col_vec <- icon_colors[ind_col_num]
-  plot_iconarray(N = 100, col.vec = col_vec,
-                 random.position = FALSE, random.identities = FALSE,
+  pch_vec <- c(22,23,22,23)[ind_col_num]
+
+  plot_iconarray(N = 100, col.vec = col_vec, pch.vec = pch_vec,
+                 random.position = FALSE, random.identities = TRUE,
                  # cex = 3,
+                 pch.border = "grey",
                  block.d = 0.5,
                  block_size_col = 5, block_size_row = 5,
                  blocks = 4,
@@ -730,13 +804,15 @@ plot_iconarray <- function (
   # create a repeated vector from it.
   ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
   col_vec <- icon_colors[ind_col_num]
+  pch_vec <- c(22,23,22,23)[ind_col_num]
 
-  plot_iconarray(N = 70, col.vec = col_vec,
+  plot_iconarray(N = 70, col.vec = col_vec, pch.vec = pch_vec,
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 3,
                  block.d = 0.5,
                  block_size_col = 5, block_size_row = 2,
                  blocks = 9,
+                 pch.border = "black",
                  col_blocks = 3, row_blocks = 3,
                  nrows = 6, ncols = 15,
                  fill_array = "top",
