@@ -109,7 +109,7 @@ Consider the following description:
 > 
 > (Hoffrage et al., 2015, p. 4) 
 
-Importantly, this version of the problem refers to a sample of $1000$ individuals of our original target population. It then provides the same probabilities as above, but specifies them in terms of _natural frequencies_ (see Hoffrage et al., 2002, for a clarification of this term):
+Importantly, this version of the problem refers to a sample of $1000$ individuals of our original target population. It then provides the same probabilities as above, but specifies them in terms of _natural frequencies_ (see Gigerenzer & Hoffrage, 1999, and Hoffrage et al., 2002, for clarifications of this concept):
 
 1. The _prevalence_ of breast cancer in the target population:  
 
@@ -401,6 +401,10 @@ _Psychological Science in the Public Interest_, _8_, 53--96.
 - Gigerenzer, G., & Hoffrage, U. (1995). 
 How to improve Bayesian reasoning without instruction: Frequency formats. 
 _Psychological Review_, _102_, 684--704.
+
+- Gigerenzer, G., & Hoffrage, U. (1999). 
+Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). 
+_Psychological Review_, _106_, 425--430.
 
 - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
 Representation facilitates reasoning: What natural frequencies are and what they are not. 

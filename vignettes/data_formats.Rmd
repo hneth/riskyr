@@ -22,12 +22,14 @@ The problems presented and scientific discussion surrounding them is discussed i
 
 `riskyr` reflects this division by distinguishing between 2 internal data types: probabilities vs. frequencies.
 
-However, this separation is an abstract and artificial one. 
-In reality, both representations are intimately intertwined, as the following network plot shows:
+Importantly, any such separation is an abstract and artificial one. 
+In reality, both representations (i.e., probabilities and frequencies) are intimately intertwined, as the following network plot shows:
 
-```{r plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis'}
-plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-          area = "no", 
+```{r plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis'}
+plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
+          N = 1000,       # 1 frequency
+          area = "no",    # all boxes have the same size
+          p.lbl = "nam",  # show probability names on edges
           title.lbl = "Mammography screening")
 ```
 
@@ -56,14 +58,13 @@ Importantly, the calculations involved are easy -- almost trivial -- and do only
 
 ### Probabilities
 
-The notion of _probability_ is complicated (see Hájek, 2012, for different interpretations). 
-For our present purposes, probabilities are simply numbers between 0 and 1. 
-They can be expressed as percentages or fractions.
+The notions of _probability_ is as elusive as ubiquitous (see Hájek, 2012, for a solid exposition of its different concepts and interpretations). For our present purposes, probabilities are simply numbers between 0 and 1. 
+These numbers are defined to reflect particular quantities and can be expressed as percentages or fractions of other numbers (frequencies or probabilities).
 
 
 #### Terminology
 
-The list `prob` contains 10 probabilities: 
+The following 10 probabilities are distinguished by `riskyr` and contained in `prob`:
 
 1. the condition's prevalence  `prev`:<br>
 The probability of condition being `TRUE` (`prev = cond.true/N`).
@@ -119,9 +120,14 @@ Basic knowledge about probabilities:
 
 ### Frequencies
 
-The following 11 frequencies are stored in `freq`:
+Frequencies are numbers that can be counted --- either 0 or positive integers.
+
+(One would suppose that the notion of frequency is simpler than the concept of probability. Nevertheless, confusion is possible and has serious consequences. See Gigerenzer & Hoffrage, 1999, and Hoffrage et al., 2002, for the notion of "natural frequencies".)
+
 
 #### Terminology
+
+The following 11 frequencies are distinguished by `riskyr` and contained in `freq`:
 
 |Nr.| Variable | Description |
 |--:|:----     |:------------------------------------------------------|
@@ -200,9 +206,17 @@ Alternative layout:
 
 ## References
 
-- Hájek, A (2012) [Interpretations of Probability](https://plato.stanford.edu/entries/probability-interpret/). 
-In _The Stanford Encyclopedia of Philosophy_ (Winter 2012 Edition), Edward N. Zalta (ed.),  [URL](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/)  
+- Gigerenzer, G., & Hoffrage, U. (1999). 
+Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). 
+_Psychological Review_, _106_, 425--430.
 
+- Hájek, A (2012) [Interpretations of Probability](https://plato.stanford.edu/entries/probability-interpret/). 
+In _The Stanford Encyclopedia of Philosophy_ (Winter 2012 Edition), Edward N. Zalta (ed.), 
+[archival version](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/)  
+
+- Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
+Representation facilitates reasoning: What natural frequencies are and what they are not. 
+_Cognition_, _84_, 343--352.
 
 
 
