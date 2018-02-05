@@ -172,6 +172,7 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
 # for default:
   num <- riskyr:::num
   freq <- riskyr:::freq
+  pal <- riskyr:::pal
 
 
 plot_iconarray <- function (
@@ -225,6 +226,8 @@ plot_iconarray <- function (
 
   ## A0.2: Check entered parameters for usabililty:------------------------------------------
 
+    # TODO: Either check for missing N or use other comparison.
+
     # Check, whether the color vector is not of size N:
     if (length(col.vec) != N) {
 
@@ -234,11 +237,16 @@ plot_iconarray <- function (
 
       # get the frequencies if the color vector does not depict the population:
       if (!is.null(names(col.vec))) {
-        if (names(col.vec) %in% ident.order) { col.vec[ident.order] }
+        if (!any(!names(col.vec) %in% ident.order)) {  # only if all are in (not any not in).
+          col.vec <- col.vec[ident.order]
+          }
       }
 
-      rep_ix <- rep(1:length(col.vec), times = freq[ident.order])  # create index to repeat matrix.
-      col_vec <- icon_colors[rep_ix]
+      if (length(freq[ident.order]) == length(col.vec)) {  # check whether both are equally long.
+        rep_ix <- rep(1:length(col.vec), times = freq[ident.order])  # create index to repeat matrix.
+        col.vec <- col.vec[rep_ix]
+      }
+
     }
 
   if (length(pch.vec) != N) {
@@ -253,7 +261,7 @@ plot_iconarray <- function (
 
   # N (for A1 and A2)
 
-    if(random.position) {
+    if (random.position) {
       if (is.null(N)) {
         N <- length(col.vec)
       }
@@ -651,7 +659,7 @@ plot_iconarray <- function (
 
   # TODO: Add text!
 
-    if (any(!pch.vec %in% (22:25))) {
+    if (any(!pch.vec %in% c(NA, 22:25))) {
       # if any of the plotting characters is not in the ones with border,
       # omit border and color accordingly.
       pch.border <- col.vec
@@ -678,8 +686,8 @@ plot_iconarray <- function (
 }  # end of function.
 
 
-# This should work but doesn't...
-plot_iconarray(nrows = 10, ncols = 10,
+# Test default:
+plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(22,23,22,23),
                block_size_col = 10, block_size_row = 10)
 
 # ncols and nrows must be calculated!
