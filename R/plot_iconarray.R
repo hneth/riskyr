@@ -106,7 +106,6 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
 
 
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Plotting symbols:-------------------------------
@@ -155,7 +154,7 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##
-## Begin of function!-------------------------
+## Begin of function!--------------------------
 ##
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -164,10 +163,11 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
   # - add legend and text (needs sufficient margins at some place.)
   # - have color vector defined outside the plotting function
     # (if nothing is specified use this as a default).
-  # - remove parrameters unnecessary for arrangement (which are needed?).
+  # - remove parameters unnecessary for arrangement (which are needed?).
   # - How should the default array look like?
   # - Make plotting icons customizable
-  # - Each of the plot types is a potential function.  Then it is more modular!
+
+  # - Each of the plot types may be a potential function.  Then it is more modular!
 
 plot_iconarray <- function (
                             # prev = num$prev,  # probabilities
@@ -180,6 +180,7 @@ plot_iconarray <- function (
                             # defaults to classic icon array!
                             # TODO: rather name these?
                             col.vec = col_vec,  # use one color for each usual type.
+                            pch.vec = 22,  # plotting characters; default square with border.
                             # one can also enter a full vector of length N.
                             block.d = 0.01,  # distance between blocks (where applicable).
 
@@ -414,6 +415,16 @@ plot_iconarray <- function (
       # 1. Define positions:-----------------------------------------------
 
       # TODO: Allow for dynamic calculation of blocks and sizes!
+      # some python code:
+        # def factors_min_diff(n):
+        #   lower = math.floor(math.sqrt(n))
+        #   upper = math.ceil(math.sqrt(n))
+        #
+        #   while lower * upper != n:
+        #     if lower * upper > n:
+        #     lower -= 1
+        #   if lower * upper < n:
+        #     upper += 1
 
       # 1. Create matrix of positions:
 
@@ -575,6 +586,13 @@ plot_iconarray <- function (
 
 # B. Plotting --------------------------------------------------------
 
+  # TODO: Add text!
+
+    if (any(!pch.vec %in% (22:25))) {
+      # if any of the plotting characters is not in the ones with border,
+      # omit border and color accordingly.
+      border.vec <- col.vec
+    }
 
     # 3) Plot:
     plot(x = 1, xlim = xlim, ylim = ylim, type = "n", xlab = "",
@@ -586,7 +604,7 @@ plot_iconarray <- function (
 
     points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
-           pch = pch, col = grey(.66, .20), bg = col.vec, cex = cex, bty = "o")
+           pch = pch, col = border.vec, bg = col.vec, cex = cex, bty = "o")
 
     # optional for testing: add ablines.
     # abline(v = c(0, 1), h = c(0, 1))
