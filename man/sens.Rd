@@ -3,9 +3,10 @@
 \docType{data}
 \name{sens}
 \alias{sens}
-\alias{recall}
-\alias{HR}
 \alias{TPR}
+\alias{HR}
+\alias{power}
+\alias{recall}
 \title{The sensitivity (or hit rate) of a decision process or diagnostic procedure.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -31,9 +32,17 @@ Understanding or obtaining the sensitivity \code{sens}
 or the probability of correctly detecting true cases
   (\code{condition = TRUE}).
 
+\item Perspective:
+  \code{sens} further classifies
+  the subset of \code{\link{cond.true}} individuals
+  by decision (\code{sens = hi/cond.true}).
+
 \item Alternative names:
-  \code{recall}, true positive rate (\code{TPR}),
-  hit rate (\code{HR}), probability of detection
+  true positive rate (\code{TPR}),
+  hit rate (\code{HR}),
+  probability of detection,
+  \code{power = 1 - beta},
+  \code{recall}
 
 \item Relationships:
 
@@ -49,19 +58,21 @@ b. \code{sens} is the opposite conditional probability
 
 \code{PPV = p(condition = TRUE | decision = positive)}
 
-\item In natural frequencies,
-  \code{sens} is the ratio of individuals for which
-  \code{decision = positive} divided by the number of
-  individuals for which \code{condition = TRUE}:
+\item In terms of frequencies,
+  \code{sens} is the ratio of
+  \code{\link{hi}} divided by
+  \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}}):
 
-\code{sens = n(decision = positive) / n(condition = TRUE)}
+\code{sens = hi/cond.true = hi/(hi + mi)}
 
-\item \code{sens} is a feature of a decision process
+\item Dependencies:
+  \code{sens} is a feature of a decision process
   or diagnostic procedure and a measure of
   correct decisions (true positives).
 
-However, due to being a conditional probability,
-  the value of \code{sens} also depends on the
+Due to being a conditional probability,
+  the value of \code{sens} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -75,14 +86,21 @@ is_prob(sens)   # => TRUE (as sens is a probability)
 Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{num}} contains basic numeric variables;
-\code{\link{init_num}} initializes basic numeric variables;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities
+\code{\link{comp_sens}} computes \code{sens} as the complement of \code{\link{mirt}};
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other basic parameters: \code{\link{N}},
-  \code{\link{fart}}, \code{\link{mirt}},
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{prev}}, \code{\link{spec}}
+
+Other essential parameters: \code{\link{cr}},
+  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
   \code{\link{prev}}, \code{\link{spec}}
 }
 \keyword{datasets}

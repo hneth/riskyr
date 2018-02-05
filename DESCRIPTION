@@ -1,8 +1,8 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.907
-Date: 2018-01-15
+Version: 0.0.0.913
+Date: 2018-02-01
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
               person("Felix", "Gaisbauer", role = "aut"),
@@ -13,7 +13,7 @@ Author: Hansjoerg Neth [aut, cre],
 AuthorUrl: http://neth.de
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
 Description: Provides a set of basic risk literacy tools in R.
-    Starting with a condition (e.g., a disease), a corresponding decision (e.g., based on a clinical judgment or diagnostic test), and basic probabilities (prevalence, sensitivity, specificity) we provide a range of metrics and alternative representations of risk-related information (as probabilities and frequencies for a population of N individuals). By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
+    Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (the condition's prevalence, and the decision's sensitivity and specificity) we provide a range of metrics and alternative representations of risk-related information (as both probabilities and frequencies for a population of N individuals).  By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
 Depends:
     R (>= 3.2)
 Imports:
@@ -22,6 +22,7 @@ Imports:
     grid (>= 3.4.3)
 Suggests:
     devtools,
+    rmarkdown,
     knitr,
     roxygen2
 Collate: 'comp_util.R'
@@ -32,19 +33,22 @@ Collate: 'comp_util.R'
          'init_freq.R'
          'comp_freq_prob.R'
          'init_num.R'
-         'init_num_prob.R'
-         'init_num_freq.R'
+         'init_prob_num.R'
+         'init_freq_num.R'
+         'comp_freq_freq.R'
          'comp_prob_freq.R'
+         'comp_xxxx_prob.R'
          'comp_popu.R'
-         'plot_iconarray.R'
+         'comp_accu.R'
          'plot_mosaic.R'
          'plot_tree.R'
+         'plot_fnet.R'
          'plot_PV.R'
          'plot_PV3d.R'
          'start_riskyr.R'
 Encoding: UTF-8
 LazyData: true
-License: No license yet.
-BugReports: https://github.com/hneth/riskyR/issues
+License: CC0
+BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

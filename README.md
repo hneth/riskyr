@@ -16,13 +16,18 @@ A toolbox for rendering risk literacy more transparent
 [^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
 
-The basic assumptions and motivations behind `riskyr` are the following:
+The issues addressed by `riskyr` are less of a _computational_ than of a _representational_ nature (i.e., concerning the representation in and translation between different formats of information).  Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive visualizations.
 
-- Effective training in risk literacy requires simple and transparent representations. 
+The basic assumptions and goals driving the development of `riskyr` are the following:
 
-- We provide a set of tools that allow alternative views on the interplay between probabilities and frequencies. Different representations are not isolated, but complement and explain each other.
+1. Effective training in risk literacy requires simple tools and transparent representations. 
 
-- All visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameters. By providing many options, users can customize representations to suit their goals and needs.
+2. We provide a set of (computational and representational) tools that allow various calculations, translations between formats, 
+and many alternative views on the interplay between probabilities and frequencies. The functions and representations in the `riskyr` toolbox are not isolated, but complement, support and explain each other.
+
+3. To facilitate active and explorative learning, all visualizations can be explored interactively, 
+providing immediate feedback on the effect of changes in parameters.  
+By providing many customization options, users can design and shape representations of risk-related information to suit their goals and needs.
 
 
 ## Rationale
@@ -48,6 +53,30 @@ and provide a variety of _perspectives_ on (and representations of) the _consequ
 A _library of scenarios_ illustrates example cases with known data from the literature.
 
 
+## Features
+
+### Ontology 
+
+The `riskyr` universe describes the interplay between a total of 10 probabilities (3 of which are essential) 
+and 9 frequencies (4 of which are essential). 
+
+### Two perspectives
+
+Classification results can be viewed from two perspectives, 
+which correspond to two possible ways to split a population of `N` indivduals into subsets:
+
+1. By _condition_: `TRUE` vs. `FALSE`, then by _decision_: `hi`, `mi`, `fa`, `cr`
+
+2. By _decision_: `pos` vs. `neg`, then by _condition_: `hi`, `mi`, `fa`, `cr`
+
+
+### Translating between representational formats
+
+A scenario is represented both in terms of probabilities and in terms of frequencies. 
+
+A set of conversion functions allow switching back and forth between both formats (i.e., compute frequencies from probabilities and probabilities from frequencies). 
+
+
 ## Package and Application
 
 Our objective is to collect and develop a set of basic risk literacy tools in R.  To maximise impact, we split our efforts into two complementary projects:
@@ -63,20 +92,14 @@ The combination of package and application facilitates risk communication and su
 
 Things to implement in the near future:
 
-- Restructure to define 5 basic vs. 4 derived probabilities, 9 basic frequencies, initialize `num`, 9 probabilities in `probs`, and 9 frequencies in `freq`.
-
-- Miss rate `mirt` (as a complement to `sens`), to complete the quadruple of probabilities (yielding the 4 SDT cases or leaves of natural frequency tree).
-
-- `hi`, `mi`, `fa`, `rt` as 4 basic frequencies (corresponding to rates).
-
-- functions that compute all basic probabilities (`prev`, `sens`, `spec`, `fart`, and `mirt`) from 4 basic frequencies (in `freq`)
-
-- All metrics (accuracy, etc.) on 2x2 confusion table
-
+- enriched data set of example scenarios 
+- show accuracy metrics in plots
+- write vignettes
 
 ## About
 
-We are still developing this software and have yet to choose a license for it. Please [contact us](http://spds.uni-konstanz.de) in case you want to use or share it.
+This software is released to the public domain ([CC0](https://tldrlegal.com/license/creative-commons-cc0-1.0-universal)) 
+and can be freely used by anyone for any purpose. [Contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share it.
 
 ### Contact
 
@@ -88,14 +111,16 @@ In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
 `riskyr`: A toolbox for rendering risk literacy more transparent [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.905)
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.912)
 
 As BibTeX reference: 
 
-    @manual{riskyr2018,
+    @manual{riskyr,
       title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.905},
+      note = {R package version 0.0.0.912},
       url = {https://github.com/hneth/riskyr}
     }
+
+<!-- eof -->

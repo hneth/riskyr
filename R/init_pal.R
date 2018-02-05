@@ -1,5 +1,5 @@
 ## init_pal.R | riskyR
-## 2018 01 20
+## 2018 01 30
 ## -----------------------------------------------
 ## Define and initialize the current set
 ## of custom colors (pal):
@@ -63,6 +63,9 @@
   orange.1 <- makeTransparent(my.orange, alpha = .50)
   orange.2 <- makeTransparent(my.orange, alpha = 1.0)
 
+  my.whitish <- "antiquewhite"
+  my.bluish <- "aliceblue"
+
 }
 
 ## -----------------------------------------------
@@ -73,37 +76,43 @@
   ## (a) Define base color (for population N):
   col.N <- grey(.95, .99)       # "white", col.grey.1
 
-  ## (b) Define 2 colors for condition cases:
+  ## (b) by condition: Define 2 colors for condition cases:
   col.true <- my.yellow         # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
   col.false <- "lightskyblue2"  #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
-  ## Combine in named vector:
+  ## Combine in a named vector:
   cond.colors <- setNames(c(col.true, col.false),
-                         c("true", "false")
-  )
+                          c("true", "false")
+                          )
 
-  ## ToDo: Define 2 decision colors ##
+  ## (c) by decision: Define 3 colors for decision cases:
+  col.pos <- "rosybrown3" # "khaki", my.whitish
+  col.neg <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my.bluish, "chartreuse4"
+  ## Combine in a named vector:
+  dec.colors <- setNames(c(col.pos, col.neg),
+                         c("pos", "neg")
+                         )
 
-  ## (c) Define 4 colors for SDT cases:
-  col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2
+  ## (c) by condition x decision: Define 4 colors for SDT cases:
+  col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2, "chartreuse4"
   col.mi <- my.red          # "tomato3", "orangered3", "firebrick3", col.red.2
   col.fa <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
   col.cr <- "olivedrab3"    # "springgreen2" # "palegreen3" # col.green.1
-  ## Combine in named vector:
+  ## Combine in a named vector:
   sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
                          c("hi", "mi", "fa", "cr")
                          )
 
   ## (d) Define 2 colors for PVs:
   col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
-  col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4" "chartreuse4"
+  col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
 }
 
 ## -----------------------------------------------
 ## (3) Define corresponding default palette:
 
-pal.def <- c(col.N, cond.colors, sdt.colors, col.ppv, col.npv) # vector of colors
+pal.def <- c(col.N, cond.colors, dec.colors, sdt.colors, col.ppv, col.npv)  # vector of colors
 pal.def <- setNames(object = pal.def,
-                    nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
+                    nm = c("N", names(cond.colors), names(dec.colors), names(sdt.colors), "ppv", "npv")
                     )
 n.colors <- length(pal.def)  # number of colors for which defaults are defined
 
@@ -122,42 +131,59 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' \code{init_pal} allows changing colors by assigning
 #' new colors to existing names.
 #'
-#' @param col.N Color representing the \emph{population} (of N cases or individuals).
+#' @param col.N Color representing the \emph{population} of \code{\link{N}} cases or individuals.
 #'
-#' @param col.true Color representing cases for which the current condition is \code{TRUE}.
-#' @param col.false Color representing cases for which the current condition is \code{FALSE}.
+#' @param col.true Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.
+#' @param col.false Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.
 #'
-#' @param col.hi Color representing \emph{hits} or true positives
+#' @param col.pos Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
+#' @param col.neg Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#'
+#' @param col.hi Color representing \emph{hits} or true positives in \code{\link{hi}}
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
-#' @param col.mi Color representing \emph{misses} or false negatives
+#' @param col.mi Color representing \emph{misses} or false negatives in \code{\link{mi}}
 #' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
-#' @param col.fa Color representing \emph{false alarms} or false positives
+#' @param col.fa Color representing \emph{false alarms} or false positives in \code{\link{fa}}
 #' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
-#' @param col.cr Color representing \emph{correct rejections} or true negatives
+#' @param col.cr Color representing \emph{correct rejections} or true negatives in \code{\link{cr}}
 #' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
 #'
-#' @param col.ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
+#' @param col.ppv Color representing \emph{positive predictive values} \code{\link{PPV}} (i.e., the conditional probability that
 #' the condition is TRUE, provided that the decision is positive).
-#' @param col.npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
+#' @param col.npv Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 #' the condition is FALSE, provided that the decision is negative).
 #'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
-#' length(init_pal())  # => 9
+#' length(init_pal())  # => 11 colors
 #' pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
 #'
-#' @family functions to initialize scenario settings
+#'
+#' @family functions initializing scenario information
+#'
 #'
 #' @seealso
-#' \code{\link{pal}} for current color settings;
-#' \code{\link{txt}} for current text settings;
-#' \code{\link{num}} for basic numeric parameters
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 init_pal <- function(col.N = pal.def["N"],          # population N
-                     ## Conditions:
+                     ## by condition:
                      col.true  = pal.def["true"],   # condition true
                      col.false = pal.def["false"],  # condition false
-                     ## ToDo: Define 2 decision colors ##
+                     ## by decision:
+                     col.pos  = pal.def["pos"],     # decision positive
+                     col.neg = pal.def["neg"],      # decision negative
                      ## Combinations:
                      col.hi = pal.def["hi"],        # hits / true positives
                      col.mi = pal.def["mi"],        # misses / false negatives
@@ -174,10 +200,12 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 
   ## 2. Pass arguments to VECTOR:
   pal <- c(col.N,      # population N
-           ## Conditions:
+           ## by condition:
            col.true,   # condition true
            col.false,  # condition false
-           ## ToDo: Define 2 decision colors ##
+           ## by decision:
+           col.pos,    # decision positive
+           col.neg,    # decision negative
            ## Combinations:
            col.hi,     # hits / true positives
            col.mi,     # misses / false negatives
@@ -190,7 +218,7 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 
   ## 3. Name vector elements:
   pal <- setNames(object = pal,
-                  nm = c("N", names(cond.colors), names(sdt.colors), "ppv", "npv")
+                  nm = c("N", names(cond.colors), names(dec.colors), names(sdt.colors), "ppv", "npv")
                   )
 
   ## 4. Return vector:
@@ -201,7 +229,7 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 ## Check:
 {
   # init_pal()          # => returns vector of current colors
-  # length(init_pal())  # => 9
+  # length(init_pal())  # => 11
   # pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
 }
 
@@ -219,23 +247,27 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' is stored as named colors in a vector \code{pal}.
 #' To change a color, assign a new color to an existing element name.
 #'
-#' @param N Color representing the \emph{population} (of N cases or individuals).
 #'
-#' @param true Color representing cases for which the current condition is \code{TRUE}.
-#' @param false Color representing cases for which the current condition is \code{FALSE}.
+#' @param N Color representing the \emph{population} of \code{\link{N}} cases or individuals.
 #'
-#' @param hi Color representing \emph{hits} or true positives
+#' @param true Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.
+#' @param false Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.
+#'
+#' @param pos Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
+#' @param neg Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#'
+#' @param hi Color representing \emph{hits} or true positives in \code{\link{hi}}
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
-#' @param mi Color representing \emph{misses} or false negatives
+#' @param mi Color representing \emph{misses} or false negatives in \code{\link{mi}}
 #' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
-#' @param fa Color representing \emph{false alarms} or false positives
+#' @param fa Color representing \emph{false alarms} or false positives in \code{\link{fa}}
 #' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
-#' @param cr Color representing \emph{correct rejections} or true negatives
+#' @param cr Color representing \emph{correct rejections} or true negatives in \code{\link{cr}}
 #' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
 #'
-#' @param ppv Color representing \emph{positive predictive values} (i.e., the conditional probability that
+#' @param ppv Color representing \emph{positive predictive values} \code{\link{PPV}} (i.e., the conditional probability that
 #' the condition is TRUE, provided that the decision is positive).
-#' @param npv Color representing \emph{negative predictive values} (i.e., the conditional probability that
+#' @param npv Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 #' the condition is FALSE, provided that the decision is negative).
 #'
 #' @examples
@@ -243,8 +275,23 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' pal["hi"] # displays the current color for hits (true positives)
 #' pal["hi"] <- "green3" # defines a new color for hits (true positives)
 #'
-#' @family lists containing basic scenario settings
-#' @seealso \code{\link{init_pal}} to initialize color information
+#'
+#' @family lists containing current scenario information
+#'
+#'
+#' @seealso
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @export
+#'
 
 ## Apply:
 pal <- init_pal()
@@ -294,8 +341,6 @@ pal <- init_pal()
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Define 2 decision colors!
-## - Use standard colors as default
 ## - Add pre-defined color palettes & transparency
 ## - Make colors user-customizable
 

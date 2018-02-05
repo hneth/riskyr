@@ -3,15 +3,17 @@
 \docType{data}
 \name{popu}
 \alias{popu}
-\title{A population table based on current parameters.}
-\format{An object of class \code{data.frame} with 1000 rows and 3 columns.}
+\title{A population table based on current frequencies.}
+\format{An object of class \code{data.frame} with 12 rows and 3 columns.}
 \usage{
 popu
 }
 \value{
 A data frame \code{popu}
 containing \code{\link{N}} rows (individual cases)
-and 3 columns (\code{"Truth", "Decision", "SDT"}).
+and 3 columns (\code{"Truth", "Decision", "SDT"})
+encoded as ordered factors
+(with 2, 2, and 4 levels, respectively).
 }
 \description{
 \code{popu} is an R data frame that is computed
@@ -20,14 +22,16 @@ frequency information (contained in \code{\link{freq}}).
 Each individual is represented as a row;
 columns represent the individual's
 condition (\code{TRUE} or \code{FALSE}),
-a corresponding decision (positive or negative),
+a corresponding decision
+(also encoded as \code{TRUE} = positive or \code{FALSE} = negative),
 and its classification (in SDT terms) as either
-true positive (hit), false negative (miss),
-false positive (false alarm), or true negative
-(correct rejection).
+true positive (an individual hit),
+false negative (an individual miss),
+false positive (an individual false alarm), or
+true negative (an individual correct rejection).
 }
 \details{
-\code{comp_popu} uses the current text settings
+\code{comp_popu} uses the current text information
 contained in \code{\link{txt}} to define
 the labels of conditions, decisions, and
 SDT classifications.
@@ -44,6 +48,7 @@ head(popu)           # => shows head of data frame
 \seealso{
 The corresponding generating function \code{\link{comp_popu}};
 \code{\link{num}} for basic numeric parameters;
-\code{\link{txt}} for current text settings
+\code{\link{freq}} for current frequency information;
+\code{\link{txt}} for current text settings.
 }
 \keyword{datasets}

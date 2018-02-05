@@ -7,10 +7,10 @@
 comp_mirt(sens)
 }
 \arguments{
-\item{sens}{The decision's sensitivity \code{\link{sens}}.}
+\item{sens}{The decision's sensitivity \code{\link{sens}} as a probability.}
 }
 \value{
-The decision's miss rate \code{\link{mirt}}.
+The decision's miss rate \code{\link{mirt}} as a probability.
 }
 \description{
 \code{comp_mirt} is a conversion function that takes a sensitivity \code{\link{sens}}
@@ -20,28 +20,33 @@ as its input, and returns the corresponding miss rate \code{\link{mirt}}
 }
 \details{
 The miss rate \code{\link{mirt}} and sensitivity \code{\link{sens}}
-are complements (\code{mirt = 1 - sens}) and both features of
+are complements (\code{mirt = (1 - sens)}) and both features of
 the decision process (e.g., a diagnostic test).
 
 The function \code{comp_mirt} is complementary to the conversion function
 \code{\link{comp_sens}} and uses the generic function
-\code{\link{comp_prob_comp}}.
+\code{\link{comp_complement}}.
 }
 \examples{
 comp_mirt(2)                      # => NA + warning (beyond range)
 comp_mirt(1/3)                    # => 0.6666667
-comp_mirt(comp_prob_comp(0.123))  # => 0.123
+comp_mirt(comp_complement(0.123))  # => 0.123
 
 }
 \seealso{
-\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_complement}} computes a probability's complement;
 \code{\link{is_complement}} verifies probability complements;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{prob}} contains current probability information.
+\code{\link{prob}} contains current probability information;
+\code{\link{is_prob}} verifies probabilities.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_prob_comp}}, \code{\link{comp_prob}},
+Other functions computing probabilities: \code{\link{comp_FDR}},
+  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu}},
+  \code{\link{comp_comp_pair}},
+  \code{\link{comp_complement}},
+  \code{\link{comp_complete_prob_set}},
+  \code{\link{comp_fart}}, \code{\link{comp_ppod}},
+  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
   \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }

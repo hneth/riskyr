@@ -4,13 +4,13 @@
 \name{NPV}
 \alias{NPV}
 \title{The negative predictive value of a decision process or diagnostic procedure.}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 NPV
 }
 \description{
 \code{NPV} defines some decision's negative predictive value (NPV):
-The conditional probability of the condition being FALSE
+The conditional probability of the condition being \code{FALSE}
 provided that the decision is negative.
 }
 \details{
@@ -27,6 +27,14 @@ Understanding or obtaining the negative predictive value \code{NPV}:
 
 or the probability of a negative decision being correct.
 
+\item Perspective:
+  \code{NPV} further classifies
+  the subset of \code{\link{dec.neg}} individuals
+  by condition (\code{NPV = cr/dec.neg = cr/(mi + cr)}).
+
+\item Alternative names:
+  true omission rate
+
 \item Relationships:
 
 a. \code{NPV} is the complement of the
@@ -40,24 +48,23 @@ b. \code{NPV} is the opposite conditional probability
 
 \code{spec = p(decision = negative | condition = FALSE)}
 
-\item In natural frequencies,
-  \code{NPV} is the ratio of individuals for which
-  \code{decision = negative} and \code{condition = FALSE}
-  divided by the number of all individuals for which
-  \code{decision = negative}:
+\item In terms of frequencies,
+  \code{NPV} is the ratio of
+  \code{\link{cr}} divided by \code{\link{dec.neg}}
+  (i.e., \code{\link{cr} + \link{mi}}):
 
-\code{NPV = n(decision = negative & condition = FALSE) / n(decision = negative)}
+\code{NPV = cr/dec.neg = cr/(cr + mi)}
 
-\code{NPV = n.cr / (n.mi + n.cr)}
-
-\item \code{NPV} is a feature of a decision process
+\item Dependencies:
+  \code{NPV} is a feature of a decision process
   or diagnostic procedure and
   -- similar to the specificity \code{\link{spec}} --
   a measure of correct decisions (negative decisions
   that are actually FALSE).
 
 However, due to being a conditional probability,
-  the value of \code{NPV} also depends on the
+  the value of \code{NPV} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -71,18 +78,18 @@ is_prob(NPV)   # => TRUE (as NPV is a probability)
 Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{num}} contains basic numeric variables;
-\code{\link{comp_NPV}} and \code{\link{comp_NPV_freq}} compute PPVs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities.
+\code{\link{comp_NPV}} computes \code{NPV};
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{prev}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}

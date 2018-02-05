@@ -1,0 +1,240 @@
+---
+title: "`riskyr` Data Formats"
+author: "Hansjörg Neth"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<!-- quote: --> 
+
+> "Solving a problem simply means representing it so as to make the solution transparent."<br>
+> (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
+
+The problems addressed by `riskyr` are less of a computational than of a representational nature. 
+
+Ordinary people and experts struggle alike: aptly-named "confusion matrix": Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence. 
+
+
+Our goal: Promoting understanding, fostering transparency. 
+
+The method to our solution is a matter of organization and visualization.
+
+
+## Probabilities and Frequencies
+
+The problems presented and scientific discussion surrounding them is discussed in terms of representational formats. Typically, probabilities are distinguished from frequencies. 
+
+`riskyr` reflects this division by distinguishing between 2 internal data types: probabilities vs. frequencies.
+
+However, this separation is an abstract and artificial one. In reality, both representations are intimately intertwined, as the following network plot shows:
+
+```{r plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis'}
+plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+          area = "no", 
+          title.lbl = "Mammography screening")
+```
+
+### Motivation
+
+A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
+
+(provide example here)
+
+Problems of this type tend to provide three probabilities:
+
+1. the prevalence `prev` of some condition $C$;  
+2. the sensitivity `sens` of some decision $D$ (e.g., the outcome of some test or diagnostic procedure); 
+3. the specificity `spec` of $D$;
+
+and ask for one or more other probabilities:
+
+- the probability of a positive (or negative) decision; 
+- the positive predictive value `PPV` of $D$;  
+- the negative predictive value `NPV` of $D$. 
+
+Standard observation: People are confused and perplexed. Frequently, they even find it difficult to understand the question, let alone have a systematic way of answering it. In a majority of cases, they either have no clue what to respond, or provide some number close to the provided values `sens` or `spec` as a rough estimate.
+
+Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
+
+### Probabilities
+
+#### Terminology
+
+The list `prob` contains 10 probabilities: 
+
+1. the condition's prevalence  `prev`:<br>
+The probability of condition being `TRUE` (`prev = cond.true/N`).
+
+2. the decision's sensitivity  `sens`:<br>
+The conditional probability of a positive decision provided that the condition is `TRUE`.
+
+3. the decision's miss rate  `mirt`:<br>
+The conditional probability of a negative decision provided that the condition is `TRUE`).
+
+4. the decision's specificity  `spec`:<br> 
+The conditional probability of a negative decision provided that the condition is `FALSE`).
+
+5. the decision's false alarm rate `fart`:<br> 
+The conditional probability of a positive decision provided that the condition is `FALSE`).
+
+6. the proportion (baseline probability or rate) of positive decisions `ppod` (but not necessarily true decisions): `ppod = dec.pos/N`.
+
+7. the decision's positive predictive value  `PPV`:<br> 
+The conditional probability of the condition being `TRUE` provided that the decision is positive)
+
+8. the decision's negative predictive value  `NPV`:<br> 
+The conditional probability of the condition being `FALSE` provided that the decision is negative).
+
+9. the decision's false discovery or false detection rate  `FDR`:<br> 
+The conditional probability of the condition being `FALSE` provided that the decision is positive).
+
+10. the decision's false omission rate  `FOR`:<br> 
+The conditional probability of the condition being `TRUE` provided that the decision is negative).
+
+
+Other ways to classify probabilities: 
+
+Non-conditional vs. conditional probabilities.
+
+3 essential (1 non-conditional and 2 conditional) probabilities 
+and 7 derived (1 non-conditional and 6 conditional) probabilities:
+
+
+
+#### Basic knowledge
+
+Basic knowledge about probabilities:
+
+- Probabilities can be expressed as or defined in terms of _ratios_ (e.g., the probability of it being Monday $p(\mathrm{Monday}) = \frac{1}{7}$). When expressed as a decimal number, probabilites are numbers in the range from 0 to 1 (e.g., $p(\mathrm{Monday}) = \frac{1}{7}~=~$ `r 1/7`.).
+
+- If some event $E$ has a probability $p(E)$, the probability of $not~E$ (sometimes denoted as $\bar{E}$ or $\neg{E}$) is $p(\bar{E}) = 1 - p$ and is called the _complement_ of $p(E)$.
+
+- Conditional probabilities are not reversable.
+
+- Conditional probabilities can be computed with Bayesian formula or in terms of natural frequencies.  The former is difficult, the latter simple and transparent.
+
+
+### Frequencies
+
+The following 9 frequencies are stored in `freq`:
+
+#### Terminology
+
+|Nr.| Variable | Description |
+|--:|:---      |:------------------------------------------------------|
+|  1. | `N`          | number of cases (or individuals) in the population |
+|  2. | `cond.true`  | number of cases for which the condition is present (`TRUE`)  |
+|  3. | `cond.false` | number of cases for which the condition is absent (`FALSE`)  |
+|  4. | `dec.pos`    | number of cases for which the decision is positive (`TRUE`)  |
+|  5. | `dec.neg`    | number of cases for which the decision is negative (`FALSE`) |
+|  6. | `hi` | number of hits (true positives: condition `TRUE` & decision `TRUE`) |
+|  7. | `mi` | number of misses (false negatives: condition `TRUE` & decision `FALSE`) |
+|  8. | `fa` | number of false alarms (false positives: condition `FALSE` & decision `TRUE`) |
+|  9. | `cr` | number of correct rejections (true negatives: condition `FALSE` & decision `FALSE`) |
+
+All frequency values are integers.
+
+Whereas `N` specifies the entire population, the other 8 frequencies denote the number of cases in some subgroup (i.e., range from 0 to `N`).
+
+#### Relationships
+
+The following relationships hold among the frequencies:
+
+$$ 
+\begin{aligned}
+\texttt{N} &= \texttt{cond.true} + \texttt{cond.false} \\
+           &= \texttt{dec.pos} + \texttt{dec.neg}      \\
+           &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
+\end{aligned}
+$$ 
+
+The 2 columns of the confusion table:
+
+$$ 
+\begin{aligned}
+\texttt{cond.true}  &= \texttt{hi} + \texttt{mi} \\
+\texttt{cond.false} &= \texttt{fa} + \texttt{cr} \\
+\end{aligned}
+$$ 
+
+The 2 rows of the confusion table:
+
+$$ 
+\begin{aligned}
+\texttt{dec.pos}  &= \texttt{hi} + \texttt{fa} \\
+\texttt{dec.neg}  &= \texttt{mi} + \texttt{cr} \\
+\end{aligned}
+$$ 
+
+
+Alternative layout:
+
+| Nr. | Description      | Variable | 
+|----:|:-----------------|:---------|
+|  1. | number of individuals in the population                      | `N`          | 
+|  2. | number of cases for which the condition is present (`TRUE`)  | `cond.true`  |
+|  3. | number of cases for which the condition is absent (`FALSE`)  | `cond.false` | 
+|  4. | number of cases for which the decision is negative (`FALSE`) | `dec.pos`    | 
+|  5. | number of cases for which the decision is negative (`FALSE`) | `dec.neg`    | 
+
+
+## Template
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))

@@ -2,67 +2,104 @@
 % Please edit documentation in R/plot_tree.R
 \name{plot_tree}
 \alias{plot_tree}
-\title{Plot a tree diagram of natural frequencies.}
+\title{Plot a tree diagram of frequencies and probabilities.}
 \usage{
-plot_tree(prev = num$prev, sens = num$sens, spec = num$spec, fart = NA,
-  N = freq$N, area = "no", round = TRUE, title.lbl = txt$scen.lbl,
-  popu.lbl = txt$popu.lbl, cond.lbl = txt$cond.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.lbl = txt$dec.lbl, dec.true.lbl = txt$dec.true.lbl,
-  dec.false.lbl = txt$dec.false.lbl, sdt.hi.lbl = txt$sdt.hi.lbl,
-  sdt.mi.lbl = txt$sdt.mi.lbl, sdt.fa.lbl = txt$sdt.fa.lbl,
-  sdt.cr.lbl = txt$sdt.cr.lbl, col.boxes = pal[1:7], col.txt = grey(0.01,
-  alpha = 0.99), col.border = col.grey.4, col.shadow = col.sand.dark,
-  cex.shadow = 0)
+plot_tree(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
+  fart = NA, N = freq$N, round = TRUE, by = "cd", area = "no",
+  p.lbl = "mix", show.accu = TRUE, w.acc = 0.5,
+  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+  sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
+  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl, box.cex = 0.9,
+  col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
+  col.border = grey(0.33, alpha = 0.99), lwd = 1.6, box.lwd = 1.8,
+  col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
-\item{prev}{The condition's prevalence value \code{\link{prev}}
+\item{prev}{The condition's prevalence \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity value \code{\link{sens}}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
-provided that the condition is \code{TRUE}).}
+provided that the condition is \code{TRUE}).
+\code{sens} is optional when its complement \code{mirt} is provided.}
+
+\item{mirt}{The decision's miss rate \code{\link{mirt}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{TRUE}).
+\code{mirt} is optional when its complement \code{sens} is provided.}
 
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when is complement \code{fart} is provided.}
+\code{spec} is optional when its complement \code{fart} is provided.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
 of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{N}{The number of individuals in the population:
-a suitable value of \code{\link{N}} is computed, if not provided.}
+\item{N}{The number of individuals in the population.
+A suitable value of \code{\link{N}} is computed, if not provided.}
 
-\item{area}{A character option for 4 different box sizes:
-- \code{"no"} ... all boxes are shown with the same size (default);
-- \code{"sq"} ... boxes as squares of area sizes proportional to frequencies;
-- \code{"hr"} ... boxes as horizontal rectangles of area sizes proportional to frequencies;
-- \code{"vr"} ... boxes as vertical rectangles of area sizes proportional to frequencies.}
+\item{round}{A Boolean option specifying whether computed frequencies are rounded to integers. Default: \code{round = TRUE}.}
 
-\item{round}{A Boolean option that determines whether frequencies are
-rounded to the nearest integer. Default: \code{round = TRUE}.}
+\item{by}{A character code specifying the perspective (or category by which the population is split into subsets) with 2 options:
+\enumerate{
+\item \code{"cd"} ... by condition;
+\item \code{"dc"} ... by decision.
+}}
+
+\item{area}{A character code specifying the area of the boxes (or their relative sizes) with 4 options:
+\enumerate{
+\item \code{"no"} ... all boxes are shown with the same size (default);
+\item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies;
+\item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
+\item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
+}}
+
+\item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
+\enumerate{
+\item \code{"nam"} ... names of probabilities;
+\item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals);
+\item \code{"mix"} ... names of essential probabilities, values of complements (default);
+\item \code{"min"} ... minimal labels: names of essential probabilities.
+}}
+
+\item{show.accu}{Option for showing current
+accuracy metrics \code{\link{accu}} in the plot.
+Default: \code{show.accu = TRUE}.}
+
+\item{w.acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+Default: \code{w.acc = .50}.
+
+
+Various other options allow the customization of text labels and colors:}
 
 \item{title.lbl}{Text label to set plot title.}
 
-\item{col.boxes}{Colors of boxes (a single color or vector of 7 colors).}
+\item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
+Default: Current color information contained in \code{\link{pal}}.}
 }
 \value{
 Nothing (NULL).
 }
 \description{
-\code{plot_tree} computes and visualizes a tree diagram of
-natural frequencies (typically rounded integers) given basic
-probabilities -- \code{\link{prev}} and \code{\link{sens}},
-and \code{\link{spec}} or \code{\link{fart}} (\code{spec = 1 - fart})
--- and a population size of \code{\link{N}} individuals.
+\code{plot_tree} draws a tree diagram of
+frequencies (as nodes) and probabilities (as edges)
+from a sufficient and valid set of 3 essential probabilities
+(\code{\link{prev}}, and
+\code{\link{sens}} or its complement \code{\link{mirt}}, and
+\code{\link{spec}} or its complement \code{\link{fart}})
+or existing frequency information \code{\link{freq}}
+and a population size of \code{\link{N}} individuals.
 }
 \details{
 The option \code{area} (as 2 characters) allows specifying
 4 different box shapes and sizes:
-
 \enumerate{
  \item \code{"no"} shows all boxes in the same size (default);
  \item \code{"sq"} shows boxes as squares with area sizes proportional to frequencies;
@@ -84,11 +121,14 @@ to avoid decimal values in \code{\link{freq}}.
 \examples{
 # Plotting existing freq:
 plot_tree()
+plot_tree(by = "dc")
+plot_tree(area = "sq")
+plot_tree(p.lbl = "num")
 plot_tree(title.lbl = "")
 plot_tree(N = 33)
 plot_tree(N = NA)
 
-## Computing and plotting new frequencies:
+# Computing and plotting new frequencies:
 plot_tree(prev = 1/3)
 plot_tree(prev = 1/3, N = 55)
 plot_tree(prev = 1/3, N = NA)
@@ -98,26 +138,41 @@ plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
 plot_tree(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
 plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
 
-## Area trees:
+# Area options:
 plot_tree(area = "sq")
 plot_tree(area = "sq", round = FALSE)
 plot_tree(area = "hr")
 plot_tree(area = "vr", round = FALSE)
 
-## Custom colors and shadows:
+# Accuracy:
+plot_tree(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+plot_tree(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
+plot_tree(show.accu = FALSE)              # => no accuracy info.
+
+# Perspectives, areas, and label options:
+plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
+plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
+plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
+plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+
+# Custom colors and shadows:
 plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
 plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
 plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 
 }
 \seealso{
-\code{\link{num}} for basic numeric parameters;
-\code{\link{init_num}} initializes basic numeric variables;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{freq}} contains current frequency information;
-\code{\link{comp_freq}} computes frequencies from probabilities;
+\code{\link{comp_freq}} computes current frequency information;
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{pal}} for current color settings;
-\code{\link{txt}} for current text settings;
-\code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing)
+\code{\link{pal}} contains current color settings;
+\code{\link{txt}} contains current text settings;
+\code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+
+Other visualization functions: \code{\link{plot_PV3d}},
+  \code{\link{plot_PV}}, \code{\link{plot_fnet}},
+  \code{\link{plot_mosaic}}
 }

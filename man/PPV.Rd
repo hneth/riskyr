@@ -5,7 +5,7 @@
 \alias{PPV}
 \alias{precision}
 \title{The positive predictive value of a decision process or diagnostic procedure.}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 PPV
 }
@@ -28,6 +28,11 @@ Understanding or obtaining the positive predictive value \code{PPV}:
 
 or the probability of a positive decision being correct.
 
+\item Perspective:
+  \code{PPV} further classifies
+  the subset of \code{\link{dec.pos}} individuals
+  by condition (\code{PPV = hi/dec.pos = hi/(hi + fa)}).
+
 \item Alternative names:
   \code{precision}
 
@@ -44,24 +49,23 @@ b. \code{PPV} is the opposite conditional probability
 
 \code{sens = p(decision = positive | condition = TRUE)}
 
-\item In natural frequencies,
-  \code{PPV} is the ratio of individuals for which
-  \code{decision = positive} and \code{condition = TRUE}
-  divided by the number of all individuals for which
-  \code{decision = positive}:
+\item In terms of frequencies,
+  \code{PPV} is the ratio of
+  \code{\link{hi}} divided by \code{\link{dec.pos}}
+  (i.e., \code{\link{hi} + \link{fa}}):
 
-\code{PPV = n(decision = positive & condition = TRUE) / n(decision = positive)}
+\code{PPV = hi/dec.pos = hi/(hi + fa)}
 
-\code{PPV = n.hi / (n.hi + n.fa) }
-
-\item \code{PPV} is a feature of a decision process
+\item Dependencies:
+  \code{PPV} is a feature of a decision process
   or diagnostic procedure and
   -- similar to the sensitivity \code{\link{sens}} --
   a measure of correct decisions (positive decisions
   that are actually TRUE).
 
 However, due to being a conditional probability,
-  the value of \code{PPV} also depends on the
+  the value of \code{PPV} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -76,18 +80,18 @@ is_prob(PPV)   # => TRUE (as PPV is a probability)
 Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{num}} contains basic numeric variables;
-\code{\link{comp_PPV}} and \code{\link{comp_PPV_freq}} compute PPVs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities
+\code{\link{comp_PPV}} computes \code{PPV};
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other functions computing probabilities: \code{\link{FDR}},
-  \code{\link{FOR}}, \code{\link{NPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{NPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{prev}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}

@@ -2,56 +2,67 @@
 % Please edit documentation in R/comp_util.R
 \name{is_complement}
 \alias{is_complement}
-\title{Verify that two arguments are numeric complements.}
+\title{Verify that two numbers are complements.}
 \usage{
-is_complement(spec, fart, tol = 0.01)
+is_complement(p1, p2, tol = 0.01)
 }
 \arguments{
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is FALSE).
-\code{spec} is optional when is complement \code{fart} is provided.}
+\item{p1}{A numeric argument (typically probability in range from 0 to 1).}
 
-\item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is FALSE).
-\code{fart} is optional when its complement \code{spec} is provided.}
+\item{p2}{A numeric argument (typically probability in range from 0 to 1).}
 
-\item{tol}{A numeric tolerance value.}
+\item{tol}{A numeric tolerance value.
+Default: \code{tol = .01}.}
 }
 \value{
-A Boolean value: \code{TRUE} if the arguments are complements,
+\code{NA} or a Boolean value:
+\code{NA} if one or both arguments are \code{NA};
+\code{TRUE} if both arguments are provided
+and complements (in \code{tol} range);
 otherwise \code{FALSE}.
 }
 \description{
 \code{is_complement} is a function that
-takes 2 numeric arguments (probabilities) as inputs and
-verifies that they are complements (i.e., add up to 1).
+takes 2 numeric arguments (typically probabilities) as inputs and
+verifies that they are \emph{complements} (i.e., add up to 1).
 }
 \details{
-Both \code{spec} and \code{fart} are necessary arguments.
+Both \code{p1} and \code{p2} are necessary arguments.
+If one or both arguments are \code{NA}, \code{is_complement}
+returns \code{NA} (i.e., neither \code{TRUE} nor \code{FALSE}).
 
 The argument \code{tol} is optional (with a default value of .01)
-Complements differing by less than this
+Numeric near-complements that differ by less than this
 value are still considered to be complements.
 
-This function does not verify the type, range or sufficiency
+This function does not verify the type, range, or sufficiency
 of the inputs provided. See \code{\link{is_prob}} and
-\code{\link{is_sufficient}} for this purpose.
+\code{\link{is_suff_prob_set}} for this purpose.
 }
 \examples{
-is_complement(0, 0)              # => FALSE + Warning that difference exceeds tolerance
+# Basics:
+is_complement(0, 1)           # => TRUE
+is_complement(1/3, 2/3)       # => TRUE
+is_complement(.33, .66)       # => TRUE  (as within default tol = .01)
+is_complement(.33, .65)       # => FALSE (as beyond default tol = .01)
 
-is_complement(0, 1)              # => TRUE
-is_complement(1/3, 2/3)          # => TRUE
-is_complement(.33, .66)          # => TRUE
-
-is_complement(.3, .6)            # => FALSE + Warning that difference exceeds tolerance
+# watch out for:
+is_complement(NA, NA)            # => NA (but not FALSE)
+is_complement(1, NA)             # => NA (but not FALSE)
+is_complement(2, -1)             # => TRUE + warnings (p1 and p2 beyond range)
+is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
+is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
 is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
+
+# ways to fail:
+is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
+is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
+is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
+
 
 }
 \seealso{
-\code{\link{comp_prob_comp}} computes a probability's complement;
+\code{\link{comp_complement}} computes a probability's complement;
 \code{\link{comp_comp_pair}} computes pairs of complements;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
@@ -59,12 +70,14 @@ is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 \code{\link{as_pc}} displays a probability as a percentage;
-\code{\link{as_pb}} displays a percentage as probability
+\code{\link{as_pb}} displays a percentage as probability.
 
-Other verification functions: \code{\link{is_extreme}},
+Other verification functions: \code{\link{is_extreme_prob_set}},
   \code{\link{is_freq}}, \code{\link{is_perc}},
-  \code{\link{is_prob}}, \code{\link{is_sufficient}},
-  \code{\link{is_valid}}
+  \code{\link{is_prob}}, \code{\link{is_suff_prob_set}},
+  \code{\link{is_valid_prob_pair}},
+  \code{\link{is_valid_prob_set}},
+  \code{\link{is_valid_prob_triple}}
 }

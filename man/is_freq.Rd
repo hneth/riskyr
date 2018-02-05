@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_util.R
 \name{is_freq}
 \alias{is_freq}
-\title{Verify that a numeric input is a freqency (positive integer value).}
+\title{Verify that input is a frequency (positive integer value).}
 \usage{
 is_freq(freq)
 }
@@ -19,16 +19,16 @@ is a frequency (i.e., a positive numeric integer value).
 }
 \examples{
 # ways to succeed:
-is_freq(2)    # => TRUE, but does NOT return the frequency 2.
-is_freq(1:3)  # => TRUE (for vector)
+is_freq(2)             # => TRUE, but does NOT return the frequency 2.
+is_freq(1:3)           # => TRUE (for vector)
 
 # ways to fail:
-is_freq(-1)    # => FALSE + warning (negative values)
-is_freq(1:-1)  # => FALSE (for vector) + warning (negative values)
+is_freq(-1)            # => FALSE + warning (negative values)
+is_freq(1:-1)          # => FALSE (for vector) + warning (negative values)
 is_freq(c(1, 1.5, 2))  # => FALSE (for vector) + warning (non-integer values)
 
 ## Note that:
-is.integer(2)  # => FALSE!
+is.integer(2)          # => FALSE!
 
 }
 \seealso{
@@ -38,12 +38,14 @@ is.integer(2)  # => FALSE!
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_valid}} verifies the validity of probability inputs;
+\code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 \code{\link{as_pc}} displays a probability as a percentage;
 \code{\link{as_pb}} displays a percentage as probability
 
 Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_extreme}}, \code{\link{is_perc}},
-  \code{\link{is_prob}}, \code{\link{is_sufficient}},
-  \code{\link{is_valid}}
+  \code{\link{is_extreme_prob_set}}, \code{\link{is_perc}},
+  \code{\link{is_prob}}, \code{\link{is_suff_prob_set}},
+  \code{\link{is_valid_prob_pair}},
+  \code{\link{is_valid_prob_set}},
+  \code{\link{is_valid_prob_triple}}
 }

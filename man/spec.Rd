@@ -29,8 +29,15 @@ Understanding or obtaining the specificity value \code{spec}:
 or the probability of correctly detecting false cases
   (\code{condition = FALSE}).
 
+\item Perspective:
+  \code{spec} further classifies
+  the subset of \code{\link{cond.false}} individuals
+  by decision (\code{spec = cr/cond.false}).
+
 \item Alternative names:
-  true negative rate (\code{TNR}), correct rejection rate
+  true negative rate (\code{TNR}),
+  correct rejection rate,
+  \code{1 - alpha}
 
 \item Relationships:
 
@@ -45,19 +52,21 @@ b. \code{spec} is the opposite conditional probability
 
 \code{NPV = p(condition = FALSE | decision = negative)}
 
-\item In natural frequencies,
-  \code{spec} is the ratio of individuals for which
-  \code{decision = negative} divided by the number of
-  individuals for which \code{condition = FALSE}:
+\item In terms of frequencies,
+  \code{spec} is the ratio of
+  \code{\link{cr}} divided by \code{\link{cond.false}}
+  (i.e., \code{\link{fa} + \link{cr}}):
 
-\code{spec = n(decision = negative) / n(condition = FALSE)}
+\code{spec = cr/cond.false = cr/(fa + cr)}
 
-\item \code{spec} is a feature of a decision process
+\item Dependencies:
+  \code{spec} is a feature of a decision process
   or diagnostic procedure and a measure of
   correct decisions (true negatives).
 
 However, due to being a conditional probability,
-  the value of \code{spec} also depends on the
+  the value of \code{spec} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -71,16 +80,21 @@ is_prob(spec)   # => TRUE (as spec is a probability)
 Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{num}} contains basic numeric variables;
-\code{\link{init_num}} initializes basic numeric variables;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities;
-\code{\link{comp_spec}} computes \code{spec}
-as the complement of \code{\link{fart}}
+\code{\link{comp_spec}} computes \code{spec} as the complement of \code{\link{fart}};
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other basic parameters: \code{\link{N}},
-  \code{\link{fart}}, \code{\link{mirt}},
+Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{prev}}, \code{\link{sens}}
+
+Other essential parameters: \code{\link{cr}},
+  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
   \code{\link{prev}}, \code{\link{sens}}
 }
 \keyword{datasets}

@@ -3,18 +3,22 @@
 \name{comp_popu}
 \alias{comp_popu}
 \title{Compute a population table from frequencies.}
+\format{An object of class \code{data.frame}
+with \code{\link{N}} rows
+and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
-comp_popu(n.true = freq$cond.true, n.false = freq$cond.false,
-  n.hi = freq$hi, n.mi = freq$mi, n.fa = freq$fa, n.cr = freq$cr,
+comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.true.lbl = txt$dec.true.lbl, dec.false.lbl = txt$dec.false.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl)
 }
 \value{
 A data frame \code{popu}
 containing \code{\link{N}} rows (individual cases)
-and 3 columns (\code{"Truth", "Decision", "SDT"}).
+and 3 columns (\code{"Truth", "Decision", "SDT"})
+encoded as ordered factors
+(with 2, 2, and 4 levels, respectively).
 }
 \description{
 \code{comp_popu} is a function that computes
@@ -28,17 +32,25 @@ contained in \code{\link{txt}}.
 
 A visualization of the current population
 contained in \code{\link{popu}}
-is provided by \code{\link{plot_iconarray}}.
+is provided by \code{plot_icon}.
 }
 \examples{
-popu <- comp_popu()  # => initializes popu with current values of freq and txt
+comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
+
+popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 dim(popu)            # => N x 3
 head(popu)           # => shows head of data frame
+
 
 }
 \seealso{
 The corresponding data frame \code{\link{popu}};
 \code{\link{num}} for basic numeric parameters;
+\code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;
-\code{\link{pal}} for current color settings
+\code{\link{pal}} for current color settings.
+
+Other functions computing frequencies: \code{\link{comp_freq_freq}},
+  \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
+  \code{\link{comp_min_N}}, \code{\link{comp_prob_prob}}
 }

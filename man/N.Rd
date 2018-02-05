@@ -3,38 +3,61 @@
 \docType{data}
 \name{N}
 \alias{N}
-\title{The number of individuals in the population.}
+\title{Number of individuals in the population.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
 N
 }
 \description{
-\code{N} defines how many individuals make up
-the current population (i.e., the overall
-number of cases considered).
+\code{N} is a frequency that describes the
+number of individuals in the current population
+(i.e., the overall number of cases considered).
 }
 \details{
-A frequency (integer) value.
-
-Relationships: For natural frequencies
-in a population of size \code{N}
-the following relationships hold:
+Key relationships:
 
 \enumerate{
 
-\item N = n(condition true) + n(condition false)
+\item to probabilities:
+A population of \code{\link{N}} individuals can be split into 2 subsets
+in 2 different ways:
 
-\item n(positive decisions) + n(negative decisions)
+\enumerate{
+  \item by condition:
+  The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+  and
+  the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
 
-\item N = [n(hi) + n(mi)] + [n(fa) + n(cr)]
+\item by decision:
+  The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+  and
+  the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+
 }
 
-The current frequency information is computed by
+The population size \code{\link{N}} is a free parameter (independent of the
+essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+
+If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+
+\item to other frequencies:
+  In a population of size \code{\link{N}}
+  the following relationships hold:
+
+\itemize{
+
+\item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+
+\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+
+\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+  }
+
+}
+
+Current frequency information is computed by
 \code{\link{comp_freq}} and contained in a list
 \code{\link{freq}}.
-
-If \code{N} is unknown, a suitable minimum value
-can be computed by \code{\link{comp_min_N}}.
 }
 \examples{
 N <- 1000   # => sets a population size of 1000
@@ -42,19 +65,20 @@ is_freq(N)  # => TRUE
 is_prob(N)  # => FALSE (as N is no probability)
 }
 \references{
-Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia} for additional information.
+Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia: Statistical population} for additional information.
 }
 \seealso{
-\code{\link{comp_min_N}} computes a suitable
-minimum value of \code{N} for given probabilities;
-\code{\link{num}} contains basic numeric variables;
-\code{\link{init_num}} initializes basic numeric variables;
-\code{\link{freq}} contains basic frequency variables;
-\code{\link{comp_freq}} computes natural frequencies from probabilities;
-\code{\link{comp_prob}} computes derived probabilities
+\code{\link{is_freq}} verifies frequencies;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information.
 
-Other basic parameters: \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other frequencies: \code{\link{cond.false}},
+  \code{\link{cond.true}}, \code{\link{cr}},
+  \code{\link{dec.neg}}, \code{\link{dec.pos}},
+  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
 \keyword{datasets}

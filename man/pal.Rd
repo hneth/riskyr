@@ -4,33 +4,37 @@
 \name{pal}
 \alias{pal}
 \title{List current values of basic color information.}
-\format{An object of class \code{character} of length 9.}
+\format{An object of class \code{character} of length 11.}
 \usage{
 pal
 }
 \arguments{
-\item{N}{Color representing the \emph{population} (of N cases or individuals).}
+\item{N}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}
 
-\item{true}{Color representing cases for which the current condition is \code{TRUE}.}
+\item{true}{Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.}
 
-\item{false}{Color representing cases for which the current condition is \code{FALSE}.}
+\item{false}{Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.}
 
-\item{hi}{Color representing \emph{hits} or true positives
+\item{pos}{Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.}
+
+\item{neg}{Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.}
+
+\item{hi}{Color representing \emph{hits} or true positives in \code{\link{hi}}
 (i.e., correct cases for which the current condition is TRUE and the decision is positive).}
 
-\item{mi}{Color representing \emph{misses} or false negatives
+\item{mi}{Color representing \emph{misses} or false negatives in \code{\link{mi}}
 (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).}
 
-\item{fa}{Color representing \emph{false alarms} or false positives
+\item{fa}{Color representing \emph{false alarms} or false positives in \code{\link{fa}}
 (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).}
 
-\item{cr}{Color representing \emph{correct rejections} or true negatives
+\item{cr}{Color representing \emph{correct rejections} or true negatives in \code{\link{cr}}
 (i.e., correct cases for which the current condition is FALSE and the decision is negative).}
 
-\item{ppv}{Color representing \emph{positive predictive values} (i.e., the conditional probability that
+\item{ppv}{Color representing \emph{positive predictive values} \code{\link{PPV}} (i.e., the conditional probability that
 the condition is TRUE, provided that the decision is positive).}
 
-\item{npv}{Color representing \emph{negative predictive values} (i.e., the conditional probability that
+\item{npv}{Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 the condition is FALSE, provided that the decision is negative).}
 }
 \description{
@@ -48,10 +52,21 @@ pal       # displays the vector of all current color names and values
 pal["hi"] # displays the current color for hits (true positives)
 pal["hi"] <- "green3" # defines a new color for hits (true positives)
 
+
 }
 \seealso{
-\code{\link{init_pal}} to initialize color information
+\code{\link{init_pal}} initializes color information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{txt}} contains current text information;
+\code{\link{init_txt}} initializes text information;
+\code{\link{freq}} contains current frequency information;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information.
 
-Other lists containing basic scenario settings: \code{\link{txt}}
+Other lists containing current scenario information: \code{\link{accu}},
+  \code{\link{freq}}, \code{\link{num}},
+  \code{\link{prob}}, \code{\link{txt}}
 }
 \keyword{datasets}

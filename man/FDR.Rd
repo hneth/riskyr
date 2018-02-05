@@ -4,7 +4,7 @@
 \name{FDR}
 \alias{FDR}
 \title{The false detection rate of a decision process or diagnostic procedure.}
-\format{An object of class \code{logical} of length 1.}
+\format{An object of class \code{numeric} of length 1.}
 \usage{
 FDR
 }
@@ -26,6 +26,14 @@ or false discovery rate (\code{FDR}):
 
 \code{FDR = p(condition = FALSE | decision = positive)}
 
+\item Perspective:
+  \code{FDR} further classifies
+  the subset of \code{\link{dec.pos}} individuals
+  by condition (\code{FDR = fa/dec.pos = fa/(hi + fa)}).
+
+\item Alternative names:
+  false discovery rate
+
 \item Relationships:
 
 a. \code{FDR} is the complement of the
@@ -39,24 +47,22 @@ b. \code{FDR} is the opposite conditional probability
 
 \code{fart = p(decision = positive | condition = FALSE)}
 
-\item In natural frequencies,
-  \code{FDR} is the ratio of individuals for which
-  \code{decision = positive} and \code{condition = FALSE}
-  (aka. false positives)
-  divided by the number of all individuals for which
-  \code{decision = positive} (true positives and false positives):
+\item In terms of frequencies,
+  \code{FDR} is the ratio of
+  \code{\link{fa}} divided by \code{\link{dec.pos}}
+  (i.e., \code{\link{hi} + \link{fa}}):
 
-\code{FDR = n(decision = positive & condition = FALSE) / n(decision = positive)}
+\code{FDR = fa/dec.pos = fa/(hi + fa)}
 
-\code{FDR = n.fa / (n.hi + n.fa) }
-
-\item \code{FDR} is a feature of a decision process
+\item Dependencies:
+  \code{FDR} is a feature of a decision process
   or diagnostic procedure and
   a measure of incorrect decisions (positive decisions
   that are actually \code{FALSE}).
 
 However, due to being a conditional probability,
-  the value of \code{FDR} also depends on the
+  the value of \code{FDR} is not intrinsic to
+  the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
 
 }
@@ -71,18 +77,17 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 }
 \seealso{
 \code{\link{comp_FDR}} computes \code{FDR} as the complement of \code{\link{PPV}};
-\code{\link{num}} contains basic numeric variables;
-\code{\link{comp_PPV}} and \code{\link{comp_PPV_freq}} compute PPVs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{is_prob}} verifies probability inputs;
-\code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities.
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{num}} contains basic numeric parameters;
+\code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probability inputs.
 
-Other functions computing probabilities: \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}},
-  \code{\link{comp_comp_pair}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_prob_comp}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+Other probabilities: \code{\link{FOR}}, \code{\link{NPV}},
+  \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{ppod}},
+  \code{\link{prev}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}

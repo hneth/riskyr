@@ -55,11 +55,21 @@ comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
 comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 
+
 }
 \seealso{
 population size \code{\link{N}};
+\code{\link{num}} contains basic numeric parameters;
 \code{\link{freq}} contains current frequency information;
-\code{\link{comp_freq}} computes frequencies from probabilities
+\code{\link{comp_freq}} computes frequencies from probabilities;
+\code{\link{prob}} contains current probability information;
+\code{\link{comp_prob}} computes probabilities from probabilities;
+\code{\link{comp_freq_freq}} computes current frequency information from (4 essential) frequencies;
+\code{\link{comp_freq_prob}} computes current frequency information from (3 essential) probabilities;
+\code{\link{comp_prob_freq}} computes current probability information from (4 essential) frequencies;
+\code{\link{comp_prob_prob}} computes current probability information from (3 essential) probabilities.
 
-Other functions computing frequencies: \code{\link{comp_freq}}
+Other functions computing frequencies: \code{\link{comp_freq_freq}},
+  \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
+  \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 }

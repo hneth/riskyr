@@ -299,14 +299,14 @@ div.tocify {
 <div id="bayesian-inference" class="section level3">
 <h3>Bayesian inference</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">H.lbl &lt;-<span class="st"> &quot;H&quot;</span> <span class="co"># Hypothesis</span>
-E.lbl &lt;-<span class="st"> &quot;E&quot;</span> <span class="co"># Evidence (E) or Decision (D)</span></code></pre></div>
-<p><em>Bayes’ rule</em> describes the probability <span class="math inline">\(p\)</span> of a hypothesis <span class="math inline">\(H\)</span> given some evidence <span class="math inline">\(E\)</span> as:</p>
-<p><span class="math display">\[ p(H|E) = \frac{p(E|H) \times\ p(H)} 
-{p(E)} \]</span></p>
-<p>By further decomposing the denominator <span class="math inline">\(p(E)\)</span> into two mutually exclusive parts <span class="math inline">\(p(E|H) \times\ p(H) +  p(E|\neg H) \times\ p(\neg H)\)</span> we get:</p>
-<p><span class="math display">\[ p(H|E) = \frac{p(E|H) \times\ p(H)} 
-{p(E|H) \times\ p(H) + 
- p(E|\neg H) \times\ p(\neg H)} \]</span></p>
+E.lbl &lt;-<span class="st"> &quot;D&quot;</span> <span class="co"># Evidence (E) or Decision/Data (D)</span></code></pre></div>
+<p><em>Bayes’ rule</em> describes the probability <span class="math inline">\(p\)</span> of a hypothesis <span class="math inline">\(H\)</span> given some evidence <span class="math inline">\(D\)</span> as:</p>
+<p><span class="math display">\[ p(H|D) = \frac{p(D|H) \times\ p(H)} 
+{p(D)} \]</span></p>
+<p>By further decomposing the denominator <span class="math inline">\(p(D)\)</span> into two mutually exclusive parts <span class="math inline">\(p(D|H) \times\ p(H) +  p(D|\neg H) \times\ p(\neg H)\)</span> we get:</p>
+<p><span class="math display">\[ p(H|D) = \frac{p(D|H) \times\ p(H)} 
+{p(D|H) \times\ p(H) + 
+ p(D|\neg H) \times\ p(\neg H)} \]</span></p>
 </div>
 <div id="probabilities-vs.natural-frequencies" class="section level3">
 <h3>Probabilities vs. natural frequencies</h3>
@@ -1669,7 +1669,7 @@ BxA
 <li><p>All risk professionals should be able to use <em>contingency tables</em>, <em>natural frequency trees</em>, and <em>icon arrays</em> to solve Bayesian problems (of conditional probability).</p></li>
 </ul>
 <hr />
-<p>[<code>RiskLiteracyTools_now.Rmd</code> updated on 2018-01-16 09:23:48 by <a href="http://neth.de/">hn</a>.]</p>
+<p>[<code>RiskLiteracyTools_now.Rmd</code> updated on 2018-02-04 22:25:27 by <a href="http://neth.de/">hn</a>.]</p>
 <!-- +++ finis eof -->
 </div>
 </div>

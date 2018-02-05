@@ -5,11 +5,16 @@
 .Ruserdata
 .Rbuildignore
 .DS_Store
+R/_archive
 _code/RiskLiteracyTools_now_cache
 _code/RiskLiteracyTools_now_files
 _stuff
 test_loadingPackage.R
+<<<<<<< HEAD
 (Nico-PCs in Konflikt stehende Kopie 2018-01-15).Rhistory
 test_cex_private
 test.pdf
 mat.txt
+=======
+inst/doc
+>>>>>>> upstream/master

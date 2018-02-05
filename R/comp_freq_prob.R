@@ -1,5 +1,5 @@
-## comp_freq_prob.R | riskyR
-## 2018 01 22
+## comp_freq_prob.R | riskyr
+## 2018 01 31
 ## -----------------------------------------------
 ## Compute frequencies from probabilities:
 ## -----------------------------------------------
@@ -7,38 +7,60 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# probabilities (9):                frequencies (9):
-# ------------------                ------------------
-# (A) basic:
-#                                          N
-# prev*                             n.true | n.false
+# Probabilities (10):               Frequencies (9):
+# -------------------               ------------------
+# (A) by condition:
 
-# sens* = hit rate = TPR             hi* = TP
-# mirt  = miss rate = FNR            mi* = FN
-# fart  = false alarm rate = FPR     fa* = FP
-# spec* = true negative rate = TNR   cr* = TN
+# non-conditional:                          N
+# prev*                           cond.true | cond.false
+
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
 
 # [Note: *...is essential]
 
 
-# (B) derived:
-#                                   dec.pos | dec.neg
+# (B) by decision:                 Combined frequencies:
 
-# PPV = pos. pred. value
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg
+
+# conditional:
+# PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+
 ## -----------------------------------------------
-## Two basic directions:
+## Data flow: Two basic directions:
 
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
 
-## 2: Natural frequencies:
-## - given:   N;  hi, mi, fa, cr
-## - derived: all other values
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
+
+## -----------------------------------------------
+## 2 functions convert between formats:
+
+## a. comp_freq_prob: Computes freq from prob
+## b. comp_prob_freq: Computes prob from freq
+
+## -----------------------------------------------
+
+
+## -----------------------------------------------
+## ad (1) Probabilities ==> frequencies:
+## -----------------------------------------------
+
 
 ## -----------------------------------------------
 ## (1) Determine a suitable population size N:
@@ -62,11 +84,14 @@
 #' Note that \code{\link{comp_freq}} still needs to round to avoid decimal values
 #' in frequencies \code{\link{freq}}.
 #'
+#'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being TRUE).
+#'
 #' @param sens The decision's sensitivity value  \code{\link{sens}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is TRUE).
+#'
 #' @param spec The specificity value  \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
@@ -75,7 +100,9 @@
 #' a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
 #' Default: \code{min.freq = 1}.
 #'
+#'
 #' @return An integer value \code{\link{N}} (as a power of 10).
+#'
 #'
 #' @examples
 #' comp_min_N(0, 0, 0)  # => 1
@@ -89,41 +116,61 @@
 #' comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 #' comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 #'
+#'
 #' @family functions computing frequencies
+#'
 #'
 #' @seealso
 #' population size \code{\link{N}};
+#' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{freq}} contains current frequency information;
-#' \code{\link{comp_freq}} computes frequencies from probabilities
+#' \code{\link{comp_freq}} computes frequencies from probabilities;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes probabilities from probabilities;
+#' \code{\link{comp_freq_freq}} computes current frequency information from (4 essential) frequencies;
+#' \code{\link{comp_freq_prob}} computes current frequency information from (3 essential) probabilities;
+#' \code{\link{comp_prob_freq}} computes current probability information from (4 essential) frequencies;
+#' \code{\link{comp_prob_prob}} computes current probability information from (3 essential) probabilities.
+#'
+#' @export
 
-comp_min_N <- function(prev, sens, spec,
+comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
                        min.freq = 1) {
 
-  N <- 10^0 # initialize
+  ## (1) initialize:
+  N <- 10^0
 
-  ## Compute frequency of 4 SDT cases:
-  n.hi <- N * prev * sens
-  n.mi <- N * prev * (1 - sens)
-  n.cr <- N * (1 - prev) * spec
-  n.fa <- N * (1 - prev) * (1 - spec)
+  ## (2) Only if triple of essential probabilities is valid:
+  if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
 
-  ## Freq of 4 SDT cases:
-  while ((n.hi > 0 & n.hi < min.freq) |
-         (n.mi > 0 & n.mi < min.freq) |
-         (n.cr > 0 & n.cr < min.freq) |
-         (n.fa > 0 & n.fa < min.freq)) {
+    ## (3) Issue a warning if probabilities describe an extreme case:
+    is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
-    N <- (N * 10) # multiply N by 10
-
-    ## Update frequency of 4 SDT cases:
+    ## (4) Compute frequency of 4 SDT cases:
     n.hi <- N * prev * sens
     n.mi <- N * prev * (1 - sens)
     n.cr <- N * (1 - prev) * spec
     n.fa <- N * (1 - prev) * (1 - spec)
 
+    ## (5) While freq of 4 SDT cases < min.freq:
+    while ((n.hi > 0 & n.hi < min.freq) |
+           (n.mi > 0 & n.mi < min.freq) |
+           (n.cr > 0 & n.cr < min.freq) |
+           (n.fa > 0 & n.fa < min.freq)) {
+
+      ## (a) Multiply N by 10:
+      N <- (N * 10)
+
+      ## (b) Update frequency of 4 SDT cases for new N:
+      n.hi <- N * prev * sens
+      n.mi <- N * prev * (1 - sens)
+      n.cr <- N * (1 - prev) * spec
+      n.fa <- N * (1 - prev) * (1 - spec)
+
+    }
   }
 
-  ## Return number N:
+  ## (6) Return number N:
   return(N)
 
 }

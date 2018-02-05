@@ -1,39 +1,52 @@
 ## comp_util.R | riskyR
-## 2018 01 22
+## 2018 01 27
 ## -----------------------------------------------
 ## Generic utility functions:
 
 ## -----------------------------------------------
-## (1) Verification functions:
+## (A) Verification functions:
+
 ## 1. is_prob
 ## 2. is_perc
-## 3. is_sufficient
-## 4. is_complement
-## 5. is_extreme
-## 6. is_valid
+## 3. is_freq
+## 4. is_suff_prob_set
+## +. is_suff_freq_set
+## 5. is_complement
+## 6. is_extreme_prob_set
+## 7. is_valid_prob_pair
+## 8. is_valid_prob_set
+## 9. is_valid_prob_triple [deprecated]
 
-#' Verify that a numeric input is a probability (from 0 to 1).
+## -----------------------------------------------
+## is_prob:
+
+#' Verify that input is a probability (numeric value from 0 to 1).
 #'
 #' \code{is_prob} is a function that checks whether its argument \code{prob}
 #' is a probability (i.e., a numeric value in the range from 0 to 1).
 #'
 #' @param prob A numeric argument (scalar or vector).
 #'
-#' @return A Boolean value: \code{TRUE} if \code{prob} is a probability, otherwise \code{FALSE}.
+#' @return A Boolean value:
+#' \code{TRUE} if \code{prob} is a probability,
+#' otherwise \code{FALSE}.
 #'
 #' @examples
 #' # ways to succeed:
-#' is_prob(1/2)            # => TRUE
+#' is_prob(1/2)                  # => TRUE
 #' p.seq <- seq(0, 1, by = .1)
-#' is_prob(p.seq)          # => TRUE (for vector)
+#' is_prob(p.seq)                # => TRUE (for vector)
+#'
+#' # watch out for:
+#' is_prob(NA)                   # => FALSE + NO warning!
+#  is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
+#' is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+#' is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
 #'
 #' # ways to fail:
-#' is_prob(8)              # => FALSE + warning (outside range)
-#' is_prob(c(.5, 8))       # => FALSE + warning (for vector)
-#' is_prob(NA)             # => FALSE + warning (NA values)
-#' is_prob(0/0)            # => FALSE + warning (NA + NaN values)
-#' is_prob("Laplace")      # => FALSE + warning (non-numeric values)
-#' is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
+#' is_prob(8)                    # => FALSE + warning (outside range)
+#' is_prob(c(.5, 8))             # => FALSE + warning (for vector)
+#' is_prob("Laplace")            # => FALSE + warning (non-numeric values)
 #'
 #' @family verification functions
 #'
@@ -44,32 +57,47 @@
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 
-is_prob <- function(prob) {
+is_prob <- function(prob, NA.warn = FALSE) {
 
-  val <- NA # initialize
+  val <- NA  # initialize
 
   ## many ways to fail:
   if (sum(is.na(prob)) > 0) {
+
     val <- FALSE
-    warning(paste0(prob, " contains NA values. "))
+
+    if (NA.warn) {
+      warning(paste0(prob, " contains NA values. "))
+    }
   }
-  if (sum(is.nan(prob)) > 0) {
+
+  else if (sum(is.nan(prob)) > 0) {
+
     val <- FALSE
+
     warning(paste0(prob, " contains NaN values. "))
   }
+
   else if (sum(!is.numeric(prob)) > 0) {
+
     val <- FALSE
+
     warning(paste0(prob, " contains non-numeric values. "))
   }
-  else if (sum((prob < 0) | (prob > 1)) > 0) {
+
+  else if (sum((prob < 0) || (prob > 1)) > 0) {
+
     val <- FALSE
+
     warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
   }
-  else { ## one way to succeed:
+
+  else {  ## one way to succeed:
+
     val <- TRUE
   }
 
@@ -79,30 +107,35 @@ is_prob <- function(prob) {
 
 ## Checks:
 {
-
-  ## ways to succeed:
-  # is_prob(1/2)            # => TRUE
-  # prob.seq <- seq(0, 1, by = .1)
-  # is_prob(prob.seq)       # => TRUE (for vector)
-
-  ## ways to fail:
-  # is_prob(8)              # => FALSE + warning (outside range)
-  # is_prob(c(.5, 8))       # => FALSE + warning (for vector)
-  # is_prob(NA)             # => FALSE + warning (NA values)
-  # is_prob(0/0)            # => FALSE + warning (NA + NaN values)
-  # is_prob("Laplace")      # => FALSE + warning (non-numeric values)
-  # is_prob(c(8, NA, NaN))  # => FALSE + warning (NA + NaN values)
+  # # ways to succeed:
+  # is_prob(1/2)                  # => TRUE
+  # p.seq <- seq(0, 1, by = .1)
+  # is_prob(p.seq)                # => TRUE (for vector)
+  #
+  # # watch out for:
+  # is_prob(NA)                   # => FALSE + NO warning!
+  # is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
+  # is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+  # is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
+  #
+  # # ways to fail:
+  # is_prob(8)                    # => FALSE + warning (outside range)
+  # is_prob(c(.5, 8))             # => FALSE + warning (for vector)
+  # is_prob("Laplace")            # => FALSE + warning (non-numeric values)
 }
 
 ## -----------------------------------------------
-#' Verify that a numeric input is a percentage (from 0 to 100).
+## is_perc:
+
+#' Verify that input is a percentage (numeric value from 0 to 100).
 #'
 #' \code{is_perc} is a function that checks whether its single argument \code{perc}
 #' is a percentage (proportion, i.e., a numeric value in the range from 0 to 100).
 #'
 #' @param perc A single (typically numeric) argument.
 #'
-#' @return A Boolean value: \code{TRUE} if \code{perc} is a percentage (proportion),
+#' @return A Boolean value:
+#' \code{TRUE} if \code{perc} is a percentage (proportion),
 #' otherwise \code{FALSE}.
 #'
 #' @examples
@@ -127,31 +160,42 @@ is_prob <- function(prob) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 
 is_perc <- function(perc) {
 
-  val <- NA # initialize
+  val <- NA  # initialize
 
   if (sum(is.na(perc)) > 0) {
+
     val <- FALSE
+
     warning(paste0(perc, " contains NA values. "))
   }
+
   else if (sum(is.nan(perc)) > 0) {
+
     val <- FALSE
+
     warning(paste0(perc, " contains NaN values. "))
   }
+
   else if (sum(!is.numeric(perc)) > 0) {
     val <- FALSE
     warning(paste0(perc, " contains non-numeric values. "))
   }
-  else if (sum((perc < 0) | (perc > 100)) > 0) {
+
+  else if (sum((perc < 0) || (perc > 100)) > 0) {
+
     val <- FALSE
+
     warning(paste0(perc, " contains values beyond the range from 0 to 100. "))
   }
-  else {
+
+  else {  # one way to succeed:
+
     val <- TRUE
   }
 
@@ -160,7 +204,9 @@ is_perc <- function(perc) {
 }
 
 ## -----------------------------------------------
-#' Verify that a numeric input is a freqency (positive integer value).
+## is_freq:
+
+#' Verify that input is a frequency (positive integer value).
 #'
 #' \code{is_freq} is a function that checks whether its single argument \code{freq}
 #' is a frequency (i.e., a positive numeric integer value).
@@ -172,16 +218,16 @@ is_perc <- function(perc) {
 #'
 #' @examples
 #' # ways to succeed:
-#' is_freq(2)    # => TRUE, but does NOT return the frequency 2.
-#' is_freq(1:3)  # => TRUE (for vector)
+#' is_freq(2)             # => TRUE, but does NOT return the frequency 2.
+#' is_freq(1:3)           # => TRUE (for vector)
 #'
 #' # ways to fail:
-#' is_freq(-1)    # => FALSE + warning (negative values)
-#' is_freq(1:-1)  # => FALSE (for vector) + warning (negative values)
+#' is_freq(-1)            # => FALSE + warning (negative values)
+#' is_freq(1:-1)          # => FALSE (for vector) + warning (negative values)
 #' is_freq(c(1, 1.5, 2))  # => FALSE (for vector) + warning (non-integer values)
 #'
 #' ## Note that:
-#' is.integer(2)  # => FALSE!
+#' is.integer(2)          # => FALSE!
 #'
 #' @family verification functions
 #'
@@ -192,36 +238,52 @@ is_perc <- function(perc) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 
 is_freq <- function(freq) {
 
-  val <- NA # initialize
+  val <- NA  # initialize
 
   if (sum(is.na(freq)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains NA values. "))
   }
+
   else if (sum(is.nan(freq)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains NaN values. "))
   }
+
   else if (sum(!is.numeric(freq)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains non-numeric values. "))
   }
+
   else if (sum((freq < 0)) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains negative values (< 0). "))
   }
+
   # else if (!all.equal(freq, as.integer(freq))) {
   else if (sum( freq %% 1 != 0) > 0) {
+
     val <- FALSE
+
     warning(paste0(freq, " contains non-integer values. "))
   }
-  else {
+
+  else {  # one way to succeed:
+
     val <- TRUE
   }
 
@@ -230,54 +292,82 @@ is_freq <- function(freq) {
 }
 
 ## -----------------------------------------------
-# Verify that 3 out of 4 arguments are provided:
+# Verify that sufficient set of probabilities is provided:
 
-#' Verify that a sufficient number of probabilities are provided.
+#' Verify a sufficient set of probability inputs.
 #'
-#' \code{is_sufficient} is a function that
-#' takes 3 or 4 arguments (typically probabilities) as inputs and
-#' verifies that they are sufficient to compute the
-#' frequencies and conditional probabilities
-#' for a population of N individuals.
+#' \code{is_suff_prob_set} is a function that
+#' takes 3 to 5 probabilities as inputs and
+#' verifies that they are sufficient to compute
+#' all derived probabilities and combined frequencies
+#' for a population of \code{\link{N}} individuals.
 #'
 #' While no alternative input option for frequencies is provided,
-#' specification of \code{\link{prev}} and \code{\link{sens}} are always
-#' necessary. One additional probability parameter is necessary:
-#' If \code{\link{spec}} is provided, its complement \code{\link{fart}} is optional.
-#' If \code{\link{fart}} is provided, its complement \code{\link{spec}} is optional.
+#' specification of the essential probability \code{\link{prev}}
+#' is always necessary.
 #'
-#' Note that this function does not verify the type, range or
+#' However, for two other essential probabilities there is a choice:
+#'
+#' \enumerate{
+#'
+#' \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+#' (as both are complements).
+#'
+#' \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+#' (as both are complements).
+#'
+#' }
+#'
+#' \code{is_suff_prob_set} does not verify the type, range, or
 #' consistency of its arguments. See \code{\link{is_prob}} and
 #' \code{\link{is_complement}} for this purpose.
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
+#' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
-#' @param sens The decision's sensitivity value \code{\link{sens}}
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
-#' \code{spec} is optional when is complement \code{fart} is provided.
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @return A Boolean value: \code{TRUE} if the parameters provided are sufficient,
+#' @return A Boolean value:
+#' \code{TRUE} if the probabilities provided are sufficient,
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' is_sufficient()          # => FALSE + Warning
-#' is_sufficient(prev = 1)  # => FALSE + Warning
-#' is_sufficient(prev = 1, sens = 2)  # => FALSE + Warning
+#' # ways to work:
+#' is_suff_prob_set(prev = 1, sens = 1, spec = 1)  # => TRUE
+#' is_suff_prob_set(prev = 1, mirt = 1, spec = 1)  # => TRUE
+#' is_suff_prob_set(prev = 1, sens = 1, fart = 1)  # => TRUE
+#' is_suff_prob_set(prev = 1, mirt = 1, fart = 1)  # => TRUE
 #'
-#' is_sufficient(prev = 1, sens = 2, spec = 3)  # => TRUE, but is_prob would be FALSE for 2 and 3
-#' is_sufficient(prev = 1, sens = 2, fart = 4)  # => TRUE, but is_prob would be FALSE for 2 and 4
+#' # watch out for:
+#' is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob would be FALSE for 2 and 3
+#' is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
+#' is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
 #'
-#' is_sufficient(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
+#' # ways to fail:
+#' is_suff_prob_set()                    # => FALSE + warning (prev missing)
+#' is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
+#' is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
 #'
 #' @family verification functions
+#'
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
@@ -285,23 +375,39 @@ is_freq <- function(freq) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 
-is_sufficient <- function(prev, sens, spec = NA, fart = NA) {
+is_suff_prob_set <- function(prev,
+                             sens = NA, mirt = NA,
+                             spec = NA, fart = NA) {
 
-  val <- FALSE # initialize
+  val <- NA  # initialize
 
   ## Many ways to fail:
   if (is.na(prev)) {
-    warning("A prevalence value (prev) is missing but necessary.")}
-  else if (is.na(sens)) {
-    warning("A sensitivity value (sens) is missing but necessary.")}
-  else if (is.na(spec) & is.na(fart)) {
-    warning("Either a specificity value (spec) OR a false alarm rate (fart) is necessary.")
-  } else {  ## one way to succeed:
+
+    val <- FALSE
+
+    warning("A prevalence (prev) is missing but necessary.")}
+
+  else if (is.na(sens) & is.na(mirt)) {
+
+    val <- FALSE
+
+    warning("Either a sensitivity (sens) OR a miss rate (mirt) is necessary.")
+
+  } else if (is.na(spec) & is.na(fart)) {
+
+    val <- FALSE
+
+    warning("Either a specificity (spec) OR a false alarm rate (fart) is necessary.")
+
+  } else {  # one way to succeed:
+
     val <- TRUE
+
   }
 
   return(val)
@@ -310,62 +416,91 @@ is_sufficient <- function(prev, sens, spec = NA, fart = NA) {
 
 ## Checks:
 {
-  # is_sufficient()          # => FALSE + Warning
-  # is_sufficient(prev = 1)  # => FALSE + Warning
-  # is_sufficient(prev = 1, sens = 2)  # => FALSE + Warning
-  # is_sufficient(prev = 1, sens = 2, spec = 3)  # => TRUE, but is_prob would be FALSE for 2 and 3
-  # is_sufficient(prev = 1, sens = 2, fart = 4)  # => TRUE, but is_prob would be FALSE for 2 and 4
-  # is_sufficient(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
+  # # ways to work:
+  # is_suff_prob_set(prev = 1, sens = 1, spec = 1)  # => TRUE
+  # is_suff_prob_set(prev = 1, mirt = 1, spec = 1)  # => TRUE
+  # is_suff_prob_set(prev = 1, sens = 1, fart = 1)  # => TRUE
+  # is_suff_prob_set(prev = 1, mirt = 1, fart = 1)  # => TRUE
+  #
+  # # watch out for:
+  # is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob would be FALSE for 2 and 3
+  # is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
+  # is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
+  #
+  # # ways to fail:
+  # is_suff_prob_set()                    # => FALSE + warning (prev missing)
+  # is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
+  # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
 }
 
 ## -----------------------------------------------
-# Verify that 2 arguments are complements of each other:
+## ToDo:
 
-#' Verify that two arguments are numeric complements.
+## Analog function: is_suff_freq_set
+## that verifies an input for sufficient number of frequencies
+
+## -----------------------------------------------
+## Verify that 2 numbers are complements of each other:
+
+#' Verify that two numbers are complements.
 #'
 #' \code{is_complement} is a function that
-#' takes 2 numeric arguments (probabilities) as inputs and
-#' verifies that they are complements (i.e., add up to 1).
+#' takes 2 numeric arguments (typically probabilities) as inputs and
+#' verifies that they are \emph{complements} (i.e., add up to 1).
 #'
-#' Both \code{spec} and \code{fart} are necessary arguments.
+#' Both \code{p1} and \code{p2} are necessary arguments.
+#' If one or both arguments are \code{NA}, \code{is_complement}
+#' returns \code{NA} (i.e., neither \code{TRUE} nor \code{FALSE}).
 #'
 #' The argument \code{tol} is optional (with a default value of .01)
-#' Complements differing by less than this
+#' Numeric near-complements that differ by less than this
 #' value are still considered to be complements.
 #'
-#' This function does not verify the type, range or sufficiency
+#' This function does not verify the type, range, or sufficiency
 #' of the inputs provided. See \code{\link{is_prob}} and
-#' \code{\link{is_sufficient}} for this purpose.
+#' \code{\link{is_suff_prob_set}} for this purpose.
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
-#' \code{spec} is optional when is complement \code{fart} is provided.
-#'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @param p1 A numeric argument (typically probability in range from 0 to 1).
+
+#' @param p2 A numeric argument (typically probability in range from 0 to 1).
 #'
 #' @param tol A numeric tolerance value.
+#' Default: \code{tol = .01}.
 #'
-#' @return A Boolean value: \code{TRUE} if the arguments are complements,
+#'
+#' @return \code{NA} or a Boolean value:
+#' \code{NA} if one or both arguments are \code{NA};
+#' \code{TRUE} if both arguments are provided
+#' and complements (in \code{tol} range);
 #' otherwise \code{FALSE}.
 #'
+#'
 #' @examples
-#' is_complement(0, 0)              # => FALSE + Warning that difference exceeds tolerance
+#' # Basics:
+#' is_complement(0, 1)           # => TRUE
+#' is_complement(1/3, 2/3)       # => TRUE
+#' is_complement(.33, .66)       # => TRUE  (as within default tol = .01)
+#' is_complement(.33, .65)       # => FALSE (as beyond default tol = .01)
 #'
-#' is_complement(0, 1)              # => TRUE
-#' is_complement(1/3, 2/3)          # => TRUE
-#' is_complement(.33, .66)          # => TRUE
-#'
-#' is_complement(.3, .6)            # => FALSE + Warning that difference exceeds tolerance
+#' # watch out for:
+#' is_complement(NA, NA)            # => NA (but not FALSE)
+#' is_complement(1, NA)             # => NA (but not FALSE)
+#' is_complement(2, -1)             # => TRUE + warnings (p1 and p2 beyond range)
+#' is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
+#' is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
 #' is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
+#'
+#' # ways to fail:
+#' is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
+#' is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
+#' is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
+#'
 #'
 #' @family verification functions
 #'
+#'
 #' @seealso
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
@@ -373,31 +508,39 @@ is_sufficient <- function(prev, sens, spec = NA, fart = NA) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 
-is_complement <- function(spec, fart, tol = .01) {
+is_complement <- function(p1, p2, tol = .01) {
 
-  val <- NA   # initialize
+  val <- NA     # initialize
+  eps <- 10^-9  # some very small value
 
-  # if (isTRUE(all.equal(spec, (1 - fart), tolerance = tol))) {
-  #   val <- TRUE
-  # } else {
-  #   warning("Specificity (spec) and false alarm rate (fart) are not complements (in tolerated range).")
-  #   warning(paste0("spec = ", spec, "; 1 - fart = ", 1 - fart, ", difference = ", abs(spec - (1 - fart))))
-  #   val <- FALSE
-  # }
+  ## Issue warnings for non-probability arguments:
+  if ( !is_prob(p1) ) { NULL }
+  if ( !is_prob(p2) ) { NULL }
 
-  cur.spec <- 1 - fart  # compute spec as complement of fart
-  eps <- 10^-9          # some very small value
+  if ( !is.na(p1) & !is.na(p2) ) {  # only ask if both are not NA:
 
-  if (abs(spec - cur.spec) > (tol + eps)) {
-    warning("Specificity (spec) and false alarm rate (fart) are not complements (in tolerated range).")
-    # warning(paste0("spec = ", spec, "; 1 - fart = ", 1 - fart, ", difference = ", abs(spec - (1 - fart))))
-    val <- FALSE
-  } else {
-    val <- TRUE
+    # Condition p1 and p2 being complements:
+    # p1 + p2 = 1
+    # p1      = 1 - p2
+
+    differ  <- abs(p1 - (1 - p2))
+
+    if (differ > (tol + eps)) {
+
+      warning("Probabilities (p1 and p2) are not complements (in tolerated range).")
+      # warning(paste0("p1 = ", p1, "; (1 - p2) = ", (1 - p2), ", difference = ", differ))
+
+      val <- FALSE
+
+    } else {
+
+      val <- TRUE
+    }
+
   }
 
   return(val)
@@ -406,12 +549,22 @@ is_complement <- function(spec, fart, tol = .01) {
 
 ## Checks:
 {
-  # is_complement(0, 0)      # => FALSE + Warning that difference exceeds tolerance.
-  # is_complement(0, 1)      # => TRUE
-  # is_complement(1/3, 2/3)  # => TRUE
-  # is_complement(.33, .66)  # => TRUE
-  # is_complement(.3, .6)    # => FALSE + Warning that difference exceeds tolerance.
-  # is_complement(.3, .6, tol = .10) # => TRUE (due to increased tolerance)
+  # # ways to succeed:
+  # is_complement(0, 1)           # => TRUE
+  # is_complement(1/3, 2/3)       # => TRUE
+  # is_complement(.33, .66)       # => TRUE
+  #
+  # # watch out for:
+  # is_complement(2, -1)             # => TRUE + warnings (p1 and p2 beyond range)
+  # is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
+  # is_complement(1, NA)             # => NA (but not FALSE)
+  # is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
+  # is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
+  #
+  # # ways to fail:
+  # is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
+  # is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
+  # is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
 }
 
 ## -----------------------------------------------
@@ -419,66 +572,89 @@ is_complement <- function(spec, fart, tol = .01) {
 ##     Verify if the current set of (sufficient) probabilities
 ##     describe an extreme case:
 
-#' Verify that probabilities provided describe an extreme case.
+#' Verify that a set of probabilities describes an extreme case.
 #'
-#' \code{is_extreme} verifies that the current combination
-#' of probabilities provided (i.e., \code{\link{prev}}
-#' and \code{\link{sens}}, and \code{\link{spec}} or
-#' \code{\link{fart}}) describe an extreme case.
+#' \code{is_extreme_prob_set} verifies that a set
+#' of probabilities (i.e., \code{\link{prev}},
+#' and \code{\link{sens}} or \code{\link{mirt}},
+#' and \code{\link{spec}} or \code{\link{fart}})
+#' describe an extreme case.
 #'
 #' If \code{TRUE}, a warning message describing the
 #' nature of the extreme case is printed to allow
 #' anticipating peculiar effects (e.g., that
-#' PPV or NPV values cannot be computed or are \code{NaN}).
+#' \code{\link{PPV}} or \code{\link{NPV}} values
+#' cannot be computed or are \code{NaN}).
 #'
 #' This function does not verify the type, range, sufficiency,
 #' or consistency of its arguments. See \code{\link{is_prob}},
-#' \code{\link{is_sufficient}}, and \code{\link{is_complement}}
-#' for this purpose.
+#' \code{\link{is_suff_prob_set}}, \code{\link{is_complement}},
+#' \code{\link{is_valid_prob_pair}} and
+#' \code{\link{is_valid_prob_set}} for these purposes.
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when is complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @return A Boolean value: \code{TRUE} if an extreme case is identified,
+#' @return A Boolean value:
+#' \code{TRUE} if an extreme case is identified;
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' # Identify 4 extreme cases (+2 variants):
-#' is_extreme(1, 1)           # => TRUE + warning: N true positives
-#' plot_tree(1, 1, N = 100)   # => illustrates this case
+#' # Identify 6 extreme cases (+ 4 variants):
+#' is_extreme_prob_set(1, 1, NA, 1, NA)       # => TRUE + warning: N true positives
+#' plot_tree(1, 1, NA, 1, NA, N = 100)        # => illustrates this case
 #'
-#' is_extreme(1, 0)           # => TRUE + warning: N false negatives
-#' plot_tree(1, 0, N = 100)   # => illustrates this case
+#' is_extreme_prob_set(1, 0, NA, 1, NA)       # => TRUE + warning: N false negatives
+#' plot_tree(1, 0, NA, 1, NA, N = 200)        # => illustrates this case
 #'
 #' sens <- .50
-#' is_extreme(0, sens, 0)              # => TRUE + warning: N false positives
-#' plot_tree(0, sens, 0, N = 100)      # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, 0, NA)    # => TRUE + warning: N false positives
+#' plot_tree(0, sens, NA, 0, N = 300)         # => illustrates this case
 #' # Variant:
-#' is_extreme(0, sens, NA, 1)          # => TRUE + warning: N false positives
-#' plot_tree(0, sens, NA, 1, N = 100)  # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, NA, 1)    # => TRUE + warning: N false positives
+#' plot_tree(0, sens, NA, NA, 1, N = 350)     # => illustrates this case
 #'
-#' is_extreme(0, sens, 1)              # => TRUE + warning: N true negatives
-#' plot_tree(0, sens, 1, N = 100)      # => illustrates this case
+#' sens <- .50
+#' is_extreme_prob_set(0, sens, NA, 1)        # => TRUE + warning: N true negatives
+#' plot_tree(0, sens, NA, NA, 1, N = 400)     # => illustrates this case
 #' # Variant:
-#' is_extreme(0, sens, NA, 0)          # => TRUE + warning: N true negatives
-#' plot_tree(0, sens, NA, 0, N = 100)  # => illustrates this case
+#' is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
+#' plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
+#'
+#' prev <- .50
+#' is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+#' plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
+#' # # Variant:
+#' is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+#' plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
+#'
+#' prev <- .50
+#' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+#' plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
+#' # # Variant:
+#' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+#' plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
+#'
 #'
 #' @family verification functions
 #'
 #' @seealso
-#' \code{\link{is_valid}} uses \code{is_extreme}
-#' to verify the validity of probability inputs;
+#' \code{\link{is_valid_prob_pair}} verifies that a pair of probabilities can be complements;
+#' \code{\link{is_valid_prob_set}} verifies the validity of a set of probability inputs;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
@@ -488,48 +664,110 @@ is_complement <- function(spec, fart, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 
-is_extreme <- function(prev, sens, spec = NA, fart = NA) {
+is_extreme_prob_set <- function(prev,
+                                sens = NA, mirt = NA,
+                                spec = NA, fart = NA) {
 
   ## (1) Initialize:
   val <- NA
 
-  ## (2) Compute missing fart or spec (4th argument) value (if applicable):
-  cur.spec.fart <- comp_comp_pair(spec, fart)
-  spec <- cur.spec.fart[1] # 1st argument
-  fart <- cur.spec.fart[2] # 2nd argument
 
-  ## (3) Check cases:
-  if ((prev == 1) & (sens == 1)) {         # 1. prev and sens are both perfect:
+  ## (2) Compute the complete quintet of probabilities:
+  # prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+  # sens <- prob_quintet[2] # gets sens (if not provided)
+  # mirt <- prob_quintet[3] # gets mirt (if not provided)
+  # spec <- prob_quintet[4] # gets spec (if not provided)
+  # fart <- prob_quintet[5] # gets fart (if not provided)
 
-    warning("Extreme case (prev = 1 & sens = 1):\n  N true positives; no cond.false or dec.false cases; NPV = NaN.")
+  ## Problem: This does not work yet (as comp_complete_prob_set is only defined later)
+  ## Hack fix: 4 possible ways to complete an NA value:
+  if (is.na(sens) && is_prob(mirt)) { sens <- 1 - mirt }  # 1. compute sens if only mirt is provided.
+  if (is.na(mirt) && is_prob(sens)) { mirt <- 1 - sens }  # 2. compute mirt if only sens is provided.
+  if (is.na(spec) && is_prob(fart)) { spec <- 1 - fart }  # 3. compute spec if only fart is provided.
+  if (is.na(fart) && is_prob(spec)) { fart <- 1 - spec }  # 4. compute fart if only spec is provided.
+  ## Note: This does NOT check for consistency of complements (e.g., inputs of both spec = 1 & fart = 1)
+
+
+  ## Beware of cases in which PPV or NPV are NaN:
+
+  ## (1) PPV is NaN if:
+  ##     (a)  (prev = 1) & (sens = 0)
+  ##     (b)  (prev = 0) & (spec = 1)
+  ##     (c)  (sens = 0) & (spec = 1)
+
+  ## (2) NPV is NaN if:
+  ##     (a)  (prev = 1) & (sens = 1)
+  ##     (b)  (prev = 1) & (sens = 0)
+  ##     (c)  (sens = 1) & (spec = 0)
+
+
+  ## (3) Check cases (specific combinations of prev, sens, and spec/fart):
+
+  if ((prev == 1) & (sens == 1)) {        # 1. prev and sens are both perfect:
+
+    warning("Extreme case (prev = 1 & sens = 1):\n  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.")
     val <- TRUE
 
-  } else if ((prev == 1) & (sens == 0)) {  # 2. prev perfect and sens zero:
+  }
 
-    warning("Extreme case (prev = 1 & sens = 0):\n  N false negatives; no cond.false or dec.true cases; PPV = NaN.")
+  else if ((prev == 1) & (sens == 0)) {   # 2. prev perfect and sens zero:
+
+    warning("Extreme case (prev = 1 & sens = 0):\n  N mi (FN) cases; 0 cond.false or dec.true cases; PPV = NaN.")
     val <- TRUE
 
-  } else if ((prev == 0) & (spec == 0)) {  # 3a. prev and spec are both zero:
+  }
 
-    warning("Extreme case (prev = 0 & spec = 0):\n  N false positives; no cond.true or dec.true cases; PPV = NaN.")
+  else if ((prev == 0) & (spec == 0)) {   # 3a. prev and spec are both zero:
+
+    warning("Extreme case (prev = 0 & spec = 0):\n  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 1)) {  # 3b. prev zero and fart perfect (i.e., spec zero):
 
-    warning("Extreme case (prev = 0 & fart = 1):\n  N false positives; no cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 1):\n  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.")
     val <- TRUE
 
-  } else if ((prev == 0) & (spec == 1)) {  # 4a. prev zero and spec perfect:
+  }
 
-    warning("Extreme case (prev = 0 & spec = 1):\n  N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+  else if ((prev == 0) & (spec == 1)) {   # 4a. prev zero and spec perfect:
+
+    warning("Extreme case (prev = 0 & spec = 1):\n  N cr (TN) cases; 0 cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 0)) {  # 4b. prev zero and fart zero (i.e., spec perfect):
 
-    warning("Extreme case (prev = 0 & fart = 0):\n  N true negatives; no cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 0):\n  N cr (TN) cases; 0 cond.true or dec.false cases; NPV = NaN.")
     val <- TRUE
 
-  } else {  # not an extreme case:
+  }
+
+  else if ((sens == 0) & (spec == 1)) {   # 5a. sens zero and spec perfect (i.e., fart zero):
+
+    warning("Extreme case (sens = 0 & spec = 1):\n  0 hi (TP) and 0 fa (FP) cases; 0 dec.pos cases; PPV = NaN.")
+    val <- TRUE
+
+  } else if ((sens == 0) & (fart == 0)) {  # 5b. sens zero and fart zero (i.e., spec perfect):
+
+    warning("Extreme case (sens = 0 & fart = 0):\n  0 hi (TP) and 0 fa (FP) cases; 0 dec.pos cases; PPV = NaN.")
+    val <- TRUE
+
+  }
+
+
+  else if ((sens == 1) & (spec == 0)) {   # 6a. sens perfect and spec zero (i.e., fart perfect):
+
+    warning("Extreme case (sens = 1 & spec = 0):\n  0 mi (FN) and 0 cr (TN) cases; 0 dec.neg cases; NPV = NaN.")
+    val <- TRUE
+
+  } else if ((sens == 1) & (fart == 1)) {  # 6b. sens perfect and fart perfect (i.e., spec zero):
+
+    warning("Extreme case (sens = 1 & fart = 1):\n  0 mi (FN) and 0 cr (TN) cases; 0 dec.neg cases; NPV = NaN.")
+    val <- TRUE
+
+  }
+
+
+  else {  # not (detected as) an extreme case:
 
     val <- FALSE
 
@@ -542,166 +780,382 @@ is_extreme <- function(prev, sens, spec = NA, fart = NA) {
 
 ## Check:
 {
-  # # Identify 4 extreme cases (+2 variants):
-  # is_extreme(1, 1)           # => TRUE + warning: N true positives
-  # plot_tree(1, 1, N = 100)   # => illustrates this case
+
+  # # Identify 6 extreme cases (+ 4 variants):
+  # is_extreme_prob_set(1, 1, NA, 1, NA)       # => TRUE + warning: N true positives
+  # plot_tree(1, 1, NA, 1, NA, N = 100)        # => illustrates this case
   #
-  # is_extreme(1, 0)           # => TRUE + warning: N false negatives
-  # plot_tree(1, 0, N = 100)   # => illustrates this case
+  # is_extreme_prob_set(1, 0, NA, 1, NA)       # => TRUE + warning: N false negatives
+  # plot_tree(1, 0, NA, 1, NA, N = 200)        # => illustrates this case
   #
   # sens <- .50
-  # is_extreme(0, sens, 0)              # => TRUE + warning: N false positives
-  # plot_tree(0, sens, 0, N = 100)      # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, 0, NA)    # => TRUE + warning: N false positives
+  # plot_tree(0, sens, NA, 0, N = 300)         # => illustrates this case
   # # Variant:
-  # is_extreme(0, sens, NA, 1)          # => TRUE + warning: N false positives
-  # plot_tree(0, sens, NA, 1, N = 100)  # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, NA, 1)    # => TRUE + warning: N false positives
+  # plot_tree(0, sens, NA, NA, 1, N = 350)     # => illustrates this case
   #
-  # is_extreme(0, sens, 1)              # => TRUE + warning: N true negatives
-  # plot_tree(0, sens, 1, N = 100)      # => illustrates this case
+  # sens <- .50
+  # is_extreme_prob_set(0, sens, NA, 1)        # => TRUE + warning: N true negatives
+  # plot_tree(0, sens, NA, NA, 1, N = 400)     # => illustrates this case
   # # Variant:
-  # is_extreme(0, sens, NA, 0)          # => TRUE + warning: N true negatives
-  # plot_tree(0, sens, NA, 0, N = 100)  # => illustrates this case
+  # is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
+  # plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
+  #
+  # prev <- .50
+  # is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+  # plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
+  # # # Variant:
+  # is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+  # plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
+  #
+  # prev <- .50
+  # is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+  # plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
+  # # # Variant:
+  # is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+  # plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
+
 }
 
 
 ## -----------------------------------------------
-# Verify that 3 or 4 probabilities are valid inputs:
+# Verify that 2 probabilities are valid inputs
+# for a pair of complementary probabilities:
 
-#' Verify that basic probabilities are valid inputs.
+#' Verify that a pair of probability inputs
+#' can be a pair of complementary probabilities.
 #'
-#' \code{is_valid} is a function that takes
-#' 3 or 4 numeric arguments as inputs and
-#' verifies that they can be interpreted as a
-#' valid quadruple of probabilities.
+#' \code{is_valid_prob_pair} is a function that verifies that
+#' a pair of 2 numeric inputs \code{p1} and \code{p2}
+#' can be interpreted as a valid pair of probabilities.
 #'
-#' \code{is_valid} is a wrapper function that combines
-#' \code{\link{is_prob}}, \code{\link{is_sufficient}},
-#' and \code{\link{is_complement}} in one function.
+#' \code{is_valid_prob_pair} is a wrapper function
+#' that combines \code{\link{is_prob}} and
+#' \code{\link{is_complement}} in one function.
 #'
-#' Note that \code{is_valid} only verifies the validity of inputs,
-#' but does not compute or return numeric variables.
-#' Use \code{\link{is_extreme}} to verify sets of probabilities
-#' that describe extreme cases and \code{\link{init_num}}
-#' for initializing basic parameters.
+#' Either \code{p1} or \code{p2} must be a probability
+#' (verified via \code{\link{is_prob}}).
+#' If both arguments are provided they must be
+#' probabilities and complements
+#' (verified via \code{\link{is_complement}}).
 #'
-#' Both \code{prev} and \code{sens} and
-#' either \code{spec} or \code{fart} are necessary arguments.
 #' The argument \code{tol} is optional (with a default value of .01)
-#' and used as the tolerance value of \code{\link{is_complement}}.
+#' Numeric near-complements that differ by less than this
+#' value are still considered to be complements.
 #'
-#' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being TRUE).
-#' @param sens The decision's sensitivity value \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is TRUE).
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is FALSE).
-#' \code{spec} is optional when is complement \code{fart} is provided.
-#' @param fart The decision's false alarm rate \code{\link{fart}}
-#' (i.e., the conditional probability
-#' of a positive decision provided that the condition is FALSE).
-#' \code{fart} is optional when its complement \code{spec} is provided.
+#' @param p1 A numeric argument
+#' (typically probability in range from 0 to 1).
 #'
-#' @param tol A numeric tolerance value used by \code{\link{is_complement}}.
+#' @param p2 A numeric argument
+#' (typically probability in range from 0 to 1).
 #'
-#' @return A Boolean value: \code{TRUE} if the parameters provided are valid,
+#' @param tol A numeric tolerance value.
+#'
+#' @return A Boolean value:
+#' \code{TRUE} if exactly one argument is a probability,
+#' if both arguments are probabilities and complements,
 #' otherwise \code{FALSE}.
 #'
 #' @examples
 #' # ways to succeed:
-#' is_valid(.1, .9, .8, .2)      # => TRUE
-#' is_valid(.1, .9, NA, .2)      # => TRUE
-#' is_valid(.1, .9, .8, NA)      # => TRUE
-#' is_valid(.1, .9, .8, .3, .1)  # => TRUE
-#'
-#' # watch out for:
-#' is_valid(1, 1, 1, NA, 0)  # => TRUE, but NO warning about extreme case!
-#' is_valid(1, 1, 1, 0)      # => TRUE, but NO warning about extreme case!
-#' is_valid(1, 1, 0, 1)      # => TRUE, but NO warning about extreme case!
-#' is_valid(1, 1, 1, NA)     # => TRUE, but NO warning about extreme case!
-#' is_valid(1, 1, NA, 1)     # => TRUE, but NO warning about extreme case!
+#' is_valid_prob_pair(1, 0)      # => TRUE
+#' is_valid_prob_pair(0, 1)      # => TRUE
+#' is_valid_prob_pair(1, NA)     # => TRUE + warning (NA)
+#' is_valid_prob_pair(NA, 1)     # => TRUE + warning (NA)
+#' is_valid_prob_pair(.50, .51)  # => TRUE (as within tol)
 #'
 #' # ways to fail:
-#' is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
-#' is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
-#' is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
-#' is_valid(1, 8, 1, 0)   # => FALSE + warning that is_prob(sens) fails
-#' is_valid(1, 1, 8, NA)  # => FALSE + warning that is_prob(spec) fails
-#' is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
+#' is_valid_prob_pair(.50, .52)  # => FALSE (as beyond tol)
+#' is_valid_prob_pair(1, 2)      # => FALSE + warning (beyond range)
+#' is_valid_prob_pair(NA, NA)    # => FALSE + warning (NA)
 #'
 #' @family verification functions
 #'
 #' @seealso
+#' \code{\link{is_valid_prob_set}} uses this function to verify sets of probability inputs;
+#' \code{\link{is_complement}} verifies numeric complements;
+#' \code{\link{is_prob}} verifies probabilities;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 
-is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
+is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
-  val <- NA  # initialize
+  val <- FALSE
 
-  ## many ways to fail:
-  if (!is_prob(prev))      { val <- FALSE }                          # 1. prev is a probability
+  if ( ( is.na(p1) && !is.na(p2) && is_prob(p2) ) |  # only p2 is provided and is_prob
 
-  else if (!is_prob(sens)) { val <- FALSE }                          # 2. sens is a probability
+       ( is.na(p2) && !is.na(p1) && is_prob(p1) ) |  # only p1 is provided and is_prob
 
-  else if (!is_sufficient(prev, sens, spec, fart)) { val <- FALSE }  # 3. sufficient (3 of 4 parameters)
+       ( # !is.na(p1)  && !is.na(p2)  &&  # commented out to suppress NA warning messages
+         is_prob(p1) && is_prob(p2) &&               # both p1 and p2 are provided
+         is_complement(p1, p2, tol) ) ) {            # and both are complements
 
-  else if (is.na(fart)) {                                            # 4a. if only spec is provided:
-    if (!is_prob(spec)) { val <- FALSE } else { val <- TRUE }        #     spec is a probability
+    val <- TRUE
   }
-
-  else if (is.na(spec)) {                                            # 4b. if only fart is provided:
-    if (!is_prob(fart)) { val <- FALSE } else { val <- TRUE }        #     fart is a probability
-  }
-
-  else if (!is.na(spec) & !is.na(fart)) {                            # 5.  if both spec + fart are provided:
-
-    if (!is_complement(spec, fart, tol)) {                           # 5a. spec and fart are NOT complements (within tol)
-      val <- FALSE
-    } else {                                                         # 5b. spec and fart ARE complements (within tol)
-      val <- TRUE
-    }
-  }
-
-  ## Issue a warning if probabilities describe an extreme case:
-  # is_extreme(prev, sens, spec, fart)  # prints a warning if TRUE # NOT ALWAYS done (to avoid multiple messages)!
 
   return(val)
+
 }
 
 ## Check:
 {
-  ## ways to succeed:
-  # is_valid(.1, .9, .8, .2)      # => TRUE
-  # is_valid(.1, .9, NA, .2)      # => TRUE
-  # is_valid(.1, .9, .8, NA)      # => TRUE
-  # is_valid(.1, .9, .8, .3, .1)  # => TRUE
-
-  ## watch out for:
-  # is_valid(1, 1, 1, NA, 0)  # => TRUE, but NO warning about extreme case!
-  # is_valid(1, 1, 1, 0)      # => TRUE, but NO warning about extreme case!
-  # is_valid(1, 1, 0, 1)      # => TRUE, but NO warning about extreme case!
-  # is_valid(1, 1, 1, NA)     # => TRUE, but NO warning about extreme case!
-  # is_valid(1, 1, NA, 1)     # => TRUE, but NO warning about extreme case!
-
-  ## ways to fail:
-  # is_valid(1, 1, 1, 1)   # => FALSE + warning that is_complement fails
-  # is_valid(1, 1, NA, NA) # => FALSE + warning that is_sufficient fails
-  # is_valid(8, 1, 1, 0)   # => FALSE + warning that is_prob(prev) fails
-  # is_valid(1, 8, 1, 0)   # => FALSE + warning that is_prob(sens) fails
-  # is_valid(1, 1, 8, NA)  # => FALSE + warning that is_prob(spec) fails
-  # is_valid(1, 1, NA, 8)  # => FALSE + warning that is_prob(fart) fails
+  # # ways to succeed:
+  # is_valid_prob_pair(1, 0)      # => TRUE
+  # is_valid_prob_pair(0, 1)      # => TRUE
+  # is_valid_prob_pair(1, NA)     # => TRUE + warning (NA)
+  # is_valid_prob_pair(NA, 1)     # => TRUE + warning (NA)
+  # is_valid_prob_pair(.50, .51)  # => TRUE (as within tol)
+  #
+  # # ways to fail:
+  # is_valid_prob_pair(.50, .52)  # => FALSE (as beyond tol)
+  # is_valid_prob_pair(1, 2)      # => FALSE + warning (beyond range)
+  # is_valid_prob_pair(NA, NA)    # => FALSE + warning (NA)
 }
 
 ## -----------------------------------------------
+# Verify that a set of up to 5 probabilities can
+# be interpreted as valid probability inputs:
+
+#' Verify that a set of probability inputs is valid.
+#'
+#' \code{is_valid_prob_set} is a function that verifies that
+#' a set of (3 to 5) numeric inputs can be interpreted as a
+#' valid set of (3 essential and 2 optional) probabilities.
+#'
+#' \code{is_valid_prob_set} is a wrapper function that combines
+#' \code{\link{is_prob}}, \code{\link{is_suff_prob_set}},
+#' and \code{\link{is_complement}} in one function.
+#'
+#' While no alternative input option for frequencies is provided,
+#' specification of the essential probability \code{\link{prev}}
+#' is always necessary. However, for 2 other essential
+#' probabilities there is a choice:
+#'
+#' \enumerate{
+#'
+#' \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+#' (as both are complements).
+#'
+#' \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+#' (as both are complements).
+#'
+#' }
+#'
+#' The argument \code{tol} is optional (with a default value of .01)
+#' and used as the tolerance value of \code{\link{is_complement}}.
+#'
+#' \code{is_valid_prob_set} verifies the validity of inputs,
+#' but does not compute or return numeric variables.
+#' Use \code{\link{is_extreme_prob_set}} to verify sets of probabilities
+#' that describe extreme cases and \code{\link{init_num}}
+#' for initializing basic parameters.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @param tol A numeric tolerance value used by \code{\link{is_complement}}.
+#'
+#' @return A Boolean value:
+#' \code{TRUE} if the probabilities provided are valid;
+#' otherwise \code{FALSE}.
+#'
+#' @examples
+#' ## ways to succeed:
+#' is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
+#' is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
+#' is_valid_prob_set(.3, .9, .1, .8, NA)            # => TRUE + warning (NA)
+#' is_valid_prob_set(.3, .9, NA, .8, NA)            # => TRUE + warning (NAs)
+#' is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
+#' is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
+#'
+#' ## watch out for:
+#' is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
+#' is_valid_prob_set(1, 1, 0, 1, 0)    # => TRUE, but NO warning about extreme case!
+#' is_valid_prob_set(1, 1, 0, 1, NA)   # => TRUE, but NO warning about extreme case!
+#' is_valid_prob_set(1, 1, 0, NA, 1)   # => TRUE, but NO warning about extreme case!
+#' is_valid_prob_set(1, 1, 0, NA, 0)   # => TRUE, but NO warning about extreme case!
+#'
+#' ## ways to fail:
+#' is_valid_prob_set(8, 1, 0, 1, 0)      # => FALSE + warning (is_prob fails)
+#' is_valid_prob_set(1, 1, 8, 1, 0)      # => FALSE + warning (is_prob fails)
+#' is_valid_prob_set(2, 1, 3, 1, 4)      # => FALSE + warning (is_prob fails)
+#' is_valid_prob_set(1, .8, .2, .7, .2)  # => FALSE + warning (beyond complement range)
+#' is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
+#' is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
+#' is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
+#'
+#' @family verification functions
+#'
+#' @seealso
+#' \code{\link{is_valid_prob_pair}} verifies that probability pairs are complements;
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{as_pc}} displays a probability as a percentage;
+#' \code{\link{as_pb}} displays a percentage as probability.
+
+is_valid_prob_set <- function(prev,
+                              sens = NA, mirt = NA,
+                              spec = NA, fart = NA,
+                              tol = .01) {
+
+  val <- FALSE  # initialize
+
+  if ( is_prob(prev) &&
+       is_valid_prob_pair(sens, mirt, tol) &&
+       is_valid_prob_pair(spec, fart, tol) ) {
+    val <- TRUE
+  }
+
+  return(val)
+
+}
+
+## Check:
+{
+  # ## ways to succeed:
+  # is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
+  # is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
+  # is_valid_prob_set(.3, .9, .1, .8, NA)            # => TRUE + warning (NA)
+  # is_valid_prob_set(.3, .9, NA, .8, NA)            # => TRUE + warning (NAs)
+  # is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
+  # is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
+  #
+  # ## watch out for:
+  # is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
+  # is_valid_prob_set(1, 1, 0, 1, 0)    # => TRUE, but NO warning about extreme case!
+  # is_valid_prob_set(1, 1, 0, 1, NA)   # => TRUE, but NO warning about extreme case!
+  # is_valid_prob_set(1, 1, 0, NA, 1)   # => TRUE, but NO warning about extreme case!
+  # is_valid_prob_set(1, 1, 0, NA, 0)   # => TRUE, but NO warning about extreme case!
+  #
+  # ## ways to fail:
+  # is_valid_prob_set(8, 1, 0, 1, 0)      # => FALSE + warning (is_prob fails)
+  # is_valid_prob_set(1, 1, 8, 1, 0)      # => FALSE + warning (is_prob fails)
+  # is_valid_prob_set(2, 1, 3, 1, 4)      # => FALSE + warning (is_prob fails)
+  # is_valid_prob_set(1, .8, .2, .7, .2)  # => FALSE + warning (beyond complement range)
+  # is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
+  # is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
+  # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
+}
+
+## -----------------------------------------------
+# Verify that a triple of inputs can
+# be interpreted as valid set of 3 essential probabilites:
+
+#' Verify that a triple of essential probability inputs is valid.
+#'
+#' \code{is_valid_prob_triple} is a \strong{deprecated} function that verifies that
+#' a set of 3 numeric inputs can be interpreted as a
+#' valid set of 3 probabilities.
+#'
+#' \code{is_valid_prob_triple} is a simplified version
+#' of \code{\link{is_valid_prob_set}}.
+#' It is a quick wrapper function that only verifies
+#' \code{\link{is_prob}} for all of its 3 arguments.
+#'
+#' \code{is_valid_prob_triple} does not compute or return numeric variables.
+#' Use \code{\link{is_extreme_prob_set}} to verify extreme cases and
+#' \code{\link{comp_complete_prob_set}} to complete sets of valid probabilities.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#' @return A Boolean value:
+#' \code{TRUE} if the probabilities provided are valid;
+#' otherwise \code{FALSE}.
+#'
+#' @examples
+#' ## Check:
+#' is_valid_prob_triple(0, 0, 0)    # => TRUE
+#' is_valid_prob_triple(1, 1, 1)    # => TRUE
+#'
+#' # ways to fail:
+#' is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+#' is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+#' is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+#' is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+#'
+#' @family verification functions
+#'
+#' @seealso
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
+#' \code{\link{is_valid_prob_pair}} verifies that probability pairs are complements;
+#' \code{\link{num}} contains basic numeric variables;
+#' \code{\link{init_num}} initializes basic numeric variables;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{as_pc}} displays a probability as a percentage;
+#' \code{\link{as_pb}} displays a percentage as probability.
+
+is_valid_prob_triple <- function(prev, sens, spec) {
+
+  val <- FALSE  # initialize
+
+  if ( is_prob(prev) && is_prob(sens) && is_prob(spec) ) {
+    val <- TRUE
+  }
+
+  return(val)
+
+}
+
+## Check:
+{
+  # is_valid_prob_triple(0, 0, 0)
+  # is_valid_prob_triple(1, 1, 1)
+  #
+  # # ways to fail:
+  # is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+  # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+  # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+  # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+}
+
+## -----------------------------------------------
+## (B) Display functions:
+## -----------------------------------------------
+
 ## Toggle between showing probabilities and percentages:
 
 #' Display a probability as a (rounded) percentage.
@@ -741,14 +1195,14 @@ is_valid <- function(prev, sens, spec = NA, fart = NA, tol = .01) {
 #' @seealso
 #' \code{\link{is_prob}} verifies a probability;
 #' \code{\link{is_perc}} verifies a percentage;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 
 ## Probability as percentage (2 decimals):
@@ -761,9 +1215,19 @@ as_pc <- function(prob, n.digits = 2) {
 
     perc <- round(prob * 100, n.digits) # compute
 
-  } else {
-    warning("Probability (prob) is not in range 0 to 1.")
-    perc <- round(prob * 100, n.digits) # still compute
+  }
+
+  # else if (is.nan(prob)) {
+  #
+  #  perc <- "NaN"
+  #
+  #}
+
+  else {
+
+    warning("Argument (prob) is no probability.")
+
+    perc <- round(prob * 100, n.digits) # still try to compute
   }
 
   return(perc)
@@ -776,6 +1240,7 @@ as_pc <- function(prob, n.digits = 2) {
   # as_pc(1/3, n.digits = 0)  # =>  33
   # as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
   # as_pc(as_pb(12.3))        # =>  12.3
+  # as_pc(0/0)
 }
 
 ## -----------------------------------------------
@@ -814,14 +1279,14 @@ as_pc <- function(prob, n.digits = 2) {
 #' @seealso
 #' \code{\link{is_perc}} verifies a percentage;
 #' \code{\link{is_prob}} verifies a probability;
-#' \code{\link{is_valid}} verifies the validity of probability inputs;
+#' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{comp_prob_comp}} computes a probability's complement;
+#' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 
 as_pb <- function(perc, n.digits = 4) {
@@ -905,7 +1370,7 @@ makeTransparent = function(..., alpha = .50) {
 ## (+) ToDo:
 
 ## (e+) ToDo: Generalize is_perfect to
-##      is_extreme to incorporate other extreme cases:
+##      is_extreme_prob_set to incorporate other extreme cases:
 ##      [see (e1) and (e+) above]:
 ##
 ## - prev = 0, spec = 0: only fa cases
