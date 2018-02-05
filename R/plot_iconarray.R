@@ -58,10 +58,10 @@ get_pop_vec <- function (N = 10000, # define population size.
                         spec = 0.90,
                         prev = 0.30) {
 
-  n.hi <<- round(N * prev * sens)
-  n.mi <<- round(N * prev * (1 - sens))
-  n.fa <<- round(N * (1 - prev) * (1 - spec))
-  n.cr <<- round(N * (1 - prev) * spec)
+  n.hi <- round(N * prev * sens)
+  n.mi <- round(N * prev * (1 - sens))
+  n.fa <- round(N * (1 - prev) * (1 - spec))
+  n.cr <- round(N * (1 - prev) * spec)
 
   length(rep("hi", n.hi))
   length(rep("mi", 14))  # too short???  Apparently a failure in updating...
@@ -90,39 +90,19 @@ ident_vec <- get_pop_vec()$sdt
 # option 1 to obtain colors:
 sdt.colors <- c("green", "red", "orange", "blue")
 
-# final function takes any four colors mapped onto four identities.
-system.time({
-  icon_colors <- c(rep(sdt.colors[1], n.hi), rep(sdt.colors[2], n.mi),
-                   rep(sdt.colors[3], n.fa), rep(sdt.colors[4], n.cr))
-  icon_colors <- adjustcolor(icon_colors, alpha.f = .66) # make transparent
-})
-
-
-
-
-# option 2 to obtain colors (more general):
-ident_types <- unique(ident_vec)  # get number of unique types.
-icon_colors2 <- ident_vec  # initialize colors as identities.
-
-system.time({
-  for (i in ident_types) {
-    # replace the identities with their respective colors:
-    icon_colors2[ident_vec == i] <- sdt.colors[ident_types == i]
-  }
-})
-
-
 # Option 3:
 icon_colors <- sdt.colors
 
 # numerosities (e.g., n.hi, n.mi etc.):
 #freqs <- get_pop_vec(N = 90)
 
-numerosities <- freqs$freq
+numerosities <- get_pop_vec(N = 100)$freq
 
 # create a matrix from it.
-ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
-col_vec <- icon_colors[ind_col_num]
+ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat vector.
+
+col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vector?
+# this presupposes that the number of icon colors and the number of numerosities are equal.
 
 
 
@@ -171,7 +151,7 @@ col_vec <- icon_colors[ind_col_num]
   plotx_dim <- c(0, 1)
   ploty_dim <- c(0, 1)  # assuming square plot x = y.
 
-  # TODO: Each of the types is a potential function.  Then it is more modular!
+
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##
@@ -182,7 +162,12 @@ col_vec <- icon_colors[ind_col_num]
 
 # TODO:
   # - add legend and text (needs sufficient margins at some place.)
+  # - have color vector defined outside the plotting function
+    # (if nothing is specified use this as a default).
+  # - remove parrameters unnecessary for arrangement (which are needed?).
+  # - How should the default array look like?
   # - Make plotting icons customizable
+  # - Each of the plot types is a potential function.  Then it is more modular!
 
 plot_iconarray <- function (
                             # prev = num$prev,  # probabilities
@@ -194,7 +179,7 @@ plot_iconarray <- function (
                             random.identities = FALSE,  # are identities randomly assigned to positions?
                             # defaults to classic icon array!
                             # TODO: rather name these?
-                            col.vec = 1:4,  # use one color for each usual type.
+                            col.vec = col_vec,  # use one color for each usual type.
                             # one can also enter a full vector of length N.
                             block.d = 0.01,  # distance between blocks (where applicable).
 
