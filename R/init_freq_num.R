@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 01 30
+## 2018 02 05
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -9,12 +9,12 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10):               Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -28,7 +28,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -53,25 +54,34 @@
 
 ## -----------------------------------------------
 ## (1) Initialize freq as a list (of NA values)
-##     of 9 frequencies (4 essential ones):
+##     of 11 frequencies (4 essential ones):
 
 init_freq <- function() {
 
   ## (0) Initialize freq as a list:
   freq <- list(
 
-    ## Population size:
+    ## (1) Population size:
     "N" = NA, # Number of cases overall
 
-    ## Number of true cases by condition:
+    ## (2) Splits into 2 subgroups:
+    ## (a) Number of true cases by condition
+    ##     (= columns of confusion matrix):
     "cond.true"  = NA, # N of cond TRUE
     "cond.false" = NA, # N of cond FALSE
 
-    ## Number of decisions:
+    ## (b) Number of decisions
+    ##     (= rows of confusion matrix):
     "dec.pos" = NA, # N of dec POS [was: dec.true]
     "dec.neg" = NA, # N of dec NEG [was: dec.false]
 
-    ## SDT combinations:
+    ## (c) Correspondence of decision to condition
+    ##     (= diagonals of confusion matrix):
+    "dec.cor" = NA, # N of correct decisions
+    "dec.err" = NA, # N of erroneous decisions
+
+    ## (3) Splits into 4 subgroups
+    ##     (= 4 cells or SDT combinations of confusion matrix):
     "hi" = NA, # true positive
     "mi" = NA, # false negative
     "fa" = NA, # false positive
@@ -154,6 +164,8 @@ init_freq <- function() {
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
 #'
@@ -183,9 +195,9 @@ init_freq <- function() {
 #'
 #' @examples
 #' comp_freq()                  # => ok, using current defaults
-#' length(comp_freq())          # => 9
+#' length(comp_freq())          # => 11
 #'
-#' Ways to succeed:
+#' # Ways to succeed:
 #' comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
 #' comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
 #' comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
@@ -196,15 +208,15 @@ init_freq <- function() {
 #' # Watch out for:
 #' comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
 #' comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
-#' comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
-#' comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
+#' comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # => ok, rounded (see mi and fa)
+#' comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, not rounded
 #'
 #' # Ways to fail:
 #' comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
 #' comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
-#' comp_freq(prev = 1,  sens = 1,  spec = NA, 100)  # => NAs + warning (spec NA)
+#' comp_freq(prev = 1,  sens = 1,  spec = NA, 100)   # => NAs + warning (spec NA)
 #' comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
-#' comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
+#' comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens beyond range)
 #'
 #'
 #' @family functions computing frequencies
@@ -281,25 +293,30 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     }
     freq$fa <- (freq$cond.false - freq$cr)           # d.  N of fa - complement of cr (to cond.false)
 
-    ## (8) Number of decisions:
+    ## (8) Number of positive vs. negative decisions:
     freq$dec.pos <- freq$hi + freq$fa # 1. positive decisions (true & false positives)
     freq$dec.neg <- freq$mi + freq$cr # 2. negative decisions (false & true negatives)
 
-    ## (9) Check for consistency:
+    ## (9) Correspondence of decision to condition:
+    freq$dec.cor <- freq$hi + freq$cr  # N of correct decisions
+    freq$dec.err <- freq$mi + freq$fa  # N of erroneous decisions
+
+    ## (10) Check for consistency:
     if ((freq$N != freq$hi + freq$mi + freq$fa + freq$cr) ||
         (freq$cond.true  != freq$hi + freq$mi)            ||
         (freq$cond.false != freq$fa + freq$cr)            ||
         (freq$dec.pos != freq$hi + freq$fa)               ||
         (freq$dec.neg != freq$mi + freq$cr)               ||
         (freq$N != freq$cond.true + freq$cond.false)      ||
-        (freq$N != freq$dec.pos + freq$dec.neg)            ) {
+        (freq$N != freq$dec.pos + freq$dec.neg)           ||
+        (freq$N != freq$dec.cor + freq$dec.err)           ) {
 
       warning("Current frequencies do NOT add up.")
     }
 
   } # if (is_valid(prev, sens, spec, fart))
 
-  ## (10) Return entire list freq:
+  ## (11) Return entire list freq:
   return(freq)
 
 }
@@ -337,7 +354,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' List current frequency information.
 #'
 #' \code{freq} is a list of named numeric variables
-#' containing 9 frequencies:
+#' containing 11 frequencies:
 #'
 #' \enumerate{
 #'
@@ -348,6 +365,9 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'
 #'  \item the number of cases for which \code{\link{dec.pos}}
 #'  \item the number of cases for which \code{\link{dec.neg}}
+#'
+#'  \item the number of cases for which \code{\link{dec.cor}}
+#'  \item the number of cases for which \code{\link{dec.err}}
 #'
 #'  \item the number of true positives, or hits \code{\link{hi}}
 #'  \item the number of false negatives, or misses \code{\link{mi}}
@@ -403,6 +423,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
 #'
@@ -416,7 +438,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' @examples
 #' freq <- comp_freq()  # => initialize freq to default parameters
 #' freq                 # => show current values
-#' length(freq)         # => 9
+#' length(freq)         # => 11
 #'
 #'
 #' @family lists containing current scenario information
@@ -439,10 +461,14 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
 freq <- comp_freq()  # => initialize freq to default parameters
 # freq               # => show current values
-# length(freq)       # => 9
+# length(freq)       # => 11
 
 ## -----------------------------------------------
 ## (+) ToDo:
+
+## - Added 2 more frequencies:
+##   "by correctness" or correspondence of condition and decision:
+##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
 ## -----------------------------------------------
 ## eof.
