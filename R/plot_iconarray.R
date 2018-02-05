@@ -180,6 +180,10 @@ col_vec <- icon_colors[ind_col_num]
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+# TODO:
+  # - add legend and text (needs sufficient margins at some place.)
+  # - Make plotting icons customizable
+
 plot_iconarray <- function (
                             # prev = num$prev,  # probabilities
                             # sens = num$sens,
