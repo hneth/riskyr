@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 > (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
 
 What is the likelihood of a disease or clinical condition given a positive test result? 
-This seems a common and simple question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
+This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
 Decades of research on probabilistic reasoning and risk literacy have shown that people struggle when information is expressed in terms of probabilities, but have no problem to process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
 
@@ -429,3 +429,12 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
 _Journal of Experimental Psychology: General_, _130_, 380--400.
+
+
+## All `riskyr` Vignettes
+
+- [User guide](user_guide.html)
+- [Data formats](data_formats.html)
+- [Confusion matrix](confusion_matrix.html)
+
+<!-- eof. -->
