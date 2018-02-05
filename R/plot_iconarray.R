@@ -188,6 +188,7 @@ plot_iconarray <- function (
                             col.vec = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]),  # use one color for each usual type.
                             pch.vec = 22,  # plotting characters; default square with border.
                             pch.border = grey(.66, 0.70),  # border of characters.
+                            transparency = 2/3,
                             # one can also enter a full vector of length N.
                             block.d = 0.01,  # distance between blocks (where applicable).
 
@@ -230,6 +231,7 @@ plot_iconarray <- function (
 
     # Check, whether the color vector is not of size N:
     if (length(col.vec) != N) {
+      if (length(col.vec) > 1) {  # only if more than one color.
 
       # Check, whether the color vector contains one color per type...
       # But what are types?
@@ -243,15 +245,37 @@ plot_iconarray <- function (
       }
 
       if (length(freq[ident.order]) == length(col.vec)) {  # check whether both are equally long.
-        rep_ix <- rep(1:length(col.vec), times = freq[ident.order])  # create index to repeat matrix.
-        col.vec <- col.vec[rep_ix]
+
+        col.vec <- rep(1:length(col.vec), times = freq[ident.order])
+        # repeat color vector to population size.
       }
 
+      }
     }
-
+  # repeat for character vector:
   if (length(pch.vec) != N) {
       if (length(pch.vec) > 1) {
-        pch.vec <- pch.vec[rep_ix]
+        if (length(pch.vec) == length(table(col.vec))) {  # check whether both are equally long.
+
+          pch.vec <- rep(pch.vec, times = table(col.vec))
+          # repeat color vector to population size.
+          # TODO: Dependency on freq is a problem!
+        } else {
+
+          if (length(pch.vec) == length(table(col.vec)) / 2) {
+
+            warning("Only half of necessary elements specified in pch.vec.
+                    The elements are repeatedly used.")
+            pch.vec <- pch.vec[c(1,1,2,2)]
+            pch.vec <- rep(pch.vec, times = table(col.vec))
+
+          } else {
+            warning("pch.vec has not one element for each color-identity.  Only the first element is used.")
+            pch.vec <- pch.vec[1]
+          }
+
+
+        }
       }
 
     }
@@ -412,7 +436,10 @@ plot_iconarray <- function (
           # set distance parameter:
           # block.d may not be half the size of the distance between min and max.
           # for the example of prevalence == 0.15 it may not exceed 0.075.
-          boundary_d <- (max(blocks) - min(blocks)) / 2
+          diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
+          diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
+
+          boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
 
           if (block.d >= boundary_d) {
             block.d <- boundary_d - 0.0001  # a little messy though...
@@ -445,6 +472,19 @@ plot_iconarray <- function (
 
     }  # end: valid type.sort
   }  # End A2!
+
+  if (random.position) {
+
+    if (is.null(cex)) {
+      # TODO: How to covary cex with device size & point number?
+
+
+      cex1 <- ((par("pin")[1] * 10) + 3) / sqrt(length(posx_vec))  # ad hoc formula.
+      cex2 <- ((par("pin")[2] * 10) + 3) / sqrt(length(posx_vec))  # ad hoc formula.
+      cex <- min(c(cex1, cex2))
+
+    }
+  }
 
 
     # A3 and A4: Fixed positions:  --------------------------------------
@@ -648,7 +688,7 @@ plot_iconarray <- function (
 
         # still not optimal...
 
-          # cex <- 1.5 - (min(par("pin")) / N)  # this latter term likely plays some role...
+        # cex <- 1.5 - (min(par("pin")) / N)  # this latter term likely plays some role...
       }
 
 
@@ -659,7 +699,7 @@ plot_iconarray <- function (
 
   # TODO: Add text!
 
-    if (any(!pch.vec %in% c(NA, 22:25))) {
+    if (any(!pch.vec %in% c(NA, 21:25))) {
       # if any of the plotting characters is not in the ones with border,
       # omit border and color accordingly.
       pch.border <- col.vec
@@ -672,6 +712,10 @@ plot_iconarray <- function (
     # 3a) set plotting character:
     # pch <- 22  # filled square as default.
     # cex <- 0.5
+
+    if (!is.null(transparency)) {
+      col.vec <- adjustcolor(col.vec, alpha.f = transparency)
+    }
 
     points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
@@ -689,6 +733,18 @@ plot_iconarray <- function (
 # Test default:
 plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(22,23,22,23),
                block_size_col = 10, block_size_row = 10)
+
+plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(22,23,22,23),
+               block_size_col = 10, block_size_row = 10)
+
+plot_iconarray(pch.vec = c(22,23,22,23), #cex = 3,
+               random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
+
+plot_iconarray(pch.vec = c(22,23,21,23), #cex = 10,
+               random.position = TRUE, type.sort = "equal", block.d = 0.05)
+
+plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
+               random.position = TRUE, random.identities = TRUE)
 
 # ncols and nrows must be calculated!
 
@@ -708,17 +764,19 @@ plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(22,23,22,23),
   pch_vec <- c(22,22,23,23)[ind_col_num]
 
   # random positions:
+  # TODO: Why are they so slow now?
   plot_iconarray(N = 10000, col.vec = col_vec, pch.vec = pch_vec,
                  random.position = TRUE, random.identities = TRUE)
+  # especially this guy is quite slow!
 
-  plot_iconarray(N = 10000, col.vec = col_vec,
+  plot_iconarray(N = 10000, col.vec = col_vec, cex = 1,
                  random.position = TRUE, random.identities = FALSE,
                  type.sort = "mosaic")
 
   # Example C:
 
   # non-random positions:
-  plot_iconarray(N = 10000, col.vec = col_vec, pch.vec = pch_vec,
+  plot_iconarray(N = 10000, col.vec = col_vec, pch.vec = c(22,23,21,23),
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 0.5,
                  block.d = 0.5,
@@ -757,7 +815,7 @@ plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(22,23,22,23),
   col_vec <- icon_colors[ind_col_num]
   pch_vec <- c(22,22,23,23)[ind_col_num]
 
-  plot_iconarray(N = 90, col.vec = col_vec, #pch.vec = pch_vec,
+  plot_iconarray(N = 90, col.vec = col_vec, pch.vec = pch_vec,
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 3,
                  block.d = 0.5,
