@@ -240,13 +240,13 @@ plot_iconarray <- function (
       # get the frequencies if the color vector does not depict the population:
       if (!is.null(names(col.vec))) {
         if (!any(!names(col.vec) %in% ident.order)) {  # only if all are in (not any not in).
-          col.vec <- col.vec[ident.order]
+          col.vec <- col.vec[ident.order]  # TODO: Risky!  Uses names that may not be given.
           }
       }
 
       if (length(freq[ident.order]) == length(col.vec)) {  # check whether both are equally long.
 
-        col.vec <- rep(1:length(col.vec), times = freq[ident.order])
+        col.vec <- rep(col.vec, times = freq[ident.order])
         # repeat color vector to population size.
       }
 
@@ -270,7 +270,8 @@ plot_iconarray <- function (
             pch.vec <- rep(pch.vec, times = table(col.vec))
 
           } else {
-            warning("pch.vec has not one element for each color-identity.  Only the first element is used.")
+            warning("pch.vec has not one element for each color-identity.
+                    Only the first element is used.")
             pch.vec <- pch.vec[1]
           }
 
@@ -730,9 +731,12 @@ plot_iconarray <- function (
 }  # end of function.
 
 
+# TODO: Pch vector gets not properly mapped onto colors!
+
 # Test default:
 plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(22,23,22,23),
-               block_size_col = 10, block_size_row = 10)
+               block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
+               blocks = 4, block.d = 0.5)
 
 plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(22,23,22,23),
                block_size_col = 10, block_size_row = 10)
@@ -815,7 +819,7 @@ plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
   col_vec <- icon_colors[ind_col_num]
   pch_vec <- c(22,22,23,23)[ind_col_num]
 
-  plot_iconarray(N = 90, col.vec = col_vec, pch.vec = pch_vec,
+  plot_iconarray(N = 90, pch.vec = pch_vec, col.vec = pal[1:4],
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 3,
                  block.d = 0.5,
