@@ -141,8 +141,13 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 `riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, but rather of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
 
-Here is how we could address the above problem by using three types of 
-tools provided by `riskyr`:
+`riskyr` pursues its goal of promoting a deeper understanding of risk-related information in two ways:
+
+- by _organizing_ data structures and functions in useful ways; 
+
+- by providing _transparent visualizations_ that illustrate relationships between variables and representations.
+
+In the following, we show how we could address the above problem by using three types of tools provided by `riskyr`. 
 
 
 #### A. A fancy calculator 
@@ -222,7 +227,7 @@ f4 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 
 all.equal(f3, f4)  # => shows slight differences in some frequencies:
 ```
 
-As before, the function `comp_freq_prob` does not compute only one frequency, but a list of 9 frequencies. Their names and values can be inspected by printing `f1`:
+As before, the function `comp_freq_prob` does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing `f1`:
 
 ```{r print_f1}
 f1
@@ -233,15 +238,15 @@ In this list, the sample of `N` = $1000$ women is split into 3 different subgrou
 
 ##### Computing probabilities from frequencies
 
-A translator between 2 representational formats should work in both directions. 
+A translator between two representational formats should work in both directions. 
 Consequently, `riskyr` also allows to compute probabilities by providing frequencies: 
 
 ```{r comp_prob_freq}
 # Compute probabilities from frequencies:
-p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)
+p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essential frequencies
 ```
 
-If we provide the function `comp_prob_freq` with the 4 frequencies that were listed as `hi`, `mi`, `fa`, and `cr` in our list of frequencies `f1`, the resulting probabilities match our inputs from above:
+Fortunately, the `comp_prob_freq` does not require all 11 frequencies that were returned by `comp_freq_prob` and contained in the list of frequencies `f1`. Instead, we must provide `comp_prob_freq` with the 4 essential frequencies that were listed as `hi`, `mi`, `fa`, and `cr` in `f1`. The resulting probabilities (saved in `p5`) match our list of probabilities from above (saved in `p4`):
 
 ```{r}
 # Check equality of outputs:

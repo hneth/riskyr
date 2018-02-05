@@ -47,7 +47,7 @@ f1
 
 ## ----comp_prob_freq------------------------------------------------------
 # Compute probabilities from frequencies:
-p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)
+p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essential frequencies
 
 ## ------------------------------------------------------------------------
 # Check equality of outputs:

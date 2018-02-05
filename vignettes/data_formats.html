@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hansjörg Neth" />
 
-<meta name="date" content="2018-02-04" />
+<meta name="date" content="2018-02-05" />
 
 <title>riskyr Data Formats</title>
 
@@ -70,21 +70,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><code>riskyr</code> Data Formats</h1>
 <h4 class="author"><em>Hansjörg Neth</em></h4>
-<h4 class="date"><em>2018-02-04</em></h4>
+<h4 class="date"><em>2018-02-05</em></h4>
 
 
 
-<!-- quote: -->
-<blockquote>
-<p>“Solving a problem simply means representing it so as to make the solution transparent.”<br> (H.A. Simon)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-</blockquote>
-<p>The problems addressed by <code>riskyr</code> are less of a computational than of a representational nature.</p>
-<p>Ordinary people and experts struggle alike: aptly-named “confusion matrix”: Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence.</p>
-<p>Our goal: Promoting understanding, fostering transparency.</p>
-<p>The method to our solution is a matter of organization and visualization.</p>
 <div id="probabilities-and-frequencies" class="section level2">
 <h2>Probabilities and Frequencies</h2>
-<p>The problems presented and scientific discussion surrounding them is discussed in terms of representational formats. Typically, probabilities are distinguished from frequencies.</p>
+<p>The problems presented and scientific discussion surrounding them is discussed in terms of representational formats. Typically, probabilities are distinguished from frequencies. (See the introductory <a href="guide.html">user guide</a> for details and references.)</p>
 <p><code>riskyr</code> reflects this division by distinguishing between 2 internal data types: probabilities vs. frequencies.</p>
 <p>However, this separation is an abstract and artificial one. In reality, both representations are intimately intertwined, as the following network plot shows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_fnet</span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
@@ -114,6 +106,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="probabilities" class="section level3">
 <h3>Probabilities</h3>
+<p>The notion of <em>probability</em> is complicated (see Hájek, 2012, for different interpretations). For our present purposes, probabilities are simply numbers between 0 and 1. They can be expressed as percentages or fractions.</p>
 <div id="terminology" class="section level4">
 <h4>Terminology</h4>
 <p>The list <code>prob</code> contains 10 probabilities:</p>
@@ -146,13 +139,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="frequencies" class="section level3">
 <h3>Frequencies</h3>
-<p>The following 9 frequencies are stored in <code>freq</code>:</p>
+<p>The following 11 frequencies are stored in <code>freq</code>:</p>
 <div id="terminology-1" class="section level4">
 <h4>Terminology</h4>
-<table style="width:90%;">
+<table style="width:92%;">
 <colgroup>
 <col width="5%"></col>
-<col width="6%"></col>
+<col width="8%"></col>
 <col width="77%"></col>
 </colgroup>
 <thead>
@@ -190,51 +183,79 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 <tr class="even">
 <td align="right">6.</td>
+<td align="left"><code>dec.cor</code></td>
+<td align="left">number of cases for which the decision is correct (correspondence of decision to condition)</td>
+</tr>
+<tr class="odd">
+<td align="right">7.</td>
+<td align="left"><code>dec.err</code></td>
+<td align="left">number of cases for which the decision is erroneous (difference between decision and condition)</td>
+</tr>
+<tr class="even">
+<td align="right">8.</td>
 <td align="left"><code>hi</code></td>
 <td align="left">number of hits (true positives: condition <code>TRUE</code> &amp; decision <code>TRUE</code>)</td>
 </tr>
 <tr class="odd">
-<td align="right">7.</td>
+<td align="right">9.</td>
 <td align="left"><code>mi</code></td>
 <td align="left">number of misses (false negatives: condition <code>TRUE</code> &amp; decision <code>FALSE</code>)</td>
 </tr>
 <tr class="even">
-<td align="right">8.</td>
+<td align="right">10.</td>
 <td align="left"><code>fa</code></td>
 <td align="left">number of false alarms (false positives: condition <code>FALSE</code> &amp; decision <code>TRUE</code>)</td>
 </tr>
 <tr class="odd">
-<td align="right">9.</td>
+<td align="right">11.</td>
 <td align="left"><code>cr</code></td>
 <td align="left">number of correct rejections (true negatives: condition <code>FALSE</code> &amp; decision <code>FALSE</code>)</td>
 </tr>
 </tbody>
 </table>
 <p>All frequency values are integers.</p>
-<p>Whereas <code>N</code> specifies the entire population, the other 8 frequencies denote the number of cases in some subgroup (i.e., range from 0 to <code>N</code>).</p>
+<p>Whereas <code>N</code> specifies the entire population, the other 10 frequencies denote the number of cases in some subgroup (i.e., range from 0 to <code>N</code>).</p>
 </div>
 <div id="relationships" class="section level4">
 <h4>Relationships</h4>
 <p>The following relationships hold among the frequencies:</p>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{N} &amp;= \texttt{cond.true} + \texttt{cond.false} \\
-           &amp;= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &amp;= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-\]</span></p>
-<p>The 2 columns of the confusion table:</p>
+<ol style="list-style-type: decimal">
+<li>The 2 columns of the confusion table:</li>
+</ol>
 <p><span class="math display">\[ 
 \begin{aligned}
 \texttt{cond.true}  &amp;= \texttt{hi} + \texttt{mi} \\
 \texttt{cond.false} &amp;= \texttt{fa} + \texttt{cr} \\
 \end{aligned}
 \]</span></p>
-<p>The 2 rows of the confusion table:</p>
+<ol start="2" style="list-style-type: decimal">
+<li>The 2 rows of the confusion table:</li>
+</ol>
 <p><span class="math display">\[ 
 \begin{aligned}
 \texttt{dec.pos}  &amp;= \texttt{hi} + \texttt{fa} \\
 \texttt{dec.neg}  &amp;= \texttt{mi} + \texttt{cr} \\
+\end{aligned}
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>The 2 diagonals of the confusion table:</li>
+</ol>
+<p><span class="math display">\[ 
+\begin{aligned}
+\texttt{dec.cor}      &amp;= \texttt{hi} + \texttt{cr} \\
+\texttt{dec.err}      &amp;= \texttt{mi} + \texttt{fa} \\
+\end{aligned}
+\]</span></p>
+<p>Note that these are often called “true decisions” and “false decisions”, but this promotes confusion, as “true decisions” include <code>cond.false</code> cases (<code>cr</code>) and false decisions include <code>cond.true</code> cases (<code>mi</code>).</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Overall, the following relationships hold among the frequencies:</li>
+</ol>
+<p><span class="math display">\[ 
+\begin{aligned}
+\texttt{N} &amp;= \texttt{dec.pos} + \texttt{dec.neg}      \\
+           &amp;= \texttt{cond.true} + \texttt{cond.false} \\
+           &amp;= \texttt{dec.cor} + \texttt{dec.err}      \\
+           &amp;= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
 \end{aligned}
 \]</span></p>
 <p>Alternative layout:</p>
@@ -277,15 +298,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 </div>
 </div>
-<div id="template" class="section level2">
-<h2>Template</h2>
+<div id="references" class="section level2">
+<h2>References</h2>
+<ul>
+<li>Hájek, A (2012) <a href="https://plato.stanford.edu/entries/probability-interpret/">Interpretations of Probability</a>. In <em>The Stanford Encyclopedia of Philosophy</em> (Winter 2012 Edition), Edward N. Zalta (ed.), <a href="https://plato.stanford.edu/archives/win2012/entries/probability-interpret/">URL</a></li>
+</ul>
+</div>
+<div id="template" class="section level1">
+<h1>Template</h1>
 <p>Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The <code>html_vignette</code> output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The <code>html_vignette</code> format:</p>
 <ul>
 <li>Never uses retina figures</li>
 <li>Has a smaller default figure size</li>
 <li>Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style</li>
 </ul>
-</div>
 <div id="vignette-info" class="section level2">
 <h2>Vignette Info</h2>
 <p>Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
@@ -311,7 +337,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="more-examples" class="section level2">
 <h2>More Examples</h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
+<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
 <table>
 <thead>
 <tr class="header">
@@ -477,11 +503,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
 </blockquote>
 </div>
+</div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>A footnote here.<a href="#fnref2">↩</a></p></li>
+<li id="fn1"><p>A footnote here.<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 

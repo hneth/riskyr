@@ -1,8 +1,10 @@
 ---
-title: "`riskyr` Data Formats"
+title: "`riskyr` Material"
 author: "Hansjörg Neth"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: 
+    fig_caption: yes
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,20 +18,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+Note: This file contains snippets of older materials yet to be used in actual vignettes.
+
+
 ## Probabilities and Frequencies
-
-The problems presented and scientific discussion surrounding them is discussed in terms of representational formats. Typically, probabilities are distinguished from frequencies. (See the introductory [user guide](guide.html) for details and references.)
-
-`riskyr` reflects this division by distinguishing between 2 internal data types: probabilities vs. frequencies.
-
-However, this separation is an abstract and artificial one. 
-In reality, both representations are intimately intertwined, as the following network plot shows:
-
-```{r plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis'}
-plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-          area = "no", 
-          title.lbl = "Mammography screening")
-```
 
 ### Motivation
 
@@ -53,13 +46,7 @@ Standard observation: People are confused and perplexed. Frequently, they even f
 
 Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
 
-
 ### Probabilities
-
-The notion of _probability_ is complicated (see Hájek, 2012, for different interpretations). 
-For our present purposes, probabilities are simply numbers between 0 and 1. 
-They can be expressed as percentages or fractions.
-
 
 #### Terminology
 
@@ -103,7 +90,6 @@ Non-conditional vs. conditional probabilities.
 and 7 derived (1 non-conditional and 6 conditional) probabilities:
 
 
-
 #### Basic knowledge
 
 Basic knowledge about probabilities:
@@ -117,33 +103,39 @@ Basic knowledge about probabilities:
 - Conditional probabilities can be computed with Bayesian formula or in terms of natural frequencies.  The former is difficult, the latter simple and transparent.
 
 
-### Frequencies
 
-The following 11 frequencies are stored in `freq`:
+## Confusion Matrix
 
-#### Terminology
+- Confusion matrix: Ordinary people and experts struggle alike: aptly-named "confusion matrix": Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence. 
 
-|Nr.| Variable | Description |
-|--:|:----     |:------------------------------------------------------|
-|  1.  | `N`          | number of cases (or individuals) in the population |
-|  2.  | `cond.true`  | number of cases for which the condition is present (`TRUE`)  |
-|  3.  | `cond.false` | number of cases for which the condition is absent (`FALSE`)  |
-|  4.  | `dec.pos`    | number of cases for which the decision is positive (`TRUE`)  |
-|  5.  | `dec.neg`    | number of cases for which the decision is negative (`FALSE`) |
-|  6.  | `dec.cor`    | number of cases for which the decision is correct (correspondence of decision to condition)  |
-|  7.  | `dec.err`    | number of cases for which the decision is erroneous (difference between decision and condition) |
-|  8.  | `hi` | number of hits (true positives: condition `TRUE` & decision `TRUE`) |
-|  9.  | `mi` | number of misses (false negatives: condition `TRUE` & decision `FALSE`) |
-|  10. | `fa` | number of false alarms (false positives: condition `FALSE` & decision `TRUE`) |
-|  11. | `cr` | number of correct rejections (true negatives: condition `FALSE` & decision `FALSE`) |
+Behold the aptly named "confusion" matrix: 
 
-All frequency values are integers.
 
-Whereas `N` specifies the entire population, the other 10 frequencies denote the number of cases in some subgroup (i.e., range from 0 to `N`).
+|         | Condition           |     | 
+| ------:  |:----:|:----:|------:|              
+| **Decision** | `TRUE`:      | `FALSE`:      |     Sum:  | 
+| positive:      | `hi`       | `fa`          | `dec.pos` | 
+| negative:      | `mi`       | `cr`          | `dec.neg` | 
+|      Sum:      | `cond.true` | `cond.false` |       `N` |
 
-#### Relationships
 
-The following relationships hold among the frequencies:
+### Terminology
+
+Ordinary people and experts struggle alike: aptly-named "confusion matrix". Measures are simple, but complex in their abundance (see examples) and inter-dependence.
+
+The 4 cells are the essential core of all metrics.
+
+Identify 2 correct cases (`hi`, `cr`) and 2 errors (`mi`, `fa`).
+
+Sources of confusion: 
+
+- `mi` are in the `cond.true` column (left), but "false negatives".
+- `cr` are in the `cond.false` column (right), but "true negatives".
+
+Thus, the terms "false" and "true" in cell names refer to the relationship between or correspondence of condition and decision, rather than the condition alone.
+
+
+### Relationships
 
 1. The 2 columns of the confusion table:
 
@@ -163,6 +155,8 @@ $$
 \end{aligned}
 $$ 
 
+
+
 3. The 2 diagonals of the confusion table:
 
 $$ 
@@ -173,6 +167,7 @@ $$
 $$ 
 
 Note that these are often called "true decisions" and "false decisions", but this promotes confusion, as "true decisions" include `cond.false` cases (`cr`) and false decisions include `cond.true` cases (`mi`).
+
 
 4. Overall, the following relationships hold among the frequencies:
 
@@ -187,22 +182,20 @@ $$
 
 
 
-Alternative layout:
+### Accuracy metrics
 
-| Nr. | Description      | Variable | 
-|----:|:-----------------|:---------|
-|  1. | number of individuals in the population                      | `N`          | 
-|  2. | number of cases for which the condition is present (`TRUE`)  | `cond.true`  |
-|  3. | number of cases for which the condition is absent (`FALSE`)  | `cond.false` | 
-|  4. | number of cases for which the decision is negative (`FALSE`) | `dec.pos`    | 
-|  5. | number of cases for which the decision is negative (`FALSE`) | `dec.neg`    | 
+1. Accuracy: Proportion or percentage of cases correctly classified.
 
+$$
+\begin{aligned}
+\texttt{acc} &= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
+             = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
+\end{aligned}
+$$
 
-## References
+2. Weighted accuracy: Taking into account the importance of errors.
 
-- Hájek, A (2012) [Interpretations of Probability](https://plato.stanford.edu/entries/probability-interpret/). 
-In _The Stanford Encyclopedia of Philosophy_ (Winter 2012 Edition), Edward N. Zalta (ed.),  [URL](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/)  
-
+3. Matthew correlation coefficient (mcc)
 
 
 
