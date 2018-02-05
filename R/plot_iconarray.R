@@ -1,5 +1,5 @@
 ## plot_iconarray.R | riskyR
-## 2018 01 18
+## 2018 01 31
 ## -----------------------------------------------
 
 ##  This function plots an iconarray flexibly, dependent on population size
@@ -49,32 +49,83 @@
 # freq
 
 
+## Helper functions: ------------------------------------------------------
 ## (c) SDT (status decision/truth):
-# calculate to be independent from source
-pop <- 100 # define population size.
-sens <- 0.80
-spec <- 0.90
-prev <- 0.30
+# calculate in small helper function to be independent from source:
 
-n.hi <- round(pop * prev * sens)
-n.mi <- round(pop * prev * (1 - sens))
-n.fa <- round(pop * (1 - prev) * (1 - spec))
-n.cr <- round(pop * (1 - prev) * spec)
+get_pop_vec <- function (N = 10000, # define population size.
+                        sens = 0.80,
+                        spec = 0.90,
+                        prev = 0.30) {
 
-length(rep("hi", n.hi))
-length(rep("mi", 14))  # too short???  Apparently a failure in updating...
-length(rep("fa", 3))  # too short???
-length(rep("cr", n.cr))
+  n.hi <<- round(N * prev * sens)
+  n.mi <<- round(N * prev * (1 - sens))
+  n.fa <<- round(N * (1 - prev) * (1 - spec))
+  n.cr <<- round(N * (1 - prev) * spec)
 
-sdt <- c(rep("hi", n.hi), rep("mi", n.mi),
-  rep("fa", n.fa), rep("cr", n.cr))
+  length(rep("hi", n.hi))
+  length(rep("mi", 14))  # too short???  Apparently a failure in updating...
+  length(rep("fa", 3))  # too short???
+  length(rep("cr", n.cr))
 
-length(sdt)
+  sdt <- c(rep("hi", n.hi), rep("mi", n.mi),
+           rep("fa", n.fa), rep("cr", n.cr))
 
-sum(n.hi, n.mi, n.fa, n.cr)
+  output <- list(sdt = sdt,
+                 freq = list(
+                   n.hi = n.hi, n.mi = n.mi, n.fa = n.fa, n.cr = n.cr
+                 ))
 
-# icon_colors <- c(rep(sdt.colors["hi"], n.hi), rep(sdt.colors["mi"], n.mi),
-#                 rep(sdt.colors["fa"], n.fa), rep(sdt.colors["cr"], n.cr))
+  return(output)
+
+}
+
+# test default:
+freqs <- get_pop_vec()
+
+
+# 2. Initialize vector of identities / class membership:
+ident_vec <- get_pop_vec()$sdt
+
+# option 1 to obtain colors:
+sdt.colors <- c("green", "red", "orange", "blue")
+
+# final function takes any four colors mapped onto four identities.
+system.time({
+  icon_colors <- c(rep(sdt.colors[1], n.hi), rep(sdt.colors[2], n.mi),
+                   rep(sdt.colors[3], n.fa), rep(sdt.colors[4], n.cr))
+  icon_colors <- adjustcolor(icon_colors, alpha.f = .66) # make transparent
+})
+
+
+
+
+# option 2 to obtain colors (more general):
+ident_types <- unique(ident_vec)  # get number of unique types.
+icon_colors2 <- ident_vec  # initialize colors as identities.
+
+system.time({
+  for (i in ident_types) {
+    # replace the identities with their respective colors:
+    icon_colors2[ident_vec == i] <- sdt.colors[ident_types == i]
+  }
+})
+
+
+# Option 3:
+icon_colors <- sdt.colors
+
+# numerosities (e.g., n.hi, n.mi etc.):
+#freqs <- get_pop_vec(N = 90)
+
+numerosities <- freqs$freq
+
+# create a matrix from it.
+ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+col_vec <- icon_colors[ind_col_num]
+
+
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -102,31 +153,19 @@ sum(n.hi, n.mi, n.fa, n.cr)
   posx_vec <- NULL
   posy_vec <- NULL
 
-  # 2. Initialize vector of identities / class membership:
-  ident_vec <- NULL
-  ident_vec <- sdt
+  # for identity see color / identities above:
+    icon_colors <- sdt.colors  # define a set of colors.
 
-  # option 1 to obtain colors:
-  sdt.colors <- c("green", "red", "orange", "blue")
-  # final function takes any four colors mapped onto four identities.
-  icon_colors <- c(rep(sdt.colors[1], n.hi), rep(sdt.colors[2], n.mi),
-                   rep(sdt.colors[3], n.fa), rep(sdt.colors[4], n.cr))
+    # numerosities (e.g., n.hi, n.mi etc.):
+    numerosities <- freqs$freq  # assign a set of n frequencies.
 
-  icon_colors <- adjustcolor(icon_colors, alpha.f = .66) # make transparent
+    # create a repeated vector from it.
+    ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+    col_vec <- icon_colors[ind_col_num]
 
-  # option 2 to obtain colors:
-  color_types <- sdt.colors
-  ident_types <- unique(ident_vec)  # get number of unique types.
-  icon_colors2 <- ident_vec  # initialize colors as identities.
-
-  for (i in ident_types) {
-    # replace the identities with their respective colors:
-    icon_colors2[ident_vec == i] <- color_types[ident_types == i]
-  }
-
-  # sum(icon_colors != icon_colors2)  # test for all equal.
-
-  col_vec <- icon_colors2
+  # Do the same for plotting characters:
+    plot_chars <- c(22, 22, 23, 23)  # squares and diamonds.
+    char_vec <- plot_chars[ind_col_num]
 
 # (D) Plotting dependent on this information:
   plotx_dim <- c(0, 1)
@@ -134,496 +173,617 @@ sum(n.hi, n.mi, n.fa, n.cr)
 
   # TODO: Each of the types is a potential function.  Then it is more modular!
 
-# A1 Random position, random colors:---------------------------------------
-  #
-    # 1) Define positions:
-      # 1a) draw random positions:
-      posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
-      posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+##
+## Begin of function!-------------------------
+##
+## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        # checking for duplicates:
-        pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
-        # no duplicated coordinates.
+
+plot_iconarray <- function (
+                            # prev = num$prev,  # probabilities
+                            # sens = num$sens,
+                            # spec = num$spec,
+                            # fart = NA,        # was: num$fart,
+                            N = freq$N,
+                            random.position = FALSE,  # are positions randomly drawn?
+                            random.identities = FALSE,  # are identities randomly assigned to positions?
+                            # defaults to classic icon array!
+                            # TODO: rather name these?
+                            col.vec = 1:4,  # use one color for each usual type.
+                            # one can also enter a full vector of length N.
+                            block.d = 0.01,  # distance between blocks (where applicable).
+
+                            type.sort = NULL,  # needs to be given if random position but nonrandom ident.
+
+                            # for classic icon arrays only:
+                            # TODO: Allow to calculate defaults in the function!
+                            ncols = NULL,
+                            nrows = NULL,
+                            blocks = 1,
+                            col_blocks = 1,
+                            row_blocks = 1,
+                            block_size_col = NULL,
+                            block_size_row = NULL,
+                            # TODO: Do I need them all the information is pretty redundant?
+
+                            fill_array = "left",
+                            fill_blocks = "rowwise",
+
+                            # (currently) fixed parameters:
+                            xlim = c(0, 1),
+                            ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
+                            cex = NULL,  # if NULL, cex will be calculated on demand!
+
+                            ...  #additional parameters for plot()
+
+                            ) {
+
+  # TODO: Checking of parameters!
+  ## A0.1: Check entered parameters for plausibility!--------------------------------------------
+
+    # Check whether random.position and random.identities are logical:
+    if ( !(is.logical(random.position) | is.logical(random.identities)) ) {
+      stop("random.position and random.identities must be logical!")
+    }
+
+  ## A0.2: Check entered parameters for usabililty:------------------------------------------
+
+    # Check, whether the color vector is not of size N:
+    if (length(col.vec) != N) {
+
+      # Check, whether the color vector contains one color per type...
+      # But what are types?
+      # TODO!!!!!
+    }
+
+  # TODO: I need to ensure that:
+  # col.vec (must be given as vector of length N at this point!)
+
+  # N (for A1 and A2)
+
+    if(random.position) {
+      if (is.null(N)) {
+
+      }
+    }
+
+    # xlim/ylim
+
+  # are given
+
+  # End checking.
+
+  ## A1 Random position, random colors:---------------------------------------
+  if (random.position & random.identities) {
+
+    # 1) Define positions:
+      # 1a) draw random positions within plot dimensions:
+      posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
+      posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
 
     # 2) Randomize vector:
-      col_vec <- sample(icon_colors, replace = FALSE)
+    icon_colors <- sample(col.vec, replace = FALSE)
 
-    # 3) Plot:
-      plot(x = 1, xlim = plotx_dim, ylim = ploty_dim, type = "n")
+  }  # end A1: random position & random colors.
 
-      # 3a) set plotting character:
-      pch <- 21  # filled square as default.
-      cex <- 2
 
-      points(x = posx_vec, posy_vec, # positions.
-             # visual details:
-             pch = pch, col = grey(.10, .66), bg = col_vec, cex = cex, bty = "o")
+  ## A2 Random position, clustered colors: ---------------------------------------
+  if (random.position & !random.identities) {
 
-# A2 Random position, clustered colors: ---------------------------------------
-  #
-    # 1) Define positions:
-    # 1a) draw random positions:
-      posx_vec <- runif(n = pop, min = plotx_dim[1], max = plotx_dim[2])
-      posy_vec <- runif(n = pop, min = ploty_dim[1], max = ploty_dim[2])
+    # 1b) sort dependent on parameter:
+    # options:
+    # right: from left to right, top: from top to bottom,
+    # equal: in equal spaces of the plot, mosaic: relative to area.
 
-      # 1b) sort dependent on parameter:
-      type_sort <- "mosaic"  # options:
-      # right: from left to right, top: from top to bottom,
-      # equal: in equal spaces of the plot, mosaic: relative to area.
+    if (!type.sort %in% c("right", "top", "equal", "mosaic")) {
+      stop('type_sort must be either "right", "top", "equal", or "mosaic"')
+      # maybe add stop and error message?
+    } else {
 
-      if (!type_sort %in% c("right", "top", "equal", "mosaic")) {
-        warning('type_sort has to be either "right", "top", "equal", or "mosaic"')
-        # maybe add stop and error message?
-      } else {
+      if (type.sort %in% c("right", "top")) {
 
+        # 1a) draw random positions:
+        posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
+        posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
+
+        # Then sort one of the vectors accordingly (presupposes ordered color vector).
         # type: from left to right:
-        if (type_sort == "right") {
+        if (type.sort == "right") {
           posx_vec <- sort(posx_vec)
         }
 
         # type: from top to bottom:
-        if(type_sort == "top"){
+        if(type.sort == "top"){
           posy_vec <- sort(posy_vec)
         }
+      } else {  # if in equal or mosaic:
 
-      # equal compartments:
-      if (type_sort == "equal") {  # density varies, area is constant.
+          # Initialize positions:
+          posx_vec <- NULL
+          posy_vec <- NULL
 
-        # Distance parameteror distance between blocks:
-        block_d <- 0.01
+          # create n = "ident_type" compartments of the plot:
+          block_n <- length(unique(col.vec))  # number of blocks for x and y.
+          # TODO: not final; they should be distributed.
 
-        # create n = "ident_type" compartments of the plot:
-        comp_n <- length(ident_types)  # number of compartments for x and y.
-        # TODO: not final; they should be distributed.
+          # calculate number of observations in each block retaining original order:
+          type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
 
-        # determine breakpoints:
+        # equal compartments:
+        if (type.sort == "equal") {  # density varies, area is constant.
 
-        # !!!Currently for square numbers only:
-        # TODO: include non-square points (e.g., by enlarging the plot area).
-        comp_sq <- sqrt(comp_n)  # take square root.
+          # determine breakpoints:
+          # !!!Currently for square numbers only:
+          # TODO: include non-square points (e.g., by enlarging the plot area).
+          block_sq <- sqrt(block_n)  # take square root.
 
-        # create list of breakpoints including ident_types:
-        seq_min <- (0:(comp_sq-1)) / comp_sq  # of minimal coordinates.
-        seq_max <- (1:comp_sq) / comp_sq
+          # create list of breakpoints including color types:
+          seq_min <- (0:(block_sq - 1)) / block_sq  # of minimal coordinates.
+          seq_max <- (1:block_sq) / block_sq
 
-        min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
-        max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
+          min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
+          max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
 
-        # add distance between icon blocks:
-        global_min <- min(min_ranges)  # get global minimum of minima.
-        global_max <- max(max_ranges)  # get global maximum of maxima.
-        min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block_d
-        # we don't want distance at the global minima nad maxima.
-        max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block_d
+          # add distance between icon blocks:
+          global_min <- min(min_ranges)  # get global minimum of minima.
+          global_max <- max(max_ranges)  # get global maximum of maxima.
+          min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block.d
+          # we don't want distance at the global minima nad maxima.
+          max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block.d
 
-        # TODO: flipping by swapping x and y or by changing vector of frequencies?
-        # ToDo: Bind ranges into one object?
-        # TODO: notice the overlap!  Use cut?
+          # TODO: flipping by swapping x and y or by changing vector of frequencies?
+          # TODO: Bind ranges into one object?
+          # TODO: notice the overlap!  Use cut?
 
-        # reset position vectors:
-        posx_vec <- NULL
-        posy_vec <- NULL
 
-        # calculate number of observations in each compartment retaining original order:
-        type_n <- sapply(unique(ident_vec), function(x) sum(ident_vec == x))
 
-       # sample the coordinates from the deterimined ranges:
-       for(i in 1:nrow(min_ranges)){
+          # sample the coordinates from the deterimined ranges:
+          for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
 
-          minx <- min_ranges$x_min[i]
-          maxx <- max_ranges$x_max[i]
-          miny <- min_ranges$y_min[i]
-          maxy <- max_ranges$y_max[i]
-          # TODO: This only holds for equal compartments.
+            minx <- min_ranges$x_min[i]
+            maxx <- max_ranges$x_max[i]
+            miny <- min_ranges$y_min[i]
+            maxy <- max_ranges$y_max[i]
+            # TODO: This only holds for equal compartments.
 
-          # sample vectors from compartments:
-          posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
-          posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
+            # sample vectors from compartments:
+            posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
+            posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
 
-          posx_vec <- c(posx_vec, posx_vec_i)
-          posy_vec <- c(posy_vec, posy_vec_i)
+            posx_vec <- c(posx_vec, posx_vec_i)
+            posy_vec <- c(posy_vec, posy_vec_i)
+          }
+
         }
 
+        # mosaic style:
+        if (type.sort == "mosaic") {
+
+          block_prop <- type_n / sum(type_n)  # proportion in each compartment.
+
+          prev <- block_prop[1] + block_prop[2]
+          # define boundaries:
+          b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
+          b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
+          # TODO: This depends on our typical order!  Might be made more transparent and customizable.
+
+
+          # Quadrant dimensions (with prevalence in y-direction):
+          block1 <- c(0, b1, 0, prev)
+          block2 <- c(b1, 1, 0, prev)
+          block3 <- c(b2, 1, prev, 1)
+          block4 <- c(0, b2, prev, 1)
+
+          # TODO: Allow to shuffle components around (using a list?).
+          # TODO: not general yet!  How to make it general?  Calculation of area proportions?
+
+          # bind vectors together.
+          blocks <- rbind(block1, block2, block3, block4)
+
+          # set distance parameter:
+          # block.d may not be half the size of the distance between min and max.
+          # for the example of prevalence == 0.15 it may not exceed 0.075.
+          boundary_d <- (max(blocks) - min(blocks)) / 2
+
+          if (block.d >= boundary_d) {
+            block.d <- boundary_d - 0.0001  # a little messy though...
+          }
+
+          blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
+          blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
+          block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+          # calculate number of observations in each compartment.
+          blocks <- cbind(blocks, block_n)  # bind to martix.
+
+
+          for(i in 1:nrow(blocks)){
+            minx <- blocks[i, 1]
+            maxx <- blocks[i, 2]
+            miny <- blocks[i, 3]
+            maxy <- blocks[i, 4]
+            # TODO: This only holds for equal blocks.
+
+            # sample vectors from blocks:
+            posx_vec_i <- runif(n = blocks[i, 5], min = minx, max = maxx)
+            posy_vec_i <- runif(n = blocks[i, 5], min = miny, max = maxy)
+
+            posx_vec <- c(posx_vec, posx_vec_i)
+            posy_vec <- c(posy_vec, posy_vec_i)
+
+          }
+        }
       }
 
-      # mosaic style:
-      if (type_sort == "mosaic") {
-
-        # here we need to define the compartments flexibly (holding density constant):
-        # create "ident_type" compartments of the plot:
-        comp_n <- length(ident_types)  # number of compartments for x and y.
-
-        # calculate number of observations in each compartment retaining original order:
-        type_n <- sapply(unique(ident_vec), function(x) sum(ident_vec == x))
-
-        comp_p <- type_n / sum(type_n)  # proportion in each compartment.
-
-        prev <- comp_p["hi"] + comp_p["mi"]  # prevalence (or number of true conditions).
-        # TODO: Allow split in both directions!
-        # TODO: Rename comp_p.
-
-        # define boundaries:
-        b1 <- comp_p ["hi"] / (comp_p ["hi"] + comp_p["mi"])
-        b2 <- comp_p ["cr"] / (comp_p ["cr"] + comp_p["fa"])
+    }  # end: valid type.sort
+  }  # End A2!
 
 
-        # Quadrant dimensions (with prevalence in y-direction):
-        comp1 <- c(0, b1, 0, prev)
-        comp2 <- c(b1, 1, 0, prev)
-        comp3 <- c(b2, 1, prev, 1)
-        comp4 <- c(0, b2, prev, 1)
+    # A3 and A4: Fixed positions:  --------------------------------------
+    if (!random.position) {
 
-        # TODO: Allow to shuffle components around (using a list?).
-        # TODO: not general yet!  How to make it general?  Calculation of area proportions?
+      # 1. Define positions:-----------------------------------------------
 
-        # reset vectors:
-        posx_vec <- NULL
-        posy_vec <- NULL
+      # TODO: Allow for dynamic calculation of blocks and sizes!
 
-        # set distance parameter:
-        block_d <- 0.02  # this parameter may not be half the size of the distance between min and max.
-        # for the example of prevalence == 0.15 it may not exceed 0.075.
+      # 1. Create matrix of positions:
 
-        # diff(comps)
-
-        # bind vectors together.
-        comps <- rbind(comp1, comp2, comp3, comp4)
-        comps[, c(1, 3)] <- comps[, c(1, 3)] + block_d
-        comps[, c(2, 4)] <- comps[, c(2, 4)] - block_d
-        comp_n <- sapply(unique(ident_vec),function(x)sum(ident_vec==x))
-        # calculate number of observations in each compartment.
-        comps <- cbind(comps, comp_n)  # bind to martix.
-
-
-        for(i in 1:nrow(comps)){
-          minx <- comps[i, 1]
-          maxx <- comps[i, 2]
-          miny <- comps[i, 3]
-          maxy <- comps[i, 4]
-          # TODO: This only holds for equal compartments.
-
-          # sample vectors from compartments:
-          posx_vec_i <- runif(n = comps[i, 5], min = minx, max = maxx)
-          posy_vec_i <- runif(n = comps[i, 5], min = miny, max = maxy)
-
-          posx_vec <- c(posx_vec, posx_vec_i)
-          posy_vec <- c(posy_vec, posy_vec_i)
-
-      }
-      }
-    }
-
-# A4 Fixed position clustered colors:---------------------------------------
-  #
-
-  # 0. define nrows, ncols, and blocks (with option to calculate them later as well as blocks).
-
-    ## Test A (9 6x2 blocks, pop = 90): --------------------------
-      # nrows <- 6
-      # ncols <- 15
-      # blocks <- 9
-      # col_blocks <- 3
-      # row_blocks <- 3
-      # block_size <- 5  # maybe generalize in block cols and rows.
-      # block_size_col <- 5
-      # block_size_row <- 2
-
-    ## Test B (4 5x5 blocks, pop = 100):-------------------------
-      nrows <- 10
-      ncols <- 10
-      blocks <- 4
-      col_blocks <- 2
-      row_blocks <- 2
-      block_size_col <- 5
-      block_size_row <- 5
-
-    ## Test C (5x4 2x2 blocks, pop = 100):--------------------------
-      ncols <- 100
-      nrows <- 100
-      blocks <- 100
-      col_blocks <- 10
-      row_blocks <- 10
-      block_size_col <- 10
-      block_size_row <- 10
-
-# Define positions:-----------------------------------------------
-  block_d <- 0.4  # same name as above?
-
-  # TODO: This needs plausi checks!
-
-  # 1. Create matrix of positions:
-    # TODO: I don't need the design matrix for that...
-      # find adjustment parameter for distances:
-      max_posx <- (ncols - 1) - (block_d * (col_blocks - 1))
-      # now find a monotonically increasing sequence, resulting in exactly this endpoint.
+      # find maximum for the positions given the units icons are moved:
+      # find a monotonically increasing sequence, resulting in exactly the endpoint of xlim/ylim.
+      # For x:
+      max_posx <- ((ncols - 1) * xlim[2]) - (block.d * (col_blocks - 1))
       adj_posx <- seq(0, max_posx, length.out = ncols)
 
-      max_posy <- (nrows - 1) - (block_d * (row_blocks - 1))
-      # now find a monotonically increasing sequence, resulting in exactly this endpoint.
+      # For y:
+      max_posy <- ((nrows - 1) * ylim[2]) - (block.d * (row_blocks - 1))
       adj_posy <- seq(max_posy, 0, length.out = nrows)
 
-    test_mx <- matrix(adj_posx, nrow = nrows, ncol = ncols, byrow = TRUE)
-    test_my <- matrix(adj_posy, nrow = nrows, ncol = ncols)
+      # create position matrices:
+      pos_mx <- matrix(adj_posx, nrow = nrows, ncol = ncols, byrow = TRUE)
+      pos_my <- matrix(adj_posy, nrow = nrows, ncol = ncols)
 
-    # add testwise a sequence to the x matrix:
+      # add  a sequence to the x matrix:
       # For x:
-      test_seq <- seq(0, (col_blocks - 1) * block_d, by = block_d)
-      test_seqx <- rep(test_seq, each = block_size_col)
-      test_mx2 <- test_mx + rep(test_seqx, each = nrow(test_mx))
+      seqx_off <- seq(0, (col_blocks - 1) * block.d, by = block.d)
+      # get the sequence of offsets for icons in each block.
+      seqx <- rep(seqx_off, each = block_size_col)
+      # repeat this sequence by block size so every icon is affected.
+      pos_mx <- pos_mx + rep(seqx, each = nrow(pos_mx))
+      # do so for every row in the matrix.
 
       # For y:
-      test_seq <- seq((row_blocks - 1) * block_d, 0, by = -block_d)  # create sequence of number to add.
-      test_seqy <- rep(test_seq, each = block_size_row)  # repeat to number of rows.
-      test_my2 <- test_my + test_seqy
+      seqy_off <- seq((row_blocks - 1) * block.d, 0, by = -block.d)  # create sequence of number to add.
+      seqy <- rep(seqy_off, each = block_size_row)  # repeat to number of rows.
+      pos_my <- pos_my + seqy  # will be repeated for each column anyways.
 
-      # test plotting:
-      plot(test_mx2, test_my2)
 
-# Color sorting ------------------------------------------------------------
-    # !!!Sorting:
-    # sort colors accordingly:
-    col_vec <- icon_colors2
-    col_vec <- col_vec[order(order(design.matrix$block))]
-      # TODO: Find out WHY ON EARTH order(order()) works!
+      # Plotting preparations: ------------------------------------------------------
 
-# Plotting preparations: ------------------------------------------------------
+      # save into respective vectors and norm on 0,1 space.
+      posx_vec <- pos_mx / (ncols - 1)
+      posy_vec <- pos_my / (nrows - 1)
 
-    # save into respective vectors and norm on 0,1 space.
-    posx_vec <- test_mx2 / (ncols - 1)
-    posy_vec <- test_my2/ (nrows - 1)
+      # TODO: Not in region anymore --> change plot dimensions or decrease standard distance.
 
-    # TODO: Not in region anymore --> change plot dimensions or decrease standard distance.
+      # Plotting dimensions for testing:
+      # plotx_dim <- c(-0.1, 1.1)
+      # ploty_dim <- c(-0.1, 1.1)
 
-    # Plotting dimensions for testing:
-    plotx_dim <- c(-0.5, 1.5)
-    ploty_dim <- c(-0.5, 1.5)
 
-# ---------------------------------------------------------------------------
-  # B Actual plotting:
-    # checking for duplicates:
-    (pos_duplicates <- sum(duplicated(round(cbind(posx_vec, posy_vec), 4))))
-    # no duplicated coordinates.
+      if (!random.identities) {  # sort colors according to input.
+      # For A4 (fixed positions and clustered identities) only:
+        # 2. Color sorting ------------------------------------------------------------
+        # Create block information:
+        seq_block1 <- 1:blocks  # create sequence of block positions.
 
-    # 2) Randomize vector:
-    # col_vec <- icon_colors
+        # Determine, whether blocks are used colwise or rowwise:
+        #fill_array <- "left"  # alternatively: "rowwise"
+
+        # If blocks are to be filled in x direction:
+        if (fill_array == "left"){
+
+          seq_blockx <- rep(seq_block1, each = block_size_col)
+          # create sequence repeted to the number of cols (can be changed to number of rows).
+          mat_block <- matrix(seq_blockx, ncol = ncols, byrow = TRUE)
+          # create a matrix from it.
+          ind_block <- rep(1:nrow(mat_block), each = block_size_row)  # create index to repeat matrix.
+          mat_block <- mat_block[ind_block, ]
+          # repeat each row of the matrix to the number of rows.
+        }
+
+        # If blocks are to be filled in y direction:
+        if (fill_array == "top"){
+
+          seq_blocky <- rep(seq_block1, each = block_size_row)
+          # create sequence repeted to the number of cols (can be changed to number of rows).
+          mat_block <- matrix(seq_blocky, nrow = nrows, byrow = FALSE)
+          # create a matrix from it.
+          ind_block <- rep(1:ncol(mat_block), each = block_size_col)  # create index to repeat matrix.
+          mat_block <- mat_block[ , ind_block]
+          # repeat each row of the matrix to the number of columns.
+        }
+
+        # Determine, whether blocks (within) are filled col- or rowwise:
+        #fill_blocks <- "colwise"
+
+        # sort colors accordingly:
+          # TODO: Find out WHY ON EARTH order(order()) works!
+
+        if (fill_blocks == "rowwise"){
+          order_mat <- order(order(t(mat_block)))  # matrix has to be transposed to get the rows.
+          m <- matrix(order_mat, nrow = nrows, ncol = ncols, byrow = TRUE)  # This is the "rowwise witin blocks" version.
+
+          #if (fill_array == "top") { m <- t(m) }
+        }
+
+        if (fill_blocks == "colwise") {
+          order_mat <- order(order(mat_block))
+          m <- matrix(order_mat, nrow = nrows, ncol = ncols, byrow = FALSE)  # This is the "colwise within blocks" version.
+
+          #if (fill_array == "top") { m <- t(m) }
+        }
+
+
+        # if the color vector already has the appropriate length:
+        if (length(col.vec) == length(m)) {
+          col.vec <- col.vec[m]  # order the color vector.
+
+        }
+
+
+        # if the color vector is too short:
+        # TODO: what to do if too long?
+        if (length(col.vec) < length(m)) {
+
+          len_diff <- length(pos_mx) - length(col.vec)  # calculate difference.
+          col.vec <- c(col.vec, rep(NA, len_diff))  # enlarge the color vector.
+
+          # mute the respective positions:
+          col.vec <- col.vec[m]  # order color vector.
+          posx_vec[is.na(col.vec)] <- NA  # set NA x positions...
+          posy_vec[is.na(col.vec)] <- NA  # ... and y positions.
+
+        }
+
+        # col_mat <- matrix(col.vec, nrow = nrows, ncol = ncols, byrow = FALSE)  # needs to be matrix?
+
+      }  # end fixed identities (A4).
+
+
+
+      # For A3:-------------------------------------------------
+      if (random.identities) {
+
+        col.vec <- sample(col.vec, replace = FALSE)  # sample from the vector of colors.
+
+        # fi the color vector is too short.
+        if (length(col.vec) < (ncols * nrows)) {
+
+          len_diff <- (ncols * nrows) - length(col.vec)
+          border.vec <- c(border.vec, rep(NA, len_diff))
+          col.vec <- c(col.vec, rep(NA, len_diff))
+
+        }
+
+      }  # end random identities (A3).
+
+      # Adjust cex dynamically:
+      if (is.null(cex)) {
+        # TODO: How to covary cex with device size & point number?
+
+        cex1 <- ((par("pin")[1] * 10) + 3) / ncols
+        cex2 <- ((par("pin")[2] * 10) + 3) / nrows
+        cex <- min(c(cex1, cex2))
+
+        # still not optimal...
+
+          # cex <- 1.5 - (min(par("pin")) / N)  # this latter term likely plays some role...
+      }
+
+
+    }  # end A3 and A4 (fixed positions).
+
+
+# B. Plotting --------------------------------------------------------
+
 
     # 3) Plot:
-    plot(x = 1, xlim = plotx_dim, ylim = ploty_dim, type = "n", xlab = "",
-         ylab = "")
+    plot(x = 1, xlim = xlim, ylim = ylim, type = "n", xlab = "",
+       ylab = "")
 
     # 3a) set plotting character:
     pch <- 22  # filled square as default.
-    cex <- 0.5
-
-    test <- paste(round(posx_vec, 1), round(posy_vec, 1))
+    # cex <- 0.5
 
     points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
-           pch = pch, col = grey(0, .66), bg = col_vec, cex = cex, bty = "o")
+           pch = pch, col = grey(.66, .20), bg = col.vec, cex = cex, bty = "o")
 
-    # optional: add ablines.
-    abline(v = c(0, 1), h = c(0, 1))
+    # optional for testing: add ablines.
+    # abline(v = c(0, 1), h = c(0, 1))
 
+    # TODO: allow for a vector of plotting characters as well!
 
-
-# ---------------------------------------------------------------
-    # Examples and tests:
-
-# Minimal example to understand what is happening when sorting :~~~~~~~~~~~~~~~~~~~
-    a <- c(1,1,2,2,1,1,2,2,1,1,2,2,3,3,4,4,3,3,4,4)
-    a
-    order(a)
-    sort(a)
-    # order() gives positions of the original numbers in the index position of the ordered object.
-    order(order(a))
-    # maybe, this works, as it gets where in a new (sorted) order elements now are...?
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  # Test functionality of plotting icons:
-    par("pin")  # this is likely the appropriate value to scale cex...
-
-    plot(1, 1, type = "n", xlim = c(0.5, 2.5), ylim = c(0.5, 2.5))
-
-    cex <- max(par("pin")) / length(c(1, 2, 1, 2))
-
-    points(c(1, 2, 1, 2), c(1, 1, 2, 2), pch = 15, cex = cex)  # points are independent of the size of the plotting device!
-
-    design.matrix <- expand.grid(1:ncols, 10:(1 + ncols - nrows))  # create a matrix for positions.
-    design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Plotting rectangles:----------------------------
-#
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# create raw plot to accomodate the icons:
-plot(1, 1, type = "n",
-     xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5))
-
-# rect(0.55, 0.45, 1.45, 1.45, asp = 1)  # lower left.
-#
-# rect(1.55, 0.45, 2.45, 1.45, asp = 1)  # to the right of first.
-#
-# rect(2.55, 0.45, 3.45, 1.45, asp = 1)
-#
-# rect(3.55, 0.45, 4.45, 1.45, asp = 1)
-#
-# rect(0.45, 1.55, 1.45, 2.55, asp = 1)  # above first.
-
-
-design.matrix <- expand.grid(1:ncols, nrows:(1 + ncols - nrows))  # create a matrix for positions.
-design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
-design.matrix$icon_colors <- icon_colors
-
-# TODO: Integrate color in design matrix?
-
-for(i in 1:nrow(design.matrix)){
-
-  xleft <- design.matrix[i,1] - 0.45
-  xright <- design.matrix[i,1] + 0.45
-
-  ybottom <- design.matrix[i,2] - 0.45
-  ytop <- design.matrix[i,2] + 0.45
-
-  rect(xleft, ybottom, xright, ytop, col = design.matrix$icon_colors[i])
-}
-
-# points(3, 3, pch = 15)  # does not really work with cex...; maybe try later.
-
-# lines(par("usr")[1], par("usr")[2], col = "red")
-
-# lines(x = c(1, 5), y = c(5, 5), col = "red")
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Blocking A:
-# TODo: Blocking should occur dependent on the population size:
-op <- par(no.readonly = TRUE)
-par(mfrow = c(1, 2),
-    # mgp = c(0, 0, 0),  # margins for axes.
-    mar = c(0, 0, 0, 0)
-    )
-
-# (1) create raw plot to accomodate the icons:
-plot(1, 1, type = "n",
-     xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
-     xlab = "",
-     ylab = "")
-
-design.matrix <- expand.grid(1:ncols, nrows:(1 + ncols - nrows))  # create a matrix for positions.
-design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
-design.matrix$icon_colors <- icon_colors
-
-for(i in 1:nrow(design.matrix)){
-
-  xleft <- design.matrix[i,1] - 0.45
-  xright <- design.matrix[i,1] + 0.45
-
-  ybottom <- design.matrix[i,2] - 0.45
-  ytop <- design.matrix[i,2] + 0.45
-
-  rect(xleft, ybottom, xright, ytop, col = design.matrix$icon_colors[i])
-}
-
-# par(mar = c(5, 0, 4, 2) + 0.1)
-
-# (2) create raw plot to accomodate the icons:
-plot(1, 1, type = "n",
-     xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
-     xlab = "",
-     ylab = "")
-
-design.matrix <- expand.grid(1:ncols, nrows:(1 + ncols - nrows))  # create a matrix for positions.
-design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
-design.matrix$icon_colors <- icon_colors
-
-for(i in 1:nrow(design.matrix)){
-
-  xleft <- design.matrix[i,1] - 0.45
-  xright <- design.matrix[i,1] + 0.45
-
-  ybottom <- design.matrix[i,2] - 0.45
-  ytop <- design.matrix[i,2] + 0.45
-
-  rect(xleft, ybottom, xright, ytop, col = design.matrix$icon_colors[i])
-}
-
-par(op)  # restore original settings.
+#---------------------------------------------
+}  # end of function.
 
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Blocking B:
-# TODo: Blocking should occur dependent on the population size:
-# (1) create raw plot to accomodate the icons:
+# Currently not used parts ---------------------------------------
 
-system.time({
-  design.matrix <- expand.grid(1:ncols, nrows:(1 + ncols - nrows))  # create a matrix for positions.
-  design.matrix <- design.matrix[1:pop, ]  # truncate the matrix to population size.
-  design.matrix$icon_colors <- icon_colors
-})
+  # checking for duplicates:
+  pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
 
-system.time({
+# Testing ground:-----------------------------------------------------
 
-  plot(1, 1, type = "n",
-       xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
-       xlab = "",
-       ylab = "")
+  # numerosities (e.g., n.hi, n.mi etc.):
+  numerosities <- get_pop_vec(N = 10000)$freq  # assign a set of n frequencies.
 
-  for(i in 1:nrow(design.matrix)){
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
 
-    xleft <- design.matrix[i,1] - 0.45
-    xright <- design.matrix[i,1] + 0.45
+  # random positions:
+  plot_iconarray(N = 10000, col.vec = col_vec, random.position = TRUE, random.identities = TRUE)
 
-    ybottom <- design.matrix[i,2] - 0.45
-    ytop <- design.matrix[i,2] + 0.45
+  plot_iconarray(N = 10000, col.vec = col_vec,
+                 random.position = TRUE, random.identities = FALSE,
+                 type.sort = "mosaic")
 
-    rect(xleft, ybottom, xright, ytop, col = design.matrix$icon_colors[i])
-  }
-})
+  # Example C:
+
+  # non-random positions:
+  plot_iconarray(N = 10000, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 #cex = 0.5,
+                 block.d = 0.5,
+                 block_size_col = 10, block_size_row = 10,
+                 blocks = 100,
+                 col_blocks = 10, row_blocks = 10,
+                 nrows = 100, ncols = 100,
+                 fill_array = "left",
+                 fill_blocks = "colwise")
+
+  # even larger:
+  numerosities <- get_pop_vec(N = 1000000)$freq  # assign a set of n frequencies.
+
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
+  # non-random positions:
+  plot_iconarray(N = 1000000, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 #cex = 0.5,
+                 block.d = 0.5,
+                 block_size_col = 100, block_size_row = 10,
+                 blocks = 100,
+                 col_blocks = 10, row_blocks = 10,
+                 nrows = 1000, ncols = 1000,
+                 fill_array = "left",
+                 fill_blocks = "colwise")
+
+
+  # Example A:
+  # numerosities (e.g., n.hi, n.mi etc.):
+  numerosities <- get_pop_vec(N = 90)$freq  # assign a set of n frequencies.
+
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
+
+  plot_iconarray(N = 90, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 #cex = 3,
+                 block.d = 0.5,
+                 block_size_col = 5, block_size_row = 2,
+                 blocks = 9,
+                 col_blocks = 3, row_blocks = 3,
+                 nrows = 6, ncols = 15,
+                 fill_array = "top",
+                 fill_blocks = "rowwise")
+
+  # New example:
+  # numerosities (e.g., n.hi, n.mi etc.):
+  numerosities <- get_pop_vec(N = 100)$freq  # assign a set of n frequencies.
+
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
+
+  plot_iconarray(N = 100, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 # cex = 3,
+                 block.d = 0.5,
+                 block_size_col = 5, block_size_row = 5,
+                 blocks = 4,
+                 col_blocks = 2, row_blocks = 2,
+                 nrows = 10, ncols = 10,
+                 fill_array = "top",
+                 fill_blocks = "rowwise")
+
+  # TODO: Accomodate odd populations!
+  numerosities <- get_pop_vec(N = 97)$freq  # assign a set of n frequencies.
+
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
+  plot_iconarray(N = 100, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 # cex = 3,
+                 block.d = 0.5,
+                 block_size_col = 5, block_size_row = 5,
+                 blocks = 4,
+                 col_blocks = 2, row_blocks = 2,
+                 nrows = 10, ncols = 10,
+                 fill_array = "left",
+                 fill_blocks = "rowwise")
+
+
+  numerosities <- get_pop_vec(N = 70)$freq  # assign a set of n frequencies.
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
+
+  plot_iconarray(N = 70, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 #cex = 3,
+                 block.d = 0.5,
+                 block_size_col = 5, block_size_row = 2,
+                 blocks = 9,
+                 col_blocks = 3, row_blocks = 3,
+                 nrows = 6, ncols = 15,
+                 fill_array = "top",
+                 fill_blocks = "rowwise")
 
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# comparison to pch:
+  # testing examples...
+  numerosities <- get_pop_vec(N = 70)$freq  # assign a set of n frequencies.
 
-system.time({
+  # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
 
-  plot(design.matrix$Var1, design.matrix$Var2,
-       pch = 22,
-       cex = 6,
-       col = grey(.33, .66), # sample(design.matrix$icon_colors),
-       bg = design.matrix$icon_colors, # sample(design.matrix$icon_colors),
-       lwd = 5,
-       xlim = c(0.5, ncols + 0.5), ylim = c(0.5, nrows + 0.5),
-       xlab = "",
-       ylab = "")
-})
+  plot_iconarray(N = 90, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 #cex = 3,
+                 block.d = 0.5,
+                 block_size_col = 7, block_size_row = 5,
+                 blocks = 2,
+                 col_blocks = 1, row_blocks = 2,
+                 nrows = 10, ncols = 7,
+                 fill_array = "top",
+                 fill_blocks = "rowwise")
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  numerosities <- get_pop_vec(N = 9)$freq  # assign a set of n frequencies.
+    # create a repeated vector from it.
+  ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
+  col_vec <- icon_colors[ind_col_num]
+
+  plot_iconarray(N = 9, col.vec = col_vec,
+                 random.position = FALSE, random.identities = FALSE,
+                 #cex = 3,
+                 block.d = 0.5,
+                 block_size_col = 1, block_size_row = 1,
+                 blocks = 1,
+                 col_blocks = 1, row_blocks = 1,
+                 nrows = 3, ncols = 3,
+                 # cex = 6,
+                 fill_array = "top",
+                 fill_blocks = "rowwise")
+
+  # TODO: Make applicable for dumbest possible user...
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# END OF FUNCTION!!!
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## -----------------------------------------------
 ## (+) ToDo:
 ## - Understand cex --> how does it work, when does it change size, when not?
 ## - should icons be apt to alteration (e.g., circles)?
-## - how to proceed for larger populations (i.e., > 100)?
-  ## * create blocks of 10x10 via mfrow, with each block being an own plot?
-  ## * create blocks of 10x10 and add spacing arguments (i.e., an additional quater column)
 ## - Add legend, title and other descriptive information.
-## - Test which version (rect vs. pch) is quicker.
-
-
-# dev.new(width = 5, height = 5)
-# plot(4, 4, type = "n", xlim = c(0, 4), ylim = c(0, 4))
-# rect(1, 1, 2, 2, asp = 1)
-# points(3, 3, pch = 15)
-
-# dev.new(width = 5, height = 5)
-# plot(4, 4, type = "n", xlim = c(0, 4), ylim = c(0, 4))
-# rect(1, 1, 2, 2, asp = 1)
-# points(3, 3, pch = 15)
 
 ## -----------------------------------------------
 ## eof.
