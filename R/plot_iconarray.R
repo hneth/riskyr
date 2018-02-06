@@ -1,16 +1,10 @@
 ## plot_iconarray.R | riskyR
-## 2018 01 31
+## 2018 02 06
 ## -----------------------------------------------
 
 ##  This function plots an iconarray flexibly, dependent on population size
 
-## Notes:
-  ## if the number of colums diverges largely from the number of rows, icons become distorted.
-  ## maybe drawing rectangles is inefficient.
-
 ## -----------------------------------------------
-
-# dev.new(width = 5, height = 15)  # create device with known aspect ratio.
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -25,29 +19,6 @@
   # A number of blocks.
   # A size for the icons (cex)
   # ...?
-
-# old parameters:
-
-# ncols <- 10  # define number of columns (to be filled by row)
-# nrows_fix <- 10  # fix number of rows (for each block) to some value.
-#
-# nrows <- ceiling(pop / ncols)  # calculate the required number of rows (for one block).
-
-# source("./R/init_txt.R")
-# source("./R/init_pal.R")
-# source("./R/init_num.R")
-# source("./R/comp_freq.R")
-# source("./R/comp_popu.R")
-
-# popu
-#
-# sdt.colors
-#
-# N <- freq$N
-#
-# freq <- comp_freq(N = pop)
-# freq
-
 
 ## Helper functions: ------------------------------------------------------
 ## (c) SDT (status decision/truth):
@@ -80,32 +51,6 @@ get_pop_vec <- function (N = 10000, # define population size.
 
 }
 
-# test default:
-freqs <- get_pop_vec()
-
-
-# 2. Initialize vector of identities / class membership:
-ident_vec <- get_pop_vec()$sdt
-
-# option 1 to obtain colors:
-sdt.colors <- c("green", "red", "orange", "blue")
-
-# Option 3:
-icon_colors <- sdt.colors
-
-# numerosities (e.g., n.hi, n.mi etc.):
-#freqs <- get_pop_vec(N = 90)
-
-numerosities <- get_pop_vec(N = 100)$freq
-
-# create a matrix from it.
-ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat vector.
-
-col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vector?
-# this presupposes that the number of icon colors and the number of numerosities are equal.
-
-
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Plotting symbols:-------------------------------
@@ -127,31 +72,6 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
 
 # (C) Translating these dimensions into code:
 
-  # 1. initialize vectors of positions:
-  # TODO: Change data structure?
-  posx_vec <- NULL
-  posy_vec <- NULL
-
-  # for identity see color / identities above:
-    icon_colors <- sdt.colors  # define a set of colors.
-
-    # numerosities (e.g., n.hi, n.mi etc.):
-    numerosities <- freqs$freq  # assign a set of n frequencies.
-
-    # create a repeated vector from it.
-    ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
-    col_vec <- icon_colors[ind_col_num]
-
-  # Do the same for plotting characters:
-    plot_chars <- c(22, 22, 23, 23)  # squares and diamonds.
-    char_vec <- plot_chars[ind_col_num]
-
-# (D) Plotting dependent on this information:
-  plotx_dim <- c(0, 1)
-  ploty_dim <- c(0, 1)  # assuming square plot x = y.
-
-
-
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ##
 ## Begin of function!--------------------------
@@ -166,6 +86,7 @@ col_vec <- rep(icon_colors, times = numerosities)  # why detour via numeric vect
   # - remove parameters unnecessary for arrangement (which are needed?).
   # - How should the default array look like?
   # - Make plotting icons customizable
+  # - enlarge plotting area (add some boundary around the maximum values!)
 
   # - Each of the plot types may be a potential function.  Then it is more modular!
 
@@ -185,7 +106,7 @@ plot_iconarray <- function (
                             random.identities = FALSE,  # are identities randomly assigned to positions?
                             # defaults to classic icon array!
                             # TODO: rather name these?
-                            col.vec = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]),  # use one color for each usual type.
+                            col.vec = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
                             pch.vec = 22,  # plotting characters; default square with border.
                             pch.border = grey(.66, 0.70),  # border of characters.
                             transparency = 2/3,
@@ -738,33 +659,31 @@ plot_iconarray <- function (
 }  # end of function.
 
 
-# TODO: Pch vector gets not properly mapped onto colors!
+# Testing ground:-----------------------------------------------------
 
-# Test default:
-plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(21,23,24,23),
-               block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
-               blocks = 4, block.d = 0.5)
+# Test plotting default population:
+  plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(21,23,24,23),
+                 block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
+                 blocks = 4, block.d = 0.5)
 
-plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(21,23,24,23),
-               block_size_col = 10, block_size_row = 10, blocks = 100)
+  plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(21,23,24,23),
+                 block_size_col = 10, block_size_row = 10, blocks = 100)
 
-plot_iconarray(pch.vec = c(22,23,22,23), #cex = 3,
-               random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
+  plot_iconarray(pch.vec = c(22,23,22,23), #cex = 3,
+                 random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
 
-plot_iconarray(pch.vec = c(22,23,21,23), #cex = 10,
-               random.position = TRUE, type.sort = "equal", block.d = 0.05)
+  plot_iconarray(pch.vec = c(22,23,21,23), #cex = 10,
+                 random.position = TRUE, type.sort = "equal", block.d = 0.05)
 
-plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
-               random.position = TRUE, random.identities = TRUE)
+  plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
+                 random.position = TRUE, random.identities = TRUE)
 
 # ncols and nrows must be calculated!
 
-# Currently not used parts ---------------------------------------
 
-  # checking for duplicates:
-  pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
+# Old tests with population vectors given:
 
-# Testing ground:-----------------------------------------------------
+  icon_colors <- pal[c("hi", "mi", "fa", "cr")]  # define colors.
 
   # numerosities (e.g., n.hi, n.mi etc.):
   numerosities <- get_pop_vec(N = 10000)$freq  # assign a set of n frequencies.
@@ -934,6 +853,11 @@ plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
                  fill_blocks = "rowwise")
 
   # TODO: Make applicable for dumbest possible user...
+
+# Currently not used parts ---------------------------------------
+
+  # checking for duplicates:
+  pos_duplicates <- sum(duplicated(cbind(posx_vec, posy_vec)))
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # END OF FUNCTION!!!
