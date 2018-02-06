@@ -625,13 +625,14 @@ plot_iconarray <- function (
 
           len_diff <- length(pos_mx) - length(col.vec)  # calculate difference.
           col.vec <- c(col.vec, rep(NA, len_diff))  # enlarge the color vector.
+          col.vec <- col.vec[m]  # order this color vector.
 
           # mute the respective positions:
-          col.vec <- col.vec[m]  # order color vector.
           posx_vec[is.na(col.vec)] <- NA  # set NA x positions...
           posy_vec[is.na(col.vec)] <- NA  # ... and y positions.
 
         }
+
 
         if (length(pch.vec) < length(m) & length(pch.vec) > 1) {
 
@@ -745,7 +746,7 @@ plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(21,23,24,23),
                blocks = 4, block.d = 0.5)
 
 plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(21,23,24,23),
-               block_size_col = 10, block_size_row = 10, blocks = 10)
+               block_size_col = 10, block_size_row = 10, blocks = 100)
 
 plot_iconarray(pch.vec = c(22,23,22,23), #cex = 3,
                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
@@ -833,8 +834,8 @@ plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
                  blocks = 9,
                  col_blocks = 3, row_blocks = 3,
                  nrows = 6, ncols = 15,
-                 fill_array = "top",
-                 fill_blocks = "rowwise")
+                 fill_array = "left",
+                 fill_blocks = "colwise")
 
   # New example:
   # numerosities (e.g., n.hi, n.mi etc.):
@@ -863,7 +864,7 @@ plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
   col_vec <- icon_colors[ind_col_num]
   pch_vec <- c(22,23,22,23)[ind_col_num]
 
-  plot_iconarray(N = 100, col.vec = col_vec, pch.vec = pch_vec,
+  plot_iconarray(N = 97, col.vec = col_vec, pch.vec = pch_vec,
                  random.position = FALSE, random.identities = TRUE,
                  # cex = 3,
                  pch.border = "grey",
@@ -903,7 +904,7 @@ plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
   ind_col_num <- rep(1:length(icon_colors), times = numerosities)  # create index to repeat matrix.
   col_vec <- icon_colors[ind_col_num]
 
-  plot_iconarray(N = 90, col.vec = col_vec,
+  plot_iconarray(N = 70, col.vec = col_vec,
                  random.position = FALSE, random.identities = FALSE,
                  #cex = 3,
                  block.d = 0.5,
