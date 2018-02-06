@@ -257,7 +257,8 @@ plot_iconarray <- function (
       if (length(pch.vec) > 1) {
         if (length(pch.vec) == length(table(col.vec))) {  # check whether both are equally long.
 
-          pch.vec <- rep(pch.vec, times = table(col.vec))
+          type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+          pch.vec <- rep(pch.vec, times = type_n)  # HERE!
           # repeat color vector to population size.
           # TODO: Dependency on freq is a problem!
         } else {
@@ -297,6 +298,11 @@ plot_iconarray <- function (
   # are given
 
   # End checking.
+
+  # At this point I need:
+    # a color vector of the population,
+    # an icon vector of the population, and
+    # information on how to arrange the two.
 
   ## A1 Random position, random colors:---------------------------------------
   if (random.position & random.identities) {
@@ -683,8 +689,8 @@ plot_iconarray <- function (
       if (is.null(cex)) {
         # TODO: How to covary cex with device size & point number?
 
-        cex1 <- ((par("pin")[1] * 10) + 3) / ncols
-        cex2 <- ((par("pin")[2] * 10) + 3) / nrows
+        cex1 <- ((par("pin")[1] * 10) + 4) / ncols
+        cex2 <- ((par("pin")[2] * 10) + 4) / nrows
         cex <- min(c(cex1, cex2))
 
         # still not optimal...
@@ -734,12 +740,12 @@ plot_iconarray <- function (
 # TODO: Pch vector gets not properly mapped onto colors!
 
 # Test default:
-plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(22,23,22,23),
+plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(21,23,24,23),
                block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
                blocks = 4, block.d = 0.5)
 
-plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(22,23,22,23),
-               block_size_col = 10, block_size_row = 10)
+plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(21,23,24,23),
+               block_size_col = 10, block_size_row = 10, blocks = 10)
 
 plot_iconarray(pch.vec = c(22,23,22,23), #cex = 3,
                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
