@@ -1,10 +1,10 @@
 ---
 title: "`riskyr` Data Formats"
-author: "Hansjörg Neth"
+author: "Hansjörg Neth, SPDS, uni.kn"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Data formats}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,16 +16,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Probabilities and Frequencies
+<!-- Introduction: Frequencies and Probabilities --> 
 
-The problems presented and scientific discussion surrounding them is discussed in terms of representational formats. Typically, probabilities are distinguished from frequencies. (See the introductory [user guide](user_guide.html) for details and references.)
+The problems addressed by `riskyr` and the scientific discussion surrounding them is framed in terms of two representational formats: _frequencies_ are distinguished from _probabilities_. (See the [user guide](user_guide.html) for background and references.)
 
-`riskyr` reflects this division by distinguishing between 2 internal data types: probabilities vs. frequencies.
+`riskyr` reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called `freq`) and objects that contain probabilities (a list called `prob`). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined. 
 
-Importantly, any such separation is an abstract and artificial one. 
-In reality, both representations (i.e., probabilities and frequencies) are intimately intertwined, as the following network plot shows:
+In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following network plot shows frequencies as its nodes and probabilities as the edges that link the nodes: 
 
-```{r plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis'}
+```{r plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that shows frequencies as nodes and probabilities as edges between nodes."}
 plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
           N = 1000,       # 1 frequency
           area = "no",    # all boxes have the same size
@@ -33,42 +32,110 @@ plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabi
           title.lbl = "Mammography screening")
 ```
 
-### Motivation
 
-A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
+## Frequencies
 
-(provide example here)
+For our purposes, frequencies simply are numbers that can be counted --- either 0 or positive integers.^[It seems plausible that the notion of a _frequency_ is simpler than the notion of _probability_. Nevertheless, confusion is possible and typically causes serious scientific disputes. See Gigerenzer & Hoffrage, 1999, and Hoffrage et al., 2002, for different types of frequencies and the concept of "natural frequencies".]
 
-Problems of this type tend to provide three probabilities:
+### Definitions
 
-1. the prevalence `prev` of some condition $C$;  
-2. the sensitivity `sens` of some decision $D$ (e.g., the outcome of some test or diagnostic procedure); 
-3. the specificity `spec` of $D$;
+The following 11 frequencies are distinguished by `riskyr` and contained in `freq`:
 
-and ask for one or more other probabilities:
+|Nr.| Variable | Definition |
+|--:|:----     |:------------------------------------------------------|
+|  1.  | `N`          | The number of cases (or individuals) in the population. |
+|  2.  | `cond.true`  | The number of cases for which the condition is present (`TRUE`).  |
+|  3.  | `cond.false` | The number of cases for which the condition is absent (`FALSE`).  |
+|  4.  | `dec.pos`    | The number of cases for which the decision is positive (`TRUE`).  |
+|  5.  | `dec.neg`    | The number of cases for which the decision is negative (`FALSE`). |
+|  6.  | `dec.cor`    | The number of cases for which the decision is correct (correspondence of decision to condition). |
+|  7.  | `dec.err`    | The number of cases for which the decision is erroneous (difference between decision and condition). |
+|  8.  | `hi` | The number of hits (true positives: condition `TRUE` & decision `TRUE`). |
+|  9.  | `mi` | The number of misses (false negatives: condition `TRUE` & decision `FALSE`). |
+|  10. | `fa` | The number of false alarms (false positives: condition `FALSE` & decision `TRUE`). |
+|  11. | `cr` | The number of correct rejections (true negatives: condition `FALSE` & decision `FALSE`). |
 
-- the probability of a positive (or negative) decision; 
-- the positive predictive value `PPV` of $D$;  
-- the negative predictive value `NPV` of $D$. 
 
-Standard observation: People are confused and perplexed. Frequently, they even find it difficult to understand the question, let alone have a systematic way of answering it. In a majority of cases, they either have no clue what to respond, or provide some number close to the provided values `sens` or `spec` as a rough estimate.
+### Perspectives: Basic vs. combined frequencies
 
-Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
+The frequencies contained in `freq` can be viewed from two perspectives:
+
+- From the entire population to different parts or subsets (_top-down_):<br>
+Whereas `N` specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency `dec.pos` denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to `N`.
+
+- From four essential subsets to various combinations of them (_bottom-up_):<br>
+As the four frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or _essential_ frequencies. All other frequencies in `freq` are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.
+
+### Relationships among frequencies
+
+The following relationships hold among the 11 frequencies:
+
+1. The population size `N` can be split into several subgroups by classifying individuals by four different criteria:
+
+    - (a) by condition
+    - (b) by decision
+    - (c) by the correspondence of decisions to conditions
+    - (d) by the actual combination of condition and decision
+
+Depending on the criterion used, the following relationships hold:
+
+$$ 
+\begin{aligned}
+\texttt{N} &= \texttt{cond.true} + \texttt{cond.false} & \textrm{(a)}\\
+           &= \texttt{dec.pos} + \texttt{dec.neg}      & \textrm{(b)}\\
+           &= \texttt{dec.cor} + \texttt{dec.err}      & \textrm{(c)}\\
+           &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} & \textrm{(d)}\\
+\end{aligned}
+$$ 
+
+Similarly, each of the subsets resulting from using the splits by condition, by decision, or by their correspondence, can also be expressed as a sum of two of the four essential frequencies. This results in three different ways of grouping the four essential frequencies:
+
+(a) by condition (corresponding to the two columns of the [confusion matrix](confusion_matrix.html)): 
+
+$$ 
+\begin{aligned}
+\texttt{cond.true}  &= \texttt{hi} + \texttt{mi} \\
+\texttt{cond.false} &= \texttt{fa} + \texttt{cr} \\
+\end{aligned}
+$$ 
 
 
-### Probabilities
+(b) by decision (corresponding to the two rows of the [confusion matrix](confusion_matrix.html)): 
+
+$$ 
+\begin{aligned}
+\texttt{dec.pos}  &= \texttt{hi} + \texttt{fa} \\
+\texttt{dec.neg}  &= \texttt{mi} + \texttt{cr} \\
+\end{aligned}
+$$ 
+
+
+(c) by the correspondence of decisions to conditions (corresponding to the two diagonals of the [confusion matrix](confusion_matrix.html)): 
+
+$$ 
+\begin{aligned}
+\texttt{dec.cor}      &= \texttt{hi} + \texttt{cr} \\
+\texttt{dec.err}      &= \texttt{mi} + \texttt{fa} \\
+\end{aligned}
+$$ 
+
+Note that it may be tempting to call instances of `dec.corr` and `dec.err` as "true decisions" and "false decisions". 
+However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`).
+
+
+## Probabilities
 
 The notions of _probability_ is as elusive as ubiquitous (see Hájek, 2012, for a solid exposition of its different concepts and interpretations). For our present purposes, probabilities are simply numbers between 0 and 1. 
 These numbers are defined to reflect particular quantities and can be expressed as percentages or fractions of other numbers (frequencies or probabilities).
 
 
-#### Definitions
+### Definitions
 
 The following 10 probabilities are distinguished by `riskyr` and contained in `prob`:
 
-|Nr.| Variable | Name | Description |
-|--: |:---   |:-----  |:-------------------------------------------------------|
-|  1. | `prev` | prevalence  | The probability of the _condition_ being `TRUE` |
+|Nr.| Variable | Name | Definition |
+|--: |:---   |:------------  |:----------------------------------------------|
+|  1. | `prev` | prevalence  | The probability of the _condition_ being `TRUE`. |
 |  2. | `sens` | sensitivity | The conditional probability of a _positive decision_ provided that the _condition_ is `TRUE`.  |
 |  3. | `mirt` | miss rate   | The conditional probability of a _negative decision_ provided that the _condition_ is `TRUE`.  |
 |  4. | `spec` | specificity | The conditional probability of a _negative decision_ provided that the _condition_ is `FALSE`. |
@@ -80,7 +147,7 @@ The following 10 probabilities are distinguished by `riskyr` and contained in `p
 | 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. |
 
 
-#### Non-conditional vs. conditional probabilities
+### Non-conditional vs. conditional probabilities
 
 Note that there are only two _non-conditional_ probabilities:
 
@@ -93,7 +160,7 @@ The other eight probabilities are _conditional_ probabilities:
 - Four conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.
 
 
-#### Relationships among probabilities
+### Relationships among probabilities
 
 The following relationships hold among the conditional probabilities:
 
@@ -131,142 +198,62 @@ Although this is how the functions `comp_PPV` and `comp_NPV` compute the desired
 
 
 
-#### Basic knowledge about probabilities
+## Probabilities as Ratios of Frequencies
 
-Here are a few basic facts that a risk-literate person should know when dealing with probabilities:
-
-- Probabilities are _numbers_ that describe the likelihood of some event. Their value can be expressed as and defined in terms of _ratios_ (e.g., the probability of today being Monday is $p(\mathrm{Monday}) = \frac{1}{7}$). When expressed as decimal numbers, probabilites are numbers in the range from 0 to 1 (e.g., $p(\mathrm{Monday}) = \frac{1}{7}~=~$ `r 1/7`.).
-
-- If an event $E$ has a probability of $p$, the probability of $not~E$ (sometimes denoted as $\neg{E}$ or $\bar{E}$) has a value of $p(\neg{E}) = 1 - p$ and is called the _complement_ of $p$.
-
-- _Conditional_ probabilities $p(D|E)$ are typically _not_ reversable: In fact, $p(D|E)$ is often very different from $p(E|D)$. An example illustrates the difference: The probability $p(male|king)$ that a biblical king is male is high. Nevertheless, the probability that a male person is a biblical king $p(king|male)$ is low.
-
-- The numeric value of a conditional probability can be computed with _Bayes' formula_ (see our [user guide](user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
+The easiest way to think about, define, and compute the probabilities (contained in `prob`) are in terms of frequencies (contained in `freq`): 
 
 
-### Frequencies
-
-For our purposes, frequencies simply are numbers that can be counted --- either 0 or positive integers.^[It seems plausible that the notion of a _frequency_ is simpler than the notion of _probability_. Nevertheless, confusion is possible and typically causes serious scientific disputes. See Gigerenzer & Hoffrage, 1999, and Hoffrage et al., 2002, for different types of frequencies and the concept of "natural frequencies".]
-
-#### Definitions
-
-The following 11 frequencies are distinguished by `riskyr` and contained in `freq`:
-
-|Nr.| Variable | Description |
-|--:|:----     |:------------------------------------------------------|
-|  1.  | `N`          | number of cases (or individuals) in the population |
-|  2.  | `cond.true`  | number of cases for which the condition is present (`TRUE`)  |
-|  3.  | `cond.false` | number of cases for which the condition is absent (`FALSE`)  |
-|  4.  | `dec.pos`    | number of cases for which the decision is positive (`TRUE`)  |
-|  5.  | `dec.neg`    | number of cases for which the decision is negative (`FALSE`) |
-|  6.  | `dec.cor`    | number of cases for which the decision is correct (correspondence of decision to condition)  |
-|  7.  | `dec.err`    | number of cases for which the decision is erroneous (difference between decision and condition) |
-|  8.  | `hi` | number of hits (true positives: condition `TRUE` & decision `TRUE`) |
-|  9.  | `mi` | number of misses (false negatives: condition `TRUE` & decision `FALSE`) |
-|  10. | `fa` | number of false alarms (false positives: condition `FALSE` & decision `TRUE`) |
-|  11. | `cr` | number of correct rejections (true negatives: condition `FALSE` & decision `FALSE`) |
+| Nr.| Variable | Name          | Definition                          | as Frequencies |
+|--: |:---      |:------------  |:----------------------------------- |:------------ |
+|  1. | `prev` | prevalence  | The probability of the _condition_ being `TRUE`. | `prev` = `cond.true`/`N` | 
+|  2. | `sens` | sensitivity | The conditional probability of a _positive decision_ provided that the _condition_ is `TRUE`. | `sens` = `hi`/`cond.true` |
+|  3. | `mirt` | miss rate | The conditional probability of a _negative decision_ provided that the _condition_ is `TRUE`.  | `mirt` = `mi`/`cond.true` |
+|  4. | `spec` | specificity | The conditional probability of a _negative decision_ provided that the _condition_ is `FALSE`. | `spec` = `cr`/`cond.false` |
+|  5. | `fart` | false alarm rate | The conditional probability of a _positive decision_ provided that the _condition_ is `FALSE`. | `fart` = `fa`/`cond.false` |
+|  6. | `ppod` | proportion of positive decisions | The proportion (baseline probability or rate) of the _decision_ being _positive_ (but _not_ necessarily `TRUE`). | `ppod` = `dec.pos`/`N` |
+|  7. | `PPV` | positive predictive value | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _positive_. | `PPV` = `hi`/`dec.pos` |
+|  8. | `FDR` | false detection rate | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _positive_. | `FDR` = `fa`/`dec.pos` |
+|  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. | `NPV` = `cr`/`dec.neg` |
+| 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | `FOR` = `mi`/`dec.neg` |
 
 
+Note that the ratios of frequencies are straightforward consequences of the probabilities' definitions:
 
-#### Basic vs. combined frequencies
+1. The two unconditional probabilities (1. and 6.) are proportions of the entire population:
 
-The frequencies contained in `freq` can be viewed in two directions:
+   - `prev` = `cond.true`/`N`
+   - `ppod` = `dec.pos`/`N`
 
-- From the whole population to its parts:<br>
-Whereas `N` specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subgroup (i.e., must range from 0 to `N`).
+2. All conditional probabilities (2.--5. and 7.--10.) can be computed as a proportion of the reference group on which they are conditional. More specifically, if we schematically read each definition as "The conditional probability of $X$ provided that $Y$", then the ratio of the corresponding frequencies is `X & Y`/`Y`. More explicitly, 
 
-- From four essential parts to various combinations of them:<br>
-As the four frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or _essential_ frequencies. The seven other frequencies in `freq` are sums of various combinations of these four essential frequencies.
-
-
-#### Relationships among frequencies
-
-The following relationships hold among the frequencies:
-
-1. The 2 columns of the confusion table: 
-
-$$ 
-\begin{aligned}
-\texttt{cond.true}  &= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &= \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-$$ 
-
-2. The 2 rows of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{dec.pos}  &= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &= \texttt{mi} + \texttt{cr} \\
-\end{aligned}
-$$ 
-
-3. The 2 diagonals of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{dec.cor}      &= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &= \texttt{mi} + \texttt{fa} \\
-\end{aligned}
-$$ 
-
-Note that these are often called "true decisions" and "false decisions", but this promotes confusion, as "true decisions" include `cond.false` cases (`cr`) and false decisions include `cond.true` cases (`mi`).
-
-4. Overall, the following relationships hold among the frequencies:
-
-$$ 
-\begin{aligned}
-\texttt{N} &= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &= \texttt{cond.true} + \texttt{cond.false} \\
-           &= \texttt{dec.cor} + \texttt{dec.err}      \\
-           &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-$$ 
+- the ratio's numerator is the frequency of the joint occurrence (i.e., both `X & Y`) being the case; 
+- the ratio's denominator is the frequency of the condition (`Y`) being the case.
 
 
-### Relationships between probabilities and frequencies
+## Exercise
 
-The easiest way to think about, define and compute the probabilities are in terms of frequencies: 
+The following network diagram is based on the following inputs:
 
-1. the condition's prevalence  `prev`:<br>
-The probability of the condition being `TRUE` (`prev = cond.true/N`).
+- a condition's prevalence of 50\% (`prev = .50`);
+- a decision's sensitivity of 80\% (`sens = .80`);
+- a decision's specificity of 60\% (`spec = .60`);
+- a population size of 10 individuals (`N = 10`);
 
-2. the decision's sensitivity  `sens`:<br>
-The conditional probability of a positive decision provided that the condition is `TRUE`.
+and illustrates the relationship between frequencies and probabilities: 
 
-3. the decision's miss rate  `mirt`:<br>
-The conditional probability of a negative decision provided that the condition is `TRUE`).
+```{r plot_fnet_example, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "An example network diagram that shows how probabilities can be computed as ratios of frequencies."}
+plot_fnet(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
+          N = 10,         # 1 frequency
+          area = "no",    # all boxes have the same size
+          p.lbl = "num",  # show numeric probability values on edges
+          title.lbl = "A simple example")
+```
 
-4. the decision's specificity  `spec`:<br> 
-The conditional probability of a negative decision provided that the condition is `FALSE`).
+**Your tasks:**
 
-5. the decision's false alarm rate `fart`:<br> 
-The conditional probability of a positive decision provided that the condition is `FALSE`).
+1. Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?
 
-6. the proportion (baseline probability or rate) of positive decisions `ppod` (but not necessarily true decisions): `ppod = dec.pos/N`.
-
-7. the decision's positive predictive value  `PPV`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is positive).
-
-8. the decision's negative predictive value  `NPV`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is negative).
-
-9. the decision's false discovery or false detection rate `FDR`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is positive).
-
-10. the decision's false omission rate  `FOR`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is negative).
-
-
-Alternative table layout:
-
-| Nr. | Description      | Variable | 
-|----:|:-----------------|:---------|
-|  1. | number of individuals in the population                      | `N`          | 
-|  2. | number of cases for which the condition is present (`TRUE`)  | `cond.true`  |
-|  3. | number of cases for which the condition is absent (`FALSE`)  | `cond.false` | 
-|  4. | number of cases for which the decision is negative (`FALSE`) | `dec.pos`    | 
-|  5. | number of cases for which the decision is negative (`FALSE`) | `dec.neg`    | 
+2. What is the frequency of `dec.cor` and `dec.err` cases? Where do these cases appear in the diagram?
 
 
 ## References
@@ -276,8 +263,8 @@ Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999)
 _Psychological Review_, _106_, 425--430.
 
 - Hájek, A (2012) [Interpretations of Probability](https://plato.stanford.edu/entries/probability-interpret/). 
-In _The Stanford Encyclopedia of Philosophy_ (Winter 2012 Edition), Edward N. Zalta (ed.), 
-[archival version](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/)  
+In Edward N. Zalta (Ed.), _The Stanford Encyclopedia of Philosophy_. 
+URL: https://plato.stanford.edu/entries/probability-interpret/ [2012 Archive](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/)
 
 - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
 Representation facilitates reasoning: What natural frequencies are and what they are not. 
@@ -291,57 +278,3 @@ _Cognition_, _84_, 343--352.
 - [Confusion matrix](confusion_matrix.html)
 
 <!-- eof. -->
-
-
-
-# Template
-
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
-
-

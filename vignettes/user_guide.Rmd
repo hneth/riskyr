@@ -1,12 +1,12 @@
 ---
 title: "`riskyr` User Guide"
-author: "Hansjörg Neth"
+author: "Hansjörg Neth, SPDS, uni.kn"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{User Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,12 +26,29 @@ knitr::opts_chunk$set(
 What is the likelihood of a disease or clinical condition given a positive test result? 
 This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
-Decades of research on probabilistic reasoning and risk literacy have shown that people struggle when information is expressed in terms of probabilities, but have no problem to process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
+Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities, but have no problem to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
 
-`riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation. This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways that makes it easier to understand the dynamic interplay of frequencies and probabilities.
+`riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
+
+This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. 
+It proceeds in three steps:
+
+1. We will first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' formula) remains opaque and is rightfully perceived as difficult.
+
+2. We will then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.
+
+3. Finally, we show how `riskyr` renders the problem more transparent by providing three sets of tools:
+
+    A. A fancy calculator that allows the computation of probabilities and frequencies; 
+   
+    B. A set of functions that translate between different representational formats; 
+   
+    C. A variety of visualizations that illustrate relationships between frequencies and probabilities.
 
 
-## Motivation
+## A Problem of Probabilities
+
+<!-- Motivation: --> 
 
 A basic motivation for developing `riskyr` was to facilitate our understanding of problems like the following:
 
@@ -95,7 +112,8 @@ $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test})
 
 Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the `PPV` of this mammography screening test) is slightly below 8\%. 
 
-### Using natural frequencies
+
+## Using Natural Frequencies
 
 If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent. 
 
@@ -135,7 +153,7 @@ In this new sample, the frequency of women with cancer and with a positive test 
 Incidentally, the reformulation in terms of frequencies protected us from erroneously taking the sensitivity (of `sens` = $\frac{8}{10} = 80\%$) as an estimate of the desired frequency. Whereas it is easy to confuse the term $p( \mathrm{positive\ test}\ |\ \mathrm{cancer} )$ with $p( \mathrm{cancer}\ |\ \mathrm{positive\ test} )$ when the task is expressed in terms of probabilities, it is clearly unreasonable to assume that about 800 of 1000 women (i.e., 80%) actually have cancer (since the prevalence in the population was specified to be 10 in 1000, i.e., 10\%). Thus, reframing the problem in terms of frequencies made us immune against a typical mistake.
 
 
-### Using `riskyr`
+## Using `riskyr`
 
 Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer 2002, 2014). While it is good to have a way of coping with tricky problems, it would be even more desirable to _actually understand_ the interplay between probabilities and frequencies in such tasks and domains. This is where `riskyr` comes into play.
 
@@ -150,7 +168,7 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 In the following, we show how we could address the above problem by using three types of tools provided by `riskyr`. 
 
 
-#### A. A fancy calculator 
+### A. A fancy calculator 
 
 `riskyr` provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) 
 from given inputs (probabilities and frequencies). For instance, the following function computes the 
@@ -197,13 +215,13 @@ p4$PPV
 This shows that the `PPV` computed in this version is only marginally different (`p4$PPV` = `r p4$PPV`). More importantly, it is identical to the ratio $\frac{8}{103}$ = `r 8/103`.
 
 
-#### B. Translating between formats
+### B. Translating between formats
 
 Another function of `riskyr` is to translate between representational formats. 
 This translation comes in two varieties: 
 
 
-##### Computing frequencies from probabilities
+#### Computing frequencies from probabilities
 
 ```{r comp_freq_prob_1}
 # Compute frequencies from probabilities:
@@ -236,7 +254,7 @@ f1
 In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](data_formats.html) for details on all frequencies.)
 
 
-##### Computing probabilities from frequencies
+#### Computing probabilities from frequencies
 
 A translator between two representational formats should work in both directions. 
 Consequently, `riskyr` also allows to compute probabilities by providing frequencies: 
@@ -254,7 +272,7 @@ all.equal(p5, p4)
 ```
 
 
-##### Switching back and forth
+#### Switching back and forth
 
 More generally, when we translate between formats twice --- first from probabilities to frequencies and then from the resulting frequencies to probabilities --- the original probabilities appear again:
 
@@ -301,7 +319,7 @@ all.equal(freq$cr, rand.f[4])
 To obtain the same results when translating back and forth between probabilities and frequencies, it is important to switch off rounding when computing frquencies from probabilities with `comp_freq_prob`. Similarly, we need to scale the computed frequencies to the original population size `N` to arrive at the original frequencies. 
 
 
-#### C. Visualizing relationships between formats and variables
+### C. Visualizing relationships between formats and variables
 
 Inspecting the lists of probabilities and frequencies shows that the two problem formulations cited above are only two possible instances out of an array of many alternative formulations. Essentially, the same scenario can be described in a variety of variables and formats. Gaining deeper insights into the interplay between these variables requires a solid understanding of the underlying concepts and their mathematical definitions. To facilitate the development of such an understanding, `riskyr` recruits the power of visual representations and shows the same scenario from a variety of angles and perspectives. It is mostly this graphical functionality that supports `riskyr`'s claim on being a toolbox for rendering risk literacy more transparent. Thus, in addition to being a fancy calculator and a translator between formats, `riskyr` is mostly a machine that turns risk-related information into pretty pictures.
 
@@ -310,7 +328,7 @@ Inspecting the lists of probabilities and frequencies shows that the two problem
 Here are some examples that depict the scenario described above: 
 
 
-##### Tree diagram
+#### Tree diagram
 
 Perhaps the most intuitive visualization of the probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
 
@@ -324,7 +342,7 @@ Importantly, the `plot_tree` function is called with the same 3 essential probab
 For details and additional options of the `plot_tree` function, see the documentation of `?plot_tree`.
 
 
-##### Mosaic plot
+#### Mosaic plot
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following mosaic plot, the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
@@ -338,7 +356,7 @@ The vertical split dissects the population into two subgroups that correspond to
 For details and additional options of the `plot_mosaic` function, see the documentation of `?plot_mosaic`.
 
 
-##### Alternative perspectives
+#### Alternative perspectives
 
 Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population into `dec.pos` and `dec.neg` cases: 
 
@@ -370,7 +388,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 ```
 
 
-##### Network plot
+#### Network plot
 
 The following network diagram is a generalization of the tree diagram. It plots all 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts all 10 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
 
@@ -405,6 +423,10 @@ _Psychological Review_, _102_, 684--704.
 - Gigerenzer, G., & Hoffrage, U. (1999). 
 Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). 
 _Psychological Review_, _106_, 425--430.
+
+- Hertwig, R., & Grüne-Yanoff, T. (2017). 
+Nudging and boosting: Steering or empowering good decisions. 
+_Perspectives on Psychological Science_, _12_, 973--986.
 
 - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
 Representation facilitates reasoning: What natural frequencies are and what they are not. 
