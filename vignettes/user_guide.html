@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hansjörg Neth" />
 
-<meta name="date" content="2018-02-04" />
+<meta name="date" content="2018-02-05" />
 
 <title>riskyr User Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><code>riskyr</code> User Guide</h1>
 <h4 class="author"><em>Hansjörg Neth</em></h4>
-<h4 class="date"><em>2018-02-04</em></h4>
+<h4 class="date"><em>2018-02-05</em></h4>
 
 
 
@@ -78,7 +78,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <blockquote>
 <p>“Solving a problem simply means representing it so as to make the solution transparent.”<br> (H.A. Simon)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
-<p>What is the likelihood of a disease or clinical condition given a positive test result? This seems a common and simple question, yet doctors, patients and medical students find it surprisingly difficult to answer.</p>
+<p>What is the likelihood of a disease or clinical condition given a positive test result? This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer.</p>
 <p>Decades of research on probabilistic reasoning and risk literacy have shown that people struggle when information is expressed in terms of probabilities, but have no problem to process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).</p>
 <p><code>riskyr</code> is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation. This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways that makes it easier to understand the dynamic interplay of frequencies and probabilities.</p>
 <div id="motivation" class="section level2">
@@ -149,7 +149,7 @@ If a woman does not have breast cancer, the probability is 9.6% that she will al
 <p>Here is a new representative sample of women at age 40 who got a positive mammography in a routine screening. How many of these women do you expect to actually have breast cancer?</p>
 <p>(Hoffrage et al., 2015, p. 4)</p>
 </blockquote>
-<p>Importantly, this version of the problem refers to a sample of <span class="math inline">\(1000\)</span> individuals of our original target population. It then provides the same probabilities as above, but specifies them in terms of <em>natural frequencies</em> (see Hoffrage et al., 2002, for a clarification of this term):</p>
+<p>Importantly, this version of the problem refers to a sample of <span class="math inline">\(1000\)</span> individuals of our original target population. It then provides the same probabilities as above, but specifies them in terms of <em>natural frequencies</em> (see Gigerenzer &amp; Hoffrage, 1999, and Hoffrage et al., 2002, for clarifications of this concept):</p>
 <ol style="list-style-type: decimal">
 <li>The <em>prevalence</em> of breast cancer in the target population:</li>
 </ol>
@@ -180,7 +180,12 @@ If a woman does not have breast cancer, the probability is 9.6% that she will al
 <h3>Using <code>riskyr</code></h3>
 <p>Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer 2002, 2014). While it is good to have a way of coping with tricky problems, it would be even more desirable to <em>actually understand</em> the interplay between probabilities and frequencies in such tasks and domains. This is where <code>riskyr</code> comes into play.</p>
 <p><code>riskyr</code> provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a <em>computational</em>, but rather of a <em>representational</em> nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, <code>riskyr</code> is a toolbox that renders risk literacy education more transparent.</p>
-<p>Here is how we could address the above problem by using three types of tools provided by <code>riskyr</code>:</p>
+<p><code>riskyr</code> pursues its goal of promoting a deeper understanding of risk-related information in two ways:</p>
+<ul>
+<li><p>by <em>organizing</em> data structures and functions in useful ways;</p></li>
+<li><p>by providing <em>transparent visualizations</em> that illustrate relationships between variables and representations.</p></li>
+</ul>
+<p>In the following, we show how we could address the above problem by using three types of tools provided by <code>riskyr</code>.</p>
 <div id="a.-a-fancy-calculator" class="section level4">
 <h4>A. A fancy calculator</h4>
 <p><code>riskyr</code> provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value <code>PPV</code> from the 3 basic probabilities <code>prev</code>, <code>sens</code>, and <code>spec</code> (with <code>spec</code> = 1 – <code>fart</code>) that were provided in the original problem:</p>
@@ -221,11 +226,11 @@ p3 &lt;-<span class="st"> </span><span class="kw">comp_prob_prob</span>(<span cl
 <span class="co">#&gt; $PPV</span>
 <span class="co">#&gt; [1] 0.07763975</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $NPV</span>
-<span class="co">#&gt; [1] 0.9977702</span>
-<span class="co">#&gt; </span>
 <span class="co">#&gt; $FDR</span>
 <span class="co">#&gt; [1] 0.9223602</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $NPV</span>
+<span class="co">#&gt; [1] 0.9977702</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $FOR</span>
 <span class="co">#&gt; [1] 0.002229754</span></code></pre></div>
@@ -260,9 +265,11 @@ f4 &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span cl
 <span class="kw">all.equal</span>(f3, f4)  <span class="co"># =&gt; shows slight differences in some frequencies:</span>
 <span class="co">#&gt; [1] &quot;Component \&quot;dec.pos\&quot;: Mean relative difference: 0.0003881988&quot;</span>
 <span class="co">#&gt; [2] &quot;Component \&quot;dec.neg\&quot;: Mean relative difference: 4.459508e-05&quot;</span>
-<span class="co">#&gt; [3] &quot;Component \&quot;fa\&quot;: Mean relative difference: 0.0004208754&quot;     </span>
-<span class="co">#&gt; [4] &quot;Component \&quot;cr\&quot;: Mean relative difference: 4.469473e-05&quot;</span></code></pre></div>
-<p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 9 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
+<span class="co">#&gt; [3] &quot;Component \&quot;dec.cor\&quot;: Mean relative difference: 4.429875e-05&quot;</span>
+<span class="co">#&gt; [4] &quot;Component \&quot;dec.err\&quot;: Mean relative difference: 0.0004122012&quot;</span>
+<span class="co">#&gt; [5] &quot;Component \&quot;fa\&quot;: Mean relative difference: 0.0004208754&quot;     </span>
+<span class="co">#&gt; [6] &quot;Component \&quot;cr\&quot;: Mean relative difference: 4.469473e-05&quot;</span></code></pre></div>
+<p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1
 <span class="co">#&gt; $N</span>
 <span class="co">#&gt; [1] 1000</span>
@@ -279,6 +286,12 @@ f4 &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span cl
 <span class="co">#&gt; $dec.neg</span>
 <span class="co">#&gt; [1] 897</span>
 <span class="co">#&gt; </span>
+<span class="co">#&gt; $dec.cor</span>
+<span class="co">#&gt; [1] 903</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dec.err</span>
+<span class="co">#&gt; [1] 97</span>
+<span class="co">#&gt; </span>
 <span class="co">#&gt; $hi</span>
 <span class="co">#&gt; [1] 8</span>
 <span class="co">#&gt; </span>
@@ -294,10 +307,10 @@ f4 &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span cl
 </div>
 <div id="computing-probabilities-from-frequencies" class="section level5">
 <h5>Computing probabilities from frequencies</h5>
-<p>A translator between 2 representational formats should work in both directions. Consequently, <code>riskyr</code> also allows to compute probabilities by providing frequencies:</p>
+<p>A translator between two representational formats should work in both directions. Consequently, <code>riskyr</code> also allows to compute probabilities by providing frequencies:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute probabilities from frequencies:</span>
-p5 &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span class="dt">hi =</span> <span class="dv">8</span>, <span class="dt">mi =</span> <span class="dv">2</span>, <span class="dt">fa =</span> <span class="dv">95</span>, <span class="dt">cr =</span> <span class="dv">895</span>)</code></pre></div>
-<p>If we provide the function <code>comp_prob_freq</code> with the 4 frequencies that were listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in our list of frequencies <code>f1</code>, the resulting probabilities match our inputs from above:</p>
+p5 &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span class="dt">hi =</span> <span class="dv">8</span>, <span class="dt">mi =</span> <span class="dv">2</span>, <span class="dt">fa =</span> <span class="dv">95</span>, <span class="dt">cr =</span> <span class="dv">895</span>)  <span class="co"># =&gt; provide 4 essential frequencies</span></code></pre></div>
+<p>Fortunately, the <code>comp_prob_freq</code> does not require all 11 frequencies that were returned by <code>comp_freq_prob</code> and contained in the list of frequencies <code>f1</code>. Instead, we must provide <code>comp_prob_freq</code> with the 4 essential frequencies that were listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in <code>f1</code>. The resulting probabilities (saved in <code>p5</code>) match our list of probabilities from above (saved in <code>p4</code>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Check equality of outputs:</span>
 <span class="kw">all.equal</span>(p5, p4)
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
@@ -308,7 +321,7 @@ p5 &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span cl
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
 rand.p &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
-<span class="co">#&gt; [1] 0.3092270 0.2185117 0.3792820</span>
+<span class="co">#&gt; [1] 0.5509349 0.6916490 0.3734009</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities:</span>
 freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
@@ -327,7 +340,7 @@ prob &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
 rand.f &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
 rand.f  
-<span class="co">#&gt; [1] 811 205 961 851</span>
+<span class="co">#&gt; [1] 720 372   6  11</span>
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
@@ -433,6 +446,7 @@ freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span 
 <li><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin.</p></li>
 <li><p>Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &amp; Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. <em>Psychological Science in the Public Interest</em>, <em>8</em>, 53–96.</p></li>
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: Frequency formats. <em>Psychological Review</em>, <em>102</em>, 684–704.</p></li>
+<li><p>Gigerenzer, G., &amp; Hoffrage, U. (1999). Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). <em>Psychological Review</em>, <em>106</em>, 425–430.</p></li>
 <li><p>Hoffrage, U., Gigerenzer, G., Krauss, S., &amp; Martignon, L. (2002). Representation facilitates reasoning: What natural frequencies are and what they are not. <em>Cognition</em>, <em>84</em>, 343–352.</p></li>
 <li><p>Hoffrage, U., Krauss, S., Martignon, L., &amp; Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. <em>Frontiers in Psychology</em>, <em>6</em>, 1473.</p></li>
 <li><p>Hoffrage, U., Lindsey, S., Hertwig, R., &amp; Gigerenzer, G. (2000). Communicating statistical information. <em>Science</em>, <em>290</em>, 2261–2262.</p></li>
@@ -440,6 +454,15 @@ freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span 
 <li><p>Kurz-Milcke, E., Gigerenzer, G., &amp; Martignon, L. (2008). Transparency in risk communication. <em>Annals of the New York Academy of Sciences</em>, <em>1128</em>, 18–28.</p></li>
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
 </ul>
+</div>
+<div id="all-riskyr-vignettes" class="section level2">
+<h2>All <code>riskyr</code> Vignettes</h2>
+<ul>
+<li><a href="user_guide.html">User guide</a></li>
+<li><a href="data_formats.html">Data formats</a></li>
+<li><a href="confusion_matrix.html">Confusion matrix</a></li>
+</ul>
+<!-- eof. -->
 </div>
 <div class="footnotes">
 <hr />

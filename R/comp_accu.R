@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 02 01
+## 2018 02 05
 ## -----------------------------------------------
 ## Compute accuracy metrics
 ## based on only the 4 essential frequencies
@@ -118,25 +118,26 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
   )
 
   ## (2) Compute combined frequencies from 4 essential frequencies:
+  ## (a) by condition (columns of confusion matrix):
   cond.true  <- (hi + mi)
   cond.false <- (fa + cr)
   N.cond     <- (cond.true + cond.false)
 
+  ## (b) by decision (rows of confusion matrix):
   dec.pos <- (hi + fa)
   dec.neg <- (mi + cr)
   N.dec   <- (dec.pos + dec.neg)
 
-  n.correct   <- (hi + cr)
-  n.incorrect <- (mi + fa)
-  N.truth     <- (n.correct + n.incorrect)
-
+  ## (c) by truth/correctness of decision (diagonals of confusion matrix):
+  dec.cor <- (hi + cr)  # correct decisions
+  dec.err <- (mi + fa)  # erroneous decisions
+  N.truth <- (dec.cor + dec.err)
 
   if ((N.cond != N.dec) || (N.cond != N.truth))  {
     warning("Something strange occurred: 4 basic frequencies do not add up to N.")
   } else {
     N <- N.cond
   }
-
 
   ## (3) Compute conditional probabilities:
   sens <- hi/cond.true
@@ -145,9 +146,8 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
   PPV <- hi/dec.pos
   NPV <- cr/dec.neg
 
-
   ## (4) Compute accuracy measures:
-  accu$acc  <- n.correct/N
+  accu$acc  <- dec.cor/N
   accu$wacc <- (w * sens) + ((1 - w) * spec)
   accu$f1s  <- 2 * (PPV * sens)/(PPV + sens)
 

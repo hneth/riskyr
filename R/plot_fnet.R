@@ -1690,7 +1690,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## ...
+## - Add a 3rd perspective:
+##   "by correctness" or correspondence of condition and decision:
+##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
 ## -----------------------------------------------
 ## eof.

@@ -1,5 +1,5 @@
-## init_freq.R | riskyR
-## 2018 01 27
+## init_freq.R | riskyr
+## 2018 02 05
 ## -----------------------------------------------
 ## Define and initialize ALL frequencies
 ## -----------------------------------------------
@@ -7,12 +7,12 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10):               Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -26,13 +26,15 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
+
 
 
 ## -----------------------------------------------
@@ -50,7 +52,7 @@
 
 
 ## -----------------------------------------------
-## (A) Define and initializes BASIC frequencies:
+## (A) Define and initialize BASIC frequencies:
 ## -----------------------------------------------
 ## (0) N: population size
 
@@ -95,6 +97,8 @@
 #'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
 #'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
@@ -162,6 +166,8 @@ N <- 0  # default population size N
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
 #' }
@@ -216,6 +222,8 @@ hi <- 0  # default hits (TP)
 #'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
 #'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
@@ -272,6 +280,8 @@ mi <- 0  # default misses (FN)
 #'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
 #'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
@@ -330,6 +340,8 @@ fa <- 0  # default false alarms (FP)
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'    }
 #' }
@@ -355,7 +367,8 @@ cr <- 0  # default correct rejections (TN)
 ## -----------------------------------------------
 ## (B) Define and initialize COMBINED frequencies:
 ## -----------------------------------------------
-## (a) cond.true vs. cond.false
+## (a) by condition: cond.true vs. cond.false
+##     (= 2 columns of confusion matrix)
 ## -----------------------------------------------
 
 ## (5) cond.true
@@ -408,6 +421,8 @@ cr <- 0  # default correct rejections (TN)
 #'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
 #'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
@@ -493,6 +508,8 @@ cond.true <- 0  # default frequency of true cases
 #'
 #'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
 #'
@@ -526,7 +543,8 @@ cond.false <- 0  # default frequency of false cases
 
 
 ## -----------------------------------------------
-## (b) dec.pos vs. dec.neg
+## (b) by decision: dec.pos vs. dec.neg
+##     (= 2 rows of confusion matrix)
 ## -----------------------------------------------
 
 ## (7) dec.pos
@@ -580,6 +598,8 @@ cond.false <- 0  # default frequency of false cases
 #'     \item \code{\link{N}  =  \link{cond.true} + \link{cond.false}} (by condition)
 #'
 #'     \item \code{\link{N}  =  \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
 #'
 #'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
@@ -666,6 +686,8 @@ dec.pos <- 0  # default frequency of positive decisions
 #'
 #'     \item \code{\link{N}  =  \link{dec.pos} + \link{dec.neg}} (by decision)
 #'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
 #'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
 #'
@@ -697,6 +719,141 @@ dec.pos <- 0  # default frequency of positive decisions
 
 dec.neg <- 0  # default frequency of negative decisions
 
+
+## -----------------------------------------------
+## (c) by correspondence of decision to condition:
+##     dec.cor vs. dec.err
+##     (= 2 diagonals of confusion matrix)
+## -----------------------------------------------
+
+## (9) dec.cor
+
+#' Number of individuals for which the decision is correct.
+#'
+#' \code{dec.cor} is a frequency that describes the
+#' number of individuals in the current population \code{\link{N}}
+#' for which the decision is correct (i.e., cases in which the
+#' decision corresponds to the condition).
+#'
+#' Key relationships:
+#'
+#' \enumerate{
+#'
+#' \item to probabilities:
+#' The frequency of \code{dec.cor} individuals depends on the population size \code{\link{N}} and
+#' is equal to the sum of true positives \code{\link{hi}} and true negatives \code{\link{cr}}.
+#'
+#' \item to other frequencies:
+#'In a population of size \code{\link{N}} the following relationships hold:
+#'
+#'   \itemize{
+#'
+#'     \item \code{\link{N}  =  \link{cond.true} + \link{cond.false}} (by condition)
+#'
+#'     \item \code{\link{N}  =  \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
+#'     \item \code{\link{dec.cor} = \link{hi} + \link{cr}}
+#'
+#'     \item \code{\link{dec.err} = \link{mi} + \link{fa}}
+#'
+#'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'   }
+#'
+#' }
+#'
+#' Current frequency information is computed by
+#' \code{\link{comp_freq}} and contained in a list
+#' \code{\link{freq}}.
+#'
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
+#'
+#' @family frequencies
+#'
+#' @seealso
+#' \code{\link{is_freq}} verifies frequencies;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @examples
+#' dec.cor <- 1000 * .50   # => sets dec.cor to 50% of 1000 = 500 cases.
+#' is_freq(dec.cor)        # => TRUE
+#' is_prob(dec.cor)        # => FALSE, as dec.cor is no probability (but acc, bacc/wacc ARE)
+
+dec.cor <- 0  # default frequency of negative decisions
+
+
+## -----------------------------------------------
+
+## (10) dec.err
+
+#' Number of individuals for which the decision is erroneous.
+#'
+#' \code{dec.err} is a frequency that describes the
+#' number of individuals in the current population \code{\link{N}}
+#' for which the decision is incorrect or erroneous (i.e., cases in which the
+#' decision does not correspond to the condition).
+#'
+#' Key relationships:
+#'
+#' \enumerate{
+#'
+#' \item to probabilities:
+#' The frequency of \code{dec.err} individuals depends on the population size \code{\link{N}} and
+#' is equal to the sum of false negatives \code{\link{mi}} and false positives \code{\link{fa}}.
+#'
+#' \item to other frequencies:
+#'In a population of size \code{\link{N}} the following relationships hold:
+#'
+#'   \itemize{
+#'
+#'     \item \code{\link{N}  =  \link{cond.true} + \link{cond.false}} (by condition)
+#'
+#'     \item \code{\link{N}  =  \link{dec.pos} + \link{dec.neg}} (by decision)
+#'
+#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'
+#'     \item \code{\link{dec.cor} = \link{hi} + \link{cr}}
+#'
+#'     \item \code{\link{dec.err} = \link{mi} + \link{fa}}
+#'
+#'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'   }
+#'
+#' }
+#'
+#' Current frequency information is computed by
+#' \code{\link{comp_freq}} and contained in a list
+#' \code{\link{freq}}.
+#'
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
+#'
+#' @family frequencies
+#'
+#' @seealso
+#' \code{\link{is_freq}} verifies frequencies;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{freq}} contains current frequency information;
+#' \code{\link{comp_freq}} computes current frequency information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{comp_prob}} computes current probability information.
+#'
+#' @examples
+#' dec.err <- 1000 * .50   # => sets dec.err to 50% of 1000 = 500 cases.
+#' is_freq(dec.err)        # => TRUE
+#' is_prob(dec.err)        # => FALSE, as dec.err is no probability (but acc, bacc/wacc ARE)
+
+dec.err <- 0  # default frequency of negative decisions
 
 ## -----------------------------------------------
 ## (+) ToDo:

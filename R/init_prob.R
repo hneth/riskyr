@@ -7,12 +7,12 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10):               Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -26,7 +26,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -476,7 +477,7 @@ spec <- 1/2 # default specificity
 #'   of the false discovery rate
 #'   or false detection rate \code{\link{FDR}}:
 #'
-#'   \code{FDR = p(condition = FALSE | decision = negative)}
+#'   \code{FDR = p(condition = FALSE | decision = positive)}
 #'
 #'
 #'   \item In terms of frequencies,

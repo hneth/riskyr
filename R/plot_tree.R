@@ -954,11 +954,9 @@ plot_tree <- function(prev = num$prev,             # probabilities
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Allow shorter edge labels:
-##   prev;  sens, mirt,  fart, spec
-
-## - 0. Add complementary tree(s) that split(s)
-##      level 1 by Decision (rather than by condition)!
+## - Add a 3rd perspective:
+##   "by correctness" or correspondence of condition and decision:
+##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
 ## - 1. provide more info on current numeric inputs (prev, sens, spec, fart) on edges
 ## - 2. Make version with options for

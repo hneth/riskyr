@@ -1,5 +1,5 @@
-## init_prob_num.R | riskyR
-## 2018 01 31
+## init_prob_num.R | riskyr
+## 2018 02 05
 ## -----------------------------------------------
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
@@ -9,12 +9,12 @@
 ## -----------------------------------------------
 ## Table of current terminology:
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10):               Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -28,7 +28,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -76,8 +77,8 @@ init_prob <- function() {
     "ppod" = NA,  # simple p of dec.pos
 
     "PPV" = NA,   # conditional p: reversal of sens
-    "NPV" = NA,   # conditional p: reversal of spec
     "FDR" = NA,   # conditional p: 1 - PPV
+    "NPV" = NA,   # conditional p: reversal of spec
     "FOR" = NA    # conditional p: 1 - NPV
   )
 
@@ -208,8 +209,8 @@ init_prob <- function() {
 #'
 #' \item Defining probabilities in terms of frequencies:
 #'
-#' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
-#' Thus, they can be computed as ratios between frequencies:
+#' Probabilities \emph{are} numbers from 0 to 1 and determine, describe, or are defined as relationships between frequencies.
+#' The following probabilities can be computed as ratios between frequencies:
 #'
 #'   \enumerate{
 #'
@@ -248,29 +249,27 @@ init_prob <- function() {
 #'
 #'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 #'
-#'
-#'   \item negative predictive value \code{\link{NPV}}:
-#'
-#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-#'
-#'
 #'   \item false detection rate \code{\link{FDR}}:
 #'
 #'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 #'
 #'
+#'   \item negative predictive value \code{\link{NPV}}:
+#'
+#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+#'
 #'   \item false omission rate \code{\link{FOR}}:
 #'
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
-#'    }
+#'   }
 #'
 #' }
 #'
 #'
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
+#' (i.e., the probability of the condition being \code{TRUE}).
 #'
 #'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
@@ -462,7 +461,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' \enumerate{
 #'
 #'  \item the condition's prevalence \code{\link{prev}}
-#'  (i.e., the probability of condition being \code{TRUE}):
+#'  (i.e., the probability of the condition being \code{TRUE}):
 #'  \code{prev = \link{cond.true}/\link{N}}.
 #'
 #'  \item the decision's sensitivity \code{\link{sens}}
@@ -483,21 +482,23 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #'
 #'  \item the proportion (baseline probability or rate)
-#'  of positive decisions \code{\link{ppod}}
-#'  (but not necessarily true decisions):
+#'  of the decision being positive \code{\link{ppod}}
+#'  (but not necessarily true):
 #'  \code{ppod = \link{dec.pos}/\link{N}}.
+#'
 #'
 #'  \item the decision's positive predictive value \code{\link{PPV}}
 #' (i.e., the conditional probability of the condition being \code{TRUE}
-#' provided that the decision is positive)
+#' provided that the decision is positive).
+#'
+#'  \item the decision's false detection (or false discovery) rate \code{\link{FDR}}
+#' (i.e., the conditional probability of the condition being \code{FALSE}
+#' provided that the decision is positive).
+#'
 #'
 #'  \item the decision's negative predictive value \code{\link{NPV}}
 #' (i.e., the conditional probability of the condition being \code{FALSE}
 #' provided that the decision is negative).
-#'
-#'  \item the decision's false discovery or false detection rate \code{\link{FDR}}
-#' (i.e., the conditional probability of the condition being \code{FALSE}
-#' provided that the decision is positive).
 #'
 #'  \item the decision's false omission rate \code{\link{FOR}}
 #' (i.e., the conditional probability of the condition being \code{TRUE}
