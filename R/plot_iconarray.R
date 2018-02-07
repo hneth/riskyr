@@ -155,17 +155,17 @@ plot_iconarray <- function (
       # A0.3.1: Calculation from probabilities ----------------------------------------------
 
         ## (A) If a valid set of probabilities was provided:
-        if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
+        if (riskyr:::is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
           ## (a) Compute the complete quintet of probabilities:
-          prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+          prob_quintet <- riskyr:::comp_complete_prob_set(prev, sens, mirt, spec, fart)
           sens <- prob_quintet[2] # gets sens (if not provided)
           mirt <- prob_quintet[3] # gets mirt (if not provided)
           spec <- prob_quintet[4] # gets spec (if not provided)
           fart <- prob_quintet[5] # gets fart (if not provided)
 
           ## (b) Compute cur.freq and popu based on current parameters (N and probabilities):
-          cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
+          cur.freq <- riskyr:::comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
           # compute cur.freq (with round = TRUE).
 
         } else {
@@ -176,66 +176,68 @@ plot_iconarray <- function (
 
         # DO SOME CHECKS HERE!?
 
-        ## (c) Compute col.vec from computed frequencies:
-        col.vec <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)
+        ## (c) Compute col.vec from frequencies:
+        col.vec <- rep(col.vec, times = cur.freq[ident.order])
 
-        ## (d) Compute pch.vec from computed frequencies:
-        pch.vec <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)
+        ## (d) Compute pch.vec from frequencies:
+        pch.vec <- rep(pch.vec, times = cur.freq[ident.order])
 
+        ## (e) Specify N:
+        N <- cur.freq$N
 
-  # Check, whether the color vector is not of size N:
-    if (length(col.vec) != N) {
-      if (length(col.vec) > 1) {  # only if more than one color.
-
-      # Check, whether the color vector contains one color per type...
-      # But what are types?
-      # TODO!!!!!
-
-      # get the frequencies if the color vector does not depict the population:
-      if (!is.null(names(col.vec))) {
-        if (!any(!names(col.vec) %in% ident.order)) {  # only if all are in (not any not in).
-          col.vec <- col.vec[ident.order]  # TODO: Risky!  Uses names that may not be given.
-          }
-      }
-
-      if (length(freq[ident.order]) == length(col.vec)) {  # check whether both are equally long.
-
-        col.vec <- rep(col.vec, times = freq[ident.order])
-        # repeat color vector to population size.
-      }
-
-      }
-    }
-
-  # repeat for character vector:
-  if (length(pch.vec) != N) {
-      if (length(pch.vec) > 1) {
-        if (length(pch.vec) == length(table(col.vec))) {  # check whether both are equally long.
-
-          type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
-          pch.vec <- rep(pch.vec, times = type_n)  # HERE!
-          # repeat color vector to population size.
-          # TODO: Dependency on freq is a problem!
-        } else {
-
-          if (length(pch.vec) == length(table(col.vec)) / 2) {
-
-            warning("Only half of necessary elements specified in pch.vec.
-                    The elements are repeatedly used.")
-            pch.vec <- pch.vec[c(1,1,2,2)]
-            pch.vec <- rep(pch.vec, times = table(col.vec))
-
-          } else {
-            warning("pch.vec does not contain one element for each color-identity.
-                    Only the first element is used.")
-            pch.vec <- pch.vec[1]
-          }
-
-
-        }
-      }
-
-    }
+  # # Check, whether the color vector is not of size N:
+  #   if (length(col.vec) != N) {
+  #     if (length(col.vec) > 1) {  # only if more than one color.
+  #
+  #     # Check, whether the color vector contains one color per type...
+  #     # But what are types?
+  #     # TODO!!!!!
+  #
+  #     # get the frequencies if the color vector does not depict the population:
+  #     if (!is.null(names(col.vec))) {
+  #       if (!any(!names(col.vec) %in% ident.order)) {  # only if all are in (not any not in).
+  #         col.vec <- col.vec[ident.order]  # TODO: Risky!  Uses names that may not be given.
+  #         }
+  #     }
+  #
+  #     if (length(freq[ident.order]) == length(col.vec)) {  # check whether both are equally long.
+  #
+  #       col.vec <- rep(col.vec, times = freq[ident.order])
+  #       # repeat color vector to population size.
+  #     }
+  #
+  #     }
+  #   }
+  #
+  # # repeat for character vector:
+  # if (length(pch.vec) != N) {
+  #     if (length(pch.vec) > 1) {
+  #       if (length(pch.vec) == length(table(col.vec))) {  # check whether both are equally long.
+  #
+  #         type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+  #         pch.vec <- rep(pch.vec, times = type_n)  # HERE!
+  #         # repeat color vector to population size.
+  #         # TODO: Dependency on freq is a problem!
+  #       } else {
+  #
+  #         if (length(pch.vec) == length(table(col.vec)) / 2) {
+  #
+  #           warning("Only half of necessary elements specified in pch.vec.
+  #                   The elements are repeatedly used.")
+  #           pch.vec <- pch.vec[c(1,1,2,2)]
+  #           pch.vec <- rep(pch.vec, times = table(col.vec))
+  #
+  #         } else {
+  #           warning("pch.vec does not contain one element for each color-identity.
+  #                   Only the first element is used.")
+  #           pch.vec <- pch.vec[1]
+  #         }
+  #
+  #
+  #       }
+  #     }
+  #
+  #   }
 
   # TODO: I need to ensure that:
   # col.vec (must be given as vector of length N at this point!)
@@ -243,8 +245,14 @@ plot_iconarray <- function (
   # N (for A1 and A2)
 
     if (random.position) {
-      if (is.null(N)) {
+
+      if (is.null(N)) {  # if no N is given, use color vector.
         N <- length(col.vec)
+      }
+
+      if (length(N) != length(col.vec)) {  # if N is given but not of appropriate length.
+        N <- length(col.vec)
+        warning("col.vec was not of length N.  N is adjusted to length of color vector. ")
       }
     }
 
@@ -717,7 +725,30 @@ plot_iconarray <- function (
   plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
                  random.position = TRUE, random.identities = TRUE)
 
+  plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
+                 nrows = 25, ncols = 40, pch.vec = c(21,23,24,23),
+                 block_size_col = 10, block_size_row = 5,
+                 col_blocks = 4, row_blocks = 5,
+                 blocks = 20,
+                 block.d = 0.8,
+                 border.d = 0.2,
+                 fill_array = "top")
+
+  plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
+                 nrows = 20, ncols = 50, pch.vec = c(21,23,24,23),
+                 block_size_col = 10, block_size_row = 10,
+                 col_blocks = 5, row_blocks = 2,
+                 blocks = 10,
+                 block.d = 0.8,
+                 border.d = 0.2,
+                 fill_array = "left",
+                 fill_blocks = "colwise")
+  # this is a possible example of standard 10x10 blocks.
+
 # ncols and nrows must be calculated!
+# TODO: Colwise does not work.
+
+  riskyr:::comp_freq(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9)
 
 
 # Old tests with population vectors given:
