@@ -1,12 +1,12 @@
 ---
-title: "`riskyr` Material"
+title: "`riskyr` Materials"
 author: "Hansjörg Neth"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Materials}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,13 +22,17 @@ knitr::opts_chunk$set(
 Note: This file contains snippets of older materials yet to be used in actual vignettes.
 
 
-## Probabilities and Frequencies
-
-### Motivation
+## Motivation
 
 A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
 
-(provide example here)
+> The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening.  
+> If a woman has breast cancer, the probability is 80% that she will get a positive mammography.  
+> If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.  
+> 
+> A woman in this age group had a positive mammography in a routine screening. What is the probability that she actually has breast cancer?    
+> 
+> (Hoffrage et al., 2015, p. 3)  
 
 Problems of this type tend to provide three probabilities:
 
@@ -46,67 +50,23 @@ Standard observation: People are confused and perplexed. Frequently, they even f
 
 Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
 
-### Probabilities
 
-#### Terminology
+## Basic Knowledge on Probabilities
 
-The list `prob` contains 10 probabilities: 
+Here are a few basic facts that a risk-literate person should know when dealing with probabilities:
 
-1. the condition's prevalence  `prev`:<br>
-The probability of condition being `TRUE` (`prev = cond.true/N`).
+- Probabilities are _numbers_ that describe the likelihood of some event. Their value can be expressed as and defined in terms of _ratios_ (e.g., the probability of today being Monday is $p(\mathrm{Monday}) = \frac{1}{7}$). When expressed as decimal numbers, probabilites are numbers in the range from 0 to 1 (e.g., $p(\mathrm{Monday}) = \frac{1}{7}~=~$ `r 1/7`.).
 
-2. the decision's sensitivity  `sens`:<br>
-The conditional probability of a positive decision provided that the condition is `TRUE`.
+- If an event $E$ has a probability of $p$, the probability of $not~E$ (sometimes denoted as $\neg{E}$ or $\bar{E}$) has a value of $p(\neg{E}) = 1 - p$ and is called the _complement_ of $p$.
 
-3. the decision's miss rate  `mirt`:<br>
-The conditional probability of a negative decision provided that the condition is `TRUE`).
+- _Conditional_ probabilities $p(D|E)$ are typically _not_ reversable: In fact, $p(D|E)$ is often very different from $p(E|D)$. An example illustrates the difference: The probability $p(male|king)$ that a biblical king is male is high. Nevertheless, the probability that a male person is a biblical king $p(king|male)$ is low.
 
-4. the decision's specificity  `spec`:<br> 
-The conditional probability of a negative decision provided that the condition is `FALSE`).
-
-5. the decision's false alarm rate `fart`:<br> 
-The conditional probability of a positive decision provided that the condition is `FALSE`).
-
-6. the proportion (baseline probability or rate) of positive decisions `ppod` (but not necessarily true decisions): `ppod = dec.pos/N`.
-
-7. the decision's positive predictive value  `PPV`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is positive)
-
-8. the decision's negative predictive value  `NPV`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is negative).
-
-9. the decision's false discovery or false detection rate  `FDR`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is positive).
-
-10. the decision's false omission rate  `FOR`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is negative).
-
-
-Other ways to classify probabilities: 
-
-Non-conditional vs. conditional probabilities.
-
-3 essential (1 non-conditional and 2 conditional) probabilities 
-and 7 derived (1 non-conditional and 6 conditional) probabilities:
-
-
-#### Basic knowledge
-
-Basic knowledge about probabilities:
-
-- Probabilities can be expressed as or defined in terms of _ratios_ (e.g., the probability of it being Monday $p(\mathrm{Monday}) = \frac{1}{7}$). When expressed as a decimal number, probabilites are numbers in the range from 0 to 1 (e.g., $p(\mathrm{Monday}) = \frac{1}{7}~=~$ `r 1/7`.).
-
-- If some event $E$ has a probability $p(E)$, the probability of $not~E$ (sometimes denoted as $\bar{E}$ or $\neg{E}$) is $p(\bar{E}) = 1 - p$ and is called the _complement_ of $p(E)$.
-
-- Conditional probabilities are not reversable.
-
-- Conditional probabilities can be computed with Bayesian formula or in terms of natural frequencies.  The former is difficult, the latter simple and transparent.
-
+- The numeric value of a conditional probability can be computed with _Bayes' formula_ (see our [user guide](user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
 
 ## Confusion Matrix
 
-- Confusion matrix: Ordinary people and experts struggle alike: aptly-named "confusion matrix": Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence. 
+Confusion matrix: Ordinary people and experts struggle alike: aptly-named "confusion matrix": Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence. 
 
 Behold the aptly named "confusion" matrix: 
 
@@ -117,6 +77,7 @@ Behold the aptly named "confusion" matrix:
 | positive:      | `hi`       | `fa`          | `dec.pos` | 
 | negative:      | `mi`       | `cr`          | `dec.neg` | 
 |      Sum:      | `cond.true` | `cond.false` |       `N` |
+
 
 
 ### Terminology
@@ -181,8 +142,7 @@ $$
 $$ 
 
 
-
-### Accuracy metrics
+## Accuracy Metrics
 
 1. Accuracy: Proportion or percentage of cases correctly classified.
 
@@ -197,6 +157,70 @@ $$
 
 3. Matthew correlation coefficient (mcc)
 
+
+
+## All References
+
+- Gigerenzer, G. (2002). 
+_Reckoning with risk: Learning to live with uncertainty_. 
+London, UK: Penguin.
+
+- Gigerenzer, G. (2014). 
+_Risk savvy: How to make good decisions_. 
+New York, NY: Penguin.
+
+- Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
+Helping doctors and patients make sense of health statistics. 
+_Psychological Science in the Public Interest_, _8_, 53--96.
+
+- Gigerenzer, G., & Hoffrage, U. (1995). 
+How to improve Bayesian reasoning without instruction: Frequency formats. 
+_Psychological Review_, _102_, 684--704.
+
+- Gigerenzer, G., & Hoffrage, U. (1999). 
+Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). 
+_Psychological Review_, _106_, 425--430.
+
+- Hájek, A (2012) [Interpretations of Probability](https://plato.stanford.edu/entries/probability-interpret/). 
+In Edward N. Zalta (Ed.), _The Stanford Encyclopedia of Philosophy_. 
+URL: https://plato.stanford.edu/entries/probability-interpret/ [2012 Archive](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/) 
+
+- Hertwig, R., & Grüne-Yanoff, T. (2017). 
+Nudging and boosting: Steering or empowering good decisions. 
+_Perspectives on Psychological Science_, _12_, 973--986.
+
+- Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
+Representation facilitates reasoning: What natural frequencies are and what they are not. 
+_Cognition_, _84_, 343--352.
+
+- Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). 
+Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. 
+_Frontiers in Psychology_, _6_, 1473.
+
+- Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
+Communicating statistical information. 
+_Science_, _290_, 2261--2262.
+
+- Kurzenhäuser, S., & Hoffrage, U. (2002). 
+Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. 
+_Medical Teacher_, _24_, 516--521.
+
+- Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). 
+Transparency in risk communication. 
+_Annals of the New York Academy of Sciences_, _1128_, 18--28.
+
+- Sedlmeier, P., & Gigerenzer, G. (2001). 
+Teaching Bayesian reasoning in less than two hours. 
+_Journal of Experimental Psychology: General_, _130_, 380--400.
+
+
+## All `riskyr` Vignettes
+
+- [User guide](user_guide.html)
+- [Data formats](data_formats.html)
+- [Confusion matrix](confusion_matrix.html)
+
+<!-- eof. -->
 
 
 # Template

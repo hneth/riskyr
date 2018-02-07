@@ -1,12 +1,12 @@
 ---
-title: "Confusion Matrix and `riskyr` Metrics"
-author: "Hansjörg Neth"
+title: "Confusion Matrix and Metrics"
+author: "Hansjörg Neth, SPDS, uni.kn"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Confusion Matrix and Metrics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,114 +18,40 @@ knitr::opts_chunk$set(
 )
 ```
 
-
-Note: This file contains snippets of older materials yet to be used in actual vignettes.
-
-
-## Probabilities and Frequencies
-
-### Motivation
-
-A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
-
-(provide example here)
-
-Problems of this type tend to provide three probabilities:
-
-1. the prevalence `prev` of some condition $C$;  
-2. the sensitivity `sens` of some decision $D$ (e.g., the outcome of some test or diagnostic procedure); 
-3. the specificity `spec` of $D$;
-
-and ask for one or more other probabilities:
-
-- the probability of a positive (or negative) decision; 
-- the positive predictive value `PPV` of $D$;  
-- the negative predictive value `NPV` of $D$. 
-
-Standard observation: People are confused and perplexed. Frequently, they even find it difficult to understand the question, let alone have a systematic way of answering it. In a majority of cases, they either have no clue what to respond, or provide some number close to the provided values `sens` or `spec` as a rough estimate.
-
-Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
-
-### Probabilities
-
-#### Terminology
-
-The list `prob` contains 10 probabilities: 
-
-1. the condition's prevalence  `prev`:<br>
-The probability of condition being `TRUE` (`prev = cond.true/N`).
-
-2. the decision's sensitivity  `sens`:<br>
-The conditional probability of a positive decision provided that the condition is `TRUE`.
-
-3. the decision's miss rate  `mirt`:<br>
-The conditional probability of a negative decision provided that the condition is `TRUE`).
-
-4. the decision's specificity  `spec`:<br> 
-The conditional probability of a negative decision provided that the condition is `FALSE`).
-
-5. the decision's false alarm rate `fart`:<br> 
-The conditional probability of a positive decision provided that the condition is `FALSE`).
-
-6. the proportion (baseline probability or rate) of positive decisions `ppod` (but not necessarily true decisions): `ppod = dec.pos/N`.
-
-7. the decision's positive predictive value  `PPV`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is positive)
-
-8. the decision's negative predictive value  `NPV`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is negative).
-
-9. the decision's false discovery or false detection rate  `FDR`:<br> 
-The conditional probability of the condition being `FALSE` provided that the decision is positive).
-
-10. the decision's false omission rate  `FOR`:<br> 
-The conditional probability of the condition being `TRUE` provided that the decision is negative).
-
-
-Other ways to classify probabilities: 
-
-Non-conditional vs. conditional probabilities.
-
-3 essential (1 non-conditional and 2 conditional) probabilities 
-and 7 derived (1 non-conditional and 6 conditional) probabilities:
-
-
-#### Basic knowledge
-
-Basic knowledge about probabilities:
-
-- Probabilities can be expressed as or defined in terms of _ratios_ (e.g., the probability of it being Monday $p(\mathrm{Monday}) = \frac{1}{7}$). When expressed as a decimal number, probabilites are numbers in the range from 0 to 1 (e.g., $p(\mathrm{Monday}) = \frac{1}{7}~=~$ `r 1/7`.).
-
-- If some event $E$ has a probability $p(E)$, the probability of $not~E$ (sometimes denoted as $\bar{E}$ or $\neg{E}$) is $p(\bar{E}) = 1 - p$ and is called the _complement_ of $p(E)$.
-
-- Conditional probabilities are not reversable.
-
-- Conditional probabilities can be computed with Bayesian formula or in terms of natural frequencies.  The former is difficult, the latter simple and transparent.
-
-
-
-## Confusion Matrix
-
-- Confusion matrix: Ordinary people and experts struggle alike: aptly-named "confusion matrix": Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence. 
-
-Behold the aptly named "confusion" matrix: 
-
+Behold the aptly named "confusion matrix":
 
 |         | Condition           |     | 
 | ------:  |:----:|:----:|------:|              
-| **Decision** | `TRUE`:      | `FALSE`:      |     Sum:  | 
-| positive:      | `hi`       | `fa`          | `dec.pos` | 
-| negative:      | `mi`       | `cr`          | `dec.neg` | 
-|      Sum:      | `cond.true` | `cond.false` |       `N` |
+| **Decision** | `TRUE`:      | `FALSE`:    |     Sum:  | 
+| positive:    | `hi`       | `fa`          | `dec.pos` | 
+| negative:    | `mi`       | `cr`          | `dec.neg` | 
+|      Sum:    | `cond.true` | `cond.false` |       `N` |
 
+Ordinary people, but also medical experts and social scientists, struggle to understand the implications of this simple matrix. 
+This is not surprising when viewing explanatory attempts like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of its four essential frequencies (`hi`, `mi`, `fa`, and `cr`). Although each particular metric is quite simple, their abundance and inter-dependence can be overwhelming. In the following, we try to summarize the parts that a risk-literate person really needs to know.
 
-### Terminology
+## Basics
 
-Ordinary people and experts struggle alike: aptly-named "confusion matrix". Measures are simple, but complex in their abundance (see examples) and inter-dependence.
+In its most basic form, the confusion matrix looks like this:
 
-The 4 cells are the essential core of all metrics.
+|              | Condition    | 
+| ------:      |:----:|:----:|      
+| **Decision** | `TRUE`:  | `FALSE`: | 
+| positive:    | `hi`     | `fa`     | 
+| negative:    | `mi`     | `cr`     | 
+
+Two perspectives, resulting from splitting a population of `N` individuals by two binary criteria:
+
+a. by condition
+
+b. by decision
+
+This results in $2 \times 2 = 4$ cases.
+
+Four cells are the essential core of all metrics.
 
 Identify 2 correct cases (`hi`, `cr`) and 2 errors (`mi`, `fa`).
+
 
 Sources of confusion: 
 
@@ -135,9 +61,22 @@ Sources of confusion:
 Thus, the terms "false" and "true" in cell names refer to the relationship between or correspondence of condition and decision, rather than the condition alone.
 
 
-### Relationships
+## Relationships
 
-1. The 2 columns of the confusion table:
+Overall, the following relationships hold among the frequencies:
+
+$$ 
+\begin{aligned}
+\texttt{N} &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
+           &= \texttt{cond.true} + \texttt{cond.false} \\
+           &= \texttt{dec.pos} + \texttt{dec.neg}      \\
+           &= \texttt{dec.cor} + \texttt{dec.err}      \\
+\end{aligned}
+$$ 
+
+Different perspectives:
+
+(a) The 2 columns of the confusion table:
 
 $$ 
 \begin{aligned}
@@ -146,7 +85,7 @@ $$
 \end{aligned}
 $$ 
 
-2. The 2 rows of the confusion table:
+(b) The 2 rows of the confusion table:
 
 $$ 
 \begin{aligned}
@@ -157,7 +96,12 @@ $$
 
 
 
-3. The 2 diagonals of the confusion table:
+
+## Metrics
+
+Accuracy as a dependent measure: some combination of correct and incorrect decisions.
+
+(c) The 2 diagonals of the confusion table:
 
 $$ 
 \begin{aligned}
@@ -166,25 +110,14 @@ $$
 \end{aligned}
 $$ 
 
-Note that these are often called "true decisions" and "false decisions", but this promotes confusion, as "true decisions" include `cond.false` cases (`cr`) and false decisions include `cond.true` cases (`mi`).
-
-
-4. Overall, the following relationships hold among the frequencies:
-
-$$ 
-\begin{aligned}
-\texttt{N} &= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &= \texttt{cond.true} + \texttt{cond.false} \\
-           &= \texttt{dec.cor} + \texttt{dec.err}      \\
-           &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-$$ 
+Note that it may be tempting to call instances of `dec.corr` and `dec.err` as "true decisions" and "false decisions". 
+However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`).
 
 
 
-### Accuracy metrics
+### Accuracy `acc`
 
-1. Accuracy: Proportion or percentage of cases correctly classified.
+> Accuracy := Proportion or percentage of cases correctly classified.
 
 $$
 \begin{aligned}
@@ -193,9 +126,24 @@ $$
 \end{aligned}
 $$
 
-2. Weighted accuracy: Taking into account the importance of errors.
+
+### Weighted accuracy `wacc`
+
+Weighted accuracy: Taking into account the importance of errors.
+
+
+
+### Matthew correlation coefficient `mcc`
 
 3. Matthew correlation coefficient (mcc)
+
+
+## References
+
+Links to Wikipedia articles:
+
+- [Confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) (URL: https://en.wikipedia.org/wiki/Confusion_matrix)
+
 
 
 ## All `riskyr` Vignettes
