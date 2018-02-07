@@ -156,6 +156,10 @@ plot_iconarray <- function (
         }
 
         if (is.null(names(icon.types))) {
+          if( length(icon.types < length(icon.colors))) {
+            warning("Icon types are recycled to number of colors.")
+            icon.types <- rep(icon.types, length.out = length(icon.colors))
+          }
           names(icon.types) <- names(icon.colors)
         }
 
@@ -367,7 +371,7 @@ plot_iconarray <- function (
 
           block_prop <- type_n / sum(type_n)  # proportion in each compartment.
 
-          prev <- block_prop[1] + block_prop[2]
+          prev <- block_prop[1] + block_prop[2]  # TODO: Does this still hold for switched types?
           # define boundaries:
           b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
           b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
@@ -394,9 +398,19 @@ plot_iconarray <- function (
 
           boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
 
-          if (block.d >= boundary_d) {
-            block.d <- boundary_d - 0.0001  # a little messy though...
+          if (is.null(block.d)){
+
+            block.d <- 0.01  # a little messy though...
+
+          } else {
+
+            if ( block.d >= boundary_d ) {
+
+              block.d <- boundary_d - 0.0001  # a little messy though...
+
+            }
           }
+
 
           blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
           blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
@@ -707,11 +721,13 @@ plot_iconarray <- function (
     # Plot additional information:
     title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-    legend(x = xlim[2] / 2, y = ylim[1] - 0.1, legend = ident.order,
+    legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = ident.order,
            horiz = TRUE, bty = "n",
            pt.bg = icon.colors, pch = icon.types, cex = 1.5,
            xjust = 0.5, xpd = TRUE)
     # TODO: fixed order of legend?
+
+    mtext(cur.par.lbl, side = 1, line = 3)
 
 #---------------------------------------------
 }  # end of function.
@@ -722,7 +738,7 @@ plot_iconarray <- function (
 # Test plotting default population:
   plot_iconarray(nrows = 10, ncols = 10, icon.types = c(21,23,24,23),
                  block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
-                 blocks = 4, block.d = 0.5, border.d = 0.2)
+                 blocks = 4, block.d = 0.5, border.d = 0.9)
 
   plot_iconarray(nrows = 100, ncols = 100, icon.types = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 10, blocks = 100)
@@ -738,7 +754,7 @@ plot_iconarray <- function (
                  random.position = TRUE, random.identities = TRUE)
 
   plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
-                 nrows = 25, ncols = 40, pch.vec = c(21,23,24,23),
+                 nrows = 25, ncols = 40, icon.types = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 5,
                  col_blocks = 4, row_blocks = 5,
                  blocks = 20,
@@ -747,7 +763,7 @@ plot_iconarray <- function (
                  fill_array = "top")
 
   plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
-                 nrows = 20, ncols = 50, pch.vec = c(21,23,24,23),
+                 nrows = 20, ncols = 50, icon.types = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 10,
                  col_blocks = 5, row_blocks = 2,
                  blocks = 10,
@@ -758,14 +774,14 @@ plot_iconarray <- function (
   # this is a possible example of standard 10x10 blocks.
 
   plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
-                 pch.vec = c(21,23,24,23),
-                 col.vec = 1:4,
+                 icon.types = c(21,23,21,23),
                  ident.order = c("hi", "mi", "cr", "fa"),
-                 block.d = 0.8,
+                 block.d = NULL,
                  border.d = 0.01,
+                 cex = 0.7,
                  random.position = TRUE,
                  random.identities = FALSE,
-                 type.sort = "right")
+                 type.sort = "mosaic")
 
 # ncols and nrows must be calculated!
 
