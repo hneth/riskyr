@@ -24,6 +24,54 @@
 #' the values currently contained in \code{\link{freq}} are used.
 #' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 #' to avoid decimal values in \code{\link{freq}}.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when its complement \code{sens} is provided.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#'
+#' @param N The number of individuals in the population.
+#' A suitable value of \code{\link{N}} is computed, if not provided.
+#'
+#'
+#' @param ident.order Gives the order in which icon identities
+#' (hits, misses, false alarms, and correct rejections) are plotted.
+#'
+#'
+#' @param show.accu Option for showing current
+#' accuracy metrics \code{\link{accu}} in the plot.
+#' Default: \code{show.accu = TRUE}.
+#'
+#' @param w.acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' Default: \code{w.acc = .50}.
+#'
+#'
+#' Various other options allow the customization of text labels and colors:
+#'
+#' @param title.lbl Text label to set plot title.
+#'
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
