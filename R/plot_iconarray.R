@@ -89,13 +89,14 @@ plot_iconarray <- function (
 
                             # for classic icon arrays only:
                             # TODO: Allow to calculate defaults in the function!
-                            ncols = NULL,
-                            nrows = NULL,
-                            blocks = 1,
-                            col_blocks = 1,
-                            row_blocks = 1,
-                            block_size_col = NULL,
-                            block_size_row = NULL,
+                            # ncols = NULL,
+                            # nrows = NULL,
+                            #blocks = 1,
+                            block_size_col = 10,
+                            block_size_row = 10,
+                            ncol_blocks = NULL,
+                            nrow_blocks = NULL,
+
                             # TODO: Do I need them all the information is pretty redundant?
 
                             fill_array = "left",
@@ -156,8 +157,11 @@ plot_iconarray <- function (
         }
 
         if (is.null(names(icon.types))) {
-          if( length(icon.types < length(icon.colors))) {
+
+          if( length(icon.types) < length(icon.colors) ) {
+
             warning("Icon types are recycled to number of colors.")
+
             icon.types <- rep(icon.types, length.out = length(icon.colors))
           }
           names(icon.types) <- names(icon.colors)
@@ -459,16 +463,60 @@ plot_iconarray <- function (
 
       # 0. Check arrangement parameters: ----------------------------------
 
-      col_blocks
-      row_blocks
 
-      block_size_col
-      block_size_row
+      #given:
+        # block_size_col
+        # block_size_row
 
-      blocks
+      # calculate icons per block:
+      icons_per_block <- block_size_col * block_size_row
+
+      # calculate number of blocks required:
+      n_blocks <- ceiling(N / icons_per_block)
+
+      # If no number of blocks or cols is given:
+
+        if (is.null(ncol_blocks) & is.null(nrow_blocks)) {
+
+          blocking_dim <- factors_min_diff(n_blocks)  # get the dimensions.
+
+          # dependent on pin:
+          dim_in <- par("pin")  # get dimensions of plotting region.
+
+          if( dim_in[1] >= dim_in[2] ) {  # if x greater y:
+
+            ncol_blocks <- blocking_dim[2]  # larger in x dimension (cols).
+            nrow_blocks <- blocking_dim[1]  # smaller in y dimension (rows).
+
+          } else {
+            ncol_blocks <- blocking_dim[1]  # smaller in x dimension (cols).
+            nrow_blocks <- blocking_dim[2]  # larger in y dimension (rows).
+          }
+        } else {  # if one of both is given:
+
+          if (is.null(ncol_blocks)) {  # if ncol_blocks is not given:
+
+            ncol_blocks <- n_blocks / nrow_blocks  # calculate number of blocks per row.
+
+          }
+
+          if (is.null(nrow_blocks)) {  # if ncol_rows is not given:
+
+            nrow_blocks <- n_blocks / ncol_blocks  # calculate number of blocks per column.
+
+            # TODO: Change naming scheme!
+
+          }
+
+        }
+
+
+      # calculate total ncols and nrows:
+      ncols <- block_size_col * ncol_blocks
+      nrows <- block_size_row * nrow_blocks
 
       # Given a default of 10x10 blocks:
-      N / (block_size_col * block_size_row)
+      #N / (block_size_col * block_size_row)
 
 
       # 1. Define positions:-----------------------------------------------
@@ -490,12 +538,12 @@ plot_iconarray <- function (
       # find maximum for the positions given the units icons are moved:
       # find a monotonically increasing sequence, resulting in exactly the endpoint of xlim/ylim.
       # For x:
-      max_posx <- ((ncols - 1) * xlim[2]) - (block.d * (col_blocks - 1)) - border.d
+      max_posx <- ((ncols - 1) * xlim[2]) - (block.d * (ncol_blocks - 1)) - border.d
       min_posx <- xlim[1] + border.d
       adj_posx <- seq(min_posx, max_posx, length.out = ncols)
 
       # For y:
-      max_posy <- ((nrows - 1) * ylim[2]) - (block.d * (row_blocks - 1)) - border.d
+      max_posy <- ((nrows - 1) * ylim[2]) - (block.d * (nrow_blocks - 1)) - border.d
       min_posy <- ylim[1] + border.d
       adj_posy <- seq(max_posy, min_posy, length.out = nrows)
 
@@ -505,7 +553,7 @@ plot_iconarray <- function (
 
       # add  a sequence to the x matrix:
       # For x:
-      seqx_off <- seq(0, (col_blocks - 1) * block.d, by = block.d)
+      seqx_off <- seq(0, (ncol_blocks - 1) * block.d, by = block.d)
       # get the sequence of offsets for icons in each block.
       seqx <- rep(seqx_off, each = block_size_col)
       # repeat this sequence by block size so every icon is affected.
@@ -513,7 +561,7 @@ plot_iconarray <- function (
       # do so for every row in the matrix.
 
       # For y:
-      seqy_off <- seq((row_blocks - 1) * block.d, 0, by = -block.d)  # create sequence of number to add.
+      seqy_off <- seq((nrow_blocks - 1) * block.d, 0, by = -block.d)  # create sequence of number to add.
       seqy <- rep(seqy_off, each = block_size_row)  # repeat to number of rows.
       pos_my <- pos_my + seqy  # will be repeated for each column anyways.
 
@@ -535,7 +583,7 @@ plot_iconarray <- function (
       # For A4 (fixed positions and clustered identities) only:
         # 2. Color sorting ------------------------------------------------------------
         # Create block information:
-        seq_block1 <- 1:blocks  # create sequence of block positions.
+        seq_block <- 1:n_blocks  # create sequence of block positions.
 
         # Determine, whether blocks are used colwise or rowwise:
         #fill_array <- "left"  # alternatively: "rowwise"
@@ -543,7 +591,7 @@ plot_iconarray <- function (
         # If blocks are to be filled in x direction:
         if (fill_array == "left"){
 
-          seq_blockx <- rep(seq_block1, each = block_size_col)
+          seq_blockx <- rep(seq_block, each = block_size_col)
           # create sequence repeted to the number of cols (can be changed to number of rows).
           mat_block <- matrix(seq_blockx, ncol = ncols, byrow = TRUE)
           # create a matrix from it.
@@ -555,7 +603,7 @@ plot_iconarray <- function (
         # If blocks are to be filled in y direction:
         if (fill_array == "top"){
 
-          seq_blocky <- rep(seq_block1, each = block_size_row)
+          seq_blocky <- rep(seq_block, each = block_size_row)
           # create sequence repeted to the number of cols (can be changed to number of rows).
           mat_block <- matrix(seq_blocky, nrow = nrows, byrow = FALSE)
           # create a matrix from it.
@@ -736,13 +784,26 @@ plot_iconarray <- function (
 # Testing ground:-----------------------------------------------------
 
 # Test plotting default population:
-  plot_iconarray(nrows = 10, ncols = 10, icon.types = c(21,23,24,23),
-                 block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
-                 blocks = 4, block.d = 0.5, border.d = 0.9)
+  # Standard iconarrays:
+  plot_iconarray(N = 400, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
 
-  plot_iconarray(nrows = 100, ncols = 100, icon.types = c(21,23,24,23),
-                 block_size_col = 10, block_size_row = 10, blocks = 100)
+  plot_iconarray(icon.types = c(21,23,24,23),
+                 block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
+                 block.d = 0.5, border.d = 0.9)
 
+  plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+
+  plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
+                 icon.types = c(21,23,24,23),
+                 block_size_col = 10, block_size_row = 5,
+                 ncol_blocks = 5, nrow_blocks = 5,
+                 block.d = 0.8,
+                 border.d = 0.2,
+                 fill_array = "top")
+
+  # TODO: Here it messes things up!
+
+  # Mosaic like and randomized arrays:
   plot_iconarray(icon.types = c(22,23,22,23), #cex = 3,
                  random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
 
@@ -753,19 +814,12 @@ plot_iconarray <- function (
   plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
                  random.position = TRUE, random.identities = TRUE)
 
-  plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
-                 nrows = 25, ncols = 40, icon.types = c(21,23,24,23),
-                 block_size_col = 10, block_size_row = 5,
-                 col_blocks = 4, row_blocks = 5,
-                 blocks = 20,
-                 block.d = 0.8,
-                 border.d = 0.2,
-                 fill_array = "top")
+
 
   plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
                  nrows = 20, ncols = 50, icon.types = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 10,
-                 col_blocks = 5, row_blocks = 2,
+                 ncol_blocks = 5, nrow_blocks = 2,
                  blocks = 10,
                  block.d = 0.8,
                  border.d = 0.2,
@@ -845,7 +899,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 10, block_size_row = 10,
                  blocks = 100,
-                 col_blocks = 10, row_blocks = 10,
+                 ncol_blocks = 10, nrow_blocks = 10,
                  nrows = 100, ncols = 100,
                  fill_array = "left",
                  fill_blocks = "colwise")
@@ -863,7 +917,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 100, block_size_row = 10,
                  blocks = 100,
-                 col_blocks = 10, row_blocks = 10,
+                 ncol_blocks = 10, nrow_blocks = 10,
                  nrows = 1000, ncols = 1000,
                  fill_array = "left",
                  fill_blocks = "colwise")
@@ -884,7 +938,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 5, block_size_row = 2,
                  blocks = 9,
-                 col_blocks = 3, row_blocks = 3,
+                 ncol_blocks = 3, nrow_blocks = 3,
                  nrows = 6, ncols = 15,
                  fill_array = "left",
                  fill_blocks = "colwise")
@@ -903,7 +957,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 5, block_size_row = 5,
                  blocks = 4,
-                 col_blocks = 2, row_blocks = 2,
+                 ncol_blocks = 2, nrow_blocks = 2,
                  nrows = 10, ncols = 10,
                  fill_array = "top",
                  fill_blocks = "rowwise")
@@ -923,7 +977,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 5, block_size_row = 5,
                  blocks = 4,
-                 col_blocks = 2, row_blocks = 2,
+                 ncol_blocks = 2, nrow_blocks = 2,
                  nrows = 10, ncols = 10,
                  fill_array = "left",
                  fill_blocks = "rowwise")
@@ -942,7 +996,7 @@ plot_iconarray <- function (
                  block_size_col = 5, block_size_row = 2,
                  blocks = 9,
                  pch.border = "black",
-                 col_blocks = 3, row_blocks = 3,
+                 ncol_blocks = 3, nrow_blocks = 3,
                  nrows = 6, ncols = 15,
                  fill_array = "top",
                  fill_blocks = "rowwise")
@@ -962,7 +1016,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 7, block_size_row = 5,
                  blocks = 2,
-                 col_blocks = 1, row_blocks = 2,
+                 ncol_blocks = 1, nrow_blocks = 2,
                  nrows = 10, ncols = 7,
                  fill_array = "top",
                  fill_blocks = "rowwise")
@@ -979,7 +1033,7 @@ plot_iconarray <- function (
                  block.d = 0.5,
                  block_size_col = 1, block_size_row = 1,
                  blocks = 1,
-                 col_blocks = 1, row_blocks = 1,
+                 ncol_blocks = 1, nrow_blocks = 1,
                  nrows = 3, ncols = 3,
                  # cex = 6,
                  fill_array = "top",
