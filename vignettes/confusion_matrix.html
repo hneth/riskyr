@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hansjörg Neth, SPDS, uni.kn" />
 
-<meta name="date" content="2018-02-06" />
+<meta name="date" content="2018-02-07" />
 
 <title>Confusion Matrix and Metrics</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Confusion Matrix and Metrics</h1>
 <h4 class="author"><em>Hansjörg Neth, SPDS, uni.kn</em></h4>
-<h4 class="date"><em>2018-02-06</em></h4>
+<h4 class="date"><em>2018-02-07</em></h4>
 
 
 
@@ -81,37 +81,50 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <th align="right"></th>
 <th align="center">Condition</th>
 <th align="center"></th>
-<th align="right"></th>
+<th align="center"></th>
+<th align="center"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="right"><strong>Decision</strong></td>
-<td align="center"><code>TRUE</code>:</td>
-<td align="center"><code>FALSE</code>:</td>
-<td align="right">Sum:</td>
+<td align="center">present (<code>TRUE</code>):</td>
+<td align="center">absent (<code>FALSE</code>):</td>
+<td align="center">Sum:</td>
+<td align="center">(b) by decision:</td>
 </tr>
 <tr class="even">
-<td align="right">positive:</td>
+<td align="right">positive (<code>TRUE</code>):</td>
 <td align="center"><code>hi</code></td>
 <td align="center"><code>fa</code></td>
-<td align="right"><code>dec.pos</code></td>
+<td align="center"><code>dec.pos</code></td>
+<td align="center"><code>PPV</code> = <code>hi</code>/<code>dec.pos</code></td>
 </tr>
 <tr class="odd">
-<td align="right">negative:</td>
+<td align="right">negative (<code>FALSE</code>):</td>
 <td align="center"><code>mi</code></td>
 <td align="center"><code>cr</code></td>
-<td align="right"><code>dec.neg</code></td>
+<td align="center"><code>dec.neg</code></td>
+<td align="center"><code>NPV</code> = <code>cr</code>/<code>dec.neg</code></td>
 </tr>
 <tr class="even">
 <td align="right">Sum:</td>
 <td align="center"><code>cond.true</code></td>
 <td align="center"><code>cond.false</code></td>
-<td align="right"><code>N</code></td>
+<td align="center"><code>N</code></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="right">(a) by condition</td>
+<td align="center"><code>sens</code> = <code>hi</code>/<code>cond.true</code></td>
+<td align="center"><code>spec</code> = <code>cr</code>/<code>cond.false</code></td>
+<td align="center"></td>
+<td align="center"></td>
 </tr>
 </tbody>
 </table>
-<p>Ordinary people, but also medical experts and social scientists, struggle to understand the implications of this simple matrix. This is not surprising when viewing explanatory attempts like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of its four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). Although each particular metric is quite simple, their abundance and inter-dependence can be overwhelming. In the following, we try to summarize the parts that a risk-literate person really needs to know.</p>
+<p>Ordinary people, but also medical experts and social scientists, inevitably struggle to understand the implications of this matrix. This is no surprise when considering explanatory attempts like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.</p>
+<p>In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.</p>
 <div id="basics" class="section level2">
 <h2>Basics</h2>
 <p>In its most basic form, the confusion matrix looks like this:</p>
@@ -126,35 +139,98 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <tbody>
 <tr class="odd">
 <td align="right"><strong>Decision</strong></td>
-<td align="center"><code>TRUE</code>:</td>
-<td align="center"><code>FALSE</code>:</td>
+<td align="center">present (<code>TRUE</code>):</td>
+<td align="center">absent (<code>FALSE</code>):</td>
 </tr>
 <tr class="even">
-<td align="right">positive:</td>
+<td align="right">positive (<code>TRUE</code>):</td>
 <td align="center"><code>hi</code></td>
 <td align="center"><code>fa</code></td>
 </tr>
 <tr class="odd">
-<td align="right">negative:</td>
+<td align="right">negative (<code>FALSE</code>):</td>
 <td align="center"><code>mi</code></td>
 <td align="center"><code>cr</code></td>
 </tr>
 </tbody>
 </table>
-<p>Two perspectives, resulting from splitting a population of <code>N</code> individuals by two binary criteria:</p>
+<div id="adopting-2-perspectives-on-a-population" class="section level3">
+<h3>Adopting 2 perspectives on a population</h3>
+<p>Essentially, the confusion table views a population of <code>N</code> individuals from two different perspectives. Adopting a perspective means that we distinguish between individuals on the basis of some criterion. The two criteria used here are:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>by condition</p></li>
-<li><p>by decision</p></li>
+<li>each individual’s <em>condition</em> (which can either be <code>TRUE</code> or <code>FALSE</code>), and<br />
+</li>
+<li>each individual’s <em>decision</em> (which can either be <code>positive</code> or <code>negative</code>).</li>
 </ol>
-<p>This results in <span class="math inline">\(2 \times 2 = 4\)</span> cases.</p>
-<p>Four cells are the essential core of all metrics.</p>
-<p>Identify 2 correct cases (<code>hi</code>, <code>cr</code>) and 2 errors (<code>mi</code>, <code>fa</code>).</p>
-<p>Sources of confusion:</p>
+<p>Numerically, the adoption of each of these two perspectives splits the population into two subgroups.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Applying two different splits of a population into two subgroups results in <span class="math inline">\(2 \times 2 = 4\)</span> cases, which form the core of the confusion matrix:</p>
+<ol style="list-style-type: decimal">
+<li><code>hi</code> represents <em>hits</em> (or true positives): condition present (<code>TRUE</code>) &amp; decision positive (<code>TRUE</code>).</li>
+<li><code>mi</code> represents <em>misses</em> (or false negatives): condition present (<code>TRUE</code>) &amp; decision negative (<code>FALSE</code>).</li>
+<li><code>fa</code> represents <em>false alarms</em> (or false positives): condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>).</li>
+<li><code>cr</code> represents <em>correct rejections</em> (or true negatives): condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</li>
+</ol>
+<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
+<ol style="list-style-type: lower-alpha">
+<li>by condition (corresponding to the two columns of the confusion matrix):</li>
+</ol>
+<p><span class="math display">\[ 
+\begin{aligned}
+\texttt{N} \ &amp;= \ \texttt{cond.true} &amp; +\ \ \ \ \ &amp;\texttt{cond.false}   &amp; \textrm{(a)}      \\
+           \ &amp;= \ (\texttt{hi} + \texttt{mi}) &amp; +\ \ \ \ \ &amp;(\texttt{fa} + \texttt{cr}) \\
+\end{aligned}
+\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>by decision (corresponding to the two rows of the confusion matrix):</li>
+</ol>
+<p><span class="math display">\[ 
+\begin{aligned}
+\texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \textrm{(b)}      \\
+           \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr}) \\
+\end{aligned}
+\]</span></p>
+</div>
+<div id="adopting-a-3rd-perspective-accuracy" class="section level3">
+<h3>Adopting a 3rd perspective: Accuracy</h3>
+<p>A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, the question requires considering the correspondence between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
 <ul>
-<li><code>mi</code> are in the <code>cond.true</code> column (left), but “false negatives”.</li>
-<li><code>cr</code> are in the <code>cond.false</code> column (right), but “true negatives”.</li>
+<li><p>A decision is <em>correct</em>, when it corresponds to the condition. This is the case for two cells in the matrix:</p>
+<ul>
+<li><code>hi</code>: condition present (<code>TRUE</code>) &amp; decision positive (<code>TRUE</code>).</li>
+<li><code>cr</code>: condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</li>
+</ul></li>
+<li><p>A decision is <em>incorrect</em> or <em>erroneous</em>, when it does not correspond to the condition. This also is the case for two cells in the matrix:</p>
+<ul>
+<li><code>mi</code>: condition present (<code>TRUE</code>) &amp; decision negative (<code>FALSE</code>).</li>
+<li><code>fa</code>: condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>).</li>
+</ul></li>
 </ul>
-<p>Thus, the terms “false” and “true” in cell names refer to the relationship between or correspondence of condition and decision, rather than the condition alone.</p>
+<p>+++ here now +++</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>by the correspondence of decisions to conditions (corresponding to the two diagonals of the confusion matrix):</li>
+</ol>
+<p><span class="math display">\[ 
+\begin{aligned}
+\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \textrm{(c)}      \\
+           \ &amp;= \ (\texttt{hi} + \texttt{cr}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{fa}) \\
+\end{aligned}
+\]</span></p>
+</div>
+<div id="beware-some-sources-of-confusion" class="section level3">
+<h3>Beware some sources of confusion</h3>
+<p>It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided later:</p>
+<ol style="list-style-type: decimal">
+<li><p>Beware of alternative names of <code>mi</code> and <code>cr</code>:</p>
+<ul>
+<li>Misses <code>mi</code> are often called “false negatives”, but actually are in the <code>cond.true</code> column (on the left).</li>
+<li>Correct rejections <code>cr</code>are often called “true negatives”, but are in the <code>cond.false</code> column (on the right).</li>
+</ul></li>
+</ol>
+<p>Thus, the terms “false” and “true” in the compound cell names refer to the relationship between or correspondence of condition and decision, rather than to the condition alone. To avoid this source of confusion, we prefer the terms <code>mi</code> and <code>cr</code>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Beware of <code>dec.cor</code> and <code>dec.err</code>:<br />
+It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond.true</code> cases (<code>mi</code>). Again, we prefer the less confusing terms “correct decisions” vs. “erroneous decisions”.</li>
+</ol>
+</div>
 </div>
 <div id="relationships" class="section level2">
 <h2>Relationships</h2>
@@ -189,7 +265,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="metrics" class="section level2">
 <h2>Metrics</h2>
-<p>Accuracy as a dependent measure: some combination of correct and incorrect decisions.</p>
+<p>Metrics as dependent measures that result from splitting into subgroups. Different ways of describing this result.</p>
+<p>Accuracy as a dependent measure: some combination that describes the relationship between correct and incorrect decisions.</p>
+<p>Different measures emphasize different aspects or have different purposes.</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>The 2 diagonals of the confusion table:</li>
 </ol>
@@ -272,7 +350,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="more-examples" class="section level2">
 <h2>More Examples</h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
+<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
 <table>
 <thead>
 <tr class="header">
@@ -442,7 +520,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>A footnote here.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>To split a group into subgroups, some criterion for classifying the individuals of the group has to be used. If a criterion is binary (i.e., assigns only two different values), its application yields two subgroups. In the present case, both an individual’s <em>condition</em> and the corresponding <em>decision</em> are binary criteria.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>A footnote here.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
 

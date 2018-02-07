@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hansjörg Neth, SPDS, uni.kn" />
 
-<meta name="date" content="2018-02-06" />
+<meta name="date" content="2018-02-07" />
 
 <title>riskyr Data Formats</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><code>riskyr</code> Data Formats</h1>
 <h4 class="author"><em>Hansjörg Neth, SPDS, uni.kn</em></h4>
-<h4 class="date"><em>2018-02-06</em></h4>
+<h4 class="date"><em>2018-02-07</em></h4>
 
 
 
@@ -145,22 +145,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <tr class="even">
 <td align="right">8.</td>
 <td align="left"><code>hi</code></td>
-<td align="left">The number of hits (true positives: condition <code>TRUE</code> &amp; decision <code>TRUE</code>).</td>
+<td align="left">The number of hits or true positives: condition present (<code>TRUE</code>) &amp; decision positive (<code>TRUE</code>).</td>
 </tr>
 <tr class="odd">
 <td align="right">9.</td>
 <td align="left"><code>mi</code></td>
-<td align="left">The number of misses (false negatives: condition <code>TRUE</code> &amp; decision <code>FALSE</code>).</td>
+<td align="left">The number of misses or false negatives: condition present (<code>TRUE</code>) &amp; decision negative (<code>FALSE</code>).</td>
 </tr>
 <tr class="even">
 <td align="right">10.</td>
 <td align="left"><code>fa</code></td>
-<td align="left">The number of false alarms (false positives: condition <code>FALSE</code> &amp; decision <code>TRUE</code>).</td>
+<td align="left">The number of false alarms or false positives: condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>).</td>
 </tr>
 <tr class="odd">
 <td align="right">11.</td>
 <td align="left"><code>cr</code></td>
-<td align="left">The number of correct rejections (true negatives: condition <code>FALSE</code> &amp; decision <code>FALSE</code>).</td>
+<td align="left">The number of correct rejections or true negatives: condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</td>
 </tr>
 </tbody>
 </table>
@@ -170,7 +170,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The frequencies contained in <code>freq</code> can be viewed from two perspectives:</p>
 <ul>
 <li><p>From the entire population to different parts or subsets (<em>top-down</em>):<br> Whereas <code>N</code> specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency <code>dec.pos</code> denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to <code>N</code>.</p></li>
-<li><p>From four essential subsets to various combinations of them (<em>bottom-up</em>):<br> As the four frequencies <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> are not further split into subgroups, we can think of them as atomic elements or <em>essential</em> frequencies. All other frequencies in <code>freq</code> are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.</p></li>
+<li><p>From four essential subgroups to various combinations of them (<em>bottom-up</em>):<br> As the four frequencies <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> are not further split into subgroups, we can think of them as atomic elements or four <em>essential</em> frequencies. All other frequencies in <code>freq</code> are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.</p></li>
 </ul>
 </div>
 <div id="relationships-among-frequencies" class="section level3">
@@ -208,8 +208,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{cond.true}  &amp;= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &amp;= \texttt{fa} + \texttt{cr} \\
+\texttt{N} \ &amp;= \ \texttt{cond.true} &amp; +\ \ \ \ \ &amp;\texttt{cond.false}   &amp; \textrm{(a)} \\
+           \ &amp;= \ (\texttt{hi} + \texttt{mi}) &amp; +\ \ \ \ \ &amp;(\texttt{fa} + \texttt{cr}) \\
 \end{aligned}
 \]</span></p>
 <ol start="2" style="list-style-type: lower-alpha">
@@ -217,8 +217,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{dec.pos}  &amp;= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &amp;= \texttt{mi} + \texttt{cr} \\
+\texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \textrm{(b)}      \\
+           \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr}) \\
 \end{aligned}
 \]</span></p>
 <ol start="3" style="list-style-type: lower-alpha">
@@ -226,11 +226,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{dec.cor}      &amp;= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &amp;= \texttt{mi} + \texttt{fa} \\
+\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \textrm{(c)}      \\
+           \ &amp;= \ (\texttt{hi} + \texttt{cr}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 \]</span></p>
-<p>Note that it may be tempting to call instances of <code>dec.corr</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond.true</code> cases (<code>mi</code>).</p>
+<p>It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond.true</code> cases (<code>mi</code>).</p>
 </div>
 </div>
 <div id="probabilities" class="section level2">

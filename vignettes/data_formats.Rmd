@@ -50,10 +50,10 @@ The following 11 frequencies are distinguished by `riskyr` and contained in `fre
 |  5.  | `dec.neg`    | The number of cases for which the decision is negative (`FALSE`). |
 |  6.  | `dec.cor`    | The number of cases for which the decision is correct (correspondence of decision to condition). |
 |  7.  | `dec.err`    | The number of cases for which the decision is erroneous (difference between decision and condition). |
-|  8.  | `hi` | The number of hits (true positives: condition `TRUE` & decision `TRUE`). |
-|  9.  | `mi` | The number of misses (false negatives: condition `TRUE` & decision `FALSE`). |
-|  10. | `fa` | The number of false alarms (false positives: condition `FALSE` & decision `TRUE`). |
-|  11. | `cr` | The number of correct rejections (true negatives: condition `FALSE` & decision `FALSE`). |
+|  8.  | `hi` | The number of hits or true positives: condition present (`TRUE`) & decision positive (`TRUE`). |
+|  9.  | `mi` | The number of misses or false negatives: condition present (`TRUE`) & decision negative (`FALSE`). |
+|  10. | `fa` | The number of false alarms or false positives: condition absent (`FALSE`) & decision positive (`TRUE`). |
+|  11. | `cr` | The number of correct rejections or true negatives: condition absent (`FALSE`) & decision negative (`FALSE`). |
 
 
 ### Perspectives: Basic vs. combined frequencies
@@ -63,8 +63,8 @@ The frequencies contained in `freq` can be viewed from two perspectives:
 - From the entire population to different parts or subsets (_top-down_):<br>
 Whereas `N` specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency `dec.pos` denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to `N`.
 
-- From four essential subsets to various combinations of them (_bottom-up_):<br>
-As the four frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or _essential_ frequencies. All other frequencies in `freq` are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.
+- From four essential subgroups to various combinations of them (_bottom-up_):<br>
+As the four frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or four _essential_ frequencies. All other frequencies in `freq` are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.
 
 ### Relationships among frequencies
 
@@ -94,18 +94,18 @@ Similarly, each of the subsets resulting from using the splits by condition, by 
 
 $$ 
 \begin{aligned}
-\texttt{cond.true}  &= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &= \texttt{fa} + \texttt{cr} \\
+\texttt{N} \ &= \ \texttt{cond.true} & +\ \ \ \ \ &\texttt{cond.false}   & \textrm{(a)} \\
+           \ &= \ (\texttt{hi} + \texttt{mi}) & +\ \ \ \ \ &(\texttt{fa} + \texttt{cr}) \\
 \end{aligned}
-$$ 
+$$
 
 
 (b) by decision (corresponding to the two rows of the [confusion matrix](confusion_matrix.html)): 
 
 $$ 
 \begin{aligned}
-\texttt{dec.pos}  &= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &= \texttt{mi} + \texttt{cr} \\
+\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \textrm{(b)}      \\
+           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr}) \\
 \end{aligned}
 $$ 
 
@@ -114,12 +114,12 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{dec.cor}      &= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &= \texttt{mi} + \texttt{fa} \\
+\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \textrm{(c)}      \\
+           \ &= \ (\texttt{hi} + \texttt{cr}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
-$$ 
+$$
 
-Note that it may be tempting to call instances of `dec.corr` and `dec.err` as "true decisions" and "false decisions". 
+It may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". 
 However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`).
 
 
