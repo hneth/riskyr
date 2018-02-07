@@ -201,6 +201,11 @@ _Frontiers in Psychology_, _6_, 1473.
 Communicating statistical information. 
 _Science_, _290_, 2261--2262.
 
+- Phillips, N. D., Neth, H., Woike, J. K., & Gaissmaier, W. (2017). 
+FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. 
+_Judgment and Decision Making_, _12_, 344--368. 
+[ [pdf](http://journal.sjdm.org/17/17217/jdm17217.pdf) | [html](http://journal.sjdm.org/17/17217/jdm17217.html) | [R package](https://CRAN.R-project.org/package=FFTrees) ]
+
 - Kurzenhäuser, S., & Hoffrage, U. (2002). 
 Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. 
 _Medical Teacher_, _24_, 516--521.

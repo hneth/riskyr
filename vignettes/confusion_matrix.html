@@ -158,9 +158,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>Adopting 2 perspectives on a population</h3>
 <p>Essentially, the confusion table views a population of <code>N</code> individuals from two different perspectives. Adopting a perspective means that we distinguish between individuals on the basis of some criterion. The two criteria used here are:</p>
 <ol style="list-style-type: lower-alpha">
-<li>each individual’s <em>condition</em> (which can either be <code>TRUE</code> or <code>FALSE</code>), and<br />
+<li>each individual’s <em>condition</em>, which can either be present (<code>TRUE</code>) or absent (<code>FALSE</code>), and<br />
 </li>
-<li>each individual’s <em>decision</em> (which can either be <code>positive</code> or <code>negative</code>).</li>
+<li>each individual’s <em>decision</em>, which can either be <code>positive</code> (<code>TRUE</code>) or <code>negative</code> (<code>FALSE</code>).</li>
 </ol>
 <p>Numerically, the adoption of each of these two perspectives splits the population into two subgroups.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> Applying two different splits of a population into two subgroups results in <span class="math inline">\(2 \times 2 = 4\)</span> cases, which form the core of the confusion matrix:</p>
 <ol style="list-style-type: decimal">
@@ -184,118 +184,80 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \textrm{(b)}      \\
+\texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \ \ \ \ \textrm{(b)}      \\
            \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr}) \\
 \end{aligned}
 \]</span></p>
 </div>
-<div id="adopting-a-3rd-perspective-accuracy" class="section level3">
-<h3>Adopting a 3rd perspective: Accuracy</h3>
-<p>A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, the question requires considering the correspondence between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
+<div id="accuracy-as-a-3rd-perspective" class="section level3">
+<h3>Accuracy as a 3rd perspective</h3>
+<p>A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, the question requires considering the <em>correspondence</em> between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
 <ul>
-<li><p>A decision is <em>correct</em>, when it corresponds to the condition. This is the case for two cells in the matrix:</p>
+<li><p>A decision is <em>correct</em>, when it corresponds to the condition. This is the case for two cells in (or the “&quot; diagonal of) the confusion matrix:</p>
 <ul>
-<li><code>hi</code>: condition present (<code>TRUE</code>) &amp; decision positive (<code>TRUE</code>).</li>
-<li><code>cr</code>: condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</li>
+<li><code>hi</code>: condition present (<code>TRUE</code>) &amp; decision positive (<code>TRUE</code>)</li>
+<li><code>cr</code>: condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>)</li>
 </ul></li>
-<li><p>A decision is <em>incorrect</em> or <em>erroneous</em>, when it does not correspond to the condition. This also is the case for two cells in the matrix:</p>
+<li><p>A decision is <em>incorrect</em> or <em>erroneous</em>, when it does not correspond to the condition. This also is the case for two cells in (or the “/” diagonal of) the confusion matrix:</p>
 <ul>
-<li><code>mi</code>: condition present (<code>TRUE</code>) &amp; decision negative (<code>FALSE</code>).</li>
-<li><code>fa</code>: condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>).</li>
+<li><code>mi</code>: condition present (<code>TRUE</code>) &amp; decision negative (<code>FALSE</code>)</li>
+<li><code>fa</code>: condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>)</li>
 </ul></li>
 </ul>
-<p>+++ here now +++</p>
+<p>Splitting all <code>N</code> individuals into two subgroups of those with correct vs. those with erroneous decisions yields a third perspective on the population:</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>by the correspondence of decisions to conditions (corresponding to the two diagonals of the confusion matrix):</li>
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \textrm{(c)}      \\
+\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \ \ \textrm{(c)}      \\
            \ &amp;= \ (\texttt{hi} + \texttt{cr}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 \]</span></p>
 </div>
-<div id="beware-some-sources-of-confusion" class="section level3">
-<h3>Beware some sources of confusion</h3>
-<p>It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided later:</p>
+<div id="avoiding-common-sources-of-confusion" class="section level3">
+<h3>Avoiding common sources of confusion</h3>
+<p>It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided:</p>
 <ol style="list-style-type: decimal">
-<li><p>Beware of alternative names of <code>mi</code> and <code>cr</code>:</p>
+<li><p>Beware of alternative terms for <code>mi</code> and <code>cr</code>:</p>
 <ul>
-<li>Misses <code>mi</code> are often called “false negatives”, but actually are in the <code>cond.true</code> column (on the left).</li>
-<li>Correct rejections <code>cr</code>are often called “true negatives”, but are in the <code>cond.false</code> column (on the right).</li>
+<li><p>Misses <code>mi</code> are often called “false negatives”, but are nevertheless cases for which the condition is <code>TRUE</code> (i.e., in the <code>cond.true</code> column of the confusion table).</p></li>
+<li><p>Correct rejections <code>cr</code>are often called “true negatives”, are nevertheless cases for which the condition is <code>FALSE</code> (i.e., in the <code>cond.false</code> column of the confusion table).</p></li>
 </ul></li>
 </ol>
-<p>Thus, the terms “false” and “true” in the compound cell names refer to the relationship between or correspondence of condition and decision, rather than to the condition alone. To avoid this source of confusion, we prefer the terms <code>mi</code> and <code>cr</code>.</p>
+<p>Thus, the terms “true” and “false” are ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing <code>mi</code> as “false negatives” and <code>cr</code> as “true negatives”) the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms <code>mi</code> and <code>cr</code>, rather than “false negatives” and “true negatives”.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Beware of <code>dec.cor</code> and <code>dec.err</code>:<br />
-It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond.true</code> cases (<code>mi</code>). Again, we prefer the less confusing terms “correct decisions” vs. “erroneous decisions”.</li>
+<li>Beware of alternative terms for <code>dec.cor</code> and <code>dec.err</code>:<br />
+Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would also invite conceptual confusion, as “true decisions” would include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” would include <code>cond.true</code> cases (<code>mi</code>). Again, we prefer the less ambiguous terms “correct decisions” vs. “erroneous decisions”.</li>
 </ol>
 </div>
 </div>
-<div id="relationships" class="section level2">
-<h2>Relationships</h2>
-<p>Overall, the following relationships hold among the frequencies:</p>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{N} &amp;= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-           &amp;= \texttt{cond.true} + \texttt{cond.false} \\
-           &amp;= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &amp;= \texttt{dec.cor} + \texttt{dec.err}      \\
-\end{aligned}
-\]</span></p>
-<p>Different perspectives:</p>
-<ol style="list-style-type: lower-alpha">
-<li>The 2 columns of the confusion table:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{cond.true}  &amp;= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &amp;= \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-\]</span></p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>The 2 rows of the confusion table:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{dec.pos}  &amp;= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &amp;= \texttt{mi} + \texttt{cr} \\
-\end{aligned}
-\]</span></p>
-</div>
-<div id="metrics" class="section level2">
-<h2>Metrics</h2>
-<p>Metrics as dependent measures that result from splitting into subgroups. Different ways of describing this result.</p>
-<p>Accuracy as a dependent measure: some combination that describes the relationship between correct and incorrect decisions.</p>
-<p>Different measures emphasize different aspects or have different purposes.</p>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>The 2 diagonals of the confusion table:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{dec.cor}      &amp;= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &amp;= \texttt{mi} + \texttt{fa} \\
-\end{aligned}
-\]</span></p>
-<p>Note that it may be tempting to call instances of <code>dec.corr</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond.true</code> cases (<code>mi</code>).</p>
+<div id="accuracy-metrics" class="section level2">
+<h2>Accuracy Metrics</h2>
+<p>The perspective of accuracy raises an important question: How good is a given decision (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal — measuring decision performance by capturing the correspondence of decisions to conditions in a single quantity.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or have different purposes.</p>
+<p><code>riskyr</code> currently uses three such metrics (which are contained in <code>accu</code>):</p>
 <div id="accuracy-acc" class="section level3">
-<h3>Accuracy <code>acc</code></h3>
+<h3>1. Accuracy <code>acc</code></h3>
+<p>Accuracy divides the number of correct decisions (i.e., all <code>dec.cor</code> cases or the “&quot; diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
 <blockquote>
-<p>Accuracy := Proportion or percentage of cases correctly classified.</p>
+<p>Accuracy <code>acc</code> := Proportion or percentage of cases correctly classified.</p>
 </blockquote>
+<p>Mathematically, the accuracy <code>acc</code> can be computed as:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{acc} &amp;= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
              = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
 \end{aligned}
 \]</span></p>
+<p>+++ here now +++</p>
 </div>
 <div id="weighted-accuracy-wacc" class="section level3">
-<h3>Weighted accuracy <code>wacc</code></h3>
+<h3>2. Weighted accuracy <code>wacc</code></h3>
 <p>Weighted accuracy: Taking into account the importance of errors.</p>
 </div>
 <div id="matthew-correlation-coefficient-mcc" class="section level3">
-<h3>Matthew correlation coefficient <code>mcc</code></h3>
+<h3>3. Matthew correlation coefficient <code>mcc</code></h3>
 <ol start="3" style="list-style-type: decimal">
 <li>Matthew correlation coefficient (mcc)</li>
 </ol>
@@ -303,6 +265,9 @@ It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.e
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
+<ul>
+<li>Phillips, N. D., Neth, H., Woike, J. K., &amp; Gaissmaier, W. (2017). FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. <em>Judgment and Decision Making</em>, <em>12</em>, 344–368. [ <a href="http://journal.sjdm.org/17/17217/jdm17217.pdf">pdf</a> | <a href="http://journal.sjdm.org/17/17217/jdm17217.html">html</a> | <a href="https://CRAN.R-project.org/package=FFTrees">R package</a> ]</li>
+</ul>
 <p>Links to Wikipedia articles:</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion matrix</a> (URL: <a href="https://en.wikipedia.org/wiki/Confusion_matrix" class="uri">https://en.wikipedia.org/wiki/Confusion_matrix</a>)</li>
@@ -350,7 +315,7 @@ It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.e
 </div>
 <div id="more-examples" class="section level2">
 <h2>More Examples</h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
+<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
 <table>
 <thead>
 <tr class="header">
@@ -521,7 +486,8 @@ It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.e
 <hr />
 <ol>
 <li id="fn1"><p>To split a group into subgroups, some criterion for classifying the individuals of the group has to be used. If a criterion is binary (i.e., assigns only two different values), its application yields two subgroups. In the present case, both an individual’s <em>condition</em> and the corresponding <em>decision</em> are binary criteria.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>A footnote here.<a href="#fnref2">↩</a></p></li>
+<li id="fn2"><p>It is convenient to think of accuracy metrics as <em>outcomes</em> of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>A footnote here.<a href="#fnref3">↩</a></p></li>
 </ol>
 </div>
 
