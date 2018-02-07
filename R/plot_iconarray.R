@@ -678,7 +678,8 @@ plot_iconarray <- function (
     # 3) Plot:
     plot(x = 1,
          xlim = xlim, ylim = ylim,
-         type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n"
+         type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         bty = "o", fg = "grey"
          )
 
     # 3a) set plotting character:
@@ -691,7 +692,7 @@ plot_iconarray <- function (
 
     points(x = posx_vec, y = posy_vec, # positions.
            # visual details:
-           pch = pch.vec, col = pch.border, bg = col.vec, cex = cex, bty = "o")
+           pch = pch.vec, col = pch.border, bg = col.vec, cex = cex)
 
   # Additional information --------------------------------------
     # Define labels:
@@ -707,10 +708,10 @@ plot_iconarray <- function (
     title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
     legend(x = xlim[2] / 2, y = ylim[1] - 0.1, legend = ident.order,
-           horiz = TRUE,
-           pt.bg = icon.colors, pch = icon.types, cex = 2,
+           horiz = TRUE, bty = "n",
+           pt.bg = icon.colors, pch = icon.types, cex = 1.5,
            xjust = 0.5, xpd = TRUE)
-    # TODO: characters are still wrong!
+    # TODO: fixed order of legend?
 
 #---------------------------------------------
 }  # end of function.
