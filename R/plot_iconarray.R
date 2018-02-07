@@ -85,8 +85,6 @@ get_pop_vec <- function (N = 10000, # define population size.
     # (if nothing is specified use this as a default).
   # - remove parameters unnecessary for arrangement (which are needed?).
   # - How should the default array look like?
-  # - Make plotting icons customizable
-  # - enlarge plotting area (add some boundary around the maximum values!)
 
   # - Each of the plot types may be a potential function.  Then it is more modular!
 
@@ -614,8 +612,8 @@ plot_iconarray <- function (
       if (is.null(cex)) {
         # TODO: How to covary cex with device size & point number?
 
-        cex1 <- ((par("pin")[1] * 10) + 4) / ncols
-        cex2 <- ((par("pin")[2] * 10) + 4) / nrows
+        cex1 <- ((par("pin")[1] * 10) + 3) / ncols
+        cex2 <- ((par("pin")[2] * 10) + 3) / nrows
         cex <- min(c(cex1, cex2))
 
         # still not optimal...
