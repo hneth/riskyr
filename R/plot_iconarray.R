@@ -131,7 +131,8 @@ plot_iconarray <- function (
       # A0.3.1: Calculation from probabilities ----------------------------------------------
 
         ## (A) If a valid set of probabilities was provided:
-        if (riskyr:::is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
+        if (riskyr:::is_valid_prob_set(prev = prev, sens = sens, mirt = mirt,
+                                       spec = spec, fart = fart, tol = .01)) {
 
           ## (a) Compute the complete quintet of probabilities:
           prob_quintet <- riskyr:::comp_complete_prob_set(prev, sens, mirt, spec, fart)
@@ -230,8 +231,6 @@ plot_iconarray <- function (
   #
   #   }
 
-  # TODO: I need to ensure that: ----------------------------------------------
-  # col.vec (must be given as vector of length N at this point!)
 
   # N (for A1 and A2)
 
@@ -471,12 +470,14 @@ plot_iconarray <- function (
       # calculate icons per block:
       icons_per_block <- block_size_col * block_size_row
 
-      # calculate number of blocks required:
-      n_blocks <- ceiling(N / icons_per_block)
+
 
       # If no number of blocks or cols is given:
 
         if (is.null(ncol_blocks) & is.null(nrow_blocks)) {
+
+          # calculate number of blocks required:
+          n_blocks <- ceiling(N / icons_per_block)
 
           blocking_dim <- factors_min_diff(n_blocks)  # get the dimensions.
 
@@ -494,6 +495,7 @@ plot_iconarray <- function (
           }
         } else {  # if one of both is given:
 
+
           if (is.null(ncol_blocks)) {  # if ncol_blocks is not given:
 
             ncol_blocks <- n_blocks / nrow_blocks  # calculate number of blocks per row.
@@ -507,6 +509,9 @@ plot_iconarray <- function (
             # TODO: Change naming scheme!
 
           }
+
+          # calculate number of blocks required:
+          n_blocks <- ncol_blocks * nrow_blocks
 
         }
 
@@ -785,7 +790,7 @@ plot_iconarray <- function (
 
 # Test plotting default population:
   # Standard iconarrays:
-  plot_iconarray(N = 400, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+  plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
 
   plot_iconarray(icon.types = c(21,23,24,23),
                  block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
