@@ -92,6 +92,7 @@ get_pop_vec <- function (N = 10000, # define population size.
   num <- riskyr:::num
   freq <- riskyr:::freq
   pal <- riskyr:::pal
+  txt <- riskyr:::txt
 
 
 plot_iconarray <- function (
@@ -149,7 +150,40 @@ plot_iconarray <- function (
 
     # TODO: Either check for missing N or use other comparison.
 
-    # Check, whether the color vector is not of size N:
+    ## A0.3: Different routes to col.vec and pch.vec ----------------------------------------
+
+      # A0.3.1: Calculation from probabilities ----------------------------------------------
+
+        ## (A) If a valid set of probabilities was provided:
+        if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
+
+          ## (a) Compute the complete quintet of probabilities:
+          prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+          sens <- prob_quintet[2] # gets sens (if not provided)
+          mirt <- prob_quintet[3] # gets mirt (if not provided)
+          spec <- prob_quintet[4] # gets spec (if not provided)
+          fart <- prob_quintet[5] # gets fart (if not provided)
+
+          ## (b) Compute cur.freq and popu based on current parameters (N and probabilities):
+          cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
+          # compute cur.freq (with round = TRUE).
+
+        } else {
+
+      # A0.3.2: Using existing frequencies --------------------------------------------------
+          cur.freq <- freq
+        }
+
+        # DO SOME CHECKS HERE!?
+
+        ## (c) Compute col.vec from computed frequencies:
+        col.vec <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)
+
+        ## (d) Compute pch.vec from computed frequencies:
+        pch.vec <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)
+
+
+  # Check, whether the color vector is not of size N:
     if (length(col.vec) != N) {
       if (length(col.vec) > 1) {  # only if more than one color.
 
@@ -172,6 +206,7 @@ plot_iconarray <- function (
 
       }
     }
+
   # repeat for character vector:
   if (length(pch.vec) != N) {
       if (length(pch.vec) > 1) {
@@ -191,7 +226,7 @@ plot_iconarray <- function (
             pch.vec <- rep(pch.vec, times = table(col.vec))
 
           } else {
-            warning("pch.vec has not one element for each color-identity.
+            warning("pch.vec does not contain one element for each color-identity.
                     Only the first element is used.")
             pch.vec <- pch.vec[1]
           }
