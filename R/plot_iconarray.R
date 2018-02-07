@@ -17,6 +17,13 @@
 #' \code{\link{spec}} or its complement \code{\link{fart}})
 #' or existing frequency information \code{\link{freq}}
 #' and a population size of \code{\link{N}} individuals.
+#'
+#' If probabilities are provided, a new list of
+#' natural frequencies \code{\link{freq}} is computed by \code{\link{comp_freq}}.
+#' By contrast, if no probabilities are provided,
+#' the values currently contained in \code{\link{freq}} are used.
+#' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
+#' to avoid decimal values in \code{\link{freq}}.
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
