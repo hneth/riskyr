@@ -101,6 +101,9 @@ plot_iconarray <- function (
                             fill_array = "left",
                             fill_blocks = "rowwise",
 
+                            # labelling:
+                            title.lbl = txt$scen.lbl,
+
                             # (currently) fixed parameters:
                             xlim = c(0, 1),
                             ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
@@ -165,7 +168,7 @@ plot_iconarray <- function (
         ## (e) Specify N:
         N <- cur.freq$N
 
-  # # Check, whether the color vector is not of size N:
+  # # Check, whether the color vector is not of size N:--------------------------------
   #   if (length(col.vec) != N) {
   #     if (length(col.vec) > 1) {  # only if more than one color.
   #
@@ -219,7 +222,7 @@ plot_iconarray <- function (
   #
   #   }
 
-  # TODO: I need to ensure that:
+  # TODO: I need to ensure that: ----------------------------------------------
   # col.vec (must be given as vector of length N at this point!)
 
   # N (for A1 and A2)
@@ -444,9 +447,14 @@ plot_iconarray <- function (
 
       col_blocks
       row_blocks
+
       block_size_col
       block_size_row
-      block
+
+      blocks
+
+      # Given a default of 10x10 blocks:
+      N / (block_size_col * block_size_row)
 
 
       # 1. Define positions:-----------------------------------------------
@@ -670,8 +678,7 @@ plot_iconarray <- function (
     # 3) Plot:
     plot(x = 1,
          xlim = xlim, ylim = ylim,
-         type = "n", xlab = "", ylab = ""
-         #, xaxt = "n", yaxt = "n"
+         type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n"
          )
 
     # 3a) set plotting character:
@@ -686,10 +693,23 @@ plot_iconarray <- function (
            # visual details:
            pch = pch.vec, col = pch.border, bg = col.vec, cex = cex, bty = "o")
 
-    # optional for testing: add ablines.
-    # abline(v = c(0, 1), h = c(0, 1))
+  # Additional information --------------------------------------
+    # Define labels:
+    if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+    cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
+    cur.par.lbl <-  paste0("Conditions: ",
+                           "prev = ", riskyr:::as_pc(prev), "%, ",
+                           "sens = ", riskyr:::as_pc(sens), "%, ",
+                           "spec = ", riskyr:::as_pc(spec), "%")
 
-    # TODO: allow for a vector of plotting characters as well!
+
+    # Plot additional information:
+    title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
+
+    legend(x = xlim[2] / 2, y = ylim[1] - 0.1, legend = ident.order,
+           horiz = TRUE,
+           pt.bg = unique(col.vec), pch = unique(pch.vec), cex = 2,
+           xjust = 0.5, xpd = TRUE)
 
 #---------------------------------------------
 }  # end of function.
