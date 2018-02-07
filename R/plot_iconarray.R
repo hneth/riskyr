@@ -112,6 +112,7 @@ plot_iconarray <- function (
                             transparency = 2/3,
                             # one can also enter a full vector of length N.
                             block.d = 0.01,  # distance between blocks (where applicable).
+                            border.d = 0.1,  # distance of icons to border.
 
                             type.sort = NULL,  # needs to be given if random position but nonrandom ident.
 
@@ -223,7 +224,7 @@ plot_iconarray <- function (
   # At this point I need:
     # a color vector of the population,
     # an icon vector of the population, and
-    # information on how to arrange the two.
+    # information on how to arrange the two (blocking.params).
 
   ## A1 Random position, random colors:---------------------------------------
   if (random.position & random.identities) {
@@ -415,7 +416,7 @@ plot_iconarray <- function (
   }
 
 
-    # A3 and A4: Fixed positions:  --------------------------------------
+  ## A3 and A4: Fixed positions:  --------------------------------------
     if (!random.position) {
 
       # 1. Define positions:-----------------------------------------------
@@ -437,12 +438,14 @@ plot_iconarray <- function (
       # find maximum for the positions given the units icons are moved:
       # find a monotonically increasing sequence, resulting in exactly the endpoint of xlim/ylim.
       # For x:
-      max_posx <- ((ncols - 1) * xlim[2]) - (block.d * (col_blocks - 1))
-      adj_posx <- seq(0, max_posx, length.out = ncols)
+      max_posx <- ((ncols - 1) * xlim[2]) - (block.d * (col_blocks - 1)) - border.d
+      min_posx <- xlim[1] + border.d
+      adj_posx <- seq(min_posx, max_posx, length.out = ncols)
 
       # For y:
-      max_posy <- ((nrows - 1) * ylim[2]) - (block.d * (row_blocks - 1))
-      adj_posy <- seq(max_posy, 0, length.out = nrows)
+      max_posy <- ((nrows - 1) * ylim[2]) - (block.d * (row_blocks - 1)) - border.d
+      min_posy <- ylim[1] + border.d
+      adj_posy <- seq(max_posy, min_posy, length.out = nrows)
 
       # create position matrices:
       pos_mx <- matrix(adj_posx, nrow = nrows, ncol = ncols, byrow = TRUE)
@@ -635,8 +638,11 @@ plot_iconarray <- function (
     }
 
     # 3) Plot:
-    plot(x = 1, xlim = xlim, ylim = ylim, type = "n", xlab = "",
-       ylab = "")
+    plot(x = 1,
+         xlim = xlim, ylim = ylim,
+         type = "n", xlab = "", ylab = ""
+         #, xaxt = "n", yaxt = "n"
+         )
 
     # 3a) set plotting character:
     # pch <- 22  # filled square as default.
@@ -664,7 +670,7 @@ plot_iconarray <- function (
 # Test plotting default population:
   plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(21,23,24,23),
                  block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
-                 blocks = 4, block.d = 0.5)
+                 blocks = 4, block.d = 0.5, border.d = 0.2)
 
   plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 10, blocks = 100)
