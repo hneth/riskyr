@@ -93,6 +93,8 @@ If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code
 
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 
+\item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
@@ -100,9 +102,9 @@ If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code
 }
 \examples{
 comp_freq()                  # => ok, using current defaults
-length(comp_freq())          # => 9
+length(comp_freq())          # => 11
 
-Ways to succeed:
+# Ways to succeed:
 comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
 comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
 comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
@@ -113,15 +115,15 @@ comp_freq(prev = 0, sens = 1, spec = 0, 100)  # => ok, N false alarms (FP)
 # Watch out for:
 comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
 comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
-comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
-comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
+comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # => ok, rounded (see mi and fa)
+comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, not rounded
 
 # Ways to fail:
 comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
 comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
-comp_freq(prev = 1,  sens = 1,  spec = NA, 100)  # => NAs + warning (spec NA)
+comp_freq(prev = 1,  sens = 1,  spec = NA, 100)   # => NAs + warning (spec NA)
 comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
-comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
+comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens beyond range)
 
 
 }

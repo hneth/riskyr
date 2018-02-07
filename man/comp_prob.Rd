@@ -9,7 +9,7 @@ comp_prob(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
-(i.e., the probability of condition being \code{TRUE}).}
+(i.e., the probability of the condition being \code{TRUE}).}
 
 \item{sens}{The decision's sensitivity value \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
@@ -145,8 +145,8 @@ The two perspectives (by condition vs. by decision) combine the 4 essential freq
 
 \item Defining probabilities in terms of frequencies:
 
-Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
-Thus, they can be computed as ratios between frequencies:
+Probabilities \emph{are} numbers from 0 to 1 and determine, describe, or are defined as relationships between frequencies.
+The following probabilities can be computed as ratios between frequencies:
 
 \enumerate{
 
@@ -180,13 +180,13 @@ Thus, they can be computed as ratios between frequencies:
 
 \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 
-\item negative predictive value \code{\link{NPV}}:
-
-\code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-
 \item false detection rate \code{\link{FDR}}:
 
 \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+
+\item negative predictive value \code{\link{NPV}}:
+
+\code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
 
 \item false omission rate \code{\link{FOR}}:
 

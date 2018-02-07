@@ -4,13 +4,13 @@
 \name{freq}
 \alias{freq}
 \title{List current frequency information.}
-\format{An object of class \code{list} of length 9.}
+\format{An object of class \code{list} of length 11.}
 \usage{
 freq
 }
 \description{
 \code{freq} is a list of named numeric variables
-containing 9 frequencies:
+containing 11 frequencies:
 }
 \details{
 \enumerate{
@@ -22,6 +22,9 @@ containing 9 frequencies:
 
 \item the number of cases for which \code{\link{dec.pos}}
  \item the number of cases for which \code{\link{dec.neg}}
+
+\item the number of cases for which \code{\link{dec.cor}}
+ \item the number of cases for which \code{\link{dec.err}}
 
 \item the number of true positives, or hits \code{\link{hi}}
  \item the number of false negatives, or misses \code{\link{mi}}
@@ -77,6 +80,8 @@ If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code
 
 \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
 
+\item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
@@ -89,7 +94,7 @@ are provided by \code{\link{plot_tree}} and
 \examples{
 freq <- comp_freq()  # => initialize freq to default parameters
 freq                 # => show current values
-length(freq)         # => 9
+length(freq)         # => 11
 
 
 }
