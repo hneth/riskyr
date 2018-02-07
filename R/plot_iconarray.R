@@ -76,7 +76,7 @@ plot_iconarray <- function (
                             pch.border = grey(.66, 0.70),  # border of characters.
                             transparency = 2/3,
                             # one can also enter a full vector of length N.
-                            block.d = 0.01,  # distance between blocks (where applicable).
+                            block.d = NULL,  # distance between blocks (where applicable).
                             border.d = 0.1,  # distance of icons to border.
 
                             type.sort = NULL,  # needs to be given if random position but nonrandom ident.
@@ -455,7 +455,10 @@ plot_iconarray <- function (
     if (!random.position) {
 
       # 0. Check arrangement parameters: ----------------------------------
+      if (is.null(block.d)) {
 
+        block.d <- 0.4  # set to a default value.
+      }
 
       #given:
         # block_size_col
@@ -777,6 +780,11 @@ plot_iconarray <- function (
 # Test plotting default population:
   # Standard iconarrays:
   plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+  plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
+               random.identities = TRUE)
+  plot_iconarray(N = 10000, icon.types = c(21,23,24,23),
+                 random.identities = TRUE)
+  plot_iconarray(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
 
   plot_iconarray(icon.types = c(21,23,24,23),
                  block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
