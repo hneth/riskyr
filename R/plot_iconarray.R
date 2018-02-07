@@ -1,5 +1,5 @@
 ## plot_iconarray.R | riskyR
-## 2018 02 06
+## 2018 02 07
 ## -----------------------------------------------
 
 ##  This function plots an iconarray flexibly, dependent on population size
@@ -50,12 +50,6 @@
 
 
 # TODO:
-  # - remove parameters unnecessary for arrangement (which are needed?).
-  # - add legend and text (needs sufficient margins at some place.)
-  # - have color vector defined outside the plotting function
-    # (if nothing is specified use this as a default).
-  # - How should the default array look like?
-
   # - add borders to left and top type of sorting.
 
   # - Each of the plot types may be a potential function.  Then it is more modular!
@@ -470,8 +464,6 @@ plot_iconarray <- function (
       # calculate icons per block:
       icons_per_block <- block_size_col * block_size_row
 
-
-
       # If no number of blocks or cols is given:
 
         if (is.null(ncol_blocks) & is.null(nrow_blocks)) {
@@ -493,7 +485,15 @@ plot_iconarray <- function (
             ncol_blocks <- blocking_dim[1]  # smaller in x dimension (cols).
             nrow_blocks <- blocking_dim[2]  # larger in y dimension (rows).
           }
-        } else {  # if one of both is given:
+
+        } else {  # if at least one of both is given:
+
+          # TODO: Provide some testing, whether given numbers of blocks are valid!
+          test_N <- ncol_blocks * nrow_blocks * icons_per_block
+
+          if ( test_N < N) {
+            stop("The number of blocks and columns is too small to accomodate the population.")
+          }
 
 
           if (is.null(ncol_blocks)) {  # if ncol_blocks is not given:
@@ -525,20 +525,6 @@ plot_iconarray <- function (
 
 
       # 1. Define positions:-----------------------------------------------
-
-      # TODO: Allow for dynamic calculation of blocks and sizes!
-      # some python code:
-        # def factors_min_diff(n):
-        #   lower = math.floor(math.sqrt(n))
-        #   upper = math.ceil(math.sqrt(n))
-        #
-        #   while lower * upper != n:
-        #     if lower * upper > n:
-        #     lower -= 1
-        #   if lower * upper < n:
-        #     upper += 1
-
-      # 1. Create matrix of positions:
 
       # find maximum for the positions given the units icons are moved:
       # find a monotonically increasing sequence, resulting in exactly the endpoint of xlim/ylim.
@@ -798,13 +784,23 @@ plot_iconarray <- function (
 
   plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
 
-  plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
+  plot_iconarray(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
                  icon.types = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 5,
                  ncol_blocks = 5, nrow_blocks = 5,
                  block.d = 0.8,
                  border.d = 0.2,
                  fill_array = "top")
+
+
+  plot_iconarray(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
+                 icon.types = c(21,23,21,23),
+                 ident.order = c("hi", "mi", "cr", "fa"),
+                 block.d = 0.8,
+                 border.d = 0.01,
+                 cex = 0.7,
+                 random.position = FALSE,
+                 random.identities = FALSE)
 
   # TODO: Here it messes things up!
 
@@ -820,27 +816,16 @@ plot_iconarray <- function (
                  random.position = TRUE, random.identities = TRUE)
 
 
-
-  plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
-                 nrows = 20, ncols = 50, icon.types = c(21,23,24,23),
-                 block_size_col = 10, block_size_row = 10,
-                 ncol_blocks = 5, nrow_blocks = 2,
-                 blocks = 10,
-                 block.d = 0.8,
-                 border.d = 0.2,
-                 fill_array = "left",
-                 fill_blocks = "colwise")
-  # this is a possible example of standard 10x10 blocks.
-
   plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
                  icon.types = c(21,23,21,23),
                  ident.order = c("hi", "mi", "cr", "fa"),
-                 block.d = NULL,
+                 block.d = 0.1,
                  border.d = 0.01,
                  cex = 0.7,
                  random.position = TRUE,
                  random.identities = FALSE,
                  type.sort = "mosaic")
+
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
