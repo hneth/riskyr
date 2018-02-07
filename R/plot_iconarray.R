@@ -6,6 +6,18 @@
 
 ## -----------------------------------------------
 
+#' Plot an icon array of a population.
+#'
+#' \code{plot_iconarray} draws an icon array of
+#' a population of which individual's condition has been classified
+#' correctly or incorrectly
+#' from a sufficient and valid set of 3 essential probabilities
+#' (\code{\link{prev}}, and
+#' \code{\link{sens}} or its complement \code{\link{mirt}}, and
+#' \code{\link{spec}} or its complement \code{\link{fart}})
+#' or existing frequency information \code{\link{freq}}
+#' and a population size of \code{\link{N}} individuals.
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Preparation:------------------------------------
@@ -813,7 +825,7 @@ plot_iconarray <- function (
   # TODO: Here it messes things up!
 
   # Mosaic like and randomized arrays:
-  plot_iconarray(icon.types = c(22,23,22,23), #cex = 3,
+  plot_iconarray(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
                  random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
 
   plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
