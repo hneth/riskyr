@@ -20,36 +20,6 @@
   # A size for the icons (cex)
   # ...?
 
-## Helper functions: ------------------------------------------------------
-## (c) SDT (status decision/truth):
-# calculate in small helper function to be independent from source:
-
-get_pop_vec <- function (N = 10000, # define population size.
-                        sens = 0.80,
-                        spec = 0.90,
-                        prev = 0.30) {
-
-  n.hi <- round(N * prev * sens)
-  n.mi <- round(N * prev * (1 - sens))
-  n.fa <- round(N * (1 - prev) * (1 - spec))
-  n.cr <- round(N * (1 - prev) * spec)
-
-  length(rep("hi", n.hi))
-  length(rep("mi", 14))  # too short???  Apparently a failure in updating...
-  length(rep("fa", 3))  # too short???
-  length(rep("cr", n.cr))
-
-  sdt <- c(rep("hi", n.hi), rep("mi", n.mi),
-           rep("fa", n.fa), rep("cr", n.cr))
-
-  output <- list(sdt = sdt,
-                 freq = list(
-                   n.hi = n.hi, n.mi = n.mi, n.fa = n.fa, n.cr = n.cr
-                 ))
-
-  return(output)
-
-}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -80,11 +50,13 @@ get_pop_vec <- function (N = 10000, # define population size.
 
 
 # TODO:
+  # - remove parameters unnecessary for arrangement (which are needed?).
   # - add legend and text (needs sufficient margins at some place.)
   # - have color vector defined outside the plotting function
     # (if nothing is specified use this as a default).
-  # - remove parameters unnecessary for arrangement (which are needed?).
   # - How should the default array look like?
+
+  # - add borders to left and top type of sorting.
 
   # - Each of the plot types may be a potential function.  Then it is more modular!
 
@@ -175,12 +147,20 @@ plot_iconarray <- function (
         }
 
         # DO SOME CHECKS HERE!?
+        ## Determine order:
+        if (is.null(names(col.vec))) {
+          names(col.vec) <- ident.order
+        }
+
+        if (is.null(names(pch.vec))) {
+          names(pch.vec) <- names(col.vec)
+        }
 
         ## (c) Compute col.vec from frequencies:
-        col.vec <- rep(col.vec, times = cur.freq[ident.order])
+        col.vec <- rep(col.vec[ident.order], times = cur.freq[ident.order])
 
         ## (d) Compute pch.vec from frequencies:
-        pch.vec <- rep(pch.vec, times = cur.freq[ident.order])
+        pch.vec <- rep(pch.vec[ident.order], times = cur.freq[ident.order])
 
         ## (e) Specify N:
         N <- cur.freq$N
@@ -250,7 +230,7 @@ plot_iconarray <- function (
         N <- length(col.vec)
       }
 
-      if (length(N) != length(col.vec)) {  # if N is given but not of appropriate length.
+      if (N != length(col.vec)) {  # if N is given but not of appropriate length.
         N <- length(col.vec)
         warning("col.vec was not of length N.  N is adjusted to length of color vector. ")
       }
@@ -459,6 +439,15 @@ plot_iconarray <- function (
 
   ## A3 and A4: Fixed positions:  --------------------------------------
     if (!random.position) {
+
+      # 0. Check arrangement parameters: ----------------------------------
+
+      col_blocks
+      row_blocks
+      block_size_col
+      block_size_row
+      block
+
 
       # 1. Define positions:-----------------------------------------------
 
@@ -745,13 +734,48 @@ plot_iconarray <- function (
                  fill_blocks = "colwise")
   # this is a possible example of standard 10x10 blocks.
 
+  plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
+                 pch.vec = c(21,23,24,23),
+                 col.vec = 1:4,
+                 ident.order = c("hi", "mi", "cr", "fa"),
+                 block.d = 0.8,
+                 border.d = 0.01,
+                 random.position = TRUE,
+                 random.identities = FALSE,
+                 type.sort = "right")
+
 # ncols and nrows must be calculated!
-# TODO: Colwise does not work.
-
-  riskyr:::comp_freq(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9)
 
 
-# Old tests with population vectors given:
+# Old tests with population vectors given:-----------------------------------------------
+  # calculate in small helper function to be independent from source:
+
+  get_pop_vec <- function (N = 10000, # define population size.
+                           sens = 0.80,
+                           spec = 0.90,
+                           prev = 0.30) {
+
+    n.hi <- round(N * prev * sens)
+    n.mi <- round(N * prev * (1 - sens))
+    n.fa <- round(N * (1 - prev) * (1 - spec))
+    n.cr <- round(N * (1 - prev) * spec)
+
+    length(rep("hi", n.hi))
+    length(rep("mi", 14))  # too short???  Apparently a failure in updating...
+    length(rep("fa", 3))  # too short???
+    length(rep("cr", n.cr))
+
+    sdt <- c(rep("hi", n.hi), rep("mi", n.mi),
+             rep("fa", n.fa), rep("cr", n.cr))
+
+    output <- list(sdt = sdt,
+                   freq = list(
+                     n.hi = n.hi, n.mi = n.mi, n.fa = n.fa, n.cr = n.cr
+                   ))
+
+    return(output)
+
+  }
 
   icon_colors <- pal[c("hi", "mi", "fa", "cr")]  # define colors.
 
