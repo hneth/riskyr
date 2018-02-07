@@ -77,8 +77,8 @@ plot_iconarray <- function (
                             random.identities = FALSE,  # are identities randomly assigned to positions?
                             # defaults to classic icon array!
                             # TODO: rather name these?
-                            col.vec = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
-                            pch.vec = 22,  # plotting characters; default square with border.
+                            icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
+                            icon.types = 22,  # plotting characters; default square with border.
                             pch.border = grey(.66, 0.70),  # border of characters.
                             transparency = 2/3,
                             # one can also enter a full vector of length N.
@@ -151,19 +151,19 @@ plot_iconarray <- function (
 
         # DO SOME CHECKS HERE!?
         ## Determine order:
-        if (is.null(names(col.vec))) {
-          names(col.vec) <- ident.order
+        if (is.null(names(icon.colors))) {
+          names(icon.colors) <- ident.order
         }
 
-        if (is.null(names(pch.vec))) {
-          names(pch.vec) <- names(col.vec)
+        if (is.null(names(icon.types))) {
+          names(icon.types) <- names(icon.colors)
         }
 
-        ## (c) Compute col.vec from frequencies:
-        col.vec <- rep(col.vec[ident.order], times = cur.freq[ident.order])
+        ## (c) Compute icon.colors from frequencies:
+        col.vec <- rep(icon.colors[ident.order], times = cur.freq[ident.order])
 
         ## (d) Compute pch.vec from frequencies:
-        pch.vec <- rep(pch.vec[ident.order], times = cur.freq[ident.order])
+        pch.vec <- rep(icon.types[ident.order], times = cur.freq[ident.order])
 
         ## (e) Specify N:
         N <- cur.freq$N
@@ -708,8 +708,9 @@ plot_iconarray <- function (
 
     legend(x = xlim[2] / 2, y = ylim[1] - 0.1, legend = ident.order,
            horiz = TRUE,
-           pt.bg = unique(col.vec), pch = unique(pch.vec), cex = 2,
+           pt.bg = icon.colors, pch = icon.types, cex = 2,
            xjust = 0.5, xpd = TRUE)
+    # TODO: characters are still wrong!
 
 #---------------------------------------------
 }  # end of function.
@@ -718,20 +719,21 @@ plot_iconarray <- function (
 # Testing ground:-----------------------------------------------------
 
 # Test plotting default population:
-  plot_iconarray(nrows = 10, ncols = 10, pch.vec = c(21,23,24,23),
+  plot_iconarray(nrows = 10, ncols = 10, icon.types = c(21,23,24,23),
                  block_size_col = 5, block_size_row = 5, col_blocks = 2, row_blocks = 2,
                  blocks = 4, block.d = 0.5, border.d = 0.2)
 
-  plot_iconarray(nrows = 100, ncols = 100, pch.vec = c(21,23,24,23),
+  plot_iconarray(nrows = 100, ncols = 100, icon.types = c(21,23,24,23),
                  block_size_col = 10, block_size_row = 10, blocks = 100)
 
-  plot_iconarray(pch.vec = c(22,23,22,23), #cex = 3,
+  plot_iconarray(icon.types = c(22,23,22,23), #cex = 3,
                  random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
 
-  plot_iconarray(pch.vec = c(22,23,21,23), #cex = 10,
+  plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
+                 ident.order = c("mi", "hi", "cr", "fa"),
                  random.position = TRUE, type.sort = "equal", block.d = 0.05)
 
-  plot_iconarray(pch.vec = c(22,23,22,23), #cex = 10,
+  plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
                  random.position = TRUE, random.identities = TRUE)
 
   plot_iconarray(N = 1000, sens = 0.9, spec = 0.9, prev = 0.9,
