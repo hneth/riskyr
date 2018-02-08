@@ -51,6 +51,16 @@
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
+#' @param type.sort Bla bla bla... with the following options:
+#'
+#' \enumerate{
+#'
+#'   \item \code{type.sort = "mosaic"} Order in some way.
+#'
+#'   \item \code{type.sort = "xyz"} Order in some other way.#'
+#'
+#' }
+#'
 #'
 #' @param ident.order Specifies the order in which icon identities
 #' (hits, misses, false alarms, and correct rejections) are plotted.
@@ -63,19 +73,11 @@
 #' Default: \code{random.identities = FALSE}
 #'
 #'
-#' @param show.accu Option for showing current
-#' accuracy metrics \code{\link{accu}} in the plot.
-#' Default: \code{show.accu = TRUE}.
-#'
-#' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
-#' Default: \code{w.acc = .50}.
-#'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param title.lbl Text label to set plot title.
 #'
-#' #' @examples
+#' @examples
 #' # ways to work:
 #' plot_iconarray()  # => plots icon array for default population
 #'
@@ -141,7 +143,6 @@
 #'
 #' @export
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # Preparation:------------------------------------
@@ -182,6 +183,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
                            ## Key options: ##
+                           type.sort = "mosaic",  # needs to be given if random position but nonrandom ident.
                            ident.order = c("hi", "mi", "fa", "cr"),
                            random.position = FALSE,    # are positions randomly drawn?
                            random.identities = FALSE,  # are identities randomly assigned to positions?
@@ -189,13 +191,11 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                            ## TODO: rather name these?
                            icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
                            icon.types = 22,  # plotting characters; default square with border.
-                           pch.border = grey(.66, 0.70),  # border of characters.
+                           pch.border = grey(.15, .66),  # border of characters.
                            transparency = 2/3,
                            # one can also enter a full vector of length N.
                            block.d = NULL,  # distance between blocks (where applicable).
                            border.d = 0.1,  # distance of icons to border.
-
-                           type.sort = NULL,  # needs to be given if random position but nonrandom ident.
 
                            # for classic icon arrays only:
                            # TODO: Allow to calculate defaults in the function!
