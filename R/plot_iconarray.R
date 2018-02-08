@@ -87,6 +87,20 @@
   # A size for the icons (cex)
   # ...?
 
+# Helper for dynamic calculation of block size:
+# As R function:
+factors_min_diff <- function (n) {
+  n_sqrt <- sqrt(n)
+  lower <- floor(n_sqrt)
+  upper <- ceiling(n_sqrt)
+
+  while (lower * upper != n) {
+    if (lower * upper > n) { lower <- lower - 1 }
+    if (lower * upper < n) { upper <- upper + 1 }
+  }
+
+  return(c(lower, upper))
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
