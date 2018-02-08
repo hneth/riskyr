@@ -72,7 +72,7 @@ However, due to being a conditional probability,
 }
 \examples{
 PPV <- .55     # => sets a positive predictive value of 55\%
-PPV <- 55/100  # => (condition = TRUE) for 55 people out of 100 people for which (decision = positive)
+PPV <- 55/100  # => (condition = TRUE) for 55 out of 100 people with (decision = positive)
 is_prob(PPV)   # => TRUE (as PPV is a probability)
 
 }

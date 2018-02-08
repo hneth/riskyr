@@ -73,7 +73,7 @@ However, due to being a conditional probability,
 }
 \examples{
 spec <- .75     # => sets a specificity value of 75\%
-spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
+spec <- 75/100  # => (decision = negative) for 75 out of 100 people with (condition = FALSE)
 is_prob(spec)   # => TRUE (as spec is a probability)
 }
 \references{

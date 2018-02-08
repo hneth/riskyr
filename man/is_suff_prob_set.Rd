@@ -75,10 +75,10 @@ is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob
 is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
 is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
 
-# ways to fail:
-is_suff_prob_set()                    # => FALSE + warning (prev missing)
-is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
-is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
+## ways to fail:
+# is_suff_prob_set()                    # => FALSE + warning (prev missing)
+# is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
+# is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
 
 }
 \seealso{

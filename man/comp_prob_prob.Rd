@@ -194,7 +194,7 @@ Thus, they can be computed as ratios between frequencies:
 }
 }
 \examples{
-Basics:
+# Basics:
 comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 comp_prob_prob()          # => ok, using current defaults

@@ -76,7 +76,7 @@ However, due to being a conditional probability,
 }
 \examples{
 fart <- .25     # => sets a false alarm rate of 25\%
-fart <- 25/100  # => (decision = positive) for 25 people out of 100 people for which (condition = FALSE)
+fart <- 25/100  # => (decision = positive) for 25 out of 100 people with (condition = FALSE)
 is_prob(fart)   # => TRUE (as fart is a probability)
 }
 \references{

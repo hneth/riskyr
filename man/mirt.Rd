@@ -72,7 +72,7 @@ However, due to being a conditional probability,
 }
 \examples{
 mirt <- .15     # => sets a miss rate of 15\%
-mirt <- 15/100  # => (decision = negative) for 15 people out of 100 people for which (condition = TRUE)
+mirt <- 15/100  # => (decision = negative) for 15 out of 100 people with (condition = TRUE)
 is_prob(mirt)   # => TRUE (as mirt is a probability)
 }
 \references{

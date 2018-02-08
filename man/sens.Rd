@@ -79,7 +79,7 @@ Due to being a conditional probability,
 }
 \examples{
 sens <- .85     # => sets a sensitivity value of 85\%
-sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
+sens <- 85/100  # => (decision = positive) for 85 out of 100 people with (condition = TRUE)
 is_prob(sens)   # => TRUE (as sens is a probability)
 }
 \references{

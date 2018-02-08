@@ -71,7 +71,7 @@ However, due to being a conditional probability,
 }
 \examples{
 NPV <- .95     # => sets a negative predictive value of 95\%
-NPV <- 95/100  # => (condition = FALSE) for 95 people out of 100 people for which (decision = negative)
+NPV <- 95/100  # => (condition = FALSE) for 95 out of 100 people with (decision = negative)
 is_prob(NPV)   # => TRUE (as NPV is a probability)
 }
 \references{

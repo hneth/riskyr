@@ -54,10 +54,10 @@ is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
 is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
 is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 
-# ways to fail:
-is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
-is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
-is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
+## ways to fail:
+# is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
+# is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
+# is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 
 
 }

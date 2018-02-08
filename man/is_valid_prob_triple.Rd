@@ -39,15 +39,15 @@ Use \code{\link{is_extreme_prob_set}} to verify extreme cases and
 \code{\link{comp_complete_prob_set}} to complete sets of valid probabilities.
 }
 \examples{
-## Check:
+# ways to work:
 is_valid_prob_triple(0, 0, 0)    # => TRUE
 is_valid_prob_triple(1, 1, 1)    # => TRUE
 
-# ways to fail:
-is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
-is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
-is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
-is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+## ways to fail:
+# is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+# is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+# is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+# is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
 
 }
 \seealso{
