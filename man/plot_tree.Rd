@@ -174,5 +174,5 @@ plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 
 Other visualization functions: \code{\link{plot_PV3d}},
   \code{\link{plot_PV}}, \code{\link{plot_fnet}},
-  \code{\link{plot_mosaic}}
+  \code{\link{plot_iconarray}}, \code{\link{plot_mosaic}}
 }

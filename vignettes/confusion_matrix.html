@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hansjörg Neth, SPDS, uni.kn" />
 
-<meta name="date" content="2018-02-07" />
+<meta name="date" content="2018-02-08" />
 
 <title>Confusion Matrix and Metrics</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Confusion Matrix and Metrics</h1>
 <h4 class="author"><em>Hansjörg Neth, SPDS, uni.kn</em></h4>
-<h4 class="date"><em>2018-02-07</em></h4>
+<h4 class="date"><em>2018-02-08</em></h4>
 
 
 
@@ -123,8 +123,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<p>Ordinary people, but also medical experts and social scientists, inevitably struggle to understand the implications of this matrix. This is no surprise when considering explanatory attempts like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.</p>
-<p>In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.</p>
+<p>Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. This is no surprise when considering explanations like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.</p>
+<p>Fortunately, the matrix and its implications are quite simple and straightforward. In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.</p>
 <div id="basics" class="section level2">
 <h2>Basics</h2>
 <p>In its most basic form, the confusion matrix looks like this:</p>
@@ -185,9 +185,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[ 
 \begin{aligned}
 \texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \ \ \ \ \textrm{(b)}      \\
-           \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr}) \\
+           \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr})         \\
 \end{aligned}
 \]</span></p>
+<p>To reflect these two perspectives in the confusion matrix, we only need to add the sums of columns (i.e., by condition) and rows (by decision):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right"></th>
+<th align="center">Condition</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><strong>Decision</strong></td>
+<td align="center">present (<code>TRUE</code>):</td>
+<td align="center">absent (<code>FALSE</code>):</td>
+<td align="center">Sum:</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="right">positive (<code>TRUE</code>):</td>
+<td align="center"><code>hi</code></td>
+<td align="center"><code>fa</code></td>
+<td align="center"><code>dec.pos</code></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="right">negative (<code>FALSE</code>):</td>
+<td align="center"><code>mi</code></td>
+<td align="center"><code>cr</code></td>
+<td align="center"><code>dec.neg</code></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="right">Sum:</td>
+<td align="center"><code>cond.true</code></td>
+<td align="center"><code>cond.false</code></td>
+<td align="center"><code>N</code></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ToDo:</strong></p>
+<ul>
+<li>Provide a numeric example.</li>
+<li>Show corresponding mosaic plot and/or network diagram.</li>
+</ul>
 </div>
 <div id="accuracy-as-a-3rd-perspective" class="section level3">
 <h3>Accuracy as a 3rd perspective</h3>
@@ -210,7 +257,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \ \ \textrm{(c)}      \\
+\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \ \ \textrm{(c)}  \\
            \ &amp;= \ (\texttt{hi} + \texttt{cr}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 \]</span></p>
@@ -236,31 +283,76 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <h2>Accuracy Metrics</h2>
 <p>The perspective of accuracy raises an important question: How good is a given decision (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal — measuring decision performance by capturing the correspondence of decisions to conditions in a single quantity.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <p>While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or have different purposes.</p>
-<p><code>riskyr</code> currently uses three such metrics (which are contained in <code>accu</code>):</p>
-<div id="accuracy-acc" class="section level3">
-<h3>1. Accuracy <code>acc</code></h3>
-<p>Accuracy divides the number of correct decisions (i.e., all <code>dec.cor</code> cases or the “&quot; diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
+<div id="a.-specific-metrics-conditional-probabilities" class="section level3">
+<h3>A. Specific metrics: Conditional probabilities</h3>
+<p>Goal: Measure some particular aspect of prediction performance.</p>
+<p>Question: How good is our decision or diagnostic test in correctly detecting <code>cond.true</code> and <code>cond.false</code> cases?</p>
+<p>As we are dealing with two types of correct decisions (<code>hi</code> and <code>cr</code>) and two perspectives (by columns vs. by rows), we can provide 4 answers to this question.</p>
+<p>To provide a numeric quantity, we divide the frequency of correct cases (either <code>hi</code> or <code>cr</code>) by</p>
+<ol style="list-style-type: lower-alpha">
+<li>column sums (<code>cond.true</code> or <code>cond.false</code>): This yields the decision’s sensitivity (<code>sens</code>) and specificity (<code>spec</code>):</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+\texttt{sens} \ &amp;= \frac{\texttt{hi}}{\texttt{cond.true}} &amp; \ \ \textrm{(a1)}       \\
+\ \\ 
+\texttt{spec} \ &amp;= \frac{\texttt{cr}}{\texttt{cond.false}} &amp; \ \ \textrm{(a2)}      \\
+\end{aligned}
+\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>row sums (<code>dec.pos</code> or <code>dec.neg</code>): This yields the decision’s positive or negative predictive value (<code>PPV</code> or <code>NPV</code>):</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+\texttt{PPV} \ &amp;= \frac{\texttt{hi}}{\texttt{dec.pos}} &amp; \ \ \ \textrm{(b1)}       \\
+\ \\ 
+\texttt{NPV} \ &amp;= \frac{\texttt{cr}}{\texttt{dec.neg}} &amp; \ \ \ \textrm{(b2)}      \\
+\end{aligned}
+\]</span></p>
+</div>
+<div id="b.-general-metrics-overall-accuracy" class="section level3">
+<h3>B. General metrics: Overall accuracy</h3>
+<p>Goal: Summarize overall performance (i.e., entire matrix) in one quantity.</p>
+<p><code>riskyr</code> currently uses three general metrics (which are contained in <code>accu</code>):</p>
+<div id="overall-accuracy-acc" class="section level4">
+<h4>1. Overall accuracy (<code>acc</code>)</h4>
+<p>Overall accuracy (<code>acc</code>) divides the number of correct decisions (i.e., all <code>dec.cor</code> cases or the “&quot; diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
 <blockquote>
 <p>Accuracy <code>acc</code> := Proportion or percentage of cases correctly classified.</p>
 </blockquote>
-<p>Mathematically, the accuracy <code>acc</code> can be computed as:</p>
+<p>Numerically, overall accuracy <code>acc</code> is computed as:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{acc} &amp;= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
              = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
 \end{aligned}
 \]</span></p>
+</div>
+<div id="weighted-accuracy-wacc" class="section level4">
+<h4>2. Weighted accuracy (<code>wacc</code>)</h4>
+<p>Whereas overall accuracy (<code>acc</code>) does not discriminate between different types of correct and incorrect cases, weighted accuracy (<code>wacc</code>) allows for taking into account the importance of errors. Essentially, <code>wacc</code> combines the sensitivity (<code>sens</code>) and specificity (<code>spec</code>), but multiplies <code>sens</code> by a weighting parameter <code>w</code> (ranging from 0 to 1) and <code>spec</code> by its complement <code>(1 - w)</code>:</p>
+<blockquote>
+<p>Weighted accuracy <code>wacc</code> is the average of sensitivity (<code>sens</code>) weighted by <code>w</code>, and specificity (<code>spec</code>), weighted by <code>1 - w</code>.</p>
+</blockquote>
+<p><span class="math display">\[
+\texttt{wacc} = \texttt{w} \cdot \texttt{sens} + (1 - \texttt{w}) \cdot \texttt{spec}
+\]</span></p>
+<p>Three cases can be distinguished, based on the value of the weighting parameter <code>w</code>:</p>
+<ol style="list-style-type: decimal">
+<li><p>If <code>w = .5</code>, <code>sens</code> and <code>spec</code> are weighted equally and <code>wacc</code> becomes balanced accuracy <code>bacc</code>.</p></li>
+<li><p>If <code>0 &lt;= w &lt; .5</code>, <code>sens</code> is less important than <code>spec</code> (i.e., instances of <code>fa</code> are considered more serious errors than instances of <code>mi</code>).</p></li>
+<li><p>If <code>.5 &lt; w &lt;= 1</code>, <code>sens</code> is more important than <code>spec</code> (i.e., instances of <code>mi</code> are considered more serious errors than instances of <code>fa</code>).</p></li>
+</ol>
 <p>+++ here now +++</p>
 </div>
-<div id="weighted-accuracy-wacc" class="section level3">
-<h3>2. Weighted accuracy <code>wacc</code></h3>
-<p>Weighted accuracy: Taking into account the importance of errors.</p>
+<div id="matthews-correlation-coefficient-mcc" class="section level4">
+<h4>3. Matthews correlation coefficient <code>mcc</code></h4>
+<p>The Matthews correlation coefficient (with values ranging from <span class="math inline">\(-1\)</span> to <span class="math inline">\(+1\)</span>):</p>
+<p><span class="math display">\[
+\texttt{mcc} = \frac{(\texttt{hi} \cdot \texttt{cr}) - (\texttt{fa} \cdot \texttt{mi})}{\sqrt{(\texttt{hi} + \texttt{fa}) \cdot (\texttt{hi} + \texttt{mi}) \cdot (\texttt{cr} + \texttt{fa}) \cdot (\texttt{cr} + \texttt{mi})}}
+\]</span></p>
+<p>See <a href="https://en.wikipedia.org/wiki/Matthews_correlation_coefficient">Wikipedia: Matthews correlation coefficient</a> for details.</p>
 </div>
-<div id="matthew-correlation-coefficient-mcc" class="section level3">
-<h3>3. Matthew correlation coefficient <code>mcc</code></h3>
-<ol start="3" style="list-style-type: decimal">
-<li>Matthew correlation coefficient (mcc)</li>
-</ol>
 </div>
 </div>
 <div id="references" class="section level2">
@@ -271,6 +363,7 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <p>Links to Wikipedia articles:</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion matrix</a> (URL: <a href="https://en.wikipedia.org/wiki/Confusion_matrix" class="uri">https://en.wikipedia.org/wiki/Confusion_matrix</a>)</li>
+<li><a href="https://en.wikipedia.org/wiki/Matthews_correlation_coefficient">Matthews correlation coefficient</a></li>
 </ul>
 </div>
 <div id="all-riskyr-vignettes" class="section level2">

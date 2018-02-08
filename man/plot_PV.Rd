@@ -73,6 +73,6 @@ plot_PV(title.lbl = "", col.ppv = "firebrick3", col.npv = "steelblue3")
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_fnet}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_tree}}
+  \code{\link{plot_fnet}}, \code{\link{plot_iconarray}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
 }
