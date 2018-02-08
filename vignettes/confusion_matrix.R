@@ -4,3 +4,5 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+library("riskyr")
+

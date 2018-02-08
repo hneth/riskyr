@@ -5,6 +5,8 @@ knitr::opts_chunk$set(
 )
 
 ## ----plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that shows frequencies as nodes and probabilities as edges between nodes."----
+library("riskyr") # load the "riskyr" package
+
 plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
           N = 1000,       # 1 frequency
           area = "no",    # all boxes have the same size

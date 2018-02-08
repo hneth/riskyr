@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hansjörg Neth, SPDS, uni.kn" />
 
-<meta name="date" content="2018-02-07" />
+<meta name="date" content="2018-02-08" />
 
 <title>riskyr Data Formats</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><code>riskyr</code> Data Formats</h1>
 <h4 class="author"><em>Hansjörg Neth, SPDS, uni.kn</em></h4>
-<h4 class="date"><em>2018-02-07</em></h4>
+<h4 class="date"><em>2018-02-08</em></h4>
 
 
 
@@ -78,7 +78,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The problems addressed by <code>riskyr</code> and the scientific discussion surrounding them is framed in terms of two representational formats: <em>frequencies</em> are distinguished from <em>probabilities</em>. (See the <a href="user_guide.html">user guide</a> for background and references.)</p>
 <p><code>riskyr</code> reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called <code>freq</code>) and objects that contain probabilities (a list called <code>prob</code>). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined.</p>
 <p>In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following network plot shows frequencies as its nodes and probabilities as the edges that link the nodes:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_fnet</span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>,  <span class="co"># 3 essential probabilities</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;riskyr&quot;</span>) <span class="co"># load the &quot;riskyr&quot; package</span>
+
+<span class="kw">plot_fnet</span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>,  <span class="co"># 3 essential probabilities</span>
           <span class="dt">N =</span> <span class="dv">1000</span>,       <span class="co"># 1 frequency</span>
           <span class="dt">area =</span> <span class="st">&quot;no&quot;</span>,    <span class="co"># all boxes have the same size</span>
           <span class="dt">p.lbl =</span> <span class="st">&quot;nam&quot;</span>,  <span class="co"># show probability names on edges</span>

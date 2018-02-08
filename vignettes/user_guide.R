@@ -5,6 +5,8 @@ knitr::opts_chunk$set(
 )
 
 ## ----comp_PPV------------------------------------------------------------
+library("riskyr")  # load the "riskyr" package
+
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 
 ## ----comp_prob_prob_1----------------------------------------------------
@@ -123,7 +125,6 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 ## ----plot_iconarray_mosaic, warning = FALSE, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_iconarray(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
-               type.sort = "top",
                random.position = TRUE,
                title.lbl = "Mammography screening")
 

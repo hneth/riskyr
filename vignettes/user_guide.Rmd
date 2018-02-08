@@ -177,6 +177,8 @@ positive predictive value `PPV` from the
 that were provided in the original problem:
 
 ```{r comp_PPV}
+library("riskyr")  # load the "riskyr" package
+
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 ```
 
