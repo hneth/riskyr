@@ -8,11 +8,12 @@ plot_iconarray(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, type.sort = "mosaic",
   ident.order = c("hi", "mi", "fa", "cr"), random.position = FALSE,
   random.identities = FALSE, icon.colors = pal[c("hi", "mi", "fa", "cr")],
-  icon.types = 22, pch.border = grey(0.15, 0.66), transparency = 2/3,
-  block.d = NULL, border.d = 0.1, block_size_col = 10,
-  block_size_row = 10, ncol_blocks = NULL, nrow_blocks = NULL,
-  fill_array = "left", fill_blocks = "rowwise", title.lbl = txt$scen.lbl,
-  xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
+  icon.types = 22, pch.border = grey(0.1, 0.5), pch.lwd = 1.5,
+  transparency = 0.5, block.d = NULL, border.d = 0.1,
+  block_size_col = 10, block_size_row = 10, ncol_blocks = NULL,
+  nrow_blocks = NULL, fill_array = "left", fill_blocks = "rowwise",
+  title.lbl = txt$scen.lbl, xlim = c(0, 1), ylim = c(0, 1), cex = NULL,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -42,12 +43,12 @@ of a positive decision provided that the condition is \code{FALSE}).
 A suitable value of \code{\link{N}} is computed, if not provided.}
 
 \item{type.sort}{Bla bla bla... with the following options:
+
 \enumerate{
 
-\item \code{type.sort = "mosaic"} Order in some way.
+  \item \code{type.sort = "mosaic"} Order in some way.
 
-\item \code{type.sort = "xtz"} Order in some other way.#'
-
+  \item \code{type.sort = "xyz"} Order in some other way.#'
 
 }}
 
@@ -59,19 +60,12 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 Default: \code{random.position = FALSE}.}
 
 \item{random.identities}{Are identities randomly assigned to positions?
-Default: \code{random.identities = FALSE}}
+Default: \code{random.identities = FALSE}
 
-\item{title.lbl}{Text label to set plot title.}
-
-\item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
-Default: \code{show.accu = TRUE}.}
-
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
-Default: \code{w.acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
+
+\item{title.lbl}{Text label to set plot title.}
 }
 \description{
 \code{plot_iconarray} draws an icon array of

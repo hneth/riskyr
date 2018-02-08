@@ -327,12 +327,23 @@ Inspecting the lists of probabilities and frequencies shows that the two problem
 
 Here are some examples that depict the scenario described above: 
 
+#### Icon array
+
+A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:
+
+```{r plot_iconarray_1, warning = FALSE, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+plot_iconarray(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+               title.lbl = "Mammography screening")
+```
+
+
+
 
 #### Tree diagram
 
-Perhaps the most intuitive visualization of the probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
+Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
 
-```{r plot_tree_cd, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
+```{r plot_tree_cd, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
 plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 ```
@@ -360,7 +371,7 @@ For details and additional options of the `plot_mosaic` function, see the docume
 
 Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population into `dec.pos` and `dec.neg` cases: 
 
-```{r plot_tree_dc, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
+```{r plot_tree_dc, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc", 
           title.lbl = "Mammography screening",
@@ -378,7 +389,7 @@ plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 `riskyr` uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option `area = "hr"` further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:
 
-```{r plot_tree_dc_vr, fig.width = 7.1, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."}
+```{r plot_tree_dc_vr, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc",
           area = "hr", 
@@ -387,12 +398,20 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           dec.neg.lbl = "negative test")
 ```
 
+Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. This is still visible when relaxing the positional constraint of icons in the icon array:
+
+```{r plot_iconarray_mosaic, warning = FALSE, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+plot_iconarray(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
+               random.position = TRUE,
+               title.lbl = "Mammography screening")
+```
+
 
 #### Network plot
 
 The following network diagram is a generalization of the tree diagram. It plots all 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts all 10 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
 
-```{r plot_fnet, fig.width = 7.1, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
+```{r plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 ```

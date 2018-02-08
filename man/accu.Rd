@@ -33,6 +33,13 @@ Current metrics include:
 
 \code{wacc = (w * sens) + ((1 - w) * spec)}.
 
+\item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
+
+\code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
+
+Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+   for additional information.
+
 \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
    (aka. \code{\link{precision}})
    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
@@ -42,12 +49,6 @@ Current metrics include:
 
 Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
 
-\item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
-
-\code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
-
-Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
-   for additional information.
 }
 }
 \examples{
