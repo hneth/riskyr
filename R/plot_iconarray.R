@@ -1,5 +1,5 @@
 ## plot_iconarray.R | riskyr
-## 2018 02 07
+## 2018 02 08
 ## -----------------------------------------------
 
 ##  This function plots an iconarray flexibly, dependent on population size
