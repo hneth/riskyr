@@ -3,6 +3,10 @@
 ## -----------------------------------------------
 ## Generic utility functions:
 
+## (A) Verification functions
+## (B) Display functions
+## (C) Graphic functions
+
 ## -----------------------------------------------
 ## (A) Verification functions:
 
@@ -1023,6 +1027,8 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
+#'
+#' @export
 
 is_valid_prob_set <- function(prev,
                               sens = NA, mirt = NA,
@@ -1321,6 +1327,9 @@ as_pb <- function(perc, n.digits = 4) {
   # round(prob.seq, 4) == as_pb(as_pc(prob.seq)) # all TRUE (as both rounded to 4 decimals)
 }
 
+
+## -----------------------------------------------
+## (C) Graphic functions:
 ## -----------------------------------------------
 ## Reformat the plotting area to allow placing legend outside of a plot:
 
