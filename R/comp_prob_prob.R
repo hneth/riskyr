@@ -452,14 +452,15 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 #' \code{c(\link{prev}, \link{sens}, \link{mirt}, \link{spec}, \link{fart})}.
 #'
 #' @examples
+#' # ways to work:
 #' comp_complete_prob_set(1, .8, NA, .7, NA)  # => 1.0 0.8 0.2 0.7 0.3
 #' comp_complete_prob_set(1, NA, .8, NA, .4)  # => 1.0 0.2 0.8 0.6 0.4
 #'
-#' # Watch out for:
-#' comp_complete_prob_set(8)                  # => 8 NA NA NA NA       + warnings that comp_comp_pair needs 1 argument
-#' comp_complete_prob_set(8, 7, 6, 5, 4)      # => 8 7 6 5 4           + no warning (as valid set assumed)!
+#' # watch out for:
+#' comp_complete_prob_set(8)                  # => 8 NA NA NA NA + warnings that comp_comp_pair needs 1 argument
+#' comp_complete_prob_set(8, 7, 6, 5, 4)      # => 8 7 6 5 4 + no warning (as valid set assumed)!
 #' comp_complete_prob_set(8, .8, NA, .7, NA)  # => 8.0 0.8 0.2 0.7 0.3 + no warning (as valid set assumed)!
-#' comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
+#' comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA + no warning (as valid set assumed)!
 #'
 #' @family functions computing probabilities
 #'
@@ -552,17 +553,16 @@ comp_complete_prob_set <- function(prev,
 #'
 #'
 #' @examples
-#' # (1) Ways to work:
+#' # (1) ways to work:
 #' comp_ppod(.10, .200, .300)  # => ppod = 0.65
 #' comp_ppod(.50, .333, .666)  # => ppod = 0.3335
 #'
-#' # (2) Watch out for vectors:
+#' # (2) watch out for vectors:
 #' prev <- seq(0, 1, .1)
 #' comp_ppod(prev, .8, .5)  # => 0.50 0.53 0.56 0.59 0.62 0.65 0.68 0.71 0.74 0.77 0.80
 #' comp_ppod(prev,  0,  1)  # => 0 0 0 0 0 0 0 0 0 0 0
 #'
-#' # (3) Watch out for extreme values:
-#'
+#' # (3) watch out for extreme values:
 #' comp_ppod(1, 1, 1)  #  => 1
 #' comp_ppod(1, 1, 0)  #  => 1
 #'
@@ -674,13 +674,13 @@ comp_ppod <- function(prev, sens, spec) {
 #' comp_PPV(prev,  0,  1)  # => with NaN values
 #'
 #' # (3) Watch out for extreme values:
-#' comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+#' comp_PPV(prev = 1, sens = 0, spec = .5)  # => NaN, only mi: hi = 0 and fa = 0: PPV = 0/0 = NaN
 #' is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
 #'
-#' comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+#' comp_PPV(prev = 0, sens = .5, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
 #' is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
 #'
-#' comp_PPV(prev = .5, sens = 0, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+#' comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
 #' is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
 #'
 #'
@@ -733,13 +733,13 @@ comp_PPV <- function(prev, sens, spec) {
   # comp_PPV(prev,  0,  1)  # => with NaN values
 
   ## (3) Watch out for extreme values:
-  # comp_PPV(prev = 1, sens = 0, spec = .5)             # => NaN, only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+  # comp_PPV(prev = 1, sens = 0, spec = .5)  # => NaN, only mi: hi = 0 and fa = 0: PPV = 0/0 = NaN
   # is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
   #
-  # comp_PPV(prev = 0, sens = .5, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+  # comp_PPV(prev = 0, sens = .5, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
   # is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
   #
-  # comp_PPV(prev = .5, sens = 0, spec = 1)             # => NaN, only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
+  # comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
   # is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
 }
 
@@ -870,10 +870,10 @@ comp_FDR_PPV <- function(PPV) {
 #' comp_NPV(prev,  1,  0)  # => with NaN values
 #'
 #' # (3) Watch out for extreme values:
-#' comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
-#' comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
-#' comp_NPV(.5, sens = 1, spec = 0)              # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
-#' is_extreme_prob_set(.5, sens = 1, spec = 0)   # => verifies extreme cases
+#' comp_NPV(1, 1, 1)   # => NaN, as cr = 0 and mi = 0: 0/0
+#' comp_NPV(1, 1, 0)   # => NaN, as cr = 0 and mi = 0: 0/0
+#' comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+#' is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
 #'
 #'
 #' @family functions computing probabilities
@@ -925,8 +925,8 @@ comp_NPV <- function(prev, sens, spec) {
   ## (3) Watch out for extreme values:
   # comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
   # comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
-  # comp_NPV(.5, sens = 1, spec = 0)               # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
-  # is_extreme_prob_set(.5, sens = 1, spec = 0)    # => verifies extreme cases
+  # comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+  # is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
 
   ## \code{\link{is_extreme_prob_set}} verifies extreme cases
 }
@@ -1011,7 +1011,7 @@ comp_FOR <- function(prev, sens, spec) {
 ## for extreme values:
 # comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
 # comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_FOR(.5, sens = 1, spec = 0)                    # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
 # is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
 
 ## (b) FOR = 1 - NPV:

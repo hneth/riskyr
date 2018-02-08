@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 01 26
+## 2018 02 08
 ## -----------------------------------------------
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
@@ -237,7 +237,7 @@ prev <- 1/2  # default prevalence
 #'
 #' @examples
 #' sens <- .85     # => sets a sensitivity value of 85%
-#' sens <- 85/100  # => (decision = positive) for 85 people out of 100 people for which (condition = TRUE)
+#' sens <- 85/100  # => (decision = positive) for 85 out of 100 people with (condition = TRUE)
 #' is_prob(sens)   # => TRUE (as sens is a probability)
 
 sens <- 1/2  # default sensitivity
@@ -330,7 +330,7 @@ sens <- 1/2  # default sensitivity
 #'
 #' @examples
 #' mirt <- .15     # => sets a miss rate of 15%
-#' mirt <- 15/100  # => (decision = negative) for 15 people out of 100 people for which (condition = TRUE)
+#' mirt <- 15/100  # => (decision = negative) for 15 out of 100 people with (condition = TRUE)
 #' is_prob(mirt)   # => TRUE (as mirt is a probability)
 
 mirt <- 1 - sens  # default miss rate
@@ -424,7 +424,7 @@ mirt <- 1 - sens  # default miss rate
 #'
 #' @examples
 #' spec <- .75     # => sets a specificity value of 75%
-#' spec <- 75/100  # => (decision = negative) for 75 people out of 100 people for which (condition = FALSE)
+#' spec <- 75/100  # => (decision = negative) for 75 out of 100 people with (condition = FALSE)
 #' is_prob(spec)   # => TRUE (as spec is a probability)
 
 spec <- 1/2 # default specificity
@@ -521,7 +521,7 @@ spec <- 1/2 # default specificity
 #'
 #' @examples
 #' fart <- .25     # => sets a false alarm rate of 25%
-#' fart <- 25/100  # => (decision = positive) for 25 people out of 100 people for which (condition = FALSE)
+#' fart <- 25/100  # => (decision = positive) for 25 out of 100 people with (condition = FALSE)
 #' is_prob(fart)   # => TRUE (as fart is a probability)
 
 fart <- 1 - spec   # default false alarm rate
@@ -692,7 +692,7 @@ ppod <- 1/2  # default rate of positive decisions
 #'
 #' @examples
 #' PPV <- .55     # => sets a positive predictive value of 55%
-#' PPV <- 55/100  # => (condition = TRUE) for 55 people out of 100 people for which (decision = positive)
+#' PPV <- 55/100  # => (condition = TRUE) for 55 out of 100 people with (decision = positive)
 #' is_prob(PPV)   # => TRUE (as PPV is a probability)
 #'
 #' @family probabilities
@@ -791,7 +791,7 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #'
 #' @examples
 #' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
-#' FDR <- 45/100  # => (condition = FALSE) for 45 people out of 100 people for which (decision = positive)
+#' FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
 #' is_prob(FDR)   # => TRUE (as FDR is a probability)
 
 FDR <- 1 - PPV  # default of false discorvery rate (FDR)
@@ -881,7 +881,7 @@ FDR <- 1 - PPV  # default of false discorvery rate (FDR)
 #'
 #' @examples
 #' NPV <- .95     # => sets a negative predictive value of 95%
-#' NPV <- 95/100  # => (condition = FALSE) for 95 people out of 100 people for which (decision = negative)
+#' NPV <- 95/100  # => (condition = FALSE) for 95 out of 100 people with (decision = negative)
 #' is_prob(NPV)   # => TRUE (as NPV is a probability)
 
 NPV <- 1/2  # default of negative predictive value (NPV)
@@ -969,7 +969,7 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #'
 #' @examples
 #' FOR <- .05     # => sets a false omission rate of 5%
-#' FOR <- 5/100   # => (condition = TRUE) for 5 people out of 100 people for which (decision = negative)
+#' FOR <- 5/100   # => (condition = TRUE) for 5 out of 100 people with (decision = negative)
 #' is_prob(FOR)   # => TRUE (as FOR is a probability)
 
 FOR <- 1 - NPV  # default of false omission rate (FOR)

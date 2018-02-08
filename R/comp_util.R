@@ -1123,15 +1123,15 @@ is_valid_prob_set <- function(prev,
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' ## Check:
+#' # ways to work:
 #' is_valid_prob_triple(0, 0, 0)    # => TRUE
 #' is_valid_prob_triple(1, 1, 1)    # => TRUE
 #'
-#' # ways to fail:
-#' is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
-#' is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
-#' is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
-#' is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+#' ## ways to fail:
+#' # is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+#' # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+#' # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+#' # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
 #'
 #' @family verification functions
 #'
@@ -1147,6 +1147,8 @@ is_valid_prob_set <- function(prev,
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
+#'
+#' @export
 
 is_valid_prob_triple <- function(prev, sens, spec) {
 
@@ -1206,9 +1208,9 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' as_pc(prob.seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
 #' as_pb(perc.seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
 #'
-#' perc.seq == as_pc(as_pb(perc.seq))  # all TRUE
-#' prob.seq == as_pb(as_pc(prob.seq))  # some FALSE due to rounding errors!
-#' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # all TRUE (both rounded to 4 decimals)
+#' perc.seq == as_pc(as_pb(perc.seq))            # => all TRUE
+#' prob.seq == as_pb(as_pc(prob.seq))            # => some FALSE due to rounding errors!
+#' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
 #'
@@ -1292,9 +1294,9 @@ as_pc <- function(prob, n.digits = 2) {
 #' as_pc(prob.seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
 #' as_pb(perc.seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
 #'
-#' perc.seq == as_pc(as_pb(perc.seq))  # all TRUE
-#' prob.seq == as_pb(as_pc(prob.seq))  # some FALSE due to rounding errors!
-#' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # all TRUE (both rounded to 4 decimals)
+#' perc.seq == as_pc(as_pb(perc.seq))            # => all TRUE
+#' prob.seq == as_pb(as_pc(prob.seq))            # => some FALSE due to rounding errors!
+#' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
 #'
