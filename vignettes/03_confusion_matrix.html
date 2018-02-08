@@ -14,7 +14,7 @@
 
 <meta name="date" content="2018-02-08" />
 
-<title>Confusion Matrix and Metrics</title>
+<title>Confusion Matrix and riskyr Metrics</title>
 
 
 
@@ -30,7 +30,7 @@
 
 
 
-<h1 class="title toc-ignore">Confusion Matrix and Metrics</h1>
+<h1 class="title toc-ignore">Confusion Matrix and <code>riskyr</code> Metrics</h1>
 <h4 class="author"><em>Hansjörg Neth, SPDS, uni.kn</em></h4>
 <h4 class="date"><em>2018-02-08</em></h4>
 
@@ -131,7 +131,7 @@
 <li><code>fa</code> represents <em>false alarms</em> (or false positives): condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>).</li>
 <li><code>cr</code> represents <em>correct rejections</em> (or true negatives): condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</li>
 </ol>
-<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
+<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="02_data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
 <ol style="list-style-type: lower-alpha">
 <li>by condition (corresponding to the two columns of the confusion matrix):</li>
 </ol>
@@ -343,9 +343,9 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <div id="all-riskyr-vignettes" class="section level2">
 <h2>All <code>riskyr</code> Vignettes</h2>
 <ul>
-<li><a href="user_guide.html">User guide</a></li>
-<li><a href="data_formats.html">Data formats</a></li>
-<li><a href="confusion_matrix.html">Confusion matrix</a></li>
+<li><a href="01_user_guide.html">User guide</a></li>
+<li><a href="02_data_formats.html">Data formats</a></li>
+<li><a href="03_confusion_matrix.html">Confusion matrix</a></li>
 </ul>
 <!-- eof. -->
 </div>

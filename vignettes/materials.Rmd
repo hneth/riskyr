@@ -1,11 +1,11 @@
 ---
-title: "`riskyr` Materials"
+title: "`riskyr` Miscellaneous Materials"
 author: "Hansjörg Neth"
-date: "`r Sys.Date()`"
+date: "2018 02 05"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
-vignette: >
+vignette: > 
   %\VignetteIndexEntry{Materials}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
@@ -17,11 +17,15 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library("riskyr")
+library("riskyr")  # load the "riskyr" package
 ```
 
 
-Note: This file contains snippets of older materials yet to be used in actual vignettes.
+**Note:** This file contains miscellanea and older snippets of materials used or yet to be used in actual vignettes:
+
+- [User guide](01_user_guide.html)
+- [Data formats](02_data_formats.html)
+- [Confusion matrix](03_confusion_matrix.html)
 
 
 ## Motivation
@@ -66,103 +70,11 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 - The numeric value of a conditional probability can be computed with _Bayes' formula_ (see our [user guide](user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
 
-## Confusion Matrix
-
-Confusion matrix: Ordinary people and experts struggle alike: aptly-named "confusion matrix": Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence. 
-
-Behold the aptly named "confusion" matrix: 
-
-
-|         | Condition           |     | 
-| ------:  |:----:|:----:|------:|              
-| **Decision** | `TRUE`:      | `FALSE`:      |     Sum:  | 
-| positive:      | `hi`       | `fa`          | `dec.pos` | 
-| negative:      | `mi`       | `cr`          | `dec.neg` | 
-|      Sum:      | `cond.true` | `cond.false` |       `N` |
-
-
-
-### Terminology
-
-Ordinary people and experts struggle alike: aptly-named "confusion matrix". Measures are simple, but complex in their abundance (see examples) and inter-dependence.
-
-The 4 cells are the essential core of all metrics.
-
-Identify 2 correct cases (`hi`, `cr`) and 2 errors (`mi`, `fa`).
-
-Sources of confusion: 
-
-- `mi` are in the `cond.true` column (left), but "false negatives".
-- `cr` are in the `cond.false` column (right), but "true negatives".
-
-Thus, the terms "false" and "true" in cell names refer to the relationship between or correspondence of condition and decision, rather than the condition alone.
-
-
-### Relationships
-
-1. The 2 columns of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{cond.true}  &= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &= \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-$$ 
-
-2. The 2 rows of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{dec.pos}  &= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &= \texttt{mi} + \texttt{cr} \\
-\end{aligned}
-$$ 
-
-
-
-3. The 2 diagonals of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{dec.cor}      &= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &= \texttt{mi} + \texttt{fa} \\
-\end{aligned}
-$$ 
-
-Note that these are often called "true decisions" and "false decisions", but this promotes confusion, as "true decisions" include `cond.false` cases (`cr`) and false decisions include `cond.true` cases (`mi`).
-
-
-4. Overall, the following relationships hold among the frequencies:
-
-$$ 
-\begin{aligned}
-\texttt{N} &= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &= \texttt{cond.true} + \texttt{cond.false} \\
-           &= \texttt{dec.cor} + \texttt{dec.err}      \\
-           &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-$$ 
-
-
-## Accuracy Metrics
-
-1. Accuracy: Proportion or percentage of cases correctly classified.
-
-$$
-\begin{aligned}
-\texttt{acc} &= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
-             = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
-\end{aligned}
-$$
-
-2. Weighted accuracy: Taking into account the importance of errors.
-
-3. Matthew correlation coefficient (mcc)
-
 
 ## Instructional Approaches
 
 Contrast 3 possible ways to convey the same information:
+
 
 ### Training
 
@@ -247,9 +159,9 @@ _Journal of Experimental Psychology: General_, _130_, 380--400.
 
 ## All `riskyr` Vignettes
 
-- [User guide](user_guide.html)
-- [Data formats](data_formats.html)
-- [Confusion matrix](confusion_matrix.html)
+- [User guide](01_user_guide.html)
+- [Data formats](02_data_formats.html)
+- [Confusion matrix](03_confusion_matrix.html)
 
 <!-- eof. -->
 

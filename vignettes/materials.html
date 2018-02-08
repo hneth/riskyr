@@ -12,9 +12,8 @@
 
 <meta name="author" content="Hansjörg Neth" />
 
-<meta name="date" content="2018-02-08" />
 
-<title>riskyr Materials</title>
+<title>riskyr Miscellaneous Materials</title>
 
 
 
@@ -68,13 +67,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore"><code>riskyr</code> Materials</h1>
+<h1 class="title toc-ignore"><code>riskyr</code> Miscellaneous Materials</h1>
 <h4 class="author"><em>Hansjörg Neth</em></h4>
-<h4 class="date"><em>2018-02-08</em></h4>
+<h4 class="date"><em>2018 02 05</em></h4>
 
 
 
-<p>Note: This file contains snippets of older materials yet to be used in actual vignettes.</p>
+<p><strong>Note:</strong> This file contains miscellanea and older snippets of materials used or yet to be used in actual vignettes:</p>
+<ul>
+<li><a href="01_user_guide.html">User guide</a></li>
+<li><a href="02_data_formats.html">Data formats</a></li>
+<li><a href="03_confusion_matrix.html">Confusion matrix</a></li>
+</ul>
 <div id="motivation" class="section level2">
 <h2>Motivation</h2>
 <p>A basic motivation for developing <code>riskyr</code> was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:</p>
@@ -111,117 +115,6 @@ If a woman does not have breast cancer, the probability is 9.6% that she will al
 <li><p><em>Conditional</em> probabilities <span class="math inline">\(p(D|E)\)</span> are typically <em>not</em> reversable: In fact, <span class="math inline">\(p(D|E)\)</span> is often very different from <span class="math inline">\(p(E|D)\)</span>. An example illustrates the difference: The probability <span class="math inline">\(p(male|king)\)</span> that a biblical king is male is high. Nevertheless, the probability that a male person is a biblical king <span class="math inline">\(p(king|male)\)</span> is low.</p></li>
 <li><p>The numeric value of a conditional probability can be computed with <em>Bayes’ formula</em> (see our <a href="user_guide.html">user guide</a>) or in terms of <em>natural frequencies</em>. For humans, the former is difficult, the latter simpler and more transparent.</p></li>
 </ul>
-</div>
-<div id="confusion-matrix" class="section level2">
-<h2>Confusion Matrix</h2>
-<p>Confusion matrix: Ordinary people and experts struggle alike: aptly-named “confusion matrix”: Each measure is simple, but the matter is complex in the abundance of metrics (see examples) and their inter-dependence.</p>
-<p>Behold the aptly named “confusion” matrix:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="right"></th>
-<th align="center">Condition</th>
-<th align="center"></th>
-<th align="right"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right"><strong>Decision</strong></td>
-<td align="center"><code>TRUE</code>:</td>
-<td align="center"><code>FALSE</code>:</td>
-<td align="right">Sum:</td>
-</tr>
-<tr class="even">
-<td align="right">positive:</td>
-<td align="center"><code>hi</code></td>
-<td align="center"><code>fa</code></td>
-<td align="right"><code>dec.pos</code></td>
-</tr>
-<tr class="odd">
-<td align="right">negative:</td>
-<td align="center"><code>mi</code></td>
-<td align="center"><code>cr</code></td>
-<td align="right"><code>dec.neg</code></td>
-</tr>
-<tr class="even">
-<td align="right">Sum:</td>
-<td align="center"><code>cond.true</code></td>
-<td align="center"><code>cond.false</code></td>
-<td align="right"><code>N</code></td>
-</tr>
-</tbody>
-</table>
-<div id="terminology" class="section level3">
-<h3>Terminology</h3>
-<p>Ordinary people and experts struggle alike: aptly-named “confusion matrix”. Measures are simple, but complex in their abundance (see examples) and inter-dependence.</p>
-<p>The 4 cells are the essential core of all metrics.</p>
-<p>Identify 2 correct cases (<code>hi</code>, <code>cr</code>) and 2 errors (<code>mi</code>, <code>fa</code>).</p>
-<p>Sources of confusion:</p>
-<ul>
-<li><code>mi</code> are in the <code>cond.true</code> column (left), but “false negatives”.</li>
-<li><code>cr</code> are in the <code>cond.false</code> column (right), but “true negatives”.</li>
-</ul>
-<p>Thus, the terms “false” and “true” in cell names refer to the relationship between or correspondence of condition and decision, rather than the condition alone.</p>
-</div>
-<div id="relationships" class="section level3">
-<h3>Relationships</h3>
-<ol style="list-style-type: decimal">
-<li>The 2 columns of the confusion table:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{cond.true}  &amp;= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &amp;= \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-\]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>The 2 rows of the confusion table:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{dec.pos}  &amp;= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &amp;= \texttt{mi} + \texttt{cr} \\
-\end{aligned}
-\]</span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>The 2 diagonals of the confusion table:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{dec.cor}      &amp;= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &amp;= \texttt{mi} + \texttt{fa} \\
-\end{aligned}
-\]</span></p>
-<p>Note that these are often called “true decisions” and “false decisions”, but this promotes confusion, as “true decisions” include <code>cond.false</code> cases (<code>cr</code>) and false decisions include <code>cond.true</code> cases (<code>mi</code>).</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Overall, the following relationships hold among the frequencies:</li>
-</ol>
-<p><span class="math display">\[ 
-\begin{aligned}
-\texttt{N} &amp;= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &amp;= \texttt{cond.true} + \texttt{cond.false} \\
-           &amp;= \texttt{dec.cor} + \texttt{dec.err}      \\
-           &amp;= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-\end{aligned}
-\]</span></p>
-</div>
-</div>
-<div id="accuracy-metrics" class="section level2">
-<h2>Accuracy Metrics</h2>
-<ol style="list-style-type: decimal">
-<li>Accuracy: Proportion or percentage of cases correctly classified.</li>
-</ol>
-<p><span class="math display">\[
-\begin{aligned}
-\texttt{acc} &amp;= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
-             = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
-\end{aligned}
-\]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Weighted accuracy: Taking into account the importance of errors.</p></li>
-<li><p>Matthew correlation coefficient (mcc)</p></li>
-</ol>
 </div>
 <div id="instructional-approaches" class="section level2">
 <h2>Instructional Approaches</h2>
@@ -268,9 +161,9 @@ Start with network diagram, explain frequencies as nodes and probabilities as ed
 <div id="all-riskyr-vignettes" class="section level2">
 <h2>All <code>riskyr</code> Vignettes</h2>
 <ul>
-<li><a href="user_guide.html">User guide</a></li>
-<li><a href="data_formats.html">Data formats</a></li>
-<li><a href="confusion_matrix.html">Confusion matrix</a></li>
+<li><a href="01_user_guide.html">User guide</a></li>
+<li><a href="02_data_formats.html">Data formats</a></li>
+<li><a href="03_confusion_matrix.html">Confusion matrix</a></li>
 </ul>
 <!-- eof. -->
 </div>

@@ -1,5 +1,5 @@
 ---
-title: "Confusion Matrix and Metrics"
+title: "Confusion Matrix and `riskyr` Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
 date: "`r Sys.Date()`"
 output: 
@@ -17,8 +17,9 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library("riskyr")
+library("riskyr")  # load the "riskyr" package
 ```
+
 
 Behold the aptly named "confusion matrix":
 
@@ -47,6 +48,7 @@ In its most basic form, the confusion matrix looks like this:
 | negative (`FALSE`):    |  `mi`   |  `cr`    | 
 
 
+
 ### Adopting 2 perspectives on a population
 
 Essentially, the confusion table views a population of `N` individuals from two different perspectives. Adopting a perspective means that we distinguish between individuals on the basis of some criterion. The two criteria used here are:
@@ -61,7 +63,7 @@ Numerically, the adoption of each of these two perspectives splits the populatio
 3. `fa` represents _false alarms_ (or false positives): condition absent (`FALSE`) & decision positive (`TRUE`). 
 4. `cr` represents _correct rejections_ (or true negatives): condition absent (`FALSE`) & decision negative (`FALSE`). 
 
-Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population `N` (or splitting `N` into subgroups by applying two binary criteria):
+Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](02_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population `N` (or splitting `N` into subgroups by applying two binary criteria):
 
 (a) by condition (corresponding to the two columns of the confusion matrix): 
 
@@ -262,8 +264,8 @@ Links to related Wikipedia articles:
 
 ## All `riskyr` Vignettes
 
-- [User guide](user_guide.html)
-- [Data formats](data_formats.html)
-- [Confusion matrix](confusion_matrix.html)
+- [User guide](01_user_guide.html)
+- [Data formats](02_data_formats.html)
+- [Confusion matrix](03_confusion_matrix.html)
 
 <!-- eof. -->

@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library("riskyr")
+library("riskyr")  # load the "riskyr" package
 
 ## ---- fig.show='hold'----------------------------------------------------
 plot(1:10)

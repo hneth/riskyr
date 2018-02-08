@@ -2,9 +2,11 @@
 title: "`riskyr` Data Formats"
 author: "Hansjörg Neth, SPDS, uni.kn"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: 
+    fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Data formats}
+  %\VignetteIndexEntry{Data Formats}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +18,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 <!-- Introduction: Frequencies and Probabilities --> 
+
 
 The problems addressed by `riskyr` and the scientific discussion surrounding them is framed in terms of two representational formats: _frequencies_ are distinguished from _probabilities_. (See the [user guide](user_guide.html) for background and references.)
 
@@ -234,6 +238,8 @@ Note that the ratios of frequencies are straightforward consequences of the prob
 
 ## Exercise
 
+### An example
+
 The following network diagram is based on the following inputs:
 
 - a condition's prevalence of 50\% (`prev = .50`);
@@ -251,11 +257,13 @@ plot_fnet(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
           title.lbl = "A simple example")
 ```
 
-**Your tasks:**
+
+### Your tasks
 
 1. Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?
 
 2. What is the frequency of `dec.cor` and `dec.err` cases? Where do these cases appear in the diagram?
+
 
 
 ## References
@@ -275,8 +283,8 @@ _Cognition_, _84_, 343--352.
 
 ## All `riskyr` Vignettes
 
-- [User guide](user_guide.html)
-- [Data formats](data_formats.html)
-- [Confusion matrix](confusion_matrix.html)
+- [User guide](01_user_guide.html)
+- [Data formats](02_data_formats.html)
+- [Confusion matrix](03_confusion_matrix.html)
 
 <!-- eof. -->

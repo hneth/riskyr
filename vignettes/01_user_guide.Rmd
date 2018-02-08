@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
-vignette: >
+vignette: > 
   %\VignetteIndexEntry{User Guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
@@ -18,10 +18,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-<!-- Introduction: --> 
+<!-- Motto: --> 
 
 > "Solving a problem simply means representing it so as to make the solution transparent."<br>
 > (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
+
+
+<!-- Introduction: --> 
 
 What is the likelihood of a disease or clinical condition given a positive test result? 
 This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
@@ -203,7 +206,7 @@ The probabilities computed by these "essential" probabilities include the `PPV`,
 p1
 ```
 
-The list of probabilities computed includes the 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (See the vignette on [data formats](data_formats.html) for details on these probabilities.)
+The list of probabilities computed includes the 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (See the vignette on [data formats](02_data_formats.html) for details on these probabilities.)
 
 Incidentally, as R does not case whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem --- the version reframed in terms of frequencies --- yields the same solution:
 
@@ -253,7 +256,7 @@ As before, the function `comp_freq_prob` does not compute only one frequency, bu
 f1
 ```
 
-In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](data_formats.html) for details on all frequencies.)
+In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](02_data_formats.html) for details on all frequencies.)
 
 
 #### Computing probabilities from frequencies
@@ -476,8 +479,8 @@ _Journal of Experimental Psychology: General_, _130_, 380--400.
 
 ## All `riskyr` Vignettes
 
-- [User guide](user_guide.html)
-- [Data formats](data_formats.html)
-- [Confusion matrix](confusion_matrix.html)
+- [User guide](01_user_guide.html)
+- [Data formats](02_data_formats.html)
+- [Confusion matrix](03_confusion_matrix.html)
 
 <!-- eof. -->
