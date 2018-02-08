@@ -190,9 +190,10 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                            ## defaults to classic icon array!
                            ## TODO: rather name these?
                            icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
-                           icon.types = 22,  # plotting characters; default square with border.
-                           pch.border = grey(.15, .66),  # border of characters.
-                           transparency = 2/3,
+                           icon.types = 22,  # plotting characters; default square with border
+                           pch.border = grey(.10, .50),  # border color of icons
+                           pch.lwd = 1.5, # line width of icons
+                           transparency = .50,
                            # one can also enter a full vector of length N.
                            block.d = NULL,  # distance between blocks (where applicable).
                            border.d = 0.1,  # distance of icons to border.
@@ -860,10 +861,12 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
   points(x = posx_vec, y = posy_vec, # positions.
          # visual details:
-         pch = pch.vec, col = pch.border, bg = col.vec, cex = cex)
+         pch = pch.vec, col = pch.border, bg = col.vec, lwd = pch.lwd, cex = cex)
 
-  # Additional information:
-  # Define labels:
+
+  ## Additional information:
+
+  ## Define labels:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
   cur.par.lbl <-  paste0("Conditions: ",
