@@ -1,5 +1,5 @@
-## comp_util.R | riskyR
-## 2018 01 27
+## comp_util.R | riskyr
+## 2018 02 08
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -1365,6 +1365,23 @@ makeTransparent = function(..., alpha = .50) {
 
 ## Note also:
 # adjustcolor(col = "green", alpha.f = .50)
+
+## -----------------------------------------------
+## Helper for dynamic calculation of block size:
+## (used in plot_iconarray.R):
+
+factors_min_diff <- function (n) {
+  n_sqrt <- sqrt(n)
+  lower <- floor(n_sqrt)
+  upper <- ceiling(n_sqrt)
+
+  while (lower * upper != n) {
+    if (lower * upper > n) { lower <- lower - 1 }
+    if (lower * upper < n) { upper <- upper + 1 }
+  }
+
+  return(c(lower, upper))
+}
 
 ## -----------------------------------------------
 ## (+) ToDo:

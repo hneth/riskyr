@@ -1,9 +1,8 @@
 ## plot_iconarray.R | riskyr
 ## 2018 02 08
 ## -----------------------------------------------
-
-##  This function plots an iconarray flexibly, dependent on population size
-
+##  This function plots an icon array in many ways,
+##  dependent on population size
 ## -----------------------------------------------
 
 #' Plot an icon array of a population.
@@ -49,13 +48,19 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
 #'
-#' @param ident.order Gives the order in which icon identities
+#' @param ident.order Specifies the order in which icon identities
 #' (hits, misses, false alarms, and correct rejections) are plotted.
+#' Default: \code{ident.order = c("hi", "mi", "fa", "cr")}
+#'
+#' @param random.position Are positions randomly drawn?
+#' Default: \code{random.position = FALSE}.
+#'
+#' @param random.identities Are identities randomly assigned to positions?
+#' Default: \code{random.identities = FALSE}
 #'
 #'
 #' @param show.accu Option for showing current
@@ -66,11 +71,75 @@
 #' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 #' Default: \code{w.acc = .50}.
 #'
-#'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param title.lbl Text label to set plot title.
 #'
+#' #' @examples
+#' # ways to work:
+#' plot_iconarray()  # => plots icon array for default population
+#'
+#' # standard icon arrays:
+#' plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+#'
+#' plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
+#'                random.identities = TRUE)
+#'
+#' plot_iconarray(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+#'
+#' plot_iconarray(N = 10000, icon.types = c(21,23,24,23),
+#'                random.identities = TRUE)
+#'
+#' plot_iconarray(icon.types = c(21,23,24,23),
+#'                block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
+#'                block.d = 0.5, border.d = 0.9)
+#'
+#' plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+#'
+#' plot_iconarray(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+#'                icon.types = c(21,23,24,23),
+#'                block_size_col = 10, block_size_row = 5,
+#'                ncol_blocks = 5, nrow_blocks = 5,
+#'                block.d = 0.8,
+#'                border.d = 0.2,
+#'                fill_array = "top")
+#'
+#'
+#' plot_iconarray(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
+#'                icon.types = c(21,23,21,23),
+#'                ident.order = c("hi", "mi", "cr", "fa"),
+#'                block.d = 0.8,
+#'                border.d = 0.01,
+#'                cex = 0.7,
+#'                random.position = FALSE,
+#'                random.identities = FALSE)
+#'
+#'
+#' # Mosaic like and randomized arrays:
+#' plot_iconarray(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
+#'                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
+#'
+#' plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
+#'                ident.order = c("mi", "hi", "cr", "fa"),
+#'                random.position = TRUE, type.sort = "equal", block.d = 0.05)
+#'
+#' plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
+#'                random.position = TRUE, random.identities = TRUE)
+#'
+#' plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
+#'                icon.types = c(21,23,21,23),
+#'                ident.order = c("hi", "mi", "cr", "fa"),
+#'                block.d = 0.1,
+#'                border.d = 0.01,
+#'                cex = 0.7,
+#'                random.position = TRUE,
+#'                random.identities = FALSE,
+#'                type.sort = "mosaic")
+#'
+#'
+#' @family visualization functions
+#'
+#' @export
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,21 +155,6 @@
 # A number of blocks.
 # A size for the icons (cex)
 # ...?
-
-# Helper for dynamic calculation of block size:
-# As R function:
-factors_min_diff <- function (n) {
-  n_sqrt <- sqrt(n)
-  lower <- floor(n_sqrt)
-  upper <- ceiling(n_sqrt)
-
-  while (lower * upper != n) {
-    if (lower * upper > n) { lower <- lower - 1 }
-    if (lower * upper < n) { upper <- upper + 1 }
-  }
-
-  return(c(lower, upper))
-}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -123,26 +177,16 @@ factors_min_diff <- function (n) {
 
 # (C) Translating these dimensions into code:
 
-# TODO:
-# - add borders to left and top type of sorting.
-
-# - Each of the plot types may be a potential function.  Then it is more modular!
-
-## for default:
-# num <- riskyr:::num
-# freq <- riskyr:::freq
-# pal <- riskyr:::pal
-# txt <- riskyr:::txt
-
 plot_iconarray <- function(prev = num$prev,             # probabilities
                            sens = num$sens, mirt = NA,
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
+                           ## Key options: ##
                            ident.order = c("hi", "mi", "fa", "cr"),
-                           random.position = FALSE,  # are positions randomly drawn?
+                           random.position = FALSE,    # are positions randomly drawn?
                            random.identities = FALSE,  # are identities randomly assigned to positions?
-                           # defaults to classic icon array!
-                           # TODO: rather name these?
+                           ## defaults to classic icon array!
+                           ## TODO: rather name these?
                            icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
                            icon.types = 22,  # plotting characters; default square with border.
                            pch.border = grey(.66, 0.70),  # border of characters.
@@ -839,82 +883,94 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
   mtext(cur.par.lbl, side = 1, line = 3)
 
-  #---------------------------------------------
 }  # end of function.
-
-
-# Testing ground:-----------------------------------------------------
-
-# Test plotting default population:
-# Standard iconarrays:
-plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
-
-plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
-               random.identities = TRUE)
-
-plot_iconarray(N = 10000, icon.types = c(21,23,24,23),
-               random.identities = TRUE)
-
-plot_iconarray(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
-
-plot_iconarray(icon.types = c(21,23,24,23),
-               block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
-               block.d = 0.5, border.d = 0.9)
-
-plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
-
-plot_iconarray(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon.types = c(21,23,24,23),
-               block_size_col = 10, block_size_row = 5,
-               ncol_blocks = 5, nrow_blocks = 5,
-               block.d = 0.8,
-               border.d = 0.2,
-               fill_array = "top")
-
-
-plot_iconarray(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
-               icon.types = c(21,23,21,23),
-               ident.order = c("hi", "mi", "cr", "fa"),
-               block.d = 0.8,
-               border.d = 0.01,
-               cex = 0.7,
-               random.position = FALSE,
-               random.identities = FALSE)
-
-# TODO: Here it messes things up!
-
-# Mosaic like and randomized arrays:
-plot_iconarray(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
-               random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
-
-plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
-               ident.order = c("mi", "hi", "cr", "fa"),
-               random.position = TRUE, type.sort = "equal", block.d = 0.05)
-
-plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
-               random.position = TRUE, random.identities = TRUE)
-
-
-plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon.types = c(21,23,21,23),
-               ident.order = c("hi", "mi", "cr", "fa"),
-               block.d = 0.1,
-               border.d = 0.01,
-               cex = 0.7,
-               random.position = TRUE,
-               random.identities = FALSE,
-               type.sort = "mosaic")
-
-
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # END OF FUNCTION!!!
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+## Testing ground:-----------------------------------------------------
+
+## Defaults:
+# num <- riskyr:::num
+# freq <- riskyr:::freq
+# pal <- riskyr:::pal
+# txt <- riskyr:::txt
+
+## Check:
+
+{
+  # # ways to work:
+  # plot_iconarray()  # => plots icon array for default population
+  #
+  # # standard icon arrays:
+  # plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+  #
+  # plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
+  #                random.identities = TRUE)
+  #
+  # plot_iconarray(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+  #
+  # plot_iconarray(N = 10000, icon.types = c(21,23,24,23),
+  #                random.identities = TRUE)
+  #
+  # plot_iconarray(icon.types = c(21,23,24,23),
+  #                block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
+  #                block.d = 0.5, border.d = 0.9)
+  #
+  # plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+  #
+  # plot_iconarray(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+  #                icon.types = c(21,23,24,23),
+  #                block_size_col = 10, block_size_row = 5,
+  #                ncol_blocks = 5, nrow_blocks = 5,
+  #                block.d = 0.8,
+  #                border.d = 0.2,
+  #                fill_array = "top")
+  #
+  #
+  # plot_iconarray(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
+  #                icon.types = c(21,23,21,23),
+  #                ident.order = c("hi", "mi", "cr", "fa"),
+  #                block.d = 0.8,
+  #                border.d = 0.01,
+  #                cex = 0.7,
+  #                random.position = FALSE,
+  #                random.identities = FALSE)
+  #
+  # # TODO: Here it messes things up!
+  #
+  # # Mosaic like and randomized arrays:
+  # plot_iconarray(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
+  #                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
+  #
+  # plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
+  #                ident.order = c("mi", "hi", "cr", "fa"),
+  #                random.position = TRUE, type.sort = "equal", block.d = 0.05)
+  #
+  # plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
+  #                random.position = TRUE, random.identities = TRUE)
+  #
+  # plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
+  #                icon.types = c(21,23,21,23),
+  #                ident.order = c("hi", "mi", "cr", "fa"),
+  #                block.d = 0.1,
+  #                border.d = 0.01,
+  #                cex = 0.7,
+  #                random.position = TRUE,
+  #                random.identities = FALSE,
+  #                type.sort = "mosaic")
+
+}
+
 ## -----------------------------------------------
 ## (+) ToDo:
-## - Understand cex --> how does it work, when does it change size, when not?
 
+## - add borders to left and top type of sorting.
+##
+## - Each of the plot types may be a potential function.  Then it is more modular!
+##
+## - Understand cex --> how does it work, when does it change size, when not?
 
 ## -----------------------------------------------
 ## eof.
