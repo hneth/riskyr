@@ -28,10 +28,10 @@ Behold the aptly named "confusion matrix":
 |      Sum:    | `cond.true`  | `cond.false` |       `N` |                        |
 | (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |       |
 
-Ordinary people, but also medical experts and social scientists, inevitably struggle to understand the implications of this matrix. 
-This is no surprise when considering explanatory attempts like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
+Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
+This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.
+Fortunately, the matrix and its implications are quite simple and straightforward. In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.
 
 
 ## Basics
@@ -75,9 +75,25 @@ $$
 $$ 
 \begin{aligned}
 \texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \ \ \ \ \textrm{(b)}      \\
-           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr}) \\
+           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr})         \\
 \end{aligned}
 $$ 
+
+To reflect these two perspectives in the confusion matrix, we only need to add the sums of columns (i.e., by condition) and rows (by decision):
+
+|              | Condition |          |      |     
+| ------:      |:----:|:----:|:------:|:----:|              
+| **Decision** | present (`TRUE`): | absent (`FALSE`): |   Sum:  |   
+| positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | 
+| negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | 
+|      Sum:            | `cond.true`  | `cond.false` |       `N` |
+
+
+**ToDo:** 
+
+- Provide a numeric example.
+- Show corresponding mosaic plot and/or network diagram. 
+
 
 ### Accuracy as a 3rd perspective
 
@@ -99,10 +115,11 @@ Splitting all `N` individuals into two subgroups of those with correct vs. those
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \ \ \textrm{(c)}      \\
+\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \ \ \textrm{(c)}  \\
            \ &= \ (\texttt{hi} + \texttt{cr}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 $$ 
+
 
 ### Avoiding common sources of confusion
 
@@ -123,22 +140,59 @@ Thus, the terms "true" and "false" are ambiguous by switching their referents. W
 Similarly, it may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond.false` cases (`cr`) and "false decisions" would include `cond.true` cases (`mi`). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions".
 
 
+
 ## Accuracy Metrics
 
 The perspective of accuracy raises an important question: How good is a given decision (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal --- measuring decision performance by capturing the correspondence of decisions to conditions in a single quantity.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
 
 While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or have different purposes. 
 
-`riskyr` currently uses three such metrics (which are contained in `accu`):
+
+### A. Specific metrics: Conditional probabilities
+
+Goal: Measure some particular aspect of prediction performance.
+
+Question: How good is our decision or diagnostic test in correctly detecting `cond.true` and `cond.false` cases?
+
+As we are dealing with two types of correct decisions (`hi` and `cr`) and two perspectives (by columns vs. by rows), we can provide 4 answers to this question.
+
+To provide a numeric quantity, we divide the frequency of correct cases (either `hi` or `cr`) by
+
+(a) column sums (`cond.true` or `cond.false`): This yields the decision's sensitivity (`sens`) and specificity (`spec`):
+
+$$
+\begin{aligned}
+\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}       \\
+\ \\ 
+\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}      \\
+\end{aligned}
+$$
+
+(b) row sums (`dec.pos` or `dec.neg`): This yields the decision's positive or negative predictive value (`PPV` or `NPV`): 
+
+$$
+\begin{aligned}
+\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}       \\
+\ \\ 
+\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}      \\
+\end{aligned}
+$$
 
 
-### 1. Accuracy `acc`
+### B. General metrics: Overall accuracy
 
-Accuracy divides the number of correct decisions (i.e., all `dec.cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
+Goal: Summarize overall performance (i.e., entire matrix) in one quantity.
+
+`riskyr` currently uses three general metrics (which are contained in `accu`):
+
+
+#### 1. Overall accuracy (`acc`)
+
+Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec.cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
 
 > Accuracy `acc` := Proportion or percentage of cases correctly classified.
 
-Mathematically, the accuracy `acc` can be computed as:
+Numerically, overall accuracy `acc` is computed as:
 
 $$
 \begin{aligned}
@@ -147,23 +201,30 @@ $$
 \end{aligned}
 $$
 
-+++ here now +++
 
+#### 2. Weighted accuracy (`wacc`)
 
-### 2. Weighted accuracy `wacc`
+Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
 
-Weighted accuracy: Taking into account the importance of errors.
-
-Weighted accuracy, as a weighted average of the sensitivity sens (aka. hit rate HR, TPR, power or recall) and the the specificity `spec` (aka. TNR) in which `sens` is multiplied by a weighting parameter `w` (ranging from 0 to 1) and `spec` is multiplied by the complement `(1 - w)`:
+> Weighted accuracy `wacc` is the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `1 - w`. 
 
 $$
 \texttt{wacc} = \texttt{w} \cdot \texttt{sens} + (1 - \texttt{w}) \cdot \texttt{spec}
 $$
 
-If `w = .5`, `wacc` becomes balanced accuracy `bacc`.
+
+Three cases can be distinguished, based on the value of the weighting parameter `w`:
+
+1. If `w = .5`, `sens` and `spec` are weighted equally and `wacc` becomes balanced accuracy `bacc`.
+
+2. If `0 <= w < .5`, `sens` is less important than `spec` (i.e., instances of `fa` are considered more serious errors than instances of `mi`).
+
+3. If `.5 < w <= 1`, `sens` is more important than `spec` (i.e., instances of `mi` are considered more serious errors than instances of `fa`).
 
 
-### 3. Matthews correlation coefficient `mcc`
++++ here now +++
+
+#### 3. Matthews correlation coefficient `mcc`
 
 The Matthews correlation coefficient (with values ranging from $-1$ to $+1$):
 
@@ -172,6 +233,7 @@ $$
 $$
 
 See [Wikipedia: Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient) for details. 
+
 
 
 ## References
@@ -186,6 +248,7 @@ Links to Wikipedia articles:
 
 - [Confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) (URL: https://en.wikipedia.org/wiki/Confusion_matrix)
 - [Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient)
+
 
 
 ## All `riskyr` Vignettes

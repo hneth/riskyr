@@ -158,6 +158,30 @@ $$
 3. Matthew correlation coefficient (mcc)
 
 
+## Instructional Approaches
+
+Contrast 3 possible ways to convey the same information:
+
+### Training
+
+1. from probabilities:
+Start with probabilities, explain frequencies as a function of applying probabilities to a population.
+
+2. from frequencies:  
+Start with confusion table, explain probabilities in terms of frequencies.
+
+3. integrated:  
+Start with network diagram, explain frequencies as nodes and probabilities as edges.
+
+
+### Test
+
+Contrast and construct 3 types of tasks:
+
+- probability tasks
+- frequency tasks
+- integrated tasks
+
 
 ## All References
 
