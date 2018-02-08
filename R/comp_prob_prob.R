@@ -107,7 +107,6 @@
 #' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @export
-#'
 
 comp_complement <- function(prob) {
 
@@ -164,6 +163,8 @@ comp_complement <- function(prob) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 comp_mirt <- function(sens) {
 
@@ -208,6 +209,8 @@ comp_mirt <- function(sens) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 comp_sens <- function(mirt) {
 
@@ -251,6 +254,8 @@ comp_sens <- function(mirt) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 comp_fart <- function(spec) {
 
@@ -294,6 +299,8 @@ comp_fart <- function(spec) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 comp_spec <- function(fart) {
 
@@ -356,6 +363,8 @@ comp_spec <- function(fart) {
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
 
 comp_comp_pair <- function(p1 = NA, p2 = NA){
 

@@ -64,6 +64,8 @@
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
+#'
+#' @export
 
 is_prob <- function(prob, NA.warn = FALSE) {
 
@@ -167,6 +169,8 @@ is_prob <- function(prob, NA.warn = FALSE) {
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
+#'
+#' @export
 
 is_perc <- function(perc) {
 
@@ -245,6 +249,8 @@ is_perc <- function(perc) {
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
+#'
+#' @export
 
 is_freq <- function(freq) {
 
@@ -365,10 +371,10 @@ is_freq <- function(freq) {
 #' is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
 #' is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
 #'
-#' # ways to fail:
-#' is_suff_prob_set()                    # => FALSE + warning (prev missing)
-#' is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
-#' is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
+#' ## ways to fail:
+#' # is_suff_prob_set()                    # => FALSE + warning (prev missing)
+#' # is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
+#' # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
 #'
 #' @family verification functions
 #'
@@ -382,6 +388,8 @@ is_freq <- function(freq) {
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
+#'
+#' @export
 
 is_suff_prob_set <- function(prev,
                              sens = NA, mirt = NA,
@@ -431,10 +439,10 @@ is_suff_prob_set <- function(prev,
   # is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
   # is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
   #
-  # # ways to fail:
-  # is_suff_prob_set()                    # => FALSE + warning (prev missing)
-  # is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
-  # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
+  # ## ways to fail:
+  # # is_suff_prob_set()                    # => FALSE + warning (prev missing)
+  # # is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
+  # # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
 }
 
 ## -----------------------------------------------
@@ -494,10 +502,10 @@ is_suff_prob_set <- function(prev,
 #' is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
 #' is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 #'
-#' # ways to fail:
-#' is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
-#' is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
-#' is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
+#' ## ways to fail:
+#' # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
+#' # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
+#' # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 #'
 #'
 #' @family verification functions
@@ -515,6 +523,8 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
+#'
+#' @export
 
 is_complement <- function(p1, p2, tol = .01) {
 
@@ -565,10 +575,10 @@ is_complement <- function(p1, p2, tol = .01) {
   # is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
   # is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
   #
-  # # ways to fail:
-  # is_complement(0, 0)              # => FALSE + warning (beyond tolerance)
-  # is_complement(1, 1)              # => FALSE + warning (beyond tolerance)
-  # is_complement(8, 8)              # => FALSE + warning (beyond tolerance)
+  # ## ways to fail:
+  # # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
+  # # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
+  # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 }
 
 ## -----------------------------------------------
@@ -667,6 +677,8 @@ is_complement <- function(p1, p2, tol = .01) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
+#'
+#' @export
 
 is_extreme_prob_set <- function(prev,
                                 sens = NA, mirt = NA,
@@ -888,6 +900,8 @@ is_extreme_prob_set <- function(prev,
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
+#'
+#' @export
 
 is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
@@ -1210,6 +1224,8 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
+#'
+#' @export
 
 ## Probability as percentage (2 decimals):
 
@@ -1294,6 +1310,8 @@ as_pc <- function(prob, n.digits = 2) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
+#'
+#' @export
 
 as_pb <- function(perc, n.digits = 4) {
 

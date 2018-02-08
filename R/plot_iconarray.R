@@ -245,7 +245,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                         spec = spec, fart = fart, tol = .01)) {
 
     ## (a) Compute the complete quintet of probabilities:
-    prob_quintet <- riskyr:::comp_complete_prob_set(prev, sens, mirt, spec, fart)
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
     sens <- prob_quintet[2] # gets sens (if not provided)
     mirt <- prob_quintet[3] # gets mirt (if not provided)
     spec <- prob_quintet[4] # gets spec (if not provided)
@@ -870,9 +870,9 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
   cur.par.lbl <-  paste0("Conditions: ",
-                         "prev = ", riskyr:::as_pc(prev), "%, ",
-                         "sens = ", riskyr:::as_pc(sens), "%, ",
-                         "spec = ", riskyr:::as_pc(spec), "%")
+                         "prev = ", as_pc(prev), "%, ",
+                         "sens = ", as_pc(sens), "%, ",
+                         "spec = ", as_pc(spec), "%")
 
 
   # Plot additional information:
@@ -893,12 +893,6 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Testing ground:-----------------------------------------------------
-
-## Defaults:
-# num <- riskyr:::num
-# freq <- riskyr:::freq
-# pal <- riskyr:::pal
-# txt <- riskyr:::txt
 
 ## Check:
 

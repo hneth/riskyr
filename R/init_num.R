@@ -1,5 +1,5 @@
 ## init_num.R | riskyR
-## 2018 01 30
+## 2018 02 08
 ## -----------------------------------------------
 ## Define and initialize a list of basic input parameters (num)
 ## that contains numeric user inputs:
@@ -56,12 +56,12 @@
 ## The minimal set of numeric input parameters num
 ## consists of 3 probabilities (+ 1 complement):
 
-## Define defaults for num:     # Description:                                                          # Type of input:
-num.def <- list("prev" = round(runif(1, 0, 1), 1),   # prevalence in target population = p(condition TRUE)     [basic p]
-                "sens" = round(runif(1, 0, 1), 1),   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
-                "spec" = round(runif(1, 0, 1), 1),   # specificity = p(decision NEG | condition FALSE)   [conditional p]
-                "fart" = NA,                         # false alarm rate = 1 - spec        [optional, complement of spec]
-                "N"    = round(runif(1, 1, 100), 0)  # population size N                                 [optional freq]
+## Define defaults for num:     # Description:                                                             # Type of input:
+num.def <- list("prev" = round(runif(1, .01, .99), 2),  # prevalence in target population = p(condition TRUE)     [basic p]
+                "sens" = round(runif(1, .01, .99), 2),  # sensitivity = p(decision POS | condition TRUE)    [conditional p]
+                "spec" = round(runif(1, .01, .99), 2),  # specificity = p(decision NEG | condition FALSE)   [conditional p]
+                "fart" = NA,                            # false alarm rate = 1 - spec        [optional, complement of spec]
+                "N"    = round(runif(1, 10, 100), 0)    # population size N                                 [optional freq]
                 )
 
 #' Initialize basic numeric variables.
