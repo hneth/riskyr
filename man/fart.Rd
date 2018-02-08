@@ -53,7 +53,7 @@ b. \code{fart} is the opposite conditional probability
   of the false discovery rate
   or false detection rate \code{\link{FDR}}:
 
-\code{FDR = p(condition = FALSE | decision = negative)}
+\code{FDR = p(condition = FALSE | decision = positive)}
 
 \item In terms of frequencies,
   \code{fart} is the ratio of

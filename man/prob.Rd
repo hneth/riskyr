@@ -17,7 +17,7 @@ and 7 derived (1 non-conditional and 6 conditional) probabilities:
 \enumerate{
 
 \item the condition's prevalence \code{\link{prev}}
- (i.e., the probability of condition being \code{TRUE}):
+ (i.e., the probability of the condition being \code{TRUE}):
  \code{prev = \link{cond.true}/\link{N}}.
 
 \item the decision's sensitivity \code{\link{sens}}
@@ -37,21 +37,21 @@ and 7 derived (1 non-conditional and 6 conditional) probabilities:
  of a positive decision provided that the condition is \code{FALSE}).
 
 \item the proportion (baseline probability or rate)
- of positive decisions \code{\link{ppod}}
- (but not necessarily true decisions):
+ of the decision being positive \code{\link{ppod}}
+ (but not necessarily true):
  \code{ppod = \link{dec.pos}/\link{N}}.
 
 \item the decision's positive predictive value \code{\link{PPV}}
 (i.e., the conditional probability of the condition being \code{TRUE}
-provided that the decision is positive)
+provided that the decision is positive).
+
+\item the decision's false detection (or false discovery) rate \code{\link{FDR}}
+(i.e., the conditional probability of the condition being \code{FALSE}
+provided that the decision is positive).
 
 \item the decision's negative predictive value \code{\link{NPV}}
 (i.e., the conditional probability of the condition being \code{FALSE}
 provided that the decision is negative).
-
-\item the decision's false discovery or false detection rate \code{\link{FDR}}
-(i.e., the conditional probability of the condition being \code{FALSE}
-provided that the decision is positive).
 
 \item the decision's false omission rate \code{\link{FOR}}
 (i.e., the conditional probability of the condition being \code{TRUE}

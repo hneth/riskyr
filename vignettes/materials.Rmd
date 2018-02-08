@@ -158,6 +158,30 @@ $$
 3. Matthew correlation coefficient (mcc)
 
 
+## Instructional Approaches
+
+Contrast 3 possible ways to convey the same information:
+
+### Training
+
+1. from probabilities:
+Start with probabilities, explain frequencies as a function of applying probabilities to a population.
+
+2. from frequencies:  
+Start with confusion table, explain probabilities in terms of frequencies.
+
+3. integrated:  
+Start with network diagram, explain frequencies as nodes and probabilities as edges.
+
+
+### Test
+
+Contrast and construct 3 types of tasks:
+
+- probability tasks
+- frequency tasks
+- integrated tasks
+
 
 ## All References
 
@@ -200,6 +224,11 @@ _Frontiers in Psychology_, _6_, 1473.
 - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
 Communicating statistical information. 
 _Science_, _290_, 2261--2262.
+
+- Phillips, N. D., Neth, H., Woike, J. K., & Gaissmaier, W. (2017). 
+FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. 
+_Judgment and Decision Making_, _12_, 344--368. 
+[ [pdf](http://journal.sjdm.org/17/17217/jdm17217.pdf) | [html](http://journal.sjdm.org/17/17217/jdm17217.html) | [R package](https://CRAN.R-project.org/package=FFTrees) ]
 
 - Kurzenhäuser, S., & Hoffrage, U. (2002). 
 Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. 

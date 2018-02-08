@@ -56,6 +56,8 @@ b. The frequency \code{\link{fa}} is determined by \code{\link{dec.pos}} times t
 
 \item \code{\link{N}  =  \link{dec.pos} + \link{dec.neg}} (by decision)
 
+\item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+
 \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
@@ -84,7 +86,8 @@ Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusi
 
 Other frequencies: \code{\link{N}},
   \code{\link{cond.false}}, \code{\link{cond.true}},
-  \code{\link{cr}}, \code{\link{dec.neg}},
+  \code{\link{cr}}, \code{\link{dec.cor}},
+  \code{\link{dec.err}}, \code{\link{dec.neg}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
 \keyword{datasets}

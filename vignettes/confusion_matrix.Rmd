@@ -28,10 +28,10 @@ Behold the aptly named "confusion matrix":
 |      Sum:    | `cond.true`  | `cond.false` |       `N` |                        |
 | (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |       |
 
-Ordinary people, but also medical experts and social scientists, inevitably struggle to understand the implications of this matrix. 
-This is no surprise when considering explanatory attempts like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
+Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
+This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.
+Fortunately, the matrix and its implications are quite simple and straightforward. In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.
 
 
 ## Basics
@@ -74,117 +74,125 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \textrm{(b)}      \\
-           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr}) \\
+\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \ \ \ \ \textrm{(b)}      \\
+           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr})         \\
 \end{aligned}
 $$ 
 
-### Adopting a 3rd perspective: Accuracy
+To reflect these two perspectives in the confusion matrix, we only need to add the sums of columns (i.e., by condition) and rows (by decision):
 
-A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are _correct_ decisions and which are _erroneous_ decisions? Crucially, this question about decision _accuracy_ can neither be answered by only considering each individual's condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual's decision (i.e., the rows of the matrix). Instead, the question requires considering the correspondence between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains _two_ types of correct decisions and _two_ types of errors:
+|              | Condition |          |      |     
+| ------:      |:----:|:----:|:------:|:----:|              
+| **Decision** | present (`TRUE`): | absent (`FALSE`): |   Sum:  |   
+| positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | 
+| negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | 
+|      Sum:            | `cond.true`  | `cond.false` |       `N` |
 
-- A decision is _correct_, when it corresponds to the condition. This is the case for two cells in the matrix:
 
-    - `hi`: condition present (`TRUE`) & decision positive (`TRUE`).
-    - `cr`: condition absent (`FALSE`) & decision negative (`FALSE`).
+**ToDo:** 
+
+- Provide a numeric example.
+- Show corresponding mosaic plot and/or network diagram. 
+
+
+### Accuracy as a 3rd perspective
+
+A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are _correct_ decisions and which are _erroneous_ decisions? Crucially, this question about decision _accuracy_ can neither be answered by only considering each individual's condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual's decision (i.e., the rows of the matrix). Instead, the question requires considering the _correspondence_ between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains _two_ types of correct decisions and _two_ types of errors:
+
+- A decision is _correct_, when it corresponds to the condition. This is the case for two cells in (or the "\" diagonal of) the confusion matrix:
+
+    - `hi`: condition present (`TRUE`) & decision positive (`TRUE`)
+    - `cr`: condition absent (`FALSE`) & decision negative (`FALSE`) 
     
-- A decision is _incorrect_ or _erroneous_, when it does not correspond to the condition. This also is the case for two cells in the matrix:
+- A decision is _incorrect_ or _erroneous_, when it does not correspond to the condition. This also is the case for two cells in (or the "/" diagonal of) the confusion matrix:
 
-    - `mi`: condition present (`TRUE`) & decision negative (`FALSE`).
-    - `fa`: condition absent (`FALSE`) & decision positive (`TRUE`).
-    
-    
-+++ here now +++
+    - `mi`: condition present (`TRUE`) & decision negative (`FALSE`)
+    - `fa`: condition absent (`FALSE`) & decision positive (`TRUE`)
 
+Splitting all `N` individuals into two subgroups of those with correct vs. those with erroneous decisions yields a third perspective on the population: 
 
 (c) by the correspondence of decisions to conditions (corresponding to the two diagonals of the confusion matrix): 
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \textrm{(c)}      \\
+\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \ \ \textrm{(c)}  \\
            \ &= \ (\texttt{hi} + \texttt{cr}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 $$ 
 
 
-### Beware some sources of confusion
+### Avoiding common sources of confusion
 
-It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided later:
+It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided:
 
-1. Beware of alternative names of `mi` and `cr`:
+1. Beware of alternative terms for `mi` and `cr`:  
 
-    - Misses `mi` are often called "false negatives", but actually are in the `cond.true` column (on the left).
-    - Correct rejections `cr`are often called "true negatives", but are in the `cond.false` column (on the right).
+    - Misses `mi` are often called "false negatives", but are nevertheless cases for which the condition is `TRUE` 
+    (i.e., in the `cond.true` column of the confusion table).
 
-Thus, the terms "false" and "true" in the compound cell names refer to the relationship between or correspondence of condition and decision, rather than to the condition alone. To avoid this source of confusion, we prefer the terms `mi` and `cr`. 
+    - Correct rejections `cr`are often called "true negatives", are nevertheless cases for which the condition is `FALSE` 
+    (i.e., in the `cond.false` column of the confusion table).
 
-2. Beware of `dec.cor` and `dec.err`:  
-It may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". 
-However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`). Again, we prefer the less confusing terms "correct decisions" vs. "erroneous decisions".
+Thus, the terms "true" and "false" are ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr`, rather than "false negatives" and "true negatives".
 
 
-## Relationships
+2. Beware of alternative terms for `dec.cor` and `dec.err`:  
+Similarly, it may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond.false` cases (`cr`) and "false decisions" would include `cond.true` cases (`mi`). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions".
 
-Overall, the following relationships hold among the frequencies:
 
-$$ 
+
+## Accuracy Metrics
+
+The perspective of accuracy raises an important question: How good is a given decision (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal --- measuring decision performance by capturing the correspondence of decisions to conditions in a single quantity.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
+
+While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or have different purposes. 
+
+
+### A. Specific metrics: Conditional probabilities
+
+Goal: Measure some particular aspect of prediction performance.
+
+Question: How good is our decision or diagnostic test in correctly detecting `cond.true` and `cond.false` cases?
+
+As we are dealing with two types of correct decisions (`hi` and `cr`) and two perspectives (by columns vs. by rows), we can provide 4 answers to this question.
+
+To provide a numeric quantity, we divide the frequency of correct cases (either `hi` or `cr`) by
+
+(a) column sums (`cond.true` or `cond.false`): This yields the decision's sensitivity (`sens`) and specificity (`spec`):
+
+$$
 \begin{aligned}
-\texttt{N} &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} \\
-           &= \texttt{cond.true} + \texttt{cond.false} \\
-           &= \texttt{dec.pos} + \texttt{dec.neg}      \\
-           &= \texttt{dec.cor} + \texttt{dec.err}      \\
+\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}       \\
+\ \\ 
+\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}      \\
 \end{aligned}
-$$ 
+$$
 
-Different perspectives:
+(b) row sums (`dec.pos` or `dec.neg`): This yields the decision's positive or negative predictive value (`PPV` or `NPV`): 
 
-(a) The 2 columns of the confusion table:
-
-$$ 
+$$
 \begin{aligned}
-\texttt{cond.true}  &= \texttt{hi} + \texttt{mi} \\
-\texttt{cond.false} &= \texttt{fa} + \texttt{cr} \\
+\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}       \\
+\ \\ 
+\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}      \\
 \end{aligned}
-$$ 
-
-(b) The 2 rows of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{dec.pos}  &= \texttt{hi} + \texttt{fa} \\
-\texttt{dec.neg}  &= \texttt{mi} + \texttt{cr} \\
-\end{aligned}
-$$ 
+$$
 
 
+### B. General metrics: Overall accuracy
+
+Goal: Summarize overall performance (i.e., entire matrix) in one quantity.
+
+`riskyr` currently uses three general metrics (which are contained in `accu`):
 
 
-## Metrics
+#### 1. Overall accuracy (`acc`)
 
-Metrics as dependent measures that result from splitting into subgroups. Different ways of describing this result. 
+Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec.cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
 
-Accuracy as a dependent measure: some combination that describes the relationship between correct and incorrect decisions. 
+> Accuracy `acc` := Proportion or percentage of cases correctly classified.
 
-Different measures emphasize different aspects or have different purposes. 
-
- 
-(c) The 2 diagonals of the confusion table:
-
-$$ 
-\begin{aligned}
-\texttt{dec.cor}      &= \texttt{hi} + \texttt{cr} \\
-\texttt{dec.err}      &= \texttt{mi} + \texttt{fa} \\
-\end{aligned}
-$$ 
-
-Note that it may be tempting to call instances of `dec.corr` and `dec.err` as "true decisions" and "false decisions". 
-However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`).
-
-
-
-### Accuracy `acc`
-
-> Accuracy := Proportion or percentage of cases correctly classified.
+Numerically, overall accuracy `acc` is computed as:
 
 $$
 \begin{aligned}
@@ -194,22 +202,52 @@ $$
 $$
 
 
-### Weighted accuracy `wacc`
+#### 2. Weighted accuracy (`wacc`)
 
-Weighted accuracy: Taking into account the importance of errors.
+Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
+
+> Weighted accuracy `wacc` is the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `1 - w`. 
+
+$$
+\texttt{wacc} = \texttt{w} \cdot \texttt{sens} + (1 - \texttt{w}) \cdot \texttt{spec}
+$$
 
 
+Three cases can be distinguished, based on the value of the weighting parameter `w`:
 
-### Matthew correlation coefficient `mcc`
+1. If `w = .5`, `sens` and `spec` are weighted equally and `wacc` becomes balanced accuracy `bacc`.
 
-3. Matthew correlation coefficient (mcc)
+2. If `0 <= w < .5`, `sens` is less important than `spec` (i.e., instances of `fa` are considered more serious errors than instances of `mi`).
+
+3. If `.5 < w <= 1`, `sens` is more important than `spec` (i.e., instances of `mi` are considered more serious errors than instances of `fa`).
+
+
++++ here now +++
+
+#### 3. Matthews correlation coefficient `mcc`
+
+The Matthews correlation coefficient (with values ranging from $-1$ to $+1$):
+
+$$
+\texttt{mcc} = \frac{(\texttt{hi} \cdot \texttt{cr}) - (\texttt{fa} \cdot \texttt{mi})}{\sqrt{(\texttt{hi} + \texttt{fa}) \cdot (\texttt{hi} + \texttt{mi}) \cdot (\texttt{cr} + \texttt{fa}) \cdot (\texttt{cr} + \texttt{mi})}}
+$$
+
+See [Wikipedia: Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient) for details. 
+
 
 
 ## References
 
+- Phillips, N. D., Neth, H., Woike, J. K., & Gaissmaier, W. (2017). 
+FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. 
+_Judgment and Decision Making_, _12_, 344--368. 
+[ [pdf](http://journal.sjdm.org/17/17217/jdm17217.pdf) | [html](http://journal.sjdm.org/17/17217/jdm17217.html) | [R package](https://CRAN.R-project.org/package=FFTrees) ]
+
+
 Links to Wikipedia articles:
 
 - [Confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) (URL: https://en.wikipedia.org/wiki/Confusion_matrix)
+- [Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient)
 
 
 
