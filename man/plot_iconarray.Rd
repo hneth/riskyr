@@ -5,11 +5,11 @@
 \title{Plot an icon array of a population.}
 \usage{
 plot_iconarray(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = freq$N, ident.order = c("hi", "mi",
-  "fa", "cr"), random.position = FALSE, random.identities = FALSE,
-  icon.colors = pal[c("hi", "mi", "fa", "cr")], icon.types = 22,
-  pch.border = grey(0.66, 0.7), transparency = 2/3, block.d = NULL,
-  border.d = 0.1, type.sort = NULL, block_size_col = 10,
+  spec = num$spec, fart = NA, N = freq$N, type.sort = "mosaic",
+  ident.order = c("hi", "mi", "fa", "cr"), random.position = FALSE,
+  random.identities = FALSE, icon.colors = pal[c("hi", "mi", "fa", "cr")],
+  icon.types = 22, pch.border = grey(0.15, 0.66), transparency = 2/3,
+  block.d = NULL, border.d = 0.1, block_size_col = 10,
   block_size_row = 10, ncol_blocks = NULL, nrow_blocks = NULL,
   fill_array = "left", fill_blocks = "rowwise", title.lbl = txt$scen.lbl,
   xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
@@ -41,6 +41,16 @@ of a positive decision provided that the condition is \code{FALSE}).
 \item{N}{The number of individuals in the population.
 A suitable value of \code{\link{N}} is computed, if not provided.}
 
+\item{type.sort}{Bla bla bla... with the following options:
+\enumerate{
+
+\item \code{type.sort = "mosaic"} Order in some way.
+
+\item \code{type.sort = "xtz"} Order in some other way.#'
+
+
+}}
+
 \item{ident.order}{Specifies the order in which icon identities
 (hits, misses, false alarms, and correct rejections) are plotted.
 Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
@@ -51,9 +61,38 @@ Default: \code{random.position = FALSE}.}
 \item{random.identities}{Are identities randomly assigned to positions?
 Default: \code{random.identities = FALSE}}
 
-\item{title.lbl}{Text label to set plot title.
+\item{title.lbl}{Text label to set plot title.}
 
-#' @examples
+\item{show.accu}{Option for showing current
+accuracy metrics \code{\link{accu}} in the plot.
+Default: \code{show.accu = TRUE}.}
+
+\item{w.acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+Default: \code{w.acc = .50}.
+
+Various other options allow the customization of text labels and colors:}
+}
+\description{
+\code{plot_iconarray} draws an icon array of
+a population of which individual's condition has been classified
+correctly or incorrectly
+from a sufficient and valid set of 3 essential probabilities
+(\code{\link{prev}}, and
+\code{\link{sens}} or its complement \code{\link{mirt}}, and
+\code{\link{spec}} or its complement \code{\link{fart}})
+or existing frequency information \code{\link{freq}}
+and a population size of \code{\link{N}} individuals.
+}
+\details{
+If probabilities are provided, a new list of
+natural frequencies \code{\link{freq}} is computed by \code{\link{comp_freq}}.
+By contrast, if no probabilities are provided,
+the values currently contained in \code{\link{freq}} are used.
+By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
+to avoid decimal values in \code{\link{freq}}.
+}
+\examples{
 # ways to work:
 plot_iconarray()  # => plots icon array for default population
 
@@ -112,36 +151,9 @@ plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
                cex = 0.7,
                random.position = TRUE,
                random.identities = FALSE,
-               type.sort = "mosaic")}
+               type.sort = "mosaic")
 
-\item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
-Default: \code{show.accu = TRUE}.}
 
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
-Default: \code{w.acc = .50}.
-
-Various other options allow the customization of text labels and colors:}
-}
-\description{
-\code{plot_iconarray} draws an icon array of
-a population of which individual's condition has been classified
-correctly or incorrectly
-from a sufficient and valid set of 3 essential probabilities
-(\code{\link{prev}}, and
-\code{\link{sens}} or its complement \code{\link{mirt}}, and
-\code{\link{spec}} or its complement \code{\link{fart}})
-or existing frequency information \code{\link{freq}}
-and a population size of \code{\link{N}} individuals.
-}
-\details{
-If probabilities are provided, a new list of
-natural frequencies \code{\link{freq}} is computed by \code{\link{comp_freq}}.
-By contrast, if no probabilities are provided,
-the values currently contained in \code{\link{freq}} are used.
-By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
-to avoid decimal values in \code{\link{freq}}.
 }
 \seealso{
 Other visualization functions: \code{\link{plot_PV3d}},
