@@ -262,6 +262,29 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
   }
 
+  # Check size of N.Ist it needed?  Sccale down if not needed and greater 100.000:
+  ## Specify N:
+  N <- cur.freq$N
+  ind.lbl <- NULL
+
+  if (N >= 100000) {
+    # get the minimal N:
+    min_N <- riskyr::comp_min_N(prev = prev, sens = sens, spec = spec)
+
+    if (min_N <= 10000) {  # only, if 10000 icons are sufficient:
+
+      exponent <- ((N %/% 100000) %/% 10) + 1  # get exponent dependent on size.
+      ind_per_icon <- 10 ^ exponent  # individuals per icon.
+      ind.lbl <- paste0("Note: Icons have been scaled. Each icon represents ", ind_per_icon, " individuals")
+
+      N <- N / (10^exponent)
+      cur.freq <- lapply(cur.freq,  function(x) {x / (10^exponent)})  # adjust cur.freq and N.
+
+    }
+
+  }
+
+
   # DO SOME CHECKS HERE!?
   ## Determine order:
   if (is.null(names(icon.colors))) {
@@ -270,9 +293,9 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
   if (is.null(names(icon.types))) {
 
-    if (length(icon.types) < length(icon.colors) & length(icon.types) > 1) {
+    if (length(icon.types) < length(icon.colors)) {
 
-      warning("Icon types are recycled to number of colors.")
+      if (length(icon.types) > 1) {warning("Icon types are recycled to number of colors.")}
 
       icon.types <- rep(icon.types, length.out = length(icon.colors))
     }
@@ -285,8 +308,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
   ## (d) Compute pch.vec from frequencies:
   pch.vec <- rep(icon.types[ident.order], times = cur.freq[ident.order])
 
-  ## (e) Specify N:
-  N <- cur.freq$N
+
 
   ## A1 Random position, random colors:---------------------------------------
   if (random.position & random.identities) {
@@ -810,11 +832,12 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
   legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = type.lbls,
          horiz = TRUE, bty = "n",
-         pt.bg = icon.colors, pch = icon.types, cex = 1.5,
+         pt.bg = icon.colors, pch = icon.types, cex = 1.2,
          xjust = 0.5, xpd = TRUE)
   # TODO: fixed order of legend?
 
   mtext(cur.par.lbl, side = 1, line = 3)
+  mtext(ind.lbl, side = 1, line = 2)
 
 }  # end of function.
 
