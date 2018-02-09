@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 02 08
+## 2018 02 09
 ## -----------------------------------------------
 ## Compute accuracy metrics
 ## based on only the 4 essential frequencies
@@ -25,10 +25,12 @@
 #'
 #' \enumerate{
 #'
-#'    \item \code{acc}: Accuracy as the proportion (or probability)
+#'    \item \code{acc}: Overall accuracy as the proportion (or probability)
 #'    of correctly classifying cases:
 #'
-#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
+#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
 #'
 #'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
@@ -36,34 +38,36 @@
 #'    \code{\link{power}} or \code{\link{recall}})
 #'    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
 #'    in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
-#'    (ranging from 0 to 1) and  \code{\link{spec}} is multiplied by the complement
-#'    \code{(1 - w)}:
+#'    (ranging from 0 to 1) and \code{\link{spec}} is multiplied by
+#'    \code{w}'s complement \code{(1 - w)}:
 #'
-#'    \code{wacc = (w * sens) + ((1 - w) * spec)}.
+#'    \code{wacc = (w * sens) + ((1 - w) * spec)}
+#'
+#'    If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
 #'
 #'
 #'    \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
 #'
-#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
+#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
 #'
-#'    Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+#'    A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
+#'
+#'    See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
 #'    for additional information.
-#'
 #'
 #'    \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
 #'    (aka. \code{\link{precision}})
 #'    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
 #'    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
 #'
-#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
+#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}
 #'
-#'    Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+#'    See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
 #'
 #' }
 #'
 #' Note that some accuracy metrics can be interpreted
-#' as probabilities (e.g., \code{acc})
-#' or correlations (e.g., \code{mcc}).
+#' as probabilities (e.g., \code{acc}) or correlations (e.g., \code{mcc}).
 #'
 #' @return A list \code{\link{accu}} containing current accuracy metrics.
 #'
@@ -111,11 +115,11 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
   }
 
   ## (1) Initialize accu:    # Metric:
-  accu <- list("acc"  = NA,  # accuracy
-               "w"    = w,   # weighting parameter w
-               "wacc" = NA,  # weighted accuracy
-               "mcc"  = NA,  # MCC
-               "f1s"  = NA   # F1 score
+  accu <- list("acc"  = NA,  # 1. overall accuracy
+               "w"    = w,   #    weighting parameter w
+               "wacc" = NA,  # 2. weighted/balanced accuracy
+               "mcc"  = NA,  # 3. MCC
+               "f1s"  = NA   # 4. F1 score
   )
 
   ## (2) Compute combined frequencies from 4 essential frequencies:
@@ -134,6 +138,7 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
   dec.err <- (mi + fa)  # erroneous decisions
   N.truth <- (dec.cor + dec.err)
 
+  ## Check:
   if ((N.cond != N.dec) || (N.cond != N.truth))  {
     warning("Something strange occurred: 4 basic frequencies do not add up to N.")
   } else {
@@ -148,9 +153,8 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
   NPV <- cr/dec.neg
 
   ## (4) Compute accuracy measures:
-  accu$acc  <- dec.cor/N
-  accu$wacc <- (w * sens) + ((1 - w) * spec)
-  accu$f1s  <- 2 * (PPV * sens)/(PPV + sens)
+  accu$acc  <- dec.cor/N                      # 1. acc
+  accu$wacc <- (w * sens) + ((1 - w) * spec)  # 2. wacc/bacc
 
   mcc_num  <- ((hi * cr) - (fa * mi))
   mcc_den  <- sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))
@@ -158,8 +162,9 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
     mcc_den <- 1  # correction
     warning("accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.")
   }
-  accu$mcc  <- mcc_num/mcc_den
+  accu$mcc  <- mcc_num/mcc_den                # 3. mcc
 
+  accu$f1s  <- 2 * (PPV * sens)/(PPV + sens)  # 4. f1s
 
   ## (5) Return the entire list accu:
   return(accu)
@@ -195,10 +200,12 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'
 #' \enumerate{
 #'
-#'    \item \code{acc}: Accuracy as the proportion (or probability)
+#'    \item \code{acc}: Overall accuracy as the proportion (or probability)
 #'    of correctly classifying cases:
 #'
-#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
+#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
 #'
 #'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
@@ -206,17 +213,21 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'    \code{\link{power}} or \code{\link{recall}})
 #'    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
 #'    in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
-#'    (ranging from 0 to 1) and  \code{\link{spec}} is multiplied by the complement
-#'    \code{(1 - w)}:
+#'    (ranging from 0 to 1) and \code{\link{spec}} is multiplied by
+#'    \code{w}'s complement \code{(1 - w)}:
 #'
-#'    \code{wacc = (w * sens) + ((1 - w) * spec)}.
+#'    \code{wacc = (w * sens) + ((1 - w) * spec)}
+#'
+#'    If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
 #'
 #'
 #'    \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
 #'
-#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
+#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
 #'
-#'    Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+#'    A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
+#'
+#'    See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
 #'    for additional information.
 #'
 #'    \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
@@ -224,11 +235,14 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
 #'    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
 #'
-#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
+#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}
 #'
-#'    Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+#'    See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
 #'
 #' }
+#'
+#' Note that some accuracy metrics can be interpreted
+#' as probabilities (e.g., \code{acc}) or correlations (e.g., \code{mcc}).
 #'
 #'
 #' @examples
@@ -254,7 +268,9 @@ accu <- comp_accu()
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - ...
+## - Provide separate functions for most
+##   common metrics (like acc, wacc, mcc)
+##   (to use for matrices of 3d planes...).
 
 ## -----------------------------------------------
 ## eof.

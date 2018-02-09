@@ -1,11 +1,11 @@
 ## plot_PV3d.R | riskyr
-## 2018 01 30
+## 2018 02 09
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
 ## as a function of both sens and spec (given prev)
 
 ## -----------------------------------------------
-## Utility functions:
+## Utility function:
 
 # comp_PV_matrix() (moved to file comp_prob.R)
 
@@ -67,9 +67,24 @@
 #' @param cur.phi Vertical rotation angle (used by \code{\link{persp}}).
 #' Default: \code{cur.phi = 0}.
 #'
+#' @param cur.d Strength of perspective transformation (used by \code{\link{persp}}).
+#' Values of \code{cur.d > 1} will weaken perspective effects,  values \code{cur.d <= 1} exaggerate it.
+#' Default: \code{cur.d = 1.5}.
+#'
+#' @param cur.expand Expansion factor applied to the z coordinates (used by \code{\link{persp}}).
+#' Default: \code{cur.expand = 1.1}.
+#'
+#' @param cur.ltheta Azimuth direction for shading (used by \code{\link{persp}}).
+#' Default: \code{cur.ltheta = 200}.
+#'
+#' @param cur.shade Shading value (used by \code{\link{persp}}).
+#' Default: \code{cur.shade = .25}.
+#'
 #' @param title.lbl The title of the current plot.
+#' Default: \code{title.lbl = txt$scen.lbl}.
 #'
 #' @param col.pv The color in which the selected predictive value is shown.
+#' Default: \code{col.pv = pal["ppv"]}.
 #'
 #'
 #' @examples
@@ -93,7 +108,6 @@
 #' \code{\link{pal}} for current color settings
 #'
 #' @export
-
 
 plot_PV3d <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                       sens = num$sens, mirt = NA,
@@ -363,7 +377,9 @@ plot_PV3d <- function(prev = num$prev,             # probabilities (3 essential,
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Add documentation.
+## - Use ... instead re-naming arguments passed on to persp?
+## - Generalize to ANY dependent variable (e.g., acc, wacc, etc.)
+##
 ## - Change labels for all axes to percentages (as in plot_PV)
 ## - Pimp plot (titles, axes, grid, colors, transparency)
 
