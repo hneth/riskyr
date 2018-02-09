@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyR
-## 2018 01 31
+## 2018 02 09
 ## -----------------------------------------------
 ## Compute other probabilities from probabilities:
 

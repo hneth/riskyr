@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 02 08
+## 2018 02 09
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -29,7 +29,11 @@
 #' \code{is_prob} is a function that checks whether its argument \code{prob}
 #' is a probability (i.e., a numeric value in the range from 0 to 1).
 #'
-#' @param prob A numeric argument (scalar or vector).
+#' @param prob A numeric argument (scalar or vector) that is to be checked.
+#'
+#' @param NA.warn Boolean value determining whether a warning is shown
+#' for \code{NA} values.
+#' Default: \code{NA.warn = FALSE}.
 #'
 #' @return A Boolean value:
 #' \code{TRUE} if \code{prob} is a probability,
@@ -609,11 +613,17 @@ is_complement <- function(p1, p2, tol = .01) {
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
-#' @param sens The decision's sensitivity value \code{\link{sens}}
+#' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when is complement \code{mirt} is provided.
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}
+#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' (i.e., the conditional probability of a negative decision
+#' provided that the condition is \code{TRUE}).
+#' \code{mirt} is optional when is complement \code{sens} is provided.
+#'
+#' @param spec The decision's specificity \code{\link{spec}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when is complement \code{fart} is provided.

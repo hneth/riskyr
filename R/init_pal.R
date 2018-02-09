@@ -247,28 +247,44 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' is stored as named colors in a vector \code{pal}.
 #' To change a color, assign a new color to an existing element name.
 #'
+#' \code{pal} currently contains colors with the following names:
 #'
-#' @param N Color representing the \emph{population} of \code{\link{N}} cases or individuals.
 #'
-#' @param true Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.
-#' @param false Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.
+#' \enumerate{
 #'
-#' @param pos Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
-#' @param neg Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#' \item \code{N} Color representing the \emph{population} of \code{\link{N}} cases or individuals.
 #'
-#' @param hi Color representing \emph{hits} or true positives in \code{\link{hi}}
+#'
+#' \item \code{true} Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.
+#'
+#' \item \code{false} Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.
+#'
+#'
+#' \item \code{pos} Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
+#'
+#' \item \code{neg} Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#'
+#'
+#' \item \code{hi} Color representing \emph{hits} or true positives in \code{\link{hi}}
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
-#' @param mi Color representing \emph{misses} or false negatives in \code{\link{mi}}
+#'
+#' \item \code{mi} Color representing \emph{misses} or false negatives in \code{\link{mi}}
 #' (i.e., incorrect cases for which the current condition is TRUE but the decision is negative).
-#' @param fa Color representing \emph{false alarms} or false positives in \code{\link{fa}}
+#'
+#' \item \code{fa} Color representing \emph{false alarms} or false positives in \code{\link{fa}}
 #' (i.e., incorrect cases for which the current condition is FALSE but the decision is positive).
-#' @param cr Color representing \emph{correct rejections} or true negatives in \code{\link{cr}}
+#'
+#' \item \code{cr} Color representing \emph{correct rejections} or true negatives in \code{\link{cr}}
 #' (i.e., correct cases for which the current condition is FALSE and the decision is negative).
 #'
-#' @param ppv Color representing \emph{positive predictive values} \code{\link{PPV}} (i.e., the conditional probability that
+#'
+#' \item \code{ppv} Color representing \emph{positive predictive values} \code{\link{PPV}} (i.e., the conditional probability that
 #' the condition is TRUE, provided that the decision is positive).
-#' @param npv Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
+#'
+#' \item \code{npv} Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 #' the condition is FALSE, provided that the decision is negative).
+#'
+#' }
 #'
 #' @examples
 #' pal       # displays the vector of all current color names and values

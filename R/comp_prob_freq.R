@@ -216,13 +216,10 @@
 #'
 #'
 #'
-#' @param hi  The number true positives, or hits \code{\link{hi}}
-#' @param mi  The number false negatives, or misses \code{\link{mi}}
-#' @param fa  The number false positives, or false alarms \code{\link{fa}}
-#' @param cr  The number true negatives, or correct rejections \code{\link{cr}}
-#'
-#' @param N.new  A new population size \code{\link{N}}
-#' (not used yet, but could be used for scaling to new population sizes)
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #'
 #' @examples
@@ -388,12 +385,10 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 #' \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
 #'
-#' @param N  The population size \code{\link{N}}
-#'
-#' @param hi  The number true positives, or hits \code{\link{hi}}
-#' @param mi  The number false negatives, or misses \code{\link{mi}}
-#' @param fa  The number false positives, or false alarms \code{\link{fa}}
-#' @param cr  The number true negatives, or correct rejections \code{\link{cr}}
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #'
 #' @family functions computing probabilities from frequencies
@@ -408,6 +403,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{is_freq}} verifies frequency inputs.
+#'
 
 comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   # 4 essential frequencies from freq
                       ## N.new,       # to verify sum OR re-scale to new population size if different from freq$N?

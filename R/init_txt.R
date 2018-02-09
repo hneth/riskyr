@@ -161,34 +161,48 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' are stored as named elements (of type character) in a list \code{txt}.
 #' To change an element, assign a new character object to an existing name.
 #'
-#' @param scen.lbl The current scenario title (sometimes in Title Caps).
-#' @param scen.txt A longer text description of the current scenario
+#' \code{txt} currently contains the following text labels:
+#'
+#' \enumerate{
+#'
+#' \item \code{scen.lbl} The current scenario title (sometimes in Title Caps).
+#'
+#' \item \code{scen.txt} A longer text description of the current scenario
 #' (which may extend over several lines).
-#' @param scen.src The source information for the current scenario.
 #'
-#' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
+#' \item \code{scen.src} The source information for the current scenario.
 #'
-#' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true.lbl A label for the \emph{presence} of the current condition
+#' \item \code{popu.lbl} A brief description of the current target population \code{\link{popu}} or sample.
+#'
+#' \item \code{cond.lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+#'
+#' \item \code{cond.true.lbl} A label for the \emph{presence} of the current condition
 #' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
-#' @param cond.false.lbl A label for the \emph{absence} of the current condition
+#'
+#' \item \code{cond.false.lbl} A label for the \emph{absence} of the current condition
 #' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 #'
-#' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.pos.lbl A label for \emph{positive} decisions
+#' \item \code{dec.lbl} A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+#'
+#' \item \code{dec.pos.lbl} A label for \emph{positive} decisions
 #' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
-#' @param dec.neg.lbl A label for \emph{negative} decisions
+#'
+#' \item \code{dec.neg.lbl} A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' \item \code{sdt.hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
-#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#'
+#' \item \code{sdt.mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 #' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
-#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#'
+#' \item \code{sdt.fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 #' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
-#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#'
+#' \item \code{sdt.cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
+#' }
 #'
 #' @examples
 #' txt           # => show  all current names and elements

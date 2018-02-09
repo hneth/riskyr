@@ -93,6 +93,8 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # prevalence in target p
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
+#' @param N The population size \code{\link{N}}.
+#'
 #'
 #' @return A list containing a valid quadruple of probabilities
 #' (\code{\link{prev}}, \code{\link{sens}},

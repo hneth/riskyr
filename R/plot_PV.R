@@ -1,5 +1,5 @@
 ## plot_PV.R | riskyr
-## 2018 01 30
+## 2018 02 09
 ## -----------------------------------------------
 ## plot_PV: PPV and NPV curves as functions of prevalence
 
@@ -54,12 +54,17 @@
 #' Default: \code{show.PVpoints = TRUE}.
 #'
 #' @param log.scale Boolean value for switching from a linear
-#' to a logarithmic x-axis. Default: \code{log.scale = FALSE}.
+#' to a logarithmic x-axis.
+#' Default: \code{log.scale = FALSE}.
 #'
 #' @param title.lbl The title of the current plot.
+#' Default: \code{title.lbl = txt$scen.lbl}.
 #'
-#' @param col.ppv The color in which PPV is shown.
+#' @param col.ppv The color in which the \code{\link{PPV}} is shown.
+#' Default: \code{col.ppv = pal["ppv"]}.
 #'
+#' @param col.npv The color in which the \code{\link{NPV}} is shown.
+#' Default: \code{col.npv = pal["npv"]}.
 #'
 #' @examples
 #' plot_PV()
