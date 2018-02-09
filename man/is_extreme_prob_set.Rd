@@ -10,11 +10,17 @@ is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
 \item{prev}{The condition's prevalence value \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity value \code{\link{sens}}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
-provided that the condition is \code{TRUE}).}
+provided that the condition is \code{TRUE}).
+\code{sens} is optional when is complement \code{mirt} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
+\item{mirt}{The decision's miss rate \code{\link{mirt}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{TRUE}).
+\code{mirt} is optional when is complement \code{sens} is provided.}
+
+\item{spec}{The decision's specificity \code{\link{spec}}
 (i.e., the conditional probability of a negative decision
 provided that the condition is \code{FALSE}).
 \code{spec} is optional when is complement \code{fart} is provided.}

@@ -13,6 +13,31 @@ comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
   sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl)
 }
+\arguments{
+\item{hi}{The number of hits \code{\link{hi}} (or true positives).}
+
+\item{mi}{The number of misses \code{\link{mi}} (or false negatives).}
+
+\item{fa}{The number of false alarms \code{\link{fa}} (or false positives).}
+
+\item{cr}{The number of correct rejections \code{\link{cr}} (or true negatives).}
+
+\item{cond.true.lbl}{Text label for \code{\link{cond.true}} cases.}
+
+\item{cond.false.lbl}{Text label for \code{\link{cond.false}} cases.}
+
+\item{dec.pos.lbl}{Text label for \code{\link{dec.pos}} cases.}
+
+\item{dec.neg.lbl}{Text label for \code{\link{dec.neg}} cases.}
+
+\item{sdt.hi.lbl}{Text label for \code{\link{hi}} cases.}
+
+\item{sdt.mi.lbl}{Text label for \code{\link{mi}} cases.}
+
+\item{sdt.fa.lbl}{Text label for \code{\link{fa}} cases.}
+
+\item{sdt.cr.lbl}{Text label for \code{\link{cr}} cases.}
+}
 \value{
 A data frame \code{popu}
 containing \code{\link{N}} rows (individual cases)

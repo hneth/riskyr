@@ -24,6 +24,8 @@ of a negative decision provided that the condition is \code{FALSE}).
 (i.e., the conditional probability
 of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{\link{spec}} is provided.}
+
+\item{N}{The population size \code{\link{N}}.}
 }
 \value{
 A list containing a valid quadruple of probabilities
