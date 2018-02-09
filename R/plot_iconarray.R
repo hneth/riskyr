@@ -576,6 +576,8 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
       block.d <- 0.4  # set to a default value.
     }
 
+    transparency <- NULL  # set transparency to zero.
+
     #given:
     # block_size_col
     # block_size_row
