@@ -215,6 +215,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
                            # labelling:
                            title.lbl = txt$scen.lbl,
+                           type.lbls = txt[c("sdt.hi.lbl", "sdt.mi.lbl", "sdt.fa.lbl", "sdt.cr.lbl")],
 
                            # (currently) fixed parameters:
                            xlim = c(0, 1),
@@ -874,11 +875,17 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                          "sens = ", as_pc(sens), "%, ",
                          "spec = ", as_pc(spec), "%")
 
+  if (sum(nchar(type.lbls)) > 0) {
+    # reorder lables:
+    names(type.lbls) <- c("hi", "mi", "fa", "cr")
+    type.lbls <- type.lbls[ident.order]
+  }
+
 
   # Plot additional information:
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = ident.order,
+  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = type.lbls,
          horiz = TRUE, bty = "n",
          pt.bg = icon.colors, pch = icon.types, cex = 1.5,
          xjust = 0.5, xpd = TRUE)
