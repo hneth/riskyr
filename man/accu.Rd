@@ -18,26 +18,32 @@ Current metrics include:
 
 \enumerate{
 
-\item \code{acc}: Accuracy as the proportion (or probability)
+\item \code{acc}: Overall accuracy as the proportion (or probability)
    of correctly classifying cases:
 
-\code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}.
+\code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+
+Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
 \item \code{wacc}: Weighted accuracy, as a weighted average of the
    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
    \code{\link{power}} or \code{\link{recall}})
    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
    in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
-   (ranging from 0 to 1) and  \code{\link{spec}} is multiplied by the complement
-   \code{(1 - w)}:
+   (ranging from 0 to 1) and \code{\link{spec}} is multiplied by
+   \code{w}'s complement \code{(1 - w)}:
 
-\code{wacc = (w * sens) + ((1 - w) * spec)}.
+\code{wacc = (w * sens) + ((1 - w) * spec)}
+
+If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
 
 \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
 
-\code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}.
+\code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
 
-Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
+
+See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
    for additional information.
 
 \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
@@ -45,11 +51,14 @@ Consult \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wi
    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
 
-\code{f1s =  2 * (PPV * sens) / (PPV + sens)}.
+\code{f1s =  2 * (PPV * sens) / (PPV + sens)}
 
-Consult \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
 
 }
+
+Note that some accuracy metrics can be interpreted
+as probabilities (e.g., \code{acc}) or correlations (e.g., \code{mcc}).
 }
 \examples{
 accu <- comp_accu()  # => computes current accuracy information and saves results in accu

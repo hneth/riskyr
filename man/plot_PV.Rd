@@ -43,11 +43,17 @@ on the corresponding curve.
 Default: \code{show.PVpoints = TRUE}.}
 
 \item{log.scale}{Boolean value for switching from a linear
-to a logarithmic x-axis. Default: \code{log.scale = FALSE}.}
+to a logarithmic x-axis.
+Default: \code{log.scale = FALSE}.}
 
-\item{title.lbl}{The title of the current plot.}
+\item{title.lbl}{The title of the current plot.
+Default: \code{title.lbl = txt$scen.lbl}.}
 
-\item{col.ppv}{The color in which PPV is shown.}
+\item{col.ppv}{The color in which the \code{\link{PPV}} is shown.
+Default: \code{col.ppv = pal["ppv"]}.}
+
+\item{col.npv}{The color in which the \code{\link{NPV}} is shown.
+Default: \code{col.npv = pal["npv"]}.}
 }
 \description{
 \code{plot_PV} draws curves that illustrate
@@ -73,6 +79,6 @@ plot_PV(title.lbl = "", col.ppv = "firebrick3", col.npv = "steelblue3")
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_fnet}}, \code{\link{plot_iconarray}},
+  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
   \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
 }

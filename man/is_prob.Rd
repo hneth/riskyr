@@ -7,7 +7,11 @@
 is_prob(prob, NA.warn = FALSE)
 }
 \arguments{
-\item{prob}{A numeric argument (scalar or vector).}
+\item{prob}{A numeric argument (scalar or vector) that is to be checked.}
+
+\item{NA.warn}{Boolean value determining whether a warning is shown
+for \code{NA} values.
+Default: \code{NA.warn = FALSE}.}
 }
 \value{
 A Boolean value:

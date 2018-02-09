@@ -54,9 +54,24 @@ Default: \code{cur.theta = -45}.}
 \item{cur.phi}{Vertical rotation angle (used by \code{\link{persp}}).
 Default: \code{cur.phi = 0}.}
 
-\item{title.lbl}{The title of the current plot.}
+\item{cur.d}{Strength of perspective transformation (used by \code{\link{persp}}).
+Values of \code{cur.d > 1} will weaken perspective effects,  values \code{cur.d <= 1} exaggerate it.
+Default: \code{cur.d = 1.5}.}
 
-\item{col.pv}{The color in which the selected predictive value is shown.}
+\item{cur.expand}{Expansion factor applied to the z coordinates (used by \code{\link{persp}}).
+Default: \code{cur.expand = 1.1}.}
+
+\item{cur.ltheta}{Azimuth direction for shading (used by \code{\link{persp}}).
+Default: \code{cur.ltheta = 200}.}
+
+\item{cur.shade}{Shading value (used by \code{\link{persp}}).
+Default: \code{cur.shade = .25}.}
+
+\item{title.lbl}{The title of the current plot.
+Default: \code{title.lbl = txt$scen.lbl}.}
+
+\item{col.pv}{The color in which the selected predictive value is shown.
+Default: \code{col.pv = pal["ppv"]}.}
 }
 \description{
 \code{plot_PV3d} draws a plane that illustrates
@@ -86,6 +101,6 @@ plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "",
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot_PV}},
-  \code{\link{plot_fnet}}, \code{\link{plot_iconarray}},
+  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
   \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
 }

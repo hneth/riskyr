@@ -8,44 +8,6 @@
 \usage{
 txt
 }
-\arguments{
-\item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
-
-\item{scen.txt}{A longer text description of the current scenario
-(which may extend over several lines).}
-
-\item{scen.src}{The source information for the current scenario.}
-
-\item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
-
-\item{cond.lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
-
-\item{cond.true.lbl}{A label for the \emph{presence} of the current condition
-or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
-
-\item{cond.false.lbl}{A label for the \emph{absence} of the current condition
-or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
-
-\item{dec.lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
-
-\item{dec.pos.lbl}{A label for \emph{positive} decisions
-or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
-
-\item{dec.neg.lbl}{A label for \emph{negative} decisions
-or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
-
-\item{sdt.hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
-(i.e., correct decisions of the presence of the condition, when the condition is actually present).}
-
-\item{sdt.mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
-(i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
-
-\item{sdt.fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
-(i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
-
-\item{sdt.cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
-(i.e., a correct decision of the absence of the condition, when the condition is actually absent).}
-}
 \description{
 \code{txt} is initialized to a list of named elements
 to define all titles and labels corresponding to the current scenario
@@ -55,6 +17,49 @@ and used throughout the \code{riskyr} package.
 All textual elements that specify titles and details of the current scenario
 are stored as named elements (of type character) in a list \code{txt}.
 To change an element, assign a new character object to an existing name.
+
+\code{txt} currently contains the following text labels:
+
+\enumerate{
+
+\item \code{scen.lbl} The current scenario title (sometimes in Title Caps).
+
+\item \code{scen.txt} A longer text description of the current scenario
+(which may extend over several lines).
+
+\item \code{scen.src} The source information for the current scenario.
+
+\item \code{popu.lbl} A brief description of the current target population \code{\link{popu}} or sample.
+
+\item \code{cond.lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+
+\item \code{cond.true.lbl} A label for the \emph{presence} of the current condition
+or \code{\link{cond.true}} cases (the condition's true state of TRUE).
+
+\item \code{cond.false.lbl} A label for the \emph{absence} of the current condition
+or \code{\link{cond.false}} cases (the condition's true state of FALSE).
+
+\item \code{dec.lbl} A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+
+\item \code{dec.pos.lbl} A label for \emph{positive} decisions
+or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
+
+\item \code{dec.neg.lbl} A label for \emph{negative} decisions
+or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
+
+\item \code{sdt.hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+(i.e., correct decisions of the presence of the condition, when the condition is actually present).
+
+\item \code{sdt.mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+(i.e., incorrect decisions of the absence of the condition when the condition is actually present).
+
+\item \code{sdt.fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+(i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
+
+\item \code{sdt.cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+(i.e., a correct decision of the absence of the condition, when the condition is actually absent).
+
+}
 }
 \examples{
 txt           # => show  all current names and elements

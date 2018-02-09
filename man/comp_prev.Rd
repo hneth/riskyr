@@ -7,15 +7,13 @@
 comp_prev(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
 }
 \arguments{
-\item{hi}{The number true positives, or hits \code{\link{hi}}}
+\item{hi}{The number of hits \code{\link{hi}} (or true positives).}
 
-\item{mi}{The number false negatives, or misses \code{\link{mi}}}
+\item{mi}{The number of misses \code{\link{mi}} (or false negatives).}
 
-\item{fa}{The number false positives, or false alarms \code{\link{fa}}}
+\item{fa}{The number of false alarms \code{\link{fa}} (or false positives).}
 
-\item{cr}{The number true negatives, or correct rejections \code{\link{cr}}}
-
-\item{N}{The population size \code{\link{N}}}
+\item{cr}{The number of correct rejections \code{\link{cr}} (or true negatives).}
 }
 \description{
 \code{comp_prev} computes a condition's prevalence value \code{\link{prev}}
