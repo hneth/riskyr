@@ -270,7 +270,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
   if (is.null(names(icon.types))) {
 
-    if (length(icon.types) < length(icon.colors)) {
+    if (length(icon.types) < length(icon.colors) & length(icon.types) > 1) {
 
       warning("Icon types are recycled to number of colors.")
 
