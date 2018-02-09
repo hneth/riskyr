@@ -183,10 +183,11 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
                            ## Key options: ##
-                           type.sort = "mosaic",  # needs to be given if random position but nonrandom ident.
+                           type = "array",  # needs to be given if random position but nonrandom ident.
+                           # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
                            ident.order = c("hi", "mi", "fa", "cr"),
-                           random.position = FALSE,    # are positions randomly drawn?
-                           random.identities = FALSE,  # are identities randomly assigned to positions?
+                           # random.position = FALSE,    # are positions randomly drawn?
+                           # random.identities = FALSE,  # are identities randomly assigned to positions?
                            ## defaults to classic icon array!
                            ## TODO: rather name these?
                            icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
@@ -199,16 +200,10 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                            border.d = 0.1,  # distance of icons to border.
 
                            # for classic icon arrays only:
-                           # TODO: Allow to calculate defaults in the function!
-                           # ncols = NULL,
-                           # nrows = NULL,
-                           # blocks = 1,
                            block_size_col = 10,
                            block_size_row = 10,
                            ncol_blocks = NULL,
                            nrow_blocks = NULL,
-
-                           # TODO: Do I need them all the information is pretty redundant?
 
                            fill_array = "left",
                            fill_blocks = "rowwise",
@@ -225,7 +220,24 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
                            ...  #additional parameters for plot()
 ) {
 
-  # TODO: Checking of parameters!
+  # Redo logical values:
+  if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
+
+    random.position <-  TRUE
+  } else {
+    if (type %in% c("array", "shuffledarray")) {
+      random.position <- FALSE
+    } else {
+      stop('Invalid "type" argument in plot_iconarray. ')
+    }
+  }
+
+  if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "array")) {
+    random.identities <- FALSE
+  } else {
+    random.identities <- TRUE
+  }
+
   ## A0.1: Check entered parameters for plausibility!--------------------------------------------
 
   # Check whether random.position and random.identities are logical:
@@ -341,12 +353,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
     # right: from left to right, top: from top to bottom,
     # equal: in equal spaces of the plot, mosaic: relative to area.
 
-    if (!type.sort %in% c("right", "top", "equal", "mosaic")) {
-      stop('type_sort must be either "right", "top", "equal", or "mosaic"')
-      # maybe add stop and error message?
-    } else {
-
-      if (type.sort %in% c("right", "top")) {
+      if (type %in% c("filleft", "filltop")) {
 
         # 1a) draw random positions:
         posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
@@ -354,12 +361,12 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
         # Then sort one of the vectors accordingly (presupposes ordered color vector).
         # type: from left to right:
-        if (type.sort == "right") {
+        if (type == "filleft") {
           posx_vec <- sort(posx_vec)
         }
 
         # type: from top to bottom:
-        if(type.sort == "top"){
+        if(type == "filltop"){
           posy_vec <- sort(posy_vec)
         }
       } else {  # if in equal or mosaic:
@@ -376,7 +383,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
         type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
 
         # equal compartments:
-        if (type.sort == "equal") {  # density varies, area is constant.
+        if (type == "fillequal") {  # density varies, area is constant.
 
           # determine breakpoints:
           # !!!Currently for square numbers only:
@@ -423,7 +430,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
         }
 
         # mosaic style:
-        if (type.sort == "mosaic") {
+        if (type == "mosaic") {
 
           block_prop <- type_n / sum(type_n)  # proportion in each compartment.
 
@@ -493,8 +500,8 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
         }
       }
 
-    }  # end: valid type.sort
-  }  # end A2: (random.position & !random.identities)
+    }  # end: valid type
+  # end A2: (random.position & !random.identities)
 
   if (random.position) {
 
