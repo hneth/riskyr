@@ -1,7 +1,7 @@
 ---
 title: "Confusion Matrix and `riskyr` Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "`r Sys.Date()`"
+date: "2018 02 08"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -24,22 +24,22 @@ library("riskyr")  # load the "riskyr" package
 Behold the aptly named "confusion matrix":
 
 |              | Condition |          |       |          |            
-| ------:      |:----:|:----:|:------:|:----:|              
+| ----------:  |:--------:|:--------:|:----------:|:--------:|              
 | **Decision** | present (`TRUE`):      | absent (`FALSE`):     |     Sum:  |  (b) by decision:      |  
 | positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | `PPV` = `hi`/`dec.pos` |
 | negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | `NPV` = `cr`/`dec.neg` |
 |      Sum:    | `cond.true`  | `cond.false` |       `N` |                        |
-| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |       |
+| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N`     |
 
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-Fortunately, the matrix and its implications are quite simple and straightforward. In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.
+Fortunately, the basic matrix is actually quite simple and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
 
 
 ## Basics
 
-In its most basic form, the confusion matrix looks like this:
+Condensed to its core, the confusion matrix looks like this:
 
 |              | Condition | |
 | ------:      |:----:|:----:|      
@@ -48,10 +48,12 @@ In its most basic form, the confusion matrix looks like this:
 | negative (`FALSE`):    |  `mi`   |  `cr`    | 
 
 
+This is not so confusing any more. And, perhaps surprisingly, all other metrics follow from this simple core in a straightforward way.
+
 
 ### Adopting 2 perspectives on a population
 
-Essentially, the confusion table views a population of `N` individuals from two different perspectives. Adopting a perspective means that we distinguish between individuals on the basis of some criterion. The two criteria used here are:
+Essentially, the confusion matrix views a population of `N` individuals in different ways by adopting different perspectives. "Adopting a perspective" means that we can distinguish between individuals on the basis of some criterion. The 2 primary criteria used here are:
 
 (a) each individual's _condition_, which can either be present (`TRUE`) or absent (`FALSE`), and  
 (b) each individual's _decision_, which can either be `positive` (`TRUE`) or `negative` (`FALSE`).   

@@ -1,7 +1,7 @@
 ---
 title: "`riskyr` Data Formats"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "`r Sys.Date()`"
+date: "2018 02 08"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -18,9 +18,17 @@ knitr::opts_chunk$set(
 )
 ```
 
+<!-- Motto: --> 
 
-<!-- Introduction: Frequencies and Probabilities --> 
+> The quest for certainty is the biggest obstacle to becoming risk savvy.<br>
+> (Gerd Gigerenzer)^[Gigerenzer, G. (2014). _Risk savvy: How to make good decisions_. New York, NY: Penguin. (p. 21).]
 
+<!-- Introduction: Uncertainty: Risks as probabilities vs. frequencies --> 
+
+A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be quantified and calculated -- or "reckoned" -- with (Gigerenzer, 2002). As probabilities are notoriously difficult to communicate and understand, this vignette explains how probabilities can be defined and calculated in terms of frequencies. 
+
+
+## Two Representational Formats
 
 The problems addressed by `riskyr` and the scientific discussion surrounding them is framed in terms of two representational formats: _frequencies_ are distinguished from _probabilities_. (See the [user guide](user_guide.html) for background and references.)
 
@@ -267,6 +275,14 @@ plot_fnet(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
 
 
 ## References
+
+- Gigerenzer, G. (2002). 
+_Reckoning with risk: Learning to live with uncertainty_. 
+London, UK: Penguin.
+
+- Gigerenzer, G. (2014). 
+_Risk savvy: How to make good decisions_. 
+New York, NY: Penguin.
 
 - Gigerenzer, G., & Hoffrage, U. (1999). 
 Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). 

@@ -28,6 +28,15 @@ library("riskyr")  # load the "riskyr" package
 - [Confusion matrix](03_confusion_matrix.html)
 
 
+## Quotes
+
+> "Solving a problem simply means representing it so as to make the solution transparent."<br>
+> (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
+
+> The quest for certainty is the biggest obstacle to becoming risk savvy.<br>
+> (Gerd Gigerenzer)^[Gigerenzer, G. (2014). _Risk savvy: How to make good decisions_. New York, NY: Penguin. (p. 21).]
+
+
 ## Motivation
 
 A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
