@@ -859,7 +859,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
   # cex <- 0.5
 
   if (!is.null(transparency)) {
-    col.vec <- adjustcolor(col.vec, alpha.f = transparency)
+    col.vec <- adjustcolor(col.vec, alpha.f = 1 - transparency)
   }
 
   points(x = posx_vec, y = posy_vec, # positions.
