@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 02 08
+## 2018 02 09
 ## -----------------------------------------------
 ##  This function plots an icon array in many ways,
 ##  dependent on population size
