@@ -353,7 +353,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
     # right: from left to right, top: from top to bottom,
     # equal: in equal spaces of the plot, mosaic: relative to area.
 
-      if (type %in% c("filleft", "filltop")) {
+      if (type %in% c("fillleft", "filltop")) {
 
         # 1a) draw random positions:
         posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
@@ -361,7 +361,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
         # Then sort one of the vectors accordingly (presupposes ordered color vector).
         # type: from left to right:
-        if (type == "filleft") {
+        if (type == "fillleft") {
           posx_vec <- sort(posx_vec)
         }
 
@@ -382,8 +382,14 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
         # calculate number of observations in each block retaining original order:
         type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
 
+
         # equal compartments:
         if (type == "fillequal") {  # density varies, area is constant.
+
+
+          if (is.null(block.d)) {
+            block.d <- 0.05
+          }
 
           # determine breakpoints:
           # !!!Currently for square numbers only:
