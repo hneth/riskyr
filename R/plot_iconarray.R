@@ -1,4 +1,4 @@
-## plot_iconarray.R | riskyr
+## plot_icons.R | riskyr
 ## 2018 02 08
 ## -----------------------------------------------
 ##  This function plots an icon array in many ways,
@@ -7,9 +7,8 @@
 
 #' Plot an icon array of a population.
 #'
-#' \code{plot_iconarray} draws an icon array of
-#' a population of which individual's condition has been classified
-#' correctly or incorrectly
+#' \code{plot_icons} plots a population of which individual's
+#' condition has been classified correctly or incorrectly as icons
 #' from a sufficient and valid set of 3 essential probabilities
 #' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
@@ -50,14 +49,37 @@
 #'
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
+#' If N is 100,000 or greater it is reduced to 10,000
+#' for the array types if the frequencies allow it.
 #'
-#' @param type.sort Bla bla bla... with the following options:
+#' @param type The icons can be arranged in different ways
+#' resulting in differnt types of displays:
 #'
 #' \enumerate{
 #'
-#'   \item \code{type.sort = "mosaic"} Order in some way.
+#'   \item \code{type = "array"} The icons are plotted in a
+#'   classical iconarray (default).
+#'   Icons can be arranged in blocks using \code{block.d}.
+#'   The order of filling the array can be customized using
+#'   \code{fill_array} and \code{fill_blocks}.
 #'
-#'   \item \code{type.sort = "xyz"} Order in some other way.#'
+#'   \item \code{type = "shuffledarray"} The icons are plotted in an
+#'   iconarray.  Positions are shuffled.
+#'   Icons can be arranged in blocks using \code{block.d}.
+#'   The order of filling the array can be customized using
+#'   \code{fill_array} and \code{fill_blocks}.
+#'
+#'   \item \code{type = "mosaic"} Icons are ordered like in a mosaic plot.
+#'   The area displays the proportion of frequencies.
+#'
+#'   \item \code{type = "equal"} Icons are ordered in equally sized blocks.
+#'   The density displays the proportion of frequencies.
+#'
+#'   \item \code{type = "fillleft"} Icons are randomly filled from the left.
+#'
+#'   \item \code{type = "filltop"} Icons are randomly filled from the top.
+#'
+#'   \item \code{type = "scatter"} Icons are randomly filled into the plot.
 #'
 #' }
 #'
@@ -66,39 +88,71 @@
 #' (hits, misses, false alarms, and correct rejections) are plotted.
 #' Default: \code{ident.order = c("hi", "mi", "fa", "cr")}
 #'
-#' @param random.position Are positions randomly drawn?
-#' Default: \code{random.position = FALSE}.
+#' @param block.d Distance bettwenn blocks
+#' (does not apply to "filleft", "filltop", and "scatter")
 #'
-#' @param random.identities Are identities randomly assigned to positions?
-#' Default: \code{random.identities = FALSE}
+#' @param border.d specifies the distance of the icons to the border.
+#'
+#' Additional options allow to control the arrangement of the arrays
+#' (\code{type} "array" and "shuffledarray"):
+#'
+#' @param block_size_col specifies how many icons should be in each block row.
+#'
+#' @param block_size_row specifies how many icons should be in each block column.
+#'
+#' @param ncol_blocks specifies how many blocks there are in each row.  Is calculated by default.
+#'
+#' @param nrow_blocks specifies how many blocks are there in each column.  Is calculated by default.
+#'
+#' @param fill_array specifies how the blocks are filled into the array
+#' (Options "left" (default) and "top").
+#'
+#' @param fill_blocks specifies how icons within blocks are filled
+#' (Options: "rowwise" (default) and "colwise")
 #'
 #'
 #' Various other options allow the customization of text labels and colors:
 #'
+#' @param icon.colors Specifies the icon colors as a vector.
+#'
+#' @param icon.types Specifies the apperance of the icons as a vector.
+#' Accepts values from 1 to 25 (see also \code{\link{?points}})
+#'
+#' @param icon.border Specifies the border color for icons (if applicable).
+#'
+#' @param icon.border.lwd Specifies the border width for icons (if applicable).
+#'
+#' @param transparency Specifies the transparency for overlapping icons
+#' (not \code{type} "array" and "shuffledarray").
+#'
 #' @param title.lbl Text label to set plot title.
+#'
+#' @param type.lbls Text labels for icon types to be displayed in legend.
+#'
+#' @param cex Size of the icons.  Is calculated by default.
 #'
 #' @examples
 #' # ways to work:
-#' plot_iconarray()  # => plots icon array for default population
+#' plot_icons()  # => plots icon array for default population
 #'
 #' # standard icon arrays:
-#' plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+#' plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
 #'
-#' plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
+#' plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
 #'                random.identities = TRUE)
 #'
-#' plot_iconarray(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+#' plot_icons(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
 #'
-#' plot_iconarray(N = 10000, icon.types = c(21,23,24,23),
+#' plot_icons(N = 10000, icon.types = c(21,23,24,23),
 #'                random.identities = TRUE)
 #'
-#' plot_iconarray(icon.types = c(21,23,24,23),
+#' plot_icons(icon.types = c(21,23,24,23),
 #'                block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
 #'                block.d = 0.5, border.d = 0.9)
 #'
-#' plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+#' plot_icons(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
 #'
-#' plot_iconarray(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+#' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
 #'                icon.types = c(21,23,24,23),
 #'                block_size_col = 10, block_size_row = 5,
 #'                ncol_blocks = 5, nrow_blocks = 5,
@@ -107,7 +161,7 @@
 #'                fill_array = "top")
 #'
 #'
-#' plot_iconarray(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
+#' plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
 #'                icon.types = c(21,23,21,23),
 #'                ident.order = c("hi", "mi", "cr", "fa"),
 #'                block.d = 0.8,
@@ -118,17 +172,17 @@
 #'
 #'
 #' # Mosaic like and randomized arrays:
-#' plot_iconarray(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
+#' plot_icons(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
 #'                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
 #'
-#' plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
+#' plot_icons(icon.types = c(22,23,21,23), #cex = 10,
 #'                ident.order = c("mi", "hi", "cr", "fa"),
 #'                random.position = TRUE, type.sort = "equal", block.d = 0.05)
 #'
-#' plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
+#' plot_icons(icon.types = c(21,23,22,23), #cex = 10,
 #'                random.position = TRUE, random.identities = TRUE)
 #'
-#' plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
+#' plot_icons(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
 #'                icon.types = c(21,23,21,23),
 #'                ident.order = c("hi", "mi", "cr", "fa"),
 #'                block.d = 0.1,
@@ -178,7 +232,7 @@
 
 # (C) Translating these dimensions into code:
 
-plot_iconarray <- function(prev = num$prev,             # probabilities
+plot_icons <- function(prev = num$prev,             # probabilities
                            sens = num$sens, mirt = NA,
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
@@ -228,7 +282,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
     if (type %in% c("array", "shuffledarray")) {
       random.position <- FALSE
     } else {
-      stop('Invalid "type" argument in plot_iconarray. ')
+      stop('Invalid "type" argument in plot_icons. ')
     }
   }
 
@@ -864,26 +918,26 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
 
 {
   # # ways to work:
-  # plot_iconarray()  # => plots icon array for default population
+  # plot_icons()  # => plots icon array for default population
   #
   # # standard icon arrays:
-  # plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+  # plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
   #
-  # plot_iconarray(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
+  # plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
   #                random.identities = TRUE)
   #
-  # plot_iconarray(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+  # plot_icons(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
   #
-  # plot_iconarray(N = 10000, icon.types = c(21,23,24,23),
+  # plot_icons(N = 10000, icon.types = c(21,23,24,23),
   #                random.identities = TRUE)
   #
-  # plot_iconarray(icon.types = c(21,23,24,23),
+  # plot_icons(icon.types = c(21,23,24,23),
   #                block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
   #                block.d = 0.5, border.d = 0.9)
   #
-  # plot_iconarray(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+  # plot_icons(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
   #
-  # plot_iconarray(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+  # plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
   #                icon.types = c(21,23,24,23),
   #                block_size_col = 10, block_size_row = 5,
   #                ncol_blocks = 5, nrow_blocks = 5,
@@ -892,7 +946,7 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
   #                fill_array = "top")
   #
   #
-  # plot_iconarray(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
+  # plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
   #                icon.types = c(21,23,21,23),
   #                ident.order = c("hi", "mi", "cr", "fa"),
   #                block.d = 0.8,
@@ -904,17 +958,17 @@ plot_iconarray <- function(prev = num$prev,             # probabilities
   # # TODO: Here it messes things up!
   #
   # # Mosaic like and randomized arrays:
-  # plot_iconarray(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
+  # plot_icons(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
   #                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
   #
-  # plot_iconarray(icon.types = c(22,23,21,23), #cex = 10,
+  # plot_icons(icon.types = c(22,23,21,23), #cex = 10,
   #                ident.order = c("mi", "hi", "cr", "fa"),
   #                random.position = TRUE, type.sort = "equal", block.d = 0.05)
   #
-  # plot_iconarray(icon.types = c(21,23,22,23), #cex = 10,
+  # plot_icons(icon.types = c(21,23,22,23), #cex = 10,
   #                random.position = TRUE, random.identities = TRUE)
   #
-  # plot_iconarray(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
+  # plot_icons(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
   #                icon.types = c(21,23,21,23),
   #                ident.order = c("hi", "mi", "cr", "fa"),
   #                block.d = 0.1,
