@@ -1,5 +1,5 @@
 ## comp_freq_freq.R | riskyr
-## 2018 01 27
+## 2018 02 09
 ## -----------------------------------------------
 ## Compute ALL current frequencies (freq)
 ## from 4 essential frequencies (contained in freq):
@@ -209,14 +209,10 @@
 #'    }
 #' }
 #'
-#'
-#' @param hi  The number true positives, or hits \code{\link{hi}}
-#' @param mi  The number false negatives, or misses \code{\link{mi}}
-#' @param fa  The number false positives, or false alarms \code{\link{fa}}
-#' @param cr  The number true negatives, or correct rejections \code{\link{cr}}
-#'
-#' @param N.new  A new population size \code{\link{N}}
-#' (not used yet, but could be used for scaling to new population sizes)
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #'
 #' @examples

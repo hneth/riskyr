@@ -71,6 +71,14 @@
 #'
 #' @return A list \code{\link{accu}} containing current accuracy metrics.
 #'
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#'
+#' @param w   The weighting parameter \code{w} (from 0 to 1)
+#' for computing weighted accuracy \code{wacc}.
+#' Default: \code{w = .50} (i.e., yielding balanced accuracy \code{bacc}).
 #'
 #' @examples
 #' comp_accu()  # => computes accuracy metrics for current default scenario
@@ -78,9 +86,9 @@
 #'
 #' # Extreme cases:
 #' comp_accu(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
-#' comp_accu(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal prediction performance
-#' comp_accu(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst prediction performance, but see f1s
-#' comp_accu(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc and mcc (corrected)
+#' comp_accu(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal performance
+#' comp_accu(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst performance, but see f1s
+#' comp_accu(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc and mcc
 #'
 #' # Effects of w:
 #' comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/2)  # equal weights to sens and spec
@@ -89,7 +97,8 @@
 #'
 #'
 #' @references
-#' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
+#' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix}
+#' for additional information.
 #'
 #' @family metrics
 #' @family functions computing probabilities

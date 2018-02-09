@@ -43,6 +43,20 @@
 #' encoded as ordered factors
 #' (with 2, 2, and 4 levels, respectively).
 #'
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#'
+#' @param cond.true.lbl Text label for \code{\link{cond.true}} cases.
+#' @param cond.false.lbl Text label for \code{\link{cond.false}} cases.
+#' @param dec.pos.lbl Text label for \code{\link{dec.pos}} cases.
+#' @param dec.neg.lbl Text label for \code{\link{dec.neg}} cases.
+#' @param sdt.hi.lbl Text label for \code{\link{hi}} cases.
+#' @param sdt.mi.lbl Text label for \code{\link{mi}} cases.
+#' @param sdt.fa.lbl Text label for \code{\link{fa}} cases.
+#' @param sdt.cr.lbl Text label for \code{\link{cr}} cases.
+#'
 #' @examples
 #' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
 #'
