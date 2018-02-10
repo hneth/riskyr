@@ -332,7 +332,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   }
 
-  # Check size of N.Ist it needed?  Sccale down if not needed and greater 100.000:
+  # Check size of N.Ist it needed?  Scale down if not needed and greater 100.000:
   ## Specify N:
   N <- cur.freq$N
   ind.lbl <- NULL
@@ -345,7 +345,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       exponent <- ((N %/% 100000) %/% 10) + 1  # get exponent dependent on size.
       ind_per_icon <- 10 ^ exponent  # individuals per icon.
-      ind.lbl <- paste0("Note: Icons have been scaled. Each icon represents ", ind_per_icon, " individuals")
+      ind.lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
 
       N <- N / (10^exponent)
       cur.freq <- lapply(cur.freq,  function(x) {x / (10^exponent)})  # adjust cur.freq and N.
@@ -901,14 +901,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
   ## Plot additional information:
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = type.lbls,
+  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
+         legend = type.lbls,
          horiz = TRUE, bty = "n",
          pt.bg = icon.colors, pch = icon.types,
-         cex = 1.1, xjust = 0.5, xpd = TRUE)
+         cex = 1.0, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
-  mtext(cur.par.lbl, side = 1, line = 3)
-  mtext(ind.lbl, side = 1, line = 2)
+  mtext(cur.par.lbl, side = 1, line = 3, col = grey(.33, .99), cex = .85)
+  mtext(ind.lbl, side = 1, line = 2, col = grey(.11, .99), cex = .85)
 
 }  # end of function.
 
