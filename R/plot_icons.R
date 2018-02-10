@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 02 09
+## 2018 02 10
 ## -----------------------------------------------
 ##  This function plots an icon array in many ways,
 ##  dependent on population size
@@ -264,7 +264,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
                            # labelling:
                            title.lbl = txt$scen.lbl,
-                           type.lbls = txt[c("sdt.hi.lbl", "sdt.mi.lbl", "sdt.fa.lbl", "sdt.cr.lbl")],
+                           type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
 
                            # (currently) fixed parameters:
                            xlim = c(0, 1),

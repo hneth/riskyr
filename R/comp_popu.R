@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 01 31
+## 2018 02 10
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
@@ -52,10 +52,10 @@
 #' @param cond.false.lbl Text label for \code{\link{cond.false}} cases.
 #' @param dec.pos.lbl Text label for \code{\link{dec.pos}} cases.
 #' @param dec.neg.lbl Text label for \code{\link{dec.neg}} cases.
-#' @param sdt.hi.lbl Text label for \code{\link{hi}} cases.
-#' @param sdt.mi.lbl Text label for \code{\link{mi}} cases.
-#' @param sdt.fa.lbl Text label for \code{\link{fa}} cases.
-#' @param sdt.cr.lbl Text label for \code{\link{cr}} cases.
+#' @param hi.lbl Text label for \code{\link{hi}} cases.
+#' @param mi.lbl Text label for \code{\link{mi}} cases.
+#' @param fa.lbl Text label for \code{\link{fa}} cases.
+#' @param cr.lbl Text label for \code{\link{cr}} cases.
 #'
 #' @examples
 #' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
@@ -83,8 +83,8 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       ## text labels (from txt): ##
                       cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
                       dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-                      sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
-                      sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl) {
+                      hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
+                      fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl) {
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond.true  <- (hi + fa)
@@ -123,7 +123,7 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   ## (c) SDT (status decision/truth):
   sdt <- factor(sdt,
                 levels = c("hi", "mi", "fa", "cr"),                         # as character: 4 cases
-                labels = c(sdt.hi.lbl, sdt.mi.lbl, sdt.fa.lbl, sdt.cr.lbl), # explicit labels: "TP", "FN", "FP", "TN"
+                labels = c(hi.lbl, mi.lbl, fa.lbl, cr.lbl), # explicit labels: "TP", "FN", "FP", "TN"
                 # labels = c("hi", "mi", "fa", "cr"), # implicit labels
                 ordered = TRUE)
 

@@ -1,5 +1,5 @@
-## init_txt.R | riskyR
-## 2018 01 27
+## init_txt.R | riskyr
+## 2018 02 10
 ## -----------------------------------------------
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
@@ -9,8 +9,10 @@
 
 txt.def <- list(
   scen.lbl = "Scenario name", # put scenario label in Title Caps (if desired in plot titles)
-  scen.txt = "Describe the current scenario in a short paragraph of text here.\nThis description may include several sentences.",
-  scen.src = "Describe the source information for this scenario here",
+  scen.txt = "Description of the current scenario in a short paragraph of text.\nThis description may include several sentences.",
+  scen.src = "Source information for this scenario",
+  scen.apa = "Source information in APA format",
+  scen.lng = "en/de", # language
 
   popu.lbl = "Describe the target population in a few words here",
 
@@ -25,10 +27,10 @@ txt.def <- list(
   dec.neg.lbl = "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
   ## (c) Labels for the 4 SDT cases (combinations):
-  sdt.hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
-  sdt.mi.lbl = "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
-  sdt.fa.lbl = "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
-  sdt.cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
+  hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
+  mi.lbl = "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
+  fa.lbl = "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
+  cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
 )
 
 # length(txt.def) # => 14 text elements
@@ -52,6 +54,9 @@ txt.def <- list(
 #' @param scen.txt A longer text description of the current scenario
 #' (which may extend over several lines).
 #' @param scen.src The source information for the current scenario.
+#' @param scen.apa Source information in APA format.
+#' @param scen.lng Language of the current scenario (as character code).
+#' Options: \code{"en"}...English, \code{"de"}... German.
 #'
 #' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
@@ -67,19 +72,23 @@ txt.def <- list(
 #' @param dec.neg.lbl A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param sdt.hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' @param hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
-#' @param sdt.mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' @param mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 #' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
-#' @param sdt.fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' @param fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 #' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
-#' @param sdt.cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' @param cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' @examples
-#' init_txt()          # => define and return a list of (default) text elements
-#' length(init_txt())  # => 14
-#' txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius")  # => set elements of txt
+#' init_txt()          # => defines a list of (default) text elements
+#' length(init_txt())  # => 16
+#'
+#' # Customizing current text elements:
+#' txt <- init_txt(scen.lbl = "US or Them",
+#'                 scen.src = "Some stable genius",
+#'                 popu.lbl = "We, the people")
 #'
 #' @family functions initializing scenario information
 #'
@@ -93,7 +102,9 @@ txt.def <- list(
 
 init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      scen.txt = txt.def$scen.txt,  # text with scenario description
-                     scen.src = txt.def$scen.src,  # scenario source information
+                     scen.src = txt.def$scen.src,  # scenario source
+                     scen.apa = txt.def$scen.apa,  # scenario source in APA format
+                     scen.lng = txt.def$scen.lng,  # language
                      popu.lbl = txt.def$popu.lbl,  # target population
                      ## (a) Condition:
                      cond.lbl = txt.def$cond.lbl,              # Condition
@@ -104,10 +115,10 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      dec.pos.lbl  = txt.def$dec.pos.lbl,       # "Decision positive"
                      dec.neg.lbl = txt.def$dec.neg.lbl,        # "Decision negative"
                      ## (c) Labels for the 4 SDT cases (combinations):
-                     sdt.hi.lbl = txt.def$sdt.hi.lbl,  # hits               = "True positive"
-                     sdt.mi.lbl = txt.def$sdt.mi.lbl,  # misses             = "False negative"
-                     sdt.fa.lbl = txt.def$sdt.fa.lbl,  # false alarms       = "False positive"
-                     sdt.cr.lbl = txt.def$sdt.cr.lbl   # correct rejections = "True negative"
+                     hi.lbl = txt.def$hi.lbl,  # hits               = "True positive"
+                     mi.lbl = txt.def$mi.lbl,  # misses             = "False negative"
+                     fa.lbl = txt.def$fa.lbl,  # false alarms       = "False positive"
+                     cr.lbl = txt.def$cr.lbl   # correct rejections = "True negative"
                      ) {
 
 
@@ -116,9 +127,13 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 
   ## 2. Pass arguments to list:
   txt <- list(
+    ## Scenario:
     scen.lbl = scen.lbl,
     scen.txt = scen.txt,
     scen.src = scen.src,
+    scen.apa = scen.apa,
+    scen.lng = scen.lng,
+    ## Population:
     popu.lbl = popu.lbl,
     ## (a) Condition:
     cond.lbl = cond.lbl,
@@ -129,10 +144,10 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
     dec.pos.lbl = dec.pos.lbl,
     dec.neg.lbl = dec.neg.lbl,
     ## (c) Labels for the 4 SDT cases (combinations):
-    sdt.hi.lbl = sdt.hi.lbl,
-    sdt.mi.lbl = sdt.mi.lbl,
-    sdt.fa.lbl = sdt.fa.lbl,
-    sdt.cr.lbl = sdt.cr.lbl
+    hi.lbl = hi.lbl,
+    mi.lbl = mi.lbl,
+    fa.lbl = fa.lbl,
+    cr.lbl = cr.lbl
   )
 
   ## 3. Return entire list txt:
@@ -142,9 +157,13 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 
 ## Check:
 {
-  # init_txt()          # => defines and returns a list of (default) text elements
-  # length(init_txt())  # => 14
-  # txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius") # => customizes current text elements
+  # init_txt()          # => defines a list of (default) text elements
+  # length(init_txt())  # => 16
+  #
+  # # Customizing current text elements:
+  # txt <- init_txt(scen.lbl = "US or Them",
+  #                 scen.src = "Some stable genius",
+  #                 popu.lbl = "We, the people")
 }
 
 ## -----------------------------------------------
@@ -172,6 +191,11 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #'
 #' \item \code{scen.src} The source information for the current scenario.
 #'
+#' \item \code{scen.apa} The source information in APA format.
+#'
+#' \item \code{scen.lng} The language of the current scenario (as character code).
+#' Options: \code{"en"}...English, \code{"de"}... German.
+#'
 #' \item \code{popu.lbl} A brief description of the current target population \code{\link{popu}} or sample.
 #'
 #' \item \code{cond.lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
@@ -190,16 +214,16 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' \item \code{dec.neg.lbl} A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' \item \code{sdt.hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' \item \code{hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 #'
-#' \item \code{sdt.mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' \item \code{mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 #' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
 #'
-#' \item \code{sdt.fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' \item \code{fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 #' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
 #'
-#' \item \code{sdt.cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' \item \code{cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' }

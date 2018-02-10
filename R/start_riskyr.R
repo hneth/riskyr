@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 02 09
+## 2018 02 10
 ## -----------------------------------------------
 ## (1) Initialize the package:
 
@@ -139,12 +139,40 @@ init_riskyr <- function(prev = NA,             # probabilities
 ## (3) Import ready-made and worked out example data
 ##     (in both ui.R and server.R):
 
-# scenarios <- read.table("./data/scenarios_win.csv", sep = ",", stringsAsFactors = FALSE, fileEncoding = "UTF-8")
-# scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE)
+
+scenarios <- read.csv2("./data_sources/scenarios_6.csv", stringsAsFactors = FALSE)
+
+## Not working any better:
+# scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
+# scenarios <- read.csv2("./data_sources/scenarios_6_tab.txt", stringsAsFactors = FALSE)
+# scenarios <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
 
 ## Check:
-# dim(scenarios)
-# names(scenarios)
+dim(scenarios)
+names(scenarios)
+# View(scenarios)
+
+## Note that German Umlauts are corrupted.
+
+## Write out to csv:
+write.csv2(scenarios, file = "./data/scenarios.csv")
+
+## Write out as RData:
+save(scenarios, file = "./data/scenarios.RData")
+
+## -----------------------------------------------
+## (4) Try to read in again (from ./data/):
+
+scenarios <- NULL  # re-initialize scenarios
+
+## Load data:
+# scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
+load("./data/scenarios.RData") # from .RData file
+
+## Check:
+dim(scenarios) # extra first column "X"
+names(scenarios)
+# View(scenarios)
 
 ## -----------------------------------------------
 ## (4) Initialize an imported scenario:
@@ -168,6 +196,8 @@ init_scen <- function(num) {
   txt <- init_txt(scen.lbl = scenarios$scen.lbl[num],
                   scen.txt = scenarios$scen.txt[num],
                   scen.src = scenarios$scen.src[num],
+                  scen.apa = scenarios$scen.apa[num],
+                  scen.lng = scenarios$scen.lng[num],
                   popu.lbl = scenarios$popu.lbl[num],
                   cond.lbl = scenarios$cond.lbl[num],
                   cond.true.lbl = scenarios$cond.true.lbl[num],
@@ -175,10 +205,10 @@ init_scen <- function(num) {
                   dec.lbl = scenarios$dec.lbl[num],
                   dec.pos.lbl = scenarios$dec.pos.lbl[num],
                   dec.neg.lbl = scenarios$dec.neg.lbl[num],
-                  sdt.hi.lbl = scenarios$sdt.hi.lbl[num],
-                  sdt.mi.lbl = scenarios$sdt.mi.lbl[num],
-                  sdt.fa.lbl = scenarios$sdt.fa.lbl[num],
-                  sdt.cr.lbl = scenarios$sdt.cr.lbl[num]
+                  hi.lbl = scenarios$hi.lbl[num],
+                  mi.lbl = scenarios$mi.lbl[num],
+                  fa.lbl = scenarios$fa.lbl[num],
+                  cr.lbl = scenarios$cr.lbl[num]
   )
 
   ## (4) Initialize basic scenario settings:
@@ -205,7 +235,7 @@ init_scen <- function(num) {
                      accu = accu)
 
   ## (8) Message:
-  # message("Ready to riskyr it...")
+  message("Ready to riskyr this scenario...")
 
   ## (9) Return entire riskyr.lst:
   return(riskyr.lst)
@@ -216,7 +246,7 @@ init_scen <- function(num) {
 
 ## Check:
 {
-#   init_scen(20)
+init_scen(2)
 #
 #   x <- 21
 #   txt <- init_scen(x)$txt

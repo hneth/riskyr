@@ -1,5 +1,5 @@
-## plot_tree.R | riskyR
-## 2018 02 03
+## plot_tree.R | riskyr
+## 2018 02 10
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -203,10 +203,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       dec.lbl = txt$dec.lbl,        # decision labels
                       dec.pos.lbl = txt$dec.pos.lbl,
                       dec.neg.lbl = txt$dec.neg.lbl,
-                      sdt.hi.lbl = txt$sdt.hi.lbl,  # SDT combinations
-                      sdt.mi.lbl = txt$sdt.mi.lbl,
-                      sdt.fa.lbl = txt$sdt.fa.lbl,
-                      sdt.cr.lbl = txt$sdt.cr.lbl,
+                      hi.lbl = txt$hi.lbl,  # SDT combinations
+                      mi.lbl = txt$mi.lbl,
+                      fa.lbl = txt$fa.lbl,
+                      cr.lbl = txt$cr.lbl,
                       box.cex = .90,                # relative size of text in boxes
                       ## Colors:
                       col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
@@ -310,10 +310,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
                  paste0(cond.false.lbl, ":\n", round(n.false, 2)),
-                 paste0(sdt.hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(sdt.mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(sdt.fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(sdt.cr.lbl, ":\n", round(n.cr, 2))
+                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr.lbl, ":\n", round(n.cr, 2))
       )
 
     }  else {  # shorter box labels:
@@ -337,10 +337,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(dec.pos.lbl, ":\n",  round(n.pos, 2)),
                  paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
-                 paste0(sdt.hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(sdt.mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(sdt.fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(sdt.cr.lbl, ":\n", round(n.cr, 2))
+                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr.lbl, ":\n", round(n.cr, 2))
       )
 
     }  else {  # shorter box labels:
