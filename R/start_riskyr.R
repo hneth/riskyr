@@ -142,7 +142,7 @@ init_riskyr <- function(prev = NA,             # probabilities
 # scenarios <- NULL  # initialize scenarios
 
 ## Working (except for German Umlauts):
-# scenarios <- read.csv2("./data_sources/scenarios_6.csv", stringsAsFactors = FALSE)
+# scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)
 
 ## Not working any better:
 # scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
