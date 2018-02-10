@@ -261,9 +261,9 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 </ol>
 <p><span class="math display">\[
 \begin{aligned}
-\texttt{sens} \ &amp;= \frac{\texttt{hi}}{\texttt{cond.true}} &amp; \ \ \textrm{(a1)}       \\
+\texttt{sens} \ &amp;= \frac{\texttt{hi}}{\texttt{cond.true}} &amp; \ \ \textrm{(a1)}   \\
 \ \\ 
-\texttt{spec} \ &amp;= \frac{\texttt{cr}}{\texttt{cond.false}} &amp; \ \ \textrm{(a2)}      \\
+\texttt{spec} \ &amp;= \frac{\texttt{cr}}{\texttt{cond.false}} &amp; \ \ \textrm{(a2)}  \\
 \end{aligned}
 \]</span></p>
 <ol start="2" style="list-style-type: lower-alpha">
@@ -271,14 +271,14 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 </ol>
 <p><span class="math display">\[
 \begin{aligned}
-\texttt{PPV} \ &amp;= \frac{\texttt{hi}}{\texttt{dec.pos}} &amp; \ \ \ \textrm{(b1)}       \\
+\texttt{PPV} \ &amp;= \frac{\texttt{hi}}{\texttt{dec.pos}} &amp; \ \ \ \textrm{(b1)}   \\
 \ \\ 
-\texttt{NPV} \ &amp;= \frac{\texttt{cr}}{\texttt{dec.neg}} &amp; \ \ \ \textrm{(b2)}      \\
+\texttt{NPV} \ &amp;= \frac{\texttt{cr}}{\texttt{dec.neg}} &amp; \ \ \ \textrm{(b2)}   \\
 \end{aligned}
 \]</span></p>
 </div>
-<div id="b.-general-metrics-overall-accuracy" class="section level3">
-<h3>B. General metrics: Overall accuracy</h3>
+<div id="b.-general-metrics-measures-of-accuracy" class="section level3">
+<h3>B. General metrics: Measures of accuracy</h3>
 <p>In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. <code>riskyr</code> currently computes four general metrics (which are contained in <code>accu</code>):</p>
 <div id="overall-accuracy-acc" class="section level4">
 <h4>1. Overall accuracy (<code>acc</code>)</h4>
@@ -298,7 +298,7 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <h4>2. Weighted accuracy (<code>wacc</code>)</h4>
 <p>Whereas overall accuracy (<code>acc</code>) does not discriminate between different types of correct and incorrect cases, weighted accuracy (<code>wacc</code>) allows for taking into account the importance of errors. Essentially, <code>wacc</code> combines the sensitivity (<code>sens</code>) and specificity (<code>spec</code>), but multiplies <code>sens</code> by a weighting parameter <code>w</code> (ranging from 0 to 1) and <code>spec</code> by its complement <code>(1 - w)</code>:</p>
 <blockquote>
-<p>Weighted accuracy <code>wacc</code> is the average of sensitivity (<code>sens</code>) weighted by <code>w</code>, and specificity (<code>spec</code>), weighted by <code>1 - w</code>.</p>
+<p>Weighted accuracy <code>wacc</code> := the average of sensitivity (<code>sens</code>) weighted by <code>w</code>, and specificity (<code>spec</code>), weighted by <code>(1 - w)</code>.</p>
 </blockquote>
 <p><span class="math display">\[
 \begin{aligned}
@@ -314,13 +314,13 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 </div>
 <div id="matthews-correlation-coefficient-mcc" class="section level4">
 <h4>3. Matthews correlation coefficient <code>mcc</code></h4>
-<p>The Matthews correlation coefficient (with values ranging from <span class="math inline">\(-1\)</span> to <span class="math inline">\(+1\)</span>):</p>
+<p>The Matthews correlation coefficient (with values ranging from <span class="math inline">\(-1\)</span> to <span class="math inline">\(+1\)</span>) is computed as:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{mcc} \ &amp;= \frac{(\texttt{hi} \cdot \texttt{cr}) \ - \ (\texttt{fa} \cdot \texttt{mi})}{\sqrt{(\texttt{hi} + \texttt{fa}) \cdot (\texttt{hi} + \texttt{mi}) \cdot (\texttt{cr} + \texttt{fa}) \cdot (\texttt{cr} + \texttt{mi})}}  \\
 \end{aligned}
 \]</span></p>
-<p>The <code>mcc</code> is a correlation coefficient between the actual and the predicted binary categories. A value of <span class="math inline">\(0\)</span> represents chance performance, a value of <span class="math inline">\(+1\)</span> represents perfect performance, and a value of <span class="math inline">\(−1\)</span> indicates complete disagreement between truth and predictions.</p>
+<p>The <code>mcc</code> is a correlation coefficient specifying the correspondence between the actual and the predicted binary categories. A value of <span class="math inline">\(0\)</span> represents chance performance, a value of <span class="math inline">\(+1\)</span> represents perfect performance, and a value of <span class="math inline">\(−1\)</span> indicates complete disagreement between truth and predictions.</p>
 <p>See <a href="https://en.wikipedia.org/wiki/Matthews_correlation_coefficient">Wikipedia: Matthews correlation coefficient</a> for details.</p>
 </div>
 <div id="f1-score" class="section level4">
@@ -349,11 +349,32 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
 <h2>All <code>riskyr</code> Vignettes</h2>
-<ul>
-<li><a href="01_user_guide.html">User guide</a></li>
-<li><a href="02_data_formats.html">Data formats</a></li>
-<li><a href="03_confusion_matrix.html">Confusion matrix</a></li>
-</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Nr.</th>
+<th align="left">Vignette</th>
+<th align="left">Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1.</td>
+<td align="left"><a href="01_user_guide.html">User guide</a></td>
+<td align="left">Motivation and general instructions</td>
+</tr>
+<tr class="even">
+<td align="right">2.</td>
+<td align="left"><a href="02_data_formats.html">Data formats</a></td>
+<td align="left">Data formats: Frequencies and probabilities</td>
+</tr>
+<tr class="odd">
+<td align="right">3.</td>
+<td align="left"><a href="03_confusion_matrix.html">Confusion matrix</a></td>
+<td align="left">Confusion matrix and accuracy metrics</td>
+</tr>
+</tbody>
+</table>
 <!-- eof. -->
 </div>
 <div class="footnotes">

@@ -163,9 +163,9 @@ As we are dealing with two types of correct decisions (`hi` and `cr`) and two pe
 
 $$
 \begin{aligned}
-\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}       \\
+\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}   \\
 \ \\ 
-\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}      \\
+\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}  \\
 \end{aligned}
 $$
 
@@ -173,14 +173,14 @@ $$
 
 $$
 \begin{aligned}
-\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}       \\
+\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}   \\
 \ \\ 
-\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}      \\
+\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}   \\
 \end{aligned}
 $$
 
 
-### B. General metrics: Overall accuracy
+### B. General metrics: Measures of accuracy
 
 In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. `riskyr` currently computes four general metrics (which are contained in `accu`):
 
@@ -204,7 +204,7 @@ $$
 
 Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
 
-> Weighted accuracy `wacc` is the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `1 - w`. 
+> Weighted accuracy `wacc` := the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `(1 - w)`. 
 
 $$
 \begin{aligned}
@@ -223,7 +223,7 @@ Three cases can be distinguished, based on the value of the weighting parameter 
 
 #### 3. Matthews correlation coefficient `mcc`
 
-The Matthews correlation coefficient (with values ranging from $-1$ to $+1$):
+The Matthews correlation coefficient (with values ranging from $-1$ to $+1$) is computed as: 
 
 $$
 \begin{aligned}
@@ -231,7 +231,7 @@ $$
 \end{aligned}
 $$
 
-The `mcc` is a correlation coefficient between the actual and the predicted binary categories. A value of $0$ represents chance performance, a value of $+1$ represents perfect performance, and a value of $−1$ indicates complete disagreement between truth and predictions. 
+The `mcc` is a correlation coefficient specifying the correspondence between the actual and the predicted binary categories. A value of $0$ represents chance performance, a value of $+1$ represents perfect performance, and a value of $−1$ indicates complete disagreement between truth and predictions. 
 
 See [Wikipedia: Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient) for details. 
 
@@ -264,10 +264,14 @@ Links to related Wikipedia articles:
 - [F1 score](https://en.wikipedia.org/wiki/F1_score) 
 
 
+
 ## All `riskyr` Vignettes
 
-- [User guide](01_user_guide.html)
-- [Data formats](02_data_formats.html)
-- [Confusion matrix](03_confusion_matrix.html)
+| Nr.  | Vignette | Content    |        
+| ---: |:---------|:-----------|
+| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
+| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
+| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+
 
 <!-- eof. -->

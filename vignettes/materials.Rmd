@@ -23,9 +23,14 @@ library("riskyr")  # load the "riskyr" package
 
 **Note:** This file contains miscellanea and older snippets of materials used or yet to be used in actual vignettes:
 
-- [User guide](01_user_guide.html)
-- [Data formats](02_data_formats.html)
-- [Confusion matrix](03_confusion_matrix.html)
+
+## Existing `riskyr` Vignettes
+
+| Nr.  | Vignette | Content    |        
+| ---: |:---------|:-----------|
+| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
+| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
+| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 
 
 ## Quotes

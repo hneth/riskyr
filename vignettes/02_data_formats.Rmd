@@ -20,12 +20,12 @@ knitr::opts_chunk$set(
 
 <!-- Motto: --> 
 
-> The quest for certainty is the biggest obstacle to becoming risk savvy.<br>
+> The quest for certainty is the biggest obstacle to becoming risk savvy. 
 > (Gerd Gigerenzer)^[Gigerenzer, G. (2014). _Risk savvy: How to make good decisions_. New York, NY: Penguin. (p. 21).]
 
 <!-- Introduction: Uncertainty: Risks as probabilities vs. frequencies --> 
 
-A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be quantified and calculated -- or "reckoned" -- with (Gigerenzer, 2002). As probabilities are notoriously difficult to communicate and understand, this vignette explains how probabilities can be defined and calculated in terms of frequencies. 
+A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be measured and calculated --- or "reckoned" --- with (Gigerenzer, 2002). Nevertheless, probabilities are pretty big obstacles for everyone not trained as a statistician. As probabilities are notoriously difficult to communicate and understand, this vignette explains how probabilities can be defined and computed in terms of frequencies. 
 
 
 ## Two Representational Formats
@@ -118,8 +118,8 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \textrm{(b)}      \\
-           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr}) \\
+\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \ \ \ \ \ \textrm{(b)}  \\
+           \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr})   \\
 \end{aligned}
 $$ 
 
@@ -128,7 +128,7 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \textrm{(c)}      \\
+\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \ \ \ \ \textrm{(c)}  \\
            \ &= \ (\texttt{hi} + \texttt{cr}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 $$
@@ -299,8 +299,11 @@ _Cognition_, _84_, 343--352.
 
 ## All `riskyr` Vignettes
 
-- [User guide](01_user_guide.html)
-- [Data formats](02_data_formats.html)
-- [Confusion matrix](03_confusion_matrix.html)
+| Nr.  | Vignette | Content    |        
+| ---: |:---------|:-----------|
+| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
+| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
+| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+
 
 <!-- eof. -->
