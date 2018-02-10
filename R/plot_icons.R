@@ -144,8 +144,6 @@
 #'
 #' @param type.lbls Text labels for icon types to be displayed in legend.
 #'
-#' @param cex Size of the icons (calculated by default).
-#'
 #'
 #' @examples
 #' # ways to work:
@@ -257,6 +255,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed
   ylim = c(0, 1)
   cex = NULL      # if NULL, cex will be calculated on demand
+  # #' @param cex Size of the icons (calculated by default).
 
   ## Reconstruct logical values from type:
   if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
