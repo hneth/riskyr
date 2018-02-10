@@ -13,7 +13,7 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   ncol_blocks = NULL, nrow_blocks = NULL, fill_array = "left",
   fill_blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
-  "cr.lbl")], xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
+  "cr.lbl")], ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -115,7 +115,15 @@ in each block column.}
 (with 2 options "left" (default) and "top").}
 
 \item{fill_blocks}{specifies how icons within blocks are filled
-(with 2 options: "rowwise" (default) and "colwise").
+(with 2 options: "rowwise" (default) and "colwise").}
+
+\item{show.accu}{Option for showing current
+accuracy metrics \code{\link{accu}} in the plot.
+Default: \code{show.accu = TRUE}.}
+
+\item{w.acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+Default: \code{w.acc = .50}.
 
 
 Various other options allow the customization of text labels and colors:}
@@ -124,7 +132,7 @@ Various other options allow the customization of text labels and colors:}
 
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
-\item{cex}{Size of the icons (calculated by default).}
+\item{...}{Additional parameters for \code{plot}.}
 }
 \description{
 \code{plot_icons} plots a population of which individual's

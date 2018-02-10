@@ -8,13 +8,12 @@ plot_tree(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, round = TRUE, by = "cd", area = "no",
   p.lbl = "mix", show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
+  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, box.cex = 0.9, col.boxes = pal,
-  col.txt = grey(0.01, alpha = 0.99), col.border = grey(0.33, alpha = 0.99),
-  lwd = 1.6, box.lwd = 1.8, col.shadow = col.sand.dark, cex.shadow = 0)
+  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.9,
+  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.6,
+  box.lwd = 1.8, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -75,13 +74,49 @@ Default: \code{show.accu = TRUE}.}
 weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 Default: \code{w.acc = .50}.
 
-
 Various other options allow the customization of text labels and colors:}
 
-\item{title.lbl}{Text label to set plot title.}
+\item{title.lbl}{Text label for current plot title.
+Default: \code{title.lbl = txt$scen.lbl}.}
+
+\item{popu.lbl}{Text label for current population \code{\link{popu}}.}
+
+\item{cond.true.lbl}{Text label for current cases of \code{\link{cond.true}}.}
+
+\item{cond.false.lbl}{Text label for current cases of \code{\link{cond.false}}.}
+
+\item{dec.pos.lbl}{Text label for current cases of \code{\link{dec.pos}}.}
+
+\item{dec.neg.lbl}{Text label for current cases of \code{\link{dec.neg}}.}
+
+\item{hi.lbl}{Text label for hits \code{\link{hi}}.}
+
+\item{mi.lbl}{Text label for misses \code{\link{mi}}.}
+
+\item{fa.lbl}{Text label for false alarms \code{\link{fa}}.}
+
+\item{cr.lbl}{Text label for correct rejections \code{\link{cr}}.}
+
+\item{col.txt}{Color for text labels (in boxes).}
+
+\item{box.cex}{Scaling factor for text (in boxes).
+Default: \code{box.cex = .90}.}
 
 \item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
+
+\item{col.border}{Color of borders.
+Default: \code{col.border = grey(.33, alpha = .99)}.}
+
+\item{lwd}{Width of arrows.}
+
+\item{box.lwd}{Width of boxes.}
+
+\item{col.shadow}{Color of box shadows.
+Default: \code{col.shadow = grey(.11, alpha = .99)}.}
+
+\item{cex.shadow}{Scaling factor of shadows (values > 0 showing shadows).
+Default: \code{cex.shadow = 0}.}
 }
 \value{
 Nothing (NULL).
