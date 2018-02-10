@@ -1,7 +1,7 @@
 ---
 title: "`riskyr` User Guide"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 08"
+date: "2018 02 01"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 
 <!-- Introduction: --> 
 
-What is the likelihood of a disease or clinical condition given a positive test result? 
+What is the probability of a disease or clinical condition given a positive test result? 
 This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
 Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities, but have no problem to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
@@ -337,7 +337,7 @@ Here are some examples that depict the scenario described above:
 
 A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:
 
-```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.4, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            title.lbl = "Mammography screening")
 ```
@@ -385,7 +385,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 Similarly, the population area of the mosaic plot can be split horizontally by using the option `vsplit = FALSE`:
 
-```{r plot_mosaic_dc, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+```{r plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             vsplit = FALSE, 
             title.lbl = "Mammography screening")
@@ -404,7 +404,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. This is still visible when relaxing the positional constraint of icons in the icon array:
 
-```{r plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+```{r plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            type = "mosaic",
            title.lbl = "Mammography screening")

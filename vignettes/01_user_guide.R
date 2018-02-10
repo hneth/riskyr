@@ -91,7 +91,7 @@ all.equal(freq$mi, rand.f[2])
 all.equal(freq$fa, rand.f[3])
 all.equal(freq$cr, rand.f[4])
 
-## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.4, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            title.lbl = "Mammography screening")
 
@@ -110,7 +110,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           dec.pos.lbl = "positive test",
           dec.neg.lbl = "negative test")
 
-## ----plot_mosaic_dc, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
+## ----plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             vsplit = FALSE, 
             title.lbl = "Mammography screening")
@@ -123,7 +123,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           dec.pos.lbl = "positive test",
           dec.neg.lbl = "negative test")
 
-## ----plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+## ----plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            type = "mosaic",
            title.lbl = "Mammography screening")
