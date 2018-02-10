@@ -11,9 +11,9 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
   border.d = 0.1, block_size_col = 10, block_size_row = 10,
   ncol_blocks = NULL, nrow_blocks = NULL, fill_array = "left",
-  fill_blocks = "rowwise", title.lbl = txt$scen.lbl,
-  type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")], xlim = c(0,
-  1), ylim = c(0, 1), cex = NULL, ...)
+  fill_blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
+  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
+  "cr.lbl")], xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}

@@ -81,7 +81,7 @@ Default: \code{w.acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
 
-\item{title.lbl}{Text label to set plot title.}
+\item{title.lbl}{Text label used as plot title.}
 
 \item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
