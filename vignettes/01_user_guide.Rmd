@@ -339,6 +339,7 @@ A straightforward way of plotting an entire population of individuals is provide
 
 ```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.4, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+           icon.types = c(21, 21, 22, 22),
            title.lbl = "Mammography screening")
 ```
 
@@ -405,7 +406,8 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. This is still visible when relaxing the positional constraint of icons in the icon array:
 
 ```{r plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
-plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block.d = 0.01,
+           icon.types = c(21, 21, 22, 22),
            type = "mosaic",
            title.lbl = "Mammography screening")
 ```
