@@ -117,6 +117,15 @@
 #' (with 2 options: "rowwise" (default) and "colwise").
 #'
 #'
+#' @param show.accu Option for showing current
+#' accuracy metrics \code{\link{accu}} in the plot.
+#' Default: \code{show.accu = TRUE}.
+#'
+#' @param w.acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' Default: \code{w.acc = .50}.
+#'
+#'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param icon.colors Specifies the icon colors as a vector.
@@ -224,7 +233,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        block.d = NULL,  # distance between blocks (where applicable).
                        border.d = 0.1,  # distance of icons to border.
 
-                       # for classic icon arrays only:
+                       ## Standard icon arrays only:
                        block_size_col = 10,
                        block_size_row = 10,
                        ncol_blocks = NULL,
@@ -237,19 +246,19 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        show.accu = TRUE,  # compute and show accuracy metrics
                        w.acc = .50,       # weight w for wacc (from 0 to 1)
 
-                       # labelling:
+                       ## Text labels:
                        title.lbl = txt$scen.lbl,
                        type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
 
-                       # (currently) fixed parameters:
-                       xlim = c(0, 1),
-                       ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
-                       cex = NULL,  # if NULL, cex will be calculated on demand!
-
-                       ...  #additional parameters for plot()
+                       ...  # additional parameters for plot()
 ) {
 
-  # Redo logical values:
+  ## Currently fixed parameters:
+  xlim = c(0, 1)  # xlim and ylim should currently remain fixed
+  ylim = c(0, 1)
+  cex = NULL      # if NULL, cex will be calculated on demand
+
+  ## Reconstruct logical values from type:
   if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
 
     random.position <-  TRUE
@@ -266,6 +275,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   } else {
     random.identities <- TRUE
   }
+
 
   ## A0.1: Check entered parameters for plausibility!--------------------------------------------
 

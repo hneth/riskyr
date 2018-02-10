@@ -85,6 +85,12 @@
 #' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 #' Default: \code{w.acc = .50}.
 #'
+#' @param title.lbl Text label for current plot title.
+#' Default: \code{title.lbl = txt$scen.lbl}.
+#'
+#' @param col.sdt Colors for cases of 4 essential frequencies.
+#' Default: \code{col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.
+#'
 #'
 #' @examples
 #' plot_mosaic()                # => default options

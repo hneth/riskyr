@@ -137,13 +137,40 @@
 #' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 #' Default: \code{w.acc = .50}.
 #'
-#'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param title.lbl Text label used as plot title.
+#' @param title.lbl Text label for current plot title.
+#' Default: \code{title.lbl = txt$scen.lbl}.
+#'
+#' @param popu.lbl Text label for current population \code{\link{popu}}.
+#'
+#' @param cond.true.lbl Text label for current cases of \code{\link{cond.true}}.
+#' @param cond.false.lbl Text label for current cases of \code{\link{cond.false}}.
+#'
+#' @param dec.pos.lbl Text label for current cases of \code{\link{dec.pos}}.
+#' @param dec.neg.lbl Text label for current cases of \code{\link{dec.neg}}.
+#'
+#' @param hi.lbl Text label for hits \code{\link{hi}}.
+#' @param mi.lbl Text label for misses \code{\link{mi}}.
+#' @param fa.lbl Text label for false alarms \code{\link{fa}}.
+#' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
+#'
+#' @param col.txt Color for text labels (in boxes).
+#' @param box.cex Scaling factor for text (in boxes).
+#' Default: \code{box.cex = .90}.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
+#' @param col.border Color of borders.
+#' Default: \code{col.border = grey(.33, alpha = .99)}.
+#'
+#' @param lwd Width of arrows.
+#' @param box.lwd Width of boxes.
+#'
+#' @param col.shadow Color of box shadows.
+#' Default: \code{col.shadow = grey(.11, alpha = .99)}.
+#' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
+#' Default: \code{cex.shadow = 0}.
 #'
 #'
 #' @return Nothing (NULL).
@@ -231,25 +258,23 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       show.accu = TRUE,  # compute and show accuracy metrics
                       w.acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
-                      title.lbl = txt$scen.lbl,     # custom text labels
+                      title.lbl = txt$scen.lbl,
                       popu.lbl = txt$popu.lbl,
-                      cond.lbl = txt$cond.lbl,      # condition labels
+                      ## Condition labels:
                       cond.true.lbl = txt$cond.true.lbl,
                       cond.false.lbl = txt$cond.false.lbl,
-                      dec.lbl = txt$dec.lbl,        # decision labels
+                      ## Decision labels:
                       dec.pos.lbl = txt$dec.pos.lbl,
                       dec.neg.lbl = txt$dec.neg.lbl,
-                      hi.lbl = txt$hi.lbl,  # SDT combinations
+                      ## SDT combinations:
+                      hi.lbl = txt$hi.lbl,
                       mi.lbl = txt$mi.lbl,
                       fa.lbl = txt$fa.lbl,
                       cr.lbl = txt$cr.lbl,
-                      box.cex = .85,                # relative size of text in boxes
-                      ## Colors:
-                      col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
-                      # col.N = col.sand.light,
-                      # col.true = col.N, col.false = col.N,
-                      # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                      col.txt = grey(.01, alpha = .99),     # black
+                      ## Box settings:
+                      col.txt = grey(.01, alpha = .99),  # black
+                      box.cex = .85,                     # relative text size
+                      col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
                       col.border = grey(.33, alpha = .99),  # grey
                       ## Widths of arrows and box borders:
                       lwd = 1.5,      # width of arrows
