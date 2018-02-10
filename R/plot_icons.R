@@ -47,10 +47,12 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
+#'
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #' If N is 100,000 or greater it is reduced to 10,000
 #' for the array types if the frequencies allow it.
+#'
 #'
 #' @param type The icons can be arranged in different ways
 #' resulting in different types of displays:
@@ -231,6 +233,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        fill_array = "left",
                        fill_blocks = "rowwise",
 
+                       ## Compute and show accuracy info:
+                       show.accu = TRUE,  # compute and show accuracy metrics
+                       w.acc = .50,       # weight w for wacc (from 0 to 1)
+
                        # labelling:
                        title.lbl = txt$scen.lbl,
                        type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
@@ -300,7 +306,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # Check size of N.Ist it needed?  Scale down if not needed and greater 100.000:
   ## Specify N:
   N <- cur.freq$N
-  ind.lbl <- NULL
+  ind.lbl <- ""
 
   if (N >= 100000) {
     # get the minimal N:
@@ -310,7 +316,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       exponent <- ((N %/% 100000) %/% 10) + 1  # get exponent dependent on size.
       ind_per_icon <- 10 ^ exponent  # individuals per icon.
-      ind.lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
+      # ind.lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
+      ind.lbl <- paste0("(Each icon represents ", ind_per_icon, " individuals.)")
 
       N <- N / (10^exponent)
       cur.freq <- lapply(cur.freq,  function(x) {x / (10^exponent)})  # adjust cur.freq and N.
@@ -846,25 +853,12 @@ plot_icons <- function(prev = num$prev,             # probabilities
          pch = pch.vec, col = icon.border.col, bg = col.vec, lwd = icon.border.lwd, cex = cex)
 
 
-  ## Additional information:
-
-  ## Define labels:
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
-  cur.par.lbl <-  paste0("Conditions: ",
-                         "prev = ", as_pc(prev), "%, ",
-                         "sens = ", as_pc(sens), "%, ",
-                         "spec = ", as_pc(spec), "%")
-
+  ## Legend:
   if (sum(nchar(type.lbls)) > 0) {
-    # reorder lables:
+    # reorder labels:
     names(type.lbls) <- c("hi", "mi", "fa", "cr")
     type.lbls <- type.lbls[ident.order]
   }
-
-
-  ## Plot additional information:
-  title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
   legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
          legend = type.lbls,
@@ -873,8 +867,34 @@ plot_icons <- function(prev = num$prev,             # probabilities
          cex = 1.0, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
-  mtext(cur.par.lbl, side = 1, line = 3, col = grey(.33, .99), cex = .85)
-  mtext(ind.lbl, side = 1, line = 2, col = grey(.11, .99), cex = .85)
+  ## Title:
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
+  title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
+
+  ## Margin text:
+
+  ## (a) by condition: 3 basic probabilities
+  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+
+  # (b) by decision:
+  ppod <- comp_ppod(prev, sens, spec)  # compute ppod etc.
+  PPV <- comp_PPV(prev, sens, spec)
+  NPV <- comp_NPV(prev, sens, spec)
+
+  cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+
+  ## (c) Accuracy: Compute and show accuracy metrics
+  if (show.accu) {
+    cur.accu <- comp_accu(hi = cur.freq$hi, mi = cur.freq$mi, fa = cur.freq$fa, cr = cur.freq$cr, w = w.acc)  # compute accuracy info
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+  }
+
+  ## (d) Note scaling:
+  mtext(ind.lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
 
 }  # end of function.
 

@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 02 03
+## 2018 02 10
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -170,27 +170,16 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   ## (2) Text labels:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
-  cur.par.lbl <-  paste0("Conditions: ", "prev = ", as_pc(prev), "%, ", "sens = ", as_pc(sens), "%, ", "spec = ", as_pc(spec), "%")
+  cur.par.lbl <- make_cond_label(prev, sens, spec)  # use utility function to format label
 
   ## (3) Accuracy:
 
   if (show.accu) {
-    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-
-    if (w.acc == .50) {  # wacc is bacc:
-      wacc.lbl <- paste0("bacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ")
-    } else {  # show wacc with w:
-      wacc.lbl <- paste0("wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "% ",
-                         "(w = ", round(w.acc, 2), "), ")
-    }
-
-    cur.accu.lbl <- paste0("",
-                           "Acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
-                           wacc.lbl,
-                           "mcc = ", round(cur.accu$mcc, 2), "")
+    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
 
     # mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-    cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n") # add accuracy lbl
+    cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")  # add accuracy lbl to existing cur.par.lbl
   }
 
 
@@ -210,7 +199,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                 main_gp = grid::gpar(fontsize = 12, fontface = 1, adj = 0),
                 sub_gp = grid::gpar(fontsize = 10, fontface = 1, adj = 1),
                 main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
-                sub = paste0(cur.par.lbl)
+                sub = paste0(cur.par.lbl)  # print label
     )
   }
 
