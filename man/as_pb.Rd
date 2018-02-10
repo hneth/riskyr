@@ -52,4 +52,6 @@ round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 d
 \code{\link{comp_comp_pair}} computes pairs of complements.
 
 Other utility functions: \code{\link{as_pc}}
+
+Other display functions: \code{\link{as_pc}}
 }
