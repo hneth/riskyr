@@ -103,7 +103,9 @@ Things currently being implemented:
 
 ## About
 
-The `riskyr` package is open source software released under the [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
+The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
+[GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
+[GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
 
 Please [contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share this software.
 
