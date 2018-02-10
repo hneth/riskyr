@@ -46,6 +46,7 @@ Collate: 'comp_util.R'
          'plot_fnet.R'
          'plot_PV.R'
          'plot_PV3d.R'
+         'data.R'
          'start_riskyr.R'
 Encoding: UTF-8
 LazyData: true

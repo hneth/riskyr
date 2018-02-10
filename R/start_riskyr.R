@@ -162,6 +162,10 @@ init_riskyr <- function(prev = NA,             # probabilities
 # write.csv2(scenarios, file = "./data/scenarios.csv")  # as .csv file
 # save(scenarios, file = "./data/scenarios.RData")  # as .RData file
 
+## Using devtools:
+# devtools::use_data(scenarios, overwrite = TRUE)
+# devtools::use_data_raw()
+
 ## -----------------------------------------------
 ## (4) Read in again (from ./data/):
 
@@ -169,7 +173,8 @@ scenarios <- NULL  # re-initialize scenarios
 
 ## Load data:
 # scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
-load("./data/scenarios.RData") # from .RData file
+# load("./data/scenarios.RData") # from .RData file
+load("./data/scenarios.rda") # from .rda file
 
 ## Check:
 {
