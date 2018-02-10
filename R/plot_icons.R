@@ -144,6 +144,8 @@
 #'
 #' @param type.lbls Text labels for icon types to be displayed in legend.
 #'
+#' @param ... Additional parameters for \code{plot}.
+#'
 #'
 #' @examples
 #' # ways to work:
@@ -501,8 +503,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # set distance parameter:
         # block.d may not be half the size of the distance between min and max.
         # for the example of prevalence == 0.15 it may not exceed 0.075.
-        diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
-        diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
+        diff_dx <- apply(X = blocks[, c(1, 2)], MARGIN = 1, FUN = diff)
+        diff_dy <- apply(X = blocks[, c(3, 4)], MARGIN = 1, FUN = diff)
 
         boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
 
@@ -795,8 +797,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
         # for colors:
         len_diff <- (ncols * nrows) - length(col.vec)
-        if (length(pch.border) > 1) {
-          pch.border <- c(pch.border, rep(NA, len_diff))
+        if (length(icon.border.col) > 1) {
+          icon.border.col <- c(icon.border.col, rep(NA, len_diff))
         }
 
         col.vec <- c(col.vec, rep(NA, len_diff))
@@ -839,7 +841,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (any(!pch.vec %in% c(NA, 21:25))) {
     # if any of the plotting characters is not in the ones with border,
     # omit border and color accordingly.
-    pch.border <- col.vec
+    icon.border.col <- col.vec
+
   }
 
   # 3) Plot:
