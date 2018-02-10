@@ -1224,6 +1224,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
+#' @family display functions
 #'
 #' @seealso
 #' \code{\link{is_prob}} verifies a probability;
@@ -1310,6 +1311,7 @@ as_pc <- function(prob, n.digits = 2) {
 #' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
+#' @family display functions
 #'
 #' @seealso
 #' \code{\link{is_perc}} verifies a percentage;
@@ -1464,6 +1466,8 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
 ## -----------------------------------------------
 ## (c) Current accuracy values:
+
+
 
 make_accu_lbl <- function(acc, w, wacc, mcc) {
 
