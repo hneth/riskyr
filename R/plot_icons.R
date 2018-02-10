@@ -53,33 +53,33 @@
 #' for the array types if the frequencies allow it.
 #'
 #' @param type The icons can be arranged in different ways
-#' resulting in differnt types of displays:
+#' resulting in different types of displays:
 #'
 #' \enumerate{
 #'
-#'   \item \code{type = "array"} The icons are plotted in a
-#'   classical iconarray (default).
+#'   \item \code{type = "array"}: Icons are plotted in a
+#'   classical icon array (default).
 #'   Icons can be arranged in blocks using \code{block.d}.
 #'   The order of filling the array can be customized using
 #'   \code{fill_array} and \code{fill_blocks}.
 #'
-#'   \item \code{type = "shuffledarray"} The icons are plotted in an
-#'   iconarray.  Positions are shuffled.
+#'   \item \code{type = "shuffledarray"}: Icons are plotted in an
+#'   icon array, but positions are shuffled (randomized).
 #'   Icons can be arranged in blocks using \code{block.d}.
 #'   The order of filling the array can be customized using
 #'   \code{fill_array} and \code{fill_blocks}.
 #'
-#'   \item \code{type = "mosaic"} Icons are ordered like in a mosaic plot.
-#'   The area displays the proportion of frequencies.
+#'   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
+#'   The area size displays the relative proportions of their frequencies.
 #'
-#'   \item \code{type = "equal"} Icons are ordered in equally sized blocks.
-#'   The density displays the proportion of frequencies.
+#'   \item \code{type = "equal"}: Icons are ordered in equally sized blocks.
+#'   Their density reflects the relative proportions of their frequencies.
 #'
-#'   \item \code{type = "fillleft"} Icons are randomly filled from the left.
+#'   \item \code{type = "fillleft"}: Icons are randomly filled from the left.
 #'
-#'   \item \code{type = "filltop"} Icons are randomly filled from the top.
+#'   \item \code{type = "filltop"}: Icons are randomly filled from the top.
 #'
-#'   \item \code{type = "scatter"} Icons are randomly filled into the plot.
+#'   \item \code{type = "scatter"}: Icons are randomly scattered into the plot.
 #'
 #' }
 #'
@@ -96,26 +96,30 @@
 #' Additional options allow to control the arrangement of the arrays
 #' (\code{type} "array" and "shuffledarray"):
 #'
-#' @param block_size_col specifies how many icons should be in each block row.
+#' @param block_size_col specifies how many icons are shown
+#' in each block row.
 #'
-#' @param block_size_row specifies how many icons should be in each block column.
+#' @param block_size_row specifies how many icons are shown
+#' in each block column.
 #'
-#' @param ncol_blocks specifies how many blocks there are in each row.  Is calculated by default.
+#' @param ncol_blocks specifies how many blocks there are in each row
+#' (calculated by default).
 #'
-#' @param nrow_blocks specifies how many blocks are there in each column.  Is calculated by default.
+#' @param nrow_blocks specifies how many blocks are there in each column.
+#' (calculated by default).
 #'
 #' @param fill_array specifies how the blocks are filled into the array
-#' (Options "left" (default) and "top").
+#' (with 2 options "left" (default) and "top").
 #'
 #' @param fill_blocks specifies how icons within blocks are filled
-#' (Options: "rowwise" (default) and "colwise")
+#' (with 2 options: "rowwise" (default) and "colwise").
 #'
 #'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param icon.colors Specifies the icon colors as a vector.
 #'
-#' @param icon.types Specifies the apperance of the icons as a vector.
+#' @param icon.types Specifies the appearance of the icons as a vector.
 #' Accepts values from 1 to 25 (see \code{?points}).
 #'
 #' @param icon.border Specifies the border color for icons (if applicable).
@@ -233,45 +237,45 @@
 # (C) Translating these dimensions into code:
 
 plot_icons <- function(prev = num$prev,             # probabilities
-                           sens = num$sens, mirt = NA,
-                           spec = num$spec, fart = NA,  # was: num$fart,
-                           N = freq$N,    # ONLY freq used (so far)
-                           ## Key options: ##
-                           type = "array",  # needs to be given if random position but nonrandom ident.
-                           # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
-                           ident.order = c("hi", "mi", "fa", "cr"),
-                           # random.position = FALSE,    # are positions randomly drawn?
-                           # random.identities = FALSE,  # are identities randomly assigned to positions?
-                           ## defaults to classic icon array!
-                           ## TODO: rather name these?
-                           icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
-                           icon.types = 22,  # plotting characters; default square with border
-                           pch.border = grey(.10, .50),  # border color of icons
-                           pch.lwd = 1.5, # line width of icons
-                           transparency = .50,
-                           # one can also enter a full vector of length N.
-                           block.d = NULL,  # distance between blocks (where applicable).
-                           border.d = 0.1,  # distance of icons to border.
+                       sens = num$sens, mirt = NA,
+                       spec = num$spec, fart = NA,  # was: num$fart,
+                       N = freq$N,    # ONLY freq used (so far)
+                       ## Key options: ##
+                       type = "array",  # needs to be given if random position but nonrandom ident.
+                       # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       ident.order = c("hi", "mi", "fa", "cr"),
+                       # random.position = FALSE,    # are positions randomly drawn?
+                       # random.identities = FALSE,  # are identities randomly assigned to positions?
+                       ## defaults to classic icon array!
+                       ## TODO: rather name these?
+                       icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
+                       icon.types = 22,  # plotting characters; default square with border
+                       pch.border = grey(.10, .50),  # border color of icons
+                       pch.lwd = 1.5, # line width of icons
+                       transparency = .50,
+                       # one can also enter a full vector of length N.
+                       block.d = NULL,  # distance between blocks (where applicable).
+                       border.d = 0.1,  # distance of icons to border.
 
-                           # for classic icon arrays only:
-                           block_size_col = 10,
-                           block_size_row = 10,
-                           ncol_blocks = NULL,
-                           nrow_blocks = NULL,
+                       # for classic icon arrays only:
+                       block_size_col = 10,
+                       block_size_row = 10,
+                       ncol_blocks = NULL,
+                       nrow_blocks = NULL,
 
-                           fill_array = "left",
-                           fill_blocks = "rowwise",
+                       fill_array = "left",
+                       fill_blocks = "rowwise",
 
-                           # labelling:
-                           title.lbl = txt$scen.lbl,
-                           type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+                       # labelling:
+                       title.lbl = txt$scen.lbl,
+                       type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
 
-                           # (currently) fixed parameters:
-                           xlim = c(0, 1),
-                           ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
-                           cex = NULL,  # if NULL, cex will be calculated on demand!
+                       # (currently) fixed parameters:
+                       xlim = c(0, 1),
+                       ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
+                       cex = NULL,  # if NULL, cex will be calculated on demand!
 
-                           ...  #additional parameters for plot()
+                       ...  #additional parameters for plot()
 ) {
 
   # Redo logical values:
@@ -407,160 +411,160 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # right: from left to right, top: from top to bottom,
     # equal: in equal spaces of the plot, mosaic: relative to area.
 
-      if (type %in% c("fillleft", "filltop")) {
+    if (type %in% c("fillleft", "filltop")) {
 
-        # 1a) draw random positions:
-        posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
-        posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
+      # 1a) draw random positions:
+      posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
+      posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
 
-        # Then sort one of the vectors accordingly (presupposes ordered color vector).
-        # type: from left to right:
-        if (type == "fillleft") {
-          posx_vec <- sort(posx_vec)
-        }
-
-        # type: from top to bottom:
-        if(type == "filltop"){
-          posy_vec <- sort(posy_vec)
-        }
-      } else {  # if in equal or mosaic:
-
-        # Initialize positions:
-        posx_vec <- NULL
-        posy_vec <- NULL
-
-        # create n = "ident_type" compartments of the plot:
-        block_n <- length(unique(col.vec))  # number of blocks for x and y.
-        # TODO: not final; they should be distributed.
-
-        # calculate number of observations in each block retaining original order:
-        type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
-
-
-        # equal compartments:
-        if (type == "fillequal") {  # density varies, area is constant.
-
-
-          if (is.null(block.d)) {
-            block.d <- 0.05
-          }
-
-          # determine breakpoints:
-          # !!!Currently for square numbers only:
-          # TODO: include non-square points (e.g., by enlarging the plot area).
-          block_sq <- sqrt(block_n)  # take square root.
-
-          # create list of breakpoints including color types:
-          seq_min <- (0:(block_sq - 1)) / block_sq  # of minimal coordinates.
-          seq_max <- (1:block_sq) / block_sq
-
-          min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
-          max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
-
-          # add distance between icon blocks:
-          global_min <- min(min_ranges)  # get global minimum of minima.
-          global_max <- max(max_ranges)  # get global maximum of maxima.
-          min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block.d
-          # we don't want distance at the global minima nad maxima.
-          max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block.d
-
-          # TODO: flipping by swapping x and y or by changing vector of frequencies?
-          # TODO: Bind ranges into one object?
-          # TODO: notice the overlap!  Use cut?
-
-
-
-          # sample the coordinates from the deterimined ranges:
-          for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
-
-            minx <- min_ranges$x_min[i]
-            maxx <- max_ranges$x_max[i]
-            miny <- min_ranges$y_min[i]
-            maxy <- max_ranges$y_max[i]
-            # TODO: This only holds for equal compartments.
-
-            # sample vectors from compartments:
-            posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
-            posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
-
-            posx_vec <- c(posx_vec, posx_vec_i)
-            posy_vec <- c(posy_vec, posy_vec_i)
-          }
-
-        }
-
-        # mosaic style:
-        if (type == "mosaic") {
-
-          block_prop <- type_n / sum(type_n)  # proportion in each compartment.
-
-          prev <- block_prop[1] + block_prop[2]  # TODO: Does this still hold for switched types?
-          # define boundaries:
-          b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
-          b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
-          # TODO: This depends on our typical order!  Might be made more transparent and customizable.
-
-
-          # Quadrant dimensions (with prevalence in y-direction):
-          block1 <- c(0, b1, 0, prev)
-          block2 <- c(b1, 1, 0, prev)
-          block3 <- c(b2, 1, prev, 1)
-          block4 <- c(0, b2, prev, 1)
-
-          # TODO: Allow to shuffle components around (using a list?).
-          # TODO: not general yet!  How to make it general?  Calculation of area proportions?
-
-          # bind vectors together.
-          blocks <- rbind(block1, block2, block3, block4)
-
-          # set distance parameter:
-          # block.d may not be half the size of the distance between min and max.
-          # for the example of prevalence == 0.15 it may not exceed 0.075.
-          diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
-          diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
-
-          boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
-
-          if (is.null(block.d)){
-
-            block.d <- 0.01  # a little messy though...
-
-          } else {
-
-            if ( block.d >= boundary_d ) {
-
-              block.d <- boundary_d - 0.0001  # a little messy though...
-
-            }
-          }
-
-
-          blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
-          blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
-          block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
-          # calculate number of observations in each compartment.
-          blocks <- cbind(blocks, block_n)  # bind to matrix.
-
-
-          for(i in 1:nrow(blocks)){
-            minx <- blocks[i, 1]
-            maxx <- blocks[i, 2]
-            miny <- blocks[i, 3]
-            maxy <- blocks[i, 4]
-            # TODO: This only holds for equal blocks.
-
-            # sample vectors from blocks:
-            posx_vec_i <- runif(n = blocks[i, 5], min = minx, max = maxx)
-            posy_vec_i <- runif(n = blocks[i, 5], min = miny, max = maxy)
-
-            posx_vec <- c(posx_vec, posx_vec_i)
-            posy_vec <- c(posy_vec, posy_vec_i)
-
-          }
-        }
+      # Then sort one of the vectors accordingly (presupposes ordered color vector).
+      # type: from left to right:
+      if (type == "fillleft") {
+        posx_vec <- sort(posx_vec)
       }
 
-    }  # end: valid type
+      # type: from top to bottom:
+      if(type == "filltop"){
+        posy_vec <- sort(posy_vec)
+      }
+    } else {  # if in equal or mosaic:
+
+      # Initialize positions:
+      posx_vec <- NULL
+      posy_vec <- NULL
+
+      # create n = "ident_type" compartments of the plot:
+      block_n <- length(unique(col.vec))  # number of blocks for x and y.
+      # TODO: not final; they should be distributed.
+
+      # calculate number of observations in each block retaining original order:
+      type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+
+
+      # equal compartments:
+      if (type == "fillequal") {  # density varies, area is constant.
+
+
+        if (is.null(block.d)) {
+          block.d <- 0.05
+        }
+
+        # determine breakpoints:
+        # !!!Currently for square numbers only:
+        # TODO: include non-square points (e.g., by enlarging the plot area).
+        block_sq <- sqrt(block_n)  # take square root.
+
+        # create list of breakpoints including color types:
+        seq_min <- (0:(block_sq - 1)) / block_sq  # of minimal coordinates.
+        seq_max <- (1:block_sq) / block_sq
+
+        min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
+        max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
+
+        # add distance between icon blocks:
+        global_min <- min(min_ranges)  # get global minimum of minima.
+        global_max <- max(max_ranges)  # get global maximum of maxima.
+        min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block.d
+        # we don't want distance at the global minima nad maxima.
+        max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block.d
+
+        # TODO: flipping by swapping x and y or by changing vector of frequencies?
+        # TODO: Bind ranges into one object?
+        # TODO: notice the overlap!  Use cut?
+
+
+
+        # sample the coordinates from the deterimined ranges:
+        for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
+
+          minx <- min_ranges$x_min[i]
+          maxx <- max_ranges$x_max[i]
+          miny <- min_ranges$y_min[i]
+          maxy <- max_ranges$y_max[i]
+          # TODO: This only holds for equal compartments.
+
+          # sample vectors from compartments:
+          posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
+          posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
+
+          posx_vec <- c(posx_vec, posx_vec_i)
+          posy_vec <- c(posy_vec, posy_vec_i)
+        }
+
+      }
+
+      # mosaic style:
+      if (type == "mosaic") {
+
+        block_prop <- type_n / sum(type_n)  # proportion in each compartment.
+
+        prev <- block_prop[1] + block_prop[2]  # TODO: Does this still hold for switched types?
+        # define boundaries:
+        b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
+        b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
+        # TODO: This depends on our typical order!  Might be made more transparent and customizable.
+
+
+        # Quadrant dimensions (with prevalence in y-direction):
+        block1 <- c(0, b1, 0, prev)
+        block2 <- c(b1, 1, 0, prev)
+        block3 <- c(b2, 1, prev, 1)
+        block4 <- c(0, b2, prev, 1)
+
+        # TODO: Allow to shuffle components around (using a list?).
+        # TODO: not general yet!  How to make it general?  Calculation of area proportions?
+
+        # bind vectors together.
+        blocks <- rbind(block1, block2, block3, block4)
+
+        # set distance parameter:
+        # block.d may not be half the size of the distance between min and max.
+        # for the example of prevalence == 0.15 it may not exceed 0.075.
+        diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
+        diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
+
+        boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
+
+        if (is.null(block.d)){
+
+          block.d <- 0.01  # a little messy though...
+
+        } else {
+
+          if ( block.d >= boundary_d ) {
+
+            block.d <- boundary_d - 0.0001  # a little messy though...
+
+          }
+        }
+
+
+        blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
+        blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
+        block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+        # calculate number of observations in each compartment.
+        blocks <- cbind(blocks, block_n)  # bind to matrix.
+
+
+        for(i in 1:nrow(blocks)){
+          minx <- blocks[i, 1]
+          maxx <- blocks[i, 2]
+          miny <- blocks[i, 3]
+          maxy <- blocks[i, 4]
+          # TODO: This only holds for equal blocks.
+
+          # sample vectors from blocks:
+          posx_vec_i <- runif(n = blocks[i, 5], min = minx, max = maxx)
+          posy_vec_i <- runif(n = blocks[i, 5], min = miny, max = maxy)
+
+          posx_vec <- c(posx_vec, posx_vec_i)
+          posy_vec <- c(posy_vec, posy_vec_i)
+
+        }
+      }
+    }
+
+  }  # end: valid type
   # end A2: (random.position & !random.identities)
 
   if (random.position) {
@@ -894,14 +898,14 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }
 
 
-  # Plot additional information:
+  ## Plot additional information:
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
   legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = type.lbls,
          horiz = TRUE, bty = "n",
-         pt.bg = icon.colors, pch = icon.types, cex = 1.2,
-         xjust = 0.5, xpd = TRUE)
-  # TODO: fixed order of legend?
+         pt.bg = icon.colors, pch = icon.types,
+         cex = 1.1, xjust = 0.5, xpd = TRUE)
+  ## TODO: fixed order of legend?
 
   mtext(cur.par.lbl, side = 1, line = 3)
   mtext(ind.lbl, side = 1, line = 2)

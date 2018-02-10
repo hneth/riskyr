@@ -44,33 +44,33 @@ If N is 100,000 or greater it is reduced to 10,000
 for the array types if the frequencies allow it.}
 
 \item{type}{The icons can be arranged in different ways
-resulting in differnt types of displays:
+resulting in different types of displays:
 
 \enumerate{
 
-  \item \code{type = "array"} The icons are plotted in a
-  classical iconarray (default).
+  \item \code{type = "array"}: Icons are plotted in a
+  classical icon array (default).
   Icons can be arranged in blocks using \code{block.d}.
   The order of filling the array can be customized using
   \code{fill_array} and \code{fill_blocks}.
 
-  \item \code{type = "shuffledarray"} The icons are plotted in an
-  iconarray.  Positions are shuffled.
+  \item \code{type = "shuffledarray"}: Icons are plotted in an
+  icon array, but positions are shuffled (randomized).
   Icons can be arranged in blocks using \code{block.d}.
   The order of filling the array can be customized using
   \code{fill_array} and \code{fill_blocks}.
 
-  \item \code{type = "mosaic"} Icons are ordered like in a mosaic plot.
-  The area displays the proportion of frequencies.
+  \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
+  The area size displays the relative proportions of their frequencies.
 
-  \item \code{type = "equal"} Icons are ordered in equally sized blocks.
-  The density displays the proportion of frequencies.
+  \item \code{type = "equal"}: Icons are ordered in equally sized blocks.
+  Their density reflects the relative proportions of their frequencies.
 
-  \item \code{type = "fillleft"} Icons are randomly filled from the left.
+  \item \code{type = "fillleft"}: Icons are randomly filled from the left.
 
-  \item \code{type = "filltop"} Icons are randomly filled from the top.
+  \item \code{type = "filltop"}: Icons are randomly filled from the top.
 
-  \item \code{type = "scatter"} Icons are randomly filled into the plot.
+  \item \code{type = "scatter"}: Icons are randomly scattered into the plot.
 
 }}
 
@@ -80,7 +80,7 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
 
-\item{icon.types}{Specifies the apperance of the icons as a vector.
+\item{icon.types}{Specifies the appearance of the icons as a vector.
 Accepts values from 1 to 25 (see \code{?points}).}
 
 \item{transparency}{Specifies the transparency for overlapping icons
@@ -94,19 +94,23 @@ Accepts values from 1 to 25 (see \code{?points}).}
 Additional options allow to control the arrangement of the arrays
 (\code{type} "array" and "shuffledarray"):}
 
-\item{block_size_col}{specifies how many icons should be in each block row.}
+\item{block_size_col}{specifies how many icons are shown
+in each block row.}
 
-\item{block_size_row}{specifies how many icons should be in each block column.}
+\item{block_size_row}{specifies how many icons are shown
+in each block column.}
 
-\item{ncol_blocks}{specifies how many blocks there are in each row.  Is calculated by default.}
+\item{ncol_blocks}{specifies how many blocks there are in each row
+(calculated by default).}
 
-\item{nrow_blocks}{specifies how many blocks are there in each column.  Is calculated by default.}
+\item{nrow_blocks}{specifies how many blocks are there in each column.
+(calculated by default).}
 
 \item{fill_array}{specifies how the blocks are filled into the array
-(Options "left" (default) and "top").}
+(with 2 options "left" (default) and "top").}
 
 \item{fill_blocks}{specifies how icons within blocks are filled
-(Options: "rowwise" (default) and "colwise")
+(with 2 options: "rowwise" (default) and "colwise").
 
 
 Various other options allow the customization of text labels and colors:}
