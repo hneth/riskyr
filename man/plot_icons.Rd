@@ -7,12 +7,13 @@
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
   "fa", "cr"), icon.colors = pal[c("hi", "mi", "fa", "cr")],
-  icon.types = 22, pch.border = grey(0.1, 0.5), pch.lwd = 1.5,
-  transparency = 0.5, block.d = NULL, border.d = 0.1,
-  block_size_col = 10, block_size_row = 10, ncol_blocks = NULL,
-  nrow_blocks = NULL, fill_array = "left", fill_blocks = "rowwise",
-  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
-  "cr.lbl")], xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
+  icon.types = 22, icon.border.col = grey(0.1, 0.5),
+  icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
+  border.d = 0.1, block_size_col = 10, block_size_row = 10,
+  ncol_blocks = NULL, nrow_blocks = NULL, fill_array = "left",
+  fill_blocks = "rowwise", title.lbl = txt$scen.lbl,
+  type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")], xlim = c(0,
+  1), ylim = c(0, 1), cex = NULL, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -63,8 +64,8 @@ resulting in different types of displays:
   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
   The area size displays the relative proportions of their frequencies.
 
-  \item \code{type = "equal"}: Icons are ordered in equally sized blocks.
-  Their density reflects the relative proportions of their frequencies.
+  \item \code{type = "fillequal"}: Icons are positioned into equally sized blocks.
+  Thus, their density reflects the relative proportions of their frequencies.
 
   \item \code{type = "fillleft"}: Icons are randomly filled from the left.
 
@@ -82,6 +83,10 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.types}{Specifies the appearance of the icons as a vector.
 Accepts values from 1 to 25 (see \code{?points}).}
+
+\item{icon.border.col}{Specifies the border color of icons (if applicable).}
+
+\item{icon.border.lwd}{Specifies the border width of icons (if applicable).}
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
@@ -103,7 +108,7 @@ in each block column.}
 \item{ncol_blocks}{specifies how many blocks there are in each row
 (calculated by default).}
 
-\item{nrow_blocks}{specifies how many blocks are there in each column.
+\item{nrow_blocks}{specifies how many blocks are there in each column
 (calculated by default).}
 
 \item{fill_array}{specifies how the blocks are filled into the array
@@ -119,11 +124,7 @@ Various other options allow the customization of text labels and colors:}
 
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
-\item{cex}{Size of the icons.  Is calculated by default.}
-
-\item{icon.border}{Specifies the border color for icons (if applicable).}
-
-\item{icon.border.lwd}{Specifies the border width for icons (if applicable).}
+\item{cex}{Size of the icons (calculated by default).}
 }
 \description{
 \code{plot_icons} plots a population of which individual's
@@ -145,63 +146,28 @@ to avoid decimal values in \code{\link{freq}}.
 }
 \examples{
 # ways to work:
-plot_icons()  # => plots icon array for default population
+plot_icons()  # => plots icon array for default population (with default type = "array")
+plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
 
-# standard icon arrays:
-plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 
-plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
-               random.identities = TRUE)
+plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
 
-plot_icons(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+# some variants:
+plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
+           block.d = 0.5, border.d = 0.5)
 
-plot_icons(N = 10000, icon.types = c(21,23,24,23),
-               random.identities = TRUE)
+plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+           block.d = 0.5, border.d = 0.5)
 
-plot_icons(icon.types = c(21,23,24,23),
-               block_size_col = 5, block_size_row = 5, #ncol_blocks = 2, nrow_blocks = 2,
-               block.d = 0.5, border.d = 0.9)
+plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+           icon.border.col = grey(.33, .99), icon.border.lwd = 3)
 
-plot_icons(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
-
-plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon.types = c(21,23,24,23),
-               block_size_col = 10, block_size_row = 5,
-               ncol_blocks = 5, nrow_blocks = 5,
-               block.d = 0.8,
-               border.d = 0.2,
-               fill_array = "top")
-
-plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
-               icon.types = c(21,23,21,23),
-               ident.order = c("hi", "mi", "cr", "fa"),
-               block.d = 0.8,
-               border.d = 0.01,
-               cex = 0.7,
-               random.position = FALSE,
-               random.identities = FALSE)
-
-
-# Mosaic like and randomized arrays:
-plot_icons(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
-               random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
-
-plot_icons(icon.types = c(22,23,21,23), #cex = 10,
-               ident.order = c("mi", "hi", "cr", "fa"),
-               random.position = TRUE, type.sort = "equal", block.d = 0.05)
-
-plot_icons(icon.types = c(21,23,22,23), #cex = 10,
-               random.position = TRUE, random.identities = TRUE)
-
-plot_icons(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon.types = c(21,23,21,23),
-               ident.order = c("hi", "mi", "cr", "fa"),
-               block.d = 0.1,
-               border.d = 0.01,
-               cex = 0.7,
-               random.position = TRUE,
-               random.identities = FALSE,
-               type.sort = "mosaic")
+plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
+           icon.border.lwd = .5, cex = 3)
 
 
 }
