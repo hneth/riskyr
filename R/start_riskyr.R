@@ -137,10 +137,12 @@ init_riskyr <- function(prev = NA,             # probabilities
 
 ## -----------------------------------------------
 ## (3) Import ready-made and worked out example data
-##     (in both ui.R and server.R):
+##     (for both ui.R and server.R):
 
+# scenarios <- NULL  # initialize scenarios
 
-scenarios <- read.csv2("./data_sources/scenarios_6.csv", stringsAsFactors = FALSE)
+## Working (except for German Umlauts):
+# scenarios <- read.csv2("./data_sources/scenarios_6.csv", stringsAsFactors = FALSE)
 
 ## Not working any better:
 # scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
@@ -148,20 +150,20 @@ scenarios <- read.csv2("./data_sources/scenarios_6.csv", stringsAsFactors = FALS
 # scenarios <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
 
 ## Check:
-dim(scenarios)
-names(scenarios)
-# View(scenarios)
+{
+  # dim(scenarios)
+  # names(scenarios)
+  ## View(scenarios)
+}
 
 ## Note that German Umlauts are corrupted.
 
-## Write out to csv:
-write.csv2(scenarios, file = "./data/scenarios.csv")
-
-## Write out as RData:
-save(scenarios, file = "./data/scenarios.RData")
+## Write out to ./data/ directory:
+# write.csv2(scenarios, file = "./data/scenarios.csv")  # as .csv file
+# save(scenarios, file = "./data/scenarios.RData")  # as .RData file
 
 ## -----------------------------------------------
-## (4) Try to read in again (from ./data/):
+## (4) Read in again (from ./data/):
 
 scenarios <- NULL  # re-initialize scenarios
 
@@ -170,12 +172,14 @@ scenarios <- NULL  # re-initialize scenarios
 load("./data/scenarios.RData") # from .RData file
 
 ## Check:
-dim(scenarios) # extra first column "X"
-names(scenarios)
-# View(scenarios)
+{
+  # dim(scenarios) # extra first column "X"
+  # names(scenarios)
+  ## View(scenarios)
+}
 
 ## -----------------------------------------------
-## (4) Initialize an imported scenario:
+## (5) Initialize an imported scenario:
 
 init_scen <- function(num) {
 
@@ -246,14 +250,14 @@ init_scen <- function(num) {
 
 ## Check:
 {
-init_scen(2)
-#
-#   x <- 21
-#   txt <- init_scen(x)$txt
-#   num <- init_scen(x)$num
-#   prob <- init_scen(x)$prob
-#   freq <- init_scen(x)$freq
-#   accu <- init_scen(x)$accu
+  # init_scen(21)
+  #
+  #   x <- 21
+  #   txt <- init_scen(x)$txt
+  #   num <- init_scen(x)$num
+  #   prob <- init_scen(x)$prob
+  #   freq <- init_scen(x)$freq
+  #   accu <- init_scen(x)$accu
 }
 
 ## -----------------------------------------------

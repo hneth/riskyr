@@ -168,7 +168,7 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' SDT classifications.
 #'
 #' A visualization of the current population
-#' \code{popu} is provided by \code{\link{plot_iconarray}}.
+#' \code{popu} is provided by \code{\link{plot_icons}}.
 #'
 #'
 #' @return A data frame \code{popu}

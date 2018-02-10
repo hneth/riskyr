@@ -116,7 +116,7 @@
 #' @param icon.colors Specifies the icon colors as a vector.
 #'
 #' @param icon.types Specifies the apperance of the icons as a vector.
-#' Accepts values from 1 to 25 (see also \code{\link{?points}})
+#' Accepts values from 1 to 25 (see \code{?points}).
 #'
 #' @param icon.border Specifies the border color for icons (if applicable).
 #'
@@ -130,6 +130,7 @@
 #' @param type.lbls Text labels for icon types to be displayed in legend.
 #'
 #' @param cex Size of the icons.  Is calculated by default.
+#'
 #'
 #' @examples
 #' # ways to work:
@@ -159,7 +160,6 @@
 #'                block.d = 0.8,
 #'                border.d = 0.2,
 #'                fill_array = "top")
-#'
 #'
 #' plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
 #'                icon.types = c(21,23,21,23),
