@@ -1,5 +1,5 @@
-## plot_tree.R | riskyR
-## 2018 02 03
+## plot_tree.R | riskyr
+## 2018 02 10
 ## -----------------------------------------------
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
@@ -192,6 +192,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       by = "cd",     # 4 perspectives: "cd" by condition, "dc" by decision.
                       area = "no",   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles.
                       p.lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
+                      ## Compute and show accuracy info:
                       show.accu = TRUE,  # compute and show accuracy metrics
                       w.acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
@@ -203,10 +204,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       dec.lbl = txt$dec.lbl,        # decision labels
                       dec.pos.lbl = txt$dec.pos.lbl,
                       dec.neg.lbl = txt$dec.neg.lbl,
-                      sdt.hi.lbl = txt$sdt.hi.lbl,  # SDT combinations
-                      sdt.mi.lbl = txt$sdt.mi.lbl,
-                      sdt.fa.lbl = txt$sdt.fa.lbl,
-                      sdt.cr.lbl = txt$sdt.cr.lbl,
+                      hi.lbl = txt$hi.lbl,  # SDT combinations
+                      mi.lbl = txt$mi.lbl,
+                      fa.lbl = txt$fa.lbl,
+                      cr.lbl = txt$cr.lbl,
                       box.cex = .90,                # relative size of text in boxes
                       ## Colors:
                       col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
@@ -310,10 +311,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
                  paste0(cond.false.lbl, ":\n", round(n.false, 2)),
-                 paste0(sdt.hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(sdt.mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(sdt.fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(sdt.cr.lbl, ":\n", round(n.cr, 2))
+                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr.lbl, ":\n", round(n.cr, 2))
       )
 
     }  else {  # shorter box labels:
@@ -337,10 +338,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
                  paste0(dec.pos.lbl, ":\n",  round(n.pos, 2)),
                  paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
-                 paste0(sdt.hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(sdt.mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(sdt.fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(sdt.cr.lbl, ":\n", round(n.cr, 2))
+                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr.lbl, ":\n", round(n.cr, 2))
       )
 
     }  else {  # shorter box labels:
@@ -868,54 +869,33 @@ plot_tree <- function(prev = num$prev,             # probabilities
   else if (area == "vr") {area.lbl <- "Areas represent relative frequencies"}
   else {area.lbl <- ""}  # to prevent errors for other entries
 
+
   ## (8) Margin text:
 
   ## (a) by condition: 3 basic probabilities
-  cur.par.lbl <- paste0("Conditions: ",
-                        "prev = ", as_pc(prev, n.digits = 1), "%, ",
-                        "sens = ", as_pc(sens, n.digits = 1), "%, ",
-                        "spec = ", as_pc(spec, n.digits = 1), "%")
-  mtext(paste0(cur.par.lbl), # "; ", cur.pv.lbl),
-        side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)
+  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
-  # (b) by decision: additional label of PVs:
+  # (b) by decision:
   if (by != "cd") {
 
-    cur.pv.lbl <- paste0("Decisions:  ",
-                         "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
-                         "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
-                         "NPV = ", as_pc(NPV, n.digits = 1), "%")
-    mtext(cur.pv.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)
+    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+    mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
-  } else {
-    cur.pv.lbl <- ""
   }
 
   ## (c) Accuracy: Compute and show accuracy metrics
   if (show.accu) {
-    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-
-    if (w.acc == .5) {  # wacc is bacc:
-      wacc.lbl <- paste0("bacc = ", as_pc(cur.accu$wacc, n.digits = 1), "%, ")
-    } else {  # show wacc with w:
-      wacc.lbl <- paste0("wacc = ", as_pc(cur.accu$wacc, n.digits = 1), "% ",
-                         "(w = ", round(w.acc, 2), "), ")
-    }
-
-    cur.accu.lbl <- paste0("",
-                           "Acc = ", as_pc(cur.accu$acc, n.digits = 1), "%, ",
-                           wacc.lbl,
-                           "mcc = ", round(cur.accu$mcc, 2), "")
-
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
+    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
   }
 
   ## (d) Note that areas represent frequencies:
   if (area != "no") {
 
     cur.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)
-
+    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
   }
 
 

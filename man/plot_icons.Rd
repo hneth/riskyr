@@ -7,6 +7,7 @@
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
   "fa", "cr"), icon.colors = pal[c("hi", "mi", "fa", "cr")],
+<<<<<<< HEAD
   icon.types = 22, icon.border = grey(0.1, 0.5), icon.border.lwd = 1.5,
   transparency = 0.5, block.d = NULL, border.d = 0.1,
   block.size.row = 10, block.size.col = 10, nblocks.row = NULL,
@@ -14,6 +15,15 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   title.lbl = txt$scen.lbl, type.lbls = txt[c("sdt.hi.lbl", "sdt.mi.lbl",
   "sdt.fa.lbl", "sdt.cr.lbl")], xlim = c(0, 1), ylim = c(0, 1),
   cex = NULL, ...)
+=======
+  icon.types = 22, icon.border.col = grey(0.1, 0.5),
+  icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
+  border.d = 0.1, block_size_col = 10, block_size_row = 10,
+  ncol_blocks = NULL, nrow_blocks = NULL, fill_array = "left",
+  fill_blocks = "rowwise", title.lbl = txt$scen.lbl,
+  type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")], xlim = c(0,
+  1), ylim = c(0, 1), cex = NULL, ...)
+>>>>>>> upstream/master
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -45,6 +55,7 @@ If N is 100,000 or greater it is reduced to 10,000
 for the array types if the frequencies allow it.}
 
 \item{type}{The icons can be arranged in different ways
+<<<<<<< HEAD
 resulting in differnt types of displays:
 
 \enumerate{
@@ -72,6 +83,35 @@ resulting in differnt types of displays:
   \item \code{type = "filltop"} Icons are randomly filled from the top.
 
   \item \code{type = "scatter"} Icons are randomly filled into the plot.
+=======
+resulting in different types of displays:
+
+\enumerate{
+
+  \item \code{type = "array"}: Icons are plotted in a
+  classical icon array (default).
+  Icons can be arranged in blocks using \code{block.d}.
+  The order of filling the array can be customized using
+  \code{fill_array} and \code{fill_blocks}.
+
+  \item \code{type = "shuffledarray"}: Icons are plotted in an
+  icon array, but positions are shuffled (randomized).
+  Icons can be arranged in blocks using \code{block.d}.
+  The order of filling the array can be customized using
+  \code{fill_array} and \code{fill_blocks}.
+
+  \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
+  The area size displays the relative proportions of their frequencies.
+
+  \item \code{type = "fillequal"}: Icons are positioned into equally sized blocks.
+  Thus, their density reflects the relative proportions of their frequencies.
+
+  \item \code{type = "fillleft"}: Icons are randomly filled from the left.
+
+  \item \code{type = "filltop"}: Icons are randomly filled from the top.
+
+  \item \code{type = "scatter"}: Icons are randomly scattered into the plot.
+>>>>>>> upstream/master
 
 }}
 
@@ -81,12 +121,21 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
 
+<<<<<<< HEAD
 \item{icon.types}{Specifies the apperance of the icons as a vector.
 Accepts values from 1 to 25 (see also \code{\link{?points}})}
 
 \item{icon.border}{Specifies the border color for icons (if applicable).}
 
 \item{icon.border.lwd}{Specifies the border width for icons (if applicable).}
+=======
+\item{icon.types}{Specifies the appearance of the icons as a vector.
+Accepts values from 1 to 25 (see \code{?points}).}
+
+\item{icon.border.col}{Specifies the border color of icons (if applicable).}
+
+\item{icon.border.lwd}{Specifies the border width of icons (if applicable).}
+>>>>>>> upstream/master
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
@@ -96,6 +145,7 @@ Accepts values from 1 to 25 (see also \code{\link{?points}})}
 
 \item{border.d}{specifies the distance of the icons to the border.
 
+<<<<<<< HEAD
 
 Additional options allow to control the arrangement of the arrays
 (\code{type} "array" and "shuffledarray"):}
@@ -114,6 +164,28 @@ Additional options allow to control the arrangement of the arrays
 \item{fill.blocks}{specifies how icons within blocks are filled
 (Options: "rowwise" (default) and "colwise")
 
+=======
+Additional options allow to control the arrangement of the arrays
+(\code{type} "array" and "shuffledarray"):}
+
+\item{block_size_col}{specifies how many icons are shown
+in each block row.}
+
+\item{block_size_row}{specifies how many icons are shown
+in each block column.}
+
+\item{ncol_blocks}{specifies how many blocks there are in each row
+(calculated by default).}
+
+\item{nrow_blocks}{specifies how many blocks are there in each column
+(calculated by default).}
+
+\item{fill_array}{specifies how the blocks are filled into the array
+(with 2 options "left" (default) and "top").}
+
+\item{fill_blocks}{specifies how icons within blocks are filled
+(with 2 options: "rowwise" (default) and "colwise").
+>>>>>>> upstream/master
 
 
 Various other options allow the customization of text labels and colors:}
@@ -122,7 +194,11 @@ Various other options allow the customization of text labels and colors:}
 
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
+<<<<<<< HEAD
 \item{cex}{Size of the icons.  Is calculated by default.}
+=======
+\item{cex}{Size of the icons (calculated by default).}
+>>>>>>> upstream/master
 }
 \description{
 \code{plot_icons} plots a population of which individual's
@@ -144,6 +220,7 @@ to avoid decimal values in \code{\link{freq}}.
 }
 \examples{
 # ways to work:
+<<<<<<< HEAD
 plot_icons()  # => plots icon array for default population
 
 # standard icon arrays:
@@ -202,6 +279,30 @@ plot_icons(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
                random.position = TRUE,
                random.identities = FALSE,
                type.sort = "mosaic")
+=======
+plot_icons()  # => plots icon array for default population (with default type = "array")
+plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
+
+plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
+
+plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
+
+# some variants:
+plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
+           block.d = 0.5, border.d = 0.5)
+
+plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+           block.d = 0.5, border.d = 0.5)
+
+plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+           icon.border.col = grey(.33, .99), icon.border.lwd = 3)
+
+plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
+           icon.border.lwd = .5, cex = 3)
+>>>>>>> upstream/master
 
 
 }

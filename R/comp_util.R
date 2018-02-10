@@ -6,6 +6,7 @@
 ## (A) Verification functions
 ## (B) Display functions
 ## (C) Graphic functions
+## (D) Graph labels (cond, dec, accu)
 
 ## -----------------------------------------------
 ## (A) Verification functions:
@@ -1421,6 +1422,80 @@ factors_min_diff <- function (n) {
 
   return(c(lower, upper))
 }
+
+## -----------------------------------------------
+## (D) Graph labels:
+## -----------------------------------------------
+
+## -----------------------------------------------
+## (a) Current condition parameter values:
+
+make_cond_lbl <- function(prev, sens, spec) {
+
+  lbl <- ""  # initialize
+
+  lbl <- paste0("Conditions: ",
+                "prev = ", as_pc(prev, n.digits = 1), "%, ",
+                "sens = ", as_pc(sens, n.digits = 1), "%, ",
+                "spec = ", as_pc(spec, n.digits = 1), "%"
+  )
+
+  return(lbl)
+
+}
+
+## -----------------------------------------------
+## (b) Current decision parameter values:
+
+make_dec_lbl <- function(ppod, PPV, NPV) {
+
+  lbl <- ""  # initialize
+
+  lbl <- paste0("Decisions:  ",
+                "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
+                "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
+                "NPV = ", as_pc(NPV, n.digits = 1), "%"
+                )
+
+  return(lbl)
+
+}
+
+
+## -----------------------------------------------
+## (c) Current accuracy values:
+
+make_accu_lbl <- function(acc, w, wacc, mcc) {
+
+  lbl <- ""  # initialize
+  wacc.lbl <- ""
+
+  ## Compose sub-label wacc.lbl:
+  if (w == .50) {  # wacc is bacc:
+    wacc.lbl <- paste0("bacc = ", as_pc(wacc, n.digits = 1), "%, ")
+  } else {  # show wacc with w:
+    wacc.lbl <- paste0("wacc = ", as_pc(wacc, n.digits = 1), "% ",
+                       "(w = ", round(w, 2), "), ")
+  }
+
+  ## Compose accu label:
+  lbl <- paste0("",
+                "Acc = ", as_pc(acc, n.digits = 1), "%, ",
+                wacc.lbl,
+                "mcc = ", round(mcc, 2), "")
+
+  return(lbl)
+
+}
+
+
+## -----------------------------------------------
+
+
+
+
+
+
 
 ## -----------------------------------------------
 ## (+) ToDo:

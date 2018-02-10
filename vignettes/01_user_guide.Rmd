@@ -1,7 +1,7 @@
 ---
 title: "`riskyr` User Guide"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "`r Sys.Date()`"
+date: "2018 02 08"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -49,7 +49,7 @@ It proceeds in three steps:
     C. A variety of visualizations that illustrate relationships between frequencies and probabilities.
 
 
-## A Problem of Probabilities
+## Motivation: A Problem of Probabilities
 
 <!-- Motivation: --> 
 
@@ -332,16 +332,15 @@ Inspecting the lists of probabilities and frequencies shows that the two problem
 
 Here are some examples that depict the scenario described above: 
 
+
 #### Icon array
 
 A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:
 
-```{r plot_iconarray_1, warning = FALSE, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
-plot_iconarray(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-               title.lbl = "Mammography screening")
+```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+           title.lbl = "Mammography screening")
 ```
-
-
 
 
 #### Tree diagram
@@ -405,10 +404,10 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. This is still visible when relaxing the positional constraint of icons in the icon array:
 
-```{r plot_iconarray_mosaic, warning = FALSE, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
-plot_iconarray(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
-               random.position = TRUE,
-               title.lbl = "Mammography screening")
+```{r plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
+           type = "mosaic",
+           title.lbl = "Mammography screening")
 ```
 
 
@@ -424,6 +423,7 @@ plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 In addition to showing the interplay between all key frequencies and probabilities, the network diagram notes accuracy metrics that are based on the confusion matrix depicted as the middle row 4 central nodes (`hi`, `mi`, `fa`, and `cr`).
 
 For details and additional options of the `plot_fnet` function, see the documentation of `?plot_fnet`.
+
 
 
 ## References
@@ -479,8 +479,11 @@ _Journal of Experimental Psychology: General_, _130_, 380--400.
 
 ## All `riskyr` Vignettes
 
-- [User guide](01_user_guide.html)
-- [Data formats](02_data_formats.html)
-- [Confusion matrix](03_confusion_matrix.html)
+| Nr.  | Vignette | Content    |        
+| ---: |:---------|:-----------|
+| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
+| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
+| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+
 
 <!-- eof. -->

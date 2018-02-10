@@ -1,8 +1,8 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.915
-Date: 2018-02-05
+Version: 0.0.0.916
+Date: 2018-02-10
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
               person("Felix", "Gaisbauer", role = "aut"),
@@ -46,10 +46,11 @@ Collate: 'comp_util.R'
          'plot_fnet.R'
          'plot_PV.R'
          'plot_PV3d.R'
+         'data.R'
          'start_riskyr.R'
 Encoding: UTF-8
 LazyData: true
-License: CC0
+License: GPL-2 | GPL-3
 BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

@@ -1,7 +1,7 @@
 ---
 title: "Confusion Matrix and `riskyr` Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "`r Sys.Date()`"
+date: "2018 02 08"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -24,22 +24,22 @@ library("riskyr")  # load the "riskyr" package
 Behold the aptly named "confusion matrix":
 
 |              | Condition |          |       |          |            
-| ------:      |:----:|:----:|:------:|:----:|              
+| ----------:  |:--------:|:--------:|:----------:|:--------:|              
 | **Decision** | present (`TRUE`):      | absent (`FALSE`):     |     Sum:  |  (b) by decision:      |  
 | positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | `PPV` = `hi`/`dec.pos` |
 | negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | `NPV` = `cr`/`dec.neg` |
 |      Sum:    | `cond.true`  | `cond.false` |       `N` |                        |
-| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |       |
+| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N`     |
 
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-Fortunately, the matrix and its implications are quite simple and straightforward. In the following, we try to disentangle the profusion of measures and summarize the parts of the confusion matrix that a risk-literate person really needs to know.
+Fortunately, the basic matrix is actually quite simple and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
 
 
 ## Basics
 
-In its most basic form, the confusion matrix looks like this:
+Condensed to its core, the confusion matrix looks like this:
 
 |              | Condition | |
 | ------:      |:----:|:----:|      
@@ -48,10 +48,12 @@ In its most basic form, the confusion matrix looks like this:
 | negative (`FALSE`):    |  `mi`   |  `cr`    | 
 
 
+This is not so confusing any more. And, perhaps surprisingly, all other metrics follow from this simple core in a straightforward way.
+
 
 ### Adopting 2 perspectives on a population
 
-Essentially, the confusion table views a population of `N` individuals from two different perspectives. Adopting a perspective means that we distinguish between individuals on the basis of some criterion. The two criteria used here are:
+Essentially, the confusion matrix views a population of `N` individuals in different ways by adopting different perspectives. "Adopting a perspective" means that we can distinguish between individuals on the basis of some criterion. The 2 primary criteria used here are:
 
 (a) each individual's _condition_, which can either be present (`TRUE`) or absent (`FALSE`), and  
 (b) each individual's _decision_, which can either be `positive` (`TRUE`) or `negative` (`FALSE`).   
@@ -161,9 +163,9 @@ As we are dealing with two types of correct decisions (`hi` and `cr`) and two pe
 
 $$
 \begin{aligned}
-\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}       \\
+\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}   \\
 \ \\ 
-\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}      \\
+\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}  \\
 \end{aligned}
 $$
 
@@ -171,14 +173,14 @@ $$
 
 $$
 \begin{aligned}
-\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}       \\
+\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}   \\
 \ \\ 
-\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}      \\
+\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}   \\
 \end{aligned}
 $$
 
 
-### B. General metrics: Overall accuracy
+### B. General metrics: Measures of accuracy
 
 In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. `riskyr` currently computes four general metrics (which are contained in `accu`):
 
@@ -202,7 +204,7 @@ $$
 
 Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
 
-> Weighted accuracy `wacc` is the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `1 - w`. 
+> Weighted accuracy `wacc` := the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `(1 - w)`. 
 
 $$
 \begin{aligned}
@@ -221,7 +223,7 @@ Three cases can be distinguished, based on the value of the weighting parameter 
 
 #### 3. Matthews correlation coefficient `mcc`
 
-The Matthews correlation coefficient (with values ranging from $-1$ to $+1$):
+The Matthews correlation coefficient (with values ranging from $-1$ to $+1$) is computed as: 
 
 $$
 \begin{aligned}
@@ -229,7 +231,7 @@ $$
 \end{aligned}
 $$
 
-The `mcc` is a correlation coefficient between the actual and the predicted binary categories. A value of $0$ represents chance performance, a value of $+1$ represents perfect performance, and a value of $−1$ indicates complete disagreement between truth and predictions. 
+The `mcc` is a correlation coefficient specifying the correspondence between the actual and the predicted binary categories. A value of $0$ represents chance performance, a value of $+1$ represents perfect performance, and a value of $−1$ indicates complete disagreement between truth and predictions. 
 
 See [Wikipedia: Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient) for details. 
 
@@ -262,10 +264,14 @@ Links to related Wikipedia articles:
 - [F1 score](https://en.wikipedia.org/wiki/F1_score) 
 
 
+
 ## All `riskyr` Vignettes
 
-- [User guide](01_user_guide.html)
-- [Data formats](02_data_formats.html)
-- [Confusion matrix](03_confusion_matrix.html)
+| Nr.  | Vignette | Content    |        
+| ---: |:---------|:-----------|
+| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
+| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
+| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+
 
 <!-- eof. -->

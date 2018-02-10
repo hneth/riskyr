@@ -1,11 +1,13 @@
-riskyr
-======
-SPDS, uni.kn
-2017 12 20
+---
+title: "riskyr readme"
+author: "Hansjörg Neth, SPDS, uni.kn"
+date: "2017 12 20"
+output: html_document
+---
 
 # The `riskyr` package
 
-A toolbox for rendering risk literacy more transparent
+A toolbox for rendering risk literacy more transparent. 
 
 
 ## Motivation
@@ -58,28 +60,30 @@ A _library of scenarios_ illustrates example cases with known data from the lite
 ### Ontology 
 
 The `riskyr` universe describes the interplay between a total of 10 probabilities (3 of which are essential) 
-and 9 frequencies (4 of which are essential). 
+and 11 frequencies (4 of which are essential). 
 
-### Two perspectives
+### Alternative perspectives
 
-Classification results can be viewed from two perspectives, 
-which correspond to two possible ways to split a population of `N` indivduals into subsets:
+Classification results can be viewed from multiple perspectives, 
+which correspond to alternative ways of splitting a population of `N` indivduals into subsets:
 
 1. By _condition_: `TRUE` vs. `FALSE`, then by _decision_: `hi`, `mi`, `fa`, `cr`
 
 2. By _decision_: `pos` vs. `neg`, then by _condition_: `hi`, `mi`, `fa`, `cr`
 
+3. By _correspondence_ between condition and decision: Various metrics of _accuracy_.
+
 
 ### Translating between representational formats
 
-A scenario is represented both in terms of probabilities and in terms of frequencies. 
+A given _scenario_ is represented both in terms of probabilities and in terms of frequencies. 
 
-A set of conversion functions allow switching back and forth between both formats (i.e., compute frequencies from probabilities and probabilities from frequencies). 
+A set of _conversion functions_ allow switching back and forth between both formats (i.e., compute frequencies from probabilities and probabilities from frequencies). 
 
 
 ## Package and Application
 
-Our objective is to collect and develop a set of basic risk literacy tools in R.  To maximise impact, we split our efforts into two complementary projects:
+Our primary objective is to collect and develop a set of basic risk literacy tools in R. To maximise impact, we split our efforts into two complementary projects:
 
 1. The `riskyr` package renders risk literacy more transparent by providing a set of risk-related tools and corresponding representations.
 
@@ -90,28 +94,34 @@ The combination of package and application facilitates risk communication and su
 
 ## ToDo
 
-Things to implement in the near future:
+Things currently being implemented:
 
 - enriched data set of example scenarios 
-- show accuracy metrics in plots
-- write vignettes
+- unified options for plotting functions
+- additional `riskyr` curves and planes
+
 
 ## About
 
-This software is released to the public domain ([CC0](https://tldrlegal.com/license/creative-commons-cc0-1.0-universal)) 
-and can be freely used by anyone for any purpose. [Contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share it.
+The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
+[GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
+[GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
+
+Please [contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share this software.
+
 
 ### Contact
 
 In case of comments or questions, please contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de). 
+
 
 ### Reference
 
 In APA format:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
-`riskyr`: A toolbox for rendering risk literacy more transparent [Computer software]. 
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.912)
+`riskyr`: A toolbox for rendering risk literacy more transparent [Computer software].  
+Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.916, Feb. 8, 2018).  
 
 As BibTeX reference: 
 
@@ -119,7 +129,7 @@ As BibTeX reference:
       title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
       author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
       year = 2018,
-      note = {R package version 0.0.0.912},
+      note = {R package version 0.0.0.916, Feb. 8, 2018},
       url = {https://github.com/hneth/riskyr}
     }
 

@@ -5,12 +5,13 @@
 \title{Initialize basic text elements.}
 \usage{
 init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
-  scen.src = txt.def$scen.src, popu.lbl = txt.def$popu.lbl,
+  scen.src = txt.def$scen.src, scen.apa = txt.def$scen.apa,
+  scen.lng = txt.def$scen.lng, popu.lbl = txt.def$popu.lbl,
   cond.lbl = txt.def$cond.lbl, cond.true.lbl = txt.def$cond.true.lbl,
   cond.false.lbl = txt.def$cond.false.lbl, dec.lbl = txt.def$dec.lbl,
   dec.pos.lbl = txt.def$dec.pos.lbl, dec.neg.lbl = txt.def$dec.neg.lbl,
-  sdt.hi.lbl = txt.def$sdt.hi.lbl, sdt.mi.lbl = txt.def$sdt.mi.lbl,
-  sdt.fa.lbl = txt.def$sdt.fa.lbl, sdt.cr.lbl = txt.def$sdt.cr.lbl)
+  hi.lbl = txt.def$hi.lbl, mi.lbl = txt.def$mi.lbl,
+  fa.lbl = txt.def$fa.lbl, cr.lbl = txt.def$cr.lbl)
 }
 \arguments{
 \item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
@@ -19,6 +20,11 @@ init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
 (which may extend over several lines).}
 
 \item{scen.src}{The source information for the current scenario.}
+
+\item{scen.apa}{Source information in APA format.}
+
+\item{scen.lng}{Language of the current scenario (as character code).
+Options: \code{"en"}...English, \code{"de"}... German.}
 
 \item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
 
@@ -38,16 +44,16 @@ or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 \item{dec.neg.lbl}{A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
-\item{sdt.hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item{hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
 
-\item{sdt.mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item{mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
 
-\item{sdt.fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item{fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
 
-\item{sdt.cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item{cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).}
 }
 \description{
@@ -62,9 +68,13 @@ are stored as named elements (of type character) in a list \code{txt}.
 objects to existing names.
 }
 \examples{
-init_txt()          # => define and return a list of (default) text elements
-length(init_txt())  # => 14
-txt <- init_txt(scen.lbl = "My favorite example", scen.src = "Some stable genius")  # => set elements of txt
+init_txt()          # => defines a list of (default) text elements
+length(init_txt())  # => 16
+
+# Customizing current text elements:
+txt <- init_txt(scen.lbl = "US or Them",
+                scen.src = "Some stable genius",
+                popu.lbl = "We, the people")
 
 }
 \seealso{

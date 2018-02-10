@@ -5,10 +5,8 @@
 .Ruserdata
 .Rbuildignore
 .DS_Store
-R/_archive
-_code/RiskLiteracyTools_now_cache
-_code/RiskLiteracyTools_now_files
-_stuff
+data-raw
+stuff
 test_loadingPackage.R
 test_cex_private
 test.pdf

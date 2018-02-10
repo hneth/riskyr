@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 02 09
+## 2018 02 10
 ## -----------------------------------------------
 ##  This function plots an icon array in many ways,
 ##  dependent on population size
@@ -47,39 +47,41 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
+#'
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #' If N is 100,000 or greater it is reduced to 10,000
 #' for the array types if the frequencies allow it.
 #'
+#'
 #' @param type The icons can be arranged in different ways
-#' resulting in differnt types of displays:
+#' resulting in different types of displays:
 #'
 #' \enumerate{
 #'
-#'   \item \code{type = "array"} The icons are plotted in a
-#'   classical iconarray (default).
+#'   \item \code{type = "array"}: Icons are plotted in a
+#'   classical icon array (default).
 #'   Icons can be arranged in blocks using \code{block.d}.
 #'   The order of filling the array can be customized using
 #'   \code{fill.array} and \code{fill.blocks}.
 #'
-#'   \item \code{type = "shuffledarray"} The icons are plotted in an
-#'   iconarray.  Positions are shuffled.
+#'   \item \code{type = "shuffledarray"}: Icons are plotted in an
+#'   icon array, but positions are shuffled (randomized).
 #'   Icons can be arranged in blocks using \code{block.d}.
 #'   The order of filling the array can be customized using
 #'   \code{fill.array} and \code{fill.blocks}.
 #'
-#'   \item \code{type = "mosaic"} Icons are ordered like in a mosaic plot.
-#'   The area displays the proportion of frequencies.
+#'   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
+#'   The area size displays the relative proportions of their frequencies.
 #'
-#'   \item \code{type = "equal"} Icons are ordered in equally sized blocks.
-#'   The density displays the proportion of frequencies.
+#'   \item \code{type = "fillequal"}: Icons are positioned into equally sized blocks.
+#'   Thus, their density reflects the relative proportions of their frequencies.
 #'
-#'   \item \code{type = "fillleft"} Icons are randomly filled from the left.
+#'   \item \code{type = "fillleft"}: Icons are randomly filled from the left.
 #'
-#'   \item \code{type = "filltop"} Icons are randomly filled from the top.
+#'   \item \code{type = "filltop"}: Icons are randomly filled from the top.
 #'
-#'   \item \code{type = "scatter"} Icons are randomly filled into the plot.
+#'   \item \code{type = "scatter"}: Icons are randomly scattered into the plot.
 #'
 #' }
 #'
@@ -97,6 +99,7 @@
 #' Additional options allow to control the arrangement of the arrays
 #' (\code{type} "array" and "shuffledarray"):
 #'
+<<<<<<< HEAD:R/plot_icons.R
 #' @param block.size.row specifies how many icons should be in each block row.
 #'
 #' @param block.size.col specifies how many icons should be in each block column.
@@ -110,6 +113,25 @@
 #'
 #' @param fill.blocks specifies how icons within blocks are filled
 #' (Options: "rowwise" (default) and "colwise")
+=======
+#' @param block_size_col specifies how many icons are shown
+#' in each block row.
+#'
+#' @param block_size_row specifies how many icons are shown
+#' in each block column.
+#'
+#' @param ncol_blocks specifies how many blocks there are in each row
+#' (calculated by default).
+#'
+#' @param nrow_blocks specifies how many blocks are there in each column
+#' (calculated by default).
+#'
+#' @param fill_array specifies how the blocks are filled into the array
+#' (with 2 options "left" (default) and "top").
+#'
+#' @param fill_blocks specifies how icons within blocks are filled
+#' (with 2 options: "rowwise" (default) and "colwise").
+>>>>>>> upstream/master:R/plot_icons.R
 #'
 #'
 #'
@@ -117,12 +139,12 @@
 #'
 #' @param icon.colors Specifies the icon colors as a vector.
 #'
-#' @param icon.types Specifies the apperance of the icons as a vector.
-#' Accepts values from 1 to 25 (see also \code{\link{?points}})
+#' @param icon.types Specifies the appearance of the icons as a vector.
+#' Accepts values from 1 to 25 (see \code{?points}).
 #'
-#' @param icon.border Specifies the border color for icons (if applicable).
+#' @param icon.border.col Specifies the border color of icons (if applicable).
 #'
-#' @param icon.border.lwd Specifies the border width for icons (if applicable).
+#' @param icon.border.lwd Specifies the border width of icons (if applicable).
 #'
 #' @param transparency Specifies the transparency for overlapping icons
 #' (not \code{type} "array" and "shuffledarray").
@@ -131,29 +153,32 @@
 #'
 #' @param type.lbls Text labels for icon types to be displayed in legend.
 #'
-#' @param cex Size of the icons.  Is calculated by default.
+#' @param cex Size of the icons (calculated by default).
+#'
 #'
 #' @examples
 #' # ways to work:
-#' plot_icons()  # => plots icon array for default population
+#' plot_icons()  # => plots icon array for default population (with default type = "array")
+#' plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
 #'
-#' # standard icon arrays:
-#' plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
+#' plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+#' plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+#' plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+#' plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 #'
-#' plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
-#'                random.identities = TRUE)
-#'
-#' plot_icons(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
-#'
-#' plot_icons(N = 10000, icon.types = c(21,23,24,23),
-#'                random.identities = TRUE)
-#'
+<<<<<<< HEAD:R/plot_icons.R
 #' plot_icons(icon.types = c(21,23,24,23),
 #'                block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
 #'                block.d = 0.5, border.d = 0.9)
+=======
+#' plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
+>>>>>>> upstream/master:R/plot_icons.R
 #'
-#' plot_icons(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+#' # some variants:
+#' plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
+#'            block.d = 0.5, border.d = 0.5)
 #'
+<<<<<<< HEAD:R/plot_icons.R
 #' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
 #'                icon.types = c(21,23,24,23),
 #'                block.size.row = 10, block.size.col = 5,
@@ -161,38 +186,16 @@
 #'                block.d = 0.8,
 #'                border.d = 0.2,
 #'                fill.array = "top")
+=======
+#' plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+#'            block.d = 0.5, border.d = 0.5)
+>>>>>>> upstream/master:R/plot_icons.R
 #'
+#' plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+#'            icon.border.col = grey(.33, .99), icon.border.lwd = 3)
 #'
-#' plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
-#'                icon.types = c(21,23,21,23),
-#'                ident.order = c("hi", "mi", "cr", "fa"),
-#'                block.d = 0.8,
-#'                border.d = 0.01,
-#'                cex = 0.7,
-#'                random.position = FALSE,
-#'                random.identities = FALSE)
-#'
-#'
-#' # Mosaic like and randomized arrays:
-#' plot_icons(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
-#'                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
-#'
-#' plot_icons(icon.types = c(22,23,21,23), #cex = 10,
-#'                ident.order = c("mi", "hi", "cr", "fa"),
-#'                random.position = TRUE, type.sort = "equal", block.d = 0.05)
-#'
-#' plot_icons(icon.types = c(21,23,22,23), #cex = 10,
-#'                random.position = TRUE, random.identities = TRUE)
-#'
-#' plot_icons(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
-#'                icon.types = c(21,23,21,23),
-#'                ident.order = c("hi", "mi", "cr", "fa"),
-#'                block.d = 0.1,
-#'                border.d = 0.01,
-#'                cex = 0.7,
-#'                random.position = TRUE,
-#'                random.identities = FALSE,
-#'                type.sort = "mosaic")
+#' plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
+#'            icon.border.lwd = .5, cex = 3)
 #'
 #'
 #' @family visualization functions
@@ -235,6 +238,7 @@
 # (C) Translating these dimensions into code:
 
 plot_icons <- function(prev = num$prev,             # probabilities
+<<<<<<< HEAD:R/plot_icons.R
                            sens = num$sens, mirt = NA,
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
@@ -270,6 +274,51 @@ plot_icons <- function(prev = num$prev,             # probabilities
                            cex = NULL,  # if NULL, cex will be calculated on demand!
 
                            ...  #additional parameters for plot()
+=======
+                       sens = num$sens, mirt = NA,
+                       spec = num$spec, fart = NA,  # was: num$fart,
+                       N = freq$N,    # ONLY freq used (so far)
+                       ## Key options: ##
+                       type = "array",  # needs to be given if random position but nonrandom ident.
+                       # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       ident.order = c("hi", "mi", "fa", "cr"),
+                       # random.position = FALSE,    # are positions randomly drawn?
+                       # random.identities = FALSE,  # are identities randomly assigned to positions?
+                       ## defaults to classic icon array!
+                       ## TODO: rather name these?
+                       icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
+                       icon.types = 22,  # plotting characters; default square with border
+                       icon.border.col = grey(.10, .50),  # border color of icons
+                       icon.border.lwd = 1.5, # line width of icon borders
+                       transparency = .50,
+                       # one can also enter a full vector of length N.
+                       block.d = NULL,  # distance between blocks (where applicable).
+                       border.d = 0.1,  # distance of icons to border.
+
+                       # for classic icon arrays only:
+                       block_size_col = 10,
+                       block_size_row = 10,
+                       ncol_blocks = NULL,
+                       nrow_blocks = NULL,
+
+                       fill_array = "left",
+                       fill_blocks = "rowwise",
+
+                       ## Compute and show accuracy info:
+                       show.accu = TRUE,  # compute and show accuracy metrics
+                       w.acc = .50,       # weight w for wacc (from 0 to 1)
+
+                       # labelling:
+                       title.lbl = txt$scen.lbl,
+                       type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+
+                       # (currently) fixed parameters:
+                       xlim = c(0, 1),
+                       ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
+                       cex = NULL,  # if NULL, cex will be calculated on demand!
+
+                       ...  #additional parameters for plot()
+>>>>>>> upstream/master:R/plot_icons.R
 ) {
 
   # Redo logical values:
@@ -326,10 +375,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   }
 
-  # Check size of N.Ist it needed?  Sccale down if not needed and greater 100.000:
+  # Check size of N.Ist it needed?  Scale down if not needed and greater 100.000:
   ## Specify N:
   N <- cur.freq$N
-  ind.lbl <- NULL
+  ind.lbl <- ""
 
   if (N >= 100000) {
     # get the minimal N:
@@ -339,7 +388,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       exponent <- ((N %/% 100000) %/% 10) + 1  # get exponent dependent on size.
       ind_per_icon <- 10 ^ exponent  # individuals per icon.
-      ind.lbl <- paste0("Note: Icons have been scaled. Each icon represents ", ind_per_icon, " individuals")
+      # ind.lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
+      ind.lbl <- paste0("(Each icon represents ", ind_per_icon, " individuals.)")
 
       N <- N / (10^exponent)
       cur.freq <- lapply(cur.freq,  function(x) {x / (10^exponent)})  # adjust cur.freq and N.
@@ -405,160 +455,160 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # right: from left to right, top: from top to bottom,
     # equal: in equal spaces of the plot, mosaic: relative to area.
 
-      if (type %in% c("fillleft", "filltop")) {
+    if (type %in% c("fillleft", "filltop")) {
 
-        # 1a) draw random positions:
-        posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
-        posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
+      # 1a) draw random positions:
+      posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
+      posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
 
-        # Then sort one of the vectors accordingly (presupposes ordered color vector).
-        # type: from left to right:
-        if (type == "fillleft") {
-          posx_vec <- sort(posx_vec)
-        }
-
-        # type: from top to bottom:
-        if(type == "filltop"){
-          posy_vec <- sort(posy_vec)
-        }
-      } else {  # if in equal or mosaic:
-
-        # Initialize positions:
-        posx_vec <- NULL
-        posy_vec <- NULL
-
-        # create n = "ident_type" compartments of the plot:
-        block_n <- length(unique(col.vec))  # number of blocks for x and y.
-        # TODO: not final; they should be distributed.
-
-        # calculate number of observations in each block retaining original order:
-        type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
-
-
-        # equal compartments:
-        if (type == "fillequal") {  # density varies, area is constant.
-
-
-          if (is.null(block.d)) {
-            block.d <- 0.05
-          }
-
-          # determine breakpoints:
-          # !!!Currently for square numbers only:
-          # TODO: include non-square points (e.g., by enlarging the plot area).
-          block_sq <- sqrt(block_n)  # take square root.
-
-          # create list of breakpoints including color types:
-          seq_min <- (0:(block_sq - 1)) / block_sq  # of minimal coordinates.
-          seq_max <- (1:block_sq) / block_sq
-
-          min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
-          max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
-
-          # add distance between icon blocks:
-          global_min <- min(min_ranges)  # get global minimum of minima.
-          global_max <- max(max_ranges)  # get global maximum of maxima.
-          min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block.d
-          # we don't want distance at the global minima nad maxima.
-          max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block.d
-
-          # TODO: flipping by swapping x and y or by changing vector of frequencies?
-          # TODO: Bind ranges into one object?
-          # TODO: notice the overlap!  Use cut?
-
-
-
-          # sample the coordinates from the deterimined ranges:
-          for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
-
-            minx <- min_ranges$x_min[i]
-            maxx <- max_ranges$x_max[i]
-            miny <- min_ranges$y_min[i]
-            maxy <- max_ranges$y_max[i]
-            # TODO: This only holds for equal compartments.
-
-            # sample vectors from compartments:
-            posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
-            posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
-
-            posx_vec <- c(posx_vec, posx_vec_i)
-            posy_vec <- c(posy_vec, posy_vec_i)
-          }
-
-        }
-
-        # mosaic style:
-        if (type == "mosaic") {
-
-          block_prop <- type_n / sum(type_n)  # proportion in each compartment.
-
-          prev <- block_prop[1] + block_prop[2]  # TODO: Does this still hold for switched types?
-          # define boundaries:
-          b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
-          b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
-          # TODO: This depends on our typical order!  Might be made more transparent and customizable.
-
-
-          # Quadrant dimensions (with prevalence in y-direction):
-          block1 <- c(0, b1, 0, prev)
-          block2 <- c(b1, 1, 0, prev)
-          block3 <- c(b2, 1, prev, 1)
-          block4 <- c(0, b2, prev, 1)
-
-          # TODO: Allow to shuffle components around (using a list?).
-          # TODO: not general yet!  How to make it general?  Calculation of area proportions?
-
-          # bind vectors together.
-          blocks <- rbind(block1, block2, block3, block4)
-
-          # set distance parameter:
-          # block.d may not be half the size of the distance between min and max.
-          # for the example of prevalence == 0.15 it may not exceed 0.075.
-          diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
-          diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
-
-          boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
-
-          if (is.null(block.d)){
-
-            block.d <- 0.01  # a little messy though...
-
-          } else {
-
-            if ( block.d >= boundary_d ) {
-
-              block.d <- boundary_d - 0.0001  # a little messy though...
-
-            }
-          }
-
-
-          blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
-          blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
-          block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
-          # calculate number of observations in each compartment.
-          blocks <- cbind(blocks, block_n)  # bind to matrix.
-
-
-          for(i in 1:nrow(blocks)){
-            minx <- blocks[i, 1]
-            maxx <- blocks[i, 2]
-            miny <- blocks[i, 3]
-            maxy <- blocks[i, 4]
-            # TODO: This only holds for equal blocks.
-
-            # sample vectors from blocks:
-            posx_vec_i <- runif(n = blocks[i, 5], min = minx, max = maxx)
-            posy_vec_i <- runif(n = blocks[i, 5], min = miny, max = maxy)
-
-            posx_vec <- c(posx_vec, posx_vec_i)
-            posy_vec <- c(posy_vec, posy_vec_i)
-
-          }
-        }
+      # Then sort one of the vectors accordingly (presupposes ordered color vector).
+      # type: from left to right:
+      if (type == "fillleft") {
+        posx_vec <- sort(posx_vec)
       }
 
-    }  # end: valid type
+      # type: from top to bottom:
+      if(type == "filltop"){
+        posy_vec <- sort(posy_vec)
+      }
+    } else {  # if in equal or mosaic:
+
+      # Initialize positions:
+      posx_vec <- NULL
+      posy_vec <- NULL
+
+      # create n = "ident_type" compartments of the plot:
+      block_n <- length(unique(col.vec))  # number of blocks for x and y.
+      # TODO: not final; they should be distributed.
+
+      # calculate number of observations in each block retaining original order:
+      type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+
+
+      # equal compartments:
+      if (type == "fillequal") {  # density varies, area is constant.
+
+
+        if (is.null(block.d)) {
+          block.d <- 0.05
+        }
+
+        # determine breakpoints:
+        # !!!Currently for square numbers only:
+        # TODO: include non-square points (e.g., by enlarging the plot area).
+        block_sq <- sqrt(block_n)  # take square root.
+
+        # create list of breakpoints including color types:
+        seq_min <- (0:(block_sq - 1)) / block_sq  # of minimal coordinates.
+        seq_max <- (1:block_sq) / block_sq
+
+        min_ranges <- expand.grid(x_min = seq_min, y_min = seq_min)  # all combinations of minima.
+        max_ranges <- expand.grid(x_max = seq_max, y_max = seq_max)  # all combinations of maxima.
+
+        # add distance between icon blocks:
+        global_min <- min(min_ranges)  # get global minimum of minima.
+        global_max <- max(max_ranges)  # get global maximum of maxima.
+        min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block.d
+        # we don't want distance at the global minima nad maxima.
+        max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block.d
+
+        # TODO: flipping by swapping x and y or by changing vector of frequencies?
+        # TODO: Bind ranges into one object?
+        # TODO: notice the overlap!  Use cut?
+
+
+
+        # sample the coordinates from the deterimined ranges:
+        for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
+
+          minx <- min_ranges$x_min[i]
+          maxx <- max_ranges$x_max[i]
+          miny <- min_ranges$y_min[i]
+          maxy <- max_ranges$y_max[i]
+          # TODO: This only holds for equal compartments.
+
+          # sample vectors from compartments:
+          posx_vec_i <- runif(n = type_n[i], min = minx, max = maxx)
+          posy_vec_i <- runif(n = type_n[i], min = miny, max = maxy)
+
+          posx_vec <- c(posx_vec, posx_vec_i)
+          posy_vec <- c(posy_vec, posy_vec_i)
+        }
+
+      }
+
+      # mosaic style:
+      if (type == "mosaic") {
+
+        block_prop <- type_n / sum(type_n)  # proportion in each compartment.
+
+        prev <- block_prop[1] + block_prop[2]  # TODO: Does this still hold for switched types?
+        # define boundaries:
+        b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
+        b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
+        # TODO: This depends on our typical order!  Might be made more transparent and customizable.
+
+
+        # Quadrant dimensions (with prevalence in y-direction):
+        block1 <- c(0, b1, 0, prev)
+        block2 <- c(b1, 1, 0, prev)
+        block3 <- c(b2, 1, prev, 1)
+        block4 <- c(0, b2, prev, 1)
+
+        # TODO: Allow to shuffle components around (using a list?).
+        # TODO: not general yet!  How to make it general?  Calculation of area proportions?
+
+        # bind vectors together.
+        blocks <- rbind(block1, block2, block3, block4)
+
+        # set distance parameter:
+        # block.d may not be half the size of the distance between min and max.
+        # for the example of prevalence == 0.15 it may not exceed 0.075.
+        diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
+        diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
+
+        boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
+
+        if (is.null(block.d)){
+
+          block.d <- 0.01  # a little messy though...
+
+        } else {
+
+          if ( block.d >= boundary_d ) {
+
+            block.d <- boundary_d - 0.0001  # a little messy though...
+
+          }
+        }
+
+
+        blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
+        blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
+        block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+        # calculate number of observations in each compartment.
+        blocks <- cbind(blocks, block_n)  # bind to matrix.
+
+
+        for(i in 1:nrow(blocks)){
+          minx <- blocks[i, 1]
+          maxx <- blocks[i, 2]
+          miny <- blocks[i, 3]
+          maxy <- blocks[i, 4]
+          # TODO: This only holds for equal blocks.
+
+          # sample vectors from blocks:
+          posx_vec_i <- runif(n = blocks[i, 5], min = minx, max = maxx)
+          posy_vec_i <- runif(n = blocks[i, 5], min = miny, max = maxy)
+
+          posx_vec <- c(posx_vec, posx_vec_i)
+          posy_vec <- c(posy_vec, posy_vec_i)
+
+        }
+      }
+    }
+
+  }  # end: valid type
   # end A2: (random.position & !random.identities)
 
   if (random.position) {
@@ -870,39 +920,62 @@ plot_icons <- function(prev = num$prev,             # probabilities
     col.vec <- adjustcolor(col.vec, alpha.f = 1 - transparency)
   }
 
+<<<<<<< HEAD:R/plot_icons.R
   points(x = posx_vec, y = posy_vec, # positions.
          # visual details:
          pch = pch.vec, col = icon.border, bg = col.vec, lwd = icon.border.lwd, cex = cex)
 
 
   ## Additional information:
+=======
+  points(x = posx_vec, y = posy_vec,  # positions.
+         ## visual details:
+         pch = pch.vec, col = icon.border.col, bg = col.vec, lwd = icon.border.lwd, cex = cex)
+>>>>>>> upstream/master:R/plot_icons.R
 
-  ## Define labels:
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
-  cur.par.lbl <-  paste0("Conditions: ",
-                         "prev = ", as_pc(prev), "%, ",
-                         "sens = ", as_pc(sens), "%, ",
-                         "spec = ", as_pc(spec), "%")
 
+  ## Legend:
   if (sum(nchar(type.lbls)) > 0) {
-    # reorder lables:
+    # reorder labels:
     names(type.lbls) <- c("hi", "mi", "fa", "cr")
     type.lbls <- type.lbls[ident.order]
   }
 
+  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
+         legend = type.lbls,
+         horiz = TRUE, bty = "n",
+         pt.bg = icon.colors, pch = icon.types,
+         cex = 1.0, xjust = 0.5, xpd = TRUE)
+  ## TODO: fixed order of legend?
 
-  # Plot additional information:
+  ## Title:
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20), legend = type.lbls,
-         horiz = TRUE, bty = "n",
-         pt.bg = icon.colors, pch = icon.types, cex = 1.2,
-         xjust = 0.5, xpd = TRUE)
-  # TODO: fixed order of legend?
+  ## Margin text:
 
-  mtext(cur.par.lbl, side = 1, line = 3)
-  mtext(ind.lbl, side = 1, line = 2)
+  ## (a) by condition: 3 basic probabilities
+  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+
+  # (b) by decision:
+  ppod <- comp_ppod(prev, sens, spec)  # compute ppod etc.
+  PPV <- comp_PPV(prev, sens, spec)
+  NPV <- comp_NPV(prev, sens, spec)
+
+  cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+
+  ## (c) Accuracy: Compute and show accuracy metrics
+  if (show.accu) {
+    cur.accu <- comp_accu(hi = cur.freq$hi, mi = cur.freq$mi, fa = cur.freq$fa, cr = cur.freq$cr, w = w.acc)  # compute accuracy info
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+  }
+
+  ## (d) Note scaling:
+  mtext(ind.lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
 
 }  # end of function.
 
@@ -916,25 +989,23 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
 {
   # # ways to work:
-  # plot_icons()  # => plots icon array for default population
+  # plot_icons()  # => plots icon array for default population (with default type = "array")
+  # plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
   #
-  # # standard icon arrays:
-  # plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
-  #
-  # plot_icons(N = 800, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5,
-  #                random.identities = TRUE)
-  #
-  # plot_icons(N = 10000, icon.types = c(21,23,24,23), block.d = 0.5, border.d = 0.5)
-  #
-  # plot_icons(N = 10000, icon.types = c(21,23,24,23),
-  #                random.identities = TRUE)
-  #
+<<<<<<< HEAD:R/plot_icons.R
   # plot_icons(icon.types = c(21,23,24,23),
   #                block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
   #                block.d = 0.5, border.d = 0.9)
+=======
+  # plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+  # plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+  # plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+  # plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
+>>>>>>> upstream/master:R/plot_icons.R
   #
-  # plot_icons(N = 1000, icon.types = c(21,23,24,23), block.d = 0.4)
+  # plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
   #
+<<<<<<< HEAD:R/plot_icons.R
   # plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
   #                icon.types = c(21,23,24,23),
   #                block.size.row = 10, block.size.col = 5,
@@ -942,40 +1013,20 @@ plot_icons <- function(prev = num$prev,             # probabilities
   #                block.d = 0.8,
   #                border.d = 0.2,
   #                fill.array = "top")
+=======
+  # # some variants:
+  # plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
+  #            block.d = 0.5, border.d = 0.5)
+>>>>>>> upstream/master:R/plot_icons.R
   #
+  # plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+  #            block.d = 0.5, border.d = 0.5)
   #
-  # plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
-  #                icon.types = c(21,23,21,23),
-  #                ident.order = c("hi", "mi", "cr", "fa"),
-  #                block.d = 0.8,
-  #                border.d = 0.01,
-  #                cex = 0.7,
-  #                random.position = FALSE,
-  #                random.identities = FALSE)
+  # plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+  #            icon.border.col = grey(.33, .99), icon.border.lwd = 3)
   #
-  # # TODO: Here it messes things up!
-  #
-  # # Mosaic like and randomized arrays:
-  # plot_icons(N = 1000, icon.types = c(22,23,22,23), #cex = 3,
-  #                random.position = TRUE, type.sort = "mosaic", block.d = 0.05)
-  #
-  # plot_icons(icon.types = c(22,23,21,23), #cex = 10,
-  #                ident.order = c("mi", "hi", "cr", "fa"),
-  #                random.position = TRUE, type.sort = "equal", block.d = 0.05)
-  #
-  # plot_icons(icon.types = c(21,23,22,23), #cex = 10,
-  #                random.position = TRUE, random.identities = TRUE)
-  #
-  # plot_icons(N = 10000, sens = 0.9, spec = 0.9, prev = 0.9,
-  #                icon.types = c(21,23,21,23),
-  #                ident.order = c("hi", "mi", "cr", "fa"),
-  #                block.d = 0.1,
-  #                border.d = 0.01,
-  #                cex = 0.7,
-  #                random.position = TRUE,
-  #                random.identities = FALSE,
-  #                type.sort = "mosaic")
-
+  # plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
+  #            icon.border.lwd = .5, cex = 3)
 }
 
 ## -----------------------------------------------
