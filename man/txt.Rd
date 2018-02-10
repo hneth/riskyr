@@ -4,7 +4,7 @@
 \name{txt}
 \alias{txt}
 \title{List current values of basic text elements.}
-\format{An object of class \code{list} of length 14.}
+\format{An object of class \code{list} of length 16.}
 \usage{
 txt
 }
@@ -29,6 +29,11 @@ To change an element, assign a new character object to an existing name.
 
 \item \code{scen.src} The source information for the current scenario.
 
+\item \code{scen.apa} The source information in APA format.
+
+\item \code{scen.lng} The language of the current scenario (as character code).
+Options: \code{"en"}...English, \code{"de"}... German.
+
 \item \code{popu.lbl} A brief description of the current target population \code{\link{popu}} or sample.
 
 \item \code{cond.lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
@@ -47,16 +52,16 @@ or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 \item \code{dec.neg.lbl} A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 
-\item \code{sdt.hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item \code{hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 
-\item \code{sdt.mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item \code{mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
 
-\item \code{sdt.fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item \code{fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
 
-\item \code{sdt.cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item \code{cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 
 }

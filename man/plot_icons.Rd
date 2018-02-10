@@ -11,9 +11,8 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   transparency = 0.5, block.d = NULL, border.d = 0.1,
   block_size_col = 10, block_size_row = 10, ncol_blocks = NULL,
   nrow_blocks = NULL, fill_array = "left", fill_blocks = "rowwise",
-  title.lbl = txt$scen.lbl, type.lbls = txt[c("sdt.hi.lbl", "sdt.mi.lbl",
-  "sdt.fa.lbl", "sdt.cr.lbl")], xlim = c(0, 1), ylim = c(0, 1),
-  cex = NULL, ...)
+  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
+  "cr.lbl")], xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -82,7 +81,7 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 \item{icon.colors}{Specifies the icon colors as a vector.}
 
 \item{icon.types}{Specifies the apperance of the icons as a vector.
-Accepts values from 1 to 25 (see also \code{\link{?points}})}
+Accepts values from 1 to 25 (see \code{?points}).}
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
@@ -168,7 +167,6 @@ plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
                block.d = 0.8,
                border.d = 0.2,
                fill_array = "top")
-
 
 plot_icons(N = 10000, sens = 0.9, spec = 0.6, prev = 0.3,
                icon.types = c(21,23,21,23),

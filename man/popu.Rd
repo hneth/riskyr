@@ -37,7 +37,7 @@ the labels of conditions, decisions, and
 SDT classifications.
 
 A visualization of the current population
-\code{popu} is provided by \code{\link{plot_iconarray}}.
+\code{popu} is provided by \code{\link{plot_icons}}.
 }
 \examples{
 popu <- comp_popu()  # => initializes popu with current values of freq and txt

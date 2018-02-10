@@ -11,11 +11,10 @@ plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
   cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
-  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl,
-  box.cex = 0.85, col.boxes = pal, col.txt = grey(0.01, alpha = 0.99),
-  col.border = grey(0.33, alpha = 0.99), lwd = 1.5, box.lwd = 1.5,
-  col.shadow = col.sand.dark, cex.shadow = 0)
+  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
+  cr.lbl = txt$cr.lbl, box.cex = 0.85, col.boxes = pal,
+  col.txt = grey(0.01, alpha = 0.99), col.border = grey(0.33, alpha = 0.99),
+  lwd = 1.5, box.lwd = 1.5, col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}

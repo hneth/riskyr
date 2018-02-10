@@ -10,8 +10,8 @@ and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  sdt.hi.lbl = txt$sdt.hi.lbl, sdt.mi.lbl = txt$sdt.mi.lbl,
-  sdt.fa.lbl = txt$sdt.fa.lbl, sdt.cr.lbl = txt$sdt.cr.lbl)
+  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
+  cr.lbl = txt$cr.lbl)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -30,13 +30,13 @@ comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
 
 \item{dec.neg.lbl}{Text label for \code{\link{dec.neg}} cases.}
 
-\item{sdt.hi.lbl}{Text label for \code{\link{hi}} cases.}
+\item{hi.lbl}{Text label for \code{\link{hi}} cases.}
 
-\item{sdt.mi.lbl}{Text label for \code{\link{mi}} cases.}
+\item{mi.lbl}{Text label for \code{\link{mi}} cases.}
 
-\item{sdt.fa.lbl}{Text label for \code{\link{fa}} cases.}
+\item{fa.lbl}{Text label for \code{\link{fa}} cases.}
 
-\item{sdt.cr.lbl}{Text label for \code{\link{cr}} cases.}
+\item{cr.lbl}{Text label for \code{\link{cr}} cases.}
 }
 \value{
 A data frame \code{popu}
