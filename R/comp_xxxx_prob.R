@@ -315,20 +315,21 @@
 #' comp_freq_prob(prev = 0, sens = 1, spec = 0, N = 106)  # => ok + warning: N false alarms (FP)
 #'
 #' # Same case with complements (using NAs to prevent defaults):
-#' comp_freq_prob(prev = 0, sens = NA, mirt = 0, spec = NA, fart = 1, N = 106)  # => ok + warning: N false alarms (FP)
+#' comp_freq_prob(prev = 0, sens = NA, mirt = 0,
+#'                spec = NA, fart = 1, N = 106)  # => ok + warning: N false alarms (FP)
 #'
 #' # Watch out for:
-#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # => ok + additional warning that N = 1 was computed
-#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits, NPV = NaN)
-#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)   # => ok, but all rounded (increasing errors: mi and fa)
-#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
+#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N = NA)  # => ok + warning: N = 1 computed
+#' comp_freq_prob(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (NPV = NaN)
+#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded
+#' comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE) # => ok, but not rounded
 #'
 #' # Ways to fail:
-#' comp_freq_prob(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + no warning (prev NA)
-#' comp_freq_prob(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + no warning (sens NA)
-#' comp_freq_prob(prev = 1,  sens = 1,  spec = NA, 100)   # => NAs + no warning (spec NA)
-#' comp_freq_prob(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
-#' comp_freq_prob(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens & spec beyond range)
+#' comp_freq_prob(prev = NA, sens = 1, spec = 1, 100)  # => NAs + no warning (prev NA)
+#' comp_freq_prob(prev = 1, sens = NA, spec = 1, 100)  # => NAs + no warning (sens NA)
+#' comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # => NAs + no warning (spec NA)
+#' comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # => NAs + warning (prev beyond range)
+#' comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & spec beyond range)
 #'
 #'
 #' @family functions computing frequencies

@@ -288,7 +288,7 @@ accu <- comp_accu()
 
 #' Compute overall accuracy (acc) from probabilities.
 #'
-#' \code{comp_acc} computes overall accuracy \code{\link{acc}}
+#' \code{comp_acc} computes overall accuracy \code{acc}
 #' from 3 essential probabilities
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 #'
@@ -320,7 +320,7 @@ accu <- comp_accu()
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
 #'
-#' @return Overall accuracy \code{\link{acc}} as a proportion (probability).
+#' @return Overall accuracy \code{acc} as a proportion (probability).
 #' A warning is provided for NaN values.
 #'
 #' See \code{\link{comp_accu}} and \code{\link{accu}} for

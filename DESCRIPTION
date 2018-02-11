@@ -3,7 +3,7 @@ Type: Package
 Title: A toolbox for rendering risk literacy more transparent
 Version: 0.0.0.917
 Date: 2018-02-10
-Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
+Authors@R: c(person("Hansjörg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
               person("Felix", "Gaisbauer", role = "aut"),
               person("Nico", "Gradwohl", role = "aut"))
@@ -11,7 +11,7 @@ Author: Hansjoerg Neth [aut, cre],
   Felix Gaisbauer [aut],
   Nico Gradwohl [aut]
 AuthorUrl: http://neth.de
-Maintainer: Hansjoerg Neth <h.neth@uni.kn>
+Maintainer: Hansjörg Neth <h.neth@uni.kn>
 Description: Provides a set of basic risk literacy tools in R.
     Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (the condition's prevalence, and the decision's sensitivity and specificity) we provide a range of metrics and alternative representations of risk-related information (as both probabilities and frequencies for a population of N individuals).  By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
 Depends:
@@ -19,7 +19,7 @@ Depends:
 Imports:
     diagram (>= 1.6.4),
     vcd (>= 1.4),
-    grid (>= 3.4.3)
+    grid (>= 3.4.3) 
 Suggests:
     devtools,
     rmarkdown,

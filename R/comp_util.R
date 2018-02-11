@@ -372,9 +372,9 @@ is_freq <- function(freq) {
 #' is_suff_prob_set(prev = 1, mirt = 1, fart = 1)  # => TRUE
 #'
 #' # watch out for:
-#' is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob would be FALSE for 2 and 3
-#' is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
-#' is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
+#' is_suff_prob_set(prev = 1, sens = 2, spec = 3)  # => TRUE, but is_prob is FALSE
+#' is_suff_prob_set(prev = 1, mirt = 2, fart = 4)  # => TRUE, but is_prob is FALSE
+#' is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob is FALSE
 #'
 #' ## ways to fail:
 #' # is_suff_prob_set()                    # => FALSE + warning (prev missing)

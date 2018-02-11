@@ -184,15 +184,17 @@
 #' plot_tree(show.accu = FALSE)              # => no accuracy info.
 #'
 #' # Perspectives, areas, and label options:
-#' plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-#' plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-#' plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-#' plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+#' plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
+#' plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
+#' plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + names and numbers
+#' plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
 #'
 #' # Custom colors and shadows:
 #' plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-#' plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-#' plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+#' plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
+#'           col.shadow = "steelblue4", cex.shadow = .008)
+#' plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
+#'           col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 #'
 #' @family visualization functions
 #'
