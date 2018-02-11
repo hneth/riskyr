@@ -5,9 +5,10 @@ date: "2017 12 20"
 output: html_document
 ---
 
+
 <!-- riskyr logo: -->  
-<a href="https://github.com/hneth/riskyr">
-<img src="./inst/pix/riskyr_cube.png" alt="riskyr" style="width: 175px; float: right; border:25;"/>
+<a href = "https://github.com/hneth/riskyr">
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 175px; float: right; border:25;"/>
 </a>
 <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
@@ -142,7 +143,7 @@ We appreciate your feedback, comments, or questions.
 <!-- uni.kn logo: -->  
 <!-- ![](./inst/pix/uniKn_logo.png) --> 
 <a href="http://www.uni-konstanz.de">
-<img src="./inst/pix/uniKn_logo.png" alt="uni.kn.logo" style="width: 300px; float: right; border:15;"/>
+<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:15;"/>
 </a>
 
 To cite `riskyr` in derivations and publications use:

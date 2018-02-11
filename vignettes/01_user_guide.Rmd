@@ -30,12 +30,7 @@ This seems a simple and fairly common question, yet doctors, patients and medica
 
 Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities, but have no problem to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
 
-<!-- riskyr logo: -->  
-<a href="https://github.com/hneth/riskyr">
-<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
-</a>
-<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
-<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
+<!-- On riskyr: -->
 
 `riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
 
@@ -46,6 +41,14 @@ This guide first illustrates a typical problem and then helps you solving it by 
 2. We will then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.
 
 3. Finally, we show how `riskyr` renders the problem more transparent by providing three sets of tools:
+
+<!-- riskyr logo: -->  
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+</a>
+<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
+
 
     A. A fancy calculator that allows the computation of probabilities and frequencies; 
    
@@ -167,11 +170,20 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 `riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, but rather of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
 
-`riskyr` pursues its goal of promoting a deeper understanding of risk-related information in two ways:
+`riskyr` pursues its goal of promoting a deeper understanding of risk-related information in three ways:
 
-- by _organizing_ data structures and functions in useful ways; 
+<!-- riskyr logo: -->  
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+</a>
+<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
 
-- by providing _transparent visualizations_ that illustrate relationships between variables and representations.
+- by organizing _data structures_ and _computational functions_ in useful ways; 
+
+- by providing _translations_ between probabilities and frequencies; 
+
+- by providing transparent _visualizations_ that illustrate relationships between variables and representations.
 
 In the following, we show how we could address the above problem by using three types of tools provided by `riskyr`. 
 
