@@ -1,5 +1,5 @@
-## comp_prob_prob.R | riskyR
-## 2018 02 09
+## comp_prob_prob.R | riskyr
+## 2018 02 11
 ## -----------------------------------------------
 ## Compute other probabilities from probabilities:
 
@@ -532,8 +532,20 @@ comp_complete_prob_set <- function(prev,
 #' from 3 essential probabilities
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 #'
-#' \code{comp_ppod} uses probabilities (not frequencies)
-#' and does not round results.
+#' \code{comp_ppod} uses probabilities (not frequencies) as
+#' inputs and returns a proportion (probability)
+#' without rounding.
+#'
+#' Definition: \code{ppod} is
+#' proportion (or probability) of positive decisions:
+#'
+#' \code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
+#'
+#' Values range from 0 (only negative decisions)
+#' to 1 (only positive decisions).
+#'
+#' Importantly, positive decisions \code{\link{dec.pos}}
+#' are not necessariliy correct decisions \code{\link{dec.cor}}.
 #'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
