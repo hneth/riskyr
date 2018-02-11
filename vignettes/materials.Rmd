@@ -24,7 +24,14 @@ library("riskyr")  # load the "riskyr" package
 **Note:** This file contains miscellanea and older snippets of materials used or yet to be used in actual vignettes:
 
 
-## Existing `riskyr` Vignettes
+## Other `riskyr` Vignettes
+
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+<!-- Index of vignettes: -->
 
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
@@ -84,16 +91,33 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 - The numeric value of a conditional probability can be computed with _Bayes' formula_ (see our [user guide](user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
 
-## Viewing Metrics as a Function of Parameters
+## A Functional Perspective: Viewing Parameters and Values as a Function of Other Parameters and Values
+
 
 The `riskyr` data structures essentially describe networks of dependencies. 
 This is best illustrated by the network diagram (see examples of `plot_fnet`). 
-However, sometimes it is instructive to see the possible values of some parameter as a function of others.
+However, sometimes it is instructive to see the possible values of some parameter as a function of others. 
+A functional perspective illustrates how the value of some parameter (or its values) 
+changes as a function of other parameters (and their values). 
+
+Basic format: 
+
+$$
+y = f(x)
+$$
+
 
 `riskyr` provides 2 primary functions for this purpose:
 
 1. `plot_curve` shows the curves of selected parameters as a function of the prevalene (with `prev` ranging from 0 to 1) 
 for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`). 
+
+```{r plot_curve, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "A plot that shows PPV and NPV as a function of prevalence (for given values of sensitivity and specificity)."}
+library("riskyr")  # load the "riskyr" package
+
+plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
+           log.scale = TRUE, title.lbl = "Mammography screening")
+```
 
 2. `plot_plane` shows a plane for a selected parameter as a function of sensitivity and specificity 
 (with `sens` and `spec` both ranging from 0 to 1) for a given prevalence `prev`. 
