@@ -10,7 +10,7 @@ citEntry(entry = "Manual",
          organization = "Social Psychology and Decision Sciences, University of Konstanz",
          address      = "Konstanz, Germany",
          note         = "R package (version 0.0.0.916, Feb. 8, 2018)",
-         url          = "https://github.com/hneth/riskyr",
+         url          = "https://github.com/hneth/riskyr"
 
          textVersion  =
            paste("Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).",
