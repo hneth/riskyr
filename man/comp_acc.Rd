@@ -19,14 +19,14 @@ provided that the condition is \code{TRUE}).}
 of a negative decision provided that the condition is \code{FALSE}).}
 }
 \value{
-Overall accuracy \code{\link{acc}} as a proportion (probability).
+Overall accuracy \code{acc} as a proportion (probability).
 A warning is provided for NaN values.
 
 See \code{\link{comp_accu}} and \code{\link{accu}} for
 accuracy metrics based on frequencies.
 }
 \description{
-\code{comp_acc} computes overall accuracy \code{\link{acc}}
+\code{comp_acc} computes overall accuracy \code{acc}
 from 3 essential probabilities
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 }
