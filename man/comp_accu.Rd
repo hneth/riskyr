@@ -36,9 +36,9 @@ Currently computed metrics include:
 \enumerate{
 
 \item \code{acc}: Overall accuracy as the proportion (or probability)
-   of correctly classifying cases:
+   of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-\code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
@@ -106,9 +106,12 @@ The corresponding data frame ;
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
 
+Other metrics: \code{\link{accu}}, \code{\link{comp_acc}}
+
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_comp_pair}},
+  \code{\link{comp_PPV}}, \code{\link{comp_acc}},
+  \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},

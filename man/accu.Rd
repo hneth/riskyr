@@ -19,9 +19,9 @@ Current metrics include:
 \enumerate{
 
 \item \code{acc}: Overall accuracy as the proportion (or probability)
-   of correctly classifying cases:
+   of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-\code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
@@ -75,5 +75,8 @@ The corresponding generating function \code{\link{comp_accu}};
 Other lists containing current scenario information: \code{\link{freq}},
   \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}},
   \code{\link{txt}}
+
+Other metrics: \code{\link{comp_accu}},
+  \code{\link{comp_acc}}
 }
 \keyword{datasets}

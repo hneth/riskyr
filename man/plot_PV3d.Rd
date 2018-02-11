@@ -101,6 +101,7 @@ plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "",
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot_PV}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_tree}}
 }
