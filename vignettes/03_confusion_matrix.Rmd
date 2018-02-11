@@ -275,11 +275,17 @@ We appreciate your feedback, comments, or questions.
 
 ## All `riskyr` Vignettes
 
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+<!-- Index of vignettes: -->
+
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
 | 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
 | 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
 | 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
-
 
 <!-- eof. -->

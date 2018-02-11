@@ -23,7 +23,6 @@ knitr::opts_chunk$set(
 > "Solving a problem simply means representing it so as to make the solution transparent."<br>
 > (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
 
-
 <!-- Introduction: --> 
 
 What is the probability of a disease or clinical condition given a positive test result? 
@@ -31,10 +30,16 @@ This seems a simple and fairly common question, yet doctors, patients and medica
 
 Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities, but have no problem to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
 
+<!-- riskyr logo: -->  
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+</a>
+<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
+
 `riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
 
-This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. 
-It proceeds in three steps:
+This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:
 
 1. We will first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' formula) remains opaque and is rightfully perceived as difficult.
 
@@ -489,6 +494,13 @@ We appreciate your feedback, comments, or questions.
 
 
 ## All `riskyr` Vignettes
+
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+<!-- Index of vignettes: -->
 
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
