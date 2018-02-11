@@ -1,17 +1,23 @@
 ## comp_accu.R | riskyr
-## 2018 02 09
+## 2018 02 11
 ## -----------------------------------------------
 ## Compute accuracy metrics
 ## based on only the 4 essential frequencies
 ## of freq (hi mi fa cr).
+## or 3 essential probabilities (prev, sens, spec)
 ## -----------------------------------------------
 ## Notes:
-
 ## Assumes that freq has been computed before.
+## -----------------------------------------------
+
+## (1) Compute all accuracy metrics (from freq)
+## (2) Accuracy metrics from probabilities
 
 ## -----------------------------------------------
 ## (1) Compute accuracy metrics for current
-## classification result.
+##     classification result.
+
+## (A) Compute all accuracy metrics from freq:
 
 #' Compute acccuracy of current classification results.
 #'
@@ -26,9 +32,9 @@
 #' \enumerate{
 #'
 #'    \item \code{acc}: Overall accuracy as the proportion (or probability)
-#'    of correctly classifying cases:
+#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 #'
-#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
@@ -197,7 +203,7 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 }
 
 ## -----------------------------------------------
-## (2) Apply to initialize accu (as a list):
+## (B) Apply to initialize accu (as a list):
 
 #' A list containing current accuracy information.
 #'
@@ -210,9 +216,9 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' \enumerate{
 #'
 #'    \item \code{acc}: Overall accuracy as the proportion (or probability)
-#'    of correctly classifying cases:
+#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 #'
-#'    \code{acc = n.correct/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
@@ -259,6 +265,7 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' accu                 # => shows current accuracy information
 #'
 #' @family lists containing current scenario information
+#' @family metrics
 #'
 #' @seealso
 #' The corresponding generating function \code{\link{comp_accu}};
@@ -275,11 +282,141 @@ accu <- comp_accu()
 ## Check:
 
 ## -----------------------------------------------
+## (2) Accuracy metrics from probabilities
+## -----------------------------------------------
+## (A) acc = overall accuracy
+
+#' Compute overall accuracy (acc) from probabilities.
+#'
+#' \code{comp_acc} computes overall accuracy \code{\link{acc}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_acc} uses probabilities (not frequencies) as
+#' inputs and returns a proportion (probability)
+#' without rounding.
+#'
+#' Definition: \code{acc} is the overall accuracy
+#' as the proportion (or probability)
+#' of correctly classifying cases or of \code{\link{dec.cor}} cases:
+#'
+#' \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#' Values range from 0 (no correct prediction) to 1 (perfect prediction).
+#'
+#' Importantly, correct decisions \code{\link{dec.cor}}
+#' are not necessariliy positive decisions \code{\link{dec.pos}}.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#'
+#' @return Overall accuracy \code{\link{acc}} as a proportion (probability).
+#' A warning is provided for NaN values.
+#'
+#' See \code{\link{comp_accu}} and \code{\link{accu}} for
+#' accuracy metrics based on frequencies.
+#'
+#' @examples
+#' # ways to work:
+#' comp_acc(.10, .200, .300)  # => acc = 0.29
+#' comp_acc(.50, .333, .666)  # => acc = 0.4995
+#'
+#' # watch out for vectors:
+#' prev.range <- seq(0, 1, by = .1)
+#' comp_acc(prev.range, .5, .5)  # => 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+#'
+#' # watch out for extreme values:
+#' comp_acc(1, 1, 1)  #  => 1
+#' comp_acc(1, 1, 0)  #  => 1
+#'
+#' comp_acc(1, 0, 1)  #  => 0
+#' comp_acc(1, 0, 0)  #  => 0
+#'
+#' comp_acc(0, 1, 1)  #  => 1
+#' comp_acc(0, 1, 0)  #  => 0
+#'
+#' comp_acc(0, 0, 1)  #  => 1
+#' comp_acc(0, 0, 0)  #  => 0
+#'
+#'
+#' @family functions computing probabilities
+#' @family metrics
+#'
+#' @seealso
+#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_complement}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
+
+comp_acc <- function(prev, sens, spec) {
+
+  acc <- NA # initialize
+
+  ## ToDo: Add condition
+  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+
+  ## Definition: acc = dec.cor / N  =  (hi + cr) / (hi + mi + fa + cr)
+
+  ## Computation:
+  hi <- prev * sens
+  mi <- prev * (1 - sens)
+  cr <- (1 - prev) * spec
+  fa <- (1 - prev) * (1 - spec)
+
+  acc <- (hi + cr) / (hi + mi + fa + cr)
+
+  ## Print a warning if NaN:
+  if (any(is.nan(acc))) {
+    warning("acc is NaN.")
+  }
+
+  return(acc)
+}
+
+## Check:
+{
+  # # Basics:
+  # comp_acc(1, 1, 1)  #  => 1
+  # comp_acc(1, 1, 0)  #  => 1
+  #
+  # comp_acc(1, 0, 1)  #  => 0
+  # comp_acc(1, 0, 0)  #  => 0
+  #
+  # comp_acc(0, 1, 1)  #  => 1
+  # comp_acc(0, 1, 0)  #  => 0
+  #
+  # comp_acc(0, 0, 1)  #  => 1
+  # comp_acc(0, 0, 0)  #  => 0
+  #
+  # # Vectors:
+  # prev.range <- seq(0, 1, by = .1)
+  # comp_acc(prev.range, .5, .5)
+}
+
+## for extreme values:
+## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+
+## -----------------------------------------------
 ## (+) ToDo:
 
-## - Provide separate functions for most
-##   common metrics (like acc, wacc, mcc)
-##   (to use for matrices of 3d planes...).
+## - Provide separate functions for other
+##   common metrics (like wacc, mcc)
+##   (for plotting curves and planes...).
 
 ## -----------------------------------------------
 ## eof.
