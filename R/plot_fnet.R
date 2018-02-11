@@ -284,7 +284,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Compute or collect all current frequencies:
+  ## (0) Compute or collect all current frequencies: ----------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -335,7 +335,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (1) Color of boxes:
+  ## (1) Color of boxes: ----------
 
   if ((length(col.boxes) == length(pal)) &&
       all.equal(col.boxes, pal)) {  # no change from default:
@@ -385,7 +385,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (all.equal(col.boxes, pal))...
 
 
-  ## (2) Text/labels in 7 or 10 boxes:
+  ## (2) Text/labels in 7 or 10 boxes: ----------
 
   if (by == "cd") {  # (a) by condition:
 
@@ -516,7 +516,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (3) Make matrix M:
+  ## (3) Make matrix M: ----------
+
   if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
     M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
@@ -530,7 +531,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   }  # if (by...)
 
 
-  ## (4) Arrow/edge labels:
+  ## (4) Arrow/edge labels: ----------
+
   ## ToDo: Use more informative arrow/edge labels:
   # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
@@ -761,7 +763,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (5) Distinguish between 4 different plot types (based on area setting):
+  ## (5) Distinguish 4 plot types (based on area setting): ----------
 
   ## 5a. Default case: Rectangles of same width and height (non-proportional)
   if (area == "no") {
@@ -1535,7 +1537,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
 
-  ## (6) Plot matrix M (from diagram package):
+  ## (6) Plot matrix M (from diagram package): ----------
+
   if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
     box.pos = c(1, 2, 4)  # 7 boxes
@@ -1582,7 +1585,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
-  ## (7) Title:
+  ## (7) Title: ----------
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
 
@@ -1602,7 +1605,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
 
-  ## (8) Margin text:
+  ## (8) Margin text: ----------
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
@@ -1634,7 +1637,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (9) Return what?
+  ## (9) Return what? : ----------
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing

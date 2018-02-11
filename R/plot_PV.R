@@ -77,13 +77,13 @@
 #'
 #'
 #' @seealso
-#' \code{\link{comp_popu}} computes the current population;
-#' \code{\link{popu}} contains the current population;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{txt}} for current text settings;
-#' \code{\link{pal}} for current color settings
+#' \code{\link{pal}} for current color settings.
 #'
 #' @export
 
