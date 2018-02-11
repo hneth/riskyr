@@ -6,14 +6,6 @@ output: html_document
 ---
 
 
-<!-- riskyr logo: -->  
-<a href = "https://github.com/hneth/riskyr">
-<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 175px; float: right; border:25;"/>
-</a>
-<!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
-<!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
-
-
 # The `riskyr` package
 
 A toolbox for rendering risk literacy more transparent. 
@@ -40,15 +32,22 @@ and many alternative views on the interplay between probabilities and frequencie
 providing immediate feedback on the effect of changes in parameters.  
 By providing many customization options, users can design and shape representations of risk-related information to suit their goals and needs.
 
+<!-- riskyr logo: -->  
+<a href = "https://github.com/hneth/riskyr">
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 175px; float: right; border:25;"/>
+</a>
+<!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
+
 
 ## Rationale
 
 We begin with some basic variables:
 
+-   the prevalence value `prev` of some condition
+-   the sensitivity value `sens` of some decision or diagnostic test (or probability of treatment success)
+-   the specificity value `spec` of this decision or diagnostic test (or probability of side effects)
 -   a population size `N`
--   a prevalence `prev` of some condition
--   a sensitivity `sens` of some test (or probability of treatment success)
--   a specificity `spec` of some test (or probability of side effects)
 
 and provide a variety of _perspectives_ on (and representations of) the _consequences_ of and _interplay_ between these variables:
 
@@ -119,7 +118,7 @@ Its primary designers and developers are
 [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and 
 [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), 
 who are researchers at the department of 
-[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de/) at the 
+[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the 
 [University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
@@ -137,14 +136,13 @@ We appreciate your feedback, comments, or questions.
 
 - For general inquiries, please email us at <contact.riskyr@gmail.com>. 
 
-
-### Reference
-
 <!-- uni.kn logo: -->  
 <!-- ![](./inst/pix/uniKn_logo.png) --> 
 <a href="http://www.uni-konstanz.de">
-<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:15;"/>
+<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 350px; float: right; border:20;"/>
 </a>
+
+### Reference
 
 To cite `riskyr` in derivations and publications use:
 
