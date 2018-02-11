@@ -264,6 +264,14 @@ Links to related Wikipedia articles:
 - [F1 score](https://en.wikipedia.org/wiki/F1_score) 
 
 
+## Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
 
 ## All `riskyr` Vignettes
 

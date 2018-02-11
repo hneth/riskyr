@@ -297,6 +297,15 @@ Representation facilitates reasoning: What natural frequencies are and what they
 _Cognition_, _84_, 343--352.
 
 
+## Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
+
 ## All `riskyr` Vignettes
 
 | Nr.  | Vignette | Content    |        

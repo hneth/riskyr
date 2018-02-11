@@ -122,7 +122,11 @@ Please email at <contact.riskyr@gmail.com>  in case you want to use, adapt, or s
 
 ### Contact
 
-We appreciate your feedback, comments, and questions. Please email us at <contact.riskyr@gmail.com>. 
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
 
 
 ### Reference

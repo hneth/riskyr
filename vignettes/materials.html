@@ -149,6 +149,15 @@ If a woman does not have breast cancer, the probability is 9.6% that she will al
 <li><p>The numeric value of a conditional probability can be computed with <em>Bayes’ formula</em> (see our <a href="user_guide.html">user guide</a>) or in terms of <em>natural frequencies</em>. For humans, the former is difficult, the latter simpler and more transparent.</p></li>
 </ul>
 </div>
+<div id="viewing-metrics-as-a-function-of-parameters" class="section level2">
+<h2>Viewing Metrics as a Function of Parameters</h2>
+<p>The <code>riskyr</code> data structures essentially describe networks of dependencies. This is best illustrated by the network diagram (see examples of <code>plot_fnet</code>). However, sometimes it is instructive to see the possible values of some parameter as a function of others.</p>
+<p><code>riskyr</code> provides 2 primary functions for this purpose:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>plot_curve</code> shows the curves of selected parameters as a function of the prevalene (with <code>prev</code> ranging from 0 to 1) for a given decision process or diagnostic test (i.e., given values of <code>sens</code> and <code>spec</code>).</p></li>
+<li><p><code>plot_plane</code> shows a plane for a selected parameter as a function of sensitivity and specificity (with <code>sens</code> and <code>spec</code> both ranging from 0 to 1) for a given prevalence <code>prev</code>.</p></li>
+</ol>
+</div>
 <div id="instructional-approaches" class="section level2">
 <h2>Instructional Approaches</h2>
 <p>Contrast 3 possible ways to convey the same information:</p>
@@ -189,6 +198,14 @@ Start with network diagram, explain frequencies as nodes and probabilities as ed
 <li><p>Kurzenhäuser, S., &amp; Hoffrage, U. (2002). Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. <em>Medical Teacher</em>, <em>24</em>, 516–521.</p></li>
 <li><p>Kurz-Milcke, E., Gigerenzer, G., &amp; Martignon, L. (2008). Transparency in risk communication. <em>Annals of the New York Academy of Sciences</em>, <em>1128</em>, 18–28.</p></li>
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
+</ul>
+</div>
+<div id="contact" class="section level2">
+<h2>Contact</h2>
+<p>We appreciate your feedback, comments, or questions.</p>
+<ul>
+<li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
+<li><p>For general inquiries, please email us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a>.</p></li>
 </ul>
 </div>
 <div id="all-riskyr-vignettes" class="section level2">

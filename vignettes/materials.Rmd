@@ -84,6 +84,21 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 - The numeric value of a conditional probability can be computed with _Bayes' formula_ (see our [user guide](user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
 
+## Viewing Metrics as a Function of Parameters
+
+The `riskyr` data structures essentially describe networks of dependencies. 
+This is best illustrated by the network diagram (see examples of `plot_fnet`). 
+However, sometimes it is instructive to see the possible values of some parameter as a function of others.
+
+`riskyr` provides 2 primary functions for this purpose:
+
+1. `plot_curve` shows the curves of selected parameters as a function of the prevalene (with `prev` ranging from 0 to 1) 
+for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`). 
+
+2. `plot_plane` shows a plane for a selected parameter as a function of sensitivity and specificity 
+(with `sens` and `spec` both ranging from 0 to 1) for a given prevalence `prev`. 
+
+
 
 ## Instructional Approaches
 
@@ -169,6 +184,16 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
 _Journal of Experimental Psychology: General_, _130_, 380--400.
+
+
+## Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
 
 
 ## All `riskyr` Vignettes
