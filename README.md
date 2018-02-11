@@ -103,18 +103,26 @@ Things currently being implemented:
 
 ## About
 
+`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. 
+The current version (`riskyr` 0.0.0.916, as of Feb. 8, 2018) is still under development. 
+Its primary designers and developers are 
+[Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
+[Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and 
+[Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), 
+who are researchers at the department of 
+[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de/) at the 
+[University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
+
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
 [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
 [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
 
-Please email at [contact.riskyr@gmail.com](contact.riskyr@gmail.com) 
-in case you want to use, adapt, or share this software.
+Please email at <contact.riskyr@gmail.com>  in case you want to use, adapt, or share this software.
 
 
 ### Contact
 
-We appreciate your feedback, comments, and questions. 
-Please email us at [contact.riskyr@gmail.com](contact.riskyr@gmail.com). 
+We appreciate your feedback, comments, and questions. Please email us at <contact.riskyr@gmail.com>. 
 
 
 ### Reference
