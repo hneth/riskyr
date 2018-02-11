@@ -131,20 +131,26 @@ We appreciate your feedback, comments, or questions.
 
 ### Reference
 
-In APA format:
+To cite `riskyr` in derivations and publications use:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
-`riskyr`: A toolbox for rendering risk literacy more transparent [Computer software].  
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.916, Feb. 8, 2018).  
+  `riskyr`: A toolbox for rendering risk literacy more transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany.  
+  Computer software (R package version 0.0.0.916, Feb. 8, 2018).  
+  Retrieved from <https://github.com/hneth/riskyr>.  
 
-As BibTeX reference: 
+A BibTeX entry for LaTeX users is: 
 
-    @manual{riskyr,
-      title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
-      author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
-      year = 2018,
-      note = {R package version 0.0.0.916, Feb. 8, 2018},
-      url = {https://github.com/hneth/riskyr}
-    }
+    @Manual{,
+      title = {riskyr: A toolbox for rendering risk literacy more transparent},
+      author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
+      year = {2018},
+      organization = {Social Psychology and Decision Sciences, University of Konstanz},
+      address = {Konstanz, Germany},
+      note = {R package (version 0.0.0.916, Feb. 8, 2018)},
+      url = {https://github.com/hneth/riskyr},
+      }    
+    
+Call `citation("riskyr")` in R to view this information.
 
 <!-- eof -->
