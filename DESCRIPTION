@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.916
+Version: 0.0.0.917
 Date: 2018-02-10
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"),
@@ -45,6 +45,7 @@ Collate: 'comp_util.R'
          'plot_tree.R'
          'plot_fnet.R'
          'plot_PV.R'
+         'plot_curve.R' 
          'plot_PV3d.R'
          'data.R'
          'start_riskyr.R'
