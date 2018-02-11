@@ -107,12 +107,14 @@ The `riskyr` package is open source software written in [R](https://www.r-projec
 [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
 [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
 
-Please [contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share this software.
+Please email at [contact.riskyr@gmail.com](contact.riskyr@gmail.com) 
+in case you want to use, adapt, or share this software.
 
 
 ### Contact
 
-In case of comments or questions, please contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de). 
+We appreciate your feedback, comments, and questions. 
+Please email us at [contact.riskyr@gmail.com](contact.riskyr@gmail.com). 
 
 
 ### Reference
