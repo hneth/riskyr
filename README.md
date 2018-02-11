@@ -106,7 +106,7 @@ Things currently being implemented:
 
 - enriched data set of example scenarios 
 - unified options for plotting functions
-- additional `riskyr` curves and planes
+- additional curves and planes
 
 
 ## About
@@ -164,6 +164,6 @@ A BibTeX entry for LaTeX users is:
       url = {https://github.com/hneth/riskyr},
       }    
     
-Call `citation("riskyr")` in R to view this information.
+Calling `citation("riskyr")` in the package also displays this information.
 
 <!-- eof -->
