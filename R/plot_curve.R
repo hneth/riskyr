@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 02 11
+## 2018 02 12
 ## -----------------------------------------------
 ## plot_curve: A generalization of plot_PV
 ## that plots different DVs (e.g., PPV, NPV, acc curves)
