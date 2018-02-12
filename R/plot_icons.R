@@ -270,15 +270,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
 ) {
 
   ## Currently fixed parameters:
-<<<<<<< HEAD
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed
   ylim = c(0, 1)
   cex = icon.size      # if NULL, cex will be calculated on demand
-=======
-  xlim = c(0, 1)  # xlim should currently remain fixed
-  ylim = c(0, 1)  # ylim should currently remain fixed
-  cex = NULL      # icon size; if NULL, cex will be calculated on demand
->>>>>>> upstream/master
+
   # #' @param cex Size of the icons (calculated by default).
 
   ## Reconstruct logical values from type:
