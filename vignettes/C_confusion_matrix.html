@@ -281,7 +281,7 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <h3>B. General metrics: Measures of accuracy</h3>
 <p>In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. <code>riskyr</code> currently computes four general metrics (which are contained in <code>accu</code>):</p>
 <div id="overall-accuracy-acc" class="section level4">
-<h4>1. Overall accuracy (<code>acc</code>)</h4>
+<h4>1. Overall accuracy <code>acc</code></h4>
 <p>Overall accuracy (<code>acc</code>) divides the number of correct decisions (i.e., all <code>dec.cor</code> cases or the “&quot; diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
 <blockquote>
 <p>Accuracy <code>acc</code> := Proportion or percentage of cases correctly classified.</p>
@@ -295,7 +295,7 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 \]</span></p>
 </div>
 <div id="weighted-accuracy-wacc" class="section level4">
-<h4>2. Weighted accuracy (<code>wacc</code>)</h4>
+<h4>2. Weighted accuracy <code>wacc</code></h4>
 <p>Whereas overall accuracy (<code>acc</code>) does not discriminate between different types of correct and incorrect cases, weighted accuracy (<code>wacc</code>) allows for taking into account the importance of errors. Essentially, <code>wacc</code> combines the sensitivity (<code>sens</code>) and specificity (<code>spec</code>), but multiplies <code>sens</code> by a weighting parameter <code>w</code> (ranging from 0 to 1) and <code>spec</code> by its complement <code>(1 - w)</code>:</p>
 <blockquote>
 <p>Weighted accuracy <code>wacc</code> := the average of sensitivity (<code>sens</code>) weighted by <code>w</code>, and specificity (<code>spec</code>), weighted by <code>(1 - w)</code>.</p>

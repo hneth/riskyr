@@ -184,7 +184,7 @@ $$
 
 In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. `riskyr` currently computes four general metrics (which are contained in `accu`):
 
-#### 1. Overall accuracy (`acc`)
+#### 1. Overall accuracy `acc` 
 
 Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec.cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
 
@@ -200,7 +200,7 @@ $$
 $$
 
 
-#### 2. Weighted accuracy (`wacc`)
+#### 2. Weighted accuracy `wacc`
 
 Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
 
