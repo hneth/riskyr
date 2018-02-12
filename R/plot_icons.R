@@ -137,9 +137,13 @@
 #' @param transparency Specifies the transparency for overlapping icons
 #' (not \code{type} "array" and "shuffledarray").
 #'
+#' @param icon.size Manually specifies the size of the icons via \code{cex}
+#' (calculated dynamically by default.)
+#'
 #' @param title.lbl Text label to set plot title.
 #'
 #' @param type.lbls Text labels for icon types to be displayed in legend.
+#
 #'
 #' @param ... Additional parameters for \code{plot}.
 #'
@@ -242,7 +246,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                            icon.border.col = grey(.10, .50),  # border color of icons
                            icon.border.lwd = 1.5, # line width of icons
                            transparency = .50,
-                           # one can also enter a full vector of length N.
+                           icon.size = NULL,
                            block.d = NULL,  # distance between blocks (where applicable).
                            border.d = 0.1,  # distance of icons to border.
 
@@ -266,9 +270,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
 ) {
 
   ## Currently fixed parameters:
-  xlim = c(0, 1)  # xlim should currently remain fixed
-  ylim = c(0, 1)  # ylim should currently remain fixed
-  cex = NULL      # icon size; if NULL, cex will be calculated on demand
+  xlim = c(0, 1)  # xlim and ylim should currently remain fixed
+  ylim = c(0, 1)
+  cex = icon.size      # if NULL, cex will be calculated on demand
+
   # #' @param cex Size of the icons (calculated by default).
 
   ## Reconstruct logical values from type:
