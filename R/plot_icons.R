@@ -250,7 +250,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
                            # labelling:
                            title.lbl = txt$scen.lbl,
-                           type.lbls = txt[c("sdt.hi.lbl", "sdt.mi.lbl", "sdt.fa.lbl", "sdt.cr.lbl")],
+                           type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
 
                            # (currently) fixed parameters:
                            xlim = c(0, 1),
