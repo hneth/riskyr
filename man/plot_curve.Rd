@@ -2,7 +2,8 @@
 % Please edit documentation in R/plot_curve.R
 \name{plot_curve}
 \alias{plot_curve}
-\title{Plot curves of selected values as a function of prevalence.}
+\title{Plot curves of selected values (e.g., PPV or NPV)
+as a function of prevalence.}
 \usage{
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, what = c("prev", "PPV", "NPV"), what.col = pal,
