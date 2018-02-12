@@ -1,5 +1,5 @@
 ## plot_PV3d.R | riskyr
-## 2018 02 09
+## 2018 02 11
 ## -----------------------------------------------
 ## Plot a 3d-plane of either PPV or NPV
 ## as a function of both sens and spec (given prev)
@@ -106,6 +106,12 @@
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{txt}} for current text settings;
 #' \code{\link{pal}} for current color settings
+#'
+#' @importFrom graphics persp
+#' @importFrom graphics points
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom grDevices trans3d
 #'
 #' @export
 

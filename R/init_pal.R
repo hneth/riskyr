@@ -174,6 +174,13 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information.
 #'
+#' @importFrom grDevices adjustcolor
+#' @importFrom grDevices col2rgb
+#' @importFrom grDevices grey
+#' @importFrom grDevices rgb
+#'
+#' @importFrom stats setNames
+#'
 #' @export
 #'
 

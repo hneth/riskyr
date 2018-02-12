@@ -138,6 +138,9 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # prevalence in target p
 #' \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 #'
+#' @importFrom stats runif
+#' @importFrom stats setNames
+#'
 #' @export
 #'
 

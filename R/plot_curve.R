@@ -101,7 +101,6 @@
 #'
 #' @family visualization functions
 #'
-#'
 #' @seealso
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
@@ -110,6 +109,18 @@
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{txt}} for current text settings;
 #' \code{\link{pal}} for current color settings.
+#'
+#' @importFrom graphics par
+#' @importFrom graphics plot
+#' @importFrom graphics axis
+#' @importFrom graphics grid
+#' @importFrom graphics abline
+#' @importFrom graphics curve
+#' @importFrom graphics points
+#' @importFrom graphics text
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom graphics legend
 #'
 #' @export
 
@@ -157,10 +168,19 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   }
 
   ## (1) Set some (currently fixed) parameters: ----------
+  x <- NULL  # "nulling out" to avoid NOTE (no visible binding for global variable ‘x’) in R CMD check!
 
+  ## Point appearance:
+  pt.pch <- 21    # pch symbol of points
+  pt.cex <- 1.6   # cex scaling of points
+  pt.lwd <- 1.6   # lwd of point borders
+
+  ## Text appearance:
+  lbl.cex <- .80  # size of text labels
+
+  ## Colors:
   col.axes <- grey(.10, alpha = .99)  # axes
-  col.bord <- grey(.10, alpha = .50)  # borders (e.g., of points)
-  cex.lbl <- .8                       # size of text labels
+  col.bord <- grey(.10, alpha = .50)  # borders (also of points)
 
   if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }  # different x.min values for different scales
   if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .080 }
@@ -198,13 +218,13 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   }
 
   ## (c) Axes (on 4 sides):
-  axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex.lbl, las = 1,
+  axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = lbl.cex, las = 1,
        pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at bottom
-  axis(side = 1, at = x.seq, labels = FALSE, cex.axis = cex.lbl, las = 1,
+  axis(side = 1, at = x.seq, labels = FALSE, cex.axis = lbl.cex, las = 1,
        pos = 1, tck = -.01, col.axis = col.axes, col.ticks = col.axes) # x at top
-  axis(side = 2, at = y.seq, labels = y.lbl, cex.axis = cex.lbl, las = 1,
+  axis(side = 2, at = y.seq, labels = y.lbl, cex.axis = lbl.cex, las = 1,
        pos = x.min, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at left
-  axis(side = 4, at = y.seq, labels = y.lbl, cex.axis = cex.lbl, las = 1,
+  axis(side = 4, at = y.seq, labels = y.lbl, cex.axis = lbl.cex, las = 1,
        pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at right
 
   ## (d) Grid:
@@ -235,9 +255,9 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     if (show.points) {
 
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y-pos at v.raise:
-        points(x = prev, y = 0 + v.raise, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.prev)  # prev point
+        points(x = prev, y = 0 + v.raise, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.prev)  # prev point
       } else { # y-pos at bottom (y = 0):
-        points(x = prev, y = 0,           pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.prev)  # prev point
+        points(x = prev, y = 0,           pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.prev)  # prev point
       }
 
       ## 3. label:
@@ -246,18 +266,18 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
         if ((prev < .50) | !(prev > 1 - h.shift)) {
           text(x = prev + h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
+               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on right
         } else {
           text(x = prev - h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
+               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on left+
         }
       } else { # y at bottom (y = 0):
         if ((prev < .50) | !(prev > 1 - h.shift)) {
           text(x = prev + h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
+               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on right
         } else {
           text(x = prev - h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
+               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on left+
         }
       }
 
@@ -277,22 +297,22 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     legend.ltys <- c(legend.ltys, lty.ppv)  # add PPV line type
 
     ## 1. curve:
-    curve(expr = comp_PPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.ppv, lwd = 2, col = col.ppv)  # PPV curve
+    curve(expr = comp_PPV(prev = x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.ppv, lwd = 2, col = col.ppv)  # PPV curve
 
     ## 2. point:
     if (show.points) {
 
-      points(x = prev, y = cur.PPV, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.ppv)  # PPV point
+      points(x = prev, y = cur.PPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppv)  # PPV point
 
       ## 3. label:
       PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV), "%")  # PPV label
 
       if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on right
+             labels = PPV.lbl, col = col.ppv, cex = lbl.cex) # on right
       } else {
         text(x = prev - h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on left+
+             labels = PPV.lbl, col = col.ppv, cex = lbl.cex) # on left+
       }
 
     } # if (show.points)...
@@ -311,22 +331,22 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     legend.ltys <- c(legend.ltys, lty.npv)  # add NPV line type
 
     ## 1. curve:
-    curve(expr = comp_NPV(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.npv, lwd = 2, col = col.npv)  # NPV curve
+    curve(expr = comp_NPV(prev = x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.npv, lwd = 2, col = col.npv)  # NPV curve
 
     ## 2. point:
     if (show.points) {
 
-      points(x = prev, y = cur.NPV, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.npv)  # NPV point
+      points(x = prev, y = cur.NPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.npv)  # NPV point
 
       ## 3. label:
       NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV), "%")  # NPV label
 
       if (cur.NPV > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.NPV + v.shift,
-             labels = NPV.lbl, col = col.npv, cex = cex.lbl) # on right+
+             labels = NPV.lbl, col = col.npv, cex = lbl.cex) # on right+
       } else {
         text(x = prev - h.shift, y = cur.NPV - v.shift,
-             labels = NPV.lbl, col = col.npv, cex = cex.lbl) # on left-
+             labels = NPV.lbl, col = col.npv, cex = lbl.cex) # on left-
       }
 
     } # if (show.points)...
@@ -346,22 +366,22 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     legend.ltys <- c(legend.ltys, lty.ppod)  # add NPV line type
 
     ## 1. curve:
-    curve(expr = comp_ppod(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.ppod, lwd = 2, col = col.ppod)  # ppod curve
+    curve(expr = comp_ppod(prev = x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.ppod, lwd = 2, col = col.ppod)  # ppod curve
 
     ## 2. point:
     if (show.points) {
 
-      points(x = prev, y = cur.ppod, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.ppod)  # ppod point
+      points(x = prev, y = cur.ppod, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppod)  # ppod point
 
       ## 3. label:
       ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod), "%")  # ppod label
 
       if (cur.ppod > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.ppod + v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = cex.lbl) # on right+
+             labels = ppod.lbl, col = col.ppod, cex = lbl.cex) # on right+
       } else {
         text(x = prev - h.shift, y = cur.ppod - v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = cex.lbl) # on left-
+             labels = ppod.lbl, col = col.ppod, cex = lbl.cex) # on left-
       }
 
     } # if (show.points)...
@@ -381,22 +401,22 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     legend.ltys <- c(legend.ltys, lty.acc)  # add acc line type
 
     ## 1. curve:
-    curve(expr = comp_acc(x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.acc, lwd = 2, col = col.acc)  # acc curve
+    curve(expr = comp_acc(prev = x, sens, spec), from = x.min, to = 1, add = TRUE, lty = lty.acc, lwd = 2, col = col.acc)  # acc curve
 
     ## 2. point:
     if (show.points) {
 
-      points(x = prev, y = cur.acc, pch = 21, cex = 2, lwd = 1.5, col = col.bord, bg = col.acc)  # acc point
+      points(x = prev, y = cur.acc, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.acc)  # acc point
 
       ## 3. label:
       acc.lbl <- paste0("acc = ", as_pc(cur.acc), "%")  # acc label
 
       if (cur.acc > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.acc + v.shift,
-             labels = acc.lbl, col = col.acc, cex = cex.lbl) # on right+
+             labels = acc.lbl, col = col.acc, cex = lbl.cex) # on right+
       } else {
         text(x = prev - h.shift, y = cur.acc - v.shift,
-             labels = acc.lbl, col = col.acc, cex = cex.lbl) # on left-
+             labels = acc.lbl, col = col.acc, cex = lbl.cex) # on left-
       }
 
     } # if (show.points)...

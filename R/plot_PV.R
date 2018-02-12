@@ -159,6 +159,7 @@ plot_PV <- function(prev = num$prev,             # probabilities (3 essential, 2
 
 
   ## Parameters:
+  x <- NULL  # "nulling out" to avoid NOTE (no visible binding for global variable ‘x’) in R CMD check!
   col.prev <- grey(.50, alpha = .99)  # prevalence # WAS: col.green.2
   col.axes <- grey(.10, alpha = .99)  # axes
   col.bord <- grey(.10, alpha = .50)  # borders (e.g., of points)
