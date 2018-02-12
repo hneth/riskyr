@@ -4,9 +4,7 @@
 \name{popu}
 \alias{popu}
 \title{A population table based on current frequencies.}
-
-\format{An object of class \code{data.frame} with 27 rows and 3 columns.}
-
+\format{An object of class \code{data.frame} with 12 rows and 3 columns.}
 \usage{
 popu
 }
