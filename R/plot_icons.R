@@ -1,8 +1,8 @@
 ## plot_icons.R | riskyr
-## 2018 02 10
+## 2018 02 12
 ## -----------------------------------------------
-##  This function plots an icon array in many ways,
-##  dependent on population size
+##  This function plots an icon array in a variety
+##  of ways, dependent on population size.
 ## -----------------------------------------------
 
 #' Plot an icon array of a population.
@@ -186,6 +186,16 @@
 #'
 #' @family visualization functions
 #'
+#' @importFrom graphics par
+#' @importFrom graphics plot
+#' @importFrom graphics axis
+#' @importFrom graphics grid
+#' @importFrom graphics points
+#' @importFrom graphics text
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom graphics legend
+#'
 #' @export
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -260,9 +270,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
 ) {
 
   ## Currently fixed parameters:
+<<<<<<< HEAD
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed
   ylim = c(0, 1)
   cex = icon.size      # if NULL, cex will be calculated on demand
+=======
+  xlim = c(0, 1)  # xlim should currently remain fixed
+  ylim = c(0, 1)  # ylim should currently remain fixed
+  cex = NULL      # icon size; if NULL, cex will be calculated on demand
+>>>>>>> upstream/master
   # #' @param cex Size of the icons (calculated by default).
 
   ## Reconstruct logical values from type:
