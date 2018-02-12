@@ -439,6 +439,8 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block.d = 0
            title.lbl = "Mammography screening")
 ```
 
+Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.) 
+
 
 #### Network plot
 
