@@ -65,7 +65,8 @@ specificity \code{\link{spec}} (or
 false alarm rate \code{\link{fart}}).
 }
 \details{
-\code{plot_curve} is a generalization of \code{\link{plot_PV}}
+\code{plot_curve} is a generalization of
+\code{plot_PV} (see legacy code)
 that allows for additional dependent values.
 }
 \examples{
@@ -100,8 +101,7 @@ plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_PV}}, \code{\link{plot_fnet}},
+Other visualization functions: \code{\link{plot_fnet}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
   \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

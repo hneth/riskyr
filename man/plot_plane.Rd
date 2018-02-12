@@ -68,6 +68,11 @@ a decision's sensitivity \code{\link{sens}} and
 specificity value \code{\link{spec}}
 for a given prevalence (\code{\link{prev}}).
 }
+\details{
+\code{plot_plane} is a generalization of
+\code{plot_PV3d} (see legacy code)
+that allows for additional dependent values.
+}
 \examples{
 # Basics:
 plot_plane()  # => current defaults (what = "PPV")
@@ -94,8 +99,7 @@ plot_plane(title.lbl = "Testing plot options")
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings
 
-Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_PV}}, \code{\link{plot_curve}},
+Other visualization functions: \code{\link{plot_curve}},
   \code{\link{plot_fnet}}, \code{\link{plot_icons}},
   \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
 }
