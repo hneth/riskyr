@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 02 10
+## 2018 02 12
 ## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
@@ -157,10 +157,14 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' a corresponding decision
 #' (also encoded as \code{TRUE} = positive or \code{FALSE} = negative),
 #' and its classification (in SDT terms) as either
-#' true positive (an individual hit),
-#' false negative (an individual miss),
-#' false positive (an individual false alarm), or
-#' true negative (an individual correct rejection).
+#' true positive (an individual hit \code{\link{hi}}),
+#' false negative (an individual miss \code{\link{mi}}),
+#' false positive (an individual false alarm \code{\link{fa}}), or
+#' true negative (an individual correct rejection \code{\link{cr}}).
+#'
+#' #' \code{popu} is initialized to \code{NULL}
+#' and needs to be computed by calling \code{\link{comp_popu}}
+#' with current parameter settings.
 #'
 #' \code{comp_popu} uses the current text information
 #' contained in \code{\link{txt}} to define
@@ -177,6 +181,7 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' encoded as ordered factors
 #' (with 2, 2, and 4 levels, respectively).
 #'
+#'
 #' @examples
 #' popu <- comp_popu()  # => initializes popu with current values of freq and txt
 #' dim(popu)            # => N x 3
@@ -190,10 +195,11 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #'
 #' @export
 
-popu <- comp_popu()
-# popu
+popu <- NULL        # initialize
+# popu <- comp_popu() # set to current global parameters
 
 ## Check:
+# popu
 # dim(popu)
 # head(popu)
 # tail(popu)

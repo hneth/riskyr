@@ -4,7 +4,7 @@
 \name{popu}
 \alias{popu}
 \title{A population table based on current frequencies.}
-\format{An object of class \code{data.frame} with 37 rows and 3 columns.}
+\format{An object of class \code{NULL} of length 0.}
 \usage{
 popu
 }
@@ -25,12 +25,16 @@ condition (\code{TRUE} or \code{FALSE}),
 a corresponding decision
 (also encoded as \code{TRUE} = positive or \code{FALSE} = negative),
 and its classification (in SDT terms) as either
-true positive (an individual hit),
-false negative (an individual miss),
-false positive (an individual false alarm), or
-true negative (an individual correct rejection).
+true positive (an individual hit \code{\link{hi}}),
+false negative (an individual miss \code{\link{mi}}),
+false positive (an individual false alarm \code{\link{fa}}), or
+true negative (an individual correct rejection \code{\link{cr}}).
 }
 \details{
+#' \code{popu} is initialized to \code{NULL}
+and needs to be computed by calling \code{\link{comp_popu}}
+with current parameter settings.
+
 \code{comp_popu} uses the current text information
 contained in \code{\link{txt}} to define
 the labels of conditions, decisions, and
