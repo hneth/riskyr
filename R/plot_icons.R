@@ -137,7 +137,7 @@
 #' @param transparency Specifies the transparency for overlapping icons
 #' (not \code{type} "array" and "shuffledarray").
 #'
-#' @param icon.size Manually specifies the size of the icons via \code{\link{cex}}
+#' @param icon.size Manually specifies the size of the icons via \code{cex}
 #' (calculated dynamically by default.)
 #'
 #' @param title.lbl Text label to set plot title.
@@ -255,11 +255,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
                            # labelling:
                            title.lbl = txt$scen.lbl,
                            type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-
-                           # (currently) fixed parameters:
-                           xlim = c(0, 1),
-                           ylim = c(0, 1),  # xlim and ylim should currently remain fixed!
-                           cex = NULL,  # if NULL, cex will be calculated on demand!
 
                            ...  #additional parameters for plot()
 ) {
