@@ -219,6 +219,22 @@ We appreciate your feedback, comments, or questions.
 - For general inquiries, please email us at <contact.riskyr@gmail.com>. 
 
 
+## The `riskyr` Logo
+
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+The `riskyr` logo (showing three facets of a dice) also represents its functionality in a variety of ways:  
+
+1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities.  
+(See Stevens, 2013, for aleatoric devices.)  
+
+2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
+
+3. The three facets can be counted as the three steps of (a) organizing information, (b) translating between representational formats, and (c) visualising relationships between variables.  
+
 
 ## All `riskyr` Vignettes
 
