@@ -245,6 +245,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
                            fill.array = "left",
                            fill.blocks = "rowwise",
 
+                           show.accu = TRUE, # Option for showing current accuracy metrics.
+                           w.acc = 0.50,
+
                            # labelling:
                            title.lbl = txt$scen.lbl,
                            type.lbls = txt[c("sdt.hi.lbl", "sdt.mi.lbl", "sdt.fa.lbl", "sdt.cr.lbl")],
