@@ -6,7 +6,6 @@
 .Rbuildignore
 .DS_Store
 data-raw
-stuff
 test_loadingPackage.R
 test_cex_private
 test.pdf

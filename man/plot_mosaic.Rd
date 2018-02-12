@@ -50,6 +50,12 @@ Default: \code{show.accu = TRUE}.}
 \item{w.acc}{Weigthing parameter \code{w} used to compute
 weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 Default: \code{w.acc = .50}.}
+
+\item{title.lbl}{Text label for current plot title.
+Default: \code{title.lbl = txt$scen.lbl}.}
+
+\item{col.sdt}{Colors for cases of 4 essential frequencies.
+Default: \code{col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.}
 }
 \description{
 \code{plot_mosaic} draws a mosaic plot that
@@ -98,6 +104,7 @@ plot_mosaic(show.accu = FALSE)              # => no accuracy info.
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_PV}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_tree}}
+  \code{\link{plot_PV}}, \code{\link{plot_curve}},
+  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

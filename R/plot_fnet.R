@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 02 10
+## 2018 02 11
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -137,13 +137,40 @@
 #' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 #' Default: \code{w.acc = .50}.
 #'
-#'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param title.lbl Text label used as plot title.
+#' @param title.lbl Text label for current plot title.
+#' Default: \code{title.lbl = txt$scen.lbl}.
+#'
+#' @param popu.lbl Text label for current population \code{\link{popu}}.
+#'
+#' @param cond.true.lbl Text label for current cases of \code{\link{cond.true}}.
+#' @param cond.false.lbl Text label for current cases of \code{\link{cond.false}}.
+#'
+#' @param dec.pos.lbl Text label for current cases of \code{\link{dec.pos}}.
+#' @param dec.neg.lbl Text label for current cases of \code{\link{dec.neg}}.
+#'
+#' @param hi.lbl Text label for hits \code{\link{hi}}.
+#' @param mi.lbl Text label for misses \code{\link{mi}}.
+#' @param fa.lbl Text label for false alarms \code{\link{fa}}.
+#' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
+#'
+#' @param col.txt Color for text labels (in boxes).
+#' @param box.cex Scaling factor for text (in boxes).
+#' Default: \code{box.cex = .90}.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
+#' @param col.border Color of borders.
+#' Default: \code{col.border = grey(.33, alpha = .99)}.
+#'
+#' @param lwd Width of arrows.
+#' @param box.lwd Width of boxes.
+#'
+#' @param col.shadow Color of box shadows.
+#' Default: \code{col.shadow = grey(.11, alpha = .99)}.
+#' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
+#' Default: \code{cex.shadow = 0}.
 #'
 #'
 #' @return Nothing (NULL).
@@ -172,8 +199,8 @@
 #' # Perspective options:
 #' plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
 #' plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
-#' plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
-#' plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
+#' plot_fnet(by = "cddc")  # => 3. Network diagram (1st by cond, 2nd by dec) (default)
+#' plot_fnet(by = "dccd")  # => 4. Network diagram (1st by dec, 2nd by cond)
 #'
 #' # Area options:
 #' plot_fnet(area = "sq")  # => (default)
@@ -188,19 +215,23 @@
 #' plot_fnet(show.accu = FALSE)              # => no accuracy info.
 #'
 #' # Rounding:
-#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)   # => mi = 0
-#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE)  # => mi = 0.3
+#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
+#'           p.lbl = "num", round = TRUE)    # => mi = 0
+#' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
+#'           p.lbl = "num", round = FALSE)   # => mi = 0.3
 #'
 #' # Combining perspectives, areas, and label options:
-#' plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-#' plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-#' plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-#' plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+#' plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
+#' plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
+#' plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + mix names and numbers
+#' plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
 #'
 #' # Custom colors and shadows:
 #' plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-#' plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-#' plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+#' plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4",
+#'           col.shadow = "steelblue4", cex.shadow = .008)
+#' plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
+#'           col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 #'
 #'
 #' @family visualization functions
@@ -215,6 +246,10 @@
 #' \code{\link{pal}} contains current color settings;
 #' \code{\link{txt}} contains current text settings;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+#'
+#' @importFrom diagram plotmat
+#' @importFrom graphics title
+#' @importFrom graphics mtext
 #'
 #' @export
 
@@ -231,25 +266,23 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       show.accu = TRUE,  # compute and show accuracy metrics
                       w.acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
-                      title.lbl = txt$scen.lbl,     # custom text labels
+                      title.lbl = txt$scen.lbl,
                       popu.lbl = txt$popu.lbl,
-                      cond.lbl = txt$cond.lbl,      # condition labels
+                      ## Condition labels:
                       cond.true.lbl = txt$cond.true.lbl,
                       cond.false.lbl = txt$cond.false.lbl,
-                      dec.lbl = txt$dec.lbl,        # decision labels
+                      ## Decision labels:
                       dec.pos.lbl = txt$dec.pos.lbl,
                       dec.neg.lbl = txt$dec.neg.lbl,
-                      hi.lbl = txt$hi.lbl,  # SDT combinations
+                      ## SDT combinations:
+                      hi.lbl = txt$hi.lbl,
                       mi.lbl = txt$mi.lbl,
                       fa.lbl = txt$fa.lbl,
                       cr.lbl = txt$cr.lbl,
-                      box.cex = .85,                # relative size of text in boxes
-                      ## Colors:
-                      col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
-                      # col.N = col.sand.light,
-                      # col.true = col.N, col.false = col.N,
-                      # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                      col.txt = grey(.01, alpha = .99),     # black
+                      ## Box settings:
+                      col.txt = grey(.01, alpha = .99),  # black
+                      box.cex = .85,                     # relative text size
+                      col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
                       col.border = grey(.33, alpha = .99),  # grey
                       ## Widths of arrows and box borders:
                       lwd = 1.5,      # width of arrows
@@ -259,7 +292,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Compute or collect all current frequencies:
+  ## (0) Compute or collect all current frequencies: ----------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -310,7 +343,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (1) Color of boxes:
+  ## (1) Color of boxes: ----------
 
   if ((length(col.boxes) == length(pal)) &&
       all.equal(col.boxes, pal)) {  # no change from default:
@@ -360,7 +393,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (all.equal(col.boxes, pal))...
 
 
-  ## (2) Text/labels in 7 or 10 boxes:
+  ## (2) Text/labels in 7 or 10 boxes: ----------
 
   if (by == "cd") {  # (a) by condition:
 
@@ -491,7 +524,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (3) Make matrix M:
+  ## (3) Make matrix M: ----------
+
   if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
     M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
@@ -505,7 +539,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   }  # if (by...)
 
 
-  ## (4) Arrow/edge labels:
+  ## (4) Arrow/edge labels: ----------
+
   ## ToDo: Use more informative arrow/edge labels:
   # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
@@ -736,7 +771,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (5) Distinguish between 4 different plot types (based on area setting):
+  ## (5) Distinguish 4 plot types (based on area setting): ----------
 
   ## 5a. Default case: Rectangles of same width and height (non-proportional)
   if (area == "no") {
@@ -1510,7 +1545,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
 
-  ## (6) Plot matrix M (from diagram package):
+  ## (6) Plot matrix M (from diagram package): ----------
+
   if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
     box.pos = c(1, 2, 4)  # 7 boxes
@@ -1557,7 +1593,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
-  ## (7) Title:
+  ## (7) Title: ----------
+
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
 
@@ -1577,7 +1614,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
 
-  ## (8) Margin text:
+  ## (8) Margin text: ----------
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
@@ -1609,7 +1646,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (9) Return what?
+  ## (9) Return what? : ----------
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing

@@ -70,15 +70,16 @@ plot_PV(title.lbl = "", col.ppv = "firebrick3", col.npv = "steelblue3")
 
 }
 \seealso{
-\code{\link{comp_popu}} computes the current population;
-\code{\link{popu}} contains the current population;
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{prob}} contains current probability information;
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{txt}} for current text settings;
-\code{\link{pal}} for current color settings
+\code{\link{pal}} for current color settings.
 
 Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

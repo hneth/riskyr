@@ -85,6 +85,12 @@
 #' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 #' Default: \code{w.acc = .50}.
 #'
+#' @param title.lbl Text label for current plot title.
+#' Default: \code{title.lbl = txt$scen.lbl}.
+#'
+#' @param col.sdt Colors for cases of 4 essential frequencies.
+#' Default: \code{col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.
+#'
 #'
 #' @examples
 #' plot_mosaic()                # => default options
@@ -170,7 +176,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   ## (2) Text labels:
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
-  cur.par.lbl <- make_cond_label(prev, sens, spec)  # use utility function to format label
+  cur.par.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
 
   ## (3) Accuracy:
 

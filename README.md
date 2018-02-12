@@ -5,6 +5,7 @@ date: "2017 12 20"
 output: html_document
 ---
 
+
 # The `riskyr` package
 
 A toolbox for rendering risk literacy more transparent. 
@@ -18,28 +19,37 @@ A toolbox for rendering risk literacy more transparent.
 [^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
 
-The issues addressed by `riskyr` are less of a _computational_ than of a _representational_ nature (i.e., concerning the representation in and translation between different formats of information).  Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive visualizations.
+The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
 
 The basic assumptions and goals driving the development of `riskyr` are the following:
 
 1. Effective training in risk literacy requires simple tools and transparent representations. 
 
 2. We provide a set of (computational and representational) tools that allow various calculations, translations between formats, 
-and many alternative views on the interplay between probabilities and frequencies. The functions and representations in the `riskyr` toolbox are not isolated, but complement, support and explain each other.
+and many alternative views on the interplay between probabilities and frequencies. The functions and representations in the `riskyr` toolbox are not isolated, but complement, support, and explain each other.
 
-3. To facilitate active and explorative learning, all visualizations can be explored interactively, 
-providing immediate feedback on the effect of changes in parameters.  
-By providing many customization options, users can design and shape representations of risk-related information to suit their goals and needs.
+3. To facilitate active and explorative learning, we provide a range of visualizations that show 
+how parameters and metrics interact and influence each other. All visualizations can be explored 
+interactively, providing immediate feedback on the effect of changes in parameter values.  
+By providing many customization options, users can explore and design representations of 
+risk-related information that suit their personal goals and needs.
+
+<!-- riskyr logo: -->  
+<a href = "https://github.com/hneth/riskyr">
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 175px; float: right; border:25;"/>
+</a>
+<!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
 
 
 ## Rationale
 
 We begin with some basic variables:
 
+-   the prevalence value `prev` of some condition
+-   the sensitivity value `sens` of some decision or diagnostic test (or probability of treatment success)
+-   the specificity value `spec` of this decision or diagnostic test (or probability of side effects)
 -   a population size `N`
--   a prevalence `prev` of some condition
--   a sensitivity `sens` of some test (or probability of treatment success)
--   a specificity `spec` of some test (or probability of side effects)
 
 and provide a variety of _perspectives_ on (and representations of) the _consequences_ of and _interplay_ between these variables:
 
@@ -98,39 +108,64 @@ Things currently being implemented:
 
 - enriched data set of example scenarios 
 - unified options for plotting functions
-- additional `riskyr` curves and planes
+- additional curves and planes
 
 
 ## About
+
+`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. 
+The current version (`riskyr` 0.0.0.916, as of Feb. 8, 2018) is still under development. 
+Its primary designers and developers are 
+[Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
+[Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and 
+[Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), 
+who are researchers at the department of 
+[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the 
+[University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
 [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
 [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
 
-Please [contact us](http://spds.uni-konstanz.de) in case you want to use, adapt, or share this software.
+Please email at <contact.riskyr@gmail.com>  in case you want to use, adapt, or share this software.
 
 
 ### Contact
 
-In case of comments or questions, please contact us at [http://spds.uni.kn](http://spds.uni-konstanz.de). 
+We appreciate your feedback, comments, or questions. 
 
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
+<!-- uni.kn logo: -->  
+<!-- ![](./inst/pix/uniKn_logo.png) --> 
+<a href="http://www.uni-konstanz.de">
+<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 350px; float: right; border:20;"/>
+</a>
 
 ### Reference
 
-In APA format:
+To cite `riskyr` in derivations and publications use:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
-`riskyr`: A toolbox for rendering risk literacy more transparent [Computer software].  
-Retrieved from https://github.com/hneth/riskyr (R package version 0.0.0.916, Feb. 8, 2018).  
+  `riskyr`: A toolbox for rendering risk literacy more transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany.  
+  Computer software (R package version 0.0.0.918, Feb. 11, 2018).  
+  Retrieved from <https://github.com/hneth/riskyr>.  
 
-As BibTeX reference: 
+A BibTeX entry for LaTeX users is: 
 
-    @manual{riskyr,
-      title = {{riskyr}: A toolbox for rendering risk literacy more transparent},
-      author = {Neth, Hansj\"{o}rg and Gaisbauer, Felix and Gradwohl, Nico and Gaissmaier, Wolfgang}, 
-      year = 2018,
-      note = {R package version 0.0.0.916, Feb. 8, 2018},
-      url = {https://github.com/hneth/riskyr}
-    }
+    @Manual{,
+      title = {riskyr: A toolbox for rendering risk literacy more transparent},
+      author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
+      year = {2018},
+      organization = {Social Psychology and Decision Sciences, University of Konstanz},
+      address = {Konstanz, Germany},
+      note = {R package (version 0.0.0.918, Feb. 11, 2018)},
+      url = {https://github.com/hneth/riskyr},
+      }    
+    
+Calling `citation("riskyr")` in the package also displays this information.
 
 <!-- eof -->

@@ -8,13 +8,12 @@ plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, round = TRUE, by = "cddc", area = "sq",
   p.lbl = "num", show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
+  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, box.cex = 0.85, col.boxes = pal,
-  col.txt = grey(0.01, alpha = 0.99), col.border = grey(0.33, alpha = 0.99),
-  lwd = 1.5, box.lwd = 1.5, col.shadow = col.sand.dark, cex.shadow = 0)
+  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
+  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
+  box.lwd = 1.5, col.shadow = col.sand.dark, cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -78,13 +77,49 @@ Default: \code{show.accu = TRUE}.}
 weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 Default: \code{w.acc = .50}.
 
-
 Various other options allow the customization of text labels and colors:}
 
-\item{title.lbl}{Text label to set plot title.}
+\item{title.lbl}{Text label for current plot title.
+Default: \code{title.lbl = txt$scen.lbl}.}
+
+\item{popu.lbl}{Text label for current population \code{\link{popu}}.}
+
+\item{cond.true.lbl}{Text label for current cases of \code{\link{cond.true}}.}
+
+\item{cond.false.lbl}{Text label for current cases of \code{\link{cond.false}}.}
+
+\item{dec.pos.lbl}{Text label for current cases of \code{\link{dec.pos}}.}
+
+\item{dec.neg.lbl}{Text label for current cases of \code{\link{dec.neg}}.}
+
+\item{hi.lbl}{Text label for hits \code{\link{hi}}.}
+
+\item{mi.lbl}{Text label for misses \code{\link{mi}}.}
+
+\item{fa.lbl}{Text label for false alarms \code{\link{fa}}.}
+
+\item{cr.lbl}{Text label for correct rejections \code{\link{cr}}.}
+
+\item{col.txt}{Color for text labels (in boxes).}
+
+\item{box.cex}{Scaling factor for text (in boxes).
+Default: \code{box.cex = .90}.}
 
 \item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
+
+\item{col.border}{Color of borders.
+Default: \code{col.border = grey(.33, alpha = .99)}.}
+
+\item{lwd}{Width of arrows.}
+
+\item{box.lwd}{Width of boxes.}
+
+\item{col.shadow}{Color of box shadows.
+Default: \code{col.shadow = grey(.11, alpha = .99)}.}
+
+\item{cex.shadow}{Scaling factor of shadows (values > 0 showing shadows).
+Default: \code{cex.shadow = 0}.}
 }
 \value{
 Nothing (NULL).
@@ -158,8 +193,8 @@ plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
 # Perspective options:
 plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
 plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
-plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
-plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
+plot_fnet(by = "cddc")  # => 3. Network diagram (1st by cond, 2nd by dec) (default)
+plot_fnet(by = "dccd")  # => 4. Network diagram (1st by dec, 2nd by cond)
 
 # Area options:
 plot_fnet(area = "sq")  # => (default)
@@ -174,19 +209,23 @@ plot_fnet(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
 plot_fnet(show.accu = FALSE)              # => no accuracy info.
 
 # Rounding:
-plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)   # => mi = 0
-plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE)  # => mi = 0.3
+plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
+          p.lbl = "num", round = TRUE)    # => mi = 0
+plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
+          p.lbl = "num", round = FALSE)   # => mi = 0.3
 
 # Combining perspectives, areas, and label options:
-plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
+plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
+plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + mix names and numbers
+plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
 
 # Custom colors and shadows:
 plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4",
+          col.shadow = "steelblue4", cex.shadow = .008)
+plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
+          col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 
 
 }
@@ -202,6 +241,7 @@ plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_PV}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+  \code{\link{plot_PV}}, \code{\link{plot_curve}},
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

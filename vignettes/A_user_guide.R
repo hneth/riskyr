@@ -91,31 +91,32 @@ all.equal(freq$mi, rand.f[2])
 all.equal(freq$fa, rand.f[3])
 all.equal(freq$cr, rand.f[4])
 
-## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.2, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+           icon.types = c(21, 21, 22, 22),
            title.lbl = "Mammography screening")
 
-## ----plot_tree_cd, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."----
+## ----plot_tree_cd, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."----
 plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 
-## ----plot_mosaic_cd, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."----
+## ----plot_mosaic_cd, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."----
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             title.lbl = "Mammography screening")
 
-## ----plot_tree_dc, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."----
+## ----plot_tree_dc, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."----
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc", 
           title.lbl = "Mammography screening",
           dec.pos.lbl = "positive test",
           dec.neg.lbl = "negative test")
 
-## ----plot_mosaic_dc, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
+## ----plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             vsplit = FALSE, 
             title.lbl = "Mammography screening")
 
-## ----plot_tree_dc_vr, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."----
+## ----plot_tree_dc_vr, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."----
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc",
           area = "hr", 
@@ -123,12 +124,13 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           dec.pos.lbl = "positive test",
           dec.neg.lbl = "negative test")
 
-## ----plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
-plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
+## ----plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block.d = 0.01,
+           icon.types = c(21, 21, 22, 22),
            type = "mosaic",
            title.lbl = "Mammography screening")
 
-## ----plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."----
+## ----plot_fnet, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."----
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 

@@ -115,14 +115,40 @@
 #' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 #' Default: \code{w.acc = .50}.
 #'
-#'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param title.lbl Text label to set plot title.
+#' @param title.lbl Text label for current plot title.
+#' Default: \code{title.lbl = txt$scen.lbl}.
+#'
+#' @param popu.lbl Text label for current population \code{\link{popu}}.
+#'
+#' @param cond.true.lbl Text label for current cases of \code{\link{cond.true}}.
+#' @param cond.false.lbl Text label for current cases of \code{\link{cond.false}}.
+#'
+#' @param dec.pos.lbl Text label for current cases of \code{\link{dec.pos}}.
+#' @param dec.neg.lbl Text label for current cases of \code{\link{dec.neg}}.
+#'
+#' @param hi.lbl Text label for hits \code{\link{hi}}.
+#' @param mi.lbl Text label for misses \code{\link{mi}}.
+#' @param fa.lbl Text label for false alarms \code{\link{fa}}.
+#' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
+#'
+#' @param col.txt Color for text labels (in boxes).
+#' @param box.cex Scaling factor for text (in boxes).
+#' Default: \code{box.cex = .90}.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
+#' @param col.border Color of borders.
+#' Default: \code{col.border = grey(.33, alpha = .99)}.
 #'
+#' @param lwd Width of arrows.
+#' @param box.lwd Width of boxes.
+#'
+#' @param col.shadow Color of box shadows.
+#' Default: \code{col.shadow = grey(.11, alpha = .99)}.
+#' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
+#' Default: \code{cex.shadow = 0}.
 #'
 #' @return Nothing (NULL).
 #'
@@ -158,15 +184,17 @@
 #' plot_tree(show.accu = FALSE)              # => no accuracy info.
 #'
 #' # Perspectives, areas, and label options:
-#' plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-#' plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-#' plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-#' plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+#' plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
+#' plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
+#' plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + names and numbers
+#' plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
 #'
 #' # Custom colors and shadows:
 #' plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-#' plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-#' plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+#' plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
+#'           col.shadow = "steelblue4", cex.shadow = .008)
+#' plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
+#'           col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
 #'
 #' @family visualization functions
 #'
@@ -180,6 +208,10 @@
 #' \code{\link{pal}} contains current color settings;
 #' \code{\link{txt}} contains current text settings;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+#'
+#' @importFrom diagram plotmat
+#' @importFrom graphics title
+#' @importFrom graphics mtext
 #'
 #' @export
 
@@ -198,33 +230,31 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       ## Labels:
                       title.lbl = txt$scen.lbl,     # custom text labels
                       popu.lbl = txt$popu.lbl,
-                      cond.lbl = txt$cond.lbl,      # condition labels
+                      ## Condition labels:
                       cond.true.lbl = txt$cond.true.lbl,
                       cond.false.lbl = txt$cond.false.lbl,
-                      dec.lbl = txt$dec.lbl,        # decision labels
+                      ## Decision labels:
                       dec.pos.lbl = txt$dec.pos.lbl,
                       dec.neg.lbl = txt$dec.neg.lbl,
-                      hi.lbl = txt$hi.lbl,  # SDT combinations
+                      ## SDT combinations:
+                      hi.lbl = txt$hi.lbl,
                       mi.lbl = txt$mi.lbl,
                       fa.lbl = txt$fa.lbl,
                       cr.lbl = txt$cr.lbl,
-                      box.cex = .90,                # relative size of text in boxes
-                      ## Colors:
-                      col.boxes = pal, # pal[c(1:9)],  # box colors (9 possible frequencies/boxes/colors)
-                      # col.N = col.sand.light,
-                      # col.true = col.N, col.false = col.N,
-                      # col.hi = pal["hi"], col.mi = pal["mi"], col.fa = pal["fa"], col.cr = pal["cr"],
-                      col.txt = grey(.01, alpha = .99),     # black
+                      ## Box settings:
+                      col.txt = grey(.01, alpha = .99),  # black
+                      box.cex = .90,                     # relative text size
+                      col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
                       col.border = grey(.33, alpha = .99),  # grey
                       ## Widths of arrows and box borders:
                       lwd = 1.6,      # width of arrows
                       box.lwd = 1.8,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
-                      col.shadow = col.sand.dark,
+                      col.shadow = grey(.11, alpha = .99),  # dark grey
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Compute or collect all current frequencies:
+  ## (0) Compute or collect all current frequencies: ------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -275,7 +305,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (1) Color of boxes:
+  ## (1) Color of boxes: ------
 
   if ((length(col.boxes) == length(pal)) &&
       all.equal(col.boxes, pal)) {  # no change from default:
@@ -302,7 +332,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
 
 
-  ## (2) Text/labels in 7 boxes:
+  ## (2) Text/labels in 7 boxes: ------
 
   if (by == "cd") {  # (b) by condition:
 
@@ -361,11 +391,13 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (3) Make matrix M:
+  ## (3) Make matrix M: ------
+
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 
 
-  ## (4) Arrow/edge labels:
+  ## (4) Arrow/edge labels: ------
+
   ## ToDo: Use more informative arrow/edge labels:
   # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
@@ -456,7 +488,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (5) Distinguish between 4 different plot types (based on area setting):
+  ## (5) Distinguish 4 plot types (based on area setting): ------
 
   ## 5a. Default case: Rectangles of same width and height (non-proportional)
 
@@ -688,9 +720,6 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # if (area == "hr")...
 
 
-  ## +++ here now +++ ##
-
-
   ## 5d. Rectangles that sum to the area of the next higher level
   ##     (= 3. flipped by 90 degrees on Level 3 to correspond to 4 SDT areas of mosaic plot):
   if (area == "vr") {
@@ -818,7 +847,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # (area == "vr")...
 
 
-  ## (6) Plot matrix M (from diagram package):
+  ## (6) Plot matrix M (from diagram package): ------
+
   pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
                          pos = c(1, 2, 4),
                          curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
@@ -850,7 +880,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
-  ## (7) Title:
+  ## (7) Title: ------
+
   if (area == "no") {type.lbl <- "Tree"}
   if (area == "sq") {type.lbl <- "Area (square) tree"}
   if (area == "hr") {type.lbl <- "Area (horizontal rectangle) tree"}
@@ -870,7 +901,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
   else {area.lbl <- ""}  # to prevent errors for other entries
 
 
-  ## (8) Margin text:
+  ## (8) Margin text: ------
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
@@ -899,7 +930,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (9) Return what?
+  ## (9) Return what? : ------
+
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing

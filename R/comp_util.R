@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 02 09
+## 2018 02 11
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -372,9 +372,9 @@ is_freq <- function(freq) {
 #' is_suff_prob_set(prev = 1, mirt = 1, fart = 1)  # => TRUE
 #'
 #' # watch out for:
-#' is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob would be FALSE for 2 and 3
-#' is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
-#' is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
+#' is_suff_prob_set(prev = 1, sens = 2, spec = 3)  # => TRUE, but is_prob is FALSE
+#' is_suff_prob_set(prev = 1, mirt = 2, fart = 4)  # => TRUE, but is_prob is FALSE
+#' is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob is FALSE
 #'
 #' ## ways to fail:
 #' # is_suff_prob_set()                    # => FALSE + warning (prev missing)
@@ -1224,6 +1224,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
+#' @family display functions
 #'
 #' @seealso
 #' \code{\link{is_prob}} verifies a probability;
@@ -1310,6 +1311,7 @@ as_pc <- function(prob, n.digits = 2) {
 #' round(prob.seq, 4) == as_pb(as_pc(prob.seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
+#' @family display functions
 #'
 #' @seealso
 #' \code{\link{is_perc}} verifies a percentage;
@@ -1464,6 +1466,8 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
 ## -----------------------------------------------
 ## (c) Current accuracy values:
+
+
 
 make_accu_lbl <- function(acc, w, wacc, mcc) {
 

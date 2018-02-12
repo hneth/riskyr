@@ -20,9 +20,15 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
   border.d = 0.1, block_size_col = 10, block_size_row = 10,
   ncol_blocks = NULL, nrow_blocks = NULL, fill_array = "left",
+<<<<<<< HEAD
   fill_blocks = "rowwise", title.lbl = txt$scen.lbl,
   type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")], xlim = c(0,
   1), ylim = c(0, 1), cex = NULL, ...)
+>>>>>>> upstream/master
+=======
+  fill_blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
+  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
+  "cr.lbl")], ...)
 >>>>>>> upstream/master
 }
 \arguments{
@@ -184,7 +190,19 @@ in each block column.}
 (with 2 options "left" (default) and "top").}
 
 \item{fill_blocks}{specifies how icons within blocks are filled
+<<<<<<< HEAD
 (with 2 options: "rowwise" (default) and "colwise").
+>>>>>>> upstream/master
+=======
+(with 2 options: "rowwise" (default) and "colwise").}
+
+\item{show.accu}{Option for showing current
+accuracy metrics \code{\link{accu}} in the plot.
+Default: \code{show.accu = TRUE}.}
+
+\item{w.acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+Default: \code{w.acc = .50}.
 >>>>>>> upstream/master
 
 
@@ -195,9 +213,13 @@ Various other options allow the customization of text labels and colors:}
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 \item{cex}{Size of the icons.  Is calculated by default.}
 =======
 \item{cex}{Size of the icons (calculated by default).}
+>>>>>>> upstream/master
+=======
+\item{...}{Additional parameters for \code{plot}.}
 >>>>>>> upstream/master
 }
 \description{
@@ -308,6 +330,7 @@ plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
 }
 \seealso{
 Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_PV}}, \code{\link{plot_fnet}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+  \code{\link{plot_PV}}, \code{\link{plot_curve}},
+  \code{\link{plot_fnet}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

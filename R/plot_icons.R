@@ -114,6 +114,15 @@
 #' (Options: "rowwise" (default) and "colwise")
 #'
 #'
+#' @param show.accu Option for showing current
+#' accuracy metrics \code{\link{accu}} in the plot.
+#' Default: \code{show.accu = TRUE}.
+#'
+#' @param w.acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' Default: \code{w.acc = .50}.
+#'
+#'
 #' Various other options allow the customization of text labels and colors:
 #'
 #' @param icon.colors Specifies the icon colors as a vector.
@@ -132,7 +141,7 @@
 #'
 #' @param type.lbls Text labels for icon types to be displayed in legend.
 #'
-#' @param cex Size of the icons (calculated by default).
+#' @param ... Additional parameters for \code{plot}.
 #'
 #'
 #' @examples
@@ -211,6 +220,7 @@
 # (C) Translating these dimensions into code:
 
 plot_icons <- function(prev = num$prev,             # probabilities
+<<<<<<< HEAD
                            sens = num$sens, mirt = NA,
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
@@ -247,9 +257,55 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
                            ...  #additional parameters for plot()
 
+=======
+                       sens = num$sens, mirt = NA,
+                       spec = num$spec, fart = NA,  # was: num$fart,
+                       N = freq$N,    # ONLY freq used (so far)
+                       ## Key options: ##
+                       type = "array",  # needs to be given if random position but nonrandom ident.
+                       # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       ident.order = c("hi", "mi", "fa", "cr"),
+                       # random.position = FALSE,    # are positions randomly drawn?
+                       # random.identities = FALSE,  # are identities randomly assigned to positions?
+                       ## defaults to classic icon array!
+                       ## TODO: rather name these?
+                       icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
+                       icon.types = 22,  # plotting characters; default square with border
+                       icon.border.col = grey(.10, .50),  # border color of icons
+                       icon.border.lwd = 1.5, # line width of icon borders
+                       transparency = .50,
+                       # one can also enter a full vector of length N.
+                       block.d = NULL,  # distance between blocks (where applicable).
+                       border.d = 0.1,  # distance of icons to border.
+
+                       ## Standard icon arrays only:
+                       block_size_col = 10,
+                       block_size_row = 10,
+                       ncol_blocks = NULL,
+                       nrow_blocks = NULL,
+
+                       fill_array = "left",
+                       fill_blocks = "rowwise",
+
+                       ## Compute and show accuracy info:
+                       show.accu = TRUE,  # compute and show accuracy metrics
+                       w.acc = .50,       # weight w for wacc (from 0 to 1)
+
+                       ## Text labels:
+                       title.lbl = txt$scen.lbl,
+                       type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+
+                       ...  # additional parameters for plot()
+>>>>>>> upstream/master
 ) {
 
-  # Redo logical values:
+  ## Currently fixed parameters:
+  xlim = c(0, 1)  # xlim and ylim should currently remain fixed
+  ylim = c(0, 1)
+  cex = NULL      # if NULL, cex will be calculated on demand
+  # #' @param cex Size of the icons (calculated by default).
+
+  ## Reconstruct logical values from type:
   if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
 
     random.position <-  TRUE
@@ -266,6 +322,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   } else {
     random.identities <- TRUE
   }
+
 
   ## A0.1: Check entered parameters for plausibility!--------------------------------------------
 
@@ -492,8 +549,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # set distance parameter:
         # block.d may not be half the size of the distance between min and max.
         # for the example of prevalence == 0.15 it may not exceed 0.075.
-        diff_dx <- apply(X = blocks[, c(1, 2)], MAR = 1, FUN = diff)
-        diff_dy <- apply(X = blocks[, c(3, 4)], MAR = 1, FUN = diff)
+        diff_dx <- apply(X = blocks[, c(1, 2)], MARGIN = 1, FUN = diff)
+        diff_dy <- apply(X = blocks[, c(3, 4)], MARGIN = 1, FUN = diff)
 
         boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
 
@@ -785,8 +842,13 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
         # for colors:
         len_diff <- (ncols * nrows) - length(col.vec)
+<<<<<<< HEAD
         if (length(icon.border) > 1) {
           icon.border <- c(icon.border, rep(NA, len_diff))
+=======
+        if (length(icon.border.col) > 1) {
+          icon.border.col <- c(icon.border.col, rep(NA, len_diff))
+>>>>>>> upstream/master
         }
 
         col.vec <- c(col.vec, rep(NA, len_diff))
@@ -829,7 +891,12 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (any(!pch.vec %in% c(NA, 21:25))) {
     # if any of the plotting characters is not in the ones with border,
     # omit border and color accordingly.
+<<<<<<< HEAD
     icon.border <- col.vec
+=======
+    icon.border.col <- col.vec
+
+>>>>>>> upstream/master
   }
 
   # 3) Plot:

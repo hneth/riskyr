@@ -1,7 +1,7 @@
 ---
 title: "`riskyr` User Guide"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 08"
+date: "2018 02 01"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -23,18 +23,25 @@ knitr::opts_chunk$set(
 > "Solving a problem simply means representing it so as to make the solution transparent."<br>
 > (H.A. Simon)^[Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).]
 
-
 <!-- Introduction: --> 
 
-What is the likelihood of a disease or clinical condition given a positive test result? 
+What is the probability of a disease or clinical condition given a positive test result? 
 This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
 Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities, but have no problem to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
 
+<!-- On riskyr: -->
+
+<!-- riskyr logo: -->  
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+</a>
+<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
+
 `riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
 
-This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. 
-It proceeds in three steps:
+This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:
 
 1. We will first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' formula) remains opaque and is rightfully perceived as difficult.
 
@@ -55,13 +62,17 @@ It proceeds in three steps:
 
 A basic motivation for developing `riskyr` was to facilitate our understanding of problems like the following:
 
+> **Mammography screening** 
+> 
 > The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening.  
 > If a woman has breast cancer, the probability is 80% that she will get a positive mammography.  
 > If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.  
 > 
-> A woman in this age group had a positive mammography in a routine screening. What is the probability that she actually has breast cancer?    
+> A woman in this age group had a positive mammography in a routine screening.  
+> What is the probability that she actually has breast cancer?    
 > 
 > (Hoffrage et al., 2015, p. 3)  
+
 
 ### Information provided and asked
 
@@ -120,17 +131,20 @@ Thus, the information above and a few basic mathematical calculations tell us th
 
 If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent. 
 
-Consider the following description:
+Consider the following problem description:
 
+> **Mammography screening** (`freq`)
+>
 > 10 out of every 1000 women at age 40 who participate in routine screening have breast cancer.   
 > 8 out of every 10 women with breast cancer will get a positive mammography.  
 > 95 out of every 990 women without breast cancer will also get a positive mammography.   
 > 
-> Here is a new representative sample of women at age 40 who got a positive mammography in a routine screening. How many of these women do you expect to actually have breast cancer?  
+> Here is a new representative sample of women at age 40 who got a positive mammography in a routine screening.  
+> How many of these women do you expect to actually have breast cancer?  
 > 
-> (Hoffrage et al., 2015, p. 4) 
+> (Hoffrage et al., 2015, p. 4)
 
-Importantly, this version of the problem refers to a sample of $1000$ individuals of our original target population. It then provides the same probabilities as above, but specifies them in terms of _natural frequencies_ (see Gigerenzer & Hoffrage, 1999, and Hoffrage et al., 2002, for clarifications of this concept):
+Importantly, this version (freq) of the problem refers to a frequency of $1000$ individuals of our original target population. It still provides the same probabilities as above, but specifies them in terms of _natural frequencies_ (see Gigerenzer & Hoffrage, 1999, and Hoffrage et al., 2002, for clarifications of this concept):
 
 1. The _prevalence_ of breast cancer in the target population:  
 
@@ -158,15 +172,25 @@ Incidentally, the reformulation in terms of frequencies protected us from errone
 
 ## Using `riskyr`
 
-Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer 2002, 2014). While it is good to have a way of coping with tricky problems, it would be even more desirable to _actually understand_ the interplay between probabilities and frequencies in such tasks and domains. This is where `riskyr` comes into play.
+Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer & Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to _cope_ with tricky problems, it would be even more desirable to _actually understand_ the interplay between probabilities and frequencies in risk-related tasks and domains. This is where `riskyr` comes into play.^[Full disclosure: As former students of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. `riskyr` extends beyond mere translations between representational formats by showing the interplay between frequencies and probabilities in a variety of ways.] 
 
-`riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, but rather of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
+<!-- riskyr logo: -->  
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+</a>
+<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
 
-`riskyr` pursues its goal of promoting a deeper understanding of risk-related information in two ways:
+`riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, and more of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
 
-- by _organizing_ data structures and functions in useful ways; 
+`riskyr` promotes a deeper understanding of risk-related information in three ways:
 
-- by providing _transparent visualizations_ that illustrate relationships between variables and representations.
+- by organizing _data structures_ and _computational functions_ in useful ways;  
+
+- by providing _translations_ between probabilities and frequencies;  
+
+- by providing transparent _visualizations_ that illustrate relationships between variables and representations.  
+
 
 In the following, we show how we could address the above problem by using three types of tools provided by `riskyr`. 
 
@@ -206,7 +230,7 @@ The probabilities computed by these "essential" probabilities include the `PPV`,
 p1
 ```
 
-The list of probabilities computed includes the 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (See the vignette on [data formats](02_data_formats.html) for details on these probabilities.)
+The list of probabilities computed includes the 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (See the vignette on [data formats](B_data_formats.html) for details on these probabilities.)
 
 Incidentally, as R does not case whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem --- the version reframed in terms of frequencies --- yields the same solution:
 
@@ -256,7 +280,7 @@ As before, the function `comp_freq_prob` does not compute only one frequency, bu
 f1
 ```
 
-In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](02_data_formats.html) for details on all frequencies.)
+In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](B_data_formats.html) for details on all frequencies.)
 
 
 #### Computing probabilities from frequencies
@@ -337,8 +361,9 @@ Here are some examples that depict the scenario described above:
 
 A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:
 
-```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.2, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+           icon.types = c(21, 21, 22, 22),
            title.lbl = "Mammography screening")
 ```
 
@@ -347,7 +372,7 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 
 Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
 
-```{r plot_tree_cd, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
+```{r plot_tree_cd, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
 plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 ```
@@ -361,7 +386,7 @@ For details and additional options of the `plot_tree` function, see the document
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following mosaic plot, the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-```{r plot_mosaic_cd, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
+```{r plot_mosaic_cd, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             title.lbl = "Mammography screening")
 ```
@@ -375,7 +400,7 @@ For details and additional options of the `plot_mosaic` function, see the docume
 
 Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population into `dec.pos` and `dec.neg` cases: 
 
-```{r plot_tree_dc, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
+```{r plot_tree_dc, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc", 
           title.lbl = "Mammography screening",
@@ -385,7 +410,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 Similarly, the population area of the mosaic plot can be split horizontally by using the option `vsplit = FALSE`:
 
-```{r plot_mosaic_dc, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+```{r plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             vsplit = FALSE, 
             title.lbl = "Mammography screening")
@@ -393,7 +418,7 @@ plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 `riskyr` uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option `area = "hr"` further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:
 
-```{r plot_tree_dc_vr, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."}
+```{r plot_tree_dc_vr, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc",
           area = "hr", 
@@ -404,8 +429,9 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. This is still visible when relaxing the positional constraint of icons in the icon array:
 
-```{r plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 6, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
-plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
+```{r plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block.d = 0.01,
+           icon.types = c(21, 21, 22, 22),
            type = "mosaic",
            title.lbl = "Mammography screening")
 ```
@@ -415,7 +441,7 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 
 The following network diagram is a generalization of the tree diagram. It plots all 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts all 10 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
 
-```{r plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
+```{r plot_fnet, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           title.lbl = "Mammography screening")
 ```
@@ -477,13 +503,28 @@ Teaching Bayesian reasoning in less than two hours.
 _Journal of Experimental Psychology: General_, _130_, 380--400.
 
 
+## Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
+
 ## All `riskyr` Vignettes
+
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+<!-- Index of vignettes: -->
 
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
-| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
-| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
-| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
-
+| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
+| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
+| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 
 <!-- eof. -->

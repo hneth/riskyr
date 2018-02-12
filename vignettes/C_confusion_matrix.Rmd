@@ -65,7 +65,7 @@ Numerically, the adoption of each of these two perspectives splits the populatio
 3. `fa` represents _false alarms_ (or false positives): condition absent (`FALSE`) & decision positive (`TRUE`). 
 4. `cr` represents _correct rejections_ (or true negatives): condition absent (`FALSE`) & decision negative (`FALSE`). 
 
-Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](02_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population `N` (or splitting `N` into subgroups by applying two binary criteria):
+Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](B_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population `N` (or splitting `N` into subgroups by applying two binary criteria):
 
 (a) by condition (corresponding to the two columns of the confusion matrix): 
 
@@ -184,7 +184,7 @@ $$
 
 In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. `riskyr` currently computes four general metrics (which are contained in `accu`):
 
-#### 1. Overall accuracy (`acc`)
+#### 1. Overall accuracy `acc` 
 
 Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec.cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
 
@@ -200,7 +200,7 @@ $$
 $$
 
 
-#### 2. Weighted accuracy (`wacc`)
+#### 2. Weighted accuracy `wacc`
 
 Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
 
@@ -264,14 +264,28 @@ Links to related Wikipedia articles:
 - [F1 score](https://en.wikipedia.org/wiki/F1_score) 
 
 
+## Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
 
 ## All `riskyr` Vignettes
 
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+<!-- Index of vignettes: -->
+
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
-| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
-| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
-| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
-
+| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
+| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
+| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 
 <!-- eof. -->

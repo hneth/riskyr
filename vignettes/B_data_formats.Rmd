@@ -1,7 +1,7 @@
 ---
 title: "`riskyr` Data Formats"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 08"
+date: "2018 02 05"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -297,13 +297,28 @@ Representation facilitates reasoning: What natural frequencies are and what they
 _Cognition_, _84_, 343--352.
 
 
+## Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
+
 ## All `riskyr` Vignettes
+
+<!-- riskyr logo: -->
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+</a>
+
+<!-- Index of vignettes: -->
 
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
-| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
-| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
-| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
-
+| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
+| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
+| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 
 <!-- eof. -->

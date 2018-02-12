@@ -120,7 +120,7 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # prevalence in target p
 #' init_num(prev = 88)                                  # => NAs + warning (beyond range)
 #' init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
 #' init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
-#' init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
+#' init_num(1, 1, .52, .50, 100)   # => NAs + warning (complements beyond range)
 #'
 #'
 #' @family functions initializing scenario information
@@ -137,6 +137,9 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # prevalence in target p
 #' \code{\link{is_valid_prob_set}} verifies sets of probability inputs;
 #' \code{\link{is_extreme_prob_set}} verifies sets of extreme probabilities;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+#'
+#' @importFrom stats runif
+#' @importFrom stats setNames
 #'
 #' @export
 #'

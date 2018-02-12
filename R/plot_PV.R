@@ -77,13 +77,24 @@
 #'
 #'
 #' @seealso
-#' \code{\link{comp_popu}} computes the current population;
-#' \code{\link{popu}} contains the current population;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{txt}} for current text settings;
-#' \code{\link{pal}} for current color settings
+#' \code{\link{pal}} for current color settings.
+#'
+#' @importFrom graphics plot
+#' @importFrom graphics axis
+#' @importFrom graphics grid
+#' @importFrom graphics abline
+#' @importFrom graphics curve
+#' @importFrom graphics points
+#' @importFrom graphics text
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom graphics legend
 #'
 #' @export
 
@@ -159,6 +170,7 @@ plot_PV <- function(prev = num$prev,             # probabilities (3 essential, 2
 
 
   ## Parameters:
+  x <- NULL  # "nulling out" to avoid NOTE (no visible binding for global variable ‘x’) in R CMD check!
   col.prev <- grey(.50, alpha = .99)  # prevalence # WAS: col.green.2
   col.axes <- grey(.10, alpha = .99)  # axes
   col.bord <- grey(.10, alpha = .50)  # borders (e.g., of points)

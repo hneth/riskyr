@@ -1,25 +1,27 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.916
-Date: 2018-02-10
+Version: 0.0.0.919
+Date: 2018-02-11
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
-                     email = "h.neth@uni.kn"),
-              person("Felix", "Gaisbauer", role = "aut"),
-              person("Nico", "Gradwohl", role = "aut"))
-Author: Hansjoerg Neth [aut, cre],
-  Felix Gaisbauer [aut],
-  Nico Gradwohl [aut]
+                     email = "h.neth@uni.kn"), 
+             person("Felix", "Gaisbauer", role = "aut"), 
+             person("Nico", "Gradwohl", role = "aut"),  
+             person("Wolfgang", "Gaissmaier", role = "aut")) 
+Author: Hansjörg Neth [aut, cre],
+        Felix Gaisbauer [aut],
+        Nico Gradwohl [aut], 
+        Wolfgang Gaissmaier [aut]
 AuthorUrl: http://neth.de
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
-Description: Provides a set of basic risk literacy tools in R.
-    Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (the condition's prevalence, and the decision's sensitivity and specificity) we provide a range of metrics and alternative representations of risk-related information (as both probabilities and frequencies for a population of N individuals).  By offering a variety of perspectives on the interplay between these parameters, riskyr renders teaching and training of risk literacy more transparent. 
+Description: A toolbox for rendering risk literacy more transparent. 
+    Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (the condition's prevalence, and the decision's sensitivity and specificity) we provide a range of metrics and representations of risk-related information (expressed as probabilities or frequencies for a population of N individuals).  By offering a variety of perspectives on the interplay between key parameters, riskyr renders teaching and training of risk literacy more transparent. 
 Depends:
     R (>= 3.2)
 Imports:
     diagram (>= 1.6.4),
     vcd (>= 1.4),
-    grid (>= 3.4.3)
+    grid (>= 3.4.3) 
 Suggests:
     devtools,
     rmarkdown,
@@ -45,7 +47,9 @@ Collate: 'comp_util.R'
          'plot_tree.R'
          'plot_fnet.R'
          'plot_PV.R'
+         'plot_curve.R' 
          'plot_PV3d.R'
+         'plot_plane.R' 
          'data.R'
          'start_riskyr.R'
 Encoding: UTF-8
