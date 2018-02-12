@@ -209,6 +209,10 @@
 #' \code{\link{txt}} contains current text settings;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 #'
+#' @importFrom diagram plotmat
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#'
 #' @export
 
 plot_tree <- function(prev = num$prev,             # probabilities
@@ -250,7 +254,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Compute or collect all current frequencies:
+  ## (0) Compute or collect all current frequencies: ------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -301,7 +305,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (1) Color of boxes:
+  ## (1) Color of boxes: ------
 
   if ((length(col.boxes) == length(pal)) &&
       all.equal(col.boxes, pal)) {  # no change from default:
@@ -328,7 +332,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
 
 
-  ## (2) Text/labels in 7 boxes:
+  ## (2) Text/labels in 7 boxes: ------
 
   if (by == "cd") {  # (b) by condition:
 
@@ -387,11 +391,13 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (3) Make matrix M:
+  ## (3) Make matrix M: ------
+
   M <- matrix(nrow = 7, ncol = 8, byrow = TRUE, data = 0)
 
 
-  ## (4) Arrow/edge labels:
+  ## (4) Arrow/edge labels: ------
+
   ## ToDo: Use more informative arrow/edge labels:
   # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
@@ -482,7 +488,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # if (by...)
 
 
-  ## (5) Distinguish between 4 different plot types (based on area setting):
+  ## (5) Distinguish 4 plot types (based on area setting): ------
 
   ## 5a. Default case: Rectangles of same width and height (non-proportional)
 
@@ -714,9 +720,6 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # if (area == "hr")...
 
 
-  ## +++ here now +++ ##
-
-
   ## 5d. Rectangles that sum to the area of the next higher level
   ##     (= 3. flipped by 90 degrees on Level 3 to correspond to 4 SDT areas of mosaic plot):
   if (area == "vr") {
@@ -844,7 +847,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
   } # (area == "vr")...
 
 
-  ## (6) Plot matrix M (from diagram package):
+  ## (6) Plot matrix M (from diagram package): ------
+
   pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
                          pos = c(1, 2, 4),
                          curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
@@ -876,7 +880,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
-  ## (7) Title:
+  ## (7) Title: ------
+
   if (area == "no") {type.lbl <- "Tree"}
   if (area == "sq") {type.lbl <- "Area (square) tree"}
   if (area == "hr") {type.lbl <- "Area (horizontal rectangle) tree"}
@@ -896,7 +901,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
   else {area.lbl <- ""}  # to prevent errors for other entries
 
 
-  ## (8) Margin text:
+  ## (8) Margin text: ------
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
@@ -925,7 +930,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (9) Return what?
+  ## (9) Return what? : ------
+
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing

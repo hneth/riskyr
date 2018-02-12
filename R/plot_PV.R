@@ -85,6 +85,17 @@
 #' \code{\link{txt}} for current text settings;
 #' \code{\link{pal}} for current color settings.
 #'
+#' @importFrom graphics plot
+#' @importFrom graphics axis
+#' @importFrom graphics grid
+#' @importFrom graphics abline
+#' @importFrom graphics curve
+#' @importFrom graphics points
+#' @importFrom graphics text
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom graphics legend
+#'
 #' @export
 
 

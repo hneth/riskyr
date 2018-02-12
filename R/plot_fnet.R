@@ -247,6 +247,10 @@
 #' \code{\link{txt}} contains current text settings;
 #' \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 #'
+#' @importFrom diagram plotmat
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#'
 #' @export
 
 plot_fnet <- function(prev = num$prev,             # probabilities
@@ -1590,6 +1594,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   )
 
   ## (7) Title: ----------
+
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
 

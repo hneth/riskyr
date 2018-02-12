@@ -424,9 +424,6 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   } # if ("acc" %in% what)...
 
 
-  ## +++ here now +++
-
-
   ## (4) Title: ----------
 
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
