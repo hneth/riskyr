@@ -114,7 +114,7 @@ Things currently being implemented:
 ## About
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. 
-The current version (`riskyr` 0.0.0.916, as of Feb. 8, 2018) is still under development. 
+The current version (`riskyr` 0.0.0.920, as of Feb. 12, 2018) is still under development. 
 Its primary designers and developers are 
 [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
 [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and 
@@ -151,7 +151,7 @@ To cite `riskyr` in derivations and publications use:
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
   `riskyr`: A toolbox for rendering risk literacy more transparent.  
   Social Psychology and Decision Sciences, University of Konstanz, Germany.  
-  Computer software (R package version 0.0.0.918, Feb. 11, 2018).  
+  Computer software (R package version 0.0.0.920, Feb. 12, 2018).  
   Retrieved from <https://github.com/hneth/riskyr>.  
 
 A BibTeX entry for LaTeX users is: 
@@ -162,7 +162,7 @@ A BibTeX entry for LaTeX users is:
       year = {2018},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.0.0.918, Feb. 11, 2018)},
+      note = {R package (version 0.0.0.920, Feb. 12, 2018)},
       url = {https://github.com/hneth/riskyr},
       }    
     
