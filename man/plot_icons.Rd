@@ -7,11 +7,11 @@
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
   "fa", "cr"), icon.colors = pal[c("hi", "mi", "fa", "cr")],
-  icon.types = 22, icon.border.col = grey(0.1, 0.5), icon.border.lwd = 1.5,
-  transparency = 0.5, block.d = NULL, border.d = 0.1,
-  block.size.row = 10, block.size.col = 10, nblocks.row = NULL,
-  nblocks.col = NULL, fill.array = "left", fill_blocks = "rowwise",
-  show.accu = TRUE, w.acc = 0.5,
+  icon.types = 22, icon.border.col = grey(0.1, 0.5),
+  icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
+  border.d = 0.1, block.size.row = 10, block.size.col = 10,
+  nblocks.row = NULL, nblocks.col = NULL, fill.array = "left",
+  fill.blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
   "cr.lbl")], ...)
 }
@@ -53,13 +53,13 @@ resulting in different types of displays:
   classical icon array (default).
   Icons can be arranged in blocks using \code{block.d}.
   The order of filling the array can be customized using
-  \code{fill_array} and \code{fill_blocks}.
+  \code{fill.array} and \code{fill.blocks}.
 
   \item \code{type = "shuffledarray"}: Icons are plotted in an
   icon array, but positions are shuffled (randomized).
   Icons can be arranged in blocks using \code{block.d}.
   The order of filling the array can be customized using
-  \code{fill_array} and \code{fill_blocks}.
+  \code{fill.array} and \code{fill.blocks}.
 
   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
   The area size displays the relative proportions of their frequencies.
@@ -81,14 +81,12 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
 
+\item{icon.types}{Specifies the appearance of the icons as a vector.
+Accepts values from 1 to 25 (see \code{?points}).}
 
-\item{icon.types}{Specifies the apperance of the icons as a vector.
-Accepts values from 1 to 25 (see also \code{\link{?points}})}
+\item{icon.border.col}{Specifies the border color of icons (if applicable).}
 
-\item{icon.border}{Specifies the border color for icons (if applicable).}
-
-\item{icon.border.lwd}{Specifies the border width for icons (if applicable).}
-
+\item{icon.border.lwd}{Specifies the border width of icons (if applicable).}
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
@@ -114,7 +112,7 @@ Additional options allow to control the arrangement of the arrays
 (Options "left" (default) and "top").}
 
 \item{fill.blocks}{specifies how icons within blocks are filled
-(Options: "rowwise" (default) and "colwise")
+(Options: "rowwise" (default) and "colwise")}
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
@@ -124,16 +122,14 @@ Default: \code{show.accu = TRUE}.}
 weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 Default: \code{w.acc = .50}.
 
+
 Various other options allow the customization of text labels and colors:}
 
 \item{title.lbl}{Text label to set plot title.}
 
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
-\item{cex}{Size of the icons (calculated by default).}
-
 \item{...}{Additional parameters for \code{plot}.}
-
 }
 \description{
 \code{plot_icons} plots a population of which individual's
@@ -163,12 +159,22 @@ plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density refl
 plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
 plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 
+plot_icons(icon.types = c(21,23,24,23),
+               block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
+               block.d = 0.5, border.d = 0.9)
 plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
 
 # some variants:
 plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
            block.d = 0.5, border.d = 0.5)
 
+plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+               icon.types = c(21,23,24,23),
+               block.size.row = 10, block.size.col = 5,
+               nblocks.row = 5, nblocks.col = 5,
+               block.d = 0.8,
+               border.d = 0.2,
+               fill.array = "top")
 plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
            block.d = 0.5, border.d = 0.5)
 
@@ -177,6 +183,7 @@ plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
 
 plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
            icon.border.lwd = .5, cex = 3)
+
 
 }
 \seealso{

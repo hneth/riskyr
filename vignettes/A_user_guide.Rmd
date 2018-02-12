@@ -184,7 +184,7 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 `riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, and more of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
 
 `riskyr` promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing three facets of a dice) also represents its functionality in a variety of ways:  
-1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities. (See Stevens, 2013, for aleatoric devices.)  
+1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
 2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
 3. The three facets can be counted as the three steps of (a) organizing information, (b) translating between representational formats, and (c) visualising relationships between variables.  ] 
 
@@ -504,6 +504,10 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
 _Journal of Experimental Psychology: General_, _130_, 380--400.
+
+- Strevens, M. (2013). 
+_Tychomancy: Inferring probability from causal structure_. 
+Cambridge, MA: Harvard University Press.
 
 
 ## Contact

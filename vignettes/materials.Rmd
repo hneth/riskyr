@@ -209,6 +209,10 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 Teaching Bayesian reasoning in less than two hours. 
 _Journal of Experimental Psychology: General_, _130_, 380--400.
 
+- Strevens, M. (2013). 
+_Tychomancy: Inferring probability from causal structure_. 
+Cambridge, MA: Harvard University Press. 
+
 
 ## Contact
 
@@ -228,8 +232,7 @@ We appreciate your feedback, comments, or questions.
 
 The `riskyr` logo (showing three facets of a dice) also represents its functionality in a variety of ways:  
 
-1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities.  
-(See Stevens, 2013, for aleatoric devices.)  
+1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.) 
 
 2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
 
