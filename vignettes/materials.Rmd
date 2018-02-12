@@ -35,9 +35,9 @@ library("riskyr")  # load the "riskyr" package
 
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
-| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
-| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
-| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
+| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
+| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 
 
 ## Quotes
@@ -88,7 +88,7 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 
 - _Conditional_ probabilities $p(D|E)$ are typically _not_ reversable: In fact, $p(D|E)$ is often very different from $p(E|D)$. An example illustrates the difference: The probability $p(male|king)$ that a biblical king is male is high. Nevertheless, the probability that a male person is a biblical king $p(king|male)$ is low.
 
-- The numeric value of a conditional probability can be computed with _Bayes' formula_ (see our [user guide](user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
+- The numeric value of a conditional probability can be computed with _Bayes' formula_ (see the [user guide](A_user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
 
 ## A Functional Perspective: Viewing Parameters and Values as a Function of Other Parameters and Values
@@ -231,9 +231,9 @@ We appreciate your feedback, comments, or questions.
 
 | Nr.  | Vignette | Content    |        
 | ---: |:---------|:-----------|
-| 1. | [User guide](01_user_guide.html) | Motivation and general instructions | 
-| 2. | [Data formats](02_data_formats.html) | Data formats: Frequencies and probabilities | 
-| 3. | [Confusion matrix](03_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
+| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
+| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 
 <!-- eof. -->
 
