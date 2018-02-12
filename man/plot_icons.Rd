@@ -7,11 +7,11 @@
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
   "fa", "cr"), icon.colors = pal[c("hi", "mi", "fa", "cr")],
-  icon.types = 22, icon.border.col = grey(0.1, 0.5),
-  icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
-  border.d = 0.1, block_size_col = 10, block_size_row = 10,
-  ncol_blocks = NULL, nrow_blocks = NULL, fill_array = "left",
-  fill_blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
+  icon.types = 22, icon.border.col = grey(0.1, 0.5), icon.border.lwd = 1.5,
+  transparency = 0.5, block.d = NULL, border.d = 0.1,
+  block.size.row = 10, block.size.col = 10, nblocks.row = NULL,
+  nblocks.col = NULL, fill.array = "left", fill_blocks = "rowwise",
+  show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
   "cr.lbl")], ...)
 }
@@ -81,12 +81,14 @@ Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
 
-\item{icon.types}{Specifies the appearance of the icons as a vector.
-Accepts values from 1 to 25 (see \code{?points}).}
 
-\item{icon.border.col}{Specifies the border color of icons (if applicable).}
+\item{icon.types}{Specifies the apperance of the icons as a vector.
+Accepts values from 1 to 25 (see also \code{\link{?points}})}
 
-\item{icon.border.lwd}{Specifies the border width of icons (if applicable).}
+\item{icon.border}{Specifies the border color for icons (if applicable).}
+
+\item{icon.border.lwd}{Specifies the border width for icons (if applicable).}
+
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
@@ -96,26 +98,23 @@ Accepts values from 1 to 25 (see \code{?points}).}
 
 \item{border.d}{specifies the distance of the icons to the border.
 
+
 Additional options allow to control the arrangement of the arrays
 (\code{type} "array" and "shuffledarray"):}
 
-\item{block_size_col}{specifies how many icons are shown
-in each block row.}
+\item{block.size.row}{specifies how many icons should be in each block row.}
 
-\item{block_size_row}{specifies how many icons are shown
-in each block column.}
+\item{block.size.col}{specifies how many icons should be in each block column.}
 
-\item{ncol_blocks}{specifies how many blocks there are in each row
-(calculated by default).}
+\item{nblocks.row}{specifies how many blocks there are in each row.  Is calculated by default.}
 
-\item{nrow_blocks}{specifies how many blocks are there in each column
-(calculated by default).}
+\item{nblocks.col}{specifies how many blocks are there in each column.  Is calculated by default.}
 
-\item{fill_array}{specifies how the blocks are filled into the array
-(with 2 options "left" (default) and "top").}
+\item{fill.array}{specifies how the blocks are filled into the array
+(Options "left" (default) and "top").}
 
-\item{fill_blocks}{specifies how icons within blocks are filled
-(with 2 options: "rowwise" (default) and "colwise").}
+\item{fill.blocks}{specifies how icons within blocks are filled
+(Options: "rowwise" (default) and "colwise")
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
@@ -125,14 +124,16 @@ Default: \code{show.accu = TRUE}.}
 weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
 Default: \code{w.acc = .50}.
 
-
 Various other options allow the customization of text labels and colors:}
 
 \item{title.lbl}{Text label to set plot title.}
 
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
+\item{cex}{Size of the icons (calculated by default).}
+
 \item{...}{Additional parameters for \code{plot}.}
+
 }
 \description{
 \code{plot_icons} plots a population of which individual's
@@ -176,7 +177,6 @@ plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
 
 plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
            icon.border.lwd = .5, cex = 3)
-
 
 }
 \seealso{
