@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyr
-## 2018 02 11
+## 2018 02 12
 ## -----------------------------------------------
 ## Compute other probabilities from probabilities:
 
@@ -1050,14 +1050,20 @@ comp_FOR_NPV <- function(NPV) {
 
 
 ## -----------------------------------------------
-## Compute either PPV or NPV for an entire matrix of values
-## (when sens and spec are given as vectors):
+## Compute some metric for an entire matrix of values
+## (when sens and spec are given as vectors)
 
-comp_PV_matrix <- function(prev, sens, spec,
-                           metric = "PPV",
+## Metrics currently accepted:
+##   1 - PPV
+##   2 - NPV
+##   3 - ppod
+##   4 - acc
+
+comp_prob_matrix <- function(prev, sens, spec,
+                           metric = "PPV",  # metric to be computed: "PPV", "NPV", "ppod", "acc".
                            nan.adjust = FALSE) {
 
-  # Initialize matrix as df:
+  # Initialize matrix (as df):
   n.rows <- length(sens)
   n.cols <- length(spec)
   matrix <- as.data.frame(matrix(NA,
@@ -1074,7 +1080,7 @@ comp_PV_matrix <- function(prev, sens, spec,
       cur.sens <- sens[row]
       cur.spec <- spec[col]
 
-      ## (A) metric == PPV:
+      ## (A) metric == PPV: ----------
       if (metric == "PPV") {
 
         ## Beware of cases in which PPV or NPV are NaN:
@@ -1121,14 +1127,14 @@ comp_PV_matrix <- function(prev, sens, spec,
 
           }
 
-        }
+        } # if (nan.adjust)...
 
         ## (2) Compute PPV:
         cell.val <- comp_PPV(prev, cur.sens, cur.spec)
 
-      }
+      } # if (metric == "PPV")...
 
-      ## (B) metric == NPV:
+      ## (B) metric == NPV: ----------
       if (metric == "NPV") {
 
         ## Beware of cases in which PPV or NPV are NaN:
@@ -1174,17 +1180,49 @@ comp_PV_matrix <- function(prev, sens, spec,
             cur.spec <- (cur.spec + eps)  # adjust upwards
 
           }
-        }
+        } #  if (nan.adjust)...
 
         ## (2) Compute NPV:
         cell.val <- comp_NPV(prev, cur.sens, cur.spec)  # compute NPV
 
-      }
+      } # if (metric == "NPV")...
 
-      matrix[row, col] <- cell.val # store result in matrix
+      ## (C) metric == ppod: ----------
+      if (metric == "ppod") {
 
-    }
-  }
+        ## Beware of cases in which ppod is NaN:
+
+        ## (1) ppod is NaN if:
+        ##     (a)  (prev = 0) & (N = 0) ???
+
+        ## no adjustments made for ppod
+
+        ## (2) Compute ppod:
+        cell.val <- comp_ppod(prev, cur.sens, cur.spec)
+
+      } # if (metric == "ppod")...
+
+      ## (D) metric == acc: ----------
+      if (metric == "acc") {
+
+        ## Beware of cases in which acc is NaN:
+
+        ## (1) acc is NaN if:
+        ##     (a)  (N = 0) ???
+
+        ## no adjustments made for acc
+
+        ## (2) Compute acc:
+        cell.val <- comp_acc(prev, cur.sens, cur.spec)
+
+      } # if (metric == "acc")...
+
+
+      ## (*) Store current value in matrix:
+      matrix[row, col] <- cell.val
+
+    } # for (col ...)
+  } # for (row ...)
 
   return(matrix)
 
@@ -1192,16 +1230,26 @@ comp_PV_matrix <- function(prev, sens, spec,
 
 ## Check:
 {
+
+  ## Basics:
   # sens.seq <- seq(0, 1, by = .10)
   # spec.seq <- seq(0, 1, by = .10)
   #
-  # # Contrast without and with NaN adjustment:
-  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = FALSE)
-  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = TRUE)
+  ## Contrast without and with NaN adjustment:
+  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = FALSE)
+  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = TRUE)
   #
-  # # Contrast without and with NaN adjustment:
-  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = FALSE)
-  # comp_PV_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = TRUE)
+  ## Contrast without and with NaN adjustment:
+  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = FALSE)
+  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = TRUE)
+  #
+  ## Other metrics:
+  # comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "ppod")
+  # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "ppod")
+  #
+  # comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "acc")
+  # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
+
 }
 
 ## -----------------------------------------------

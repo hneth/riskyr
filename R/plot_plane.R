@@ -7,7 +7,7 @@
 ## -----------------------------------------------
 ## Utility function:
 
-# comp_PV_matrix() (moved to file comp_prob.R)
+# comp_prob_matrix() (moved to file comp_prob.R)
 
 ## -----------------------------------------------
 ## Plot a 3d-plane of what (e.g., PPV, NPV, ...)
@@ -215,9 +215,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ## (2) Compute matrices of PPV/NPV values (using dedicated function): ----------
 
   if (is.ppv) {
-    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "PPV", nan.adjust = FALSE)
+    PV.mat <- comp_prob_matrix(prev = prev, sens.range, spec.range, metric = "PPV", nan.adjust = FALSE)
   } else {
-    PV.mat <- comp_PV_matrix(prev = prev, sens.range, spec.range, metric = "NPV", nan.adjust = FALSE)
+    PV.mat <- comp_prob_matrix(prev = prev, sens.range, spec.range, metric = "NPV", nan.adjust = FALSE)
   }
 
   ## (3) Define graph parameters and labels: ----------
@@ -329,8 +329,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   #   spec.range <- seq(0.0, 1.0, by = .05) # range of specificity values
   #
   #   ## Compute PPV and NPV matrices:
-  #   PPV.mat <- comp_PV_matrix(prev, sens.range, spec.range, metric = "PPV")
-  #   NPV.mat <- comp_PV_matrix(prev, sens.range, spec.range, metric = "NPV")
+  #   PPV.mat <- comp_prob_matrix(prev, sens.range, spec.range, metric = "PPV")
+  #   NPV.mat <- comp_prob_matrix(prev, sens.range, spec.range, metric = "NPV")
   #
   #   ## Graph parameters:
   #   x <- sens.range
