@@ -220,7 +220,6 @@
 # (C) Translating these dimensions into code:
 
 plot_icons <- function(prev = num$prev,             # probabilities
-<<<<<<< HEAD
                            sens = num$sens, mirt = NA,
                            spec = num$spec, fart = NA,  # was: num$fart,
                            N = freq$N,    # ONLY freq used (so far)
@@ -256,47 +255,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
                            cex = NULL,  # if NULL, cex will be calculated on demand!
 
                            ...  #additional parameters for plot()
-
-=======
-                       sens = num$sens, mirt = NA,
-                       spec = num$spec, fart = NA,  # was: num$fart,
-                       N = freq$N,    # ONLY freq used (so far)
-                       ## Key options: ##
-                       type = "array",  # needs to be given if random position but nonrandom ident.
-                       # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
-                       ident.order = c("hi", "mi", "fa", "cr"),
-                       # random.position = FALSE,    # are positions randomly drawn?
-                       # random.identities = FALSE,  # are identities randomly assigned to positions?
-                       ## defaults to classic icon array!
-                       ## TODO: rather name these?
-                       icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
-                       icon.types = 22,  # plotting characters; default square with border
-                       icon.border.col = grey(.10, .50),  # border color of icons
-                       icon.border.lwd = 1.5, # line width of icon borders
-                       transparency = .50,
-                       # one can also enter a full vector of length N.
-                       block.d = NULL,  # distance between blocks (where applicable).
-                       border.d = 0.1,  # distance of icons to border.
-
-                       ## Standard icon arrays only:
-                       block_size_col = 10,
-                       block_size_row = 10,
-                       ncol_blocks = NULL,
-                       nrow_blocks = NULL,
-
-                       fill_array = "left",
-                       fill_blocks = "rowwise",
-
-                       ## Compute and show accuracy info:
-                       show.accu = TRUE,  # compute and show accuracy metrics
-                       w.acc = .50,       # weight w for wacc (from 0 to 1)
-
-                       ## Text labels:
-                       title.lbl = txt$scen.lbl,
-                       type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-
-                       ...  # additional parameters for plot()
->>>>>>> upstream/master
 ) {
 
   ## Currently fixed parameters:
@@ -842,13 +800,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
         # for colors:
         len_diff <- (ncols * nrows) - length(col.vec)
-<<<<<<< HEAD
-        if (length(icon.border) > 1) {
-          icon.border <- c(icon.border, rep(NA, len_diff))
-=======
         if (length(icon.border.col) > 1) {
           icon.border.col <- c(icon.border.col, rep(NA, len_diff))
->>>>>>> upstream/master
         }
 
         col.vec <- c(col.vec, rep(NA, len_diff))
@@ -891,12 +844,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (any(!pch.vec %in% c(NA, 21:25))) {
     # if any of the plotting characters is not in the ones with border,
     # omit border and color accordingly.
-<<<<<<< HEAD
-    icon.border <- col.vec
-=======
+
     icon.border.col <- col.vec
 
->>>>>>> upstream/master
   }
 
   # 3) Plot:
