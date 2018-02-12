@@ -15,7 +15,8 @@
 ## (using only necessary arguments with good defaults):
 
 
-#' Plot curves of selected values as a function of prevalence.
+#' Plot curves of selected values (e.g., PPV or NPV)
+#' as a function of prevalence.
 #'
 #' \code{plot_curve} draws curves of selected values
 #' (including \code{\link{PPV}}, \code{\link{NPV}})
@@ -129,12 +130,12 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
                        ## DVs:
-                       what = c("prev", "PPV", "NPV"),  # what curves?  Options: "acc", "ppod"
+                       what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod".
                        what.col = pal,                  # colors for what.
                        ## Options:
                        show.points = TRUE,  # show points at current prev?
                        log.scale = FALSE,   # x-axis on log scale?
-                       title.lbl = txt$scen.lbl
+                       title.lbl = txt$scen.lbl  # plot title label
 ) {
 
   ## (0) Compute or collect current probabilities: ----------
@@ -360,7 +361,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     ## 0. parameters:
     cur.ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
     lty.ppod <- 1                            # ppod line type
-    col.ppod <- pal["pos"]                   # ppod color
+    col.ppod <- pal["pos"]                   # ppod color (using "pos")
     legend.lbls <- c(legend.lbls, "ppod")    # add NPV label
     legend.cols <- c(legend.cols, col.ppod)  # add NPV color
     legend.ltys <- c(legend.ltys, lty.ppod)  # add NPV line type
@@ -395,7 +396,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     ## 0. parameters:
     cur.acc <- comp_acc(prev, sens, spec)   # compute current acc
     lty.acc <- 1                            # acc line type
-    col.acc <- pal["hi"]                    # acc color
+    col.acc <- pal["hi"]                    # acc color (using "hi")
     legend.lbls <- c(legend.lbls, "acc")    # add acc label
     legend.cols <- c(legend.cols, col.acc)  # add acc color
     legend.ltys <- c(legend.ltys, lty.acc)  # add acc line type

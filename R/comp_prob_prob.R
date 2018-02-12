@@ -1060,8 +1060,8 @@ comp_FOR_NPV <- function(NPV) {
 ##   4 - acc
 
 comp_prob_matrix <- function(prev, sens, spec,
-                           metric = "PPV",  # metric to be computed: "PPV", "NPV", "ppod", "acc".
-                           nan.adjust = FALSE) {
+                             metric = "PPV",  # metric to be computed: "PPV", "NPV", "ppod", "acc".
+                             nan.adjust = FALSE) {
 
   # Initialize matrix (as df):
   n.rows <- length(sens)
@@ -1188,6 +1188,7 @@ comp_prob_matrix <- function(prev, sens, spec,
       } # if (metric == "NPV")...
 
       ## (C) metric == ppod: ----------
+
       if (metric == "ppod") {
 
         ## Beware of cases in which ppod is NaN:
@@ -1203,6 +1204,7 @@ comp_prob_matrix <- function(prev, sens, spec,
       } # if (metric == "ppod")...
 
       ## (D) metric == acc: ----------
+
       if (metric == "acc") {
 
         ## Beware of cases in which acc is NaN:
