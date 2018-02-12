@@ -8,12 +8,12 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
   "fa", "cr"), icon.colors = pal[c("hi", "mi", "fa", "cr")],
   icon.types = 22, icon.border.col = grey(0.1, 0.5),
-  icon.border.lwd = 1.5, transparency = 0.5, block.d = NULL,
-  border.d = 0.1, block.size.row = 10, block.size.col = 10,
-  nblocks.row = NULL, nblocks.col = NULL, fill.array = "left",
-  fill.blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
-  "cr.lbl")], xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
+  icon.border.lwd = 1.5, transparency = 0.5, icon.size = NULL,
+  block.d = NULL, border.d = 0.1, block.size.row = 10,
+  block.size.col = 10, nblocks.row = NULL, nblocks.col = NULL,
+  fill.array = "left", fill.blocks = "rowwise", show.accu = TRUE,
+  w.acc = 0.5, title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl",
+  "mi.lbl", "fa.lbl", "cr.lbl")], ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -75,8 +75,8 @@ resulting in different types of displays:
 
 }}
 
-\item{ident.order}{Specifies the order in which icon identities
-(hits, misses, false alarms, and correct rejections) are plotted.
+\item{ident.order}{The order in which icon identities
+(i.e, hi, mi, fa, and cr) are plotted.
 Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
@@ -91,10 +91,13 @@ Accepts values from 1 to 25 (see \code{?points}).}
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
 
-\item{block.d}{Distance bettwenn blocks
+\item{icon.size}{Manually specifies the size of the icons via \code{cex}
+(calculated dynamically by default.)}
+
+\item{block.d}{The distance between blocks
 (does not apply to "filleft", "filltop", and "scatter")}
 
-\item{border.d}{specifies the distance of the icons to the border.
+\item{border.d}{The distance of icons to the border.
 
 
 Additional options allow to control the arrangement of the arrays
