@@ -183,5 +183,5 @@ plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
 Other visualization functions: \code{\link{plot_PV3d}},
   \code{\link{plot_PV}}, \code{\link{plot_curve}},
   \code{\link{plot_fnet}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_tree}}
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

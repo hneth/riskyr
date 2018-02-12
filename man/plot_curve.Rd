@@ -102,5 +102,5 @@ plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
 Other visualization functions: \code{\link{plot_PV3d}},
   \code{\link{plot_PV}}, \code{\link{plot_fnet}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_tree}}
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }
