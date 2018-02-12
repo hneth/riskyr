@@ -13,7 +13,7 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   nblocks.row = NULL, nblocks.col = NULL, fill.array = "left",
   fill.blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl",
-  "cr.lbl")], ...)
+  "cr.lbl")], xlim = c(0, 1), ylim = c(0, 1), cex = NULL, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
