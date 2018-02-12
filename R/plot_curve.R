@@ -27,7 +27,8 @@
 #' specificity \code{\link{spec}} (or
 #' false alarm rate \code{\link{fart}}).
 #'
-#' \code{plot_curve} is a generalization of \code{\link{plot_PV}}
+#' \code{plot_curve} is a generalization of
+#' \code{plot_PV} (see legacy code)
 #' that allows for additional dependent values.
 #'
 #'

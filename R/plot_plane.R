@@ -23,6 +23,10 @@
 #' specificity value \code{\link{spec}}
 #' for a given prevalence (\code{\link{prev}}).
 #'
+#' \code{plot_plane} is a generalization of
+#' \code{plot_PV3d} (see legacy code)
+#' that allows for additional dependent values.
+#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -372,7 +376,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 #
 
 ## -----------------------------------------------
-## OLDER function (no longer used):
+## OLDER function (2 in 1 plot):
 
 {
 
@@ -477,9 +481,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 ## (+) ToDo:
 
 ## - Use ... instead re-naming arguments passed on to persp?
-## - Generalize to ANY dependent variable (e.g., acc, wacc, etc.)
-##
-## - Change labels for all axes to percentages (as in plot_PV)
+## - Generalize to additional metrics (e.g., wacc, mcc, etc.)
+## - Change labels for all axes to percentages (as in plot_curve)
 ## - Pimp plot (titles, axes, grid, colors, transparency)
 
 ## -----------------------------------------------
