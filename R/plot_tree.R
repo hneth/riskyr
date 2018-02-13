@@ -245,7 +245,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       col.txt = grey(.01, alpha = .99),  # black
                       box.cex = .90,                     # relative text size
                       col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
-                      col.border = grey(.33, alpha = .99),  # grey
+                      col.border = grey(.33, alpha = .99),  # mid grey
                       ## Widths of arrows and box borders:
                       lwd = 1.6,      # width of arrows
                       box.lwd = 1.8,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)

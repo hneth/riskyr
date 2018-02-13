@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 02 11
+## 2018 02 13
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -283,12 +283,12 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       col.txt = grey(.01, alpha = .99),  # black
                       box.cex = .85,                     # relative text size
                       col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
-                      col.border = grey(.33, alpha = .99),  # grey
+                      col.border = grey(.33, alpha = .99),  # mid grey
                       ## Widths of arrows and box borders:
                       lwd = 1.5,      # width of arrows
                       box.lwd = 1.5,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
-                      col.shadow = col.sand.dark,
+                      col.shadow = grey(.11, alpha = .99),  # dark grey
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
