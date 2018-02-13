@@ -33,11 +33,12 @@ library("riskyr")  # load the "riskyr" package
 
 <!-- Index of vignettes: -->
 
-| Nr.  | Vignette | Content    |        
+|    | Vignette | Content    |        
 | ---: |:---------|:-----------|
 | A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+| D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
 
 
 ## Quotes
@@ -91,43 +92,65 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 - The numeric value of a conditional probability can be computed with _Bayes' formula_ (see the [user guide](A_user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
 
-## A Functional Perspective: Viewing Parameters and Values as a Function of Other Parameters and Values
-
+## A Functional Perspective
 
 The `riskyr` data structures essentially describe networks of dependencies. 
 This is best illustrated by the network diagram (see examples of `plot_fnet`). 
-However, sometimes it is instructive to see the possible values of some parameter as a function of others. 
+However, sometimes it is instructive to view all possible values of some parameter as a function of others. 
 A functional perspective illustrates how the value of some parameter (or its values) 
 changes as a function of other parameters (and their values). 
 
-Basic format: 
+The basic format of a function is $y = f(x)$, which illustrates how values of $y$ 
+depend on values of $x$ given some function $f$. `riskyr` provides 2 functions for 
+viewing parameters as a function of other parameters (and their values). 
 
+<!-- 
 $$
-y = f(x)
+\begin{aligned}
+y \ &= \ f(x)  &  \\
+y \ &= \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\} & (1)  \\
+y \ &= \ f(\texttt{sens} \times\ \texttt{spec} \textrm{, both from 0 to 1, for given value of } \texttt{prev}) \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\} & (2) \\ 
+\end{aligned}
 $$
+-->
 
+### Curves as a function of prevalence
 
-`riskyr` provides 2 primary functions for this purpose:
+The function `plot_curve` draws the curves (or lines) of selected parameters 
+as a function of the prevalene (with `prev` ranging from 0 to 1) 
+for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`): 
 
-1. `plot_curve` shows the curves of selected parameters as a function of the prevalene (with `prev` ranging from 0 to 1) 
-for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`). 
+$$y \ = \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \   (1)$$
 
-```{r plot_curve, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of prevalence (for given values of sensitivity and specificity)."}
+An example:
+
+```{r plot_curve, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of an increased prevalence (for given values of sensitivity and specificity)."}
 library("riskyr")  # load the "riskyr" package
+high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
-plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
-           log.scale = TRUE, title.lbl = "Mammography screening")
+plot_curve(prev = high.prev, sens = .70, spec = (1 - .096), 
+           what = c("PPV", "NPV", "acc"), 
+           title.lbl = "Mammography screening (BRCA1 mutation)", cex.lbl = .8)
 ```
 
-2. `plot_plane` shows a plane for a selected parameter as a function of sensitivity and specificity 
-(with `sens` and `spec` both ranging from 0 to 1) for a given prevalence `prev`. 
 
-```{r plot_plane, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Planes that show PPV, NPV, the proportion of positive predictions (ppod) and overall accuracy (acc) as a function of sensitivity and specificity (for given prevalence)."}
-plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "PPV",  title.lbl = "Mammography screening (A)")
-plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "NPV",  title.lbl = "Mammography screening (B)")
-plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "ppod", title.lbl = "Mammography screening (C)")
-plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "acc",  title.lbl = "Mammography screening (D)")
+### Planes as a function of sensitivity and specificity (for given prevalence)
+
+The function `plot_plane` draws a plane for a selected parameter as a function of sensitivity and specificity 
+(with `sens` and `spec` both ranging from 0 to 1) for a given prevalence `prev`: 
+
+$$y \ = \ f(\texttt{sens} \times\ \texttt{spec} \textrm{, both from 0 to 1, for given value of } \texttt{prev}) \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \ \ (2)$$
+
+Some examples:
+
+```{r plot_plane, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "Planes that show PPV, NPV, the proportion of positive predictions (ppod) and overall accuracy (acc) as a function of sensitivity and specificity (for given prevalence)."}
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "PPV",  title.lbl = "A. Mammography (BRCA1)", cex.lbl = .8)
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "NPV",  title.lbl = "B. Mammography (BRCA1)", cex.lbl = .8)
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "ppod", title.lbl = "C. Mammography (BRCA1)", cex.lbl = .8)
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "acc",  title.lbl = "D. Mammography (BRCA1)", cex.lbl = .8)
 ```
+
+
 
 ## Instructional Approaches
 
@@ -258,56 +281,6 @@ The `riskyr` logo (showing three facets of a dice) also represents its functiona
 | A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
+| D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
 
 <!-- eof. -->
-
-
-# Template
-
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
