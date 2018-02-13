@@ -191,10 +191,13 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   col.bord <- grey(.10, alpha = .50)  # borders (also of points)
 
   if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }  # different x.min values for different scales
-  if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .080 }
+  if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .075 }
   v.shift <- .025
   low.PV  <- .15  # threshold value for judging PPV or NPV to be low
   v.raise <- min(c(cur.PPV, cur.NPV)) + .15 # vertical raise of y-prev when PPV or NPV < low.PV
+
+  # Text label size:
+  cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .075} else {cex.lbl}  # slightly smaller than cex.lbl
 
   legend.lbls <- NULL  # initialize vector
   legend.cols <- NULL
@@ -274,21 +277,22 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## 3. label:
       prev.lbl <- paste0("prev = ", as_pc(prev), "%")  # prev label
 
+
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
         if ((prev < .50) | !(prev > 1 - h.shift)) {
           text(x = prev + h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on right
         } else {
           text(x = prev - h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on left+
         }
       } else { # y at bottom (y = 0):
         if ((prev < .50) | !(prev > 1 - h.shift)) {
           text(x = prev + h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on right
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on right
         } else {
           text(x = prev - h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = cex.lbl) # on left+
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on left+
         }
       }
 
@@ -320,10 +324,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on right
+             labels = PPV.lbl, col = col.ppv, cex = cex.lbl.sm) # on right
       } else {
         text(x = prev - h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = cex.lbl) # on left+
+             labels = PPV.lbl, col = col.ppv, cex = cex.lbl.sm) # on left+
       }
 
     } # if (show.points)...
@@ -354,10 +358,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if (cur.NPV > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.NPV + v.shift,
-             labels = NPV.lbl, col = col.npv, cex = cex.lbl) # on right+
+             labels = NPV.lbl, col = col.npv, cex = cex.lbl.sm) # on right+
       } else {
         text(x = prev - h.shift, y = cur.NPV - v.shift,
-             labels = NPV.lbl, col = col.npv, cex = cex.lbl) # on left-
+             labels = NPV.lbl, col = col.npv, cex = cex.lbl.sm) # on left-
       }
 
     } # if (show.points)...
@@ -389,10 +393,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if (cur.ppod > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.ppod + v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = cex.lbl) # on right+
+             labels = ppod.lbl, col = col.ppod, cex = cex.lbl.sm) # on right+
       } else {
         text(x = prev - h.shift, y = cur.ppod - v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = cex.lbl) # on left-
+             labels = ppod.lbl, col = col.ppod, cex = cex.lbl.sm) # on left-
       }
 
     } # if (show.points)...
@@ -424,10 +428,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if (cur.acc > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.acc + v.shift,
-             labels = acc.lbl, col = col.acc, cex = cex.lbl) # on right+
+             labels = acc.lbl, col = col.acc, cex = cex.lbl.sm) # on right+
       } else {
         text(x = prev - h.shift, y = cur.acc - v.shift,
-             labels = acc.lbl, col = col.acc, cex = cex.lbl) # on left-
+             labels = acc.lbl, col = col.acc, cex = cex.lbl.sm) # on left-
       }
 
     } # if (show.points)...
