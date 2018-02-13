@@ -63,7 +63,7 @@ plot.riskyr <- function(obj,
                 hi.lbl = obj$hi.lbl, mi.lbl = obj$mi.lbl, fa.lbl = obj$fa.lbl,
                 cr.lbl = obj$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
                 col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
-                box.lwd = 1.5, col.shadow = riskyr:::col.sand.dark, cex.shadow = 0)
+                box.lwd = 1.5, col.shadow = col.sand.dark, cex.shadow = 0)
     }
 
   ## B. Frequency tree:
@@ -412,7 +412,19 @@ names(scenarios.lst) <- paste0("scen", 1:nrow(scenarios))
 
 for (i in 1:nrow(scenarios)) {
 
-  cur.scen <- riskyr(scenarios[i, ])  # use initialization function.
+
+
+  s <- scenarios[i, ]
+  cur.scen <- riskyr(scen.lbl = s$scen.lbl, scen.lng = s$scen.lng, scen.txt = s$scen.txt,
+                     popu.lbl = s$popu.lbl, cond.lbl = s$cond.lbl,
+                     cond.true.lbl = s$cond.true.lbl, cond.false.lbl = s$cond.false.lbl,
+                     dec.lbl = s$dec.lbl, dec.pos.lbl = s$dec.pos.lbl, dec.neg.lbl = s$dec.neg.lbl,
+                     hi.lbl = s$hi.lbl, mi.lbl = s$mi.lbl, fa.lbl = s$fa.lbl, cr.lbl = s$cr.lbl,
+                     prev = s$prev,
+                     sens = s$sens,
+                     spec = s$spec, fart = s$fart,
+                     N = s$N,
+                     scen.src = s$scen.src, scen.apa = s$scen.apa)  # use initialization function.
   scenarios.lst[[i]] <- cur.scen
 
 }
