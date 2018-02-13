@@ -460,13 +460,59 @@ print.summary.riskyr <- function(obj) {
 
 # Function to create riskyr scenarios:
 
-riskyr <- function (scen.lbl, scen.lng, scen.txt,
-                    popu.lbl, cond.lbl, cond.true.lbl, cond.false.lbl,
-                    dec.lbl, dec.pos.lbl, dec.neg.lbl,
-                    hi.lbl, mi.lbl, fa.lbl, cr.lbl,
-                    prev, sens, spec, fart,
-                    N, scen.src, scen.apa)
+riskyr <- function (scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
+                    scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
+                    cond.lbl = txt$cond.lbl,
+                    cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
+                    dec.lbl = txt$dec.lbl,
+                    dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+                    hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
+                    fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+                    prev = num$prev,
+                    sens = num$sens,
+                    spec = num$spec, fart = NA,
+                    N = freq$N,
+                    scen.src = txt$scen.src, scen.apa = txt$scen.apa) {
 
+  # Create object (scenario):
+  if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart,
+                        tol = .01)) {
+
+    ## (a) Compute the complete quintet of probabilities:
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
+    sens <- prob_quintet[2] # gets sens (if not provided)
+    mirt <- prob_quintet[3] # gets mirt (if not provided)
+    spec <- prob_quintet[4] # gets spec (if not provided)
+    fart <- prob_quintet[5] # gets fart (if not provided)
+
+  }
+
+  object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
+                 popu.lbl = popu.lbl, cond.lbl = cond.lbl,
+                 cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
+                 dec.lbl = dec.lbl, dec.pos.lbl = dec.pos.lbl, dec.neg.lbl = dec.neg.lbl,
+                 hi.lbl = hi.lbl, mi.lbl = mi.lbl, fa.lbl = fa.lbl, cr.lbl = cr.lbl,
+                 prev = prev,
+                 sens = sens,
+                 spec = spec, fart = fart,
+                 N = N,
+                 scen.src = scen.src, scen.apa = scen.apa)
+
+  # add class riskyr:
+  class(object) <- "riskyr"
+
+  return(object)
+}
+
+
+# test.obj <- riskyr()
+# names(test.obj)
+# names(scenarios)
+#
+# # cat(
+# #   paste0(
+# #     paste0(names(scenarios.lst$scen1), " = ", names(scenarios.lst$scen1)),
+# #     collapse = ", "))
 
 ## -----------------------------------------------
 ## (3) Define an object with a list of riskyr objects:
@@ -476,8 +522,7 @@ names(scenarios.lst) <- paste0("scen", 1:nrow(scenarios))
 
 for (i in 1:nrow(scenarios)) {
 
-  cur.scen <- scenarios[i, ]
-  class(cur.scen) <- "riskyr"
+  cur.scen <- riskyr(scenarios[i, ])  # use initialization function.
   scenarios.lst[[i]] <- cur.scen
 
 }
