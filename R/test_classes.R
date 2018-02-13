@@ -19,7 +19,7 @@
 ## (1) plot.riskyr function:
 
 plot.riskyr <- function(obj,
-                        plottype = "iconarray",  # plottype parameter for type of plot.
+                        plottype = "network",  # plottype parameter for type of plot.
                         # type = "array",  # type parameter for plot subtypes.
                         ...  # ellipsis for additional type parameters for the plotting functions.
                              ) {
@@ -35,27 +35,11 @@ plot.riskyr <- function(obj,
 
     # all:
     if ("show.accu" %in% arg.names) show.accu <- arguments$show.accu else show.accu = TRUE
-
-    # currently network:
-
-
-    # currently: icon arrays:
-    if ("type" %in% arg.names) type <- arguments$type else type <- "array"
-
-    # currently tree:
-
     if ("area" %in% arg.names) area <- arguments$area else area <- "no"  # tree and net.
-    if ("p.lbl" %in% arg.names) p.lbl <- arguments$p.lbl else p.lbl <- "mix"
-
-    # curretly vurve:
-
-    if ("show.points" %in% arg.names) show.points <- arguments$show.points else show.points <- TRUE
-
-
 
 
   ## Plotting functions:
-  ## A. Frequenccy net (default):
+  ## A. Frequency net (default):
     if (plottype == "network") {
 
       if ("by" %in% arg.names) by <- arguments$by else by <- "cddc"
@@ -79,13 +63,14 @@ plot.riskyr <- function(obj,
                 hi.lbl = obj$hi.lbl, mi.lbl = obj$mi.lbl, fa.lbl = obj$fa.lbl,
                 cr.lbl = obj$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
                 col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
-                box.lwd = 1.5, col.shadow = col.sand.dark, cex.shadow = 0)
+                box.lwd = 1.5, col.shadow = riskyr:::col.sand.dark, cex.shadow = 0)
     }
 
   ## B. Frequency tree:
     if (plottype == "tree") {
 
       if ("by" %in% arg.names) by <- arguments$by else by <- "cd"
+      if ("p.lbl" %in% arg.names) p.lbl <- arguments$p.lbl else p.lbl <- "mix"
 
       plot_tree(prev = obj$prev,             # probabilities
                 sens = obj$sens, mirt = NA,
@@ -130,7 +115,9 @@ plot.riskyr <- function(obj,
 
   ## C. Curve:
     if (plottype == "curve") {
+
       if ("what" %in% arg.names) what <- arguments$what else what <- c("prev", "PPV", "NPV")
+      if ("show.points" %in% arg.names) show.points <- arguments$show.points else show.points <- TRUE
 
       plot_curve(prev = obj$prev,             # probabilities (3 essential, 2 optional)
                   sens = obj$sens, mirt = NA,
@@ -147,6 +134,8 @@ plot.riskyr <- function(obj,
 
   ## D. Iconarrays
     if (plottype == "iconarray") {
+
+      if ("type" %in% arg.names) type <- arguments$type else type <- "array"
 
       plot_icons(prev = obj$prev,             # probabilities
                  sens = obj$sens, mirt = NA,
@@ -204,7 +193,7 @@ plot.riskyr <- function(obj,
                  sens = obj$sens, mirt = NA,
                  spec = obj$spec, fart = NA,
                  ## DVs:
-                 what = "PPV", # what plane?  Options: "PPV", "NPV", "acc", "ppod".
+                 what = what, # what plane?  Options: "PPV", "NPV", "acc", "ppod".
                  ## Options:
                  what.col = pal,     # color for what.
                  step.size = .05,    # resolution of matrix (sens.range and spec.range)
@@ -229,44 +218,254 @@ plot.riskyr <- function(obj,
 # plot(scenario2, plottype = "iconarray")
 # plot(scenario3, plottype = "tree")
 
+# plot(scenarios.lst$scen25, plottype = "network")  # default.
+# plot(scenarios.lst$scen25, plottype = "tree", area = "vr")
+# plot(scenarios.lst$scen25, plottype = "curve", what = "all")
+# plot(scenarios.lst$scen25, plottype = "iconarray")
+# plot(scenarios.lst$scen25, plottype = "iconarray", type = "mosaic")  # passing on additional parameters.
+# plot(scenarios.lst$scen25, plottype = "mosaicplot")
+# plot(scenarios.lst$scen25, plottype = "plane", what = "NPV")
+# plot(scenarios.lst$scen25, plottype = "wetwork")
+
 
 ## -----------------------------------------------
 ## (2) summary.riskyr function:
 
+# Follow summary.lm:
+
+function (object, correlation = FALSE, symbolic.cor = FALSE,
+          ...)
+{
+  z <- object
+  p <- z$rank
+  rdf <- z$df.residual
+  if (p == 0) {
+    r <- z$residuals
+    n <- length(r)
+    w <- z$weights
+    if (is.null(w)) {
+      rss <- sum(r^2)
+    }
+    else {
+      rss <- sum(w * r^2)
+      r <- sqrt(w) * r
+    }
+    resvar <- rss/rdf
+    ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
+    class(ans) <- "summary.lm"
+    ans$aliased <- is.na(coef(object))
+    ans$residuals <- r
+    ans$df <- c(0L, n, length(ans$aliased))
+    ans$coefficients <- matrix(NA, 0L, 4L)
+    dimnames(ans$coefficients) <- list(NULL, c("Estimate",
+                                               "Std. Error", "t value", "Pr(>|t|)"))
+    ans$sigma <- sqrt(resvar)
+    ans$r.squared <- ans$adj.r.squared <- 0
+    return(ans)
+  }
+  if (is.null(z$terms))
+    stop("invalid 'lm' object:  no 'terms' component")
+  if (!inherits(object, "lm"))
+    warning("calling summary.lm(<fake-lm-object>) ...")
+  Qr <- qr.lm(object)
+  n <- NROW(Qr$qr)
+  if (is.na(z$df.residual) || n - p != z$df.residual)
+    warning("residual degrees of freedom in object suggest this is not an \"lm\" fit")
+  r <- z$residuals
+  f <- z$fitted.values
+  w <- z$weights
+  if (is.null(w)) {
+    mss <- if (attr(z$terms, "intercept"))
+      sum((f - mean(f))^2)
+    else sum(f^2)
+    rss <- sum(r^2)
+  }
+  else {
+    mss <- if (attr(z$terms, "intercept")) {
+      m <- sum(w * f/sum(w))
+      sum(w * (f - m)^2)
+    }
+    else sum(w * f^2)
+    rss <- sum(w * r^2)
+    r <- sqrt(w) * r
+  }
+  resvar <- rss/rdf
+  if (is.finite(resvar) && resvar < (mean(f)^2 + var(f)) *
+      1e-30)
+    warning("essentially perfect fit: summary may be unreliable")
+  p1 <- 1L:p
+  R <- chol2inv(Qr$qr[p1, p1, drop = FALSE])
+  se <- sqrt(diag(R) * resvar)
+  est <- z$coefficients[Qr$pivot[p1]]
+  tval <- est/se
+  ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
+  ans$residuals <- r
+  ans$coefficients <- cbind(Estimate = est, `Std. Error` = se,
+                            `t value` = tval, `Pr(>|t|)` = 2 * pt(abs(tval), rdf,
+                                                                  lower.tail = FALSE))
+  ans$aliased <- is.na(z$coefficients)
+  ans$sigma <- sqrt(resvar)
+  ans$df <- c(p, rdf, NCOL(Qr$qr))
+  if (p != attr(z$terms, "intercept")) {
+    df.int <- if (attr(z$terms, "intercept"))
+      1L
+    else 0L
+    ans$r.squared <- mss/(mss + rss)
+    ans$adj.r.squared <- 1 - (1 - ans$r.squared) * ((n -
+                                                       df.int)/rdf)
+    ans$fstatistic <- c(value = (mss/(p - df.int))/resvar,
+                        numdf = p - df.int, dendf = rdf)
+  }
+  else ans$r.squared <- ans$adj.r.squared <- 0
+  ans$cov.unscaled <- R
+  dimnames(ans$cov.unscaled) <- dimnames(ans$coefficients)[c(1,
+                                                             1)]
+  if (correlation) {
+    ans$correlation <- (R * resvar)/outer(se, se)
+    dimnames(ans$correlation) <- dimnames(ans$cov.unscaled)
+    ans$symbolic.cor <- symbolic.cor
+  }
+  if (!is.null(z$na.action))
+    ans$na.action <- z$na.action
+  class(ans) <- "summary.lm"
+  ans
+}
+
+ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
+trt <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
+group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
+weight <- c(ctl, trt)
+lm.D9 <- lm(weight ~ group)
+s <- summary(lm.D9)
+
+
+
+# ------------------------
 summary.riskyr <- function(obj, summarize = "all", ...) {
 
-  cat("Scenario: ", obj$scen.lbl, "\n\n")  # Always show scenario name.
+  obj.sum <- list()
 
-  cat("N = ", obj$N, "\n\n")  # N should be always given.
+  obj.sum$scen.lbl <- obj$scen.lbl
+  obj.sum$cond.lbl <- obj$cond.lbl
+
+  obj.sum$N <- obj$N
+
+
+  # If all should be summarized:
+  if (summarize == "all") summarize <- c("probabilities", "frequencies", "accuracy")
 
   ## If probabilities or all is to be shown:
-  if (summarize %in% c("all", "probs")) {
-    cat("Probabilities:\n")
-    probs <- unlist(obj[c("prev", "sens", "spec", "fart")])
-    names(probs) <- c("Prevalence", "Sensitivity", "Specificity", "False alarm rate")
-    print(probs)
+  if ("probabilities" %in% summarize) {
+
+    # calculate all probabilities:
+    probs <- comp_prob_prob(prev = obj$prev, sens = obj$sens, spec = obj$spec)
+
+    probs.ess <- unlist(probs[c("prev", "sens", "mirt", "spec", "fart")])
+    # essential probabilities.
+
+    probs.ness <- unlist(probs[c("ppod", "PPV", "NPV", "FDR", "FOR")])
+    # non-esential probabilities.
+
+    obj.sum$probs <- list(probs.ess = probs.ess, probs.ness = probs.ness)
+
   }
 
 
   ## If frequency information is to be shown:
-  if (summarize %in% c("all", "freqs")) {
+  if ("frequencies" %in% summarize) {
+
+    # calculate frequencies:
     freqs <- comp_freq(prev = obj$prev, sens = obj$sens, spec = obj$spec,
                        N = obj$N)
-    cat("\nFrequencies:\n")
+
+    # Frequencies of condition:
+    cond.freqs <- unlist(freqs[c("cond.true", "cond.false")])
+
+    # Frequencies of decision:
+    dec.freqs <- unlist(freqs[c("dec.pos", "dec.neg", "dec.cor", "dec.err")])
+
+    # SDT frequencies:
     sdt.freqs <- unlist(freqs[c("hi", "mi", "fa", "cr")])
-    names(sdt.freqs) <- c("Hits", "Misses", "False alarms", "Correct rejections")
-    print(sdt.freqs)
+
+    # add to summary object:
+    obj.sum$freqs <- list(cond.freqs = cond.freqs,
+                          dec.freqs = dec.freqs,
+                          sdt.freqs = sdt.freqs)
+
   }
 
-  # TODO: Extend to accuracy.
+  if ("accuracy" %in% summarize) {
 
+    obj.sum$accu <- comp_acc(prev = obj$prev, sens = obj$sens, spec = obj$spec)
+  }
 
+  # add class to summary object:
+  class(obj.sum) <- c("summary.riskyr")
+
+  return(obj.sum)
 
 }
+
+
+# Corresponding print function:
+print.summary.riskyr <- function(obj) {
+
+  ## This is always printed:
+  cat("Scenario: ", obj$scen.lbl, "\n\n")  # Always show scenario name.
+  cat("N = ", obj$N, "\n\n")  # Always show N.
+  cat("Condition: ", obj$cond.lbl, "\n")
+
+  # On demand:
+  n <- names(obj)  # save names.
+
+  # Frequencies:
+  if ("freqs" %in% n) {
+    names(obj$freqs$cond.freqs) <- c("True", "False")
+    print(obj$freqs$cond.freqs)
+
+    cat("\nFrequencies:\n\n")
+    cat(" Decisions:\n")
+    names(obj$freqs$dec.freqs) <- c("Positive", "Negative", "Correct", "Incorrect")
+    print(obj$freqs$dec.freqs)
+    cat("\n SDT frequencies:\n")
+    names(obj$freqs$sdt.freqs) <- c("Hits", "Misses", "False alarms", "Correct rejections")
+    print(obj$freqs$sdt.freqs)
+    cat("\n")
+  }
+
+  # Probabilities:
+  if ("probs" %in% n) {
+    cat("\nProbabilities:\n\n")
+    cat(" Essential probabilities:\n")
+    names(obj$probs$probs.ess) <- c("Prevalence", "Sensitivity", "Miss rate", "Specificity", "False alarm rate")
+    print(obj$probs$probs.ess)
+
+    cat("\n Further probabilities:\n")
+    print(round(obj$probs$probs.ness, 3))  # no naming for non-essential probs.
+  }
+
+  # Accuracy:
+  if ("accu" %in% n) {
+    cat("\nAccuracy:\n")
+    cat(obj$accu)
+  }
+
+}
+
+
 
 ## Check:
 # summary(scenario3)
 # summary(scenario2, summarize = "probs")
+
+# Function to create riskyr scenarios:
+
+riskyr <- function (scen.lbl, scen.lng, scen.txt,
+                    popu.lbl, cond.lbl, cond.true.lbl, cond.false.lbl,
+                    dec.lbl, dec.pos.lbl, dec.neg.lbl,
+                    hi.lbl, mi.lbl, fa.lbl, cr.lbl,
+                    prev, sens, spec, fart,
+                    N, scen.src, scen.apa)
 
 
 ## -----------------------------------------------
