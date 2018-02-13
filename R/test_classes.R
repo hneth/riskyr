@@ -231,116 +231,7 @@ plot.riskyr <- function(obj,
 ## -----------------------------------------------
 ## (2) summary.riskyr function:
 
-# Follow summary.lm:
-
-function (object, correlation = FALSE, symbolic.cor = FALSE,
-          ...)
-{
-  z <- object
-  p <- z$rank
-  rdf <- z$df.residual
-  if (p == 0) {
-    r <- z$residuals
-    n <- length(r)
-    w <- z$weights
-    if (is.null(w)) {
-      rss <- sum(r^2)
-    }
-    else {
-      rss <- sum(w * r^2)
-      r <- sqrt(w) * r
-    }
-    resvar <- rss/rdf
-    ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
-    class(ans) <- "summary.lm"
-    ans$aliased <- is.na(coef(object))
-    ans$residuals <- r
-    ans$df <- c(0L, n, length(ans$aliased))
-    ans$coefficients <- matrix(NA, 0L, 4L)
-    dimnames(ans$coefficients) <- list(NULL, c("Estimate",
-                                               "Std. Error", "t value", "Pr(>|t|)"))
-    ans$sigma <- sqrt(resvar)
-    ans$r.squared <- ans$adj.r.squared <- 0
-    return(ans)
-  }
-  if (is.null(z$terms))
-    stop("invalid 'lm' object:  no 'terms' component")
-  if (!inherits(object, "lm"))
-    warning("calling summary.lm(<fake-lm-object>) ...")
-  Qr <- qr.lm(object)
-  n <- NROW(Qr$qr)
-  if (is.na(z$df.residual) || n - p != z$df.residual)
-    warning("residual degrees of freedom in object suggest this is not an \"lm\" fit")
-  r <- z$residuals
-  f <- z$fitted.values
-  w <- z$weights
-  if (is.null(w)) {
-    mss <- if (attr(z$terms, "intercept"))
-      sum((f - mean(f))^2)
-    else sum(f^2)
-    rss <- sum(r^2)
-  }
-  else {
-    mss <- if (attr(z$terms, "intercept")) {
-      m <- sum(w * f/sum(w))
-      sum(w * (f - m)^2)
-    }
-    else sum(w * f^2)
-    rss <- sum(w * r^2)
-    r <- sqrt(w) * r
-  }
-  resvar <- rss/rdf
-  if (is.finite(resvar) && resvar < (mean(f)^2 + var(f)) *
-      1e-30)
-    warning("essentially perfect fit: summary may be unreliable")
-  p1 <- 1L:p
-  R <- chol2inv(Qr$qr[p1, p1, drop = FALSE])
-  se <- sqrt(diag(R) * resvar)
-  est <- z$coefficients[Qr$pivot[p1]]
-  tval <- est/se
-  ans <- z[c("call", "terms", if (!is.null(z$weights)) "weights")]
-  ans$residuals <- r
-  ans$coefficients <- cbind(Estimate = est, `Std. Error` = se,
-                            `t value` = tval, `Pr(>|t|)` = 2 * pt(abs(tval), rdf,
-                                                                  lower.tail = FALSE))
-  ans$aliased <- is.na(z$coefficients)
-  ans$sigma <- sqrt(resvar)
-  ans$df <- c(p, rdf, NCOL(Qr$qr))
-  if (p != attr(z$terms, "intercept")) {
-    df.int <- if (attr(z$terms, "intercept"))
-      1L
-    else 0L
-    ans$r.squared <- mss/(mss + rss)
-    ans$adj.r.squared <- 1 - (1 - ans$r.squared) * ((n -
-                                                       df.int)/rdf)
-    ans$fstatistic <- c(value = (mss/(p - df.int))/resvar,
-                        numdf = p - df.int, dendf = rdf)
-  }
-  else ans$r.squared <- ans$adj.r.squared <- 0
-  ans$cov.unscaled <- R
-  dimnames(ans$cov.unscaled) <- dimnames(ans$coefficients)[c(1,
-                                                             1)]
-  if (correlation) {
-    ans$correlation <- (R * resvar)/outer(se, se)
-    dimnames(ans$correlation) <- dimnames(ans$cov.unscaled)
-    ans$symbolic.cor <- symbolic.cor
-  }
-  if (!is.null(z$na.action))
-    ans$na.action <- z$na.action
-  class(ans) <- "summary.lm"
-  ans
-}
-
-ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
-trt <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
-group <- gl(2, 10, 20, labels = c("Ctl","Trt"))
-weight <- c(ctl, trt)
-lm.D9 <- lm(weight ~ group)
-s <- summary(lm.D9)
-
-
-
-# ------------------------
+## First, create a summary object: ---------------
 summary.riskyr <- function(obj, summarize = "all", ...) {
 
   obj.sum <- list()
@@ -407,7 +298,7 @@ summary.riskyr <- function(obj, summarize = "all", ...) {
 }
 
 
-# Corresponding print function:
+# Then, create a corresponding print function: --------------------
 print.summary.riskyr <- function(obj) {
 
   ## This is always printed:
@@ -458,8 +349,7 @@ print.summary.riskyr <- function(obj) {
 # summary(scenario3)
 # summary(scenario2, summarize = "probs")
 
-# Function to create riskyr scenarios:
-
+# Function to create riskyr scenarios: --------------------------------------------
 riskyr <- function (scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
                     scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
                     cond.lbl = txt$cond.lbl,
@@ -516,7 +406,7 @@ riskyr <- function (scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 
 ## -----------------------------------------------
 ## (3) Define an object with a list of riskyr objects:
-
+## Convert scenarios in list of riskyr objects:
 scenarios.lst <- vector("list", nrow(scenarios))
 names(scenarios.lst) <- paste0("scen", 1:nrow(scenarios))
 
