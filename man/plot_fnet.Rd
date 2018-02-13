@@ -13,7 +13,7 @@ plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
   cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
   col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
-  box.lwd = 1.5, col.shadow = col.sand.dark, cex.shadow = 0)
+  box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
