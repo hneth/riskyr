@@ -1,7 +1,7 @@
 ---
 title: "`riskyr` Miscellaneous Materials"
 author: "Hansjörg Neth"
-date: "2018 02 05"
+date: "2018 01 30"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -54,13 +54,17 @@ library("riskyr")  # load the "riskyr" package
 
 A basic motivation for developing `riskyr` was to facilitate the understanding of problems concering so-called Bayesian reasoning. Such problems tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. A typical example reads as follows:
 
-> The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening.  
-> If a woman has breast cancer, the probability is 80% that she will get a positive mammography.  
-> If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.  
+
+> **Mammography screening**
+> 
+> 1. The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening.  
+> 2. If a woman has breast cancer, the probability is 80% that she will get a positive mammography.  
+> 3. If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.  
 > 
 > A woman in this age group had a positive mammography in a routine screening. What is the probability that she actually has breast cancer?    
 > 
 > (Hoffrage et al., 2015, p. 3)  
+
 
 Problems of this type tend to provide three probabilities:
 
@@ -70,13 +74,15 @@ Problems of this type tend to provide three probabilities:
 
 and ask for one or more other probabilities:
 
-- the probability of a positive (or negative) decision; 
+- the probability of a positive (or negative) decision `ppod` (or `1 - ppod`); 
 - the positive predictive value `PPV` of $D$;  
 - the negative predictive value `NPV` of $D$. 
+
 
 Standard observation: People are confused and perplexed. Frequently, they even find it difficult to understand the question, let alone have a systematic way of answering it. In a majority of cases, they either have no clue what to respond, or provide some number close to the provided values `sens` or `spec` as a rough estimate.
 
 Importantly, the calculations involved are easy -- almost trivial -- and do only require simple sums, products, and ratios. What's lacking is a systematic way of thinking about such problems and to see how probabilistic notions can be defined and be translated into more manageable information formats (frequencies and ratios between frequencies). The main mission of `riskyr` is to help people to understand this interplay of probabilities and frequencies and thus render risk-related information more transparent.
+
 
 
 ## Basic Knowledge on Probabilities
@@ -91,64 +97,6 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 
 - The numeric value of a conditional probability can be computed with _Bayes' formula_ (see the [user guide](A_user_guide.html)) or in terms of _natural frequencies_. For humans, the former is difficult, the latter simpler and more transparent.
 
-
-## A Functional Perspective
-
-The `riskyr` data structures essentially describe networks of dependencies. 
-This is best illustrated by the network diagram (see examples of `plot_fnet`). 
-However, sometimes it is instructive to view all possible values of some parameter as a function of others. 
-A functional perspective illustrates how the value of some parameter (or its values) 
-changes as a function of other parameters (and their values). 
-
-The basic format of a function is $y = f(x)$, which illustrates how values of $y$ 
-depend on values of $x$ given some function $f$. `riskyr` provides 2 functions for 
-viewing parameters as a function of other parameters (and their values). 
-
-<!-- 
-$$
-\begin{aligned}
-y \ &= \ f(x)  &  \\
-y \ &= \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\} & (1)  \\
-y \ &= \ f(\texttt{sens} \times\ \texttt{spec} \textrm{, both from 0 to 1, for given value of } \texttt{prev}) \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\} & (2) \\ 
-\end{aligned}
-$$
--->
-
-### Curves as a function of prevalence
-
-The function `plot_curve` draws the curves (or lines) of selected parameters 
-as a function of the prevalene (with `prev` ranging from 0 to 1) 
-for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`): 
-
-$$y \ = \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \   (1)$$
-
-An example:
-
-```{r plot_curve, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of an increased prevalence (for given values of sensitivity and specificity)."}
-library("riskyr")  # load the "riskyr" package
-high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
-
-plot_curve(prev = high.prev, sens = .70, spec = (1 - .096), 
-           what = c("PPV", "NPV", "acc"), 
-           title.lbl = "Mammography screening (BRCA1 mutation)", cex.lbl = .8)
-```
-
-
-### Planes as a function of sensitivity and specificity (for given prevalence)
-
-The function `plot_plane` draws a plane for a selected parameter as a function of sensitivity and specificity 
-(with `sens` and `spec` both ranging from 0 to 1) for a given prevalence `prev`: 
-
-$$y \ = \ f(\texttt{sens} \times\ \texttt{spec} \textrm{, both from 0 to 1, for given value of } \texttt{prev}) \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \ \ (2)$$
-
-Some examples:
-
-```{r plot_plane, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "Planes that show PPV, NPV, the proportion of positive predictions (ppod) and overall accuracy (acc) as a function of sensitivity and specificity (for given prevalence)."}
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "PPV",  title.lbl = "A. Mammography (BRCA1)", cex.lbl = .8)
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "NPV",  title.lbl = "B. Mammography (BRCA1)", cex.lbl = .8)
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "ppod", title.lbl = "C. Mammography (BRCA1)", cex.lbl = .8)
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "acc",  title.lbl = "D. Mammography (BRCA1)", cex.lbl = .8)
-```
 
 
 
