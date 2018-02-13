@@ -86,14 +86,14 @@
 #' }
 #'
 #'
-#' @param ident.order Specifies the order in which icon identities
-#' (hits, misses, false alarms, and correct rejections) are plotted.
+#' @param ident.order  The order in which icon identities
+#' (i.e, hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident.order = c("hi", "mi", "fa", "cr")}
 #'
-#' @param block.d Distance bettwenn blocks
+#' @param block.d  The distance between blocks
 #' (does not apply to "filleft", "filltop", and "scatter")
 #'
-#' @param border.d specifies the distance of the icons to the border.
+#' @param border.d  The distance of icons to the border.
 #'
 #'
 #' Additional options allow to control the arrangement of the arrays
@@ -139,6 +139,7 @@
 #'
 #' @param icon.size Manually specifies the size of the icons via \code{cex}
 #' (calculated dynamically by default.)
+#'
 #'
 #' @param title.lbl Text label to set plot title.
 #'

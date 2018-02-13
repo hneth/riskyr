@@ -112,7 +112,7 @@ $$
 1. `plot_curve` shows the curves of selected parameters as a function of the prevalene (with `prev` ranging from 0 to 1) 
 for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`). 
 
-```{r plot_curve, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "A plot that shows PPV and NPV as a function of prevalence (for given values of sensitivity and specificity)."}
+```{r plot_curve, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of prevalence (for given values of sensitivity and specificity)."}
 library("riskyr")  # load the "riskyr" package
 
 plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
@@ -122,7 +122,12 @@ plot_curve(prev = .01, sens = .80, spec = (1 - .096),
 2. `plot_plane` shows a plane for a selected parameter as a function of sensitivity and specificity 
 (with `sens` and `spec` both ranging from 0 to 1) for a given prevalence `prev`. 
 
-
+```{r plot_plane, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "Planes that show PPV, NPV, the proportion of positive predictions (ppod) and overall accuracy (acc) as a function of sensitivity and specificity (for given prevalence)."}
+plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "PPV",  title.lbl = "Mammography screening (A)")
+plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "NPV",  title.lbl = "Mammography screening (B)")
+plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "ppod", title.lbl = "Mammography screening (C)")
+plot_plane(prev = .01, sens = .80, spec = (1 - .096), what = "acc",  title.lbl = "Mammography screening (D)")
+```
 
 ## Instructional Approaches
 
@@ -209,6 +214,10 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 Teaching Bayesian reasoning in less than two hours. 
 _Journal of Experimental Psychology: General_, _130_, 380--400.
 
+- Strevens, M. (2013). 
+_Tychomancy: Inferring probability from causal structure_. 
+Cambridge, MA: Harvard University Press. 
+
 
 ## Contact
 
@@ -228,8 +237,7 @@ We appreciate your feedback, comments, or questions.
 
 The `riskyr` logo (showing three facets of a dice) also represents its functionality in a variety of ways:  
 
-1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities.  
-(See Stevens, 2013, for aleatoric devices.)  
+1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.) 
 
 2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
 

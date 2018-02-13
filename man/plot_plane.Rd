@@ -2,14 +2,13 @@
 % Please edit documentation in R/plot_plane.R
 \name{plot_plane}
 \alias{plot_plane}
-\title{Plot predictive values (PPV or NPV) as a function of
-sensitivity and specificity.}
+\title{Plot a plane of selected values (e.g., PPV or NPV)
+as a function of sensitivity and specificity.}
 \usage{
 plot_plane(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, is.ppv = TRUE, step.size = 0.05, show.PVpoints = TRUE,
-  cur.theta = -45, cur.phi = 0, cur.d = 1.5, cur.expand = 1.1,
-  cur.ltheta = 200, cur.shade = 0.25, title.lbl = txt$scen.lbl,
-  col.pv = pal["ppv"])
+  fart = NA, what = "PPV", what.col = pal, step.size = 0.05,
+  show.point = TRUE, theta = -45, phi = 0, title.lbl = txt$scen.lbl,
+  cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -35,43 +34,36 @@ of a negative decision provided that the condition is \code{FALSE}).
 of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{is.ppv}{Option for showing either
-\code{\link{PPV}} or \code{\link{NPV}}.
-Default: \code{is.ppv = TRUE}.}
+\item{what}{A character code that specifies the
+selected metric to be plotted as a plane. Currently available
+options are \code{c("PPV", "NPV", "ppod", "acc")}.
+Default: \code{what = "PPV"}.}
 
-\item{step.size}{Option for the step size of the range of
-\code{\link{sens}} and \code{\link{spec}} values shown.
+\item{what.col}{A vector of colors corresponding to \code{what}.
+Default: \code{what.col = pal}.}
+
+\item{step.size}{Sets the granularity of the
+\code{\link{sens}}-by-\code{\link{spec}} grid.
 Default: \code{step.size = .05}.}
 
-\item{show.PVpoints}{Option for showing current
-\code{\link{PPV}} or \code{\link{NPV}})
-on the corresponding plane.
-Default: \code{show.PVpoints = TRUE}.}
+\item{show.point}{Boolean option for showing the current value
+of the selected metric for the current conditions
+(\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
+as a point on the plane.
+Default: \code{show.point = TRUE}.}
 
-\item{cur.theta}{Horizontal rotation angle (used by \code{\link{persp}}).
-Default: \code{cur.theta = -45}.}
+\item{theta}{Horizontal rotation angle (used by \code{\link{persp}}).
+Default: \code{theta = -45}.}
 
-\item{cur.phi}{Vertical rotation angle (used by \code{\link{persp}}).
-Default: \code{cur.phi = 0}.}
-
-\item{cur.d}{Strength of perspective transformation (used by \code{\link{persp}}).
-Values of \code{cur.d > 1} will weaken perspective effects,  values \code{cur.d <= 1} exaggerate it.
-Default: \code{cur.d = 1.5}.}
-
-\item{cur.expand}{Expansion factor applied to the z coordinates (used by \code{\link{persp}}).
-Default: \code{cur.expand = 1.1}.}
-
-\item{cur.ltheta}{Azimuth direction for shading (used by \code{\link{persp}}).
-Default: \code{cur.ltheta = 200}.}
-
-\item{cur.shade}{Shading value (used by \code{\link{persp}}).
-Default: \code{cur.shade = .25}.}
+\item{phi}{Vertical rotation angle (used by \code{\link{persp}}).
+Default: \code{phi = 0}.}
 
 \item{title.lbl}{The title of the current plot.
 Default: \code{title.lbl = txt$scen.lbl}.}
 
-\item{col.pv}{The color in which the selected predictive value is shown.
-Default: \code{col.pv = pal["ppv"]}.}
+\item{cex.lbl}{Scaling factor for the size of text labels
+(e.g., on axes, legend, margin text).
+Default: \code{cex.lbl = .85}.}
 }
 \description{
 \code{plot_plane} draws a 3D-plane of selected values
@@ -81,12 +73,25 @@ a decision's sensitivity \code{\link{sens}} and
 specificity value \code{\link{spec}}
 for a given prevalence (\code{\link{prev}}).
 }
+\details{
+\code{plot_plane} is a generalization of
+\code{plot_PV3d} (see legacy code)
+that allows for additional dependent values.
+}
 \examples{
-plot_PV3d()  # => shows PPV plane (using current defaults)
-plot_PV3d(prev = .5, show.PVpoints = FALSE, step.size = .5, title.lbl = "Quick test")
-plot_PV3d(prev = .3, is.ppv = FALSE, col.pv = pal["npv"])
-plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "",
-          cur.theta = -45, cur.phi = 45, cur.expand = 1.4, col.pv = "firebrick3")
+# Basics:
+plot_plane()  # => current defaults (what = "PPV")
+plot_plane(what = "PPV")  # => plane of PPV
+plot_plane(what = "NPV")  # => plane of NPV
+plot_plane(what = "ppod") # => plane of ppod
+plot_plane(what = "acc")  # => plane of acc
+
+# Options:
+plot_plane(title.lbl = "Testing smaller text labels", cex.lbl = .60)
+plot_plane(show.point = FALSE)  # => no point shown on plane
+plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
+plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
+plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
 
 
 }
@@ -99,8 +104,7 @@ plot_PV3d(prev = .5, is.ppv = FALSE, step.size = .20, title.lbl = "",
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings
 
-Other visualization functions: \code{\link{plot_PV3d}},
-  \code{\link{plot_PV}}, \code{\link{plot_curve}},
+Other visualization functions: \code{\link{plot_curve}},
   \code{\link{plot_fnet}}, \code{\link{plot_icons}},
   \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
 }

@@ -1,11 +1,14 @@
 ## start_riskyr.R | riskyr
-## 2018 02 10
+## 2018 02 12
 ## -----------------------------------------------
 ## (1) Initialize the package:
 
 .onAttach <- function(libname, pkgname) {
+
   packageStartupMessage("Welcome to riskyr!")
-}
+  # packageStartupMessage("Ready to riskyr...")
+
+  }
 
 ## -----------------------------------------------
 ## (2) Run some code:

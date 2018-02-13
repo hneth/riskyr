@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 02 12
+## 2018 02 13
 ## -----------------------------------------------
 ## plot_curve: A generalization of plot_PV
 ## that plots different DVs (e.g., PPV, NPV, acc curves)
@@ -15,7 +15,8 @@
 ## (using only necessary arguments with good defaults):
 
 
-#' Plot curves of selected values as a function of prevalence.
+#' Plot curves of selected values (e.g., PPV or NPV)
+#' as a function of prevalence.
 #'
 #' \code{plot_curve} draws curves of selected values
 #' (including \code{\link{PPV}}, \code{\link{NPV}})
@@ -26,7 +27,8 @@
 #' specificity \code{\link{spec}} (or
 #' false alarm rate \code{\link{fart}}).
 #'
-#' \code{plot_curve} is a generalization of \code{\link{plot_PV}}
+#' \code{plot_curve} is a generalization of
+#' \code{plot_PV} (see legacy code)
 #' that allows for additional dependent values.
 #'
 #'
@@ -76,9 +78,13 @@
 #' @param title.lbl The title of the current plot.
 #' Default: \code{title.lbl = txt$scen.lbl}.
 #'
+#' @param cex.lbl Scaling factor for the size of text labels
+#' (e.g., on axes, legend, margin text).
+#' Default: \code{cex.lbl = .85}.
+#'
 #'
 #' @examples
-#' # ways to work:
+#' # Basics:
 #' plot_curve()                     # => default: what = ("prev", "PPV", "NPV")
 #' plot_curve(show.points = FALSE)  # => default without points
 #'
@@ -91,12 +97,15 @@
 #' plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # => prev, PPV, NPV, and acc
 #' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 #'
-#' # linear vs. log scale:
+#' # X-axis as linear vs. log scale:
 #' plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
 #' plot_curve(prev = .01, sens = .9, spec = .8, log.scale = TRUE)   # => log scale
 #'
 #' plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
 #' plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
+#'
+#' # Other options:
+#' plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 #'
 #'
 #' @family visualization functions
@@ -129,12 +138,14 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
                        ## DVs:
-                       what = c("prev", "PPV", "NPV"),  # what curves?  Options: "acc", "ppod"
+                       what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod".
                        what.col = pal,                  # colors for what.
                        ## Options:
                        show.points = TRUE,  # show points at current prev?
                        log.scale = FALSE,   # x-axis on log scale?
-                       title.lbl = txt$scen.lbl
+                       ## Text:
+                       title.lbl = txt$scen.lbl, # plot title label
+                       cex.lbl = .85             # scale size of text labels (e.g., on axes, legend, margin text)
 ) {
 
   ## (0) Compute or collect current probabilities: ----------
@@ -175,18 +186,18 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   pt.cex <- 1.6   # cex scaling of points
   pt.lwd <- 1.6   # lwd of point borders
 
-  ## Text appearance:
-  lbl.cex <- .80  # size of text labels
-
   ## Colors:
   col.axes <- grey(.10, alpha = .99)  # axes
   col.bord <- grey(.10, alpha = .50)  # borders (also of points)
 
   if (log.scale) { x.min <- 10^-6 } else { x.min <- 0 }  # different x.min values for different scales
-  if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .080 }
+  if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .075 }
   v.shift <- .025
   low.PV  <- .15  # threshold value for judging PPV or NPV to be low
   v.raise <- min(c(cur.PPV, cur.NPV)) + .15 # vertical raise of y-prev when PPV or NPV < low.PV
+
+  # Text label size:
+  cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .075} else {cex.lbl}  # slightly smaller than cex.lbl
 
   legend.lbls <- NULL  # initialize vector
   legend.cols <- NULL
@@ -212,20 +223,23 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (b) Initialize plot:
   if (log.scale) {
-    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, log = "x", ylab = "Probability", xlab = x.ax.lbl, type = "n")
+    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE,
+         log = "x",
+         ylab = y.ax.lbl, xlab = x.ax.lbl, cex.axis = cex.lbl, type = "n")
   } else {
-    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE, ylab = "Probability", xlab = x.ax.lbl, type = "n")
+    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE,
+         ylab = y.ax.lbl, xlab = x.ax.lbl, cex.axis = cex.lbl, type = "n")
   }
 
   ## (c) Axes (on 4 sides):
-  axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = lbl.cex, las = 1,
-       pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # x at bottom
-  axis(side = 1, at = x.seq, labels = FALSE, cex.axis = lbl.cex, las = 1,
-       pos = 1, tck = -.01, col.axis = col.axes, col.ticks = col.axes) # x at top
-  axis(side = 2, at = y.seq, labels = y.lbl, cex.axis = lbl.cex, las = 1,
-       pos = x.min, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at left
-  axis(side = 4, at = y.seq, labels = y.lbl, cex.axis = lbl.cex, las = 1,
-       pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes) # y at right
+  axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex.lbl, cex.lab = (cex.lbl),
+       las = 1, pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes)       # x at bottom
+  axis(side = 1, at = x.seq, labels = FALSE, cex.axis = cex.lbl, cex.lab = (cex.lbl),
+       las = 1, pos = 1, tck = -.01, col.axis = col.axes, col.ticks = col.axes)       # x at top
+  axis(side = 2, at = y.seq, labels = y.lbl, cex.axis = cex.lbl, cex.lab = (cex.lbl),
+       las = 1, pos = x.min, tck = -.02, col.axis = col.axes, col.ticks = col.axes)   # y at left
+  axis(side = 4, at = y.seq, labels = y.lbl, cex.axis = cex.lbl, cex.lab = (cex.lbl),
+       las = 1, pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes)       # y at right
 
   ## (d) Grid:
   grid(col = grey(.8, .8))
@@ -263,21 +277,22 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## 3. label:
       prev.lbl <- paste0("prev = ", as_pc(prev), "%")  # prev label
 
+
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
         if ((prev < .50) | !(prev > 1 - h.shift)) {
           text(x = prev + h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on right
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on right
         } else {
           text(x = prev - h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on left+
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on left+
         }
       } else { # y at bottom (y = 0):
         if ((prev < .50) | !(prev > 1 - h.shift)) {
           text(x = prev + h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on right
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on right
         } else {
           text(x = prev - h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = lbl.cex) # on left+
+               labels = prev.lbl, col = col.prev, cex = cex.lbl.sm) # on left+
         }
       }
 
@@ -309,10 +324,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = lbl.cex) # on right
+             labels = PPV.lbl, col = col.ppv, cex = cex.lbl.sm) # on right
       } else {
         text(x = prev - h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = lbl.cex) # on left+
+             labels = PPV.lbl, col = col.ppv, cex = cex.lbl.sm) # on left+
       }
 
     } # if (show.points)...
@@ -343,10 +358,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if (cur.NPV > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.NPV + v.shift,
-             labels = NPV.lbl, col = col.npv, cex = lbl.cex) # on right+
+             labels = NPV.lbl, col = col.npv, cex = cex.lbl.sm) # on right+
       } else {
         text(x = prev - h.shift, y = cur.NPV - v.shift,
-             labels = NPV.lbl, col = col.npv, cex = lbl.cex) # on left-
+             labels = NPV.lbl, col = col.npv, cex = cex.lbl.sm) # on left-
       }
 
     } # if (show.points)...
@@ -360,7 +375,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     ## 0. parameters:
     cur.ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
     lty.ppod <- 1                            # ppod line type
-    col.ppod <- pal["pos"]                   # ppod color
+    col.ppod <- pal["pos"]                   # ppod color (using "pos")
     legend.lbls <- c(legend.lbls, "ppod")    # add NPV label
     legend.cols <- c(legend.cols, col.ppod)  # add NPV color
     legend.ltys <- c(legend.ltys, lty.ppod)  # add NPV line type
@@ -378,10 +393,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if (cur.ppod > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.ppod + v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = lbl.cex) # on right+
+             labels = ppod.lbl, col = col.ppod, cex = cex.lbl.sm) # on right+
       } else {
         text(x = prev - h.shift, y = cur.ppod - v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = lbl.cex) # on left-
+             labels = ppod.lbl, col = col.ppod, cex = cex.lbl.sm) # on left-
       }
 
     } # if (show.points)...
@@ -395,7 +410,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     ## 0. parameters:
     cur.acc <- comp_acc(prev, sens, spec)   # compute current acc
     lty.acc <- 1                            # acc line type
-    col.acc <- pal["hi"]                    # acc color
+    col.acc <- pal["hi"]                    # acc color (using "hi")
     legend.lbls <- c(legend.lbls, "acc")    # add acc label
     legend.cols <- c(legend.cols, col.acc)  # add acc color
     legend.ltys <- c(legend.ltys, lty.acc)  # add acc line type
@@ -413,10 +428,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
       if (cur.acc > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.acc + v.shift,
-             labels = acc.lbl, col = col.acc, cex = lbl.cex) # on right+
+             labels = acc.lbl, col = col.acc, cex = cex.lbl.sm) # on right+
       } else {
         text(x = prev - h.shift, y = cur.acc - v.shift,
-             labels = acc.lbl, col = col.acc, cex = lbl.cex) # on left-
+             labels = acc.lbl, col = col.acc, cex = cex.lbl.sm) # on left-
       }
 
     } # if (show.points)...
@@ -436,7 +451,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = cex.lbl)  # print label
 
 
   ## (6) Legend: ----------
@@ -446,7 +461,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     #       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
     add_legend("topright",
                legend = legend.lbls, lty = legend.ltys, lwd = 2, col = legend.cols,
-               cex = .90, horiz = FALSE, bty = 'n')
+               cex = cex.lbl, horiz = FALSE, bty = 'n')
   }
 
   ## Return what?
@@ -469,6 +484,9 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   #
   # plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
   # plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
+  #
+  # plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
+
 }
 
 ## -----------------------------------------------

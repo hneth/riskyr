@@ -9,13 +9,13 @@ citEntry(entry = "Manual",
          year         = "2018",
          organization = "Social Psychology and Decision Sciences, University of Konstanz",
          address      = "Konstanz, Germany",
-         note         = "R package (version 0.0.0.918, Feb. 11, 2018)",
+         note         = "R package (version 0.0.0.920, Feb. 12, 2018)",
          url          = "https://github.com/hneth/riskyr",
 
          textVersion  =
            paste("Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).",
                  "riskyr: A toolbox for rendering risk literacy more transparent.",
                  "Social Psychology and Decision Sciences, University of Konstanz, Germany.",
-                 "Computer software (R package version 0.0.0.918, Feb. 11, 2018).",
+                 "Computer software (R package version 0.0.0.920, Feb. 12, 2018).",
                  "Retrieved from <https://github.com/hneth/riskyr>.")
          )
