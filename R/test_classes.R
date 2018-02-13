@@ -18,6 +18,9 @@
 ## -----------------------------------------------
 ## (1) plot.riskyr function:
 
+# TODO:  Document plot.riskyr and summary riskyr!
+# Follow e.g., ?stats:::print.summary.lm()
+
 plot.riskyr <- function(obj,
                         plottype = "network",  # plottype parameter for type of plot.
                         # type = "array",  # type parameter for plot subtypes.
@@ -413,8 +416,8 @@ names(scenarios.lst) <- paste0("scen", 1:nrow(scenarios))
 for (i in 1:nrow(scenarios)) {
 
 
-
-  s <- scenarios[i, ]
+  s <- scenarios[i, ]  # define scenario.
+  # pass scenario to function riskyr:
   cur.scen <- riskyr(scen.lbl = s$scen.lbl, scen.lng = s$scen.lng, scen.txt = s$scen.txt,
                      popu.lbl = s$popu.lbl, cond.lbl = s$cond.lbl,
                      cond.true.lbl = s$cond.true.lbl, cond.false.lbl = s$cond.false.lbl,
@@ -430,24 +433,11 @@ for (i in 1:nrow(scenarios)) {
 }
 
 
-## Check:
-## Calling list elements:
-
-## (a) by number:
-# summary(scenarios.lst[[6]])
-# plot(scenarios.lst[[6]])
-
-## (b) by names:
-# summary(scenarios.lst$scen6)
-# plot(scenarios.lst$scen6)
-
-
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - consider defining an object class riskyr
-##   that binds all elements of the current scenario
-##   similar to the (now deprecated) env list.
+## - allow riskyr() to take all kinds of inputs,
+##   so that a full object is created.
 
 ## -----------------------------------------------
 ## eof.
