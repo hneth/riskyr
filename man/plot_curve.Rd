@@ -7,7 +7,8 @@ as a function of prevalence.}
 \usage{
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, what = c("prev", "PPV", "NPV"), what.col = pal,
-  show.points = TRUE, log.scale = FALSE, title.lbl = txt$scen.lbl)
+  show.points = TRUE, log.scale = FALSE, title.lbl = txt$scen.lbl,
+  cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -53,6 +54,10 @@ Default: \code{log.scale = FALSE}.}
 
 \item{title.lbl}{The title of the current plot.
 Default: \code{title.lbl = txt$scen.lbl}.}
+
+\item{cex.lbl}{Scaling factor for the size of text labels
+(e.g., on axes, legend, margin text).
+Default: \code{cex.lbl = .85}.}
 }
 \description{
 \code{plot_curve} draws curves of selected values
@@ -70,7 +75,7 @@ false alarm rate \code{\link{fart}}).
 that allows for additional dependent values.
 }
 \examples{
-# ways to work:
+# Basics:
 plot_curve()                     # => default: what = ("prev", "PPV", "NPV")
 plot_curve(show.points = FALSE)  # => default without points
 
@@ -83,12 +88,15 @@ plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
 plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # => prev, PPV, NPV, and acc
 plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 
-# linear vs. log scale:
+# X-axis as linear vs. log scale:
 plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
 plot_curve(prev = .01, sens = .9, spec = .8, log.scale = TRUE)   # => log scale
 
 plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
 plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
+
+# Other options:
+plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 
 
 }

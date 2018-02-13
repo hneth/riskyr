@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 02 12
+## 2018 02 13
 ## -----------------------------------------------
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
@@ -81,6 +81,10 @@
 #' @param title.lbl The title of the current plot.
 #' Default: \code{title.lbl = txt$scen.lbl}.
 #'
+#' @param cex.lbl Scaling factor for the size of text labels
+#' (e.g., on axes, legend, margin text).
+#' Default: \code{cex.lbl = .85}.
+#'
 #'
 #' @examples
 #' # Basics:
@@ -91,11 +95,11 @@
 #' plot_plane(what = "acc")  # => plane of acc
 #'
 #' # Options:
+#' plot_plane(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 #' plot_plane(show.point = FALSE)  # => no point shown on plane
 #' plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
 #' plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
 #' plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
-#' plot_plane(title.lbl = "Testing plot options")
 #'
 #'
 #' @family visualization functions
@@ -135,8 +139,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        ## Main persp() options [adjustable]:
                        theta = -45,
                        phi = 0,
-                       ## Plot title label:
-                       title.lbl = txt$scen.lbl
+                       ## Text:
+                       title.lbl = txt$scen.lbl, # plot title label
+                       cex.lbl = .85             # scale size of text labels (e.g., on axes, legend, margin text)
 ) {
 
   ## (0) Collect or compute current probabilities: ----------
@@ -270,20 +275,21 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ltheta = 200
   shade = .25
 
-
   ## (4) Draw 3D plane (of z) with persp: ----------
 
   plane <- persp(x, y, z,
-                 theta = theta, phi = phi, d = d, expand = expand,
-                 col = cur.col, border = NA,
-                 ltheta = ltheta,
-                 shade = shade,
+                 theta = theta, phi = phi, d = d, expand = expand,  # perspective
+                 col = cur.col, border = NA,     # color
+                 ltheta = ltheta, shade = shade, # illumination
                  ticktype = "detailed",
                  nticks = 6, # at 20% intervals
                  xlab = "sens",
                  ylab = "spec",
                  zlab = z.lbl,
-                 zlim = z.lim
+                 zlim = z.lim,
+                 cex = cex.lbl,
+                 cex.axis = cex.lbl,
+                 cex.lab = cex.lbl
   )
 
   ## (5) Add cur.val as point to plot: ----------
@@ -316,10 +322,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+  mtext(cur.cond.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = cex.lbl)  # print label
 
   if (show.point) {
-    mtext(paste0(cur.lbl), side = 1, line = 2, adj = 1, col = cur.col, cex = .90, font = 1)
+    mtext(paste0(cur.lbl), side = 1, line = 2, adj = 1, col = cur.col, cex = (cex.lbl + .05), font = 1)
   }
 
 
