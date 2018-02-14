@@ -127,5 +127,6 @@ plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "acc",  title
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
+| E. | [`riskyr` primer](E_riskyr_primer.html) | A quick tutorial to get started with `riskyr`  |
 
 <!-- eof. -->
