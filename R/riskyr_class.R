@@ -210,6 +210,8 @@ plot.riskyr <- function(obj,
   if ((plottype == "plane") || (plottype == "planes")) {
 
     if ("what" %in% arg.names) what <- arguments$what else what <- "PPV"
+    if ("theta" %in% arg.names) theta <- arguments$theta else theta <- -45
+    if ("phi" %in% arg.names) phi <- arguments$phi else phi <- 0
 
     plot_plane(prev = obj$prev,             # probabilities (3 essential, 2 optional)
                sens = obj$sens, mirt = NA,
@@ -221,8 +223,8 @@ plot.riskyr <- function(obj,
                step.size = .05,    # resolution of matrix (sens.range and spec.range)
                show.point = TRUE,  # show point on plane?
                ## Main persp() options [adjustable]:
-               theta = -45,
-               phi = 0,
+               theta = theta,
+               phi = phi,
                ## Text:
                title.lbl = obj$scen.lbl, # plot title label
                cex.lbl = .85 # scale size of text labels (e.g., on axes, legend, margin text)
