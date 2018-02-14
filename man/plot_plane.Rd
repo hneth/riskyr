@@ -6,8 +6,8 @@
 as a function of sensitivity and specificity.}
 \usage{
 plot_plane(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, what = "PPV", what.col = pal, step.size = 0.05,
-  show.point = TRUE, theta = -45, phi = 0, title.lbl = txt$scen.lbl,
+  fart = NA, what = "PPV", what.col = pal, show.point = TRUE,
+  step.size = 0.05, theta = -45, phi = 0, title.lbl = txt$scen.lbl,
   cex.lbl = 0.85)
 }
 \arguments{
@@ -34,23 +34,24 @@ of a negative decision provided that the condition is \code{FALSE}).
 of a positive decision provided that the condition is \code{FALSE}).
 \code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{what}{A character code that specifies the
-selected metric to be plotted as a plane. Currently available
+\item{what}{A character code that specifies one metric
+to be plotted as a plane. Currently available
 options are \code{c("PPV", "NPV", "ppod", "acc")}.
 Default: \code{what = "PPV"}.}
 
-\item{what.col}{A vector of colors corresponding to \code{what}.
+\item{what.col}{A color corresponding to the metric
+specified in \code{what}.
 Default: \code{what.col = pal}.}
-
-\item{step.size}{Sets the granularity of the
-\code{\link{sens}}-by-\code{\link{spec}} grid.
-Default: \code{step.size = .05}.}
 
 \item{show.point}{Boolean option for showing the current value
 of the selected metric for the current conditions
 (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
 as a point on the plane.
 Default: \code{show.point = TRUE}.}
+
+\item{step.size}{Sets the granularity of the
+\code{\link{sens}}-by-\code{\link{spec}} grid.
+Default: \code{step.size = .05}.}
 
 \item{theta}{Horizontal rotation angle (used by \code{\link{persp}}).
 Default: \code{theta = -45}.}
@@ -104,7 +105,8 @@ plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from a
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings
 
-Other visualization functions: \code{\link{plot_curve}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_tree}}
 }

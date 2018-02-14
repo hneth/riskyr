@@ -240,7 +240,8 @@ plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 \code{\link{txt}} contains current text settings;
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
-Other visualization functions: \code{\link{plot_curve}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_curve}}, \code{\link{plot_icons}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_tree}}
 }

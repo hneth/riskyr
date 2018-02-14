@@ -13,7 +13,7 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   block.size.col = 10, nblocks.row = NULL, nblocks.col = NULL,
   fill.array = "left", fill.blocks = "rowwise", show.accu = TRUE,
   w.acc = 0.5, title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl",
-  "mi.lbl", "fa.lbl", "cr.lbl")], ...)
+  "mi.lbl", "fa.lbl", "cr.lbl")], cex.lbl = 1.2, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -132,6 +132,10 @@ Various other options allow the customization of text labels and colors:}
 
 \item{type.lbls}{Text labels for icon types to be displayed in legend.}
 
+\item{cex.lbl}{Scaling factor for the size of text labels
+(e.g., on axes, legend, margin text).
+Default: \code{cex.lbl = .85}.}
+
 \item{...}{Additional parameters for \code{plot}.}
 }
 \description{
@@ -190,7 +194,8 @@ plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
 
 }
 \seealso{
-Other visualization functions: \code{\link{plot_curve}},
-  \code{\link{plot_fnet}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_tree}}
 }

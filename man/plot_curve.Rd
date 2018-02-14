@@ -40,7 +40,8 @@ options are \code{c("prev", "PPV", "NPV", "ppod", "acc")}
 (shortcut: \code{what = "all"}).
 Default: \code{what = c("prev", "PPV", "NPV")}.}
 
-\item{what.col}{A vector of colors corresponding to \code{what}.
+\item{what.col}{A vector of colors corresponding to the elements
+specified in \code{what}.
 Default: \code{what.col = pal}.}
 
 \item{show.points}{Boolean option for showing the point of
@@ -97,6 +98,7 @@ plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
 
 # Other options:
 plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
+plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
 
 
 }
@@ -109,7 +111,8 @@ plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other visualization functions: \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_tree}}
 }
