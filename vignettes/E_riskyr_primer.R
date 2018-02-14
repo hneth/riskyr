@@ -5,34 +5,36 @@ knitr::opts_chunk$set(
 )
 
 ## ----create_scenario-----------------------------------------------------
-# Create your custom scenario: 
-custom.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
-                          cond.lbl = "reoffending",
-                          popu.lbl = "prisoners", 
-                          cond.true.lbl = "reoffends", cond.false.lbl = "does not reoffend",
-                          dec.lbl = "test result",
-                          dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
-                          hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
-                          fa.lbl = "false accusation", cr.lbl = "correct release",
-                          prev = .45,  # prevalence of being a reoffender. 
-                          sens = .98,
-                          spec = .46, fart = NA, N = 753,
-                          scen.src = "Ficticious example scenario")
+# Create a custom scenario: 
+my.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
+                      popu.lbl = "inmates", 
+                      cond.lbl = "reoffending",
+                      cond.true.lbl = "offends again", cond.false.lbl = "does not offend again",
+                      dec.lbl = "test result",
+                      dec.pos.lbl = "predict to reoffend", dec.neg.lbl = "predict to not reoffend",
+                      hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
+                      fa.lbl = "false accusation", cr.lbl = "correct release",
+                      prev = .45,  # prevalence of being a reoffender. 
+                      sens = .98,  # p( will reoffend | offends again )
+                      spec = .46,  # p( will not reoffend | does not offend again )
+                      fart =  NA,  # p( will reoffend | does not offend gain )
+                      N = 753,     # population size
+                      scen.src = "ficticious example scenario")
 
 ## ----icons, fig.width=7, fig.height=5------------------------------------
-plot(custom.scenario, plot.type = "icons", cex.lbl = 0.85)
+plot(my.scenario, plot.type = "icons", cex.lbl = 0.85)
 
 ## ----full_summary--------------------------------------------------------
-summary(custom.scenario)
+summary(my.scenario)
 
 ## ----summary_prob--------------------------------------------------------
-summary(custom.scenario, summarize = "prob")
+summary(my.scenario, summarize = "prob")
 
 ## ----tree, fig.width=7, fig.height=6-------------------------------------
-plot(custom.scenario, plot.type = "tree", by = "dc")
+plot(my.scenario, plot.type = "tree", by = "dc")
 
 ## ----plotting_curve, fig.width=7, fig.height=5.5-------------------------
-plot(custom.scenario, plot.type = "curve")
+plot(my.scenario, plot.type = "curve")
 
 ## ----scenario_table, echo = FALSE, results = 'asis'----------------------
 library(knitr)
@@ -52,16 +54,16 @@ s21 <- scenarios$n21  # assign pre-defined Scenario_21 to s
 ## ----summary_s21---------------------------------------------------------
 summary(s21) # shows all scenario information.
 
-## ---- summary_s21_freq---------------------------------------------------
+## ----summary_s21_freq----------------------------------------------------
 summary(s21, summarize = "freq") # shows frequencies. 
 
-## ---- s21_net, fig.width=7, fig.height=6---------------------------------
+## ----s21_net, fig.width=7, fig.height=6----------------------------------
 plot(s21) # plots a network diagram (by default)
 
-## ----s21_icons, fig.width=7, fig.height=5--------------------------------
+## ----s21_icons, fig.width = 7, fig.height = 5----------------------------
 plot(s21, plot.type = "icons", cex.lbl = 0.75)
 
-## ----s21_curve, fig.width=7, fig.height=5--------------------------------
+## ----s21_curve, fig.width = 7, fig.height = 5----------------------------
 plot(s21, plot.type = "curve", what = "all")
 
 ## ----s22_summary---------------------------------------------------------

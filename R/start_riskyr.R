@@ -1,17 +1,42 @@
 ## start_riskyr.R | riskyr
-## 2018 02 13
+## 2018 02 14
 ## -----------------------------------------------
-## (1) Initialize the package:
+## (1) Initialize package:
 
 .onAttach <- function(libname, pkgname) {
-
   packageStartupMessage("Welcome to riskyr!")
-  packageStartupMessage("Ready to riskyr it...")
+  # packageStartupMessage("              ")
+  # packageStartupMessage("      N       ")
+  # packageStartupMessage("    /  \\     ")
+  # packageStartupMessage("  T      F    ")
+  # packageStartupMessage(" / \\    / \\ ")
+  # packageStartupMessage("hi mi fa  cr  ")
+  # packageStartupMessage("              ")
+  # packageStartupMessage("riskyr v0.0.0.924.")
+  # packageStartupMessage("Ready to riskyr it...")
+  packageStartupMessage("riskyr.guide() opens the package guide.")
+  # packageStartupMessage("citation('riskyr') provides citation info.")
+}
+
+## -----------------------------------------------
+## (2) Open package guide:
+
+#' Opens the riskyr package guide
+#'
+#' @importFrom utils vignette
+#' @importFrom utils browseVignettes
+#'
+#' @export
+
+riskyr.guide <- function() {
+
+  vignette("A_user_guide", package = "riskyr")
+  # browseVignettes(package = 'riskyr')
 
 }
 
 ## -----------------------------------------------
-## (2) Run some code when starting riskyr:
+## (3) Run some code when starting riskyr:
 
 start_riskyr <- function(...) {
 

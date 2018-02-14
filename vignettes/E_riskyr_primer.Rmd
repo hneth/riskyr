@@ -59,54 +59,58 @@ A new scenario can be described in many different ways:
 
 * `scen.lbl` A telling name (e.g., "Identifying reoffenders").  
 
-* `cond.lbl` A label for the condition of interest (i.e., "reoffending"). 
+* `popu.lbl` specifies the population of interest (e.g., "inmates").
 
-* `popu.lbl` specifies the population of interest (e.g., "prisoners").
+* `cond.lbl` A label for the condition of interest (i.e., "reoffending").
+* `cond.true.lbl` specifies a label for the condition being true ("offends again").
+* `cond.false.lbl` specifies a label for the condition being false ("does not offend again").
 
+* `dec.lbl` specifies the nature of the decision, prediction, or test ("test result").
+* `dec.pos.lbl` specifies a positive decision relative to the condition ("predict to reoffend").
+* `dec.neg.lbl` specifies a negative decision relative to the condition ("predict to not reoffend").
 
-* `cond.true.lbl` specifies a label for if the condition is true; in this case "reoffends".
-* `cond.false.lbl` specifies a label for if the condition is false; in this case "does not reoffend". 
-* `dec.lbl` specifies what the decision is about.  In this case, what the "test result"" suggests. 
-* `dec.pos.lbl` specifies what a positive decision relative to the condition is.  In this case it is that the inmate "will reoffend" 
-* `dec.negative.lbl` specifies what a negative decision relative to the condition is.  In this case it is that the inmate "will __not__ reoffend" 
-* Within `hi.lbl`, `mi.lbl`, `fa.lbl`, and `cr.lbl` you can specify how the cases resulting from actual condition and suggestion of the test are called.  We will simply call them 
-    * "Reoffender found" (if the test suggests the inmate will reoffend and he or she does), 
-    * "Reoffender missed" (if the test suggests, that the inmate will not reoffend but does), 
-    * "False accusation" (if the test suggests the inmate will reoffend but he or she doesn't), and 
-    * "Correct release" (if the test suggests the inmate will not reoffend and he or she actaually doesn't) 
+* The labels `hi.lbl`, `mi.lbl`, `fa.lbl`, and `cr.lbl` specify the four possible combinations of condition and decisions: 
+    * "reoffender found" (hit: the test predicts that the inmate reoffends and s/he does), 
+    * "reoffender missed" (miss: the test predicts that the inmate does not reoffend but s/he does), 
+    * "false accusation" (false alarm: the test predicts that the inmate reoffends but s/he does not), and 
+    * "correct release" (correct rejection: the test predicts that the inmate does not reoffend and s/he does not). 
     
-Finally you can specify the available numeric information on the population and the test: 
+    
+Crucially, you should specify the available numeric information on the population and the test: 
 
-* `prev` the _prevalence_ or how many inmates reoffend at all. 
-* `sens` the _sensitivity_ or how many reoffenders are correctly classified by the test. 
-* `spec` the _specificity _ or how many non reoffenders are correctly identified. 
-* `N` the _population size_ or how many inmates are there in prison. 
+1. `prev` the _prevalence_ or how many inmates reoffend at all. 
+2. `sens` the _sensitivity_ or how many reoffenders are correctly classified by the test. 
+3. `spec` the _specificity _ or how many non reoffenders are correctly identified. 
 
-Let us create a custom `"riskyr"` object
+4. `N` the _population size_ or how many inmates are there in prison. 
+
+Let us create a custom `riskyr` object: 
 
 ```{r create_scenario}
-# Create your custom scenario: 
-custom.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
-                          cond.lbl = "reoffending",
-                          popu.lbl = "prisoners", 
-                          cond.true.lbl = "reoffends", cond.false.lbl = "does not reoffend",
-                          dec.lbl = "test result",
-                          dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
-                          hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
-                          fa.lbl = "false accusation", cr.lbl = "correct release",
-                          prev = .45,  # prevalence of being a reoffender. 
-                          sens = .98,
-                          spec = .46, fart = NA, N = 753,
-                          scen.src = "Ficticious example scenario")
+# Create a custom scenario: 
+my.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
+                      popu.lbl = "inmates", 
+                      cond.lbl = "reoffending",
+                      cond.true.lbl = "offends again", cond.false.lbl = "does not offend again",
+                      dec.lbl = "test result",
+                      dec.pos.lbl = "predict to reoffend", dec.neg.lbl = "predict to not reoffend",
+                      hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
+                      fa.lbl = "false accusation", cr.lbl = "correct release",
+                      prev = .45,  # prevalence of being a reoffender. 
+                      sens = .98,  # p( will reoffend | offends again )
+                      spec = .46,  # p( will not reoffend | does not offend again )
+                      fart =  NA,  # p( will reoffend | does not offend gain )
+                      N = 753,     # population size
+                      scen.src = "ficticious example scenario")
 ```
 
 
-Firstly, we can visualize our new object in different ways: 
+First, we can visualize our new object in different ways: 
 
 The iconarray displays the whole population of inmates and how they are classified and whether they will reoffend.  We can do this with a simple call to `plot()` using the `plot.riskyr()` method with `plot.type = "icons"`:
 
 ```{r icons, fig.width=7, fig.height=5}
-plot(custom.scenario, plot.type = "icons", cex.lbl = 0.85)
+plot(my.scenario, plot.type = "icons", cex.lbl = 0.85)
 ```
 
 We can relatively easily see that roughly half of the inmates reoffend (dark green and dark red icons).  Of those most are classified corretly.  But what about John D.?  His test result suggeested that he would reoffend.  How likely will he actually reoffend? 
@@ -117,13 +121,13 @@ Therefore we need to consider the dark green icons (hits, the test suggests that
 Now we can use the `summary` function to confirm this: 
 
 ```{r full_summary}
-summary(custom.scenario)
+summary(my.scenario)
 ```
 
 From there we can read off some specifics of our scenario like the name, the condition of interest, what our decision is based on (the test), and how many individuals are there.  Moreover, we can read out probabilities, frequencies, and overall accuracy.  This contains much information we actually don't need to answer our question.   So we might want to limit this to the probabilities, as we are interested in the probability of reoffending, given a positive test result, the _positive predictive value_ or `PPV`. 
 
 ```{r summary_prob}
-summary(custom.scenario, summarize = "prob")
+summary(my.scenario, summarize = "prob")
 ```
 
 Reading off `PPV` from the table we can see that the rough intuition was almost correct with about 60% with a positive test result actually reoffending. 
@@ -131,7 +135,7 @@ Reading off `PPV` from the table we can see that the rough intuition was almost 
 We may even visualize this using a frequency tree: 
 
 ```{r tree, fig.width=7, fig.height=6}
-plot(custom.scenario, plot.type = "tree", by = "dc")
+plot(my.scenario, plot.type = "tree", by = "dc")
 ```
 
 We find again the PPV here.  From its complement (.403) we can infer that it is around 60%.  
@@ -141,7 +145,7 @@ We can also infer additional information.  For instance, those that get a negati
 A final way of visualizing this are curves which are dependent on prevalence. 
 
 ```{r plotting_curve, fig.width=7, fig.height=5.5}
-plot(custom.scenario, plot.type = "curve")
+plot(my.scenario, plot.type = "curve")
 ```
 
 Here we see again our PPV of around 60% and the NPV of around 97%.  We can see that if prevalence dropped or was actually lower than 45%, the informativeness of a positve test result about reoffending would drop considerably.  
@@ -149,6 +153,7 @@ Here we see again our PPV of around 60% and the NPV of around 97%.  We can see t
 This illustrated, how you can create a scenario from risk information and visualize it with `riskyr`. 
 
 For further information on underlying principles and additional functionalities see [User guide](A_user_guide.html). 
+
 
 ### Using existing scenarios
 
@@ -190,22 +195,22 @@ summary(s21) # shows all scenario information.
 
 If we are only interested in frequencies, we can look at these: 
 
-```{r, summary_s21_freq}
+```{r summary_s21_freq}
 summary(s21, summarize = "freq") # shows frequencies. 
 ```
 
 Now we can consider a few graphics: 
 
-```{r, s21_net, fig.width=7, fig.height=6}
+```{r s21_net, fig.width=7, fig.height=6}
 plot(s21) # plots a network diagram (by default)
 ```
 
 
-```{r s21_icons, fig.width=7, fig.height=5}
+```{r s21_icons, fig.width = 7, fig.height = 5}
 plot(s21, plot.type = "icons", cex.lbl = 0.75)
 ```
 
-```{r s21_curve, fig.width=7, fig.height=5}
+```{r s21_curve, fig.width = 7, fig.height = 5}
 plot(s21, plot.type = "curve", what = "all")
 ```
 
@@ -274,7 +279,5 @@ Now have fun exploring the provided examples, as well as creating and exploring 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
 | E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
-
-
 
 <!-- eof. -->
