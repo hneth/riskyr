@@ -47,7 +47,7 @@
 #' (which may extend over several lines).
 #'
 #' @param scen.lng Language of the current scenario (as character code).
-#' Options: \code{"en"}...English, \code{"de"}... German.
+#' Options: \code{"en"} for English, \code{"de"} for  German.
 #'
 #' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
@@ -321,7 +321,7 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
   # (3) Add cur.scen (riskyr object) as i-th element of scenarios
   scenarios[[i]] <- cur.scen
 
-} # end for...
+} # end for
 
 ## -----------------------------------------------
 ## (3) Define scenarios as the list scenarios.lst
@@ -380,7 +380,8 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #'   See \code{\link{plot_plane}} for further options.
 #' }
 #'
-#' @param ... Additional parameters to be passed to the underlying plotting functions.
+#' @param ... Additional parameters to be passed to the
+#' underlying plotting functions.
 #'
 #' @examples
 #' # Select a scenario from list of scenarios:
@@ -456,7 +457,7 @@ plot.riskyr <- function(object,
               col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
               box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
 
-  } # if (plot.type == "network")...
+  } # if (plot.type == "network")
 
 
   ## B. Frequency tree:
@@ -505,7 +506,7 @@ plot.riskyr <- function(object,
               cex.shadow = 0  # [values > 0 show shadows]
     )
 
-  } #  if (plot.type == "tree")...
+  } #  if (plot.type == "tree")
 
 
   ## C. Mosaicplot:
@@ -519,7 +520,7 @@ plot.riskyr <- function(object,
                 title.lbl = object$scen.lbl,
                 col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 
-  } # if (plot.type == "mosaicplot")...
+  } # if (plot.type == "mosaicplot")
 
 
   ## D. Iconarrays
@@ -564,7 +565,7 @@ plot.riskyr <- function(object,
                cex.lbl = cex.lbl
     )
 
-  } #  if (plot.type == "iconarray")...
+  } #  if (plot.type == "iconarray")
 
 
   ## E. Curve:
@@ -584,7 +585,7 @@ plot.riskyr <- function(object,
                log.scale = FALSE,   # x-axis on log scale?
                title.lbl = object$scen.lbl
     )
-  } # if (plot.type == "curve")...
+  } # if (plot.type == "curve")
 
 
   ## F. Plane:
@@ -611,10 +612,10 @@ plot.riskyr <- function(object,
                title.lbl = object$scen.lbl, # plot title label
                cex.lbl = cex.lbl # scale size of text labels (e.g., on axes, legend, margin text)
     )
-  } # if (plot.type == "plane")...
+  } # if (plot.type == "plane")
 
   ## Add other plot.types:
-  ## (...)
+  ## ( )
 
 }
 
@@ -707,7 +708,7 @@ summary.riskyr <- function(object, summarize = "all") {
 
     obj.sum$probs <- list(probs.ess = probs.ess, probs.ness = probs.ness)
 
-  } # if "prob"...
+  } # if "prob"
 
 
 
@@ -737,7 +738,7 @@ summary.riskyr <- function(object, summarize = "all") {
                           acc.freqs = acc.freqs,
                           sdt.freqs = sdt.freqs)
 
-  } # if "freq"...
+  } # if "freq"
 
 
   ## (C) Accuracy information: ----------
@@ -750,7 +751,7 @@ summary.riskyr <- function(object, summarize = "all") {
     ## ToDo: ALL accuracy metrics:
     # accu <- comp_accu(prev = obj$prev, sens = obj$sens, spec = obj$spec)
 
-  } # if "acc"...
+  } # if "acc"
 
 
 
@@ -775,6 +776,9 @@ summary.riskyr <- function(object, summarize = "all") {
 #'
 #' @param object  An object of class "summaryriskyr", usually a result of a call to \code{summary.riskyr}.
 #'
+#' @param ... Additional parameters to be passed to the
+#' generic print function.
+#'
 #' @examples
 #' summary(scenarios$n4)
 #'
@@ -783,7 +787,7 @@ summary.riskyr <- function(object, summarize = "all") {
 #'
 #' @export
 
-print.summary.riskyr <- function(object) {
+print.summary.riskyr <- function(object, ...) {
 
   ## 1. Always print header: ----------
 
@@ -874,7 +878,7 @@ print.summary.riskyr <- function(object) {
 ## -----------------------------------------------
 ## (A) Defining and viewing your own scenario:
 
-## ToDo: (...)
+## ToDo: ( )
 
 ## -----------------------------------------------
 ## (B) Exporing pre-defined scenarios
