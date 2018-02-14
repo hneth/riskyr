@@ -73,29 +73,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
+<p><code>riskyr</code> is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of <code>riskyr</code> is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig &amp; Grüne-Yanoff, 2017).</p>
 <div id="getting-started" class="section level2">
 <h2>Getting Started</h2>
+<p>How can you get started with <code>riskyr</code>? You can define your <em>own scenario</em> from risk information you have available or use one of 25 predefined scenarios to get a first glimpse of what you can do with <code>riskyr</code>.</p>
 <div id="defining-your-own-scenario" class="section level3">
 <h3>Defining your own scenario</h3>
-<p>Here is how <code>riskyr</code> allows you to view and solve such problems:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(riskyr)  <span class="co"># load riskyr</span>
-
-## (1) Define your own scenario: ----------
-hustosis &lt;-<span class="st"> </span><span class="kw">riskyr</span>(<span class="dt">prev =</span> .<span class="dv">04</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">05</span>), 
-                   <span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">popu.lbl =</span> <span class="st">&quot;representative sample&quot;</span>
-                   <span class="dt">scen.lbl =</span> <span class="st">&quot;Example&quot;</span>, <span class="dt">cond.lbl =</span> <span class="st">&quot;Screening for hustosis&quot;</span>, 
-                   <span class="dt">dec.lbl =</span> <span class="st">&quot;screening&quot;</span>)
-
-## View parameters:
-<span class="kw">summary</span>(hustosis)
-<span class="kw">summary</span>(hustosis, <span class="dt">summarize =</span> <span class="st">&quot;probs&quot;</span>)
-
-## View graphics: 
-<span class="kw">plot</span>(hustosis, <span class="dt">plottype =</span> <span class="st">&quot;ftree&quot;</span>)
-<span class="kw">plot</span>(hustosis, <span class="dt">plottype =</span> <span class="st">&quot;icons&quot;</span>)
-<span class="co"># plot(hustosis, plottype = &quot;mosaic&quot;)</span>
-<span class="kw">plot</span>(hustosis, <span class="dt">plottype =</span> <span class="st">&quot;curve&quot;</span>)
-<span class="co"># plot(hustosis, plottype = &quot;plane&quot;, what = &quot;NPV&quot;)</span></code></pre></div>
+<p>You can start your <code>riskyr</code>-experience by creating a risk scenario that you want to understand better.</p>
+<p>An example:</p>
+<p>Imagine you developed a test for criminal offenders in jail. it is known that 45% of all offenders re-offend after they are released from jail.</p>
+<p>To this end you can use the <code>riskyr()</code> function to create a “riskyr” object that you can visualize and alter in different ways.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">custom.scenario &lt;-<span class="st"> </span><span class="kw">riskyr</span>(<span class="dt">scen.lbl =</span> <span class="st">&quot;Using R&quot;</span>, <span class="dt">scen.lng =</span> txt<span class="op">$</span>scen.lng,
+                  <span class="dt">scen.txt =</span> txt<span class="op">$</span>scen.txt, <span class="dt">popu.lbl =</span> txt<span class="op">$</span>popu.lbl,
+                  <span class="dt">cond.lbl =</span> txt<span class="op">$</span>cond.lbl,
+                  <span class="dt">cond.true.lbl =</span> txt<span class="op">$</span>cond.true.lbl, <span class="dt">cond.false.lbl =</span> txt<span class="op">$</span>cond.false.lbl,
+                  <span class="dt">dec.lbl =</span> txt<span class="op">$</span>dec.lbl,
+                  <span class="dt">dec.pos.lbl =</span> txt<span class="op">$</span>dec.pos.lbl, <span class="dt">dec.neg.lbl =</span> txt<span class="op">$</span>dec.neg.lbl,
+                  <span class="dt">hi.lbl =</span> txt<span class="op">$</span>hi.lbl, <span class="dt">mi.lbl =</span> txt<span class="op">$</span>mi.lbl,
+                  <span class="dt">fa.lbl =</span> txt<span class="op">$</span>fa.lbl, <span class="dt">cr.lbl =</span> txt<span class="op">$</span>cr.lbl,
+                  <span class="dt">prev =</span> .<span class="dv">20</span>,  <span class="co"># prevalence of</span>
+                  <span class="dt">sens =</span> num<span class="op">$</span>sens,
+                  <span class="dt">spec =</span> num<span class="op">$</span>spec, <span class="dt">fart =</span> <span class="ot">NA</span>, <span class="dt">N =</span> freq<span class="op">$</span>N,
+                  <span class="dt">scen.src =</span> txt<span class="op">$</span>scen.src, <span class="dt">scen.apa =</span> txt<span class="op">$</span>scen.apa)</code></pre></div>
 </div>
 <div id="using-existing-scenarios" class="section level3">
 <h3>Using existing scenarios</h3>

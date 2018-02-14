@@ -4,25 +4,19 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----example_design, eval = FALSE----------------------------------------
-#  library(riskyr)  # load riskyr
-#  
-#  ## (1) Define your own scenario: ----------
-#  hustosis <- riskyr(prev = .04, sens = .80, spec = (1 - .05),
-#                     N = 1000, popu.lbl = "representative sample"
-#                     scen.lbl = "Example", cond.lbl = "Screening for hustosis",
-#                     dec.lbl = "screening")
-#  
-#  ## View parameters:
-#  summary(hustosis)
-#  summary(hustosis, summarize = "probs")
-#  
-#  ## View graphics:
-#  plot(hustosis, plottype = "ftree")
-#  plot(hustosis, plottype = "icons")
-#  # plot(hustosis, plottype = "mosaic")
-#  plot(hustosis, plottype = "curve")
-#  # plot(hustosis, plottype = "plane", what = "NPV")
+## ------------------------------------------------------------------------
+custom.scenario <- riskyr(scen.lbl = "Using R", scen.lng = txt$scen.lng,
+                  scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
+                  cond.lbl = txt$cond.lbl,
+                  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
+                  dec.lbl = txt$dec.lbl,
+                  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+                  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
+                  fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+                  prev = .20,  # prevalence of
+                  sens = num$sens,
+                  spec = num$spec, fart = NA, N = freq$N,
+                  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 
 ## ----example_use_a, eval = FALSE-----------------------------------------
 #  ## (2) Inspect an existing riskyr scenario: ----------
