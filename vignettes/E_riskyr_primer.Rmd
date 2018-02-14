@@ -89,7 +89,7 @@ Firstly, we can visualize our new object in different ways:
 The iconarray displays the whole population of inmates and how they are classified and whether they will reoffend.  We can do this with a simple call to `plot()` using the `plot.riskyr()` method with `plot.type = "icons"`:
 
 ```{r icons, fig.width=7, fig.height=5}
-plot(custom.scenario, plot.type = "icons")
+plot(custom.scenario, plot.type = "icons", cex.lbl = 0.85)
 ```
 
 We can relatively easily see that roughly half of the inmates reoffend (dark green and dark red icons).  Of those most are classified corretly.  But what about John D.?  His test result suggeested that he would reoffend.  How likely will he actually reoffend? 
@@ -185,19 +185,13 @@ plot(s21) # plots a network diagram (by default)
 
 
 ```{r s21_icons, fig.width=7, fig.height=5}
-plot(s21, plot.type = "icons")
+plot(s21, plot.type = "icons", cex.lbl = 0.75)
 ```
 
 ```{r s21_curve, fig.width=7, fig.height=5}
 plot(s21, plot.type = "curve", what = "all")
 ```
 
-```{r}
-plot(s21, plot.type = "plane", what = "PPV")
-```
-
-
-What is to see? 
 
 Now we also consider scenario number 22: 
 

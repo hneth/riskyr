@@ -20,7 +20,7 @@ custom.scenario <- riskyr(scen.lbl = "Identify reoffenders",
                           scen.src = "Ficticious example scenario")
 
 ## ----icons, fig.width=7, fig.height=5------------------------------------
-plot(custom.scenario, plot.type = "icons")
+plot(custom.scenario, plot.type = "icons", cex.lbl = 0.85)
 
 ## ----full_summary--------------------------------------------------------
 summary(custom.scenario)
@@ -59,13 +59,10 @@ summary(s21, summarize = "freq") # shows frequencies.
 plot(s21) # plots a network diagram (by default)
 
 ## ----s21_icons, fig.width=7, fig.height=5--------------------------------
-plot(s21, plot.type = "icons")
+plot(s21, plot.type = "icons", cex.lbl = 0.75)
 
 ## ----s21_curve, fig.width=7, fig.height=5--------------------------------
 plot(s21, plot.type = "curve", what = "all")
-
-## ------------------------------------------------------------------------
-plot(s21, plot.type = "plane", what = "PPV")
 
 ## ----s22_summary---------------------------------------------------------
 s22 <- scenarios$n22  # assign pre-defined Scenario_22 to s22. 
