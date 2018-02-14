@@ -6,14 +6,14 @@ knitr::opts_chunk$set(
 
 ## ----create_scenario-----------------------------------------------------
 # Create your custom scenario: 
-custom.scenario <- riskyr(scen.lbl = "Identify reoffenders", 
-                          cond.lbl = "Being a reoffender",
-                          popu.lbl = "Prisoners", 
-                          cond.true.lbl = "Has reoffended", cond.false.lbl = "Has not reoffended",
-                          dec.lbl = "Test result",
+custom.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
+                          cond.lbl = "reoffending",
+                          popu.lbl = "prisoners", 
+                          cond.true.lbl = "reoffends", cond.false.lbl = "does not reoffend",
+                          dec.lbl = "test result",
                           dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
-                          hi.lbl = "Reoffender found", mi.lbl = "Reoffender missed",
-                          fa.lbl = "False accusation", cr.lbl = "Correct release",
+                          hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
+                          fa.lbl = "false accusation", cr.lbl = "correct release",
                           prev = .45,  # prevalence of being a reoffender. 
                           sens = .98,
                           spec = .46, fart = NA, N = 753,

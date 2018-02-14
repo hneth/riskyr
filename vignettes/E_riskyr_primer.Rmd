@@ -1,7 +1,7 @@
 ---
-title: "`riskyr` Primer"
+title: "A `riskyr` Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 12"
+date: "2018 02 14"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -20,35 +20,52 @@ knitr::opts_chunk$set(
 )
 ```
 
-`riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
+`riskyr` is a toolbox for rendering risk literacy more transparent by facilitating changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. 
+
+The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
+
 
 ## Getting Started 
 
-How can you get started with `riskyr`?  You can define your _own scenario_ from risk information you have available or use one of `r length(scenarios) - 1` predefined scenarios to get a first glimpse of what you can do with `riskyr`. 
+How can you use `riskyr`?  Basically, there are two ways to get started:
+
+1. Define your own `riskyr` scenario from risk-related information.
+
+2. Use one of `r length(scenarios) - 1` predefined scenarios to get a glimpse of what types of scenarios can be explored with `riskyr`. 
 
 
 ### Defining your own scenario  
 
-You can start your `riskyr`-experience by creating a risk scenario that you want to understand better.  
+Let's launch your `riskyr`-career by creating a ficticious risk scenario that we can construct from scratch. 
 
-#### A ficticious example: 
+<!-- Example: Testing for recidivism -->
 
-Imagine you developed a test for criminal offenders in jail.  It is known that 45% of all 753 offenders in this particular jail re-offend after they are released (`prev = .45`). 
+> **Identifying reoffenders**
+> 
+> Imagine you are developing a test for criminal offenders in jail. 
 
-You developed a test that correctly identifies those who will re-offend in 98% of the cases (`sens = .98`).  However, the test also falsely identifies 64% of those who will not re-offend as potential re-offenders or conversely, corretly identifies 46% of those that will not offend (`spec = .46`). 
+> 1. You know that 45% of all 753 offenders in this particular jail re-offend after they are released (`prev = .45`).  
+> 2. You developed a test that correctly identifies those who will re-offend in 98% of the cases (`sens = .98`).  
+> 3. The test also falsely identifies 64% of those who will not re-offend as potential re-offenders or conversely, correctly identifies 46% of those that will not reoffend (`spec = .46`).  
+> 
+> John D. is about to get released.  However, your test result suggests that he will likely reoffend.  
+> 
+> What is the probability that John D. will actually reoffend, given this test result? 
 
-John D. is about to get released.  However, the test suggests that he will likely reoffend.  What is the probability that John D. will actually reoffend, given this test result? 
+
+To answer this question you can use Bayes formula or natural frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a scenario (as a `riskyr` object) that you can modify, inspect, and visualize in many different ways. 
+
+A new scenario can be described in many different ways: 
+
+* `scen.lbl` A telling name (e.g., "Identifying reoffenders").  
+
+* `cond.lbl` A label for the condition of interest (i.e., "reoffending"). 
+
+* `popu.lbl` specifies the population of interest (e.g., "prisoners").
 
 
-To answer this question you can use the `riskyr()` function to create a "riskyr" object that you can visualize and alter in different ways. 
-
-You can give it a set of inputs: 
-
-* `scen.lbl` A telling name like "Identify reoffenders". 
-* `cond.lbl` A label for the condition of interest, i.e., "Being a reoffender". 
-* `popu.lbl` specifies the population of interest.  In our case these are "Prisoners". 
-* `cond.true.lbl` specifies a label for if the condition is true; in this case "Reoffended" 
-* `cond.false.lbl` specifies a label for if the condition is false; in this case "Did not reoffend" 
+* `cond.true.lbl` specifies a label for if the condition is true; in this case "reoffends".
+* `cond.false.lbl` specifies a label for if the condition is false; in this case "does not reoffend". 
 * `dec.lbl` specifies what the decision is about.  In this case, what the "test result"" suggests. 
 * `dec.pos.lbl` specifies what a positive decision relative to the condition is.  In this case it is that the inmate "will reoffend" 
 * `dec.negative.lbl` specifies what a negative decision relative to the condition is.  In this case it is that the inmate "will __not__ reoffend" 
@@ -69,14 +86,14 @@ Let us create a custom `"riskyr"` object
 
 ```{r create_scenario}
 # Create your custom scenario: 
-custom.scenario <- riskyr(scen.lbl = "Identify reoffenders", 
-                          cond.lbl = "Being a reoffender",
-                          popu.lbl = "Prisoners", 
-                          cond.true.lbl = "Has reoffended", cond.false.lbl = "Has not reoffended",
-                          dec.lbl = "Test result",
+custom.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
+                          cond.lbl = "reoffending",
+                          popu.lbl = "prisoners", 
+                          cond.true.lbl = "reoffends", cond.false.lbl = "does not reoffend",
+                          dec.lbl = "test result",
                           dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
-                          hi.lbl = "Reoffender found", mi.lbl = "Reoffender missed",
-                          fa.lbl = "False accusation", cr.lbl = "Correct release",
+                          hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
+                          fa.lbl = "false accusation", cr.lbl = "correct release",
                           prev = .45,  # prevalence of being a reoffender. 
                           sens = .98,
                           spec = .46, fart = NA, N = 753,
@@ -256,7 +273,7 @@ Now have fun exploring the provided examples, as well as creating and exploring 
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [`riskyr` primer](E_riskyr_primer.html) | A quick tutorial to get started with `riskyr`  |
+| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
 
 
 

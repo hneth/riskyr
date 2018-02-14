@@ -514,6 +514,14 @@ Cambridge, MA: Harvard University Press.
 
 ## Contact
 
+<!-- uni.kn logo and link to SPDS: -->  
+<!-- ![](./inst/pix/uniKn_logo.png) --> 
+<a href="https://www.spds.uni-konstanz.de/">
+<img src = "../inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 280px; float: right; border:10;"/> 
+<!--<img src = "../inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:10;"/> --> 
+</a>
+
+
 We appreciate your feedback, comments, or questions. 
 
 - Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
@@ -536,6 +544,6 @@ We appreciate your feedback, comments, or questions.
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [`riskyr` primer](E_riskyr_primer.html) | A quick tutorial to get started with `riskyr`  |
+| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
 
 <!-- eof. -->
