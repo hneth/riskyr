@@ -532,16 +532,19 @@ print.summary.riskyr <- function(object) {
 
 #' Create riskyr scenarios.
 #'
-#' \code{riskyr} is used to create scenarios of class "riskyr",
-#' which can then be visualized by \code{\link{plot.riskyr}}.
+#' The instantiation function \code{riskyr} is used to create
+#' scenarios of class "riskyr",
+#' which can then be visualized by the \code{plot} method \code{\link{plot.riskyr}}
+#' and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 #'
-#' Only \code{N} and the necessary probabilities \code{prev},
-#' \code{sens}, \code{spec}, and \code{fart} are currently used
+#' Besides information on the scenario
+#' only \code{N} and the necessary probabilities \code{prev},
+#' \code{sens}, \code{spec}, and \code{fart} are used
 #' and returned.
 #'
 #' @format An object of class "riskyr"
 #' with 21 entries on textual and numeric information on
-#' a risky scenario.
+#' a riskyr scenario.
 #'
 #' @return A list \code{object} of class "riskyr"
 #' containing information on a risky scenario.
@@ -581,6 +584,33 @@ print.summary.riskyr <- function(object) {
 #'
 #' Numeric elements:
 #'
+#' @param N The number of individuals in the scenario's population.
+#' A suitable value of \code{\link{N}} is computed, if not provided.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#' \code{spec} is optional when its complement \code{fart} is provided.
+#'
+#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' (i.e., the conditional probability
+#' of a positive decision provided that the condition is \code{FALSE}).
+#' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' Source information:
+#'
+#' @param scen.src Information on the source of the scenario.
+#' @param scen.apa Information on the source of the scenario in the style of
+#' the American Psychological Association (APA).
+#'
 #' @examples
 #' custom.scenario <- riskyr(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 #' scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
@@ -595,6 +625,7 @@ print.summary.riskyr <- function(object) {
 #' spec = num$spec, fart = NA, N = freq$N,
 #' scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 #'
+#'summary(custom.scenario)
 #'
 #' @export
 
