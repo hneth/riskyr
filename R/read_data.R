@@ -46,10 +46,6 @@
 
 df.scenarios <- NULL  # re-initialize scenarios.df
 
-## Load data:
-# df.scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
-# load("./data/scenarios.RData") # from .RData file
-
 load("./data/df.scenarios.rda") # load scenarios.df from .rda file (as data frame)
 
 ## Check:
@@ -59,6 +55,14 @@ load("./data/df.scenarios.rda") # load scenarios.df from .rda file (as data fram
   ## View(df.scenarios)
 }
 
+## Older ways to load data:
+# df.scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
+# load("./data/scenarios.RData") # from .RData file
+
+## -----------------------------------------------
+## ToDo: HACK: to be removed later:
+
+# scenarios.df <- df.scenarios # use OBSOLETE name for defining objects (in riskyr_class.R)
 
 ## -----------------------------------------------
 ## (+) ToDo:
