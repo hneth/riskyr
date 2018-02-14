@@ -18,33 +18,37 @@ knitr::opts_chunk$set(
 )
 ```
 
+`riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
 
 ## Getting Started 
+
+How can you get started with `riskyr`?  You can define your _own scenario_ from risk information you have available or use one of `r length(scenarios) - 1` predefined scenarios to get a first glimpse of what you can do with `riskyr`. 
 
 
 ### Defining your own scenario  
 
-Here is how `riskyr` allows you to view and solve such problems:
+You can start your `riskyr`-experience by creating a risk scenario that you want to understand better.  
 
-```{r example_design, eval = FALSE}
-library(riskyr)  # load riskyr
+An example: 
 
-## (1) Define your own scenario: ----------
-hustosis <- riskyr(prev = .04, sens = .80, spec = (1 - .05), 
-                   N = 1000, popu.lbl = "representative sample"
-                   scen.lbl = "Example", cond.lbl = "Screening for hustosis", 
-                   dec.lbl = "screening")
+Imagine you developed a test for criminal offenders in jail.  it is known that 45% of all offenders re-offend after they are released from jail. 
 
-## View parameters:
-summary(hustosis)
-summary(hustosis, summarize = "probs")
 
-## View graphics: 
-plot(hustosis, plottype = "ftree")
-plot(hustosis, plottype = "icons")
-# plot(hustosis, plottype = "mosaic")
-plot(hustosis, plottype = "curve")
-# plot(hustosis, plottype = "plane", what = "NPV")
+To this end you can use the `riskyr()` function to create a "riskyr" object that you can visualize and alter in different ways. 
+
+```{r}
+custom.scenario <- riskyr(scen.lbl = "Using R", scen.lng = txt$scen.lng,
+                  scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
+                  cond.lbl = txt$cond.lbl,
+                  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
+                  dec.lbl = txt$dec.lbl,
+                  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+                  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
+                  fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+                  prev = .20,  # prevalence of
+                  sens = num$sens,
+                  spec = num$spec, fart = NA, N = freq$N,
+                  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 ```
 
 
