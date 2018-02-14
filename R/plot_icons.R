@@ -266,6 +266,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                            # labelling:
                            title.lbl = txt$scen.lbl,
                            type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+                           cex.lbl = 1.2,
 
                            ...  #additional parameters for plot()
 ) {
@@ -895,7 +896,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
          legend = type.lbls,
          horiz = TRUE, bty = "n",
          pt.bg = icon.colors, pch = icon.types,
-         cex = 1.0, xjust = 0.5, xpd = TRUE)
+         cex = cex.lbl, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
   ## Title:
