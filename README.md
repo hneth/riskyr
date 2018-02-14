@@ -25,8 +25,7 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 3.  Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
 
-To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, support, and explain each other. All functions and visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameter values.
-By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
+To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
 
 Installation
 ------------
@@ -149,9 +148,9 @@ plot(s22, plottype = "plane", what = "PPV")
 About
 -----
 
-<!-- uni.kn logo: -->
+<!-- uni.kn logo and link to SPDS: -->
 <!-- ![](./inst/pix/uniKn_logo.png) -->
-<a href="http://www.uni-konstanz.de"> <!--<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:20;"/> --> <img src = "./inst/pix/uniKn_logo_s.png" alt = "uni.kn.logo" style = "float: right; border:20;"/> </a>
+<a href="https://www.spds.uni-konstanz.de/"> <!--<img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 300px; float: right; border:20;"/> --> <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> </a>
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.0.0.924, as of Feb. 14, 2018) is still under development. Its primary designers and developers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
