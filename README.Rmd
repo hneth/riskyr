@@ -34,7 +34,8 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 <!-- riskyr logo: -->  
 <a href = "https://github.com/hneth/riskyr">
-<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/>
+<!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> -->
+<img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/>
 </a>
 <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
@@ -97,12 +98,12 @@ The problem description provides three essential probabilities:
 implying a _specificity_ of (100% $-$ 4%) = 96%: `spec = .04`.  
 
 
-#### Understanding the questions
+#### Understanding the questions asked
 
-The second challenge here lies in understanding the questions asked — and in realizing that their answers are _not_ simply the decision's sensitivity or specificity. Instead, we are asked to provide two _conditional_ probabilities:
+The second challenge here lies in understanding the questions that are being asked — and in realizing that their answers are _not_ simply the decision's sensitivity or specificity values. Instead, we are asked to provide two _conditional_ probabilities:
 
-- The conditional probability of suffering from the condition given a positive test result: `PPV`.
-- The conditional probability of being free of the condition given a negative test result: `NPV`.
+- The conditional probability of suffering from the condition given a positive test result, <br>aka. the _positive predictive value_ `PPV`. 
+- The conditional probability of being free of the condition given a negative test result, <br>aka. the _negative predictive value_ `NPV`. 
 
 
 #### Translating into frequencies
@@ -110,8 +111,8 @@ The second challenge here lies in understanding the questions asked — and in r
 One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[^3] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
 
 > Assuming a representative sample of 1000 individuals:   
-> - How many of those with a positive test result actually suffer from hustosis?  
-> - How many of those with a negative test result are actually free of hustosis? 
+> - How many individuals with a positive test result actually suffer from hustosis?  
+> - How many individuals with a negative test result are actually free of hustosis? 
 
 [^3]: See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of _natural frequencies_. 
 
@@ -188,7 +189,8 @@ plot(s22, plottype = "plane", what = "PPV")
 <!-- uni.kn logo: -->  
 <!-- ![](./inst/pix/uniKn_logo.png) --> 
 <a href="http://www.uni-konstanz.de">
-<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:20;"/>
+<!--<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:20;"/> --> 
+<img src = "./inst/pix/uniKn_logo_s.png" alt = "uni.kn.logo" style = "float: right; border:20;"/>
 </a>
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. 

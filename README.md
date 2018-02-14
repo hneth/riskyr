@@ -17,7 +17,7 @@ The issues addressed by `riskyr` are less of a *computational* and more of a *re
 Basic assumptions and goals driving the current development of `riskyr` include the following:
 
 <!-- riskyr logo: -->
-<a href = "https://github.com/hneth/riskyr"> <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
+<a href = "https://github.com/hneth/riskyr"> <!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> --> <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
 
 1.  Effective training in risk literacy requires simple tools and transparent representations.
 
@@ -68,20 +68,20 @@ The first challenge in solving such problems is in understanding the information
 2.  The device's or diagnostic decision's *sensitivity* of 80%: `sens = .80`.
 3.  The device's or diagnostic decision's *false alarm rate* of 4%, implying a *specificity* of (100% − 4%) = 96%: `spec = .04`.
 
-#### Understanding the questions
+#### Understanding the questions asked
 
-The second challenge here lies in understanding the questions asked — and in realizing that their answers are *not* simply the decision's sensitivity or specificity. Instead, we are asked to provide two *conditional* probabilities:
+The second challenge here lies in understanding the questions that are being asked — and in realizing that their answers are *not* simply the decision's sensitivity or specificity values. Instead, we are asked to provide two *conditional* probabilities:
 
--   The conditional probability of suffering from the condition given a positive test result: `PPV`.
--   The conditional probability of being free of the condition given a negative test result: `NPV`.
+-   The conditional probability of suffering from the condition given a positive test result, <br>aka. the *positive predictive value* `PPV`.
+-   The conditional probability of being free of the condition given a negative test result, <br>aka. the *negative predictive value* `NPV`.
 
 #### Translating into frequencies
 
 One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[3] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
 
 > Assuming a representative sample of 1000 individuals:
-> - How many of those with a positive test result actually suffer from hustosis?
-> - How many of those with a negative test result are actually free of hustosis?
+> - How many individuals with a positive test result actually suffer from hustosis?
+> - How many individuals with a negative test result are actually free of hustosis?
 
 #### Using `riskyr`
 
@@ -151,7 +151,7 @@ About
 
 <!-- uni.kn logo: -->
 <!-- ![](./inst/pix/uniKn_logo.png) -->
-<a href="http://www.uni-konstanz.de"> <img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:20;"/> </a>
+<a href="http://www.uni-konstanz.de"> <!--<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:20;"/> --> <img src = "./inst/pix/uniKn_logo_s.png" alt = "uni.kn.logo" style = "float: right; border:20;"/> </a>
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.0.0.924, as of Feb. 14, 2018) is still under development. Its primary designers and developers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
