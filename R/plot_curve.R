@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 02 13
+## 2018 02 14
 ## -----------------------------------------------
 ## plot_curve: A generalization of plot_PV
 ## that plots different DVs (e.g., PPV, NPV, acc curves)
@@ -55,21 +55,20 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
 #' @param what A vector of character codes that specify the
 #' selection of curves to be plotted. Currently available
 #' options are \code{c("prev", "PPV", "NPV", "ppod", "acc")}
 #' (shortcut: \code{what = "all"}).
 #' Default: \code{what = c("prev", "PPV", "NPV")}.
 #'
+#' @param what.col A vector of colors corresponding to the elements
+#' specified in \code{what}.
+#' Default: \code{what.col = pal}.
+#'
 #' @param show.points Boolean option for showing the point of
 #' intersection with the current prevalence \code{\link{prev}}
 #' in all selected curves.
 #' Default: \code{show.points = TRUE}.
-#'
-#' @param what.col A vector of colors corresponding to \code{what}.
-#' Default: \code{what.col = pal}.
-#'
 #'
 #' @param log.scale Boolean value for switching from a linear
 #' to a logarithmic x-axis.
@@ -106,6 +105,7 @@
 #'
 #' # Other options:
 #' plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
+#' plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
 #'
 #'
 #' @family visualization functions
@@ -245,19 +245,32 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   grid(col = grey(.8, .8))
 
 
-  ## (3) Plot elements of what: ----------
+  ## (3) Interpret what argument: ----------
 
-  ## (+) shortcut to get all what options:
+  ## (a) shortcut to get all what options:
   if ("all" %in% what || "ALL" %in% what || "All" %in% what ) {
     what <- c("prev", "PPV", "NPV", "ppod", "acc")
   }
 
-  ## (a) prev:
-  if ("prev" %in% what || "PREV" %in% what || "Prev" %in% what) {
+  ## (b) express all options in lower case:
+  what <- tolower(what)
+
+  ## (4) Plot elements of what: ----------
+
+  ## (a) prev: ----------
+  if ("prev" %in% what) {
 
     ## 0. parameters:
     lty.prev <- 2                            # prev line type
-    col.prev <- grey(.50, alpha = .99)       # prev color
+
+    ## color:
+    if (length(what.col) == length(what)) { # a color vector was specified:
+      pos.prev <- which(what == "prev")  # find position of "prev" in what
+      col.prev <- what.col[pos.prev]     # use color specified for prev
+    } else {
+      col.prev <- grey(.50, alpha = .99) # use default color for prev
+    }
+
     legend.lbls <- c(legend.lbls, "prev")    # add prev label
     legend.cols <- c(legend.cols, col.prev)  # add prev color
     legend.ltys <- c(legend.ltys, lty.prev)  # add prev line type
@@ -301,12 +314,20 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   } # if ("prev" %in% what)...
 
 
-  ## (b) PPV:
-  if ("PPV" %in% what || "ppv" %in% what || "Ppv" %in% what) {
+  ## (b) PPV: ----------
+  if ("ppv" %in% what) {
 
     ## 0. parameters:
     lty.ppv <- 1                            # PPV line type
-    col.ppv <- pal["ppv"]                   # PPV color
+
+    ## color:
+    if (length(what.col) == length(what)) { # a color vector was specified:
+      pos.ppv <- which(what == "ppv")  # find position of "PPV" in what
+      col.ppv <- what.col[pos.ppv]     # use color specified for PPV
+    } else {
+      col.ppv <- pal["ppv"]  # use default color for PPV
+    }
+
     legend.lbls <- c(legend.lbls, "PPV")    # add PPV label
     legend.cols <- c(legend.cols, col.ppv)  # add PPV color
     legend.ltys <- c(legend.ltys, lty.ppv)  # add PPV line type
@@ -332,15 +353,23 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     } # if (show.points)...
 
-  } # if ("PPV" %in% what)...
+  } # if ("ppv" %in% what)...
 
 
-  ## (c) NPV:
-  if ("NPV" %in% what || "npv" %in% what || "Npv" %in% what) {
+  ## (c) NPV: ----------
+  if ("npv" %in% what) {
 
     ## 0. parameters:
     lty.npv <- 1                            # PPV line type
-    col.npv <- pal["npv"]                   # NPV color
+
+    ## color:
+    if (length(what.col) == length(what)) { # a color vector was specified:
+      pos.npv <- which(what == "npv")  # find position of "NPV" in what
+      col.npv <- what.col[pos.npv]     # use color specified for NPV
+    } else {
+      col.npv <- pal["npv"]  # use default color for NPV
+    }
+
     legend.lbls <- c(legend.lbls, "NPV")    # add NPV label
     legend.cols <- c(legend.cols, col.npv)  # add NPV color
     legend.ltys <- c(legend.ltys, lty.npv)  # add NPV line type
@@ -366,16 +395,24 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     } # if (show.points)...
 
-  } # if ("NPV" %in% what)...
+  } # if ("npv" %in% what)...
 
 
-  ## (d) ppod:
-  if ("ppod" %in% what || "PPOD" %in% what || "Ppod" %in% what) {
+  ## (d) ppod: ----------
+  if ("ppod" %in% what) {
 
     ## 0. parameters:
     cur.ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
     lty.ppod <- 1                            # ppod line type
-    col.ppod <- pal["pos"]                   # ppod color (using "pos")
+
+    ## color:
+    if (length(what.col) == length(what)) { # a color vector was specified:
+      pos.ppod <- which(what == "ppod")  # find position of "ppod" in what
+      col.ppod <- what.col[pos.ppod]     # use color specified for ppod
+    } else {
+      col.ppod <- pal["pos"]  # use default color for ppod (using "pos")
+    }
+
     legend.lbls <- c(legend.lbls, "ppod")    # add NPV label
     legend.cols <- c(legend.cols, col.ppod)  # add NPV color
     legend.ltys <- c(legend.ltys, lty.ppod)  # add NPV line type
@@ -405,12 +442,20 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
 
   ## (e) Overall accuracy (acc):
-  if ("acc" %in% what || "ACC" %in% what || "Acc" %in% what) {
+  if ("acc" %in% what) {
 
     ## 0. parameters:
     cur.acc <- comp_acc(prev, sens, spec)   # compute current acc
     lty.acc <- 1                            # acc line type
-    col.acc <- pal["hi"]                    # acc color (using "hi")
+
+    ## color:
+    if (length(what.col) == length(what)) { # a color vector was specified:
+      pos.acc <- which(what == "acc")  # find position of "acc" in what
+      col.acc <- what.col[pos.acc]     # use color specified for acc (using "hi")
+    } else {
+      col.acc <- pal["hi"]  # use default color for acc (using "hi")
+    }
+
     legend.lbls <- c(legend.lbls, "acc")    # add acc label
     legend.cols <- c(legend.cols, col.acc)  # add acc color
     legend.ltys <- c(legend.ltys, lty.acc)  # add acc line type
@@ -439,7 +484,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   } # if ("acc" %in% what)...
 
 
-  ## (4) Title: ----------
+  ## (5) Title: ----------
 
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Curves as a Function of Prevalence") #, "\n", cur.sens.spec.lbl)
@@ -447,14 +492,14 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 
 
-  ## (5) Margin text: ----------
+  ## (6) Margin text: ----------
 
   ## (a) by condition: 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = cex.lbl)  # print label
 
 
-  ## (6) Legend: ----------
+  ## (7) Legend: ----------
 
   if (length(legend.lbls) > 0) { # there is a curve:
     # legend("bottom", legend = c("PPV", "NPV"),
@@ -464,7 +509,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                cex = cex.lbl, horiz = FALSE, bty = 'n')
   }
 
-  ## Return what?
+  ## (8) Return what? : ----------
   # return(pp)     # returns plot
   # return()       # returns nothing
   # return("neat") # returns "..."
@@ -475,6 +520,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 {
   # # ways to work:
   # plot_curve()  # => default curves (prev, PPV, NPV)
+  # plot_curve(what = "all")
   # plot_curve(show.points = FALSE)  # => default without points
   # plot_curve(what = c("PPV", "NPV"), show.points = TRUE)  # => prev not shown.
   #
@@ -486,6 +532,8 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   # plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
   #
   # plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
+  # plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
+
 
 }
 

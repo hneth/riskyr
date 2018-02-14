@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 02 13
+## 2018 02 14
 ## -----------------------------------------------
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
@@ -51,15 +51,14 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
-#' @param what A character code that specifies the
-#' selected metric to be plotted as a plane. Currently available
+#' @param what A character code that specifies one metric
+#' to be plotted as a plane. Currently available
 #' options are \code{c("PPV", "NPV", "ppod", "acc")}.
 #' Default: \code{what = "PPV"}.
 #'
-#' @param step.size  Sets the granularity of the
-#' \code{\link{sens}}-by-\code{\link{spec}} grid.
-#' Default: \code{step.size = .05}.
+#' @param what.col A color corresponding to the metric
+#' specified in \code{what}.
+#' Default: \code{what.col = pal}.
 #'
 #' @param show.point Boolean option for showing the current value
 #' of the selected metric for the current conditions
@@ -67,8 +66,9 @@
 #' as a point on the plane.
 #' Default: \code{show.point = TRUE}.
 #'
-#' @param what.col A vector of colors corresponding to \code{what}.
-#' Default: \code{what.col = pal}.
+#' @param step.size  Sets the granularity of the
+#' \code{\link{sens}}-by-\code{\link{spec}} grid.
+#' Default: \code{step.size = .05}.
 #'
 #'
 #' @param theta Horizontal rotation angle (used by \code{\link{persp}}).
@@ -131,11 +131,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
                        ## DVs:
-                       what = "PPV", # what plane?  Options: "PPV", "NPV", "acc", "ppod".
+                       what = "PPV",  # what metric?  Options: "PPV", "NPV", "acc", "ppod".
                        ## Options:
                        what.col = pal,     # color for what.
+                       show.point = TRUE,  # show point on plane
                        step.size = .05,    # resolution of matrix (sens.range and spec.range)
-                       show.point = TRUE,  # show point on plane?
                        ## Main persp() options [adjustable]:
                        theta = -45,
                        phi = 0,
@@ -176,10 +176,22 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   spec.range <- seq(0, 1, by = step.size) # range of specificity values (y)
 
 
+  ## (2) Interpret what argument: ----------
+
+  ## (a) express what in lower case:
+  what <- tolower(what)
+
+  ## (b) shortcut to get all what options:
+  if ((what %in%  c("ppv", "npv", "acc", "ppod")) == FALSE) {
+    warning("Invalid what argument chosen: Using PPV instead...")
+    what <- tolower("PPV")
+  }
+
+
   ## (2) Determine current parameters and matrix for selected metric: ----------
 
   ## (a) PPV:
-  if (what == "PPV" || what == "ppv" || what == "Ppv") {
+  if (what == "ppv") {
 
     ## 1. Parameters:
     cur.val <- comp_PPV(prev, sens, spec)             # cur.val (PPV)
@@ -197,10 +209,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
     cur.mat <- comp_prob_matrix(prev = prev, sens.range, spec.range, metric = "PPV", nan.adjust = FALSE)
 
-  } # if (what == "PPV")...
+  } # if (what == "ppv")...
 
   ## (b) NPV:
-  if (what == "NPV" || what == "npv" || what == "Npv") {
+  if (what == "npv") {
 
     ## 1. Parameters:
     cur.val <- comp_NPV(prev, sens, spec)             # cur.val (NPV)
@@ -218,10 +230,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
     cur.mat <- comp_prob_matrix(prev = prev, sens.range, spec.range, metric = "NPV", nan.adjust = FALSE)
 
-  } # if (what == "NPV")...
+  } # if (what == "npv")...
 
   ## (c) ppod:
-  if (what == "PPOD" || what == "ppod" || what == "Ppod") {
+  if (what == "ppod") {
 
     ## 1. Parameters:
     cur.val <- comp_ppod(prev, sens, spec)             # cur.val (ppod)
@@ -242,7 +254,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   } # if (what == "ppod")...
 
   ## (d) acc:
-  if (what == "ACC" || what == "acc" || what == "Acc") {
+  if (what == "acc") {
 
     ## 1. Parameters:
     cur.val <- comp_acc(prev, sens, spec)             # cur.val (acc)
