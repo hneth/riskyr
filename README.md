@@ -1,12 +1,9 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 `riskyr`
 ========
 
 **A toolbox for rendering risk literacy more transparent.**
-
-<!-- riskyr logo: -->
-<a href = "https://github.com/hneth/riskyr"> <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 160px; float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
 
 Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (e.g., the condition's prevalence `prev`, and the decision's sensitivity `sens` and specificity `spec`) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of `N` individuals). By offering a variety of perspectives on the interplay between key parameters, `riskyr` renders teaching and training of risk literacy more transparent.
 
@@ -17,21 +14,24 @@ Motivation
 
 The issues addressed by `riskyr` are less of a *computational* and more of a *representational* nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of *probabilities*, the same information is often easy to understand and compute when expressed in terms of *frequencies*. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
 
-Basic assumptions and goals driving the development of `riskyr` include the following:
+Basic assumptions and goals driving the current development of `riskyr` include the following:
+
+<!-- riskyr logo: -->
+<a href = "https://github.com/hneth/riskyr"> <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
 
 1.  Effective training in risk literacy requires simple tools and transparent representations.
 
-2.  It would be desirable to have a set of (computational and representational) tools that allow various calculations, translations between formats, and many alternative views on the interplay between probabilities and frequencies.
+2.  More specifically, it would be desirable to have a set of (computational and representational) tools that allow various calculations, translations (between formats), and a range of alternative views on the interplay between probabilities and frequencies.
 
-3.  Seeing a range of visualizations that show how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
+3.  Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
 
-To deliver on these assumptions, `riskyr` provides a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, support, and explain each other. All functions and visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameter values.
-By providing many customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
+To deliver on these assumptions and goals, `riskyr` provides a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, support, and explain each other. All functions and visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameter values.
+By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
 
 Installation
 ------------
 
-You can install `riskyr` from github with:
+You can install the latest development version of `riskyr` from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr>:
 
 ``` r
 # install.packages("devtools")
