@@ -44,7 +44,30 @@ Example
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-## basic example code
+library(riskyr)  # load riskyr
+
+## Define your own scenario: ----------
+
+## View parameters:
+
+## View graphics: 
+
+
+## Inspect an existing riskyr scenario: ---------- 
+
+s <- scenarios$n21  # assign pre-defined Scenario_21 to s
+
+## View parameters:
+summary(s)  # print scenario summary information
+summary(s, summarize = "prob")  # summarize prob
+summary(s, summarize = "freq")  # summarize freq
+
+## View graphics: 
+plot(s)    # plots a network diagram (by default)
+plot(s, plottype = "icons")
+plot(s, plottype = "mosaic")
+plot(s, plottype = "curve", what = "all")
+plot(s, plottype = "plane", what = "PPV")
 ```
 
 About
