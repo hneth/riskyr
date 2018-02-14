@@ -696,8 +696,8 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 ##     - Convert the data frame scenarios.df into
 ##       a list "scenarios" of riskyr objects:
 
-# Helper stuff:
-cat(paste0("#'   \\item ", scenarios.df$scen.lbl[-1], "\n#'\n"))
+## Helper stuff:
+# cat(paste0("#'   \\item ", scenarios.df$scen.lbl[-1], "\n#'\n"))
 
 #' A collection of riskyr scenarios from various sources.
 #'
