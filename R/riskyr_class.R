@@ -205,6 +205,7 @@ plot.riskyr <- function(object,
   ## D. Iconarrays
   if ((plot.type == "icons") || (plot.type == "iconarray")) {
 
+    if ("ident.order" %in% arg.names) ident.order <- arguments$ident.order else ident.order <- c("hi", "mi", "fa", "cr")
     if ("type" %in% arg.names) type <- arguments$type else type <- "array"
 
     plot_icons(prev = object$prev,             # probabilities
@@ -214,7 +215,7 @@ plot.riskyr <- function(object,
                ## Key options: ##
                type = type,  # needs to be given if random position but nonrandom ident.
                # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
-               ident.order = c("hi", "mi", "fa", "cr"),
+               ident.order = ident.order,
                icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
                icon.types = 22,  # plotting characters; default square with border
                icon.border.col = grey(.10, .50),  # border color of icons
@@ -440,6 +441,22 @@ summary.riskyr <- function(object, summarize = "all") {
 
 ## (B) Create corresponding print function: ----------
 
+
+#' Printing summarized risk information.
+#'
+#' \code{print.summary.riskyr} provides a \code{print} method for objects of class "summary.riskyr".
+#'
+#'
+#' @format Printed output of a "summary.riskyr" object.
+#'
+#' @param object  An object of class "summaryriskyr", usually a result of a call to \code{summary.riskyr}.
+#'
+#' @examples
+#' summary(scenarios$n4)
+#'
+#'
+#' @family print functions
+#'
 #' @export
 
 print.summary.riskyr <- function(object) {
