@@ -696,6 +696,122 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 ##     - Convert the data frame scenarios.df into
 ##       a list "scenarios" of riskyr objects:
 
+# Helper stuff:
+cat(paste0("#'   \\item ", scenarios.df$scen.lbl[-1], "\n#'\n"))
+
+#' A collection of riskyr scenarios from various sources.
+#'
+#' \code{scenarios} is a list  that
+#' contains a collection of scenarios of class "riskyr" from the
+#' scientific literature and other sources that can be used directly
+#' in the visualization and summary functions.
+#'
+#'
+#'
+#' @format A list with currently 26 objects of class "riskyr" (i.e., scenarios)
+#' which are each described by 21 variables:
+#'
+#' Scenarios:
+#'
+#' \enumerate{
+#'
+#'   \item Mammografie 1
+#'
+#'   \item Nackenfaltentest (NFT)
+#'
+#'   \item HIV 1 (f)
+#'
+#'   \item HIV 2 (f)
+#'
+#'   \item Mammography 2
+#'
+#'   \item Sepsis
+#'
+#'   \item Cab problem
+#'
+#'   \item Sigmoidoskopie 1
+#'
+#'   \item Sigmoidoskopie 1
+#'
+#'   \item Brustkrebs 1
+#'
+#'   \item Brustkrebs 2 (BRCA1)
+#'
+#'   \item Brustkrebs 3 (BRCA1+pos. Mam.)
+#'
+#'   \item HIV 3 (m)
+#'
+#'   \item HIV 4 (m)
+#'
+#'   \item Nackenfaltentest 2 (NFT)
+#'
+#'   \item Amniozentese (pos. NFT)
+#'
+#'   \item Musical town
+#'
+#'   \item Mushrooms
+#'
+#'   \item Bowel cancer (FOB screening)
+#'
+#'   \item PSA test 1 (high prev)
+#'
+#'   \item PSA test 2 (low prev)
+#'
+#'   \item Colorectal cancer
+#'
+#'   \item Psylicraptis screening
+#'
+#'   \item Mammography 6 (prob)
+#'
+#'   \item Mammography 6 (freq)
+#'
+#' }
+#'
+#' Describing variables:
+#'
+#' \enumerate{
+#'
+#'   \item \code{scen.lbl} Text label for current scenario.
+#'   \item \code{scen.lng} Language of current scenario.
+#'   \item \code{scen.txt} Description text of current scenario.
+#'
+#'   \item \code{popu.lbl} Text label for current population.
+#'
+#'   \item \code{cond.lbl} Text label for current condition.
+#'   \item \code{cond.true.lbl} Text label for \code{\link{cond.true}} cases.
+#'   \item \code{cond.false.lbl} Text label for \code{\link{cond.false}} cases.
+#'
+#'   \item \code{dec.lbl} Text label for current decision.
+#'   \item \code{dec.pos.lbl} Text label for \code{\link{dec.pos}} cases.
+#'   \item \code{dec.neg.lbl} Text label for \code{\link{dec.neg}} cases.
+#'
+#'   \item \code{hi.lbl} Text label for cases of hits \code{\link{hi}}.
+#'   \item \code{mi.lbl} Text label for cases of misses \code{\link{mi}}.
+#'   \item \code{fa.lbl} Text label for cases of false alarms \code{\link{fa}}.
+#'   \item \code{cr.lbl} Text label for cases of correct rejections \code{\link{cr}}.
+#'
+#'   \item \code{prev} Value of current prevalence \code{\link{prev}}.
+#'   \item \code{sens} Value of current sensitivity \code{\link{sens}}.
+#'   \item \code{spec} Value of current specificity \code{\link{spec}}.
+#'   \item \code{fart} Value of current false alarm rate \code{\link{fart}}.
+#'
+#'   \item \code{N} Current population size \code{\link{N}}.
+#'
+#'   \item \code{scen.src} Source information for current scenario.
+#'   \item \code{scen.apa} Source information in APA format.
+#'
+#' }
+#'
+#' Note that names of variables (columns)
+#' correspond to \code{\link{init_txt}} (to initialize \code{\link{txt}})
+#' and \code{\link{init_num}} (to initialize \code{\link{num}}).
+#'
+#'
+#' @source See columns \code{scen.src} and \code{scen.apa}
+#' for a scenario's source information.
+#'
+#' @export
+
 scenarios <- vector("list", nrow(df.scenarios))  # initialize scenarios as a list
 names(scenarios) <- paste0("n", 1:nrow(df.scenarios))
 

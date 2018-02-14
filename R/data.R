@@ -18,6 +18,64 @@
 #' @format A data frame with currently 26 rows (i.e., scenarios)
 #' and 21 columns (variables describing each scenario):
 #'
+#' Scenarios:
+#'
+#' \enumerate{
+#'
+#'   \item Mammografie 1
+#'
+#'   \item Nackenfaltentest (NFT)
+#'
+#'   \item HIV 1 (f)
+#'
+#'   \item HIV 2 (f)
+#'
+#'   \item Mammography 2
+#'
+#'   \item Sepsis
+#'
+#'   \item Cab problem
+#'
+#'   \item Sigmoidoskopie 1
+#'
+#'   \item Sigmoidoskopie 1
+#'
+#'   \item Brustkrebs 1
+#'
+#'   \item Brustkrebs 2 (BRCA1)
+#'
+#'   \item Brustkrebs 3 (BRCA1+pos. Mam.)
+#'
+#'   \item HIV 3 (m)
+#'
+#'   \item HIV 4 (m)
+#'
+#'   \item Nackenfaltentest 2 (NFT)
+#'
+#'   \item Amniozentese (pos. NFT)
+#'
+#'   \item Musical town
+#'
+#'   \item Mushrooms
+#'
+#'   \item Bowel cancer (FOB screening)
+#'
+#'   \item PSA test 1 (high prev)
+#'
+#'   \item PSA test 2 (low prev)
+#'
+#'   \item Colorectal cancer
+#'
+#'   \item Psylicraptis screening
+#'
+#'   \item Mammography 6 (prob)
+#'
+#'   \item Mammography 6 (freq)
+#'
+#' }
+#'
+#' Describing variables:
+#'
 #' \enumerate{
 #'
 #'   \item \code{scen.lbl} Text label for current scenario.
