@@ -1,5 +1,5 @@
 ## read_data.R | riskyr
-## 2018 02 13
+## 2018 02 14
 ## -----------------------------------------------
 ## Read data file for scenario information:
 
@@ -11,33 +11,32 @@
 ## (for both ui.R and server.R):
 
 
-# scenarios.df <- NULL  # initialize df of scenarios
+# df.scenarios <- NULL  # initialize df of scenarios
 
 ## Working (except for German Umlauts):
-# scenarios.df <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)
+# df.scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)
 
 ## Not working any better:
-# scenarios.df <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
-# scenarios.df <- read.csv2("./data_sources/scenarios_6_tab.txt", stringsAsFactors = FALSE)
-# scenarios.df <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
+# df.scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
+# df.scenarios <- read.csv2("./data_sources/scenarios_6_tab.txt", stringsAsFactors = FALSE)
+# df.scenarios <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
 
 ## Check:
 {
-  # dim(scenarios.df)
-  # names(scenarios.df)
-  ## View(scenarios.df)
+  # dim(df.scenarios)
+  # names(df.scenarios)
+  ## View(df.scenarios)
 }
 
 ## Note that German Umlauts are corrupted.
 
 ## Write out to ./data/ directory:
-# write.csv2(scenarios.df, file = "./data/scenarios.df.csv")  # as .csv file
-# save(scenarios.df, file = "./data/scenarios.df.RData")  # as .RData file
+# write.csv2(df.scenarios, file = "./data/df.scenarios.csv")  # as .csv file
+# save(scenarios.df, file = "./data/df.scenarios.RData")  # as .RData file
 
 ## Using devtools:
-# devtools::use_data(scenarios.df, overwrite = TRUE)
+# devtools::use_data(df.scenarios, overwrite = TRUE)
 # devtools::use_data_raw()
-
 
 
 ## -----------------------------------------------
@@ -45,19 +44,19 @@
 ## -----------------------------------------------
 ## Read in again (from ./data/):
 
-scenarios.df <- NULL  # re-initialize scenarios.df
+df.scenarios <- NULL  # re-initialize scenarios.df
 
 ## Load data:
-# scenarios.df <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
+# df.scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
 # load("./data/scenarios.RData") # from .RData file
 
-load("./data/scenarios.df.rda") # load scenarios.df from .rda file (as data frame)
+load("./data/df.scenarios.rda") # load scenarios.df from .rda file (as data frame)
 
 ## Check:
 {
-  # dim(scenarios.df) # extra first column "X"
-  # names(scenarios.df)
-  ## View(scenarios.df)
+  # dim(df.scenarios) # extra first column "X"
+  # names(df.scenarios)
+  ## View(df.scenarios)
 }
 
 
