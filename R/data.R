@@ -1,17 +1,17 @@
 ## data.R | riskyr
-## 2018 02 13
+## 2018 02 14
 ## -----------------------------------------------
 ## Document scenarios in ./data
 ## -----------------------------------------------
 
 #' A collection of riskyr scenarios from various sources.
 #'
-#' \code{scenarios.df} is an R data frame that
+#' \code{df.scenarios} is an R data frame that
 #' contains a collection of scenarios from the
 #' scientific literature and other sources.
 #'
 #' When loading \code{riskyr}, all scenarios contained in
-#' \code{scenarios.df} are also converted into a list of
+#' \code{df.scenarios} are also converted into a list of
 #' \code{riskyr} objects \code{scenarios}.
 #'
 #'
@@ -59,7 +59,7 @@
 #' @source See columns \code{scen.src} and \code{scen.apa}
 #' for a scenario's source information.
 
-"scenarios.df"
+"df.scenarios"
 
 ## -----------------------------------------------
 ## eof.
