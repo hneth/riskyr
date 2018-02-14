@@ -26,7 +26,64 @@
 # TODO:  Document plot.riskyr and summary riskyr!
 # Follow e.g., ?stats:::print.summary.lm()
 
-plot.riskyr <- function(obj,
+#' Plot information of riskyr object.
+#'
+#' \code{plot.riskyr} is a method that allows to generate
+#' different plottypes from a \code{riskyr} object.
+#'
+#'
+#' \code{comp_popu} also uses the current text settings
+#' contained in \code{\link{txt}}.
+#'
+#' A visualization of the current population
+#' contained in \code{\link{popu}}
+#' is provided by \code{plot_icon}.
+#'
+#'
+#' @format An object of class \code{data.frame}
+#' with \code{\link{N}} rows
+#' and 3 columns (\code{"Truth", "Decision", "SDT"}).
+#'
+#' @return A data frame \code{popu}
+#' containing \code{\link{N}} rows (individual cases)
+#' and 3 columns (\code{"Truth", "Decision", "SDT"})
+#' encoded as ordered factors
+#' (with 2, 2, and 4 levels, respectively).
+#'
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#'
+#' @param cond.true.lbl Text label for \code{\link{cond.true}} cases.
+#' @param cond.false.lbl Text label for \code{\link{cond.false}} cases.
+#' @param dec.pos.lbl Text label for \code{\link{dec.pos}} cases.
+#' @param dec.neg.lbl Text label for \code{\link{dec.neg}} cases.
+#' @param hi.lbl Text label for \code{\link{hi}} cases.
+#' @param mi.lbl Text label for \code{\link{mi}} cases.
+#' @param fa.lbl Text label for \code{\link{fa}} cases.
+#' @param cr.lbl Text label for \code{\link{cr}} cases.
+#'
+#' @examples
+#' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
+#'
+#' popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
+#' dim(popu)            # => N x 3
+#' head(popu)           # => shows head of data frame
+#'
+#'
+#' @family functions computing frequencies
+#'
+#' @seealso
+#' The corresponding data frame \code{\link{popu}};
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{freq}} for current frequency information;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{pal}} for current color settings.
+#'
+#' @export
+
+plot.riskyr <- function(object,
                         plottype = "network",  # plottype parameter for type of plot.
                         # type = "array",  # type parameter for plot subtypes.
                         ...  # ellipsis for additional type parameters for the plotting functions.
@@ -59,24 +116,24 @@ plot.riskyr <- function(obj,
 
     if ("by" %in% arg.names) by <- arguments$by else by <- "cddc"
 
-    plot_fnet(prev = obj$prev,
-              sens = obj$sens, mirt = NA,
-              spec = obj$spec, fart = NA,
-              N = obj$N,
+    plot_fnet(prev = object$prev,
+              sens = object$sens, mirt = NA,
+              spec = object$spec, fart = NA,
+              N = object$N,
               round = TRUE,
               by = "cddc",
               area = "sq",
               p.lbl = "num",
               show.accu = TRUE,
               w.acc = 0.5,
-              title.lbl = obj$scen.lbl,
-              popu.lbl = obj$popu.lbl,
-              cond.true.lbl = obj$cond.true.lbl,
-              cond.false.lbl = obj$cond.false.lbl,
-              dec.pos.lbl = obj$dec.pos.lbl,
-              dec.neg.lbl = obj$dec.neg.lbl,
-              hi.lbl = obj$hi.lbl, mi.lbl = obj$mi.lbl, fa.lbl = obj$fa.lbl,
-              cr.lbl = obj$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
+              title.lbl = object$scen.lbl,
+              popu.lbl = object$popu.lbl,
+              cond.true.lbl = object$cond.true.lbl,
+              cond.false.lbl = object$cond.false.lbl,
+              dec.pos.lbl = object$dec.pos.lbl,
+              dec.neg.lbl = object$dec.neg.lbl,
+              hi.lbl = object$hi.lbl, mi.lbl = object$mi.lbl, fa.lbl = object$fa.lbl,
+              cr.lbl = object$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
               col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
               box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
 
@@ -89,10 +146,10 @@ plot.riskyr <- function(obj,
     if ("by" %in% arg.names) by <- arguments$by else by <- "cd"
     if ("p.lbl" %in% arg.names) p.lbl <- arguments$p.lbl else p.lbl <- "mix"
 
-    plot_tree(prev = obj$prev,             # probabilities
-              sens = obj$sens, mirt = NA,
-              spec = obj$spec, fart = NA,  # was: num$fart,
-              N = obj$N,    # ONLY freq used (so far)
+    plot_tree(prev = object$prev,             # probabilities
+              sens = object$sens, mirt = NA,
+              spec = object$spec, fart = NA,  # was: num$fart,
+              N = object$N,    # ONLY freq used (so far)
               ## Options:
               round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
               by = by,     # 4 perspectives: "cd" by condition, "dc" by decision.
@@ -102,19 +159,19 @@ plot.riskyr <- function(obj,
               show.accu = TRUE,  # compute and show accuracy metrics
               w.acc = .50,       # weight w for wacc (from 0 to 1)
               ## Labels:
-              title.lbl = obj$scen.lbl,     # custom text labels
-              popu.lbl = obj$popu.lbl,
+              title.lbl = object$scen.lbl,     # custom text labels
+              popu.lbl = object$popu.lbl,
               ## Condition labels:
-              cond.true.lbl = obj$cond.true.lbl,
-              cond.false.lbl = obj$cond.false.lbl,
+              cond.true.lbl = object$cond.true.lbl,
+              cond.false.lbl = object$cond.false.lbl,
               ## Decision labels:
-              dec.pos.lbl = obj$dec.pos.lbl,
-              dec.neg.lbl = obj$dec.neg.lbl,
+              dec.pos.lbl = object$dec.pos.lbl,
+              dec.neg.lbl = object$dec.neg.lbl,
               ## SDT combinations:
-              hi.lbl = obj$hi.lbl,
-              mi.lbl = obj$mi.lbl,
-              fa.lbl = obj$fa.lbl,
-              cr.lbl = obj$cr.lbl,
+              hi.lbl = object$hi.lbl,
+              mi.lbl = object$mi.lbl,
+              fa.lbl = object$fa.lbl,
+              cr.lbl = object$cr.lbl,
               ## Box settings:
               col.txt = grey(.01, alpha = .99),  # black
               box.cex = .90,                     # relative text size
@@ -133,13 +190,13 @@ plot.riskyr <- function(obj,
 
   ## C. Mosaicplot:
   if ((plottype == "mosaic") || (plottype == "mosaicplot")) {
-    plot_mosaic(prev = obj$prev,
-                sens = obj$sens, mirt = NA,
-                spec = obj$spec, fart = NA,
-                N = obj$N,
+    plot_mosaic(prev = object$prev,
+                sens = object$sens, mirt = NA,
+                spec = object$spec, fart = NA,
+                N = object$N,
                 vsplit = TRUE,
                 show.accu = TRUE, w.acc = 0.5,
-                title.lbl = obj$scen.lbl,
+                title.lbl = object$scen.lbl,
                 col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 
   } # if (plottype == "mosaicplot")...
@@ -150,10 +207,10 @@ plot.riskyr <- function(obj,
 
     if ("type" %in% arg.names) type <- arguments$type else type <- "array"
 
-    plot_icons(prev = obj$prev,             # probabilities
-               sens = obj$sens, mirt = NA,
-               spec = obj$spec, fart = NA,  # was: num$fart,
-               N = obj$N,    # ONLY freq used (so far)
+    plot_icons(prev = object$prev,             # probabilities
+               sens = object$sens, mirt = NA,
+               spec = object$spec, fart = NA,  # was: num$fart,
+               N = object$N,    # ONLY freq used (so far)
                ## Key options: ##
                type = type,  # needs to be given if random position but nonrandom ident.
                # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
@@ -180,8 +237,8 @@ plot.riskyr <- function(obj,
                w.acc = 0.50,
 
                # labelling:
-               title.lbl = obj$scen.lbl,
-               type.lbls = obj[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")])
+               title.lbl = object$scen.lbl,
+               type.lbls = object[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")])
 
   } #  if (plottype == "iconarray")...
 
@@ -192,16 +249,16 @@ plot.riskyr <- function(obj,
     if ("what" %in% arg.names) what <- arguments$what else what <- c("prev", "PPV", "NPV")
     if ("show.points" %in% arg.names) show.points <- arguments$show.points else show.points <- TRUE
 
-    plot_curve(prev = obj$prev,             # probabilities (3 essential, 2 optional)
-               sens = obj$sens, mirt = NA,
-               spec = obj$spec, fart = NA,
+    plot_curve(prev = object$prev,             # probabilities (3 essential, 2 optional)
+               sens = object$sens, mirt = NA,
+               spec = object$spec, fart = NA,
                ## DVs:
                what = what,  # what curves?  Options: "acc", "ppod"
                what.col = pal,                  # colors for what.
                ## Options:
                show.points = show.points,  # show points at current prev?
                log.scale = FALSE,   # x-axis on log scale?
-               title.lbl = obj$scen.lbl
+               title.lbl = object$scen.lbl
     )
   } # if (plottype == "curve")...
 
@@ -213,9 +270,9 @@ plot.riskyr <- function(obj,
     if ("theta" %in% arg.names) theta <- arguments$theta else theta <- -45
     if ("phi" %in% arg.names) phi <- arguments$phi else phi <- 0
 
-    plot_plane(prev = obj$prev,             # probabilities (3 essential, 2 optional)
-               sens = obj$sens, mirt = NA,
-               spec = obj$spec, fart = NA,
+    plot_plane(prev = object$prev,             # probabilities (3 essential, 2 optional)
+               sens = object$sens, mirt = NA,
+               spec = object$spec, fart = NA,
                ## DVs:
                what = what, # what plane?  Options: "PPV", "NPV", "acc", "ppod".
                ## Options:
@@ -226,7 +283,7 @@ plot.riskyr <- function(obj,
                theta = theta,
                phi = phi,
                ## Text:
-               title.lbl = obj$scen.lbl, # plot title label
+               title.lbl = object$scen.lbl, # plot title label
                cex.lbl = .85 # scale size of text labels (e.g., on axes, legend, margin text)
     )
   } # if (plottype == "plane")...
@@ -263,19 +320,19 @@ plot.riskyr <- function(obj,
 ## -----------------------------------------------
 ## (2) summary.riskyr function: ------------------
 
-## (A) Create a summary object: ------------------
+## (A) Create a summary objectect: ------------------
 
-summary.riskyr <- function(obj, summarize = "all", ...) {
+summary.riskyr <- function(object, summarize = "all", ...) {
 
   obj.sum <- list()  # initialize as list
 
-  obj.sum$scen.lbl <- obj$scen.lbl
+  obj.sum$scen.lbl <- object$scen.lbl
 
-  obj.sum$cond.lbl <- obj$cond.lbl  # condition
-  obj.sum$dec.lbl <- obj$dec.lbl    # decision
-  obj.sum$popu.lbl <- obj$popu.lbl  # population
-  obj.sum$N <- obj$N                # N
-  obj.sum$scen.src <- obj$scen.src  # source (short)
+  obj.sum$cond.lbl <- object$cond.lbl  # condition
+  obj.sum$dec.lbl <- object$dec.lbl    # decision
+  obj.sum$popu.lbl <- object$popu.lbl  # population
+  obj.sum$N <- object$N                # N
+  obj.sum$scen.src <- object$scen.src  # source (short)
 
   ## (0) If all should be summarized: ----------
 
@@ -288,7 +345,7 @@ summary.riskyr <- function(obj, summarize = "all", ...) {
   if (("prob" %in% summarize) || ("probs" %in% summarize) || ("probabilities" %in% summarize)) {
 
     # calculate all probabilities:
-    probs <- comp_prob_prob(prev = obj$prev, sens = obj$sens, spec = obj$spec)
+    probs <- comp_prob_prob(prev = object$prev, sens = object$sens, spec = object$spec)
 
     probs.ess <- unlist(probs[c("prev", "sens", "mirt", "spec", "fart")])  # essential probabilities.
 
@@ -305,8 +362,8 @@ summary.riskyr <- function(obj, summarize = "all", ...) {
   if (("freq" %in% summarize) || ("freqs" %in% summarize) || ("frequencies" %in% summarize)) {
 
     # calculate frequencies:
-    freqs <- comp_freq(prev = obj$prev, sens = obj$sens, spec = obj$spec,
-                       N = obj$N)
+    freqs <- comp_freq(prev = object$prev, sens = object$sens, spec = object$spec,
+                       N = object$N)
 
     ## (a) Frequencies by condition:
     cond.freqs <- unlist(freqs[c("cond.true", "cond.false")])
@@ -334,7 +391,7 @@ summary.riskyr <- function(obj, summarize = "all", ...) {
   if (("acc" %in% summarize) || ("accu" %in% summarize) || ("accuracy" %in% summarize)) {
 
     ## Overall accuracy acc:
-    obj.sum$acc <- comp_acc(prev = obj$prev, sens = obj$sens, spec = obj$spec)
+    obj.sum$acc <- comp_acc(prev = object$prev, sens = object$sens, spec = object$spec)
 
     ## ToDo: ALL accuracy metrics:
     # accu <- comp_accu(prev = obj$prev, sens = obj$sens, spec = obj$spec)
