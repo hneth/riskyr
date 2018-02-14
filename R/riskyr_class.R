@@ -325,7 +325,39 @@ plot.riskyr <- function(object,
 
 ## (A) Create a summary objectect: ------------------
 
-summary.riskyr <- function(object, summarize = "all", ...) {
+#' Summarizing risk information.
+#'
+#' \code{summary.riskyr} is a \code{summary} method for objects of class "riskyr".
+#'
+#' \code{print.summary.riskyr} tries to format ....
+#'
+#'
+#' @format An object of class \code{summary.riskyr}
+#' with up to
+#' Scenario name, relevant condition \code{}, and \code{N}
+#' are summarized by default.
+#'
+#' @return A summary list \code{obj.sum}
+#' with up to
+#' Scenario name, relevant condition \code{}, and \code{N}
+#' are summarized by default.
+#'
+#' @param object  An object of class "riskyr", usually a result of a call to \code{riskyr}.
+#' Inbuilt scenarios are also of type "riskyr".
+#'
+#' @param summarize What is summarized as a vector consisting of \code{c("freq", "prob", "accu")}
+#' for frequencies, probabilities, and accuracy respectively.
+#' The default "all" is an alias to all three.
+#'
+#' @examples
+#' summary(scenarios$n4)
+#'
+#'
+#' @family summary functions
+#'
+#' @export
+
+summary.riskyr <- function(object, summarize = "all") {
 
   obj.sum <- list()  # initialize as list
 
@@ -501,6 +533,57 @@ print.summary.riskyr <- function(object) {
 
 ## -----------------------------------------------
 ## (3) Function to create riskyr scenarios: ------
+
+#' Create riskyr scenarios.
+#'
+#' \code{riskyr} is used to create scenarios of class "riskyr",
+#' which can then be visualized by \code{\link{plot.riskyr}}.
+#'
+#' Details?
+#'
+#'
+#' @format An object of class "riskyr"
+#' with \code{\link{N}} rows
+#' and 3 columns (\code{"Truth", "Decision", "SDT"}).
+#'
+#' @return A data frame \code{popu}
+#' containing \code{\link{N}} rows (individual cases)
+#' and 3 columns (\code{"Truth", "Decision", "SDT"})
+#' encoded as ordered factors
+#' (with 2, 2, and 4 levels, respectively).
+#'
+#' @param hi  The number of hits \code{\link{hi}} (or true positives).
+#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#'
+#' @param cond.true.lbl Text label for \code{\link{cond.true}} cases.
+#' @param cond.false.lbl Text label for \code{\link{cond.false}} cases.
+#' @param dec.pos.lbl Text label for \code{\link{dec.pos}} cases.
+#' @param dec.neg.lbl Text label for \code{\link{dec.neg}} cases.
+#' @param hi.lbl Text label for \code{\link{hi}} cases.
+#' @param mi.lbl Text label for \code{\link{mi}} cases.
+#' @param fa.lbl Text label for \code{\link{fa}} cases.
+#' @param cr.lbl Text label for \code{\link{cr}} cases.
+#'
+#' @examples
+#' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
+#'
+#' popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
+#' dim(popu)            # => N x 3
+#' head(popu)           # => shows head of data frame
+#'
+#'
+#' @family functions computing frequencies
+#'
+#' @seealso
+#' The corresponding data frame \code{\link{popu}};
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{freq}} for current frequency information;
+#' \code{\link{txt}} for current text settings;
+#' \code{\link{pal}} for current color settings.
+#'
+#' @export
 
 riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
                    scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
