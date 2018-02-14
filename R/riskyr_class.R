@@ -634,18 +634,17 @@ print.summary.riskyr <- function(object) {
 #' the American Psychological Association (APA).
 #'
 #' @examples
-#' custom.scenario <- riskyr(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
-#' scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
-#' cond.lbl = txt$cond.lbl,
-#' cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-#' dec.lbl = txt$dec.lbl,
-#' dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-#' hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
-#' fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
-#' prev = num$prev,
-#' sens = num$sens,
-#' spec = num$spec, fart = NA, N = freq$N,
-#' scen.src = txt$scen.src, scen.apa = txt$scen.apa)
+#' # A scenario may look like this:
+#' custom.scenario <- riskyr(scen.lbl = "Identify reoffenders",
+#' cond.lbl = "Being a reoffender", popu.lbl = "Prisoners",
+#' cond.true.lbl = "Has reoffended", cond.false.lbl = "Has not reoffended",
+#' dec.lbl = "Test result",
+#' dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
+#' hi.lbl = "Reoffender found", mi.lbl = "Reoffender missed",
+#' fa.lbl = "False accusation", cr.lbl = "Correct release",
+#' prev = .45,  # prevalence of being a reoffender.
+#' sens = .98, spec = .46, fart = NA, N = 753,
+#' scen.src = "Ficticious example scenario")
 #'
 #'summary(custom.scenario)
 #'
