@@ -696,13 +696,13 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 ##     - Convert the data frame scenarios.df into
 ##       a list "scenarios" of riskyr objects:
 
-scenarios <- vector("list", nrow(scenarios.df))  # initialize scenarios as a list
-names(scenarios) <- paste0("n", 1:nrow(scenarios.df))
+scenarios <- vector("list", nrow(df.scenarios))  # initialize scenarios as a list
+names(scenarios) <- paste0("n", 1:nrow(df.scenarios))
 
-for (i in 1:nrow(scenarios.df)) {  # for each scenario i in scenarios.df:
+for (i in 1:nrow(df.scenarios)) {  # for each scenario i in scenarios.df:
 
   ## (1) define scenario s:
-  s <- scenarios.df[i, ]
+  s <- df.scenarios[i, ]
 
   ## (2) pass scenario s to riskyr function:
   cur.scen <- riskyr(scen.lbl = s$scen.lbl, scen.lng = s$scen.lng, scen.txt = s$scen.txt,
