@@ -1,0 +1,131 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+
+# `riskyr`
+
+**A toolbox for rendering risk literacy more transparent.**
+
+<!-- riskyr logo: -->  
+<a href = "https://github.com/hneth/riskyr">
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 160px; float: right; border:20;"/>
+</a>
+<!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
+
+Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (e.g., the condition's prevalence `prev`, and the decision's sensitivity `sens` and specificity `spec`) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of `N` individuals). By offering a variety of perspectives on the interplay between key parameters, `riskyr` renders teaching and training of risk literacy more transparent. 
+
+
+## Motivation 
+
+> Solving a problem simply means representing it <br>
+> so as to make the solution transparent. (H.A. Simon)[^1]
+
+[^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
+
+
+The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+
+Basic assumptions and goals driving the development of `riskyr` include the following:
+
+1. Effective training in risk literacy requires simple tools and transparent representations. 
+
+2. It would be desirable to have a set of (computational and representational) tools that allow various 
+calculations, translations between formats, and many alternative views on the interplay between probabilities and frequencies. 
+
+3. Seeing a range of visualizations that show how parameters and metrics interact and influence each other facilitates active and explorative learning.  It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters. 
+
+To deliver on these assumptions, `riskyr` provides a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, support, and explain each other. All functions and visualizations can be explored interactively, providing immediate feedback on the effect of changes in parameter values.  
+By providing many customization options, users can explore and design representations of 
+risk-related information that suit their personal goals and needs.
+
+
+## Installation
+
+You can install `riskyr` from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("hneth/riskyr")
+```
+
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+## basic example code
+```
+
+
+## About
+
+<!-- uni.kn logo: -->  
+<!-- ![](./inst/pix/uniKn_logo.png) --> 
+<a href="http://www.uni-konstanz.de">
+<img src = "./inst/pix/uniKn_logo.png" alt = "uni.kn.logo" style = "width: 300px; float: right; border:20;"/>
+</a>
+
+`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. 
+The current version (`riskyr` 0.0.0.924, as of Feb. 14, 2018) is still under development. 
+Its primary designers and developers are 
+[Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
+[Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and 
+[Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), 
+who are researchers at the department of 
+[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the 
+[University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
+
+The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
+[GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
+[GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
+
+Please email at <contact.riskyr@gmail.com>  in case you want to use, adapt, or share this software.
+
+
+### Contact
+
+We appreciate your feedback, comments, or questions. 
+
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+
+- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+
+
+### Reference
+
+To cite `riskyr` in derivations and publications use:
+
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
+  `riskyr`: A toolbox for rendering risk literacy more transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany.  
+  Computer software (R package version 0.0.0.924, Feb. 14, 2018).  
+  Retrieved from <https://github.com/hneth/riskyr>.  
+
+A BibTeX entry for LaTeX users is: 
+
+    @Manual{,
+      title = {riskyr: A toolbox for rendering risk literacy more transparent},
+      author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
+      year = {2018},
+      organization = {Social Psychology and Decision Sciences, University of Konstanz},
+      address = {Konstanz, Germany},
+      note = {R package (version 0.0.0.924, Feb. 14, 2018)},
+      url = {https://github.com/hneth/riskyr},
+      }    
+    
+Calling `citation("riskyr")` in the package also displays this information.
+
+<!-- eof -->
