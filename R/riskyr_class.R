@@ -440,6 +440,8 @@ summary.riskyr <- function(object, summarize = "all") {
 
 ## (B) Create corresponding print function: ----------
 
+#' @export
+
 print.summary.riskyr <- function(object) {
 
   ## 1. Always print header: ----------
