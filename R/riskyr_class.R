@@ -334,7 +334,8 @@ plot.riskyr <- function(object,
 #' with up to 9 entries.
 #'
 #' @return A summary list \code{obj.sum}
-#' with up to 9 entries, dependent on what is requested by \code{summarize}.
+#' with up to 9 entries, dependent on which information is requested by \code{summarize}.
+#'
 #' Scenario name, relevant condition \code{}, and \code{N}
 #' are summarized by default.
 #'
