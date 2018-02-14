@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 02 13
+## 2018 02 14
 ## -----------------------------------------------
 ## Define riskyr class and corresponding methods
 ## and re-define scenarios.df as a list of
@@ -35,9 +35,9 @@ plot.riskyr <- function(obj,
   ## Test plottype argument:
   if (!plottype %in% c("fnet", "network",
                        "tree", "ftree",
-                       "curve", "curves",
                        "icons", "iconarray",
                        "mosaic", "mosaicplot",
+                       "curve", "curves",
                        "plane", "planes")) {
     stop("Invalid plottype specified in plot.riskyr.")
   }
@@ -242,9 +242,9 @@ plot.riskyr <- function(obj,
   # plot(scenario2, plottype = "icons")
   # plot(scenario3, plottype = "tree")
 
-  ## (B) with scenarios from scenarios.lst (defined BELOW):
+  ## (B) with scenarios from scenarios (defined BELOW):
   #
-  # s25 <- scenarios.lst$n25  # select scenario 25 from scenarios.lst
+  # s25 <- scenarios$n25  # select scenario 25 from scenarios
   #
   # plot(s25)  # => default plot (fnet)
   # plot(s25, plottype = "fnet")  # => network diagram (same as default)
@@ -268,9 +268,12 @@ summary.riskyr <- function(obj, summarize = "all", ...) {
   obj.sum <- list()  # initialize as list
 
   obj.sum$scen.lbl <- obj$scen.lbl
-  obj.sum$cond.lbl <- obj$cond.lbl
-  obj.sum$N <- obj$N
 
+  obj.sum$cond.lbl <- obj$cond.lbl  # condition
+  obj.sum$dec.lbl <- obj$dec.lbl    # decision
+  obj.sum$popu.lbl <- obj$popu.lbl  # population
+  obj.sum$N <- obj$N                # N
+  obj.sum$scen.src <- obj$scen.src  # source (short)
 
   ## (0) If all should be summarized: ----------
 
@@ -351,12 +354,18 @@ summary.riskyr <- function(obj, summarize = "all", ...) {
 
 print.summary.riskyr <- function(obj) {
 
-  ## Always print:
-  cat("Scenario: ", obj$scen.lbl, "\n")   # always show scenario name.
-  cat("Condition: ", obj$cond.lbl, "\n")  # always show current condition.
-  cat("N = ", obj$N, "\n")                # always show population size N.
+  ## 1. Always print header: ----------
 
-  ## On demand:
+  cat("Scenario: ",   obj$scen.lbl, "\n\n")  # always show scenario name.
+
+  cat("Condition: ",  obj$cond.lbl, "\n")  # always show current condition.
+  cat("Decision: ",   obj$dec.lbl,  "\n")  # always show current decision.
+  cat("Population: ", obj$popu.lbl, "\n")  # always show current condition.
+  cat("N = ", obj$N, "\n")                 # always show population size N.
+  cat("Source: ", obj$scen.src, "\n")      # always show (short) source info
+
+  ## 2. Print only on demand: ----------
+
   n <- names(obj)  # save names.
 
   ## (A) Probabilities: ----------
@@ -373,7 +382,6 @@ print.summary.riskyr <- function(obj) {
     cat("\n Other probabilities:\n")
     print(round(obj$probs$probs.ness, 3))  # no naming for non-essential probs.
   }
-
 
   ## (B) Frequencies: ----------
 
@@ -404,7 +412,6 @@ print.summary.riskyr <- function(obj) {
 
   }
 
-
   ## (C) Accuracy: ----------
 
   if (("acc" %in% n) || ("accu" %in% n)) {
@@ -414,7 +421,7 @@ print.summary.riskyr <- function(obj) {
     cat(" acc:\n")
     cat(obj$acc)  # overall accuracy acc only!
 
-    ## ToDo: ALL accuracy metrics:
+    ## ToDo: Include ALL other accuracy metrics (accu).
 
   }
 
@@ -489,17 +496,18 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 
   # # cat(
   # #   paste0(
-  # #     paste0(names(scenarios.lst$scen1), " = ", names(scenarios.lst$scen1)),
+  # #     paste0(names(scenarios$scen1), " = ", names(scenarios$scen1)),
   # #     collapse = ", "))
 
 }
 
 ## -----------------------------------------------
 ## (4) Define an object with a list of riskyr objects:
-## Convert scenarios.df into a list of riskyr objects:
+##     - Convert the data frame scenarios.df into
+##       a list "scenarios" of riskyr objects:
 
-scenarios.lst <- vector("list", nrow(scenarios.df))
-names(scenarios.lst) <- paste0("n", 1:nrow(scenarios.df))
+scenarios <- vector("list", nrow(scenarios.df))  # initialize scenarios as a list
+names(scenarios) <- paste0("n", 1:nrow(scenarios.df))
 
 for (i in 1:nrow(scenarios.df)) {  # for each scenario i in scenarios.df:
 
@@ -518,8 +526,8 @@ for (i in 1:nrow(scenarios.df)) {  # for each scenario i in scenarios.df:
                      N = s$N,
                      scen.src = s$scen.src, scen.apa = s$scen.apa)  # use initialization function.
 
-  # (3) Add cur.scen (riskyr object) as i-th element of scenarios.lst
-  scenarios.lst[[i]] <- cur.scen
+  # (3) Add cur.scen (riskyr object) as i-th element of scenarios
+  scenarios[[i]] <- cur.scen
 
   } # end for...
 
@@ -527,18 +535,26 @@ for (i in 1:nrow(scenarios.df)) {  # for each scenario i in scenarios.df:
 ## (5) Define scenarios as the list scenarios.lst
 ##     (of riskyr scenario objects):
 
-scenarios <- NULL
-scenarios <- scenarios.lst
-
+# scenarios <- NULL
+# scenarios <- scenarios.lst
 
 ## Check:
 # length(scenarios)
-# scenarios$n25  # => prints summary of a scenario
+# scenarios$n25  # => shows elements of a scenario
 
 
 ## -----------------------------------------------
-## (6) Typical user interaction:
+## (6) Typical user interaction / session:
 ## -----------------------------------------------
+## (A) Defining and viewing your own scenario:
+
+## ToDo: (...)
+
+## -----------------------------------------------
+## (B) Exporing pre-defined scenarios
+## -----------------------------------------------
+## Standard example: Mammography screening
+## Source: Hoffrage et al. (2015), p. 3
 
 # ## (a) Choosing a scenario
 # s25 <- scenarios[[25]] # select by number: [[dd]]
@@ -553,20 +569,47 @@ scenarios <- scenarios.lst
 # plot(s25, plottype = "curve")
 
 ## -----------------------------------------------
-## Another example:
+## Example 2: PSA screening
+## Source: Arkes & Gaissmaier (2012), p. 550
+
+## Overview:
+# summary(scenarios$n21)
+
+## Visualization:
+# plot(scenarios$n21, plottype = "tree", area = "sq")
+# plot(scenarios$n21, plottype = "icons")
+# plot(scenarios$n21, plottype = "curves", what = "all")
+# plot(scenarios$n21, plottype = "planes", what = "PPV")
+
+## Contrast with lower prevalence version:
+
+## Overview:
+# summary(scenarios$n22)
+
+## Visualization:
+# plot(scenarios$n22, plottype = "tree", area = "sq")
+# plot(scenarios$n22, plottype = "icons")
+# plot(scenarios$n22, plottype = "curves", what = "all")
+# plot(scenarios$n22, plottype = "planes", what = "PPV")
+
+## -----------------------------------------------
+## Example 3: Bowel cancer (FOB screening)
+## Source: https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values#Worked_example
 
 # s20 <- scenarios$n20   # select by name:   $ndd
-#
+
+## Overview:
 # summary(s20)
 # summary(s20, summarize = "freq")
-#
+
+## Visualization:
 # plot(s20, plottype = "tree", area = "vr") # => tree diagram (with vertical rectangles)
 # plot(s20, plottype = "curve", what = "all")
 # plot(s20, plottype = "icons")
 # plot(s20, plottype = "icons", type = "mosaic")  # passing on additional parameters.
 # plot(s20, plottype = "mosaic")
 # plot(s20, plottype = "plane", what = "NPV")
-# # plot(s20, plottype = "wetwork")
+## plot(s20, plottype = "wetwork")
 
 
 ## -----------------------------------------------
