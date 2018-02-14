@@ -327,18 +327,14 @@ plot.riskyr <- function(object,
 
 #' Summarizing risk information.
 #'
-#' \code{summary.riskyr} is a \code{summary} method for objects of class "riskyr".
-#'
-#' \code{print.summary.riskyr} tries to format ....
+#' \code{summary.riskyr} provides a \code{summary} method for objects of class "riskyr".
 #'
 #'
 #' @format An object of class \code{summary.riskyr}
-#' with up to
-#' Scenario name, relevant condition \code{}, and \code{N}
-#' are summarized by default.
+#' with up to 9 entries.
 #'
 #' @return A summary list \code{obj.sum}
-#' with up to
+#' with up to 9 entries, dependent on what is requested by \code{summarize}.
 #' Scenario name, relevant condition \code{}, and \code{N}
 #' are summarized by default.
 #'
@@ -539,49 +535,66 @@ print.summary.riskyr <- function(object) {
 #' \code{riskyr} is used to create scenarios of class "riskyr",
 #' which can then be visualized by \code{\link{plot.riskyr}}.
 #'
-#' Details?
-#'
+#' Only \code{N} and the necessary probabilities \code{prev},
+#' \code{sens}, \code{spec}, and \code{fart} are currently used
+#' and returned.
 #'
 #' @format An object of class "riskyr"
-#' with \code{\link{N}} rows
-#' and 3 columns (\code{"Truth", "Decision", "SDT"}).
+#' with 21 entries on textual and numeric information on
+#' a risky scenario.
 #'
-#' @return A data frame \code{popu}
-#' containing \code{\link{N}} rows (individual cases)
-#' and 3 columns (\code{"Truth", "Decision", "SDT"})
-#' encoded as ordered factors
-#' (with 2, 2, and 4 levels, respectively).
+#' @return A list \code{object} of class "riskyr"
+#' containing information on a risky scenario.
 #'
-#' @param hi  The number of hits \code{\link{hi}} (or true positives).
-#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#' Text elements (all default to \code{\link{txt}}:
 #'
-#' @param cond.true.lbl Text label for \code{\link{cond.true}} cases.
-#' @param cond.false.lbl Text label for \code{\link{cond.false}} cases.
-#' @param dec.pos.lbl Text label for \code{\link{dec.pos}} cases.
-#' @param dec.neg.lbl Text label for \code{\link{dec.neg}} cases.
-#' @param hi.lbl Text label for \code{\link{hi}} cases.
-#' @param mi.lbl Text label for \code{\link{mi}} cases.
-#' @param fa.lbl Text label for \code{\link{fa}} cases.
-#' @param cr.lbl Text label for \code{\link{cr}} cases.
+#' @param scen.lbl The current scenario title (sometimes in Title Caps).
+#' @param scen.txt A longer text description of the current scenario
+#' (which may extend over several lines).
+#' @param scen.src The source information for the current scenario.
+#' @param scen.apa Source information in APA format.
+#' @param scen.lng Language of the current scenario (as character code).
+#' Options: \code{"en"}...English, \code{"de"}... German.
+#'
+#' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
+#'
+#' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+#' @param cond.true.lbl A label for the \emph{presence} of the current condition
+#' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
+#' @param cond.false.lbl A label for the \emph{absence} of the current condition
+#' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
+#'
+#' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+#' @param dec.pos.lbl A label for \emph{positive} decisions
+#' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
+#' @param dec.neg.lbl A label for \emph{negative} decisions
+#' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
+#'
+#' @param hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
+#' @param mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
+#' @param fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
+#' @param cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
+#'
+#' Numeric elements:
 #'
 #' @examples
-#' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
+#' custom.scenario <- riskyr(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
+#' scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
+#' cond.lbl = txt$cond.lbl,
+#' cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
+#' dec.lbl = txt$dec.lbl,
+#' dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+#' hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
+#' fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+#' prev = num$prev,
+#' sens = num$sens,
+#' spec = num$spec, fart = NA, N = freq$N,
+#' scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 #'
-#' popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
-#' dim(popu)            # => N x 3
-#' head(popu)           # => shows head of data frame
-#'
-#'
-#' @family functions computing frequencies
-#'
-#' @seealso
-#' The corresponding data frame \code{\link{popu}};
-#' \code{\link{num}} for basic numeric parameters;
-#' \code{\link{freq}} for current frequency information;
-#' \code{\link{txt}} for current text settings;
-#' \code{\link{pal}} for current color settings.
 #'
 #' @export
 
