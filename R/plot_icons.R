@@ -144,9 +144,14 @@
 #' @param title.lbl Text label to set plot title.
 #'
 #' @param type.lbls Text labels for icon types to be displayed in legend.
-#
+#'
+#' @param cex.lbl Scaling factor for the size of text labels
+#' (e.g., on axes, legend, margin text).
+#' Default: \code{cex.lbl = .85}.
+#'
 #'
 #' @param ... Additional parameters for \code{plot}.
+#'
 #'
 #'
 #' @examples
@@ -235,40 +240,40 @@
 # (C) Translating these dimensions into code:
 
 plot_icons <- function(prev = num$prev,             # probabilities
-                           sens = num$sens, mirt = NA,
-                           spec = num$spec, fart = NA,  # was: num$fart,
-                           N = freq$N,    # ONLY freq used (so far)
-                           ## Key options: ##
-                           type = "array",  # needs to be given if random position but nonrandom ident.
-                           # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
-                           ident.order = c("hi", "mi", "fa", "cr"),
-                           icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
-                           icon.types = 22,  # plotting characters; default square with border
-                           icon.border.col = grey(.10, .50),  # border color of icons
-                           icon.border.lwd = 1.5, # line width of icons
-                           transparency = .50,
-                           icon.size = NULL,
-                           block.d = NULL,  # distance between blocks (where applicable).
-                           border.d = 0.1,  # distance of icons to border.
+                       sens = num$sens, mirt = NA,
+                       spec = num$spec, fart = NA,  # was: num$fart,
+                       N = freq$N,    # ONLY freq used (so far)
+                       ## Key options: ##
+                       type = "array",  # needs to be given if random position but nonrandom ident.
+                       ## Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       ident.order = c("hi", "mi", "fa", "cr"),
+                       icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
+                       icon.types = 22,  # plotting characters; default square with border
+                       icon.border.col = grey(.10, .50),  # border color of icons
+                       icon.border.lwd = 1.5, # line width of icons
+                       transparency = .50,
+                       icon.size = NULL,
+                       block.d = NULL,  # distance between blocks (where applicable).
+                       border.d = 0.1,  # distance of icons to border.
 
-                           # for classic icon arrays only:
-                           block.size.row = 10,
-                           block.size.col = 10,
-                           nblocks.row = NULL,
-                           nblocks.col = NULL,
+                       ## Classic icon arrays only:
+                       block.size.row = 10,
+                       block.size.col = 10,
+                       nblocks.row = NULL,
+                       nblocks.col = NULL,
 
-                           fill.array = "left",
-                           fill.blocks = "rowwise",
+                       fill.array = "left",
+                       fill.blocks = "rowwise",
 
-                           show.accu = TRUE, # Option for showing current accuracy metrics.
-                           w.acc = 0.50,
+                       show.accu = TRUE, # Option for showing current accuracy metrics.
+                       w.acc = 0.50,
 
-                           # labelling:
-                           title.lbl = txt$scen.lbl,
-                           type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-                           cex.lbl = 1.2,
+                       ## Text labels:
+                       title.lbl = txt$scen.lbl,
+                       type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+                       cex.lbl = 1.2,
 
-                           ...  #additional parameters for plot()
+                       ...  # additional parameters for plot()
 ) {
 
   ## Currently fixed parameters:
