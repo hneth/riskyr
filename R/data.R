@@ -12,7 +12,7 @@
 #'
 #' When loading \code{riskyr}, all scenarios contained in
 #' \code{df.scenarios} are also converted into a list of
-#' \code{riskyr} objects \code{scenarios}.
+#' \code{riskyr} objects \code{\link{scenarios}}.
 #'
 #'
 #' @format A data frame with currently 26 rows (i.e., scenarios)

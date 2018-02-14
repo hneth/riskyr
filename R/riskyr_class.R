@@ -23,9 +23,6 @@
 ## -----------------------------------------------
 ## (1) plot.riskyr function:
 
-# TODO:  Document plot.riskyr and summary riskyr!
-# Follow e.g., ?stats:::print.summary.lm()
-
 #' Plot information of riskyr object.
 #'
 #' \code{plot.riskyr} is a method that allows to generate
@@ -807,10 +804,15 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 #' and \code{\link{init_num}} (to initialize \code{\link{num}}).
 #'
 #'
+#' @seealso The information is also stroed in the dataframe \code{\link{df.scenarios}}.
+#'
 #' @source See columns \code{scen.src} and \code{scen.apa}
 #' for a scenario's source information.
 #'
 #' @export
+#'
+
+scenarios <- NULL
 
 scenarios <- vector("list", nrow(df.scenarios))  # initialize scenarios as a list
 names(scenarios) <- paste0("n", 1:nrow(df.scenarios))
