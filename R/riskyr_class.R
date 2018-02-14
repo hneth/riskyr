@@ -145,6 +145,7 @@ plot.riskyr <- function(object,
 
     if ("by" %in% arg.names) by <- arguments$by else by <- "cd"
     if ("p.lbl" %in% arg.names) p.lbl <- arguments$p.lbl else p.lbl <- "mix"
+    # if ("box.cex" %in% arg.names) box.cex <- arguments$box.cex else box.cex <- 0.90
 
     plot_tree(prev = object$prev,             # probabilities
               sens = object$sens, mirt = NA,
@@ -174,7 +175,7 @@ plot.riskyr <- function(object,
               cr.lbl = object$cr.lbl,
               ## Box settings:
               col.txt = grey(.01, alpha = .99),  # black
-              box.cex = .90,                     # relative text size
+              box.cex = 0.90,                     # relative text size
               col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
               col.border = grey(.33, alpha = .99),  # grey
               ## Widths of arrows and box borders:
@@ -207,6 +208,7 @@ plot.riskyr <- function(object,
 
     if ("ident.order" %in% arg.names) ident.order <- arguments$ident.order else ident.order <- c("hi", "mi", "fa", "cr")
     if ("type" %in% arg.names) type <- arguments$type else type <- "array"
+    if ("cex.lbl" %in% arg.names) cex.lbl <- arguments$cex.lbl else cex.lbl <- 1.0
 
     plot_icons(prev = object$prev,             # probabilities
                sens = object$sens, mirt = NA,
@@ -239,7 +241,9 @@ plot.riskyr <- function(object,
 
                # labelling:
                title.lbl = object$scen.lbl,
-               type.lbls = object[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")])
+               type.lbls = object[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+               cex.lbl = cex.lbl
+               )
 
   } #  if (plot.type == "iconarray")...
 
@@ -270,6 +274,7 @@ plot.riskyr <- function(object,
     if ("what" %in% arg.names) what <- arguments$what else what <- "PPV"
     if ("theta" %in% arg.names) theta <- arguments$theta else theta <- -45
     if ("phi" %in% arg.names) phi <- arguments$phi else phi <- 0
+    if ("cex.lbl" %in% arg.names) cex.lbl <- arguments$cex.lbl else cex.lbl <- 0.85
 
     plot_plane(prev = object$prev,             # probabilities (3 essential, 2 optional)
                sens = object$sens, mirt = NA,
@@ -285,7 +290,7 @@ plot.riskyr <- function(object,
                phi = phi,
                ## Text:
                title.lbl = object$scen.lbl, # plot title label
-               cex.lbl = .85 # scale size of text labels (e.g., on axes, legend, margin text)
+               cex.lbl = cex.lbl # scale size of text labels (e.g., on axes, legend, margin text)
     )
   } # if (plot.type == "plane")...
 
