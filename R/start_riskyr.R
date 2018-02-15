@@ -5,7 +5,8 @@
 
 ## (1) Open package guide: -----------------------
 
-#' Opens the riskyr package guide
+
+#' Opens the riskyr package guides
 #'
 #' @importFrom utils vignette
 #' @importFrom utils browseVignettes
@@ -14,10 +15,11 @@
 
 riskyr.guide <- function() {
 
-  # utils::vignette(topic = "User Guide", package = "riskyr")
-  utils::browseVignettes(package = "riskyr")
+ # utils::vignette(topic = "User Guide", package = "riskyr")
+ utils::browseVignettes(package = "riskyr")
 
 }
+
 
 ## (2) Run some code when starting riskyr: -------
 
@@ -85,7 +87,7 @@ start_riskyr <- function(...) {
   # packageStartupMessage("Ready to riskyr it...")
 
   ## User guidance:
-  packageStartupMessage("riskyr.guide() opens a user guide.")
+  packageStartupMessage("riskyr.guide() opens user guides.")
   # packageStartupMessage("citation('riskyr') provides citation info.")
 }
 
