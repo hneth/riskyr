@@ -47,7 +47,7 @@ Either way, you will soon explore some specific scenario and uncover relationshi
 library("riskyr")  # loads the package
 ```
 
-### Defining your own scenario  
+### Defining a 1st scenario  
 
 Let's launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch: 
 
@@ -86,9 +86,7 @@ First, let's translate the numeric information provided in our example into para
 3. The test's conditional probability of correctly detecting someone who will not reoffend provides its _specificity_: `spec = .46`.  
 (This corresponds to a _false alarm rate_ `fart = 1 - spec = .54`.)  
 
-4. In addition, the _population size_ of your sample was mentioned to be `N = 753`.[^1]
-
-[^1]: If no population size value `N` is specified, a suitable value is provided.
+4. In addition, the _population size_ of your sample was mentioned to be `N = 753`.^[If no population size value `N` is specified, a suitable value is provided.]  
 
 
 The following code defines a perfectly valid `riskyr` scenario:
@@ -152,7 +150,7 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
 We _could_ inspect the details of `my.scenario` with `summary(my.scenario)`. But it's much more colorful to immediately check some visualizations of our scenario:
 
 ```{r fnet, include = FALSE, fig.width = 7.2, fig.height = 6}
-plot(my.scenario, plot.type = "fnet")
+plot(my.scenario, plot.type = "fnet", round = FALSE)
 ```
 
 An icon array displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `plot.type = "icons"`:
@@ -171,45 +169,43 @@ To dig into the dirty details of `my.scenario`, let's look at its `summary`:
 summary(my.scenario)
 ```
 
+The text output (printed in R's console window) provides a brief description of our scenario (i.e., its name, the condition and decision of interest, as well as the type and size of population), followed by a range of numeric parameters (structured into probabilities, frequencies, and overall accuracy). 
 
-+++ here now +++
+In the present case, we were interested in a person's conditional probability of reoffending given a positive test result. This metric is also known as the _positive predictive value_ (PPV). Our summary information shows `PPV = 0.598`. Thus, based on the information provided, John D.'s probability of reoffending is 59.8\% (quite in line with our visual estimate from the icon array above). 
 
-From there we can read off some specifics of our scenario like the name, the condition of interest, what our decision is based on (the test), and how many individuals are there.  Moreover, we can read out probabilities, frequencies, and overall accuracy.  This contains much information we actually don't need to answer our question.   So we might want to limit this to the probabilities, as we are interested in the probability of reoffending, given a positive test result, the _positive predictive value_ or `PPV`. 
 
-```{r summary_prob}
+```{r summary_prob, include = FALSE}
 summary(my.scenario, summarize = "prob")
 ```
 
-Reading off `PPV` from the table we can see that the rough intuition was almost correct with about 60% with a positive test result actually reoffending. 
 
-We may even visualize this using a frequency tree: 
+#### Alternative perspectives
 
-```{r tree, fig.width=7, fig.height=6}
-plot(my.scenario, plot.type = "tree", by = "dc")
+An alternative way to view the our scenario is a frequency tree that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
+
+```{r tree, fig.width = 7.2, fig.height = 5.5}
+plot(my.scenario, plot.type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 ```
 
-We find again the PPV here.  From its complement (.403) we can infer that it is around 60%.  
+The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from 
+frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or `PPV = hi/dec.pos`). Numerically, we see that `PPV = 332/556`, which amounts to about 60\% (or `1 - 0.403`). 
 
-We can also infer additional information.  For instance, those that get a negative test result (i.e., the test suggests that they will not reoffend) will likely actually not reoffend.  The NPV (infered from the complement; see also the summary above) suggests that this holds in around 97% of all cases. 
+The tree also depicts additional information that corresponds to our `summary` from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be `NPV = 190/197` or about 96.4\% (as `NPV = cr/dec.neg`). Again, this closely corresponds to our `summary` information of `NPV = 0.966`.^[The difference between `NPV = 190/197 = 0.964467` (when computing the ratio of frequencies) and `NPV = 0.966` (in the `summary`) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument `round = FALSE`.]  
 
-A final way of visualizing this are curves which are dependent on prevalence. 
+A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev`: 
 
 ```{r plotting_curve, fig.width=7, fig.height=5.5}
 plot(my.scenario, plot.type = "curve")
 ```
 
-Here we see again our PPV of around 60% and the NPV of around 97%.  We can see that if prevalence dropped or was actually lower than 45%, the informativeness of a positve test result about reoffending would drop considerably.  
+As before, we can read off that the current values of `PPV = 59.76%` and `NPV = 96,56%`. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both `PPV` and `NPV`. For instance, if `prev` dropped further, the `PPV` of our test was also considerably lower. In fact, both the PPV and NPV vary from 0 to 1 depending on the value of `prev`, which means that specifying them is actually meaningless when the corresponding value of `prev` is not communicated as well. (See the guide on [functional perspectives](D_functional_perspectives.html) for additional information and options.) 
 
-This illustrated, how you can create a scenario from risk information and visualize it with `riskyr`. 
-
-For further information on underlying principles and additional functionalities see [User guide](A_user_guide.html). 
+Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the `riskyr` package.
 
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of similar problems (of so-called Bayesian reasoning), `riskyr` provides a set of (currently 25) pre-defined scenarios (stored in a list `scenarios`). 
-
-Here is a table of all scenarios avaliable, including some information on the relevant condition and decision, as well as the probabilities (for additional information see `scen.txt`):  
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios) - 1`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios avaliable, including their relevant condition, their population size `N`, and basic probability information: 
 
 ```{r scenario_table, echo = FALSE, results = 'asis'}
 library(knitr)
@@ -222,41 +218,60 @@ kable(scen.table)
 ```
 
 
-Show (some columns of) `scenarios` as table?
+Here is how you can explore them:
 
-Here is how you can explore them: 
+#### 1. Selecting a scenario
 
-Let's consider Scenarios 21 and 22, starting with Scenario 21:  
+To select a particular scenario, assign it to an R object. For instance, let's assign Scenario 21 to `s21`:
+
+```{r s21_select}
+s21 <- scenarios$n21  # assign pre-defined Scenario_21 to s21
+```
+
+#### 2. Printing scenario information
+
+As each scenario is stored as a list, different aspects of a scenario can be printed by their element names:
+
+```{r s21_info}
+# Show scenario information: 
+s21$scen.lbl  # shows descriptive label:
+s21$cond.lbl  # shows current condition:
+s21$popu.lbl  # shows current population:
+s21$prev      # shows the current prevalence
+s21$scen.src  # shows current source: 
+```
+
+A description of the scenario can be printed by calling `s21$scen.txt`: 
 
     `r scenarios$n21$scen.txt`
 
-```{r example_use_a, fig.width=7, fig.height=5.5}
-## (a) PSA screening with high prevalence: ----------
-s21 <- scenarios$n21  # assign pre-defined Scenario_21 to s
-```
+As explained above, an overview of the main parameters of a scenario is provided by `summary`: 
 
-First, we summarize all of the information: 
-
-```{r summary_s21}
+```{r s21_summary}
 summary(s21) # shows all scenario information.
 ```
 
-If we are only interested in frequencies, we can look at these: 
-
-```{r summary_s21_freq}
-summary(s21, summarize = "freq") # shows frequencies. 
-```
-
-Now we can consider a few graphics: 
-
-```{r s21_net, fig.width=7, fig.height=6}
-plot(s21) # plots a network diagram (by default)
-```
+Note that -- in this particular population -- the prevalence for the condition (`r s21$cond.lbl`) is assumed to be relatively high (with a value of `r as_pc(s21$prev)`%).
 
 
-```{r s21_icons, fig.width = 7, fig.height = 5}
+#### 3. Visualizing scenarios
+
+To eyeball key scenario information, we could inspect an icon array as follows: 
+
+```{r s21_icons, fig.width = 7.2, fig.height = 4.5}
 plot(s21, plot.type = "icons", cex.lbl = 0.75)
 ```
+
+Given that green squares signal correct classifications and red squares signal incorrect classifications, it is immediately obvious that our main accuracy issue here is with so-called misses: Men with cancer that remain undetected (printed in dark red).
+
+To further illuminate the scenario, consider the following network diagram: 
+
+```{r s21_fnet, fig.width = 7.2, fig.height = 6.5}
+plot(s21, plot.type = "fnet", area = "sq")
+```
+
+
++++ here now +++: 
 
 
 ```{r s21_curve, fig.width = 7, fig.height = 5}
@@ -264,7 +279,9 @@ plot(s21, plot.type = "curve", what = "all")
 ```
 
 
-Now we contrast this with Scenario 22: 
+### Exercise
+
+Contrast this with Scenario 22: 
 
     `r scenarios$n22$scen.txt` 
 
