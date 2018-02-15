@@ -119,7 +119,8 @@
 #'
 #' @export
 
-riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
+riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
+                   scen.lng = txt$scen.lng,
                    scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
                    cond.lbl = txt$cond.lbl,
                    cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
@@ -130,14 +131,14 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
                    prev = num$prev,
                    sens = num$sens,
                    spec = num$spec, fart = NA,
-                   N = freq$N,
+                   N = NA,  ## WAS: freq$N,
                    scen.src = txt$scen.src, scen.apa = txt$scen.apa) {
 
-  # Create object (scenario):
+  ## Create object (scenario):
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart,
                         tol = .01)) {
 
-    ## (a) Compute the complete quintet of probabilities:
+    ## Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
     sens <- prob_quintet[2] # gets sens (if not provided)
     mirt <- prob_quintet[3] # gets mirt (if not provided)
@@ -146,6 +147,12 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
 
   }
 
+  ## Provide a suitable population size N when none is provided:
+  if (is.na(N)) {
+    N <- comp_min_N(prev, sens, spec, min.freq = 1)
+  }
+
+  ## Define object as a list:
   object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
                  popu.lbl = popu.lbl, cond.lbl = cond.lbl,
                  cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
@@ -157,7 +164,7 @@ riskyr <- function(scen.lbl = txt$scen.lbl, scen.lng = txt$scen.lng,
                  N = N,
                  scen.src = scen.src, scen.apa = scen.apa)
 
-  # add class riskyr:
+  ## Add class riskyr:
   class(object) <- "riskyr"
 
   return(object)
@@ -427,8 +434,8 @@ plot.riskyr <- function(x = NULL,
               spec = x$spec, fart = NA,
               N = x$N,
               round = TRUE,
-              by = "cddc",
-              area = "sq",
+              by = by,
+              area = area,
               p.lbl = "num",
               show.accu = TRUE,
               w.acc = 0.5,

@@ -24,24 +24,6 @@ library("riskyr")  # load the "riskyr" package
 **Note:** This file contains miscellanea and older snippets of materials used or yet to be used in actual vignettes:
 
 
-## Other `riskyr` Vignettes
-
-<!-- riskyr logo: -->
-<a href="https://github.com/hneth/riskyr">
-<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
-</a>
-
-<!-- Index of vignettes: -->
-
-| Nr.  | Vignette | Content    |        
-| ---: |:---------|:-----------|
-| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
-| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
-| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
-| D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
-
-
 ## Quotes
 
 > "Solving a problem simply means representing it so as to make the solution transparent."<br>
@@ -105,7 +87,6 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 
 Contrast 3 possible ways to convey the same information:
 
-
 ### Training
 
 1. from probabilities:
@@ -125,6 +106,61 @@ Contrast and construct 3 types of tasks:
 - probability tasks
 - frequency tasks
 - integrated tasks
+
+
+
+## ToDo
+
+
+### Bug fixes
+
+- verify that plot_icons still works when scaling (4 cases still add up to N)
+
+
+### Basic functionality
+
+- use ... to substitute and pass parameters from objects to underlying functions. 
+ (what about defaults?)
+
+- allow alternative input of 4 essential frequencies (which take precedence if probability inputs are not sufficient or inconsistent) 
+
+- necessary and sufficient parameters for defining a `riskyr` scenario
+
+- allow plotting functions using `riskyr` objects
+
+- saving and loading scenarios (as `riskyr` objects)
+
+- saving plots generated 
+
+
+### Visualizations
+
+#### General issues 
+
+- unify plotting parameters
+
+- unify plotting elements: positions and size of axes labels in curve?
+
+
+#### Specific plots 
+
+
+- 2x2 confusion table as visualization? (3 perspectives: a, b, c)
+
+- ftree: (c) by correspondence (accuracy)
+
+- make ftree a subfunction of fnet
+
+
+### Customizations
+
+- nicer print.summary.riskyr output (as tables?)
+
+- color palettes (bw, uni.kn, color blind...)
+
+- tiny riskyr imprint on plots? 
+
+
 
 
 ## All References
@@ -238,6 +274,6 @@ The `riskyr` logo (showing three facets of a dice) also represents its functiona
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
+| E. | [Quick start primer](E_riskyr_primer.html) | Quick start primer |
 
 <!-- eof. -->

@@ -3,9 +3,19 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library("riskyr")  # loads the package
 
-## ----create_scenario-----------------------------------------------------
-# Create a custom scenario: 
+## ----load_riskyr---------------------------------------------------------
+library("riskyr")  # loads the package
+
+## ----create_scenario_minimal---------------------------------------------
+# Create a minimal scenario:
+my.scenario <- riskyr(prev = .45, 
+                      sens = .98,
+                      spec = .46)
+
+## ----create_scenario_custom----------------------------------------------
+# Create a customized scenario: 
 my.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
                       popu.lbl = "inmates", 
                       cond.lbl = "reoffending",
@@ -19,10 +29,13 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
                       spec = .46,  # p( will not reoffend | does not offend again )
                       fart =  NA,  # p( will reoffend | does not offend gain )
                       N = 753,     # population size
-                      scen.src = "ficticious example scenario")
+                      scen.src = "(a ficticious example)")
 
-## ----icons, fig.width=7, fig.height=5------------------------------------
-plot(my.scenario, plot.type = "icons", cex.lbl = 0.85)
+## ----fnet, include = FALSE, fig.width = 7.2, fig.height = 6--------------
+plot(my.scenario, plot.type = "fnet")
+
+## ----icons, fig.width = 7.2, fig.height = 4.8----------------------------
+plot(my.scenario, plot.type = "icons")
 
 ## ----full_summary--------------------------------------------------------
 summary(my.scenario)
