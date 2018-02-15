@@ -1,12 +1,12 @@
 ---
-title: "A `riskyr` Primer"
+title: "Quick Start Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
 date: "2018 02 14"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
 vignette: > 
-  %\VignetteIndexEntry{User Guide}
+  %\VignetteIndexEntry{Quick Start Primer}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -18,76 +18,118 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library("riskyr")  # loads the package
 ```
 
-`riskyr` is a toolbox for rendering risk literacy more transparent by facilitating changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. 
+<!-- riskyr logo: -->  
+<a href="https://github.com/hneth/riskyr">
+<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+</a>
+<!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
 
-The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
+`riskyr` is a toolbox for rendering risk literacy more transparent. Its goal is to gain deeper insights into risk-related scenarios with a minimum of hassle and maximum of fun.
+
+This page assumes that you just installed the package and are now eager to see what you can do with it. (See the [User guide](A_user_guide.html) for a more general introduction.)
 
 
 ## Getting Started 
 
 How can you use `riskyr`?  Basically, there are two ways to get started:
 
-1. Define your own `riskyr` scenario from risk-related information.
+1. Define your own `riskyr` scenario from risk-related information (typically provided in terms of probabilities).
 
-2. Use one of `r length(scenarios) - 1` predefined scenarios to get a glimpse of what types of scenarios can be explored with `riskyr`. 
+2. Inspect one of `r length(scenarios) - 1` predefined `riskyr` scenarios to get a glimpse of what types of scenarios are possible. 
 
+Either way, you will soon explore some specific scenario and uncover relationships between its parameters. Let's load the package (in case you haven't already done so):
+
+```{r load_riskyr}
+library("riskyr")  # loads the package
+```
 
 ### Defining your own scenario  
 
-Let's launch your `riskyr`-career by creating a ficticious risk scenario that we can construct from scratch. 
+Let's launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch: 
+
+
+#### Example scenario
 
 <!-- Example: Testing for recidivism -->
 
 > **Identifying reoffenders**
 > 
-> Imagine you are developing a test for criminal offenders in jail. 
-
-> 1. You know that 45% of all 753 offenders in this particular jail re-offend after they are released (`prev = .45`).  
-> 2. You developed a test that correctly identifies those who will re-offend in 98% of the cases (`sens = .98`).  
-> 3. The test also falsely identifies 64% of those who will not re-offend as potential re-offenders or conversely, correctly identifies 46% of those that will not reoffend (`spec = .46`).  
+> Imagine you are developing a test to predict if a jailed criminal offender will reoffend after his or her release. 
+> Your research yields the following information: 
+>
+> 1. 45% of 753 jailed offenders in this county re-offend after they are released (`prev = .45`).  
+> 2. Your test correctly detects those who will re-offend in 98% of the cases (`sens = .98`).  
+> 3. Your test falsely identifies 54% of those who will not re-offend as potential re-offenders. 
+> Conversely, this implies that your test correctly identifies 46% of those that will not reoffend (`spec = .46`).  
 > 
-> John D. is about to get released.  However, your test result suggests that he will likely reoffend.  
+> John D. is about to get released. However, your test predicts that he will reoffend.  
 > 
 > What is the probability that John D. will actually reoffend, given this test result? 
 
+To answer this question, you could calculate corresponding probabilities or frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a `riskyr` scenario that you can modify, inspect, and visualize in various ways.
 
-To answer this question you can use Bayes formula or natural frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a scenario (as a `riskyr` object) that you can modify, inspect, and visualize in many different ways. 
 
-A new scenario can be described in many different ways: 
+#### Necessary scenario information
 
-* `scen.lbl` A telling name (e.g., "Identifying reoffenders").  
+<!-- A: necessary info: probabilities and N: --> 
 
-* `popu.lbl` specifies the population of interest (e.g., "inmates").
+First, let's translate the numeric information provided in our example into parameter values:
 
-* `cond.lbl` A label for the condition of interest (i.e., "reoffending").
+1. The probability of reoffending provides the _prevalence_ in our population: `prev = .45`.  
+
+2. The test's conditional probability of correctly detecting a reoffender provides its _sensitivity_: `sens = .98`.  
+
+3. The test's conditional probability of correctly detecting someone who will not reoffend provides its _specificity_: `spec = .46`.  
+(This corresponds to a _false alarm rate_ `fart = 1 - spec = .54`.)  
+
+4. In addition, the _population size_ of your sample was mentioned to be `N = 753`.[^1]
+
+[^1]: If no population size value `N` is specified, a suitable value is provided.
+
+
+The following code defines a perfectly valid `riskyr` scenario:
+
+```{r create_scenario_minimal}
+# Create a minimal scenario:
+my.scenario <- riskyr(prev = .45, 
+                      sens = .98,
+                      spec = .46)
+```
+
+<!-- Mention alternative ways of entering the same (e.g., by providing fart, rather than spec)? --> 
+
+
+#### Optional scenario information
+
+<!-- B: optional info: text labels --> 
+
+To make various outputs more recognizable, many aspects of a `riskyr` scenario can be described by setting optional `arguments`: 
+
+* `scen.lbl` specifies a label by which you can reckognize the scenario (e.g., "Identifying reoffenders").  
+* `popu.lbl` specifies the population of interest (e.g., "inmates").  
+
+* `cond.lbl` specifies the condition of interest (i.e., "reoffending").
 * `cond.true.lbl` specifies a label for the condition being true ("offends again").
 * `cond.false.lbl` specifies a label for the condition being false ("does not offend again").
 
 * `dec.lbl` specifies the nature of the decision, prediction, or test ("test result").
-* `dec.pos.lbl` specifies a positive decision relative to the condition ("predict to reoffend").
-* `dec.neg.lbl` specifies a negative decision relative to the condition ("predict to not reoffend").
+* `dec.pos.lbl` specifies a positive decision regarding the condition ("predict to reoffend").
+* `dec.neg.lbl` specifies a negative decision regarding the condition ("predict to not reoffend").
 
-* The labels `hi.lbl`, `mi.lbl`, `fa.lbl`, and `cr.lbl` specify the four possible combinations of condition and decisions: 
-    * "reoffender found" (hit: the test predicts that the inmate reoffends and s/he does), 
-    * "reoffender missed" (miss: the test predicts that the inmate does not reoffend but s/he does), 
-    * "false accusation" (false alarm: the test predicts that the inmate reoffends but s/he does not), and 
-    * "correct release" (correct rejection: the test predicts that the inmate does not reoffend and s/he does not). 
-    
-    
-Crucially, you should specify the available numeric information on the population and the test: 
+* `hi.lbl`, `mi.lbl`, `fa.lbl`, and `cr.lbl` specify the four possible combinations of conditions and decisions: 
+    1. hit: The test predicts that the inmate reoffends and s/he does ("reoffender found");   
+    2. miss: The test predicts that the inmate does not reoffend but s/he does ("reoffender missed");   
+    3. false alarm: The test predicts that the inmate reoffends but s/he does not ("false accusation";   
+    4. correct rejection: The test predicts that the inmate does not reoffend and s/he does not ("correct release").  
 
-1. `prev` the _prevalence_ or how many inmates reoffend at all. 
-2. `sens` the _sensitivity_ or how many reoffenders are correctly classified by the test. 
-3. `spec` the _specificity _ or how many non reoffenders are correctly identified. 
+Whereas specifying three essential probabilities is necessary to define a valid `riskyr` scenario, providing `N` and the other arguments are entirely optional. Let's create a well-specified `riskyr` scenario:
 
-4. `N` the _population size_ or how many inmates are there in prison. 
-
-Let us create a custom `riskyr` object: 
-
-```{r create_scenario}
-# Create a custom scenario: 
+```{r create_scenario_custom}
+# Create a customized scenario: 
 my.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
                       popu.lbl = "inmates", 
                       cond.lbl = "reoffending",
@@ -101,28 +143,36 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
                       spec = .46,  # p( will not reoffend | does not offend again )
                       fart =  NA,  # p( will reoffend | does not offend gain )
                       N = 753,     # population size
-                      scen.src = "ficticious example scenario")
+                      scen.src = "(a ficticious example)")
 ```
 
 
-First, we can visualize our new object in different ways: 
+#### Viewing scenario information
 
-The iconarray displays the whole population of inmates and how they are classified and whether they will reoffend.  We can do this with a simple call to `plot()` using the `plot.riskyr()` method with `plot.type = "icons"`:
+We _could_ inspect the details of `my.scenario` with `summary(my.scenario)`. But it's much more colorful to immediately check some visualizations of our scenario:
 
-```{r icons, fig.width=7, fig.height=5}
-plot(my.scenario, plot.type = "icons", cex.lbl = 0.85)
+```{r fnet, include = FALSE, fig.width = 7.2, fig.height = 6}
+plot(my.scenario, plot.type = "fnet")
 ```
 
-We can relatively easily see that roughly half of the inmates reoffend (dark green and dark red icons).  Of those most are classified corretly.  But what about John D.?  His test result suggeested that he would reoffend.  How likely will he actually reoffend? 
+An icon array displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `plot.type = "icons"`:
 
-Therefore we need to consider the dark green icons (hits, the test suggests that someone reoffends and the person actually does) and the light red icons (false alarms, the test suggests that these will reoffend but they actually don't).  We see that this is roughly half with an advantage for hits.  
+```{r icons, fig.width = 7.2, fig.height = 4.8}
+plot(my.scenario, plot.type = "icons")
+```
 
+From the icon array, We can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark red). The majority of the reoffenders are classified correctly (shown in dark green rather than dark red). 
 
-Now we can use the `summary` function to confirm this: 
+But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will _either_ be classified as a "reoffender found" (if he actually reoffends: dark green icons) _or_ as a "false accusation" (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards "reoffenders found"), it appears that his chances of actually reoffending are only slighly higher than chance.
+
+To dig into the dirty details of `my.scenario`, let's look at its `summary`:
 
 ```{r full_summary}
 summary(my.scenario)
 ```
+
+
++++ here now +++
 
 From there we can read off some specifics of our scenario like the name, the condition of interest, what our decision is based on (the test), and how many individuals are there.  Moreover, we can read out probabilities, frequencies, and overall accuracy.  This contains much information we actually don't need to answer our question.   So we might want to limit this to the probabilities, as we are interested in the probability of reoffending, given a positive test result, the _positive predictive value_ or `PPV`. 
 
@@ -178,7 +228,7 @@ Show (some columns of) `scenarios` as table?
 
 Here is how you can explore them: 
 
-Let us consider the scenarios number 21 and 22.  Strating with scneraio number 21:  
+Let's consider Scenarios 21 and 22, starting with Scenario 21:  
 
     `r scenarios$n21$scen.txt`
 
@@ -210,12 +260,13 @@ plot(s21) # plots a network diagram (by default)
 plot(s21, plot.type = "icons", cex.lbl = 0.75)
 ```
 
+
 ```{r s21_curve, fig.width = 7, fig.height = 5}
 plot(s21, plot.type = "curve", what = "all")
 ```
 
 
-Now we also consider scenario number 22: 
+Now we contrast this with Scenario 22: 
 
     `r scenarios$n22$scen.txt` 
 
@@ -278,6 +329,6 @@ Now have fun exploring the provided examples, as well as creating and exploring 
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
+| E. | [Quick start primer](E_riskyr_primer.html) | Quick start primer |
 
 <!-- eof. -->

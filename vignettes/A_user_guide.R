@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----comp_PPV------------------------------------------------------------
-library("riskyr")  # load the "riskyr" package
+library("riskyr")  # loads the package
 
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 

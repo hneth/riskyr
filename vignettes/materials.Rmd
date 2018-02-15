@@ -24,24 +24,6 @@ library("riskyr")  # load the "riskyr" package
 **Note:** This file contains miscellanea and older snippets of materials used or yet to be used in actual vignettes:
 
 
-## Other `riskyr` Vignettes
-
-<!-- riskyr logo: -->
-<a href="https://github.com/hneth/riskyr">
-<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
-</a>
-
-<!-- Index of vignettes: -->
-
-| Nr.  | Vignette | Content    |        
-| ---: |:---------|:-----------|
-| A. | [User guide](A_user_guide.html) | Motivation and general instructions | 
-| B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
-| C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
-| D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
-
-
 ## Quotes
 
 > "Solving a problem simply means representing it so as to make the solution transparent."<br>
@@ -238,6 +220,6 @@ The `riskyr` logo (showing three facets of a dice) also represents its functiona
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
+| E. | [Quick start primer](E_riskyr_primer.html) | Quick start primer |
 
 <!-- eof. -->

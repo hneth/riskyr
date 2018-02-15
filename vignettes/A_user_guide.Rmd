@@ -207,7 +207,7 @@ positive predictive value `PPV` from the
 that were provided in the original problem:
 
 ```{r comp_PPV}
-library("riskyr")  # load the "riskyr" package
+library("riskyr")  # loads the package
 
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 ```
@@ -544,6 +544,6 @@ We appreciate your feedback, comments, or questions.
 | B. | [Data formats](B_data_formats.html) | Data formats: Frequencies and probabilities | 
 | C. | [Confusion matrix](C_confusion_matrix.html) | Confusion matrix and accuracy metrics |
 | D. | [Functional perspectives](D_functional_perspectives.html) | Adopting functional perspectives |
-| E. | [A `riskyr` primer](E_riskyr_primer.html) | A primer to get started with `riskyr` |
+| E. | [Quick start primer](E_riskyr_primer.html) | Quick start primer |
 
 <!-- eof. -->
