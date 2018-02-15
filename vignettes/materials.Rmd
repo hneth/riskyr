@@ -87,7 +87,6 @@ Here are a few basic facts that a risk-literate person should know when dealing 
 
 Contrast 3 possible ways to convey the same information:
 
-
 ### Training
 
 1. from probabilities:
@@ -107,6 +106,61 @@ Contrast and construct 3 types of tasks:
 - probability tasks
 - frequency tasks
 - integrated tasks
+
+
+
+## ToDo
+
+
+### Bug fixes
+
+- verify that plot_icons still works when scaling (4 cases still add up to N)
+
+
+### Basic functionality
+
+- use ... to substitute and pass parameters from objects to underlying functions. 
+ (what about defaults?)
+
+- allow alternative input of 4 essential frequencies (which take precedence if probability inputs are not sufficient or inconsistent) 
+
+- necessary and sufficient parameters for defining a `riskyr` scenario
+
+- allow plotting functions using `riskyr` objects
+
+- saving and loading scenarios (as `riskyr` objects)
+
+- saving plots generated 
+
+
+### Visualizations
+
+#### General issues 
+
+- unify plotting parameters
+
+- unify plotting elements: positions and size of axes labels in curve?
+
+
+#### Specific plots 
+
+
+- 2x2 confusion table as visualization? (3 perspectives: a, b, c)
+
+- ftree: (c) by correspondence (accuracy)
+
+- make ftree a subfunction of fnet
+
+
+### Customizations
+
+- nicer print.summary.riskyr output (as tables?)
+
+- color palettes (bw, uni.kn, color blind...)
+
+- tiny riskyr imprint on plots? 
+
+
 
 
 ## All References

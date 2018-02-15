@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 14"
+date: "2018 02 15"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -135,7 +135,7 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
                       cond.lbl = "reoffending",
                       cond.true.lbl = "offends again", cond.false.lbl = "does not offend again",
                       dec.lbl = "test result",
-                      dec.pos.lbl = "predict to reoffend", dec.neg.lbl = "predict to not reoffend",
+                      dec.pos.lbl = "predict to\nreoffend", dec.neg.lbl = "predict to\nnot reoffend",
                       hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
                       fa.lbl = "false accusation", cr.lbl = "correct release",
                       prev = .45,  # prevalence of being a reoffender. 
@@ -214,12 +214,10 @@ Here is a table of all scenarios avaliable, including some information on the re
 ```{r scenario_table, echo = FALSE, results = 'asis'}
 library(knitr)
 scen.table <- df.scenarios[-1,
-                           c("scen.lbl", "cond.lbl", "dec.lbl", "N", "prev",
-                             "sens", "spec", "fart", "scen.src")]
-scen.table[, -c(1:3, 9)] <- round(scen.table[, -c(1:3, 9)], 3)
-names(scen.table) <- c("Scenario", "Condition", "Decision",
-                       "N", "Prevalence", "Sensitivity", "Specificity", "False alarm rate",
-                       "Source")
+                           c("scen.lbl", "cond.lbl", "N", "prev",
+                             "sens", "spec", "fart")]
+scen.table[, -c(1:2)] <- round(scen.table[, -c(1:2)], 3)
+names(scen.table) <- c("Scenario", "Condition", "N", "prev", "sens", "spec", "fart")
 kable(scen.table)
 ```
 
@@ -288,7 +286,6 @@ par(mfrow = c(1,2))  # set plotting space for direct comparison.
 ## Contrast two versions: 
 plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
 plot(s22, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
-
 ```
 
 Firstly, these planes clearly illustrate that with a high prevalence the positive predictive value is considerably higher than with a low prevalence.  Additionally, it can be seen that decreasing specificity and sensitivity in a scenario with high prevalence has a stronger impact.  In a scenario with low prevalence an increase in specificity , in turn, has a very strong impact, while there is not so much room for improvement with high prevalence. 
@@ -302,7 +299,6 @@ plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
 plot(s22, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
 ```
 
-
 Apparently, for low prevalence things are vice versa. 
 
 For further information see [User guide](A_user_guide.html). 
@@ -313,6 +309,7 @@ par(op)
 
 
 Now have fun exploring the provided examples, as well as creating and exploring your own examples. 
+
 
 ## All `riskyr` Vignettes
 
