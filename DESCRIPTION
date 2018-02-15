@@ -1,8 +1,8 @@
 Package: riskyr
 Type: Package
 Title: A toolbox for rendering risk literacy more transparent
-Version: 0.0.0.924
-Date: 2018-02-14
+Version: 0.0.0.925
+Date: 2018-02-15
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"), 
              person("Felix", "Gaisbauer", role = "aut"), 
@@ -21,8 +21,9 @@ Depends:
     R (>= 3.2)
 Imports:
     diagram (>= 1.6.4),
+    grid (>= 3.4.3),
     vcd (>= 1.4),
-    grid (>= 3.4.3) 
+    utils (>= 3.4.3)
 Suggests:
     devtools,
     rmarkdown,
