@@ -757,7 +757,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #'
 #' @format Printed output of a "summary.riskyr" object.
 #'
-#' @param x An object of class "summaryriskyr", usually a result of a call to \code{summary.riskyr}.
+#' @param x An object of class "summary.riskyr", usually a result of a call to \code{summary.riskyr}.
 #'
 #' @param ... Additional parameters to be passed to the
 #' generic print function.
