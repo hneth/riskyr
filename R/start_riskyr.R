@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 02 14
+## 2018 02 15
 ## -----------------------------------------------
 ## Final settings:
 
@@ -14,8 +14,8 @@
 
 riskyr.guide <- function() {
 
-  vignette("A_user_guide", package = "riskyr")
-  # browseVignettes(package = 'riskyr')
+  # utils::vignette(topic = "User Guide", package = "riskyr")
+  utils::browseVignettes(package = "riskyr")
 
 }
 
@@ -39,7 +39,6 @@ start_riskyr <- function(...) {
   # source("./R/comp_freq.R")  # 1. derive freq (list)
   # source("./R/comp_prob.R")  # 2. derive prob (list)
   # source("./R/comp_popu.R")  # 3. derive popu (data frame)
-
 
   ## (3) Initialize basic scenario settings
   ##     (using init_xxx functions and defaults):

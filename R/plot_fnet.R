@@ -172,9 +172,7 @@
 #' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
 #' Default: \code{cex.shadow = 0}.
 #'
-#'
 #' @return Nothing (NULL).
-#'
 #'
 #' @examples
 #' # Plotting existing freq:
