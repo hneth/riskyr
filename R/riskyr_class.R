@@ -333,6 +333,15 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 
 ## (3) plot.riskyr function: -----
 
+## Testing dots:
+# test_fun <- function(...) {
+#   plot_icons(...)
+# }
+#
+# test_fun(N = 100, blubb = 5, prev = 0.7)
+#
+## apparently, they behave well...
+
 #' Plot information of a riskyr object.
 #'
 #' \code{plot.riskyr} is a method that allows to generate
