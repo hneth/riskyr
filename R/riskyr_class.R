@@ -407,9 +407,11 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 
 plot.riskyr <- function(x = NULL,
                         plot.type = "network",  # default plot.type
-                        # type = "array",       # type parameter for plot subtypes
-                        ...    # ellipsis for additional type parameters in plot()
+                        ...    # ellipsis for additional type and display parameters in plot_XXX().
 ) {
+
+  ## Note: every function except for plot_icons currently lacks the ellipsis.
+  ## Therefore, these functions will throw an exception, if unnecessary parameters are passed.
 
   ## Test plot.type argument:
   if (!plot.type %in% c("fnet", "network",
@@ -421,33 +423,16 @@ plot.riskyr <- function(x = NULL,
     stop("Invalid plot.type specified in plot.riskyr.")
   }
 
-  # Recovering additional parameters:
-  # arguments <- list(...)
-  # arg.names <- names(arguments)
-
-  # all:
-  # if ("show.accu" %in% arg.names) show.accu <- arguments$show.accu else show.accu = TRUE
-  # if ("area" %in% arg.names) area <- arguments$area else area <- "no"  # tree and net.
-
-
   ## Plotting functions: ----------
 
 
   ## A. Frequency net (default):
   if ((plot.type == "fnet") || (plot.type == "network")) {
 
-    # if ("by" %in% arg.names) by <- arguments$by else by <- "cddc"
-
     plot_fnet(prev = x$prev,
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,
               N = x$N,
-              # round = TRUE,
-              # by = by,
-              # area = area,
-              # p.lbl = "num",
-              # show.accu = TRUE,
-              # w.acc = 0.5,
               title.lbl = x$scen.lbl,
               popu.lbl = x$popu.lbl,
               cond.true.lbl = x$cond.true.lbl,
@@ -456,9 +441,6 @@ plot.riskyr <- function(x = NULL,
               dec.neg.lbl = x$dec.neg.lbl,
               hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl, fa.lbl = x$fa.lbl,
               cr.lbl = x$cr.lbl,
-              # col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
-              # col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
-              # box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0
               ...
               )
 
@@ -468,22 +450,10 @@ plot.riskyr <- function(x = NULL,
   ## B. Frequency tree:
   if ((plot.type == "tree") || (plot.type == "ftree")) {
 
-    # if ("by" %in% arg.names) by <- arguments$by else by <- "cd"
-    # if ("p.lbl" %in% arg.names) p.lbl <- arguments$p.lbl else p.lbl <- "mix"
-    # if ("box.cex" %in% arg.names) box.cex <- arguments$box.cex else box.cex <- 0.90
-
     plot_tree(prev = x$prev,             # probabilities
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,  # was: num$fart,
               N = x$N,    # ONLY freq used (so far)
-              ## Options:
-              # round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
-              # by = by,     # 4 perspectives: "cd" by condition, "dc" by decision.
-              # area = area,   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles.
-              # p.lbl = p.lbl, # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
-              # ## Compute and show accuracy info:
-              # show.accu = TRUE,  # compute and show accuracy metrics
-              # w.acc = .50,       # weight w for wacc (from 0 to 1)
               ## Labels:
               title.lbl = x$scen.lbl,     # custom text labels
               popu.lbl = x$popu.lbl,
@@ -498,17 +468,6 @@ plot.riskyr <- function(x = NULL,
               mi.lbl = x$mi.lbl,
               fa.lbl = x$fa.lbl,
               cr.lbl = x$cr.lbl,
-              ## Box settings:
-              # col.txt = grey(.01, alpha = .99),  # black
-              # box.cex = 0.90,                     # relative text size
-              # col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
-              # col.border = grey(.33, alpha = .99),  # grey
-              # ## Widths of arrows and box borders:
-              # lwd = 1.6,      # width of arrows
-              # box.lwd = 1.8,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
-              # ## Shadows:
-              # col.shadow = grey(.11, alpha = .99),  # dark grey
-              # cex.shadow = 0  # [values > 0 show shadows]
               ...
     )
 
@@ -521,10 +480,7 @@ plot.riskyr <- function(x = NULL,
                 sens = x$sens, mirt = NA,
                 spec = x$spec, fart = NA,
                 N = x$N,
-                # vsplit = TRUE,
-                # show.accu = TRUE, w.acc = 0.5,
                 title.lbl = x$scen.lbl,
-                # col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
                 ...)
 
   } # if (plot.type == "mosaicplot")
@@ -533,43 +489,15 @@ plot.riskyr <- function(x = NULL,
   ## D. Iconarrays
   if ((plot.type == "icons") || (plot.type == "iconarray")) {
 
-    # if ("ident.order" %in% arg.names) ident.order <- arguments$ident.order else ident.order <- c("hi", "mi", "fa", "cr")
-    # if ("type" %in% arg.names) type <- arguments$type else type <- "array"
-    # if ("cex.lbl" %in% arg.names) cex.lbl <- arguments$cex.lbl else cex.lbl <- 1.0
-
     plot_icons(prev = x$prev,             # probabilities
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,  # was: num$fart,
                N = x$N,    # ONLY freq used (so far)
                ## Key options: ##
-               # type = type,  # needs to be given if random position but nonrandom ident.
-               # # Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
-               # ident.order = ident.order,
-               # icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
-               # icon.types = 22,  # plotting characters; default square with border
-               # icon.border.col = grey(.10, .50),  # border color of icons
-               # icon.border.lwd = 1.5, # line width of icons
-               # transparency = .50,
-               # icon.size = NULL,
-               # block.d = NULL,  # distance between blocks (where applicable).
-               # border.d = 0.1,  # distance of icons to border.
-
-               # for classic icon arrays only:
-               # block.size.row = 10,
-               # block.size.col = 10,
-               # nblocks.row = NULL,
-               # nblocks.col = NULL,
-               #
-               # fill.array = "left",
-               # fill.blocks = "rowwise",
-               #
-               # show.accu = TRUE, # Option for showing current accuracy metrics.
-               # w.acc = 0.50,
 
                # labelling:
                title.lbl = x$scen.lbl,
                type.lbls = x[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-               # cex.lbl = cex.lbl,
                ...
     )
 
@@ -579,18 +507,9 @@ plot.riskyr <- function(x = NULL,
   ## E. Curve:
   if ((plot.type == "curve") || (plot.type == "curves")) {
 
-    # if ("what" %in% arg.names) what <- arguments$what else what <- c("prev", "PPV", "NPV")
-    # if ("show.points" %in% arg.names) show.points <- arguments$show.points else show.points <- TRUE
-
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
-               ## DVs:
-               # what = what,  # what curves?  Options: "acc", "ppod"
-               # what.col = pal,                  # colors for what.
-               # ## Options:
-               # show.points = show.points,  # show points at current prev?
-               # log.scale = FALSE,   # x-axis on log scale?
                title.lbl = x$scen.lbl,
                ...
     )
@@ -600,32 +519,15 @@ plot.riskyr <- function(x = NULL,
   ## F. Plane:
   if ((plot.type == "plane") || (plot.type == "planes")) {
 
-    # if ("what" %in% arg.names) what <- arguments$what else what <- "PPV"
-    # if ("theta" %in% arg.names) theta <- arguments$theta else theta <- -45
-    # if ("phi" %in% arg.names) phi <- arguments$phi else phi <- 0
-    # if ("cex.lbl" %in% arg.names) cex.lbl <- arguments$cex.lbl else cex.lbl <- 0.85
-
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
-               ## DVs:
-               # what = what, # what plane?  Options: "PPV", "NPV", "acc", "ppod".
-               # ## Options:
-               # what.col = pal,     # color for what.
-               # step.size = .05,    # resolution of matrix (sens.range and spec.range)
-               # show.point = TRUE,  # show point on plane?
-               # ## Main persp() options [adjustable]:
-               # theta = theta,
-               # phi = phi,
                ## Text:
                title.lbl = x$scen.lbl, # plot title label
                cex.lbl = cex.lbl, # scale size of text labels (e.g., on axes, legend, margin text)
                ...
     )
   } # if (plot.type == "plane")
-
-  ## Add other plot.types:
-  ## ( )
 
 }
 
