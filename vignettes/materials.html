@@ -112,10 +112,17 @@ Start with network diagram, explain frequencies as nodes and probabilities as ed
 </div>
 <div id="todo" class="section level2">
 <h2>ToDo</h2>
+<div id="bug-fixes" class="section level3">
+<h3>Bug fixes</h3>
+<ul>
+<li>verify that plot_icons still works when scaling (4 cases still add up to N)</li>
+</ul>
+</div>
 <div id="basic-functionality" class="section level3">
 <h3>Basic functionality</h3>
 <ul>
 <li><p>use … to substitute and pass parameters from objects to underlying functions. (what about defaults?)</p></li>
+<li><p>allow alternative input of 4 essential frequencies (which take precedence if probability inputs are not sufficient or inconsistent)</p></li>
 <li><p>necessary and sufficient parameters for defining a <code>riskyr</code> scenario</p></li>
 <li><p>allow plotting functions using <code>riskyr</code> objects</p></li>
 <li><p>saving and loading scenarios (as <code>riskyr</code> objects)</p></li>
@@ -124,36 +131,36 @@ Start with network diagram, explain frequencies as nodes and probabilities as ed
 </div>
 <div id="visualizations" class="section level3">
 <h3>Visualizations</h3>
-<p>General issues:</p>
+<div id="general-issues" class="section level4">
+<h4>General issues</h4>
 <ul>
 <li><p>unify plotting parameters</p></li>
 <li><p>unify plotting elements: positions and size of axes labels in curve?</p></li>
 </ul>
-<p>Specific plots:</p>
+</div>
+<div id="specific-plots" class="section level4">
+<h4>Specific plots</h4>
 <ul>
 <li><p>2x2 confusion table as visualization? (3 perspectives: a, b, c)</p></li>
 <li><p>ftree: (c) by correspondence (accuracy)</p></li>
 <li><p>make ftree a subfunction of fnet</p></li>
 </ul>
 </div>
+</div>
 <div id="customizations" class="section level3">
 <h3>Customizations</h3>
 <ul>
-<li><p>Nicer print.summary.riskyr output (as tables?)</p></li>
+<li><p>nicer print.summary.riskyr output (as tables?)</p></li>
 <li><p>color palettes (bw, uni.kn, color blind…)</p></li>
-<li><p>tiny riskyr imprint on plots?</p></li>
-</ul>
-</div>
-<div id="bug-fixes" class="section level3">
-<h3>Bug fixes</h3>
-<ul>
-<li>verify that plot_icons still works when scaling (4 cases still add up to N)</li>
+<li><p>add tiny imprint to plots?</p></li>
 </ul>
 </div>
 </div>
 <div id="all-references" class="section level2">
 <h2>All References</h2>
 <ul>
+<li><p>Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. <em>Psychological Science</em>, <em>23</em>, 547–553.</p></li>
+<li><p>Dressel, J., &amp; Farid, H. (2018). The accuracy, fairness, and limits of predicting recidivism. <em>Science Advances</em>, <em>4</em>, eaao5580.</p></li>
 <li><p>Gigerenzer, G. (2002). <em>Reckoning with risk: Learning to live with uncertainty</em>. London, UK: Penguin.</p></li>
 <li><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin.</p></li>
 <li><p>Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &amp; Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. <em>Psychological Science in the Public Interest</em>, <em>8</em>, 53–96.</p></li>
