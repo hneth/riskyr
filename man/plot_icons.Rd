@@ -13,7 +13,7 @@ plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   block.size.col = 10, nblocks.row = NULL, nblocks.col = NULL,
   fill.array = "left", fill.blocks = "rowwise", show.accu = TRUE,
   w.acc = 0.5, title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl",
-  "mi.lbl", "fa.lbl", "cr.lbl")], cex.lbl = 1.2, ...)
+  "mi.lbl", "fa.lbl", "cr.lbl")], cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -135,8 +135,6 @@ Various other options allow the customization of text labels and colors:}
 \item{cex.lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
 Default: \code{cex.lbl = .85}.}
-
-\item{...}{Additional parameters for \code{plot}.}
 }
 \description{
 \code{plot_icons} plots a population of which individual's
