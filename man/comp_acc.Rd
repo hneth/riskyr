@@ -44,7 +44,7 @@ of correctly classifying cases or of \code{\link{dec.cor}} cases:
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
 Importantly, correct decisions \code{\link{dec.cor}}
-are not necessariliy positive decisions \code{\link{dec.pos}}.
+are not necessarily positive decisions \code{\link{dec.pos}}.
 }
 \examples{
 # ways to work:
