@@ -34,7 +34,7 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
                       scen.src = "(a ficticious example)")
 
 ## ----fnet, include = FALSE, fig.width = 7.2, fig.height = 6--------------
-plot(my.scenario, plot.type = "fnet", round = FALSE)
+plot(my.scenario, plot.type = "fnet")
 
 ## ----icons, fig.width = 7.2, fig.height = 4.8----------------------------
 plot(my.scenario, plot.type = "icons")
@@ -45,11 +45,11 @@ summary(my.scenario)
 ## ----summary_prob, include = FALSE---------------------------------------
 summary(my.scenario, summarize = "prob")
 
-## ----tree, fig.width = 7.2, fig.height = 5.5-----------------------------
+## ----tree, fig.width = 7.2, fig.height = 5.8-----------------------------
 plot(my.scenario, plot.type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 
-## ----plotting_curve, fig.width = 7, fig.height = 5.5---------------------
-plot(my.scenario, plot.type = "curve")
+## ----plotting_curve, fig.width = 7.2, fig.height = 6.0-------------------
+plot(my.scenario, plot.type = "curve")  # plot default curve [what = c("prev", "PPV", "NPV")]:
 
 ## ----scenario_table, echo = FALSE, results = "asis"----------------------
 library(knitr)
@@ -75,21 +75,21 @@ s21$scen.apa  # shows current source:
 summary(s21) # summarizes key scenario information:
 
 ## ----s21_icons, fig.width = 7.2, fig.height = 4.5------------------------
-plot(s21, plot.type = "icons", cex.lbl = 0.75)
+plot(s21, plot.type = "icons", cex.lbl = 0.75)  # plot default icon array: 
 
 ## ----s21_fnet, fig.width = 7.2, fig.height = 6.5-------------------------
-plot(s21, plot.type = "fnet", area = "sq")
+plot(s21, plot.type = "fnet", area = "sq")  # network diagram (with numeric probability labels):
 
-## ----s21_curve, fig.width = 7.2, fig.height = 5--------------------------
-plot(s21, plot.type = "curve", what = "all")
+## ----s21_curve, fig.width = 7.2, fig.height = 5.8------------------------
+plot(s21, plot.type = "curve", what = "all")  # plot "all" available curves:
 
-## ----s21_planes, results = "hold", fig.width = 7.8, fig.height = 4.2-----
+## ----s21_planes, results = "hold", fig.width = 7.9, fig.height = 4.2-----
 op <- par(no.readonly = TRUE)  # save plot settings.
 par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
-plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
+plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)  # PPV by sens x spec (fixed prev)
+plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)  # NPV by sens x spec (fixed prev)
 par(op)  # reset plot settings.
 
 ## ----s22_summary---------------------------------------------------------

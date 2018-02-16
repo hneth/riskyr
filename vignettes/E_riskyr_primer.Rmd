@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 15"
+date: "2018 02 16"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -152,7 +152,7 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
 We _could_ inspect the details of `my.scenario` with `summary(my.scenario)`. But it's much more colorful to immediately check some visualizations of our scenario:
 
 ```{r fnet, include = FALSE, fig.width = 7.2, fig.height = 6}
-plot(my.scenario, plot.type = "fnet", round = FALSE)
+plot(my.scenario, plot.type = "fnet")
 ```
 
 An icon array displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `plot.type = "icons"`:
@@ -185,19 +185,19 @@ summary(my.scenario, summarize = "prob")
 
 An alternative way to view the our scenario is a frequency tree that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
 
-```{r tree, fig.width = 7.2, fig.height = 5.5}
+```{r tree, fig.width = 7.2, fig.height = 5.8}
 plot(my.scenario, plot.type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 ```
 
 The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from 
 frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or `PPV = hi/dec.pos`). Numerically, we see that `PPV = 332/556`, which amounts to about 60\% (or `1 - 0.403`). 
 
-The tree also depicts additional information that corresponds to our `summary` from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be `NPV = 190/197` or about 96.4\% (as `NPV = cr/dec.neg`). Again, this closely corresponds to our `summary` information of `NPV = 0.966`.^[The difference between `NPV = 190/197 = 0.964467` (when computing the ratio of frequencies) and `NPV = 0.966` (in the `summary`) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument `round = FALSE`.]  
+The tree also depicts additional information that corresponds to our `summary` from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be `NPV = 190/197` or about 96.4\% (as `NPV = cr/dec.neg`). Again, this closely corresponds to our `summary` information of `NPV = 0.966`.^[The difference between `NPV = 190/197 = 0.964467` (when computing the ratio of frequencies) and `NPV = 0.966` (in the `summary`) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument `round = FALSE`. ]  
 
 A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev`: 
 
-```{r plotting_curve, fig.width = 7, fig.height = 5.5}
-plot(my.scenario, plot.type = "curve")
+```{r plotting_curve, fig.width = 7.2, fig.height = 6.0}
+plot(my.scenario, plot.type = "curve")  # plot default curve [what = c("prev", "PPV", "NPV")]:
 ```
 
 As before, we can read off that the current values of `PPV = 59.76%` and `NPV = 96,56%`. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both `PPV` and `NPV`. For instance, if `prev` dropped further, the `PPV` of our test was also considerably lower. In fact, both the PPV and NPV vary from 0 to 1 depending on the value of `prev`, which means that specifying them is actually meaningless when the corresponding value of `prev` is not communicated as well. (See the guide on [functional perspectives](D_functional_perspectives.html) for additional information and options.) 
@@ -260,7 +260,7 @@ Note that -- in this particular population -- the prevalence for the condition (
 To eyeball basic scenario information, we could first plot its entire population as an icon array: 
 
 ```{r s21_icons, fig.width = 7.2, fig.height = 4.5}
-plot(s21, plot.type = "icons", cex.lbl = 0.75)
+plot(s21, plot.type = "icons", cex.lbl = 0.75)  # plot default icon array: 
 ```
 
 This initial inspection reveals that the overall accuracy of the decision considered (`r s21$scen.lbl`) is not great: There are almost as many cases of incorrect classifications (shown in red) as correct ones (shown in green). In fact, both the summary and the icon array note that the overall accuracy of the test is at 57.5%. Given that green squares signal correct classifications and red squares signal incorrect classifications, it is immediately obvious that our main issue with accuracy here consists in so-called misses: Patients with cancer that remain undetected (marked with "`r s21$mi.lbl`" and denoted by icons in dark red). 
@@ -268,10 +268,10 @@ This initial inspection reveals that the overall accuracy of the decision consid
 Next, we plot and look at a network diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
 ```{r s21_fnet, fig.width = 7.2, fig.height = 6.5}
-plot(s21, plot.type = "fnet", area = "sq")
+plot(s21, plot.type = "fnet", area = "sq")  # network diagram (with numeric probability labels):
 ```
 
-The plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (listed in the summary). The middle row of boxes shows the four essential frequencies (of hits `hi`, misses `mi`, false alarms `fa`, and correct rejections `cr`) in colors corresponding to the icon array above. Our setting of `area = "sq"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the areas at each level of the network add up to the area of `N` and the areas of boxes linked by arrows on lower levels add up to the area of the box on the higher level. Thus, the relative sizes of boxes illustrate the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
+The plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (listed in the summary). Calling the same command with the optional argument `p.lbl = "nam"` prints the probability names, rather than their values (see also the options `p.lbl = "min"` and `"mix"`.) The middle row of boxes shows the four essential frequencies (of hits `hi`, misses `mi`, false alarms `fa`, and correct rejections `cr`) in colors corresponding to the icon array above. Our setting of `area = "sq"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the areas at each level of the network add up to the area of `N` and the areas of boxes linked by arrows on lower levels add up to the area of the box on the higher level. Thus, the relative sizes of boxes illustrate the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
 
 A fact that was not obvious in the icon array is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%).  Of those, 470 (or 54.3%) are correct (see `cr` shown in light green) and 395 (or 45.7%) are incorrect (see `mi` shown in dark red). The ratio `cr/dec.neg = 470/865 = 54.3`% indicates the negative predictive value (`NPV`) of the test. 
 
@@ -284,8 +284,8 @@ Can you find the current positive predictive value (`PPV`) in the diagram? (Hint
 
 One way to further understand the relations between basic probabilities -- like the prevalence `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s21$cond.lbl`") -- and probabilities conditional on both the condition and on features of the decision (like `PPV` and `NPV`) is to plot the latter as a function of the former. Calling `plot.type = "curve"` does this for us: 
 
-```{r s21_curve, fig.width = 7.2, fig.height = 5}
-plot(s21, plot.type = "curve", what = "all")
+```{r s21_curve, fig.width = 7.2, fig.height = 5.8}
+plot(s21, plot.type = "curve", what = "all")  # plot "all" available curves:
 ```
 
 The additional argument `what = "all"` instructed `riskyr` to provide us with additional curves, corresponding to the percentage of positive decisions (`ppod`) and overall accuracy (`acc`). Just like `PPV` and `NPV`, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis). Interestingly, the curves of `ppod` and `acc` appear quite linear, even though the `riskyr` function plots them in exactly the same way as `PPV` and `NPV`. Would you have predicted this without seeing it?
@@ -298,13 +298,13 @@ While the curves shown for `PPV` and `NPV` so far illustrate their dependence on
 How do these conditional probabilities vary as a function of the decisions sensitivity (`sens`) and specificity (`spec`)? 
 To provide a visual answer to this question, we plot them as 3D planes (i.e., as functions of both `sens` and `spec`, for a given value of `prev`) with the following commands:^[The `par()` commands before and after the calls to `plot` in this example are not needed if you re-create the plots for yourself. They only set and reset the R plotting space to allow plotting both planes next to each other.]
 
-```{r s21_planes, results = "hold", fig.width = 7.8, fig.height = 4.2}
+```{r s21_planes, results = "hold", fig.width = 7.9, fig.height = 4.2}
 op <- par(no.readonly = TRUE)  # save plot settings.
 par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
-plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
+plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)  # PPV by sens x spec (fixed prev)
+plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)  # NPV by sens x spec (fixed prev)
 par(op)  # reset plot settings.
 ```
 
