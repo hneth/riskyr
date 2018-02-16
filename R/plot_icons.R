@@ -150,9 +150,6 @@
 #' Default: \code{cex.lbl = .85}.
 #'
 #'
-#' @param ... Additional parameters for \code{plot}.
-#'
-#'
 #'
 #' @examples
 #' # ways to work:
@@ -271,9 +268,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        ## Text labels:
                        title.lbl = txt$scen.lbl,
                        type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-                       cex.lbl = 1.2,
-
-                       ...  # additional parameters for plot()
+                       cex.lbl = .85
 ) {
 
   ## Currently fixed parameters:
