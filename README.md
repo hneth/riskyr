@@ -3,7 +3,7 @@
 `riskyr`
 ========
 
-**A toolbox for rendering risk literacy more transparent.**
+**A toolbox for rendering risk literacy more transparent**
 
 Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (e.g., the condition's prevalence `prev`, and the decision's sensitivity `sens` and specificity `spec`) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of `N` individuals). By offering a variety of perspectives on the interplay between key parameters, `riskyr` renders teaching and training of risk literacy more transparent.
 
@@ -69,81 +69,255 @@ The first challenge in solving such problems is in understanding the information
 
 #### Understanding the questions asked
 
-The second challenge here lies in understanding the questions that are being asked — and in realizing that their answers are *not* simply the decision's sensitivity or specificity values. Instead, we are asked to provide two *conditional* probabilities:
+The second challenge here lies in understanding the questions that are being asked -- and in realizing that their answers are *not* simply the decision's sensitivity or specificity values. Instead, we are asked to provide two *conditional* probabilities:
 
--   The conditional probability of suffering from the condition given a positive test result, <br>aka. the *positive predictive value* `PPV`.
--   The conditional probability of being free of the condition given a negative test result, <br>aka. the *negative predictive value* `NPV`.
+-   The conditional probability of suffering from the condition given a positive test result, <br>aka. the *positive predictive value* (`PPV`).
+-   The conditional probability of being free of the condition given a negative test result, <br>aka. the *negative predictive value* (`NPV`).
 
 #### Translating into frequencies
 
 One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[3] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
 
 > Assuming a representative sample of 1000 individuals:
-> - How many individuals with a positive test result actually suffer from hustosis?
-> - How many individuals with a negative test result are actually free of hustosis?
+> - What proportion of individuals with a positive test result actually suffer from hustosis?
+> - What proportion of individuals with a negative test result are actually free of hustosis?
 
 #### Using `riskyr`
 
 Here is how `riskyr` allows you to view and solve such problems:
 
 ``` r
-library(riskyr)  # load riskyr
-
-## (1) Define your own scenario: ----------
-hustosis <- riskyr(prev = .04, sens = .80, spec = (1 - .05), 
-                   N = 1000, popu.lbl = "representative sample"
-                   scen.lbl = "Example", cond.lbl = "Screening for hustosis", 
-                   dec.lbl = "screening")
-
-## View parameters:
-summary(hustosis)
-summary(hustosis, summarize = "probs")
-
-## View graphics: 
-plot(hustosis, plottype = "ftree")
-plot(hustosis, plottype = "icons")
-# plot(hustosis, plottype = "mosaic")
-plot(hustosis, plottype = "curve")
-# plot(hustosis, plottype = "plane", what = "NPV")
+library(riskyr)  # loads the package
+#> Welcome to riskyr!
+#> riskyr.guide() opens user guides.
 ```
+
+Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
+
+``` r
+## (1) Create your own scenario: ----------
+hustosis <- riskyr(scen.lbl = "Example", 
+                   cond.lbl = "hustosis",
+                   dec.lbl = "screening test",
+                   popu.lbl = "representative sample", 
+                   N = 1000, 
+                   prev = .04, sens = .80, spec = (1 - .05)
+                   )
+```
+
+#### Summary
+
+To obtain a quick overview of key parameter values, we could ask for the `summary` of our `hustosis` scenario:
+
+``` r
+summary(hustosis)  # summarizes key parameter values
+#> Scenario:  Example 
+#> 
+#> Condition:  hustosis 
+#> Decision:  screening test 
+#> Population:  representative sample 
+#> N =  1000 
+#> Source:  Source information for this scenario 
+#> 
+#> Probabilities:
+#> 
+#>  Essential probabilities:
+#> prev sens mirt spec fart 
+#> 0.04 0.80 0.20 0.95 0.05 
+#> 
+#>  Other probabilities:
+#>  ppod   PPV   NPV   FDR   FOR 
+#> 0.080 0.400 0.991 0.600 0.009 
+#> 
+#> Frequencies:
+#> 
+#>  by conditions:
+#>  cond.true cond.false 
+#>         40        960 
+#> 
+#>  by decision:
+#> dec.pos dec.neg 
+#>      80     920 
+#> 
+#>  by correspondence (of decision to condition):
+#> dec.cor dec.err 
+#>     944      56 
+#> 
+#>  4 essential (SDT) frequencies:
+#>  hi  mi  fa  cr 
+#>  32   8  48 912 
+#> 
+#> Accuracy:
+#> 
+#>  acc:
+#> 0.944
+```
+
+The summary distinguishes between probabilities, frequencies, and accuracy information. In `Probabilities` we find the answer to both of our questions when taking into account the information provided above:
+
+-   The conditional probability that Mr. Smith actually suffers from hustosis given his positive test result is 40% (as `PPV = 0.400`).
+
+-   The conditional probability that Ms. Smith is actually free of hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
+
+In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. Here is a quick overview over its different types of visualizations:
+
+#### Tree diagram
+
+``` r
+## View graphics: 
+plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
+```
+
+![](README-hustosis_tree-1.png)
+
+This particular tree, which splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`), actually contains the answer to the second version of our questions:
+
+-   The proportion of individuals with a positive test result who actually suffer from hustosis is the frequency of "true positive" cases (shown in darker green) divided by "decision positive" cases (shown in purple): `32/80 = .400` (corresponding to our value of `PPV` above).
+-   The proportion of individuals with a negative test result who are actually free from hustosis is the frequency of "true negative" cases (shown in lighter green) divided by "decision negative" cases (shown in blue): `912/920 = .991` (corresponding to our value of `NPV` above, except for minimal differences due to rounding).
+
+Of course, the frequencies of these ratios were already contained in the `hustosis` summary above. But the representation in the form of a tree diagram makes it easier to understand which frequencies are required to answer the question.
+
+#### Icon array
+
+``` r
+plot(hustosis, plot.type = "icons")   # plot an icon array: 
+```
+
+![](README-hustosis_icons-1.png)
+
+#### Mosaic plot
+
+``` r
+plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
+```
+
+![](README-hustosis_mosaic-1.png)
+
+#### Curves
+
+``` r
+plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
+```
+
+![](README-hustosis_curve-1.png)
+
+#### Planes
+
+``` r
+plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec):
+```
+
+![](README-hustosis_plane-1.png)
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of similar problems (of so-called Bayesian reasoning), `riskyr` provides a set of (currently 25) pre-defined scenarios (stored in a list `scenarios`). Here is how you can explore them:
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently 25) -- pre-defined scenarios (stored in a list `scenarios`). Here is an example that shows how you can select and explore them:
 
 ``` r
-## (2) Inspect an existing riskyr scenario: ---------- 
+## (2) Explore an existing riskyr scenario: ---------- 
+s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
+```
 
-## (a) PSA screening with high prevalence: ----------
+#### Summary
 
-s21 <- scenarios$n21  # assign pre-defined Scenario_21 to s
+The following commands provide a quick overview of the scenario content in text form:
+
+``` r
+# Show basic scenario information: 
+s21$scen.lbl  # shows descriptive label:
+#> [1] "PSA test 1 (high prev)"
+s21$cond.lbl  # shows current condition:
+#> [1] "prostate cancer"
+s21$dec.lbl   # shows current decision:
+#> [1] "PSA test"
+s21$popu.lbl  # shows current population:
+#> [1] "1000 patients with symptoms diagnostic of prostate cancer taking a PSA test."
+s21$scen.apa  # shows current source: 
+#> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
 ## View parameters:
-summary(s21) # shows all scenario information
-summary(s21, summarize = "prob") # shows probabilities
-summary(s21, summarize = "freq") # shows frequencies
-
-## View graphics: 
-plot(s21) # plots a network diagram (by default)
-plot(s21, plottype = "icons")
-plot(s21, plottype = "mosaic")
-plot(s21, plottype = "curve", what = "all")
-plot(s21, plottype = "plane", what = "PPV")
+summary(s21)  # shows key parameter information:
+#> Scenario:  PSA test 1 (high prev) 
+#> 
+#> Condition:  prostate cancer 
+#> Decision:  PSA test 
+#> Population:  1000 patients with symptoms diagnostic of prostate cancer taking a PSA test. 
+#> N =  1000 
+#> Source:  Arkes & Gaissmaier (2012), p. 550 
+#> 
+#> Probabilities:
+#> 
+#>  Essential probabilities:
+#> prev sens mirt spec fart 
+#> 0.50 0.21 0.79 0.94 0.06 
+#> 
+#>  Other probabilities:
+#>  ppod   PPV   NPV   FDR   FOR 
+#> 0.135 0.778 0.543 0.222 0.457 
+#> 
+#> Frequencies:
+#> 
+#>  by conditions:
+#>  cond.true cond.false 
+#>        500        500 
+#> 
+#>  by decision:
+#> dec.pos dec.neg 
+#>     135     865 
+#> 
+#>  by correspondence (of decision to condition):
+#> dec.cor dec.err 
+#>     575     425 
+#> 
+#>  4 essential (SDT) frequencies:
+#>  hi  mi  fa  cr 
+#> 105 395  30 470 
+#> 
+#> Accuracy:
+#> 
+#>  acc:
+#> 0.575
 ```
 
-What is to see?
+Generating the following plots will provide you with a quick visual exploration of the scenario. (We will only show the network plot here, and trust that you can try out the other ones for yourself.)
+
+#### Network diagram
 
 ``` r
-## (b) same with low prevalence: ----------
-
-s22 <- scenarios$n22  # assign pre-defined Scenario_22 to s22
-
-# ... 
-
-## Contrast two versions: 
-plot(s22, plottype = "plane", what = "PPV")
-plot(s22, plottype = "plane", what = "PPV")
+plot(s21) # plots a network diagram (by default):
 ```
+
+![](README-scen21_fnet-1.png)
+
+#### Icon array
+
+``` r
+plot(s21, plot.type = "icons")   # plot an icon array: 
+```
+
+#### Mosaic plot
+
+``` r
+plot(s21, plot.type = "mosaic")   # plot a mosaic plot: 
+```
+
+#### Curves
+
+The following curves show values of conditional probabilities as a function of prevalence:
+
+``` r
+plot(s21, plot.type = "curve", what = "all")  # plot all curves (as a function of prevalence):
+```
+
+#### Planes
+
+The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence):
+
+``` r
+plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+```
+
+We hope that these examples succeeded in whetting your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
 
 About
 -----
@@ -152,7 +326,7 @@ About
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 <a href="https://www.spds.uni-konstanz.de/"> <!--<img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 300px; float: right; border:20;"/> --> <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> </a>
 
-`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.0.0.924, as of Feb. 14, 2018) is still under development. Its primary designers and developers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
+`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.1.0, as of Feb. 16, 2018) is still under development. Its primary developers and designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses.
 
@@ -173,7 +347,7 @@ To cite `riskyr` in derivations and publications use:
 -   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).
     `riskyr`: A toolbox for rendering risk literacy more transparent.
     Social Psychology and Decision Sciences, University of Konstanz, Germany.
-    Computer software (R package version 0.0.0.924, Feb. 14, 2018).
+    Computer software (R package version 0.1.0, Feb. 16, 2018).
     Retrieved from <https://github.com/hneth/riskyr>.
 
 A BibTeX entry for LaTeX users is:
@@ -184,7 +358,7 @@ A BibTeX entry for LaTeX users is:
       year = {2018},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.0.0.924, Feb. 14, 2018)},
+      note = {R package (version 0.1.0, Feb. 16, 2018)},
       url = {https://github.com/hneth/riskyr},
       }    
 
