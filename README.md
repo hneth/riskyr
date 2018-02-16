@@ -168,8 +168,6 @@ In case you are surprised by these answers, you are a good candidate for additio
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
 ```
 
-![](README-hustosis_tree-1.png)
-
 This particular tree, which splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`), actually contains the answer to the second version of our questions:
 
 -   The proportion of individuals with a positive test result who actually suffer from hustosis is the frequency of "true positive" cases (shown in darker green) divided by "decision positive" cases (shown in purple): `32/80 = .400` (corresponding to our value of `PPV` above).
@@ -183,15 +181,11 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 plot(hustosis, plot.type = "icons")   # plot an icon array: 
 ```
 
-![](README-hustosis_icons-1.png)
-
 #### Mosaic plot
 
 ``` r
 plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
 ```
-
-![](README-hustosis_mosaic-1.png)
 
 #### Curves
 
@@ -199,15 +193,11 @@ plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot:
 plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
 ```
 
-![](README-hustosis_curve-1.png)
-
 #### Planes
 
 ``` r
 plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec):
 ```
-
-![](README-hustosis_plane-1.png)
 
 ### Using existing scenarios
 
@@ -279,15 +269,14 @@ summary(s21)  # shows key parameter information:
 #> 0.575
 ```
 
-Generating the following plots will provide you with a quick visual exploration of the scenario. (We will only show the network plot here, and trust that you can try out the other ones for yourself.)
+Generating the following plots will provide you with a quick visual exploration of the scenario:
 
+<!-- (We will only show the network plot here, and trust that you can try out the other ones for yourself.) -->
 #### Network diagram
 
 ``` r
 plot(s21) # plots a network diagram (by default):
 ```
-
-![](README-scen21_fnet-1.png)
 
 #### Icon array
 

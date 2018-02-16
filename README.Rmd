@@ -155,7 +155,7 @@ In case you are surprised by these answers, you are a good candidate for additio
 
 #### Tree diagram 
 
-```{r hustosis_tree, eval = TRUE, fig.width = 7.2, fig.height = 5.8}
+```{r hustosis_tree, eval = FALSE, fig.width = 7.2, fig.height = 5.8}
 ## View graphics: 
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
 ```
@@ -170,25 +170,25 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 
 #### Icon array 
 
-```{r hustosis_icons, eval = TRUE, fig.width = 7.2, fig.height = 4.2}
+```{r hustosis_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
 plot(hustosis, plot.type = "icons")   # plot an icon array: 
 ```
 
 #### Mosaic plot 
 
-```{r hustosis_mosaic, eval = TRUE, fig.width = 4.5, fig.height = 4.5}
+```{r hustosis_mosaic, eval = FALSE, fig.width = 4.5, fig.height = 4.5}
 plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
 ```
 
 #### Curves
 
-```{r hustosis_curve, eval = TRUE, fig.width = 7.2, fig.height = 5}
+```{r hustosis_curve, eval = FALSE, fig.width = 7.2, fig.height = 5}
 plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
 ```
 
 #### Planes 
 
-```{r hustosis_plane, eval = TRUE, fig.width = 5, fig.height = 4.5}
+```{r hustosis_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
 plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec):
 ```
 
@@ -219,11 +219,13 @@ s21$scen.apa  # shows current source:
 summary(s21)  # shows key parameter information:
 ```
 
-Generating the following plots will provide you with a quick visual exploration of the scenario. (We will only show the network plot here, and trust that you can try out the other ones for yourself.)
+Generating the following plots will provide you with a quick visual exploration of the scenario: 
+
+<!-- (We will only show the network plot here, and trust that you can try out the other ones for yourself.) -->
 
 #### Network diagram 
 
-```{r scen21_fnet, eval = TRUE, fig.width = 7.2, fig.height = 6.5}
+```{r scen21_fnet, eval = FALSE, fig.width = 7.2, fig.height = 6.5}
 plot(s21) # plots a network diagram (by default):
 ```
 
