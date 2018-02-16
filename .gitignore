@@ -5,6 +5,7 @@
 .Ruserdata
 .Rbuildignore
 .DS_Store
+_gitless
 data-raw
 test_loadingPackage.R
 test_cex_private
@@ -12,4 +13,3 @@ test.pdf
 mat.txt
 inst/doc
 testing_package_private
-man
