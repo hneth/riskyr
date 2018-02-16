@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 02 15
+## 2018 02 16
 ## -----------------------------------------------
 ## Define riskyr class and corresponding methods
 ## and re-define df.scenarios as a list of
