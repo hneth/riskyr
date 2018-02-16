@@ -144,7 +144,6 @@ Contrast and construct 3 types of tasks:
 
 #### Specific plots 
 
-
 - 2x2 confusion table as visualization? (3 perspectives: a, b, c)
 
 - ftree: (c) by correspondence (accuracy)
@@ -154,16 +153,23 @@ Contrast and construct 3 types of tasks:
 
 ### Customizations
 
-- nicer print.summary.riskyr output (as tables?)
+- nicer print.summary.riskyr output (as tables?) 
 
-- color palettes (bw, uni.kn, color blind...)
+- color palettes (bw, uni.kn, color blind...) 
 
-- tiny riskyr imprint on plots? 
-
+- add tiny imprint to plots? 
 
 
 
 ## All References
+
+- Arkes, H. R., & Gaissmaier, W. (2012). 
+Psychological research and the prostate-cancer screening controversy. 
+_Psychological Science_, _23_, 547--553.
+
+- Dressel, J., & Farid, H. (2018). 
+The accuracy, fairness, and limits of predicting recidivism. 
+_Science Advances_, _4_, eaao5580. 
 
 - Gigerenzer, G. (2002). 
 _Reckoning with risk: Learning to live with uncertainty_. 

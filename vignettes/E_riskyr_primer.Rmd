@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+# initialize some stuff:
 library("riskyr")  # loads the package
+op <- par(no.readonly = TRUE)   
 ```
 
 <!-- riskyr logo: -->  
@@ -41,18 +43,18 @@ How can you use `riskyr`?  Basically, there are two ways to get started:
 
 2. Inspect one of `r length(scenarios) - 1` predefined `riskyr` scenarios to get a glimpse of what types of scenarios are possible. 
 
-Either way, you will soon explore some specific scenario and uncover relationships between its parameters. Let's load the package (in case you haven't already done so):
+Either way, you will soon explore some specific scenario and uncover relationships between its parameters. Please load the package first (if you have not already done so):
 
 ```{r load_riskyr}
 library("riskyr")  # loads the package
 ```
 
-### Defining a 1st scenario  
+### Defining a scenario  
 
-Let's launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch: 
+Let us launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch:^[The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.]
 
 
-#### Example scenario
+#### Example
 
 <!-- Example: Testing for recidivism -->
 
@@ -61,23 +63,23 @@ Let's launch your `riskyr`-career by creating a ficticious risk scenario that we
 > Imagine you are developing a test to predict if a jailed criminal offender will reoffend after his or her release. 
 > Your research yields the following information: 
 >
-> 1. 45% of 753 jailed offenders in this county re-offend after they are released (`prev = .45`).  
+> 1. 45% of 753 jailed offenders in this prison re-offend after they are released (`prev = .45`).  
 > 2. Your test correctly detects those who will re-offend in 98% of the cases (`sens = .98`).  
 > 3. Your test falsely identifies 54% of those who will not re-offend as potential re-offenders. 
 > Conversely, this implies that your test correctly identifies 46% of those that will not reoffend (`spec = .46`).  
 > 
-> John D. is about to get released. However, your test predicts that he will reoffend.  
+> John D. is about to get released and is tested. The test predicts that he will reoffend.  
 > 
-> What is the probability that John D. will actually reoffend, given this test result? 
+> What is the probability that John D. will actually reoffend, given his test result? 
 
-To answer this question, you could calculate corresponding probabilities or frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a `riskyr` scenario that you can modify, inspect, and visualize in various ways.
+To answer this question, you could calculate the corresponding probabilities or frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a `riskyr` scenario that you can modify, inspect, and visualize in various ways.
 
 
 #### Necessary scenario information
 
 <!-- A: necessary info: probabilities and N: --> 
 
-First, let's translate the numeric information provided in our example into parameter values:
+First, we need to translate the numeric information provided in our example into parameter values:
 
 1. The probability of reoffending provides the _prevalence_ in our population: `prev = .45`.  
 
@@ -124,12 +126,12 @@ To make various outputs more recognizable, many aspects of a `riskyr` scenario c
     3. false alarm: The test predicts that the inmate reoffends but s/he does not ("false accusation";   
     4. correct rejection: The test predicts that the inmate does not reoffend and s/he does not ("correct release").  
 
-Whereas specifying three essential probabilities is necessary to define a valid `riskyr` scenario, providing `N` and the other arguments are entirely optional. Let's create a well-specified `riskyr` scenario:
+Whereas specifying three essential probabilities is necessary to define a valid `riskyr` scenario, providing `N` and the other arguments are entirely optional. For illustrative purposes, we create a very well-specified `riskyr` scenario:
 
 ```{r create_scenario_custom}
 # Create a customized scenario: 
 my.scenario <- riskyr(scen.lbl = "Identifying reoffenders", 
-                      popu.lbl = "inmates", 
+                      popu.lbl = "prison inmates", 
                       cond.lbl = "reoffending",
                       cond.true.lbl = "offends again", cond.false.lbl = "does not offend again",
                       dec.lbl = "test result",
@@ -163,7 +165,7 @@ From the icon array, We can easily see that roughly half of the inmates reoffend
 
 But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will _either_ be classified as a "reoffender found" (if he actually reoffends: dark green icons) _or_ as a "false accusation" (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards "reoffenders found"), it appears that his chances of actually reoffending are only slighly higher than chance.
 
-To dig into the dirty details of `my.scenario`, let's look at its `summary`:
+To dig into the dirty details of `my.scenario`, let us look at its `summary`:
 
 ```{r full_summary}
 summary(my.scenario)
@@ -194,7 +196,7 @@ The tree also depicts additional information that corresponds to our `summary` f
 
 A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev`: 
 
-```{r plotting_curve, fig.width=7, fig.height=5.5}
+```{r plotting_curve, fig.width = 7, fig.height = 5.5}
 plot(my.scenario, plot.type = "curve")
 ```
 
@@ -207,7 +209,7 @@ Having illustrated how we can create a scenario from scratch and begin to inspec
 
 As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios) - 1`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios avaliable, including their relevant condition, their population size `N`, and basic probability information: 
 
-```{r scenario_table, echo = FALSE, results = 'asis'}
+```{r scenario_table, echo = FALSE, results = "asis"}
 library(knitr)
 scen.table <- df.scenarios[-1,
                            c("scen.lbl", "cond.lbl", "N", "prev",
@@ -217,15 +219,14 @@ names(scen.table) <- c("Scenario", "Condition", "N", "prev", "sens", "spec", "fa
 kable(scen.table)
 ```
 
-
-Here is how you can explore them:
+In the following, we show you can select and explore these scenarios. 
 
 #### 1. Selecting a scenario
 
-To select a particular scenario, assign it to an R object. For instance, let's assign Scenario 21 to `s21`:
+Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
 
 ```{r s21_select}
-s21 <- scenarios$n21  # assign pre-defined Scenario_21 to s21
+s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
 ```
 
 #### 2. Printing scenario information
@@ -233,12 +234,12 @@ s21 <- scenarios$n21  # assign pre-defined Scenario_21 to s21
 As each scenario is stored as a list, different aspects of a scenario can be printed by their element names:
 
 ```{r s21_info}
-# Show scenario information: 
+# Show basic scenario information: 
 s21$scen.lbl  # shows descriptive label:
 s21$cond.lbl  # shows current condition:
+s21$dec.lbl   # shows current decision:
 s21$popu.lbl  # shows current population:
-s21$prev      # shows the current prevalence
-s21$scen.src  # shows current source: 
+s21$scen.apa  # shows current source: 
 ```
 
 A description of the scenario can be printed by calling `s21$scen.txt`: 
@@ -248,84 +249,102 @@ A description of the scenario can be printed by calling `s21$scen.txt`:
 As explained above, an overview of the main parameters of a scenario is provided by `summary`: 
 
 ```{r s21_summary}
-summary(s21) # shows all scenario information.
+summary(s21) # summarizes key scenario information:
 ```
 
 Note that -- in this particular population -- the prevalence for the condition (`r s21$cond.lbl`) is assumed to be relatively high (with a value of `r as_pc(s21$prev)`%).
 
 
-#### 3. Visualizing scenarios
+#### 3. Visualizing frequencies and probabilities 
 
-To eyeball key scenario information, we could inspect an icon array as follows: 
+To eyeball basic scenario information, we could first plot its entire population as an icon array: 
 
 ```{r s21_icons, fig.width = 7.2, fig.height = 4.5}
 plot(s21, plot.type = "icons", cex.lbl = 0.75)
 ```
 
-Given that green squares signal correct classifications and red squares signal incorrect classifications, it is immediately obvious that our main accuracy issue here is with so-called misses: Men with cancer that remain undetected (printed in dark red).
+This initial inspection reveals that the overall accuracy of the decision considered (`r s21$scen.lbl`) is not great: There are almost as many cases of incorrect classifications (shown in red) as correct ones (shown in green). In fact, both the summary and the icon array note that the overall accuracy of the test is at 57.5%. Given that green squares signal correct classifications and red squares signal incorrect classifications, it is immediately obvious that our main issue with accuracy here consists in so-called misses: Patients with cancer that remain undetected (marked with "`r s21$mi.lbl`" and denoted by icons in dark red). 
 
-To further illuminate the scenario, consider the following network diagram: 
+Next, we plot and look at a network diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
 ```{r s21_fnet, fig.width = 7.2, fig.height = 6.5}
 plot(s21, plot.type = "fnet", area = "sq")
 ```
 
+The plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (listed in the summary). The middle row of boxes shows the four essential frequencies (of hits `hi`, misses `mi`, false alarms `fa`, and correct rejections `cr`) in colors corresponding to the icon array above. Our setting of `area = "sq"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the areas at each level of the network add up to the area of `N` and the areas of boxes linked by arrows on lower levels add up to the area of the box on the higher level. Thus, the relative sizes of boxes illustrate the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
 
-+++ here now +++: 
+A fact that was not obvious in the icon array is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%).  Of those, 470 (or 54.3%) are correct (see `cr` shown in light green) and 395 (or 45.7%) are incorrect (see `mi` shown in dark red). The ratio `cr/dec.neg = 470/865 = 54.3`% indicates the negative predictive value (`NPV`) of the test. 
+
+##### Exercise
+
+Can you find the current positive predictive value (`PPV`) in the diagram? (Hint: Its value marks an arrow between two boxes, but is also shown on the margin and was contained in the summary above.) 
 
 
-```{r s21_curve, fig.width = 7, fig.height = 5}
+#### 4. Visualizing probabilistic relationships
+
+One way to further understand the relations between basic probabilities -- like the prevalence `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s21$cond.lbl`") -- and probabilities conditional on both the condition and on features of the decision (like `PPV` and `NPV`) is to plot the latter as a function of the former. Calling `plot.type = "curve"` does this for us: 
+
+```{r s21_curve, fig.width = 7.2, fig.height = 5}
 plot(s21, plot.type = "curve", what = "all")
 ```
 
+The additional argument `what = "all"` instructed `riskyr` to provide us with additional curves, corresponding to the percentage of positive decisions (`ppod`) and overall accuracy (`acc`). Just like `PPV` and `NPV`, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis). Interestingly, the curves of `ppod` and `acc` appear quite linear, even though the `riskyr` function plots them in exactly the same way as `PPV` and `NPV`. Would you have predicted this without seeing it?
 
-### Exercise
+##### Exercise 
 
-Contrast this with Scenario 22: 
+Explain why the line of `acc` intersects the curve of `PPV` at the point at the same point as the curve of `NPV`. 
 
-    `r scenarios$n22$scen.txt` 
+While the curves shown for `PPV` and `NPV` so far illustrate their dependence on the prevalence (`prev`), we can also ask: 
+How do these conditional probabilities vary as a function of the decisions sensitivity (`sens`) and specificity (`spec`)? 
+To provide a visual answer to this question, we plot them as 3D planes (i.e., as functions of both `sens` and `spec`, for a given value of `prev`) with the following commands:^[The `par()` commands before and after the calls to `plot` in this example are not needed if you re-create the plots for yourself. They only set and reset the R plotting space to allow plotting both planes next to each other.]
+
+```{r s21_planes, results = "hold", fig.width = 7.8, fig.height = 4.2}
+op <- par(no.readonly = TRUE)  # save plot settings.
+par(mfrow = c(1, 2))           # 1 row with 2 plots:
+
+## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
+plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
+plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
+par(op)  # reset plot settings.
+```
+
+This comparison shows that the curves of `PPV` and `NPV` (created by `plot.type = "curve"` above) were only two out of an infinite number of possible intersections of two planes (created by `plot.type = "plane"` here). Consequently, the current values of `PPV` and `NPV` (shown as yellow points on the planes) crucially depend on the condition's prevalence (`prev`), the decision's sensitivity (`sens`), and the decision's specificity (`spec`). 
+
+
+<!-- Conclusion: --> 
+
+In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What's the probability of having some condition when testing positive or negative for it? While `riskyr` cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent. 
+
+
+### Exercise 
+
+Scenario 22 in the `riskyr` collection of `scenarios` contains a version of this situation that assumes a different population with a lower prevalence value for the same condition. Inspect and explore the consequence of this change by following the steps shown above.
+
+<!-- Spoiler alarm: `r scenarios$n22$scen.txt` --> 
+
+Here are the first steps -- note the changes to the values of `s21` from above:
 
 ```{r s22_summary}
-s22 <- scenarios$n22  # assign pre-defined Scenario_22 to s22. 
+s22 <- scenarios$n22  # assign pre-defined Scenario 22 to s22. 
 
-summary(s22)
+# Show basic scenario information: 
+s22$scen.lbl  # shows descriptive label:
+s22$popu.lbl  # shows current population:
 ```
 
 
-We see that the prevalence in scenario 22 is way lower than in scenario 21.  Besides this, they are equivalent, i.e., they use the same test. 
-
-But how does this affect the value of the test?  
-
-```{r example_use_b, fig.width=7.5, fig.height=5.5}
-op <- par(no.readonly = TRUE)
-par(mfrow = c(1,2))  # set plotting space for direct comparison. 
-
-## Contrast two versions: 
-plot(s21, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
-plot(s22, plot.type = "plane", what = "PPV", cex.lbl = 0.75)
-```
-
-Firstly, these planes clearly illustrate that with a high prevalence the positive predictive value is considerably higher than with a low prevalence.  Additionally, it can be seen that decreasing specificity and sensitivity in a scenario with high prevalence has a stronger impact.  In a scenario with low prevalence an increase in specificity , in turn, has a very strong impact, while there is not so much room for improvement with high prevalence. 
-
-```{r examples_NPV, fig.width=7.5, fig.height=5.5}
-op <- par(no.readonly = TRUE)
-par(mfrow = c(1,2))  # set plotting space for direct comparison. 
-
-## Contrast two versions: 
-plot(s21, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
-plot(s22, plot.type = "plane", what = "NPV", cex.lbl = 0.75)
-```
-
-Apparently, for low prevalence things are vice versa. 
-
-For further information see [User guide](A_user_guide.html). 
-
-```{r reset_par, echo = FALSE}
-par(op)
-```
+This should suffice to get you started with using `riskyr`. Have fun exploring the provided scenarios and creating your own examples!
 
 
-Now have fun exploring the provided examples, as well as creating and exploring your own examples. 
+## References
+
+- Arkes, H. R., & Gaissmaier, W. (2012). 
+Psychological research and the prostate-cancer screening controversy. 
+_Psychological Science_, _23_, 547--553.
+
+- Dressel, J., & Farid, H. (2018). 
+The accuracy, fairness, and limits of predicting recidivism. 
+_Science Advances_, _4_, eaao5580. 
 
 
 ## All `riskyr` Vignettes
