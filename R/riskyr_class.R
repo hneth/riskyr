@@ -494,7 +494,6 @@ plot.riskyr <- function(x = NULL,
                spec = x$spec, fart = NA,  # was: num$fart,
                N = x$N,    # ONLY freq used (so far)
                ## Key options: ##
-
                # labelling:
                title.lbl = x$scen.lbl,
                type.lbls = x[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
@@ -524,7 +523,6 @@ plot.riskyr <- function(x = NULL,
                spec = x$spec, fart = NA,
                ## Text:
                title.lbl = x$scen.lbl, # plot title label
-               cex.lbl = cex.lbl, # scale size of text labels (e.g., on axes, legend, margin text)
                ...
     )
   } # if (plot.type == "plane")
