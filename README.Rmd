@@ -124,6 +124,9 @@ Here is how `riskyr` allows you to view and solve such problems:
 library(riskyr)  # loads the package
 ```
 
+
+#### Creating a scenario
+
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
 ```{r hustosis_definition, eval = TRUE}
@@ -136,6 +139,7 @@ hustosis <- riskyr(scen.lbl = "Example",
                    prev = .04, sens = .80, spec = (1 - .05)
                    )
 ```
+
 
 #### Summary
 
@@ -197,6 +201,10 @@ plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec
 
 As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios) - 1`) -- pre-defined scenarios (stored in a list `scenarios`). 
 Here is an example that shows how you can select and explore them:
+
+#### Selecting a scenario
+
+Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
 
 ```{r scen21_select, eval = TRUE, fig.width = 7.2, fig.height = 6}
 ## (2) Explore an existing riskyr scenario: ---------- 
@@ -322,6 +330,10 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 
 ### References
+
+- Arkes, H. R., & Gaissmaier, W. (2012). 
+Psychological research and the prostate-cancer screening controversy. 
+_Psychological Science_, _23_, 547--553.
 
 - Gigerenzer, G. (2002). 
 _Reckoning with risk: Learning to live with uncertainty_. 

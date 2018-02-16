@@ -92,6 +92,8 @@ library(riskyr)  # loads the package
 #> riskyr.guide() opens user guides.
 ```
 
+#### Creating a scenario
+
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
 ``` r
@@ -202,6 +204,10 @@ plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec
 ### Using existing scenarios
 
 As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently 25) -- pre-defined scenarios (stored in a list `scenarios`). Here is an example that shows how you can select and explore them:
+
+#### Selecting a scenario
+
+Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
 
 ``` r
 ## (2) Explore an existing riskyr scenario: ---------- 
@@ -354,6 +360,8 @@ A BibTeX entry for LaTeX users is:
 Calling `citation("riskyr")` in the package also displays this information.
 
 ### References
+
+-   Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. *Psychological Science*, *23*, 547--553.
 
 -   Gigerenzer, G. (2002). *Reckoning with risk: Learning to live with uncertainty*. London, UK: Penguin.
 
