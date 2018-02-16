@@ -321,7 +321,7 @@ To cite `riskyr` in derivations and publications use:
 
 A BibTeX entry for LaTeX users is: 
 
-    @Manual{,
+    @Manual{riskyr,
       title = {riskyr: A toolbox for rendering risk literacy more transparent},
       author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
       year = {2018},
