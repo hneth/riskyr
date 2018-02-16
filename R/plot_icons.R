@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 02 12
+## 2018 02 16
 ## -----------------------------------------------
 ##  This function plots an icon array in a variety
 ##  of ways, dependent on population size.
@@ -111,7 +111,7 @@
 #' (Options "left" (default) and "top").
 #'
 #' @param fill.blocks specifies how icons within blocks are filled
-#' (Options: "rowwise" (default) and "colwise")
+#' (Options: \code{fill.blocks = "rowwise"} (default) and \code{fill.blocks = "colwise"})
 #'
 #'
 #' @param show.accu Option for showing current
@@ -698,24 +698,24 @@ plot_icons <- function(prev = num$prev,             # probabilities
     posx_vec <- pos_mx / (ncols - 1)
     posy_vec <- pos_my / (nrows - 1)
 
-    # TODO: Not in region anymore --> change plot dimensions or decrease standard distance.
+    ## TODO: Not in region anymore --> change plot dimensions or decrease standard distance.
 
-    # Plotting dimensions for testing:
+    ## Plotting dimensions for testing:
     # plotx_dim <- c(-0.1, 1.1)
     # ploty_dim <- c(-0.1, 1.1)
 
 
     if (!random.identities) {  # sort colors according to input.
 
-      # For A4 (fixed positions and clustered identities) only:
-      # 2. Color sorting:
-      # Create block information:
+      ## For A4 (fixed positions and clustered identities) only:
+      ## 2. Color sorting:
+      ## Create block information:
       seq_block <- 1:n_blocks  # create sequence of block positions.
 
-      # Determine, whether blocks are used colwise or rowwise:
-      #fill.array <- "left"  # alternatively: "rowwise"
+      ## Determine, whether blocks are used colwise or rowwise:
+      # fill.array <- "left"  # alternatively: "rowwise"
 
-      # If blocks are to be filled in x direction:
+      ## If blocks are to be filled in x direction:
       if (fill.array == "left"){
 
         seq_blockx <- rep(seq_block, each = block.size.row)
@@ -727,7 +727,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # repeat each row of the matrix to the number of rows.
       }
 
-      # If blocks are to be filled in y direction:
+      ## If blocks are to be filled in y direction:
       if (fill.array == "top"){
 
         seq_blocky <- rep(seq_block, each = block.size.col)
@@ -739,28 +739,28 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # repeat each row of the matrix to the number of columns.
       }
 
-      # Determine, whether blocks (within) are filled col- or rowwise:
-      #fill.blocks <- "colwise"
+      ## Determine, whether blocks (within) are filled col- or rowwise:
+      # fill.blocks <- "colwise"
 
-      # sort colors accordingly:
-      # TODO: Find out WHY ON EARTH order(order()) works!
+      ## Sort colors accordingly:
+      ## TODO: Find out WHY ON EARTH order(order()) works!
 
       if (fill.blocks == "rowwise"){
         order_mat <- order(order(t(mat_block)))  # matrix has to be transposed to get the rows.
         m <- matrix(order_mat, nrow = nrows, ncol = ncols, byrow = TRUE)  # This is the "rowwise witin blocks" version.
 
-        #if (fill.array == "top") { m <- t(m) }
+        # if (fill.array == "top") { m <- t(m) }
       }
 
       if (fill.blocks == "colwise") {
         order_mat <- order(order(mat_block))
         m <- matrix(order_mat, nrow = nrows, ncol = ncols, byrow = FALSE)  # This is the "colwise within blocks" version.
 
-        #if (fill.array == "top") { m <- t(m) }
+        # if (fill.array == "top") { m <- t(m) }
       }
 
 
-      # if the color vector already has the appropriate length:
+      ## If the color vector already has the appropriate length:
       if (length(col.vec) == length(m)) {
         col.vec <- col.vec[m]  # order the color vector.
       }
@@ -770,15 +770,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
       }
 
 
-      # if the color vector is too short:
-      # TODO: what to do if too long?
+      ## If the color vector is too short:
+      ## TODO: what to do if too long?
       if (length(col.vec) < length(m)) {
 
         len_diff <- length(pos_mx) - length(col.vec)  # calculate difference.
         col.vec <- c(col.vec, rep(NA, len_diff))  # enlarge the color vector.
         col.vec <- col.vec[m]  # order this color vector.
 
-        # mute the respective positions:
+        ## Mute the respective positions:
         posx_vec[is.na(col.vec)] <- NA  # set NA x positions...
         posy_vec[is.na(col.vec)] <- NA  # ... and y positions.
 
@@ -789,7 +789,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
         len_diff <- length(pos_mx) - length(pch.vec)  # calculate difference.
         pch.vec <- c(pch.vec, rep(NA, len_diff))  # enlarge the color vector.
 
-        # mute the respective positions:
+        ## Mute the respective positions:
         pch.vec <- pch.vec[m]  # order character vector.
         posx_vec[is.na(pch.vec)] <- NA  # set NA x positions...
         posy_vec[is.na(pch.vec)] <- NA  # ... and y positions.
@@ -799,7 +799,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
     }  # end fixed identities (A4).
 
 
-    # For A3:
+    ## For A3:
     if (random.identities) {
 
       rand_ix <- sample(1:length(col.vec), replace = FALSE)  # random index.
@@ -810,10 +810,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
       }
 
 
-      # if the color vector is too short.
+      ## If the color vector is too short.
       if (length(col.vec) < (ncols * nrows) & length(col.vec) > 1) {
 
-        # for colors:
+        ## for colors:
         len_diff <- (ncols * nrows) - length(col.vec)
         if (length(icon.border.col) > 1) {
           icon.border.col <- c(icon.border.col, rep(NA, len_diff))
@@ -823,10 +823,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       }
 
-      # if the character vector is too short:
+      ## If the character vector is too short:
       if (length(pch.vec) < (ncols * nrows) & length(pch.vec) > 1) {
 
-        # for colors:
+        ## for colors:
         len_diff <- (ncols * nrows) - length(pch.vec)
         pch.vec <- c(pch.vec, rep(NA, len_diff))
 
@@ -835,9 +835,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
     }  # end random identities (A3).
 
-    # Adjust cex dynamically:
+    ## Adjust cex dynamically:
     if (is.null(cex)) {
-      # TODO: How to covary cex with device size & point number?
+      ## TODO: How to covary cex with device size & point number?
 
       cex1 <- ((par("pin")[1] * 10) + 3) / ncols
       cex2 <- ((par("pin")[2] * 10) + 3) / nrows
@@ -852,9 +852,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }  # end A3 and A4 (fixed positions).
 
 
-  # B. Plotting
+  ## B. Plotting
 
-  # TODO: Add text!
+  ## TODO: Add text!
 
   if (any(!pch.vec %in% c(NA, 21:25))) {
     # if any of the plotting characters is not in the ones with border,
@@ -864,14 +864,14 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   }
 
-  # 3) Plot:
+  ## 3) Plot:
   plot(x = 1,
        xlim = xlim, ylim = ylim,
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
        bty = "o", fg = "grey"
   )
 
-  # 3a) set plotting character:
+  ## 3a) Set plotting character:
   # pch <- 22  # filled square as default.
   # cex <- 0.5
 
@@ -930,11 +930,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
 }  # end of function.
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# END OF FUNCTION!!!
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-## Testing ground:-----------------------------------------------------
 
 ## Check:
 

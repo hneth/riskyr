@@ -115,7 +115,7 @@ Additional options allow to control the arrangement of the arrays
 (Options "left" (default) and "top").}
 
 \item{fill.blocks}{specifies how icons within blocks are filled
-(Options: "rowwise" (default) and "colwise")}
+(Options: \code{fill.blocks = "rowwise"} (default) and \code{fill.blocks = "colwise"})}
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.

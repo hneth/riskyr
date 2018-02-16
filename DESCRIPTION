@@ -1,6 +1,6 @@
 Package: riskyr
 Type: Package
-Title: A Toolbox for Rendering Risk Literacy more Transparent 
+Title: Rendering Risk Literacy more Transparent 
 Version: 0.1.0 
 Date: 2018-02-16
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
@@ -13,9 +13,7 @@ Author: Hansjoerg Neth [aut, cre],
         Nico Gradwohl [aut], 
         Wolfgang Gaissmaier [aut]
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
-Description: A toolbox for rendering risk literacy more transparent. 
-    Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (the condition's prevalence, and the decision's sensitivity and specificity) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of N individuals). 
-    By offering a variety of perspectives on the interplay between key parameters, riskyr renders teaching and training of risk literacy more transparent. 
+Description: Risk-related information can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, we compute, translate, and represent risk-related information in a variety of ways. By offering different, but complementary perspectives on the interplay between key parameters, 'riskyr' renders teaching and training of risk literacy more transparent. 
 Depends:
     R (>= 3.2)
 Imports:
