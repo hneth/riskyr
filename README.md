@@ -5,7 +5,7 @@
 
 **A toolbox for rendering risk literacy more transparent**
 
-Starting with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (e.g., the condition's prevalence `prev`, and the decision's sensitivity `sens` and specificity `spec`) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of `N` individuals). By offering a variety of perspectives on the interplay between key parameters, `riskyr` renders teaching and training of risk literacy more transparent.
+Beginning with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (e.g., the condition's prevalence `prev`, and the decision's sensitivity `sens` and specificity `spec`) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of `N` individuals). By offering a variety of different, but complementary perspectives on the interplay between key parameters, `riskyr` renders teaching and training of risk literacy more transparent.
 
 Motivation
 ----------
