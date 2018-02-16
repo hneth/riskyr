@@ -129,8 +129,7 @@ library(riskyr)  # loads the package
 
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
-```{r hustosis_definition, eval = TRUE}
-## (1) Create your own scenario: ----------
+```{r ex1_definition, eval = TRUE}
 hustosis <- riskyr(scen.lbl = "Example", 
                    cond.lbl = "hustosis",
                    dec.lbl = "screening test",
@@ -145,7 +144,7 @@ hustosis <- riskyr(scen.lbl = "Example",
 
 To obtain a quick overview of key parameter values, we could ask for the `summary` of our `hustosis` scenario:
 
-```{r hustosis_summary, eval = TRUE}
+```{r ex1_summary, eval = TRUE}
 summary(hustosis)  # summarizes key parameter values
 ```
 
@@ -159,10 +158,11 @@ In case you are surprised by these answers, you are a good candidate for additio
 
 #### Tree diagram 
 
-```{r hustosis_tree, eval = FALSE, fig.width = 7.2, fig.height = 5.8}
-## View graphics: 
+```{r ex1_tree, eval = FALSE, fig.width = 7.2, fig.height = 5.8}
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
 ```
+
+![](inst/pix/README-ex1_tree-1.png)
 
 This particular tree, which splits the population of `N = 1000` individuals into two subgroups _by decision_ (`by = "dc"`), actually contains the answer to the second version of our questions:
 
@@ -174,28 +174,35 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 
 #### Icon array 
 
-```{r hustosis_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
+```{r ex1_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
 plot(hustosis, plot.type = "icons")   # plot an icon array: 
 ```
 
+![](inst/pix/README-ex1_icons-1.png)
+
 #### Mosaic plot 
 
-```{r hustosis_mosaic, eval = FALSE, fig.width = 4.5, fig.height = 4.5}
+```{r ex1_mosaic, eval = FALSE, fig.width = 4.5, fig.height = 4.5}
 plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
 ```
 
+![](inst/pix/README-ex1_mosaic-1.png)
+
 #### Curves
 
-```{r hustosis_curve, eval = FALSE, fig.width = 7.2, fig.height = 5}
+```{r ex1_curve, eval = FALSE, fig.width = 7.2, fig.height = 5}
 plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
 ```
 
+![](inst/pix/README-ex1_curve-1.png)
+
 #### Planes 
 
-```{r hustosis_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
+```{r ex1_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
 plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec):
 ```
 
+![](inst/pix/README-ex1_plane-1.png)
 
 ### Using existing scenarios
 
@@ -206,8 +213,7 @@ Here is an example that shows how you can select and explore them:
 
 Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
 
-```{r scen21_select, eval = TRUE, fig.width = 7.2, fig.height = 6}
-## (2) Explore an existing riskyr scenario: ---------- 
+```{r ex2_select, eval = TRUE, fig.width = 7.2, fig.height = 6}
 s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
 ```
 
@@ -215,37 +221,36 @@ s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
 
 The following commands provide a quick overview of the scenario content in text form:
 
-```{r scen21_basic_info, eval = TRUE}
-# Show basic scenario information: 
+```{r ex2_basic_info, eval = TRUE}
 s21$scen.lbl  # shows descriptive label:
 s21$cond.lbl  # shows current condition:
 s21$dec.lbl   # shows current decision:
 s21$popu.lbl  # shows current population:
 s21$scen.apa  # shows current source: 
 
-## View parameters:
 summary(s21)  # shows key parameter information:
 ```
 
-Generating the following plots will provide you with a quick visual exploration of the scenario: 
-
-<!-- (We will only show the network plot here, and trust that you can try out the other ones for yourself.) -->
+Generating the following plots will provide you with a quick visual exploration of the scenario. 
+We will only show the network plot here, and trust that you can try out the other ones for yourself: 
 
 #### Network diagram 
 
-```{r scen21_fnet, eval = FALSE, fig.width = 7.2, fig.height = 6.5}
+```{r ex2_fnet, eval = FALSE, fig.width = 7.2, fig.height = 6.5}
 plot(s21) # plots a network diagram (by default):
 ```
 
+![](inst/pix/README-ex2_fnet-1.png)
+
 #### Icon array
 
-```{r scen21_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
+```{r ex2_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
 plot(s21, plot.type = "icons")   # plot an icon array: 
 ```
 
 #### Mosaic plot
 
-```{r scen21_mosaic, eval = FALSE, fig.width = 5, fig.height = 5}
+```{r ex2_mosaic, eval = FALSE, fig.width = 5, fig.height = 5}
 plot(s21, plot.type = "mosaic")   # plot a mosaic plot: 
 ```
 
@@ -253,7 +258,7 @@ plot(s21, plot.type = "mosaic")   # plot a mosaic plot:
 
 The following curves show values of conditional probabilities as a function of prevalence: 
 
-```{r scen21_curve, eval = FALSE, fig.width = 7.2, fig.height = 6}
+```{r ex2_curve, eval = FALSE, fig.width = 7.2, fig.height = 6}
 plot(s21, plot.type = "curve", what = "all")  # plot all curves (as a function of prevalence):
 ```
 
@@ -261,7 +266,7 @@ plot(s21, plot.type = "curve", what = "all")  # plot all curves (as a function o
 
 The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence): 
 
-```{r scen21_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
+```{r ex2_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
 plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 

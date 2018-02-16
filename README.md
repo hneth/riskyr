@@ -97,7 +97,6 @@ library(riskyr)  # loads the package
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
 ``` r
-## (1) Create your own scenario: ----------
 hustosis <- riskyr(scen.lbl = "Example", 
                    cond.lbl = "hustosis",
                    dec.lbl = "screening test",
@@ -166,9 +165,10 @@ In case you are surprised by these answers, you are a good candidate for additio
 #### Tree diagram
 
 ``` r
-## View graphics: 
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
 ```
+
+![](inst/pix/README-ex1_tree-1.png)
 
 This particular tree, which splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`), actually contains the answer to the second version of our questions:
 
@@ -183,11 +183,15 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 plot(hustosis, plot.type = "icons")   # plot an icon array: 
 ```
 
+![](inst/pix/README-ex1_icons-1.png)
+
 #### Mosaic plot
 
 ``` r
 plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
 ```
+
+![](inst/pix/README-ex1_mosaic-1.png)
 
 #### Curves
 
@@ -195,11 +199,15 @@ plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot:
 plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
 ```
 
+![](inst/pix/README-ex1_curve-1.png)
+
 #### Planes
 
 ``` r
 plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec):
 ```
+
+![](inst/pix/README-ex1_plane-1.png)
 
 ### Using existing scenarios
 
@@ -210,7 +218,6 @@ As defining your own scenarios can be cumbersome and the literature is full of e
 Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
 
 ``` r
-## (2) Explore an existing riskyr scenario: ---------- 
 s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
 ```
 
@@ -219,7 +226,6 @@ s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
 The following commands provide a quick overview of the scenario content in text form:
 
 ``` r
-# Show basic scenario information: 
 s21$scen.lbl  # shows descriptive label:
 #> [1] "PSA test 1 (high prev)"
 s21$cond.lbl  # shows current condition:
@@ -231,7 +237,6 @@ s21$popu.lbl  # shows current population:
 s21$scen.apa  # shows current source: 
 #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
-## View parameters:
 summary(s21)  # shows key parameter information:
 #> Scenario:  PSA test 1 (high prev) 
 #> 
@@ -275,14 +280,15 @@ summary(s21)  # shows key parameter information:
 #> 0.575
 ```
 
-Generating the following plots will provide you with a quick visual exploration of the scenario:
+Generating the following plots will provide you with a quick visual exploration of the scenario. We will only show the network plot here, and trust that you can try out the other ones for yourself:
 
-<!-- (We will only show the network plot here, and trust that you can try out the other ones for yourself.) -->
 #### Network diagram
 
 ``` r
 plot(s21) # plots a network diagram (by default):
 ```
+
+![](inst/pix/README-ex2_fnet-1.png)
 
 #### Icon array
 
