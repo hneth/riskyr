@@ -189,11 +189,11 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 To clarify the concept of "risk" used in this context: In both basic research on the psychology of judgment and decision making and more applied research on risk perception and risk communication, the term _risk_ refers to information or decisions for which all options and their consequences are known and _probabilities_ for the different outcomes can be provided. This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified.^[See Gigerenzer and Gaissmaier (2011) and Neth and Gigerenzer (2015) for discussions on different type of decision strategies that correspond to the distinction between risk and uncertainty.] 
 
-For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the `riskyr` start-up message: Every time you load the package, a randomization mechanism is invoked and determines which particular out of a range of possible messages is shown. Even if you notice this, determining the exact probability of each message would require extensive experience, explicit information (e.g., us telling you that we use R's `sample` function to randomly select 1 out of 5 possible messages), or cheating (by looking at the source code). In real life, both our amount of experience and options for cheating are more limited, unfortunately, which is why we need to rely on science for figuring out probabilities and on the transparent risk communication to understand them.
+For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the `riskyr` start-up message: Every time you load the package, the dice are cast and determine which particular message (out of a range of possible messages) is shown. Even if you notice this, determining the exact probability of a message would require extensive experience, explicit information (e.g., us telling you that we use R's `sample` function to randomly select 1 of 5 possible messages), or cheating (by peeking at the source code). In real life, the events of interest are vastly more complex and numerous and both our experience and options for cheating are subject to hard constraints. Thus, provided we do not want to regress into superstition, we need science to figure out probabilities and  transparent risk communication for understanding them. 
 
 ### Promoting risk perception and communication
 
-`riskyr` facilitates the risk perception and promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing a dice's different facets) also represents its functionality in a variety of ways:  
+`riskyr` facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing a dice's different facets) also represents its functionality in a variety of ways:  
 1. First, each individual facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
 2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
 3. The three facets can be counted as the three steps of (a) organizing information, (b) translating between representational formats, and (c) visualising relationships between variables.  ] 
@@ -409,7 +409,7 @@ For details and additional options of the `plot_mosaic` function, see the docume
 
 #### Alternative perspectives
 
-Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population into `dec.pos` and `dec.neg` cases: 
+Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population by decisions into `dec.pos` and `dec.neg` cases: 
 
 ```{r plot_tree_dc, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
@@ -419,11 +419,11 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           dec.neg.lbl = "negative test")
 ```
 
-Similarly, the population area of the mosaic plot can be split horizontally by using the option `vsplit = FALSE`:
+Similarly, the population area of the mosaic plot can first be split by decisions (i.e., horizontally) by specifying the option `by = "dc"`:
 
 ```{r plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
-            vsplit = FALSE, 
+            by = "dc",  # split population by decision (horizontal 1st) 
             title.lbl = "Mammography screening")
 ```
 

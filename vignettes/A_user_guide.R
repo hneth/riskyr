@@ -113,7 +113,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 ## ----plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
-            vsplit = FALSE, 
+            by = "dc",  # split population by decision (horizontal 1st) 
             title.lbl = "Mammography screening")
 
 ## ----plot_tree_dc_vr, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."----
