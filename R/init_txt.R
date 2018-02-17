@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 02 10
+## 2018 02 17
 ## -----------------------------------------------
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
@@ -9,20 +9,20 @@
 
 txt.def <- list(
   scen.lbl = "Scenario name", # put scenario label in Title Caps (if desired in plot titles)
-  scen.txt = "Description of the current scenario in a short paragraph of text.\nThis description may include several sentences.",
-  scen.src = "Source information for this scenario",
+  scen.txt = "Description of the current scenario in a short paragraph of text. This description may include several sentences.",
+  scen.src = "Source information",
   scen.apa = "Source information in APA format",
   scen.lng = "en/de", # language
 
-  popu.lbl = "Describe the target population in a few words here",
+  popu.lbl = "Current population",
 
   ## (a) Condition:
-  cond.lbl = "Condition",             # "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
+  cond.lbl = "Current condition",             # "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
   cond.true.lbl  = "Condition true",  # "has condition", "is affected"
   cond.false.lbl = "Condition false", # "does not have condition", "is unaffected"
 
   ## (b) Decision/prediction/predicted condition:
-  dec.lbl = "Decision",                # "Prediction", "Diagnostic decision", "Mammography", "HIV test"
+  dec.lbl = "Current decision",                # "Prediction", "Diagnostic decision", "Mammography", "HIV test"
   dec.pos.lbl  = "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec.neg.lbl = "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
