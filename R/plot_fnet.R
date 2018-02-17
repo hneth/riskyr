@@ -95,14 +95,11 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
-#'
 #' @param round A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
-#'
 #'
 #' @param by A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
 #'   \enumerate{
@@ -127,7 +124,6 @@
 #'   \item \code{"mix"} ... names of essential probabilities, values of complements;
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
-#'
 #'
 #' @param show.accu Option for showing current
 #' accuracy metrics \code{\link{accu}} in the plot.
@@ -158,6 +154,7 @@
 #' @param col.txt Color for text labels (in boxes).
 #' @param cex.lbl Scaling factor for text labels (in boxes and on arrows).
 #' Default: \code{cex.lbl = .90}.
+#' @param box.cex Deprecated argument: Please use \code{cex.lbl} instead.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
@@ -280,6 +277,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       ## Box settings:
                       col.txt = grey(.01, alpha = .99),  # black
                       cex.lbl = .85,                     # relative text size (of box and arrow labels)
+                      box.cex,                           # deprecated predecessor of cex.lbl
                       col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
                       col.border = grey(.33, alpha = .99),  # mid grey
                       ## Widths of arrows and box borders:
@@ -290,7 +288,14 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Compute or collect all current frequencies: ----------
+  ## (0) Handle deprecated arguments:
+  if (!missing(box.cex)) {
+    warning("argument 'box.cex' is deprecated; please use 'cex.lbl' instead.",
+            call. = FALSE)
+    cex.lbl <- box.cex
+  }
+
+  ## (0.1) Compute or collect all current frequencies: ----------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {

@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 02 10
+## 2018 02 18
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -16,7 +16,6 @@
 ## plot_mosaic: Plot mosaic plot (with "vcd" and "grid")
 ## using only necessary arguments with good defaults:
 ## -----------------------------------------------
-
 
 #' Plot a mosaic plot of population frequencies.
 #'
@@ -66,16 +65,20 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
 #' @param N The number of individuals in the population.
 #' (This value is not represented in the plot,
 #' but used when new frequency information \code{\link{freq}}
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
 #'
-#' @param vsplit Option for toggling between
-#' vertical and horizontal split.
-#' Default: \code{vsplit = TRUE}.
+#' @param by A character code specifying the perspective (or 1st category by which the population is split into subsets) with 2 options:
+#'   \enumerate{
+#'   \item \code{"cd"} ... by condition (vertical split first);
+#'   \item \code{"dc"} ... by decision (horizontal split first).
+#'   }
+#'
+#' @param vsplit Deprecated option for toggling between
+#' vertical and horizontal split. Please use \code{by} instead.
 #'
 #' @param show.accu Option for showing current
 #' accuracy metrics \code{\link{accu}} in the plot.
@@ -91,11 +94,11 @@
 #' @param col.sdt Colors for cases of 4 essential frequencies.
 #' Default: \code{col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.
 #'
-#'
 #' @examples
+#' # Basics:
 #' plot_mosaic()                # => default options
 #' plot_mosaic(title.lbl = "")  # => no title
-#' plot_mosaic(vsplit = FALSE)  # => horizontal split
+#' plot_mosaic(by = "dc")       # => by decision (horizontal split 1st)
 #' plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
 #'
 #' # Accuracy:
@@ -122,8 +125,9 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                         sens = num$sens, mirt = NA,
                         spec = num$spec, fart = NA,
                         N = num$N,                   # not needed in Mosaic plot (but used in comp_freq below)
-                        ## Options: ##
-                        vsplit = TRUE,    # toggle vertical vs. horizontal split
+                        ## Options:
+                        by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
+                        vsplit,     # deprecated predecessor of "by": toggle vertical vs. horizontal split
                         show.accu = TRUE, # compute and show accuracy metrics
                         w.acc = .50,      # weight w for wacc (from 0 to 1)
                         ## Text and color options: ##
@@ -131,13 +135,20 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                         col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 ) {
 
+  ## (0) Handle deprecated arguments: ----------
+  if (!missing(vsplit)) {
+    warning("Boolean argument 'vsplit' is deprecated; please use 'by' instead.",
+            call. = FALSE)
+    if ( vsplit) { by <- "cd" }
+    if (!vsplit) { by <- "dc" }
+  }
+
   # ## (0) Get probabilities from global numeric parameters (num):
   # prev <- num$prev
   # sens <- num$sens
   # spec <- num$spec
 
-
-  ## (1) Compute or use current popu:
+  ## (1) Compute or use current popu: ----------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -173,12 +184,16 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   } # if (is_valid_prob_set...)
 
-  ## (2) Text labels:
+  ## (2) Text labels: ----------
+
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
-  cur.par.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
 
-  ## (3) Accuracy:
+  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  cur.par.lbl <- cur.cond.lbl
+
+  ## (3) Accuracy: ----------
 
   if (show.accu) {
     cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info
@@ -193,11 +208,11 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   # plot(0, type = 'n')
 
 
-  ## (5) Mosaic plot:
+  ## (5) Mosaic plot: ----------
 
-  if (vsplit) {
+  if (by == "cd") {
 
-    ## (a) vertical split:
+    ## (a) by condition (vertical split 1st):
     vcd::mosaic(Decision ~ Truth, data = cur.popu,
                 shade = TRUE, colorize = TRUE,
                 split_vertical = TRUE,
@@ -209,9 +224,9 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
     )
   }
 
-  else {
+  else if (by == "dc") {
 
-    ## (b) horizontal split:
+    ## (b) by decision (horizontal split 1st):
     vcd::mosaic(Truth ~ Decision, data = cur.popu,
                 shade = TRUE, colorize = TRUE,
                 split_vertical = FALSE,
@@ -221,8 +236,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                 main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
                 sub = paste0(cur.par.lbl)
     )
-
-  } # if (vsplit)...
+  } # if (by == ...)
 
   ## Title and margin text:
   # title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
@@ -230,14 +244,19 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 }
 
 ## Check:
-# plot_mosaic()
-# plot_mosaic(title.lbl = "")
-# plot_mosaic(vsplit = FALSE)
-# plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
+{
+  # plot_mosaic()
+  # plot_mosaic(title.lbl = "")
+  # plot_mosaic(by = "dc")
+  # plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
+}
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - add labels for (prev, sens, spec), (ppod, PPV, NPV), bacc.
+## - add Decisions panel.
+## - consider adding 3rd perspective: (c) by correspondence (accu)
 ## - make mosaic plot dependent on basic parameters
 ##   (i.e., compute comp_popu() from probabilities and N,
 ##    rather than providing it as input)?
