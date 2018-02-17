@@ -81,7 +81,7 @@ start_riskyr <- function(...) {
   # packageStartupMessage("citation('riskyr') provides citation info.")
 
   ## riskyr dice (to illustrate the underlying notion of "risk"):
-  dice <- sample(5:5, 1)
+  dice <- sample(1:5, 1)
 
   if (dice == 1) {packageStartupMessage("Ready to riskyr it...")}
 

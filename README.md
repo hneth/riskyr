@@ -89,7 +89,7 @@ Here is how `riskyr` allows you to view and solve such problems:
 ``` r
 library(riskyr)  # loads the package
 #> Welcome to riskyr!
-#> riskyr.guide() opens user guides.
+#> Ready to riskyr it...
 ```
 
 #### Creating a scenario
@@ -280,7 +280,7 @@ summary(s21)  # shows key parameter information:
 #> 0.575
 ```
 
-Generating the following plots will provide you with a quick visual exploration of the scenario. We will only show the network plot here, and trust that you can try out the other ones for yourself:
+Generating the following plots will allow you a quick visual exploration of the scenario. We only show a network plot here, and trust that you can check out the others for yourself:
 
 #### Network diagram
 
@@ -318,7 +318,7 @@ The following surface shows the negative predictive value (NPV) as a function of
 plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
-We hope that this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
+Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
 
 About
 -----
