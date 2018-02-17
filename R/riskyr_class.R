@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 02 16
+## 2018 02 17
 ## -----------------------------------------------
 ## Define riskyr class and corresponding methods
 ## and re-define df.scenarios as a list of
@@ -414,12 +414,12 @@ plot.riskyr <- function(x = NULL,
   ## Therefore, these functions will throw an exception, if unnecessary parameters are passed.
 
   ## Test plot.type argument:
-  if (!plot.type %in% c("fnet", "network",
+  if (!plot.type %in% c("fnet", "network", "net",
                         "tree", "ftree",
-                        "icons", "iconarray",
+                        "icons", "iconarray", "icon",
                         "mosaic", "mosaicplot",
                         "curve", "curves",
-                        "plane", "planes")) {
+                        "plane", "planes", "cube")) {
     stop("Invalid plot.type specified in plot.riskyr.")
   }
 
@@ -427,7 +427,7 @@ plot.riskyr <- function(x = NULL,
 
 
   ## A. Frequency net (default):
-  if ((plot.type == "fnet") || (plot.type == "network")) {
+  if ((plot.type == "fnet") || (plot.type == "network") || (plot.type == "net")) {
 
     plot_fnet(prev = x$prev,
               sens = x$sens, mirt = NA,
@@ -487,7 +487,7 @@ plot.riskyr <- function(x = NULL,
 
 
   ## D. Iconarrays
-  if ((plot.type == "icons") || (plot.type == "iconarray")) {
+  if ((plot.type == "icons") || (plot.type == "iconarray") || (plot.type == "icon")) {
 
     plot_icons(prev = x$prev,             # probabilities
                sens = x$sens, mirt = NA,
@@ -515,8 +515,8 @@ plot.riskyr <- function(x = NULL,
   } # if (plot.type == "curve")
 
 
-  ## F. Plane:
-  if ((plot.type == "plane") || (plot.type == "planes")) {
+  ## F. Plane/Cube:
+  if ((plot.type == "plane") || (plot.type == "planes") || (plot.type == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
