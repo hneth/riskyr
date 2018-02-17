@@ -198,11 +198,12 @@ plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence
 #### Planes 
 
 ```{r ex1_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
-plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec):
+plot(hustosis, plot.type = "plane", theta = -60)  # plot plane (as a function of sens x spec):
 ```
 
 ![](inst/pix/README-ex1_plane-1.png)
 
+The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. While our current value of 95% (`spec = .95`) may sound pretty good, it still is not high enough to yield a `PPV` beyond 40%. 
 
 ### Using existing scenarios
 
