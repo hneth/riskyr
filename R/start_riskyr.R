@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 02 15
+## 2018 02 17
 ## -----------------------------------------------
 ## Final settings:
 
@@ -76,19 +76,31 @@ start_riskyr <- function(...) {
   ## Welcome message:
   packageStartupMessage("Welcome to riskyr!")
 
-  # packageStartupMessage("              ")
-  # packageStartupMessage("      N       ")
-  # packageStartupMessage("    /  \\     ")
-  # packageStartupMessage("  T      F    ")
-  # packageStartupMessage(" / \\    / \\ ")
-  # packageStartupMessage("hi mi fa  cr  ")
-  # packageStartupMessage("              ")
-  # packageStartupMessage("Running riskyr v0.0.x.")
-  # packageStartupMessage("Ready to riskyr it...")
-
   ## User guidance:
-  packageStartupMessage("riskyr.guide() opens user guides.")
+  # packageStartupMessage("riskyr.guide() opens user guides.")
   # packageStartupMessage("citation('riskyr') provides citation info.")
+
+  ## riskyr dice (to illustrate the underlying notion of "risk"):
+  dice <- sample(5:5, 1)
+
+  if (dice == 1) {packageStartupMessage("Ready to riskyr it...")}
+
+  if (dice == 2) {packageStartupMessage("Running riskyr (v0.1.0)...")}
+
+  if (dice == 3) {packageStartupMessage("riskyr.guide() opens user guides.")}
+
+  if (dice == 4) {packageStartupMessage("citation('riskyr') provides citation info.")}
+
+  if (dice == 5) {
+    packageStartupMessage("              ")
+    packageStartupMessage("      N       ")
+    packageStartupMessage("    /  \\     ")
+    packageStartupMessage("  T      F    ")
+    packageStartupMessage(" / \\    / \\ ")
+    packageStartupMessage("hi  mi fa  cr ")
+    packageStartupMessage("              ")
+  }
+
 }
 
 ## (+) ToDo: -------------------------------------
