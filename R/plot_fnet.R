@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 02 13
+## 2018 02 17
 ## -----------------------------------------------
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
@@ -156,8 +156,8 @@
 #' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
 #'
 #' @param col.txt Color for text labels (in boxes).
-#' @param box.cex Scaling factor for text (in boxes).
-#' Default: \code{box.cex = .90}.
+#' @param cex.lbl Scaling factor for text labels (in boxes and on arrows).
+#' Default: \code{cex.lbl = .90}.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
@@ -279,7 +279,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       cr.lbl = txt$cr.lbl,
                       ## Box settings:
                       col.txt = grey(.01, alpha = .99),  # black
-                      box.cex = .85,                     # relative text size
+                      cex.lbl = .85,                     # relative text size (of box and arrow labels)
                       col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
                       col.border = grey(.33, alpha = .99),  # mid grey
                       ## Widths of arrows and box borders:
@@ -466,6 +466,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                  paste0("Population", ":\n", "N = ", N)  # popu.lbl
       )
 
+      # ## ToDo: Names with more explicit labels:
+      # names <- c(paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N),                # using argument popu.lbl
+      #            paste0(txt$cond.lbl, ":\n", cond.true.lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
+      #            paste0(txt$cond.lbl, ":\n", cond.false.lbl, ":\n", round(n.false, 1)), # using global setting of txt
+      #            paste0("Hits", ":\n", hi.lbl, ":\n", round(n.hi, 1)),
+      #            paste0("Misses", ":\n", mi.lbl, ":\n", round(n.mi, 1)),
+      #            paste0("False alarms", ":\n", fa.lbl, ":\n", round(n.fa, 1)),
+      #            paste0("Correct rejections", ":\n", cr.lbl, ":\n", round(n.cr, 1)),
+      #            paste0(txt$dec.lbl, ":\n", dec.pos.lbl, ":\n", round(n.pos, 2)), # using global setting of txt
+      #            paste0(txt$dec.lbl, ":\n", dec.neg.lbl, ":\n", round(n.neg, 2)), # using global setting of txt
+      #            paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N)           # using argument popu.lbl
+      # )
+
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
@@ -501,6 +514,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                  paste0(cond.false.lbl, ":\n", round(n.false, 2)),
                  paste0("Population", ":\n", "N = ", N)  # popu.lbl
       )
+
+      # ## ToDo: Names with more explicit labels:
+      # names <- c(paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N),         # using argument popu.lbl
+      #            paste0(txt$dec.lbl, ":\n", dec.pos.lbl, ":\n", round(n.pos, 2)), # using global setting of txt
+      #            paste0(txt$dec.lbl, ":\n", dec.neg.lbl, ":\n", round(n.neg, 2)), # using global setting of txt
+      #            paste0("Hits", ":\n", hi.lbl, ":\n", round(n.hi, 1)),
+      #            paste0("Misses", ":\n", mi.lbl, ":\n", round(n.mi, 1)),
+      #            paste0("False alarms", ":\n", fa.lbl, ":\n", round(n.fa, 1)),
+      #            paste0("Correct rejections", ":\n", cr.lbl, ":\n", round(n.cr, 1)),
+      #            paste0(txt$cond.lbl, ":\n", cond.true.lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
+      #            paste0(txt$cond.lbl, ":\n", cond.false.lbl, ":\n", round(n.false, 1)), # using global setting of txt
+      #            paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N)                # using argument popu.lbl
+      # )
 
     } else {  # shorter box labels:
 
@@ -542,6 +568,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ## ToDo: Use more informative arrow/edge labels:
   # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
   # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
+
+  if (cex.lbl > .50) { cex.arr <- (cex.lbl - .05) } else { cex.arr <- cex.lbl } # cex.arr <= cex.lbl
 
   if (by == "cd") {  # by condition:
 
@@ -1577,10 +1605,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          lcol = col.border,  # default color for box and arrow lines
                          ## Text in Boxes:
                          txt.col = col.txt,
-                         box.cex = box.cex,  # relative size of text in boxes
+                         box.cex = cex.lbl,  # relative size of text in boxes
                          txt.font = 1,       # 1 = plain, 2 = bold, ...
                          ## Arrows:
-                         cex.txt = .80,  # relative size of arrow text
+                         cex.txt = cex.arr,  # relative size of arrow text
                          arr.pos = .50,  # relative position of arrowhead on arrow segment/curve
                          arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
                          arr.length = .20,

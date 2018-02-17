@@ -11,7 +11,7 @@ plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.85,
+  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85,
   col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
   box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
 }
@@ -102,8 +102,8 @@ Default: \code{title.lbl = txt$scen.lbl}.}
 
 \item{col.txt}{Color for text labels (in boxes).}
 
-\item{box.cex}{Scaling factor for text (in boxes).
-Default: \code{box.cex = .90}.}
+\item{cex.lbl}{Scaling factor for text labels (in boxes and on arrows).
+Default: \code{cex.lbl = .90}.}
 
 \item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
