@@ -1,5 +1,5 @@
 ---
-title: "`riskyr` Data Formats"
+title: "Data Formats"
 author: "Hansjörg Neth, SPDS, uni.kn"
 date: "2018 02 05"
 output: 

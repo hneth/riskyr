@@ -1,5 +1,5 @@
 ---
-title: "Confusion Matrix and `riskyr` Metrics"
+title: "Confusion Matrix and Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
 date: "2018 02 08"
 output: 
