@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
-`riskyr`
-========
+riskyr
+======
 
 **A toolbox for rendering risk literacy more transparent**
 
@@ -160,7 +160,7 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 
 -   The conditional probability that Ms. Smith is actually free of hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
 
-In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. Here is a quick overview over its different types of visualizations:
+In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. To get you started immediately, we provide a few introductory examples that illustrate different types of visualizations.
 
 #### Tree diagram
 
@@ -211,7 +211,7 @@ plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently 25) -- pre-defined scenarios (stored in a list `scenarios`). Here is an example that shows how you can select and explore them:
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently 25) -- pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them.
 
 #### Selecting a scenario
 
@@ -318,7 +318,7 @@ The following surface shows the negative predictive value (NPV) as a function of
 plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
-We hope that these examples succeeded in whetting your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
+We hope that this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
 
 About
 -----

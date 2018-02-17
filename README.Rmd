@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# `riskyr`
+# riskyr
 
 **A toolbox for rendering risk literacy more transparent**
 
@@ -42,11 +42,9 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 1. Effective training in risk literacy requires simple tools and transparent representations. 
 
-2. More specifically, it would be desirable to have a set of (computational and representational) tools that allow various 
-calculations, translations (between formats), and a range of alternative views on the interplay between probabilities and frequencies. 
+2. More specifically, it would be desirable to have a set of (computational and representational) tools that allow various calculations, translations (between formats), and a range of alternative views on the interplay between probabilities and frequencies. 
 
 3. Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning.  It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters. 
-
 
 To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs. 
 
@@ -154,7 +152,8 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 
 - The conditional probability that Ms. Smith is actually free of hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
 
-In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. Here is a quick overview over its different types of visualizations: 
+In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. To get you started immediately, we provide a few introductory examples that illustrate different types of visualizations. 
+
 
 #### Tree diagram 
 
@@ -204,10 +203,10 @@ plot(hustosis, plot.type = "plane")   # plot plane (as a function of sens x spec
 
 ![](inst/pix/README-ex1_plane-1.png)
 
+
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios) - 1`) -- pre-defined scenarios (stored in a list `scenarios`). 
-Here is an example that shows how you can select and explore them:
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios) - 1`) -- pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them. 
 
 #### Selecting a scenario
 
@@ -271,7 +270,7 @@ plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sen
 ```
 
 
-We hope that these examples succeeded in whetting your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information. 
+We hope that this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information. 
 
 
 ## About

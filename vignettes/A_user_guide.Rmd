@@ -183,8 +183,18 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 `riskyr` provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a _computational_, and more of a _representational_ nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, `riskyr` is a toolbox that renders risk literacy education more transparent.
 
-`riskyr` promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing three facets of a dice) also represents its functionality in a variety of ways:  
-1. First, each facet provides a frequency (e.g., the number 3), though the dice is a paradigmatic example of a device that generates probabilities. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
+### Risk vs. uncertainty
+
+<!-- Defining the notion of "risk": -->
+
+To clarify the concept of "risk" used in this context: In both basic research on the psychology of judgment and decision making and more applied research on risk perception and risk communication, the term _risk_ refers to information or decisions for which all options and their consequences are known and _probabilities_ for the different outcomes can be provided. This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified.^[See Gigerenzer and Gaissmaier (2011) and Neth and Gigerenzer (2015) for discussions on different type of decision strategies that correspond to the distinction between risk and uncertainty.] 
+
+For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the `riskyr` start-up message: Every time you load the package, a randomization mechanism is invoked and determines which particular out of a range of possible messages is shown. Even if you notice this, determining the exact probability of each message would require extensive experience, explicit information (e.g., us telling you that we use R's `sample` function to randomly select 1 out of 5 possible messages), or cheating (by looking at the source code). In real life, both our amount of experience and options for cheating are more limited, unfortunately, which is why we need to rely on science for figuring out probabilities and on the transparent risk communication to understand them.
+
+### Promoting risk perception and communication
+
+`riskyr` facilitates the risk perception and promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing a dice's different facets) also represents its functionality in a variety of ways:  
+1. First, each individual facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
 2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
 3. The three facets can be counted as the three steps of (a) organizing information, (b) translating between representational formats, and (c) visualising relationships between variables.  ] 
 
@@ -194,9 +204,7 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 - by providing transparent _visualizations_ that illustrate relationships between variables and representations.  
 
-
-In the following, we show how we could address the above problem by using three types of tools provided by `riskyr`. 
-
+If others find the ways in which `riskyr` computes, transforms, and represents risks helpful or useful, `riskyr` may facilitate teaching and training efforts in risk literacy and generally hopes to promote a more transparent communication of risk-related information. In the following, we show how we can address the above problem by using three types of tools provided by `riskyr`. 
 
 ### A. A fancy calculator 
 
@@ -467,6 +475,10 @@ London, UK: Penguin.
 _Risk savvy: How to make good decisions_. 
 New York, NY: Penguin.
 
+- Gigerenzer, G., & Gaissmaier, W. (2011). 
+Heuristic decision making. 
+_Annual Review of Psychology_, _62_, 451--482.  
+
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 
 _Psychological Science in the Public Interest_, _8_, 53--96.
@@ -502,6 +514,11 @@ _Medical Teacher_, _24_, 516--521.
 - Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). 
 Transparency in risk communication. 
 _Annals of the New York Academy of Sciences_, _1128_, 18--28.
+
+- Neth, H., & Gigerenzer, G. (2015). 
+Heuristics: Tools for an uncertain world. 
+In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
+New York, NY: Wiley Online Library. 
 
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
