@@ -5,7 +5,7 @@
 \title{Plot a mosaic plot of population frequencies.}
 \usage{
 plot_mosaic(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, vsplit = TRUE,
+  spec = num$spec, fart = NA, N = num$N, by = "cd", vsplit,
   show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
   col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 }
@@ -39,9 +39,14 @@ but used when new frequency information \code{\link{freq}}
 and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
 
-\item{vsplit}{Option for toggling between
-vertical and horizontal split.
-Default: \code{vsplit = TRUE}.}
+\item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 2 options:
+\enumerate{
+\item \code{"cd"} ... by condition (vertical split first);
+\item \code{"dc"} ... by decision (horizontal split first).
+}}
+
+\item{vsplit}{Deprecated option for toggling between
+vertical and horizontal split. Please use \code{by} instead.}
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
@@ -82,9 +87,10 @@ and \code{\link{plot_fnet}}.
 "grid" (\code{library("vcd", "grid")}).
 }
 \examples{
+# Basics:
 plot_mosaic()                # => default options
 plot_mosaic(title.lbl = "")  # => no title
-plot_mosaic(vsplit = FALSE)  # => horizontal split
+plot_mosaic(by = "dc")       # => by decision (horizontal split 1st)
 plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
 
 # Accuracy:

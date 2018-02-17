@@ -12,8 +12,9 @@ plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
   hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
   cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85,
-  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
-  box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
+  box.cex, col.boxes = pal, col.border = grey(0.33, alpha = 0.99),
+  lwd = 1.5, box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99),
+  cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -104,6 +105,8 @@ Default: \code{title.lbl = txt$scen.lbl}.}
 
 \item{cex.lbl}{Scaling factor for text labels (in boxes and on arrows).
 Default: \code{cex.lbl = .90}.}
+
+\item{box.cex}{Deprecated argument: Please use \code{cex.lbl} instead.}
 
 \item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
