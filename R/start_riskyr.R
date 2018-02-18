@@ -14,8 +14,8 @@
 
 riskyr.guide <- function() {
 
- # utils::vignette(topic = "User Guide", package = "riskyr")
- utils::browseVignettes(package = "riskyr")
+  # utils::vignette(topic = "User Guide", package = "riskyr")
+  utils::browseVignettes(package = "riskyr")
 
 }
 
@@ -83,10 +83,18 @@ start_riskyr <- function(...) {
   dice <- sample(1:6, 1)
 
   if (dice == 1) {packageStartupMessage("riskyr.guide() opens user guides.")}
-  if (dice == 2) {packageStartupMessage("citation('riskyr') provides citation info.")}
-  if (dice == 3) {packageStartupMessage("Running riskyr (v0.1.0)...")}
-  if (dice == 4) {packageStartupMessage("Ready to roll riskyr...")}
-  if (dice == 5) {packageStartupMessage("Ready to riskyr it...")}
+  # if (dice == 0) {packageStartupMessage("citation('riskyr') provides citation info.")}
+  if (dice == 2) {packageStartupMessage("Running riskyr (v0.1.0)...")}
+  if (dice == 3) {packageStartupMessage("Ready to roll riskyr...")}
+  if (dice == 4) {packageStartupMessage("Ready to riskyr it...")}
+
+  if (dice == 5) {
+    packageStartupMessage("       ")
+    packageStartupMessage(" hi fa ")
+    packageStartupMessage("   +   ")
+    packageStartupMessage(" mi cr ")
+    packageStartupMessage("       ")
+  }
 
   if (dice == 6) {
     packageStartupMessage("              ")
