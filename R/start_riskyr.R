@@ -1,10 +1,9 @@
 ## start_riskyr.R | riskyr
-## 2018 02 17
+## 2018 02 18
 ## -----------------------------------------------
-## Final settings:
+## Final functions and settings:
 
 ## (1) Open package guide: -----------------------
-
 
 #' Opens the riskyr package guides
 #'
@@ -81,17 +80,15 @@ start_riskyr <- function(...) {
   # packageStartupMessage("citation('riskyr') provides citation info.")
 
   ## riskyr dice (to illustrate the underlying notion of "risk"):
-  dice <- sample(1:5, 1)
+  dice <- sample(1:6, 1)
 
-  if (dice == 1) {packageStartupMessage("Ready to riskyr it...")}
+  if (dice == 1) {packageStartupMessage("riskyr.guide() opens user guides.")}
+  if (dice == 2) {packageStartupMessage("citation('riskyr') provides citation info.")}
+  if (dice == 3) {packageStartupMessage("Running riskyr (v0.1.0)...")}
+  if (dice == 4) {packageStartupMessage("Ready to roll riskyr...")}
+  if (dice == 5) {packageStartupMessage("Ready to riskyr it...")}
 
-  if (dice == 2) {packageStartupMessage("Running riskyr (v0.1.0)...")}
-
-  if (dice == 3) {packageStartupMessage("riskyr.guide() opens user guides.")}
-
-  if (dice == 4) {packageStartupMessage("citation('riskyr') provides citation info.")}
-
-  if (dice == 5) {
+  if (dice == 6) {
     packageStartupMessage("              ")
     packageStartupMessage("      N       ")
     packageStartupMessage("    /  \\     ")
