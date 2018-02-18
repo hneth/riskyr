@@ -38,7 +38,7 @@ The issues addressed by `riskyr` are less of a _computational_ and more of a _re
 To clarify the concept of "risk" in this context: The term _risk_ typically refers to information or decisions for which all options and their consequences are known and _probabilities_ for the different outcomes can be provided.[^2] 
 For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities -- like casting dice or using any other randomization device.
 
-[^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, this distinction and corresponding decision strategies.) 
+[^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
 
 <!-- riskyr logo: -->  
 <a href = "https://github.com/hneth/riskyr">

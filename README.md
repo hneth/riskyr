@@ -94,7 +94,7 @@ Here is how `riskyr` allows you to view and solve such problems:
 ``` r
 library(riskyr)  # loads the package
 #> Welcome to riskyr!
-#> riskyr.guide() opens user guides.
+#> Ready to riskyr it...
 ```
 
 #### Creating a scenario
@@ -404,7 +404,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 [1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
-[2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, this distinction and corresponding decision strategies.)
+[2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.)
 
 [3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for lots of similar problems. Also, Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) report related training programs.
 
