@@ -13,7 +13,7 @@ Author: Hansjoerg Neth [aut, cre],
         Nico Gradwohl [aut], 
         Wolfgang Gaissmaier [aut]
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
-Description: Risk-related information (like the prevalence of conditions and the power or precision of tests) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, 'riskyr' computes, translates, and displays risk-related information in a variety of ways. By offering different, but complementary perspectives on the interplay between key parameters, this renders teaching and training of risk literacy more transparent. 
+Description: Risk-related information (like the prevalence of conditions and the sensitivity and specificity of decisions or diagnostic tests) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, 'riskyr' computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
 Depends:
     R (>= 3.2)
 Imports:
