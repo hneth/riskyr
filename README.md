@@ -12,12 +12,17 @@ Motivation
 
 > Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)[1]
 
-The issues addressed by `riskyr` are less of a *computational* and more of a *representational* nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of *probabilities*, the same information is often easy to understand and compute when expressed in terms of *frequencies*. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+<!-- Risks as representational effects: -->
+The issues addressed by `riskyr` are less of a *computational* and more of a *representational* nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of *probabilities*, the same information is often easy to understand and compute when expressed in terms of *frequencies*. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
 
-Basic assumptions and goals driving the current development of `riskyr` include the following:
+<!-- Defining the notion of "risk": -->
+To clarify the concept of "risk" in this context: The term *risk* typically refers to information or decisions for which all options and their consequences are known and *probabilities* for the different outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities -- like casting dice or using any other randomization device.
 
 <!-- riskyr logo: -->
 <a href = "https://github.com/hneth/riskyr"> <!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> --> <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
+
+<!-- On "riskyr": -->
+Basic assumptions and goals driving the current development of `riskyr` include the following:
 
 1.  Effective training in risk literacy requires simple tools and transparent representations.
 
@@ -42,7 +47,7 @@ Quick Start Guide
 
 ### Defining a scenario
 
-`riskyr` is designed to address problems like the following:[2]
+`riskyr` is designed to address problems like the following:[3]
 
 > **Screening for hustosis**
 >
@@ -76,7 +81,7 @@ The second challenge here lies in understanding the questions that are being ask
 
 #### Translating into frequencies
 
-One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[3] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
+One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[4] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
 
 > Assuming a representative sample of 1000 individuals:
 > - What proportion of individuals with a positive test result actually suffer from hustosis?
@@ -89,7 +94,7 @@ Here is how `riskyr` allows you to view and solve such problems:
 ``` r
 library(riskyr)  # loads the package
 #> Welcome to riskyr!
-#> Ready to riskyr it...
+#> riskyr.guide() opens user guides.
 ```
 
 #### Creating a scenario
@@ -375,6 +380,8 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 -   Gigerenzer, G. (2014). *Risk savvy: How to make good decisions*. New York, NY: Penguin.
 
+-   Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making. *Annual Review of Psychology*, *62*, 451--482.
+
 -   Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. *Psychological Science in the Public Interest*, *8*, 53--96.
 
 -   Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: Frequency formats. *Psychological Review*, *102*, 684--704.
@@ -389,12 +396,16 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 -   Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). Transparency in risk communication. *Annals of the New York Academy of Sciences*, *1128*, 18--28.
 
+-   Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott & S. Kosslyn (Eds.), *Emerging trends in the social and behavioral sciences*. New York, NY: Wiley Online Library.
+
 -   Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. *Journal of Experimental Psychology: General*, *130*, 380--400.
 
 <!-- eof -->
 
 [1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
-[2] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for lots of similar problems. Also, Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) report related training programs.
+[2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, this distinction and corresponding decision strategies.)
 
-[3] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of *natural frequencies*.
+[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for lots of similar problems. Also, Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) report related training programs.
+
+[4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of *natural frequencies*.

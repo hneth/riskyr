@@ -28,9 +28,17 @@ Beginning with a condition (e.g., a disease), a corresponding decision (e.g., a 
 [^1]: Simon, H.A. (1996). _The Sciences of the Artificial_ (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
 
-The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing probabilistic information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+<!-- Risks as representational effects: -->
 
-Basic assumptions and goals driving the current development of `riskyr` include the following:
+The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+
+
+<!-- Defining the notion of "risk": -->
+
+To clarify the concept of "risk" in this context: The term _risk_ typically refers to information or decisions for which all options and their consequences are known and _probabilities_ for the different outcomes can be provided.[^2] 
+For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities -- like casting dice or using any other randomization device.
+
+[^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, this distinction and corresponding decision strategies.) 
 
 <!-- riskyr logo: -->  
 <a href = "https://github.com/hneth/riskyr">
@@ -39,6 +47,11 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 </a>
 <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
+
+
+<!-- On "riskyr": -->
+
+Basic assumptions and goals driving the current development of `riskyr` include the following:
 
 1. Effective training in risk literacy requires simple tools and transparent representations. 
 
@@ -63,9 +76,9 @@ devtools::install_github("hneth/riskyr")
 
 ### Defining a scenario
 
-`riskyr` is designed to address problems like the following:[^2]
+`riskyr` is designed to address problems like the following:[^3]
 
-[^2]: See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for lots of similar problems.  Also, Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) report related training programs.  
+[^3]: See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for lots of similar problems.  Also, Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) report related training programs.  
 
 
 > **Screening for hustosis**  
@@ -105,13 +118,13 @@ The second challenge here lies in understanding the questions that are being ask
 
 #### Translating into frequencies
 
-One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[^3] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
+One of the best tricks in risk literacy education is to translate probabilistic information into frequencies.[^4] To do this, we imagine a representative sample of `N = 1000` individuals. Rather than asking about the probabilities for Mr. and Ms. Smith, we could re-frame the questions as:
 
 > Assuming a representative sample of 1000 individuals:   
 > - What proportion of individuals with a positive test result actually suffer from hustosis?  
 > - What proportion of individuals with a negative test result are actually free of hustosis? 
 
-[^3]: See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of _natural frequencies_. 
+[^4]: See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of _natural frequencies_. 
 
 
 #### Using `riskyr`
@@ -348,6 +361,10 @@ London, UK: Penguin.
 _Risk savvy: How to make good decisions_. 
 New York, NY: Penguin.
 
+- Gigerenzer, G., & Gaissmaier, W. (2011). 
+Heuristic decision making. 
+_Annual Review of Psychology_, _62_, 451--482. 
+
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 
 _Psychological Science in the Public Interest_, _8_, 53--96.
@@ -375,6 +392,11 @@ _Medical Teacher_, _24_, 516--521.
 - Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). 
 Transparency in risk communication. 
 _Annals of the New York Academy of Sciences_, _1128_, 18--28.
+
+- Neth, H., & Gigerenzer, G. (2015). 
+Heuristics: Tools for an uncertain world. 
+In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
+New York, NY: Wiley Online Library. 
 
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
