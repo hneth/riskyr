@@ -12,11 +12,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![CRAN_Status_Badge](https://CRAN.R-project.org/package=riskyr)](https://CRAN.R-project.org/package=riskyr)
-
-
 
 # riskyr
+
 
 **A toolbox for rendering risk literacy more transparent**
 
