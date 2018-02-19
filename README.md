@@ -5,7 +5,7 @@ riskyr
 
 **A toolbox for rendering risk literacy more transparent**
 
-Risk-related information (like the prevalence of conditions and the sensitivity and specificity of decisions or diagnostic tests) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
+Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
 
 Motivation
 ----------
@@ -16,7 +16,7 @@ Motivation
 The issues addressed by `riskyr` are less of a *computational* and more of a *representational* nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of *probabilities*, the same information is often easy to understand and compute when expressed in terms of *frequencies*. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
 
 <!-- Defining the notion of "risk": -->
-To clarify the concept of "risk" in this context: The term *risk* typically refers to information or decisions for which all options and their consequences are known and *probabilities* for the different outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities -- like casting dice or using any other randomization device.
+To clarify the concept of "risk" in this context: The term *risk* typically refers to information or decisions for which all options and their consequences are known and *probabilities* for the different outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities — like casting dice or using any other randomization device.
 
 <!-- riskyr logo: -->
 <a href = "https://github.com/hneth/riskyr"> <!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> --> <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
@@ -42,7 +42,7 @@ install.packages("riskyr")  # install riskyr from CRAN client
 library("riskyr")           # load to use the package
 ```
 
-The latest development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
+The latest development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
 
 ``` r
 # install.packages("devtools")
@@ -100,14 +100,6 @@ Here is how `riskyr` allows you to view and solve such problems:
 
 ``` r
 library(riskyr)  # loads the package
-#> Welcome to riskyr!
-#> 
-#>       N
-#>     /  \
-#>   T      F
-#>  / \    / \
-#> hi  mi fa  cr
-#> 
 ```
 
 #### Creating a scenario
@@ -129,7 +121,7 @@ hustosis <- riskyr(scen.lbl = "Example",
 To obtain a quick overview of key parameter values, we could ask for the `summary` of our `hustosis` scenario:
 
 ``` r
-summary(hustosis)  # summarizes key parameter values
+summary(hustosis)  # summarizes key parameter values: 
 #> Scenario:  Example 
 #> 
 #> Condition:  hustosis 
@@ -231,7 +223,7 @@ The L-shape of this plane reveals a real problem with our current test: Given a 
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently 25) -- pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them.
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of — currently 25 — pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them.
 
 #### Selecting a scenario
 
@@ -257,7 +249,7 @@ s21$popu.lbl  # shows current population:
 s21$scen.apa  # shows current source: 
 #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
-summary(s21)  # shows key parameter information:
+summary(s21)  # shows key scenario information:
 #> Scenario:  PSA test 1 (high prev) 
 #> 
 #> Condition:  prostate cancer 

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 **A toolbox for rendering risk literacy more transparent**
 
-Risk-related information (like the prevalence of conditions and the sensitivity and specificity of decisions or diagnostic tests) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
+Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
 
 
 ## Motivation 
@@ -36,7 +36,7 @@ The issues addressed by `riskyr` are less of a _computational_ and more of a _re
 <!-- Defining the notion of "risk": -->
 
 To clarify the concept of "risk" in this context: The term _risk_ typically refers to information or decisions for which all options and their consequences are known and _probabilities_ for the different outcomes can be provided.[^2] 
-For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities -- like casting dice or using any other randomization device.
+For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities — like casting dice or using any other randomization device.
 
 [^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
 
@@ -137,7 +137,7 @@ One of the best tricks in risk literacy education is to translate probabilistic 
 
 Here is how `riskyr` allows you to view and solve such problems:
 
-```{r load_riskyr, eval = TRUE}
+```{r load_riskyr, eval = TRUE, message = FALSE}
 library(riskyr)  # loads the package
 ```
 
@@ -162,7 +162,7 @@ hustosis <- riskyr(scen.lbl = "Example",
 To obtain a quick overview of key parameter values, we could ask for the `summary` of our `hustosis` scenario:
 
 ```{r ex1_summary, eval = TRUE}
-summary(hustosis)  # summarizes key parameter values
+summary(hustosis)  # summarizes key parameter values: 
 ```
 
 The summary distinguishes between probabilities, frequencies, and accuracy information. In `Probabilities` we find the answer to both of our questions when taking into account the information provided above:
@@ -224,9 +224,10 @@ plot(hustosis, plot.type = "plane", theta = -60)  # plot plane (as a function of
 
 The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. While our current value of 95% (`spec = .95`) may sound pretty good, it still is not high enough to yield a `PPV` beyond 40%. 
 
+
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios) - 1`) -- pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them. 
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of — currently `r length(scenarios) - 1` — pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them. 
 
 #### Selecting a scenario
 
@@ -247,11 +248,10 @@ s21$dec.lbl   # shows current decision:
 s21$popu.lbl  # shows current population:
 s21$scen.apa  # shows current source: 
 
-summary(s21)  # shows key parameter information:
+summary(s21)  # shows key scenario information:
 ```
 
-Generating the following plots will allow you a quick visual exploration of the scenario. 
-We only show a network plot here, and trust that you can check out the others for yourself: 
+Generating the following plots will allow you a quick visual exploration of the scenario. We only show a network plot here, and trust that you can check out the others for yourself: 
 
 #### Network diagram 
 
