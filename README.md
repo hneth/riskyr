@@ -38,10 +38,11 @@ Installation
 The most recent release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
-install.packages("riskyr")
+install.packages("riskyr")  # install riskyr from CRAN client
+library("riskyr")           # load to use the package
 ```
 
-You can also install the latest development version from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
+The latest development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
 
 ``` r
 # install.packages("devtools")

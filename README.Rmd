@@ -61,16 +61,16 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs. 
 
-
 ## Installation
 
 The most recent release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at  <https://CRAN.R-project.org/package=riskyr>: 
 
 ```{r install_CRAN, eval = FALSE}
-install.packages("riskyr")
+install.packages("riskyr")  # install riskyr from CRAN client
+library("riskyr")           # load to use the package
 ```
 
-You can also install the latest development version from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
+The latest development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
 
 ```{r install_github, eval = FALSE}
 # install.packages("devtools")
