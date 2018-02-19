@@ -1,5 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
+[![CRAN\_Status\_Badge](https://CRAN.R-project.org/package=riskyr)](https://CRAN.R-project.org/package=riskyr)
+
 riskyr
 ======
 
