@@ -26,11 +26,11 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 ) {
 
   arrows(x0, y0, x1, y1,
-         length = .00, angle = 45, code = 3,
+         length = .05, angle = 33, code = 3,
          lty = lty, lwd = lwd, col = col)  # arrow
 
   points(x0, y0, pch = pt.pch, cex = pt.cex,
-         lwd = pt.lwd, col = col.bord, bg = col)    # point 1
+         lwd = pt.lwd, col = col.bord, bg = col)  # point 1
 
   points(x1, y1, pch = pt.pch, cex = pt.cex,
          lwd = pt.lwd, col = col.bord, bg = col)  # point 2
@@ -238,9 +238,14 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## (4) Define plot area:
+  ## (4) Define plot area: ----------
+
+  ## Currently fixed parameters:
   xlim = c(0, 1)
   ylim = c(0, 1)
+  show.pss <- TRUE  # show help_line for prev, sens, spec?
+  show.pss.comp <- FALSE # show help_line for complements of prev, sens, spec?
+
   plot(x = 1,
        xlim = xlim, ylim = ylim,
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
@@ -249,7 +254,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   ## Graphical parameters:
   col.prev <- "gold"         # prev
   col.sens <- "whitesmoke"   # sens
-  col.spec <- "lightskyblue" # spec
+  col.spec <- "white"        # spec
   col.bord <- "black"        # borders
 
   ## Point appearance:
@@ -257,10 +262,13 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   pt.cex <- 1.4   # cex scaling of points
   pt.lwd <- 1.6   # lwd of point borders
 
+  ## Text labels:
   cex.lbl <- .90  # scaling factor for text labels
   cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
-  h.shift <- .00  # horizontal shifting of labels
-  v.shift <- .00  # vertical shifting of labels
+  # h.shift <- .00  # horizontal shifting of labels
+  # v.shift <- .00  # vertical shifting of labels
+
+  lwd.help <- 2.0 # line width of (main) helper lines
 
 
   ## (5) Mosaic plot: ----------
@@ -282,71 +290,110 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     rect(prev, 0, 1, y.prev.spec, col = pal["cr"], border = col.bord) # cr
 
     ## 2. Mark 3 key points:
-    points(prev, 1, pch = pt.pch, cex = pt.cex,
-           lwd = pt.lwd, col = col.bord, bg = col.prev)  # intersect prev x 1
-    points(x.prev.sens, y.prev.sens, pch = pt.pch, cex = pt.cex,
-           lwd = pt.lwd, col = col.bord, bg = col.sens)  # intersect prev x sens
-    points(x.prev.spec, y.prev.spec, pch = pt.pch, cex = pt.cex,
-           lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
+    # points(prev, 1, pch = pt.pch, cex = pt.cex,
+    #        lwd = pt.lwd, col = col.bord, bg = col.prev)  # intersect prev x 1
+    # points(x.prev.sens, y.prev.sens, pch = pt.pch, cex = pt.cex,
+    #        lwd = pt.lwd, col = col.bord, bg = col.sens)  # intersect prev x sens
+    # points(x.prev.spec, y.prev.spec, pch = pt.pch, cex = pt.cex,
+    #        lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
 
 
     ## 2. Show (prev) in plot: ----------
 
-    ## prev parameters:
-    prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
-    lty.prev <- 1           # prev line type
-    x.prev <- prev          # x-value of vertical lines
-    y.prev <- (1 - (1 - spec)/2)  # y-value of horizontal lines
-    # y.prev <- 1
+    if (show.pss) {
 
-    ## Draw prev (as vertical line):
-    # abline(v = x.prev, lty = lty.prev, lwd = 1, col = col.prev)
+      ## prev parameters:
+      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
+      lty.prev <- 1           # prev line type
+      x.prev <- prev          # x-value of vertical lines
+      y.prev <- (1 - (1 - spec)/2)  # y-value of horizontal lines
+      # y.prev <- 1
 
-    ## Show prev as horizontal help_line:
-    help_line(0, y.prev, x.prev, y.prev,
-              col = col.prev, col.bord = col.bord,
-              lty = 1, lwd = 1.5,
-              pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-              lbl.txt = prev.lbl, lbl.x = (prev/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
+      ## Draw prev (as vertical line):
+      # abline(v = x.prev, lty = lty.prev, lwd = 1, col = col.prev)
+
+      ## Show prev as horizontal help_line:
+      help_line(0, y.prev, x.prev, y.prev,
+                col = col.prev, col.bord = col.bord,
+                lty = 1, lwd = lwd.help,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = prev.lbl, lbl.x = (prev/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
+    }
 
     ## (b) prev complement (1 - prev):
 
-    ## Show complement (1 - prev) as horizontal help_line:
-    prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
-    help_line(x.prev, y.prev, 1, y.prev,
-              col = col.prev, col.bord = col.bord,
-              lty = 3, lwd = 1.5,
-              pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-              lbl.txt = prev.lbl, lbl.x = (prev + (1 - prev)/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
+    if (show.pss.comp) {
 
+      ## Show complement (1 - prev) as horizontal help_line:
+      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
+      help_line(x.prev, y.prev, 1, y.prev,
+                col = col.prev, col.bord = col.bord,
+                lty = 3, lwd = 1.5,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = prev.lbl, lbl.x = (prev + (1 - prev)/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
+    }
 
     ## 3. Show (sens) in plot: ----------
 
-    ## sens parameters:
-    sens.lbl <- "sens" # paste0("sens = ", as_pc(sens, n.digits = 1), "%")  # label for sens
-    lty.sens <- 1           # sens line type
-    x.sens <- (0 + prev/2)  # x-value of vertical lines
-    y.sens <- (1 - sens)    # y-value of horizontal lines
+    if (show.pss) {
 
-    ## Draw sens (as horizontal line):
-    # abline(h = y.sens, lty = lty.sens, lwd = 1, col = col.sens)
+      ## sens parameters:
+      sens.lbl <- "sens" # paste0("sens = ", as_pc(sens, n.digits = 1), "%")  # label for sens
+      lty.sens <- 1           # sens line type
+      x.sens <- (0 + prev/2)  # x-value of vertical lines
+      y.sens <- (1 - sens)    # y-value of horizontal lines
 
-    ## Show sens as vertical help_line:
-    help_line(x.sens, y.sens, x.sens, 1,
-              col = col.sens, col.bord = col.bord,
-              lty = 1, lwd = 1.5,
-              pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-              lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (y.sens + (sens/2)), lbl.pos = 4, lbl.cex = cex.lbl.sm)
+      ## Draw sens (as horizontal line):
+      # abline(h = y.sens, lty = lty.sens, lwd = 1, col = col.sens)
 
-    ## Show complement (1 - sens) as vertical help_line:
-    sens.lbl <- "(1 - sens)" # paste0("(1 - sens) = ", as_pc((1 - sens), n.digits = 1), "%")  # label for (1 - sens)
-    help_line(x.sens, 0, x.sens, y.sens,
-              col = col.sens, col.bord = col.bord,
-              lty = 3, lwd = 1.5,
-              pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-              lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (1-sens)/2, lbl.pos = 4, lbl.cex = cex.lbl.sm)
+      ## Show sens as vertical help_line:
+      help_line(x.sens, y.sens, x.sens, 1,
+                col = col.sens, col.bord = col.bord,
+                lty = 1, lwd = lwd.help,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (y.sens + (sens/2)), lbl.pos = 4, lbl.cex = cex.lbl.sm)
+    }
+
+    if (show.pss.comp) {
+      ## Show complement (1 - sens) as vertical help_line:
+      sens.lbl <- "(1 - sens)" # paste0("(1 - sens) = ", as_pc((1 - sens), n.digits = 1), "%")  # label for (1 - sens)
+      help_line(x.sens, 0, x.sens, y.sens,
+                col = col.sens, col.bord = col.bord,
+                lty = 3, lwd = 1.5,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (1-sens)/2, lbl.pos = 4, lbl.cex = cex.lbl.sm)
+    }
 
     ## 4. Show (spec) in plot: ----------
+
+    if (show.pss) {
+
+      ## sens parameters:
+      spec.lbl <- "spec" # paste0("spec = ", as_pc(spec, n.digits = 1), "%")  # label for spec
+      lty.spec <- 1                    # spec line type
+      x.spec <- (prev + (1 - prev)/2)  # x-value of vertical lines
+      y.spec <- spec                   # y-value of horizontal lines
+
+      ## Draw spec (as horizontal line):
+      # abline(h = y.spec, lty = lty.spec, lwd = 1, col = col.spec)
+
+      ## Show spec as vertical help_line:
+      help_line(x.spec, 0, x.spec, y.spec,
+                col = col.spec, col.bord = col.bord,
+                lty = 1, lwd = lwd.help,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = spec.lbl, lbl.x = x.spec, lbl.y = (spec/2), lbl.pos = 2, lbl.cex = cex.lbl.sm)
+    }
+
+    if (show.pss.comp) {
+      ## Show complement (1 - spec) as vertical help_line:
+      spec.lbl <- "(1 - spec)" # paste0("(1 - spec) = ", as_pc((1 - spec), n.digits = 1), "%")  # label for (1 - spec)
+      help_line(x.spec, spec, x.spec, 1,
+                col = col.spec, col.bord = col.bord,
+                lty = 3, lwd = 1.5,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = spec.lbl, lbl.x = x.spec, lbl.y = (spec + (1-spec)/2), lbl.pos = 2, lbl.cex = cex.lbl.sm)
+    }
 
     ## +++ here now +++ ##
 
