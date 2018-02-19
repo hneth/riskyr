@@ -5,7 +5,7 @@ riskyr
 
 **A toolbox for rendering risk literacy more transparent**
 
-Beginning with a condition (e.g., a disease), a corresponding decision (e.g., a clinical judgment or diagnostic test), and basic probabilities (e.g., the condition's prevalence `prev`, and the decision's sensitivity `sens` and specificity `spec`) we provide a range of functions and metrics to compute, translate, and represent risk-related information (e.g., as probabilities or frequencies for a population of `N` individuals). By offering a variety of different, but complementary perspectives on the interplay between key parameters, `riskyr` renders teaching and training of risk literacy more transparent.
+Risk-related information (like the prevalence of conditions and the sensitivity and specificity of decisions or diagnostic tests) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
 
 Motivation
 ----------
@@ -35,7 +35,13 @@ To deliver on these assumptions and goals, we provide a range of computational a
 Installation
 ------------
 
-You can install the latest development version of `riskyr` from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr>:
+The most recent release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
+
+``` r
+install.packages("riskyr")
+```
+
+You can also install the latest development version from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
 
 ``` r
 # install.packages("devtools")
@@ -94,7 +100,13 @@ Here is how `riskyr` allows you to view and solve such problems:
 ``` r
 library(riskyr)  # loads the package
 #> Welcome to riskyr!
-#> Ready to riskyr it...
+#> 
+#>       N
+#>     /  \
+#>   T      F
+#>  / \    / \
+#> hi  mi fa  cr
+#> 
 ```
 
 #### Creating a scenario
@@ -334,7 +346,7 @@ About
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 <a href="https://www.spds.uni-konstanz.de/"> <!--<img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 300px; float: right; border:20;"/> --> <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> </a>
 
-`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.1.0, as of Feb. 16, 2018) is still under development. Its primary developers and designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
+`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.1.0, as of Feb. 19, 2018) is still under development. Its primary developers and designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), and [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses.
 
@@ -355,8 +367,8 @@ To cite `riskyr` in derivations and publications use:
 -   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).
     `riskyr`: A toolbox for rendering risk literacy more transparent.
     Social Psychology and Decision Sciences, University of Konstanz, Germany.
-    Computer software (R package version 0.1.0, Feb. 16, 2018).
-    Retrieved from <https://github.com/hneth/riskyr>.
+    Computer software (R package version 0.1.0, Feb. 19, 2018).
+    Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
 
@@ -366,8 +378,8 @@ A BibTeX entry for LaTeX users is:
       year = {2018},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.1.0, Feb. 16, 2018)},
-      url = {https://github.com/hneth/riskyr},
+      note = {R package (version 0.1.0, Feb. 19, 2018)},
+      url = {https://CRAN.R-project.org/package=riskyr},
       }    
 
 Calling `citation("riskyr")` in the package also displays this information.

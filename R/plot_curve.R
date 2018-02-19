@@ -261,7 +261,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   if ("prev" %in% what) {
 
     ## 0. parameters:
-    lty.prev <- 2                            # prev line type
+    lty.prev <- 2  # prev line type
 
     ## color:
     if (length(what.col) == length(what)) { # a color vector was specified:

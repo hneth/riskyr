@@ -868,8 +868,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   plot(x = 1,
        xlim = xlim, ylim = ylim,
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-       bty = "o", fg = "grey"
-  )
+       bty = "o", fg = "grey")
 
   ## 3a) Set plotting character:
   # pch <- 22  # filled square as default.
