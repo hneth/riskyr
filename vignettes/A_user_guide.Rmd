@@ -538,7 +538,6 @@ Cambridge, MA: Harvard University Press.
 <!--<img src = "../inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:10;"/> --> 
 </a>
 
-
 We appreciate your feedback, comments, or questions. 
 
 - Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
