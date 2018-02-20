@@ -64,8 +64,8 @@ A basic motivation for developing `riskyr` was to facilitate our understanding o
 
 > **Mammography screening** 
 > 
-> The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening.  
-> If a woman has breast cancer, the probability is 80% that she will get a positive mammography.  
+> The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening. 
+> If a woman has breast cancer, the probability is 80% that she will get a positive mammography. 
 > If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.  
 > 
 > A woman in this age group had a positive mammography in a routine screening.  
@@ -208,11 +208,7 @@ If others find the ways in which `riskyr` computes, transforms, and represents r
 
 ### A. A fancy calculator 
 
-`riskyr` provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) 
-from given inputs (probabilities and frequencies). For instance, the following function computes the 
-positive predictive value `PPV` from the 
-3 basic probabilities `prev`, `sens`, and `spec` (with `spec` = 1 -- `fart`) 
-that were provided in the original problem:
+`riskyr` provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value `PPV` from the 3 essential probabilities `prev`, `sens`, and `spec` (with `spec` = 1 -- `fart`) that were provided in the original problem:
 
 ```{r comp_PPV}
 library("riskyr")  # loads the package
@@ -220,7 +216,7 @@ library("riskyr")  # loads the package
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 ```
 
-It's good to know that `riskyr` can apply Bayes' formula, but so can any other basic calculator --- including by brain on a good day and some environmental support in the form of paper and pencil. The R in `riskyr` only begins to make sense when considering functions like the following:
+It's good to know that `riskyr` can apply Bayes' formula, but so can any other decent calculator --- including my brain on a good day and some environmental support in the form of paper and pencil. The R in `riskyr` only begins to make sense when considering functions like the following: `comp_prob_prob` computes probabilities from probabilities (hence its name). More precisely, `comp_prob_prob` takes 3 essential probabilities as inputs and returns a list of 10 probabilites as its output: 
 
 ```{r comp_prob_prob_1}
 # Compute probabilities from 3 essential probabilities:                 # Input arguments:
@@ -233,7 +229,7 @@ all.equal(p1, p2)
 all.equal(p2, p3)
 ```
 
-The function `comp_prob_prob` computes probabilities from probabilities (hence its name). The probabilities provided need to include a prevalence `prev`, a sensitivity `sens`, and either the specificity `spec` or the false alarm rate `fart` (with `spec` = 1 -- `fart`). The code above shows 3 different ways in which 3 of these "essential" probabilities can be provided (and hence the objects `p1`, `p2`, and `p3` are all equal to each other). 
+The probabilities provided need to include a prevalence `prev`, a sensitivity `sens`, and either the specificity `spec` or the false alarm rate `fart` (with `spec` = 1 -- `fart`). The code above illustrates 3 different ways in which 3 of these "essential" probabilities can be provided. Thus, the assigned objects `p1`, `p2`, and `p3` are all equal to each other. 
 
 The probabilities computed by these "essential" probabilities include the `PPV`, which can be obtained by asking for `p1$PPV` = `r p1$PPV`. But the object computed by `comp_prob_prob` is actually a list of 10 probabilities and can be inspected by printing `p1`:
 
@@ -243,7 +239,7 @@ p1
 
 The list of probabilities computed includes the 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (See the vignette on [data formats](B_data_formats.html) for details on these probabilities.)
 
-Incidentally, as R does not case whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem --- the version reframed in terms of frequencies --- yields the same solution:
+Incidentally, as R does not care whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem --- the version reframed in terms of frequencies --- yields the same solution:
 
 ```{r comp_prob_prob_2}
 # Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:

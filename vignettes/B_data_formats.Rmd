@@ -74,22 +74,22 @@ The following 11 frequencies are distinguished by `riskyr` and contained in `fre
 
 The frequencies contained in `freq` can be viewed from two perspectives:
 
-- From the entire population to different parts or subsets (_top-down_):<br>
+1. **Top-down: ** From the entire population to different parts or subgroups:<br> 
 Whereas `N` specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency `dec.pos` denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to `N`.
 
-- From four essential subgroups to various combinations of them (_bottom-up_):<br>
-As the four frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or four _essential_ frequencies. All other frequencies in `freq` are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.
+2. **Bottom-up: ** From the 4 essential subgroups to various combinations of them:<br> 
+As the 4 frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or four _essential_ frequencies. All other frequencies in `freq` are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.
 
 ### Relationships among frequencies
 
 The following relationships hold among the 11 frequencies:
 
-1. The population size `N` can be split into several subgroups by classifying individuals by four different criteria:
+1. The population size `N` can be split into several subgroups by classifying individuals by 4 different criteria:
 
-    - (a) by condition
-    - (b) by decision
-    - (c) by the correspondence of decisions to conditions
-    - (d) by the actual combination of condition and decision
+    a. by condition; 
+    b. by decision; 
+    c. by the correspondence of decisions to conditions; 
+    d. by the actual combination of condition and decision. 
 
 Depending on the criterion used, the following relationships hold:
 

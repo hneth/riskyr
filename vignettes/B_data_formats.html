@@ -177,30 +177,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="perspectives-basic-vs.combined-frequencies" class="section level3">
 <h3>Perspectives: Basic vs. combined frequencies</h3>
 <p>The frequencies contained in <code>freq</code> can be viewed from two perspectives:</p>
-<ul>
-<li><p>From the entire population to different parts or subsets (<em>top-down</em>):<br> Whereas <code>N</code> specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency <code>dec.pos</code> denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to <code>N</code>.</p></li>
-<li><p>From four essential subgroups to various combinations of them (<em>bottom-up</em>):<br> As the four frequencies <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> are not further split into subgroups, we can think of them as atomic elements or four <em>essential</em> frequencies. All other frequencies in <code>freq</code> are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.</p></li>
-</ul>
+<ol style="list-style-type: decimal">
+<li><p><strong>Top-down: </strong> From the entire population to different parts or subgroups:<br> Whereas <code>N</code> specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency <code>dec.pos</code> denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to <code>N</code>.</p></li>
+<li><p><strong>Bottom-up: </strong> From the 4 essential subgroups to various combinations of them:<br> As the 4 frequencies <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> are not further split into subgroups, we can think of them as atomic elements or four <em>essential</em> frequencies. All other frequencies in <code>freq</code> are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.</p></li>
+</ol>
 </div>
 <div id="relationships-among-frequencies" class="section level3">
 <h3>Relationships among frequencies</h3>
 <p>The following relationships hold among the 11 frequencies:</p>
 <ol style="list-style-type: decimal">
-<li><p>The population size <code>N</code> can be split into several subgroups by classifying individuals by four different criteria:</p>
-<ul>
-<li><ol style="list-style-type: lower-alpha">
-<li>by condition</li>
+<li><p>The population size <code>N</code> can be split into several subgroups by classifying individuals by 4 different criteria:</p>
+<ol style="list-style-type: lower-alpha">
+<li>by condition;</li>
+<li>by decision;</li>
+<li>by the correspondence of decisions to conditions;</li>
+<li>by the actual combination of condition and decision.</li>
 </ol></li>
-<li><ol start="2" style="list-style-type: lower-alpha">
-<li>by decision</li>
-</ol></li>
-<li><ol start="3" style="list-style-type: lower-alpha">
-<li>by the correspondence of decisions to conditions</li>
-</ol></li>
-<li><ol start="4" style="list-style-type: lower-alpha">
-<li>by the actual combination of condition and decision</li>
-</ol></li>
-</ul></li>
 </ol>
 <p>Depending on the criterion used, the following relationships hold:</p>
 <p><span class="math display">\[ 
