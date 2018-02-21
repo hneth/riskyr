@@ -63,8 +63,12 @@
   orange.1 <- makeTransparent(my.orange, alpha = .50)
   orange.2 <- makeTransparent(my.orange, alpha = 1.0)
 
-  my.whitish <- "antiquewhite"
+  my.whitish <- "antiquewhite" # "whitesmoke"
   my.bluish <- "aliceblue"
+
+  prev.li <- "gold"       # "aliceblue"
+  sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
+  spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
 
 }
 
