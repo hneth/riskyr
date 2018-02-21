@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 02 20
+## 2018 02 21
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -114,10 +114,15 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #'   \item \code{"dc"} ... by decision (horizontal split first).
 #'   }
 #'
-#' @param show.help Boolean option for showing visual help lines to mark
+#' @param show.freq Boolean option for showing frequencies
+#' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
+#' \code{\link{cr}}) in the plot.
+#' Default: \code{show.freq = FALSE}.
+#'
+#' @param show.prob Boolean option for showing visual help lines to mark
 #' generating metrics (e.g., \code{\link{prev}}, \code{\link{sens}}, and
 #' \code{\link{spec}}) in the plot.
-#' Default: \code{show.help = FALSE}.
+#' Default: \code{show.prob = FALSE}.
 #'
 #' @param show.accu Option for showing current
 #' accuracy metrics \code{\link{accu}} in the plot.
@@ -180,9 +185,10 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                           N = num$N,  # not needed in Mosaic plot (but used in comp_freq below)
                           ## Options:
                           by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
-                          show.help = FALSE, # show help_line (for metrics, e.g., prev, sens, spec)?
-                          show.accu = TRUE,  # compute and show accuracy metrics
-                          w.acc = .50,       # weight w for wacc (from 0 to 1)
+                          show.freq = FALSE,  # show labels of 4 frequencies in plot
+                          show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
+                          show.accu = TRUE,   # compute and show accuracy metrics
+                          w.acc = .50,        # weight w for wacc (from 0 to 1)
                           ## Text and color options: ##
                           title.lbl = txt$scen.lbl,
                           col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
@@ -258,19 +264,20 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   xlim = c(0, 1)
   ylim = c(0, 1)
 
-  show.met <- show.help  # recode: show help_line for metrics (e.g., prev, sens, spec)?
-  show.met.comp <- FALSE # show help_line for complements of metrics (e.g, prev, sens, spec)?
+  show.met <- show.prob   # recode: show help_line for metrics (e.g., prev, sens, spec)?
+  show.met.comp <- FALSE  # show help_line for complements of metrics (e.g, prev, sens, spec)?
 
+  ## Plot area setup:
   plot(x = 1,
        xlim = xlim, ylim = ylim,
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
        bty = "o", fg = grey(.50, alpha = .99))
 
   ## Graphical parameters:
-  col.prev <- "gold"         # prev
-  col.sens <- "whitesmoke"   # sens
-  col.spec <- "white"        # spec
-  col.bord <- "black"        # borders
+  col.prev <- prev.li  # prev help line
+  col.sens <- sens.li  # sens help line
+  col.spec <- spec.li  # spec help line
+  col.bord <- grey(.11, .99)  # borders and labels
 
   ## Point appearance:
   pt.pch <- 21    # pch symbol of points
@@ -278,7 +285,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   pt.lwd <- 1.6   # lwd of point borders
 
   ## Text labels:
-  col.lbl <- grey(.11, .99)  # dark grey
+  col.lbl <- col.bord
   cex.lbl <- .90   # scaling factor for text labels
   cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
   h.shift <- .05   # horizontal shifting of labels
@@ -287,7 +294,6 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   # help line properties (main metrics):
   lty.help <- 1    # line type
   lwd.help <- 2.5  # line width
-
 
   ## (5) Mosaic plot: ----------
 
@@ -315,56 +321,39 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     # points(x.prev.spec, y.prev.spec, pch = pt.pch, cex = pt.cex,
     #        lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
 
-    ## 3. Label 4 categories at sides:
-    text(x = (prev/2), y = 1, labels = "cond.true", pos = 3, col = col.lbl, cex = cex.lbl.sm) # on top
-    text(x = (prev + (1 - prev)/2), y = 1, labels = "cond.false", pos = 3, col = col.lbl, cex = cex.lbl.sm) # on top
+    ## 3. Label 4 categories at all 4 sides:
+    text(x = (prev/2), y = 1, labels = "cond.true", pos = 3, col = col.lbl, cex = cex.lbl.sm)  # at top
+    text(x = (prev + (1 - prev)/2), y = 1, labels = "cond.false", pos = 3, col = col.lbl, cex = cex.lbl.sm)  # at top
+    text(x = (prev/2), y = 0, labels = "cond.true", pos = 1, col = col.lbl, cex = cex.lbl.sm)  # at bottom
+    text(x = (prev + (1 - prev)/2), y = 0, labels = "cond.false", pos = 1, col = col.lbl, cex = cex.lbl.sm)  # at bottom
 
-    text(x = 0, y = (1 - (sens/2) + v.shift), labels = "dec.pos", srt = 90, pos = 2, col = col.lbl, cex = cex.lbl.sm) # on top
-    text(x = 0, y = ((1 - sens)/2 + v.shift), labels = "dec.neg", srt = 90, pos = 2, col = col.lbl, cex = cex.lbl.sm) # on top
-    text(x = 1, y = (spec + (1 - spec)/2 + v.shift), labels = "dec.pos", srt = -90, pos = 4, col = col.lbl, cex = cex.lbl.sm) # on top
-    text(x = 1, y = (spec/2 + v.shift), labels = "dec.neg", srt = -90, pos = 4, col = col.lbl, cex = cex.lbl.sm) # on top
+    text(x = 0, y = (1 - (sens/2) + v.shift), labels = "dec.pos", srt = 90, pos = 2, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 0, y = ((1 - sens)/2 + v.shift), labels = "dec.neg", srt = 90, pos = 2, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 1, y = (spec + (1 - spec)/2 + v.shift), labels = "dec.pos", srt = -90, pos = 4, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 1, y = (spec/2 + v.shift), labels = "dec.neg", srt = -90, pos = 4, col = col.lbl, cex = cex.lbl.sm)  # on top
+
+    ## 4. Label 4 freq in 4 rectangles:
+
+    if (show.freq) {
+
+      col.lbl <- my.whitish
+
+      hi.lbl <- paste0("hi = ", n.hi, "")  # label for hi
+      mi.lbl <- paste0("mi = ", n.mi, "")  # label for mi
+      fa.lbl <- paste0("fa = ", n.fa, "")  # label for fa
+      cr.lbl <- paste0("cr = ", n.cr, "")  # label for cr
+
+      text(x = prev/2, y = ((1 - sens) + sens/2), labels = hi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
+      text(x = prev/2, y = ((1 - sens)/2), labels = mi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
+      text(x = (prev + (1 - prev)/2), y = (spec + (1-spec)/2), labels = fa.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
+      text(x = (prev + (1 - prev)/2), y = (spec/2), labels = cr.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
+
+    }
 
     ## +++ here now +++ ##
 
-    ## 4. Label 4 rectangles:
 
-
-    ## 2. Show (prev) in plot: ----------
-
-    if (show.met) {
-
-      ## prev parameters:
-      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
-      lty.prev <- 1           # prev line type
-      x.prev <- prev          # x-value of vertical lines
-      y.prev <- (1 - (1 - spec)/2)  # y-value of horizontal lines: top section
-      # y.prev <- 1  # at top
-
-      ## Draw prev (as vertical line):
-      # abline(v = x.prev, lty = lty.prev, lwd = 1, col = col.prev)
-
-      ## Show prev as horizontal help_line:
-      help_line(0, y.prev, x.prev, y.prev,
-                col = col.prev, col.bord = col.bord,
-                lty = lty.help, lwd = lwd.help,
-                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = prev.lbl, lbl.x = (prev/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
-    }
-
-    ## (b) prev complement (1 - prev):
-
-    if (show.met.comp) {
-
-      ## Show complement (1 - prev) as horizontal help_line:
-      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
-      help_line(x.prev, y.prev, 1, y.prev,
-                col = col.prev, col.bord = col.bord,
-                lty = 3, lwd = 1.5,
-                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = prev.lbl, lbl.x = (prev + (1 - prev)/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
-    }
-
-    ## 3. Show (sens) in plot: ----------
+    ## 1. Show (sens) in plot: ----------
 
     if (show.met) {
 
@@ -396,7 +385,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                 lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (1-sens)/2, lbl.pos = 4, lbl.cex = cex.lbl.sm)
     }
 
-    ## 4. Show (spec) in plot: ----------
+    ## 2. Show (spec) in plot: ----------
 
     if (show.met) {
 
@@ -438,6 +427,45 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     #             main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
     #             sub = paste0(cur.par.lbl)  # print label
     #             )
+    ## 3. Show (prev) in plot: ----------
+
+    if (show.met) {
+
+      ## prev parameters:
+      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
+      lty.prev <- 1           # prev line type
+      x.prev <- prev          # x-value of vertical lines
+      ## y-value of horizontal lines:
+      if ((sens > spec) && spec > .10) { y.prev <- (spec - .10) }
+      else if ((spec > sens) && sens > .10) { y.prev <- (1 - sens + .10) }
+      else { y.prev <- .50 }  # in middle
+      # y.prev <- 1  # at top
+
+      ## Draw prev (as vertical line):
+      # abline(v = x.prev, lty = lty.prev, lwd = 1, col = col.prev)
+
+      ## Show prev as horizontal help_line:
+      help_line(0, y.prev, x.prev, y.prev,
+                col = col.prev, col.bord = col.bord,
+                lty = lty.help, lwd = lwd.help,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = prev.lbl, lbl.x = (prev/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
+    }
+
+    ## (b) prev complement (1 - prev):
+
+    if (show.met.comp) {
+
+      ## Show complement (1 - prev) as horizontal help_line:
+      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
+      help_line(x.prev, y.prev, 1, y.prev,
+                col = col.prev, col.bord = col.bord,
+                lty = 3, lwd = 1.5,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = prev.lbl, lbl.x = (prev + (1 - prev)/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
+    }
+
+
   }
 
   else if (by == "dc") {
