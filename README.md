@@ -1,4 +1,6 @@
 
+[![Downloads](http://cranlogs.r-pkg.org/badges/FFTrees?color=brightgreen)](http://www.r-pkg.org/pkg/FFTrees)
+
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 `riskyr`
 ========
