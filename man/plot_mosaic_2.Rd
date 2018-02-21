@@ -5,7 +5,7 @@
 \title{Plot a mosaic plot of population frequencies.}
 \usage{
 plot_mosaic_2(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cd", vsplit,
+  spec = num$spec, fart = NA, N = num$N, by = "cd", show.help = FALSE,
   show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
   col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 }
@@ -45,8 +45,10 @@ are computed from scratch from current probabilities.)}
 \item \code{"dc"} ... by decision (horizontal split first).
 }}
 
-\item{vsplit}{Deprecated option for toggling between
-vertical and horizontal split. Please use \code{by} instead.}
+\item{show.help}{Boolean option for showing visual help lines to mark
+generating metrics (e.g., \code{\link{prev}}, \code{\link{sens}}, and
+\code{\link{spec}}) in the plot.
+Default: \code{show.help = FALSE}.}
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
