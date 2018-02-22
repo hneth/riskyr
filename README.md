@@ -1,5 +1,5 @@
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) -->
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) -->
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 riskyr
@@ -132,7 +132,7 @@ summary(hustosis)  # summarizes key parameter values:
 #> Decision:  screening test 
 #> Population:  representative sample 
 #> N =  1000 
-#> Source:  Source information for this scenario 
+#> Source:  Source information 
 #> 
 #> Probabilities:
 #> 
