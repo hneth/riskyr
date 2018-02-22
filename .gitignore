@@ -3,7 +3,6 @@
 .Rhistory
 .RData
 .Ruserdata
-.Rbuildignore
 .DS_Store
 _gitless
 data-raw

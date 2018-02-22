@@ -3,6 +3,9 @@
 
 The most recent development version (riskyr 0.1.0.901) is available at <https://github.com/hneth/riskyr/>. 
 
+
+# Changes
+
 Log of changes since last release: 
 
 ## Major changes
@@ -26,7 +29,7 @@ Cast dice to display a risk-related start-up message.
 
 ## Micro changes
 
-- Miscellaneous corrections in vignettes and documentation. 
+- Miscellaneous corrections in documentation and vignettes. 
 
 
 # riskyr 0.1.0
