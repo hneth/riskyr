@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 02 21
+## 2018 02 22
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)

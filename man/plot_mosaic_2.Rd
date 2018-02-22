@@ -5,9 +5,10 @@
 \title{Plot a mosaic plot of population frequencies.}
 \usage{
 plot_mosaic_2(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cd", show.help = FALSE,
-  show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
-  col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
+  spec = num$spec, fart = NA, N = num$N, by = "cd", show.freq = FALSE,
+  show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
+  title.lbl = txt$scen.lbl, col.sdt = c(pal["hi"], pal["mi"], pal["fa"],
+  pal["cr"]))
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -45,10 +46,15 @@ are computed from scratch from current probabilities.)}
 \item \code{"dc"} ... by decision (horizontal split first).
 }}
 
-\item{show.help}{Boolean option for showing visual help lines to mark
+\item{show.freq}{Boolean option for showing frequencies
+(i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
+\code{\link{cr}}) in the plot.
+Default: \code{show.freq = FALSE}.}
+
+\item{show.prob}{Boolean option for showing visual help lines to mark
 generating metrics (e.g., \code{\link{prev}}, \code{\link{sens}}, and
 \code{\link{spec}}) in the plot.
-Default: \code{show.help = FALSE}.}
+Default: \code{show.prob = FALSE}.}
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
