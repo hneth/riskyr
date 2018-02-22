@@ -1,5 +1,5 @@
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) -->
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 riskyr
@@ -32,19 +32,19 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 3.  Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
 
-To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
+To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
 
 Installation
 ------------
 
-The most recent release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
+The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
 install.packages("riskyr")  # install riskyr from CRAN client
 library("riskyr")           # load to use the package
 ```
 
-The latest development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
+The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
 
 ``` r
 # install.packages("devtools")
@@ -60,7 +60,7 @@ Quick Start Guide
 
 > **Screening for hustosis**
 >
-> A new screening device for detecting the clinical condition of *hustosis* is developed. Its current version is very good, but not yet perfect. It has the following properties:
+> A new screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not yet perfect. It has the following properties:
 > 1. About 4% of the general population suffer from *hustosis*.
 > 2. If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.
 > 3. If someone is free from hustosis, there is a chance of 4% that he or she will still test positively for the condition.
@@ -118,9 +118,11 @@ hustosis <- riskyr(scen.lbl = "Example",
                    )
 ```
 
+By providing the argument `N = 1000` we defined the scenario for a target population of 1000 people. If we left this parameter unspecified (or `NA`), `riskyr` will automatically pick a suitable value of `N` to compute frequency information.
+
 #### Summary
 
-To obtain a quick overview of key parameter values, we could ask for the `summary` of our `hustosis` scenario:
+To obtain a quick overview of key parameter values, we ask for the `summary` of our `hustosis` scenario:
 
 ``` r
 summary(hustosis)  # summarizes key parameter values: 
@@ -130,7 +132,7 @@ summary(hustosis)  # summarizes key parameter values:
 #> Decision:  screening test 
 #> Population:  representative sample 
 #> N =  1000 
-#> Source:  Source information 
+#> Source:  Source information for this scenario 
 #> 
 #> Probabilities:
 #> 
@@ -166,7 +168,7 @@ summary(hustosis)  # summarizes key parameter values:
 #> 0.944
 ```
 
-The summary distinguishes between probabilities, frequencies, and accuracy information. In `Probabilities` we find the answer to both of our questions when taking into account the information provided above:
+The summary distinguishes between probabilities, frequencies, and accuracy information. In `Probabilities` we find the answer to both of our questions that take into account all the information provided above:
 
 -   The conditional probability that Mr. Smith actually suffers from hustosis given his positive test result is 40% (as `PPV = 0.400`).
 
@@ -182,14 +184,16 @@ plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decisio
 
 ![](inst/pix/README-ex1_tree-1.png)
 
-This particular tree, which splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`), actually contains the answer to the second version of our questions:
+This particular tree, which splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`), actually contains the answer to the second (frequency) version of our questions:
 
 -   The proportion of individuals with a positive test result who actually suffer from hustosis is the frequency of "true positive" cases (shown in darker green) divided by "decision positive" cases (shown in purple): `32/80 = .400` (corresponding to our value of `PPV` above).
 -   The proportion of individuals with a negative test result who are actually free from hustosis is the frequency of "true negative" cases (shown in lighter green) divided by "decision negative" cases (shown in blue): `912/920 = .991` (corresponding to our value of `NPV` above, except for minimal differences due to rounding).
 
-Of course, the frequencies of these ratios were already contained in the `hustosis` summary above. But the representation in the form of a tree diagram makes it easier to understand which frequencies are required to answer the question.
+Of course, the frequencies of these ratios were already contained in the `hustosis` summary above. But the representation in the form of a tree diagram makes it easier to understand the decomposition of the population into subgroups and to see which frequencies are required to answer a particular question.
 
 #### Icon array
+
+An icon array shows the classification result for each of `N = 1000` individuals in our population:
 
 ``` r
 plot(hustosis, plot.type = "icons")   # plot an icon array: 
@@ -197,7 +201,11 @@ plot(hustosis, plot.type = "icons")   # plot an icon array:
 
 ![](inst/pix/README-ex1_icons-1.png)
 
+While this particular icon array is highly regular (as both the icons and classification types are ordered), `riskyr` provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density.
+
 #### Mosaic plot
+
+The mosaic plot offers a way of expressing classification results as the relationship between areas. Here, the entire population is represented as a square and the probability of its subgroups as the size of rectangles:
 
 ``` r
 plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
@@ -207,6 +215,8 @@ plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot:
 
 #### Curves
 
+By adopting a functional perspective, we can ask how the values of some parameters (e.g., `PPV` or `NPV`) change as a function of another (e.g., `prev`):
+
 ``` r
 plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
 ```
@@ -214,6 +224,8 @@ plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence
 ![](inst/pix/README-ex1_curve-1.png)
 
 #### Planes
+
+When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`) of our test for a given prevalence (`prev`):
 
 ``` r
 plot(hustosis, plot.type = "plane", theta = -60)  # plot plane (as a function of sens x spec):
@@ -413,6 +425,6 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 [2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.)
 
-[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for lots of similar problems. Also, Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) report related training programs.
+[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs.
 
 [4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of *natural frequencies*.
