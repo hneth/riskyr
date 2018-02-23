@@ -3,3 +3,11 @@
 language: R
 sudo: false
 cache: packages
+
+notifications:
+  email:
+    recipients:
+      - h.neth@uni.kn
+      - contact.riskyr@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
