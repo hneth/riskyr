@@ -44,15 +44,6 @@ For our present purposes, the notion of risk-related information refers to any s
 
 [^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
 
-<!-- riskyr logo: -->  
-<a href = "https://github.com/hneth/riskyr">
-<!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> -->
-<img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/>
-</a>
-<!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
-<!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
-
-
 <!-- On "riskyr": -->
 
 Basic assumptions and goals driving the current development of `riskyr` include the following:
@@ -355,6 +346,14 @@ We appreciate your feedback, comments, or questions.
 
 
 ### Reference
+
+<!-- riskyr logo: -->  
+<a href = "https://github.com/hneth/riskyr">
+<img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" align = "right" style = "width: 180px; float: right; border:20;"/>
+</a> 
+<!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->
+<!-- ![riskyr](./inst/pix/riskyr_cube.png) --> 
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
 
 To cite `riskyr` in derivations and publications use:
 

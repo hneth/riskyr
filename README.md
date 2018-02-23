@@ -23,9 +23,6 @@ The issues addressed by `riskyr` are less of a *computational* and more of a *re
 <!-- Defining "risk": -->
 To clarify our notion of "risk" in this context: In research on probability judgments and risk perception, the term *risk* typically refers to decisions or events for which the options and their consequences are known and *probabilities* for all possible outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
 
-<!-- riskyr logo: -->
-<a href = "https://github.com/hneth/riskyr"> <!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> --> <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
-
 <!-- On "riskyr": -->
 Basic assumptions and goals driving the current development of `riskyr` include the following:
 
@@ -380,6 +377,9 @@ We appreciate your feedback, comments, or questions.
 -   For general inquiries, please email us at <contact.riskyr@gmail.com>.
 
 ### Reference
+
+<!-- riskyr logo: -->
+<a href = "https://github.com/hneth/riskyr"> <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" align = "right" style = "width: 180px; float: right; border:20;"/> </a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
 
 To cite `riskyr` in derivations and publications use:
 
