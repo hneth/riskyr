@@ -18,8 +18,14 @@ knitr::opts_chunk$set(
 
 
 # riskyr
+
 <!-- riskyr logo: -->  
-<img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right;width:180px;"/>
+<a href = "https://github.com/hneth/riskyr">
+<img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
+</a> 
+<!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->
+<!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> 
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
 **A toolbox for rendering risk literacy more transparent**
 
@@ -315,8 +321,8 @@ Hopefully, this brief overview managed to whet your appetite for visual explorat
 <!-- uni.kn logo and link to SPDS: -->  
 <!-- ![](./inst/pix/uniKn_logo.png) --> 
 <a href="https://www.spds.uni-konstanz.de/">
-<!--<img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 300px; float: right; border:20;"/> --> 
-<img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/>
+<img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" align = "right" width = "300" style = "width: 300px; float: right; border:20;"/> --> 
+<!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --> 
 </a>
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. 
