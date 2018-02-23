@@ -12,7 +12,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "inst/pix/README-"
 )
 ```
 
@@ -40,8 +40,8 @@ The issues addressed by `riskyr` are less of a _computational_ and more of a _re
 
 <!-- Defining the notion of "risk": -->
 
-To clarify the concept of "risk" in this context: The term _risk_ typically refers to information or decisions for which all options and their consequences are known and _probabilities_ for the different outcomes can be provided.[^2] 
-For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities — like casting dice or using any other randomization device.
+To clarify the concept of "risk" in this context: In research on probability judgments and risk perception, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and _probabilities_ for all possible outcomes can be provided.[^2] 
+For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
 
 [^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
 
