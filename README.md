@@ -6,7 +6,7 @@ riskyr
 ======
 
 <!-- riskyr logo: -->
-<img alt = "riskyr logo" title = "riskyr" align = "right" src = "./inst/pix/riskyr_cube_s.png" width = "180px" style = "float:right;width:180px;"/>
+<img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right;width:180px;"/>
 
 **A toolbox for rendering risk literacy more transparent**
 
@@ -379,7 +379,7 @@ We appreciate your feedback, comments, or questions.
 ### Reference
 
 <!-- riskyr logo: -->
-<a href = "https://github.com/hneth/riskyr"> <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" align = "right" style = "width: 180px; float: right; border:20;"/> </a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
+<a href = "https://github.com/hneth/riskyr"> <img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/> </a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
 To cite `riskyr` in derivations and publications use:
 
