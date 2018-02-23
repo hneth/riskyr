@@ -14,11 +14,11 @@ Motivation
 
 > Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)[1]
 
-<!-- Risks as representational effects: -->
+<!-- Risk perception as representational effects: -->
 The issues addressed by `riskyr` are less of a *computational* and more of a *representational* nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of *probabilities*, the same information is often easy to understand and compute when expressed in terms of *frequencies*. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
 
-<!-- Defining the notion of "risk": -->
-To clarify the concept of "risk" in this context: In research on probability judgments and risk perception, the term *risk* typically refers to decisions or events for which the options and their consequences are known and *probabilities* for all possible outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
+<!-- Defining "risk": -->
+To clarify our notion of "risk" in this context: In research on probability judgments and risk perception, the term *risk* typically refers to decisions or events for which the options and their consequences are known and *probabilities* for all possible outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
 
 <!-- riskyr logo: -->
 <a href = "https://github.com/hneth/riskyr"> <!-- <img src = "./inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 180px; float: right; border:20;"/> --> <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" style = "float: right; border:20;"/> </a> <!-- ![riskyr](./inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube.png") -->
@@ -54,14 +54,16 @@ devtools::install_github("hneth/riskyr")
 Quick Start Guide
 -----------------
 
+<!-- 1: Defining a scenario -->
 ### Defining a scenario
 
 `riskyr` is designed to address problems like the following:[3]
 
+<!-- Example: -->
 > **Screening for hustosis**
 >
-> A new screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not yet perfect. It has the following properties:
-> 1. About 4% of the general population suffer from *hustosis*.
+> A screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not perfect. It has the following properties:
+> 1. About 4% of the people of the general population suffer from *hustosis*.
 > 2. If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.
 > 3. If someone is free from hustosis, there is a chance of 4% that he or she will still test positively for the condition.
 >
@@ -75,11 +77,11 @@ Quick Start Guide
 
 #### Probabilities provided
 
-The first challenge in solving such problems is in understanding the information provided. The problem description provides three essential probabilities:
+The first challenge in solving such problems is in understanding the information that is being provided. The problem description provides three essential probabilities:
 
-1.  The condition's *prevalence* (in the general population) of 4%: `prev = .04`.
-2.  The device's or diagnostic decision's *sensitivity* of 80%: `sens = .80`.
-3.  The device's or diagnostic decision's *false alarm rate* of 4%, implying a *specificity* of (100% − 4%) = 96%: `spec = .04`.
+1.  The condition's *prevalence* (in the general population) is 4%: `prev = .04`.
+2.  The device's or diagnostic decision's *sensitivity* is 80%: `sens = .80`.
+3.  The device's or diagnostic decision's *false alarm rate* is 4%, implying a *specificity* of (100% − 4%) = 96%: `spec = .04`.
 
 #### Understanding the questions asked
 
@@ -235,6 +237,7 @@ plot(hustosis, plot.type = "plane", theta = -60)  # plot plane (as a function of
 
 The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. While our current value of 95% (`spec = .95`) may sound pretty good, it still is not high enough to yield a `PPV` beyond 40%.
 
+<!-- 2: Loading and using pre-defined scenarios -->
 ### Using existing scenarios
 
 As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of — currently 25 — pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them.
@@ -306,7 +309,7 @@ summary(s21)  # shows key scenario information:
 #> 0.575
 ```
 
-Generating the following plots will allow you a quick visual exploration of the scenario. We only show a network plot here, and trust that you can check out the others for yourself:
+Generating the following plots will allow you a quick visual exploration of the scenario. We only show selected plots here, and trust that you can try out the others for yourself.
 
 #### Network diagram
 
@@ -315,6 +318,8 @@ plot(s21) # plots a network diagram (by default):
 ```
 
 ![](inst/pix/README-ex2_fnet-1.png)
+
+In this version of a network diagram, all frequencies are represented as colored squares and the relative sizes of their areas represent the number of people in the corresponding subgroups.
 
 #### Icon array
 
@@ -335,6 +340,10 @@ The following curves show values of conditional probabilities as a function of p
 ``` r
 plot(s21, plot.type = "curve", what = "all")  # plot all curves (as a function of prevalence):
 ```
+
+![](inst/pix/README-ex2_curve-1.png)
+
+Adding the argument `what = "all"` also shows the proportion of positive decisions (`ppod`) and the decision's overall accuracy (`accu`) as a function of the prevalence (`prev`). Would you have predicted their shape without seeing this graph?
 
 #### Planes
 
