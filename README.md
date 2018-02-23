@@ -5,6 +5,9 @@
 riskyr
 ======
 
+<!-- riskyr logo: -->
+<img alt = "riskyr logo" title = "riskyr" align = "right" src = "./inst/pix/riskyr_cube_s.png" width = "180px" style = "float:right;width:180px;"/>
+
 **A toolbox for rendering risk literacy more transparent**
 
 Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
