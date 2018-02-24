@@ -41,11 +41,11 @@ Risk-related information — like the prevalence of conditions and the sensitivi
 
 <!-- Risk perception as representational effects: -->
 
-The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of _probabilities_, the same information is often easy to understand and compute when expressed in terms of _frequencies_. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of probabilities, the same information is often easy to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
 
 <!-- Defining "risk": -->
 
-To clarify our notion of "risk" in this context: In research on probability judgments and risk perception, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and _probabilities_ for all possible outcomes can be provided.[^2] 
+It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.[^2] 
 For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
 
 [^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
@@ -120,7 +120,7 @@ implying a _specificity_ of (100% $-$ 4%) = 96%: `spec = .04`.
 
 #### Understanding the questions asked
 
-The second challenge here lies in understanding the questions that are being asked -- and in realizing that their answers are _not_ simply the decision's sensitivity or specificity values. Instead, we are asked to provide two _conditional_ probabilities:
+The second challenge here lies in understanding the questions that are being asked — and in realizing that their answers are _not_ simply the decision's sensitivity or specificity values. Instead, we are asked to provide two _conditional_ probabilities:
 
 - The conditional probability of suffering from the condition given a positive test result, <br>aka. the _positive predictive value_ (`PPV`). 
 - The conditional probability of being free of the condition given a negative test result, <br>aka. the _negative predictive value_ (`NPV`). 
@@ -361,7 +361,7 @@ We appreciate your feedback, comments, or questions.
 <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> 
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
-To cite `riskyr` in derivations and publications use:
+To cite `riskyr` in derivations and publications please use:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
   `riskyr`: A toolbox for rendering risk literacy more transparent.  
@@ -388,7 +388,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 - Arkes, H. R., & Gaissmaier, W. (2012). 
 Psychological research and the prostate-cancer screening controversy. 
-_Psychological Science_, _23_, 547--553.
+_Psychological Science_, _23_, 547—553.
 
 - Gigerenzer, G. (2002). 
 _Reckoning with risk: Learning to live with uncertainty_. 
@@ -400,19 +400,19 @@ New York, NY: Penguin.
 
 - Gigerenzer, G., & Gaissmaier, W. (2011). 
 Heuristic decision making. 
-_Annual Review of Psychology_, _62_, 451--482. 
+_Annual Review of Psychology_, _62_, 451—482. 
 
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 
-_Psychological Science in the Public Interest_, _8_, 53--96.
+_Psychological Science in the Public Interest_, _8_, 53—96.
 
 - Gigerenzer, G., & Hoffrage, U. (1995). 
 How to improve Bayesian reasoning without instruction: Frequency formats. 
-_Psychological Review_, _102_, 684--704.
+_Psychological Review_, _102_, 684—704.
 
 - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
 Representation facilitates reasoning: What natural frequencies are and what they are not. 
-_Cognition_, _84_, 343--352.
+_Cognition_, _84_, 343—352.
 
 - Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). 
 Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. 
@@ -420,15 +420,15 @@ _Frontiers in Psychology_, _6_, 1473.
 
 - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
 Communicating statistical information. 
-_Science_, _290_, 2261--2262.
+_Science_, _290_, 2261—2262.
 
 - Kurzenhäuser, S., & Hoffrage, U. (2002). 
 Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. 
-_Medical Teacher_, _24_, 516--521.
+_Medical Teacher_, _24_, 516—521.
 
 - Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). 
 Transparency in risk communication. 
-_Annals of the New York Academy of Sciences_, _1128_, 18--28.
+_Annals of the New York Academy of Sciences_, _1128_, 18—28.
 
 - Neth, H., & Gigerenzer, G. (2015). 
 Heuristics: Tools for an uncertain world. 
@@ -437,6 +437,6 @@ New York, NY: Wiley Online Library.
 
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
-_Journal of Experimental Psychology: General_, _130_, 380--400.
+_Journal of Experimental Psychology: General_, _130_, 380—400.
 
 <!-- eof -->
