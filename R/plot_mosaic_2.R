@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 02 22
+## 2018 02 23
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -271,7 +271,8 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   plot(x = 1,
        xlim = xlim, ylim = ylim,
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-       bty = "o", fg = grey(.50, alpha = .99))
+       bty = "n",
+       fg = grey(.50, alpha = .99))
 
   ## Graphical parameters:
   col.prev <- prev.li  # prev help line
@@ -322,15 +323,15 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     #        lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
 
     ## 3. Label 4 categories at all 4 sides:
-    text(x = (prev/2), y = 1, labels = "cond.true", pos = 3, col = col.lbl, cex = cex.lbl.sm)  # at top
-    text(x = (prev + (1 - prev)/2), y = 1, labels = "cond.false", pos = 3, col = col.lbl, cex = cex.lbl.sm)  # at top
-    text(x = (prev/2), y = 0, labels = "cond.true", pos = 1, col = col.lbl, cex = cex.lbl.sm)  # at bottom
-    text(x = (prev + (1 - prev)/2), y = 0, labels = "cond.false", pos = 1, col = col.lbl, cex = cex.lbl.sm)  # at bottom
+    text(x = (prev/2), y = 1, labels = "cond.true", pos = 3, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at top
+    text(x = (prev + (1 - prev)/2), y = 1, labels = "cond.false", pos = 3, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at top
+    text(x = (prev/2), y = 0, labels = "cond.true", pos = 1, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at bottom
+    text(x = (prev + (1 - prev)/2), y = 0, labels = "cond.false", pos = 1, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at bottom
 
-    text(x = 0, y = (1 - (sens/2) + v.shift), labels = "dec.pos", srt = 90, pos = 2, col = col.lbl, cex = cex.lbl.sm)  # on top
-    text(x = 0, y = ((1 - sens)/2 + v.shift), labels = "dec.neg", srt = 90, pos = 2, col = col.lbl, cex = cex.lbl.sm)  # on top
-    text(x = 1, y = (spec + (1 - spec)/2 + v.shift), labels = "dec.pos", srt = -90, pos = 4, col = col.lbl, cex = cex.lbl.sm)  # on top
-    text(x = 1, y = (spec/2 + v.shift), labels = "dec.neg", srt = -90, pos = 4, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 0, y = (1 - (sens/2) + v.shift), labels = "dec.pos", srt = 90, pos = 2, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 0, y = ((1 - sens)/2 + v.shift), labels = "dec.neg", srt = 90, pos = 2, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 1, y = (spec + (1 - spec)/2 + v.shift), labels = "dec.pos", srt = -90, pos = 4, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
+    text(x = 1, y = (spec/2 + v.shift), labels = "dec.neg", srt = -90, pos = 4, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
 
     ## 4. Label 4 freq in 4 rectangles:
 

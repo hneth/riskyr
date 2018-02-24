@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 02 11
+## 2018 02 23
 ## -----------------------------------------------
 ## Generic utility functions:
 
@@ -22,8 +22,7 @@
 ## 8. is_valid_prob_set
 ## 9. is_valid_prob_triple [deprecated]
 
-## -----------------------------------------------
-## is_prob:
+## is_prob: --------------------------------------
 
 #' Verify that input is a probability (numeric value from 0 to 1).
 #'
@@ -135,8 +134,8 @@ is_prob <- function(prob, NA.warn = FALSE) {
   # is_prob("Laplace")            # => FALSE + warning (non-numeric values)
 }
 
-## -----------------------------------------------
-## is_perc:
+
+## is_perc: --------------------------------------
 
 #' Verify that input is a percentage (numeric value from 0 to 100).
 #'
@@ -1361,10 +1360,10 @@ as_pb <- function(perc, n.digits = 4) {
 }
 
 
-## -----------------------------------------------
-## (C) Graphic functions:
-## -----------------------------------------------
-## Reformat the plotting area to allow placing legend outside of a plot:
+## (C) Graphic functions: ------------------------
+
+## Reformat the plotting area to allow placing
+## legend outside of a plot: ---------------------
 
 add_legend <- function(...) {
   ## Reformat the plotting area to allow placing legend outside of a plot
@@ -1382,8 +1381,7 @@ add_legend <- function(...) {
   legend(...)
 }
 
-## -----------------------------------------------
-## Making colors transparent:
+## Making colors transparent: --------------------
 
 makeTransparent = function(..., alpha = .50) {
 
@@ -1405,12 +1403,11 @@ makeTransparent = function(..., alpha = .50) {
 
 }
 
-## Note also:
-# adjustcolor(col = "green", alpha.f = .50)
+## Note also: adjustcolor(col = "green", alpha.f = .50)
 
-## -----------------------------------------------
+
 ## Helper for dynamic calculation of block size:
-## (used in plot_iconarray.R):
+## (used in plot_iconarray.R): -------------------
 
 factors_min_diff <- function (n) {
   n_sqrt <- sqrt(n)
@@ -1425,12 +1422,10 @@ factors_min_diff <- function (n) {
   return(c(lower, upper))
 }
 
-## -----------------------------------------------
-## (D) Graph labels:
-## -----------------------------------------------
 
-## -----------------------------------------------
-## (a) Current condition parameter values:
+## (D) Graph labels: -----------------------------
+
+## (a) Current condition parameter values: -------
 
 make_cond_lbl <- function(prev, sens, spec) {
 
@@ -1446,8 +1441,7 @@ make_cond_lbl <- function(prev, sens, spec) {
 
 }
 
-## -----------------------------------------------
-## (b) Current decision parameter values:
+## (b) Current decision parameter values: --------
 
 make_dec_lbl <- function(ppod, PPV, NPV) {
 
@@ -1463,11 +1457,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
 }
 
-
-## -----------------------------------------------
-## (c) Current accuracy values:
-
-
+## (c) Current accuracy values: ------------------
 
 make_accu_lbl <- function(acc, w, wacc, mcc) {
 
@@ -1491,15 +1481,6 @@ make_accu_lbl <- function(acc, w, wacc, mcc) {
   return(lbl)
 
 }
-
-
-## -----------------------------------------------
-
-
-
-
-
-
 
 ## -----------------------------------------------
 ## (+) ToDo:
