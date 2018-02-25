@@ -95,7 +95,7 @@
 <p>Fortunately, the basic matrix is actually quite simple and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.</p>
 <div id="basics" class="section level2">
 <h2>Basics</h2>
-<p>Condensed to its core, the confusion matrix looks like this:</p>
+<p>Condensed to its core, the confusion matrix classifies each individual case into one of 4 possible categories that result from combining two binary variables (i.e., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:</p>
 <table>
 <thead>
 <tr class="header">
@@ -122,7 +122,7 @@
 </tr>
 </tbody>
 </table>
-<p>This is not so confusing any more. And, perhaps surprisingly, all other metrics follow from this simple core in a straightforward way.</p>
+<p>Fortunately, this is not so confusing any more. And, perhaps surprisingly, all other metrics follow from this simple core in a straightforward way. In the following, we illustrate how the other metrics can be constructed from the 4 essential frequencies in the core of the matrix.</p>
 <div id="adopting-2-perspectives-on-a-population" class="section level3">
 <h3>Adopting 2 perspectives on a population</h3>
 <p>Essentially, the confusion matrix views a population of <code>N</code> individuals in different ways by adopting different perspectives. “Adopting a perspective” means that we can distinguish between individuals on the basis of some criterion. The 2 primary criteria used here are:</p>
@@ -203,11 +203,17 @@
 <ul>
 <li>Provide a numeric example.</li>
 <li>Show corresponding mosaic plot and/or network diagram.</li>
+<li>Distinguish between different scenario types and causal models:
+<ul>
+<li>Detection,</li>
+<li>treatment,</li>
+<li>prevention.</li>
+</ul></li>
 </ul>
 </div>
 <div id="accuracy-as-a-3rd-perspective" class="section level3">
 <h3>Accuracy as a 3rd perspective</h3>
-<p>A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, the question requires considering the <em>correspondence</em> between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
+<p>A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, answering the question about accuracy requires that the other dimensions have been determined and then considering the <em>correspondence</em> between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
 <ul>
 <li><p>A decision is <em>correct</em>, when it corresponds to the condition. This is the case for two cells in (or the “&quot; diagonal of) the confusion matrix:</p>
 <ul>
