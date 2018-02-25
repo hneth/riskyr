@@ -1,15 +1,12 @@
 ## comp_prob_prob.R | riskyr
-## 2018 02 12
+## 2018 02 25
 ## -----------------------------------------------
 ## Compute other probabilities from probabilities:
 
 ## Note: For computing ALL prob from 3 basic probabilities
 ##       see comp_prob in file "init_num_prob.R".
 
-## -----------------------------------------------
-
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
 # Probabilities (10):               Frequencies (9):
 # -------------------               ------------------
@@ -37,7 +34,6 @@
 # FDR = false detection rate
 # FOR = false omission rate
 # NPV = neg. pred. value
-
 
 ## -----------------------------------------------
 ## Data flow: Two basic directions:
@@ -83,13 +79,11 @@
 #' The type and range of \code{prob} is
 #' verified with \code{\link{is_prob}}.
 #'
-#'
 #' @param prob A numeric probability value
 #' (in range from 0 to 1).
 #'
 #' @return A numeric probability value
 #' (in range from 0 to 1).
-#'
 #'
 #' @examples
 #' comp_complement(0)    # => 1
@@ -128,8 +122,7 @@ comp_complement <- function(prob) {
   # comp_complement("")  # => NA + warning (non-numeric)
 }
 
-## -----------------------------------------------
-## (a) mirt from sens:
+## (a) mirt from sens: ---------------------------
 
 #' Compute a decision's miss rate from its sensitivity.
 #'
@@ -151,8 +144,8 @@ comp_complement <- function(prob) {
 #' @return The decision's miss rate \code{\link{mirt}} as a probability.
 #'
 #' @examples
-#' comp_mirt(2)                      # => NA + warning (beyond range)
-#' comp_mirt(1/3)                    # => 0.6666667
+#' comp_mirt(2)                       # => NA + warning (beyond range)
+#' comp_mirt(1/3)                     # => 0.6666667
 #' comp_mirt(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
@@ -173,9 +166,7 @@ comp_mirt <- function(sens) {
   return(mirt)
 }
 
-
-## -----------------------------------------------
-## (b) sens from mirt:
+## (b) sens from mirt: ---------------------------
 
 #' Compute a decision's sensitivity from its miss rate.
 #'
@@ -197,8 +188,8 @@ comp_mirt <- function(sens) {
 #' @return The decision's sensitivity \code{\link{sens}} as a probability.
 #'
 #' @examples
-#' comp_sens(2)                      # => NA + warning (beyond range)
-#' comp_sens(1/3)                    # => 0.6666667
+#' comp_sens(2)                       # => NA + warning (beyond range)
+#' comp_sens(1/3)                     # => 0.6666667
 #' comp_sens(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
@@ -219,8 +210,7 @@ comp_sens <- function(mirt) {
   return(sens)
 }
 
-## -----------------------------------------------
-## (c) fart from spec:
+## (c) fart from spec: ---------------------------
 
 #' Compute a decision's false alarm rate from its specificity.
 #'
@@ -264,8 +254,7 @@ comp_fart <- function(spec) {
   return(fart)
 }
 
-## -----------------------------------------------
-## (d) spec from fart:
+## (d) spec from fart: ---------------------------
 
 #' Compute a decision's specificity from its false alarm rate.
 #'
@@ -287,8 +276,8 @@ comp_fart <- function(spec) {
 #' @return The decision's specificity \code{\link{spec}} as a probability.
 #'
 #' @examples
-#' comp_spec(2)                      # => NA + warning (beyond range)
-#' comp_spec(1/3)                    # => 0.6666667
+#' comp_spec(2)                       # => NA + warning (beyond range)
+#' comp_spec(1/3)                     # => 0.6666667
 #' comp_spec(comp_complement(0.123))  # => 0.123
 #'
 #' @family functions computing probabilities
@@ -309,9 +298,7 @@ comp_spec <- function(fart) {
   return(spec)
 }
 
-
-## -----------------------------------------------
-## Pairs of complements:
+## Pairs of complements: -------------------------
 
 #' Compute a probability's (missing) complement and return both.
 #'
@@ -378,12 +365,12 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 
   } else if (!is.na(p1) & is.na(p2)) {  # 1: only p1 provided:
 
-    missing <- comp_complement(p1)       #    - compute its comp
+    missing <- comp_complement(p1)      #    - compute its comp
     pair <- c(p1, missing)              #    - define pair (leaving input order intact)
 
   } else if (!is.na(p2) & is.na(p1)) {  # 2: only p2 is provided:
 
-    missing <- comp_complement(p2)       #    - compute spec
+    missing <- comp_complement(p2)      #    - compute spec
     pair <- c(missing, p2)              #    - define pair (leaving input order intact)
 
   } else {                              # 3: both are provided
@@ -408,8 +395,7 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
   # comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
 }
 
-## -----------------------------------------------
-# Complete a valid set of probability inputs:
+# Complete a valid set of probability inputs: ----
 
 #' Compute a complete set of probabilities from valid probability inputs.
 #'
@@ -523,8 +509,8 @@ comp_complete_prob_set <- function(prev,
 ## B: Perspective: by decision:
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## (0) ppod = base rate of decisions being positive (PR):
+## (0) ppod = proportion of positive -------------
+## decisions (PR) from probabilities:
 
 #' Compute the proportion of positive decisions (ppod) from probabilities.
 #'
@@ -547,7 +533,6 @@ comp_complete_prob_set <- function(prev,
 #' Importantly, positive decisions \code{\link{dec.pos}}
 #' are not necessariliy correct decisions \code{\link{dec.cor}}.
 #'
-#'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
@@ -559,10 +544,8 @@ comp_complete_prob_set <- function(prev,
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
-#'
 #' @return The proportion of positive decisions \code{\link{ppod}} as a probability.
 #' A warning is provided for NaN values.
-#'
 #'
 #' @examples
 #' # (1) ways to work:
@@ -587,7 +570,6 @@ comp_complete_prob_set <- function(prev,
 #' comp_ppod(0, 0, 1)  #  => 0
 #' comp_ppod(0, 0, 0)  #  => 1
 #'
-#'
 #' @family functions computing probabilities
 #'
 #' @seealso
@@ -600,7 +582,6 @@ comp_complete_prob_set <- function(prev,
 #' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @export
-
 
 comp_ppod <- function(prev, sens, spec) {
 
@@ -645,9 +626,8 @@ comp_ppod <- function(prev, sens, spec) {
 ## for extreme values:
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
-## -----------------------------------------------
-## 1. Positive predictive value (PPV) from probabilities:
-
+## 1. Positive predictive value (PPV) ------------
+## from probabilities:
 
 #' Compute a decision's positive predictive value (PPV) from probabilities.
 #'
@@ -842,8 +822,8 @@ comp_FDR_PPV <- function(PPV) {
 }
 
 
-## -----------------------------------------------
-## 3. Negative predictive value (NPV) from probabilities:
+## 3. Negative predictive value (NPV) ------------
+## from probabilities:
 
 #' Compute a decision's negative predictive value (NPV) from probabilities.
 #'
@@ -853,7 +833,6 @@ comp_FDR_PPV <- function(PPV) {
 #'
 #' \code{comp_NPV} uses probabilities (not frequencies)
 #' and does not round results.
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -866,10 +845,8 @@ comp_FDR_PPV <- function(PPV) {
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
-#'
 #' @return The negative predictive value \code{\link{NPV}} as a probability.
 #' A warning is provided for NaN values.
-#'
 #'
 #' @examples
 #' # (1) Ways to work:
@@ -886,7 +863,6 @@ comp_FDR_PPV <- function(PPV) {
 #' comp_NPV(1, 1, 0)   # => NaN, as cr = 0 and mi = 0: 0/0
 #' comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
 #' is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
-#'
 #'
 #' @family functions computing probabilities
 #'
@@ -944,8 +920,8 @@ comp_NPV <- function(prev, sens, spec) {
 }
 
 
-## -----------------------------------------------
-## 4. False omission rate (FOR = complement of NPV):
+## 4. False omission rate ------------------------
+## (FOR = complement of NPV):
 
 #' Compute a decision's false omission rate (FOR) from probabilities.
 #'
@@ -955,7 +931,6 @@ comp_NPV <- function(prev, sens, spec) {
 #'
 #' \code{comp_FOR} uses probabilities (not frequencies)
 #' and does not round results.
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -968,16 +943,13 @@ comp_NPV <- function(prev, sens, spec) {
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
-#'
 #' @return The false omission rate \code{\link{FOR}} as a probability.
 #' A warning is provided for NaN values.
-#'
 #'
 #' @examples
 #' # (1) Ways to work:
 #' comp_FOR(.50, .500, .500)  # => FOR = 0.5    = (1 - NPV)
 #' comp_FOR(.50, .333, .666)  # => FOR = 0.5004 = (1 - NPV)
-#'
 #'
 #' @family functions computing probabilities
 #'
@@ -1020,11 +992,13 @@ comp_FOR <- function(prev, sens, spec) {
 }
 
 ## Check:
-## for extreme values:
-# comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
-# is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
+{
+  ## for extreme values:
+  # comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
+  # comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
+  # comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+  # is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
+}
 
 ## (b) FOR = 1 - NPV:
 comp_FOR_NPV <- function(NPV) {
@@ -1035,7 +1009,6 @@ comp_FOR_NPV <- function(NPV) {
 
   return(FOR)
 }
-
 
 ## -----------------------------------------------
 ## (C) Compute predictive values
@@ -1260,7 +1233,7 @@ comp_prob_matrix <- function(prev, sens, spec,
 ## - Add documentation.
 ##   Document comp_PPV, comp_NPV, ... etc.
 
-## - Allow using fart & mirt in addition to sens & spec in all functions
+<## - Allow using fart & mirt in addition to sens & spec in all functions
 ##   defined above
 
 ## - Add alternative ways to compute probabilities

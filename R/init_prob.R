@@ -217,8 +217,7 @@ prev <- 1/2  # default prevalence
 #' }
 #'
 #' @aliases
-#' TPR HR
-#' power recall
+#' TPR HR power recall
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -311,8 +310,7 @@ sens <- 1/2  # default sensitivity
 #' }
 #'
 #' @aliases
-#' FNR
-#' beta
+#' FNR beta
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
