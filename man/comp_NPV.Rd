@@ -47,7 +47,6 @@ comp_NPV(1, 1, 0)   # => NaN, as cr = 0 and mi = 0: 0/0
 comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
 is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
 
-
 }
 \seealso{
 \code{\link{comp_spec}} and \code{\link{comp_PPV}} compute related probabilities;

@@ -28,8 +28,8 @@ The function \code{comp_spec} is complementary to the conversion function
 \code{\link{comp_complement}}.
 }
 \examples{
-comp_spec(2)                      # => NA + warning (beyond range)
-comp_spec(1/3)                    # => 0.6666667
+comp_spec(2)                       # => NA + warning (beyond range)
+comp_spec(1/3)                     # => 0.6666667
 comp_spec(comp_complement(0.123))  # => 0.123
 
 }

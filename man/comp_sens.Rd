@@ -28,8 +28,8 @@ The function \code{comp_sens} is complementary to the conversion function
 \code{\link{comp_complement}}.
 }
 \examples{
-comp_sens(2)                      # => NA + warning (beyond range)
-comp_sens(1/3)                    # => 0.6666667
+comp_sens(2)                       # => NA + warning (beyond range)
+comp_sens(1/3)                     # => 0.6666667
 comp_sens(comp_complement(0.123))  # => 0.123
 
 }

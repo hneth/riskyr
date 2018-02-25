@@ -66,7 +66,6 @@ comp_ppod(0, 1, 0)  #  => 1
 comp_ppod(0, 0, 1)  #  => 0
 comp_ppod(0, 0, 0)  #  => 1
 
-
 }
 \seealso{
 \code{\link{comp_sens}} and \code{\link{comp_NPV}} compute related probabilities;

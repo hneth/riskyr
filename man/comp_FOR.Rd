@@ -36,7 +36,6 @@ and does not round results.
 comp_FOR(.50, .500, .500)  # => FOR = 0.5    = (1 - NPV)
 comp_FOR(.50, .333, .666)  # => FOR = 0.5004 = (1 - NPV)
 
-
 }
 \seealso{
 \code{\link{comp_spec}} and \code{\link{comp_NPV}} compute related probabilities;
