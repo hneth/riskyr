@@ -208,6 +208,7 @@ comp_sens <- function(mirt) {
   sens <- comp_complement(mirt)  # use generic function
 
   return(sens)
+
 }
 
 ## (c) fart from spec: ---------------------------
@@ -252,6 +253,7 @@ comp_fart <- function(spec) {
   fart <- comp_complement(spec)  # use generic function
 
   return(fart)
+
 }
 
 ## (d) spec from fart: ---------------------------
@@ -296,6 +298,7 @@ comp_spec <- function(fart) {
   spec <- comp_complement(fart)  # use generic function
 
   return(spec)
+
 }
 
 ## Pairs of complements: -------------------------
@@ -466,7 +469,7 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 comp_complete_prob_set <- function(prev,
                                    sens = NA, mirt = NA,
                                    spec = NA, fart = NA
-) {
+                                   ) {
 
   # (1) initialize:
   prob_quintet <- rep(NA, 5)
@@ -606,6 +609,7 @@ comp_ppod <- function(prev, sens, spec) {
   }
 
   return(ppod)
+
 }
 
 ## Check:
@@ -710,6 +714,7 @@ comp_PPV <- function(prev, sens, spec) {
   }
 
   return(PPV)
+
 }
 
 ## Check:
@@ -989,6 +994,7 @@ comp_FOR <- function(prev, sens, spec) {
   # FOR <- comp_complement(NPV)   # FDR = 1 - NPV
 
   return(FOR)
+
 }
 
 ## Check:
@@ -1008,6 +1014,7 @@ comp_FOR_NPV <- function(NPV) {
   FOR <- comp_complement(NPV)  # FOR is the complement of NPV
 
   return(FOR)
+
 }
 
 ## -----------------------------------------------
@@ -1203,9 +1210,9 @@ comp_prob_matrix <- function(prev, sens, spec,
 
 }
 
+
 ## Check:
 {
-
   ## Basics:
   # sens.seq <- seq(0, 1, by = .10)
   # spec.seq <- seq(0, 1, by = .10)
@@ -1233,7 +1240,7 @@ comp_prob_matrix <- function(prev, sens, spec,
 ## - Add documentation.
 ##   Document comp_PPV, comp_NPV, ... etc.
 
-<## - Allow using fart & mirt in addition to sens & spec in all functions
+## - Allow using fart & mirt in addition to sens & spec in all functions
 ##   defined above
 
 ## - Add alternative ways to compute probabilities
