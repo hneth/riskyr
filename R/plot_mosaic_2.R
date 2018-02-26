@@ -153,6 +153,7 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
+#' @importFrom graphics box
 #' @importFrom graphics axis
 #' @importFrom graphics grid
 #' @importFrom graphics abline
@@ -183,8 +184,8 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                           N = num$N,  # not needed in Mosaic plot (but used in comp_freq below)
                           ## Options:
                           by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
-                          show.freq = TRUE,  # show labels of 4 frequencies in plot
-                          show.prob = TRUE,  # show help_line (for metrics, e.g., prev, sens, spec)?
+                          show.freq = FALSE,  # show labels of 4 frequencies in plot
+                          show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
                           show.accu = TRUE,  # compute and show accuracy metrics
                           w.acc = .50,       # weight w for wacc (from 0 to 1)
                           ## Text and color options: ##

@@ -6,3 +6,4 @@
 cran-comments.md
 _gitless
 ^\.travis\.yml$
+^CODE_OF_CONDUCT\.md$
