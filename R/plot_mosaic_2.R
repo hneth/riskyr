@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 02 23
+## 2018 02 26
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -164,9 +164,7 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #' @importFrom graphics mtext
 #' @importFrom graphics legend
 #'
-#'
 #' @family visualization functions
-#'
 #'
 #' @seealso
 #' \code{\link{comp_popu}} computes the current population;
@@ -185,22 +183,25 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                           N = num$N,  # not needed in Mosaic plot (but used in comp_freq below)
                           ## Options:
                           by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
-                          show.freq = FALSE,  # show labels of 4 frequencies in plot
-                          show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
-                          show.accu = TRUE,   # compute and show accuracy metrics
-                          w.acc = .50,        # weight w for wacc (from 0 to 1)
+                          show.freq = TRUE,  # show labels of 4 frequencies in plot
+                          show.prob = TRUE,  # show help_line (for metrics, e.g., prev, sens, spec)?
+                          show.accu = TRUE,  # compute and show accuracy metrics
+                          w.acc = .50,       # weight w for wacc (from 0 to 1)
                           ## Text and color options: ##
                           title.lbl = txt$scen.lbl,
                           col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 ) {
 
-  ## (0) Handle deprecated arguments: ----------
-
+  ## (0) Handle arguments and deprecated arguments: ----------
 
   # ## (0) Get probabilities from global numeric parameters (num):
   # prev <- num$prev
   # sens <- num$sens
   # spec <- num$spec
+
+  ## Currently fixed parameters:
+  gap <- 0.025  # width of gap between 2 main subgroups (set via "by" argument)
+  show.prob.comp <- TRUE  # show help_line for complements of prob (e.g, prev, sens, spec)?
 
   ## (1) Compute or use current popu: ----------
 
@@ -257,15 +258,15 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")  # add accuracy lbl to existing cur.par.lbl
   }
 
+  ## (4) Define plot and margin areas: ----------
 
-  ## (4) Define plot area: ----------
+  ## Margin areas:
+  par(oma = c(3, 0, 0, 0) + 0.1)  # outer margins: bottom has 3 lines of space
+  par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
 
-  ## Currently fixed parameters:
-  xlim = c(0, 1)
+  ## Plot dimensions:
+  xlim = c(0, (1 + gap))
   ylim = c(0, 1)
-
-  show.met <- show.prob   # recode: show help_line for metrics (e.g., prev, sens, spec)?
-  show.met.comp <- FALSE  # show help_line for complements of metrics (e.g, prev, sens, spec)?
 
   ## Plot area setup:
   plot(x = 1,
@@ -273,6 +274,12 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
        bty = "n",
        fg = grey(.50, alpha = .99))
+
+  ## Mark plot and margin area:
+  col.plot <- "firebrick3"
+  box("plot", col = col.plot)
+  mar.col <- "forestgreen"
+  box("figure", col = mar.col)
 
   ## Graphical parameters:
   col.prev <- prev.li  # prev help line
@@ -300,40 +307,44 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
   if (by == "cd") {
 
-    ## (a) by condition (vertical split 1st):
+    ## (a) by condition (vertical split 1st): ----------
 
-    ## 0. Determine key coordinates:
-    x.prev.sens <- prev
+    ## 0. Determine 2 key coordinates:
+    x.prev.sens <- prev     # point 1
     y.prev.sens <- (1 - sens)
-    x.prev.spec <- prev
+    x.prev.spec <- (prev + gap) # point 2
     y.prev.spec <- spec
 
     ## 1. Draw 4 rectangles:
     rect(0, y.prev.sens, prev, 1, col = pal["hi"], border = col.bord) # hi
     rect(0, 0, prev, y.prev.sens, col = pal["mi"], border = col.bord) # mi
-    rect(prev, y.prev.spec, 1, 1, col = pal["fa"], border = col.bord) # fa
-    rect(prev, 0, 1, y.prev.spec, col = pal["cr"], border = col.bord) # cr
+    rect((prev + gap), y.prev.spec, (1 + gap), 1, col = pal["fa"], border = col.bord) # fa
+    rect((prev + gap), 0, (1 + gap), y.prev.spec, col = pal["cr"], border = col.bord) # cr
 
-    ## 2. Mark 3 key points:
-    # points(prev, 1, pch = pt.pch, cex = pt.cex,
-    #        lwd = pt.lwd, col = col.bord, bg = col.prev)  # intersect prev x 1
-    # points(x.prev.sens, y.prev.sens, pch = pt.pch, cex = pt.cex,
-    #        lwd = pt.lwd, col = col.bord, bg = col.sens)  # intersect prev x sens
-    # points(x.prev.spec, y.prev.spec, pch = pt.pch, cex = pt.cex,
-    #        lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
+    ## 2. Mark 2 key points:
+    points(x.prev.sens, y.prev.sens, pch = pt.pch, cex = pt.cex,
+            lwd = pt.lwd, col = col.bord, bg = col.sens)  # intersect prev x sens
+    points(x.prev.spec, y.prev.spec, pch = pt.pch, cex = pt.cex,
+           lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
 
-    ## 3. Label 4 categories at all 4 sides:
-    text(x = (prev/2), y = 1, labels = "cond.true", pos = 3, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at top
-    text(x = (prev + (1 - prev)/2), y = 1, labels = "cond.false", pos = 3, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at top
-    text(x = (prev/2), y = 0, labels = "cond.true", pos = 1, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at bottom
-    text(x = (prev + (1 - prev)/2), y = 0, labels = "cond.false", pos = 1, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # at bottom
 
-    text(x = 0, y = (1 - (sens/2) + v.shift), labels = "dec.pos", srt = 90, pos = 2, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
-    text(x = 0, y = ((1 - sens)/2 + v.shift), labels = "dec.neg", srt = 90, pos = 2, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
-    text(x = 1, y = (spec + (1 - spec)/2 + v.shift), labels = "dec.pos", srt = -90, pos = 4, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
-    text(x = 1, y = (spec/2 + v.shift), labels = "dec.neg", srt = -90, pos = 4, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # on top
+    ## 3. Label the 2 categories on all 4 sides: ----------
 
-    ## 4. Label 4 freq in 4 rectangles:
+    ## top:
+    text(x = (prev/2), y = 1, labels = "cond.true", pos = 3, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # top left
+    text(x = (prev + gap + (1 - prev)/2), y = 1, labels = "cond.false", pos = 3, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # top right
+    ## bottom:
+    text(x = (prev/2), y = 0, labels = "cond.true", pos = 1, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # bottom left
+    text(x = (prev + gap + (1 - prev)/2), y = 0, labels = "cond.false", pos = 1, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # bottom right
+    ## left:
+    text(x = 0, y = (1 - (sens/2) + v.shift), labels = "dec.pos", srt = 90, pos = 2, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # left top
+    text(x = 0, y = ((1 - sens)/2 + v.shift), labels = "dec.neg", srt = 90, pos = 2, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # left bottom
+    ## right:
+    text(x = (1 + gap), y = (spec + (1 - spec)/2 + v.shift), labels = "dec.pos", srt = -90, pos = 4, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # right top
+    text(x = (1 + gap), y = (spec/2 + v.shift), labels = "dec.neg", srt = -90, pos = 4, xpd = TRUE, col = col.lbl, cex = cex.lbl.sm)  # right bottom
+
+
+    ## 4. Label the 4 freq in 4 rectangles: ----------
 
     if (show.freq) {
 
@@ -344,78 +355,121 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       fa.lbl <- paste0("fa = ", n.fa, "")  # label for fa
       cr.lbl <- paste0("cr = ", n.cr, "")  # label for cr
 
-      text(x = prev/2, y = ((1 - sens) + sens/2), labels = hi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
-      text(x = prev/2, y = ((1 - sens)/2), labels = mi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
-      text(x = (prev + (1 - prev)/2), y = (spec + (1-spec)/2), labels = fa.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
-      text(x = (prev + (1 - prev)/2), y = (spec/2), labels = cr.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)
+      y.hi <- ((1 - sens) + sens/2)
+      y.fa <- (spec + (1 - spec)/2)
+
+      text(x = prev/2, y = y.hi, labels = hi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)  # hi
+      text(x = prev/2, y = ((1 - sens)/2), labels = mi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)  # mi
+      text(x = (prev + gap + (1 - prev)/2), y = y.fa, labels = fa.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)  # fa
+      text(x = (prev + gap + (1 - prev)/2), y = (spec/2), labels = cr.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)  # cr
 
     }
 
-    ## +++ here now +++ ##
-
-
     ## 1. Show (sens) in plot: ----------
 
-    if (show.met) {
+    if (show.prob) {
 
       ## sens parameters:
       sens.lbl <- "sens" # paste0("sens = ", as_pc(sens, n.digits = 1), "%")  # label for sens
-      lty.sens <- 1           # sens line type
-      x.sens <- (0 + prev/2)  # x-value of vertical lines: in middle
-      # x.sens <- 0  # at left
+      lty.sens <- 1  # sens line type
+
       y.sens <- (1 - sens)    # y-value of horizontal lines
 
       ## Draw sens (as horizontal line):
       # abline(h = y.sens, lty = lty.sens, lwd = 1, col = col.sens)
 
-      ## Show sens as vertical help_line:
+      ## Show sens as a vertical help_line:
+      x.sens <- (0 + prev/5) # x-value of vertical line (on left)
+      y.lbl.sens <- (y.sens + (sens*1/4)) # y-value of label
+
       help_line(x.sens, y.sens, x.sens, 1,
                 col = col.sens, col.bord = col.bord,
-                lty = lty.help, lwd = lwd.help,
+                lty = lty.sens, lwd = lwd.help,
                 pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (y.sens + (sens/2)), lbl.pos = 4, lbl.cex = cex.lbl.sm)
+                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = y.lbl.sens, lbl.pos = 4, lbl.cex = cex.lbl.sm)
+
     }
 
-    if (show.met.comp) {
+    if (show.prob.comp) {
+
       ## Show complement (1 - sens) as vertical help_line:
       sens.lbl <- "(1 - sens)" # paste0("(1 - sens) = ", as_pc((1 - sens), n.digits = 1), "%")  # label for (1 - sens)
+      lty.sens <- 3  # sens line type
+
       help_line(x.sens, 0, x.sens, y.sens,
                 col = col.sens, col.bord = col.bord,
-                lty = 3, lwd = 1.5,
+                lty = lty.sens, lwd = 1.5,
                 pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (1-sens)/2, lbl.pos = 4, lbl.cex = cex.lbl.sm)
+                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (1-sens)*1/4, lbl.pos = 4, lbl.cex = cex.lbl.sm)
     }
 
     ## 2. Show (spec) in plot: ----------
 
-    if (show.met) {
+    if (show.prob) {
 
       ## sens parameters:
       spec.lbl <- "spec" # paste0("spec = ", as_pc(spec, n.digits = 1), "%")  # label for spec
       lty.spec <- 1                    # spec line type
-      x.spec <- (prev + (1 - prev)/2)  # x-value of vertical lines: in middle
-      # x.spec <- 1  # at right
-      y.spec <- spec                   # y-value of horizontal lines
-
-      ## Draw spec (as horizontal line):
-      # abline(h = y.spec, lty = lty.spec, lwd = 1, col = col.spec)
 
       ## Show spec as vertical help_line:
-      help_line(x.spec, 0, x.spec, y.spec,
+      x.spec <- (prev + gap + (1 - prev)*4/5)  # x-value of vertical lines: on right
+      y.lbl.spec <- (spec*3/4)
+
+      help_line(x.spec, 0, x.spec, y.prev.spec,
                 col = col.spec, col.bord = col.bord,
-                lty = lty.help, lwd = lwd.help,
+                lty = lty.spec, lwd = lwd.help,
                 pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = spec.lbl, lbl.x = x.spec, lbl.y = (spec/2), lbl.pos = 2, lbl.cex = cex.lbl.sm)
+                lbl.txt = spec.lbl, lbl.x = x.spec, lbl.y = y.lbl.spec, lbl.pos = 2, lbl.cex = cex.lbl.sm)
     }
 
-    if (show.met.comp) {
+    if (show.prob.comp) {
       ## Show complement (1 - spec) as vertical help_line:
       spec.lbl <- "(1 - spec)" # paste0("(1 - spec) = ", as_pc((1 - spec), n.digits = 1), "%")  # label for (1 - spec)
+      lty.spec <- 3
+      y.lbl.spec.comp <- (spec + (1 - spec)/4)
+
       help_line(x.spec, spec, x.spec, 1,
                 col = col.spec, col.bord = col.bord,
-                lty = 3, lwd = 1.5,
+                lty = lty.spec, lwd = 1.5,
                 pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = spec.lbl, lbl.x = x.spec, lbl.y = (spec + (1-spec)/2), lbl.pos = 2, lbl.cex = cex.lbl.sm)
+                lbl.txt = spec.lbl, lbl.x = x.spec, lbl.y = y.lbl.spec.comp, lbl.pos = 2, lbl.cex = cex.lbl.sm)
+    }
+
+    ## 3. Show (prev) in plot: ----------
+
+    if (show.prob) {
+
+      ## prev parameters:
+      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
+      lty.prev <- 1  # prev line type
+
+      ## y-value of horizontal lines:
+      if ((sens > spec)) { y.prev <- (spec + max(y.hi, y.lbl.spec))/2 }
+      else if ((spec > sens)) { y.prev <- spec/4 } # low line
+      else { y.prev <- .50 }  # middle line
+      # y.prev <- 1  # at top
+
+      ## Show prev as horizontal help_line:
+      help_line(0, y.prev, prev, y.prev,
+                col = col.prev, col.bord = col.bord,
+                lty = lty.prev, lwd = lwd.help,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = prev.lbl, lbl.x = (prev/2), lbl.y = (y.prev), lbl.pos = 3, lbl.cex = cex.lbl.sm)
+    }
+
+    ## (b) prev complement (1 - prev):
+
+    if (show.prob.comp) {
+
+      ## Show complement (1 - prev) as horizontal help_line:
+      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
+      lty.prev <- 3
+
+      help_line((prev + gap), y.prev, (1 + gap), y.prev,
+                col = col.prev, col.bord = col.bord,
+                lty = lty.prev, lwd = 1.5,
+                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
+                lbl.txt = prev.lbl, lbl.x = (prev + gap + (1 - prev)/2), lbl.y = (y.prev), lbl.pos = 3, lbl.cex = cex.lbl.sm)
     }
 
     ## WAS:
@@ -428,48 +482,12 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     #             main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
     #             sub = paste0(cur.par.lbl)  # print label
     #             )
-    ## 3. Show (prev) in plot: ----------
-
-    if (show.met) {
-
-      ## prev parameters:
-      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
-      lty.prev <- 1           # prev line type
-      x.prev <- prev          # x-value of vertical lines
-      ## y-value of horizontal lines:
-      if ((sens > spec) && spec > .10) { y.prev <- (spec - .10) }
-      else if ((spec > sens) && sens > .10) { y.prev <- (1 - sens + .10) }
-      else { y.prev <- .50 }  # in middle
-      # y.prev <- 1  # at top
-
-      ## Draw prev (as vertical line):
-      # abline(v = x.prev, lty = lty.prev, lwd = 1, col = col.prev)
-
-      ## Show prev as horizontal help_line:
-      help_line(0, y.prev, x.prev, y.prev,
-                col = col.prev, col.bord = col.bord,
-                lty = lty.help, lwd = lwd.help,
-                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = prev.lbl, lbl.x = (prev/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
-    }
-
-    ## (b) prev complement (1 - prev):
-
-    if (show.met.comp) {
-
-      ## Show complement (1 - prev) as horizontal help_line:
-      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
-      help_line(x.prev, y.prev, 1, y.prev,
-                col = col.prev, col.bord = col.bord,
-                lty = 3, lwd = 1.5,
-                pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = prev.lbl, lbl.x = (prev + (1 - prev)/2), lbl.y = (y.prev), lbl.pos = 1, lbl.cex = cex.lbl.sm)
-    }
-
 
   }
 
   else if (by == "dc") {
+
+    ## +++ here now +++ ##
 
     ## (b) by decision (horizontal split 1st):
     vcd::mosaic(Truth ~ Decision, data = cur.popu,
@@ -484,16 +502,16 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   } # if (by == ...)
 
   ## Title and margin text:
-  # title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
+  title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
 
 }
 
 ## Check:
 {
-  # plot_mosaic()
-  # plot_mosaic(title.lbl = "")
-  # plot_mosaic(by = "dc")
-  # plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
+  # plot_mosaic_2()
+  # plot_mosaic_2(title.lbl = "")
+  # plot_mosaic_2(by = "dc")
+  # plot_mosaic_2(title.lbl = "Just testing", col.sdt = "goldenrod")
 }
 
 
