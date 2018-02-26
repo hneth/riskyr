@@ -1,9 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^_gitless$
+^cran-comments.md$
 ^data-raw$
+^CODE_OF_CONDUCT\.md$
+^NEWS\.md$
 ^README\.Rmd$
 ^README-.*\.png$
-cran-comments.md
-_gitless
 ^\.travis\.yml$
-^CODE_OF_CONDUCT\.md$
