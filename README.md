@@ -313,13 +313,13 @@ Generating the following plots will allow you a quick visual exploration of the 
 
 #### Network diagram
 
+A network diagram is a generalization of a tree diagram that simultaneously provides two perspectives on a population (see Wassner et al., 2004). `riskyr` provides several variants of network diagrams. In the following version, all frequencies are represented as colored squares and the relative sizes of their areas represent the number of people in the corresponding subgroups:
+
 ``` r
 plot(s21) # plots a network diagram (by default):
 ```
 
 ![](inst/pix/README-ex2_fnet-1.png)
-
-In this version of a network diagram, all frequencies are represented as colored squares and the relative sizes of their areas represent the number of people in the corresponding subgroups.
 
 #### Icon array
 
@@ -423,13 +423,19 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 -   Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). Communicating statistical information. *Science*, *290*, 2261—2262.
 
+-   Khan, A., Breslav, S., Glueck, M., & Hornbæk, K. (2015). Benefits of visualization in the mammography problem. *International Journal of Human-Computer Studies*, *83*, 94—113.
+
 -   Kurzenhäuser, S., & Hoffrage, U. (2002). Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. *Medical Teacher*, *24*, 516—521.
 
 -   Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). Transparency in risk communication. *Annals of the New York Academy of Sciences*, *1128*, 18—28.
 
+-   Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. *IEEE Transactions on Visualization and Computer Graphics*, *18*, 2536--2545.
+
 -   Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott & S. Kosslyn (Eds.), *Emerging trends in the social and behavioral sciences*. New York, NY: Wiley Online Library.
 
 -   Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. *Journal of Experimental Psychology: General*, *130*, 380—400.
+
+-   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- eof -->
 
@@ -437,6 +443,6 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 [2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.)
 
-[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs.
+[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.
 
 [4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of *natural frequencies*.
