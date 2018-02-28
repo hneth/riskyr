@@ -40,11 +40,13 @@ but used when new frequency information \code{\link{freq}}
 and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
 
-\item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 2 options:
-\enumerate{
-\item \code{"cd"} ... by condition (vertical split first);
-\item \code{"dc"} ... by decision (horizontal split first).
-}}
+\item{by}{A character code specifying the perspective
+(or 1st category by which the population is split into subsets)
+with 2 options:
+  \enumerate{
+  \item \code{"cd"} ... by condition (vertical split first);
+  \item \code{"dc"} ... by decision (horizontal split first).
+  }}
 
 \item{show.freq}{Boolean option for showing frequencies
 (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
@@ -105,7 +107,6 @@ plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
 plot_mosaic(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
 plot_mosaic(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
 plot_mosaic(show.accu = FALSE)              # => no accuracy info.
-
 
 }
 \seealso{

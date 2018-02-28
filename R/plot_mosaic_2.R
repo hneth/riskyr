@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 02 26
+## 2018 02 27
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -108,7 +108,9 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
 #'
-#' @param by A character code specifying the perspective (or 1st category by which the population is split into subsets) with 2 options:
+#' @param by A character code specifying the perspective
+#' (or 1st category by which the population is split into subsets)
+#' with 2 options:
 #'   \enumerate{
 #'   \item \code{"cd"} ... by condition (vertical split first);
 #'   \item \code{"dc"} ... by decision (horizontal split first).
@@ -149,7 +151,6 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #' plot_mosaic(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
 #' plot_mosaic(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
 #' plot_mosaic(show.accu = FALSE)              # => no accuracy info.
-#'
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -324,7 +325,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
     ## 2. Mark 2 key points:
     points(x.prev.sens, y.prev.sens, pch = pt.pch, cex = pt.cex,
-            lwd = pt.lwd, col = col.bord, bg = col.sens)  # intersect prev x sens
+           lwd = pt.lwd, col = col.bord, bg = col.sens)  # intersect prev x sens
     points(x.prev.spec, y.prev.spec, pch = pt.pch, cex = pt.cex,
            lwd = pt.lwd, col = col.bord, bg = col.spec)  # intersect prev x spec
 
@@ -347,6 +348,9 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
     ## 4. Label the 4 freq in 4 rectangles: ----------
 
+    y.hi <- ((1 - sens) + sens/2)
+    y.fa <- (spec + (1 - spec)/2)
+
     if (show.freq) {
 
       col.lbl <- my.whitish
@@ -355,9 +359,6 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       mi.lbl <- paste0("mi = ", n.mi, "")  # label for mi
       fa.lbl <- paste0("fa = ", n.fa, "")  # label for fa
       cr.lbl <- paste0("cr = ", n.cr, "")  # label for cr
-
-      y.hi <- ((1 - sens) + sens/2)
-      y.fa <- (spec + (1 - spec)/2)
 
       text(x = prev/2, y = y.hi, labels = hi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)  # hi
       text(x = prev/2, y = ((1 - sens)/2), labels = mi.lbl, srt = 0, pos = NULL, col = col.lbl, cex = cex.lbl.sm)  # mi
@@ -368,22 +369,35 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
     ## 1. Show (sens) in plot: ----------
 
+    if (show.prob || show.prob.comp) { # set arbitrary values of help lines:
+
+      x.sens <- (0 + (prev * 1/5))  # x-value of vertical line (on left)
+      x.spec <- (prev + gap + ((1 - prev) * 4/5))  # x-value of vertical lines: on right
+
+      ## Define y.prev:
+      if ((sens > spec)) {
+        y.prev <- spec * 5/6  # high line
+      }
+      else if ((spec > sens)) {
+        y.prev <- spec * 5/6  # high line
+      }
+      else {
+        y.prev <- 1/2  # middle line
+      }
+
+    }
+
     if (show.prob) {
 
       ## sens parameters:
       sens.lbl <- "sens" # paste0("sens = ", as_pc(sens, n.digits = 1), "%")  # label for sens
       lty.sens <- 1  # sens line type
-
-      y.sens <- (1 - sens)    # y-value of horizontal lines
+      y.lbl.sens <- ((1 - sens) + (sens * 1/4))  # y-value of label
 
       ## Draw sens (as horizontal line):
       # abline(h = y.sens, lty = lty.sens, lwd = 1, col = col.sens)
 
-      ## Show sens as a vertical help_line:
-      x.sens <- (0 + prev/5) # x-value of vertical line (on left)
-      y.lbl.sens <- (y.sens + (sens*1/4)) # y-value of label
-
-      help_line(x.sens, y.sens, x.sens, 1,
+      help_line(x.sens, y.prev.sens, x.sens, 1,
                 col = col.sens, col.bord = col.bord,
                 lty = lty.sens, lwd = lwd.help,
                 pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
@@ -397,11 +411,13 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       sens.lbl <- "(1 - sens)" # paste0("(1 - sens) = ", as_pc((1 - sens), n.digits = 1), "%")  # label for (1 - sens)
       lty.sens <- 3  # sens line type
 
-      help_line(x.sens, 0, x.sens, y.sens,
+      y.lbl.sens <- ((1 - sens) * 1/4)  # y-value of label
+
+      help_line(x.sens, 0, x.sens, y.prev.sens,
                 col = col.sens, col.bord = col.bord,
                 lty = lty.sens, lwd = 1.5,
                 pt.pch = pt.pch, pt.cex = pt.cex, pt.lwd = pt.lwd,
-                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = (1-sens)*1/4, lbl.pos = 4, lbl.cex = cex.lbl.sm)
+                lbl.txt = sens.lbl, lbl.x = x.sens, lbl.y = y.lbl.sens, lbl.pos = 4, lbl.cex = cex.lbl.sm)
     }
 
     ## 2. Show (spec) in plot: ----------
@@ -413,8 +429,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       lty.spec <- 1                    # spec line type
 
       ## Show spec as vertical help_line:
-      x.spec <- (prev + gap + (1 - prev)*4/5)  # x-value of vertical lines: on right
-      y.lbl.spec <- (spec*3/4)
+      y.lbl.spec <- (spec * 1/4)
 
       help_line(x.spec, 0, x.spec, y.prev.spec,
                 col = col.spec, col.bord = col.bord,
@@ -427,7 +442,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       ## Show complement (1 - spec) as vertical help_line:
       spec.lbl <- "(1 - spec)" # paste0("(1 - spec) = ", as_pc((1 - spec), n.digits = 1), "%")  # label for (1 - spec)
       lty.spec <- 3
-      y.lbl.spec.comp <- (spec + (1 - spec)/4)
+      y.lbl.spec.comp <- (spec + (1 - spec) * 1/4)
 
       help_line(x.spec, spec, x.spec, 1,
                 col = col.spec, col.bord = col.bord,
@@ -444,11 +459,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
       lty.prev <- 1  # prev line type
 
-      ## y-value of horizontal lines:
-      if ((sens > spec)) { y.prev <- (spec + max(y.hi, y.lbl.spec))/2 }
-      else if ((spec > sens)) { y.prev <- spec/4 } # low line
-      else { y.prev <- .50 }  # middle line
-      # y.prev <- 1  # at top
+
 
       ## Show prev as horizontal help_line:
       help_line(0, y.prev, prev, y.prev,
