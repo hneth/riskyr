@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 16"
+date: "2018 02 18"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -24,6 +24,7 @@ op <- par(no.readonly = TRUE)
 ```
 
 <!-- riskyr logo: -->  
+
 <a href="https://github.com/hneth/riskyr">
 <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
 </a>
@@ -149,19 +150,27 @@ my.scenario <- riskyr(scen.lbl = "Identifying reoffenders",
 
 #### Viewing scenario information
 
-We _could_ inspect the details of `my.scenario` with `summary(my.scenario)`. But it's much more colorful to immediately check some visualizations of our scenario:
+<!-- Motto: -->  
+
+> The simple graph has brought more information to the data analyst’s mind than any other device. 
+> (...) the meat of the matter can usually be set out in a graph.  
+> (John W. Tukey)^[Tukey, J.W. (1962). _The future of data analysis_. (In: The Collected Works of John W. Tukey, Volume 3, p. 457).] 
+
+We always _can_ inspect the details of `my.scenario` by computing additional metrics and studying their values with `summary(my.scenario)`. But anyone who regularly works with data knows that graphs can provide key insights in very different ways than written summaries and tables. To illustrate this point, let us look at some visualizations of our scenario:
 
 ```{r fnet, include = FALSE, fig.width = 7.2, fig.height = 6}
 plot(my.scenario, plot.type = "fnet")
 ```
 
-An icon array displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `plot.type = "icons"`:
+This so-called _network diagram_ shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the squares corresponds to their relative frequencies.
+
+An _icon array_ displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `plot.type = "icons"`:
 
 ```{r icons, fig.width = 7.2, fig.height = 4.8}
 plot(my.scenario, plot.type = "icons")
 ```
 
-From the icon array, We can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark red). The majority of the reoffenders are classified correctly (shown in dark green rather than dark red). 
+From the icon array, we can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark red). The majority of the reoffenders are classified correctly (shown in dark green rather than dark red). 
 
 But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will _either_ be classified as a "reoffender found" (if he actually reoffends: dark green icons) _or_ as a "false accusation" (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards "reoffenders found"), it appears that his chances of actually reoffending are only slighly higher than chance.
 
@@ -183,7 +192,7 @@ summary(my.scenario, summarize = "prob")
 
 #### Alternative perspectives
 
-An alternative way to view the our scenario is a frequency tree that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
+An alternative way to view the our scenario is a _frequency tree_ that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
 
 ```{r tree, fig.width = 7.2, fig.height = 5.8}
 plot(my.scenario, plot.type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)

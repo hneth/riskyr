@@ -359,10 +359,9 @@ To obtain the same results when translating back and forth between probabilities
 
 Inspecting the lists of probabilities and frequencies shows that the two problem formulations cited above are only two possible instances out of an array of many alternative formulations. Essentially, the same scenario can be described in a variety of variables and formats. Gaining deeper insights into the interplay between these variables requires a solid understanding of the underlying concepts and their mathematical definitions. To facilitate the development of such an understanding, `riskyr` recruits the power of visual representations and shows the same scenario from a variety of angles and perspectives. It is mostly this graphical functionality that supports `riskyr`'s claim on being a toolbox for rendering risk literacy more transparent. Thus, in addition to being a fancy calculator and a translator between formats, `riskyr` is mostly a machine that turns risk-related information into pretty pictures.
 
-`riskyr` provides many alternative visualizations that depict the same risk-related scenario in the form of different representations. As each type of graphic has its own properties and perspective --- strengths that emphasize or illuminate some particular aspect and weaknesses that hide or obscure others --- the different visualizations are somewhat redundant, yet complement and support each other.
+`riskyr` provides many alternative visualizations that depict the same risk-related scenario in the form of different representations. As each type of graphic has its own properties and perspective --- strengths that emphasize or illuminate some particular aspect and weaknesses that hide or obscure others --- the different visualizations are somewhat redundant, yet complement and support each other.^[Although we tend to be enthusiastic about the potential of visualizations, we should not expect graphs to provide a magic potion for solving all problems of understanding. (For instance, see Micallef et al. (2012) and Khan et al. (2015) for somewhat sceptical and sobering studies on the potential benefits of different static representations of Bayesian problems.)]
 
-Here are some examples that depict the scenario described above: 
-
+Here are some examples that depict particular aspects of the scenario described above: 
 
 #### Icon array
 
@@ -448,7 +447,7 @@ Can you spot cases of hits (true positives) and misses (false negatives)? (Hint:
 
 #### Network plot
 
-The following network diagram is a generalization of the tree diagram. It plots all 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts all 10 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
+The following network diagram is a generalization of the tree diagram (Wassner et al., 2004). It plots all 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts all 10 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
 
 ```{r plot_fnet, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
@@ -503,6 +502,10 @@ _Frontiers in Psychology_, _6_, 1473.
 Communicating statistical information. 
 _Science_, _290_, 2261--2262.
 
+- Khan, A., Breslav, S., Glueck, M., & Hornbæk, K. (2015). 
+Benefits of visualization in the mammography problem. 
+_International Journal of Human-Computer Studies_, _83_, 94--113.
+
 - Kurzenhäuser, S., & Hoffrage, U. (2002). 
 Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. 
 _Medical Teacher_, _24_, 516--521.
@@ -510,6 +513,10 @@ _Medical Teacher_, _24_, 516--521.
 - Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). 
 Transparency in risk communication. 
 _Annals of the New York Academy of Sciences_, _1128_, 18--28.
+
+- Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). 
+Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. 
+_IEEE Transactions on Visualization and Computer Graphics_, _18_, 2536--2545.
 
 - Neth, H., & Gigerenzer, G. (2015). 
 Heuristics: Tools for an uncertain world. 
@@ -524,6 +531,9 @@ _Journal of Experimental Psychology: General_, _130_, 380--400.
 _Tychomancy: Inferring probability from causal structure_. 
 Cambridge, MA: Harvard University Press.
 
+- Wassner, C., Martignon, L., & Biehler, R. (2004). 
+Bayesianisches Denken in der Schule. 
+_Unterrichtswissenschaft_, _32_, 58–96.
 
 ## Contact
 

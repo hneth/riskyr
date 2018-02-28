@@ -34,12 +34,12 @@ Behold the aptly named "confusion matrix":
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-Fortunately, the basic matrix is actually quite simple and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
+Fortunately, the basic matrix is also known as 2-by-2 contingency table, actually quite simple, and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
 
 
 ## Basics
 
-Condensed to its core, the confusion matrix classifies each individual case into one of 4 possible categories that result from combining two binary variables (i.e., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:
+Condensed to its core, the confusion matrix cross-tabulates two binary dimensions and classifies each individual case into one of 4 possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:
 
 |              | Condition | |
 | ------:      |:----:|:----:|      
