@@ -97,11 +97,14 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 **ToDo:** 
 
 - Provide a numeric example.
+
 - Show corresponding mosaic plot and/or network diagram. 
+
 - Distinguish between different scenario types and causal models: 
-    - Detection, 
-    - treatment, 
-    - prevention. 
+    - detection (e.g., in clinical diagnostics), 
+    - treatment (e.g., RCTs), 
+    - prevention (e.g., vaccination). 
+
 
 ### Accuracy as a 3rd perspective
 

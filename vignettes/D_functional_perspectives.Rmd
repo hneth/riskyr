@@ -25,11 +25,13 @@ library("riskyr")  # load the "riskyr" package
 > The greatest value of a picture is when it forces us to notice what we never expected to see.  
 > (John W. Tukey)^[Tukey, J.W. (1977), _Exploratory data analysis_. Reading, MA: Addison-Wesley. (p. vi).]
 
+
 <!-- riskyr logo: -->
 
 <a href="https://github.com/hneth/riskyr">
 <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
 </a>
+
 
 <!-- Introduction: --> 
 
@@ -40,6 +42,7 @@ However, sometimes it is instructive to view all possible values of some paramet
 as a function of others. A functional perspective illustrates how the value of 
 some parameter (or its values) changes as a function of other parameters 
 (and their values). 
+
 
 ## Functions
 
