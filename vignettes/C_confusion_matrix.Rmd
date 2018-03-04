@@ -25,11 +25,11 @@ Behold the aptly named "confusion matrix":
 
 |              | Condition |          |       |          |            
 | ----------:  |:--------:|:--------:|:----------:|:--------:|              
-| **Decision** | present (`TRUE`):      | absent (`FALSE`):     |     Sum:  |  (b) by decision:      |  
+| **Decision** | present (`TRUE`):      | absent (`FALSE`):     |     Sum:  |  (b) by decision: |  
 | positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | `PPV` = `hi`/`dec.pos` |
 | negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | `NPV` = `cr`/`dec.neg` |
 |      Sum:    | `cond.true`  | `cond.false` |       `N` |                        |
-| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N`     |
+| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
 
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
