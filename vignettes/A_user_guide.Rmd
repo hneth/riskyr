@@ -352,7 +352,37 @@ all.equal(freq$fa, rand.f[3])
 all.equal(freq$cr, rand.f[4])
 ```
 
-To obtain the same results when translating back and forth between probabilities and frequencies, it is important to switch off rounding when computing frquencies from probabilities with `comp_freq_prob`. Similarly, we need to scale the computed frequencies to the original population size `N` to arrive at the original frequencies. 
+To obtain the same results when translating back and forth between probabilities and frequencies, it is important to switch off rounding when computing frequencies from probabilities with `comp_freq_prob`. Similarly, we need to scale the computed frequencies to the original population size `N` to arrive at the original frequencies. 
+
+#### All at once: Defining a `riskyr` scenario
+
+In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key varialbes of a risk-related situation, you can always define a `riskyr` scenario:
+
+```{r riskyr_scenario_def}
+s <- riskyr(scen.lbl = "Mammography screening", 
+            cond.lbl = "breast cancer",
+            cond.true.lbl = "cancer", cond.false.lbl = "no cancer",
+            dec.lbl = "screening test",
+            dec.pos.lbl = "predict cancer", dec.neg.lbl = "predict no cancer",
+            prev = .01, 
+            sens = .80, 
+            spec = NA, 
+            fart = .096)
+```
+
+This `riskyr` command defined a new scenario `s` and initialized it with a suitable population size of `N = 1000`. Use the `summary` command to get an overview over its key parameters:
+
+```{r riskyr_scenario_summary}
+summary(s)  # provides an overview over key scenario information:
+```
+
+The fastest way to get an overview over a scenario `s` is by plotting it:
+
+```{r riskyr_scenario_plot, fig.width = 7.2, fig.height = 7.2}
+plot(s, area = "no")  # plots a (default) network diagram of key frequencies and probabilities: 
+```
+
+There are many other types of plots and customization options available. In the following, we explain different visualizations by introducing their corresponding plotting functions. For the impatient: The [Quick start primer](E_riskyr_primer.html) explains how to directly plot different visualizations of a given scenario.
 
 
 ### C. Visualizing relationships between formats and variables
@@ -392,7 +422,7 @@ For details and additional options of the `plot_tree` function, see the document
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following mosaic plot, the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-```{r plot_mosaic_cd, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
+```{r plot_mosaic_cd, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             title.lbl = "Mammography screening")
 ```
@@ -416,7 +446,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 Similarly, the population area of the mosaic plot can first be split by decisions (i.e., horizontally) by specifying the option `by = "dc"`:
 
-```{r plot_mosaic_dc, fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+```{r plot_mosaic_dc, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             by = "dc",  # split population by decision (horizontal 1st) 
             title.lbl = "Mammography screening")
