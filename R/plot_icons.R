@@ -244,7 +244,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        type = "array",  # needs to be given if random position but nonrandom ident.
                        ## Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
                        ident.order = c("hi", "mi", "fa", "cr"),
-                       icon.colors = pal[c("hi", "mi", "fa", "cr")],  # use one color for each usual type.
+                       icon.colors = pal[ident.order],  # use one color for each usual type.
                        icon.types = 22,  # plotting characters; default square with border
                        icon.border.col = grey(.10, .50),  # border color of icons
                        icon.border.lwd = 1.5, # line width of icons
