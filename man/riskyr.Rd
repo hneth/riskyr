@@ -12,9 +12,9 @@ riskyr(scen.lbl = "", scen.lng = txt$scen.lng, scen.txt = txt$scen.txt,
   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
   dec.lbl = txt$dec.lbl, dec.pos.lbl = txt$dec.pos.lbl,
   dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
-  fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl, prev = num$prev,
-  sens = num$sens, spec = num$spec, fart = NA, N = NA,
-  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
+  fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl, prev = NA, sens = NA,
+  spec = NA, fart = NA, N = NA, hi = NA, mi = NA, fa = NA,
+  cr = NA, scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 }
 \arguments{
 \item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
@@ -73,12 +73,20 @@ of a negative decision provided that the condition is \code{FALSE}).
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
 of a positive decision provided that the condition is \code{FALSE}).
-\code{fart} is optional when its complement \code{spec} is provided.
-
-Source information:}
+\code{fart} is optional when its complement \code{spec} is provided.}
 
 \item{N}{The number of individuals in the scenario's population.
 A suitable value of \code{\link{N}} is computed, if not provided.}
+
+\item{hi}{The number of hits \code{\link{hi}} (or true positives).}
+
+\item{mi}{The number of misses \code{\link{mi}} (or false negatives).}
+
+\item{fa}{The number of false alarms \code{\link{fa}} (or false positives).}
+
+\item{cr}{The number of correct rejections \code{\link{cr}} (or true negatives).
+
+Source information:}
 
 \item{scen.src}{Source information for the current scenario.}
 

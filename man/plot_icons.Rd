@@ -6,14 +6,14 @@
 \usage{
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
-  "fa", "cr"), icon.colors = pal[c("hi", "mi", "fa", "cr")],
-  icon.types = 22, icon.border.col = grey(0.1, 0.5),
-  icon.border.lwd = 1.5, transparency = 0.5, icon.size = NULL,
-  block.d = NULL, border.d = 0.1, block.size.row = 10,
-  block.size.col = 10, nblocks.row = NULL, nblocks.col = NULL,
-  fill.array = "left", fill.blocks = "rowwise", show.accu = TRUE,
-  w.acc = 0.5, title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl",
-  "mi.lbl", "fa.lbl", "cr.lbl")], cex.lbl = 0.85)
+  "fa", "cr"), icon.colors = pal[ident.order], icon.types = 22,
+  icon.border.col = grey(0.1, 0.5), icon.border.lwd = 1.5,
+  transparency = 0.5, icon.size = NULL, block.d = NULL, border.d = 0.1,
+  block.size.row = 10, block.size.col = 10, nblocks.row = NULL,
+  nblocks.col = NULL, fill.array = "left", fill.blocks = "rowwise",
+  show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
+  type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+  cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
