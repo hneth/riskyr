@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 02 17
+## 2018 03 05
 ## -----------------------------------------------
 ## Define riskyr class and corresponding methods
 ## and re-define df.scenarios as a list of
@@ -91,6 +91,14 @@
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
+#'
+#' @param hi The number of hits \code{\link{hi}} (or true positives).
+#'
+#' @param mi The number of misses \code{\link{mi}} (or false negatives).
+#'
+#' @param fa The number of false alarms \code{\link{fa}} (or false positives).
+#'
+#' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #' Source information:
 #'
