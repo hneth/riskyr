@@ -128,29 +128,97 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
                    dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
                    hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
                    fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
-                   prev = num$prev,
-                   sens = num$sens,
-                   spec = num$spec, fart = NA,
+                   prev = NA,
+                   sens = NA,
+                   spec = NA, fart = NA,
                    N = NA,  ## WAS: freq$N,
+                   hi = NA, mi = NA,
+                   fa = NA, cr = NA,
                    scen.src = txt$scen.src, scen.apa = txt$scen.apa) {
 
   ## Create object (scenario):
+
+  ## (1) Using frequencies:
+  if (!any(is.na(c(hi, mi, fa, cr)))) {  # if all four frequencies are provided:
+
+    ## (a) Testing N:
+    if (is.na(N)) {  # check, whether N is NA.
+
+      N <- sum(c(hi, mi, fa, cr))  # set N to sum of frequencies.
+
+    } else {
+
+      # check, whether N matches the frequencies:
+      if (N != sum(c(hi, mi, fa, cr))) {
+
+        N <- sum(c(hi, mi, fa, cr))  # set N to sum of frequencies.
+        warning("N did not match the frequencies.  It was calculated nwley from their sum.")
+      }
+    }
+
+    ## (b) Calculate the probabilities:
+    probs_calc <- comp_prob_freq(hi, mi, fa, cr)
+    probs <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
+
+    freqs <- comp_freq_freq(hi, mi, fa, cr)  # calculate frequencies.
+
+    } else {
+
+    probs <- NA  # if no sufficient frequencies are provided, set probs to NA.
+
+  }
+
+  ## if not all frequencies are provided:
+  ## (2) Using probabilities:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart,
-                        tol = .01)) {
+                          tol = .01)) {
 
-    ## Compute the complete quintet of probabilities:
-    prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
-    sens <- prob_quintet[2] # gets sens (if not provided)
-    mirt <- prob_quintet[3] # gets mirt (if not provided)
-    spec <- prob_quintet[4] # gets spec (if not provided)
-    fart <- prob_quintet[5] # gets fart (if not provided)
+      ## (a) Compute the complete quintet of probabilities:
+      prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
+      # sens <- prob_quintet[2] # gets sens (if not provided)
+      # mirt <- prob_quintet[3] # gets mirt (if not provided)
+      # spec <- prob_quintet[4] # gets spec (if not provided)
+      # fart <- prob_quintet[5] # gets fart (if not provided)
+
+      ## (b) If frequencies have been provided test whether they match:
+      if (!any(is.na(probs))) { # if probs has been calculated:
+
+
+        if (!is.null(prob_quintet)) {  # check, whether prob_quintet has been calculated.
+
+          ## Do they equal the provided probabilities?
+          if (!any((probs - prob_quintet) < .01)) {
+
+            warning("Provided probabilities do not equal probabilities calculated from frequencies.
+                    Probabilities from frequencies are used.")
+
+          }
+        }  # end check prob_quintet.
+
+
+      } else {
+
+          ## (c) If no frequencies have been provided (probs is NA):
+
+          ## Set the prob quintet to probs:
+          probs <- prob_quintet
+
+          ## If no N has been provided:
+          if (is.na(N)) {
+
+            N <- comp_min_N(probs[1], probs[2], probs[4], min.freq = 1)
+          }
+
+          ## Calculate the frequencies:
+          freqs <- comp_freq_prob(prev = prob_quintet[1], sens = prob_quintet[2], mirt = prob_quintet[3],
+                                  spec = prob_quintet[4], prob_quintet[5], N = N)
+
+        }
 
   }
 
-  ## Provide a suitable population size N when none is provided:
-  if (is.na(N)) {
-    N <- comp_min_N(prev, sens, spec, min.freq = 1)
-  }
+  prob_quintet <- probs  # by now, they should be the same.
+
 
   ## Define object as a list:
   object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
@@ -158,10 +226,12 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
                  cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
                  dec.lbl = dec.lbl, dec.pos.lbl = dec.pos.lbl, dec.neg.lbl = dec.neg.lbl,
                  hi.lbl = hi.lbl, mi.lbl = mi.lbl, fa.lbl = fa.lbl, cr.lbl = cr.lbl,
-                 prev = prev,
-                 sens = sens,
-                 spec = spec, fart = fart,
+                 prev = prob_quintet[1],
+                 sens = prob_quintet[2],
+                 spec = prob_quintet[4], fart = prob_quintet[5],
                  N = N,
+                 hi = freqs$hi, mi = freqs$mi,
+                 fa = freqs$fa, cr = freqs$cr,
                  scen.src = scen.src, scen.apa = scen.apa)
 
   ## Add class riskyr:
