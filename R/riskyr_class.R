@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 03 05
+## 2018 03 06
 ## -----------------------------------------------
 ## Define riskyr class and corresponding methods
 ## and re-define df.scenarios as a list of
@@ -100,7 +100,6 @@
 #' @param scen.apa Source information for the current scenario
 #' in the style of the American Psychological Association (APA style).
 #'
-#'
 #' @examples
 #' # Defining a scenario:
 #' scen.reoffend <- riskyr(scen.lbl = "Identify reoffenders",
@@ -135,7 +134,6 @@
 #' ## Watch out for:
 #' # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses sum of freq
 #' # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
-#'
 #'
 #' @export
 
@@ -243,7 +241,7 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
   } # if (is_valid_prob_set(...
 
-  # prob_quintet <- probs  # by now, both should be the same.
+  ## prob_quintet <- probs  # both should be the same by now (not needed?).
 
   ## Define object as a list:
   object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
