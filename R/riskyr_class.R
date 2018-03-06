@@ -76,54 +76,66 @@
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
-#'
 #' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
-#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when its complement \code{fart} is provided.
-#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
 #' @param hi The number of hits \code{\link{hi}} (or true positives).
-#'
 #' @param mi The number of misses \code{\link{mi}} (or false negatives).
-#'
 #' @param fa The number of false alarms \code{\link{fa}} (or false positives).
-#'
 #' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #' Source information:
 #'
 #' @param scen.src Source information for the current scenario.
-#'
 #' @param scen.apa Source information for the current scenario
 #' in the style of the American Psychological Association (APA style).
 #'
 #'
 #' @examples
 #' # Defining a scenario:
-#' custom.scenario <- riskyr(scen.lbl = "Identify reoffenders",
-#'   cond.lbl = "Being a reoffender", popu.lbl = "Prisoners",
-#'   cond.true.lbl = "Has reoffended", cond.false.lbl = "Has not reoffended",
-#'   dec.lbl = "Test result",
-#'   dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
-#'   hi.lbl = "Reoffender found", mi.lbl = "Reoffender missed",
-#'   fa.lbl = "False accusation", cr.lbl = "Correct release",
-#'   prev = .45,  # prevalence of being a reoffender.
-#'   sens = .98, spec = .46, fart = NA, N = 753,
-#'   scen.src = "Ficticious example scenario")
+#' scen.reoffend <- riskyr(scen.lbl = "Identify reoffenders",
+#'                         cond.lbl = "being a reoffender",
+#'                         popu.lbl = "Prisoners",
+#'                         cond.true.lbl = "has reoffended",
+#'                         cond.false.lbl = "has not reoffended",
+#'                         dec.lbl = "test result",
+#'                         dec.pos.lbl = "will reoffend",
+#'                         dec.neg.lbl = "will not reoffend",
+#'                         hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
+#'                         fa.lbl = "false accusation", cr.lbl = "correct release",
+#'                         prev = .45,  # prevalence of being a reoffender.
+#'                         sens = .98,
+#'                         spec = .46, fart = NA,  # (provide 1 of 2)
+#'                         N = 753,
+#'                         scen.src = "Example scenario")
 #'
 #' # Using a scenario:
-#' summary(custom.scenario)
-#' plot(custom.scenario)
+#' summary(scen.reoffend)
+#' plot(scen.reoffend)
+#'
+#' # 2 ways of defining the same scenario:
+#' s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
+#' s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
+#' all.equal(s1, s2)  # should be TRUE
+#'
+#' # Ways to work:
+#' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
+#' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
+#'
+#' ## Watch out for:
+#' # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses sum of freq
+#' # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
+#'
 #'
 #' @export
 
@@ -146,7 +158,8 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
   ## Create object (scenario):
 
-  ## (1) Using frequencies:
+  ## (1) Using 4 frequencies: -------
+
   if (!any(is.na(c(hi, mi, fa, cr)))) {  # if all four frequencies are provided:
 
     ## (a) Testing N:
@@ -156,11 +169,16 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
     } else {
 
-      # check, whether N matches the frequencies:
-      if (N != sum(c(hi, mi, fa, cr))) {
+      ## check, whether N matches the sum of frequencies:
+      N.sum <- sum(c(hi, mi, fa, cr))
 
-        N <- sum(c(hi, mi, fa, cr))  # set N to sum of frequencies.
-        warning("N did not match the frequencies.  It was calculated nwley from their sum.")
+      if (N != N.sum) {
+
+        msg <- paste0("N = ", N, " differs from the sum of frequencies = ", N.sum, ". Using the latter...")
+        warning(msg)
+
+        N <- N.sum # use sum of frequencies as N
+
       }
     }
 
@@ -170,63 +188,62 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
     freqs <- comp_freq_freq(hi, mi, fa, cr)  # calculate frequencies.
 
-    } else {
+  } else {     # if no sufficient frequencies are provided:
 
-    probs <- NA  # if no sufficient frequencies are provided, set probs to NA.
+    probs <- NA  # set probs to NA (and use inputs below).
 
   }
 
-  ## if not all frequencies are provided:
-  ## (2) Using probabilities:
+  ## if not all 4 frequencies are provided:
+
+  ## (2) Using 3 probabilities: ------
+
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart,
-                          tol = .01)) {
+                        tol = .01)) {
 
-      ## (a) Compute the complete quintet of probabilities:
-      prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
-      # sens <- prob_quintet[2] # gets sens (if not provided)
-      # mirt <- prob_quintet[3] # gets mirt (if not provided)
-      # spec <- prob_quintet[4] # gets spec (if not provided)
-      # fart <- prob_quintet[5] # gets fart (if not provided)
+    ## (a) Compute the complete quintet of probabilities:
+    prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
+    # sens <- prob_quintet[2] # gets sens (if not provided)
+    # mirt <- prob_quintet[3] # gets mirt (if not provided)
+    # spec <- prob_quintet[4] # gets spec (if not provided)
+    # fart <- prob_quintet[5] # gets fart (if not provided)
 
-      ## (b) If frequencies have been provided test whether they match:
-      if (!any(is.na(probs))) { # if probs has been calculated:
+    ## (b) If frequencies have been provided, test whether the probabilities match:
+    if (!any(is.na(probs))) { # if probs has been calculated:
 
+      if (!is.null(prob_quintet)) {  # check, whether prob_quintet has been calculated.
 
-        if (!is.null(prob_quintet)) {  # check, whether prob_quintet has been calculated.
+        ## Do they equal the provided probabilities?
+        if (any(abs(probs - prob_quintet) > .01)) {
 
-          ## Do they equal the provided probabilities?
-          if (!any((probs - prob_quintet) < .01)) {
-
-            warning("Provided probabilities do not equal probabilities calculated from frequencies.
-                    Probabilities from frequencies are used.")
-
-          }
-        }  # end check prob_quintet.
-
-
-      } else {
-
-          ## (c) If no frequencies have been provided (probs is NA):
-
-          ## Set the prob quintet to probs:
-          probs <- prob_quintet
-
-          ## If no N has been provided:
-          if (is.na(N)) {
-
-            N <- comp_min_N(probs[1], probs[2], probs[4], min.freq = 1)
-          }
-
-          ## Calculate the frequencies:
-          freqs <- comp_freq_prob(prev = prob_quintet[1], sens = prob_quintet[2], mirt = prob_quintet[3],
-                                  spec = prob_quintet[4], prob_quintet[5], N = N)
+          warning("Provided probabilities differ from probabilities calculated from frequencies.
+                     Using probabilities from frequencies...")
 
         }
+      }  # end check prob_quintet.
 
-  }
+    } else {
 
-  prob_quintet <- probs  # by now, they should be the same.
+      ## (c) If no frequencies have been provided (probs is NA): ------
 
+      ## Set the prob quintet to probs:
+      probs <- prob_quintet
+
+      ## If no N has been provided:
+      if (is.na(N)) {
+
+        N <- comp_min_N(probs[1], probs[2], probs[4], min.freq = 1)  # calculate suitable N.
+      }
+
+      ## Calculate the frequencies:
+      freqs <- comp_freq_prob(prev = probs[1], sens = probs[2], mirt = probs[3],
+                              spec = probs[4], probs[5], N = N)
+
+    }
+
+  } # if (is_valid_prob_set(...
+
+  # prob_quintet <- probs  # by now, both should be the same.
 
   ## Define object as a list:
   object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
@@ -234,9 +251,9 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
                  cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
                  dec.lbl = dec.lbl, dec.pos.lbl = dec.pos.lbl, dec.neg.lbl = dec.neg.lbl,
                  hi.lbl = hi.lbl, mi.lbl = mi.lbl, fa.lbl = fa.lbl, cr.lbl = cr.lbl,
-                 prev = prob_quintet[1],
-                 sens = prob_quintet[2],
-                 spec = prob_quintet[4], fart = prob_quintet[5],
+                 prev = probs[1],
+                 sens = probs[2],
+                 spec = probs[4], fart = probs[5],
                  N = N,
                  hi = freqs$hi, mi = freqs$mi,
                  fa = freqs$fa, cr = freqs$cr,
@@ -246,6 +263,7 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
   class(object) <- "riskyr"
 
   return(object)
+
 }
 
 
@@ -253,6 +271,19 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 {
   # test.obj <- riskyr()  # initialize with default parameters
   # names(test.obj)
+
+  ## 2 ways to define the same scenario:
+  # s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
+  # s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
+  # all.equal(s1, s2)  # should be TRUE
+
+  ## Ways to work:
+  # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
+  # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
+
+  ## Watch out for:
+  # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses sum of freq
+  # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 
   ## Compare with df.scenarios:
   # names(df.scenarios)
@@ -520,7 +551,7 @@ plot.riskyr <- function(x = NULL,
               hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl, fa.lbl = x$fa.lbl,
               cr.lbl = x$cr.lbl,
               ...
-              )
+    )
 
   } # if (plot.type == "network")
 
@@ -679,7 +710,6 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
   ## (0) If all should be summarized: ----------
 
   if (summarize == "all") summarize <- c("prob", "freq", "accu")
-
 
 
   ## (A) Probability information: ----------
