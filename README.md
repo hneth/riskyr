@@ -106,7 +106,7 @@ Here is how `riskyr` allows you to view and solve such problems:
 library(riskyr)  # loads the package
 ```
 
-#### Creating a scenario
+#### Creating a scenario from probabilities
 
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
@@ -178,7 +178,33 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 
 In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. To get you started immediately, we provide a few introductory examples that illustrate different types of visualizations.
 
+#### Creating a scenario from frequencies
+
+If we had been provided with 4 essential frequencies (of `hi`, `mi`, `fa`, and `cr`) instead of 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`), the same scenario can be defined as follows:
+
+``` r
+hustosis_2 <- riskyr(scen.lbl = "Example", 
+                    cond.lbl = "hustosis",
+                    dec.lbl = "screening test",
+                    popu.lbl = "representative sample", 
+                    hi = 32, mi = 8, fa = 48, cr = 912
+                    )
+```
+
+As we took the values of these frequencies from the `summary` of `hustosis`, the `hustosis_2` scenario should contain exactly the same information as `hustosis`:
+
+``` r
+all.equal(hustosis, hustosis_2)  # do both contain the same information? 
+#> [1] TRUE
+```
+
+### Visualizations
+
+Various visualizations of `riskyr` scenarios can be created by a range of plotting functions.
+
 #### Tree diagram
+
+A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` option:
 
 ``` r
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
@@ -186,7 +212,7 @@ plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decisio
 
 ![](inst/pix/README-ex1_tree-1.png)
 
-This particular tree, which splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`), actually contains the answer to the second (frequency) version of our questions:
+This particular tree splits the population of `N = 1000` individuals into two subgroups *by decision* (`by = "dc"`) and contains the answer to the second (frequency) version of our questions:
 
 -   The proportion of individuals with a positive test result who actually suffer from hustosis is the frequency of "true positive" cases (shown in darker green) divided by "decision positive" cases (shown in purple): `32/80 = .400` (corresponding to our value of `PPV` above).
 -   The proportion of individuals with a negative test result who are actually free from hustosis is the frequency of "true negative" cases (shown in lighter green) divided by "decision negative" cases (shown in blue): `912/920 = .991` (corresponding to our value of `NPV` above, except for minimal differences due to rounding).
@@ -309,7 +335,7 @@ summary(s21)  # shows key scenario information:
 #> 0.575
 ```
 
-Generating the following plots will allow you a quick visual exploration of the scenario. We only show selected plots here, and trust that you can try out the others for yourself.
+Generating the following plots will allow you a quick visual exploration of the scenario. (We only show selected plots here, and trust that you can try out the others for yourself.)
 
 #### Network diagram
 
