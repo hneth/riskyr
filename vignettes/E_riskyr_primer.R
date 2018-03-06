@@ -10,11 +10,21 @@ op <- par(no.readonly = TRUE)
 ## ----load_riskyr---------------------------------------------------------
 library("riskyr")  # loads the package
 
-## ----create_scenario_minimal---------------------------------------------
-# Create a minimal scenario:
+## ----create_scenario_minimal_prob----------------------------------------
+# Create a minimal scenario (from probabilities):
 my.scenario <- riskyr(prev = .45, 
                       sens = .98,
                       spec = .46)
+
+## ----create_scenario_min_freq--------------------------------------------
+# Create a minimal scenario (from frequencies):
+my.scenario.2 <- riskyr(hi = my.scenario$hi, 
+                        mi = my.scenario$mi,
+                        fa = my.scenario$fa,
+                        cr = my.scenario$cr)
+
+## ----verify_equal_prob_freq----------------------------------------------
+all.equal(my.scenario, my.scenario.2)
 
 ## ----create_scenario_custom----------------------------------------------
 # Create a customized scenario: 

@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 18"
+date: "2018 03 06"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -91,17 +91,34 @@ First, we need to translate the numeric information provided in our example into
 
 4. In addition, the _population size_ of your sample was mentioned to be `N = 753`.^[If no population size value `N` is specified, a suitable value is provided.]  
 
+The following code defines a perfectly valid `riskyr` scenario from 3 essential probabilities:
 
-The following code defines a perfectly valid `riskyr` scenario:
-
-```{r create_scenario_minimal}
-# Create a minimal scenario:
+```{r create_scenario_minimal_prob}
+# Create a minimal scenario (from probabilities):
 my.scenario <- riskyr(prev = .45, 
                       sens = .98,
                       spec = .46)
 ```
 
 <!-- Mention alternative ways of entering the same (e.g., by providing fart, rather than spec)? --> 
+
+This creates `my.scenario` from 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`) and computes a suitable population size `N` of `r my.scenario$N`. 
+
+Alternatively, we could create the same minimal scenario from 4 essential frequencies (if they are known). The following code creates the scenario a second time, but now uses the frequencies of `my.scenario` to do so: 
+
+```{r create_scenario_min_freq}
+# Create a minimal scenario (from frequencies):
+my.scenario.2 <- riskyr(hi = my.scenario$hi, 
+                        mi = my.scenario$mi,
+                        fa = my.scenario$fa,
+                        cr = my.scenario$cr)
+```
+
+If this succeeds, `my.scenario` and `my.scenario.2` should contain the same information: 
+
+```{r verify_equal_prob_freq}
+all.equal(my.scenario, my.scenario.2)
+```
 
 
 #### Optional scenario information

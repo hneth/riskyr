@@ -69,7 +69,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Quick Start Primer</h1>
 <h4 class="author"><em>Nico Gradwohl &amp; Hansjörg Neth, SPDS, uni.kn</em></h4>
-<h4 class="date"><em>2018 02 18</em></h4>
+<h4 class="date"><em>2018 03 06</em></h4>
 
 
 
@@ -118,12 +118,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 (This corresponds to a <em>false alarm rate</em> <code>fart = 1 - spec = .54</code>.)</p></li>
 <li><p>In addition, the <em>population size</em> of your sample was mentioned to be <code>N = 753</code>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p></li>
 </ol>
-<p>The following code defines a perfectly valid <code>riskyr</code> scenario:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a minimal scenario:</span>
+<p>The following code defines a perfectly valid <code>riskyr</code> scenario from 3 essential probabilities:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a minimal scenario (from probabilities):</span>
 my.scenario &lt;-<span class="st"> </span><span class="kw">riskyr</span>(<span class="dt">prev =</span> .<span class="dv">45</span>, 
                       <span class="dt">sens =</span> .<span class="dv">98</span>,
                       <span class="dt">spec =</span> .<span class="dv">46</span>)</code></pre></div>
 <!-- Mention alternative ways of entering the same (e.g., by providing fart, rather than spec)? -->
+<p>This creates <code>my.scenario</code> from 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code> or <code>fart</code>) and computes a suitable population size <code>N</code> of 1000.</p>
+<p>Alternatively, we could create the same minimal scenario from 4 essential frequencies (if they are known). The following code creates the scenario a second time, but now uses the frequencies of <code>my.scenario</code> to do so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a minimal scenario (from frequencies):</span>
+my.scenario.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">riskyr</span>(<span class="dt">hi =</span> my.scenario<span class="op">$</span>hi, 
+                        <span class="dt">mi =</span> my.scenario<span class="op">$</span>mi,
+                        <span class="dt">fa =</span> my.scenario<span class="op">$</span>fa,
+                        <span class="dt">cr =</span> my.scenario<span class="op">$</span>cr)</code></pre></div>
+<p>If this succeeds, <code>my.scenario</code> and <code>my.scenario.2</code> should contain the same information:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(my.scenario, my.scenario.<span class="dv">2</span>)
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
 <div id="optional-scenario-information" class="section level4">
 <h4>Optional scenario information</h4>
