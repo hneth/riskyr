@@ -113,19 +113,38 @@ are used and returned.
 }
 \examples{
 # Defining a scenario:
-custom.scenario <- riskyr(scen.lbl = "Identify reoffenders",
-  cond.lbl = "Being a reoffender", popu.lbl = "Prisoners",
-  cond.true.lbl = "Has reoffended", cond.false.lbl = "Has not reoffended",
-  dec.lbl = "Test result",
-  dec.pos.lbl = "will reoffend", dec.neg.lbl = "will not reoffend",
-  hi.lbl = "Reoffender found", mi.lbl = "Reoffender missed",
-  fa.lbl = "False accusation", cr.lbl = "Correct release",
-  prev = .45,  # prevalence of being a reoffender.
-  sens = .98, spec = .46, fart = NA, N = 753,
-  scen.src = "Ficticious example scenario")
+scen.reoffend <- riskyr(scen.lbl = "Identify reoffenders",
+                        cond.lbl = "being a reoffender",
+                        popu.lbl = "Prisoners",
+                        cond.true.lbl = "has reoffended",
+                        cond.false.lbl = "has not reoffended",
+                        dec.lbl = "test result",
+                        dec.pos.lbl = "will reoffend",
+                        dec.neg.lbl = "will not reoffend",
+                        hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
+                        fa.lbl = "false accusation", cr.lbl = "correct release",
+                        prev = .45,  # prevalence of being a reoffender.
+                        sens = .98,
+                        spec = .46, fart = NA,  # (provide 1 of 2)
+                        N = 753,
+                        scen.src = "Example scenario")
 
 # Using a scenario:
-summary(custom.scenario)
-plot(custom.scenario)
+summary(scen.reoffend)
+plot(scen.reoffend)
+
+# 2 ways of defining the same scenario:
+s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
+s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
+all.equal(s1, s2)  # should be TRUE
+
+# Ways to work:
+riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
+riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
+
+## Watch out for:
+# riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses sum of freq
+# riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
+
 
 }
