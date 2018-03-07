@@ -152,52 +152,62 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
                    N = NA,  ## WAS: freq$N,
                    hi = NA, mi = NA,
                    fa = NA, cr = NA,
-                   scen.src = txt$scen.src, scen.apa = txt$scen.apa) {
+                   scen.src = txt$scen.src,
+                   scen.apa = txt$scen.apa) {
 
-  ## Create object (scenario):
+  ## (0): Initialize some stuff: ------
+  freqs <- NA
+  probs <- NA
+  prob_quintet <- NA
 
-  ## (1) Using 4 frequencies: -------
+  ## Case_1: Using 4 frequencies: -------
 
-  if (!any(is.na(c(hi, mi, fa, cr)))) {  # if all four frequencies are provided:
+  if (!any(is.na(c(hi, mi, fa, cr)))) {  # all four frequencies are provided:
 
-    ## (a) Testing N:
+    ## (a) Checking consistency of N: -----
+
     if (is.na(N)) {  # check, whether N is NA.
 
       N <- sum(c(hi, mi, fa, cr))  # set N to sum of frequencies.
 
-    } else {
+    } else {  # N is provided:
 
       ## check, whether N matches the sum of frequencies:
       N.sum <- sum(c(hi, mi, fa, cr))
 
       if (N != N.sum) {
 
-        msg <- paste0("N = ", N, " differs from the sum of frequencies = ", N.sum, ". Using the latter...")
+        msg <- paste0("N = ", N, ", but the sum of frequencies = ", N.sum, ". Using the latter...")
         warning(msg)
 
-        N <- N.sum # use sum of frequencies as N
+        N <- N.sum  # use sum of frequencies as N
 
       }
     }
 
-    ## (b) Calculate the probabilities:
+    ## (b) Calculate the probabilities: -----
+
     probs_calc <- comp_prob_freq(hi, mi, fa, cr)
     probs <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
+    need.probs <- FALSE  # set flag that probs are no longer needed
 
-    freqs <- comp_freq_freq(hi, mi, fa, cr)  # calculate frequencies.
+    ## (c) Calculate ALL frequencies from 4 essential frequencies:
+    freqs <- comp_freq_freq(hi, mi, fa, cr)
 
-  } else {     # if no sufficient frequencies are provided:
+  } else {  # if not all 4 essential frequencies are provided:
 
-    probs <- NA  # set probs to NA (and use inputs below).
+    probs <- NA         # set probs to NA (and use inputs below).
+    need.probs <- TRUE  # set flag that probs are still needed
 
-  }
+  } # if (!any(is.na(c(hi, mi, fa, cr))))...
 
-  ## if not all 4 frequencies are provided:
 
-  ## (2) Using 3 probabilities: ------
+  ## Case_2: Using 3 essential probabilities: ------
 
-  if (is_valid_prob_set(prev = prev, sens = sens, mirt = NA, spec = spec, fart = fart,
-                        tol = .01)) {
+  if (is_valid_prob_set(prev = prev,
+                        sens = sens, mirt = NA,
+                        spec = spec, fart = fart,
+                        tol = .01)) {  # a valid set of probabilities is provided:
 
     ## (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt = NA, spec, fart)
@@ -220,20 +230,19 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
         }
       }  # end check prob_quintet.
 
-    } else {
+    } else {  # if no frequencies have been provided (probs is NA): ------
 
-      ## (c) If no frequencies have been provided (probs is NA): ------
-
-      ## Set the prob quintet to probs:
+      ## (c) Set probs to the computed prob quintet:
       probs <- prob_quintet
 
-      ## If no N has been provided:
+      ## (d) if no N has been provided:
       if (is.na(N)) {
 
-        N <- comp_min_N(probs[1], probs[2], probs[4], min.freq = 1)  # calculate suitable N.
+        N <- comp_min_N(prev = probs[1], sens = probs[2], spec = probs[4],
+                        min.freq = 1)            # calculate a suitable N.
       }
 
-      ## Calculate the frequencies:
+      ## (e) Calculate the frequencies from probabilities:
       freqs <- comp_freq_prob(prev = probs[1], sens = probs[2], mirt = probs[3],
                               spec = probs[4], probs[5], N = N)
 
@@ -241,9 +250,33 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
   } # if (is_valid_prob_set(...
 
+  else { # no valid set of probabilities was provided:
+
+    if (need.probs) {  # not all 4 essential frequencies were provided above:
+
+      ## Case_3: Not all frequencies OR a valid set of probabilities were provided:
+      warning("Neither a full set of frequencies nor a valid set of probabilities was provided.")
+
+    }
+
+  }
+
+  ## Case_4: Something is missing: ------
+
+  ## +++ here now +++
+
+  # if (is.na(freqs)) {
+  #   warning("Frequencies were not provided or could not be computed.")
+  # }
+  #
+  # if (is.na(probs)) {
+  #   warning("Probabilities were not provided or could not be computed.")
+  # }
+
   ## prob_quintet <- probs  # both should be the same by now (not needed?).
 
-  ## Define object as a list:
+  ## Define object (scenario) as a list: ------
+
   object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
                  popu.lbl = popu.lbl, cond.lbl = cond.lbl,
                  cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
@@ -280,8 +313,12 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
   # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 
   ## Watch out for:
-  # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses sum of freq
-  # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
+  # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warn: use sum of freq
+  # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warn: use freq
+
+  ## Check incomplete or inconsistent entries:
+  ## +++ here now +++
+  ## riskyr(prev = NA, hi = NA)
 
   ## Compare with df.scenarios:
   # names(df.scenarios)
