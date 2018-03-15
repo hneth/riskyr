@@ -1,8 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.901) is available at <https://github.com/hneth/riskyr/>. 
-
+The most recent development version (riskyr 0.1.0.904) is available at <https://github.com/hneth/riskyr/>. 
 
 # Changes
 
@@ -10,9 +9,14 @@ Log of changes since last release:
 
 ## Major changes
 
-- ...
+- `riskyr` function [2018-03-06]: 
+Allow definition of a scenario from 4 essential frequencies (and checks for consistency with probabilities). 
+[Appears to work, but yet to be tested more thorougly.] 
 
 ## Minor changes
+
+- `plot_icons` [2018-03-05]: 
+Bug fix to also swap symbols in legend when the symbol order is changed manually.
 
 - `plot_mosaic` [2018-02-18]: 
 Changed Boolean `vsplit` argument to `by = "cd"` vs. `by = "dc"` to ensure consistency with `plot_fnet` and `plot_tree`. Added warning when using deprecated argument. 
@@ -29,8 +33,7 @@ Cast dice to display a risk-related start-up message.
 
 ## Micro changes
 
-- Miscellaneous corrections in documentation and vignettes. 
-
+- Miscellaneous additions and corrections in documentation and vignettes. 
 
 # riskyr 0.1.0
 
