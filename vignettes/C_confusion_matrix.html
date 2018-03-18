@@ -36,12 +36,12 @@
 
 
 <p>Behold the aptly named “confusion matrix”:</p>
-<table style="width:81%;">
+<table style="width:78%;">
 <colgroup>
 <col width="16%"></col>
 <col width="15%"></col>
 <col width="15%"></col>
-<col width="18%"></col>
+<col width="15%"></col>
 <col width="15%"></col>
 </colgroup>
 <thead>
@@ -80,13 +80,13 @@
 <td align="center"><code>cond.true</code></td>
 <td align="center"><code>cond.false</code></td>
 <td align="center"><code>N</code></td>
-<td align="center"></td>
+<td align="center"><code>prev</code> = <code>cond.true</code>/<code>N</code></td>
 </tr>
 <tr class="odd">
 <td align="right">(a) by condition</td>
 <td align="center"><code>sens</code> = <code>hi</code>/<code>cond.true</code></td>
 <td align="center"><code>spec</code> = <code>cr</code>/<code>cond.false</code></td>
-<td align="center"></td>
+<td align="center"><code>ppod</code> = <code>dec.pos</code>/<code>N</code></td>
 <td align="center"><code>acc</code> = <code>dec.cor</code>/<code>N</code> = (<code>hi</code>+<code>cr</code>)/<code>N</code></td>
 </tr>
 </tbody>
