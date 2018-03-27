@@ -37,6 +37,18 @@ This is no surprise when considering explanations like the corresponding article
 Fortunately, the basic matrix is also known as 2-by-2 contingency table, actually quite simple, and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
 
 
+## Terminology
+
+|              | 'cols' |          |       |          |            
+| ----------:  |:--------:|:--------:|:--------:|:--------:|              
+| `rows` | left (`TRUE`):      | right (`FALSE`):     |     Sum:  |  (b) by decision: |  
+| top (`TRUE`):   | `tl`         | `tr`         | `t` | `ptl` = `tl`/`t`  `ptr` = `tr`/`t` |
+| bottom (`FALSE`):  | `bl`       | `br`      | `b` | `NPV` = `cr`/`dec.neg` |
+|      Sum:    | `l`  | `r` |       `N` |         `pl` =  `nl`/`N`     |
+| (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond.false` | `pt` = `nt`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
+
+
+
 ## Basics
 
 Condensed to its core, the confusion matrix cross-tabulates two binary dimensions and classifies each individual case into one of 4 possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:
