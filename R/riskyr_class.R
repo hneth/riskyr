@@ -25,7 +25,7 @@
 #' which can then be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 #' and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 #' More specific applications are derived from this function.
-#' The base for this function is a table of frequencies and probabilities.
+#' The base for this function is a 2 x 2 table of frequencies and probabilities.
 #'
 #' Beyond basic scenario information
 #' only the population size \code{\link{N}} and the essential probabilities
@@ -50,35 +50,30 @@
 #'
 #' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
-#' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true.lbl A label for the \emph{presence} of the current condition
-#' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
-#' @param cond.false.lbl A label for the \emph{absence} of the current condition
-#' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
+#' @param col.lbl A name to clarify what the frequencies included in the \emph{columns} mean
+#' (e.g., the condition in the diagnostic case).
+#' @param col1.lbl A label for the \emph{first column} (e.g., a condition's true state of TRUE).
+#' @param col2.lbl A label for the \emph{second column} (e.g., a condition's true state of FALSE).
 #'
-#' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.pos.lbl A label for \emph{positive} decisions
-#' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
-#' @param dec.neg.lbl A label for \emph{negative} decisions
-#' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
+#' @param row.lbl A name to clarify what the the frequencies in \emph{rows} mean
+#' (e.g., the decision in the diagnostic case).
+#' @param row1.lbl A label for the \emph{first row} (e.g., predicting the presence of a condition).
+#' @param row2.lbl A label for the \emph{second row} (e.g., predicting the absence of a condition).
 #'
-#' @param hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
-#' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
-#' @param mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
-#' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
-#' @param fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
-#' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
-#' @param cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
-#' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
+#' @param row1.col1.lbl A label for the \emph{cell} in the \emph{first row and first column} (topleft).
+#' @param row1.col2.lbl A label for the cell in the \emph{first row and second column} (topright).
+#' @param row2.col1.lbl A label for the cell in the \emph{second row and first column} (bottomleft).
+#' @param row2.col2.lbl A label for the cell in the \emph{second row and second column} (bottomright).
 #'
 #' Numeric elements:
 #'
 #' @param N The number of individuals in the scenario's population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#' @param sens The decision's sensitivity \code{\link{sens}}
+#' @param p_c1 The proportion of the first column's sum in N.
+#' The second columns proportion is 1 - \code{p_c1} *TODO* (e.g., the \code{\link{prev}}
+#' the probability of condition being \code{TRUE}).
+#' @param pc_r1c1 The proportion of the cell in the first row and first column (\code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
