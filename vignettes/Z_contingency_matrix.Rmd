@@ -29,10 +29,10 @@ Generalize the 2x2 confusion matrix (framed in the semantics of SDT and clinical
 The following "contingency matrix"" is a generalization of the "confusion matrix":
 
 |              | 'cols' |          |       |          |            
-| ----------:  |:--------:|:--------:|:--------:|:--------:|              
+| ----------:  |:--------:|:--------:|:--------:|:---:|              
 | `rows` | c1 (`TRUE`):      | c2 (`FALSE`):     |     Sum:  |  (b) by decision: |  
-| r1 (`TRUE`):      | `r1c1`  | `r1c2`         | `n_r1` | `pr_r1c1` = `r1c1`/`r1`  `pr_r1c2` = `r1c2`/`r1` |
-| r2 (`FALSE`):  | `r2c1`  | `r2c2`         | `n_r2` | `pr_r2c1` = `r2c1`/`r2`  `pr_r2c2` = `r2c2`/`r2` |
+| r1 (`TRUE`):      | `r1c1`  | `r1c2`         | `n_r1` | `pr_r1c1` = `r1c1`/`r1`       `pr_r1c2` = `r1c2`/`r1` |
+| r2 (`FALSE`):  | `r2c1`  | `r2c2`         | `n_r2` | `pr_r2c1` = `r2c1`/`r2`        `pr_r2c2` = `r2c2`/`r2` |
 |      Sum:          | `n_c1`   | `n_c2`          | `N`   | `p_c1` =  `n_c1`/`N`     |
 | (a) by condition  | `pc_r1c1` = `r1c1`/`c1` `pc_r2c1` = `r2`/`c1`   | `pc_r1c2` = `r1c2`/`c2`   `pc_r2c2` = `r2c2`/`c2` | `p_r1` = `n_r1`/`N` |  `rc12` = `diag`/`N` = (`r1c1`+`r2c2`)/`N`|
 
