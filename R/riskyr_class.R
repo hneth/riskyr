@@ -50,20 +50,20 @@
 #'
 #' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
-#' @param col.lbl A name to clarify what the frequencies included in the \emph{columns} mean
+#' @param c.lbl A name to clarify what the frequencies included in the \emph{columns} mean
 #' (e.g., the condition in the diagnostic case).
-#' @param col1.lbl A label for the \emph{first column} (e.g., a condition's true state of TRUE).
-#' @param col2.lbl A label for the \emph{second column} (e.g., a condition's true state of FALSE).
+#' @param c1.lbl A label for the \emph{first column} (e.g., a condition's true state of TRUE).
+#' @param c2.lbl A label for the \emph{second column} (e.g., a condition's true state of FALSE).
 #'
-#' @param row.lbl A name to clarify what the the frequencies in \emph{rows} mean
+#' @param r.lbl A name to clarify what the the frequencies in \emph{rows} mean
 #' (e.g., the decision in the diagnostic case).
-#' @param row1.lbl A label for the \emph{first row} (e.g., predicting the presence of a condition).
-#' @param row2.lbl A label for the \emph{second row} (e.g., predicting the absence of a condition).
+#' @param r1.lbl A label for the \emph{first row} (e.g., predicting the presence of a condition).
+#' @param r2.lbl A label for the \emph{second row} (e.g., predicting the absence of a condition).
 #'
-#' @param row1.col1.lbl A label for the \emph{cell} in the \emph{first row and first column} (topleft).
-#' @param row1.col2.lbl A label for the cell in the \emph{first row and second column} (topright).
-#' @param row2.col1.lbl A label for the cell in the \emph{second row and first column} (bottomleft).
-#' @param row2.col2.lbl A label for the cell in the \emph{second row and second column} (bottomright).
+#' @param r1c1.lbl A label for the \emph{cell} in the \emph{first row and first column} (topleft).
+#' @param r1c2.lbl A label for the cell in the \emph{first row and second column} (topright).
+#' @param r2c1.lbl A label for the cell in the \emph{second row and first column} (bottomleft).
+#' @param r2c2.lbl A label for the cell in the \emph{second row and second column} (bottomright).
 #'
 #' Numeric elements:
 #'
