@@ -1,7 +1,7 @@
 ---
 title: "Contingency Matrix"
 author: "SPDS, uni.kn"
-date: "2018 03 26"
+date: "2018 06 07"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -30,11 +30,11 @@ The following "contingency matrix"" is a generalization of the "confusion matrix
 
 |              | 'cols' |          |       |          |            
 | ----------:  |:--------:|:--------:|:--------:|:--------:|              
-| `rows` | left (`TRUE`):      | right (`FALSE`):     |     Sum:  |  (b) by decision: |  
-| top (`TRUE`):      | `r1c1`  | `n_tr`         | `n_t` | `p_tl` = `tl`/`t`  `ptr` = `tr`/`t` |
-| bottom (`FALSE`):  | `r2c1`  | `n_br`         | `n_b` | `p_br` = `br`/`n_b` |
-|      Sum:          | `n_c1`   | `n_r`          | `N`   | `p_l` =  `nl`/`N`     |
-| (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond.false` | `pt` = `nt`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
+| `rows` | left (`TRUE`):      | right (`FALSE`):   | Sum:  |  (b) by decision: |  
+| top (`TRUE`):      | `n_tl` or `r1c1`  | `n_tr` or `r1c2`   | `n_t` or `r1` | `p_tl` = `tl`/`t`  `ptr` = `n_tr`/`t` |
+| bottom (`FALSE`):  | `n_bl` or `r2c1`  | `n_br` or `r2c2`   | `n_b` or `r2` | `p_br` = `br`/`n_b` |
+|      Sum:          | `n_l` or `c1`   | `n_r` or `c2`        | `N`   | `p_l` =  `n_l`/`N`     |
+| (a) by condition   | `p_tl` = `n_tl`/`n_l` `p_bl` = `n_bl`/`n_l`    | `spec` = `n_br`/`n_r` | `p_t` = `n_t`/`N` |  `acc` = `dec.cor`/`N` = (`n_tl`+`n_br`)/`N` |
 
 
 
