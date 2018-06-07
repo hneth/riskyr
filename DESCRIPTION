@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: Rendering risk literacy more transparent 
-Version: 0.1.0.904
+Version: 0.1.0.905
 Date: 2018-06-01
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"), 
@@ -15,12 +15,12 @@ Author: Hansjoerg Neth [aut, cre],
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
 Description: Risk-related information (like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, 'riskyr' computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
 Depends:
-    R (>= 3.4.2)
+    R (>= 3.4.0)
 Imports:
     diagram (>= 1.6.4),
-    grid (>= 3.4.2),
+    grid (>= 3.4.0),
     vcd (>= 1.4),
-    utils (>= 3.4.2)
+    utils (>= 3.4.0)
 Suggests:
     devtools,
     rmarkdown,
