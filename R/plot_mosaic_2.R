@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 02 27
+## 2018 08 12
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -187,8 +187,8 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                           by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
                           show.freq = FALSE,  # show labels of 4 frequencies in plot
                           show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
-                          show.accu = TRUE,  # compute and show accuracy metrics
-                          w.acc = .50,       # weight w for wacc (from 0 to 1)
+                          show.accu = TRUE,   # compute and show accuracy metrics
+                          w.acc = .50,        # weight w for wacc (from 0 to 1)
                           ## Text and color options: ##
                           title.lbl = txt$scen.lbl,
                           col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
@@ -202,7 +202,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   # spec <- num$spec
 
   ## Currently fixed parameters:
-  gap <- 0.025  # width of gap between 2 main subgroups (set via "by" argument)
+  gap <- 2.0/100  # width of gap between 2 main subgroups (direction set via "by" argument)
   show.prob.comp <- TRUE  # show help_line for complements of prob (e.g, prev, sens, spec)?
 
   ## (1) Compute or use current popu: ----------
@@ -520,7 +520,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
 ## Check:
 {
-  # plot_mosaic_2()
+  plot_mosaic_2()
   # plot_mosaic_2(title.lbl = "")
   # plot_mosaic_2(by = "dc")
   # plot_mosaic_2(title.lbl = "Just testing", col.sdt = "goldenrod")
