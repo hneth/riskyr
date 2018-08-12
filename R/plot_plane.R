@@ -91,19 +91,23 @@
 #'
 #' @examples
 #' # Basics:
-#' plot_plane()  # => current defaults (what = "PPV")
+#' plot_plane()              # => default plot (what = "PPV")
 #' plot_plane(what = "PPV")  # => plane of PPV
 #' plot_plane(what = "NPV")  # => plane of NPV
 #' plot_plane(what = "ppod") # => plane of ppod
 #' plot_plane(what = "acc")  # => plane of acc
 #'
-#' # Options:
+#' # Plot options:
 #' plot_plane(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 #' plot_plane(show.point = FALSE)  # => no point shown on plane
-#' plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
-#' plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
-#' plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
+#'
 #' plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
+#' plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
+#'
+#' plot_plane(step.size = .333, what.col = "firebrick")    # => coarser granularity + color
+#' plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
+#' plot_plane(what.col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
+#'
 #'
 #' @family visualization functions
 #'
@@ -289,7 +293,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   d = 1.5
   expand = 1.1
   ltheta = 200
-  shade = .25
+  shade = .300  # default was .25, NULL implies no shade
 
   ## (4) Draw 3D plane (of z) with persp: ----------
 
@@ -372,7 +376,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   # plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
   # plot_plane(title.lbl = "Testing plot options")
   # plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
-
+  # plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
 }
 
 ## -----------------------------------------------
