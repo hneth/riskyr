@@ -520,7 +520,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
 ## Check:
 {
-  plot_mosaic_2()
+  # plot_mosaic_2()
   # plot_mosaic_2(title.lbl = "")
   # plot_mosaic_2(by = "dc")
   # plot_mosaic_2(title.lbl = "Just testing", col.sdt = "goldenrod")
