@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 02 14
+## 2018 08 12
 ## -----------------------------------------------
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
@@ -56,9 +56,12 @@
 #' options are \code{c("PPV", "NPV", "ppod", "acc")}.
 #' Default: \code{what = "PPV"}.
 #'
-#' @param what.col A color corresponding to the metric
+#' @param what.col Color for surface facets corresponding to the metric
 #' specified in \code{what}.
 #' Default: \code{what.col = pal}.
+#'
+#' @param line.col Color for lines between surface facets.
+#' Default: \code{line.col = "grey85"}.
 #'
 #' @param show.point Boolean option for showing the current value
 #' of the selected metric for the current conditions
@@ -100,7 +103,7 @@
 #' plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
 #' plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
 #' plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
-#'
+#' plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
 #'
 #' @family visualization functions
 #'
@@ -133,9 +136,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        ## DVs:
                        what = "PPV",  # what metric?  Options: "PPV", "NPV", "acc", "ppod".
                        ## Options:
-                       what.col = pal,     # color for what.
-                       show.point = TRUE,  # show point on plane
-                       step.size = .05,    # resolution of matrix (sens.range and spec.range)
+                       what.col = pal,       # color for facets of what (i.e., metric specified above)
+                       line.col = "grey85",  # color for lines between facets
+                       show.point = TRUE,    # show point on plane
+                       step.size = .05,      # resolution of matrix (sens.range and spec.range)
                        ## Main persp() options [adjustable]:
                        theta = -45,
                        phi = 0,
@@ -291,7 +295,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   plane <- persp(x, y, z,
                  theta = theta, phi = phi, d = d, expand = expand,  # perspective
-                 col = cur.col, border = NA,     # color
+                 col = cur.col,     # color of surface facets
+                 # border = NA,     # color of line around surface facets (NA disables borders)
+                 border = line.col, # color of line around surface facets (NA disables borders)
                  ltheta = ltheta, shade = shade, # illumination
                  ticktype = "detailed",
                  nticks = 6, # at 20% intervals
@@ -356,6 +362,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   # plot_plane(what = "PPV")  # => plane of PPV
   # plot_plane(what = "NPV")  # => plane of NPV
   # plot_plane(what = "ppod") # => plane of ppod
+  # plot_plane(what = "ppod", theta = 45) # => plane of ppod
   # plot_plane(what = "acc")  # => plane of acc
   #
   # # Options:
@@ -364,6 +371,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   # plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
   # plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
   # plot_plane(title.lbl = "Testing plot options")
+  # plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
 
 }
 
