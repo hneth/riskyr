@@ -295,6 +295,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ltheta = 200
   shade = .300  # default was .25, NULL implies no shade
 
+  line.wd = 2/3 # lwd parameter: default was 1.
+
   ## (4) Draw 3D plane (of z) with persp: ----------
 
   plane <- persp(x, y, z,
@@ -311,7 +313,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                  zlim = z.lim,
                  cex = cex.lbl,
                  cex.axis = cex.lbl,
-                 cex.lab = cex.lbl
+                 cex.lab = cex.lbl,
+                 # optional:
+                 lwd = line.wd  # width of border and axes lines
   )
 
   ## (5) Add cur.val as point to plot: ----------
