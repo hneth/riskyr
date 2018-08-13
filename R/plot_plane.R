@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 08 12
+## 2018 08 13
 ## -----------------------------------------------
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
@@ -282,7 +282,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "acc")...
 
-
   ## (3) Define persp parameters: ----------
 
   x <- sens.range
@@ -295,15 +294,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ltheta = 200
   shade = .300  # default was .25, NULL implies no shade
 
-  line.wd = 2/3 # lwd parameter: default was 1.
+  line.wd = .6  # lwd parameter (for axes and lines between surface facets); default = 1.
 
   ## (4) Draw 3D plane (of z) with persp: ----------
 
   plane <- persp(x, y, z,
                  theta = theta, phi = phi, d = d, expand = expand,  # perspective
                  col = cur.col,     # color of surface facets
-                 # border = NA,     # color of line around surface facets (NA disables borders)
-                 border = line.col, # color of line around surface facets (NA disables borders)
+                 # border = NA,     # color of line between surface facets (NA disables borders)
+                 border = line.col, # color of line between surface facets (NA disables borders)
                  ltheta = ltheta, shade = shade, # illumination
                  ticktype = "detailed",
                  nticks = 6, # at 20% intervals
