@@ -1,5 +1,5 @@
-## init_pal.R | riskyR
-## 2018 01 30
+## init_pal.R | riskyr
+## 2018 08 14
 ## -----------------------------------------------
 ## Define and initialize the current set
 ## of custom colors (pal):
@@ -66,6 +66,7 @@
   my.whitish <- "antiquewhite" # "whitesmoke"
   my.bluish <- "aliceblue"
 
+  ## help lines:
   prev.li <- "gold"       # "aliceblue"
   sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
   spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
@@ -81,7 +82,7 @@
   col.N <- grey(.95, .99)       # "white", col.grey.1
 
   ## (b) by condition: Define 2 colors for condition cases:
-  col.true <- my.yellow         # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
+  col.true  <- my.yellow         # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
   col.false <- "lightskyblue2"  #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
   ## Combine in a named vector:
   cond.colors <- setNames(c(col.true, col.false),
@@ -96,7 +97,15 @@
                          c("pos", "neg")
                          )
 
-  ## (c) by condition x decision: Define 4 colors for SDT cases:
+  ## (d) Accuracy colors:
+  col.cor <- "forestgreen" # correct/accurate decisions
+  col.err <- "firebrick"   # erroneous/inaccurate decisions
+
+  acc.colors <- setNames(c(col.cor, col.err),
+                         c("cor", "err")
+                         )
+
+  ## (e) by condition x decision: Define 4 colors for SDT cases:
   col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2, "chartreuse4"
   col.mi <- my.red          # "tomato3", "orangered3", "firebrick3", col.red.2
   col.fa <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
@@ -106,17 +115,20 @@
                          c("hi", "mi", "fa", "cr")
                          )
 
-  ## (d) Define 2 colors for PVs:
+  ## (f) Define 2 colors for PVs:
   col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
   col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
+
 }
 
 ## -----------------------------------------------
 ## (3) Define corresponding default palette:
 
-pal.def <- c(col.N, cond.colors, dec.colors, sdt.colors, col.ppv, col.npv)  # vector of colors
+pal.def <- c(col.N, cond.colors, dec.colors, acc.colors, sdt.colors, col.ppv, col.npv)  # vector of colors
 pal.def <- setNames(object = pal.def,
-                    nm = c("N", names(cond.colors), names(dec.colors), names(sdt.colors), "ppv", "npv")
+                    nm = c("N",
+                           names(cond.colors), names(dec.colors), names(acc.colors),
+                           names(sdt.colors), "ppv", "npv")
                     )
 n.colors <- length(pal.def)  # number of colors for which defaults are defined
 
@@ -143,6 +155,9 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' @param col.pos Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
 #' @param col.neg Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
 #'
+#' @param col.cor Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.
+#' @param col.err Color representing cases in erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.
+#'
 #' @param col.hi Color representing \emph{hits} or true positives in \code{\link{hi}}
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
 #' @param col.mi Color representing \emph{misses} or false negatives in \code{\link{mi}}
@@ -159,8 +174,8 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
-#' length(init_pal())  # => 11 colors
-#' pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+#' length(init_pal())  # => 13 named colors
+#' pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
 #'
 #'
 #' @family functions initializing scenario information
@@ -195,6 +210,9 @@ init_pal <- function(col.N = pal.def["N"],          # population N
                      ## by decision:
                      col.pos  = pal.def["pos"],     # decision positive
                      col.neg = pal.def["neg"],      # decision negative
+                     ## by accuracy:
+                     col.cor  = pal.def["cor"],     # decision correct / accurate
+                     col.err = pal.def["err"],      # decision erroneous / inaccurate
                      ## Combinations:
                      col.hi = pal.def["hi"],        # hits / true positives
                      col.mi = pal.def["mi"],        # misses / false negatives
@@ -217,6 +235,9 @@ init_pal <- function(col.N = pal.def["N"],          # population N
            ## by decision:
            col.pos,    # decision positive
            col.neg,    # decision negative
+           ## by accuracy:
+           col.cor,    # decision correct / accurate
+           col.err,    # decision erroneous / inaccurate
            ## Combinations:
            col.hi,     # hits / true positives
            col.mi,     # misses / false negatives
@@ -229,7 +250,9 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 
   ## 3. Name vector elements:
   pal <- setNames(object = pal,
-                  nm = c("N", names(cond.colors), names(dec.colors), names(sdt.colors), "ppv", "npv")
+                  nm = c("N",
+                         names(cond.colors), names(dec.colors), names(acc.colors),
+                         names(sdt.colors), "ppv", "npv")
                   )
 
   ## 4. Return vector:
@@ -239,9 +262,9 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 
 ## Check:
 {
-  # init_pal()          # => returns vector of current colors
-  # length(init_pal())  # => 11
-  # pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+  # init_pal()          # => define and return a vector of current (default) colors
+  # length(init_pal())  # => 13 named colors
+  # pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
 }
 
 ## -----------------------------------------------
@@ -274,6 +297,11 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' \item \code{pos} Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
 #'
 #' \item \code{neg} Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#'
+#'
+#' \item \code{cor} Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.
+#'
+#' \item \code{err} Color representing cases of erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.
 #'
 #'
 #' \item \code{hi} Color representing \emph{hits} or true positives in \code{\link{hi}}
