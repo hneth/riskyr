@@ -230,10 +230,15 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # box("figure", col = mar.col)
 
   ## Graphical parameters:
-  col.prev <- prev.li  # prev help line
-  col.sens <- sens.li  # sens help line
-  col.spec <- spec.li  # spec help line
-  col.bord <- grey(.20, .99) # NA # grey(.11, .99)  # borders and labels (NA removes borders)
+
+  ## Color info (defined in init_pal):
+  # col.prev <- prev.li  # prev help line
+  # col.sens <- sens.li  # sens help line
+  # col.spec <- spec.li  # spec help line
+  # col.bord <- grey(.20, .99) # NA # grey(.11, .99)  # borders and labels (NA removes borders)
+
+  ## Box parameters:
+  box.lwd <- 1  # line width of border around rect (default = 1)
 
   ## Point appearance:
   pt.pch <- 21    # pch symbol of points
@@ -355,41 +360,41 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # N column:
     rect(xleft = n.x, ybottom = n.y, xright = n.x + n.lx, ytop = n.y + n.ly,
-         col = pal["N"], border = col.bord)  # N
+         col = pal["N"], border = pal["brd"], lwd = box.lwd)  # N
 
     # cond.true vs. cond.false column:
     rect(xleft = cond.true.x, ybottom = cond.true.y,
          xright = cond.true.x + cond.true.lx, ytop = cond.true.y + cond.true.ly,
-         col = pal["true"], border = col.bord)  # cond.true
+         col = pal["true"], border = pal["brd"], lwd = box.lwd)  # cond.true
     rect(xleft = cond.false.x, ybottom = cond.false.y,
          xright = cond.false.x + cond.false.lx, ytop = cond.false.y + cond.false.ly,
-         col = pal["false"], border = col.bord)  # cond.false
+         col = pal["false"], border = pal["brd"], lwd = box.lwd)  # cond.false
 
     # SDT (hi, mi, fa, cr) column:
     rect(xleft = hi.x, ybottom = hi.y, xright = hi.x + hi.lx, ytop = hi.y + hi.ly,
-         col = pal["hi"], border = col.bord)  # hi
+         col = pal["hi"], border = pal["brd"], lwd = box.lwd)  # hi
     rect(xleft = mi.x, ybottom = mi.y, xright = mi.x + mi.lx, ytop = mi.y + mi.ly,
-         col = pal["mi"], border = col.bord)  # mi
+         col = pal["mi"], border = pal["brd"], lwd = box.lwd)  # mi
     rect(xleft = fa.x, ybottom = fa.y, xright = fa.x + fa.lx, ytop = fa.y + fa.ly,
-         col = pal["fa"], border = col.bord)  # fa
+         col = pal["fa"], border = pal["brd"], lwd = box.lwd)  # fa
     rect(xleft = cr.x, ybottom = cr.y, xright = cr.x + cr.lx, ytop = cr.y + cr.ly,
-         col = pal["cr"], border = col.bord)  # cr
+         col = pal["cr"], border = pal["brd"], lwd = box.lwd)  # cr
 
     # dec.pos vs. dec.neg column:
     rect(xleft = dec.pos.x, ybottom = dec.pos.y,
          xright = dec.pos.x + dec.pos.lx, ytop = dec.pos.y + dec.pos.ly,
-         col = pal["pos"], border = col.bord)  # dec.pos
+         col = pal["pos"], border = pal["brd"], lwd = box.lwd)  # dec.pos
     rect(xleft = dec.neg.x, ybottom = dec.neg.y,
          xright = dec.neg.x + dec.neg.lx, ytop = dec.neg.y + dec.neg.ly,
-         col = pal["neg"], border = col.bord)  # dec.neg
+         col = pal["neg"], border = pal["brd"], lwd = box.lwd)  # dec.neg
 
     # dec.cor vs. dec.err column:
     rect(xleft = dec.cor.x, ybottom = dec.cor.y,
          xright = dec.cor.x + dec.cor.lx, ytop = dec.cor.y + dec.cor.ly,
-         col = pal["cor"], border = col.bord)  # dec.cor
+         col = pal["cor"], border = pal["brd"], lwd = box.lwd)  # dec.cor
     rect(xleft = dec.err.x, ybottom = dec.err.y,
          xright = dec.err.x + dec.err.lx, ytop = dec.err.y + dec.err.ly,
-         col = pal["err"], border = col.bord)  # dec.err
+         col = pal["err"], border = pal["brd"], lwd = box.lwd)  # dec.err
 
 
 
@@ -434,24 +439,17 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
 ## Check:
 {
-  plot_bar(prev = .33, sens = .75, spec = .60)
-  # plot_bar(title.lbl = "")
-
+  plot_bar(prev = .33, sens = .75, spec = .60, title.lbl = "Testing plot")
 }
-
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add labels for (prev, sens, spec), (ppod, PPV, NPV), bacc.
-## - add Decisions panel.
-## - consider adding 3rd perspective: (c) by correspondence (accu)
-## - make mosaic plot dependent on basic parameters
-##   (i.e., compute comp_popu() from probabilities and N,
-##    rather than providing it as input)?
-## - add a simpler version that only shows cond.true vs. cond.false
-## - adjust parameters (zero size and gap width)
-## - add labels (frequencies) to plot?
+## - scale 1 dimension by N (and add axis)
+## - add area labels (in center of area)
+## - add probabilitiy indicators (arrows and labels)
+## - alternative arrangements: horizontal (flip coord), dodged bars, ...
+## - ...
 
 ## -----------------------------------------------
 ## eof.
