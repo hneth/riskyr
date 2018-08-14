@@ -419,14 +419,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     colnames(ftab) <- c("N", "by cd", "sdt", "by dc")
     rownames(ftab) <- c("hi", "mi", "fa", "cr")
 
-    barplot(ftab,
-            # main = "Plot title",
-            xlab = "x-axis label",
-            ylab = "y-axis label",
-            col = col.sdt,
-            legend = rev(rownames(ftab)),
-            add = TRUE
-    )
+    # barplot(ftab,
+    #         # main = "Plot title",
+    #         xlab = "x-axis label",
+    #         ylab = "y-axis label",
+    #         col = col.sdt,
+    #         legend = rev(rownames(ftab)),
+    #         add = TRUE
+    #)
 
 
   } # if (by == ...)
@@ -439,7 +439,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
 ## Check:
 {
-  plot_bar(prev = .33, sens = .75, spec = .60, title.lbl = "Testing plot")
+  # plot_bar(prev = .33, sens = .75, spec = .60, title.lbl = "Testing plot")
 }
 
 ## -----------------------------------------------
