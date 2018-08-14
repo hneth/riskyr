@@ -9,7 +9,7 @@
 ## -----------------------------------------------
 ## Own version without Dependencies:
 
-# library("vcd")   # moved to "Imports:" in in DESCRIPTION!
+# library("vcd")   # moved to "Imports:" in DESCRIPTION!
 # library("grid")
 
 ## -----------------------------------------------
