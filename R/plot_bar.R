@@ -9,6 +9,46 @@
 ## (Using only base graphics.)
 ## -----------------------------------------------
 
+## Helper function: Plot a box and its text labels ----------
+plot_box <- function(category, name,   # category and name (as character)
+                     freq,             # frequency (as number)
+                     box.x,  box.y,    # coordinates x and y
+                     box.lx, box.ly,   # lengths of box width and height
+                     show.freq = TRUE  # option to show frequency labels
+) {
+
+  ## Box parameters:
+  box.lwd <- 1  # line width of border around rect (default = 1)
+
+  ## Text parameters:
+  # col.lbl <- pal["txt"]  # defined in pal
+  cex.lbl <- .90   # scaling factor for text labels
+  cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
+  h.shift <- .05   # horizontal shifting of labels
+  v.shift <- .05   # vertical shifting of labels
+
+  ## Plot rect:
+  rect(xleft  = (box.x - box.lx/2), ybottom = box.y,
+       xright = (box.x + box.lx/2), ytop    = (box.y + box.ly),
+       col = pal[name], border = pal["brd"], lwd = box.lwd)
+
+  ## Plot box title (on baseline):
+  text(x = box.x, y = box.y,
+       labels = category, pos = 1,
+       xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+
+  ## Plot box label (centered):
+  if (show.freq) {
+    mid.y <- box.y + box.ly/2  # y-value of mid point
+
+    text(x = box.x, y = mid.y,
+         labels = paste0(name, " = ", freq), # pos = 3,
+         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+  }
+
+}
+
+
 #' Plot bar charts of population frequencies.
 #'
 #' \code{plot_bar} draws bar charts that
@@ -94,8 +134,17 @@
 #' Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
 #'
 #' @examples
+#'
 #' # Basics:
-#' plot_bar()  # => default options
+#' plot_bar()  # => plot with default options
+#' plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .66, title.lbl = "Test 2", show.freq = TRUE)
+#'
+#' # Note:
+#' plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
+#'          title.lbl = "Test rounding effects",
+#'          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
+#'
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -129,8 +178,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      spec = num$spec, fart = NA,
                      N = num$N,  # not needed in Mosaic plot (but used in comp_freq below)
                      ## Options:
-                     by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
-                     show.freq = FALSE,  # show labels of 4 frequencies in plot
+                     by = "all",  # "cd"...condition 1st vs. "dc"...decision 1st
+                     show.freq = FALSE,  # show labels of frequencies in plot
                      show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
                      show.accu = TRUE,   # compute and show accuracy metrics
                      w.acc = .50,        # weight w for wacc (from 0 to 1)
@@ -211,24 +260,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
   par(oma = c(3, 2, 1, 1) + 0.1)  # outer margins: bottom has 3 lines of space
   par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
 
-  ## Plot dimensions:
-  xlim = c(0, 1)
-  ylim = c(0, 1)
-
-  ## Plot area setup:
-  plot(x = 1,
-       xlim = xlim, ylim = ylim,
-       type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-       bty = "n",
-       fg = grey(.50, alpha = .99)
-  )
-
-  ## Mark plot and margin area:
-  col.plot <- "grey80"
-  box("plot", col = col.plot)
-  mar.col <- "grey60"
-  # box("figure", col = mar.col)
-
   ## Graphical parameters:
 
   ## Color info (defined in init_pal):
@@ -246,7 +277,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   pt.lwd <- 1.6   # lwd of point borders
 
   ## Text labels:
-  col.lbl <- grey(.11, .99)
+  # col.lbl <- pal["txt"]  # defined in pal
   cex.lbl <- .90   # scaling factor for text labels
   cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
   h.shift <- .05   # horizontal shifting of labels
@@ -258,147 +289,306 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## Custom bar plot: ----------
 
-  if (by == "cd") {
+  if (by == "all") {
+
+    ## Plot dimensions:
+    xlim = c(0, 1)
+    ylim = c(0, N)
+
+    ## Plot area setup:
+    plot(x = 1,
+         xlim = xlim, ylim = ylim,
+         type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+         bty = "n",
+         fg = grey(.50, alpha = .99)
+    )
+
+    ## Mark plot and margin area:
+    col.plot <- "grey80"
+    # box("plot", col = col.plot)
+    mar.col <- "grey60"
+    # box("figure", col = mar.col)
+
+    ## Axes:
+    # axis(side = 1)
+    axis(side = 2, las = 2) # y-axis
+
+    ## Grid:
+    grid(nx = NA, ny = NULL,
+         col = grey(.75, .99), lty = 1,
+         lwd = par("lwd"), equilogs = TRUE)
 
     ## Size parameters:
-    lbase <- 1.0  # length of base side
+    lbase <- N    # length of base side
     lelse <- .10  # length of other side (free parameter)
     scale <- 1.0  # scaling factor (0-1)
 
-    ## A: vertical orientation: ----
+
+    ## A: vertical bars: ----------
 
     ## Dimensions of boxes: ----
     ## (lengths of x- and y-side):
 
-    # N:
-    n.ly <- lbase * scale  # basic length (scaled constant)
-    n.lx <- lelse * scale  # basic width (scaled constant)
+    # Basic height and width:
+    b.ly <- lbase * scale  # basic height (scaled constant)
+    b.lx <- lelse * scale  # basic width (scaled constant)
 
-    # cond.true and cond.false:
-    cond.true.ly  <- n.ly * prev
-    cond.false.ly <- 1 - cond.true.ly
-    cond.true.lx  <- n.lx
-    cond.false.lx <- n.lx
+    # Number and basic width of columns:
+    nr.col <- 5         # number of (vertical) columns
+    col.x  <- 1/nr.col  # corresponding column width
 
-    # SDT (hi, mi, fa, cr):
-    hi.ly <- cond.true.ly * sens
-    mi.ly <- cond.true.ly - hi.ly
-    cr.ly <- cond.false.ly * spec
-    fa.ly <- cond.false.ly - cr.ly
+    # Offset from base line:
+    x.base <- 0  # offset x
+    y.base <- 0  # offset y
 
-    hi.lx <- n.lx
-    mi.lx <- n.lx
-    cr.lx <- n.lx
-    fa.lx <- n.lx
-
-    # dec.pos and dec.neg:
-    dec.pos.ly <- hi.ly + fa.ly
-    dec.neg.ly <- 1 - dec.pos.ly
-
-    dec.pos.lx <- n.lx
-    dec.neg.lx <- n.lx
-
-    # dec.cor and dec.err:
-    dec.cor.ly <- hi.ly + cr.ly
-    dec.err.ly <- 1 - dec.cor.ly
-
-    dec.cor.lx <- n.lx
-    dec.err.lx <- n.lx
+    # # N:
+    # n.ly <- b.ly
+    # n.lx <- b.lx
+    #
+    # # SDT (hi, mi, fa, cr):
+    # hi.ly <- (n.ly * prev) * sens              # recomputes n.hi
+    # mi.ly <- (n.ly * prev) * (1 - sens)        # recomputes n.mi
+    # cr.ly <- (n.ly * (1 - prev)) * spec
+    # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)
+    #
+    # hi.lx <- b.lx
+    # mi.lx <- b.lx
+    # cr.lx <- b.lx
+    # fa.lx <- b.lx
+    #
+    # # cond.true and cond.false:
+    # cond.true.ly  <- (hi.ly + mi.ly)
+    # cond.false.ly <- (fa.ly + cr.ly)
+    #
+    # cond.true.lx  <- b.lx
+    # cond.false.lx <- b.lx
+    #
+    # # dec.pos and dec.neg:
+    # dec.pos.ly <- (hi.ly + fa.ly)
+    # dec.neg.ly <- (mi.ly + cr.ly)
+    #
+    # dec.pos.lx <- b.lx
+    # dec.neg.lx <- b.lx
+    #
+    # # dec.cor and dec.err:
+    # dec.cor.ly <- (hi.ly + cr.ly)
+    # dec.err.ly <- (mi.ly + fa.ly)
+    #
+    # dec.cor.lx <- b.lx
+    # dec.err.lx <- b.lx
 
 
     ## Positions of boxes: ----
     ## (x- and y-coordinate of left bottom corner):
 
-    n.col <- 5        # number of (vertical) columns
-    col.x <- 1/n.col  # corresponding column width
+    ## N column:
+    # col.nr <- 1
+    # n.x <- x.base + (col.nr * col.x) - (col.x/2)  # column mid point
+    # n.y <- y.base
 
-    x.base <- 0  # offset x
-    y.base <- 0  # offset y
+    ## cond.true vs. cond.false column:
+    # col.nr <- 2
+    # cond.true.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
+    # cond.false.x <- cond.true.x
 
-    # N column:
-    col.nr <- 1
-    n.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
-    n.y <- y.base
+    # cond.true.y <- y.base
+    # cond.false.y <- cond.true.y + cond.true.ly
 
-    # cond.true vs. cond.false column:
-    col.nr <- 2
-    cond.true.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
-    cond.false.x <- cond.true.x
+    # # dec.pos vs. dec.neg column:
+    # col.nr <- 4
+    # dec.pos.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
+    # dec.neg.x <- dec.pos.x
+    #
+    # dec.pos.y <- y.base
+    # dec.neg.y <- dec.pos.y + dec.pos.ly
+    #
+    # # dec.cor vs. dec.err column:
+    # col.nr <- 5
+    # dec.cor.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
+    # dec.err.x <- dec.cor.x
+    #
+    # dec.cor.y <- y.base
+    # dec.err.y <- dec.cor.y + dec.cor.ly
 
-    cond.true.y <- y.base
-    cond.false.y <- cond.true.y + cond.true.ly
 
-    # SDT column:
+    ## Draw rectangles: ------
+
+    # (a) N column: ----
+
+    # Dimensions and coordinates:
+    n.ly <- b.ly    # height (y)
+    col.nr <- 1     # column number (out of nr.col)
+    n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
+    n.y  <- y.base  # y-coordinate
+
+    # Plot 1 box:
+    plot_box(category = "popu", name = "N", freq = N,
+             box.x  = n.x,
+             box.y  = n.y,
+             box.lx = b.lx,
+             box.ly = n.ly,
+             show.freq)
+
+    ## (b) SDT column: ----
+
+    # heights (in y-direction):
+    hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
+    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
+    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
+    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+
+    # x-coordinates:
     col.nr <- 3
-    hi.x <- x.base + (col.nr * col.x) - (col.x/2) - hi.lx/2  # column mid point - object width/2
+    hi.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     mi.x <- hi.x
     fa.x <- hi.x
     cr.x <- hi.x
 
+    # y-coordinates:
     hi.y <- y.base
     mi.y <- hi.y + hi.ly
     fa.y <- mi.y + mi.ly
     cr.y <- fa.y + fa.ly
 
-    # dec.pos vs. dec.neg column:
+    # Plot 4 boxes:
+    plot_box(category = "cell", name = "hi", freq = n.hi,
+             box.x  = hi.x,
+             box.y  = hi.y,
+             box.lx = b.lx,
+             box.ly = hi.ly,
+             show.freq)
+
+    plot_box(category = NULL, name = "mi", freq = n.mi,
+             box.x  = mi.x,
+             box.y  = mi.y,
+             box.lx = b.lx,
+             box.ly = mi.ly,
+             show.freq)
+
+    plot_box(category = NULL, name = "fa", freq = n.fa,
+             box.x  = fa.x,
+             box.y  = fa.y,
+             box.lx = b.lx,
+             box.ly = fa.ly,
+             show.freq)
+
+    plot_box(category = NULL, name = "cr", freq = n.cr,
+             box.x  = cr.x,
+             box.y  = cr.y,
+             box.lx = b.lx,
+             box.ly = cr.ly,
+             show.freq)
+
+    ## (c) Condition column: ----
+
+    # heights:
+    cond.true.ly  <- (n.ly * prev)        # re-computes cond.true (without rounding)
+    cond.false.ly <- (n.ly * (1 - prev))  # re-computes cond.false (without rounding)
+
+    # x-coordinates:
+    col.nr <- 2
+    cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    cond.false.x <- cond.true.x
+
+    # y-coordinates:
+    cond.true.y <- y.base
+    cond.false.y <- cond.true.y + cond.true.ly
+
+    # Plot 2 boxes:
+    plot_box(category = "cond", name = "true", freq = (n.hi + n.mi),
+             box.x  = cond.true.x,
+             box.y  = cond.true.y,
+             box.lx = b.lx,
+             box.ly = cond.true.ly,
+             show.freq)
+    plot_box(category = NA, name = "false", freq = (n.fa + n.cr),
+             box.x  = cond.false.x,
+             box.y  = cond.false.y,
+             box.lx = b.lx,
+             box.ly = cond.false.ly,
+             show.freq)
+
+    ## (d) Decision column: ----
+
+    # heights:
+    dec.pos.ly <- hi.ly + fa.ly
+    dec.neg.ly <- mi.ly + cr.ly
+
+    # x-coordinates:
     col.nr <- 4
-    dec.pos.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
+    dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
+    # y-coordinates:
     dec.pos.y <- y.base
     dec.neg.y <- dec.pos.y + dec.pos.ly
 
-    # dec.cor vs. dec.err column:
+    # Plot 2 boxes:
+    plot_box(category = "dec", name = "pos", freq = (n.hi + n.fa),
+             box.x  = dec.pos.x,
+             box.y  = dec.pos.y,
+             box.lx = b.lx,
+             box.ly = dec.pos.ly,
+             show.freq)
+    plot_box(category = NA, name = "neg", freq = (n.mi + n.cr),
+             box.x  = dec.neg.x,
+             box.y  = dec.neg.y,
+             box.lx = b.lx,
+             box.ly = dec.neg.ly,
+             show.freq)
+
+
+    ## (e) Accuracy column: ----
+
+    # heights:
+    dec.cor.ly <- hi.ly + cr.ly
+    dec.err.ly <- mi.ly + fa.ly
+
+    # x-coordinates:
     col.nr <- 5
-    dec.cor.x <- x.base + (col.nr * col.x) - (col.x/2) - n.lx/2  # column mid point - object width/2
+    dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
+    # y-coordinates:
     dec.cor.y <- y.base
     dec.err.y <- dec.cor.y + dec.cor.ly
 
-    ## Draw rectangles: ----
-
-    # N column:
-    rect(xleft = n.x, ybottom = n.y, xright = n.x + n.lx, ytop = n.y + n.ly,
-         col = pal["N"], border = pal["brd"], lwd = box.lwd)  # N
-
-    # cond.true vs. cond.false column:
-    rect(xleft = cond.true.x, ybottom = cond.true.y,
-         xright = cond.true.x + cond.true.lx, ytop = cond.true.y + cond.true.ly,
-         col = pal["true"], border = pal["brd"], lwd = box.lwd)  # cond.true
-    rect(xleft = cond.false.x, ybottom = cond.false.y,
-         xright = cond.false.x + cond.false.lx, ytop = cond.false.y + cond.false.ly,
-         col = pal["false"], border = pal["brd"], lwd = box.lwd)  # cond.false
-
-    # SDT (hi, mi, fa, cr) column:
-    rect(xleft = hi.x, ybottom = hi.y, xright = hi.x + hi.lx, ytop = hi.y + hi.ly,
-         col = pal["hi"], border = pal["brd"], lwd = box.lwd)  # hi
-    rect(xleft = mi.x, ybottom = mi.y, xright = mi.x + mi.lx, ytop = mi.y + mi.ly,
-         col = pal["mi"], border = pal["brd"], lwd = box.lwd)  # mi
-    rect(xleft = fa.x, ybottom = fa.y, xright = fa.x + fa.lx, ytop = fa.y + fa.ly,
-         col = pal["fa"], border = pal["brd"], lwd = box.lwd)  # fa
-    rect(xleft = cr.x, ybottom = cr.y, xright = cr.x + cr.lx, ytop = cr.y + cr.ly,
-         col = pal["cr"], border = pal["brd"], lwd = box.lwd)  # cr
-
-    # dec.pos vs. dec.neg column:
-    rect(xleft = dec.pos.x, ybottom = dec.pos.y,
-         xright = dec.pos.x + dec.pos.lx, ytop = dec.pos.y + dec.pos.ly,
-         col = pal["pos"], border = pal["brd"], lwd = box.lwd)  # dec.pos
-    rect(xleft = dec.neg.x, ybottom = dec.neg.y,
-         xright = dec.neg.x + dec.neg.lx, ytop = dec.neg.y + dec.neg.ly,
-         col = pal["neg"], border = pal["brd"], lwd = box.lwd)  # dec.neg
-
-    # dec.cor vs. dec.err column:
-    rect(xleft = dec.cor.x, ybottom = dec.cor.y,
-         xright = dec.cor.x + dec.cor.lx, ytop = dec.cor.y + dec.cor.ly,
-         col = pal["cor"], border = pal["brd"], lwd = box.lwd)  # dec.cor
-    rect(xleft = dec.err.x, ybottom = dec.err.y,
-         xright = dec.err.x + dec.err.lx, ytop = dec.err.y + dec.err.ly,
-         col = pal["err"], border = pal["brd"], lwd = box.lwd)  # dec.err
-
+    # Plot 2 boxes:
+    plot_box(category = "accu", name = "cor", freq = (n.hi + n.cr),
+             box.x  = dec.cor.x,
+             box.y  = dec.cor.y,
+             box.lx = b.lx,
+             box.ly = dec.cor.ly,
+             show.freq)
+    plot_box(category = NA, name = "err", freq = (n.mi + n.fa),
+             box.x  = dec.err.x,
+             box.y  = dec.err.y,
+             box.lx = b.lx,
+             box.ly = dec.err.ly,
+             show.freq)
 
 
     ## +++ here now +++ ##
+
+    # # dec.pos vs. dec.neg column:
+    # rect(xleft = dec.pos.x, ybottom = dec.pos.y,
+    #      xright = dec.pos.x + dec.pos.lx, ytop = dec.pos.y + dec.pos.ly,
+    #      col = pal["pos"], border = pal["brd"], lwd = box.lwd)  # dec.pos
+    # rect(xleft = dec.neg.x, ybottom = dec.neg.y,
+    #      xright = dec.neg.x + dec.neg.lx, ytop = dec.neg.y + dec.neg.ly,
+    #      col = pal["neg"], border = pal["brd"], lwd = box.lwd)  # dec.neg
+
+    # # dec.cor vs. dec.err column:
+    # rect(xleft = dec.cor.x, ybottom = dec.cor.y,
+    #      xright = dec.cor.x + dec.cor.lx, ytop = dec.cor.y + dec.cor.ly,
+    #      col = pal["cor"], border = pal["brd"], lwd = box.lwd)  # dec.cor
+    # rect(xleft = dec.err.x, ybottom = dec.err.y,
+    #      xright = dec.err.x + dec.err.lx, ytop = dec.err.y + dec.err.ly,
+    #      col = pal["err"], border = pal["brd"], lwd = box.lwd)  # dec.err
+
+
+
+
 
 
   }
@@ -437,9 +627,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
 }
 
+
+
+
 ## Check:
 {
-  # plot_bar(prev = .33, sens = .75, spec = .60, title.lbl = "Testing plot")
+  ## Basics:
+  # plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test plot")
+  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title.lbl = "Test plot", show.freq = TRUE)
+
+  ## Note:
+  # plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
+  #          title.lbl = "Test rounding effects",
+  #          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
 }
 
 ## -----------------------------------------------
