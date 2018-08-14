@@ -98,8 +98,8 @@
                          )
 
   ## (d) Accuracy colors:
-  col.cor <- "forestgreen" # correct/accurate decisions
-  col.err <- "firebrick"   # erroneous/inaccurate decisions
+  col.cor <- "palegreen3" # "forestgreen" # correct/accurate decisions
+  col.err <- "firebrick3" # erroneous/inaccurate decisions
 
   acc.colors <- setNames(c(col.cor, col.err),
                          c("cor", "err")
