@@ -79,10 +79,10 @@
 
 {
   ## (a) Define base color (for population N):
-  col.N <- grey(.95, .99)       # "white", col.grey.1
+  col.N <- grey(.90, .99)  # "white", col.grey.1
 
   ## (b) by condition: Define 2 colors for condition cases:
-  col.true  <- my.yellow         # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
+  col.true  <- my.yellow        # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
   col.false <- "lightskyblue2"  #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
   ## Combine in a named vector:
   cond.colors <- setNames(c(col.true, col.false),
@@ -119,18 +119,29 @@
   col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
   col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
 
+  ## (g) Other colors:
+  col.txt <- grey(.01, .99)  # near "black" text labels, NA removes text?
+  col.brd <- grey(.20, .99)  # greyish borders, NA removes borders
+
 }
 
 ## -----------------------------------------------
 ## (3) Define corresponding default palette:
 
-pal.def <- c(col.N, cond.colors, dec.colors, acc.colors, sdt.colors, col.ppv, col.npv)  # vector of colors
+pal.def <- c(col.N,
+             cond.colors, dec.colors, acc.colors,
+             sdt.colors,
+             col.ppv, col.npv,
+             col.txt, col.brd)  # vector of colors
 pal.def <- setNames(object = pal.def,
                     nm = c("N",
                            names(cond.colors), names(dec.colors), names(acc.colors),
-                           names(sdt.colors), "ppv", "npv")
+                           names(sdt.colors),
+                           "ppv", "npv",
+                           "txt", "brd")
                     )
 n.colors <- length(pal.def)  # number of colors for which defaults are defined
+# n.colors
 
 ## -----------------------------------------------
 ## (B) Initialization function for all color
@@ -172,10 +183,15 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' @param col.npv Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 #' the condition is FALSE, provided that the decision is negative).
 #'
+#' @param col.txt Color used for text labels.
+#' @param col.brd Color used for borders (e.g., around bars or boxes).
+#'
+#'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
-#' length(init_pal())  # => 13 named colors
+#' length(init_pal())  # => 15 named colors
 #' pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
+#' pal <- init_pal(col.brd = NA)          # => remove a color
 #'
 #'
 #' @family functions initializing scenario information
@@ -220,7 +236,10 @@ init_pal <- function(col.N = pal.def["N"],          # population N
                      col.cr = pal.def["cr"],        # correct rejections / true negatives
                      ## Derived conditional probabilities:
                      col.ppv = pal.def["ppv"],      # positive predictive values
-                     col.npv = pal.def["npv"]       # negative predictive values
+                     col.npv = pal.def["npv"],      # negative predictive values
+                     ## Text labels and borders:
+                     col.txt = pal.def["txt"],      # text labels
+                     col.brd = pal.def["brd"]       # borders
 ) {
 
 
@@ -245,14 +264,18 @@ init_pal <- function(col.N = pal.def["N"],          # population N
            col.cr,     # correct rejections / true negatives
            ## Derived conditional probabilities:
            col.ppv,    # positive predictive values
-           col.npv     # negative predictive values
+           col.npv,    # negative predictive values
+           ## Text labels and borders:
+           col.txt,    # text labels
+           col.brd     # borders
   )
 
   ## 3. Name vector elements:
   pal <- setNames(object = pal,
                   nm = c("N",
                          names(cond.colors), names(dec.colors), names(acc.colors),
-                         names(sdt.colors), "ppv", "npv")
+                         names(sdt.colors),
+                         "ppv", "npv", "txt", "brd")
                   )
 
   ## 4. Return vector:
@@ -263,8 +286,9 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 ## Check:
 {
   # init_pal()          # => define and return a vector of current (default) colors
-  # length(init_pal())  # => 13 named colors
+  # length(init_pal())  # => 15 named colors
   # pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
+  # pal <- init_pal(col.brd = NA)          # => remove a color
 }
 
 ## -----------------------------------------------
@@ -323,12 +347,17 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' \item \code{npv} Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 #' the condition is FALSE, provided that the decision is negative).
 #'
+#' \item \code{txt} Color used for text labels.
+#'
+#' \item \code{brd} Color used for borders.
+#'
+#'
 #' }
 #'
 #' @examples
-#' pal       # displays the vector of all current color names and values
-#' pal["hi"] # displays the current color for hits (true positives)
-#' pal["hi"] <- "green3" # defines a new color for hits (true positives)
+#' pal        # shows the vector of all current color names and values
+#' pal["hi"]  # shows the current color for hits (true positives)
+#' pal["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 #'
 #'
 #' @family lists containing current scenario information
