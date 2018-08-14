@@ -112,7 +112,8 @@ plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold")
 \code{\link{pal}} for current color settings.
 
 Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic_2}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_bar}}, \code{\link{plot_fnet}},
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic_2}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_tree}}
 }

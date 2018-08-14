@@ -6,9 +6,11 @@
 \usage{
 init_pal(col.N = pal.def["N"], col.true = pal.def["true"],
   col.false = pal.def["false"], col.pos = pal.def["pos"],
-  col.neg = pal.def["neg"], col.hi = pal.def["hi"],
+  col.neg = pal.def["neg"], col.cor = pal.def["cor"],
+  col.err = pal.def["err"], col.hi = pal.def["hi"],
   col.mi = pal.def["mi"], col.fa = pal.def["fa"], col.cr = pal.def["cr"],
-  col.ppv = pal.def["ppv"], col.npv = pal.def["npv"])
+  col.ppv = pal.def["ppv"], col.npv = pal.def["npv"],
+  col.txt = pal.def["txt"], col.brd = pal.def["brd"])
 }
 \arguments{
 \item{col.N}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}
@@ -20,6 +22,10 @@ init_pal(col.N = pal.def["N"], col.true = pal.def["true"],
 \item{col.pos}{Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.}
 
 \item{col.neg}{Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.}
+
+\item{col.cor}{Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.}
+
+\item{col.err}{Color representing cases in erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.}
 
 \item{col.hi}{Color representing \emph{hits} or true positives in \code{\link{hi}}
 (i.e., correct cases for which the current condition is TRUE and the decision is positive).}
@@ -38,6 +44,10 @@ the condition is TRUE, provided that the decision is positive).}
 
 \item{col.npv}{Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 the condition is FALSE, provided that the decision is negative).}
+
+\item{col.txt}{Color used for text labels.}
+
+\item{col.brd}{Color used for borders (e.g., around bars or boxes).}
 }
 \description{
 \code{init_pal} initializes basic color information
@@ -52,8 +62,9 @@ new colors to existing names.
 }
 \examples{
 init_pal()          # => define and return a vector of current (default) colors
-length(init_pal())  # => 11 colors
-pal <- init_pal(col.false = "firebrick2")  # => change current color (stored in pal)
+length(init_pal())  # => 15 named colors
+pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
+pal <- init_pal(col.brd = NA)          # => remove a color
 
 
 }

@@ -4,7 +4,7 @@
 \name{pal}
 \alias{pal}
 \title{List current values of basic color information.}
-\format{An object of class \code{character} of length 11.}
+\format{An object of class \code{character} of length 15.}
 \usage{
 pal
 }
@@ -32,6 +32,10 @@ To change a color, assign a new color to an existing element name.
 
 \item \code{neg} Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
 
+\item \code{cor} Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.
+
+\item \code{err} Color representing cases of erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.
+
 \item \code{hi} Color representing \emph{hits} or true positives in \code{\link{hi}}
 (i.e., correct cases for which the current condition is TRUE and the decision is positive).
 
@@ -50,12 +54,16 @@ the condition is TRUE, provided that the decision is positive).
 \item \code{npv} Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 the condition is FALSE, provided that the decision is negative).
 
+\item \code{txt} Color used for text labels.
+
+\item \code{brd} Color used for borders.
+
 }
 }
 \examples{
-pal       # displays the vector of all current color names and values
-pal["hi"] # displays the current color for hits (true positives)
-pal["hi"] <- "green3" # defines a new color for hits (true positives)
+pal        # shows the vector of all current color names and values
+pal["hi"]  # shows the current color for hits (true positives)
+pal["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 
 
 }
