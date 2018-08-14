@@ -287,7 +287,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   col.prev <- prev.li  # prev help line
   col.sens <- sens.li  # sens help line
   col.spec <- spec.li  # spec help line
-  col.bord <- grey(.11, .99)  # borders and labels
+  col.bord <- pal["brd"] # borders and labels
 
   ## Point appearance:
   pt.pch <- 21    # pch symbol of points
@@ -295,7 +295,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   pt.lwd <- 1.6   # lwd of point borders
 
   ## Text labels:
-  col.lbl <- col.bord
+  col.lbl <- pal["txt"]  # defined in pal
   cex.lbl <- .90   # scaling factor for text labels
   cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
   h.shift <- .05   # horizontal shifting of labels
