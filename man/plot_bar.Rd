@@ -5,7 +5,7 @@
 \title{Plot bar charts of population frequencies.}
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, by = "cd", show.freq = FALSE,
+  fart = NA, N = num$N, by = "all", show.freq = FALSE,
   show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, col.pal = pal)
 }
@@ -43,8 +43,9 @@ are computed from scratch from current probabilities.)}
 (or 1st category by which the population is split into subsets)
 with 2 options:
   \enumerate{
-  \item \code{"cd"} ... by condition (vertical split first);
-  \item \code{"dc"} ... by decision (horizontal split first).
+  \item \code{"cd"} ... by condition;
+  \item \code{"dc"} ... by decision;
+  \item \code{"all"} ... all different subdivisions.
   }}
 
 \item{show.freq}{Boolean option for showing frequencies
@@ -93,8 +94,17 @@ the option \code{box = "vr"}) in \code{\link{plot_tree}}
 and \code{\link{plot_fnet}}.
 }
 \examples{
+
 # Basics:
-plot_bar()  # => default options
+plot_bar()  # => plot with default options
+plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .66, title.lbl = "Test 2", show.freq = TRUE)
+
+# Note:
+plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
+         title.lbl = "Test rounding effects",
+         show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
+
 
 }
 \seealso{
