@@ -40,8 +40,8 @@ Installation
 The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
-install.packages("riskyr")  # install riskyr from CRAN client
-library("riskyr")           # load to use the package
+install.packages("riskyr"")  # install riskyr from CRAN client
+library("riskyr"")           # load to use the package
 ```
 
 The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
@@ -62,12 +62,12 @@ Quick Start Guide
 <!-- Example: -->
 > **Screening for hustosis**
 >
-> A screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not perfect. It has the following properties:
+> A screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not perfect. We have the following information:
 > 1. About 4% of the people of the general population suffer from *hustosis*.
 > 2. If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.
-> 3. If someone is free from hustosis, there is a chance of 4% that he or she will still test positively for the condition.
+> 3. If someone is free from hustosis, there is a chance of 5% that he or she will still test positively for the condition.
 >
-> Mr. and Ms. Smith have both been screened with this device:
+> Mr. and Ms. Smith have both been screened with the device:
 > - Mr. Smith tested positively (i.e., received a diagnosis of hustosis).
 > - Ms. Smith tested negatively (i.e., was judged to be free of hustosis).
 >
@@ -81,7 +81,7 @@ The first challenge in solving such problems is in understanding the information
 
 1.  The condition's *prevalence* (in the general population) is 4%: `prev = .04`.
 2.  The device's or diagnostic decision's *sensitivity* is 80%: `sens = .80`.
-3.  The device's or diagnostic decision's *false alarm rate* is 4%, implying a *specificity* of (100% − 4%) = 96%: `spec = .04`.
+3.  The device's or diagnostic decision's *false alarm rate* is 5%: `fart = .05`, implying a *specificity* of (100% − 5%) = 95%: `spec = .95`.
 
 #### Understanding the questions asked
 
