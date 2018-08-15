@@ -1,7 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.904) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.1.0.906) is available at <https://github.com/hneth/riskyr/>. 
 
 # Changes
 
@@ -9,8 +9,11 @@ Log of changes since last release:
 
 ## Major changes
 
+- New `plot_bar` function [2018-08-14]: 
+Show scenario frequencies as vertical bars (in various configurations). 
+
 - `riskyr` function [2018-03-06]: 
-Allow definition of a scenario from 4 essential frequencies (and checks for consistency with probabilities). 
+Define a scenario from 4 essential frequencies (checking for consistency with probabilities). 
 [Appears to work, but yet to be tested more thorougly.] 
 
 ## Minor changes

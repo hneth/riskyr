@@ -1111,14 +1111,17 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ## -----------------------------------------------
 ## (*) Done:
 
-## - scale 1 dimension by N (and add axis) [2018 08 14]
-## - add area labels (in center of area)   [2018 08 14]
+## - Scale 1 dimension by N (and add axis) [2018 08 13]
+## - Add area labels (in center of area)   [2018 08 14]
+## - Add options for by ("all", "cd", "dc", "ac") and
+##                   dir (1 vs. 2)         [2018 08 15]
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add probabilitiy indicators (arrows and labels)
-## - alternative arrangements: horizontal (flip coord), dodged bars, ...
+## - Use text labels defined in txt.def and init_txt (incl. accuracy).
+## - Add probabilitiy indicators (arrows and labels)
+## - Allow alternative arrangements: horizontal (flip coord), dodged bars, ...
 ## - ...
 
 ## -----------------------------------------------

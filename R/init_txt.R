@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 02 17
+## 2018 08 15
 ## -----------------------------------------------
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
@@ -8,7 +8,7 @@
 ## (A) Defaults for all titles and labels (txt):
 
 txt.def <- list(
-  scen.lbl = "Scenario name", # put scenario label in Title Caps (if desired in plot titles)
+  scen.lbl = "Scenario", # provide scenario name/label in Title Caps (if desired in plot titles)
   scen.txt = "Description of the current scenario in a short paragraph of text. This description may include several sentences.",
   scen.src = "Source information",
   scen.apa = "Source information in APA format",
@@ -17,23 +17,29 @@ txt.def <- list(
   popu.lbl = "Current population",
 
   ## (a) Condition:
-  cond.lbl = "Current condition",             # "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
-  cond.true.lbl  = "Condition true",  # "has condition", "is affected"
-  cond.false.lbl = "Condition false", # "does not have condition", "is unaffected"
+  cond.lbl = "Condition",  # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
+  cond.true.lbl  = "Condition true",   # "has condition", "is affected"
+  cond.false.lbl = "Condition false",  # "does not have condition", "is unaffected"
 
   ## (b) Decision/prediction/predicted condition:
-  dec.lbl = "Current decision",                # "Prediction", "Diagnostic decision", "Mammography", "HIV test"
+  dec.lbl = "Decision",  # Dimension label: "Prediction", "Diagnostic decision", "Mammography", "HIV test"
   dec.pos.lbl  = "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec.neg.lbl = "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
-  ## (c) Labels for the 4 SDT cases (combinations):
+  ## (c) Accuracy/correspondence:
+  acc.lbl = "Accuracy",  # accuracy  # Dimension label: accuracy/correspondence
+  dec.cor.lbl = "accurate",    # cor  # accurate decision
+  dec.err.lbl = "inaccurate",  # err  # inaccurate decision
+
+  ## (d) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
+  sdt.lbl = "Case",  # Dimension label: cell/case/SDT 2x2 table
   hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
   mi.lbl = "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
   fa.lbl = "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
   cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
 )
 
-# length(txt.def) # => 14 text elements
+# length(txt.def)  # => 20 text elements
 
 ## -----------------------------------------------
 ## (B) Initialization function for all text
@@ -264,6 +270,7 @@ txt <- init_txt()
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - add labels for accuracy/correspondence dimension and subgroups!
 ## - add txt to a cus object?
 
 ## -----------------------------------------------
