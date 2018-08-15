@@ -380,6 +380,10 @@ plot_bar <- function(prev = num$prev,             # probabilities
     col.nr <- 1     # column number (out of nr.col)
     n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
     n.y  <- y.base  # y-coordinate
+    if (dir == 2) {
+      ## center N bar around 0:
+      n.y  <- y.base - N/2
+    }
 
     # Plot 1 box:
     plot_box(category = NULL, name = "N", freq = N,
@@ -618,6 +622,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
     n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
     n.y  <- y.base  # y-coordinate
 
+    if (dir == 2) {
+      ## center N bar around 0:
+      n.y  <- y.base - N/2
+    }
+
     # Plot 1 box:
     plot_box(category = NULL, name = "N", freq = N,
              box.x  = n.x,
@@ -768,6 +777,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
     col.nr <- 1     # column number (out of nr.col)
     n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
     n.y  <- y.base  # y-coordinate
+
+    if (dir == 2) {
+      ## center N bar around 0:
+      n.y  <- y.base - N/2
+    }
 
     # Plot 1 box:
     plot_box(category = NULL, name = "N", freq = N,
@@ -920,6 +934,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
     col.nr <- 1     # column number (out of nr.col)
     n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
     n.y  <- y.base  # y-coordinate
+
+    if (dir == 2) {
+      ## center N bar around 0:
+      n.y  <- y.base - N/2
+    }
 
     # Plot 1 box:
     plot_box(category = NULL, name = "N", freq = N,
