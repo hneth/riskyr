@@ -143,16 +143,24 @@ plot_box <- function(category, name,   # category and name (as character)
 #' @examples
 #' # Basics:
 #' plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title.lbl = "Test 2")  # by = "all" (default)
 #'
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3a")  # by condition
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3b", dir = 2) # bi-directional
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
+#'          title.lbl = "Test 2")  # by "all" (default)
 #'
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4a")  # by decision
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4b", dir = 2) # bi-directional
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
+#'          title.lbl = "Test 3a")  # by condition
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
+#'          title.lbl = "Test 3b")  # bi-directional
 #'
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a")  # by accuracy
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a", dir = 2) # bi-directional
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
+#'          title.lbl = "Test 4a")  # by decision
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
+#'          title.lbl = "Test 4b")  # bi-directional
+#'
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
+#'          title.lbl = "Test 5a")  # by accuracy
+#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
+#'          title.lbl = "Test 5b")  # bi-directional
 #'
 #' # Note:
 #' plot_bar(N = 3, prev = .33, sens = .75, spec = .66,

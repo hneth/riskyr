@@ -5,7 +5,7 @@
 \title{Plot bar charts of population frequencies.}
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, by = "all", show.freq = FALSE,
+  fart = NA, N = num$N, by = "all", dir = 1, show.freq = TRUE,
   show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, col.pal = pal)
 }
@@ -40,18 +40,25 @@ and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
 
 \item{by}{A character code specifying the perspective
-(or 1st category by which the population is split into subsets)
-with 2 options:
+(or the category by which the population is split into 2 subsets)
+with the following options:
   \enumerate{
   \item \code{"cd"} ... by condition;
   \item \code{"dc"} ... by decision;
-  \item \code{"all"} ... all different subdivisions.
+  \item \code{"ac"} ... by accuracy;
+  \item \code{"all"} ... shows all subdivisions.
+  }}
+
+\item{dir}{Number of directions of bars. Options:
+\enumerate{
+  \item \code{1} ... uni-directional bars;
+  \item \code{2} ... bi-directional (positive vs. negative) bars;
   }}
 
 \item{show.freq}{Boolean option for showing frequencies
 (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
 \code{\link{cr}}) in the plot.
-Default: \code{show.freq = FALSE}.}
+Default: \code{show.freq = TRUE}.}
 
 \item{show.prob}{Boolean option for showing visual help lines to mark
 generating metrics (e.g., \code{\link{prev}}, \code{\link{sens}}, and
@@ -94,11 +101,26 @@ the option \code{box = "vr"}) in \code{\link{plot_tree}}
 and \code{\link{plot_fnet}}.
 }
 \examples{
-
 # Basics:
-plot_bar()  # => plot with default options
 plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
-plot_bar(N = 1000, prev = .33, sens = .75, spec = .66, title.lbl = "Test 2", show.freq = TRUE)
+
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
+         title.lbl = "Test 2")  # by "all" (default)
+
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
+         title.lbl = "Test 3a")  # by condition
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
+         title.lbl = "Test 3b")  # bi-directional
+
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
+         title.lbl = "Test 4a")  # by decision
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
+         title.lbl = "Test 4b")  # bi-directional
+
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
+         title.lbl = "Test 5a")  # by accuracy
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
+         title.lbl = "Test 5b")  # bi-directional
 
 # Note:
 plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
