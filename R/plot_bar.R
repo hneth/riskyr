@@ -116,54 +116,55 @@ plot_box <- function(box.x,  box.y,    # coordinates x and y
 
 
 ## Helper function: Add text with background box to a plot ------
+## from https://stackoverflow.com/questions/45366243/text-labels-with-background-colour-in-r
+{
+## Add text with background box to a plot
 
-#' Add text with background box to a plot
-#'
-#' \code{boxtext} places a text given in the vector \code{labels}
-#' onto a plot in the base graphics system and places a coloured box behind
-#' it to make it stand out from the background.
-#'
-#' @param x numeric vector of x-coordinates where the text labels should be
-#' written. If the length of \code{x} and \code{y} differs, the shorter one
-#' is recycled.
-#' @param y numeric vector of y-coordinates where the text labels should be
-#' written.
-#' @param labels a character vector specifying the text to be written.
-#' @param col.text the colour of the text
-#' @param col.bg color(s) to fill or shade the rectangle(s) with. The default
-#' \code{NA} means do not fill, i.e., draw transparent rectangles.
-#' @param border.bg color(s) for rectangle border(s). The default \code{NA}
-#' omits borders.
-#' @param adj one or two values in [0, 1] which specify the x (and optionally
-#' y) adjustment of the labels.
-#' @param pos a position specifier for the text. If specified this overrides
-#' any adj value given. Values of 1, 2, 3 and 4, respectively indicate
-#' positions below, to the left of, above and to the right of the specified
-#' coordinates.
-#' @param offset when \code{pos} is specified, this value gives the offset of
-#' the label from the specified coordinate in fractions of a character width.
-#' @param padding factor used for the padding of the box around
-#' the text. Padding is specified in fractions of a character width. If a
-#' vector of length two is specified then different factors are used for the
-#' padding in x- and y-direction.
-#' @param cex numeric character expansion factor; multiplied by
-#' code{par("cex")} yields the final character size.
-#' @param font the font to be used
-#'
-#' @return Returns the coordinates of the background rectangle(s). If
-#' multiple labels are placed in a vactor then the coordinates are returned
-#' as a matrix with columns corresponding to xleft, xright, ybottom, ytop.
-#' If just one label is placed, the coordinates are returned as a vector.
-#'
-#' @author Ian Kopacka
-#'
-#' @examples
-#' ## Create noisy background
-#' plot(x = runif(1000), y = runif(1000), type = "p", pch = 16,
-#' col = "#40404060")
-#' boxtext(x = 0.5, y = 0.5, labels = "some Text", col.bg = "#b2f4f480",
-#'     pos = 4, font = 2, cex = 1.3, padding = 1)
-#'
+# \code{boxtext} places a text given in the vector \code{labels}
+# onto a plot in the base graphics system and places a coloured box behind
+# it to make it stand out from the background.
+
+# @param x numeric vector of x-coordinates where the text labels should be
+# written. If the length of \code{x} and \code{y} differs, the shorter one
+# is recycled.
+# @param y numeric vector of y-coordinates where the text labels should be
+# written.
+# @param labels a character vector specifying the text to be written.
+# @param col.text the colour of the text
+# @param col.bg color(s) to fill or shade the rectangle(s) with. The default
+# \code{NA} means do not fill, i.e., draw transparent rectangles.
+# @param border.bg color(s) for rectangle border(s). The default \code{NA}
+# omits borders.
+# @param adj one or two values in [0, 1] which specify the x (and optionally
+# y) adjustment of the labels.
+# @param pos a position specifier for the text. If specified this overrides
+# any adj value given. Values of 1, 2, 3 and 4, respectively indicate
+# positions below, to the left of, above and to the right of the specified
+# coordinates.
+# @param offset when \code{pos} is specified, this value gives the offset of
+# the label from the specified coordinate in fractions of a character width.
+# @param padding factor used for the padding of the box around
+# the text. Padding is specified in fractions of a character width. If a
+# vector of length two is specified then different factors are used for the
+# padding in x- and y-direction.
+# @param cex numeric character expansion factor; multiplied by
+# code{par("cex")} yields the final character size.
+# @param font the font to be used
+#
+# @return Returns the coordinates of the background rectangle(s). If
+# multiple labels are placed in a vactor then the coordinates are returned
+# as a matrix with columns corresponding to xleft, xright, ybottom, ytop.
+# If just one label is placed, the coordinates are returned as a vector.
+#
+# @author Ian Kopacka
+#
+# @examples
+# ## Create noisy background
+# plot(x = runif(1000), y = runif(1000), type = "p", pch = 16,
+# col = "#40404060")
+# boxtext(x = 0.5, y = 0.5, labels = "some Text", col.bg = "#b2f4f480",
+#    pos = 4, font = 2, cex = 1.3, padding = 1)
+#
 
 boxtext <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
                     border.bg = NA, adj = NULL, pos = NULL, offset = 0.5,
@@ -267,6 +268,8 @@ boxtext <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
   # ## Tweak cex, font and adj:
   # boxtext(x = 0.2, y = 0.4, labels = "some big and bold text",
   #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
+}
+
 }
 
 ## Helper function: Plot an (arrow) line between 2 points with an optional text label: ------

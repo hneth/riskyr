@@ -40,7 +40,7 @@ and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
 
 \item{by}{A character code specifying the perspective
-(or the category by which the population is split into 2 subsets)
+(or the dimension by which the population is split into 2 subsets)
 with the following options:
   \enumerate{
   \item \code{"cd"} ... by condition;
