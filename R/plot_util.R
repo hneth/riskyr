@@ -1,7 +1,8 @@
 ## plot_util.R | riskyr
 ## 2018 08 17
 ## -----------------------------------------------
-## Collection of helper functions for plotting
+## A collection of helper functions for plotting
+## riskyr objects (freq and prob).
 ## -----------------------------------------------
 
 ## Helper function: Plot a box and its text labels ----------
@@ -112,12 +113,12 @@ plot_box <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
 
 
-## Goal: ---------------------------
-## Distinguish 2 separate functions:
-##   1. generic plot_cbox (that plots a box given its coordinates and format) vs.
-##   2. plot_freq (that determines current freq value and fill color for know freq).
 
-## Helper function: Plot a centered box with text labels ----------
+## Distinguish 2 separate functions: -----------------
+#   1. generic plot_cbox (that plots a box given its coordinates and format) vs.
+#   2. plot_freq (that determines current freq value and fill color for know freq).
+
+## plot_cbox: Plot a centered box with text labels ----------
 plot_cbox <- function(x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
                       ## Text labels:
@@ -195,7 +196,7 @@ plot_cbox <- function(x,  y,   # coordinates of box CENTER (x and y)
 #           col.fill = "gold", col.brd = "steelblue", lwd = 3)  # add color options
 
 
-## Helper function: Plot a known frequency (freq) as a box  ----------
+## plot_fbox: Plot a known frequency (freq) as a box  ----------
 plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,  # lengths of box (width and height)
                       fname,   # name of a known frequency (freq)
@@ -286,7 +287,7 @@ plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
 # plot_fbox(5, 1, 3, 2/3, fname = "N")
 
 
-## Helper function: Plot an (arrow) line between 2 points with an optional text label: ------
+## plot_line: Plot an (arrow) line between 2 points with an optional text label: ------
 plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
                       col = "grey",       # colors (for line, point fill, and labels)
                       col.bord = "black", # color of point border
@@ -361,14 +362,17 @@ plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
 
 
 
-## Helper function: Plot multiple (nArr) arrows along a line: ------
-plot_arrows <- function(x0, y0, x1, y1,       # coordinates
-                        nArr = 2,             # number of arrows to draw
+## plot_arrs: Plot multiple (n.arr) arrows along a line: ------
+plot_arrs <- function(x0, y0, x1, y1,       # coordinates
+                        n.arr = 2,            # number of arrows to draw
+                        l.arr = .10,          # length of arrows to draw
+                        a.arr = 35,           # angle of arrows to draw
                         ## Optional label:
                         lbl.txt = NA,         # string for text label
                         lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
                         lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                        pos = 3, offset = 1,  # pos (1 = bottom, 3 = top), offset, etc.
+                        pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                        offset = 1,           # offset, etc.
                         ...                   # other graphical parameters
 )
 {
@@ -377,17 +381,17 @@ plot_arrows <- function(x0, y0, x1, y1,       # coordinates
   # lines(c(x0, x1), c(y0, y1), ...)
 
 
-  ## (1) Draw nArr arrows: ----
+  ## (1) Draw n.arr arrows: ----
 
-  # Split line into nArr + 1 segments:
-  Ax = seq(x0, x1, length = nArr + 1)
-  Ay = seq(y0, y1, length = nArr + 1)
+  # Split line into n.arr + 1 segments:
+  Ax = seq(x0, x1, length = n.arr + 1)
+  Ay = seq(y0, y1, length = n.arr + 1)
 
   # Loop to draw all arrows:
-  for (i in 1:nArr)
+  for (i in 1:n.arr)
   {
     arrows(Ax[i], Ay[i], Ax[i + 1], Ay[i + 1],
-           length = .20, angle = 33, code = 2, # arrow type: V or T?
+           length = l.arr, angle = a.arr, code = 2, # arrow type: V or T?
            ...)
   }
 
@@ -410,20 +414,17 @@ plot_arrows <- function(x0, y0, x1, y1,       # coordinates
 }
 
 ## Check:
-
 # plot(0:1, 0:1) # 2 points
-#
-# plot_arrows(0, 0, 1, 0, col = "red3")  # 2 arrows, no text
-#
-# plot_arrows(0, .2, 1, .2, col = "green3", lbl.txt = "Label 1", pos = 3)
-#
-# plot_arrows(0, .3, 1, .5, col = "blue3", nArr = 3, lbl.txt = "Label 2", pos = 3, lwd = 2)
-#
-# plot_arrows(0, .4, 1, .9, col = "black", lbl.txt = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
+# plot_arrs(0, 0, 1, 0, col = "red3")  # 2 arrows, no text
+# plot_arrs(0, .1, 1, .1, col = "grey", lbl.txt = "Label 0")
+# plot_arrs(0, .2, 1, .2, col = "green3", lbl.txt = "Label 1", pos = 3)
+# plot_arrs(0, .3, 1, .5, col = "blue3",
+#             n.arr = 3, l.arr = .25, a.arr = 20,
+#             lbl.txt = "3 arrows", pos = 3, lwd = 2)
+# plot_arrs(0, .4, 1, .9, col = "black", lbl.txt = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
 
 
-
-## Helper function: Add text with background box to a plot ------
+## boxtext: Add text with background box to a plot ------
 ## from https://stackoverflow.com/questions/45366243/text-labels-with-background-colour-in-r
 
 ## Add text with background box to a plot
