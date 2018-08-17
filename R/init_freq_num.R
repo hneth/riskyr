@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 02 05
+## 2018 08 17
 ## -----------------------------------------------
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
@@ -438,7 +438,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' @examples
 #' freq <- comp_freq()  # => initialize freq to default parameters
 #' freq                 # => show current values
-#' length(freq)         # => 11
+#' length(freq)         # => 11 known frequencies
+#' names(freq)          # => show names of known frequencies
 #'
 #'
 #' @family lists containing current scenario information
@@ -460,15 +461,60 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'
 
 freq <- comp_freq()  # => initialize freq to default parameters
+
+## Check:
 # freq               # => show current values
-# length(freq)       # => 11
+# length(freq)       # => 11 known frequencies
+# names(freq)        # => show names of known frequencies
+
+
+## Helper function: Determine the type of a named frequency (freq):  ----------
+comp_freq_type <- function(fname) {
+
+  ftype <- "typeless"  # initialize
+
+  # Define types of all known frequencies:
+  freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
+  # freq_types
+
+  # Map freq to name in freq_types:
+  if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
+    ix <- which(names(freq) == fname)  # index in freq
+    # print(ix)
+    ftype <- freq_types[ix]
+  }
+
+  # Return type (as name):
+  return(ftype)
+
+}
+
+## Check:
+# comp_freq_type("N")
+# comp_freq_type("cond.false")
+# comp_freq_type("dec.neg")
+# comp_freq_type("dec.err")
+# comp_freq_type("cr")
+
+## Note:
+# comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
+# comp_freq_type("false")  # => typeless (as full name is required)
+
 
 ## -----------------------------------------------
-## (+) ToDo:
+## (*) Done:
 
 ## - Added 2 more frequencies:
 ##   "by correctness" or correspondence of condition and decision:
 ##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
+
+## - Added help function comp_freq_type
+##   to classify freq into types based on their name.
+
+## -----------------------------------------------
+## (+) ToDo:
+
+## - ...
 
 ## -----------------------------------------------
 ## eof.
