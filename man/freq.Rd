@@ -94,7 +94,8 @@ are provided by \code{\link{plot_tree}} and
 \examples{
 freq <- comp_freq()  # => initialize freq to default parameters
 freq                 # => show current values
-length(freq)         # => 11
+length(freq)         # => 11 known frequencies
+names(freq)          # => show names of known frequencies
 
 
 }
