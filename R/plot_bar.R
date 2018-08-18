@@ -505,6 +505,9 @@
 #' @param col.pal Color palette.
 #' Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
 #'
+#' @param ... Other graphical parameters
+#' (e.g., \code{cex}, \code{lwd}, ...).
+#'
 #' @examples
 #' # Basics:
 #' plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
@@ -574,7 +577,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      w.acc = .50,        # weight w for wacc (from 0 to 1)
                      ## Text and color options: ##
                      title.lbl = txt$scen.lbl,
-                     col.pal = pal,
+                     col.pal = pal,      # color palette
                      ...  # other graphical parameters: lwd, cex, ...
 ) {
 
