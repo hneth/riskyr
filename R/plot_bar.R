@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 08 17
+## 2018 08 18
 ## -----------------------------------------------
 ## Plot bar (a family of) charts that express freq as area
 ## (size and proportion)
@@ -12,403 +12,403 @@
 
 ## Helper functions (now moved to plot_util.R): -----------
 {
-# ## Helper function: Plot a box and its text labels ----------
-# plot_box <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
-#                      box.lx, box.ly,   # lengths of box (width and height)
-#                      ## Text labels:
-#                      type = NA,        # type of box (printed as title below box)
-#                      show.freq = TRUE, # option to show/hide frequency labels
-#                      name = NA,        # box name (corresponding to a color in pal, as character)
-#                      freq,             # frequency (as number).  ToDo: Derive freq from type and/OR name!
-#                      ## Color options:
-#                      col.fill = grey(.95, .75),  # default color (but derived from name below)
-#                      col.brd = pal["brd"],
-#                      col.txt = pal["txt"],
-#                      ...               # other graphical parameters: lwd, cex, ...
-#                      ) {
-#
-#
-#   ## (0) Parameters (currently fixed):
-#
-#   ## Box parameters:
-#   # box.lwd <- 1  # line width of border around rect (default = 1)
-#
-#   if (name %in% names(pal)) { # if name corresponds to a color name in pal
-#     col.fill <- pal[name]     # use this color to fill box
-#   }
-#
-#   ## Text parameters:
-#   # col.lbl <- pal["txt"]  # defined in pal
-#   # cex.lbl <- .90   # scaling factor for text labels
-#   # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
-#   # h.shift <- .05   # horizontal shifting of labels
-#   # v.shift <- .05   # vertical shifting of labels
-#
-#   ## (1) Plot rect:
-#   rect(xleft  = (box.x - box.lx/2), ybottom = box.y,
-#        xright = (box.x + box.lx/2), ytop    = (box.y + box.ly),
-#        col = col.fill,
-#        border = col.brd,
-#        # lwd = box.lwd,
-#        ...)
-#
-#   ## (2) Print type as box title (below box, optional):
-#   if (!is.na(type)) {  # type is specified:
-#
-#   text(x = box.x, y = box.y,
-#        labels = type,
-#        pos = 1,  # 1...below, 3...above
-#        xpd = TRUE,
-#        col = col.txt,
-#        # cex = cex.lbl.sm,
-#        ...)
-#
-#   }
-#
-#   ## (3) Plot box label (centered in box, optional):
-#   if (show.freq) {
-#
-#     # y-coordinate of label:
-#     mid.y <- box.y + box.ly/2  # y-value of mid point
-#
-#     # Compose box label:
-#     if (!is.na(name)) {  # name is specified:
-#
-#       # ToDo: Derive freq from type and/or name.
-#
-#       box.lbl <- paste0(name, " = ", freq)
-#
-#     } else { # no name specified:
-#
-#       box.lbl <- paste0(freq)
-#
-#     }
-#
-#     # Plot text:
-#     text(x = box.x, y = mid.y,
-#          labels = box.lbl,
-#          # pos = 3,
-#          xpd = TRUE,
-#          col = col.txt,
-#          # cex = cex.lbl.sm,
-#          ...)
-#   }
-#
-# }
-#
-# ## Check:
-# {
-#   # plot(c(0, 100), c(0, 100)) # 2 points
-#   #
-#   # plot_box(10, 80, 20, 20, freq = 111) # no name => default fill color
-#   #
-#   # plot_box(50, 80, 20, 20, name = "N", freq = 222) # no type label
-#   #
-#   # plot_box(10, 50, 30, 20, type = "type as box title", name = "hi", freq = 333)
-#   #
-#   # plot_box(40, 50, 20, 20, name = "mi", freq = 123, lwd = 3, cex = .7)
-#
-# }
-#
-# ## +++ here now +++
-#
-# ## ToDo:
-# ## - Distinguish 2 separate functions:
-# ##   1. generic plot_box vs.
-# ##   2. plot_freq (that automatically determines current freq value and fill color).
-#
-#
-# ## Helper function: Add text with background box to a plot ------
-# ## from https://stackoverflow.com/questions/45366243/text-labels-with-background-colour-in-r
-# {
-# ## Add text with background box to a plot
-#
-# # \code{boxtext} places a text given in the vector \code{labels}
-# # onto a plot in the base graphics system and places a coloured box behind
-# # it to make it stand out from the background.
-#
-# # @param x numeric vector of x-coordinates where the text labels should be
-# # written. If the length of \code{x} and \code{y} differs, the shorter one
-# # is recycled.
-# # @param y numeric vector of y-coordinates where the text labels should be
-# # written.
-# # @param labels a character vector specifying the text to be written.
-# # @param col.text the colour of the text
-# # @param col.bg color(s) to fill or shade the rectangle(s) with. The default
-# # \code{NA} means do not fill, i.e., draw transparent rectangles.
-# # @param border.bg color(s) for rectangle border(s). The default \code{NA}
-# # omits borders.
-# # @param adj one or two values in [0, 1] which specify the x (and optionally
-# # y) adjustment of the labels.
-# # @param pos a position specifier for the text. If specified this overrides
-# # any adj value given. Values of 1, 2, 3 and 4, respectively indicate
-# # positions below, to the left of, above and to the right of the specified
-# # coordinates.
-# # @param offset when \code{pos} is specified, this value gives the offset of
-# # the label from the specified coordinate in fractions of a character width.
-# # @param padding factor used for the padding of the box around
-# # the text. Padding is specified in fractions of a character width. If a
-# # vector of length two is specified then different factors are used for the
-# # padding in x- and y-direction.
-# # @param cex numeric character expansion factor; multiplied by
-# # code{par("cex")} yields the final character size.
-# # @param font the font to be used
-# #
-# # @return Returns the coordinates of the background rectangle(s). If
-# # multiple labels are placed in a vactor then the coordinates are returned
-# # as a matrix with columns corresponding to xleft, xright, ybottom, ytop.
-# # If just one label is placed, the coordinates are returned as a vector.
-# #
-# # @author Ian Kopacka
-# #
-# # @examples
-# # ## Create noisy background
-# # plot(x = runif(1000), y = runif(1000), type = "p", pch = 16,
-# # col = "#40404060")
-# # boxtext(x = 0.5, y = 0.5, labels = "some Text", col.bg = "#b2f4f480",
-# #    pos = 4, font = 2, cex = 1.3, padding = 1)
-# #
-#
-# boxtext <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
-#                     border.bg = NA, adj = NULL, pos = NULL, offset = 0.5,
-#                     padding = c(0.5, 0.5), cex = 1, font = graphics::par('font')){
-#
-#   ## The Character expansion factro to be used:
-#   theCex <- graphics::par('cex')*cex
-#
-#   ## Is y provided:
-#   if (missing(y)) y <- x
-#
-#   ## Recycle coords if necessary:
-#   if (length(x) != length(y)){
-#     lx <- length(x)
-#     ly <- length(y)
-#     if (lx > ly){
-#       y <- rep(y, ceiling(lx/ly))[1:lx]
-#     } else {
-#       x <- rep(x, ceiling(ly/lx))[1:ly]
-#     }
-#   }
-#
-#   ## Width and height of text
-#   textHeight <- graphics::strheight(labels, cex = theCex, font = font)
-#   textWidth <- graphics::strwidth(labels, cex = theCex, font = font)
-#
-#   ## Width of one character:
-#   charWidth <- graphics::strwidth("e", cex = theCex, font = font)
-#
-#   ## Is 'adj' of length 1 or 2?
-#   if (!is.null(adj)){
-#     if (length(adj == 1)){
-#       adj <- c(adj[1], 0.5)
-#     }
-#   } else {
-#     adj <- c(0.5, 0.5)
-#   }
-#
-#   ## Is 'pos' specified?
-#   if (!is.null(pos)){
-#     if (pos == 1){
-#       adj <- c(0.5, 1)
-#       offsetVec <- c(0, -offset*charWidth)
-#     } else if (pos == 2){
-#       adj <- c(1, 0.5)
-#       offsetVec <- c(-offset*charWidth, 0)
-#     } else if (pos == 3){
-#       adj <- c(0.5, 0)
-#       offsetVec <- c(0, offset*charWidth)
-#     } else if (pos == 4){
-#       adj <- c(0, 0.5)
-#       offsetVec <- c(offset*charWidth, 0)
-#     } else {
-#       stop('Invalid argument pos')
-#     }
-#   } else {
-#     offsetVec <- c(0, 0)
-#   }
-#
-#   ## Padding for boxes:
-#   if (length(padding) == 1){
-#     padding <- c(padding[1], padding[1])
-#   }
-#
-#   ## Midpoints for text:
-#   xMid <- x + (-adj[1] + 1/2)*textWidth + offsetVec[1]
-#   yMid <- y + (-adj[2] + 1/2)*textHeight + offsetVec[2]
-#
-#   ## Draw rectangles:
-#   rectWidth <- textWidth + 2*padding[1]*charWidth
-#   rectHeight <- textHeight + 2*padding[2]*charWidth
-#   graphics::rect(xleft = xMid - rectWidth/2,
-#                  ybottom = yMid - rectHeight/2,
-#                  xright = xMid + rectWidth/2,
-#                  ytop = yMid + rectHeight/2,
-#                  col = col.bg, border = border.bg)
-#
-#   ## Place the text:
-#   graphics::text(xMid, yMid, labels, col = col.text, cex = theCex, font = font,
-#                  adj = c(0.5, 0.5))
-#
-#   ## Return value:
-#   if (length(xMid) == 1){
-#     invisible(c(xMid - rectWidth/2, xMid + rectWidth/2, yMid - rectHeight/2,
-#                 yMid + rectHeight/2))
-#   } else {
-#     invisible(cbind(xMid - rectWidth/2, xMid + rectWidth/2, yMid - rectHeight/2,
-#                     yMid + rectHeight/2))
-#   }
-# }
-#
-# ## Check:
-# {
-#   # ## Create noisy background:
-#   # plot(x = runif(1000), y = runif(1000), type = "p", pch = 16, col = "#40404060")
-#   #
-#   # ## Vector of labels, using argument 'pos' to position right of coordinates:
-#   # boxtext(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
-#   #         col.bg = "gold", pos = 4, padding = 0.2)
-#   #
-#   # ## Tweak cex, font and adj:
-#   # boxtext(x = 0.2, y = 0.4, labels = "some big and bold text",
-#   #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
-# }
-#
-# }
-#
-# ## Helper function: Plot an (arrow) line between 2 points with an optional text label: ------
-# plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
-#                       col = "grey",       # colors (for line, point fill, and labels)
-#                       col.bord = "black", # color of point border
-#                       lty = 1, lwd = 1,                     # line options
-#                       pt.pch = 21, pt.cex = 1, pt.lwd = 1,  # point options
-#                       ## Optional text label:
-#                       lbl.txt = NA,         # string for text label
-#                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-#                       lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-#                       lbl.cex = 1,          # size of text label
-#                       ...                   # pos (1 = bottom, 3 = top), offset, etc.
-# ) {
-#
-#   ## (1) Draw an arrow or line between 2 points: ------
-#
-#   arrow <- FALSE
-#
-#   if (arrow) {
-#
-#     ## Draw an arrow:
-#     arrows(x0, y0, x1, y1,
-#            length = .06, angle = 33, code = 3,    # V shape (small)
-#            # length = .08, angle = 90, code = 3,  # T shape
-#            lty = lty, lwd = lwd, col = col)       # arrow
-#
-#   } else {
-#
-#     ## Normal line with 2 points at line ends:
-#     arrows(x0, y0, x1, y1,
-#            length = 0, angle = 0, code = 3,  # no arrows
-#            lty = lty, lwd = lwd, col = col)
-#     points(x0, y0, pch = pt.pch, cex = pt.cex,
-#            lwd = pt.lwd, col = col.bord, bg = col)  # point 1
-#     points(x1, y1, pch = pt.pch, cex = pt.cex,
-#            lwd = pt.lwd, col = col.bord, bg = col)  # point 2
-#
-#   }
-#
-#   ## (2) Optional text label: ------
-#
-#   if (!is.na(lbl.x)) { # if lbl.x exists:
-#
-#     ## Text label:
-#     text(lbl.x, lbl.y,
-#          labels = lbl.txt,
-#          col = col, cex = lbl.cex,
-#          # pos, offeset, ...
-#          ...)
-#   }
-#
-# }
-#
-# ## Check:
-# {
-#   # plot(0:1, 0:1) # 2 points
-#   #
-#   # plot_line(0, .1, 1, .1)  # basic line (without label)
-#   #
-#   # plot_line(0, .2, 1, .2, lbl.txt = "Label 1")  # basic with text label (on line)
-#   #
-#   # plot_line(0, 0, 1, 1, lbl.txt = "Label 2", pos = 3, offset = 2)  # basic with raised text label
-#   #
-#   # plot_line(0, 1, 1, 0,  # coordinates
-#   #           col = "firebrick1", col.bord = "black",   # colors (for line, points, and labels)
-#   #           lty = 1, lwd = 2,                         # line
-#   #           pt.pch = 21, pt.cex = 2, pt.lwd = 2,      # points
-#   #           # Text label (with options):
-#   #           lbl.x = 1/3, lbl.y = 2/3,
-#   #           lbl.txt = "Some label\nthat takes\nmultiple (3) lines",
-#   #           pos = 3, offset = 2, lbl.cex = .8)
-#
-# }
-#
-# ## Helper function: Plot multiple (nArr) arrows along a line: ------
-# plot_arrows <- function(x0, y0, x1, y1,       # coordinates
-#                          nArr = 2,             # number of arrows to draw
-#                          ## Optional label:
-#                          lbl.txt = NA,         # string for text label
-#                          lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-#                          lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-#                          pos = 3, offset = 1,  # pos (1 = bottom, 3 = top), offset, etc.
-#                          ...                   # other graphical parameters
-#                          )
-# {
-#   ## (0) Draw line from p1 to p2: ----
-#
-#   # lines(c(x0, x1), c(y0, y1), ...)
-#
-#
-#   ## (1) Draw nArr arrows: ----
-#
-#   # Split line into nArr + 1 segments:
-#   Ax = seq(x0, x1, length = nArr + 1)
-#   Ay = seq(y0, y1, length = nArr + 1)
-#
-#   # Loop to draw all arrows:
-#   for (i in 1:nArr)
-#   {
-#     arrows(Ax[i], Ay[i], Ax[i + 1], Ay[i + 1],
-#            length = .20, angle = 33, code = 2, # arrow type: V or T?
-#            ...)
-#   }
-#
-#   ## (3) Optional text label: ------
-#
-#   if (!is.na(lbl.x)) { # if lbl.x exists:
-#
-#     # Parameters:
-#     # lbl.cex = 1          # size of text label
-#
-#     ## Text label:
-#     text(lbl.x, lbl.y,
-#          labels = lbl.txt,
-#          # col = col,
-#          # cex = lbl.cex,
-#          pos = pos, offset = offset,
-#          ...)
-#   }
-#
-# }
-#
-# ## Check:
-# {
-#   # plot(0:1, 0:1) # 2 points
-#   #
-#   # plot_arrows(0, 0, 1, 0, col = "red3")  # 2 arrows, no text
-#   #
-#   # plot_arrows(0, .2, 1, .2, col = "green3", lbl.txt = "Label 1", pos = 3)
-#   #
-#   # plot_arrows(0, .3, 1, .5, col = "blue3", nArr = 3, lbl.txt = "Label 2", pos = 3, lwd = 2)
-#   #
-#   # plot_arrows(0, .4, 1, .9, col = "black", lbl.txt = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
-# }
+  # ## Helper function: Plot a box and its text labels ----------
+  # plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
+  #                      box.lx, box.ly,   # lengths of box (width and height)
+  #                      ## Text labels:
+  #                      type = NA,        # type of box (printed as title below box)
+  #                      show.freq = TRUE, # option to show/hide frequency labels
+  #                      fname = NA,        # box name (corresponding to a color in pal, as character)
+  #                      freq,             # frequency (as number).  ToDo: Derive freq from type and/OR name!
+  #                      ## Color options:
+  #                      col.fill = grey(.95, .75),  # default color (but derived from name below)
+  #                      col.brd = pal["brd"],
+  #                      col.txt = pal["txt"],
+  #                      ...               # other graphical parameters: lwd, cex, ...
+  #                      ) {
+  #
+  #
+  #   ## (0) Parameters (currently fixed):
+  #
+  #   ## Box parameters:
+  #   # box.lwd <- 1  # line width of border around rect (default = 1)
+  #
+  #   if (name %in% names(pal)) { # if name corresponds to a color name in pal
+  #     col.fill <- pal[name]     # use this color to fill box
+  #   }
+  #
+  #   ## Text parameters:
+  #   # col.lbl <- pal["txt"]  # defined in pal
+  #   # cex.lbl <- .90   # scaling factor for text labels
+  #   # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
+  #   # h.shift <- .05   # horizontal shifting of labels
+  #   # v.shift <- .05   # vertical shifting of labels
+  #
+  #   ## (1) Plot rect:
+  #   rect(xleft  = (box.x - box.lx/2), ybottom = box.y,
+  #        xright = (box.x + box.lx/2), ytop    = (box.y + box.ly),
+  #        col = col.fill,
+  #        border = col.brd,
+  #        # lwd = box.lwd,
+  #        ...)
+  #
+  #   ## (2) Print type as box title (below box, optional):
+  #   if (!is.na(type)) {  # type is specified:
+  #
+  #   text(x = box.x, y = box.y,
+  #        labels = type,
+  #        pos = 1,  # 1...below, 3...above
+  #        xpd = TRUE,
+  #        col = col.txt,
+  #        # cex = cex.lbl.sm,
+  #        ...)
+  #
+  #   }
+  #
+  #   ## (3) Plot box label (centered in box, optional):
+  #   if (show.freq, ...) {
+  #
+  #     # y-coordinate of label:
+  #     mid.y <- box.y + box.ly/2  # y-value of mid point
+  #
+  #     # Compose box label:
+  #     if (!is.na(name)) {  # name is specified:
+  #
+  #       # ToDo: Derive freq from type and/or name.
+  #
+  #       box.lbl <- paste0(name, " = ", freq)
+  #
+  #     } else { # no name specified:
+  #
+  #       box.lbl <- paste0(freq)
+  #
+  #     }
+  #
+  #     # Plot text:
+  #     text(x = box.x, y = mid.y,
+  #          labels = box.lbl,
+  #          # pos = 3,
+  #          xpd = TRUE,
+  #          col = col.txt,
+  #          # cex = cex.lbl.sm,
+  #          ...)
+  #   }
+  #
+  # }
+  #
+  # ## Check:
+  # {
+  #   # plot(c(0, 100), c(0, 100)) # 2 points
+  #   #
+  #   # plot_vbox(10, 80, 20, 20, freq = 111) # no name => default fill color
+  #   #
+  #   # plot_vbox(50, 80, 20, 20, fname = "N", freq = 222) # no type label
+  #   #
+  #   # plot_vbox(10, 50, 30, 20, type = "type as box title", fname = "hi", freq = 333)
+  #   #
+  #   # plot_vbox(40, 50, 20, 20, fname = "mi", freq = 123, lwd = 3, cex = .7)
+  #
+  # }
+  #
+  #
+  #
+  # ## ToDo:
+  # ## - Distinguish 2 separate functions:
+  # ##   1. generic plot_vbox vs.
+  # ##   2. plot_freq (that automatically determines current freq value and fill color).
+  #
+  #
+  # ## Helper function: Add text with background box to a plot ------
+  # ## from https://stackoverflow.com/questions/45366243/text-labels-with-background-colour-in-r
+  # {
+  # ## Add text with background box to a plot
+  #
+  # # \code{boxtext} places a text given in the vector \code{labels}
+  # # onto a plot in the base graphics system and places a coloured box behind
+  # # it to make it stand out from the background.
+  #
+  # # @param x numeric vector of x-coordinates where the text labels should be
+  # # written. If the length of \code{x} and \code{y} differs, the shorter one
+  # # is recycled.
+  # # @param y numeric vector of y-coordinates where the text labels should be
+  # # written.
+  # # @param labels a character vector specifying the text to be written.
+  # # @param col.text the colour of the text
+  # # @param col.bg color(s) to fill or shade the rectangle(s) with. The default
+  # # \code{NA} means do not fill, i.e., draw transparent rectangles.
+  # # @param border.bg color(s) for rectangle border(s). The default \code{NA}
+  # # omits borders.
+  # # @param adj one or two values in [0, 1] which specify the x (and optionally
+  # # y) adjustment of the labels.
+  # # @param pos a position specifier for the text. If specified this overrides
+  # # any adj value given. Values of 1, 2, 3 and 4, respectively indicate
+  # # positions below, to the left of, above and to the right of the specified
+  # # coordinates.
+  # # @param offset when \code{pos} is specified, this value gives the offset of
+  # # the label from the specified coordinate in fractions of a character width.
+  # # @param padding factor used for the padding of the box around
+  # # the text. Padding is specified in fractions of a character width. If a
+  # # vector of length two is specified then different factors are used for the
+  # # padding in x- and y-direction.
+  # # @param cex numeric character expansion factor; multiplied by
+  # # code{par("cex")} yields the final character size.
+  # # @param font the font to be used
+  # #
+  # # @return Returns the coordinates of the background rectangle(s). If
+  # # multiple labels are placed in a vactor then the coordinates are returned
+  # # as a matrix with columns corresponding to xleft, xright, ybottom, ytop.
+  # # If just one label is placed, the coordinates are returned as a vector.
+  # #
+  # # @author Ian Kopacka
+  # #
+  # # @examples
+  # # ## Create noisy background
+  # # plot(x = runif(1000), y = runif(1000), type = "p", pch = 16,
+  # # col = "#40404060")
+  # # boxtext(x = 0.5, y = 0.5, labels = "some Text", col.bg = "#b2f4f480",
+  # #    pos = 4, font = 2, cex = 1.3, padding = 1)
+  # #
+  #
+  # boxtext <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
+  #                     border.bg = NA, adj = NULL, pos = NULL, offset = 0.5,
+  #                     padding = c(0.5, 0.5), cex = 1, font = graphics::par('font')){
+  #
+  #   ## The Character expansion factro to be used:
+  #   theCex <- graphics::par('cex')*cex
+  #
+  #   ## Is y provided:
+  #   if (missing(y)) y <- x
+  #
+  #   ## Recycle coords if necessary:
+  #   if (length(x) != length(y)){
+  #     lx <- length(x)
+  #     ly <- length(y)
+  #     if (lx > ly){
+  #       y <- rep(y, ceiling(lx/ly))[1:lx]
+  #     } else {
+  #       x <- rep(x, ceiling(ly/lx))[1:ly]
+  #     }
+  #   }
+  #
+  #   ## Width and height of text
+  #   textHeight <- graphics::strheight(labels, cex = theCex, font = font)
+  #   textWidth <- graphics::strwidth(labels, cex = theCex, font = font)
+  #
+  #   ## Width of one character:
+  #   charWidth <- graphics::strwidth("e", cex = theCex, font = font)
+  #
+  #   ## Is 'adj' of length 1 or 2?
+  #   if (!is.null(adj)){
+  #     if (length(adj == 1)){
+  #       adj <- c(adj[1], 0.5)
+  #     }
+  #   } else {
+  #     adj <- c(0.5, 0.5)
+  #   }
+  #
+  #   ## Is 'pos' specified?
+  #   if (!is.null(pos)){
+  #     if (pos == 1){
+  #       adj <- c(0.5, 1)
+  #       offsetVec <- c(0, -offset*charWidth)
+  #     } else if (pos == 2){
+  #       adj <- c(1, 0.5)
+  #       offsetVec <- c(-offset*charWidth, 0)
+  #     } else if (pos == 3){
+  #       adj <- c(0.5, 0)
+  #       offsetVec <- c(0, offset*charWidth)
+  #     } else if (pos == 4){
+  #       adj <- c(0, 0.5)
+  #       offsetVec <- c(offset*charWidth, 0)
+  #     } else {
+  #       stop('Invalid argument pos')
+  #     }
+  #   } else {
+  #     offsetVec <- c(0, 0)
+  #   }
+  #
+  #   ## Padding for boxes:
+  #   if (length(padding) == 1){
+  #     padding <- c(padding[1], padding[1])
+  #   }
+  #
+  #   ## Midpoints for text:
+  #   xMid <- x + (-adj[1] + 1/2)*textWidth + offsetVec[1]
+  #   yMid <- y + (-adj[2] + 1/2)*textHeight + offsetVec[2]
+  #
+  #   ## Draw rectangles:
+  #   rectWidth <- textWidth + 2*padding[1]*charWidth
+  #   rectHeight <- textHeight + 2*padding[2]*charWidth
+  #   graphics::rect(xleft = xMid - rectWidth/2,
+  #                  ybottom = yMid - rectHeight/2,
+  #                  xright = xMid + rectWidth/2,
+  #                  ytop = yMid + rectHeight/2,
+  #                  col = col.bg, border = border.bg)
+  #
+  #   ## Place the text:
+  #   graphics::text(xMid, yMid, labels, col = col.text, cex = theCex, font = font,
+  #                  adj = c(0.5, 0.5))
+  #
+  #   ## Return value:
+  #   if (length(xMid) == 1){
+  #     invisible(c(xMid - rectWidth/2, xMid + rectWidth/2, yMid - rectHeight/2,
+  #                 yMid + rectHeight/2))
+  #   } else {
+  #     invisible(cbind(xMid - rectWidth/2, xMid + rectWidth/2, yMid - rectHeight/2,
+  #                     yMid + rectHeight/2))
+  #   }
+  # }
+  #
+  # ## Check:
+  # {
+  #   # ## Create noisy background:
+  #   # plot(x = runif(1000), y = runif(1000), type = "p", pch = 16, col = "#40404060")
+  #   #
+  #   # ## Vector of labels, using argument 'pos' to position right of coordinates:
+  #   # boxtext(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
+  #   #         col.bg = "gold", pos = 4, padding = 0.2)
+  #   #
+  #   # ## Tweak cex, font and adj:
+  #   # boxtext(x = 0.2, y = 0.4, labels = "some big and bold text",
+  #   #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
+  # }
+  #
+  # }
+  #
+  # ## Helper function: Plot an (arrow) line between 2 points with an optional text label: ------
+  # plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
+  #                       col = "grey",       # colors (for line, point fill, and labels)
+  #                       col.bord = "black", # color of point border
+  #                       lty = 1, lwd = 1,                     # line options
+  #                       pt.pch = 21, pt.cex = 1, pt.lwd = 1,  # point options
+  #                       ## Optional text label:
+  #                       lbl.txt = NA,         # string for text label
+  #                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
+  #                       lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
+  #                       lbl.cex = 1,          # size of text label
+  #                       ...                   # pos (1 = bottom, 3 = top), offset, etc.
+  # ) {
+  #
+  #   ## (1) Draw an arrow or line between 2 points: ------
+  #
+  #   arrow <- FALSE
+  #
+  #   if (arrow) {
+  #
+  #     ## Draw an arrow:
+  #     arrows(x0, y0, x1, y1,
+  #            length = .06, angle = 33, code = 3,    # V shape (small)
+  #            # length = .08, angle = 90, code = 3,  # T shape
+  #            lty = lty, lwd = lwd, col = col)       # arrow
+  #
+  #   } else {
+  #
+  #     ## Normal line with 2 points at line ends:
+  #     arrows(x0, y0, x1, y1,
+  #            length = 0, angle = 0, code = 3,  # no arrows
+  #            lty = lty, lwd = lwd, col = col)
+  #     points(x0, y0, pch = pt.pch, cex = pt.cex,
+  #            lwd = pt.lwd, col = col.bord, bg = col)  # point 1
+  #     points(x1, y1, pch = pt.pch, cex = pt.cex,
+  #            lwd = pt.lwd, col = col.bord, bg = col)  # point 2
+  #
+  #   }
+  #
+  #   ## (2) Optional text label: ------
+  #
+  #   if (!is.na(lbl.x)) { # if lbl.x exists:
+  #
+  #     ## Text label:
+  #     text(lbl.x, lbl.y,
+  #          labels = lbl.txt,
+  #          col = col, cex = lbl.cex,
+  #          # pos, offeset, ...
+  #          ...)
+  #   }
+  #
+  # }
+  #
+  # ## Check:
+  # {
+  #   # plot(0:1, 0:1) # 2 points
+  #   #
+  #   # plot_line(0, .1, 1, .1)  # basic line (without label)
+  #   #
+  #   # plot_line(0, .2, 1, .2, lbl.txt = "Label 1")  # basic with text label (on line)
+  #   #
+  #   # plot_line(0, 0, 1, 1, lbl.txt = "Label 2", pos = 3, offset = 2)  # basic with raised text label
+  #   #
+  #   # plot_line(0, 1, 1, 0,  # coordinates
+  #   #           col = "firebrick1", col.bord = "black",   # colors (for line, points, and labels)
+  #   #           lty = 1, lwd = 2,                         # line
+  #   #           pt.pch = 21, pt.cex = 2, pt.lwd = 2,      # points
+  #   #           # Text label (with options):
+  #   #           lbl.x = 1/3, lbl.y = 2/3,
+  #   #           lbl.txt = "Some label\nthat takes\nmultiple (3) lines",
+  #   #           pos = 3, offset = 2, lbl.cex = .8)
+  #
+  # }
+  #
+  # ## Helper function: Plot multiple (nArr) arrows along a line: ------
+  # plot_arrows <- function(x0, y0, x1, y1,       # coordinates
+  #                          nArr = 2,             # number of arrows to draw
+  #                          ## Optional label:
+  #                          lbl.txt = NA,         # string for text label
+  #                          lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
+  #                          lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
+  #                          pos = 3, offset = 1,  # pos (1 = bottom, 3 = top), offset, etc.
+  #                          ...                   # other graphical parameters
+  #                          )
+  # {
+  #   ## (0) Draw line from p1 to p2: ----
+  #
+  #   # lines(c(x0, x1), c(y0, y1), ...)
+  #
+  #
+  #   ## (1) Draw nArr arrows: ----
+  #
+  #   # Split line into nArr + 1 segments:
+  #   Ax = seq(x0, x1, length = nArr + 1)
+  #   Ay = seq(y0, y1, length = nArr + 1)
+  #
+  #   # Loop to draw all arrows:
+  #   for (i in 1:nArr)
+  #   {
+  #     arrows(Ax[i], Ay[i], Ax[i + 1], Ay[i + 1],
+  #            length = .20, angle = 33, code = 2, # arrow type: V or T?
+  #            ...)
+  #   }
+  #
+  #   ## (3) Optional text label: ------
+  #
+  #   if (!is.na(lbl.x)) { # if lbl.x exists:
+  #
+  #     # Parameters:
+  #     # lbl.cex = 1          # size of text label
+  #
+  #     ## Text label:
+  #     text(lbl.x, lbl.y,
+  #          labels = lbl.txt,
+  #          # col = col,
+  #          # cex = lbl.cex,
+  #          pos = pos, offset = offset,
+  #          ...)
+  #   }
+  #
+  # }
+  #
+  # ## Check:
+  # {
+  #   # plot(0:1, 0:1) # 2 points
+  #   #
+  #   # plot_arrows(0, 0, 1, 0, col = "red3")  # 2 arrows, no text
+  #   #
+  #   # plot_arrows(0, .2, 1, .2, col = "green3", lbl.txt = "Label 1", pos = 3)
+  #   #
+  #   # plot_arrows(0, .3, 1, .5, col = "blue3", nArr = 3, lbl.txt = "Label 2", pos = 3, lwd = 2)
+  #   #
+  #   # plot_arrows(0, .4, 1, .9, col = "black", lbl.txt = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
+  # }
 
 }
 
@@ -568,13 +568,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      ## Options:
                      by = "all",  # "cd"...condition, "dc"...decision; "all".
                      dir = 1,     # directions: 1 vs. 2
-                     show.freq = TRUE,  # show labels of frequencies in plot
+                     show.freq = TRUE,   # show labels of frequencies in plot
                      show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
                      show.accu = TRUE,   # compute and show accuracy metrics
                      w.acc = .50,        # weight w for wacc (from 0 to 1)
                      ## Text and color options: ##
                      title.lbl = txt$scen.lbl,
-                     col.pal = pal
+                     col.pal = pal,
+                     ...  # other graphical parameters: lwd, cex, ...
 ) {
 
   ## (0) Handle arguments and deprecated arguments: ----------
@@ -629,6 +630,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
   cur.par.lbl <- cur.cond.lbl
 
+  type_label <- "freq type"  # to be derived below.
+
   ## (3) Accuracy: ----------
 
   if (show.accu) {
@@ -671,8 +674,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## Text label appearance:
   # col.lbl <- pal["txt"]  # defined in pal
-  cex.lbl <- .90   # scaling factor for text labels
-  cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
+  # cex.lbl <- .90   # scaling factor for text labels
+  # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
   # h.shift <- .05   # horizontal shifting of labels
   # v.shift <- .05   # vertical shifting of labels
 
@@ -751,16 +754,26 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_box(type = NA, name = "N", freq = N,
-             box.x  = n.x,
-             box.y  = n.y,
-             box.lx = b.lx,
-             box.ly = n.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "N", freq = N,
+              box.x  = n.x,
+              box.y  = n.y,
+              box.lx = b.lx,
+              box.ly = n.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = n.x, y = y.min, labels = "popu", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    # # Column name: freq type
+    # type_label <- paste0(comp_freq_type("N"))  # determine freq type
+    # text(x = n.x, y = y.min,
+    #      labels = type_label, pos = 1,
+    #      xpd = TRUE, col = pal["txt"],
+    #      ...)
+
+    plot_ftype_label("N", n.x, y.min, pos = 1,
+                     col = pal["txt"], # col = comp_freq_col("N"),
+                     ...)
+
+    # +++ here now +++
+
 
     ## (b) SDT column: ----
 
@@ -796,37 +809,45 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_box(type = NA, name = "hi", freq = n.hi,
-             box.x  = hi.x,
-             box.y  = hi.y,
-             box.lx = b.lx,
-             box.ly = hi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+              box.x  = hi.x,
+              box.y  = hi.y,
+              box.lx = b.lx,
+              box.ly = hi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "mi", freq = n.mi,
-             box.x  = mi.x,
-             box.y  = mi.y,
-             box.lx = b.lx,
-             box.ly = mi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+              box.x  = mi.x,
+              box.y  = mi.y,
+              box.lx = b.lx,
+              box.ly = mi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "fa", freq = n.fa,
-             box.x  = fa.x,
-             box.y  = fa.y,
-             box.lx = b.lx,
-             box.ly = fa.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+              box.x  = fa.x,
+              box.y  = fa.y,
+              box.lx = b.lx,
+              box.ly = fa.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "cr", freq = n.cr,
-             box.x  = cr.x,
-             box.y  = cr.y,
-             box.lx = b.lx,
-             box.ly = cr.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+              box.x  = cr.x,
+              box.y  = cr.y,
+              box.lx = b.lx,
+              box.ly = cr.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = hi.x, y = y.min, labels = "cell", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    ## Column name: freq type
+    # type_label <- paste0(comp_freq_type("hi"))  # determine freq type
+    # text(x = hi.x, y = y.min,
+    #      labels = type_label, pos = 1,
+    #      xpd = TRUE, col = pal["txt"],
+    #      ...)
+    plot_ftype_label("hi", hi.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("hi"),
+                     ...)
+
 
     ## (c) Condition column: ----
 
@@ -854,22 +875,30 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_box(type = NA, name = "true", freq = (n.hi + n.mi),
-             box.x  = cond.true.x,
-             box.y  = cond.true.y,
-             box.lx = b.lx,
-             box.ly = cond.true.ly,
-             show.freq)
-    plot_box(type = NA, name = "false", freq = (n.fa + n.cr),
-             box.x  = cond.false.x,
-             box.y  = cond.false.y,
-             box.lx = b.lx,
-             box.ly = cond.false.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "cond.true", freq = (n.hi + n.mi),
+              box.x  = cond.true.x,
+              box.y  = cond.true.y,
+              box.lx = b.lx,
+              box.ly = cond.true.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = cond.true.x, y = y.min, labels = "cond", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_vbox(type = NA, fname = "cond.false", freq = (n.fa + n.cr),
+              box.x  = cond.false.x,
+              box.y  = cond.false.y,
+              box.lx = b.lx,
+              box.ly = cond.false.ly,
+              show.freq, ...)
+
+    ## Column name: freq type
+    # type_label <- paste0(comp_freq_type("cond.true"))  # determine freq type
+    # text(x = cond.true.x, y = y.min,
+    #      labels = type_label, pos = 1,
+    #      xpd = TRUE, col = pal["txt"],
+    #      ...)
+    plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("cond.true"),
+                     ...)
 
     ## (d) Decision column: ----
 
@@ -897,23 +926,29 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_box(type = NA, name = "pos", freq = (n.hi + n.fa),
-             box.x  = dec.pos.x,
-             box.y  = dec.pos.y,
-             box.lx = b.lx,
-             box.ly = dec.pos.ly,
-             show.freq)
-    plot_box(type = NA, name = "neg", freq = (n.mi + n.cr),
-             box.x  = dec.neg.x,
-             box.y  = dec.neg.y,
-             box.lx = b.lx,
-             box.ly = dec.neg.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "dec.pos", freq = (n.hi + n.fa),
+              box.x  = dec.pos.x,
+              box.y  = dec.pos.y,
+              box.lx = b.lx,
+              box.ly = dec.pos.ly,
+              show.freq, ...)
+    plot_vbox(type = NA, fname = "dec.neg", freq = (n.mi + n.cr),
+              box.x  = dec.neg.x,
+              box.y  = dec.neg.y,
+              box.lx = b.lx,
+              box.ly = dec.neg.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = dec.pos.x, y = y.min, labels = "dec", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
-
+    ## Column name: freq type
+    # type_label <- paste0(comp_freq_type("dec.pos"))  # determine freq type
+    # text(x = dec.pos.x, y = y.min,
+    #     labels = type_label, pos = 1,
+    #     xpd = TRUE, col = pal["txt"],
+    #     ...)
+    plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("dec.pos"),
+                     ...)
 
     ## (e) Accuracy column: ----
 
@@ -941,22 +976,29 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_box(type = NA, name = "cor", freq = (n.hi + n.cr),
-             box.x  = dec.cor.x,
-             box.y  = dec.cor.y,
-             box.lx = b.lx,
-             box.ly = dec.cor.ly,
-             show.freq)
-    plot_box(type = NA, name = "err", freq = (n.mi + n.fa),
-             box.x  = dec.err.x,
-             box.y  = dec.err.y,
-             box.lx = b.lx,
-             box.ly = dec.err.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "dec.cor", freq = (n.hi + n.cr),
+              box.x  = dec.cor.x,
+              box.y  = dec.cor.y,
+              box.lx = b.lx,
+              box.ly = dec.cor.ly,
+              show.freq, ...)
+    plot_vbox(type = NA, fname = "dec.err", freq = (n.mi + n.fa),
+              box.x  = dec.err.x,
+              box.y  = dec.err.y,
+              box.lx = b.lx,
+              box.ly = dec.err.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = dec.cor.x, y = y.min, labels = "accu", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    ## Column name: freq type
+    # type_label <- paste0(comp_freq_type("dec.cor"))  # determine freq type
+    # text(x = dec.cor.x, y = y.min,
+    #      labels = type_label, pos = 1,
+    #      xpd = TRUE, col = pal["txt"],
+    #      ...)
+    plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("dec.cor"),
+                     ...)
 
   } # if (by == "all")
 
@@ -993,16 +1035,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_box(type = NA, name = "N", freq = N,
-             box.x  = n.x,
-             box.y  = n.y,
-             box.lx = b.lx,
-             box.ly = n.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "N", freq = N,
+              box.x  = n.x,
+              box.y  = n.y,
+              box.lx = b.lx,
+              box.ly = n.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = n.x, y = y.min, labels = "popu", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    # Column name: freq type
+    plot_ftype_label("N", n.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("N"),
+                     ...)
 
     ## (b) SDT column: ----
 
@@ -1038,37 +1082,39 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_box(type = NA, name = "hi", freq = n.hi,
-             box.x  = hi.x,
-             box.y  = hi.y,
-             box.lx = b.lx,
-             box.ly = hi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+              box.x  = hi.x,
+              box.y  = hi.y,
+              box.lx = b.lx,
+              box.ly = hi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "mi", freq = n.mi,
-             box.x  = mi.x,
-             box.y  = mi.y,
-             box.lx = b.lx,
-             box.ly = mi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+              box.x  = mi.x,
+              box.y  = mi.y,
+              box.lx = b.lx,
+              box.ly = mi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "fa", freq = n.fa,
-             box.x  = fa.x,
-             box.y  = fa.y,
-             box.lx = b.lx,
-             box.ly = fa.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+              box.x  = fa.x,
+              box.y  = fa.y,
+              box.lx = b.lx,
+              box.ly = fa.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "cr", freq = n.cr,
-             box.x  = cr.x,
-             box.y  = cr.y,
-             box.lx = b.lx,
-             box.ly = cr.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+              box.x  = cr.x,
+              box.y  = cr.y,
+              box.lx = b.lx,
+              box.ly = cr.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = hi.x, y = y.min, labels = "cell", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    # Column name: freq type
+    plot_ftype_label("hi", hi.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("hi"),
+                     ...)
 
 
     ## (c) Condition column: ----
@@ -1097,22 +1143,24 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_box(type = NA, name = "true", freq = (n.hi + n.mi),
-             box.x  = cond.true.x,
-             box.y  = cond.true.y,
-             box.lx = b.lx,
-             box.ly = cond.true.ly,
-             show.freq)
-    plot_box(type = NA, name = "false", freq = (n.fa + n.cr),
-             box.x  = cond.false.x,
-             box.y  = cond.false.y,
-             box.lx = b.lx,
-             box.ly = cond.false.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "cond.true", freq = (n.hi + n.mi),
+              box.x  = cond.true.x,
+              box.y  = cond.true.y,
+              box.lx = b.lx,
+              box.ly = cond.true.ly,
+              show.freq, ...)
+    plot_vbox(type = NA, fname = "cond.false", freq = (n.fa + n.cr),
+              box.x  = cond.false.x,
+              box.y  = cond.false.y,
+              box.lx = b.lx,
+              box.ly = cond.false.ly,
+              show.freq, ...)
 
-    # Column name:
-    text(x = cond.true.x, y = y.min, labels = "cond", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    # Column name: freq type
+    plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("cond.true"),
+                     ...)
 
   } # if (by == "cd")
 
@@ -1149,16 +1197,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_box(type = NA, name = "N", freq = N,
-             box.x  = n.x,
-             box.y  = n.y,
-             box.lx = b.lx,
-             box.ly = n.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "N", freq = N,
+              box.x  = n.x,
+              box.y  = n.y,
+              box.lx = b.lx,
+              box.ly = n.ly,
+              show.freq, ...)
 
     # Column name:
-    text(x = n.x, y = y.min, labels = "popu", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_ftype_label("N", n.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("N"),
+                     ...)
 
 
     ## (b) SDT column: ----
@@ -1195,37 +1245,39 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_box(type = NA, name = "hi", freq = n.hi,
-             box.x  = hi.x,
-             box.y  = hi.y,
-             box.lx = b.lx,
-             box.ly = hi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+              box.x  = hi.x,
+              box.y  = hi.y,
+              box.lx = b.lx,
+              box.ly = hi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "mi", freq = n.mi,
-             box.x  = mi.x,
-             box.y  = mi.y,
-             box.lx = b.lx,
-             box.ly = mi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+              box.x  = mi.x,
+              box.y  = mi.y,
+              box.lx = b.lx,
+              box.ly = mi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "fa", freq = n.fa,
-             box.x  = fa.x,
-             box.y  = fa.y,
-             box.lx = b.lx,
-             box.ly = fa.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+              box.x  = fa.x,
+              box.y  = fa.y,
+              box.lx = b.lx,
+              box.ly = fa.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "cr", freq = n.cr,
-             box.x  = cr.x,
-             box.y  = cr.y,
-             box.lx = b.lx,
-             box.ly = cr.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+              box.x  = cr.x,
+              box.y  = cr.y,
+              box.lx = b.lx,
+              box.ly = cr.ly,
+              show.freq, ...)
 
     # Column name:
-    text(x = hi.x, y = y.min, labels = "cell", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_ftype_label("hi", hi.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("hi"),
+                     ...)
 
 
     ## (c) Decision column: ----
@@ -1254,22 +1306,25 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_box(type = NA, name = "pos", freq = (n.hi + n.fa),
-             box.x  = dec.pos.x,
-             box.y  = dec.pos.y,
-             box.lx = b.lx,
-             box.ly = dec.pos.ly,
-             show.freq)
-    plot_box(type = NA, name = "neg", freq = (n.mi + n.cr),
-             box.x  = dec.neg.x,
-             box.y  = dec.neg.y,
-             box.lx = b.lx,
-             box.ly = dec.neg.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "dec.pos", freq = (n.hi + n.fa),
+              box.x  = dec.pos.x,
+              box.y  = dec.pos.y,
+              box.lx = b.lx,
+              box.ly = dec.pos.ly,
+              show.freq, ...)
+
+    plot_vbox(type = NA, fname = "dec.neg", freq = (n.mi + n.cr),
+              box.x  = dec.neg.x,
+              box.y  = dec.neg.y,
+              box.lx = b.lx,
+              box.ly = dec.neg.ly,
+              show.freq, ...)
 
     # Column name:
-    text(x = dec.pos.x, y = y.min, labels = "dec", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("dec.pos"),
+                     ...)
 
   } # if (by == "dc")
 
@@ -1306,16 +1361,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_box(type = NA, name = "N", freq = N,
-             box.x  = n.x,
-             box.y  = n.y,
-             box.lx = b.lx,
-             box.ly = n.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "N", freq = N,
+              box.x  = n.x,
+              box.y  = n.y,
+              box.lx = b.lx,
+              box.ly = n.ly,
+              show.freq, ...)
 
     # Column name:
-    text(x = n.x, y = y.min, labels = "popu", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_ftype_label("N", n.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("N"),
+                     ...)
 
 
     ## (b) SDT column: ----
@@ -1352,37 +1409,39 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_box(type = NA, name = "hi", freq = n.hi,
-             box.x  = hi.x,
-             box.y  = hi.y,
-             box.lx = b.lx,
-             box.ly = hi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+              box.x  = hi.x,
+              box.y  = hi.y,
+              box.lx = b.lx,
+              box.ly = hi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "mi", freq = n.mi,
-             box.x  = mi.x,
-             box.y  = mi.y,
-             box.lx = b.lx,
-             box.ly = mi.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+              box.x  = mi.x,
+              box.y  = mi.y,
+              box.lx = b.lx,
+              box.ly = mi.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "fa", freq = n.fa,
-             box.x  = fa.x,
-             box.y  = fa.y,
-             box.lx = b.lx,
-             box.ly = fa.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+              box.x  = fa.x,
+              box.y  = fa.y,
+              box.lx = b.lx,
+              box.ly = fa.ly,
+              show.freq, ...)
 
-    plot_box(type = NA, name = "cr", freq = n.cr,
-             box.x  = cr.x,
-             box.y  = cr.y,
-             box.lx = b.lx,
-             box.ly = cr.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+              box.x  = cr.x,
+              box.y  = cr.y,
+              box.lx = b.lx,
+              box.ly = cr.ly,
+              show.freq, ...)
 
     # Column name:
-    text(x = hi.x, y = y.min, labels = "cell", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_ftype_label("hi", hi.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("hi"),
+                     ...)
 
 
     ## (c) Accuracy column: ----
@@ -1411,22 +1470,25 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_box(type = NA, name = "cor", freq = (n.hi + n.cr),
-             box.x  = dec.cor.x,
-             box.y  = dec.cor.y,
-             box.lx = b.lx,
-             box.ly = dec.cor.ly,
-             show.freq)
-    plot_box(type = NA, name = "err", freq = (n.mi + n.fa),
-             box.x  = dec.err.x,
-             box.y  = dec.err.y,
-             box.lx = b.lx,
-             box.ly = dec.err.ly,
-             show.freq)
+    plot_vbox(type = NA, fname = "dec.cor", freq = (n.hi + n.cr),
+              box.x  = dec.cor.x,
+              box.y  = dec.cor.y,
+              box.lx = b.lx,
+              box.ly = dec.cor.ly,
+              show.freq, ...)
+
+    plot_vbox(type = NA, fname = "dec.err", freq = (n.mi + n.fa),
+              box.x  = dec.err.x,
+              box.y  = dec.err.y,
+              box.lx = b.lx,
+              box.ly = dec.err.ly,
+              show.freq, ...)
 
     # Column name:
-    text(x = dec.cor.x, y = y.min, labels = "accu", pos = 1,
-         xpd = TRUE, col = pal["txt"], cex = cex.lbl.sm)
+    plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
+                     col = pal["txt"],
+                     # col = comp_freq_col("dec.cor"),
+                     ...)
 
   } # if (by == "ac")
 
