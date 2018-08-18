@@ -1,23 +1,23 @@
 ## plot_util.R | riskyr
-## 2018 08 17
+## 2018 08 18
 ## -----------------------------------------------
 ## A collection of helper functions for plotting
 ## riskyr objects (freq and prob).
 ## -----------------------------------------------
 
-## Helper function: Plot a box and its text labels ----------
-plot_box <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
-                     box.lx, box.ly,   # lengths of box (width and height)
-                     ## Text labels:
-                     type = NA,        # type of box (printed as title below box)
-                     show.freq = TRUE, # option to show/hide frequency labels
-                     name = NA,        # box name (corresponding to a color in pal, as character)
-                     freq,             # frequency (as number).  ToDo: Derive freq from type and/OR name!
-                     ## Color options:
-                     col.fill = grey(.95, .75),  # default color (but derived from name below)
-                     col.brd = pal["brd"],
-                     col.txt = pal["txt"],
-                     ...               # other graphical parameters: lwd, cex, ...
+## Helper function: Plot a vertical box and its text labels ----------
+plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
+                      box.lx, box.ly,   # lengths of box (width and height)
+                      ## Text labels:
+                      type = NA,        # type of box (printed as title below box)
+                      show.freq = TRUE, # option to show/hide frequency labels
+                      fname = NA,       # frequency name (corresponding to a color in pal, as character)
+                      freq,             # frequency (as number).  ToDo: Derive freq from type and/OR name!
+                      ## Color options:
+                      col.fill = grey(.95, .75),  # default color (but derived from name below)
+                      col.brd = pal["brd"],
+                      col.txt = pal["txt"],
+                      ...               # other graphical parameters: lwd, cex, ...
 ) {
 
 
@@ -26,9 +26,12 @@ plot_box <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
   ## Box parameters:
   # box.lwd <- 1  # line width of border around rect (default = 1)
 
-  if (name %in% names(pal)) { # if name corresponds to a color name in pal
-    col.fill <- pal[name]     # use this color to fill box
-  }
+  ## Fill color:
+  col.fill <- comp_freq_col(fname)
+  # if (fname %in% names(pal)) { # if name corresponds to a color name in pal
+  #  col.fill <- pal[fname]     # use this color to fill box
+  #}
+
 
   ## Text parameters:
   # col.lbl <- pal["txt"]  # defined in pal
@@ -65,22 +68,22 @@ plot_box <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
     mid.y <- box.y + box.ly/2  # y-value of mid point
 
     # Compose box label:
-    if (!is.na(name)) {  # name is specified:
+    if (!is.na(fname)) {  # frequency name is specified:
 
-      # ToDo: Derive freq from type and/or name.
+      # ToDo: Derive freq from type and/or fname.
 
-      box.lbl <- paste0(name, " = ", freq)
+      box.lbl <- paste0(fname, " = ", freq)
 
-    } else { # no name specified:
+    } else { # no fname specified:
 
       box.lbl <- paste0(freq)
 
     }
 
-    # Plot text:
+    # Plot freq label:
     text(x = box.x, y = mid.y,
          labels = box.lbl,
-         # pos = 3,
+         # pos = NULL,  # default
          xpd = TRUE,
          col = col.txt,
          # cex = cex.lbl.sm,
@@ -93,33 +96,22 @@ plot_box <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 {
   # plot(c(0, 100), c(0, 100)) # 2 points
   #
-  # plot_box(10, 80, 20, 20, freq = 111) # no name => default fill color
+  # plot_vbox(10, 80, 20, 20, freq = 111) # no name => default fill color
+  # plot_vbox(50, 80, 20, 20, fname = "N", freq = 222) # no type label
+  # plot_vbox(80, 80, 20, 20, fname = "cond.true", freq = 232, type = comp_freq_type("cond.true"))
+  # plot_vbox(10, 50, 30, 20, type = "type as box title", name = "hi", freq = 333)
+  # plot_vbox(40, 50, 20, 20, fname = "mi", freq = 444, lwd = 3, cex = .7, type = comp_freq_type("mi"))
   #
-  # plot_box(50, 80, 20, 20, name = "N", freq = 222) # no type label
-  #
-  # plot_box(10, 50, 30, 20, type = "type as box title", name = "hi", freq = 333)
-  #
-  # plot_box(40, 50, 20, 20, name = "mi", freq = 123, lwd = 3, cex = .7)
-
+  # plot_vbox(70, 50, 20, 20, fname = "asdf", freq = 555, type = comp_freq_type("asdf"))
 }
 
-## +++ here now +++
 
-## ToDo:
-## - Distinguish 2 separate functions:
-##   1. generic plot_box vs.
-##   2. plot_freq (that automatically determines current freq value and fill color).
-
-
-
-
-
-## Distinguish 2 separate functions: -----------------
-#   1. generic plot_cbox (that plots a box given its coordinates and format) vs.
+## Distinguish between 2 separate functions: -----------------
+#   1. generic plot_cbox (that plots a box given its CENTER coordinates and format) vs.
 #   2. plot_freq (that determines current freq value and fill color for know freq).
 
-## plot_cbox: Plot a centered box with text labels ----------
-plot_cbox <- function(x,  y,   # coordinates of box CENTER (x and y)
+## plot_cbox: Plot a CENTERED box with text labels ----------
+plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
                       ## Text labels:
                       lbl     = NA,       # main label (in middle)
@@ -188,7 +180,7 @@ plot_cbox <- function(x,  y,   # coordinates of box CENTER (x and y)
 
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
 #     xlim = c(0, 10), ylim = c(0, 6))
-
+#
 # plot_cbox(1, 5, 1, 1)  # default color, no text labels
 # plot_cbox(2, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.")  # add text labels
 # plot_cbox(3, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.",
@@ -205,7 +197,7 @@ plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
                       # lbl.top = NA,       # title (at top)
                       # lbl.bot = NA,       # caption (at bottom)
                       ## Color options:
-                      # col.fill = grey(.95, .50),
+                      col.fill = NA,  # if missing, color of fname freq is derived below
                       # col.brd = pal["brd"],
                       # col.txt = pal["txt"],
                       ...  # other graphical parameters: lwd, cex, ...
@@ -213,7 +205,7 @@ plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
 
   # Initialize:
   fval <- NA
-  colname <- NA
+  # colname <- NA
   ftype <- NA
   fcol <- NA
 
@@ -229,35 +221,40 @@ plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
     ftype <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
     # (c) Color of frequency:
-    # Note that names(freq) are sometimes longer than names(pal):
-    if (any(grep(pattern = "\\.", x = fname))) {  # if fname contains a dot (.):
+    # # Note that names(freq) are sometimes longer than names(pal):
+    # if (any(grep(pattern = "\\.", x = fname))) {  # if fname contains a dot (.):
+    #
+    #   nameparts <- unlist(strsplit(fname, split = "\\."))
+    #
+    #   fname_1st <- nameparts[1]  # 1st part of fname
+    #   fname_2nd <- nameparts[2]  # 2nd part of fname
+    #
+    #   colname <- fname_2nd  # 2nd part corresponds to name of color
+    #
+    #   # if (colname == "true") { colname <- "cor" }
+    #
+    # } else {
+    #   colname <- fname
+    # }
+    #
+    # # print(colname)
+    #
+    # # Find color value of colname in color pal:
+    # if (colname %in% names(pal)) { # if colname corresponds to a color name in pal
+    #   fcol <- pal[colname]     # use this color to fill box
+    # } else {
+    #   fcol <- grey(.95, .50) # use some default color (e.g., "white")
+    # }
 
-      nameparts <- unlist(strsplit(fname, split = "\\."))
-
-      fname_1st <- nameparts[1]  # 1st part of fname
-      fname_2nd <- nameparts[2]  # 2nd part of fname
-
-      colname <- fname_2nd  # 2nd part corresponds to name of color
-
-      # if (colname == "true") { colname <- "cor" }
-
+    if (missing(col.fill)) {      # no col.fill has been specified:
+      fcol <- comp_freq_col(fname)  # determine fcol based on fname
     } else {
-      colname <- fname
-    }
-
-    # print(colname)
-
-    # Find color value of colname in color pal:
-    if (colname %in% names(pal)) { # if colname corresponds to a color name in pal
-      fcol <- pal[colname]     # use this color to fill box
-    } else {
-      fcol <- grey(.95, .50) # use some default color (e.g., "white")
+      fcol <- col.fill  # use color specified in function call
     }
 
     # print(fcol)
 
   }
-
 
   ## Plot corresponding cbox:
   plot_cbox(x, y, lx, ly,
@@ -269,11 +266,10 @@ plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
 }
 
 ## Check:
-
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
-#     xlim = c(0, 10), ylim = c(0, 6))
-
-# plot_fbox(5, 5, 3, 2/3, fname = "N")
+#      xlim = c(0, 10), ylim = c(0, 6))
+#
+# plot_fbox(5, 5, 1, 2/3, fname = "N")
 # plot_fbox(3, 4, 2, 2/3, fname = "cond.true")
 # plot_fbox(7, 4, 2, 2/3, fname = "cond.false")
 # plot_fbox(2, 3, 1, 2/3, fname = "hi")
@@ -284,8 +280,12 @@ plot_fbox <- function(x,  y,   # coordinates of box CENTER (x and y)
 # plot_fbox(7, 2, 2, 2/3, fname = "dec.neg")
 # # plot_fbox(3, 1, 2, 2/3, fname = "dec.cor")
 # # plot_fbox(7, 1, 2, 2/3, fname = "dec.err")
-# plot_fbox(5, 1, 3, 2/3, fname = "N")
+# plot_fbox(5, 1, 1, 2/3, fname = "N",
+#           col.fill = "green2", col.brd = "red3", cex = .6, lwd = 3)
 
+
+
+## +++ here now +++
 
 ## plot_line: Plot an (arrow) line between 2 points with an optional text label: ------
 plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
@@ -364,16 +364,16 @@ plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
 
 ## plot_arrs: Plot multiple (n.arr) arrows along a line: ------
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
-                        n.arr = 2,            # number of arrows to draw
-                        l.arr = .10,          # length of arrows to draw
-                        a.arr = 35,           # angle of arrows to draw
-                        ## Optional label:
-                        lbl.txt = NA,         # string for text label
-                        lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-                        lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                        pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
-                        offset = 1,           # offset, etc.
-                        ...                   # other graphical parameters
+                      n.arr = 2,            # number of arrows to draw
+                      l.arr = .10,          # length of arrows to draw
+                      a.arr = 35,           # angle of arrows to draw
+                      ## Optional label:
+                      lbl.txt = NA,         # string for text label
+                      lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
+                      lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
+                      pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                      offset = 1,           # offset, etc.
+                      ...                   # other graphical parameters
 )
 {
   ## (0) Draw line from p1 to p2: ----
@@ -579,13 +579,55 @@ boxtext <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
   #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
 }
 
+## plot_ftype_label: Label the type corresponding to fname at (x, y): ----------
+
+plot_ftype_label <- function(fname,  # name of a known freq
+                             x, y,       # coordinates
+                             # pos = NULL,      # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                             # offset = 0.5,    # offset, etc.
+                             # col = pal["txt"],  # default color
+                             ...                # other graphical parameters
+){
+
+  ftype_lbl <- ""  # initialize
+  ftype_lbl <- paste0(comp_freq_type(fname))  # determine freq_type corresponding to fname
+
+
+  # Plot text label:
+  text(x, y,
+       labels = ftype_lbl,
+       # pos = pos,
+       # offset = offset,
+       xpd = TRUE,
+       # col = col, # pass on parameter
+       ...)
+
+  # # Return type (as name):
+  # return(ftype_lbl)
+
+}
+
+## Check:
+# plot(0:1, 0:1) # 2 points
+# plot_ftype_label("N", .1, .9)
+# plot_ftype_label("cond.false", .2, .8, cex = .8)
+# plot_ftype_label("dec.pos", .3, .7, col = "red3")
+# plot_ftype_label("dec.cor", .7, .3, col = "gold")
+# plot_ftype_label("hi", .5, .5, col = "green3")
+# plot_ftype_label("hi", .5, .5, col = "steelblue1", pos = 1)
+# plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
+# plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
+# plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
+
+# +++ here now +++
+
 
 
 
 ## -----------------------------------------------
 ## (*) Done:
 
-## - started this collection [2018 08 16]
+## - Started this collection.  [2018 08 16]
 
 ## -----------------------------------------------
 ## (+) ToDo:
