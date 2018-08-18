@@ -7,7 +7,7 @@
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "all", dir = 1, show.freq = TRUE,
   show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, col.pal = pal)
+  title.lbl = txt$scen.lbl, col.pal = pal, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
