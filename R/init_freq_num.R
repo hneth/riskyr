@@ -500,6 +500,62 @@ comp_freq_type <- function(fname) {
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
 # comp_freq_type("false")  # => typeless (as full name is required)
 
+## Helper function: Determine the color of a named frequency (freq):  ----------
+comp_freq_col <- function(fname) {
+
+  # initialize:
+  colname <- NA
+  fcol <- NA
+
+  if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
+
+    ## Derive current values corresponding to freq:
+    ix <- which(names(freq) == fname)  # index in freq
+
+    ## (a) Value of frequency in freq:
+    # fval <- freq[ix]
+
+    ## (b) Type of frequency:
+    # ftype <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+
+    # (c) Color of frequency:
+    # Note that names(freq) are sometimes longer than names(pal):
+    if (any(grep(pattern = "\\.", x = fname))) {  # if fname contains a dot (.):
+
+      nameparts <- unlist(strsplit(fname, split = "\\."))
+
+      fname_1st <- nameparts[1]  # 1st part of fname
+      fname_2nd <- nameparts[2]  # 2nd part of fname
+
+      colname <- fname_2nd  # 2nd part corresponds to name of color
+
+      # if (colname == "true") { colname <- "cor" }
+
+    } else {
+      colname <- fname
+    }
+
+    # print(colname)
+
+  }
+
+  # Find color value of colname in color pal:
+  if (colname %in% names(pal)) { # if colname corresponds to a color name in pal
+    fcol <- pal[colname]     # use this color to fill box
+  } else {
+    fcol <- grey(.95, .50) # use some default color (e.g., "white")
+  }
+
+  # print(fcol)
+
+  return(fcol)
+
+}
+
+## Check:
+# comp_freq_col("N")
+# comp_freq_col("hi")
+# comp_freq_col("default")
 
 ## -----------------------------------------------
 ## (*) Done:
@@ -508,8 +564,10 @@ comp_freq_type <- function(fname) {
 ##   "by correctness" or correspondence of condition and decision:
 ##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
-## - Added help function comp_freq_type
-##   to classify freq into types based on their name.
+## - Added help functions comp_freq_type and comp_freq_col
+##   to classify freq into types and determine freq color
+##   based on freq name.                             [2018 08 18]
+
 
 ## -----------------------------------------------
 ## (+) ToDo:
