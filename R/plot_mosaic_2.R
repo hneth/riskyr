@@ -1,23 +1,20 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 08 12
+## 2018 08 19
 ## -----------------------------------------------
-## Plot mosaicplot that expresses freq as area
-## (size and proportion)
+## Plot mosaicplot that expresses freq as area (size and proportion) ----
 ## from 3 essential probabilities (prev, sens, spec)
 ## or current population data.frame popu.
 
-## -----------------------------------------------
-## Own version without Dependencies:
 
-# library("vcd")   # moved to "Imports:" in DESCRIPTION!
-# library("grid")
+## Own version without Dependencies: -------------
+## library("vcd")   # moved to "Imports:" in DESCRIPTION!
+## library("grid")
 
-## -----------------------------------------------
 ## plot_mosaic_2: Plot mosaic plot (without "vcd" and "grid")
 ## using only necessary arguments with good defaults:
 ## -----------------------------------------------
 
-## Helper function: Draw an (arrow) line between 2 points and label it:
+## help_line: Draw an (arrow) line between 2 points and label it ----------
 help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
                       col, col.bord,   # colors (for line, points, and labels)
                       lty, lwd,        # lines
@@ -53,6 +50,7 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 
 }
 
+## plot_mosaic_2: Main function ----------
 
 #' Plot a mosaic plot of population frequencies.
 #'
@@ -527,8 +525,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 }
 
 
-## -----------------------------------------------
-## (+) ToDo:
+## (+) ToDo: ----------
 
 ## - add labels for (prev, sens, spec), (ppod, PPV, NPV), bacc.
 ## - add Decisions panel.
@@ -540,5 +537,4 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 ## - adjust parameters (zero size and gap width)
 ## - add labels (frequencies) to plot?
 
-## -----------------------------------------------
-## eof.
+## eof. ----------
