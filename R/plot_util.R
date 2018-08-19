@@ -276,8 +276,6 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
 # plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
 
-## +++ here now +++
-
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
@@ -645,10 +643,6 @@ plot_ftype_label <- function(fname,  # name of a known freq
 # plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
 # plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
 
-# +++ here now +++
-
-
-
 
 ## Define objects: Create an object of type "box" as a list: ----------
 box0 <- list(name = "box0_name", x = .5, y = .5, lx = 1, ly = 1)  # object as list
@@ -719,6 +713,84 @@ plot.box <- function(obj, ...) {
 # plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
 # plot(box_mi, cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
+
+## plot_link: Plot link between 2 boxes ----------
+
+plot_link <- function(box1, box2, pos1, pos2, ...) {
+
+  # (1) Determine link coordinates:
+
+  # 1st point:
+  if (is.null(pos1) | pos1 == 0) {
+    x1 <- box1$x  # x in center of box1
+    y1 <- box1$y  # y in center of box1
+  } else if (pos1 == 1) {
+    x1 <- box1$x              # x in center of box1
+    y1 <- box1$y - box1$ly/2  # y at bottom of box1
+  } else if (pos1 == 2) {
+    x1 <- box1$x - box1$lx/2  # x at left of box1
+    y1 <- box1$y              # y in center of box1
+  } else if (pos1 == 3) {
+    x1 <- box1$x              # x in center of box1
+    y1 <- box1$y + box1$ly/2  # y at top of box1
+  } else if (pos1 == 4) {
+    x1 <- box1$x + box1$lx/2  # x at right of box1
+    y1 <- box1$y              # y in center of box1
+  } else { # default:
+    x1 <- box1$x  # x in center of box1
+    y1 <- box1$y  # y in center of box1
+  }
+
+  # 2nd point:
+  if (is.null(pos2) | pos1 == 0) {
+    x2 <- box2$x  # x in center of box2
+    y2 <- box2$y  # y in center of box2
+  } else if (pos2 == 1) {
+    x2 <- box2$x              # x in center of box2
+    y2 <- box2$y - box2$ly/2  # y at bottom of box2
+  } else if (pos2 == 2) {
+    x2 <- box2$x - box2$lx/2  # x at left of box2
+    y2 <- box2$y              # y in center of box2
+  } else if (pos2 == 3) {
+    x2 <- box2$x              # x in center of box2
+    y2 <- box2$y + box2$ly/2  # y at top of box2
+  } else if (pos2 == 4) {
+    x2 <- box2$x + box2$lx/2  # x at right of box2
+    y2 <- box2$y              # y in center of box2
+  } else { # default:
+    x2 <- box2$x  # x in center of box1
+    y2 <- box2$y  # y in center of box1
+  }
+
+  # (2) Plot link:
+  plot_line(x1, y1, x2, y2, ...)
+
+}
+
+## Check:
+# box_b1 <- make_box("1st_box", 5, 9, 2, 2)  # 1st box with an arbitrary label
+# box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
+# box_hi <- make_box("hi", 7, 3, 2, 2)       # box with known freq label
+#
+# plot(c(0, 10), c(0, 10), type = "n") # 2 points, empty canvas
+# plot(box_b1)  # plot box with arbitrary label (and default color)
+# plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
+# plot(box_hi)  # plot box with known freq label (and type, color, etc.)
+#
+# plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
+# plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
+# plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
+# plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
+# plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
+#
+# plot_link(box_b2, box_hi, 0, 0, arr.code = 0,
+#           lbl.txt = "some label", lbl.pos = NULL, cex = .8,
+#           col.txt = "steelblue", col.fill = "grey", lwd = 20)
+
+## +++ here now +++
+
+## plot_plink: Link boxes of 2 known frequencies (and label link by probability)
+
 
 ## (*) Done: ----------
 
