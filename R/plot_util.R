@@ -624,7 +624,11 @@ class(box0) <- "box"  # name class
 # box0 # shows object (list)
 
 ## box class: Create constructor function for the "box" class: ----------
-box <- function(name, x, y, lx, ly) {
+make_box <- function(name, x, y, lx, ly) {
+
+  # Note: It is good practice to give the constructor function
+  #       the same name as the class (here: box).  However, as
+  #       the function box exists (in graphics), we use make_box here.
 
   # Check integrity of arguments:
   if (!is.character(name)) stop("name must be a character.")
@@ -647,8 +651,8 @@ box <- function(name, x, y, lx, ly) {
 }
 
 ## Check:
-# box1 <- box(1, 0, 0, 1, 1)  # => Error due to stop; no object created.
-# box1 <- box("box1_name", .1, .1, 1, 1) # use constructor function to create new objects.
+# box1 <- make_box(1, 0, 0, 1, 1)  # => Error due to stop; no object created.
+# box1 <- make_box("box1_name", .1, .1, 1, 1) # use constructor function to create new objects.
 # box1
 
 ## box methods: Create generic print and plot methods for box objects: ---------
@@ -669,10 +673,10 @@ plot.box <- function(obj, ...) {
 }
 
 # # Check:
-# box_b1 <- box("1st_box", 3, 9, 2, 2)  # 1st box with an arbitrary label
-# box_b2 <- box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
-# box_hi <- box("hi", 3, 3, 2, 2)       # box with known freq label
-# box_mi <- box("mi", 6, 3, 2, 2)       # box with known freq label
+# box_b1 <- make_box("1st_box", 3, 9, 2, 2)  # 1st box with an arbitrary label
+# box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
+# box_hi <- make_box("hi", 3, 3, 2, 2)       # box with known freq label
+# box_mi <- make_box("mi", 6, 3, 2, 2)       # box with known freq label
 # print(box_b1)
 # print(box_hi)
 #
