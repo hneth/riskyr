@@ -185,7 +185,7 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 #           col.fill = "gold", col.brd = "steelblue", lwd = 3)  # add color options
 
 
-## plot_fbox: Plot a known frequency (freq) as a box  ----------
+## plot_fbox: Plot a known frequency (freq) as a box ----------
 plot_fbox <- function(fname,   # name of a known frequency (freq)
                       x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,  # lengths of box (width and height)
@@ -197,7 +197,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       col.fill = col,  # if missing, color of fname freq is derived below
                       # col.brd = pal["brd"],
                       # col.txt = pal["txt"],
-                      ...  # other graphical parameters: lwd, cex, ...
+                      ...  # other graphical parameters: lwd, cex, pos, ...
 ) {
 
   # Initialize:
@@ -276,47 +276,74 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
 # plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
 
-
 ## +++ here now +++
 
-## plot_line: Plot an (arrow) line between 2 points with an optional text label: ------
-plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
-                      col = "grey",       # colors (for line, point fill, and labels)
-                      col.bord = "black", # color of point border
-                      lty = 1, lwd = 1,                     # line options
+## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
+plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
+                      # lty = 1, lwd = 1,                   # line options
                       pt.pch = 21, pt.cex = 1, pt.lwd = 1,  # point options
+                      arr.code = 0,         # 0...none, 1+2...arrows, 3...double arrow
                       ## Optional text label:
                       lbl.txt = NA,         # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
                       lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                      lbl.cex = 1,          # size of text label
-                      ...                   # pos (1 = bottom, 3 = top), offset, etc.
+                      lbl.pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
+                      lbl.off = .5,         # offset of text label
+                      ## Colors:
+                      col.fill = pal["brd"], # if missing, color of fname freq is derived below
+                      col.brd =  pal["brd"],
+                      col.txt =  pal["txt"],
+                      # lbl.cex = 1,        # size of text label
+                      ...                   # other graphical parameters: lwd, cex, pos, ...
 ) {
 
-  ## (1) Draw an arrow or line between 2 points: ------
+  ## (0) Preparations:
 
-  arrow <- FALSE
+  # ## Determine col.fill:
+  # if (missing(col.fill)) {  # no color was specified:
+  #   col.fill <- pal["brd"] # default fill color
+  # } else {
+  #   col.fill <- col  # use the color specified in function call
+  # }
+  #
+  # print(col.fill)
 
-  if (arrow) {
+  arrow <- TRUE # FALSE # initialize
 
-    ## Draw an arrow:
+  ## (1) Draw an arrow between both points:
+
+  if (arr.code > 0) {
+
+    # Draw an arrow between both points:
     arrows(x0, y0, x1, y1,
-           length = .06, angle = 33, code = 3,    # V shape (small)
-           # length = .08, angle = 90, code = 3,  # T shape
-           lty = lty, lwd = lwd, col = col)       # arrow
+           length = .10, angle = 33, code = arr.code,    # V shape (small)
+           # length = .10, angle = 90, code = arr.code,  # T shape
+           col = col.fill,
+           ...)  # lty, lwd, ...
 
-  } else {
+  } else { # no arrow heads:
 
-    ## Normal line with 2 points at line ends:
+    ## Draw a line with 2 points at line ends:
     arrows(x0, y0, x1, y1,
-           length = 0, angle = 0, code = 3,  # no arrows
-           lty = lty, lwd = lwd, col = col)
-    points(x0, y0, pch = pt.pch, cex = pt.cex,
-           lwd = pt.lwd, col = col.bord, bg = col)  # point 1
-    points(x1, y1, pch = pt.pch, cex = pt.cex,
-           lwd = pt.lwd, col = col.bord, bg = col)  # point 2
+           length = 0, angle = 0, code = 0,       # no arrows
+           col = col.fill,
+           ...)  # lty, lwd, ...
 
-  }
+    if (arr.code < 0) {  # draw points:
+
+      if (arr.code == -1 || arr.code == -3) {
+        points(x0, y0, pch = pt.pch, cex = pt.cex,    # 1st point
+               lwd = pt.lwd, col = col.brd, bg = col.fill)
+      }
+
+      if (arr.code == -2 || arr.code == -3) {
+        points(x1, y1, pch = pt.pch, cex = pt.cex,    # 2nd point
+               lwd = pt.lwd, col = col.brd, bg = col.fill)
+      }
+
+    }
+
+  } # if (arr.code ...
 
   ## (2) Optional text label: ------
 
@@ -325,34 +352,41 @@ plot_line <- function(x0, y0, x1, y1,     # coordinates of p1 and p2
     ## Text label:
     text(lbl.x, lbl.y,
          labels = lbl.txt,
-         col = col, cex = lbl.cex,
-         # pos, offeset, ...
-         ...)
+         col = col.txt,  # text color
+         pos = lbl.pos,
+         offset = lbl.off,
+         ...)  # cex, ...
   }
 
 }
 
 ## Check:
-
-# plot(0:1, 0:1) # 2 points
-#
-# plot_line(0, .1, 1, .1)  # basic line (without label)
-#
-# plot_line(0, .2, 1, .2, lbl.txt = "Label 1")  # basic with text label (on line)
-#
-# plot_line(0, 0, 1, 1, lbl.txt = "Label 2", pos = 3, offset = 2)  # basic with raised text label
-#
-# plot_line(0, 1, 1, 0,  # coordinates
-#           col = "firebrick1", col.bord = "black",   # colors (for line, points, and labels)
-#           lty = 1, lwd = 2,                         # line
-#           pt.pch = 21, pt.cex = 2, pt.lwd = 2,      # points
+# plot(0:10, 0:10, type = "n") # 2 points
+# # (1) without labels:
+# plot_line(0, 10, 9, 10)  # basic line (without label)
+# plot_line(0, 9, 9, 9, arr.code = 1)  # basic arrow (without label)
+# plot_line(0, 8, 9, 8, arr.code = 2)  # basic arrow (without label)
+# plot_line(0, 7, 9, 7, arr.code = 3)  # double arrow (without label)
+# plot_line(0, 6, 9, 6, arr.code = -1) # arrow with points (without label)
+# plot_line(0, 5, 9, 5, arr.code = -2) # arrow with points (without label)
+# plot_line(0, 4, 9, 4, arr.code = -3) # arrow with points (without label)
+# # (2) with labels:
+# plot_line(0, 3, 9, 3, arr.code = 3,
+#           lbl.txt = "Label 1", cex = .8, lty = 2, lwd = .5)  # text label (on line) and options
+# plot_line(0, 2, 9, 2, lbl.txt = "Label 2", arr.code = -3,
+#           lbl.pos = 4, lbl.off = 1,
+#           col.fill = "firebrick", col.txt = "forestgreen",
+#           font = 2, cex = .8)  # basic with raised text label
+# plot_line(0, 1, 9, 9,  arr.code = -3,
+#           pt.pch = 22, pt.cex = 2, pt.lwd = 2,  # point paramters
 #           # Text label (with options):
-#           lbl.x = 1/3, lbl.y = 2/3,
+#           lbl.x = 10, lbl.y = 9,
 #           lbl.txt = "Some label\nthat takes\nmultiple (3) lines",
-#           pos = 3, offset = 2, lbl.cex = .8)
-
-
-
+#           lbl.pos = NULL, lbl.off = 0,
+#           # Colors:
+#           col = "gold", col.brd = "steelblue", col.txt = "steelblue",
+#           cex = .7, lty = 2, lwd = 2               # grapical parameters
+# )
 
 ## plot_arrs: Plot multiple (n.arr) arrows along a line: ------
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
@@ -406,7 +440,7 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 }
 
 ## Check:
-# plot(0:1, 0:1) # 2 points
+# plot(0:1, 0:1, type = "n") # 2 points
 # plot_arrs(0, 0, 1, 0, col = "red3")  # 2 arrows, no text
 # plot_arrs(0, .1, 1, .1, col = "grey", lbl.txt = "Label 0")
 # plot_arrs(0, .2, 1, .2, col = "green3", lbl.txt = "Label 1", pos = 3)
