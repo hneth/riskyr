@@ -287,7 +287,8 @@ txt <- init_txt()
 
 ## label_freq: Helper function to return label of a known freq ----------
 
-label_freq <- function(fname, ltype = "default"
+label_freq <- function(fname,
+                       ltype = "default"  # label type: "nam", "num", "namnum", "default".
                        #, freq = freq, txt = txt  # use current lists
 ) {
 
@@ -296,9 +297,10 @@ label_freq <- function(fname, ltype = "default"
   fval  <- NA
   ftype <- NA
 
+  ## (1) Determine the value of freq corresponding to fname:
+
   if (ltype != "nam") {
 
-    ## (1) Determine the value of freq corresponding to fname:
     if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
 
       flbl <- "fname"  # initialize to fname
@@ -368,7 +370,7 @@ label_freq <- function(fname, ltype = "default"
     if (fname == "dec.cor") { flbl <- txt$dec.cor.lbl }
     if (fname == "dec.err") { flbl <- txt$dec.err.lbl }
 
-  } else {
+  } else {  ## "default":
 
     ## (d) Any other ltype: Use basic fname + fval as default:
 
@@ -376,7 +378,8 @@ label_freq <- function(fname, ltype = "default"
 
   }
 
-  # (3) Split/re-format long flbl into 2 lines of text:
+
+  ## (3) Split/re-format long flbl into 2 lines of text:
   lbl_max <- 20  # criterium for flbl being too long
 
   # if flbl is too long and it contains a " = ":
@@ -390,7 +393,8 @@ label_freq <- function(fname, ltype = "default"
     flbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
   }
 
-  return(flbl)  # return label
+  ## (4) Return label:
+  return(flbl)
 
 }
 

@@ -100,7 +100,7 @@
 #' @param col.pal Color palette.
 #' Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
 #'
-#' @param ... Other graphical parameters
+#' @param ... Other (graphical) parameters
 #' (e.g., \code{cex}, \code{lwd}, ...).
 #'
 #' @examples
@@ -173,7 +173,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      ## Text and color options: ##
                      title.lbl = txt$scen.lbl,
                      col.pal = pal,      # color palette
-                     ...  # other graphical parameters: lwd, cex, ...
+                     ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
   ## (0) Handle arguments and deprecated arguments: ----------
@@ -246,7 +246,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   par(oma = c(3, 2, 1, 1) + 0.1)  # outer margins: bottom has 3 lines of space
   par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
 
-  ## Graphical parameters: ----
+  ## (5) Graphical parameters: ----
 
   # Offset from base line:
   x.base <- 0  # offset x
@@ -282,7 +282,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # lwd.help <- 2.5  # line width
 
 
-  ## Define plot area: ----------
+  ## (6) Define plot area: ----------
 
   ## Plot dimensions:
   xlim = c(0, 1)
@@ -318,7 +318,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
        lwd = par("lwd"), equilogs = TRUE)
 
 
-  ## Custom bar plot: ----------
+  ## (7) Custom bar plot: ----------
 
   if (by == "all") {
 
@@ -369,9 +369,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
     plot_ftype_label("N", n.x, y.min, pos = 1,
                      col = pal["txt"], # col = comp_freq_col("N"),
                      ...)
-
-    # +++ here now +++
-
 
     ## (b) SDT column: ----
 
@@ -760,6 +757,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("cond.true"),
                      ...)
 
+
   } # if (by == "cd")
 
   else if (by == "dc") {
@@ -1090,8 +1088,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   } # if (by == "ac")
 
-  ## +++ here now +++ ##
-
   else if (by == "xxx") {
 
     ## Using bar plot: ----------
@@ -1122,35 +1118,37 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (by == "xxx")
 
 
-  ## Title and margin text: --------
+  ## (8) Title and margin text: --------
 
   # title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
   title(cur.title.lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
 
-}
-
-
-## Check:
-{
-  ## Basics:
-  # plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title.lbl = "Test 2")  # by = "all" (default)
-  #
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3a")  # by condition
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3b", dir = 2) # bi-directional
-  #
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4a")  # by decision
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4b", dir = 2) # bi-directional
-  #
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a")  # by accuracy
-  # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a", dir = 2) # bi-directional
-
-  ## Note:
-  # plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
-  #          title.lbl = "Test rounding effects",
-  #          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
 
 }
+
+
+### Check:
+## Basics:
+# plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
+#
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title.lbl = "Test 2")  # by = "all" (default)
+#
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3a")  # by condition
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3b", dir = 2) # bi-directional
+#
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4a")  # by decision
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4b", dir = 2) # bi-directional
+#
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a")  # by accuracy
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a", dir = 2) # bi-directional
+#
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "all", ltype = "namnum")
+#
+## Note:
+# plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
+#          title.lbl = "Test rounding effects",
+#          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
+
 
 
 ## (*) Done: ----------
