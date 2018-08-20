@@ -409,7 +409,7 @@ label_freq <- function(fname,
 ## label_prob: Helper function to get label of a known probability in prob ----------
 label_prob <- function(pname,
                        ltype = "default"  # label type: "nam", "num", "namnum", "default".
-                       #, prob = prob, txt = txt  # use current lists
+                       #, prob = prob, accu = accu, txt = txt  # use current lists
 ) {
 
   ## Initialize:
@@ -436,9 +436,19 @@ label_prob <- function(pname,
 
     }
 
+    # Special cases:
     if (tolower(pname) == "cprev") {  # if complement of prevalence:
       p_val <- (1 - prob$prev)
     }
+
+    if (tolower(pname) == "cppod" || tolower(pname) == "pned") {  # if complement of ppod:
+      p_val <- (1 - ppod)
+    }
+
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { p_val <- accu$acc }
+    if (tolower(pname) == "cor") { p_val <- accu$acc }
+    if (tolower(pname) == "err") { p_val <- (1 - accu$acc) }
 
   }
 
@@ -464,12 +474,19 @@ label_prob <- function(pname,
     if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
 
     if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
+    if (tolower(pname) == "cppod"){ p_lbl <- "Proportion negative" }
+    if (tolower(pname) == "pned") { p_lbl <- "Proportion negative" }
 
     if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
     if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
 
     if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
     if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { p_lbl <- txt$dec.cor.lbl }
+    if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
+    if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
 
     # Combine p_lbl with p_val (from above):
     p_lbl <- paste0(p_lbl, " = ", as.character(p_val))
@@ -488,6 +505,8 @@ label_prob <- function(pname,
     if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
 
     if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
+    if (tolower(pname) == "cppod"){ p_lbl <- "Proportion negative" }
+    if (tolower(pname) == "pned") { p_lbl <- "Proportion negative" }
 
     if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
     if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
@@ -495,13 +514,28 @@ label_prob <- function(pname,
     if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
     if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
 
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { p_lbl <- txt$dec.cor.lbl }
+    if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
+    if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
+
   } else {  ## "default":
 
     ## (d) Any other ltype: Use basic pname + p_val as default:
 
+    # Special cases: Set pname to some default value:
+
     if (tolower(pname) == "cprev") {  # if complement of prevalence:
       pname <- "(1 - prev)"           # custom basic name
     }
+    if (tolower(pname) == "cppod" || tolower(pname) == "pned") {  # if complement of ppod:
+      pname <- "(1 - ppod)"           # custom basic name
+    }
+
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { pname <- "acc" }
+    if (tolower(pname) == "cor") { pname <- "cor" }
+    if (tolower(pname) == "err") { pname <- "err" }
 
     p_lbl <- paste0(pname, " = ", as.character(p_val))
 
@@ -531,20 +565,100 @@ label_prob <- function(pname,
 # label_prob("sens", ltype = "nam")
 # label_prob("spec", ltype = "num")
 # label_prob("fart", ltype = "namnum")
-#
+## Special cases:
 # label_prob("cprev", ltype = "default")  # complement to prev
 # label_prob("cprev", ltype = "nam")      # complement to prev
 # label_prob("cprev", ltype = "namnum")   # complement to prev
-#
+# label_prob("cppod", ltype = "default")
+# label_prob("pned", ltype = "namnum")
+# label_prob("acc", ltype = "default")
+# label_prob("cor", ltype = "nam")
+# label_prob("err", ltype = "namnum")
 # label_prob("unknown pname")  # unknown prob: return pname
 
-## +++ here now +++
 
-## - Add functions to obtain labels of freq and prob (given freq).
-## - Determine the prob that corresponds to 2 freq.
+## name_prob: Determine the (name of the) prob that links 2 freq: ---------
+
+name_prob <- function(freq1, freq2) {
+
+  # (0) Prepare:
+  pname <- NA  # initialize
+
+  freq1 <- tolower(freq1)  # all lowercase
+  freq2 <- tolower(freq2)
+
+  # (1) by condition (bc):
+
+  if ( (freq1 == "n" & freq2 == "cond.true") ||
+       (freq2 == "n" & freq1 == "cond.true") ) { pname <- "prev" }
+  if ( (freq1 == "n" & freq2 == "cond.false") ||
+       (freq2 == "n" & freq1 == "cond.false") ) { pname <- "cprev" }
+
+  if ( (freq1 == "hi" & freq2 == "cond.true") ||
+       (freq2 == "hi" & freq1 == "cond.true") ) { pname <- "sens" }
+  if ( (freq1 == "mi" & freq2 == "cond.true") ||
+       (freq2 == "mi" & freq1 == "cond.true") ) { pname <- "mirt" }
+
+  if ( (freq1 == "cr" & freq2 == "cond.false") ||
+       (freq2 == "cr" & freq1 == "cond.false") ) { pname <- "spec" }
+  if ( (freq1 == "fa" & freq2 == "cond.false") ||
+       (freq2 == "fa" & freq1 == "cond.false") ) { pname <- "fart" }
+
+  # (2) by decision (dc):
+
+  if ( (freq1 == "n" & freq2 == "dec.pos") ||
+       (freq2 == "n" & freq1 == "dec.pos") ) { pname <- "ppod" }
+  if ( (freq1 == "n" & freq2 == "dec.neg") ||
+       (freq2 == "n" & freq1 == "dec.neg") ) { pname <- "cppod" } # aka. "pned"
+
+  if ( (freq1 == "hi" & freq2 == "dec.pos") ||
+       (freq2 == "hi" & freq1 == "dec.pos") ) { pname <- "PPV" }
+  if ( (freq1 == "fa" & freq2 == "dec.pos") ||
+       (freq2 == "fa" & freq1 == "dec.pos") ) { pname <- "FDR" }
+
+  if ( (freq1 == "cr" & freq2 == "dec.neg") ||
+       (freq2 == "cr" & freq1 == "dec.neg") ) { pname <- "NPV" }
+  if ( (freq1 == "mi" & freq2 == "dec.neg") ||
+       (freq2 == "mi" & freq1 == "dec.neg") ) { pname <- "FOR" }
+
+  # (3) by accuracy/correspondence (ac):
+
+  if ( (freq1 == "n" & freq2 == "dec.cor") ||
+       (freq2 == "n" & freq1 == "dec.cor") ) { pname <- "acc" } # aka. "cor"
+  if ( (freq1 == "n" & freq2 == "dec.err") ||
+       (freq2 == "n" & freq1 == "dec.err") ) { pname <- "err" } # error rate
+
+  # Note: No prob for links between dec.cor OR dec.err and
+  #       4 SDT cases (hi, mi, fa, cr).
+
+  # (4) Return:
+  return(pname)
+
+}
+
+## Check:
+# name_prob("N", "cond.true")
+# name_prob("cond.false", "N")
+#
+# name_prob("N", "dec.neg")
+# name_prob("dec.pos", "hi")
+# name_prob("dec.neg", "cr")
+# name_prob("dec.neg", "mi")
+#
+# name_prob("dec.cor", "N")
+# name_prob("dec.err", "N")
+#
+# label_prob(pname = name_prob("fa", "cond.false"), ltype = "default")
+# label_prob(pname = name_prob("hi", "dec.pos"), ltype = "namnum")
+# label_prob(pname = name_prob("N", "dec.err"), ltype = "namnum")
+
 
 ## (*) Done: -------------------------------------
 
+## - name_prob: Add function to look up the prob that corresponds
+##   to 2 freq    [2018 08 20].
+## - label_freq + label_prob: Added functions to obtain labels
+##   of freq and prob (from fname or pname).
 ## - Rename acc.cor and acc.err to dec.cor and dec.err
 ##   (to remain consistent with freq names).
 ## - Add text labels for accuracy/correspondence of decision to condition
@@ -553,8 +667,6 @@ label_prob <- function(pname,
 
 ## (+) ToDo: -------------------------------------
 
-## - Add functions to obtain labels of freq and prob (given freq).
-## - Determine the prob that corresponds to 2 freq.
 ## - Add txt to a cus object?
 
 ## eof. ------------------------------------------
