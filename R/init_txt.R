@@ -343,7 +343,10 @@ label_freq <- function(fname, lbl
 
 ## (*) Done: -------------------------------------
 
-## - Add text labels for accuracy (acc.lbl, dec.cor.lbl, dec.err.lbl) and sdt.lbl.
+## - Rename acc.cor and acc.err to dec.cor and dec.err
+##   (to remain consistent with freq names).
+## - Add text labels for accuracy (acc.lbl, dec.cor.lbl, dec.err.lbl)
+##   and sdt.lbl.
 ## - Clean up code [2018 08 20].
 
 ## (+) ToDo: -------------------------------------
