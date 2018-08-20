@@ -4,7 +4,7 @@
 \name{txt}
 \alias{txt}
 \title{List current values of basic text elements.}
-\format{An object of class \code{list} of length 16.}
+\format{An object of class \code{list} of length 20.}
 \usage{
 txt
 }
@@ -51,6 +51,8 @@ or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 
 \item \code{dec.neg.lbl} A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
+
+\item \code{sdt.lbl} A name for the \emph{case/category/cell} in the 2x2 contingency table (condition x decision, SDT).
 
 \item \code{hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).
