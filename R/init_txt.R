@@ -280,11 +280,10 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 txt <- init_txt()
 
 ## Check:
-{
-  # txt          # displays all current names and elements
-  # txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
-  # txt$scen.lbl <- "My favorite example" # sets a new scenario title
-}
+# txt          # displays all current names and elements
+# txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
+# txt$scen.lbl <- "My favorite example" # sets a new scenario title
+
 
 ## label_freq: Helper function to return label of a known freq ----------
 
@@ -292,15 +291,17 @@ label_freq <- function(fname, ltype = "default"
                        #, freq = freq, txt = txt  # use current lists
 ) {
 
-  # Initialize:
-  f_lbl <- fname  # initialize to fname (in case of unknown freq)
+  ## Initialize:
+  flbl <- ""  # initialize (in case of unknown freq)
   fval  <- NA
   ftype <- NA
 
   if (ltype != "nam") {
 
-    # (1) Get numeric value of freq:
+    ## (1) Determine the value of freq corresponding to fname:
     if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
+
+      flbl <- "fname"  # initialize to fname
 
       # Derive current value corresponding to freq:
       ix <- which(names(freq) == fname)  # index in freq
@@ -314,84 +315,82 @@ label_freq <- function(fname, ltype = "default"
     }
   }
 
+  ## (2) Compose flbl based on ltype:
+
   if (ltype == "num" || ltype == "val" ){
 
-    f_lbl <- as.character(fval)
-
-    ## +++ here now +++
+    # (a) Value:
+    flbl <- as.character(fval)
 
   } else if ( ltype == "namnum" || ltype == "namval" ||
               ltype == "full" || ltype == "all" ){
 
-    # (2) Name AND value of freq:
+    ## (b) Name AND value of freq:
 
-    # if (fname == "N") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (fname == "N") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
+    # if (fname == "N") { flbl <- "N" }         # use "N" as flbl
+    if (fname == "N") { flbl <- txt$popu.lbl }  # use population label as flbl
 
-    if (fname == "hi") { f_lbl <- txt$hi.lbl }
-    if (fname == "mi") { f_lbl <- txt$mi.lbl }
-    if (fname == "fa") { f_lbl <- txt$fa.lbl }
-    if (fname == "cr") { f_lbl <- txt$cr.lbl }
+    if (fname == "hi") { flbl <- txt$hi.lbl }
+    if (fname == "mi") { flbl <- txt$mi.lbl }
+    if (fname == "fa") { flbl <- txt$fa.lbl }
+    if (fname == "cr") { flbl <- txt$cr.lbl }
 
-    if (fname == "cond.true")  { f_lbl <- txt$cond.true.lbl }
-    if (fname == "cond.false") { f_lbl <- txt$cond.false.lbl }
+    if (fname == "cond.true")  { flbl <- txt$cond.true.lbl }
+    if (fname == "cond.false") { flbl <- txt$cond.false.lbl }
 
-    if (fname == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
-    if (fname == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
+    if (fname == "dec.pos") { flbl <- txt$dec.pos.lbl }
+    if (fname == "dec.neg") { flbl <- txt$dec.neg.lbl }
 
-    if (fname == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
-    if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
+    if (fname == "dec.cor") { flbl <- txt$dec.cor.lbl }
+    if (fname == "dec.err") { flbl <- txt$dec.err.lbl }
 
-    # Combine f_lbl with fval (from above):
-    f_lbl <- paste0(f_lbl, " = ", as.character(fval))
+    # Combine flbl with fval (from above):
+    flbl <- paste0(flbl, " = ", as.character(fval))
 
   } else if (ltype == "nam") {
 
-    # (3) ONLY the name of freq:
+    ## (c) ONLY the name of freq:
 
-    # if (fname == "N") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (fname == "N") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
+    # if (fname == "N") { flbl <- "N" }         # use "N" as flbl
+    if (fname == "N") { flbl <- txt$popu.lbl }  # use population label as flbl
 
-    if (fname == "hi") { f_lbl <- txt$hi.lbl }
-    if (fname == "mi") { f_lbl <- txt$mi.lbl }
-    if (fname == "fa") { f_lbl <- txt$fa.lbl }
-    if (fname == "cr") { f_lbl <- txt$cr.lbl }
+    if (fname == "hi") { flbl <- txt$hi.lbl }
+    if (fname == "mi") { flbl <- txt$mi.lbl }
+    if (fname == "fa") { flbl <- txt$fa.lbl }
+    if (fname == "cr") { flbl <- txt$cr.lbl }
 
-    if (fname == "cond.true")  { f_lbl <- txt$cond.true.lbl }
-    if (fname == "cond.false") { f_lbl <- txt$cond.false.lbl }
+    if (fname == "cond.true")  { flbl <- txt$cond.true.lbl }
+    if (fname == "cond.false") { flbl <- txt$cond.false.lbl }
 
-    if (fname == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
-    if (fname == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
+    if (fname == "dec.pos") { flbl <- txt$dec.pos.lbl }
+    if (fname == "dec.neg") { flbl <- txt$dec.neg.lbl }
 
-    if (fname == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
-    if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
+    if (fname == "dec.cor") { flbl <- txt$dec.cor.lbl }
+    if (fname == "dec.err") { flbl <- txt$dec.err.lbl }
 
   } else {
 
-    # (9) Any other ltype: Use basic name + fval as default:
+    ## (d) Any other ltype: Use basic fname + fval as default:
 
-    if (fname == "N") { f_lbl <- "N" }
-
-    if (fname == "hi") { f_lbl <- "hi" }
-    if (fname == "mi") { f_lbl <- "mi" }
-    if (fname == "fa") { f_lbl <- "fa" }
-    if (fname == "cr") { f_lbl <- "cr" }
-
-    if (fname == "cond.true")  { f_lbl <- "cond.true" }
-    if (fname == "cond.false") { f_lbl <- "cond.false" }
-
-    if (fname == "dec.pos") { f_lbl <- "dec.pos" }
-    if (fname == "dec.neg") { f_lbl <- "dec.neg" }
-
-    if (fname == "dec.cor") { f_lbl <- "dec.cor" }
-    if (fname == "dec.err") { f_lbl <- "dec.err" }
-
-    # Combine f_lbl with fval (from above):
-    f_lbl <- paste0(f_lbl, " = ", as.character(fval))
+    flbl <- paste0(fname, " = ", as.character(fval))
 
   }
 
-  return(f_lbl)  # return label
+  # (3) Split/re-format long flbl into 2 lines of text:
+  lbl_max <- 20  # criterium for flbl being too long
+
+  # if flbl is too long and it contains a " = ":
+  if ((nchar(flbl) > lbl_max) && any(grep(pattern = " = ", x = flbl))) {
+
+    # Split into 2 parts:
+    lbl_parts <- unlist(strsplit(flbl, split = " = "))
+    lbl_part1 <- lbl_parts[1]  # 1st part of flbl
+    lbl_part2 <- lbl_parts[2]  # 2nd part of flbl
+
+    flbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
+  }
+
+  return(flbl)  # return label
 
 }
 
@@ -401,12 +400,10 @@ label_freq <- function(fname, ltype = "default"
 # label_freq("cr", ltype = "namnum")
 # label_freq("cr", ltype = "nix")  # default ltype
 # label_freq("dec.err", ltype = "all")
-# #
 # label_freq("dec.err")        # no ltype specified: use default
 # label_freq("unknown fname")  # unknown freq: return fname
 
-
-## +++ here now +++
+# +++ here now +++
 
 ## - Add functions to obtain labels of freq and prob (given freq).
 ## - Determine the prob that corresponds to 2 freq.

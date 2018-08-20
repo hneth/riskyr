@@ -119,7 +119,7 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       col.fill = grey(.95, .50),  # default fill color
                       col.brd = pal["brd"],       # default border color
                       col.txt = pal["txt"],       # default label color
-                      ...  # other graphical parameters: lwd, cex, ...
+                      ...  # other graphical parameters: lwd, cex, adj, ...
 ) {
 
   ## (0) Parameters (currently fixed):
@@ -234,7 +234,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
     # (e) Plot corresponding cbox with values of fname freq:
     plot_cbox(x = x, y = y, lx = lx, ly = ly,
-              lbl = paste0(flbl, " = ", fval),
+              # lbl = paste0(fname, " = ", fval),
+              lbl = flbl,
               lbl.bot = paste0(ftype),
               col.fill = fcol,
               ...)
@@ -268,13 +269,13 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "cond.true", 3, 4, 2, 2/3)
 # plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, ltype = "nam")
 # plot_fbox(fname = "hi", 2, 3, 1, 2/3, ltype = "nam")
-# plot_fbox(fname = "mi", 4, 3, 1, 2/3, ltype = "nix")
-# plot_fbox(fname = "fa", 6, 3, 1, 2/3)
+# plot_fbox(fname = "mi", 4, 3, 1, 2/3, ltype = "num")
+# plot_fbox(fname = "fa", 6, 3, 1, 2/3, ltype = "namnum")
 # plot_fbox(fname = "cr", 8, 3, 1, 2/3)
-# plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3)
+# plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3, ltype = "namnum")
 # plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
-# # plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
-# # plot_fbox(fname = "dec.err", 7, 1, 2, 2/3)
+# plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
+# plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, ltype = "namnum")
 # plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "green2", col.brd = "red3", cex = .6, lwd = 3)
 # ## arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
