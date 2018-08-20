@@ -7,10 +7,11 @@
 plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
                       box.lx, box.ly,   # lengths of box (width and height)
                       ## Text labels:
-                      type = NA,        # type of box (printed as title below box)
-                      show.freq = TRUE, # option to show/hide frequency labels
-                      fname = NA,       # frequency name (corresponding to a color in pal, as character)
-                      freq,             # frequency (as number).  ToDo: Derive freq from type and/OR name!
+                      type = NA,         # type of box (printed as title below box)
+                      show.freq = TRUE,  # option to show/hide frequency labels
+                      ltype = "default", # label type of label_freq: "default" or "namnum"
+                      fname = NA,        # frequency name (corresponding to a color in pal, as character)
+                      freq,              # frequency (as number).  ToDo: Derive freq from type and/OR name!
                       ## Color options:
                       col.fill = grey(.95, .75),  # default color (but derived from name below)
                       col.brd = pal["brd"],
@@ -26,7 +27,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
   ## Fill color:
   col.fill <- comp_freq_col(fname)
-  # if (fname %in% names(pal)) { # if name corresponds to a color name in pal
+  # if (fname %in% names(pal)) { # if fname corresponds to a color name in pal
   #  col.fill <- pal[fname]     # use this color to fill box
   #}
 
@@ -66,11 +67,10 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
     mid.y <- box.y + box.ly/2  # y-value of mid point
 
     # Compose box label:
-    if (!is.na(fname)) {  # frequency name is specified:
+    if (!is.na(fname)) {  # fname is specified:
 
-      # ToDo: Derive freq from type and/or fname.
-
-      box.lbl <- paste0(fname, " = ", freq)
+      # box.lbl <- paste0(fname, " = ", freq)
+      box.lbl <- label_freq(fname, ltype)  # use label_freq function (with ltype)
 
     } else { # no fname specified:
 
@@ -86,22 +86,21 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
          col = col.txt,
          # cex = cex.lbl.sm,
          ...)
-  }
+
+  } # if (show.freq)...
 
 }
 
 ## Check:
-{
-  # plot(c(0, 100), c(0, 100)) # 2 points
-  #
-  # plot_vbox(10, 80, 20, 20, freq = 111) # no name => default fill color
-  # plot_vbox(50, 80, 20, 20, fname = "N", freq = 222) # no type label
-  # plot_vbox(80, 80, 20, 20, fname = "cond.true", freq = 232, type = comp_freq_type("cond.true"))
-  # plot_vbox(10, 50, 30, 20, type = "type as box title", name = "hi", freq = 333)
-  # plot_vbox(40, 50, 20, 20, fname = "mi", freq = 444, lwd = 3, cex = .7, type = comp_freq_type("mi"))
-  #
-  # plot_vbox(70, 50, 20, 20, fname = "asdf", freq = 555, type = comp_freq_type("asdf"))
-}
+# plot(c(0, 100), c(0, 100)) # 2 points
+# # Basics:
+# plot_vbox(10, 80, 20, 20, freq = 111) # no name => default fill color
+# plot_vbox(50, 80, 20, 20, fname = "N", freq = 222) # no type label
+# plot_vbox(80, 80, 20, 20, fname = "cond.true", freq = 232, type = comp_freq_type("cond.true"))
+# plot_vbox(10, 50, 30, 20, type = "type as box title", fname = "hi", freq = 333)
+# plot_vbox(40, 50, 20, 20, fname = "mi", freq = 444, lwd = 3, cex = .7, type = comp_freq_type("mi"))
+# # Other cases:
+# plot_vbox(70, 50, 20, 20, fname = "asdf", freq = 555, type = comp_freq_type("asdf"))
 
 
 ## Distinguish between 2 separate functions:
