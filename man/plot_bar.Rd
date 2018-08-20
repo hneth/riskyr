@@ -79,7 +79,7 @@ Default: \code{title.lbl = txt$scen.lbl}.}
 \item{col.pal}{Color palette.
 Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).}
 
-\item{...}{Other graphical parameters
+\item{...}{Other (graphical) parameters
 (e.g., \code{cex}, \code{lwd}, ...).}
 }
 \description{
