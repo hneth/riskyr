@@ -795,14 +795,17 @@ plot_link <- function(box1, box2, pos1, pos2, ...) {
 #           lbl.txt = "some label", lbl.pos = NULL, cex = .8,
 #           col.txt = "steelblue", col.fill = "grey", lwd = 20)
 
-## plot_plink: Link boxes of 2 known frequencies (and label link by label_prob)
+## ToDo: plot_plink/plot_prob
+## plot_plink/plot_prob: Link 2 boxes of 2 known frequencies
+##                       and label link by using name_prob, label_prob, plot_link...
 
 ## +++ here now +++
 
-## 3 steps:
-# 1. pname <- name_prob(freq1, freq1)
-# 2. p_lbl <- label_prob(pname)
-# 3. plot_link with p_lbl
+## 4 steps:
+# 1. Get names of freq1 and freq2 from 2 boxes
+# 2. Call pname <- name_prob(freq1, freq1)
+# 3. Call p_lbl <- label_prob(pname)
+# 4. Call plot_link with p_lbl
 
 
 ## (*) Done: ----------
