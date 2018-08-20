@@ -1,15 +1,14 @@
 ## init_freq_num.R | riskyr
-## 2018 08 17
-## -----------------------------------------------
+## 2018 08 20
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
+## -----------------------------------------------
 
 ## Note: Always use num (essential) rather than env (NON-essential)!
 
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (11):
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -37,9 +36,15 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+# (C) by accuracy/correspondence of decision to condition (see accu):
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+
+## Data flow: Two basic directions: --------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -52,9 +57,8 @@
 ##   - derived: all other values
 
 
-## -----------------------------------------------
-## (1) Initialize freq as a list (of NA values)
-##     of 11 frequencies (4 essential ones):
+## (1) Initialize all frequencies as a list (of NA values) freq: ---------
+##     Currently 11 frequencies (4 essential ones):
 
 init_freq <- function() {
 
@@ -97,8 +101,8 @@ init_freq <- function() {
 # init_freq()          # initializes empty freq
 # length(init_freq())  # =>  9 frequencies
 
-## -----------------------------------------------
-## (2) Compute 9 frequencies from 3 essential probabilities:
+
+## (2) Compute all frequencies from 3 essential probabilities: ----------
 
 #' Compute frequencies from (3 essential) probabilities.
 #'
@@ -234,8 +238,6 @@ init_freq <- function() {
 #' \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 #'
 #' @export
-#'
-
 
 comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
                       N = num$N,
@@ -348,8 +350,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
   # comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
 }
 
-## -----------------------------------------------
-## (3) Apply to initialize freq:
+
+## (3) Apply to initialize freq: -----------------
 
 #' List current frequency information.
 #'
@@ -458,7 +460,6 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' \code{\link{init_pal}} initializes color information.
 #'
 #' @export
-#'
 
 freq <- comp_freq()  # => initialize freq to default parameters
 
@@ -473,19 +474,27 @@ comp_freq_type <- function(fname) {
 
   ftype <- "typeless"  # initialize
 
-  # Define types of all known frequencies:
-  freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
+  # (1) Define types of all known frequencies:
+
+  # (a) Using basic names:
+  # freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
+
+  # (b) Using labels defined in txt:
+  freq_types <- c(txt$popu.lbl,
+                  rep(txt$cond.lbl, 2),
+                  rep(txt$dec.lbl, 2),
+                  rep(txt$acc.lbl, 2),
+                  rep(txt$sdt.lbl, 4))
   # freq_types
 
-  # Map freq to name in freq_types:
+  # (2) Map freq to name in freq_types:
   if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
     ix <- which(names(freq) == fname)  # index in freq
     # print(ix)
     ftype <- freq_types[ix]
   }
 
-  # Return type (as name):
-  return(ftype)
+  return(ftype)  # return ftype (as character)
 
 }
 
@@ -555,24 +564,23 @@ comp_freq_col <- function(fname) {
 ## Check:
 # comp_freq_col("N")
 # comp_freq_col("hi")
-# comp_freq_col("default")
+# comp_freq_col("dec.err")
+#
+# comp_freq_col("default")  # default color
 
-## -----------------------------------------------
-## (*) Done:
 
-## - Added 2 more frequencies:
-##   "by correctness" or correspondence of condition and decision:
-##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
+## (*) Done: -------------------------------------
 
 ## - Added help functions comp_freq_type and comp_freq_col
 ##   to classify freq into types and determine freq color
 ##   based on freq name.                             [2018 08 18]
 
+## - Added 2 more frequencies for accuracy, i.e.,
+##   "decision correctness" or correspondence of decision to condition:
+##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
-## -----------------------------------------------
-## (+) ToDo:
+## (+) ToDo: -------------------------------------
 
 ## - ...
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
