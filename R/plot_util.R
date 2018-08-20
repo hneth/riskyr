@@ -209,7 +209,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
   if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
 
-    ## Derive current values corresponding to freq:
+    # Derive current values corresponding to freq:
     ix <- which(names(freq) == fname)  # index in freq
 
     # (a) Value of frequency in freq:
@@ -218,7 +218,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     # (b) Type of frequency:
     ftype <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    # (c) Fill color of frequency box:
+    # (c) Color of frequency box:
     if (missing(col.fill)) {  # no col.fill has been specified:
       # if (is.na(col)) {  # no col has been specified:
       fcol <- comp_freq_col(fname)  # determine default fcol corresponding to fname in freq and pal
@@ -261,24 +261,24 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 }
 
 ## Check:
-plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
-     xlim = c(0, 10), ylim = c(0, 6))
-## Basics:
-plot_fbox(fname = "N", 5, 5, 1, 2/3)
-plot_fbox(fname = "cond.true", 3, 4, 2, 2/3)
-plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, ltype = "nam")
-plot_fbox(fname = "hi", 2, 3, 1, 2/3, ltype = "nam")
-plot_fbox(fname = "mi", 4, 3, 1, 2/3, ltype = "nix")
-plot_fbox(fname = "fa", 6, 3, 1, 2/3)
-plot_fbox(fname = "cr", 8, 3, 1, 2/3)
-plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3)
-plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
-# plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
-# plot_fbox(fname = "dec.err", 7, 1, 2, 2/3)
-plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "green2", col.brd = "red3", cex = .6, lwd = 3)
-## arbitrary boxes (with unknown freq): ###
-plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
-plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
+# plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
+#      xlim = c(0, 10), ylim = c(0, 6))
+# ## Basics:
+# plot_fbox(fname = "N", 5, 5, 1, 2/3)
+# plot_fbox(fname = "cond.true", 3, 4, 2, 2/3)
+# plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, ltype = "nam")
+# plot_fbox(fname = "hi", 2, 3, 1, 2/3, ltype = "nam")
+# plot_fbox(fname = "mi", 4, 3, 1, 2/3, ltype = "nix")
+# plot_fbox(fname = "fa", 6, 3, 1, 2/3)
+# plot_fbox(fname = "cr", 8, 3, 1, 2/3)
+# plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3)
+# plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
+# # plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
+# # plot_fbox(fname = "dec.err", 7, 1, 2, 2/3)
+# plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "green2", col.brd = "red3", cex = .6, lwd = 3)
+# ## arbitrary boxes (with unknown freq): ###
+# plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
+# plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
 
 
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
@@ -705,19 +705,22 @@ plot.box <- function(obj, ...) {
             ...)
 }
 
-# # Check:
+# ## Check:
+# # Create some box objects:
 # box_b1 <- make_box("1st_box", 3, 9, 2, 2)  # 1st box with an arbitrary label
 # box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
 # box_hi <- make_box("hi", 3, 3, 2, 2)       # box with known freq label
 # box_mi <- make_box("mi", 6, 3, 2, 2)       # box with known freq label
 # print(box_b1)
 # print(box_hi)
-#
+# # Plot boxes:
 # plot(c(0, 10), c(0, 10), type = "n") # 2 points, empty canvas
 # plot(box_b1)  # plot box with arbitrary label (and default color)
 # plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-# plot(box_mi, cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
+# plot(box_mi, ltype = "nam",
+#      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
+
 
 ## plot_link: Plot link between 2 boxes ----------
 
