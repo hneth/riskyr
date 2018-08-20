@@ -288,13 +288,13 @@ txt <- init_txt()
 
 ## label_freq: Helper function to return label of a known freq ----------
 
-label_freq <- function(fname, type
+label_freq <- function(fname, ltype = "default"
                        #, freq = freq, txt = txt  # use current lists
                        ) {
 
-  f_lbl <- ""  # initialize
+  f_lbl <- fname  # initialize to fname (in case of unknown freq)
 
-  if (type == "nam") {  # (1) Name of freq:
+  if (ltype == "nam") {  # (1) Name of freq:
 
     # if (fname == "N") { f_lbl <- "N" }           # use "N" as f_lbl
     if (fname == "N") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
@@ -314,7 +314,7 @@ label_freq <- function(fname, type
     if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
 
-  } else {  # (9) any other type: Basic names as default:
+  } else {  # (9) Any other ltype: Basic names as default:
 
       if (fname == "N") { f_lbl <- "N" }
 
@@ -339,10 +339,13 @@ label_freq <- function(fname, type
 }
 
 ## Check:
-# label_freq("cr", type = "nam")
-# label_freq("cr", type = "nix")
-# label_freq("dec.err", type = "nam")
-# label_freq("dec.err", type = "nix")
+# label_freq("cr", ltype = "nam")
+# label_freq("cr", ltype = "nix")
+# label_freq("dec.err", ltype = "nam")
+#
+# label_freq("dec.err")        # no ltype specified: use default
+# label_freq("unknown fname")  # unknown freq: return fname
+
 
 ## +++ here now +++
 
