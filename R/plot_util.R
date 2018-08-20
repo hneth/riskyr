@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 08 19
+## 2018 08 20
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -771,18 +771,18 @@ plot_link <- function(box1, box2, pos1, pos2, ...) {
 # box_b1 <- make_box("1st_box", 5, 9, 2, 2)  # 1st box with an arbitrary label
 # box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
 # box_hi <- make_box("hi", 7, 3, 2, 2)       # box with known freq label
-#
+## Prepare canvas:
 # plot(c(0, 10), c(0, 10), type = "n") # 2 points, empty canvas
 # plot(box_b1)  # plot box with arbitrary label (and default color)
 # plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-#
+## Link positions:
 # plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
 # plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
 # plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
 # plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
 # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
-#
+## Link options:
 # plot_link(box_b2, box_hi, 0, 0, arr.code = 0,
 #           lbl.txt = "some label", lbl.pos = NULL, cex = .8,
 #           col.txt = "steelblue", col.fill = "grey", lwd = 20)

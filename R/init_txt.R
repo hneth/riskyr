@@ -1,11 +1,10 @@
 ## init_txt.R | riskyr
-## 2018 08 15
-## -----------------------------------------------
+## 2018 08 20
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
-
 ## -----------------------------------------------
-## (A) Defaults for all titles and labels (txt):
+
+## (A) Defaults for all titles and labels (txt): ----------
 
 txt.def <- list(
   scen.lbl = "Scenario", # provide scenario name/label in Title Caps (if desired in plot titles)
@@ -41,9 +40,7 @@ txt.def <- list(
 
 # length(txt.def)  # => 20 text elements
 
-## -----------------------------------------------
-## (B) Initialization function for all text
-##     elements (all titles and labels):
+## (B) Initialization of all text elements (titles and labels): ----------
 
 #' Initialize basic text elements.
 #'
@@ -172,9 +169,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
   #                 popu.lbl = "We, the people")
 }
 
-## -----------------------------------------------
-## (C) Initialize a list txt to contain
-##     all current text elements:
+
+## (C) Initialize a list txt to contain all current text elements: ---------
 
 #' List current values of basic text elements.
 #'
@@ -267,11 +263,14 @@ txt <- init_txt()
   # txt$scen.lbl <- "My favorite example" # sets a new scenario title
 }
 
-## -----------------------------------------------
-## (+) ToDo:
+## (*) Done: -------------------------------------
 
+## - Clean up code [2018 08 20].
+
+## (+) ToDo: -------------------------------------
+
+## - add functions to obtain labels of freq and prob (given freq).
 ## - add labels for accuracy/correspondence dimension and subgroups!
 ## - add txt to a cus object?
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------

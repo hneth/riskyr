@@ -1,19 +1,17 @@
 ## comp_xxxx_prob.R | riskyr
-## 2018 01 27
-## -----------------------------------------------
+## 2018 08 20
 ## Add 2 wrapper functions (that use existing functions)
 ## to translate (back) from prob to freq and prob:
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -27,7 +25,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -35,9 +34,15 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+# (C) by accuracy/correspondence of decision to condition (see accu):
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+
+## Data flow: 2 basic directions: ----------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -49,22 +54,17 @@
 ##   - given:   N = hi, mi, fa, cr
 ##   - derived: all other values
 
-## -----------------------------------------------
-## 2 functions convert between formats:
 
+## 2 functions convert between formats: ----------
+##
 ## a. comp_freq_prob: Computes freq from prob
 ## b. comp_prob_freq: Computes prob from freq
 
-## -----------------------------------------------
 
-## -----------------------------------------------
-## (A) Translate (back from 3 essential) prob to freq:
-## -----------------------------------------------
+## (A) Translate (back from 3 essential) prob to freq: --------
 
-## -----------------------------------------------
 ## Note: comp_freq_prob is a WRAPPER function for the more basic
 ##       comp_freq(...) defined before!
-
 
 #' Compute frequencies from (3 essential) probabilities.
 #'
@@ -430,11 +430,10 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 }
 
 
-## -----------------------------------------------
-## (B) Translate (back from 3 essential) prob to prob:
-## -----------------------------------------------
 
-## -----------------------------------------------
+## (B) Translate (back from 3 essential) prob to prob: ----------
+
+
 ## Note: comp_prob_prob is a WRAPPER function for the more basic
 ##       comp_prob(...) defined before!
 
@@ -743,11 +742,14 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
   # comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 }
 
-## -----------------------------------------------
 
 
-## -----------------------------------------------
-## (+) ToDo:
+## (*) Done: -------------------------------------
 
-## -----------------------------------------------
-## eof.
+## - Clean up code [2018 08 20].
+
+## (+) ToDo: -------------------------------------
+
+## - ...
+
+## eof. ------------------------------------------

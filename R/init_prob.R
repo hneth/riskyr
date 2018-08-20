@@ -1,13 +1,11 @@
 ## init_prob.R | riskyr
-## 2018 02 08
-## -----------------------------------------------
+## 2018 08 20
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (11):
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -35,8 +33,15 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+# (C) by accuracy/correspondence of decision to condition (see accu):
+
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+
+## Data flow: Two basic directions: --------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -49,15 +54,11 @@
 ##   - derived: all other values
 
 
-## -----------------------------------------------
-## A: Define probabilities by condition:
-## -----------------------------------------------
+## A: Define probabilities by condition: ---------
 
-## -----------------------------------------------
 ## ***: 3 essential probabilities: prev; sens, spec
-## -----------------------------------------------
 
-## (0) prev*** = base rate of condition:
+## (0) prev*** = base rate of condition: ---------
 
 #' The prevalence (baseline probability) of a condition.
 #'
@@ -143,8 +144,8 @@
 
 prev <- 1/2  # default prevalence
 
-## -----------------------------------------------
-## (1) sens*** = TPR:
+
+## (1) sens*** = TPR: ----------------------------
 
 #' The sensitivity (or hit rate) of a decision process or diagnostic procedure.
 #'
@@ -241,8 +242,8 @@ prev <- 1/2  # default prevalence
 
 sens <- 1/2  # default sensitivity
 
-## -----------------------------------------------
-## (2) mirt = FNR:
+
+## (2) mirt = FNR: -------------------------------
 
 #' The miss rate of a decision process or diagnostic procedure.
 #'
@@ -333,8 +334,7 @@ sens <- 1/2  # default sensitivity
 
 mirt <- 1 - sens  # default miss rate
 
-## -----------------------------------------------
-## (3) spec*** = TNR:
+## (3) spec*** = TNR: ----------------------------
 
 #' The specificity of a decision process or diagnostic procedure.
 #'
@@ -427,8 +427,8 @@ mirt <- 1 - sens  # default miss rate
 
 spec <- 1/2 # default specificity
 
-## -----------------------------------------------
-## (4) fart = FPR:
+
+## (4) fart = FPR: -------------------------------
 
 #' The false alarm rate (or false positive rate) of a decision process or diagnostic procedure.
 #'
@@ -525,10 +525,9 @@ spec <- 1/2 # default specificity
 fart <- 1 - spec   # default false alarm rate
 
 
-## -----------------------------------------------
-## B: Define by decision:
-## -----------------------------------------------
-## (0) Base rate of positive decisions (PR):
+## B: Define probabilities by decision: ------------------------
+
+## (0) Base rate of positive decisions (PR): -----
 
 ## (0) ppod = base rate of decisions being positive (PR):
 
@@ -610,11 +609,11 @@ fart <- 1 - spec   # default false alarm rate
 
 ppod <- 1/2  # default rate of positive decisions
 
-## -----------------------------------------------
-## Predictive values (PVs):
+
+## Predictive values (PVs): ----------------------
 
 
-## (1) PPV: positive predictive value
+## (1) PPV: positive predictive value ------------
 
 #' The positive predictive value of a decision process or diagnostic procedure.
 #'
@@ -707,8 +706,7 @@ ppod <- 1/2  # default rate of positive decisions
 PPV <- 1/2  # default of positive predictive value (PPV)
 
 
-## -----------------------------------------------
-## (2) FDR: false detection rate = 1 - PPV
+## (2) FDR: false detection rate = 1 - PPV -------
 
 #' The false detection rate of a decision process or diagnostic procedure.
 #'
@@ -795,8 +793,7 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 FDR <- 1 - PPV  # default of false discorvery rate (FDR)
 
 
-## -----------------------------------------------
-## (3) NPV: negative predictive value
+## (3) NPV: negative predictive value ------------
 
 #' The negative predictive value of a decision process or diagnostic procedure.
 #'
@@ -885,8 +882,7 @@ FDR <- 1 - PPV  # default of false discorvery rate (FDR)
 NPV <- 1/2  # default of negative predictive value (NPV)
 
 
-## -----------------------------------------------
-## (4) FOR: False omission rate = 1 - NPV
+## (4) FOR: False omission rate = 1 - NPV --------
 
 #' The false omission rate (FOR) of a decision process or diagnostic procedure.
 #'
@@ -972,12 +968,13 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 
 FOR <- 1 - NPV  # default of false omission rate (FOR)
 
+## (*) Done: -------------------------------------
 
-## -----------------------------------------------
-## (+) ToDo:
+## - Clean up code [2018 08 20].
 
-## - Check all documentation
+## (+) ToDo: -------------------------------------
+
+## - Check documentation
 ##   (for correctness and consistency).
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
