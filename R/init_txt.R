@@ -285,7 +285,7 @@ txt <- init_txt()
 # txt$scen.lbl <- "My favorite example" # sets a new scenario title
 
 
-## label_freq: Helper function to return label of a known frequency in freq ----------
+## label_freq: Helper function to get label of a known frequency in freq ----------
 label_freq <- function(fname,
                        ltype = "default"  # label type: "nam", "num", "namnum", "default".
                        #, freq = freq, txt = txt  # use current lists
@@ -300,12 +300,12 @@ label_freq <- function(fname,
 
   if (ltype != "nam") {
 
-    if (fname %in% names(freq)) { # if fname corresponds to named frequency in freq:
+    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
 
       # f_lbl <- fname  # initialize to fname
 
       # Derive current value corresponding to freq:
-      ix <- which(names(freq) == fname)  # index in freq
+      ix <- which(tolower(names(freq)) == tolower(fname))  # index in freq
 
       # Value of frequency in freq:
       f_val <- freq[ix]
@@ -328,22 +328,22 @@ label_freq <- function(fname,
 
     ## (b) Name AND value of freq:
 
-    # if (fname == "N") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (fname == "N") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
 
-    if (fname == "hi") { f_lbl <- txt$hi.lbl }
-    if (fname == "mi") { f_lbl <- txt$mi.lbl }
-    if (fname == "fa") { f_lbl <- txt$fa.lbl }
-    if (fname == "cr") { f_lbl <- txt$cr.lbl }
+    if (tolower(fname) == "hi") { f_lbl <- txt$hi.lbl }
+    if (tolower(fname) == "mi") { f_lbl <- txt$mi.lbl }
+    if (tolower(fname) == "fa") { f_lbl <- txt$fa.lbl }
+    if (tolower(fname) == "cr") { f_lbl <- txt$cr.lbl }
 
-    if (fname == "cond.true")  { f_lbl <- txt$cond.true.lbl }
-    if (fname == "cond.false") { f_lbl <- txt$cond.false.lbl }
+    if (tolower(fname) == "cond.true")  { f_lbl <- txt$cond.true.lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- txt$cond.false.lbl }
 
-    if (fname == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
-    if (fname == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
+    if (tolower(fname) == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
 
-    if (fname == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
-    if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
+    if (tolower(fname) == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
     # Combine f_lbl with f_val (from above):
     f_lbl <- paste0(f_lbl, " = ", as.character(f_val))
@@ -352,22 +352,22 @@ label_freq <- function(fname,
 
     ## (c) ONLY the name of freq:
 
-    # if (fname == "N") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (fname == "N") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
 
-    if (fname == "hi") { f_lbl <- txt$hi.lbl }
-    if (fname == "mi") { f_lbl <- txt$mi.lbl }
-    if (fname == "fa") { f_lbl <- txt$fa.lbl }
-    if (fname == "cr") { f_lbl <- txt$cr.lbl }
+    if (tolower(fname) == "hi") { f_lbl <- txt$hi.lbl }
+    if (tolower(fname) == "mi") { f_lbl <- txt$mi.lbl }
+    if (tolower(fname) == "fa") { f_lbl <- txt$fa.lbl }
+    if (tolower(fname) == "cr") { f_lbl <- txt$cr.lbl }
 
-    if (fname == "cond.true")  { f_lbl <- txt$cond.true.lbl }
-    if (fname == "cond.false") { f_lbl <- txt$cond.false.lbl }
+    if (tolower(fname) == "cond.true")  { f_lbl <- txt$cond.true.lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- txt$cond.false.lbl }
 
-    if (fname == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
-    if (fname == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
+    if (tolower(fname) == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
 
-    if (fname == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
-    if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
+    if (tolower(fname) == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
   } else {  ## "default":
 
@@ -377,9 +377,8 @@ label_freq <- function(fname,
 
   }
 
-
   ## (3) Split/re-format long f_lbl into 2 lines of text:
-  lbl_max <- 20  # criterium for f_lbl being too long (currently fixed)
+  lbl_max <- 16  # criterium for f_lbl being too long (currently fixed)
 
   # if f_lbl is too long and it contains a " = ":
   if ((nchar(f_lbl) > lbl_max) && any(grep(pattern = " = ", x = f_lbl))) {
@@ -407,7 +406,137 @@ label_freq <- function(fname,
 # label_freq("unknown fname")  # unknown freq: return fname
 
 
-## label_prob: Helper function to return label of a known prob ----------
+## label_prob: Helper function to get label of a known probability in prob ----------
+label_prob <- function(pname,
+                       ltype = "default"  # label type: "nam", "num", "namnum", "default".
+                       #, prob = prob, txt = txt  # use current lists
+) {
+
+  ## Initialize:
+  p_lbl <- pname # initialize (in case of unknown prob)
+  p_val  <- NA
+  p_type <- NA
+
+  ## (1) Determine the probability value of prob corresponding to pname:
+
+  if (ltype != "nam") {
+
+    if (tolower(pname) %in% tolower(names(prob))) { # if pname corresponds to named prob in prob:
+
+      # p_lbl <- pname  # initialize to pname
+
+      # Derive current value corresponding to prob:
+      ix <- which(tolower(names(prob)) == tolower(pname))  # index in prob
+
+      # Value of probability in prob:
+      p_val <- prob[ix]
+
+      # Type of probability:
+      # p_type <- comp_prob_type(pname)  # toDo: helper function (to be defined in init_prob_num.R)
+
+    }
+
+    if (tolower(pname) == "cprev") {  # if complement of prevalence:
+      p_val <- (1 - prob$prev)
+    }
+
+  }
+
+  ## (2) Compose p_lbl based on ltype:
+
+  if (ltype == "num" || ltype == "val" ){
+
+    # (a) Value:
+    p_lbl <- as.character(p_val)
+
+  } else if ( ltype == "namnum" || ltype == "namval" ||
+              ltype == "full" || ltype == "all" ){
+
+    ## (b) Name AND value of prob:
+
+    if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
+    if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
+
+    if (tolower(pname) == "sens") { p_lbl <- "Sensitivity" }
+    if (tolower(pname) == "spec") { p_lbl <- "Specificity" }
+
+    if (tolower(pname) == "mirt") { p_lbl <- "Miss rate" }
+    if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
+
+    if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
+
+    if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
+    if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
+
+    if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
+    if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+
+    # Combine p_lbl with p_val (from above):
+    p_lbl <- paste0(p_lbl, " = ", as.character(p_val))
+
+  } else if (ltype == "nam") {
+
+    ## (c) ONLY the name of prob:
+
+    if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
+    if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
+
+    if (tolower(pname) == "sens") { p_lbl <- "Sensitivity" }
+    if (tolower(pname) == "spec") { p_lbl <- "Specificity" }
+
+    if (tolower(pname) == "mirt") { p_lbl <- "Miss rate" }
+    if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
+
+    if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
+
+    if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
+    if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
+
+    if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
+    if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+
+  } else {  ## "default":
+
+    ## (d) Any other ltype: Use basic pname + p_val as default:
+
+    if (tolower(pname) == "cprev") {  # if complement of prevalence:
+      pname <- "(1 - prev)"           # custom basic name
+    }
+
+    p_lbl <- paste0(pname, " = ", as.character(p_val))
+
+  }
+
+  ## (3) Split/re-format long p_lbl into 2 lines of text:
+  lbl_max <- 16  # criterium for p_lbl being too long (currently fixed)
+
+  # if p_lbl is too long and it contains a " = ":
+  if ((nchar(p_lbl) > lbl_max) && any(grep(pattern = " = ", x = p_lbl))) {
+
+    # Split into 2 parts:
+    lbl_parts <- unlist(strsplit(p_lbl, split = " = "))
+    lbl_part1 <- lbl_parts[1]  # 1st part of p_lbl
+    lbl_part2 <- lbl_parts[2]  # 2nd part of p_lbl
+
+    p_lbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
+  }
+
+  ## (4) Return p_lbl:
+  return(p_lbl)
+
+}
+
+## Check:
+# label_prob("prev", ltype = "default")
+# label_prob("sens", ltype = "nam")
+# label_prob("spec", ltype = "num")
+# label_prob("fart", ltype = "namnum")
+#
+# label_prob("cprev", ltype = "default")  # complement to prev
+# label_prob("cprev", ltype = "nam")      # complement to prev
+# label_prob("cprev", ltype = "namnum")   # complement to prev
+#
+# label_prob("unknown pname")  # unknown prob: return pname
 
 ## +++ here now +++
 
