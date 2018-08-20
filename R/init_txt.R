@@ -30,8 +30,8 @@ txt.def <- list(
 
   # (e) Accuracy/correspondence of decision to condition:
   acc.lbl = "Accuracy",   # Dimension label: accuracy/correspondence
-  acc.cor.lbl = "Accurate decision",    # cor  # accurate decision
-  acc.err.lbl = "Inaccurate decision",  # err  # inaccurate decision
+  dec.cor.lbl = "Accurate decision",    # cor  # accurate decision
+  dec.err.lbl = "Inaccurate decision",  # err  # inaccurate decision
 
   # (f) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
   sdt.lbl = "Case",  # Dimension label: cell/case/SDT 2x2 table
@@ -82,9 +82,9 @@ txt.def <- list(
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
 #' @param acc.lbl A name for judgment \emph{accuracy} (e.g., correspondence of decision to condition).
-#' @param acc.cor.lbl A label for \emph{correct} decisions
+#' @param dec.cor.lbl A label for \emph{correct} decisions
 #' or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).
-#' @param acc.err.lbl A label for \emph{erroneous} decisions
+#' @param dec.err.lbl A label for \emph{erroneous} decisions
 #' or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).
 #'
 #' @param sdt.lbl A name for the case/category/cell in the 2x2 contingency table (SDT: condition x decision).
@@ -131,8 +131,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      dec.neg.lbl = txt.def$dec.neg.lbl,        # "Decision negative"
                      ## (c) Accuracy/correspondence of decision to condition:
                      acc.lbl = txt.def$acc.lbl,                # Accuracy
-                     acc.cor.lbl = txt.def$acc.cor.lbl,        # "Decision accurate"
-                     acc.err.lbl = txt.def$acc.err.lbl,        # "Decision inaccurate"
+                     dec.cor.lbl = txt.def$dec.cor.lbl,        # "Decision accurate"
+                     dec.err.lbl = txt.def$dec.err.lbl,        # "Decision inaccurate"
                      ## (d) Labels for the 4 SDT cases (combinations):
                      sdt.lbl = txt.def$sdt.lbl,  # case/category/cell/SDT
                      hi.lbl = txt.def$hi.lbl,    # hits               = "True positive"
@@ -165,8 +165,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
     dec.neg.lbl = dec.neg.lbl,
     ## (c) Accuracy:
     acc.lbl = acc.lbl,
-    acc.cor.lbl = acc.cor.lbl,
-    acc.err.lbl = acc.err.lbl,
+    dec.cor.lbl = dec.cor.lbl,
+    dec.err.lbl = dec.err.lbl,
     ## (d) Labels for the 4 SDT cases/cells (combinations):
     sdt.lbl = sdt.lbl,
     hi.lbl = hi.lbl,
@@ -309,8 +309,8 @@ label_freq <- function(fname, lbl
     if (fname == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
     if (fname == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
 
-    if (fname == "acc.cor") { f_lbl <- txt$acc.cor.lbl }
-    if (fname == "acc.err") { f_lbl <- txt$acc.err.lbl }
+    if (fname == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
+    if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
 
   } else {   # (9) Basic names as default:
@@ -328,8 +328,8 @@ label_freq <- function(fname, lbl
       if (fname == "dec.pos") { f_lbl <- "dec.pos" }
       if (fname == "dec.neg") { f_lbl <- "dec.neg" }
 
-      if (fname == "acc.cor") { f_lbl <- "acc.cor" }
-      if (fname == "acc.err") { f_lbl <- "acc.err" }
+      if (fname == "dec.cor") { f_lbl <- "dec.cor" }
+      if (fname == "dec.err") { f_lbl <- "dec.err" }
 
   }
 
@@ -338,12 +338,12 @@ label_freq <- function(fname, lbl
 }
 
 ## Check:
-# label_freq("acc.err", lbl = "nam")
-# label_freq("acc.err", lbl = "nix")
+# label_freq("dec.err", lbl = "nam")
+# label_freq("dec.err", lbl = "nix")
 
 ## (*) Done: -------------------------------------
 
-## - Add text labels for accuracy (acc.lbl, acc.cor.lbl, acc.err.lbl) and sdt.lbl.
+## - Add text labels for accuracy (acc.lbl, dec.cor.lbl, dec.err.lbl) and sdt.lbl.
 ## - Clean up code [2018 08 20].
 
 ## (+) ToDo: -------------------------------------
