@@ -201,10 +201,10 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 ) {
 
   # Initialize:
-  fval <- NA
-  ftype <- NA
-  fcol <- NA
-  flbl <- NA
+  f_val <- NA
+  f_type <- NA
+  f_col <- NA
+  f_lbl <- NA
 
   if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
 
@@ -212,48 +212,48 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     ix <- which(names(freq) == fname)  # index in freq
 
     # (a) Value of frequency in freq:
-    fval <- freq[ix]
+    f_val <- freq[ix]
 
     # (b) Type of frequency:
-    ftype <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+    f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
     # (c) Color of frequency box:
     if (missing(col.fill)) {  # no col.fill has been specified:
       # if (is.na(col)) {  # no col has been specified:
-      fcol <- comp_freq_col(fname)  # determine default fcol corresponding to fname in freq and pal
+      f_col <- comp_freq_col(fname)  # determine default f_col corresponding to fname in freq and pal
     } else {
-      fcol <- col.fill  # use the color specified in function call
-      # fcol <- col  # use the color specified in function call
+      f_col <- col.fill  # use the color specified in function call
+      # f_col <- col  # use the color specified in function call
     }
-    # print(fcol)
+    # print(f_col)
 
     # (d) Label of frequency:
-    flbl <- label_freq(fname, ltype = ltype)
-    # print(flbl)
+    f_lbl <- label_freq(fname, ltype)
+    # print(f_lbl)
 
     # (e) Plot corresponding cbox with values of fname freq:
     plot_cbox(x = x, y = y, lx = lx, ly = ly,
-              # lbl = paste0(fname, " = ", fval),
-              lbl = flbl,
-              lbl.bot = paste0(ftype),
-              col.fill = fcol,
+              # lbl = paste0(fname, " = ", f_val),
+              lbl = f_lbl,
+              lbl.bot = paste0(f_type),
+              col.fill = f_col,
               ...)
 
   } else {  # fname is NOT a known freq:
 
     # (a) Fill color of frequency box:
     if (missing(col.fill)) {  # no col.fill has been specified:
-      fcol <- grey(.95, .50)  # default fill color
+      f_col <- grey(.95, .50)  # default fill color
     } else {
-      fcol <- col.fill  # use the color specified in function call
+      f_col <- col.fill  # use the color specified in function call
     }
-    # print(fcol)
+    # print(f_col)
 
     # (b) Plot cbox with default settings:
     plot_cbox(x = x, y = y, lx = lx, ly = ly,
               lbl = paste0(fname),
-              # lbl.bot = paste0(ftype),
-              col.fill = fcol,
+              # lbl.bot = paste0(f_type),
+              col.fill = f_col,
               ...)
 
   }
