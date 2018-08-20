@@ -16,7 +16,7 @@ txt.def <- list(
   scen.lng = "en/de", # language
 
   # (b) Population:
-  popu.lbl = "Current population",
+  popu.lbl = "Population",  # current population label
 
   # (c) Condition:
   cond.lbl = "Condition",  # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
@@ -65,7 +65,7 @@ txt.def <- list(
 #' @param scen.src The source information for the current scenario.
 #' @param scen.apa Source information in APA format.
 #' @param scen.lng Language of the current scenario (as character code).
-#' Options: \code{"en"}...English, \code{"de"}... German.
+#' Options: \code{"en"}...English, \code{"de"}...German.
 #'
 #' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
@@ -288,15 +288,16 @@ txt <- init_txt()
 
 ## label_freq: Helper function to return label of a known freq ----------
 
-label_freq <- function(fname, lbl
+label_freq <- function(fname, type
                        #, freq = freq, txt = txt  # use current lists
                        ) {
 
   f_lbl <- ""  # initialize
 
-  if (lbl == "nam") {  # (1) Name of freq:
+  if (type == "nam") {  # (1) Name of freq:
 
-    if (fname == "N") { f_lbl <- txt$popu.lbl }
+    # if (fname == "N") { f_lbl <- "N" }           # use "N" as f_lbl
+    if (fname == "N") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
 
     if (fname == "hi") { f_lbl <- txt$hi.lbl }
     if (fname == "mi") { f_lbl <- txt$mi.lbl }
@@ -313,7 +314,7 @@ label_freq <- function(fname, lbl
     if (fname == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
 
-  } else {   # (9) Basic names as default:
+  } else {  # (9) any other type: Basic names as default:
 
       if (fname == "N") { f_lbl <- "N" }
 
@@ -338,21 +339,28 @@ label_freq <- function(fname, lbl
 }
 
 ## Check:
-# label_freq("dec.err", lbl = "nam")
-# label_freq("dec.err", lbl = "nix")
+# label_freq("cr", type = "nam")
+# label_freq("cr", type = "nix")
+# label_freq("dec.err", type = "nam")
+# label_freq("dec.err", type = "nix")
+
+## +++ here now +++
+
+## - Add functions to obtain labels of freq and prob (given freq).
+## - Determine the prob that corresponds to 2 freq.
 
 ## (*) Done: -------------------------------------
 
 ## - Rename acc.cor and acc.err to dec.cor and dec.err
 ##   (to remain consistent with freq names).
-## - Add text labels for accuracy (acc.lbl, dec.cor.lbl, dec.err.lbl)
-##   and sdt.lbl.
+## - Add text labels for accuracy/correspondence of decision to condition
+##   (acc.lbl, dec.cor.lbl, dec.err.lbl) and for sdt.lbl.
 ## - Clean up code [2018 08 20].
 
 ## (+) ToDo: -------------------------------------
 
-## - add functions to obtain labels of freq and prob (given freq).
-## - add labels for accuracy/correspondence dimension and subgroups!
-## - add txt to a cus object?
+## - Add functions to obtain labels of freq and prob (given freq).
+## - Determine the prob that corresponds to 2 freq.
+## - Add txt to a cus object?
 
 ## eof. ------------------------------------------
