@@ -731,9 +731,15 @@ plot.box <- function(obj, ...) {
 #      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
 
 
-## plot_link: Plot link between 2 boxes ----------
+## plot_link: Plot link between 2 boxes (given 2 boxes and pos values, using plot_line) ----------
 
-plot_link <- function(box1, box2, pos1, pos2, ...) {
+## Note: If boxes are 2 known freq and name_prob returns a known prob,
+##       then label_prob is used to automatically generate a p_lbl as lbl.
+
+plot_link <- function(box1, box2, pos1, pos2,
+                      lbl = NA,
+                      ltype = "default",
+                      ...) {
 
   # (1) Determine link coordinates:
 
@@ -779,43 +785,81 @@ plot_link <- function(box1, box2, pos1, pos2, ...) {
     y2 <- box2$y  # y in center of box1
   }
 
-  # (2) Plot line between points:
-  plot_line(x1, y1, x2, y2, ...)
+  # (2) Check if no lbl exists and link is a known prob.
+  #     If so, label it accordingly:
+
+  if (!is.na(lbl)) {  # lbl is specified:
+
+    # (a) plot line with the current lbl:
+    plot_line(x1, y1, x2, y2, lbl = lbl, ...)
+
+  } else {  # lbl is NA: Check whether link is between 2 freq boxes with a known prob:
+
+    pname <- name_prob(box1$name, box2$name)  # try name_prob on box names (freq)!
+
+    if (!is.na(pname)) {  # A pname is found (not NA)/prob is known:
+
+      p_lbl <- label_prob(pname, ltype)  # make p_lbl from label_prob
+
+      # (b) plot line with this p_lbl:
+      plot_line(x1, y1, x2, y2, lbl = p_lbl, ...)
+
+    } else {  # NO pname was found by name_prob:
+
+      # (c) plot line as is:
+      plot_line(x1, y1, x2, y2, ...)
+
+    }
+
+  }
 
 }
 
-## Check:
-# box_b1 <- make_box("1st_box", 5, 9, 2, 2)  # 1st box with an arbitrary label
-# box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
-# box_hi <- make_box("hi", 7, 3, 2, 2)       # box with known freq label
-## Prepare canvas:
-# plot(c(0, 10), c(0, 10), type = "n") # 2 points, empty canvas
+# ## Check:
+# ## Define some boxes:
+# box_b1 <- make_box("1st_box", 1, 9, 2, 2)   # 1st box with an arbitrary label
+# box_b2 <- make_box("2nd_box", 2, 3, 2, 3)   # 2nd box ...
+# box_N  <- make_box("N", 4, 9, 2, 2)         # box with known freq label and type
+# box_ct <- make_box("cond.true", 8, 7, 3, 2) # ...
+# box_hi <- make_box("hi", 7, 2, 2, 2)        # ...
+# ## Prepare canvas:
+# plot(c(0, 10), c(0, 10), type = "n")  # empty canvas
+# ## Plot boxes:
 # plot(box_b1)  # plot box with arbitrary label (and default color)
 # plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
+# plot(box_N)
+# plot(box_ct)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-## Link positions:
-# plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
-# plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
-# plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
-# plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
-# plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
-## Link options:
-# plot_link(box_b2, box_hi, 0, 0, arr.code = 0,
-#           lbl = "some label", lbl.pos = NULL, cex = .8,
-#           col.txt = "steelblue", col.fill = "grey", lwd = 20)
+# ## Link positions:
+# # plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
+# # plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
+# # plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
+# # plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
+# # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
+# #
+# ## Link options:
+# ## (a) Link 2 freq boxes with a known prob:
+# plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr.code = -2)
+# plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
+# plot_link(box_ct, box_hi, 1, 3, arr.code = -3, col.fill = pal["hi"],
+#           ltype = "namnum", lbl.pos = NULL, col.txt = pal["hi"], cex = .8)
+# ## (a) Link 2 boxes with NO known prob:
+# plot_link(box_b2, box_ct, 4, 2)  # no label
+# plot_link(box_N, box_hi, 1, 2, arr.code = -3,
+#           lbl = "given label in color",
+#           lbl.pos = 2, cex = .8,
+#           col.txt = "steelblue", col.fill = "sienna2", lwd = 3)
 
-## ToDo: plot_plink/plot_prob
+## Already included in plot_link: plot_plink/plot_prob:
 ## plot_plink/plot_prob: Link 2 boxes of 2 known frequencies
 ##                       and label link by using name_prob, label_prob, plot_link...
+## 4 steps:
+## 1. Get names of freq1 and freq2 from 2 boxes
+## 2. Call pname <- name_prob(freq1, freq1) to get pname
+## 3. Call p_lbl <- label_prob(pname) to get label
+## 4. Call plot_link with p_lbl as lbl
 
 ## +++ here now +++
-
-## 4 steps:
-# 1. Get names of freq1 and freq2 from 2 boxes
-# 2. Call pname <- name_prob(freq1, freq1)
-# 3. Call p_lbl <- label_prob(pname)
-# 4. Call plot_link with p_lbl
-
 
 ## (*) Done: ----------
 
