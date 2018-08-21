@@ -406,19 +406,21 @@ label_freq <- function(fname,
 # label_freq("unknown fname")  # unknown freq: return fname
 
 
-## label_prob: Helper function to get label of a known probability in prob ----------
+## label_prob: Create a label for a known probability in prob ----------
 label_prob <- function(pname,
                        ltype = "default"  # label type: "nam", "num", "namnum", "default".
                        #, prob = prob, accu = accu, txt = txt  # use current lists
 ) {
 
   ## Initialize:
-  p_lbl <- pname # initialize (in case of unknown prob)
+  p_lbl  <- pname # initialize (in case of unknown prob)
   p_val  <- NA
   p_type <- NA
 
-  ## (1) Determine the probability value of prob corresponding to pname:
+  ## Currently fixed parameters:
+  n_dec <- 1  # number of decimals to round percentage to.
 
+  ## (1) Determine the probability value p_val of prob corresponding to pname:
   if (ltype != "nam") {
 
     if (tolower(pname) %in% tolower(names(prob))) { # if pname corresponds to named prob in prob:
@@ -450,14 +452,22 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { p_val <- accu$acc }
     if (tolower(pname) == "err") { p_val <- (1 - accu$acc) }
 
+    # Ensure that p_val is numeric:
+    p_val <- as.numeric(p_val)
+
   }
 
   ## (2) Compose p_lbl based on ltype:
 
   if (ltype == "num" || ltype == "val" ){
 
-    # (a) Value:
-    p_lbl <- as.character(p_val)
+    # (a) Value only:
+    if (is_prob(p_val)) {
+      # Label p_val (ONLY) as a percentage:
+      p_lbl <- paste0(as.character(as_pc(p_val, n.digits = n_dec)), "%")
+    } else {
+      p_lbl <- paste0(as.character(p_val))  # Label p_val as is (as number)
+    }
 
   } else if ( ltype == "namnum" || ltype == "namval" ||
               ltype == "full" || ltype == "all" ){
@@ -488,8 +498,13 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
 
-    # Combine p_lbl with p_val (from above):
-    p_lbl <- paste0(p_lbl, " = ", as.character(p_val))
+    # Combine p_lbl (NOT pname) with p_val (from above):
+    if (is_prob(p_val)) {
+      # Label p_val as a percentage:
+      p_lbl <- paste0(p_lbl, " = ", as.character(as_pc(p_val, n.digits = n_dec)), "%")
+    } else {
+      p_lbl <- paste0(p_lbl, " = ", as.character(p_val))  # Label p_val as is (as number)
+    }
 
   } else if (ltype == "nam") {
 
@@ -537,7 +552,16 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { pname <- "cor" }
     if (tolower(pname) == "err") { pname <- "err" }
 
-    p_lbl <- paste0(pname, " = ", as.character(p_val))
+    # print(p_val)
+    # is.numeric(p_val)
+
+    # Combine pname (NOT p_lbl) with p_val (from above):
+    if (is_prob(p_val)) {
+      # Label p_val as a percentage:
+      p_lbl <- paste0(pname, " = ", as.character(as_pc(p_val, n.digits = n_dec)), "%")
+    } else {
+      p_lbl <- paste0(pname, " = ", as.character(p_val))  # Label p_val as is (as number)
+    }
 
   }
 
@@ -565,6 +589,8 @@ label_prob <- function(pname,
 # label_prob("sens", ltype = "nam")
 # label_prob("spec", ltype = "num")
 # label_prob("fart", ltype = "namnum")
+# label_prob("PPV", ltype = "namnum")
+# label_prob("NPV", ltype = "namnum")
 ## Special cases:
 # label_prob("cprev", ltype = "default")  # complement to prev
 # label_prob("cprev", ltype = "nam")      # complement to prev
