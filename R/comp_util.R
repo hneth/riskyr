@@ -1,15 +1,15 @@
 ## comp_util.R | riskyr
-## 2018 02 23
-## -----------------------------------------------
+## 2018 08 21
 ## Generic utility functions:
+## -----------------------------------------------
 
 ## (A) Verification functions
-## (B) Display functions
-## (C) Graphic functions
-## (D) Graph labels (cond, dec, accu)
+## (B) Beware of extreme cases
+## (C) Display functions
+## (D) Graphic functions
+## (E) Graph labels (by cond, dec, accu)
 
-## -----------------------------------------------
-## (A) Verification functions:
+## (A) Verification functions: -------------------
 
 ## 1. is_prob
 ## 2. is_perc
@@ -22,7 +22,7 @@
 ## 8. is_valid_prob_set
 ## 9. is_valid_prob_triple [deprecated]
 
-## is_prob: --------------------------------------
+## is_prob: Verify that input is a probability ------------------
 
 #' Verify that input is a probability (numeric value from 0 to 1).
 #'
@@ -135,7 +135,7 @@ is_prob <- function(prob, NA.warn = FALSE) {
 }
 
 
-## is_perc: --------------------------------------
+## is_perc: Verify that input is a percentage --------------------
 
 #' Verify that input is a percentage (numeric value from 0 to 100).
 #'
@@ -215,8 +215,7 @@ is_perc <- function(perc) {
 
 }
 
-## -----------------------------------------------
-## is_freq:
+## is_freq: Verify that input is a frequency -----------
 
 #' Verify that input is a frequency (positive integer value).
 #'
@@ -305,8 +304,8 @@ is_freq <- function(freq) {
 
 }
 
-## -----------------------------------------------
-# Verify that sufficient set of probabilities is provided:
+
+## is_suff_prob_set: Verify that sufficient set of probabilities is provided ----------
 
 #' Verify a sufficient set of probability inputs.
 #'
@@ -449,14 +448,12 @@ is_suff_prob_set <- function(prev,
   # # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
 }
 
-## -----------------------------------------------
-## ToDo:
+## ToDo: Analog fn for freq: is_suff_freq_set ----------
 
 ## Analog function: is_suff_freq_set
 ## that verifies an input for sufficient number of frequencies
 
-## -----------------------------------------------
-## Verify that 2 numbers are complements of each other:
+## is_complement: Verify that 2 numbers are complements -----------------
 
 #' Verify that two numbers are complements.
 #'
@@ -585,10 +582,12 @@ is_complement <- function(p1, p2, tol = .01) {
   # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 }
 
-## -----------------------------------------------
-## (E) Beware of extreme cases:
+
+## (B) Beware of extreme cases: ----------
 ##     Verify if the current set of (sufficient) probabilities
 ##     describe an extreme case:
+
+## is_extreme_prob_set: Verify that a prob set is an extreme case ----------
 
 #' Verify that a set of probabilities describes an extreme case.
 #'
@@ -792,7 +791,6 @@ is_extreme_prob_set <- function(prev,
 
   }
 
-
   else {  # not (detected as) an extreme case:
 
     val <- FALSE
@@ -844,8 +842,8 @@ is_extreme_prob_set <- function(prev,
 
 }
 
+## is_valid_prob_pair: Verify a pair of probability inputs -------------
 
-## -----------------------------------------------
 # Verify that 2 probabilities are valid inputs
 # for a pair of complementary probabilities:
 
@@ -947,7 +945,8 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
   # is_valid_prob_pair(NA, NA)    # => FALSE + warning (NA)
 }
 
-## -----------------------------------------------
+## is_valid_prob_set: Verify a set of probability inputs ------------
+
 # Verify that a set of up to 5 probabilities can
 # be interpreted as valid probability inputs:
 
@@ -1098,7 +1097,8 @@ is_valid_prob_set <- function(prev,
   # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
 }
 
-## -----------------------------------------------
+## is_valid_prob_triple: Verify a triple of essential probability inputs ---------------
+
 # Verify that a triple of inputs can
 # be interpreted as valid set of 3 essential probabilites:
 
@@ -1184,11 +1184,11 @@ is_valid_prob_triple <- function(prev, sens, spec) {
   # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
 }
 
-## -----------------------------------------------
-## (B) Display functions:
-## -----------------------------------------------
+## (C) Display functions: ------------------------
 
 ## Toggle between showing probabilities and percentages:
+
+## as_pc: Display a probability as a (rounded) percentage ----------
 
 #' Display a probability as a (rounded) percentage.
 #'
@@ -1268,7 +1268,7 @@ as_pc <- function(prob, n.digits = 2) {
   return(perc)
 }
 
-# Check:
+## Check:
 {
   # as_pc(1/2)                # =>  50
   # as_pc(1/3)                # =>  33.33
@@ -1278,8 +1278,10 @@ as_pc <- function(prob, n.digits = 2) {
   # as_pc(0/0)
 }
 
-## -----------------------------------------------
+
 ## Percentage as probability (4 decimals):
+
+## as_pb: Display a percentage as a (rounded) probability ----------
 
 #' Display a percentage as a (rounded) probability.
 #'
@@ -1360,10 +1362,12 @@ as_pb <- function(perc, n.digits = 4) {
 }
 
 
-## (C) Graphic functions: ------------------------
+## (D) Graphic functions: ------------------------
 
 ## Reformat the plotting area to allow placing
-## legend outside of a plot: ---------------------
+## legend outside of a plot:
+
+## add_legend: Reformat plotting area to place legend outside of plot ------
 
 add_legend <- function(...) {
   ## Reformat the plotting area to allow placing legend outside of a plot
@@ -1381,7 +1385,7 @@ add_legend <- function(...) {
   legend(...)
 }
 
-## Making colors transparent: --------------------
+## makeTransparent: Make colors transparent ----------
 
 makeTransparent = function(..., alpha = .50) {
 
@@ -1406,8 +1410,7 @@ makeTransparent = function(..., alpha = .50) {
 ## Note also: adjustcolor(col = "green", alpha.f = .50)
 
 
-## Helper for dynamic calculation of block size:
-## (used in plot_iconarray.R): -------------------
+## factors_min_diff: Helper for dynamic calculation of block size (in plot_iconarray.R) ----------
 
 factors_min_diff <- function (n) {
   n_sqrt <- sqrt(n)
@@ -1423,9 +1426,9 @@ factors_min_diff <- function (n) {
 }
 
 
-## (D) Graph labels: -----------------------------
+## (E) Graph labels: -----------------------------
 
-## (a) Current condition parameter values: -------
+## (a) make_cond_lbl: Current condition parameter values -----------
 
 make_cond_lbl <- function(prev, sens, spec) {
 
@@ -1441,7 +1444,7 @@ make_cond_lbl <- function(prev, sens, spec) {
 
 }
 
-## (b) Current decision parameter values: --------
+## (b) make_dec_lbl: Current decision parameter values --------
 
 make_dec_lbl <- function(ppod, PPV, NPV) {
 
@@ -1457,7 +1460,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
 }
 
-## (c) Current accuracy values: ------------------
+## (c) make_accu_lbl: Current accuracy values -------------
 
 make_accu_lbl <- function(acc, w, wacc, mcc) {
 
@@ -1483,8 +1486,11 @@ make_accu_lbl <- function(acc, w, wacc, mcc) {
 }
 
 
-## -----------------------------------------------
-## (+) ToDo:
+## (*) Done: ----------
+
+## - Clean up.  [2018 08 21].
+
+## (+) ToDo: ----------
 
 ## (e+) ToDo: Generalize is_perfect to
 ##      is_extreme_prob_set to incorporate other extreme cases:
@@ -1493,5 +1499,4 @@ make_accu_lbl <- function(acc, w, wacc, mcc) {
 ## - prev = 0, spec = 0: only fa cases
 ## - prev = 0, spec = 1: only cr cases
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
