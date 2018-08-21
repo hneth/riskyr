@@ -1147,8 +1147,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a")  # by accuracy
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a", dir = 2) # bi-directional
 #
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "all", ltype = "namnum")
-#
 ## Note:
 # plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
 #          title.lbl = "Test rounding effects",

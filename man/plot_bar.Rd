@@ -130,7 +130,6 @@ plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
          title.lbl = "Test rounding effects",
          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
 
-
 }
 \seealso{
 \code{\link{comp_popu}} computes the current population;
