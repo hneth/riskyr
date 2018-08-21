@@ -378,10 +378,10 @@ label_freq <- function(fname,
   }
 
   ## (3) Split/re-format long f_lbl into 2 lines of text:
-  lbl_max <- 16  # criterium for f_lbl being too long (currently fixed)
+  nchar_max <- 99  # criterium for f_lbl being too long (currently fixed)
 
   # if f_lbl is too long and it contains a " = ":
-  if ((nchar(f_lbl) > lbl_max) && any(grep(pattern = " = ", x = f_lbl))) {
+  if ((nchar(f_lbl) > nchar_max) && any(grep(pattern = " = ", x = f_lbl))) {
 
     # Split into 2 parts:
     lbl_parts <- unlist(strsplit(f_lbl, split = " = "))
@@ -566,10 +566,10 @@ label_prob <- function(pname,
   }
 
   ## (3) Split/re-format long p_lbl into 2 lines of text:
-  lbl_max <- 16  # criterium for p_lbl being too long (currently fixed)
+  nchar_max <- 99  # criterium for p_lbl being too long (currently fixed)
 
   # if p_lbl is too long and it contains a " = ":
-  if ((nchar(p_lbl) > lbl_max) && any(grep(pattern = " = ", x = p_lbl))) {
+  if ((nchar(p_lbl) > nchar_max) && any(grep(pattern = " = ", x = p_lbl))) {
 
     # Split into 2 parts:
     lbl_parts <- unlist(strsplit(p_lbl, split = " = "))
