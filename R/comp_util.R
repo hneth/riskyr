@@ -42,7 +42,7 @@
 #' @examples
 #' # ways to succeed:
 #' is_prob(1/2)                  # => TRUE
-#' p.seq <- seq(0, 1, by = .1)
+#' p.seq <- seq(0, 1, by = .1)   # Vector of probabilities
 #' is_prob(p.seq)                # => TRUE (for vector)
 #'
 #' # watch out for:
@@ -52,9 +52,9 @@
 #' is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
 #'
 #' # ways to fail:
-#' is_prob(8)                    # => FALSE + warning (outside range)
-#' is_prob(c(.5, 8))             # => FALSE + warning (for vector)
-#' is_prob("Laplace")            # => FALSE + warning (non-numeric values)
+#' is_prob(8, NA.warn = TRUE)         # => FALSE + warning (outside range element)
+#' is_prob(c(.5, 8), NA.warn = TRUE)  # => FALSE + warning (outside range vector element)
+#' is_prob("Laplace", NA.warn = TRUE) # => FALSE + warning (non-numeric values)
 #'
 #' @family verification functions
 #'
@@ -76,7 +76,7 @@ is_prob <- function(prob, NA.warn = FALSE) {
   val <- NA  # initialize
 
   ## many ways to fail:
-  if (sum(is.na(prob)) > 0) {
+  if (any(is.na(prob))) {
 
     val <- FALSE
 
@@ -85,25 +85,31 @@ is_prob <- function(prob, NA.warn = FALSE) {
     }
   }
 
-  else if (sum(is.nan(prob)) > 0) {
+  # else if (any(is.nan(prob))) {  ## NOTE: is.nan not implemented for lists!
+  #
+  #   val <- FALSE
+  #
+  #   if (NA.warn) {
+  #     warning(paste0(prob, " contains NaN values. "))
+  #   }
+  # }
+
+  else if (any(!is.numeric(prob))) {
 
     val <- FALSE
 
-    warning(paste0(prob, " contains NaN values. "))
+    if (NA.warn) {
+      warning(paste0(prob, " contains non-numeric values. "))
+    }
   }
 
-  else if (sum(!is.numeric(prob)) > 0) {
+  else if (any(prob < 0) || any(prob > 1)) {
 
     val <- FALSE
 
-    warning(paste0(prob, " contains non-numeric values. "))
-  }
-
-  else if (sum((prob < 0) || (prob > 1)) > 0) {
-
-    val <- FALSE
-
-    warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
+    if (NA.warn) {
+      warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
+    }
   }
 
   else {  ## one way to succeed:
@@ -117,21 +123,21 @@ is_prob <- function(prob, NA.warn = FALSE) {
 
 ## Checks:
 {
-  # # ways to succeed:
+  # ## ways to succeed:
   # is_prob(1/2)                  # => TRUE
-  # p.seq <- seq(0, 1, by = .1)
+  # p.seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
   # is_prob(p.seq)                # => TRUE (for vector)
   #
-  # # watch out for:
+  # ## watch out for:
   # is_prob(NA)                   # => FALSE + NO warning!
   # is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
   # is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
   # is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
   #
-  # # ways to fail:
-  # is_prob(8)                    # => FALSE + warning (outside range)
-  # is_prob(c(.5, 8))             # => FALSE + warning (for vector)
-  # is_prob("Laplace")            # => FALSE + warning (non-numeric values)
+  # ## ways to fail:
+  # is_prob(8, NA.warn = TRUE)         # => FALSE + warning (outside range element)
+  # is_prob(c(.5, 8), NA.warn = TRUE)  # => FALSE + warning (outside range vector element)
+  # is_prob("Laplace", NA.warn = TRUE) # => FALSE + warning (non-numeric values)
 }
 
 
@@ -1188,9 +1194,9 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 
 ## Toggle between showing probabilities and percentages:
 
-## as_pc: Display a probability as a (rounded) percentage ----------
+## as_pc: Display a probability as a (numeric and rounded) percentage ----------
 
-#' Display a probability as a (rounded) percentage.
+#' Display a probability as a (numeric and rounded) percentage.
 #'
 #' \code{as_pc} is a function that displays a probability \code{prob}
 #' as a percentage (rounded to \code{n.digits} decimals).
@@ -1208,8 +1214,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' as_pc(.50)                # =>  50
 #' as_pc(1/3)                # =>  33.33
 #' as_pc(1/3, n.digits = 0)  # =>  33
-#'
-#' as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
+#' as_pc(pi)                 # => 314.16 + Warning that prob is no probability
 #' as_pc(as_pb(12.3))        # =>  12.3
 #'
 #' prob.seq <- seq(0, 1, by = 1/10)
@@ -1248,24 +1253,19 @@ as_pc <- function(prob, n.digits = 2) {
 
   if (is_prob(prob)) {
 
-    perc <- round(prob * 100, n.digits) # compute
+    perc <- round(prob * 100, n.digits)  # compute percentage
 
   }
-
-  # else if (is.nan(prob)) {
-  #
-  #  perc <- "NaN"
-  #
-  #}
 
   else {
 
     warning("Argument (prob) is no probability.")
 
-    perc <- round(prob * 100, n.digits) # still try to compute
+    perc <- round(prob * 100, n.digits)  # still try to compute
+
   }
 
-  return(perc)
+  return(perc)  # return (numeric)
 }
 
 ## Check:
@@ -1275,15 +1275,16 @@ as_pc <- function(prob, n.digits = 2) {
   # as_pc(1/3, n.digits = 0)  # =>  33
   # as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
   # as_pc(as_pb(12.3))        # =>  12.3
+  # as_pc(NA)
   # as_pc(0/0)
 }
 
 
 ## Percentage as probability (4 decimals):
 
-## as_pb: Display a percentage as a (rounded) probability ----------
+## as_pb: Display a percentage as a (numeric and rounded) probability ----------
 
-#' Display a percentage as a (rounded) probability.
+#' Display a percentage as a (numeric and rounded) probability.
 #'
 #' \code{as_pb} is a function that displays a percentage \code{perc}
 #' as a probability (rounded to \code{n.digits} decimals).
@@ -1336,13 +1337,13 @@ as_pb <- function(perc, n.digits = 4) {
   if (is_perc(perc)) {
 
     prob <- round(perc/100, n.digits) # compute
-
   } else {
     warning("Percentage (perc) is not in range 0 to 100.")
     prob <- round(perc/100, n.digits) # still compute
   }
 
-  return(prob)
+  return(prob)  # numeric value
+
 }
 
 ## Check:
@@ -1454,7 +1455,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
                 "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
                 "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
                 "NPV = ", as_pc(NPV, n.digits = 1), "%"
-                )
+  )
 
   return(lbl)
 
