@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 08 20
+## 2018 08 21
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -287,7 +287,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       pt.pch = 21, pt.cex = 1, pt.lwd = 1,  # point options
                       arr.code = 0,         # 0...none, 1+2...arrows, 3...double arrow
                       ## Optional text label:
-                      lbl.txt = NA,         # string for text label
+                      lbl = NA,             # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
                       lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
                       lbl.pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
@@ -354,7 +354,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
     ## Text label:
     text(lbl.x, lbl.y,
-         labels = lbl.txt,
+         labels = lbl,
          col = col.txt,  # text color
          pos = lbl.pos,
          offset = lbl.off,
@@ -364,8 +364,8 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 }
 
 ## Check:
-# plot(0:10, 0:10, type = "n") # 2 points
-# # (1) without labels:
+# plot(0:10, 0:10, type = "n")  # empty canvas
+# # (1) line without labels:
 # plot_line(0, 10, 9, 10)  # basic line (without label)
 # plot_line(0, 9, 9, 9, arr.code = 1)  # basic arrow (without label)
 # plot_line(0, 8, 9, 8, arr.code = 2)  # basic arrow (without label)
@@ -373,10 +373,10 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(0, 6, 9, 6, arr.code = -1) # arrow with points (without label)
 # plot_line(0, 5, 9, 5, arr.code = -2) # arrow with points (without label)
 # plot_line(0, 4, 9, 4, arr.code = -3) # arrow with points (without label)
-# # (2) with labels:
+# # (2) line with labels:
 # plot_line(0, 3, 9, 3, arr.code = 3,
-#           lbl.txt = "Label 1", cex = .8, lty = 2, lwd = .5)  # text label (on line) and options
-# plot_line(0, 2, 9, 2, lbl.txt = "Label 2", arr.code = -3,
+#           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
+# plot_line(0, 2, 9, 2, lbl = "Label 2", arr.code = -3,
 #           lbl.pos = 4, lbl.off = 1,
 #           col.fill = "firebrick", col.txt = "forestgreen",
 #           font = 2, cex = .8)  # basic with raised text label
@@ -384,12 +384,22 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           pt.pch = 22, pt.cex = 2, pt.lwd = 2,  # point paramters
 #           # Text label (with options):
 #           lbl.x = 10, lbl.y = 9,
-#           lbl.txt = "Some label\nthat takes\nmultiple (3) lines",
+#           lbl = "Some label\nthat takes\nmultiple (3) lines",
 #           lbl.pos = NULL, lbl.off = 0,
 #           # Colors:
 #           col = "gold", col.brd = "steelblue", col.txt = "steelblue",
-#           cex = .7, lty = 2, lwd = 2               # grapical parameters
-# )
+#           cex = .7, lty = 2, lwd = 2) # grapical parameters
+# # (3) probability lines:
+# plot_line(1, 9, 9, 9, arr.code = -3, lbl = label_prob("prev"),
+#           col.fill = comp_freq_col("cond.true"), col.txt = NA,
+#           lbl.pos = 3, cex = .8)  # horizontal
+# plot_line(2, 0, 2, 10, arr.code = -3, lbl = label_prob("PPV"),
+#           col.fill = pal["ppv"], col.txt = pal["ppv"],
+#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # vertical
+# plot_line(4, 1, 8, 10, arr.code = -3, lbl = label_prob("NPV"),
+#           col.fill = pal["npv"], col.txt = pal["npv"],
+#           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
+
 
 ## plot_arrs: Plot multiple (n.arr) arrows along a line: ------
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
@@ -397,7 +407,7 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       l.arr = .10,          # length of arrows to draw
                       a.arr = 35,           # angle of arrows to draw
                       ## Optional label:
-                      lbl.txt = NA,         # string for text label
+                      lbl = NA,         # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
                       lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
                       pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
@@ -433,7 +443,7 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 
     ## Text label:
     text(lbl.x, lbl.y,
-         labels = lbl.txt,
+         labels = lbl,
          # col = col,
          # cex = lbl.cex,
          pos = pos, offset = offset,
@@ -445,12 +455,12 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 ## Check:
 # plot(0:1, 0:1, type = "n") # 2 points
 # plot_arrs(0, 0, 1, 0, col = "red3")  # 2 arrows, no text
-# plot_arrs(0, .1, 1, .1, col = "grey", lbl.txt = "Label 0")
-# plot_arrs(0, .2, 1, .2, col = "green3", lbl.txt = "Label 1", pos = 3)
+# plot_arrs(0, .1, 1, .1, col = "grey", lbl = "Label 0")
+# plot_arrs(0, .2, 1, .2, col = "green3", lbl = "Label 1", pos = 3)
 # plot_arrs(0, .3, 1, .5, col = "blue3",
 #             n.arr = 3, l.arr = .25, a.arr = 20,
-#             lbl.txt = "3 arrows", pos = 3, lwd = 2)
-# plot_arrs(0, .4, 1, .9, col = "black", lbl.txt = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
+#             lbl = "3 arrows", pos = 3, lwd = 2)
+# plot_arrs(0, .4, 1, .9, col = "black", lbl = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
 
 
 ## box_text: Add text with background box to a plot ------
@@ -770,7 +780,7 @@ plot_link <- function(box1, box2, pos1, pos2, ...) {
     y2 <- box2$y  # y in center of box1
   }
 
-  # (2) Plot link:
+  # (2) Plot line between points:
   plot_line(x1, y1, x2, y2, ...)
 
 }
@@ -792,7 +802,7 @@ plot_link <- function(box1, box2, pos1, pos2, ...) {
 # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
 ## Link options:
 # plot_link(box_b2, box_hi, 0, 0, arr.code = 0,
-#           lbl.txt = "some label", lbl.pos = NULL, cex = .8,
+#           lbl = "some label", lbl.pos = NULL, cex = .8,
 #           col.txt = "steelblue", col.fill = "grey", lwd = 20)
 
 ## ToDo: plot_plink/plot_prob

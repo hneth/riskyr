@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 08 20
+## 2018 08 21
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -469,10 +469,10 @@ freq <- comp_freq()  # => initialize freq to default parameters
 # names(freq)        # => show names of known frequencies
 
 
-## Helper function: Determine the type of a named frequency (freq):  ----------
+## comp_freq_type: Determine the type of a named frequency (freq):  ----------
 comp_freq_type <- function(fname) {
 
-  ftype <- "typeless"  # initialize
+  f_type <- "typeless"  # initialize
 
   # (1) Define types of all known frequencies:
 
@@ -491,10 +491,10 @@ comp_freq_type <- function(fname) {
   if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
     ix <- which(names(freq) == fname)  # index in freq
     # print(ix)
-    ftype <- freq_types[ix]
+    f_type <- freq_types[ix]
   }
 
-  return(ftype)  # return ftype (as character)
+  return(f_type)  # return f_type (as character)
 
 }
 
@@ -509,12 +509,12 @@ comp_freq_type <- function(fname) {
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
 # comp_freq_type("false")  # => typeless (as full name is required)
 
-## Helper function: Determine the color of a named frequency (freq):  ----------
+## comp_freq_col: Determine the color of a named frequency (freq):  ----------
 comp_freq_col <- function(fname) {
 
   # initialize:
-  colname <- NA
-  fcol <- NA
+  col_name <- NA
+  f_col <- NA
 
   if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
 
@@ -522,10 +522,10 @@ comp_freq_col <- function(fname) {
     ix <- which(names(freq) == fname)  # index in freq
 
     ## (a) Value of frequency in freq:
-    # fval <- freq[ix]
+    # f_val <- freq[ix]
 
     ## (b) Type of frequency:
-    # ftype <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+    # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
     # (c) Color of frequency:
     # Note that names(freq) are sometimes longer than names(pal):
@@ -536,28 +536,28 @@ comp_freq_col <- function(fname) {
       fname_1st <- nameparts[1]  # 1st part of fname
       fname_2nd <- nameparts[2]  # 2nd part of fname
 
-      colname <- fname_2nd  # 2nd part corresponds to name of color
+      col_name <- fname_2nd  # 2nd part corresponds to name of color
 
-      # if (colname == "true") { colname <- "cor" }
+      # if (col_name == "true") { col_name <- "cor" }
 
     } else {
-      colname <- fname
+      col_name <- fname
     }
 
-    # print(colname)
+    # print(col_name)
 
   }
 
-  # Find color value of colname in color pal:
-  if (colname %in% names(pal)) { # if colname corresponds to a color name in pal
-    fcol <- pal[colname]     # use this color to fill box
+  # Find color value of col_name in color pal:
+  if (col_name %in% names(pal)) { # if col_name corresponds to a color name in pal
+    f_col <- pal[col_name]     # use this color to fill box
   } else {
-    fcol <- grey(.95, .50) # use some default color (e.g., "white")
+    f_col <- grey(.95, .50) # use some default color (e.g., "white")
   }
 
-  # print(fcol)
+  # print(f_col)
 
-  return(fcol)
+  return(f_col)
 
 }
 
@@ -565,6 +565,7 @@ comp_freq_col <- function(fname) {
 # comp_freq_col("N")
 # comp_freq_col("hi")
 # comp_freq_col("dec.err")
+# comp_freq_col("dec.cor")
 #
 # comp_freq_col("default")  # default color
 
