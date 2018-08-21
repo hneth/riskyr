@@ -736,15 +736,16 @@ plot.box <- function(obj, ...) {
 ## Note: If boxes are 2 known freq and name_prob returns a known prob,
 ##       then label_prob is used to automatically generate a p_lbl as lbl.
 
-plot_link <- function(box1, box2, pos1, pos2,
-                      lbl = NA,
-                      ltype = "default",
+plot_link <- function(box1, box2,                # 2 boxes
+                      pos1 = NULL, pos2 = NULL,  # 2 positions: NULL = center, bltr
+                      lbl = NA,                  # lbl (derived automatically, if NA)
+                      ltype = "default",         # ltype ("default", "nam", "num", "namnum")
                       ...) {
 
   # (1) Determine link coordinates:
 
   # 1st point:
-  if (is.null(pos1) | pos1 == 0) {
+  if (is.null(pos1) || pos1 == 0) {
     x1 <- box1$x  # x in center of box1
     y1 <- box1$y  # y in center of box1
   } else if (pos1 == 1) {
@@ -765,7 +766,7 @@ plot_link <- function(box1, box2, pos1, pos2,
   }
 
   # 2nd point:
-  if (is.null(pos2) | pos1 == 0) {
+  if (is.null(pos2) || pos2 == 0) {
     x2 <- box2$x  # x in center of box2
     y2 <- box2$y  # y in center of box2
   } else if (pos2 == 1) {
@@ -815,7 +816,7 @@ plot_link <- function(box1, box2, pos1, pos2,
 
 }
 
-# ## Check:
+## Check:
 # ## Define some boxes:
 # box_b1 <- make_box("1st_box", 1, 9, 2, 2)   # 1st box with an arbitrary label
 # box_b2 <- make_box("2nd_box", 2, 3, 2, 3)   # 2nd box ...
