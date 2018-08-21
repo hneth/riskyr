@@ -3,22 +3,26 @@
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
-## plot_vbox: Plot a vertical box and its text labels ----------
+## plot_vbox: Plot a vertical box (x = center, y = bottom) with text labels ----------
+
+## Note: plot_vbox only plots provided arguments.
+##       It is NOT "smart" by NOT automatically deriving
+##       freq and prob labels from global objects!
+
 plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
                       box.lx, box.ly,   # lengths of box (width and height)
                       ## Text labels:
-                      type = NA,         # type of box (printed as title below box)
+                      type = NA,         # type of freq/box (to be shown as title below box)
                       show.freq = TRUE,  # option to show/hide frequency labels
-                      ltype = "default", # label type of label_freq: "default" or "namnum"
+                      # ltype = "default", # label type of label_freq: "default" or "namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
-                      freq,              # frequency (as number).  ToDo: Derive freq from type and/OR name!
+                      fnum,              # frequency (as number).  ToDo: Derive fnum from type and/OR name!
                       ## Color options:
                       col.fill = grey(.95, .75),  # default color (but derived from name below)
                       col.brd = pal["brd"],
                       col.txt = pal["txt"],
-                      ...               # other graphical parameters: lwd, cex, ...
+                      ...  # other (graphical) parameters: lwd, cex, ...
 ) {
-
 
   ## (0) Parameters (currently fixed):
 
@@ -30,7 +34,6 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
   # if (fname %in% names(pal)) { # if fname corresponds to a color name in pal
   #  col.fill <- pal[fname]     # use this color to fill box
   #}
-
 
   ## Text parameters:
   # col.lbl <- pal["txt"]  # defined in pal
@@ -69,12 +72,15 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
     # Compose box label:
     if (!is.na(fname)) {  # fname is specified:
 
-      # box.lbl <- paste0(fname, " = ", freq)
-      box.lbl <- label_freq(fname, ltype)  # use label_freq function (with ltype)
+      ## (a) Use local fnum only:
+      box.lbl <- paste0(fname, " = ", fnum)
+
+      ## (b) Use label_freq to query global freq values:
+      # box.lbl <- label_freq(fname, ltype)  # use label_freq function (with ltype)
 
     } else { # no fname specified:
 
-      box.lbl <- paste0(freq)
+      box.lbl <- paste0(fnum)
 
     }
 
@@ -91,23 +97,23 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
 }
 
-## Check:
-# plot(c(0, 100), c(0, 100)) # 2 points
+### Check:
+# plot(c(0, 100), c(0, 100), type = "n")  # prepare canvas
 # # Basics:
-# plot_vbox(10, 80, 20, 20, freq = 111) # no name => default fill color
-# plot_vbox(50, 80, 20, 20, fname = "N", freq = 222) # no type label
-# plot_vbox(80, 80, 20, 20, fname = "cond.true", freq = 232, type = comp_freq_type("cond.true"))
-# plot_vbox(10, 50, 30, 20, type = "type as box title", fname = "hi", freq = 333)
-# plot_vbox(40, 50, 20, 20, fname = "mi", freq = 444, lwd = 3, cex = .7, type = comp_freq_type("mi"))
+# plot_vbox(10, 80, 20, 20, fnum = 111) # no name => default fill color
+# plot_vbox(50, 80, 20, 20, fname = "N", fnum = 222)  # no type label
+# plot_vbox(80, 80, 20, 20, fname = "cond.true", fnum = 333, type = comp_freq_type("cond.true"))
+# plot_vbox(10, 50, 30, 20, type = "type as box title", fname = "hi", fnum = 444)
+# plot_vbox(40, 50, 20, 20, fname = "mi", fnum = 555, lwd = 3, cex = .7, type = comp_freq_type("mi"))
 # # Other cases:
-# plot_vbox(70, 50, 20, 20, fname = "asdf", freq = 555, type = comp_freq_type("asdf"))
+# plot_vbox(70, 50, 20, 20, fname = "asdf", fnum = 667, type = comp_freq_type("asdf"))
 
 
 ## Distinguish between 2 separate functions:
 #   1. generic plot_cbox (that plots a box given its CENTER coordinates and format) vs.
-#   2. plot_freq (that determines current freq value and fill color for know freq).
+#   2. plot_fbox (that determines current freq value and fill color for known freq).
 
-## plot_cbox: Plot a CENTERED box with text labels ----------
+## plot_cbox: Plot a CENTERED box (x = center, y = center) with text labels ----------
 plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
                       ## Text labels:
@@ -710,7 +716,8 @@ plot.box <- function(obj, ...) {
 
   ## Call plot_fbox helper function:
   plot_fbox(fname = obj$name,
-            x = obj$x, y = obj$y, lx = obj$lx, ly = obj$ly,
+            x  = obj$x,   y = obj$y,
+            lx = obj$lx, ly = obj$ly,
             ...)
 }
 
