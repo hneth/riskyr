@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_util.R
 \name{as_pb}
 \alias{as_pb}
-\title{Display a percentage as a (rounded) probability.}
+\title{Display a percentage as a (numeric and rounded) probability.}
 \usage{
 as_pb(perc, n.digits = 4)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_util.R
 \name{as_pc}
 \alias{as_pc}
-\title{Display a probability as a (rounded) percentage.}
+\title{Display a probability as a (numeric and rounded) percentage.}
 \usage{
 as_pc(prob, n.digits = 2)
 }
@@ -27,8 +27,7 @@ toggling the display of numeric values between percentages and probabilities.
 as_pc(.50)                # =>  50
 as_pc(1/3)                # =>  33.33
 as_pc(1/3, n.digits = 0)  # =>  33
-
-as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
+as_pc(pi)                 # => 314.16 + Warning that prob is no probability
 as_pc(as_pb(12.3))        # =>  12.3
 
 prob.seq <- seq(0, 1, by = 1/10)
