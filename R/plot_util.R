@@ -199,6 +199,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       # lbl.top = NA,       # title (at top)
                       # lbl.bot = NA,       # caption (at bottom)
                       ltype = "default",    # type of freq label
+                      show.type = FALSE,    # option to show/hide f_type label (at bottom)
                       ## Color options:
                       col.fill = col,  # if missing, color of fname freq is derived below
                       # col.brd = pal["brd"],
@@ -211,6 +212,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
   f_type <- NA
   f_col <- NA
   f_lbl <- NA
+  bot_lbl <- NA
 
   if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
 
@@ -221,7 +223,9 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     f_val <- freq[ix]
 
     # (b) Type of frequency:
-    f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+    if (show.type) {
+      f_type <- comp_freq_type(fname)  # use helper function (defined in init_freq_num.R)
+    }
 
     # (c) Color of frequency box:
     if (missing(col.fill)) {  # no col.fill has been specified:
@@ -233,15 +237,22 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     }
     # print(f_col)
 
-    # (d) Label of frequency:
+    # (d) Label of frequency name and/or value:
     f_lbl <- label_freq(fname, ltype)
     # print(f_lbl)
+
+    # (e) Label of frequency type:
+    if (show.type) {
+
+      bot_lbl <- paste0(f_type)
+
+    }
 
     # (e) Plot corresponding cbox with values of fname freq:
     plot_cbox(x = x, y = y, lx = lx, ly = ly,
               # lbl = paste0(fname, " = ", f_val),
               lbl = f_lbl,
-              lbl.bot = paste0(f_type),
+              lbl.bot = bot_lbl,
               col.fill = f_col,
               ...)
 
@@ -258,7 +269,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     # (b) Plot cbox with default settings:
     plot_cbox(x = x, y = y, lx = lx, ly = ly,
               lbl = paste0(fname),
-              # lbl.bot = paste0(f_type),
+              lbl.bot = bot_lbl,
               col.fill = f_col,
               ...)
 
@@ -266,16 +277,16 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 }
 
-## Check:
+# ## Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
-#      xlim = c(0, 10), ylim = c(0, 6))
+#       xlim = c(0, 10), ylim = c(0, 6))  # empty canvas
 # ## Basics:
 # plot_fbox(fname = "N", 5, 5, 1, 2/3)
-# plot_fbox(fname = "cond.true", 3, 4, 2, 2/3)
-# plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, ltype = "nam")
-# plot_fbox(fname = "hi", 2, 3, 1, 2/3, ltype = "nam")
+# plot_fbox(fname = "cond.true", 3, 4, 2, 2/3, show.type = TRUE)
+# plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, ltype = "nam", show.type = FALSE)
+# plot_fbox(fname = "hi", 2, 3, 1, 2/3, ltype = "nam", show.type = TRUE)
 # plot_fbox(fname = "mi", 4, 3, 1, 2/3, ltype = "num")
-# plot_fbox(fname = "fa", 6, 3, 1, 2/3, ltype = "namnum")
+# plot_fbox(fname = "fa", 6, 3, 1, 2/3, ltype = "namnum", show.type = FALSE)
 # plot_fbox(fname = "cr", 8, 3, 1, 2/3)
 # plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3, ltype = "namnum")
 # plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
