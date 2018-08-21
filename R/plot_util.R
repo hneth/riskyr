@@ -400,7 +400,6 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           col.fill = pal["npv"], col.txt = pal["npv"],
 #           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
 
-# +++ here now +++
 
 ## plot_arrs: Plot multiple (n.arr) arrows along a line: --------
 ##      Note: Obsolete, as plot_line (defined above) is more flexible.
