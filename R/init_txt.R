@@ -30,8 +30,8 @@ txt.def <- list(
 
   # (e) Accuracy/correspondence of decision to condition:
   acc.lbl = "Accuracy",   # Dimension label: accuracy/correspondence
-  dec.cor.lbl = "Accurate decision",    # cor  # accurate decision
-  dec.err.lbl = "Inaccurate decision",  # err  # inaccurate decision
+  dec.cor.lbl = "Decision correct",  # cor  # accurate decision
+  dec.err.lbl = "Decision error",    # err  # inaccurate decision
 
   # (f) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
   sdt.lbl = "Case",  # Dimension label: cell/case/SDT 2x2 table
