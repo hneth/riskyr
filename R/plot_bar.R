@@ -1,13 +1,17 @@
 ## plot_bar.R | riskyr
-## 2018 08 18
+## 2018 08 21
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
 ## (size and proportion) from 3 essential probabilities (prev, sens, spec),
 ## or current population data.frame popu.
 
+## plot_bar: Plot bar charts of population frequencies ---------
 
-## plot_bar function: ---------
+## Note: plot_bar computes 4 essential frequencies,
+##       but does NOT update global freq and prob objects.
+##       It is NOT "smart" by NOT automatically deriving
+##       freq and prob labels from global objects!
 
 #' Plot bar charts of population frequencies.
 #'
@@ -130,7 +134,6 @@
 #'          title.lbl = "Test rounding effects",
 #'          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
 #'
-#'
 #' @importFrom graphics par
 #' @importFrom graphics plot
 #' @importFrom graphics box
@@ -162,7 +165,7 @@
 plot_bar <- function(prev = num$prev,             # probabilities
                      sens = num$sens, mirt = NA,
                      spec = num$spec, fart = NA,
-                     N = num$N,  # not needed in Mosaic plot (but used in comp_freq below)
+                     N = num$N,                   # population size N
                      ## Options:
                      by = "all",  # "cd"...condition, "dc"...decision; "all".
                      dir = 1,     # directions: 1 vs. 2
@@ -195,27 +198,29 @@ plot_bar <- function(prev = num$prev,             # probabilities
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.freq and popu based on current parameters (N and probabilities):
+    ## (b) Compute cur.freq based on current parameters (N and probabilities):
     cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)  # compute cur.freq (with round = TRUE)
 
-    ## Assign (only needed) elements of cur.freq:
+    ## ToDo: Update global freq and prob objects
+    ##       to use label_freq and label_prob functions.
+
+    ## Assign (only needed) elements based on cur.freq:
     n.hi  <- cur.freq$hi
     n.mi  <- cur.freq$mi
     n.fa  <- cur.freq$fa
     n.cr  <- cur.freq$cr
 
     ## (c) Compute cur.popu from computed frequencies:
-    cur.popu <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)  # compute cur.popu (from 4 essential frequencies)
+    # cur.popu <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)  # compute cur.popu (from 4 essential frequencies)
 
-    # warning("Generated new population (cur.popu) to draw mosaic plot...")
-
+    ## warning("Generated new population (cur.popu) to plot...")
 
   } else {  # (B) NO valid set of probabilities was provided:
 
     ## Use the current popu:
-    cur.popu <- popu
+    # cur.popu <- popu
 
-    # warning("Using existing population (popu) to draw mosaic plot...")
+    ## warning("Using existing population (popu) to plot...")
 
   } # if (is_valid_prob_set...)
 
@@ -224,11 +229,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Custom bar plot") # , "(N = ", N, ")")
 
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  cur.par.lbl <- cur.cond.lbl
-
-  type_label <- "freq type"  # to be derived below.
+  # cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  # # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  # cur.par.lbl <- cur.cond.lbl
+  #
+  # type_label <- "freq type"  # to be derived below.
 
   ## (3) Accuracy: ----------
 
@@ -237,7 +242,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
 
     # mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-    cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")  # add accuracy lbl to existing cur.par.lbl
+    # cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")  # add accuracy lbl to existing cur.par.lbl
   }
 
   ## (4) Define plot and margin areas: ----------
@@ -352,7 +357,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_vbox(type = NA, fname = "N", freq = N,
+    plot_vbox(type = NA, fname = "N", fnum = N,
               box.x  = n.x,
               box.y  = n.y,
               box.lx = b.lx,
@@ -404,28 +409,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+    plot_vbox(type = NA, fname = "hi", fnum = n.hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+    plot_vbox(type = NA, fname = "mi", fnum = n.mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+    plot_vbox(type = NA, fname = "fa", fnum = n.fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+    plot_vbox(type = NA, fname = "cr", fnum = n.cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
@@ -470,14 +475,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "cond.true", freq = (n.hi + n.mi),
+    plot_vbox(type = NA, fname = "cond.true", fnum = (n.hi + n.mi),
               box.x  = cond.true.x,
               box.y  = cond.true.y,
               box.lx = b.lx,
               box.ly = cond.true.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "cond.false", freq = (n.fa + n.cr),
+    plot_vbox(type = NA, fname = "cond.false", fnum = (n.fa + n.cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
               box.lx = b.lx,
@@ -521,13 +526,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.pos", freq = (n.hi + n.fa),
+    plot_vbox(type = NA, fname = "dec.pos", fnum = (n.hi + n.fa),
               box.x  = dec.pos.x,
               box.y  = dec.pos.y,
               box.lx = b.lx,
               box.ly = dec.pos.ly,
               show.freq, ...)
-    plot_vbox(type = NA, fname = "dec.neg", freq = (n.mi + n.cr),
+    plot_vbox(type = NA, fname = "dec.neg", fnum = (n.mi + n.cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
               box.lx = b.lx,
@@ -571,13 +576,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.cor", freq = (n.hi + n.cr),
+    plot_vbox(type = NA, fname = "dec.cor", fnum = (n.hi + n.cr),
               box.x  = dec.cor.x,
               box.y  = dec.cor.y,
               box.lx = b.lx,
               box.ly = dec.cor.ly,
               show.freq, ...)
-    plot_vbox(type = NA, fname = "dec.err", freq = (n.mi + n.fa),
+    plot_vbox(type = NA, fname = "dec.err", fnum = (n.mi + n.fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
               box.lx = b.lx,
@@ -630,7 +635,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_vbox(type = NA, fname = "N", freq = N,
+    plot_vbox(type = NA, fname = "N", fnum = N,
               box.x  = n.x,
               box.y  = n.y,
               box.lx = b.lx,
@@ -677,28 +682,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+    plot_vbox(type = NA, fname = "hi", fnum = n.hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+    plot_vbox(type = NA, fname = "mi", fnum = n.mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+    plot_vbox(type = NA, fname = "fa", fnum = n.fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+    plot_vbox(type = NA, fname = "cr", fnum = n.cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
@@ -738,13 +743,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "cond.true", freq = (n.hi + n.mi),
+    plot_vbox(type = NA, fname = "cond.true", fnum = (n.hi + n.mi),
               box.x  = cond.true.x,
               box.y  = cond.true.y,
               box.lx = b.lx,
               box.ly = cond.true.ly,
               show.freq, ...)
-    plot_vbox(type = NA, fname = "cond.false", freq = (n.fa + n.cr),
+    plot_vbox(type = NA, fname = "cond.false", fnum = (n.fa + n.cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
               box.lx = b.lx,
@@ -793,7 +798,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_vbox(type = NA, fname = "N", freq = N,
+    plot_vbox(type = NA, fname = "N", fnum = N,
               box.x  = n.x,
               box.y  = n.y,
               box.lx = b.lx,
@@ -841,28 +846,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+    plot_vbox(type = NA, fname = "hi", fnum = n.hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+    plot_vbox(type = NA, fname = "mi", fnum = n.mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+    plot_vbox(type = NA, fname = "fa", fnum = n.fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+    plot_vbox(type = NA, fname = "cr", fnum = n.cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
@@ -902,14 +907,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.pos", freq = (n.hi + n.fa),
+    plot_vbox(type = NA, fname = "dec.pos", fnum = (n.hi + n.fa),
               box.x  = dec.pos.x,
               box.y  = dec.pos.y,
               box.lx = b.lx,
               box.ly = dec.pos.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "dec.neg", freq = (n.mi + n.cr),
+    plot_vbox(type = NA, fname = "dec.neg", fnum = (n.mi + n.cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
               box.lx = b.lx,
@@ -957,7 +962,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 1 box:
-    plot_vbox(type = NA, fname = "N", freq = N,
+    plot_vbox(type = NA, fname = "N", fnum = N,
               box.x  = n.x,
               box.y  = n.y,
               box.lx = b.lx,
@@ -1005,28 +1010,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", freq = n.hi,
+    plot_vbox(type = NA, fname = "hi", fnum = n.hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "mi", freq = n.mi,
+    plot_vbox(type = NA, fname = "mi", fnum = n.mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "fa", freq = n.fa,
+    plot_vbox(type = NA, fname = "fa", fnum = n.fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "cr", freq = n.cr,
+    plot_vbox(type = NA, fname = "cr", fnum = n.cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
@@ -1066,14 +1071,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.cor", freq = (n.hi + n.cr),
+    plot_vbox(type = NA, fname = "dec.cor", fnum = (n.hi + n.cr),
               box.x  = dec.cor.x,
               box.y  = dec.cor.y,
               box.lx = b.lx,
               box.ly = dec.cor.ly,
               show.freq, ...)
 
-    plot_vbox(type = NA, fname = "dec.err", freq = (n.mi + n.fa),
+    plot_vbox(type = NA, fname = "dec.err", fnum = (n.mi + n.fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
               box.lx = b.lx,
