@@ -663,8 +663,9 @@ name_prob <- function(freq1, freq2) {
 }
 
 ## Check:
-# name_prob("N", "cond.true")
-# name_prob("cond.false", "N")
+# name_prob("no", "nix")       # => NA
+# name_prob("N", "cond.true")  # => "prev"
+# name_prob("cond.false", "N") # => "cprev"
 #
 # name_prob("N", "dec.neg")
 # name_prob("dec.pos", "hi")
