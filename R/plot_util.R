@@ -52,8 +52,8 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
     text(x = box.x, y = box.y,
          labels = type,
-         pos = 1,  # 1...below, 3...above
-         xpd = TRUE,
+         pos = 1,       # NULL...center (default), 1...below, 3...above
+         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
          # cex = cex.lbl.sm,
          ...)
@@ -81,8 +81,8 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
     # Plot freq label:
     text(x = box.x, y = mid.y,
          labels = box.lbl,
-         # pos = NULL,  # default
-         xpd = TRUE,
+         # pos = NULL,  # NULL...center (default), 1...below, 3...above
+         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
          # cex = cex.lbl.sm,
          ...)
@@ -140,8 +140,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
     text(x = x, y = y,
          labels = paste0(lbl),
-         pos = NULL,  # center (default), 1...below, 3...above
-         xpd = TRUE,
+         pos = NULL,    # NULL...center (default), 1...below, 3...above
+         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
          ...)
 
@@ -151,8 +151,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
     text(x = x, y = y_top,
          labels = paste0(lbl.top),
-         pos = 3,  # 1...below, 3...above
-         xpd = TRUE,
+         pos = 3,       # NULL...center (default), 1...below, 3...above
+         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
          ...)
 
@@ -162,8 +162,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
     text(x = x, y = y_bottom,
          labels = paste0(lbl.bot),
-         pos = 1,  # 1...below, 3...above
-         xpd = TRUE,
+         pos = 1,       # NULL...center (default), 1...below, 3...above
+         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
          ...)
 
@@ -396,12 +396,14 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(2, 0, 2, 10, arr.code = -3, lbl = label_prob("PPV"),
 #           col.fill = pal["ppv"], col.txt = pal["ppv"],
 #           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # vertical
-# plot_line(4, 1, 8, 10, arr.code = -3, lbl = label_prob("NPV"),
+# plot_line(4, 1, 8, 10, arr.code = -3, lbl = label_prob("NPV", ltype = "namnum"),
 #           col.fill = pal["npv"], col.txt = pal["npv"],
 #           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
 
+# +++ here now +++
 
-## plot_arrs: Plot multiple (n.arr) arrows along a line: ------
+## plot_arrs: Plot multiple (n.arr) arrows along a line: --------
+##      Note: Obsolete, as plot_line (defined above) is more flexible.
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       n.arr = 2,            # number of arrows to draw
                       l.arr = .10,          # length of arrows to draw
@@ -619,27 +621,25 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
 }
 
 ## plot_ftype_label: Label the type corresponding to fname at (x, y): ----------
-
-plot_ftype_label <- function(fname,  # name of a known freq
-                             x, y,       # coordinates
-                             # pos = NULL,      # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
-                             # offset = 0.5,    # offset, etc.
+plot_ftype_label <- function(fname,               # name of a known freq
+                             x, y,                # coordinates
+                             # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                             # offset = 0.5,      # offset, etc.
                              # col = pal["txt"],  # default color
-                             ...                # other graphical parameters
+                             ...                  # other (graphical) parameters
 ){
 
-  ftype_lbl <- ""  # initialize
+  # Initialize:
+  # ftype_lbl <- ""
   ftype_lbl <- paste0(comp_freq_type(fname))  # determine freq_type corresponding to fname
 
 
   # Plot text label:
   text(x, y,
        labels = ftype_lbl,
-       # pos = pos,
-       # offset = offset,
-       xpd = TRUE,
-       # col = col, # pass on parameter
-       ...)
+       # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+       # col = col,   # pass on parameter
+       ...)  # other parameters: pos, offset, ...
 
   # # Return type (as name):
   # return(ftype_lbl)
