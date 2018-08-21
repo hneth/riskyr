@@ -1,19 +1,17 @@
-## init_num.R | riskyR
-## 2018 02 16
-## -----------------------------------------------
-## Define and initialize a list of basic input parameters (num)
-## that contains numeric user inputs:
+## init_num.R | riskyr
+## 2018 08 21
+## Define and initialize a list of basic parameters (num)
+## that collects and contains numeric user inputs:
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -27,7 +25,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -35,33 +34,38 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+# (C) by accuracy/correspondence of decision to condition (see accu):
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
-
-## 1: Bayesian: starting with 3 basic probabilities:
-## - given:   prev;  sens, spec
-## - derived: all other values
-
-## 2: Natural frequencies:
-## - given:   N = hi, mi, fa, cr
-## - derived: all other values
-
-## -----------------------------------------------
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
 
 
-## -----------------------------------------------
-## (1) Define and initialize num:
-## -----------------------------------------------
+## Data flow: Two basic directions: --------------
+
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
+
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
+
+
+## (1) Define and initialize num: ----------------
+
 ## The minimal set of numeric input parameters num
 ## consists of 3 probabilities (+ 1 complement):
 
-## Define defaults for num:     # Description:                                                             # Type of input:
-num.def <- list("prev" = .5, # round(runif(1, .01, .99), 2),  # prevalence in target population = p(condition TRUE)     [basic p]
-                "sens" = .5, # round(runif(1, .01, .99), 2),  # sensitivity = p(decision POS | condition TRUE)    [conditional p]
-                "spec" = .5, # round(runif(1, .01, .99), 2),  # specificity = p(decision NEG | condition FALSE)   [conditional p]
-                "fart" = NA,                            # false alarm rate = 1 - spec        [optional, complement of spec]
-                "N"    = 100 # round(runif(1, 10, 100), 0)    # population size N                                 [optional freq]
+## Define defaults for num:  # random:                  # fix: # Description:                                                              # Type of input:
+num.def <- list("prev" = round(runif(1, .01, .99), 2),  # .5   # prevalence in target population = p(condition TRUE)     [basic p]
+                "sens" = round(runif(1, .01, .99), 2),  # .5   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
+                "spec" = round(runif(1, .01, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
+                "fart" = NA,                            # NA   # false alarm rate = 1 - spec        [optional, complement of spec]
+                "N"    = round(runif(1, 3, 100), 0)     # 100  # population size N                                 [optional freq]
                 )
 
 #' Initialize basic numeric variables.
@@ -142,7 +146,6 @@ num.def <- list("prev" = .5, # round(runif(1, .01, .99), 2),  # prevalence in ta
 #' @importFrom stats setNames
 #'
 #' @export
-#'
 
 init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
                      spec = num.def$spec, fart = num.def$fart,
@@ -213,8 +216,8 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
   # init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
 }
 
-## -----------------------------------------------
-## (4) Apply to initialize num:
+
+## (4) Apply to initialize num: ------------------
 
 #' List current values of basic numeric variables.
 #'
@@ -244,26 +247,26 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
 #' \code{\link{comp_prob}} computes current probability information.
 #'
 #' @export
-#'
 
 num <- init_num()  # => initialize num to default parameters
 # num              # => show current values
 # length(num)      # => 5
 
+## (*) Done: ----------
 
-## -----------------------------------------------
-## (+) ToDo:
+## - Clean up + add randomness to num_def  [2018 08 21].
+
+## (+) ToDo: ----------
 
 ## 1. Re-organize "scenarios.xls" according to data structure of num.
 ##    and read in pre-defined datasets ("scenarios.csv") from "/data".
-
+##
 ## 2. Use either spec as basic probability (and compute fart from it)
 ##            OR fart as basic probability (and compute spec from it).
 ##    num should always contain both (with is_complement = TRUE).
-
+##
 ## - [init_num]: Verify that input parameters are in the correct range [0; 1].
 ## - [init_num]: If both spec and fart values are provided,
 ##       make sure that they are complements of each other.
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
