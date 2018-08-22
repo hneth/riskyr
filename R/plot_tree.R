@@ -1,6 +1,5 @@
 ## plot_tree.R | riskyr
-## 2018 02 10
-## -----------------------------------------------
+## 2018 08 22
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 3:
@@ -11,16 +10,16 @@
 ## - p.lbl ... "nam", "num", "mix", "min".
 ## - show.accu ... show current accuracy metrics (with bacc/wacc).
 
-## -----------------------------------------------
 ## Dependencies:
+## - library("diagram") # moved to "Imports:" in DESCRIPTION!
 
-# library("diagram") # moved to "Imports:" in in DESCRIPTION!
+## plot_tree: Plot a tree diagram of natural frequencies ----------
 
-## -----------------------------------------------
-## plot_tree: Plot tree diagram of natural frequencies
-## (using only necessary arguments with good defaults):
+## plot_tree: Documentation --------
 
-## Assuming that freq$N (+ num txt pal) is known!
+## Note:
+## - Using only necessary arguments with good defaults.
+## - Assuming that freq$N (+ num txt pal) is known!
 
 #' Plot a tree diagram of frequencies and probabilities.
 #'
@@ -214,6 +213,8 @@
 #' @importFrom graphics mtext
 #'
 #' @export
+
+## plot_tree: Definition --------
 
 plot_tree <- function(prev = num$prev,             # probabilities
                       sens = num$sens, mirt = NA,
@@ -938,33 +939,37 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
 }
 
-## Check:
-{
-  # plot_tree()
-  # plot_tree(title.lbl = "")
-  # plot_tree(N = 33)
-  # plot_tree(N = NA)
-  # plot_tree(prev = 1/3)
-  # plot_tree(prev = 1/3, N = 55)
-  # plot_tree(prev = 1/3, N = NA)
-  # plot_tree(prev = 1/3, round = FALSE)
-  # plot_tree(prev = .10, sens = .90, spec = 1/3, N = 100)
-  # plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
-  # plot_tree(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
-  # plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
-  #
-  # plot_tree(area = "sq")
-  # plot_tree(area = "sq", round = FALSE)
-  # plot_tree(area = "hr")
-  # plot_tree(area = "vr", round = FALSE)
-  #
-  # plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-  # plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-  # plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
-}
+## Check: ----------
+# plot_tree()
+# plot_tree(title.lbl = "")
+# plot_tree(N = 33)
+# plot_tree(N = NA)              # => compute suitable population size (+ warning)
+# plot_tree(prev = 1/3, p.lbl = "num")
+# plot_tree(prev = 1/3, N = 55)
+# plot_tree(prev = 1/3, N = NA)  # => compute suitable population size (+ warning)
+# plot_tree(prev = 1/3, round = FALSE)
+# plot_tree(prev = .10, sens = .90, spec = 1/3, N = 100)
+# plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
+# plot_tree(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
+# plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
+#
+# plot_tree(area = "sq")
+# plot_tree(area = "sq", round = FALSE)
+# plot_tree(area = "hr")
+# plot_tree(area = "vr", round = FALSE)
+#
+# plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
+# plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
+#           col.shadow = "steelblue4", cex.shadow = .008)
+# plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7),
+#           cex.shadow = .008, col.shadow = grey(.1, .9))
 
-## -----------------------------------------------
-## (+) ToDo:
+
+## (*) Done: ---------
+
+## Clean up code.  [2018 08 22]
+
+## (+) ToDo: ---------
 
 ## - Add a 3rd perspective:
 ##   "by correctness" or correspondence of condition and decision:
@@ -977,5 +982,4 @@ plot_tree <- function(prev = num$prev,             # probabilities
 ## - 3. make text color adjustable (using col.txt)
 ## - 4. pimp plot (labels, colors, transparency)
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
