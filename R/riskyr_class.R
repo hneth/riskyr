@@ -1,13 +1,13 @@
 ## riskyr_class.R | riskyr
-## 2018 03 06
-## -----------------------------------------------
+## 2018 08 22
 ## Define riskyr class and corresponding methods
-## and re-define df.scenarios as a list of
-## riskyr objects scenarios:
 ## -----------------------------------------------
+## Note:
+## - Re-define df.scenarios as a list of riskyr objects.
 
-## (0) Get some exemplary scenarios and
-##     save them with "riskyr" class attribute: -----
+## (A) Create riskyr objects: ---------------
+
+## Get some exemplary scenarios with "riskyr" class attribute -----
 
 # scenario2 <- df.scenarios[2, ]  # get scenario 2 of df.scenarios
 # class(scenario2) <- "riskyr"
@@ -16,7 +16,9 @@
 # class(scenario3) <- "riskyr"
 
 
-## (1) Function to create riskyr scenarios: ------
+## 1. riskyr object (i.e., scenario) -----------
+
+## riskyr Documentation: ------
 
 #' Create riskyr scenarios.
 #'
@@ -136,6 +138,8 @@
 #' # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 #'
 #' @export
+
+## riskyr Definition: ------
 
 riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
                    scen.lng = txt$scen.lng,
@@ -298,48 +302,48 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 }
 
 
-## Check:
-{
-  # test.obj <- riskyr()  # initialize with default parameters
-  # names(test.obj)
+## Check: ----------
+# test.obj <- riskyr()  # initialize with default parameters
+# names(test.obj)
 
-  ## 2 ways to define the same scenario:
-  # s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
-  # s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
-  # all.equal(s1, s2)  # should be TRUE
+## 2 ways to define the same scenario:
+# s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
+# s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
+# all.equal(s1, s2)  # should be TRUE
 
-  ## Ways to work:
-  # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
-  # riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
+## Ways to work:
+# riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
+# riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 
-  ## Watch out for:
-  # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warn: use sum of freq
-  # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warn: use freq
+## Watch out for:
+# riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warn: use sum of freq
+# riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warn: use freq
 
-  ## Check incomplete or inconsistent entries:
-  ## +++ here now +++
-  ## riskyr(prev = NA, hi = NA)
+## Check incomplete or inconsistent entries:
+## +++ here now +++
+## riskyr(prev = NA, hi = NA)
 
-  ## Compare with df.scenarios:
-  # names(df.scenarios)
-  # all.equal(names(test.obj), names(df.scenarios))
+## Compare with df.scenarios:
+# names(df.scenarios)
+# all.equal(names(test.obj), names(df.scenarios))
 
-  # # cat(
-  # #   paste0(
-  # #     paste0(names(scenarios$scen1), " = ", names(scenarios$scen1)),
-  # #     collapse = ", "))
-}
+# # cat(
+# #   paste0(
+# #     paste0(names(scenarios$scen1), " = ", names(scenarios$scen1)),
+# #     collapse = ", "))
 
 
-## (2) Define scenarios as a list of riskyr objects: ------
-##     - Convert the data frame df.scenarios into
-##       a list "scenarios" of riskyr objects:
+## 2. scenarios: Define scenarios as a list of riskyr objects -----------
+
+## Note: Convert the data frame df.scenarios into a list "scenarios"
+##       of riskyr objects:
 
 scenarios <- NULL # initialize
 
-## Helper stuff:
+## Note helper stuff:
 # cat(paste0("#'   \\item ", df.scenarios$scen.lbl[-1], "\n#'\n"))
 
+## scenarios: Documentation ------
 
 #' A collection of riskyr scenarios from various sources.
 #'
@@ -444,6 +448,8 @@ scenarios <- NULL # initialize
 #'
 #' @export
 
+## scenarios: Definition ------
+
 scenarios <- vector("list", nrow(df.scenarios))  # initialize scenarios as a list (from df.scenarios)
 names(scenarios) <- paste0("n", 1:nrow(df.scenarios))
 
@@ -469,13 +475,13 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 
 } # end for
 
-## Check:
+## Check: --------
 # length(scenarios)
 # scenarios$n25  # => shows elements of a scenario
 
-## Dealing with riskyr objects: ------------------
+## (B) Deal with riskyr objects: ------------------
 
-## (3) plot.riskyr function: -----
+## 1. plot.riskyr function: -----
 
 ## Testing dots:
 # test_fun <- function(...) {
@@ -485,6 +491,8 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 # test_fun(N = 100, blubb = 5, prev = 0.7)
 #
 ## apparently, they behave well...
+
+## plot.riskyr Documentation: ------
 
 #' Plot information of a riskyr object.
 #'
@@ -548,6 +556,8 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #'
 #'
 #' @export
+
+## plot.riskyr Definition: ------
 
 plot.riskyr <- function(x = NULL,
                         plot.type = "network",  # default plot.type
@@ -674,31 +684,31 @@ plot.riskyr <- function(x = NULL,
 }
 
 
-## Check:
-{
-  ## (A) with example scenarios (defined above):
-  # plot(scenario2, plot.type = "icons")
-  # plot(scenario3, plot.type = "tree")
+## Check: ------
+## (A) with example scenarios (defined above):
+# plot(scenario2, plot.type = "icons")
+# plot(scenario3, plot.type = "tree")
 
-  ## (B) with scenarios from scenarios (defined BELOW):
-  #
-  # s25 <- scenarios$n25  # select scenario 25 from scenarios
-  #
-  # plot(s25)  # => default plot (fnet)
-  # plot(s25, plot.type = "fnet")  # => network diagram (same as default)
-  # plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-  # plot(s25, plot.type = "curve", what = "all")
-  # plot(s25, plot.type = "icons")
-  # plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameters.
-  # plot(s25, plot.type = "mosaic")
-  # plot(s25, plot.type = "plane", what = "NPV")
-  # # plot(s25, plot.type = "wetwork")
-}
+## (B) with scenarios from scenarios (defined BELOW):
+#
+# s25 <- scenarios$n25  # select scenario 25 from scenarios
+#
+# plot(s25)  # => default plot (fnet)
+# plot(s25, plot.type = "fnet")  # => network diagram (same as default)
+# plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+# plot(s25, plot.type = "curve", what = "all")
+# plot(s25, plot.type = "icons")
+# plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameters.
+# plot(s25, plot.type = "mosaic")
+# plot(s25, plot.type = "plane", what = "NPV")
+# # plot(s25, plot.type = "wetwork")
 
 
-## (4) summary.riskyr function: ------------------
+## 2. summary.riskyr function: ------------------
 
-## (A) Create a summary object: -------
+## (a) Create a summary object:
+
+## summary.riskyr Documentation: ------
 
 #' Summarizing a riskyr scenario.
 #'
@@ -729,6 +739,8 @@ plot.riskyr <- function(x = NULL,
 #' @family summary functions
 #'
 #' @export
+
+## summary.riskyr Definition: ------
 
 summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
@@ -815,8 +827,11 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
 }
 
+## 3. print.summary.riskyr function: ------------------
 
-## (B) Create corresponding print function: ----------
+## Create print function corresponding to summary object:
+
+## print.summary.riskyr Documentation: ------
 
 #' Printing summarized risk information.
 #'
@@ -835,6 +850,8 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #' @family print functions
 #'
 #' @export
+
+## print.summary.riskyr Definition: ------
 
 print.summary.riskyr <- function(x = NULL, ...) {
 
@@ -912,23 +929,21 @@ print.summary.riskyr <- function(x = NULL, ...) {
 }
 
 
-## Check:
-{
-  # summary(scenario2)  # => all summaries
-  # summary(scenario2, summarize = "freq")
-  # summary(scenario2, summarize = "prob")
-  # summary(scenario2, summarize = "accu")
-}
+## Check: ------
+# summary(scenario2)  # => all summaries
+# summary(scenario2, summarize = "freq")
+# summary(scenario2, summarize = "prob")
+# summary(scenario2, summarize = "accu")
 
 
-## (5) Typical user interaction / session: -------
+## (C) Demo: Typical user interaction / session: -------
 
-## (A) Defining and viewing your own scenario:
+## 1. Defining and viewing your own scenario: -----
 ## see Vignette of riskyr primer
 
-## (B) Exporing pre-defined scenarios ------------
+## 2. Exporing pre-defined scenarios: ------------
 
-## Standard example: Mammography screening
+## Example 1: Mammography screening (standard example) ------
 ## Source: Hoffrage et al. (2015), p. 3
 
 # ## (a) Choosing a scenario
@@ -986,12 +1001,15 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # plot(s20, plot.type = "plane", what = "NPV")
 ## plot(s20, plot.type = "wetwork")
 
-## (+) ToDo: -------------------------------------
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 22].
+
+## (+) ToDo: ----------
 
 ## - Summary: Extend to other types of accuracy in accu
 ##
 ## - allow riskyr() to take all kinds of inputs,
 ##   so that a full object is created.
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------

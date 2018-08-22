@@ -1,7 +1,8 @@
 ## start_riskyr.R | riskyr
-## 2018 08 17
+## 2018 08 22
+## Final functions and start-up settings:
 ## -----------------------------------------------
-## Final functions and settings:
+
 
 ## (1) Open package guide: -----------------------
 
@@ -78,15 +79,15 @@ start_riskyr <- function(...) {
   # packageStartupMessage("riskyr.guide() opens user guides.")
   # packageStartupMessage("citation('riskyr') provides citation info.")
 
-  ## Roll riskyr dice
-  ## (to illustrate the underlying notion of "risk"): ------
+  ## Roll riskyr dice: ------
+  ## (to illustrate the underlying notion of "risk")
   dice <- sample(1:6, 1)
 
   # if (dice == 0) {packageStartupMessage("citation('riskyr') provides citation info.")}
 
   if (dice == 1) {
     packageStartupMessage(" ")
-    packageStartupMessage("Running riskyr (v0.1.907)...")
+    packageStartupMessage("Running riskyr (v0.1.908)...")
     packageStartupMessage(" ")
   }
 
@@ -134,7 +135,13 @@ start_riskyr <- function(...) {
 
 }
 
-## (+) ToDo: -------------------------------------
+
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 22].
+
+## (+) ToDo: ----------
+
 ## - ...
-## -----------------------------------------------
-## eof.
+
+## eof. ------------------------------------------
