@@ -1,5 +1,5 @@
 ## plot_tree2.R | riskyr
-## 2018 08 22
+## 2018 08 23
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 4:
@@ -270,23 +270,23 @@ plot_tree2 <- function(prev = num$prev,             # probabilities
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.freq based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq
+    ## (b) Compute freq based on current parameters (N and probabilities):
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq
 
-    ## Assign elements of cur.freq:
-    N <- cur.freq$N
-    n.true  <- cur.freq$cond.true
-    n.false <- cur.freq$cond.false
-    n.pos <- cur.freq$dec.pos
-    n.neg <- cur.freq$dec.neg
-    n.hi <- cur.freq$hi
-    n.mi <- cur.freq$mi
-    n.fa <- cur.freq$fa
-    n.cr <- cur.freq$cr
+    ## Assign elements of freq:
+    N <- freq$N
+    n.true  <- freq$cond.true
+    n.false <- freq$cond.false
+    n.pos <- freq$dec.pos
+    n.neg <- freq$dec.neg
+    n.hi <- freq$hi
+    n.mi <- freq$mi
+    n.fa <- freq$fa
+    n.cr <- freq$cr
 
   } else { # (B) NO valid set of probabilities was provided:
 
-    ## Use the current values of freq:
+    ## Use the current values of global freq:
     N <- freq$N
     n.true  <- freq$cond.true
     n.false <- freq$cond.false
