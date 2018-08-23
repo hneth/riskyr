@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 08 20
+## 2018 08 23
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -287,8 +287,8 @@ txt <- init_txt()
 
 ## label_freq: Helper function to get label of a known frequency in freq ----------
 label_freq <- function(fname,
-                       ltype = "default"  # label type: "nam", "num", "namnum", "default".
-                       #, freq = freq, txt = txt  # use current lists
+                       ltype = "default"#,      # label type: "default", "nam", "num", "namnum".
+                       #freq = freq, txt = txt  # use current lists
 ) {
 
   ## Initialize:
@@ -408,7 +408,7 @@ label_freq <- function(fname,
 
 ## label_prob: Create a label for a known probability in prob ----------
 label_prob <- function(pname,
-                       ltype = "default"  # label type: "nam", "num", "namnum", "default".
+                       ltype = "default"  # label type: "default", "nam", "num", "namnum".
                        #, prob = prob, accu = accu, txt = txt  # use current lists
 ) {
 

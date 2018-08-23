@@ -1,12 +1,12 @@
 ## plot_bar.R | riskyr
-## 2018 08 21
+## 2018 08 23
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
 ## (size and proportion) from 3 essential probabilities (prev, sens, spec),
 ## or current population data.frame popu.
 
-## plot_bar: Plot bar charts of population frequencies ---------
+## plot_bar: Documentation ---------
 
 ## Note: plot_bar computes 4 essential frequencies,
 ##       but does NOT update global freq and prob objects.
@@ -162,6 +162,8 @@
 #'
 #' @export
 
+## plot_bar: Definition ---------
+
 plot_bar <- function(prev = num$prev,             # probabilities
                      sens = num$sens, mirt = NA,
                      spec = num$spec, fart = NA,
@@ -198,17 +200,17 @@ plot_bar <- function(prev = num$prev,             # probabilities
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.freq based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)  # compute cur.freq (with round = TRUE)
+    ## (b) Compute freq based on current parameters (N and probabilities):
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)  # compute freq (with round = TRUE)
 
     ## ToDo: Update global freq and prob objects
     ##       to use label_freq and label_prob functions.
 
-    ## Assign (only needed) elements based on cur.freq:
-    n.hi  <- cur.freq$hi
-    n.mi  <- cur.freq$mi
-    n.fa  <- cur.freq$fa
-    n.cr  <- cur.freq$cr
+    ## Assign (only needed) elements based on freq:
+    n.hi  <- freq$hi
+    n.mi  <- freq$mi
+    n.fa  <- freq$fa
+    n.cr  <- freq$cr
 
     ## (c) Compute cur.popu from computed frequencies:
     # cur.popu <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)  # compute cur.popu (from 4 essential frequencies)
