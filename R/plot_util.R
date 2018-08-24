@@ -308,7 +308,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
                       lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
                       lbl.pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
-                      lbl.off = .5,         # offset of text label
+                      lbl.off = .75,        # offset of text label
                       ## Colors:
                       col.fill = pal["brd"], # if missing, color of fname freq is derived below
                       col.brd =  pal["brd"],
