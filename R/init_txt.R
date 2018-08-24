@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 08 23
+## 2018 08 24
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -444,7 +444,7 @@ label_prob <- function(pname,
     }
 
     if (tolower(pname) == "cppod" || tolower(pname) == "pned") {  # if complement of ppod:
-      p_val <- (1 - ppod)
+      p_val <- (1 - prob$ppod)
     }
 
     # Accuracy (as probability):
