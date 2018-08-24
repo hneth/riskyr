@@ -1,6 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 02 17
-## -----------------------------------------------
+## 2018 08 24
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -12,18 +11,18 @@
 ## - p.lbl ... "nam", "num" (default), "mix", "min".
 ## - show.accu ... show current accuracy metrics (with bacc/wacc).
 
-## -----------------------------------------------
 ## Dependencies:
 
 # library("diagram") # moved to "Imports:" in in DESCRIPTION!
 
-## -----------------------------------------------
 ## plot_fnet is a generalization of plot_tree:
 ## Plot a network or tree diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## (using only necessary arguments with good defaults):
 
 ## Assuming that freq$N (+ num txt pal) is known!
+
+## plot_fnet: Documentation: ---------
 
 #' Plot a network diagram of frequencies and probabilities.
 #'
@@ -70,7 +69,6 @@
 #'
 #' \code{plot_fnet} requires and uses the R package "diagram"
 #' (\code{library("diagram")}).
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -248,6 +246,8 @@
 #'
 #' @export
 
+## plot_fnet: Definition: ---------
+
 plot_fnet <- function(prev = num$prev,             # probabilities
                       sens = num$sens, mirt = NA,
                       spec = num$spec, fart = NA,  # was: num$fart,
@@ -288,14 +288,14 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Handle deprecated arguments:
+  ## (0) Handle deprecated arguments: ----------
   if (!missing(box.cex)) {
     warning("argument 'box.cex' is deprecated; please use 'cex.lbl' instead.",
             call. = FALSE)
     cex.lbl <- box.cex
   }
 
-  ## (0.1) Compute or collect all current frequencies: ----------
+  ## (0.1) Compute or collect current frequencies: ----------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -551,7 +551,6 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     }  # if (area...)
 
   } # if (by...)
-
 
   ## (3) Make matrix M: ----------
 
@@ -1736,12 +1735,14 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 }
 
-## -----------------------------------------------
-## (+) ToDo:
+## (*) Done: -----------
+
+## Clean up code.  [2018 08 24]
+
+## (+) ToDo: -----------
 
 ## - Add a 3rd perspective:
 ##   "by correctness" or correspondence of condition and decision:
-##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
+##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
-## -----------------------------------------------
-## eof.
+## eof. -----------
