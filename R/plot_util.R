@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 08 21
+## 2018 08 24
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -336,7 +336,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
     # Draw an arrow between both points:
     arrows(x0, y0, x1, y1,
-           length = .10, angle = 33, code = arr.code,    # V shape (small)
+           length = .10, angle = 45/2, code = arr.code,    # V shape (small)
            # length = .10, angle = 90, code = arr.code,  # T shape
            col = col.fill,
            ...)  # lty, lwd, ...
@@ -423,7 +423,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       n.arr = 2,            # number of arrows to draw
                       l.arr = .10,          # length of arrows to draw
-                      a.arr = 35,           # angle of arrows to draw
+                      a.arr = 45/2,         # angle of arrows to draw
                       ## Optional label:
                       lbl = NA,         # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
