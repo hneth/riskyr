@@ -4,7 +4,7 @@
 ## current set of all text elements (txt):
 ## -----------------------------------------------
 
-## (A) Defaults for all titles and labels (txt): ----------
+## (A) Defaults for all titles and labels (txt) ----------
 
 txt.def <- list(
 
@@ -46,7 +46,7 @@ txt.def <- list(
 # length(txt.def)  # => 20 text elements
 
 
-## (B) Initialization of all text elements (titles and labels): ----------
+## (B) Initialization of all text elements (titles and labels) ----------
 
 #' Initialize basic text elements.
 #'
@@ -192,7 +192,7 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 }
 
 
-## (C) Initialize a list txt to contain all current text elements: ---------
+## (C) Initialize a list txt to contain all current text elements ---------
 
 #' List current values of basic text elements.
 #'
@@ -285,7 +285,7 @@ txt <- init_txt()
 # txt$scen.lbl <- "My favorite example" # sets a new scenario title
 
 
-## label_freq: Helper function to get label of a known frequency in freq ----------
+## label_freq: Create a label for a known frequency (in freq) ----------
 label_freq <- function(fname,
                        ltype = "default"#,      # label type: "default", "nam", "num", "namnum".
                        #freq = freq, txt = txt  # use current lists
@@ -406,7 +406,7 @@ label_freq <- function(fname,
 # label_freq("unknown fname")  # unknown freq: return fname
 
 
-## label_prob: Create a label for a known probability in prob ----------
+## label_prob: Create a label for a known probability (in prob) ----------
 label_prob <- function(pname,
                        ltype = "default"  # label type: "default", "nam", "num", "namnum".
                        #, prob = prob, accu = accu, txt = txt  # use current lists
@@ -603,7 +603,7 @@ label_prob <- function(pname,
 # label_prob("unknown pname")  # unknown prob: return pname
 
 
-## name_prob: Determine the (name of the) prob that links 2 freq: ---------
+## name_prob: Determine the (name of the) prob that links 2 freq ---------
 
 name_prob <- function(freq1, freq2) {
 
