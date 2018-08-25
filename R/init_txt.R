@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 08 24
+## 2018 08 25
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -285,9 +285,10 @@ txt <- init_txt()
 # txt$scen.lbl <- "My favorite example" # sets a new scenario title
 
 
-## label_freq: Create a label for a known frequency (in freq) ----------
+## label_freq: Label a known frequency (in freq) ----------
 label_freq <- function(fname,
-                       ltype = "default"#,      # label type: "default", "nam", "num", "namnum".
+                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum".
+                       lbl_sep = " = "          # separator: " = " (default), ":\n"
                        #freq = freq, txt = txt  # use current lists
 ) {
 
@@ -297,8 +298,7 @@ label_freq <- function(fname,
   f_type <- NA
 
   ## (1) Determine the frequency value of freq corresponding to fname:
-
-  if (ltype != "nam") {
+  if (lbl_type != "nam") {
 
     if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
 
@@ -316,15 +316,14 @@ label_freq <- function(fname,
     }
   }
 
-  ## (2) Compose f_lbl based on ltype:
-
-  if (ltype == "num" || ltype == "val" ){
+  ## (2) Compose f_lbl based on lbl_type:
+  if (lbl_type == "num" || lbl_type == "val" ){
 
     # (a) Value:
     f_lbl <- as.character(f_val)
 
-  } else if ( ltype == "namnum" || ltype == "namval" ||
-              ltype == "full" || ltype == "all" ){
+  } else if ( lbl_type == "namnum" || lbl_type == "namval" ||
+              lbl_type == "full" || lbl_type == "all" ){
 
     ## (b) Name AND value of freq:
 
@@ -346,9 +345,9 @@ label_freq <- function(fname,
     if (tolower(fname) == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
     # Combine f_lbl with f_val (from above):
-    f_lbl <- paste0(f_lbl, " = ", as.character(f_val))
+    f_lbl <- paste0(f_lbl, lbl_sep, as.character(f_val))
 
-  } else if (ltype == "nam") {
+  } else if (lbl_type == "nam") {
 
     ## (c) ONLY the name of freq:
 
@@ -371,20 +370,19 @@ label_freq <- function(fname,
 
   } else {  ## "default":
 
-    ## (d) Any other ltype: Use basic fname + f_val as default:
-
-    f_lbl <- paste0(fname, " = ", as.character(f_val))
+    ## (d) Any other lbl_type: Use basic fname + f_val as default:
+    f_lbl <- paste0(fname, lbl_sep, as.character(f_val))
 
   }
 
   ## (3) Split/re-format long f_lbl into 2 lines of text:
   nchar_max <- 99  # criterium for f_lbl being too long (currently fixed)
 
-  # if f_lbl is too long and it contains a " = ":
-  if ((nchar(f_lbl) > nchar_max) && any(grep(pattern = " = ", x = f_lbl))) {
+  # if f_lbl is too long and it contains a lbl_sep (e.g., " = "):
+  if ((nchar(f_lbl) > nchar_max) && any(grep(pattern = lbl_sep, x = f_lbl))) {
 
     # Split into 2 parts:
-    lbl_parts <- unlist(strsplit(f_lbl, split = " = "))
+    lbl_parts <- unlist(strsplit(f_lbl, split = lbl_sep))
     lbl_part1 <- lbl_parts[1]  # 1st part of f_lbl
     lbl_part2 <- lbl_parts[2]  # 2nd part of f_lbl
 
@@ -397,18 +395,21 @@ label_freq <- function(fname,
 }
 
 # ## Check:
-# label_freq("cr", ltype = "num")
-# label_freq("cr", ltype = "nam")
-# label_freq("cr", ltype = "namnum")
-# label_freq("cr", ltype = "nix")  # default ltype
-# label_freq("dec.err", ltype = "all")
-# label_freq("dec.err")        # no ltype specified: use default
+# label_freq("hi")
+# label_freq("hi", lbl_sep = ":\n")
+# label_freq("cr", lbl_type = "num")
+# label_freq("cr", lbl_type = "nam")
+# label_freq("cr", lbl_type = "namnum")
+# label_freq("cr", lbl_type = "nix")  # default lbl_type
+# label_freq("dec.err", lbl_type = "all")
+# label_freq("dec.err")        # no lbl_type specified: use default
 # label_freq("unknown fname")  # unknown freq: return fname
 
 
-## label_prob: Create a label for a known probability (in prob) ----------
+## label_prob: Label a known probability (in prob) ----------
 label_prob <- function(pname,
-                       ltype = "default"  # label type: "default", "nam", "num", "namnum".
+                       lbl_type = "default",  # label type: "default", "nam", "num", "namnum".
+                       lbl_sep = " = "        # separator: " = " (default), ":\n"
                        #, prob = prob, accu = accu, txt = txt  # use current lists
 ) {
 
@@ -421,7 +422,7 @@ label_prob <- function(pname,
   n_dec <- 1  # number of decimals to round percentage to.
 
   ## (1) Determine the probability value p_val of prob corresponding to pname:
-  if (ltype != "nam") {
+  if (lbl_type != "nam") {
 
     if (tolower(pname) %in% tolower(names(prob))) { # if pname corresponds to named prob in prob:
 
@@ -457,9 +458,8 @@ label_prob <- function(pname,
 
   }
 
-  ## (2) Compose p_lbl based on ltype:
-
-  if (ltype == "num" || ltype == "val" ){
+  ## (2) Compose p_lbl based on lbl_type:
+  if (lbl_type == "num" || lbl_type == "val" ){
 
     # (a) Value only:
     if (is_prob(p_val)) {
@@ -469,11 +469,10 @@ label_prob <- function(pname,
       p_lbl <- paste0(as.character(p_val))  # Label p_val as is (as number)
     }
 
-  } else if ( ltype == "namnum" || ltype == "namval" ||
-              ltype == "full" || ltype == "all" ){
+  } else if ( lbl_type == "namnum" || lbl_type == "namval" ||
+              lbl_type == "full" || lbl_type == "all" ){
 
     ## (b) Name AND value of prob:
-
     if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
     if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
 
@@ -501,12 +500,12 @@ label_prob <- function(pname,
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
-      p_lbl <- paste0(p_lbl, " = ", as.character(as_pc(p_val, n.digits = n_dec)), "%")
+      p_lbl <- paste0(p_lbl, lbl_sep, as.character(as_pc(p_val, n.digits = n_dec)), "%")
     } else {
-      p_lbl <- paste0(p_lbl, " = ", as.character(p_val))  # Label p_val as is (as number)
+      p_lbl <- paste0(p_lbl, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
     }
 
-  } else if (ltype == "nam") {
+  } else if (lbl_type == "nam") {
 
     ## (c) ONLY the name of prob:
 
@@ -536,7 +535,7 @@ label_prob <- function(pname,
 
   } else {  ## "default":
 
-    ## (d) Any other ltype: Use basic pname + p_val as default:
+    ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
     # Special cases: Set pname to some default value:
 
@@ -558,9 +557,9 @@ label_prob <- function(pname,
     # Combine pname (NOT p_lbl) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
-      p_lbl <- paste0(pname, " = ", as.character(as_pc(p_val, n.digits = n_dec)), "%")
+      p_lbl <- paste0(pname, lbl_sep, as.character(as_pc(p_val, n.digits = n_dec)), "%")
     } else {
-      p_lbl <- paste0(pname, " = ", as.character(p_val))  # Label p_val as is (as number)
+      p_lbl <- paste0(pname, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
     }
 
   }
@@ -568,11 +567,11 @@ label_prob <- function(pname,
   ## (3) Split/re-format long p_lbl into 2 lines of text:
   nchar_max <- 99  # criterium for p_lbl being too long (currently fixed)
 
-  # if p_lbl is too long and it contains a " = ":
-  if ((nchar(p_lbl) > nchar_max) && any(grep(pattern = " = ", x = p_lbl))) {
+  # if p_lbl is too long and it contains a lbl_sep (e.g., " = "):
+  if ((nchar(p_lbl) > nchar_max) && any(grep(pattern = lbl_sep, x = p_lbl))) {
 
     # Split into 2 parts:
-    lbl_parts <- unlist(strsplit(p_lbl, split = " = "))
+    lbl_parts <- unlist(strsplit(p_lbl, split = lbl_sep))
     lbl_part1 <- lbl_parts[1]  # 1st part of p_lbl
     lbl_part2 <- lbl_parts[2]  # 2nd part of p_lbl
 
@@ -585,21 +584,22 @@ label_prob <- function(pname,
 }
 
 ## Check:
-# label_prob("prev", ltype = "default")
-# label_prob("sens", ltype = "nam")
-# label_prob("spec", ltype = "num")
-# label_prob("fart", ltype = "namnum")
-# label_prob("PPV", ltype = "namnum")
-# label_prob("NPV", ltype = "namnum")
+# label_prob("prev", lbl_type = "default")
+# label_prob("prev", lbl_sep = ":\n")
+# label_prob("sens", lbl_type = "nam")
+# label_prob("spec", lbl_type = "num")
+# label_prob("fart", lbl_type = "namnum")
+# label_prob("PPV", lbl_type = "namnum")
+# label_prob("NPV", lbl_type = "namnum")
 ## Special cases:
-# label_prob("cprev", ltype = "default")  # complement to prev
-# label_prob("cprev", ltype = "nam")      # complement to prev
-# label_prob("cprev", ltype = "namnum")   # complement to prev
-# label_prob("cppod", ltype = "default")
-# label_prob("pned", ltype = "namnum")
-# label_prob("acc", ltype = "default")
-# label_prob("cor", ltype = "nam")
-# label_prob("err", ltype = "namnum")
+# label_prob("cprev", lbl_type = "default")  # complement to prev
+# label_prob("cprev", lbl_type = "nam")      # complement to prev
+# label_prob("cprev", lbl_type = "namnum")   # complement to prev
+# label_prob("cppod", lbl_type = "default")
+# label_prob("pned", lbl_type = "namnum")
+# label_prob("acc", lbl_type = "default")
+# label_prob("cor", lbl_type = "nam")
+# label_prob("err", lbl_type = "namnum")
 # label_prob("unknown pname")  # unknown prob: return pname
 
 
@@ -675,9 +675,9 @@ name_prob <- function(freq1, freq2) {
 # name_prob("dec.cor", "N")
 # name_prob("dec.err", "N")
 #
-# label_prob(pname = name_prob("fa", "cond.false"), ltype = "default")
-# label_prob(pname = name_prob("hi", "dec.pos"), ltype = "namnum")
-# label_prob(pname = name_prob("N", "dec.err"), ltype = "namnum")
+# label_prob(pname = name_prob("fa", "cond.false"), lbl_type = "default")
+# label_prob(pname = name_prob("hi", "dec.pos"), lbl_type = "namnum")
+# label_prob(pname = name_prob("N", "dec.err"), lbl_type = "namnum")
 
 
 ## (*) Done: -------------------------------------
