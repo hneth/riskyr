@@ -279,9 +279,9 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
   ## Mark plot and margin area:
   col.plot <- "firebrick3"
-  box("plot", col = col.plot)
+  # box("plot", col = col.plot)
   mar.col <- "forestgreen"
-  box("figure", col = mar.col)
+  # box("figure", col = mar.col)
 
   ## Graphical parameters:
   col.prev <- prev.li  # prev help line
