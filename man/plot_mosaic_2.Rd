@@ -5,8 +5,8 @@
 \title{Plot a mosaic plot of population frequencies.}
 \usage{
 plot_mosaic_2(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cd", show.freq = FALSE,
-  show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
+  spec = num$spec, fart = NA, N = num$N, by = "cd", show.freq = TRUE,
+  show.prob = TRUE, show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, col.sdt = c(pal["hi"], pal["mi"], pal["fa"],
   pal["cr"]))
 }
