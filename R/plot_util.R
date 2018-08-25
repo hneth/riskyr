@@ -655,7 +655,7 @@ plot_ftype_label <- function(fname,               # name of a known freq
   # Plot text label:
   text(x, y,
        labels = ftype_lbl,
-       # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
        # col = col,   # pass on parameter
        ...)  # other parameters: pos, offset, ...
 
@@ -665,7 +665,7 @@ plot_ftype_label <- function(fname,               # name of a known freq
 }
 
 ## Check:
-# plot(0:1, 0:1) # 2 points
+# plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_ftype_label("N", .1, .9)
 # plot_ftype_label("cond.false", .2, .8, cex = .8)
 # plot_ftype_label("dec.pos", .3, .7, col = "red3")
