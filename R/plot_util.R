@@ -303,8 +303,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
-                      pt.pch = 21, pt.cex = 1, pt.lwd = 1,  # point options
-                      arr.code = 0,         # 0...none, 1+2...arrows, 3...double arrow
+                      pt_pch = 21, pt_cex = 1, pt_lwd = 1,  # point options
+                      arr_code = 0,         # 0...none, 1+2...arrows, 3...double arrow
                       ## Optional text label:
                       lbl = NA,             # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
@@ -334,12 +334,12 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
   ## (1) Draw an arrow between both points:
 
-  if (arr.code > 0) {
+  if (arr_code > 0) {
 
     # Draw an arrow between both points:
     arrows(x0, y0, x1, y1,
-           length = .10, angle = 45/2, code = arr.code,    # V shape (small)
-           # length = .10, angle = 90, code = arr.code,  # T shape
+           length = .10, angle = 45/2, code = arr_code,    # V shape (small)
+           # length = .10, angle = 90, code = arr_code,  # T shape
            col = col.fill,
            ...)  # lty, lwd, ...
 
@@ -351,21 +351,21 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
            col = col.fill,
            ...)  # lty, lwd, ...
 
-    if (arr.code < 0) {  # draw points:
+    if (arr_code < 0) {  # draw points:
 
-      if (arr.code == -1 || arr.code == -3) {
-        points(x0, y0, pch = pt.pch, cex = pt.cex,    # 1st point
-               lwd = pt.lwd, col = col.brd, bg = col.fill)
+      if (arr_code == -1 || arr_code == -3) {
+        points(x0, y0, pch = pt_pch, cex = pt_cex,    # 1st point
+               lwd = pt_lwd, col = col.brd, bg = col.fill)
       }
 
-      if (arr.code == -2 || arr.code == -3) {
-        points(x1, y1, pch = pt.pch, cex = pt.cex,    # 2nd point
-               lwd = pt.lwd, col = col.brd, bg = col.fill)
+      if (arr_code == -2 || arr_code == -3) {
+        points(x1, y1, pch = pt_pch, cex = pt_cex,    # 2nd point
+               lwd = pt_lwd, col = col.brd, bg = col.fill)
       }
 
     }
 
-  } # if (arr.code ...
+  } # if (arr_code ...
 
   ## (2) Optional text label: ------
 
@@ -386,21 +386,22 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot(0:10, 0:10, type = "n")  # empty canvas
 # # (1) line without labels:
 # plot_line(0, 10, 9, 10)  # basic line (without label)
-# plot_line(0, 9, 9, 9, arr.code = 1)  # basic arrow (without label)
-# plot_line(0, 8, 9, 8, arr.code = 2)  # basic arrow (without label)
-# plot_line(0, 7, 9, 7, arr.code = 3)  # double arrow (without label)
-# plot_line(0, 6, 9, 6, arr.code = -1) # arrow with points (without label)
-# plot_line(0, 5, 9, 5, arr.code = -2) # arrow with points (without label)
-# plot_line(0, 4, 9, 4, arr.code = -3) # arrow with points (without label)
+# plot_line(0, 9.5, 9, 9.5, arr_code = 0)  # no arrow (without label)
+# plot_line(0, 9, 9, 9, arr_code = 1)  # left arrow (without label)
+# plot_line(0, 8, 9, 8, arr_code = 2)  # right arrow (without label)
+# plot_line(0, 7, 9, 7, arr_code = 3)  # double arrow (without label)
+# plot_line(0, 6, 9, 6, arr_code = -1) # arrow with points (without label)
+# plot_line(0, 5, 9, 5, arr_code = -2) # arrow with points (without label)
+# plot_line(0, 4, 9, 4, arr_code = -3) # arrow with points (without label)
 # # (2) line with labels:
-# plot_line(0, 3, 9, 3, arr.code = 3,
+# plot_line(0, 3, 9, 3, arr_code = 3,
 #           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
-# plot_line(0, 2, 9, 2, lbl = "Label 2", arr.code = -3,
+# plot_line(0, 2, 9, 2, lbl = "Label 2", arr_code = -3,
 #           lbl.pos = 4, lbl.off = 1,
 #           col.fill = "firebrick", col.txt = "forestgreen",
 #           font = 2, cex = .8)  # basic with raised text label
-# plot_line(0, 1, 9, 9,  arr.code = -3,
-#           pt.pch = 22, pt.cex = 2, pt.lwd = 2,  # point paramters
+# plot_line(0, 1, 9, 9,  arr_code = -3,
+#           pt_pch = 22, pt_cex = 2, pt_lwd = 2,  # point paramters
 #           # Text label (with options):
 #           lbl.x = 10, lbl.y = 9,
 #           lbl = "Some label\nthat takes\nmultiple (3) lines",
@@ -409,23 +410,23 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           col = "gold", col.brd = "steelblue", col.txt = "steelblue",
 #           cex = .7, lty = 2, lwd = 2) # grapical parameters
 # # (3) probability lines:
-# plot_line(1, 9, 9, 9, arr.code = -3, lbl = label_prob("prev"),
+# plot_line(1, 9, 9, 9, arr_code = -3, lbl = label_prob("prev"),
 #           col.fill = comp_freq_col("cond.true"), col.txt = NA,
 #           lbl.pos = 3, cex = .8)  # horizontal
-# plot_line(2, 0, 2, 10, arr.code = -3, lbl = label_prob("PPV"),
+# plot_line(2, 0, 2, 10, arr_code = -3, lbl = label_prob("PPV"),
 #           col.fill = pal["ppv"], col.txt = pal["ppv"],
 #           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # vertical
-# plot_line(4, 1, 8, 10, arr.code = -3, lbl = label_prob("NPV", lbl_type = "namnum"),
+# plot_line(4, 1, 8, 10, arr_code = -3, lbl = label_prob("NPV", lbl_type = "namnum"),
 #           col.fill = pal["npv"], col.txt = pal["npv"],
 #           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
 
 
-## plot_arrs: Plot multiple (n.arr) arrows along a line: --------
+## plot_arrs: Plot multiple (n_arr) arrows along a line: --------
 ##      Note: Obsolete, as plot_line (defined above) is more flexible.
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
-                      n.arr = 2,            # number of arrows to draw
-                      l.arr = .10,          # length of arrows to draw
-                      a.arr = 45/2,         # angle of arrows to draw
+                      n_arr = 2,            # number of arrows to draw
+                      l_arr = .10,          # length of arrows to draw
+                      a_arr = 45/2,         # angle of arrows to draw
                       ## Optional label:
                       lbl = NA,         # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
@@ -440,17 +441,17 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
   # lines(c(x0, x1), c(y0, y1), ...)
 
 
-  ## (1) Draw n.arr arrows: ----
+  ## (1) Draw n_arr arrows: ----
 
-  # Split line into n.arr + 1 segments:
-  Ax = seq(x0, x1, length = n.arr + 1)
-  Ay = seq(y0, y1, length = n.arr + 1)
+  # Split line into n_arr + 1 segments:
+  Ax = seq(x0, x1, length = n_arr + 1)
+  Ay = seq(y0, y1, length = n_arr + 1)
 
   # Loop to draw all arrows:
-  for (i in 1:n.arr)
+  for (i in 1:n_arr)
   {
     arrows(Ax[i], Ay[i], Ax[i + 1], Ay[i + 1],
-           length = l.arr, angle = a.arr, code = 2, # arrow type: V or T?
+           length = l_arr, angle = a_arr, code = 2, # arrow type: V or T?
            ...)
   }
 
@@ -478,7 +479,7 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 # plot_arrs(0, .1, 1, .1, col = "grey", lbl = "Label 0")
 # plot_arrs(0, .2, 1, .2, col = "green3", lbl = "Label 1", pos = 3)
 # plot_arrs(0, .3, 1, .5, col = "blue3",
-#             n.arr = 3, l.arr = .25, a.arr = 20,
+#             n_arr = 3, l_arr = .25, a_arr = 20,
 #             lbl = "3 arrows", pos = 3, lwd = 2)
 # plot_arrs(0, .4, 1, .9, col = "black", lbl = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
 
@@ -860,13 +861,13 @@ plot_link <- function(box1, box2,                # 2 boxes
 # #
 # ## Link options:
 # ## (a) Link 2 freq boxes with a known prob:
-# plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr.code = -2)
+# plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr_code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
-# plot_link(box_ct, box_hi, 1, 3, arr.code = -3, col.fill = pal["hi"],
+# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col.fill = pal["hi"],
 #           lbl_type = "namnum", lbl.pos = NULL, col.txt = pal["hi"], cex = .8)
 # ## (a) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
-# plot_link(box_N, box_hi, 1, 2, arr.code = -3,
+# plot_link(box_N, box_hi, 1, 2, arr_code = -3,
 #           lbl = "given label in color",
 #           lbl.pos = 2, cex = .8,
 #           col.txt = "steelblue", col.fill = "sienna2", lwd = 3)
