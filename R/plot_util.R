@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 08 24
+## 2018 08 25
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -14,7 +14,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
                       ## Text labels:
                       type = NA,         # type of freq/box (to be shown as title below box)
                       show.freq = TRUE,  # option to show/hide frequency labels
-                      # ltype = "default", # label type of label_freq: "default" or "namnum"
+                      # lbl_type = "default", # label type of label_freq: "default" or "namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
                       fnum,              # frequency (as number).  ToDo: Derive fnum from type and/OR name!
                       ## Color options:
@@ -76,7 +76,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
       box.lbl <- paste0(fname, " = ", fnum)
 
       ## (b) Use label_freq to query global freq values:
-      # box.lbl <- label_freq(fname, ltype)  # use label_freq function (with ltype)
+      # box.lbl <- label_freq(fname, lbl_type)  # use label_freq function (with lbl_type)
 
     } else { # no fname specified:
 
@@ -195,11 +195,12 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,  # lengths of box (width and height)
                       ## Text labels:
-                      # lbl     = NA,       # label (in middle): freq
-                      # lbl.top = NA,       # title (at top)
-                      # lbl.bot = NA,       # caption (at bottom)
-                      ltype = "default",    # type of freq label
-                      show.type = FALSE,    # option to show/hide f_type label (at bottom)
+                      # lbl     = NA,        # label (in middle): freq
+                      # lbl.top = NA,        # title (at top)
+                      # lbl.bot = NA,        # caption (at bottom)
+                      lbl_type = "default",  # type of freq label
+                      lbl_sep = " = ",       # label separator (" = ", ":\n")
+                      show.type = FALSE,     # option to show/hide f_type label (at bottom)
                       ## Color options:
                       col.fill = col,  # if missing, color of fname freq is derived below
                       # col.brd = pal["brd"],
@@ -238,7 +239,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     # print(f_col)
 
     # (d) Label of frequency name and/or value:
-    f_lbl <- label_freq(fname, ltype)
+    f_lbl <- label_freq(fname, lbl_type, lbl_sep)
     # print(f_lbl)
 
     # (e) Label of frequency type:
@@ -279,19 +280,20 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 # ## Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
-#       xlim = c(0, 10), ylim = c(0, 6))  # empty canvas
+#        xlim = c(0, 10), ylim = c(0, 6))  # empty canvas
 # ## Basics:
 # plot_fbox(fname = "N", 5, 5, 1, 2/3)
+# plot_fbox(fname = "N", 5, 5, 3/2, 2/3, lbl_type = "namnum", lbl_sep = ":\nN = ")
 # plot_fbox(fname = "cond.true", 3, 4, 2, 2/3, show.type = TRUE)
-# plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, ltype = "nam", show.type = FALSE)
-# plot_fbox(fname = "hi", 2, 3, 1, 2/3, ltype = "nam", show.type = TRUE)
-# plot_fbox(fname = "mi", 4, 3, 1, 2/3, ltype = "num")
-# plot_fbox(fname = "fa", 6, 3, 1, 2/3, ltype = "namnum", show.type = FALSE)
+# plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, lbl_type = "nam", show.type = FALSE)
+# plot_fbox(fname = "hi", 2, 3, 1, 2/3, lbl_type = "nam", show.type = TRUE)
+# plot_fbox(fname = "mi", 4, 3, 1, 2/3, lbl_type = "num")
+# plot_fbox(fname = "fa", 6, 3, 1, 2/3, lbl_type = "namnum", show.type = FALSE)
 # plot_fbox(fname = "cr", 8, 3, 1, 2/3)
-# plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3, ltype = "namnum")
+# plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3, lbl_type = "namnum")
 # plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
 # plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
-# plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, ltype = "namnum")
+# plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, lbl_type = "namnum")
 # plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "green2", col.brd = "red3", cex = .6, lwd = 3)
 # ## arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
@@ -413,7 +415,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(2, 0, 2, 10, arr.code = -3, lbl = label_prob("PPV"),
 #           col.fill = pal["ppv"], col.txt = pal["ppv"],
 #           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # vertical
-# plot_line(4, 1, 8, 10, arr.code = -3, lbl = label_prob("NPV", ltype = "namnum"),
+# plot_line(4, 1, 8, 10, arr.code = -3, lbl = label_prob("NPV", lbl_type = "namnum"),
 #           col.fill = pal["npv"], col.txt = pal["npv"],
 #           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
 
@@ -745,7 +747,7 @@ plot.box <- function(obj, ...) {
 # plot(box_b1)  # plot box with arbitrary label (and default color)
 # plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-# plot(box_mi, ltype = "nam",
+# plot(box_mi, lbl_type = "nam",
 #      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
 
 
@@ -757,7 +759,8 @@ plot.box <- function(obj, ...) {
 plot_link <- function(box1, box2,                # 2 boxes
                       pos1 = NULL, pos2 = NULL,  # 2 positions: NULL = center, bltr
                       lbl = NA,                  # lbl (derived automatically, if NA)
-                      ltype = "default",         # ltype ("default", "nam", "num", "namnum")
+                      lbl_type = "default",      # lbl_type ("default", "nam", "num", "namnum")
+                      lbl_sep = " = ",           # label separator (" = ", ":\n")
                       ...) {
 
   # (1) Determine link coordinates:
@@ -806,7 +809,6 @@ plot_link <- function(box1, box2,                # 2 boxes
 
   # (2) Check if no lbl exists and link is a known prob.
   #     If so, label it accordingly:
-
   if (!is.na(lbl)) {  # lbl is specified:
 
     # (a) plot line with the current lbl:
@@ -818,7 +820,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 
     if (!is.na(pname)) {  # A pname is found (not NA)/prob is known:
 
-      p_lbl <- label_prob(pname, ltype)  # make p_lbl from label_prob
+      p_lbl <- label_prob(pname, lbl_type, lbl_sep)  # make p_lbl from label_prob
 
       # (b) plot line with this p_lbl:
       plot_line(x1, y1, x2, y2, lbl = p_lbl, ...)
@@ -861,7 +863,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 # plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr.code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
 # plot_link(box_ct, box_hi, 1, 3, arr.code = -3, col.fill = pal["hi"],
-#           ltype = "namnum", lbl.pos = NULL, col.txt = pal["hi"], cex = .8)
+#           lbl_type = "namnum", lbl.pos = NULL, col.txt = pal["hi"], cex = .8)
 # ## (a) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
 # plot_link(box_N, box_hi, 1, 2, arr.code = -3,
