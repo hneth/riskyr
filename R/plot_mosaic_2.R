@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 08 19
+## 2018 08 25
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area (size and proportion) ----
 ## from 3 essential probabilities (prev, sens, spec)
@@ -50,7 +50,7 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 
 }
 
-## plot_mosaic_2: Main function ----------
+## plot_mosaic_2: Documentation ----------
 
 #' Plot a mosaic plot of population frequencies.
 #'
@@ -177,14 +177,16 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #'
 #' @export
 
+## plot_mosaic_2: Definition ----------
+
 plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                           sens = num$sens, mirt = NA,
                           spec = num$spec, fart = NA,
                           N = num$N,  # not needed in Mosaic plot (but used in comp_freq below)
                           ## Options:
                           by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
-                          show.freq = FALSE,  # show labels of 4 frequencies in plot
-                          show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
+                          show.freq = TRUE,  # show labels of 4 frequencies in plot
+                          show.prob = TRUE,  # show help_line (for metrics, e.g., prev, sens, spec)?
                           show.accu = TRUE,   # compute and show accuracy metrics
                           w.acc = .50,        # weight w for wacc (from 0 to 1)
                           ## Text and color options: ##
@@ -457,8 +459,6 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
       prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
       lty.prev <- 1  # prev line type
 
-
-
       ## Show prev as horizontal help_line:
       help_line(0, y.prev, prev, y.prev,
                 col = col.prev, col.bord = col.bord,
@@ -512,18 +512,19 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   } # if (by == ...)
 
   ## Title and margin text:
-  title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
+  title(cur.title.lbl, adj = 0.0, line = 1.5, font.main = 1) # (centered, raised, normal font)
 
 }
 
 ## Check:
-{
-  # plot_mosaic_2()
-  # plot_mosaic_2(title.lbl = "")
-  # plot_mosaic_2(by = "dc")
-  # plot_mosaic_2(title.lbl = "Just testing", col.sdt = "goldenrod")
-}
+# plot_mosaic_2()
+# plot_mosaic_2(title.lbl = "")
+# plot_mosaic_2(by = "dc")
+# plot_mosaic_2(title.lbl = "Just testing", col.sdt = "goldenrod")
 
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 25]
 
 ## (+) ToDo: ----------
 
