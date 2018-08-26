@@ -1,132 +1,131 @@
 ## init_pal.R | riskyr
-## 2018 08 14
-## -----------------------------------------------
+## 2018 08 26
 ## Define and initialize the current set
 ## of custom colors (pal):
-
+## -----------------------------------------------
 ## pal contains defaults for user inputs.
 
-## -----------------------------------------------
-## (A) Define colors:
+## (A) Define colors: ----------
 
-## -----------------------------------------------
-## (1) Choose and name some colors:
+## (1) Select and name some colors: ---------
 
-{
-  ## (1) from uni.kn:
-  seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
+## (1) from uni.kn:
+seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
 
-  ## (2) from https://bootswatch.com/sandstone/:
-  col.sand.light <- rgb(248, 245, 240, max = 255)
-  col.sand.mid   <- rgb(142, 140, 132, max = 255)
-  col.sand.dark  <- rgb(62, 63, 58, max = 255)
+## (2) from https://bootswatch.com/sandstone/:
+col.sand.light <- rgb(248, 245, 240, max = 255)
+col.sand.mid   <- rgb(142, 140, 132, max = 255)
+col.sand.dark  <- rgb(62, 63, 58, max = 255)
 
-  col.grey.1 <- rgb(181, 179, 174, max = 255)
-  col.grey.2 <- rgb(123, 121, 113, max = 255)
-  col.grey.3 <- "grey25"
-  col.grey.4 <- "grey10"
+col.grey.1 <- rgb(181, 179, 174, max = 255)
+col.grey.2 <- rgb(123, 121, 113, max = 255)
+col.grey.3 <- "grey25"
+col.grey.4 <- "grey10"
 
-  col.green.1 <- rgb(184, 217, 137, max = 255)
-  col.green.2 <- rgb(128, 177, 57, max = 255)
+col.green.1 <- rgb(184, 217, 137, max = 255)
+col.green.2 <- rgb(128, 177, 57, max = 255)
 
-  col.red.1 <- rgb(230, 142, 140, max = 255)
-  col.red.2 <- rgb(210, 52, 48, max = 255)
+col.red.1 <- rgb(230, 142, 140, max = 255)
+col.red.2 <- rgb(210, 52, 48, max = 255)
 
-  col.blue.1 <- rgb(115, 200, 234, max = 255)
-  col.blue.2 <- rgb(121, 149, 177, max = 255)
-  col.blue.3 <- rgb(29, 149, 198, max = 255)
-  col.blue.4 <- rgb(40, 74, 108, max = 255)
+col.blue.1 <- rgb(115, 200, 234, max = 255)
+col.blue.2 <- rgb(121, 149, 177, max = 255)
+col.blue.3 <- rgb(29, 149, 198, max = 255)
+col.blue.4 <- rgb(40, 74, 108, max = 255)
 
-  col.orange.1 <- rgb(247, 169, 127, max = 255)
-  col.orange.2 <- rgb(242, 100, 24, max = 255)
+col.orange.1 <- rgb(247, 169, 127, max = 255)
+col.orange.2 <- rgb(242, 100, 24, max = 255)
 
-  ## (3) basic colors + transparency:
-  my.red   <- "tomato3"
-  my.blue  <- "steelblue3"
-  my.green <- "olivedrab4"
+## (3) basic colors + transparency:
 
-  my.yellow <- "lightgoldenrod1"
-  my.orange <- "sienna1"
+my.red   <- "tomato3"
+my.blue  <- "steelblue3"
+my.green <- "olivedrab4"
 
-  green.1 <- makeTransparent(my.green, alpha = .50)
-  green.2 <- makeTransparent(my.green, alpha = 1.0)
+my.yellow <- "lightgoldenrod1"
+my.orange <- "sienna1"
 
-  red.1 <- makeTransparent(my.red, alpha = .50)
-  red.2 <- makeTransparent(my.red, alpha = 1.0)
+green.1 <- makeTransparent(my.green, alpha = .50)
+green.2 <- makeTransparent(my.green, alpha = 1.0)
 
-  blue.1 <- makeTransparent(my.blue, alpha = .50)
-  blue.2 <- makeTransparent(my.blue, alpha = 1.0)
+red.1 <- makeTransparent(my.red, alpha = .50)
+red.2 <- makeTransparent(my.red, alpha = 1.0)
 
-  yellow.1 <- makeTransparent(my.yellow, alpha = .50)
-  yellow.2 <- makeTransparent(my.yellow, alpha = 1.0)
+blue.1 <- makeTransparent(my.blue, alpha = .50)
+blue.2 <- makeTransparent(my.blue, alpha = 1.0)
 
-  orange.1 <- makeTransparent(my.orange, alpha = .50)
-  orange.2 <- makeTransparent(my.orange, alpha = 1.0)
+yellow.1 <- makeTransparent(my.yellow, alpha = .50)
+yellow.2 <- makeTransparent(my.yellow, alpha = 1.0)
 
-  my.whitish <- "antiquewhite" # "whitesmoke"
-  my.bluish <- "aliceblue"
+orange.1 <- makeTransparent(my.orange, alpha = .50)
+orange.2 <- makeTransparent(my.orange, alpha = 1.0)
 
-  ## help lines:
-  prev.li <- "gold"       # "aliceblue"
-  sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
-  spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
+my.whitish <- "antiquewhite" # "whitesmoke"
+my.bluish <- "aliceblue"
 
-}
 
-## -----------------------------------------------
-## (2) Assign some colors to recurring elements/roles
+## (2) Assign colors to recurring elements/roles ----------
 ##     (to set default colors for plots and app display):
 
-{
-  ## (a) Define base color (for population N):
-  col.N <- grey(.90, .99)  # "white", col.grey.1
+## (a) Define base color (for population N):
 
-  ## (b) by condition: Define 2 colors for condition cases:
-  col.true  <- my.yellow        # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
-  col.false <- "lightskyblue2"  #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
-  ## Combine in a named vector:
-  cond.colors <- setNames(c(col.true, col.false),
-                          c("true", "false")
-                          )
+col.N <- grey(.90, .99)  # "white", col.grey.1
 
-  ## (c) by decision: Define 3 colors for decision cases:
-  col.pos <- "rosybrown3" # "khaki", my.whitish
-  col.neg <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my.bluish, "chartreuse4"
-  ## Combine in a named vector:
-  dec.colors <- setNames(c(col.pos, col.neg),
-                         c("pos", "neg")
-                         )
+## (b) by condition: Define 2 colors for condition cases:
 
-  ## (d) Accuracy colors:
-  col.cor <- "palegreen3" # "forestgreen" # correct/accurate decisions
-  col.err <- "firebrick3" # erroneous/inaccurate decisions
+col.true  <- my.yellow        # "lightgoldenrod1" "gold1", col.orange.1, "yellow2"
+col.false <- "lightskyblue2"  #, my.blue, "deepskyblue1" # "lightskyblue2" # col.blue.1
+## Combine in a named vector:
+cond.colors <- setNames(c(col.true, col.false),
+                        c("true", "false"))
 
-  acc.colors <- setNames(c(col.cor, col.err),
-                         c("cor", "err")
-                         )
+## (c) by decision: Define 3 colors for decision cases:
 
-  ## (e) by condition x decision: Define 4 colors for SDT cases:
-  col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2, "chartreuse4"
-  col.mi <- my.red          # "tomato3", "orangered3", "firebrick3", col.red.2
-  col.fa <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
-  col.cr <- "olivedrab3"    # "springgreen2" # "palegreen3" # col.green.1
-  ## Combine in a named vector:
-  sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
-                         c("hi", "mi", "fa", "cr")
-                         )
+col.pos <- "rosybrown3" # "khaki", my.whitish
+col.neg <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my.bluish, "chartreuse4"
+## Combine in a named vector:
+dec.colors <- setNames(c(col.pos, col.neg),
+                       c("pos", "neg"))
 
-  ## (f) Define 2 colors for PVs:
-  col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
-  col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
+## (d) Accuracy colors:
 
-  ## (g) Other colors:
-  col.txt <- grey(.01, .99)  # near "black" text labels, NA removes text?
-  col.brd <- grey(.20, .99)  # greyish borders, NA removes borders
+col.cor <- "palegreen3" # "forestgreen" # correct/accurate decisions
+col.err <- "firebrick3" # erroneous/inaccurate decisions
 
-}
+acc.colors <- setNames(c(col.cor, col.err),
+                       c("cor", "err"))
 
-## -----------------------------------------------
-## (3) Define corresponding default palette:
+## (e) by condition x decision: Define 4 colors for SDT cases:
+
+col.hi <- my.green        # "olivedrab4", "palegreen4", col.green.2, "chartreuse4"
+col.mi <- my.red          # "tomato3", "orangered3", "firebrick3", col.red.2
+col.fa <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col.red.1
+col.cr <- "olivedrab3"    # "springgreen2" # "palegreen3" # col.green.1
+## Combine in a named vector:
+sdt.colors <- setNames(c(col.hi, col.mi, col.fa, col.cr),
+                       c("hi", "mi", "fa", "cr")
+)
+
+## (f) Define 2 colors for PVs:
+
+col.ppv <- my.orange  # "sienna1" # col.orange.2 # "orange3" "firebrick" "red3"
+col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
+
+## (g) Other colors:
+
+## Text and borders:
+
+col.txt <- grey(.01, .99)  # near "black" text labels, NA removes text?
+col.brd <- grey(.20, .99)  # greyish borders, NA removes borders
+
+## Probability lines within Mosaic plots:
+
+prev.li <- "gold"       # "aliceblue"
+sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
+spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
+
+
+## (3) Define corresponding default palette: ----------
 
 pal.def <- c(col.N,
              cond.colors, dec.colors, acc.colors,
@@ -139,13 +138,13 @@ pal.def <- setNames(object = pal.def,
                            names(sdt.colors),
                            "ppv", "npv",
                            "txt", "brd")
-                    )
+)
 n.colors <- length(pal.def)  # number of colors for which defaults are defined
 # n.colors
 
-## -----------------------------------------------
-## (B) Initialization function for all color
-##     elements (all titles and labels):
+## (B) Initialization function for all color elements (titles and labels): ----------
+
+## init_pal: Documentation ------
 
 #' Initialize basic color information.
 #'
@@ -217,7 +216,8 @@ n.colors <- length(pal.def)  # number of colors for which defaults are defined
 #' @importFrom stats setNames
 #'
 #' @export
-#'
+
+## init_pal: Definition ------
 
 init_pal <- function(col.N = pal.def["N"],          # population N
                      ## by condition:
@@ -276,7 +276,7 @@ init_pal <- function(col.N = pal.def["N"],          # population N
                          names(cond.colors), names(dec.colors), names(acc.colors),
                          names(sdt.colors),
                          "ppv", "npv", "txt", "brd")
-                  )
+  )
 
   ## 4. Return vector:
   return(pal)
@@ -284,16 +284,16 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 }
 
 ## Check:
-{
-  # init_pal()          # => define and return a vector of current (default) colors
-  # length(init_pal())  # => 15 named colors
-  # pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
-  # pal <- init_pal(col.brd = NA)          # => remove a color
-}
 
-## -----------------------------------------------
-## (C) Initialize a vector pal to contain
-##     all current color information:
+# init_pal()          # => define and return a vector of current (default) colors
+# length(init_pal())  # => 15 named colors
+# pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
+# pal <- init_pal(col.brd = NA)          # => remove a color
+
+
+## (C) Initialize vector pal with current color information: ----------
+
+## pal: Documentation ------
 
 #' List current values of basic color information.
 #'
@@ -375,58 +375,57 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' \code{\link{comp_prob}} computes current probability information.
 #'
 #' @export
-#'
 
-## Apply:
-pal <- init_pal()
+## pal: Definition ------
+
+pal <- init_pal()  ## apply
 
 ## Check:
-{
-  # pal
-  # length(pal)
-  # pal[2] == pal["true"]
-}
+# pal
+# length(pal)
+# pal[2] == pal["true"]
 
-## -----------------------------------------------
-## ggplot themes:
 
-{
-  #   library("ggplot2")
-  #
-  #   my.theme <-  theme_bw() +
-  #     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
-  #           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-  #           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-  #           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
-  #           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
-  #           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
-  #           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-  #           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
-  #           # panel.grid.minor.x = element_blank(),
-  #           # panel.grid.minor.y = element_blank(),
-  #           legend.position = "none"
-  #     )
-  #
-  #   my.theme.legend <- theme_bw() +
-  #     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
-  #           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-  #           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-  #           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
-  #           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
-  #           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
-  #           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-  #           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
-  #           # panel.grid.minor.x = element_blank(),
-  #           # panel.grid.minor.y = element_blank()#,
-  #           # legend.position = "none"
-  #     )
-}
+## (D) Legacy code: ggplot themes: ----------
 
-## -----------------------------------------------
-## (+) ToDo:
+#   library("ggplot2")
+#
+#   my.theme <-  theme_bw() +
+#     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+#           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+#           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+#           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
+#           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
+#           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+#           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+#           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
+#           # panel.grid.minor.x = element_blank(),
+#           # panel.grid.minor.y = element_blank(),
+#           legend.position = "none"
+#     )
+#
+#   my.theme.legend <- theme_bw() +
+#     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
+#           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
+#           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
+#           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
+#           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
+#           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
+#           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
+#           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
+#           # panel.grid.minor.x = element_blank(),
+#           # panel.grid.minor.y = element_blank()#,
+#           # legend.position = "none"
+#     )
+
+
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 26]
+
+## (+) ToDo: ----------
 
 ## - Add pre-defined color palettes & transparency
 ## - Make colors user-customizable
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
