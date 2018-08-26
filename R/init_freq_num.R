@@ -510,6 +510,7 @@ comp_freq_type <- function(fname) {
 # comp_freq_type("false")  # => typeless (as full name is required)
 
 ## comp_freq_col: Determine the color of a named frequency (freq):  ----------
+
 comp_freq_col <- function(fname) {
 
   # initialize:
