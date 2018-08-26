@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 08 21
+## 2018 08 26
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1375,8 +1375,8 @@ add_legend <- function(...) {
   ## Source: https://stackoverflow.com/questions/3932038/plot-a-legend-outside-of-the-plotting-area-in-base-graphics
 
   opar <- par(fig = c(0, 1, 0, 1),
-              oma = c(0, 0, 0, 0),
               mar = c(0, 0, 0, 0),
+              oma = c(0, 0, 0, 0),
               new = TRUE)
 
   on.exit(par(opar))
@@ -1385,6 +1385,80 @@ add_legend <- function(...) {
 
   legend(...)
 }
+
+## Check:
+add_legend()
+
+## plot_wrap: Wrap a plot in common margin etc. ------
+
+plot_wrap <- function(...) {
+
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## Define areas:
+  par(mar = c(5, 4, 4, 2) + 0.1)  # margin sides: default = c(5.1, 4.1, 4.1, 2.1)
+  par(oma = c(1, 0, 0, 0))        # outer margins: all sides have 3 lines of space
+
+  plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
+
+  ## Plotting commands:
+  box("plot", col = "firebrick")
+  box("figure", col = "forestgreen")
+  box("outer", col = "steelblue")
+
+  ## Margin text: ------
+  m_col <- grey(.33, .99)
+  m_cex <- .85
+
+  ## (a) Condition label:
+  cur.cond.lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)
+  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
+
+  ## (b) Decision label:
+  cur.dec.lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
+  mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = m_col, cex = m_cex)  # print label
+
+  ## (c) Accuracy label:
+  w.acc <- .50
+  cur.accu <- comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info
+
+  cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
+  mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)  # print label
+
+  ## (d) Area note:
+  area.lbl <- "Areas represent relative frequencies."
+
+  cur.area.lbl <- paste0("(", area.lbl, ")")
+  mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = m_col, cex = m_cex)  # print label
+
+  ## Outer margin text: ------
+
+  ## (e) Imprint:
+  mtext("[riskyr] ", side = 1, line = 0, adj = 1, col = m_col, cex = m_cex, outer = TRUE)
+
+  invisible()  # restores par(opar)
+}
+
+## Check:
+# plot_wrap()
+
+## ex: Restore old par settings (from ?par) ------
+
+ex <- function() {
+
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## ...
+  ## ... do lots of par() settings and plots
+  ## ...
+
+  invisible()  # restores par(opar)
+}
+
+## Check:
+ex()
 
 ## makeTransparent: Make colors transparent ----------
 
