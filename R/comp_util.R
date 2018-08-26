@@ -1387,7 +1387,7 @@ add_legend <- function(...) {
 }
 
 ## Check:
-add_legend()
+# add_legend()  # requires a legend argument.
 
 ## plot_wrap: Wrap a plot in common margin etc. ------
 
@@ -1458,7 +1458,7 @@ ex <- function() {
 }
 
 ## Check:
-ex()
+# ex()
 
 ## makeTransparent: Make colors transparent ----------
 
