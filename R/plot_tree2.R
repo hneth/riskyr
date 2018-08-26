@@ -1,5 +1,5 @@
 ## plot_tree2.R | riskyr
-## 2018 08 23
+## 2018 08 26
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 4:
@@ -907,11 +907,11 @@ plot_tree2 <- function(prev = num$prev,             # probabilities
 
   ## (8) Margin text: ------
 
-  ## (a) by condition: 3 basic probabilities
+  ## (a) by condition: Note 3 basic probabilities
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
-  # (b) by decision:
+  # (b) by decision: Note ppod, PPV, and NPV
   if (by != "cd") {
 
     cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
@@ -921,9 +921,12 @@ plot_tree2 <- function(prev = num$prev,             # probabilities
 
   ## (c) Accuracy: Compute and show accuracy metrics
   if (show.accu) {
+
     cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info
+
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
     mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+
   }
 
   ## (d) Note that areas represent frequencies:
@@ -931,6 +934,7 @@ plot_tree2 <- function(prev = num$prev,             # probabilities
 
     cur.area.lbl <- paste0("(", area.lbl, ")")
     mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+
   }
 
 
