@@ -801,7 +801,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 ## 4. Call plot_link with p_lbl as lbl
 
 
-## (4) Box objects: ----------
+## (4) Define and create box objects: ----------
 
 ## Define objects: Create an object of type "box" as a list: ----------
 box0 <- list(name = "box0_name", x = .5, y = .5, lx = 1, ly = 1)  # object as list
@@ -878,9 +878,9 @@ plot.box <- function(obj, ...) {
 
 
 
-## (5) Other plotting functions: ----------
+## (5) Miscellaneous plotting functions: ----------
 
-## plot_ftype_label: Label the type corresponding to fname at (x, y): ----------
+## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
                              # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
@@ -919,7 +919,7 @@ plot_ftype_label <- function(fname,               # name of a known freq
 # plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
 
 
-## makeTransparent: Make colors transparent ------
+## makeTransparent: Make color transparent ------
 
 makeTransparent = function(..., alpha = .50) {
 
@@ -944,7 +944,7 @@ makeTransparent = function(..., alpha = .50) {
 ## Note also: adjustcolor(col = "green", alpha.f = .50)
 
 
-## factors_min_diff: Helper for dynamic calculation of block size (in plot_iconarray.R) ------
+## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
 
 factors_min_diff <- function (n) {
   n_sqrt <- sqrt(n)
