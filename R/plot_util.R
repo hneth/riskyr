@@ -78,7 +78,7 @@ make_accu_lbl <- function(acc, w, wacc, mcc) {
                 wacc.lbl,
                 "mcc = ", round(mcc, 2),
                 "   "  # add space at end
-                )
+  )
 
   return(lbl)
 
@@ -117,6 +117,8 @@ plot_mar <- function(show_freq = TRUE,
                      note = "",
                      ...) {
 
+  ## (A) Preparations: ----
+
   ## Record graphical parameters (par):
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
   on.exit(par(opar))
@@ -124,9 +126,11 @@ plot_mar <- function(show_freq = TRUE,
   ## Plot on existing plot:
   par(new = TRUE)  # TRUE ... adds to an existing plot; FALSE ... starts a new plot.
 
-  ## Define areas:
-  par(mar = c(2, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
-  par(oma = c(1, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+  ## Define margin areas:
+  n_lines_mar <- 3
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
 
   ## Plot empty canvas:
   plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
@@ -136,56 +140,79 @@ plot_mar <- function(show_freq = TRUE,
   # box("figure", col = "forestgreen")
   # box("outer", col = "steelblue")
 
-  ## Margin text:
+  ## (B) Margin text: ----
+
   m_col <- grey(.33, .99)
   m_cex <- .85
 
+  ## on left (adj = 0):
+
   ## (1) Frequency label:
   if (show_freq) {
-  freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
-  mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print label
+    freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
+    mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print label
   }
 
   ## (2) Condition label:
   if (show_cond) {
-  cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)
-  mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
+    cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)
+    mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
+  }
+
+  ## (5) Note:
+  if (nchar(note) > 0) {
+    note_lbl <- paste0("Note:  ", note, "")
+    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)
+  }
+
+  ## on right (adj = 1):
+
+  ## (4) Accuracy label:
+  if (show_accu) {
+    w.acc <- .50
+    cur.accu <- comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info
+
+    accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
+    mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
   }
 
   ## (3) Decision label:
   if (show_dec) {
-  dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
-  mtext(dec_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
-  }
-
-  ## (4) Accuracy label:
-  if (show_accu) {
-  w.acc <- .50
-  cur.accu <- comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info
-
-  accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
-  mtext(accu_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
-  }
-
-  ## Outer margin text: ------
-  m_col <- grey(.22, .99)
-  m_cex <- .75
-
-  ## (5) Note:
-  if (nchar(note) > 0) {
-  note_lbl <- paste0("Note: ", note, "")
-  mtext(paste0("  ", note_lbl), side = 1, line = 0, adj = 0, col = m_col, cex = m_cex, outer = TRUE)
+    dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
+    mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
   }
 
   ## (6) Imprint:
-  imprint_lbl <- "riskyr"
-  mtext(paste0("[", imprint_lbl, "] "), side = 1, line = 0, adj = 1, col = m_col, cex = m_cex, outer = TRUE)
+  imprint_lbl <- ""  # "[\uA9riskyr]"
+  mtext(paste0(imprint_lbl, " "), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
+
+
+  ## (C) Outer margin text: ----
+
+  if (n_lines_oma > 0) {
+
+    m_col <- grey(.14, .99)
+    m_cex <- .75
+
+    ## (7) Note:
+    if (nchar(note) > 0) {
+      note_lbl <- paste0("Note:  ", note, "")
+      mtext(paste0("  ", note_lbl, ""), side = 1, line = 0, adj = 0, col = m_col, cex = m_cex, outer = TRUE)
+    }
+
+    ## (8) Imprint:
+    imprint_lbl <- "" # [\uA9riskyr]"
+    mtext(paste0(imprint_lbl, " "), side = 1, line = 0, adj = 1, col = m_col, cex = m_cex, outer = TRUE)
+
+  }
+
+  ## (D) Finish: ----
 
   invisible()  # restores par(opar)
 }
 
 ## Check:
-# plot_mar()  # plots on existing plot, OR starts new plot (+ warning)
+# plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
 
 ## (3) Plotting boxes and links: ----------
 
