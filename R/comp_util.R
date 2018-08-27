@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 08 26
+## 2018 08 27
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -8,6 +8,7 @@
 ## (C) Display functions
 ## (D) Graphic functions
 ## (E) Graph labels (by cond, dec, accu)
+
 
 ## (A) Verification functions: -------------------
 
@@ -587,6 +588,7 @@ is_complement <- function(p1, p2, tol = .01) {
   # # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
   # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 }
+
 
 
 ## (B) Beware of extreme cases: ----------
@@ -1190,6 +1192,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
   # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
 }
 
+
 ## (C) Display functions: ------------------------
 
 ## Toggle between showing probabilities and percentages:
@@ -1363,207 +1366,15 @@ as_pb <- function(perc, n.digits = 4) {
 }
 
 
+
 ## (D) Graphic functions: ------------------------
 
-## Reformat the plotting area to allow placing
-## legend outside of a plot:
-
-## add_legend: Reformat plotting area to place legend outside of plot ------
-
-add_legend <- function(...) {
-  ## Reformat the plotting area to allow placing legend outside of a plot
-  ## Source: https://stackoverflow.com/questions/3932038/plot-a-legend-outside-of-the-plotting-area-in-base-graphics
-
-  opar <- par(fig = c(0, 1, 0, 1),
-              mar = c(0, 0, 0, 0),
-              oma = c(0, 0, 0, 0),
-              new = TRUE)
-
-  on.exit(par(opar))
-
-  plot(0, 0, type = 'n', bty = 'n', xaxt = 'n', yaxt = 'n')
-
-  legend(...)
-}
-
-## Check:
-# add_legend()  # requires a legend argument.
-
-## plot_wrap: Wrap a plot in common margin etc. ------
-
-plot_wrap <- function(...) {
-
-  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
-  on.exit(par(opar))
-
-  ## Define areas:
-  par(mar = c(5, 4, 4, 2) + 0.1)  # margin sides: default = c(5.1, 4.1, 4.1, 2.1)
-  par(oma = c(1, 0, 0, 0))        # outer margins: all sides have 3 lines of space
-
-  plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-
-  ## Plotting commands:
-  box("plot", col = "firebrick")
-  box("figure", col = "forestgreen")
-  box("outer", col = "steelblue")
-
-  ## Margin text: ------
-  m_col <- grey(.33, .99)
-  m_cex <- .85
-
-  ## (a) Condition label:
-  cur.cond.lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
-
-  ## (b) Decision label:
-  cur.dec.lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
-  mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = m_col, cex = m_cex)  # print label
-
-  ## (c) Accuracy label:
-  w.acc <- .50
-  cur.accu <- comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info
-
-  cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
-  mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)  # print label
-
-  ## (d) Area note:
-  area.lbl <- "Areas represent relative frequencies."
-
-  cur.area.lbl <- paste0("(", area.lbl, ")")
-  mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = m_col, cex = m_cex)  # print label
-
-  ## Outer margin text: ------
-
-  ## (e) Imprint:
-  mtext("[riskyr] ", side = 1, line = 0, adj = 1, col = m_col, cex = m_cex, outer = TRUE)
-
-  invisible()  # restores par(opar)
-}
-
-## Check:
-# plot_wrap()
-
-## ex: Restore old par settings (from ?par) ------
-
-ex <- function() {
-
-  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
-  on.exit(par(opar))
-
-  ## ...
-  ## ... do lots of par() settings and plots
-  ## ...
-
-  invisible()  # restores par(opar)
-}
-
-## Check:
-# ex()
-
-## makeTransparent: Make colors transparent ----------
-
-makeTransparent = function(..., alpha = .50) {
-
-  if (alpha < 0 | alpha > 1) {
-    stop("The value for alpha must be between 0 and 1")
-  }
-
-  alpha <- floor(255 * alpha)
-  newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
-
-  .makeTransparent <- function(col, alpha) {
-    rgb(red = col[1], green = col[2], blue = col[3],
-        alpha = alpha, maxColorValue = 255)
-  }
-
-  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
-
-  return(newColor)
-
-}
-
-## Note also: adjustcolor(col = "green", alpha.f = .50)
-
-
-## factors_min_diff: Helper for dynamic calculation of block size (in plot_iconarray.R) ----------
-
-factors_min_diff <- function (n) {
-  n_sqrt <- sqrt(n)
-  lower <- floor(n_sqrt)
-  upper <- ceiling(n_sqrt)
-
-  while (lower * upper != n) {
-    if (lower * upper > n) { lower <- lower - 1 }
-    if (lower * upper < n) { upper <- upper + 1 }
-  }
-
-  return(c(lower, upper))
-}
-
-
-## (E) Graph labels: -----------------------------
-
-## (a) make_cond_lbl: Current condition parameter values -----------
-
-make_cond_lbl <- function(prev, sens, spec) {
-
-  lbl <- ""  # initialize
-
-  lbl <- paste0("Conditions: ",
-                "prev = ", as_pc(prev, n.digits = 1), "%, ",
-                "sens = ", as_pc(sens, n.digits = 1), "%, ",
-                "spec = ", as_pc(spec, n.digits = 1), "%"
-  )
-
-  return(lbl)
-
-}
-
-## (b) make_dec_lbl: Current decision parameter values --------
-
-make_dec_lbl <- function(ppod, PPV, NPV) {
-
-  lbl <- ""  # initialize
-
-  lbl <- paste0("Decisions:  ",
-                "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
-                "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
-                "NPV = ", as_pc(NPV, n.digits = 1), "%"
-  )
-
-  return(lbl)
-
-}
-
-## (c) make_accu_lbl: Current accuracy values -------------
-
-make_accu_lbl <- function(acc, w, wacc, mcc) {
-
-  lbl <- ""  # initialize
-  wacc.lbl <- ""
-
-  ## Compose sub-label wacc.lbl:
-  if (w == .50) {  # wacc is bacc:
-    wacc.lbl <- paste0("bacc = ", as_pc(wacc, n.digits = 1), "%, ")
-  } else {  # show wacc with w:
-    wacc.lbl <- paste0("wacc = ", as_pc(wacc, n.digits = 1), "% ",
-                       "(w = ", round(w, 2), "), ")
-  }
-
-  ## Compose accu label:
-  lbl <- paste0("",
-                "Acc = ", as_pc(acc, n.digits = 1), "%, ",
-                wacc.lbl,
-                "mcc = ", round(mcc, 2), "")
-
-  return(lbl)
-
-}
-
+## Note: Moved graphical help functions to file "plot_util.R".
 
 ## (*) Done: ----------
 
-## - Clean up.  [2018 08 21].
+## - Moved graphical help functions to file "plot_util.R".  [2018 08 27]
+## - Clean up.  [2018 08 21]
 
 ## (+) ToDo: ----------
 
