@@ -1369,7 +1369,32 @@ as_pb <- function(perc, n.digits = 4) {
 
 ## (D) Graphic functions: ------------------------
 
-## Note: Moved graphical help functions to file "plot_util.R".
+## Note: Moved plotting help functions to file "plot_util.R".
+
+## makeTransparent: Make color transparent ------
+
+makeTransparent = function(..., alpha = .50) {
+
+  if (alpha < 0 | alpha > 1) {
+    stop("The value for alpha must be between 0 and 1")
+  }
+
+  alpha <- floor(255 * alpha)
+  newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
+
+  .makeTransparent <- function(col, alpha) {
+    rgb(red = col[1], green = col[2], blue = col[3],
+        alpha = alpha, maxColorValue = 255)
+  }
+
+  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
+
+  return(newColor)
+
+}
+
+## Note also: adjustcolor(col = "green", alpha.f = .50)
+
 
 ## (*) Done: ----------
 

@@ -185,7 +185,7 @@ plot_mar <- function(show_freq = TRUE,
 }
 
 ## Check:
-plot_mar()  # plots on existing plot, OR starts new plot (+ warning)
+# plot_mar()  # plots on existing plot, OR starts new plot (+ warning)
 
 ## (3) Plotting boxes and links: ----------
 
@@ -917,31 +917,6 @@ plot_ftype_label <- function(fname,               # name of a known freq
 # plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
 # plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
 # plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
-
-
-## makeTransparent: Make color transparent ------
-
-makeTransparent = function(..., alpha = .50) {
-
-  if (alpha < 0 | alpha > 1) {
-    stop("The value for alpha must be between 0 and 1")
-  }
-
-  alpha <- floor(255 * alpha)
-  newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
-
-  .makeTransparent <- function(col, alpha) {
-    rgb(red = col[1], green = col[2], blue = col[3],
-        alpha = alpha, maxColorValue = 255)
-  }
-
-  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
-
-  return(newColor)
-
-}
-
-## Note also: adjustcolor(col = "green", alpha.f = .50)
 
 
 ## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
