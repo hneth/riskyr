@@ -1,20 +1,20 @@
 ## comp_prob_freq.R | riskyr
-## 2018 01 31
-## -----------------------------------------------
+## 2018 08 28
 ## Compute probabilities (prob) from frequencies (freq):
+## -----------------------------------------------
 
 ## Note: Always use num (essential) and freq (derived)
 ##       rather than env (NON-essential)!
 
-## -----------------------------------------------
-## Table of current terminology:
 
-# Probabilities (10):               Frequencies (9):
+## Table of current terminology: -----------------
+
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -28,7 +28,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -36,9 +37,15 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+# (C) by accuracy/correspondence of decision to condition (see accu):
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+
+## Data flow: Two basic directions: --------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -50,22 +57,20 @@
 ##   - given:   N = hi, mi, fa, cr
 ##   - derived: all other values
 
-## -----------------------------------------------
-## 2 functions convert between formats:
+
+## 2 functions convert between formats: ----------
 
 ## a. comp_freq_prob: Computes freq from prob
 ## b. comp_prob_freq: Computes prob from freq
 
-## -----------------------------------------------
 
 
-## -----------------------------------------------
-## ad (2) Frequencies ==> probabilities:
-## -----------------------------------------------
+## ad (2): Frequencies ==> probabilities: ---------
 
 
-## -----------------------------------------------
-## (A) Compute ALL probabilities from (4 essential) frequencies:
+## (A) Compute ALL probabilities from (4 essential) frequencies: --------
+
+## comp_prob_freq: Documentation ------
 
 #' Compute probabilities from (4 essential) frequencies.
 #'
@@ -74,7 +79,6 @@
 #' (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 #' It returns a list of 10 probabilities \code{\link{prob}}
 #' as its output.
-#'
 #'
 #' Key relationships:
 #'
@@ -103,7 +107,6 @@
 #'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
 #'
 #'    }
-#'
 #'
 #' \item Two perspectives:
 #'
@@ -151,7 +154,6 @@
 #'   in 2 different ways.
 #'
 #'
-#'
 #' \item Defining probabilities in terms of frequencies:
 #'
 #' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
@@ -186,7 +188,6 @@
 #'    \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 #'
 #'
-#'
 #'    \item proportion of positive decisions \code{\link{ppod}}:
 #'
 #'    \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
@@ -215,12 +216,10 @@
 #' }
 #'
 #'
-#'
 #' @param hi  The number of hits \code{\link{hi}} (or true positives).
 #' @param mi  The number of misses \code{\link{mi}} (or false negatives).
 #' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
 #' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
-#'
 #'
 #' @examples
 #' ## Basics:
@@ -265,7 +264,8 @@
 #' \code{\link{is_freq}} verifies frequency inputs.
 #'
 #' @export
-#'
+
+## comp_prob_freq: Definition ------
 
 comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
                            mi = freq$mi,
@@ -331,9 +331,8 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 
 }
 
-## Check:
+## Check: ------
 
-{
   ## Basics:
   # comp_prob_freq()
 
@@ -355,17 +354,17 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
   #
   # ## 5. Check equality of results (steps 2. and 4.):
   # all.equal(prob, prob_freq)  # => should be TRUE!
-}
 
-## -----------------------------------------------
-## Computing individual probabilities from freq:
-## -----------------------------------------------
+
+## Computing individual probabilities from freq: --------
 
 # (obsolete, when ALL can be obtained above?)
 
-## -----------------------------------------------
-##  (B) Compute 3 essential probabilities (prev, sens, spec)
-##     from existing frequencies
+
+
+##  (B) Compute 3 essential probabilities (prev, sens, spec) from existing frequencies ------
+
+## comp_prev: Documentation -----
 
 #' Compute the condition's prevalence (baseline probability) from frequencies.
 #'
@@ -384,15 +383,12 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 #'
 #' \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
-#'
 #' @param hi  The number of hits \code{\link{hi}} (or true positives).
 #' @param mi  The number of misses \code{\link{mi}} (or false negatives).
 #' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
 #' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
-#'
 #' @family functions computing probabilities from frequencies
-#'
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric parameters;
@@ -403,7 +399,8 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{is_freq}} verifies frequency inputs.
-#'
+
+## comp_prev: Definition -----
 
 comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   # 4 essential frequencies from freq
                       ## N.new,       # to verify sum OR re-scale to new population size if different from freq$N?
@@ -440,7 +437,8 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
 
 }
 
-## Check:
+## Check: ------
+
 # num
 # freq <- comp_freq(round = FALSE)
 # freq
@@ -449,16 +447,9 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
 
 
 
-## -----------------------------------------------
-##  (C) Compute other probabilities (mirt, fart)
-##     from existing frequencies
-## -----------------------------------------------
-##  (D) Compute non-essential probabilities (mirt, fart)
-##      and derived probabilities (ppod, PPV, NPV, ...)
-##      from existing frequencies.
+##  (C) Compute other probabilities (mirt, fart) from existing frequencies ------
 
-
-## -----------------------------------------------
+##  (D) Compute non-essential probabilities (mirt, fart) and derived probabilities (ppod, PPV, NPV, ...) from frequencies ------
 
 ## ALL probabilities can be computed from 4 frequencies
 ## of the confusion table!
@@ -466,13 +457,10 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
 ## See https://en.wikipedia.org/wiki/Confusion_matrix
 ## for a collection of metrics.
 
-## -----------------------------------------------
-## (X) Compute predictive values (PVs:
-##     PPV and NPV, FDR and FOR)
-##     from various frequencies (alternative versions):
 
-## -----------------------------------------------
-## 1. Positive predictive value (PPV) from frequencies:
+## (X) Compute predictive values (PVs: PPV and NPV, FDR and FOR) from various frequencies (alternative versions) ------
+
+## 1. comp_PPV_freq: Positive predictive value (PPV) from frequencies ------
 
 comp_PPV_freq <- function(n.hi = freq$hi, n.fa = freq$fa) {
 
@@ -490,8 +478,8 @@ comp_PPV_freq <- function(n.hi = freq$hi, n.fa = freq$fa) {
   return(PPV)
 }
 
-## -----------------------------------------------
-## 2. Negative predictive value (NPV) from frequencies:
+
+## 2. comp_NPV_freq: Negative predictive value (NPV) from frequencies ------
 
 comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 
@@ -509,15 +497,10 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
   return(NPV)
 }
 
-## -----------------------------------------------
-## ToDo: Add alternative ways to compute probabilities
-## from frequencies (based on different elements of freq)!
-## (...)
 
-## -----------------------------------------------
-## (C): Comparing the alternative PV calculations:
+## (Y): Comparing the alternative PV calculations: ------
 
-{
+
   # ## A: Using default settings:
   # num$N
   # freq <- comp_freq(round = TRUE)
@@ -534,19 +517,19 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
   # all.equal(comp_PPV_freq(), comp_PPV()) # => TRUE
   # all.equal(comp_NPV_freq(), comp_NPV()) # => TRUE
 
-}
 
-## -----------------------------------------------
-## (D) Compute the set of ALL current probabilities:
-##     from frequencies (freq):
 
-## (...)
+## (*) Done: ----------
 
-## -----------------------------------------------
-## (+) ToDo:
+## - Clean up code.  [2018 08 28]
 
-## - Add alternative ways to compute probabilities
-##   from frequencies (based on various elements of freq)!
+
+## (+) ToDo: ----------
+
+## - Compute the set of ALL current probabilities from frequencies (freq): ------
+
+## - Add alternative ways to compute probabilities from frequencies
+##   (based on different elements of freq)!
 ##
 ## - Compute basic parameters (probabilities and frequencies)
 ##   from MIX of existing probabilities and frequencies!

@@ -1,19 +1,19 @@
 ## comp_prob_prob.R | riskyr
-## 2018 02 25
-## -----------------------------------------------
+## 2018 08 28
 ## Compute other probabilities from probabilities:
+## -----------------------------------------------
 
 ## Note: For computing ALL prob from 3 basic probabilities
 ##       see comp_prob in file "init_num_prob.R".
 
 ## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -27,7 +27,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -35,8 +36,15 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+# (C) by accuracy/correspondence of decision to condition (see accu):
+
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+
+## Data flow: Two basic directions: --------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -48,27 +56,24 @@
 ##   - given:   N = hi, mi, fa, cr
 ##   - derived: all other values
 
-## -----------------------------------------------
-## 2 functions convert between formats:
+
+## 2 functions convert between formats: ----------
 
 ## a. comp_freq_prob: Computes freq from prob
 ## b. comp_prob_freq: Computes prob from freq
 
-## -----------------------------------------------
+
+## ad (1):  Bayesian computations with probabilities: ----------
 
 
-## -----------------------------------------------
-## ad 1: Bayesian computations with probabilities:
-## -----------------------------------------------
+## A: Compute basic probabilities from probabilities: ----------
 
-## -----------------------------------------------
-## (A) Compute basic probabilities
-##     from probabilities:
+## Computing complementary probabilities: --------
 
-## -----------------------------------------------
-## Computing complementary probabilities:
-## -----------------------------------------------
+
 ## A general approach:
+
+## comp_complement: Compute complement probability ------
 
 #' Compute a probability's complement probability.
 #'
@@ -114,15 +119,15 @@ comp_complement <- function(prob) {
 }
 
 ## Check:
-{
-  # comp_complement(0)   # => 1
-  # comp_complement(1)   # => 0
-  #
-  # comp_complement(2)   # => NA + warning (beyond range)
-  # comp_complement("")  # => NA + warning (non-numeric)
-}
 
-## (a) mirt from sens: ---------------------------
+# comp_complement(0)   # => 1
+# comp_complement(1)   # => 0
+#
+# comp_complement(2)   # => NA + warning (beyond range)
+# comp_complement("")  # => NA + warning (non-numeric)
+
+
+## (a) comp_mirt: mirt from sens: ------
 
 #' Compute a decision's miss rate from its sensitivity.
 #'
@@ -166,7 +171,8 @@ comp_mirt <- function(sens) {
   return(mirt)
 }
 
-## (b) sens from mirt: ---------------------------
+
+## (b) comp_sens: sens from mirt: ------
 
 #' Compute a decision's sensitivity from its miss rate.
 #'
@@ -211,7 +217,8 @@ comp_sens <- function(mirt) {
 
 }
 
-## (c) fart from spec: ---------------------------
+
+## (c) comp_fart: fart from spec: ------
 
 #' Compute a decision's false alarm rate from its specificity.
 #'
@@ -256,7 +263,8 @@ comp_fart <- function(spec) {
 
 }
 
-## (d) spec from fart: ---------------------------
+
+## (d) comp_spec: spec from fart: ------
 
 #' Compute a decision's specificity from its false alarm rate.
 #'
@@ -301,7 +309,8 @@ comp_spec <- function(fart) {
 
 }
 
-## Pairs of complements: -------------------------
+
+## comp_comp_pair: Pairs of complements: ------
 
 #' Compute a probability's (missing) complement and return both.
 #'
@@ -385,20 +394,20 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 }
 
 ## Check:
-{
-  # # ways to work:
-  # comp_comp_pair(1, 0)   # => 1 0
-  # comp_comp_pair(0, 1)   # => 0 1
-  # comp_comp_pair(1, NA)  # => 1 0
-  # comp_comp_pair(NA, 1)  # => 0 1
-  #
-  # # watch out for:
-  # comp_comp_pair(NA, NA) # => NA NA + warning
-  # comp_comp_pair(8, 8)   # => 8 8 + NO warning (as is_prob is not verified)
-  # comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
-}
 
-# Complete a valid set of probability inputs: ----
+# # ways to work:
+# comp_comp_pair(1, 0)   # => 1 0
+# comp_comp_pair(0, 1)   # => 0 1
+# comp_comp_pair(1, NA)  # => 1 0
+# comp_comp_pair(NA, 1)  # => 0 1
+#
+# # watch out for:
+# comp_comp_pair(NA, NA) # => NA NA + warning
+# comp_comp_pair(8, 8)   # => 8 8 + NO warning (as is_prob is not verified)
+# comp_comp_pair(1, 1)   # => 1 1 + NO warning (as is_complement is not verified)
+
+
+## comp_complete_prob_set: Complete a valid set of probability inputs: ------
 
 #' Compute a complete set of probabilities from valid probability inputs.
 #'
@@ -469,7 +478,7 @@ comp_comp_pair <- function(p1 = NA, p2 = NA){
 comp_complete_prob_set <- function(prev,
                                    sens = NA, mirt = NA,
                                    spec = NA, fart = NA
-                                   ) {
+) {
 
   # (1) initialize:
   prob_quintet <- rep(NA, 5)
@@ -493,27 +502,25 @@ comp_complete_prob_set <- function(prev,
 }
 
 ## Check:
-{
-  #   comp_complete_prob_set(1, .8, NA, .7, NA)  # => 1.0 0.8 0.2 0.7 0.3
-  #   comp_complete_prob_set(1, NA, .8, NA, .4)  # => 1.0 0.2 0.8 0.6 0.4
-  #
-  #   # Watch out for:
-  #   comp_complete_prob_set(8)                  # => 8 NA NA NA NA       + warnings that comp_comp_pair needs 1 argument
-  #   comp_complete_prob_set(8, 7, 6, 5, 4)      # => 8 7 6 5 4           + no warning (as valid set assumed)!
-  #   comp_complete_prob_set(8, .8, NA, .7, NA)  # => 8.0 0.8 0.2 0.7 0.3 + no warning (as valid set assumed)!
-  #   comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
-}
 
-## -----------------------------------------------
-## Compute derived probabilities:
-## -----------------------------------------------
+#   comp_complete_prob_set(1, .8, NA, .7, NA)  # => 1.0 0.8 0.2 0.7 0.3
+#   comp_complete_prob_set(1, NA, .8, NA, .4)  # => 1.0 0.2 0.8 0.6 0.4
+#
+#   # Watch out for:
+#   comp_complete_prob_set(8)                  # => 8 NA NA NA NA       + warnings that comp_comp_pair needs 1 argument
+#   comp_complete_prob_set(8, 7, 6, 5, 4)      # => 8 7 6 5 4           + no warning (as valid set assumed)!
+#   comp_complete_prob_set(8, .8, NA, .7, NA)  # => 8.0 0.8 0.2 0.7 0.3 + no warning (as valid set assumed)!
+#   comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
 
-## -----------------------------------------------
-## B: Perspective: by decision:
-## -----------------------------------------------
 
-## (0) ppod = proportion of positive -------------
-## decisions (PR) from probabilities:
+
+## Compute derived probabilities: ----------------
+
+
+## B: Perspective: by decision: ------------------
+
+
+## (0) ppod = proportion of positive decisions (PR) from probabilities: ------
 
 #' Compute the proportion of positive decisions (ppod) from probabilities.
 #'
@@ -613,25 +620,26 @@ comp_ppod <- function(prev, sens, spec) {
 }
 
 ## Check:
-{
-  # comp_ppod(1, 1, 1)  #  => 1
-  # comp_ppod(1, 1, 0)  #  => 1
-  #
-  # comp_ppod(1, 0, 1)  #  => 0
-  # comp_ppod(1, 0, 0)  #  => 0
-  #
-  # comp_ppod(0, 1, 1)  #  => 0
-  # comp_ppod(0, 1, 0)  #  => 1
-  #
-  # comp_ppod(0, 0, 1)  #  => 0
-  # comp_ppod(0, 0, 0)  #  => 1
-}
+
+# comp_ppod(1, 1, 1)  #  => 1
+# comp_ppod(1, 1, 0)  #  => 1
+#
+# comp_ppod(1, 0, 1)  #  => 0
+# comp_ppod(1, 0, 0)  #  => 0
+#
+# comp_ppod(0, 1, 1)  #  => 0
+# comp_ppod(0, 1, 0)  #  => 1
+#
+# comp_ppod(0, 0, 1)  #  => 0
+# comp_ppod(0, 0, 0)  #  => 1
+
 
 ## for extreme values:
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
 ## 1. Positive predictive value (PPV) ------------
-## from probabilities:
+
+## comp_PPV      (a) from probabilities: ------
 
 #' Compute a decision's positive predictive value (PPV) from probabilities.
 #'
@@ -693,7 +701,6 @@ comp_ppod <- function(prev, sens, spec) {
 #'
 #' @export
 
-
 comp_PPV <- function(prev, sens, spec) {
 
   PPV <- NA # initialize
@@ -719,31 +726,29 @@ comp_PPV <- function(prev, sens, spec) {
 
 ## Check:
 
-{
-  ## (1) Ways to work:
-  # comp_PPV(.50, .500, .500)  # => PPV = 0.5
-  # comp_PPV(.50, .333, .666)  # => PPV = 0.499
+## (1) Ways to work:
+# comp_PPV(.50, .500, .500)  # => PPV = 0.5
+# comp_PPV(.50, .333, .666)  # => PPV = 0.499
 
-  ## (2) Watch out for vectors:
-  # prev <- seq(0, 1, .1)
-  # comp_PPV(prev, .5, .5)  # => without NaN values
-  # comp_PPV(prev,  0,  1)  # => with NaN values
+## (2) Watch out for vectors:
+# prev <- seq(0, 1, .1)
+# comp_PPV(prev, .5, .5)  # => without NaN values
+# comp_PPV(prev,  0,  1)  # => with NaN values
 
-  ## (3) Watch out for extreme values:
-  # comp_PPV(prev = 1, sens = 0, spec = .5)  # => NaN, only mi: hi = 0 and fa = 0: PPV = 0/0 = NaN
-  # is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
-  #
-  # comp_PPV(prev = 0, sens = .5, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
-  # is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
-  #
-  # comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
-  # is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
-}
+## (3) Watch out for extreme values:
+# comp_PPV(prev = 1, sens = 0, spec = .5)  # => NaN, only mi: hi = 0 and fa = 0: PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = 1, sens = 0, spec = .5)  # => verifies extreme cases
+#
+# comp_PPV(prev = 0, sens = .5, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = 0, sens = .5, spec = 1)  # => verifies extreme cases
+#
+# comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
+# is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
 
 
 
-## -----------------------------------------------
-## 2. False discovery/detection rate (FDR = complement of PPV):
+
+## 2. False discovery/detection rate (FDR = complement of PPV): ------
 
 #' Compute a decision's false detection rate (FDR) from probabilities.
 #'
@@ -791,7 +796,8 @@ comp_PPV <- function(prev, sens, spec) {
 #' @export
 
 
-## (a) from basic probabilities:
+## comp_FDR:     (a) from basic probabilities ------
+
 comp_FDR <- function(prev, sens, spec) {
 
   FDR <- NA # initialize
@@ -816,7 +822,8 @@ comp_FDR <- function(prev, sens, spec) {
 }
 
 
-## (b) FDR = 1 - PPV:
+## comp_FDR_PPV: (b) as complement FDR = 1 - PPV ------
+
 comp_FDR_PPV <- function(PPV) {
 
   FDR <- NA  # initialize
@@ -828,7 +835,8 @@ comp_FDR_PPV <- function(PPV) {
 
 
 ## 3. Negative predictive value (NPV) ------------
-## from probabilities:
+
+## comp_NPV: (a) from probabilities ------
 
 #' Compute a decision's negative predictive value (NPV) from probabilities.
 #'
@@ -905,28 +913,29 @@ comp_NPV <- function(prev, sens, spec) {
 }
 
 ## Check:
-{
-  # # (1) Ways to work:
-  # comp_NPV(.50, .500, .500)  # => PPV = 0.5
-  # comp_NPV(.50, .333, .666)  # => PPV = 0.4996
 
-  ## (2) Watch out for vectors:
-  # prev <- seq(0, 1, .1)
-  # comp_NPV(prev, .5, .5)  # => without NaN values
-  # comp_NPV(prev,  1,  0)  # => with NaN values
+# # (1) Ways to work:
+# comp_NPV(.50, .500, .500)  # => PPV = 0.5
+# comp_NPV(.50, .333, .666)  # => PPV = 0.4996
 
-  ## (3) Watch out for extreme values:
-  # comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
-  # comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
-  # comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
-  # is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
+## (2) Watch out for vectors:
+# prev <- seq(0, 1, .1)
+# comp_NPV(prev, .5, .5)  # => without NaN values
+# comp_NPV(prev,  1,  0)  # => with NaN values
 
-  ## \code{\link{is_extreme_prob_set}} verifies extreme cases
-}
+## (3) Watch out for extreme values:
+# comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
+
+## \code{\link{is_extreme_prob_set}} verifies extreme cases
+
 
 
 ## 4. False omission rate ------------------------
-## (FOR = complement of NPV):
+
+## comp_FOR:     (a) FOR = complement of NPV -------
 
 #' Compute a decision's false omission rate (FOR) from probabilities.
 #'
@@ -998,15 +1007,16 @@ comp_FOR <- function(prev, sens, spec) {
 }
 
 ## Check:
-{
-  ## for extreme values:
-  # comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
-  # comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
-  # comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
-  # is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
-}
 
-## (b) FOR = 1 - NPV:
+## for extreme values:
+# comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
+# comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
+
+
+## comp_FOR_NPV: (b) FOR = 1 - NPV ------
+
 comp_FOR_NPV <- function(NPV) {
 
   FOR <- NA  # initialize
@@ -1017,19 +1027,20 @@ comp_FOR_NPV <- function(NPV) {
 
 }
 
-## -----------------------------------------------
-## (C) Compute predictive values
-##     from frequencies (various versions):
+
+
+## (C) Compute predictive values from frequencies (various versions): ------
 
 ## ToDo: Add alternative ways to compute probabilities
 ##       from frequencies (based on different elements of freq)!
-##
-## Moved to separate file: comp_prob_freq.R !!!
 
-## -----------------------------------------------
+## Moved to a separate file: comp_prob_freq.R !!!
 
 
-## -----------------------------------------------
+
+## comp_prob_matrix: Compute some metric for an entire matrix of values ------
+## (given sens and spec are given as vectors)
+
 ## Compute some metric for an entire matrix of values
 ## (when sens and spec are given as vectors)
 
@@ -1212,30 +1223,32 @@ comp_prob_matrix <- function(prev, sens, spec,
 
 
 ## Check:
-{
-  ## Basics:
-  # sens.seq <- seq(0, 1, by = .10)
-  # spec.seq <- seq(0, 1, by = .10)
-  #
-  ## Contrast without and with NaN adjustment:
-  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = FALSE)
-  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = TRUE)
-  #
-  ## Contrast without and with NaN adjustment:
-  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = FALSE)
-  # comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = TRUE)
-  #
-  ## Other metrics:
-  # comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "ppod")
-  # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "ppod")
-  #
-  # comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "acc")
-  # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
 
-}
+## Basics:
+# sens.seq <- seq(0, 1, by = .10)
+# spec.seq <- seq(0, 1, by = .10)
+#
+## Contrast without and with NaN adjustment:
+# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = FALSE)
+# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = TRUE)
+#
+## Contrast without and with NaN adjustment:
+# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = FALSE)
+# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = TRUE)
+#
+## Other metrics:
+# comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "ppod")
+# comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "ppod")
+#
+# comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "acc")
+# comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
 
-## -----------------------------------------------
-## (+) ToDo:
+
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 28]
+
+## (+) ToDo: ----------
 
 ## - Add documentation.
 ##   Document comp_PPV, comp_NPV, ... etc.
@@ -1252,5 +1265,4 @@ comp_prob_matrix <- function(prev, sens, spec,
 ## - Compute basic parameters (probabilities and frequencies)
 ##   from MIX of existing probabilities and frequencies!
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
