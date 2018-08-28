@@ -910,24 +910,28 @@ plot.box <- function(obj, ...) {
 ## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
+                             ## Optional arguments:
+                             suffix = "",         # suffix
                              # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                              # offset = 0.5,      # offset, etc.
                              # col = pal["txt"],  # default color
                              ...                  # other (graphical) parameters
 ){
 
-  # Initialize:
+  ## Initialize ftype_lbl:
   # ftype_lbl <- ""
-  ftype_lbl <- paste0(comp_freq_type(fname))  # determine freq_type corresponding to fname
 
-  # Plot text label:
+  ## Determine ftype_lbl:
+  ftype_lbl <- paste0(comp_freq_type(fname), suffix)  # determine freq_type corresponding to fname
+
+  ## Plot ftype_lbl:
   text(x, y,
        labels = ftype_lbl,
        xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
        # col = col,   # pass on parameter
        ...)  # other parameters: pos, offset, ...
 
-  # # Return type (as name):
+  ## Return ftype_lbl (as name):
   # return(ftype_lbl)
 
 }
@@ -935,7 +939,7 @@ plot_ftype_label <- function(fname,               # name of a known freq
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_ftype_label("N", .1, .9)
-# plot_ftype_label("cond.false", .2, .8, cex = .8)
+# plot_ftype_label("cond.false", .2, .8, suffix = ":", cex = .8)
 # plot_ftype_label("dec.pos", .3, .7, col = "red3")
 # plot_ftype_label("dec.cor", .7, .3, col = "gold")
 # plot_ftype_label("hi", .5, .5, col = "green3")
@@ -947,26 +951,30 @@ plot_ftype_label <- function(fname,               # name of a known freq
 ## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
 plot_freq_label <- function(fname,                # name of a known freq
                             x, y,                 # coordinates
-                            lbl_type = "default", # lbl_type (of label_freq)
+                            ## Optional arguments:
+                            lbl_type = "nam",     # lbl_type (of label_freq)
                             lbl_sep = " = ",      # lbl_sep  (of label_freq)
+                            suffix = "",          # suffix
                             # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                             # offset = 0.5,       # offset, etc.
                             # col = pal["txt"],   # default color
                             ...                   # other (graphical) parameters
 ){
 
-  # Initialize:
+  ## Initialize f_lbl:
   # f_lbl <- ""
-  f_lbl <- paste0(label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep))  # determine label corresponding to fname
 
-  # Plot text label:
+  ## Determine f_lbl:
+  f_lbl <- paste0(label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep), suffix)  # determine label corresponding to fname
+
+  ## Plot text label:
   text(x, y,
        labels = f_lbl,
        xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
        # col = col,   # pass on parameter
        ...)  # other parameters: pos, offset, ...
 
-  # # Return label (as character):
+  ## Return f_lbl (as character):
   # return(f_lbl)
 
 }
@@ -974,7 +982,7 @@ plot_freq_label <- function(fname,                # name of a known freq
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_freq_label("N", .1, .9)
-# plot_freq_label("cond.false", .2, .8, cex = .8)
+# plot_freq_label("cond.false", suffix = ": ...", .2, .8, cex = .8)
 # plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
 # plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
 
