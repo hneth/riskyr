@@ -99,7 +99,8 @@ plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 # Visualizing uncertainty (as ranges):
 plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
            uc_pc = .05)  # => prev, PPV and NPV with a 5\% uncertainty range
-plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc_pc = .1)  # => all with 10\% uncertainty range
+plot_curve(prev = .2, sens = .8, spec = .7, what = "all",
+           uc_pc = .1)   # => all with a 10\% uncertainty range
 
 # X-axis as linear vs. log scale:
 plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
