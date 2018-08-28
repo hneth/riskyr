@@ -1,19 +1,17 @@
 ## plot_curve.R | riskyr
-## 2018 02 14
-## -----------------------------------------------
+## 2018 08 28
 ## plot_curve: A generalization of plot_PV
-## that plots different DVs (e.g., PPV, NPV, acc curves)
-## as functions of prevalence.
-
+##   that plots different DVs (e.g., PPV, NPV, acc curves)
+##   as functions of prevalence.
 ## -----------------------------------------------
-## Utility function:
 
+## Utility function:
 ## add_legend() moved to comp_util.R
 
-## -----------------------------------------------
 ## Plot PV curves: PPV and NPV as functions of prevalence
 ## (using only necessary arguments with good defaults):
 
+## plot_curve: Documentation ----------
 
 #' Plot curves of selected values (e.g., PPV or NPV)
 #' as a function of prevalence.
@@ -133,6 +131,7 @@
 #'
 #' @export
 
+## plot_curve: Definition ----------
 
 plot_curve <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
@@ -516,33 +515,35 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
 }
 
-## Check:
-{
-  # # ways to work:
-  # plot_curve()  # => default curves (prev, PPV, NPV)
-  # plot_curve(what = "all")
-  # plot_curve(show.points = FALSE)  # => default without points
-  # plot_curve(what = c("PPV", "NPV"), show.points = TRUE)  # => prev not shown.
-  #
-  # # linear vs. log scale:
-  # plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
-  # plot_curve(prev = .01, sens = .9, spec = .8, log.scale = TRUE)   # => log scale
-  #
-  # plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
-  # plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
-  #
-  # plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
-  # plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
+## Check: ----------
+
+# # ways to work:
+# plot_curve()  # => default curves (prev, PPV, NPV)
+# plot_curve(what = "all")
+# plot_curve(show.points = FALSE)  # => default without points
+# plot_curve(what = c("PPV", "NPV"), show.points = TRUE)  # => prev not shown.
+#
+# # linear vs. log scale:
+# plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
+# plot_curve(prev = .01, sens = .9, spec = .8, log.scale = TRUE)   # => log scale
+#
+# plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
+# plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
+#
+# plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
+# plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
 
 
-}
+## (*) Done: ----------
 
-## -----------------------------------------------
-## (+) ToDo:
+## - Clean up code.  [2018 08 28]
 
+## (+) ToDo: ----------
+
+## - Add option to show _ranges_ (e.g., area between 2 `prev` lines or 2 `PPV` curves) to better visualize uncertainty
+## - Add option to sample multiple points from given _prob_ distributions.
 ## - Add more options: ppod, accu, etc.
 ## - fine-tune positions of labels and legend (on linear vs. log scale)
 ## - pimp plot (titles, axes, grid, colors, transparency)
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
