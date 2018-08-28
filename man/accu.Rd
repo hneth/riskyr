@@ -73,8 +73,8 @@ The corresponding generating function \code{\link{comp_accu}};
 \code{\link{txt}} for current text settings.
 
 Other lists containing current scenario information: \code{\link{freq}},
-  \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt}}
+  \code{\link{num}}, \code{\link{pal_bw}},
+  \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 
 Other metrics: \code{\link{comp_accu}},
   \code{\link{comp_acc}}

@@ -3,14 +3,14 @@
 \docType{data}
 \name{pal}
 \alias{pal}
-\title{List current values of basic color information.}
+\title{List current values of scenario color palette.}
 \format{An object of class \code{character} of length 15.}
 \usage{
 pal
 }
 \description{
 \code{pal} is initialized to a vector of named elements (colors)
-to define the color scheme for the current scenario that is
+to define the scenario color scheme that is
 used throughout the \code{riskyr} package.
 }
 \details{
@@ -61,9 +61,9 @@ the condition is FALSE, provided that the decision is negative).
 }
 }
 \examples{
-pal        # shows the vector of all current color names and values
+pal        # shows all current color names and values
 pal["hi"]  # shows the current color for hits (true positives)
-pal["hi"] <- "green3" # defines a new color for hits (true positives, TP)
+pal["hi"] <- "green3"  # defines a new color for hits (true positives, TP)
 
 
 }
@@ -80,6 +80,7 @@ pal["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
-  \code{\link{prob}}, \code{\link{txt}}
+  \code{\link{pal_bw}}, \code{\link{prob}},
+  \code{\link{txt}}
 }
 \keyword{datasets}
