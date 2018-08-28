@@ -410,21 +410,21 @@ pal <- init_pal()  ## apply
 #'
 #' @export
 
-pal_bw <- init_pal(col.N = grey(.99, .99),
-                   col.true = grey(.99, .99),
-                   col.false = grey(.90, .99),
-                   col.pos = grey(.99, .99),
-                   col.neg = grey(.90, .99),
-                   col.cor = grey(.99, .99),
-                   col.err = grey(.90, .99),
-                   col.hi = grey(.99, .99),
-                   col.mi = grey(.70, .99),
-                   col.fa = grey(.60, .99),
-                   col.cr = grey(.90, .99),
-                   col.ppv = "black",
-                   col.npv = "black",
-                   col.txt = "black",
-                   col.brd = "black"
+pal_bw <- init_pal(col.N = grey(1.0, .99),     # white
+                   col.true =  grey(.95, .99), # nearly white
+                   col.false = grey(.95, .99), # nearly white
+                   col.pos = grey(.90, .99),   # darker white
+                   col.neg = grey(.90, .99),   # darker white
+                   col.cor = grey(.85, .99),   # darker white
+                   col.err = grey(.85, .99),   # darker white
+                   col.hi = grey(.85, .99),    # white
+                   col.mi = grey(.65, .99),
+                   col.fa = grey(.65, .99),
+                   col.cr = grey(.85, .99),
+                   col.ppv = grey(.60, .99),   # lighter grey
+                   col.npv = grey(.45, .99),   # darker grey
+                   col.txt = "black",          # black
+                   col.brd = "black"           # black
 )
 
 ## Check:
