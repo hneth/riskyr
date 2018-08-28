@@ -95,8 +95,6 @@ The two perspectives (by condition vs. by decision) combine the 4 essential freq
   (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
   in 2 different ways.
 
-
-
 \item Defining probabilities in terms of frequencies:
 
 Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
@@ -125,8 +123,6 @@ The following relationships hold (and are used in computations):
 \item false alarm rate \code{\link{fart}}:
 
 \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
-
-
 
 \item proportion of positive decisions \code{\link{ppod}}:
 

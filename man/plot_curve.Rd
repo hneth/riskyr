@@ -6,7 +6,7 @@
 as a function of prevalence.}
 \usage{
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, what = c("prev", "PPV", "NPV"), what.col = pal,
+  fart = NA, what = c("prev", "PPV", "NPV"), what.col = pal, uc_pc = 0,
   show.points = TRUE, log.scale = FALSE, title.lbl = txt$scen.lbl,
   cex.lbl = 0.85)
 }
@@ -44,6 +44,12 @@ Default: \code{what = c("prev", "PPV", "NPV")}.}
 specified in \code{what}.
 Default: \code{what.col = pal}.}
 
+\item{uc_pc}{Uncertainty range, given as a percentage of the current
+\code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} values
+(added in both directions).
+Default: \code{uc_pc = .00} (i.e., no uncertainty).
+Plausible ranges are \code{0 < uc_pc < .25}.}
+
 \item{show.points}{Boolean option for showing the point of
 intersection with the current prevalence \code{\link{prev}}
 in all selected curves.
@@ -77,17 +83,23 @@ that allows for additional dependent values.
 }
 \examples{
 # Basics:
-plot_curve()                     # => default: what = ("prev", "PPV", "NPV")
-plot_curve(show.points = FALSE)  # => default without points
+plot_curve()                     # => default plot: what = ("prev", "PPV", "NPV")
+plot_curve(show.points = FALSE)  # => default plot without points
+plot_curve(prev = .2, sens = .8, spec = .7, uc_pc = .1)  # => parameters with 10\% uncertainty range
 
-# all curves:
+# All curves:
 plot_curve(what = "all") # => all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
 plot_curve(what = "all", show.points = FALSE)  # => all curves, no points
 
-# selected curves:
+# Selected curves:
 plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
 plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # => prev, PPV, NPV, and acc
 plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
+
+# Visualizing uncertainty (as ranges):
+plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
+           uc_pc = .05)  # => prev, PPV and NPV with a 5\% uncertainty range
+plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc_pc = .1)  # => all with 10\% uncertainty range
 
 # X-axis as linear vs. log scale:
 plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
