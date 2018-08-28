@@ -920,7 +920,6 @@ plot_ftype_label <- function(fname,               # name of a known freq
   # ftype_lbl <- ""
   ftype_lbl <- paste0(comp_freq_type(fname))  # determine freq_type corresponding to fname
 
-
   # Plot text label:
   text(x, y,
        labels = ftype_lbl,
@@ -944,6 +943,40 @@ plot_ftype_label <- function(fname,               # name of a known freq
 # plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
 # plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
 # plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
+
+## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
+plot_freq_label <- function(fname,                # name of a known freq
+                            x, y,                 # coordinates
+                            lbl_type = "default", # lbl_type (of label_freq)
+                            lbl_sep = " = ",      # lbl_sep  (of label_freq)
+                            # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                            # offset = 0.5,       # offset, etc.
+                            # col = pal["txt"],   # default color
+                            ...                   # other (graphical) parameters
+){
+
+  # Initialize:
+  # f_lbl <- ""
+  f_lbl <- paste0(label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep))  # determine label corresponding to fname
+
+  # Plot text label:
+  text(x, y,
+       labels = f_lbl,
+       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
+       # col = col,   # pass on parameter
+       ...)  # other parameters: pos, offset, ...
+
+  # # Return label (as character):
+  # return(f_lbl)
+
+}
+
+## Check:
+# plot(0:1, 0:1, type = "n")  # empty canvas
+# plot_freq_label("N", .1, .9)
+# plot_freq_label("cond.false", .2, .8, cex = .8)
+# plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
+# plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
 
 
 ## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
