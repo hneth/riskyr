@@ -88,9 +88,9 @@
 #'
 #' @examples
 #' # Basics:
-#' plot_curve()                     # => default: what = ("prev", "PPV", "NPV")
-#' plot_curve(show.points = FALSE)  # => default without points
-#' plot_curve(uc_pc = .10)          # => default with 10% uncertainty range
+#' plot_curve()                     # => default plot: what = ("prev", "PPV", "NPV")
+#' plot_curve(show.points = FALSE)  # => default plot without points
+#' plot_curve(prev = .2, sens = .8, spec = .7, uc_pc = .1)  # => parameters with 10% uncertainty range
 #'
 #' # All curves:
 #' plot_curve(what = "all") # => all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
@@ -102,8 +102,9 @@
 #' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 #'
 #' # Visualizing uncertainty (as ranges):
-#' plot_curve(what = c("prev", "PPV", "NPV"), uc_pc = .10)  # => prev, PPV and NPV with 10% uncertainty range
-#' plot_curve(what = "all", uc_pc = .05)                    # => all metrics with 5% uncertainty range
+#' plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
+#'            uc_pc = .05)  # => prev, PPV and NPV with a 5% uncertainty range
+#' plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc_pc = .1)  # => all with 10% uncertainty range
 #'
 #' # X-axis as linear vs. log scale:
 #' plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
@@ -667,7 +668,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 # ## Basics:
 # plot_curve()  # => default curves (prev, PPV, NPV)
 # plot_curve(what = "all")
-# plot_curve(uc_pc = .10)          # => default with 10% uncertainty range
+# plot_curve(prev = .25, sens = .85, spec = .75, uc_pc = .05)  # => parameters with a 5% uncertainty range
 #
 # ## Selected curves:
 # plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
@@ -676,7 +677,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 #
 # ## Visualizing uncertainty (as ranges):
 # plot_curve(what = c("prev", "PPV", "NPV"), uc_pc = .10)  # => prev, PPV and NPV with 10% uncertainty range
-# plot_curve(what = "all", uc_pc = .05)                    # => all metrics with 5% uncertainty range
+# plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc_pc = .1)  # => all metrics with 10% uncertainty range
 #
 # ## Other options:
 # plot_curve(show.points = FALSE)  # => default without points
