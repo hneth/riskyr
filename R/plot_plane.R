@@ -1,17 +1,17 @@
 ## plot_plane.R | riskyr
-## 2018 08 13
-## -----------------------------------------------
+## 2018 08 28
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
 ## -----------------------------------------------
-## Utility function:
 
+## Utility function:
 # comp_prob_matrix() (moved to file comp_prob.R)
 
-## -----------------------------------------------
 ## Plot a 3d-plane of what (e.g., PPV, NPV, ...)
 ## (using persp):
+
+## plot_plane: Documentation ----------
 
 #' Plot a plane of selected values (e.g., PPV or NPV)
 #' as a function of sensitivity and specificity.
@@ -133,6 +133,8 @@
 #' @importFrom grDevices trans3d
 #'
 #' @export
+
+## plot_plane: Definition ----------
 
 plot_plane <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
@@ -361,9 +363,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 }
 
-## Check:
+## Check: ----------
 
-{
   # # Basics:
   # plot_plane()  # => current defaults (what = "PPV")
   # plot_plane(what = "PPV")  # => plane of PPV
@@ -380,10 +381,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   # plot_plane(title.lbl = "Testing plot options")
   # plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
   # plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
-}
 
-## -----------------------------------------------
-## Note:
+## Note: ----------
 
 ## The following persp() parameters are currently fixed:
 #
@@ -406,10 +405,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 # #'
 # #' @param shade Shading value (used by \code{\link{persp}}).
 # #' Default: \code{shade = .25}.
-#
 
-## -----------------------------------------------
-## OLDER function (2 in 1 plot):
+
+## OLDER function (2 in 1 plot): ----------
 
 {
 
@@ -510,13 +508,16 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 }
 
-## -----------------------------------------------
-## (+) ToDo:
+
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 28]
+
+## (+) ToDo: ----------
 
 ## - Use ... instead re-naming arguments passed on to persp?
 ## - Generalize to additional metrics (e.g., wacc, mcc, etc.)
 ## - Change labels for all axes to percentages (as in plot_curve)
 ## - Pimp plot (titles, axes, grid, colors, transparency)
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
