@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 08 24
+## 2018 08 28
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -348,44 +348,46 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   ## (1) Color of boxes: ----------
 
-  if ((length(col.boxes) == length(pal)) &&
-      all.equal(col.boxes, pal)) {  # no change from default:
+  if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
+      # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
+      && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
+      ) {  # use named colors of col.boxes:
 
-    ## Use current color information of pal:
+    ## Get current color vector from pal:
 
     if (by == "cd") {  # (a) by condition:
 
       ## 7 boxes (including cond.true and cond.false):
       # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["true"], pal["false"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["true"], col.boxes["false"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## 7 boxes (including dec.pos and dec.neg):
       # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } else if (by == "cddc") {  # (c) by condition + decision:
 
       ## 10 boxes (top: cond.true and cond.false; bot: dec.pos and dec.neg):
       # col.boxes <- col.boxes[c(1:3, 6:9, 4:5, 1)  ]  # select 9 of 9 colors
-      col.boxes <- c(pal["N"],
-                     pal["true"], pal["false"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"],
-                     pal["pos"], pal["neg"],
-                     pal["N"])
+      col.boxes <- c(col.boxes["N"],
+                     col.boxes["true"], col.boxes["false"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"],
+                     col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["N"])
 
     } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
 
       ## 10 boxes (top: dec.pos and dec.neg; bot: cond.true and cond.false):
       # col.boxes <- col.boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
-      col.boxes <- c(pal["N"],
-                     pal["pos"], pal["neg"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"],
-                     pal["true"], pal["false"],
-                     pal["N"])
+      col.boxes <- c(col.boxes["N"],
+                     col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"],
+                     col.boxes["true"], col.boxes["false"],
+                     col.boxes["N"])
 
     } else {  # ANY other by-setting:
 
@@ -393,7 +395,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } # if (by...)
 
-  } # if (all.equal(col.boxes, pal))...
+  } # if (length(col.boxes) == length(pal)) #
+    #     # && all.equal(col.boxes, pal))...
 
 
   ## (2) Text/labels in 7 or 10 boxes: ----------
@@ -1602,7 +1605,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          box.size = x.boxes,   # widths of boxes
                          box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
                          box.type = "rect",    # "rect", "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes,  # scalar or vector of length 7.
+                         box.col = col.boxes,  # scalar or vector (of length 7 or 10?).
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                          box.lcol = col.border,  # col.boxes,
                          box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)

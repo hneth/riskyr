@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyr
-## 2018 08 22
+## 2018 08 28
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 3:
@@ -308,8 +308,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   ## (1) Color of boxes: ------
 
-  if ((length(col.boxes) == length(pal)) &&
-      all.equal(col.boxes, pal)) {  # no change from default:
+  if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
+    # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
+    && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
+    ) {  # use named colors of col.boxes:
 
     ## Use current color information of pal:
 
@@ -317,15 +319,15 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
       ## 7 boxes (including cond.true and cond.false):
       # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["true"], pal["false"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["true"], col.boxes["false"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## 7 boxes (including dec.pos and dec.neg):
       # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } # if (by...)
 
@@ -860,7 +862,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          box.size = x.boxes,   # widths of boxes
                          box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
                          box.type = "rect",    # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes,  # scalar or vector of length 7.
+                         box.col = col.boxes,  # scalar or vector (of length 7 or 10?).
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                          box.lcol = col.border,
                          box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
