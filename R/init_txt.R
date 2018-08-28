@@ -1,10 +1,10 @@
 ## init_txt.R | riskyr
-## 2018 08 25
+## 2018 08 28
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
 
-## (A) Defaults for all titles and labels (txt) ----------
+## (A) Set defaults for all titles and labels (txt) ----------
 
 txt.def <- list(
 
@@ -298,6 +298,7 @@ label_freq <- function(fname,
   f_type <- NA
 
   ## (1) Determine the frequency value of freq corresponding to fname:
+
   if (lbl_type != "nam") {
 
     if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
@@ -317,6 +318,7 @@ label_freq <- function(fname,
   }
 
   ## (2) Compose f_lbl based on lbl_type:
+
   if (lbl_type == "num" || lbl_type == "val" ){
 
     # (a) Value:
@@ -372,6 +374,8 @@ label_freq <- function(fname,
 
     ## (d) Any other lbl_type: Use basic fname + f_val as default:
     f_lbl <- paste0(fname, lbl_sep, as.character(f_val))
+
+    ## ToDo: Use abbreviated names (e.g., hi/TP, mi/FN, fa/FN, cr/TN) by default.
 
   }
 
@@ -694,6 +698,8 @@ name_prob <- function(freq1, freq2) {
 
 ## (+) ToDo: -------------------------------------
 
-## - Add txt to a cus object?
+## - Add shorter, abbreviated versions of text elements (to use as labels)?
+##   (e.g., hi/TP, mi/FN, fa/FN, cr/TN)
+## - Add text elements for probabilities (to be used in labels)?
 
 ## eof. ------------------------------------------

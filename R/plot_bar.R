@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 08 25
+## 2018 08 28
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -1150,6 +1150,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a", dir = 2) # bi-directional
 #
 ## Note:
+# plot_bar(N = 100, prev = .1, sens = .8, spec = .7, by = "cd", title.lbl = "Test", dir = 2, )
+
 # plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
 #          title.lbl = "Test rounding effects",
 #          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
