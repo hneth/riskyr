@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 08 26
+## 2018 08 28
 ## Define and initialize the current set
 ## of custom colors (pal):
 ## -----------------------------------------------
@@ -242,7 +242,6 @@ init_pal <- function(col.N = pal.def["N"],          # population N
                      col.brd = pal.def["brd"]       # borders
 ) {
 
-
   ## 1. Initialize pal as a VECTOR:
   pal <- rep(NA, n.colors)
 
@@ -295,10 +294,10 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 
 ## pal: Documentation ------
 
-#' List current values of basic color information.
+#' List current values of scenario color palette.
 #'
 #' \code{pal} is initialized to a vector of named elements (colors)
-#' to define the color scheme for the current scenario that is
+#' to define the scenario color scheme that is
 #' used throughout the \code{riskyr} package.
 #'
 #' All color information corresponding to the current scenario
@@ -306,7 +305,6 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' To change a color, assign a new color to an existing element name.
 #'
 #' \code{pal} currently contains colors with the following names:
-#'
 #'
 #' \enumerate{
 #'
@@ -347,17 +345,18 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' \item \code{npv} Color representing \emph{negative predictive values} \code{\link{NPV}} (i.e., the conditional probability that
 #' the condition is FALSE, provided that the decision is negative).
 #'
+#'
 #' \item \code{txt} Color used for text labels.
 #'
 #' \item \code{brd} Color used for borders.
 #'
-#'
 #' }
 #'
+#'
 #' @examples
-#' pal        # shows the vector of all current color names and values
+#' pal        # shows all current color names and values
 #' pal["hi"]  # shows the current color for hits (true positives)
-#' pal["hi"] <- "green3" # defines a new color for hits (true positives, TP)
+#' pal["hi"] <- "green3"  # defines a new color for hits (true positives, TP)
 #'
 #'
 #' @family lists containing current scenario information
@@ -382,9 +381,55 @@ pal <- init_pal()  ## apply
 
 ## Check:
 # pal
-# length(pal)
+# length(pal) # => 15 colors
 # pal[2] == pal["true"]
 
+
+## pal_bw: Define a black-and-white (b/w) palette: --------
+
+#' Alternative color palette for black-and-white graphs.
+#'
+#' \code{pal_bw} is initialized to a vector of named elements (colors)
+#' to define an alternative (black-and-white, b/w) scenario color scheme.
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_bw} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_bw        # shows all current color names and values
+#' pal_bw["hi"]  # shows the current color for hits (true positives)
+#' pal_bw["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#'
+#' @export
+
+pal_bw <- init_pal(col.N = grey(.99, .99),
+                   col.true = grey(.99, .99),
+                   col.false = grey(.90, .99),
+                   col.pos = grey(.99, .99),
+                   col.neg = grey(.90, .99),
+                   col.cor = grey(.99, .99),
+                   col.err = grey(.90, .99),
+                   col.hi = grey(.99, .99),
+                   col.mi = grey(.70, .99),
+                   col.fa = grey(.60, .99),
+                   col.cr = grey(.90, .99),
+                   col.ppv = "black",
+                   col.npv = "black",
+                   col.txt = "black",
+                   col.brd = "black"
+)
+
+## Check:
+# pal_bw
+# pal_bw["hi"]
 
 ## (D) Legacy code: ggplot themes: ----------
 
@@ -425,7 +470,9 @@ pal <- init_pal()  ## apply
 
 ## (+) ToDo: ----------
 
-## - Add pre-defined color palettes & transparency
+## - Add pre-defined color palettes. For instance,
+##   - b/w palette
+##   - b/w-color high-lighting palettes (e.g., for 3 perspectives)
 ## - Make colors user-customizable
 
 ## eof. ------------------------------------------
