@@ -204,6 +204,8 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   ## Set x-value (prev) range for plotting uncertainty polygons:
   if (uc_pc > 0) {  # plot a polygon:
 
+    uc_dens <- NULL # OR: 20 # density of polygon lines (default = NULL: no lines)
+
     ## Select x-value (prev) ranges based on current type of scale (log or linear):
     if (log.scale) {
 
@@ -348,7 +350,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon (here: rectangle):
       xx <- c(x_lower_prev, x_upper_prev)
       yy <- c(y_lower_prev, y_upper_prev)
-      polygon(xx, yy, col = uc_col, border = NA)
+      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
 
     }
 
@@ -432,7 +434,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA)
+      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
 
     }
 
@@ -502,7 +504,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA)
+      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
 
     }
 
@@ -573,7 +575,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA)
+      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
 
     }
 
@@ -642,7 +644,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA)
+      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
 
     }
 
