@@ -226,9 +226,9 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       x_max <- 1 - uc_stepSize  # avoid 1 (to avoid extreme values)
 
       ## Ranges for x-values (prev) of polygon:
-      x_lower <- seq(x_min, x_max, by = (+1 * uc_stepSize))    # from left to right
-      # x_upper <- seq(x_max, x_min, by = (-1 * uc_stepSize))  # from right to left
-      x_upper <- rev(x_lower)  # from right to left
+      x_low_1 <- seq(x_min, x_max, by = (+1 * uc_stepSize))  # main steps
+      x_lower <- c(x.min, x_low_1, x.max)                    # main steps + 2 extreme points (from left to right)
+      x_upper <- rev(x_lower)                                # same steps (from right to left)
 
     } # if (log.scale)...
 
@@ -675,7 +675,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   ## (5) Title: ----------
 
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Curves as a Function of Prevalence") #, "\n", cur.sens.spec.lbl)
+  cur.title.lbl <- paste0(title.lbl, "Probability curves as a function of prevalence") #, "\n", cur.sens.spec.lbl)
 
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 

@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 08 28
+## 2018 08 29
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -206,7 +206,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_PPV(prev, sens, spec)             # cur.val (PPV)
     cur.lbl <- paste0("PPV = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of positive predictive values (PPV)"
+    sub.title.lbl <- "Probability plane of positive predictive values (PPV)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["ppv"] }  # cur.col
     z.lbl <- "PPV"    # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -227,7 +227,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_NPV(prev, sens, spec)             # cur.val (NPV)
     cur.lbl <- paste0("NPV = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of negative predictive values (NPV)"
+    sub.title.lbl <- "Probability plane of negative predictive values (NPV)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["npv"] }  # cur.col
     z.lbl <- "NPV"    # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -248,7 +248,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_ppod(prev, sens, spec)             # cur.val (ppod)
     cur.lbl <- paste0("ppod = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of the proportion of positive predictions (ppod)"
+    sub.title.lbl <- "Probability plane of the proportion of positive predictions (ppod)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["pos"] }  # cur.col for ppod (using "pos")
     z.lbl <- "ppod"   # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -269,7 +269,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_acc(prev, sens, spec)             # cur.val (acc)
     cur.lbl <- paste0("acc = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of accuracy values (acc)"
+    sub.title.lbl <- "Probability plane of accuracy values (acc)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["hi"] }  # cur.col for acc (using "hi")
     z.lbl <- "acc"    # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -339,7 +339,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (6) Title: ----------
 
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put title.lbl on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, sub.title.lbl)
 
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
