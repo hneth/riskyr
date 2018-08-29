@@ -213,7 +213,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       x_max <- 1 - eps  # avoid 1 (to avoid extreme values)
 
       ## Ranges for x-values (prev) of polygon:
-      x_lower <- c(10^-6, 10^-5, 10^-4, (1 * 10^-3), (5 * 10^-3), (1 * 10^-2), (5 * 10^-2), .10, .25, .50, x_max)  # log steps from left to right
+      x_lower <- c(10^-6, 10^-5, 10^-4, (1 * 10^-3), (2 * 10^-3), (5 * 10^-3), .01, .02, .05, .10, .15, .25, .30, .50, .60, .90, x_max)  # log steps from left to right
       x_upper <- rev(x_lower)  # from right to left
 
     } else {  # linear scale:
