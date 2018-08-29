@@ -1,8 +1,8 @@
 ## plot_curve.R | riskyr
 ## 2018 08 29
-## plot_curve: A generalization of plot_PV
-##   that plots different DVs (e.g., PPV, NPV, acc curves)
-##   as functions of prevalence.
+## plot_curve: Plots different probabilities
+## (e.g., PPV, NPV, ppod, acc) as a function
+## of prevalence (for given sens and spec).
 ## -----------------------------------------------
 
 ## Utility function:
@@ -28,7 +28,6 @@
 #' \code{plot_curve} is a generalization of
 #' \code{plot_PV} (see legacy code)
 #' that allows for additional dependent values.
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -63,11 +62,11 @@
 #' specified in \code{what}.
 #' Default: \code{what.col = pal}.
 #'
-#' @param uc_pc Uncertainty range, given as a percentage of the current
+#' @param unc Uncertainty range, given as a percentage of the current
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} values
 #' (added in both directions).
-#' Default: \code{uc_pc = .00} (i.e., no uncertainty).
-#' Plausible ranges are \code{0 < uc_pc < .25}.
+#' Default: \code{unc = .00} (i.e., no uncertainty).
+#' Plausible ranges are \code{0 < unc < .25}.
 #'
 #' @param show.points Boolean option for showing the point of
 #' intersection with the current prevalence \code{\link{prev}}
@@ -85,12 +84,11 @@
 #' (e.g., on axes, legend, margin text).
 #' Default: \code{cex.lbl = .85}.
 #'
-#'
 #' @examples
 #' # Basics:
 #' plot_curve()                     # => default plot: what = ("prev", "PPV", "NPV")
 #' plot_curve(show.points = FALSE)  # => default plot without points
-#' plot_curve(prev = .2, sens = .8, spec = .7, uc_pc = .1)  # => parameters with 10% uncertainty range
+#' plot_curve(prev = .2, sens = .8, spec = .7, unc = .1)  # => 10% uncertainty range
 #'
 #' # All curves:
 #' plot_curve(what = "all") # => all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
@@ -101,11 +99,11 @@
 #' plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # => prev, PPV, NPV, and acc
 #' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 #'
-#' # Visualizing uncertainty (as ranges):
+#' # Visualizing uncertainty (unc as percentage range):
 #' plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
-#'            uc_pc = .05)  # => prev, PPV and NPV with a 5% uncertainty range
+#'            unc = .05)  # => prev, PPV and NPV with a 5% uncertainty range
 #' plot_curve(prev = .2, sens = .8, spec = .7, what = "all",
-#'            uc_pc = .1)   # => all with a 10% uncertainty range
+#'            unc = .10)  # => all with a 10% uncertainty range
 #'
 #' # X-axis as linear vs. log scale:
 #' plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
@@ -115,9 +113,9 @@
 #' plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
 #'
 #' # Other options:
-#' plot_curve(title.lbl = "Testing smaller text labels", cex.lbl = .60)
-#' plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
-#'
+#' plot_curve(title.lbl = "Testing tiny labels", cex.lbl = .60, unc = .1)
+#' plot_curve(what = "all", title.lbl = "Testing colors",
+#'            what.col = c("grey", "red3", "blue3", "gold", "green3"), unc = .2)
 #'
 #' @family visualization functions
 #'
@@ -154,7 +152,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                        what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod".
                        ## Options:
                        what.col = pal,                  # colors for what.
-                       uc_pc = .00,         # Uncertainty range (as a percentage around current prev, sens, and spec values)
+                       unc = .00,         # Uncertainty range (as a percentage around current prev, sens, and spec values)
                        show.points = TRUE,  # show points at current prev?
                        log.scale = FALSE,   # x-axis on log scale?
                        ## Text:
@@ -202,14 +200,14 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   x.max <- (1 - eps)  # was: 1
 
   ## Set x-value (prev) range for plotting uncertainty polygons:
-  if (uc_pc > 0) {  # plot a polygon:
+  if (unc > 0) {  # plot a polygon:
 
-    uc_dens <- NULL # OR: 20 # density of polygon lines (default = NULL: no lines)
+    unc_dens <- NULL # OR: 20 # density of polygon lines (default = NULL: no lines)
 
     ## Select x-value (prev) ranges based on current type of scale (log or linear):
     if (log.scale) {
 
-      uc_stepSize <- .01  # x-increments at which y-values of uncertainty polygons are computed (smaller values = more computation)
+      unc_stepSize <- .01  # x-increments at which y-values of uncertainty polygons are computed (smaller values = more computation)
 
       x_min <- 0 + eps  # avoid 0 (to avoid extreme values)
       x_max <- 1 - eps  # avoid 1 (to avoid extreme values)
@@ -220,19 +218,19 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     } else {  # linear scale:
 
-      uc_stepSize <- .01  # x-increments at which y-values of uncertainty polygons are computed (smaller values = more computation)
+      unc_stepSize <- .01  # x-increments at which y-values of uncertainty polygons are computed (smaller values = more computation)
 
-      x_min <- 0 + uc_stepSize  # avoid 0 (to avoid extreme values)
-      x_max <- 1 - uc_stepSize  # avoid 1 (to avoid extreme values)
+      x_min <- 0 + unc_stepSize  # avoid 0 (to avoid extreme values)
+      x_max <- 1 - unc_stepSize  # avoid 1 (to avoid extreme values)
 
       ## Ranges for x-values (prev) of polygon:
-      x_low_1 <- seq(x_min, x_max, by = (+1 * uc_stepSize))  # main steps
+      x_low_1 <- seq(x_min, x_max, by = (+1 * unc_stepSize))  # main steps
       x_lower <- c(x.min, x_low_1, x.max)                    # main steps + 2 extreme points (from left to right)
       x_upper <- rev(x_lower)                                # same steps (from right to left)
 
     } # if (log.scale)...
 
-  } # if (uc_pc > 0)...
+  } # if (unc > 0)...
 
   ## Positional parameters (for raising and shifting labels):
   if (log.scale) { h.shift <- prev * 2 } else { h.shift <- .075 }
@@ -246,7 +244,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   pt.lwd <- 1.6   # lwd of point borders
 
   ## Colors:
-  uc_alpha <- .20                     # transparency of uncertainty polygons
+  unc_alpha <- .20                     # transparency of uncertainty polygons
   col.axes <- grey(.10, alpha = .99)  # axes
   col.bord <- grey(.10, alpha = .50)  # borders (also of points)
 
@@ -334,13 +332,13 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     ## 0. Mark uncertainty about prev (as polygon/here: rectangle):
 
-    if (uc_pc > 0) {
+    if (unc > 0) {
 
       ## Color of uncertainty polygon (here: rectangle):
-      uc_col  <- makeTransparent(col.prev, alpha = uc_alpha)  # grey(.80, .33)
+      unc_col  <- makeTransparent(col.prev, alpha = unc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon (here: rectangle):
-      x_lower_prev <- c(max(0, (prev - uc_pc * prev)), min((prev + uc_pc * prev), 1)) # only 2 points (left & right)
+      x_lower_prev <- c(max(0, (prev - unc * prev)), min((prev + unc * prev), 1)) # only 2 points (left & right)
       x_upper_prev <- rev(x_lower_prev)  # only 2 points (right & left)
 
       ## Compute upper and lower y-values (0 and 1) corresponding to prev values:
@@ -350,7 +348,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon (here: rectangle):
       xx <- c(x_lower_prev, x_upper_prev)
       yy <- c(y_lower_prev, y_upper_prev)
-      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+      polygon(xx, yy, col = unc_col, border = NA, density = unc_dens)
 
     }
 
@@ -414,18 +412,17 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     ## 0. Mark uncertainty about PPV based on vague values of sens and spec (as polygon):
 
-    if (uc_pc > 0) {
+    if (unc > 0) {
 
       ## Color of PPV uncertainty polygon:
-      uc_col  <- makeTransparent(col.ppv, alpha = uc_alpha)  # grey(.80, .33)
+      unc_col  <- makeTransparent(col.ppv, alpha = unc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
-      # x_lower <- seq(x_min, x_max, by = (+1 * uc_stepSize))  # from left to right
-      # x_upper <- seq(x_max, x_min, by = (-1 * uc_stepSize))  # from right to left
+      ## (See x_lower and x_upper above.)
 
       ## Compute upper and lower y-values (PPV) corresponding to prev values:
-      y_lower <- comp_PPV(prev = x_lower, sens = max(0, (sens - uc_pc * sens)), spec = max(0, (spec - uc_pc * spec)))  # both sens & spec DEcreased by uc_pc
-      y_upper <- comp_PPV(prev = x_upper, sens = min(1, (sens + uc_pc * sens)), spec = min(1, (spec + uc_pc * spec)))  # both sens & spec INcreased by uc_pc
+      y_lower <- comp_PPV(prev = x_lower, sens = max(0, (sens - unc * sens)), spec = max(0, (spec - unc * spec)))  # both sens & spec DEcreased by unc
+      y_upper <- comp_PPV(prev = x_upper, sens = min(1, (sens + unc * sens)), spec = min(1, (spec + unc * spec)))  # both sens & spec INcreased by unc
 
       ## Correction: Limit values to range from 0 to 1:
       # y_lower[y_lower < 0] <- 0  # set y-values < 0 to 0.
@@ -434,7 +431,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+      polygon(xx, yy, col = unc_col, border = NA, density = unc_dens)
 
     }
 
@@ -484,18 +481,17 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     ## 0. Mark uncertainty about NPV based on vague values of sens and spec (as polygon):
 
-    if (uc_pc > 0) {
+    if (unc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- makeTransparent(col.npv, alpha = uc_alpha)  # grey(.80, .33)
+      unc_col  <- makeTransparent(col.npv, alpha = unc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
-      # x_lower <- seq(x_min, x_max, by = (+1 * uc_stepSize))  # from left to right
-      # x_upper <- seq(x_max, x_min, by = (-1 * uc_stepSize))  # from right to left
+      ## (See x_lower and x_upper above.)
 
       ## Compute upper and lower y-values (NPV) corresponding to prev values:
-      y_lower <- comp_NPV(prev = x_lower, sens = max(0, (sens - uc_pc * sens)), spec = max(0, (spec - uc_pc * spec)))  # both sens & spec DEcreased by uc_pc
-      y_upper <- comp_NPV(prev = x_upper, sens = min(1, (sens + uc_pc * sens)), spec = min(1, (spec + uc_pc * spec)))  # both sens & spec INcreased by uc_pc
+      y_lower <- comp_NPV(prev = x_lower, sens = max(0, (sens - unc * sens)), spec = max(0, (spec - unc * spec)))  # both sens & spec DEcreased by unc
+      y_upper <- comp_NPV(prev = x_upper, sens = min(1, (sens + unc * sens)), spec = min(1, (spec + unc * spec)))  # both sens & spec INcreased by unc
 
       ## Correction: Limit values to range from 0 to 1:
       # y_lower[y_lower < 0] <- 0  # set y-values < 0 to 0.
@@ -504,7 +500,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+      polygon(xx, yy, col = unc_col, border = NA, density = unc_dens)
 
     }
 
@@ -554,19 +550,18 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     ## 0. Mark uncertainty about ppod based on vague values of sens and spec (as polygon):
 
-    if (uc_pc > 0) {
+    if (unc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- makeTransparent(col.ppod, alpha = uc_alpha)  # grey(.80, .33)
+      unc_col  <- makeTransparent(col.ppod, alpha = unc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
-      # x_lower <- seq(x_min, x_max, by = (+1 * uc_stepSize))  # from left to right
-      # x_upper <- seq(x_max, x_min, by = (-1 * uc_stepSize))  # from right to left
+      ## (See x_lower and x_upper above.)
 
       ## Compute upper and lower y-values (ppod) corresponding to prev values:
       ## NOTE: ppod is INVERSELY related to spec!
-      y_lower <- comp_ppod(prev = x_lower, sens = max(0, (sens - uc_pc * sens)), spec = min(1, (spec + uc_pc * spec)))  # NOTE: sens decrease & spec INcrease by uc_pc
-      y_upper <- comp_ppod(prev = x_upper, sens = min(1, (sens + uc_pc * sens)), spec = max(0, (spec - uc_pc * spec)))  # NOTE: sens increase & spec DEcrease by uc_pc
+      y_lower <- comp_ppod(prev = x_lower, sens = max(0, (sens - unc * sens)), spec = min(1, (spec + unc * spec)))  # NOTE: sens decrease & spec INcrease by unc
+      y_upper <- comp_ppod(prev = x_upper, sens = min(1, (sens + unc * sens)), spec = max(0, (spec - unc * spec)))  # NOTE: sens increase & spec DEcrease by unc
 
       ## Correction: Limit values to range from 0 to 1:
       # y_lower[y_lower < 0] <- 0  # set y-values < 0 to 0.
@@ -575,7 +570,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+      polygon(xx, yy, col = unc_col, border = NA, density = unc_dens)
 
     }
 
@@ -624,18 +619,17 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
     ## 0. Mark uncertainty about acc based on vague values of sens and spec (as polygon):
 
-    if (uc_pc > 0) {
+    if (unc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- makeTransparent(col.acc, alpha = uc_alpha)  # grey(.80, .33)
+      unc_col  <- makeTransparent(col.acc, alpha = unc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
-      # x_lower <- seq(x_min, x_max, by = (+1 * uc_stepSize))  # from left to right
-      # x_upper <- seq(x_max, x_min, by = (-1 * uc_stepSize))  # from right to left
+      ## (See x_lower and x_upper above.)
 
       ## Compute upper and lower y-values (acc) corresponding to prev values:
-      y_lower <- comp_acc(prev = x_lower, sens = max(0, (sens - uc_pc * sens)), spec = max(0, (spec - uc_pc * spec)))  # both sens & spec DEcreased by uc_pc
-      y_upper <- comp_acc(prev = x_upper, sens = min(1, (sens + uc_pc * sens)), spec = min(1, (spec + uc_pc * spec)))  # both sens & spec INcreased by uc_pc
+      y_lower <- comp_acc(prev = x_lower, sens = max(0, (sens - unc * sens)), spec = max(0, (spec - unc * spec)))  # both sens & spec DEcreased by unc
+      y_upper <- comp_acc(prev = x_upper, sens = min(1, (sens + unc * sens)), spec = min(1, (spec + unc * spec)))  # both sens & spec INcreased by unc
 
       ## Correction: Limit values to range from 0 to 1:
       # y_lower[y_lower < 0] <- 0  # set y-values < 0 to 0.
@@ -644,7 +638,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
       ## Plot polygon:
       xx <- c(x_lower, x_upper)
       yy <- c(y_lower, y_upper)
-      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+      polygon(xx, yy, col = unc_col, border = NA, density = unc_dens)
 
     }
 
@@ -675,7 +669,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   ## (5) Title: ----------
 
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Probability curves as a function of prevalence") #, "\n", cur.sens.spec.lbl)
+  cur.title.lbl <- paste0(title.lbl, "Probability curves by prevalence") #, "\n", cur.sens.spec.lbl)
 
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 
@@ -686,10 +680,10 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = cex.lbl)  # print label
 
-  if (uc_pc > 0) {
+  if (unc > 0) {
 
-    ## (b) Note uncertainty signal and uc_pc value:
-    note <- paste0("Shading marks an uncertainty of ", as_pc(uc_pc), "%")
+    ## (b) Note uncertainty signal and unc value:
+    note <- paste0("Shading marks an uncertainty of ", as_pc(unc), "%")
 
     note_lbl <- paste0("Note:  ", note, ".")
     mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = cex.lbl)
@@ -718,7 +712,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 # ## Basics:
 # plot_curve()  # => default curves (prev, PPV, NPV)
 # plot_curve(what = "all")
-# plot_curve(prev = .25, sens = .85, spec = .75, uc_pc = .05)  # => parameters with a 5% uncertainty range
+# plot_curve(prev = .25, sens = .85, spec = .75, unc = .05)  # => parameters with a 5% uncertainty range
 #
 # ## Selected curves:
 # plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
@@ -726,8 +720,8 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 # plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 #
 # ## Visualizing uncertainty (as ranges):
-# plot_curve(what = c("prev", "PPV", "NPV"), uc_pc = .10)  # => prev, PPV and NPV with 10% uncertainty range
-# plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc_pc = .1)  # => all metrics with 10% uncertainty range
+# plot_curve(what = c("prev", "PPV", "NPV"), unc = .10)  # => prev, PPV and NPV with 10% uncertainty range
+# plot_curve(prev = .2, sens = .8, spec = .7, what = "all", unc = .1)  # => all metrics with 10% uncertainty range
 #
 # ## Other options:
 # plot_curve(show.points = FALSE)  # => default without points
@@ -773,9 +767,8 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
 ## (*) Done: ----------
 
-## - Add option uc_pc to show _ranges_ (polygons) to better visualize uncertainty.
+## - Add option unc to show _ranges_ (polygons) to better visualize uncertainty.
 ## - Clean up code.  [2018 08 28]
-
 
 ## (+) ToDo: ----------
 
