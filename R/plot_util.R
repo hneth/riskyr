@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 08 28
+## 2018 08 29
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -338,6 +338,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       col.fill = grey(.95, .50),  # default fill color
                       col.brd = pal["brd"],       # default border color
                       col.txt = pal["txt"],       # default label color
+                      ## Shading options:
+                      density = NULL,
+                      angle = 45,
                       ...  # other graphical parameters: lwd, cex, adj, ...
 ) {
 
@@ -349,13 +352,17 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
   y_bottom = (y - ly/2)
   y_top = y_bottom + ly
 
-  ## (1) Plot rect:
+  ## (1) Plot rectangle:
+
   rect(xleft = x_left, ybottom = y_bottom, xright = x_right, ytop = y_top,
        col = col.fill,
        border = col.brd,
+       density = density,
+       angle = angle,
        ...)
 
   ## (2) Print optional text labels:
+
   if (!is.na(lbl)) {
 
     text(x = x, y = y,
@@ -389,19 +396,27 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
   }
 
-
 }
 
 ## Check:
-
+#
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
 #     xlim = c(0, 10), ylim = c(0, 6))
 #
 # plot_cbox(1, 5, 1, 1)  # default color, no text labels
-# plot_cbox(2, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.")  # add text labels
-# plot_cbox(3, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.",
+#
+# plot_cbox(3, 5, 1, 1, density = 15)  # with diagonal lines
+#
+# plot_cbox(5, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.")  # add text labels
+#
+# plot_cbox(7, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.",
 #           cex = .75, font = 2,                                # add text options
 #           col.fill = "gold", col.brd = "steelblue", lwd = 3)  # add color options
+#
+# plot_cbox(9, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.",
+#           cex = .75, font = 1,                                # add text options
+#           col.fill = "firebrick", col.brd = "firebrick", lwd = 1,
+#           density = 15)  # add color options
 
 
 ## plot_fbox: Plot a known frequency (freq) as a box ----------
