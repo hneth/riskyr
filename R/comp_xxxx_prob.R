@@ -345,7 +345,7 @@
 
 ## comp_freq_prob: Definition ------
 
-comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (removed: mirt & fart ):
+comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (removed: mirt & fart):
                            sens = prob$sens, mirt = NA, # using current probability info contained in prob!
                            spec = prob$spec, fart = NA,
                            tol = .01,         # tolerance for is_complement
