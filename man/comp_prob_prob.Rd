@@ -167,8 +167,6 @@ Thus, they can be computed as ratios between frequencies:
 
 \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 
-
-
 \item proportion of positive decisions \code{\link{ppod}}:
 
 \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
@@ -190,7 +188,6 @@ Thus, they can be computed as ratios between frequencies:
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
 }
-
 }
 }
 \examples{
@@ -220,7 +217,6 @@ comp_prob_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
 comp_prob_prob(8,  1, 1, NA)  # => only warning: prev no probability
 comp_prob_prob(1,  8, 1, NA)  # => only warning: sens no probability
 comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
-
 
 }
 \seealso{

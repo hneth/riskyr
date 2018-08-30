@@ -99,14 +99,14 @@ init_freq <- function() {
     "cr" = NA  # true negative
   )
 
-  ## Return entire list freq:
+  ## Return entire list of 11 freq:
   return(freq)
 
 }
 
 ## Check:
 # init_freq()          # initializes empty freq
-# length(init_freq())  # =>  9 frequencies
+# length(init_freq())  # =>  11 frequencies
 
 
 ## (2) Compute all frequencies from 3 essential probabilities: ----------
@@ -119,7 +119,7 @@ init_freq <- function() {
 #' as rounded integers) given 3 basic probabilities --
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} --
 #' -- for a population of \code{\link{N}} individuals.
-#' It returns a list of 9 frequencies \code{\link{freq}}
+#' It returns a list of 11 frequencies \code{\link{freq}}
 #' as its output.
 #'
 #' In addition to \code{\link{prev}}, both
@@ -146,44 +146,127 @@ init_freq <- function() {
 #'
 #' \enumerate{
 #'
-#' \item to probabilities:
-#' A population of \code{\link{N}} individuals can be split into 2 subsets
-#' in 2 different ways:
+#' \item Three perspectives:
 #'
-#' \enumerate{
-#'   \item by condition:
-#'   The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
-#'   and
-#'   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#' A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 #'
-#'   \item by decision:
-#'   The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
-#'   and
-#'   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'    \enumerate{
 #'
-#' }
+#'    \item by condition:
 #'
-#' The population size \code{\link{N}} is a free parameter (independent of the
+#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'
+#'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'    and
+#'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'
+#'
+#'    \item by decision:
+#'
+#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
+#'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'    and
+#'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'
+#'    \item by accuracy (i.e., correspondence of decision to condition):
+#'
+#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
+#'
+#'    }
+#'
+#' Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+#'
+#' When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 #' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
-#' If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
-#'   \item to other frequencies:
-#'   In a population of size \code{\link{N}}
-#'   the following relationships hold:
 #'
-#'   \itemize{
+#' \item Defining probabilities in terms of frequencies:
 #'
-#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+#' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+#' Thus, they can be computed as ratios between frequencies:
 #'
-#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+#'   \enumerate{
 #'
-#'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+#'   \item prevalence \code{\link{prev}}:
 #'
-#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'   \code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
-#'   }
+#'
+#'   \item sensitivity \code{\link{sens}}:
+#'
+#'   \code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
+#'
+#'
+#'   \item miss rate \code{\link{mirt}}:
+#'
+#'   \code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
+#'
+#'
+#'   \item specificity \code{\link{spec}}:
+#'
+#'   \code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
+#'
+#'
+#'   \item false alarm rate \code{\link{fart}}:
+#'
+#'   \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
+#'
+#'
+#'   \item proportion of positive decisions \code{\link{ppod}}:
+#'
+#'   \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
+#'
+#'   \item positive predictive value \code{\link{PPV}}:
+#'
+#'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
+#'
+#'
+#'   \item negative predictive value \code{\link{NPV}}:
+#'
+#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+#'
+#'
+#'   \item false detection rate \code{\link{FDR}}:
+#'
+#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+#'
+#'
+#'   \item false omission rate \code{\link{FOR}}:
+#'
+#'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
+#'
+#'    }
 #' }
+#'
+#' Functions translating between representational formats:
+#'
+#' \enumerate{
+#'
+#'    \item \code{\link{comp_freq_prob}} is
+#'    a wrapper function for \code{comp_freq} and
+#'    an analog to 3 other format conversion functions:
+#'
+#'    \item \code{\link{comp_freq_freq}} computes
+#'    current \emph{frequency} information contained in \code{\link{freq}}
+#'    from 4 essential frequencies
+#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+#'
+#'    \item \code{\link{comp_prob_freq}} computes
+#'    current \emph{probability} information contained in \code{\link{prob}}
+#'    from 4 essential frequencies
+#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+#'
+#'    \item \code{\link{comp_prob_prob}} computes
+#'    current \emph{probability} information contained in \code{\link{prob}}
+#'    from 3 essential probabilities
+#'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
+#'
+#' }
+#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).

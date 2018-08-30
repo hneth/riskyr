@@ -97,7 +97,6 @@ freq                 # => show current values
 length(freq)         # => 11 known frequencies
 names(freq)          # => show names of known frequencies
 
-
 }
 \seealso{
 \code{\link{comp_freq}} computes current frequency information;

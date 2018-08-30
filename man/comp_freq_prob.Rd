@@ -42,7 +42,7 @@ a suitable minimum value is computed by \code{\link{comp_min_N}}.}
 rounded to the nearest integer. Default: \code{round = TRUE}.}
 }
 \value{
-A list \code{\link{freq}} containing 9 frequency values.
+A list \code{\link{freq}} containing 11 frequency values.
 }
 \description{
 \code{comp_freq_prob} computes current frequency information
@@ -50,15 +50,14 @@ from a sufficient and valid set of 3 essential probabilities
 (\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}}).
-It returns a list of 9 frequencies \code{\link{freq}}
+It returns a list of 11 frequencies \code{\link{freq}}
 for a population of \code{\link{N}} individuals
 as its output.
-}
-\details{
 By default, the values of \code{\link{prev}}, \code{\link{sens}},
 and \code{\link{spec}} are initialized to the probability information
 currently contained in \code{\link{prob}}.
-
+}
+\details{
 \code{comp_freq_prob} is a wrapper function for the more basic
 function \code{\link{comp_freq}}, which only accepts the
 3 essential probabilities
@@ -69,7 +68,7 @@ When using \code{comp_freq_prob} with the arguments
 \code{\link{mirt}} and \code{\link{fart}}, their complements
 \code{\link{sens}} and \code{\link{spec}} must either be
 valid complements (as in \code{\link{is_complement}}) or
-\code{NA}.
+set to \code{NA}.
 
 The value of \code{\link{N}} uses the frequency information
 currently contained in \code{\link{freq}} as its default.
@@ -83,16 +82,13 @@ are known, first use \code{\link{comp_complement}},
 \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
 to obtain the 3 essential probabilities.
 
-By default, \code{comp_freq_prob} and \code{\link{comp_freq}}
+By default, \code{comp_freq_prob} and its basic function
+\code{\link{comp_freq}}
 round frequencies to nearest integers to avoid decimal values in
-\code{\link{freq}}. Using the option \code{round = FALSE}
-turns off rounding.
+\code{\link{freq}} (i.e., \code{round = TRUE} by default).
+Using the option \code{round = FALSE} turns off rounding.
 
-Key relationships:
-
-\itemize{
-
-\item Other functions translating between representational formats:
+Functions translating between representational formats:
 
 \enumerate{
 
@@ -117,14 +113,19 @@ Key relationships:
 
 }
 
-\item Two perspectives:
+Key relationships:
 
-A population of \code{\link{N}} individuals can be split into 2 subsets
-in 2 different ways:
+\enumerate{
+
+\item Three perspectives:
+
+A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 
 \enumerate{
 
 \item by condition:
+
+\code{\link{N} = \link{cond.true} + \link{cond.false}}
 
 The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
    and
@@ -132,34 +133,24 @@ The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev
 
 \item by decision:
 
+\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+
 The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
    and
    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 
+\item by accuracy (i.e., correspondence of decision to condition):
+
+\code{\link{N} = \link{dec.cor} + \link{dec.err}}
+
 }
 
-The population size \code{\link{N}} is a free parameter (independent of the
+Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+
+When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
 If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-
-\item Combinations of frequencies:
-
-In a population of size \code{\link{N}} the following relationships hold:
-
-\enumerate{
-
-\item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-
-}
-
-The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-  (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-  in 2 different ways.
 
 \item Defining probabilities in terms of frequencies:
 
@@ -188,8 +179,6 @@ Thus, they can be computed as ratios between frequencies:
 
 \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 
-
-
 \item proportion of positive decisions \code{\link{ppod}}:
 
 \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
@@ -216,7 +205,7 @@ Thus, they can be computed as ratios between frequencies:
 }
 \examples{
 # Basics:
-comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)           # => ok: hi = 9, ... cr = 72.
+comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # => ok: hi = 9, ... cr = 72.
 # Same case with complements (using NAs to prevent defaults):
 comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # => same result
 

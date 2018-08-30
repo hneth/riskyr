@@ -73,8 +73,9 @@ comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA + no warning (sic)
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu}},
-  \code{\link{comp_acc}}, \code{\link{comp_comp_pair}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_prob}},
+  \code{\link{comp_accu}}, \code{\link{comp_acc}},
+  \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}}, \code{\link{comp_fart}},
   \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
   \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},

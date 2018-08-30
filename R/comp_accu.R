@@ -11,11 +11,7 @@
 
 ## (1) assumes that freq has been computed before.
 
-
-
 ## (A) Accuracy metrics for a classification result (i.e., based on freq) ------
-
-
 
 ## 1. ALL current accuracy metrics from 4 freq: ------
 
@@ -334,7 +330,6 @@ accu <- comp_accu()
 
 ## Check:
 # accu
-
 
 
 ## 4. Individual accuracy metrics from 4 freq: --------

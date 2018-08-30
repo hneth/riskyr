@@ -58,18 +58,17 @@
 
 ## 2 main functions convert between formats: ----------
 
-## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
+## a. comp_freq_prob: Computes freq from prob (here in comp_xxxx_prob.R)
 ## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
-
-
 
 
 ## (A) Translate (back from 3 essential) prob to freq: --------
 
-## comp_freq_prob: Documentation ------
-
 ## Note: comp_freq_prob is a WRAPPER function for the more basic
 ##       comp_freq(...) defined before!
+
+
+## comp_freq_prob: Documentation ------
 
 #' Compute frequencies from (3 essential) probabilities.
 #'
@@ -78,10 +77,9 @@
 #' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}}).
-#' It returns a list of 9 frequencies \code{\link{freq}}
+#' It returns a list of 11 frequencies \code{\link{freq}}
 #' for a population of \code{\link{N}} individuals
 #' as its output.
-#'
 #' By default, the values of \code{\link{prev}}, \code{\link{sens}},
 #' and \code{\link{spec}} are initialized to the probability information
 #' currently contained in \code{\link{prob}}.
@@ -96,7 +94,7 @@
 #' \code{\link{mirt}} and \code{\link{fart}}, their complements
 #' \code{\link{sens}} and \code{\link{spec}} must either be
 #' valid complements (as in \code{\link{is_complement}}) or
-#' \code{NA}.
+#' set to \code{NA}.
 #'
 #' The value of \code{\link{N}} uses the frequency information
 #' currently contained in \code{\link{freq}} as its default.
@@ -110,18 +108,15 @@
 #' \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
 #' to obtain the 3 essential probabilities.
 #'
-#' By default, \code{comp_freq_prob} and \code{\link{comp_freq}}
+#' By default, \code{comp_freq_prob} and its basic function
+#' \code{\link{comp_freq}}
 #' round frequencies to nearest integers to avoid decimal values in
 #' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
 #' Using the option \code{round = FALSE} turns off rounding.
 #'
-#' Key relationships:
+#' Functions translating between representational formats:
 #'
-#' \itemize{
-#'
-#' \item Other functions translating between representational formats:
-#'
-#'    \enumerate{
+#' \enumerate{
 #'
 #'    \item \code{comp_freq_prob} (defined here) is
 #'    a wrapper function for \code{\link{comp_freq}} and
@@ -142,51 +137,48 @@
 #'    from 3 essential probabilities
 #'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
 #'
-#'    }
+#' }
 #'
-#' \item Two perspectives:
+#' Key relationships:
 #'
-#' A population of \code{\link{N}} individuals can be split into 2 subsets
-#' in 2 different ways:
+#' \enumerate{
+#'
+#' \item Three perspectives:
+#'
+#' A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 #'
 #'    \enumerate{
 #'
 #'    \item by condition:
 #'
+#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'
 #'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
 #'    and
 #'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
 #'
+#'
 #'    \item by decision:
+#'
+#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
 #'
 #'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
 #'    and
 #'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
+#'    \item by accuracy (i.e., correspondence of decision to condition):
+#'
+#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
+#'
 #'    }
 #'
-#' The population size \code{\link{N}} is a free parameter (independent of the
+#' Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+#'
+#' When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 #' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
-#' \item Combinations of frequencies:
-#'
-#'    In a population of size \code{\link{N}} the following relationships hold:
-#'
-#'    \enumerate{
-#'
-#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-#'
-#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-#'
-#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-#'
-#'    }
-#'
-#'   The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-#'   (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-#'   in 2 different ways.
 #'
 #' \item Defining probabilities in terms of frequencies:
 #'
@@ -245,46 +237,50 @@
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
 #'    }
+#'
 #' }
 #'
-#' @param prev The condition's prevalence \code{\link{prev}}
+#'
+#' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
-#' @param sens The decision's sensitivity \code{\link{sens}}
+#' @param sens  The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
 #'
-#' @param mirt The decision's miss rate \code{\link{mirt}}
+#' @param mirt  The decision's miss rate \code{\link{mirt}}
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{TRUE}).
 #' \code{mirt} is optional when its complement \code{sens} is provided.
 #'
-#' @param spec The decision's specificity value \code{\link{spec}}
+#' @param spec  The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when its complement \code{fart} is provided.
 #'
-#' @param fart The decision's false alarm rate \code{\link{fart}}
+#' @param fart  The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#' @param tol A numeric tolerance value for \code{\link{is_complement}}.
+#' @param tol  A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
-#' @param N The number of individuals in the population.
+#' @param N  The number of individuals in the population.
 #' If \code{\link{N}} is unknown (\code{NA}),
 #' a suitable minimum value is computed by \code{\link{comp_min_N}}.
 #'
-#' @param round A Boolean value that determines whether frequencies are
+#' @param round  A Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
 #'
-#' @return A list \code{\link{freq}} containing 9 frequency values.
+#'
+#' @return A list \code{\link{freq}} containing 11 frequency values.
+#'
 #'
 #' @examples
 #' # Basics:
-#' comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)           # => ok: hi = 9, ... cr = 72.
+#' comp_freq_prob(prev = .1, sens = .9, spec = .8, N = 100)  # => ok: hi = 9, ... cr = 72.
 #' # Same case with complements (using NAs to prevent defaults):
 #' comp_freq_prob(prev = .1, sens = NA, mirt = .1, spec = NA, fart = .2, N = 100)  # => same result
 #'
@@ -322,6 +318,7 @@
 #' comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # => NAs + no warning (spec NA)
 #' comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # => NAs + warning (prev beyond range)
 #' comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & spec beyond range)
+#'
 #'
 #' @family functions computing frequencies
 #' @family format conversion functions
@@ -690,6 +687,7 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
 
 
 ## Check: ------
+
 # Basics:
 # comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 # comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
@@ -718,10 +716,10 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
 # comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 
 
-
 ## (*) Done: -----------
 
 ## - Clean up code [2018 08 30].
+
 
 ## (+) ToDo: ----------
 
