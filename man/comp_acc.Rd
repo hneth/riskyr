@@ -68,7 +68,6 @@ comp_acc(0, 1, 0)  #  => 0
 comp_acc(0, 0, 1)  #  => 1
 comp_acc(0, 0, 0)  #  => 0
 
-
 }
 \seealso{
 \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
@@ -81,8 +80,8 @@ comp_acc(0, 0, 0)  #  => 0
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu}},
-  \code{\link{comp_comp_pair}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_prob}},
+  \code{\link{comp_accu}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
@@ -90,5 +89,6 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_prob}}, \code{\link{comp_sens}},
   \code{\link{comp_spec}}
 
-Other metrics: \code{\link{accu}}, \code{\link{comp_accu}}
+Other metrics: \code{\link{accu}},
+  \code{\link{comp_accu_prob}}, \code{\link{comp_accu}}
 }

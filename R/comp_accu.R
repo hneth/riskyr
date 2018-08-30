@@ -453,9 +453,9 @@ accu <- comp_accu()
 #'
 #' # Extreme cases:
 #' comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
-#' comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy/optimal prediction performance
-#' comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy/worst prediction performance, but see f1s
-#' comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect accuracy, but see wacc (0.5) and mcc (corrected)
+#' comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
+#' comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
+#' comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #'
 #' # Effects of w:
 #' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
@@ -576,9 +576,9 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #
 # # Extreme cases:
 # comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
-# comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy/optimal prediction performance
-# comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy/worst prediction performance, but see f1s
-# comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect accuracy, but see wacc (0.5) and mcc (corrected)
+# comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
+# comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
+# comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #
 # # Effects of w:
 # comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec

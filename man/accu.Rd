@@ -76,7 +76,7 @@ Other lists containing current scenario information: \code{\link{freq}},
   \code{\link{num}}, \code{\link{pal_bw}},
   \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 
-Other metrics: \code{\link{comp_accu}},
-  \code{\link{comp_acc}}
+Other metrics: \code{\link{comp_accu_prob}},
+  \code{\link{comp_accu}}, \code{\link{comp_acc}}
 }
 \keyword{datasets}

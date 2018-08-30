@@ -2,7 +2,7 @@
 % Please edit documentation in R/comp_accu.R
 \name{comp_accu}
 \alias{comp_accu}
-\title{Compute acccuracy of current classification results.}
+\title{Compute accuracy metrics of current classification results.}
 \usage{
 comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
   w = 0.5)
@@ -24,14 +24,14 @@ Default: \code{w = .50} (i.e., yielding balanced accuracy \code{bacc}).}
 A list \code{\link{accu}} containing current accuracy metrics.
 }
 \description{
-\code{comp_accu} computes current accuracy metrics
+\code{comp_accu} computes a list of current accuracy metrics
 from the 4 essential frequencies (\code{\link{hi}},
 \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
 that constitute the current confusion matrix and
 are contained in \code{\link{freq}}.
 }
 \details{
-Currently computed metrics include:
+Currently computed accuracy metrics include:
 
 \enumerate{
 
@@ -75,10 +75,19 @@ See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for addit
 }
 
 Note that some accuracy metrics can be interpreted
-as probabilities (e.g., \code{acc}) or correlations (e.g., \code{mcc}).
+as probabilities (e.g., \code{acc}) and some as correlations (e.g., \code{mcc}).
+
+Also, accuracy can be viewd as a probability (e.g., the ratio of or link between
+\code{\link{dec.cor}} and \code{\link{N}}) or as a frequency type
+(containing \code{\link{dec.cor}} and \code{\link{dec.err}}).
+
+When input frequencies were rounded (see the default of \code{round = TRUE}
+in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy
+metrics computed by \code{comp_accu} correspond these rounded values.
+Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
 }
 \examples{
-comp_accu()  # => computes accuracy metrics for current default scenario
+comp_accu()  # => accuracy metrics for freq of current scenario
 comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi
 
 # Extreme cases:
@@ -92,6 +101,13 @@ comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/2)  # equal weights to sens and 
 comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 2/3)  # more weight to sens
 comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/3)  # more weight to spec
 
+# Comparing comp_accu_prob with comp_accu (based on freq):
+# (a) comp_accu (based on rounded frequencies):
+comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 2/3)  # => hi = 2, mi = 1, fa = 2, cr = 5
+comp_accu(hi = 2, mi = 1, fa = 2, cr = 5)              # => accu (based on rounded freq).
+# (b) comp_accu_prob (based on probabilities):
+comp_accu_prob(prev = 1/3, sens = 2/3, spec = 2/3)     # => exact accu (based on prob).
+
 
 }
 \references{
@@ -99,19 +115,20 @@ Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusi
 for additional information.
 }
 \seealso{
-The corresponding data frame ;
+\code{\link{comp_accu_prob}} for exact accuracy metrics from probabilities;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
 
-Other metrics: \code{\link{accu}}, \code{\link{comp_acc}}
+Other metrics: \code{\link{accu}},
+  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}}
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_acc}},
-  \code{\link{comp_comp_pair}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_prob}},
+  \code{\link{comp_acc}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
