@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 08 21
+## 2018 08 30
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -56,9 +56,16 @@
 ##   - given:   N = hi, mi, fa, cr
 ##   - derived: all other values
 
+## 2 main functions convert between formats: ----------
+
+## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
+## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
+
 
 ## (1) Initialize all frequencies as a list (of NA values) freq: ---------
 ##     Currently 11 frequencies (4 essential ones):
+
+## init_freq Definition: ------
 
 init_freq <- function() {
 
@@ -90,7 +97,7 @@ init_freq <- function() {
     "mi" = NA, # false negative
     "fa" = NA, # false positive
     "cr" = NA  # true negative
-    )
+  )
 
   ## Return entire list freq:
   return(freq)
@@ -103,6 +110,8 @@ init_freq <- function() {
 
 
 ## (2) Compute all frequencies from 3 essential probabilities: ----------
+
+## comp_freq: Documentation --------
 
 #' Compute frequencies from (3 essential) probabilities.
 #'
@@ -127,10 +136,11 @@ init_freq <- function() {
 #' \code{comp_freq} is the frequency counterpart to the
 #' probability function \code{\link{comp_prob}}.
 #'
-#' By default, \code{\link{comp_freq}} rounds frequencies
-#' to nearest integers to avoid decimal values in
-#' \code{\link{freq}}. Use \code{round = FALSE}
-#' to switch off rounding.
+#' By default, \code{comp_freq} and its wrapper function
+#' \code{\link{comp_freq_prob}}
+#' round frequencies to nearest integers to avoid decimal values in
+#' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
+#' Using the option \code{round = FALSE} turns off rounding.
 #'
 #' Key relationships:
 #'
@@ -171,8 +181,8 @@ init_freq <- function() {
 #'     \item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
 #'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-#'   }
 #'
+#'   }
 #' }
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
@@ -186,7 +196,6 @@ init_freq <- function() {
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
-#'
 #' @param N The number of individuals in the population.
 #' If \code{\link{N}} is unknown (\code{NA}),
 #' a suitable minimum value is computed by \code{\link{comp_min_N}}.
@@ -195,7 +204,6 @@ init_freq <- function() {
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
 #'
 #' @return A list \code{\link{freq}} containing 9 frequency values.
-#'
 #'
 #' @examples
 #' comp_freq()                  # => ok, using current defaults
@@ -222,11 +230,10 @@ init_freq <- function() {
 #' comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
 #' comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens beyond range)
 #'
-#'
 #' @family functions computing frequencies
 #'
-#'
 #' @seealso
+#' \code{\link{comp_freq_prob}} corresponding wrapper function;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{freq}} contains current frequency information;
@@ -239,6 +246,8 @@ init_freq <- function() {
 #'
 #' @export
 
+## comp_freq: Definition --------
+
 comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
                       N = num$N,
                       round = TRUE) {
@@ -249,7 +258,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
   ## (1) Only if 3 essential probabilities are valid:
   if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
-  # if (is_valid_prob_triple(prev = prev, sens = sens, spec = spec)) {
+    # if (is_valid_prob_triple(prev = prev, sens = sens, spec = spec)) {
 
     ## (2) Compute missing fart or spec (4th argument) value (if applicable):
     # cur.spec.fart <- comp_comp_pair(spec, fart)  # (do only when needed)
@@ -323,35 +332,37 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
 }
 
-## Check:
-{
-  # comp_freq()                  # => ok, using current defaults
-  # length(comp_freq())          # => 9
-  #
-  # # Ways to succeed:
-  # comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
-  # comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
-  # comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
-  # comp_freq(prev = 1, sens = 0, spec = 0, 100)  # => ok, N misses
-  # comp_freq(prev = 0, sens = 1, spec = 1, 100)  # => ok, N correct rejections (TN)
-  # comp_freq(prev = 0, sens = 1, spec = 0, 100)  # => ok, N false alarms (FP)
-  #
-  # # Watch out for:
-  # comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
-  # comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
-  # comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
-  # comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
-  #
-  # # Ways to fail:
-  # comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
-  # comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
-  # comp_freq(prev = 1,  sens = 1,  spec = NA, 100)  # => NAs + warning (spec NA)
-  # comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
-  # comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
-}
+## Check: --------
+
+# comp_freq()                  # => ok, using current defaults
+# length(comp_freq())          # => 9
+#
+# # Ways to succeed:
+# comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
+# comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
+# comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
+# comp_freq(prev = 1, sens = 0, spec = 0, 100)  # => ok, N misses
+# comp_freq(prev = 0, sens = 1, spec = 1, 100)  # => ok, N correct rejections (TN)
+# comp_freq(prev = 0, sens = 1, spec = 0, 100)  # => ok, N false alarms (FP)
+#
+# # Watch out for:
+# comp_freq(prev = 1, sens = 1, spec = 1, N = NA)  # => ok, but warning that N = 1 was computed
+# comp_freq(prev = 1, sens = 1, spec = 1, N =  0)  # => ok, but all 0 + warning (extreme case: N hits)
+# comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = TRUE)  # => ok, but all rounded (increasing errors: mi and fa)
+# comp_freq(prev = .5, sens = .5, spec = .5, N = 10, round = FALSE)  # => ok, but not rounded
+#
+# # Ways to fail:
+# comp_freq(prev = NA,  sens = 1, spec = 1,  100)   # => NAs + warning (prev NA)
+# comp_freq(prev = 1,  sens = NA, spec = 1,  100)   # => NAs + warning (sens NA)
+# comp_freq(prev = 1,  sens = 1,  spec = NA, 100)  # => NAs + warning (spec NA)
+# comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
+# comp_freq(prev = 1,  sens = 8,  spec = 1,  100) # => NAs + warning (sens beyond range)
+
 
 
 ## (3) Apply to initialize freq: -----------------
+
+## freq: Documentation --------
 
 #' List current frequency information.
 #'
@@ -436,16 +447,13 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #' are provided by \code{\link{plot_tree}} and
 #' \code{\link{plot_mosaic}}.
 #'
-#'
 #' @examples
 #' freq <- comp_freq()  # => initialize freq to default parameters
 #' freq                 # => show current values
 #' length(freq)         # => 11 known frequencies
 #' names(freq)          # => show names of known frequencies
 #'
-#'
 #' @family lists containing current scenario information
-#'
 #'
 #' @seealso
 #' \code{\link{comp_freq}} computes current frequency information;
@@ -461,6 +469,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'
 #' @export
 
+## freq: Definition --------
+
 freq <- comp_freq()  # => initialize freq to default parameters
 
 ## Check:
@@ -470,6 +480,7 @@ freq <- comp_freq()  # => initialize freq to default parameters
 
 
 ## comp_freq_type: Determine the type of a named frequency (freq):  ----------
+
 comp_freq_type <- function(fname) {
 
   f_type <- "typeless"  # initialize
@@ -498,7 +509,7 @@ comp_freq_type <- function(fname) {
 
 }
 
-## Check:
+## Check: --------
 # comp_freq_type("N")
 # comp_freq_type("cond.false")
 # comp_freq_type("dec.neg")
@@ -508,6 +519,7 @@ comp_freq_type <- function(fname) {
 ## Note:
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
 # comp_freq_type("false")  # => typeless (as full name is required)
+
 
 ## comp_freq_col: Determine the color of a named frequency (freq):  ----------
 
@@ -562,7 +574,7 @@ comp_freq_col <- function(fname) {
 
 }
 
-## Check:
+## Check: --------
 # comp_freq_col("N")
 # comp_freq_col("hi")
 # comp_freq_col("dec.err")
@@ -571,7 +583,9 @@ comp_freq_col <- function(fname) {
 # comp_freq_col("default")  # default color
 
 
-## (*) Done: -------------------------------------
+## (*) Done: -----------
+
+## - Clean up code [2018 08 30].
 
 ## - Added help functions comp_freq_type and comp_freq_col
 ##   to classify freq into types and determine freq color
@@ -581,7 +595,7 @@ comp_freq_col <- function(fname) {
 ##   "decision correctness" or correspondence of decision to condition:
 ##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
-## (+) ToDo: -------------------------------------
+## (+) ToDo: -----------
 
 ## - ...
 

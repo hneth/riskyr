@@ -59,7 +59,7 @@
 
 ## 2 functions convert between formats: ----------
 
-## a. comp_freq_prob: Computes freq from prob
+## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
 ## b. comp_prob_freq: Computes prob from freq
 
 
