@@ -53,9 +53,6 @@ from a sufficient and valid set of 3 essential probabilities
 It returns a list of 11 frequencies \code{\link{freq}}
 for a population of \code{\link{N}} individuals
 as its output.
-By default, the values of \code{\link{prev}}, \code{\link{sens}},
-and \code{\link{spec}} are initialized to the probability information
-currently contained in \code{\link{prob}}.
 }
 \details{
 \code{comp_freq_prob} is a wrapper function for the more basic
@@ -64,16 +61,24 @@ function \code{\link{comp_freq}}, which only accepts the
 (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
 as inputs.
 
-When using \code{comp_freq_prob} with the arguments
+Defaults and constraints:
+
+\itemize{
+
+\item Initial values: By default, the values of \code{\link{prev}}, \code{\link{sens}},
+and \code{\link{spec}} are initialized to the probability information
+currently contained in \code{\link{prob}}.
+
+Similarly, the population size \code{\link{N}} uses the frequency information
+currently contained in \code{\link{freq}} as its default.
+If \code{\link{N}} is unknown (\code{NA}),
+a suitable minimum value is computed by \code{\link{comp_min_N}}.
+
+\item Constraints: When using \code{comp_freq_prob} with the arguments
 \code{\link{mirt}} and \code{\link{fart}}, their complements
 \code{\link{sens}} and \code{\link{spec}} must either be
 valid complements (as in \code{\link{is_complement}}) or
 set to \code{NA}.
-
-The value of \code{\link{N}} uses the frequency information
-currently contained in \code{\link{freq}} as its default.
-If \code{\link{N}} is unknown (\code{NA}),
-a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
 In addition to \code{\link{prev}}, both
 \code{\link{sens}} and \code{\link{spec}} are necessary arguments.
@@ -82,11 +87,13 @@ are known, first use \code{\link{comp_complement}},
 \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
 to obtain the 3 essential probabilities.
 
-By default, \code{comp_freq_prob} and its basic function
+\item Rounding: By default, \code{comp_freq_prob} and its basic function
 \code{\link{comp_freq}}
 round frequencies to nearest integers to avoid decimal values in
 \code{\link{freq}} (i.e., \code{round = TRUE} by default).
 Using the option \code{round = FALSE} turns off rounding.
+
+}
 
 Functions translating between representational formats:
 
@@ -115,9 +122,9 @@ Functions translating between representational formats:
 
 Key relationships:
 
-\enumerate{
+\itemize{
 
-\item Three perspectives:
+\item Three perspectives on a population:
 
 A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 
@@ -243,7 +250,6 @@ comp_freq_prob(prev = 1, sens = NA, spec = 1, 100)  # => NAs + no warning (sens 
 comp_freq_prob(prev = 1, sens = 1, spec = NA, 100)  # => NAs + no warning (spec NA)
 comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # => NAs + warning (prev beyond range)
 comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & spec beyond range)
-
 
 }
 \seealso{

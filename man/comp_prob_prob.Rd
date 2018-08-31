@@ -67,11 +67,7 @@ probabilities of 0 or 1) may yield unexpected values
 turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
-Key relationships:
-
-\itemize{
-
-\item Other functions translating between representational formats:
+Functions translating between representational formats:
 
 \enumerate{
 
@@ -96,14 +92,20 @@ Key relationships:
 
 }
 
-\item Two perspectives:
+Key relationships:
+
+\itemize{
+
+\item Three perspectives on a population:
 
 A population of \code{\link{N}} individuals can be split into 2 subsets
-in 2 different ways:
+in 3 different ways:
 
 \enumerate{
 
 \item by condition:
+
+\code{\link{N} = \link{cond.true} + \link{cond.false}}
 
 The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
    and
@@ -111,34 +113,24 @@ The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev
 
 \item by decision:
 
+\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+
 The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
    and
    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 
+\item by accuracy (i.e., correspondence of decision to condition):
+
+\code{\link{N} = \link{dec.cor} + \link{dec.err}}
+
 }
 
-The population size \code{\link{N}} is a free parameter (independent of the
+Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+
+When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
 If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-
-\item Combinations of frequencies:
-
-In a population of size \code{\link{N}} the following relationships hold:
-
-\enumerate{
-
-\item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-
-}
-
-The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-  (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-  in 2 different ways.
 
 \item Defining probabilities in terms of frequencies:
 
