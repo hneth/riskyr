@@ -50,7 +50,7 @@ start_riskyr <- function(...) {
   ## (4) Compute derived data structures and variables:
   prob <- comp_prob()
   freq <- comp_freq()
-  accu <- comp_accu()
+  accu <- comp_accu_prob()  # was: comp_accu() which used to call comp_accu_freq()
 
   ## (5) Insert computed values into riskyr.lst:
   riskyr.lst <- list(txt = txt,

@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 08 30
+## 2018 08 31
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
@@ -16,15 +16,15 @@
 
 ## 1. ALL current accuracy metrics from 4 freq: ------
 
-## Note: comp_accu uses 4 freq as inputs and returns corresponding accuracy metrics.
+## Note: comp_accu_freq uses 4 freq as inputs and returns corresponding accuracy metrics.
 ##       If input freq were rounded, the values of accu may be imprecise.
 ##       Use comp_accu_prob (below) to get exact values from probability inputs.
 
-## comp_accu: Documentation --------
+## comp_accu_freq: Documentation --------
 
 #' Compute accuracy metrics of current classification results.
 #'
-#' \code{comp_accu} computes a list of current accuracy metrics
+#' \code{comp_accu_freq} computes a list of current accuracy metrics
 #' from the 4 essential frequencies (\code{\link{hi}},
 #' \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
 #' that constitute the current confusion matrix and
@@ -73,17 +73,34 @@
 #'
 #' }
 #'
-#' Note that some accuracy metrics can be interpreted
-#' as probabilities (e.g., \code{acc}) and some as correlations (e.g., \code{mcc}).
+#' Notes:
 #'
-#' Also, accuracy can be viewd as a probability (e.g., the ratio of or link between
-#' \code{\link{dec.cor}} and \code{\link{N}}) or as a frequency type
-#' (containing \code{\link{dec.cor}} and \code{\link{dec.err}}).
+#' \itemize{
 #'
-#' When input frequencies were rounded (see the default of \code{round = TRUE}
-#' in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy
-#' metrics computed by \code{comp_accu} correspond these rounded values.
-#' Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
+#'    \item Accuracy metrics describe the \emph{correspondence} of decisions (or predictions) to actual conditions (or truth).
+#'
+#'    There are several possible interpretations of accuracy:
+#'
+#'    \enumerate{
+#'
+#'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
+#'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+#'
+#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'
+#'      \item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+#'
+#'    }
+#'
+#'    \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+#'    accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
+#'
+#'    When frequencies were rounded (see the default of \code{round = TRUE}
+#'    in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
+#'    \code{comp_accu_freq} correspond to these rounded values.
+#'    Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
+#'
+#'    }
 #'
 #' @return A list \code{\link{accu}} containing current accuracy metrics.
 #'
@@ -98,24 +115,24 @@
 #'
 #'
 #' @examples
-#' comp_accu()  # => accuracy metrics for freq of current scenario
-#' comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi
+#' comp_accu_freq()  # => accuracy metrics for freq of current scenario
+#' comp_accu_freq(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi
 #'
 #' # Extreme cases:
-#' comp_accu(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
-#' comp_accu(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal performance
-#' comp_accu(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst performance, but see f1s
-#' comp_accu(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc and mcc
+#' comp_accu_freq(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
+#' comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal performance
+#' comp_accu_freq(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst performance, but see f1s
+#' comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc and mcc
 #'
 #' # Effects of w:
-#' comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/2)  # equal weights to sens and spec
-#' comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 2/3)  # more weight to sens
-#' comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/3)  # more weight to spec
+#' comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/2)  # equal weights to sens and spec
+#' comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 2/3)  # more weight to sens
+#' comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/3)  # more weight to spec
 #'
 #' # Comparing comp_accu_prob with comp_accu (based on freq):
 #' # (a) comp_accu (based on rounded frequencies):
 #' comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 2/3)  # => hi = 2, mi = 1, fa = 2, cr = 5
-#' comp_accu(hi = 2, mi = 1, fa = 2, cr = 5)              # => accu (based on rounded freq).
+#' comp_accu_freq(hi = 2, mi = 1, fa = 2, cr = 5)              # => accu (based on rounded freq).
 #' # (b) comp_accu_prob (based on probabilities):
 #' comp_accu_prob(prev = 1/3, sens = 2/3, spec = 2/3)     # => exact accu (based on prob).
 #'
@@ -137,11 +154,11 @@
 #'
 #' @export
 
-## comp_accu: Definition --------
+## comp_accu_freq: Definition --------
 
-comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
-                      fa = freq$fa, cr = freq$cr,
-                      w = .50  # weight for wacc (from 0 to 1). Default: w = .50 (aka. bacc).
+comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
+                           fa = freq$fa, cr = freq$cr,
+                           w = .50  # weight for wacc (from 0 to 1). Default: w = .50 (aka. bacc).
 ) {
 
   ## (1) Verify w:
@@ -217,128 +234,41 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 }
 
 ## Check: ------
-# comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
+# comp_accu_freq(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
 #
 # # Extreme cases:
-# comp_accu(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
-# comp_accu(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal prediction performance
-# comp_accu(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst prediction performance, but see f1s
-# comp_accu(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc (NaN) and mcc (corrected)
+# comp_accu_freq(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
+# comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal prediction performance
+# comp_accu_freq(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst prediction performance, but see f1s
+# comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc (NaN) and mcc (corrected)
 #
 # # Effects of w:
-# comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/2)  # equal weights to sens and spec
-# comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 2/3)  # more weight to sens
-# comp_accu(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/3)  # more weight to spec
+# comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/2)  # equal weights to sens and spec
+# comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 2/3)  # more weight to sens
+# comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/3)  # more weight to spec
 
 
 
+## 2. comp_accu: Wrapper function for comp_accu_freq (above) -------
 
-
-
-## 2. comp_accu_freq: Wrapper function for comp_accu (above) -------
-
-comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
-                           fa = freq$fa, cr = freq$cr,
-                           w = .50  # weight for wacc (from 0 to 1). Default: w = .50 (aka. bacc).
+comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
+                      fa = freq$fa, cr = freq$cr,
+                      w = .50  # weight for wacc (from 0 to 1). Default: w = .50 (aka. bacc).
 ) {
 
-  ## Pass parameters to comp_accu:
-  comp_accu(hi, mi, fa, cr, w)
+  ## Pass parameters to comp_accu_freq (above):
+  comp_accu_freq(hi, mi, fa, cr, w)
 
 }
 
 ## Check: ------
-# comp_accu_freq(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
+# comp_accu(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
 
 
 
-## 3. Apply comp_accu to initialize accu (as a list): ------
-
-## accu: List containing current accuracy information ------
-
-#' A list containing current accuracy information.
-#'
-#' \code{accu} contains current accuracy information
-#' returned by the corresponding generating function
-#' \code{\link{comp_accu}}.
-#'
-#' Current metrics include:
-#'
-#' \enumerate{
-#'
-#'    \item \code{acc}: Overall accuracy as the proportion (or probability)
-#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
-#'
-#'    \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
-#'
-#'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
-#'
-#'
-#'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
-#'    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
-#'    \code{\link{power}} or \code{\link{recall}})
-#'    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
-#'    in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
-#'    (ranging from 0 to 1) and \code{\link{spec}} is multiplied by
-#'    \code{w}'s complement \code{(1 - w)}:
-#'
-#'    \code{wacc = (w * sens) + ((1 - w) * spec)}
-#'
-#'    If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
-#'
-#'
-#'    \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
-#'
-#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
-#'
-#'    A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
-#'
-#'    See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
-#'    for additional information.
-#'
-#'    \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
-#'    (aka. \code{\link{precision}})
-#'    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
-#'    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
-#'
-#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}
-#'
-#'    See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
-#'
-#' }
-#'
-#' Note that some accuracy metrics can be interpreted
-#' as probabilities (e.g., \code{acc}) or correlations (e.g., \code{mcc}).
-#'
-#'
-#' @examples
-#' accu <- comp_accu()  # => computes current accuracy information and saves results in accu
-#' accu                 # => shows current accuracy information
-#'
-#' @family lists containing current scenario information
-#' @family metrics
-#'
-#' @seealso
-#' The corresponding generating function \code{\link{comp_accu}};
-#' \code{\link{num}} for basic numeric parameters;
-#' \code{\link{freq}} for current frequency information;
-#' \code{\link{prob}} for current probability information;
-#' \code{\link{txt}} for current text settings.
-#'
-#' @export
-
-accu <- comp_accu()
-
-## Check:
-# accu
-
-
-## 4. Individual accuracy metrics from 4 freq: --------
+## 3. Individual accuracy metrics from 4 freq: --------
 
 ## yet ToDo (but included in comp_accu above).
-
-
-
 
 ## (B) Accuracy metrics based on probabilities (without rounding) : ----------
 
@@ -362,7 +292,9 @@ accu <- comp_accu()
 #'    \item \code{acc}: Overall accuracy as the proportion (or probability)
 #'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 #'
-#'    \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    (a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    (b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
 #'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
@@ -435,7 +367,6 @@ accu <- comp_accu()
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
@@ -443,6 +374,34 @@ accu <- comp_accu()
 #' for computing weighted accuracy \code{wacc}.
 #' Default: \code{w = .50} (i.e., yielding balanced accuracy \code{bacc}).
 #'
+#' Notes:
+#'
+#' \itemize{
+#'
+#'    \item Accuracy metrics describe the \emph{correspondence} of decisions (or predictions) to actual conditions (or truth).
+#'
+#'    There are several possible interpretations of accuracy:
+#'
+#'    \enumerate{
+#'
+#'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
+#'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+#'
+#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'
+#'      \item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+#'
+#'    }
+#'
+#'    \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+#'    accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
+#'
+#'    When frequencies were rounded (see the default of \code{round = TRUE}
+#'    in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
+#'    \code{comp_accu_freq} correspond to these rounded values.
+#'    Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
+#'
+#'    }
 #'
 #' @examples
 #' comp_accu_prob()  # => accuracy metrics for prob of current scenario
@@ -616,7 +575,9 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' as the proportion (or probability)
 #' of correctly classifying cases or of \code{\link{dec.cor}} cases:
 #'
-#' \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'  (a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'  (b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
 #' Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
@@ -725,6 +686,115 @@ comp_acc <- function(prev, sens, spec) {
 ## for extreme values:
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
+
+
+
+
+## (C). Apply comp_accu_prob to initialize accu (as a list): ------
+
+## accu: List containing current accuracy information ------
+
+#' A list containing current accuracy information.
+#'
+#' \code{accu} contains current accuracy information
+#' returned by the corresponding generating function
+#' \code{\link{comp_accu}}.
+#'
+#' Current metrics include:
+#'
+#' \enumerate{
+#'
+#'    \item \code{acc}: Overall accuracy as the proportion (or probability)
+#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
+#'
+#'    (a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    (b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+#'
+#'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
+#'
+#'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
+#'    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
+#'    \code{\link{power}} or \code{\link{recall}})
+#'    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
+#'    in which \code{\link{sens}} is multiplied by a weighting parameter \code{w}
+#'    (ranging from 0 to 1) and \code{\link{spec}} is multiplied by
+#'    \code{w}'s complement \code{(1 - w)}:
+#'
+#'    \code{wacc = (w * sens) + ((1 - w) * spec)}
+#'
+#'    If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
+#'
+#'
+#'    \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
+#'
+#'    \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
+#'
+#'    A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
+#'
+#'    See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+#'    for additional information.
+#'
+#'    \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
+#'    (aka. \code{\link{precision}})
+#'    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
+#'    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
+#'
+#'    \code{f1s =  2 * (PPV * sens) / (PPV + sens)}
+#'
+#'    See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+#'
+#' }
+#'
+#' Notes:
+#'
+#' \itemize{
+#'
+#'    \item Accuracy metrics describe the \emph{correspondence} of decisions (or predictions) to actual conditions (or truth).
+#'
+#'    There are several possible interpretations of accuracy:
+#'
+#'    \enumerate{
+#'
+#'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
+#'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+#'
+#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'
+#'      \item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+#'
+#'    }
+#'
+#'    \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+#'    accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
+#'
+#'    When frequencies were rounded (see the default of \code{round = TRUE}
+#'    in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
+#'    \code{comp_accu_freq} correspond to these rounded values.
+#'    Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
+#'
+#'    }
+#'
+#' @examples
+#' accu <- comp_accu_prob()  # => compute current accuracy information (based on probabilities)
+#' accu                      # => shows current accuracy information
+#'
+#' @family lists containing current scenario information
+#' @family metrics
+#'
+#' @seealso
+#' The corresponding generating function \code{\link{comp_accu_prob}};
+#' \code{\link{num}} for basic numeric parameters;
+#' \code{\link{freq}} for current frequency information;
+#' \code{\link{prob}} for current probability information;
+#' \code{\link{txt}} for current text settings.
+#'
+#' @export
+
+accu <- comp_accu_prob()
+
+## Check: --------
+# accu
 
 
 

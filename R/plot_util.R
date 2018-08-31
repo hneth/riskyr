@@ -169,11 +169,18 @@ plot_mar <- function(show_freq = TRUE,
 
   ## (4) Accuracy label:
   if (show_accu) {
-    w.acc <- .50
-    cur.accu <- comp_accu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info
+
+    w.acc <- .50  # weight parameter w
+
+    ## (a) from (rounded) freq:
+    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
+
+    ## (b) from (exact) prob:
+    cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # compute accuracy info from (exact) prob
 
     accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
     mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
+
   }
 
   ## (3) Decision label:

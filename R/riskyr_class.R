@@ -812,7 +812,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
     obj.sum$acc <- comp_acc(prev = object$prev, sens = object$sens, spec = object$spec)
 
     ## ToDo: ALL accuracy metrics:
-    # accu <- comp_accu(prev = obj$prev, sens = obj$sens, spec = obj$spec)
+    # accu <- comp_accu_prob(prev = obj$prev, sens = obj$sens, spec = obj$spec)
 
   } # if "acc"
 
