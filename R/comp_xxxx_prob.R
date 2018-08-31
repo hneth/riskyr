@@ -1,5 +1,5 @@
 ## comp_xxxx_prob.R | riskyr
-## 2018 08 30
+## 2018 08 31
 ## Add 2 wrapper functions (that use existing functions)
 ## to translate (back) from prob to freq and prob:
 ## -----------------------------------------------
@@ -80,9 +80,6 @@
 #' It returns a list of 11 frequencies \code{\link{freq}}
 #' for a population of \code{\link{N}} individuals
 #' as its output.
-#' By default, the values of \code{\link{prev}}, \code{\link{sens}},
-#' and \code{\link{spec}} are initialized to the probability information
-#' currently contained in \code{\link{prob}}.
 #'
 #' \code{comp_freq_prob} is a wrapper function for the more basic
 #' function \code{\link{comp_freq}}, which only accepts the
@@ -90,16 +87,24 @@
 #' (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
 #' as inputs.
 #'
-#' When using \code{comp_freq_prob} with the arguments
+#' Defaults and constraints:
+#'
+#' \itemize{
+#'
+#'    \item Initial values: By default, the values of \code{\link{prev}}, \code{\link{sens}},
+#' and \code{\link{spec}} are initialized to the probability information
+#' currently contained in \code{\link{prob}}.
+#'
+#' Similarly, the population size \code{\link{N}} uses the frequency information
+#' currently contained in \code{\link{freq}} as its default.
+#' If \code{\link{N}} is unknown (\code{NA}),
+#' a suitable minimum value is computed by \code{\link{comp_min_N}}.
+#'
+#'    \item Constraints: When using \code{comp_freq_prob} with the arguments
 #' \code{\link{mirt}} and \code{\link{fart}}, their complements
 #' \code{\link{sens}} and \code{\link{spec}} must either be
 #' valid complements (as in \code{\link{is_complement}}) or
 #' set to \code{NA}.
-#'
-#' The value of \code{\link{N}} uses the frequency information
-#' currently contained in \code{\link{freq}} as its default.
-#' If \code{\link{N}} is unknown (\code{NA}),
-#' a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
 #' In addition to \code{\link{prev}}, both
 #' \code{\link{sens}} and \code{\link{spec}} are necessary arguments.
@@ -108,11 +113,13 @@
 #' \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
 #' to obtain the 3 essential probabilities.
 #'
-#' By default, \code{comp_freq_prob} and its basic function
+#'    \item Rounding: By default, \code{comp_freq_prob} and its basic function
 #' \code{\link{comp_freq}}
 #' round frequencies to nearest integers to avoid decimal values in
 #' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
 #' Using the option \code{round = FALSE} turns off rounding.
+#'
+#' }
 #'
 #' Functions translating between representational formats:
 #'
@@ -141,9 +148,9 @@
 #'
 #' Key relationships:
 #'
-#' \enumerate{
+#' \itemize{
 #'
-#' \item Three perspectives:
+#' \item Three perspectives on a population:
 #'
 #' A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 #'
@@ -319,7 +326,6 @@
 #' comp_freq_prob(prev = 8, sens = 1, spec = 1,  100)  # => NAs + warning (prev beyond range)
 #' comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & spec beyond range)
 #'
-#'
 #' @family functions computing frequencies
 #' @family format conversion functions
 #'
@@ -347,7 +353,8 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
                            spec = prob$spec, fart = NA,
                            tol = .01,         # tolerance for is_complement
                            N = freq$N,        # using current freq info contained in freq!
-                           round = TRUE) {
+                           round = TRUE       # should freq be rounded to integers? (default: round = TRUE)
+  ) {
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = tol)) {
@@ -373,7 +380,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
     warning("Please enter a valid set of essential probabilities.")
 
-  }
+  }  # if (is_valid_prob_set(...
 
 }
 
@@ -418,7 +425,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
 
 
-## (B) Translate (back from 3 essential) prob to prob: ----------
+## (B) Translate from (3 essential) prob to full prob: ----------
 
 ## Note: comp_prob_prob is a WRAPPER function for the more basic
 ##       comp_prob(...) defined before!
@@ -456,13 +463,9 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
 #'
-#' Key relationships:
+#' Functions translating between representational formats:
 #'
-#' \itemize{
-#'
-#' \item Other functions translating between representational formats:
-#'
-#'    \enumerate{
+#' \enumerate{
 #'
 #'    \item \code{comp_prob_prob} (defined here) is
 #'    a wrapper function for \code{\link{comp_prob}} and
@@ -483,16 +486,22 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'    from 4 essential frequencies
 #'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 #'
-#'    }
+#'  }
 #'
-#' \item Two perspectives:
+#' Key relationships:
+#'
+#' \itemize{
+#'
+#' \item Three perspectives on a population:
 #'
 #' A population of \code{\link{N}} individuals can be split into 2 subsets
-#' in 2 different ways:
+#' in 3 different ways:
 #'
 #'    \enumerate{
 #'
 #'    \item by condition:
+#'
+#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
 #'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
 #'    and
@@ -500,34 +509,25 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'
 #'    \item by decision:
 #'
+#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
 #'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
 #'    and
 #'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
+#'    \item by accuracy (i.e., correspondence of decision to condition):
+#'
+#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
+#'
 #'    }
 #'
-#' The population size \code{\link{N}} is a free parameter (independent of the
+#' Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+#'
+#' When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 #' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
-#' \item Combinations of frequencies:
-#'
-#'    In a population of size \code{\link{N}} the following relationships hold:
-#'
-#'    \enumerate{
-#'
-#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-#'
-#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-#'
-#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-#'
-#'    }
-#'
-#'   The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-#'   (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-#'   in 2 different ways.
 #'
 #' \item Defining probabilities in terms of frequencies:
 #'
@@ -672,8 +672,11 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
                            tol = .01                     # tolerance for is_complement
 ) {
 
-  ## Pass on:
-  ## Wrapper function: Delegate to existing and more basic function:
+  ## Pass on / wrapper function:
+  ## Delegate to existing and more basic function,
+  ## but note that comp_prob verifies the integrity of probabilities provided
+  ## by checking is_valid_prob_set():
+
   prob <- comp_prob(prev,        # probabilities:
                     sens, mirt,  # 3 essential (prev, sens, spec)
                     spec, fart,  # 2 optional  (      mirt, fart)
