@@ -53,7 +53,7 @@ Notes:
 
      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 
-     \item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+     \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
    }
 
@@ -152,7 +152,7 @@ comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight to spec
 
 ## Contrasting comp_accu_freq and comp_accu_prob:
 # (a) comp_accu_freq (based on rounded frequencies):
-freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => hi = 2, mi = 1, fa = 2, cr = 5
+freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => rounded frequencies!
 accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
 # accu1
 #

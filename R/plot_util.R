@@ -173,7 +173,7 @@ plot_mar <- function(show_freq = TRUE,
     w.acc <- .50  # weight parameter w
 
     ## (a) from (rounded) freq:
-    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
+    cur.accu <- comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info from (rounded) freq
 
     ## (b) from (exact) prob:
     cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # compute accuracy info from (exact) prob

@@ -89,7 +89,7 @@ There are several possible interpretations of accuracy:
 
 \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 
-\item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+\item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
 }
 

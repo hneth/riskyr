@@ -1,9 +1,10 @@
 ## plot_icons.R | riskyr
-## 2018 03 05
-## -----------------------------------------------
+## 2018 08 31
 ##  plot_icons plots an icon array in a variety
 ##  of ways, dependent on population size.
 ## -----------------------------------------------
+
+## plot_icons Documentation: ----------
 
 #' Plot an icon array of a population.
 #'
@@ -87,7 +88,7 @@
 #'
 #'
 #' @param ident.order  The order in which icon identities
-#' (i.e, hi, mi, fa, and cr) are plotted.
+#' (i.e., hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident.order = c("hi", "mi", "fa", "cr")}
 #'
 #' @param block.d  The distance between blocks
@@ -119,7 +120,7 @@
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 #' Default: \code{w.acc = .50}.
 #'
 #'
@@ -148,7 +149,6 @@
 #' @param cex.lbl Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
 #' Default: \code{cex.lbl = .85}.
-#'
 #'
 #'
 #' @examples
@@ -235,6 +235,8 @@
 # 2. Identity
 
 # (C) Translating these dimensions into code:
+
+## plot_icons Definition: ----------
 
 plot_icons <- function(prev = num$prev,             # probabilities
                        sens = num$sens, mirt = NA,
@@ -356,7 +358,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   }
 
-
   # DO SOME CHECKS HERE!?
   ## Determine order:
   if (is.null(names(icon.colors))) {
@@ -475,7 +476,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # TODO: notice the overlap!  Use cut?
 
 
-
         # sample the coordinates from the deterimined ranges:
         for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
 
@@ -505,7 +505,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
         b1 <- block_prop[1] / (block_prop[1] + block_prop[2])
         b2 <- block_prop [4] / (block_prop[4] + block_prop[3])
         # TODO: This depends on our typical order!  Might be made more transparent and customizable.
-
 
         # Quadrant dimensions (with prevalence in y-direction):
         block1 <- c(0, b1, 0, prev)
@@ -539,13 +538,11 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
         }
 
-
         blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
         blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
         block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
         # calculate number of observations in each compartment.
         blocks <- cbind(blocks, block_n)  # bind to matrix.
-
 
         for(i in 1:nrow(blocks)){
           minx <- blocks[i, 1]
@@ -919,6 +916,12 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## (c) Accuracy: Compute and show accuracy metrics
   if (show.accu) {
+
+    n.hi <- cur.freq$hi
+    n.mi <- cur.freq$mi
+    n.fa <- cur.freq$fa
+    n.cr <- cur.freq$cr
+
     cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
     mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
@@ -930,46 +933,45 @@ plot_icons <- function(prev = num$prev,             # probabilities
 }  # end of function.
 
 
-## Check:
+## Check: ----------
 
-{
-  # # ways to work:
-  # plot_icons()  # => plots icon array for default population (with default type = "array")
-  # plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
-  #
+# # ways to work:
+# plot_icons()  # => plots icon array for default population (with default type = "array")
+# plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
+#
 
-  # plot_icons(icon.types = c(21,23,24,23),
-  #                block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
-  #                block.d = 0.5, border.d = 0.9)
+# plot_icons(icon.types = c(21,23,24,23),
+#                block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
+#                block.d = 0.5, border.d = 0.9)
 
-  # plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
-  # plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
-  # plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
-  # plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
-  #
-  # plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
-  #
+# plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+# plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+# plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+# plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
+#
+# plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
+#
 
-  # plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-  #                icon.types = c(21,23,24,23),
-  #                block.size.row = 10, block.size.col = 5,
-  #                nblocks.row = 5, nblocks.col = 5,
-  #                block.d = 0.8,
-  #                border.d = 0.2,
-  #                fill.array = "top")
-  # # some variants:
-  # plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
-  #            block.d = 0.5, border.d = 0.5)
-  #
-  # plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-  #            block.d = 0.5, border.d = 0.5)
-  #
-  # plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-  #            icon.border.col = grey(.33, .99), icon.border.lwd = 3)
-  #
-  # plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
-  #            icon.border.lwd = .5, cex = 3)
-}
+# plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+#                icon.types = c(21,23,24,23),
+#                block.size.row = 10, block.size.col = 5,
+#                nblocks.row = 5, nblocks.col = 5,
+#                block.d = 0.8,
+#                border.d = 0.2,
+#                fill.array = "top")
+# # some variants:
+# plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
+#            block.d = 0.5, border.d = 0.5)
+#
+# plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+#            block.d = 0.5, border.d = 0.5)
+#
+# plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
+#            icon.border.col = grey(.33, .99), icon.border.lwd = 3)
+#
+# plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
+#            icon.border.lwd = .5, cex = 3)
+
 
 ## -----------------------------------------------
 ## (+) ToDo:

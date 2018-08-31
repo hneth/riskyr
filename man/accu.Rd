@@ -72,9 +72,10 @@ There are several possible interpretations of accuracy:
 \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
 
-\item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+\item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
+     or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 
-\item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+\item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
 }
 
@@ -89,12 +90,12 @@ When frequencies are rounded to integers (see the default of \code{round = TRUE}
 }
 }
 \examples{
-accu <- comp_accu_prob()  # => compute current accuracy information (exact values, based on probabilities)
-accu                      # => shows current accuracy information (exact values, based on probabilities)
+accu <- comp_accu_prob()  # => compute exact accuracy metrics (from probabilities)
+accu                      # => current accuracy information
 
 ## Contrasting comp_accu_freq and comp_accu_prob:
 # (a) comp_accu_freq (based on rounded frequencies):
-freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => hi = 2, mi = 1, fa = 2, cr = 5
+freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => rounded frequencies!
 accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
 # accu1
 #

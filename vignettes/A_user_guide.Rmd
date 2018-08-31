@@ -393,6 +393,7 @@ Inspecting the lists of probabilities and frequencies shows that the two problem
 
 Here are some examples that depict particular aspects of the scenario described above: 
 
+
 #### Icon array
 
 A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:

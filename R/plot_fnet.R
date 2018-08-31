@@ -128,7 +128,7 @@
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 #' Default: \code{w.acc = .50}.
 #'
 #' Various other options allow the customization of text labels and colors:

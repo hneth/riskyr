@@ -76,7 +76,7 @@ resulting in different types of displays:
 }}
 
 \item{ident.order}{The order in which icon identities
-(i.e, hi, mi, fa, and cr) are plotted.
+(i.e., hi, mi, fa, and cr) are plotted.
 Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
@@ -122,7 +122,7 @@ accuracy metrics \code{\link{accu}} in the plot.
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 Default: \code{w.acc = .50}.
 
 

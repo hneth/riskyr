@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 08 28
+## 2018 08 31
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -95,7 +95,7 @@
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 #' Default: \code{w.acc = .50}.
 #'
 #' @param title.lbl Text label for current plot title.

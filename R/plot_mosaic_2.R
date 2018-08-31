@@ -1,5 +1,5 @@
 ## plot_mosaic_2.R | riskyr
-## 2018 08 25
+## 2018 08 31
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area (size and proportion) ----
 ## from 3 essential probabilities (prev, sens, spec)
@@ -73,6 +73,10 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #' the option \code{box = "vr"}) in \code{\link{plot_tree}}
 #' and \code{\link{plot_fnet}}.
 #'
+#' Note that exact accuracy information is computed based on probabilities
+#' (by \code{\link{comp_accu_prob}}), not approximations based on
+#' rounded frequencies (by \code{\link{comp_accu_freq}}).
+#'
 #' \code{plot_mosaic} requires and uses the R packages "vcd" and
 #' "grid" (\code{library("vcd", "grid")}).
 #'
@@ -124,12 +128,13 @@ help_line <- function(x0, y0, x1, y1,  # coordinates of p1 and p2
 #' \code{\link{spec}}) in the plot.
 #' Default: \code{show.prob = FALSE}.
 #'
-#' @param show.accu Option for showing current
-#' accuracy metrics \code{\link{accu}} in the plot.
+#' @param show.accu Option for showing current and exact
+#' accuracy metrics \code{\link{accu}} in the plot
+#' (computed by \code{\link{comp_accu_prob}}).
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_prob}}.
 #' Default: \code{w.acc = .50}.
 #'
 #' @param title.lbl Text label for current plot title.
@@ -253,7 +258,10 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   ## (3) Accuracy: ----------
 
   if (show.accu) {
-    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
+
+    # cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
+    cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)  # compute EXACT accuracy info from probabilities!
+
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
 
     # mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
