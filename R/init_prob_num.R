@@ -1,62 +1,14 @@
 ## init_prob_num.R | riskyr
-## 2018 02 05
-## -----------------------------------------------
+## 2018 08 31
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
-
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## Table of current terminology:
-
-# Probabilities (10):               Frequencies (11):
-# -------------------               ------------------
-# (A) by condition:
-
-# non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
-
-# conditional:
-# sens* = hit rate = TPR                hi* = TP
-# mirt  = miss rate = FNR               mi* = FN
-# fart  = false alarm rate = FPR        fa* = FP
-# spec* = true negative rate = TNR      cr* = TN
-
-# [Note: *...is essential]
 
 
-# (B) by decision:                 Combined frequencies:
+## (1) Initialize prob as a list (NA) of 10 probabilities (3 essential ones): ----------
 
-# non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
-
-# conditional:
-# PPV = precision
-# FDR = false detection rate
-# FOR = false omission rate
-# NPV = neg. pred. value
-
-
-## -----------------------------------------------
-## Data flow: Two basic directions:
-
-## (1) Probabilities ==> frequencies:
-##     Bayesian: based on 3 essential probabilities:
-##   - given:   prev;  sens, spec
-##   - derived: all other values
-
-## (2) Frequencies ==> probabilities:
-##     Frequentist: based on 4 essential natural frequencies:
-##   - given:   N = hi, mi, fa, cr
-##   - derived: all other values
-
-
-## -----------------------------------------------
-
-## -----------------------------------------------
-## (1) Initialize prob as a list (of NA values)
-##     of 10 probabilities (3 essential ones):
+## init_prob: Initialize prob list ------
 
 init_prob <- function() {
 
@@ -87,17 +39,22 @@ init_prob <- function() {
 
 }
 
-
-## Check:
+## Check: --------
 # init_prob()          # initializes empty prob
 # length(init_prob())  # => 10 probabilities
 
 
-## -----------------------------------------------
-## (2) Compute the set of ALL current probabilities:
-##     So far: Compute current values of PPV and NPV
-##     as functions of prev, sens, and spec (using Bayes):
 
+## (2) Compute the set of ALL current probabilities: ----------
+
+## So far: Compute current values of PPV and NPV
+##         as functions of prev, sens, and spec (using Bayes).
+
+## Missing: Accuracy info, some of which can be viewed as probabilities
+##          (see comp_accu.R).
+
+
+## comp_prob: Documentation --------
 
 #' Compute probabilities from (3 essential) probabilities.
 #'
@@ -132,16 +89,12 @@ init_prob <- function() {
 #' \code{comp_prob} is the probability counterpart to the
 #' frequency function \code{\link{comp_freq}}.
 #'
-#' Key relationships:
+#' Functions translating between representational formats:
 #'
-#' \itemize{
+#' \enumerate{
 #'
-#' \item Other functions translating between representational formats:
-#'
-#'    \enumerate{
-#'
-#'    \item \code{comp_prob_prob} (defined here) is
-#'    a wrapper function for \code{\link{comp_prob}} and
+#'    \item \code{\link{comp_prob_prob}} is
+#'    a wrapper function for \code{comp_prob} (defined here) and
 #'    an analog to 3 other format conversion functions:
 #'
 #'    \item \code{\link{comp_prob_freq}} computes
@@ -159,16 +112,22 @@ init_prob <- function() {
 #'    from 4 essential frequencies
 #'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 #'
-#'    }
+#'  }
 #'
-#' \item Two perspectives:
+#' Key relationships:
+#'
+#' \itemize{
+#'
+#' \item Three perspectives on a population:
 #'
 #' A population of \code{\link{N}} individuals can be split into 2 subsets
-#' in 2 different ways:
+#' in 3 different ways:
 #'
 #'    \enumerate{
 #'
 #'    \item by condition:
+#'
+#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
 #'
 #'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
 #'    and
@@ -176,41 +135,30 @@ init_prob <- function() {
 #'
 #'    \item by decision:
 #'
+#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'
 #'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
 #'    and
 #'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
+#'    \item by accuracy (i.e., correspondence of decision to condition):
+#'
+#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
+#'
 #'    }
 #'
-#' The population size \code{\link{N}} is a free parameter (independent of the
+#' Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+#'
+#' When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 #' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
 #'
-#' \item Combinations of frequencies:
-#'
-#'    In a population of size \code{\link{N}} the following relationships hold:
-#'
-#'    \enumerate{
-#'
-#'     \item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-#'
-#'     \item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-#'
-#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-#'
-#'    }
-#'
-#'   The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-#'   (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-#'   in 2 different ways.
-#'
-#'
 #' \item Defining probabilities in terms of frequencies:
 #'
-#' Probabilities \emph{are} numbers from 0 to 1 and determine, describe, or are defined as relationships between frequencies.
-#' The following probabilities can be computed as ratios between frequencies:
+#' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+#' Thus, they can be computed as ratios between frequencies:
 #'
 #'   \enumerate{
 #'
@@ -239,7 +187,6 @@ init_prob <- function() {
 #'   \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 #'
 #'
-#'
 #'   \item proportion of positive decisions \code{\link{ppod}}:
 #'
 #'   \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
@@ -249,23 +196,23 @@ init_prob <- function() {
 #'
 #'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 #'
-#'   \item false detection rate \code{\link{FDR}}:
-#'
-#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
-#'
 #'
 #'   \item negative predictive value \code{\link{NPV}}:
 #'
 #'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
 #'
+#'
+#'   \item false detection rate \code{\link{FDR}}:
+#'
+#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+#'
+#'
 #'   \item false omission rate \code{\link{FOR}}:
 #'
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
-#'   }
-#'
+#'    }
 #' }
-#'
 #'
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
@@ -356,13 +303,14 @@ init_prob <- function() {
 #' \code{\link{comp_prob_prob}} computes current probability information from (3 essential) probabilities.
 #'
 #' @export
-#'
+
+## comp_prob: Definition --------
 
 comp_prob <- function(prev = num$prev,             # probabilities:
                       sens = num$sens, mirt = NA,  # 3 essential (prev, sens, spec)
                       spec = num$spec, fart = NA,  # 2 optional  (      mirt, fart)
                       tol = .01                    # tolerance for is_complement
-                      ) {
+) {
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = tol)) {
@@ -404,7 +352,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
          is.na(prob$FOR)  | is.nan(prob$FOR)  | !is_prob(prob$FOR) ) {
 
       warning( "Some PVs are peculiar. Check for extreme probabilities!")
-      }
+    }
 
     ## (6) Return the entire list prob:
     return(prob)
@@ -418,39 +366,39 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 
 }
 
-## Check:
-{
-  # # Basics:
-  # comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
-  # comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
-  # comp_prob()          # => ok, using current defaults
-  # length(comp_prob())  # => 10 probabilities
-  #
-  # # Ways to succeed:
-  # comp_prob(.999, 1, 1)   # => ok
-  # comp_prob(1, .999, 1)   # => ok
-  #
-  # # Watch out for extreme cases:
-  # comp_prob(1, sens = 0, spec = 1)      # => ok, but with warnings (as PPV & FDR are NaN)
-  # comp_prob(1, sens = 0, spec = 0)      # => ok, but with warnings (as PPV & FDR are NaN)
-  # comp_prob(1, sens = 0, spec = NA, fart = 0)  # => ok, but with warnings (as PPV & FDR are NaN)
-  # comp_prob(1, sens = 0, spec = NA, fart = 1)  # => ok, but with warnings (as PPV & FDR are NaN)
-  #
-  # comp_prob(1, sens = 1, spec = 0)      # => ok, but with warnings (as NPV & FOR are NaN)
-  # comp_prob(1, sens = 1, spec = 1)      # => ok, but with warnings (as NPV & FOR are NaN)
-  # comp_prob(1, sens = 1, spec = NA, fart = 0)  # => ok, but with warnings (as NPV & FOR are NaN)
-  # comp_prob(1, sens = 1, spec = NA, fart = 1)  # => ok, but with warnings (as NPV & FOR are NaN)
-  #
-  # # Ways to fail:
-  # comp_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
-  # comp_prob(8,  1, 1, NA)  # => only warning: prev no probability
-  # comp_prob(1,  8, 1, NA)  # => only warning: sens no probability
-  # comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
-}
+## Check: --------
+# # Basics:
+# comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
+# comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
+# comp_prob()          # => ok, using current defaults
+# length(comp_prob())  # => 10 probabilities
+#
+# # Ways to succeed:
+# comp_prob(.999, 1, 1)   # => ok
+# comp_prob(1, .999, 1)   # => ok
+#
+# # Watch out for extreme cases:
+# comp_prob(1, sens = 0, spec = 1)      # => ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob(1, sens = 0, spec = 0)      # => ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob(1, sens = 0, spec = NA, fart = 0)  # => ok, but with warnings (as PPV & FDR are NaN)
+# comp_prob(1, sens = 0, spec = NA, fart = 1)  # => ok, but with warnings (as PPV & FDR are NaN)
+#
+# comp_prob(1, sens = 1, spec = 0)      # => ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob(1, sens = 1, spec = 1)      # => ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob(1, sens = 1, spec = NA, fart = 0)  # => ok, but with warnings (as NPV & FOR are NaN)
+# comp_prob(1, sens = 1, spec = NA, fart = 1)  # => ok, but with warnings (as NPV & FOR are NaN)
+#
+# # Ways to fail:
+# comp_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
+# comp_prob(8,  1, 1, NA)  # => only warning: prev no probability
+# comp_prob(1,  8, 1, NA)  # => only warning: sens no probability
+# comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 
-## -----------------------------------------------
-## (3) Apply to initialize prob:
 
+
+## (3) Apply to initialize prob: -----------------
+
+## prob: List of current probability information. ------
 
 #' List current probability information.
 #'
@@ -480,12 +428,10 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'  (i.e., the conditional probability
 #'  of a positive decision provided that the condition is \code{FALSE}).
 #'
-#'
 #'  \item the proportion (baseline probability or rate)
 #'  of the decision being positive \code{\link{ppod}}
 #'  (but not necessarily true):
 #'  \code{ppod = \link{dec.pos}/\link{N}}.
-#'
 #'
 #'  \item the decision's positive predictive value \code{\link{PPV}}
 #' (i.e., the conditional probability of the condition being \code{TRUE}
@@ -494,7 +440,6 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'  \item the decision's false detection (or false discovery) rate \code{\link{FDR}}
 #' (i.e., the conditional probability of the condition being \code{FALSE}
 #' provided that the decision is positive).
-#'
 #'
 #'  \item the decision's negative predictive value \code{\link{NPV}}
 #' (i.e., the conditional probability of the condition being \code{FALSE}
@@ -538,15 +483,22 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' \code{\link{comp_prob}} computes current probability information.
 #'
 #' @export
-#'
 
 prob <- comp_prob()  # => initialize prob to default parameters
+
+
+## Check: --------
 # prob               # => show current values
 # length(prob)       # => 8
 
 
-## -----------------------------------------------
-## (+) ToDo:
+
+## (*) Done: -----------
+
+## - Clean up code [2018 08 31].
+
+
+## (+) ToDo: ----------
 
 ## - Document comp_PPV, comp_NPV, ... etc.
 ##
@@ -563,5 +515,4 @@ prob <- comp_prob()  # => initialize prob to default parameters
 ## - Compute basic parameters (probabilities and frequencies)
 ##   from MIX of existing probabilities and frequencies!
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------
