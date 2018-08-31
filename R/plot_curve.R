@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 08 29
+## 2018 08 31
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -207,26 +207,47 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
     ## Select x-value (prev) ranges based on current type of scale (log or linear):
     if (log.scale) {
 
-      unc_stepSize <- .01  # x-increments at which y-values of uncertainty polygons are computed (smaller values = more computation)
-
       x_min <- 0 + eps  # avoid 0 (to avoid extreme values)
       x_max <- 1 - eps  # avoid 1 (to avoid extreme values)
 
       ## Ranges for x-values (prev) of polygon:
-      x_lower <- c(10^-6, 10^-5, 10^-4, (1 * 10^-3), (2 * 10^-3), (5 * 10^-3), .01, .02, .05, .10, .15, .25, .30, .50, .60, .90, x_max)  # log steps from left to right
-      x_upper <- rev(x_lower)  # from right to left
+      x_lower <- c(10^-6, 10^-5, 10^-4, (1 * 10^-3), (2 * 10^-3), (5 * 10^-3),
+                   .01, .02, .05, .10, .15, .25, .30, .50, .60, .90, x_max)  # FIXED log steps (left to right)
+      x_upper <- rev(x_lower)                                                # same steps (from right to left)
 
     } else {  # linear scale:
 
-      unc_stepSize <- .01  # x-increments at which y-values of uncertainty polygons are computed (smaller values = more computation)
+      # ## (a) Define a VARIABLE range via unc_stepSize:
+      # unc_stepSize <- .05  # x-increments at which y-values of all uncertainty polygons are computed (smaller values = more computation)
+      #
+      # x_1stStep   <- 0 + unc_stepSize  # 1st step: avoid 0 (to avoid extreme values)
+      # x_finStep   <- 1 - unc_stepSize  # final step: avoid 1 (to avoid extreme values)
+      # x_mid_range <- seq(x_1stStep, x_finStep, by = unc_stepSize)  # main steps (in mid range)
+      #
+      # # First 3 values (on left side):
+      # x_1l <- 0 + unc_stepSize/10
+      # x_2l <- 0 + unc_stepSize/5
+      # x_3l <- 0 + unc_stepSize/2
+      #
+      # # Complements (on right side):
+      # x_1r <- 1 - x_1l
+      # x_2r <- 1 - x_2l
+      # x_3r <- 1 - x_3l
+      #
+      # # Ranges for x-values (prev) of polygon:
+      # x_lower <- c(x.min, x_1l, x_2l, x_3l,  # 1 extreme + 3 points on left
+      #              x_mid_range,              # main steps (in mid range)
+      #              x_3r, x_2r, x_1r, x.max)  # 3 points on right + 1 extreme (left to right)
+      # x_upper <- rev(x_lower)                # same steps (from right to left)
 
-      x_min <- 0 + unc_stepSize  # avoid 0 (to avoid extreme values)
-      x_max <- 1 - unc_stepSize  # avoid 1 (to avoid extreme values)
+      ## (b) Define a FIXED range for linear scale:
+      x_left  <- c(x.min, .010, .020, .033, .050, .075, .100, .125, .150, .200, .250, .333)  # fixed steps (on left)
+      x_right <- rev(1 - x_left)           # reverse complements (from right to left)
+      x_range <- c(x_left, .500, x_right)  # combine and add mid point
 
-      ## Ranges for x-values (prev) of polygon:
-      x_low_1 <- seq(x_min, x_max, by = (+1 * unc_stepSize))  # main steps
-      x_lower <- c(x.min, x_low_1, x.max)                    # main steps + 2 extreme points (from left to right)
-      x_upper <- rev(x_lower)                                # same steps (from right to left)
+      # Ranges for x-values (prev) of polygon:
+      x_lower <- x_range       # use fixed steps defined in (b)
+      x_upper <- rev(x_lower)  # same steps (from right to left)
 
     } # if (log.scale)...
 
