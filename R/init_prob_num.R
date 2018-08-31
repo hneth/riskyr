@@ -4,6 +4,55 @@
 ## by using basic parameter values of num:
 ## -----------------------------------------------
 
+## Table of current terminology: -----------------
+
+# Probabilities (10+):              Frequencies (11):
+# -------------------               ------------------
+# (A) by condition:
+
+# non-conditional:                          N
+# prev*                           cond.true | cond.false (columns)
+
+# conditional:
+# sens* = hit rate = TPR                hi* = TP
+# mirt  = miss rate = FNR               mi* = FN
+# fart  = false alarm rate = FPR        fa* = FP
+# spec* = true negative rate = TNR      cr* = TN
+
+# [Note: *...is essential]
+
+
+# (B) by decision:                 Combined frequencies:
+
+# non-conditional:
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
+
+# conditional:
+# PPV = precision
+# FDR = false detection rate
+# FOR = false omission rate
+# NPV = neg. pred. value
+
+# (C) by accuracy/correspondence of decision to condition (see accu):
+
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+
+## Data flow: Two basic directions: --------------
+
+## (1) Probabilities ==> frequencies:
+##     Bayesian: based on 3 essential probabilities:
+##   - given:   prev;  sens, spec
+##   - derived: all other values
+
+## (2) Frequencies ==> probabilities:
+##     Frequentist: based on 4 essential natural frequencies:
+##   - given:   N = hi, mi, fa, cr
+##   - derived: all other values
 
 
 ## (1) Initialize prob as a list (NA) of 10 probabilities (3 essential ones): ----------
