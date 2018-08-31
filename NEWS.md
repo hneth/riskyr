@@ -1,7 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.906) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.1.0.910) is available at <https://github.com/hneth/riskyr/>. 
 
 # Changes
 
@@ -13,10 +13,16 @@ Log of changes since last release:
 Show scenario frequencies as vertical bars (in various configurations). 
 
 - `riskyr` function [2018-03-06]: 
-Define a scenario from 4 essential frequencies (checking for consistency with probabilities). 
-[Appears to work, but yet to be tested more thorougly.] 
+Define a scenario from 4 essential frequencies (and checking for consistency with probabilities). 
+
 
 ## Minor changes
+
+- `comp_accu.R` [2018-08-30]: 
+Compute exact accuracy values (not approximations based on rounded `freq` values, as when using `comp_accu`) by using the new function `comp_accu_prob` to compute the list `accu` from probabilities. 
+
+- `freq` [2018-07-30]: 
+Added a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of `dec.cor` and `dec.err` (i.e., `hi + cr` vs. `mi + fa` as the diagonal of 4 SDT cases). This increases the number of frequencies in `freq` from 9 to 11. Also added corresponding labels in `init_txt.R` and colors in `init_pal.R`. 
 
 - `plot_icons` [2018-03-05]: 
 Bug fix to also swap symbols in legend when the symbol order is changed manually.
