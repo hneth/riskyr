@@ -22,8 +22,9 @@ of a negative decision provided that the condition is \code{FALSE}).}
 Overall accuracy \code{acc} as a proportion (probability).
 A warning is provided for NaN values.
 
-See \code{\link{comp_accu}} and \code{\link{accu}} for
-accuracy metrics based on frequencies.
+See \code{\link{accu}} for other accuracy metrics.
+\code{\link{comp_accu_freq}} and \code{\link{comp_accu_prob}}
+compute accuracy metrics from frequencies and probabilities.
 }
 \description{
 \code{comp_acc} computes overall accuracy \code{acc}
@@ -32,7 +33,7 @@ from 3 essential probabilities
 }
 \details{
 \code{comp_acc} uses probabilities (not frequencies) as
-inputs and returns a proportion (probability)
+inputs and returns an exact proportion (probability)
 without rounding.
 
 Definition: \code{acc} is the overall accuracy
@@ -72,6 +73,9 @@ comp_acc(0, 0, 0)  #  => 0
 
 }
 \seealso{
+\code{\link{accu}} for all accuracy metrics;
+\code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+\code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
 \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
 \code{\link{is_extreme_prob_set}} verifies extreme cases;
 \code{\link{comp_complement}} computes a probability's complement;

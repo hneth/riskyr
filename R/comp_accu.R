@@ -12,6 +12,7 @@
 ## (1) assumes that freq has been computed before.
 
 
+
 ## (A) Accuracy metrics for a classification result (i.e., based on freq) ------
 
 ## 1. ALL current accuracy metrics from 4 freq: ------
@@ -92,10 +93,10 @@
 #'
 #'    }
 #'
-#'    \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+#'    \item Computing exact accuracy values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
 #'    accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
 #'
-#'    When frequencies were rounded (see the default of \code{round = TRUE}
+#'    When frequencies are rounded to integers (see the default of \code{round = TRUE}
 #'    in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
 #'    \code{comp_accu_freq} correspond to these rounded values.
 #'    Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
@@ -129,12 +130,22 @@
 #' comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 2/3)  # more weight to sens
 #' comp_accu_freq(hi = 3, mi = 2, fa = 1, cr = 4, w = 1/3)  # more weight to spec
 #'
-#' # Comparing comp_accu_prob with comp_accu (based on freq):
-#' # (a) comp_accu (based on rounded frequencies):
-#' comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 2/3)  # => hi = 2, mi = 1, fa = 2, cr = 5
-#' comp_accu_freq(hi = 2, mi = 1, fa = 2, cr = 5)              # => accu (based on rounded freq).
+#' ## Contrasting comp_accu_freq and comp_accu_prob:
+#' # (a) comp_accu_freq (based on rounded frequencies):
+#' freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => hi = 2, mi = 1, fa = 2, cr = 5
+#' accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
+#' # accu1
+#' #
 #' # (b) comp_accu_prob (based on probabilities):
-#' comp_accu_prob(prev = 1/3, sens = 2/3, spec = 2/3)     # => exact accu (based on prob).
+#' accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
+#' # accu2
+#' all.equal(accu1, accu2)  # => 4 differences!
+#' #
+#' # (c) comp_accu_freq (exact values, i.e., without rounding):
+#' freq3 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4, round = FALSE)
+#' accu3 <- comp_accu_freq(freq3$hi, freq3$mi, freq3$fa, freq3$cr)  # => accu3 (based on EXACT freq).
+#' # accu3
+#' all.equal(accu2, accu3)  # => TRUE (qed).
 #'
 #'
 #' @references
@@ -145,7 +156,8 @@
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{comp_accu_prob}} for exact accuracy metrics from probabilities;
+#' \code{\link{accu}} for all accuracy metrics;
+#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings;
@@ -270,6 +282,7 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 
 ## yet ToDo (but included in comp_accu above).
 
+
 ## (B) Accuracy metrics based on probabilities (without rounding) : ----------
 
 
@@ -393,10 +406,10 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'
 #'    }
 #'
-#'    \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+#'    \item Computing exact accuracy values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
 #'    accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
 #'
-#'    When frequencies were rounded (see the default of \code{round = TRUE}
+#'    When frequencies are rounded to integers (see the default of \code{round = TRUE}
 #'    in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
 #'    \code{comp_accu_freq} correspond to these rounded values.
 #'    Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
@@ -407,23 +420,33 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' comp_accu_prob()  # => accuracy metrics for prob of current scenario
 #' comp_accu_prob(prev = .2, sens = .5, spec = .5)  # medium accuracy, but cr > hi.
 #'
-#' # Extreme cases:
+#' ## Extreme cases:
 #' comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
 #' comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
 #' comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
 #' comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #'
-#' # Effects of w:
+#' ## Effects of w:
 #' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
 #' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight to sens
 #' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight to spec
 #'
-#' # Comparing comp_accu_prob with comp_accu (based on freq):
-#' # (a) comp_accu (based on rounded frequencies):
-#' comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 2/3)  # => hi = 2, mi = 1, fa = 2, cr = 5
-#' comp_accu(hi = 2, mi = 1, fa = 2, cr = 5)              # => accu (based on rounded freq).
+#' ## Contrasting comp_accu_freq and comp_accu_prob:
+#' # (a) comp_accu_freq (based on rounded frequencies):
+#' freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => hi = 2, mi = 1, fa = 2, cr = 5
+#' accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
+#' # accu1
+#' #
 #' # (b) comp_accu_prob (based on probabilities):
-#' comp_accu_prob(prev = 1/3, sens = 2/3, spec = 2/3)     # => exact accu (based on prob).
+#' accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
+#' # accu2
+#' all.equal(accu1, accu2)  # => 4 differences!
+#' #
+#' # (c) comp_accu_freq (exact values, i.e., without rounding):
+#' freq3 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4, round = FALSE)
+#' accu3 <- comp_accu_freq(freq3$hi, freq3$mi, freq3$fa, freq3$cr)  # => accu3 (based on EXACT freq).
+#' # accu3
+#' all.equal(accu2, accu3)  # => TRUE (qed).
 #'
 #'
 #' @references
@@ -434,7 +457,8 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' @family functions computing probabilities
 #'
 #' @seealso
-#' \code{\link{comp_accu}} for accuracy metrics from (rounded) frequencies;
+#' \code{\link{accu}} for all accuracy metrics;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings;
@@ -530,24 +554,33 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 # comp_accu_prob()  # => accuracy metrics for prob of current scenario
 # comp_accu_prob(prev = .2, sens = .5, spec = .5)  # medium accuracy, but cr > hi.
 #
-# # Extreme cases:
+# ## Extreme cases:
 # comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
 # comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
 # comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
 # comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #
-# # Effects of w:
+# ## Effects of w:
 # comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
 # comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight to sens
 # comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight to spec
 #
-# # Comparing comp_accu_prob with comp_accu (based on freq):
-# # (a) comp_accu (based on rounded frequencies):
-# comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 2/3)  # => hi = 2, mi = 1, fa = 2, cr = 5
-# comp_accu(hi = 2, mi = 1, fa = 2, cr = 5)              # => accu (based on rounded freq).
+# ## Comparing comp_accu_prob with comp_accu (based on freq):
+# # (a) comp_accu_freq (based on rounded frequencies):
+# freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => hi = 2, mi = 1, fa = 2, cr = 5
+# accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
+# # accu1
+# #
 # # (b) comp_accu_prob (based on probabilities):
-# comp_accu_prob(prev = 1/3, sens = 2/3, spec = 2/3)     # => exact accu (based on prob).
-
+# accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
+# # accu2
+# all.equal(accu1, accu2)  # => 4 differences!
+# #
+# # (c) comp_accu_freq (exact values, i.e., without rounding):
+# freq3 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4, round = FALSE)
+# accu3 <- comp_accu_freq(freq3$hi, freq3$mi, freq3$fa, freq3$cr)  # => accu3 (based on EXACT freq).
+# # accu3
+# all.equal(accu2, accu3)  # => TRUE (qed).
 
 
 ## 2. Individual accuracy metrics from 3 prob: --------
@@ -568,7 +601,7 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 #'
 #' \code{comp_acc} uses probabilities (not frequencies) as
-#' inputs and returns a proportion (probability)
+#' inputs and returns an exact proportion (probability)
 #' without rounding.
 #'
 #' Definition: \code{acc} is the overall accuracy
@@ -598,8 +631,9 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' @return Overall accuracy \code{acc} as a proportion (probability).
 #' A warning is provided for NaN values.
 #'
-#' See \code{\link{comp_accu}} and \code{\link{accu}} for
-#' accuracy metrics based on frequencies.
+#' See \code{\link{accu}} for other accuracy metrics.
+#' \code{\link{comp_accu_freq}} and \code{\link{comp_accu_prob}}
+#' compute accuracy metrics from frequencies and probabilities.
 #'
 #' @examples
 #' # ways to work:
@@ -627,6 +661,9 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' @family metrics
 #'
 #' @seealso
+#' \code{\link{accu}} for all accuracy metrics;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
 #' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
 #' \code{\link{comp_complement}} computes a probability's complement;
@@ -690,6 +727,7 @@ comp_acc <- function(prev, sens, spec) {
 
 
 
+
 ## (C). Apply comp_accu_prob to initialize accu (as a list): ------
 
 ## accu: List containing current accuracy information ------
@@ -698,7 +736,7 @@ comp_acc <- function(prev, sens, spec) {
 #'
 #' \code{accu} contains current accuracy information
 #' returned by the corresponding generating function
-#' \code{\link{comp_accu}}.
+#' \code{\link{comp_accu_prob}}.
 #'
 #' Current metrics include:
 #'
@@ -765,10 +803,10 @@ comp_acc <- function(prev, sens, spec) {
 #'
 #'    }
 #'
-#'    \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+#'    \item Computing exact accuracy values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
 #'    accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
 #'
-#'    When frequencies were rounded (see the default of \code{round = TRUE}
+#'    When frequencies are rounded to integers (see the default of \code{round = TRUE}
 #'    in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
 #'    \code{comp_accu_freq} correspond to these rounded values.
 #'    Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
@@ -776,14 +814,34 @@ comp_acc <- function(prev, sens, spec) {
 #'    }
 #'
 #' @examples
-#' accu <- comp_accu_prob()  # => compute current accuracy information (based on probabilities)
-#' accu                      # => shows current accuracy information
+#' accu <- comp_accu_prob()  # => compute current accuracy information (exact values, based on probabilities)
+#' accu                      # => shows current accuracy information (exact values, based on probabilities)
+#'
+#' ## Contrasting comp_accu_freq and comp_accu_prob:
+#' # (a) comp_accu_freq (based on rounded frequencies):
+#' freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => hi = 2, mi = 1, fa = 2, cr = 5
+#' accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
+#' # accu1
+#' #
+#' # (b) comp_accu_prob (based on probabilities):
+#' accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
+#' # accu2
+#' all.equal(accu1, accu2)  # => 4 differences!
+#' #
+#' # (c) comp_accu_freq (exact values, i.e., without rounding):
+#' freq3 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4, round = FALSE)
+#' accu3 <- comp_accu_freq(freq3$hi, freq3$mi, freq3$fa, freq3$cr)  # => accu3 (based on EXACT freq).
+#' # accu3
+#' all.equal(accu2, accu3)  # => TRUE (qed).
+#'
 #'
 #' @family lists containing current scenario information
 #' @family metrics
 #'
 #' @seealso
-#' The corresponding generating function \code{\link{comp_accu_prob}};
+#' The corresponding generating function \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+#' \code{\link{accu}} for all accuracy metrics;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{prob}} for current probability information;
