@@ -36,7 +36,36 @@ Default: \code{tol = .01}.}
 
 \item{w}{The weighting parameter \code{w} (from 0 to 1)
 for computing weighted accuracy \code{wacc}.
-Default: \code{w = .50} (i.e., yielding balanced accuracy \code{bacc}).}
+Default: \code{w = .50} (i.e., yielding balanced accuracy \code{bacc}).
+
+Notes:
+
+\itemize{
+
+   \item Accuracy metrics describe the \emph{correspondence} of decisions (or predictions) to actual conditions (or truth).
+
+   There are several possible interpretations of accuracy:
+
+   \enumerate{
+
+     \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
+     individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+
+     \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+
+     \item as \emph{correlations} (e.g., see \code{\link{mcc}}).
+
+   }
+
+   \item Computing exact values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+   accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
+
+   When frequencies were rounded (see the default of \code{round = TRUE}
+   in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
+   \code{comp_accu_freq} correspond to these rounded values.
+   Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
+
+   }}
 }
 \value{
 A list \code{\link{accu}} containing current accuracy metrics.
@@ -56,7 +85,9 @@ Currently computed accuracy metrics include:
 \item \code{acc}: Overall accuracy as the proportion (or probability)
    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+(a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+
+(b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
@@ -140,12 +171,12 @@ for additional information.
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
 
-Other metrics: \code{\link{accu}}, \code{\link{comp_accu}},
-  \code{\link{comp_acc}}
+Other metrics: \code{\link{accu}},
+  \code{\link{comp_accu_freq}}, \code{\link{comp_acc}}
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
   \code{\link{comp_acc}}, \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},

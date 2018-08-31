@@ -39,7 +39,9 @@ Definition: \code{acc} is the overall accuracy
 as the proportion (or probability)
 of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+(a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+
+(b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
@@ -80,8 +82,9 @@ comp_acc(0, 0, 0)  #  => 0
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu_prob}},
-  \code{\link{comp_accu}}, \code{\link{comp_comp_pair}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
+  \code{\link{comp_accu_prob}},
+  \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
   \code{\link{comp_fart}}, \code{\link{comp_mirt}},
@@ -90,5 +93,6 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_spec}}
 
 Other metrics: \code{\link{accu}},
-  \code{\link{comp_accu_prob}}, \code{\link{comp_accu}}
+  \code{\link{comp_accu_freq}},
+  \code{\link{comp_accu_prob}}
 }
