@@ -39,29 +39,18 @@ A list \code{\link{prob}} containing 10 probability values.
 }
 \description{
 \code{comp_prob_prob} computes current probability information
-from 3 essential probabilities
-(\code{\link{prev}},
-\code{\link{sens}} or \code{\link{mirt}},
-\code{\link{spec}} or \code{\link{fart}}).
-It returns a list of 10 probabilities \code{\link{prob}}
+from a sufficient and valid set of 3 essential probabilities
+(\code{\link{prev}}, and
+\code{\link{sens}} or its complement \code{\link{mirt}}, and
+\code{\link{spec}} or its complement \code{\link{fart}}).
+It returns a list of 10 probabilities (\code{\link{prob}})
 as its output.
 }
 \details{
-\code{comp_prob} assumes that a sufficient and
-consistent set of essential probabilities
-(i.e., \code{\link{prev}} and
-either \code{\link{sens}} or its complement \code{\link{mirt}}, and
-either \code{\link{spec}} or its complement \code{\link{fart}})
-is provided.
+\code{comp_prob_prob} is a wrapper function for the more basic
+function \code{\link{comp_prob}}.
 
-\code{comp_prob} computes and returns a full set of basic and
-various derived probabilities (e.g.,
-the probability of a positive decision \code{\link{ppod}},
-the predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
-as their complements \code{\link{FDR}} and \code{\link{FOR}})
-in its output of a list \code{\link{prob}}.
-
-Extreme probabilities (sets containing two or more
+Extreme probabilities (sets containing 2 or more
 probabilities of 0 or 1) may yield unexpected values
 (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
 turning \code{NaN} when \code{\link{is_extreme_prob_set}}
@@ -92,14 +81,13 @@ Functions translating between representational formats:
 
 }
 
-Key relationships:
+Key relationships between frequencies and probabilities:
 
 \itemize{
 
-\item Three perspectives on a population:
+\item Three \emph{perspectives} on a population:
 
-A population of \code{\link{N}} individuals can be split into 2 subsets
-in 3 different ways:
+A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 
 \enumerate{
 
@@ -180,6 +168,7 @@ Thus, they can be computed as ratios between frequencies:
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
 }
+
 }
 }
 \examples{

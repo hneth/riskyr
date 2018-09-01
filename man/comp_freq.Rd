@@ -58,11 +58,11 @@ round frequencies to nearest integers to avoid decimal values in
 \code{\link{freq}} (i.e., \code{round = TRUE} by default).
 Using the option \code{round = FALSE} turns off rounding.
 
-Key relationships:
+Key relationships between frequencies and probabilities:
 
-\enumerate{
+\itemize{
 
-\item Three perspectives:
+\item Three \emph{perspectives} on a population:
 
 A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 
@@ -92,14 +92,17 @@ The frequency \code{\link{dec.pos}} depends on the proportion of positive decisi
 
 Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
 
-When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
-essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+When providing probabilities, the population size \code{\link{N}}
+is a free parameter (independent of the essential probabilities
+\code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
-If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+If \code{\link{N}} is unknown (\code{NA}),
+a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
 \item Defining probabilities in terms of frequencies:
 
-Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+Probabilities \emph{are} -- determine, describe, or are defined as --
+the relationships between frequencies.
 Thus, they can be computed as ratios between frequencies:
 
 \enumerate{
@@ -145,6 +148,7 @@ Thus, they can be computed as ratios between frequencies:
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
 }
+
 }
 
 Functions translating between representational formats:
@@ -176,7 +180,11 @@ Functions translating between representational formats:
 comp_freq()                  # => ok, using current defaults
 length(comp_freq())          # => 11
 
-# Ways to succeed:
+# Rounding effects:
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => .9 hit
+
+# Extreme cases:
 comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
 comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
 comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)

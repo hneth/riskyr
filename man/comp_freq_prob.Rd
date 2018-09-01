@@ -50,7 +50,7 @@ from a sufficient and valid set of 3 essential probabilities
 (\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}}).
-It returns a list of 11 frequencies \code{\link{freq}}
+It returns a list of 11 frequencies (\code{\link{freq}})
 for a population of \code{\link{N}} individuals
 as its output.
 }
@@ -65,33 +65,39 @@ Defaults and constraints:
 
 \itemize{
 
-\item Initial values: By default, the values of \code{\link{prev}}, \code{\link{sens}},
-and \code{\link{spec}} are initialized to the probability information
-currently contained in \code{\link{prob}}.
+\item Initial values:
 
-Similarly, the population size \code{\link{N}} uses the frequency information
-currently contained in \code{\link{freq}} as its default.
-If \code{\link{N}} is unknown (\code{NA}),
-a suitable minimum value is computed by \code{\link{comp_min_N}}.
+By default, the values of \code{\link{prev}}, \code{\link{sens}},
+   and \code{\link{spec}} are initialized to the probability information
+   currently contained in \code{\link{prob}}.
 
-\item Constraints: When using \code{comp_freq_prob} with the arguments
-\code{\link{mirt}} and \code{\link{fart}}, their complements
-\code{\link{sens}} and \code{\link{spec}} must either be
-valid complements (as in \code{\link{is_complement}}) or
-set to \code{NA}.
+Similarly, the population size \code{\link{N}} uses the frequency
+   information currently contained in \code{\link{freq}} as its default.
+   If \code{\link{N}} is unknown (\code{NA}),
+   a suitable minimum value is computed by \code{\link{comp_min_N}}.
 
-In addition to \code{\link{prev}}, both
-\code{\link{sens}} and \code{\link{spec}} are necessary arguments.
-If only their complements \code{\link{mirt}} or \code{\link{fart}}
-are known, first use \code{\link{comp_complement}},
-\code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
-to obtain the 3 essential probabilities.
+\item Constraints:
 
-\item Rounding: By default, \code{comp_freq_prob} and its basic function
-\code{\link{comp_freq}}
-round frequencies to nearest integers to avoid decimal values in
-\code{\link{freq}} (i.e., \code{round = TRUE} by default).
-Using the option \code{round = FALSE} turns off rounding.
+When using \code{comp_freq_prob} with the arguments
+   \code{\link{mirt}} and \code{\link{fart}}, their complements
+   \code{\link{sens}} and \code{\link{spec}} must either be
+   valid complements (as in \code{\link{is_complement}}) or
+   set to \code{NA}.
+
+In addition to \code{\link{prev}}, both \code{\link{sens}}
+   and \code{\link{spec}} are necessary arguments.
+   If only their complements \code{\link{mirt}} or \code{\link{fart}}
+   are known, first use \code{\link{comp_complement}},
+   \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
+   to obtain the 3 essential probabilities.
+
+\item Rounding:
+
+By default, \code{comp_freq_prob} and its basic function
+   \code{\link{comp_freq}} round frequencies to nearest integers
+   to avoid decimal values in \code{\link{freq}}
+   (i.e., \code{round = TRUE} by default).
+   Using the option \code{round = FALSE} turns off rounding.
 
 }
 
@@ -120,11 +126,11 @@ Functions translating between representational formats:
 
 }
 
-Key relationships:
+Key relationships between frequencies and probabilities:
 
 \itemize{
 
-\item Three perspectives on a population:
+\item Three \emph{perspectives} on a population:
 
 A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 
@@ -154,14 +160,17 @@ The frequency \code{\link{dec.pos}} depends on the proportion of positive decisi
 
 Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
 
-When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
-essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+When providing probabilities, the population size \code{\link{N}}
+is a free parameter (independent of the essential probabilities
+\code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
-If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+If \code{\link{N}} is unknown (\code{NA}),
+a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
 \item Defining probabilities in terms of frequencies:
 
-Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+Probabilities \emph{are} -- determine, describe, or are defined as --
+the relationships between frequencies.
 Thus, they can be computed as ratios between frequencies:
 
 \enumerate{
