@@ -1,9 +1,8 @@
 ## comp_xxxx_prob.R | riskyr
-## 2018 08 31
-## Add 2 wrapper functions (that use existing functions)
-## to translate (back) from prob to freq and prob:
+## 2018 09 01
+## 2 wrapper functions (that use existing functions)
+## to translate from prob (back) to freq and prob:
 ## -----------------------------------------------
-
 
 ## Table of current terminology: -----------------
 
@@ -62,11 +61,11 @@
 ## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
 
 
-## (A) Translate (back from 3 essential) prob to freq: --------
+
+## (A) Convert from 3 essential prob (back) to freq: --------
 
 ## Note: comp_freq_prob is a WRAPPER function for the more basic
 ##       comp_freq(...) defined before!
-
 
 ## comp_freq_prob: Documentation ------
 
@@ -77,7 +76,7 @@
 #' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}}).
-#' It returns a list of 11 frequencies \code{\link{freq}}
+#' It returns a list of 11 frequencies (\code{\link{freq}})
 #' for a population of \code{\link{N}} individuals
 #' as its output.
 #'
@@ -91,33 +90,39 @@
 #'
 #' \itemize{
 #'
-#'    \item Initial values: By default, the values of \code{\link{prev}}, \code{\link{sens}},
-#' and \code{\link{spec}} are initialized to the probability information
-#' currently contained in \code{\link{prob}}.
+#'    \item Initial values:
 #'
-#' Similarly, the population size \code{\link{N}} uses the frequency information
-#' currently contained in \code{\link{freq}} as its default.
-#' If \code{\link{N}} is unknown (\code{NA}),
-#' a suitable minimum value is computed by \code{\link{comp_min_N}}.
+#'    By default, the values of \code{\link{prev}}, \code{\link{sens}},
+#'    and \code{\link{spec}} are initialized to the probability information
+#'    currently contained in \code{\link{prob}}.
 #'
-#'    \item Constraints: When using \code{comp_freq_prob} with the arguments
-#' \code{\link{mirt}} and \code{\link{fart}}, their complements
-#' \code{\link{sens}} and \code{\link{spec}} must either be
-#' valid complements (as in \code{\link{is_complement}}) or
-#' set to \code{NA}.
+#'    Similarly, the population size \code{\link{N}} uses the frequency
+#'    information currently contained in \code{\link{freq}} as its default.
+#'    If \code{\link{N}} is unknown (\code{NA}),
+#'    a suitable minimum value is computed by \code{\link{comp_min_N}}.
 #'
-#' In addition to \code{\link{prev}}, both
-#' \code{\link{sens}} and \code{\link{spec}} are necessary arguments.
-#' If only their complements \code{\link{mirt}} or \code{\link{fart}}
-#' are known, first use \code{\link{comp_complement}},
-#' \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
-#' to obtain the 3 essential probabilities.
+#'    \item Constraints:
 #'
-#'    \item Rounding: By default, \code{comp_freq_prob} and its basic function
-#' \code{\link{comp_freq}}
-#' round frequencies to nearest integers to avoid decimal values in
-#' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
-#' Using the option \code{round = FALSE} turns off rounding.
+#'    When using \code{comp_freq_prob} with the arguments
+#'    \code{\link{mirt}} and \code{\link{fart}}, their complements
+#'    \code{\link{sens}} and \code{\link{spec}} must either be
+#'    valid complements (as in \code{\link{is_complement}}) or
+#'    set to \code{NA}.
+#'
+#'    In addition to \code{\link{prev}}, both \code{\link{sens}}
+#'    and \code{\link{spec}} are necessary arguments.
+#'    If only their complements \code{\link{mirt}} or \code{\link{fart}}
+#'    are known, first use \code{\link{comp_complement}},
+#'    \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
+#'    to obtain the 3 essential probabilities.
+#'
+#'    \item Rounding:
+#'
+#'    By default, \code{comp_freq_prob} and its basic function
+#'    \code{\link{comp_freq}} round frequencies to nearest integers
+#'    to avoid decimal values in \code{\link{freq}}
+#'    (i.e., \code{round = TRUE} by default).
+#'    Using the option \code{round = FALSE} turns off rounding.
 #'
 #' }
 #'
@@ -146,11 +151,11 @@
 #'
 #' }
 #'
-#' Key relationships:
+#' Key relationships between frequencies and probabilities:
 #'
 #' \itemize{
 #'
-#' \item Three perspectives on a population:
+#' \item Three \emph{perspectives} on a population:
 #'
 #' A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 #'
@@ -181,15 +186,18 @@
 #'
 #' Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
 #'
-#' When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
-#' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+#' When providing probabilities, the population size \code{\link{N}}
+#' is a free parameter (independent of the essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
-#' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#' If \code{\link{N}} is unknown (\code{NA}),
+#' a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
 #'
 #' \item Defining probabilities in terms of frequencies:
 #'
-#' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+#' Probabilities \emph{are} -- determine, describe, or are defined as --
+#' the relationships between frequencies.
 #' Thus, they can be computed as ratios between frequencies:
 #'
 #'   \enumerate{
@@ -354,7 +362,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
                            tol = .01,         # tolerance for is_complement
                            N = freq$N,        # using current freq info contained in freq!
                            round = TRUE       # should freq be rounded to integers? (default: round = TRUE)
-  ) {
+) {
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = tol)) {
@@ -425,39 +433,28 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
 
 
-## (B) Translate from (3 essential) prob to full prob: ----------
+
+## (B) Convert from 3 essential prob to full prob: ----------
 
 ## Note: comp_prob_prob is a WRAPPER function for the more basic
 ##       comp_prob(...) defined before!
-
 
 ## comp_prob_prob: Documentation ------
 
 #' Compute probabilities from (3 essential) probabilities.
 #'
 #' \code{comp_prob_prob} computes current probability information
-#' from 3 essential probabilities
-#' (\code{\link{prev}},
-#' \code{\link{sens}} or \code{\link{mirt}},
-#' \code{\link{spec}} or \code{\link{fart}}).
-#' It returns a list of 10 probabilities \code{\link{prob}}
+#' from a sufficient and valid set of 3 essential probabilities
+#' (\code{\link{prev}}, and
+#' \code{\link{sens}} or its complement \code{\link{mirt}}, and
+#' \code{\link{spec}} or its complement \code{\link{fart}}).
+#' It returns a list of 10 probabilities (\code{\link{prob}})
 #' as its output.
 #'
-#' \code{comp_prob} assumes that a sufficient and
-#' consistent set of essential probabilities
-#' (i.e., \code{\link{prev}} and
-#' either \code{\link{sens}} or its complement \code{\link{mirt}}, and
-#' either \code{\link{spec}} or its complement \code{\link{fart}})
-#' is provided.
+#' \code{comp_prob_prob} is a wrapper function for the more basic
+#' function \code{\link{comp_prob}}.
 #'
-#' \code{comp_prob} computes and returns a full set of basic and
-#' various derived probabilities (e.g.,
-#' the probability of a positive decision \code{\link{ppod}},
-#' the predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
-#' as their complements \code{\link{FDR}} and \code{\link{FOR}})
-#' in its output of a list \code{\link{prob}}.
-#'
-#' Extreme probabilities (sets containing two or more
+#' Extreme probabilities (sets containing 2 or more
 #' probabilities of 0 or 1) may yield unexpected values
 #' (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
 #' turning \code{NaN} when \code{\link{is_extreme_prob_set}}
@@ -488,14 +485,13 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'
 #'  }
 #'
-#' Key relationships:
+#' Key relationships between frequencies and probabilities:
 #'
 #' \itemize{
 #'
-#' \item Three perspectives on a population:
+#' \item Three \emph{perspectives} on a population:
 #'
-#' A population of \code{\link{N}} individuals can be split into 2 subsets
-#' in 3 different ways:
+#' A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 #'
 #'    \enumerate{
 #'
@@ -506,6 +502,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
 #'    and
 #'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'
 #'
 #'    \item by decision:
 #'
@@ -586,6 +583,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
 #'    }
+#'
 #' }
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
@@ -717,6 +715,7 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
 # comp_prob_prob(8,  1, 1, NA)  # => only warning: prev no probability
 # comp_prob_prob(1,  8, 1, NA)  # => only warning: sens no probability
 # comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
+
 
 
 ## (*) Done: -----------
