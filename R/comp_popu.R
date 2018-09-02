@@ -1,22 +1,21 @@
 ## comp_popu.R | riskyr
 ## 2018 02 12
-## -----------------------------------------------
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]
 ##   b. the 4 essential frequencies of freq (hi mi fa cr)
 ##   c. the current text labels of txt
-
 ## -----------------------------------------------
-## Notes:
 
+## Notes:
 ## - changed on 2018 01 25 to use only
 ##   the 4 essential frequencies of freq (hi mi fa cr)
 ## - Called "popu" rather than "pop" as it is an output,
 ##   rather than an input!
 
-## -----------------------------------------------
-## (1) Compute current population (popu):
+## (1) Compute current population (popu): --------
+
+## comp_popu Documentation: --------
 
 #' Compute a population table from frequencies.
 #'
@@ -75,6 +74,8 @@
 #' \code{\link{pal}} for current color settings.
 #'
 #' @export
+
+## comp_popu Definition: --------
 
 comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       mi = freq$mi,
@@ -138,13 +139,14 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 
 }
 
-## Check:
+## Check: --------
+
 # comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases.
 
 
+## (2) Apply to initialize popu (as data frame): ----------
 
-## -----------------------------------------------
-## (2) Apply to initialize popu (as data frame):
+## popu Documentation: --------
 
 #' A population table based on current frequencies.
 #'
@@ -195,19 +197,24 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #'
 #' @export
 
+## popu Definition: --------
+
 popu <- NULL        # initialize
 # popu <- comp_popu() # set to current global parameters
 
-## Check:
+## Check: --------
 # popu
 # dim(popu)
 # head(popu)
 # tail(popu)
 
-## -----------------------------------------------
-## (+) ToDo:
+## (*) Done: -----------
+
+## - Clean up code [2018 09 02].
+
+
+## (+) ToDo: ----------
 
 ## - ...
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------

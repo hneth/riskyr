@@ -1,13 +1,11 @@
 ## init_freq.R | riskyr
 ## 2018 02 08
-## -----------------------------------------------
 ## Define and initialize ALL frequencies
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (11):
+# Probabilities (10+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -35,10 +33,15 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+# (C) by accuracy/correspondence of decision to condition (see accu):
+
+# acc  = overall accuracy (proportion correct)
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
 
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+## Data flow: Two basic directions: --------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -51,10 +54,12 @@
 ##   - derived: all other values
 
 
-## -----------------------------------------------
-## (A) Define and initialize BASIC frequencies:
-## -----------------------------------------------
-## (0) N: population size
+
+
+## (A) BASIC frequencies: ----------
+
+
+##  (0) population size N: --------
 
 #' Number of individuals in the population.
 #'
@@ -131,10 +136,11 @@
 
 N <- 0  # default population size N
 
-## -----------------------------------------------
-## ***: 4 essential frequencies: hi mi fa cr
-## -----------------------------------------------
-## (1) hi*** = TP:
+
+
+## ***: 4 ESSENTIAL frequencies: SDT cases/classes of hi mi fa cr  -------
+
+##  (1) hi*** = TP: -------
 
 #' Frequency of hits or true positives (TP).
 #'
@@ -190,8 +196,8 @@ N <- 0  # default population size N
 
 hi <- 0  # default hits (TP)
 
-## -----------------------------------------------
-## (2) mi*** = FN:
+
+##  (2) mi*** = FN: -------
 
 #' Frequency of misses or false negatives (FN).
 #'
@@ -248,8 +254,8 @@ hi <- 0  # default hits (TP)
 
 mi <- 0  # default misses (FN)
 
-## -----------------------------------------------
-## (3) fa*** = FP:
+
+##  (3) fa*** = FP: -------
 
 #' Frequency of false alarms or false positives (FP).
 #'
@@ -307,8 +313,8 @@ mi <- 0  # default misses (FN)
 
 fa <- 0  # default false alarms (FP)
 
-## -----------------------------------------------
-## (4) cr*** = TN:
+
+##  (4) cr*** = TN: -------
 
 #' Frequency of correct rejections or true negatives (TN).
 #'
@@ -364,14 +370,17 @@ fa <- 0  # default false alarms (FP)
 
 cr <- 0  # default correct rejections (TN)
 
-## -----------------------------------------------
-## (B) Define and initialize COMBINED frequencies:
-## -----------------------------------------------
-## (a) by condition: cond.true vs. cond.false
-##     (= 2 columns of confusion matrix)
-## -----------------------------------------------
 
-## (5) cond.true
+
+## (B) COMBINED frequencies: ---------
+
+## 3 perspectives: Each combines 2 pairs of essential frequencies: --------
+
+## (a) by condition: cond.true vs. cond.false  ---------
+##     (= 2 columns of confusion matrix)
+
+
+##  (5) cond.true -------
 
 #' Number of individuals for which the condition is true.
 #'
@@ -456,8 +465,7 @@ cr <- 0  # default correct rejections (TN)
 cond.true <- 0  # default frequency of true cases
 
 
-## -----------------------------------------------
-## (6) cond.false
+##  (6) cond.false -------
 
 #' Number of individuals for which the condition is false.
 #'
@@ -542,12 +550,13 @@ cond.true <- 0  # default frequency of true cases
 cond.false <- 0  # default frequency of false cases
 
 
-## -----------------------------------------------
-## (b) by decision: dec.pos vs. dec.neg
-##     (= 2 rows of confusion matrix)
-## -----------------------------------------------
 
-## (7) dec.pos
+
+## (b) by decision: dec.pos vs. dec.neg ----------
+##     (= 2 rows of confusion matrix)
+
+
+##  (7) dec.pos  -------
 
 #' Number of individuals for which the decision is positive.
 #'
@@ -633,9 +642,7 @@ cond.false <- 0  # default frequency of false cases
 dec.pos <- 0  # default frequency of positive decisions
 
 
-## -----------------------------------------------
-
-## (8) dec.neg
+##  (8) dec.neg -------
 
 #' Number of individuals for which the decision is negative.
 #'
@@ -720,13 +727,11 @@ dec.pos <- 0  # default frequency of positive decisions
 dec.neg <- 0  # default frequency of negative decisions
 
 
-## -----------------------------------------------
-## (c) by correspondence of decision to condition:
-##     dec.cor vs. dec.err
-##     (= 2 diagonals of confusion matrix)
-## -----------------------------------------------
 
-## (9) dec.cor
+## (c) by accuracy/correspondence of decision to condition: ---------
+##     dec.cor vs. dec.err (= 2 diagonals of confusion matrix)
+
+##  (9) dec.cor --------
 
 #' Number of individuals for which the decision is correct.
 #'
@@ -790,9 +795,8 @@ dec.neg <- 0  # default frequency of negative decisions
 dec.cor <- 0  # default frequency of negative decisions
 
 
-## -----------------------------------------------
 
-## (10) dec.err
+## (10) dec.err --------
 
 #' Number of individuals for which the decision is erroneous.
 #'
@@ -855,9 +859,16 @@ dec.cor <- 0  # default frequency of negative decisions
 
 dec.err <- 0  # default frequency of negative decisions
 
-## -----------------------------------------------
-## (+) ToDo:
 
 
-## -----------------------------------------------
-## eof.
+## (*) Done: -----------
+
+## - Clean up code [2018 09 02].
+
+
+## (+) ToDo: ----------
+
+## - ...
+
+## eof. ------------------------------------------
+
