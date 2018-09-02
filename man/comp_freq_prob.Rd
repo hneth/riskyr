@@ -51,15 +51,13 @@ from a sufficient and valid set of 3 essential probabilities
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}}).
 It returns a list of 11 frequencies (\code{\link{freq}})
-for a population of \code{\link{N}} individuals
 as its output.
 }
 \details{
 \code{comp_freq_prob} is a wrapper function for the more basic
-function \code{\link{comp_freq}}, which only accepts the
-3 essential probabilities
-(\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
-as inputs.
+function \code{\link{comp_freq}}, which only accepts
+3 essential probabilities (i.e., \code{\link{prev}}, \code{\link{sens}},
+and \code{\link{spec}}) as inputs.
 
 Defaults and constraints:
 
