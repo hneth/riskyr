@@ -1,5 +1,5 @@
 ## comp_xxxx_prob.R | riskyr
-## 2018 09 01
+## 2018 09 02
 ## 2 wrapper functions (that use existing functions)
 ## to translate from prob (back) to freq and prob:
 ## -----------------------------------------------
@@ -62,7 +62,7 @@
 
 
 
-## (A) Convert from 3 essential prob (back) to freq: --------
+## (A) Compute frequencies from (3 essential) probabilities: --------
 
 ## Note: comp_freq_prob is a WRAPPER function for the more basic
 ##       comp_freq(...) defined before!
@@ -77,14 +77,12 @@
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}}).
 #' It returns a list of 11 frequencies (\code{\link{freq}})
-#' for a population of \code{\link{N}} individuals
 #' as its output.
 #'
 #' \code{comp_freq_prob} is a wrapper function for the more basic
-#' function \code{\link{comp_freq}}, which only accepts the
-#' 3 essential probabilities
-#' (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
-#' as inputs.
+#' function \code{\link{comp_freq}}, which only accepts
+#' 3 essential probabilities (i.e., \code{\link{prev}}, \code{\link{sens}},
+#' and \code{\link{spec}}) as inputs.
 #'
 #' Defaults and constraints:
 #'
@@ -434,7 +432,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
 
 
-## (B) Convert from 3 essential prob to full prob: ----------
+## (B) Compute probabilities from (3 essential) probabilities: ----------
 
 ## Note: comp_prob_prob is a WRAPPER function for the more basic
 ##       comp_prob(...) defined before!
