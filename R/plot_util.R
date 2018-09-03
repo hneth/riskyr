@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 08 29
+## 2018 09 03
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -25,7 +25,7 @@ ex <- function() {
 
 ## (2) Generic plot labels: ----------
 
-## make_cond_lbl: Current condition parameter values ------
+## make_cond_lbl: Label current condition values ------
 
 make_cond_lbl <- function(prev, sens, spec) {
 
@@ -41,7 +41,7 @@ make_cond_lbl <- function(prev, sens, spec) {
 
 }
 
-## make_dec_lbl: Current decision parameter values ------
+## make_dec_lbl: Label current decision values ------
 
 make_dec_lbl <- function(ppod, PPV, NPV) {
 
@@ -57,7 +57,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
 }
 
-## make_accu_lbl: Current accuracy values ------
+## make_accu_lbl: Label current accuracy values ------
 
 make_accu_lbl <- function(acc, w, wacc, mcc) {
 
@@ -72,19 +72,28 @@ make_accu_lbl <- function(acc, w, wacc, mcc) {
                        "(w = ", round(w, 2), "), ")
   }
 
-  ## Compose accu label:
+  ## 2 options:
+  ## (a) Compose accu label (INcluding wacc and mcc):
   lbl <- paste0("Accuracy:   ",  # Name:
                 "acc = ", as_pc(acc, n.digits = 1), "%, ",
                 wacc.lbl,
                 "mcc = ", round(mcc, 2),
-                "   "  # add space at end
+                "  "  # add 2 spaces at end
+  )
+
+  ## (b) Compose accu label (EXcluding wacc and mcc):
+  lbl <- paste0("Accuracy:   ",  # Name:
+                "acc = ", as_pc(acc, n.digits = 1), "%",
+                # wacc.lbl,
+                # "mcc = ", round(mcc, 2),
+                ""  # add NO space at end
   )
 
   return(lbl)
 
 }
 
-## make_freq_lbl: Current values of 4 essential frequencies ------
+## make_freq_lbl: Label current values of 4 essential frequencies ------
 
 make_freq_lbl <- function(hi, mi, fa, cr) {
 
