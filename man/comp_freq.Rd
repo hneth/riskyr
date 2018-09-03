@@ -182,7 +182,8 @@ length(comp_freq())          # => 11
 
 # Rounding effects:
 comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
-comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => .9 hit
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => .9 hit
+comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
 
 # Extreme cases:
 comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)

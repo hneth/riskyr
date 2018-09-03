@@ -5,8 +5,8 @@
 \title{Plot bar charts of population frequencies.}
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, by = "all", dir = 1, show.freq = TRUE,
-  show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
+  fart = NA, N = num$N, round = TRUE, by = "all", dir = 1,
+  show.freq = TRUE, show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
   title.lbl = txt$scen.lbl, col.pal = pal, ...)
 }
 \arguments{
@@ -38,6 +38,9 @@ of a positive decision provided that the condition is \code{FALSE}).
 but used when new frequency information \code{\link{freq}}
 and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
+
+\item{round}{A Boolean option specifying whether computed frequencies
+are rounded to integers. Default: \code{round = TRUE}.}
 
 \item{by}{A character code specifying the perspective
 (or the dimension by which the population is split into 2 subsets)
@@ -98,8 +101,12 @@ and a new population table \code{\link{popu}}
 are computed from scratch.  Otherwise, the existing
 population \code{\link{popu}} is shown.
 
+Note that {plot_bar} uses exact probabilities
+as bar heights, rather than (possibly rounded) frequencies.
+
 Rectangles corresponding to the areas of the mosaic plot
-can be visualized byopting for vertical rectangles (by selecting
+(\code{\link{plot_mosaic}})
+can be visualized by opting for vertical rectangles (by selecting
 the option \code{box = "vr"}) in \code{\link{plot_tree}}
 and \code{\link{plot_fnet}}.
 }
@@ -110,6 +117,7 @@ plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
          title.lbl = "Test 2")  # by "all" (default)
 
+# Perspectives:
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
          title.lbl = "Test 3a")  # by condition
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
@@ -125,10 +133,11 @@ plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
          title.lbl = "Test 5b")  # bi-directional
 
-# Note:
-plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
-         title.lbl = "Test rounding effects",
-         show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
+# Rounding effects:
+plot_bar(N = 3, prev = .33, sens = .75, spec = .66, title.lbl = "Rounding effects (1)",
+         dir = 2, show.freq = TRUE)  # => Rounding freq labels, but NOT bar sizes in plot.
+plot_bar(N = 3, prev = .33, sens = .75, spec = .66, title.lbl = "Rounding effects (2)",
+         dir = 2, show.freq = TRUE, round = FALSE)  # => Bar sizes correspond to exact freq.
 
 }
 \seealso{
