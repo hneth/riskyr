@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 08 31
+## 2018 09 03
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -8,10 +8,13 @@
 
 ## plot_bar: Documentation ---------
 
-## Note: plot_bar computes 4 essential frequencies,
-##       but does NOT update global freq and prob objects.
-##       It is NOT "smart" by NOT automatically deriving
-##       freq and prob labels from global objects!
+## Notes:
+## (1) Bar heights are based on exact probabilities,
+##     NOT (rounded) frequencies!
+## (2) plot_bar computes 4 essential frequencies,
+##     but does NOT update global freq and prob objects.
+##     It is NOT "smart" by NOT automatically deriving
+##     freq and prob labels from global objects!
 
 #' Plot bar charts of population frequencies.
 #'
@@ -29,8 +32,12 @@
 #' are computed from scratch.  Otherwise, the existing
 #' population \code{\link{popu}} is shown.
 #'
+#' Note that {plot_bar} uses exact probabilities
+#' as bar heights, rather than (possibly rounded) frequencies.
+#'
 #' Rectangles corresponding to the areas of the mosaic plot
-#' can be visualized byopting for vertical rectangles (by selecting
+#' (\code{\link{plot_mosaic}})
+#' can be visualized by opting for vertical rectangles (by selecting
 #' the option \code{box = "vr"}) in \code{\link{plot_tree}}
 #' and \code{\link{plot_fnet}}.
 #'
@@ -63,6 +70,9 @@
 #' but used when new frequency information \code{\link{freq}}
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
+#'
+#' @param round A Boolean option specifying whether computed frequencies
+#' are rounded to integers. Default: \code{round = TRUE}.
 #'
 #' @param by A character code specifying the perspective
 #' (or the dimension by which the population is split into 2 subsets)
@@ -114,6 +124,7 @@
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
 #'          title.lbl = "Test 2")  # by "all" (default)
 #'
+#' # Perspectives:
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
 #'          title.lbl = "Test 3a")  # by condition
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
@@ -129,10 +140,11 @@
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
 #'          title.lbl = "Test 5b")  # bi-directional
 #'
-#' # Note:
-#' plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
-#'          title.lbl = "Test rounding effects",
-#'          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
+#' # Rounding effects:
+#' plot_bar(N = 3, prev = .33, sens = .75, spec = .66, title.lbl = "Rounding effects (1)",
+#'          dir = 2, show.freq = TRUE)  # => Rounding freq labels, but NOT bar sizes in plot.
+#' plot_bar(N = 3, prev = .33, sens = .75, spec = .66, title.lbl = "Rounding effects (2)",
+#'          dir = 2, show.freq = TRUE, round = FALSE)  # => Bar sizes correspond to exact freq.
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -169,8 +181,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      spec = num$spec, fart = NA,
                      N = num$N,                   # population size N
                      ## Options:
-                     by = "all",  # "cd"...condition, "dc"...decision; "all".
-                     dir = 1,     # directions: 1 vs. 2
+                     round = TRUE, # should freq be rounded to integers?
+                     by = "all",   # "cd"...condition, "dc"...decision; "all".
+                     dir = 1,      # directions: 1 vs. 2
                      show.freq = TRUE,   # show labels of frequencies in plot
                      show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
                      show.accu = TRUE,   # compute and show accuracy metrics
@@ -201,7 +214,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fart <- prob_quintet[5] # gets fart (if not provided)
 
     ## (b) Compute freq based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)  # compute freq (with round = TRUE)
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
 
     ## ToDo: Update global freq and prob objects
     ##       to use label_freq and label_prob functions.
@@ -1146,28 +1159,37 @@ plot_bar <- function(prev = num$prev,             # probabilities
 }
 
 
-### Check:
-## Basics:
+### Check: --------
+
+# # Basics:
 # plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
 #
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, title.lbl = "Test 2")  # by = "all" (default)
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
+#          title.lbl = "Test 2")  # by "all" (default)
 #
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3a")  # by condition
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", title.lbl = "Test 3b", dir = 2) # bi-directional
+# # Perspectives:
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
+#          title.lbl = "Test 3a")  # by condition
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
+#          title.lbl = "Test 3b")  # bi-directional
 #
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4a")  # by decision
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", title.lbl = "Test 4b", dir = 2) # bi-directional
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
+#          title.lbl = "Test 4a")  # by decision
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
+#          title.lbl = "Test 4b")  # bi-directional
 #
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a")  # by accuracy
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", title.lbl = "Test 5a", dir = 2) # bi-directional
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
+#          title.lbl = "Test 5a")  # by accuracy
+# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
+#          title.lbl = "Test 5b")  # bi-directional
 #
-## Note:
-# plot_bar(N = 100, prev = .1, sens = .8, spec = .7, by = "cd", title.lbl = "Test", dir = 2, )
-
-# plot_bar(N = 3, prev = .33, sens = .75, spec = .66,
-#          title.lbl = "Test rounding effects",
-#          show.freq = TRUE)  # => Rounding of freq, but not of proportions shown in plot.
-
+# # Rounding effects:
+# plot_bar(N = 3, prev = .33, sens = .75, spec = .66, dir = 2,
+#          title.lbl = "Rounding effects (1)",
+#          show.freq = TRUE)  # => Rounding freq labels, but not bar sizes in plot.
+# plot_bar(N = 3, prev = .33, sens = .75, spec = .66, dir = 2,
+#          title.lbl = "Rounding effects (2)",
+#          show.freq = TRUE, round = FALSE)  # => bar sizes in plot correspond to exact freq.
 
 
 ## (*) Done: ----------
