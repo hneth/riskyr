@@ -202,8 +202,17 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   if (show.accu) {
 
-    # cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
-    cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)  # compute EXACT accuracy info from probabilities!
+    if (!is.na(prev) && !is.na(sens) && !is.na(spec)) {  # prob are known:
+
+      # (1) Compute exact accuracy from prob:
+      cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+
+    } else {  # use freq:
+
+      # (2) Compute accuracy info from (rounded) freq:
+      cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+
+    }
 
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
 

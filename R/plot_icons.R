@@ -922,7 +922,18 @@ plot_icons <- function(prev = num$prev,             # probabilities
     n.fa <- cur.freq$fa
     n.cr <- cur.freq$cr
 
-    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info from (rounded) freq
+    if (!is.na(prev) && !is.na(sens) && !is.na(spec)) {  # prob are known:
+
+      # (1) Compute exact accuracy from prob:
+      cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+
+    } else {  # use freq:
+
+      # (2) Compute accuracy info from (rounded) freq:
+      cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+
+    }
+
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
     mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
   }
