@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 09 01
+## 2018 09 03
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -300,6 +300,7 @@ init_freq <- function() {
 #' length(comp_freq())          # => 11
 #'
 #' # Rounding effects:
+#' comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # => yields fa = 1 (see ?round for reason)
 #' comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
 #' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => .9 hit
 #' comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
@@ -409,7 +410,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     ## (6) Check results for consistency:
     tol <- .0001  # tolerance threshold for mismatch of sums
 
-    if ((abs(freq$N - (freq$hi + freq$mi + freq$fa + freq$cr)) > tol) ||
+    if (#isTRUE(all.equal(freq$N, (freq$hi + freq$mi + freq$fa + freq$cr), tolerance = tol)) &&
+        (abs(freq$N - (freq$hi + freq$mi + freq$fa + freq$cr)) > tol) ||
         (abs(freq$cond.true - (freq$hi + freq$mi)) > tol)             ||
         (abs(freq$cond.false - (freq$fa + freq$cr)) > tol)            ||
         # (freq$dec.pos != freq$hi + freq$fa)             ||  # (computed as such above)
@@ -436,6 +438,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 # length(comp_freq())          # => 11
 #
 # # Rounding effects:
+# comp_freq(prev = .5, sens = .5, spec = .5, N = 1)  # => yields fa = 1 (see ?round for reason)
 # comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
 # comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => .9 hit
 # comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
