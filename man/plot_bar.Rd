@@ -101,8 +101,10 @@ and a new population table \code{\link{popu}}
 are computed from scratch.  Otherwise, the existing
 population \code{\link{popu}} is shown.
 
-Note that {plot_bar} uses exact probabilities
-as bar heights, rather than (possibly rounded) frequencies.
+Note that {plot_bar} uses frequencies (rounded or not rounded,
+depending on the argument of \code{round}) as bar heights,
+rather than using probabilities. Setting
+\code{round = FALSE} scales bar heights by exact probabilities.
 
 Rectangles corresponding to the areas of the mosaic plot
 (\code{\link{plot_mosaic}})

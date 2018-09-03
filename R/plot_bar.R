@@ -9,8 +9,8 @@
 ## plot_bar: Documentation ---------
 
 ## Notes:
-## (1) Bar heights are based on exact probabilities,
-##     NOT (rounded) frequencies!
+## (1) Bar heights are based on frequencies (rounded or not rounded),
+##     NOT probabilities!
 ## (2) plot_bar computes 4 essential frequencies,
 ##     but does NOT update global freq and prob objects.
 ##     It is NOT "smart" by NOT automatically deriving
@@ -32,8 +32,10 @@
 #' are computed from scratch.  Otherwise, the existing
 #' population \code{\link{popu}} is shown.
 #'
-#' Note that {plot_bar} uses exact probabilities
-#' as bar heights, rather than (possibly rounded) frequencies.
+#' Note that {plot_bar} uses frequencies (rounded or not rounded,
+#' depending on the argument of \code{round}) as bar heights,
+#' rather than using probabilities. Setting
+#' \code{round = FALSE} scales bar heights by exact probabilities.
 #'
 #' Rectangles corresponding to the areas of the mosaic plot
 #' (\code{\link{plot_mosaic}})
@@ -250,35 +252,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
   #
   # type_label <- "freq type"  # to be derived below.
 
-  ## (3) Accuracy: ----------
-
-  if (show.accu) {
-
-    if (!is.na(prev) && !is.na(sens) && !is.na(spec)) {  # prob are known:
-
-      # (1) Compute exact accuracy from prob:
-      cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
-
-    } else {  # use freq:
-
-      # (2) Compute accuracy info from (rounded) freq:
-      cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-
-    }
-
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
-
-    # mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-    # cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")  # add accuracy lbl to existing cur.par.lbl
-  }
-
-  ## (4) Define plot and margin areas: ----------
+  ## (2) Define plot and margin areas: ----------
 
   ## Margin areas:
   par(oma = c(3, 2, 1, 1) + 0.1)  # outer margins: bottom has 3 lines of space
   par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
 
-  ## (5) Graphical parameters: ----
+  ## (3) Graphical parameters: ----
 
   # Offset from base line:
   x.base <- 0  # offset x
@@ -314,7 +294,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # lwd.help <- 2.5  # line width
 
 
-  ## (6) Define plot area: ----------
+  ## (4) Define plot area: ----------
 
   ## Plot dimensions:
   xlim = c(0, 1)
@@ -350,7 +330,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
        lwd = par("lwd"), equilogs = TRUE)
 
 
-  ## (7) Custom bar plot: ----------
+  ## (5) Custom bar plot: ----------
 
   if (by == "all") {
 
@@ -402,7 +382,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      col = pal["txt"], # col = comp_freq_col("N"),
                      ...)
 
-    ## (b) SDT column: ----
+    ## (b) 4 cases/cells of SDT column: ----
 
     # x-coordinates:
     col.nr <- 3
@@ -411,11 +391,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fa.x <- hi.x
     cr.x <- hi.x
 
-    # heights (in y-direction):
-    hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
-    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
-    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
-    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+    # # 2 ways of computing heights:
+    # # (1) heights (ly) from probabilities (without rounding):
+    # hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
+    # mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
+    # cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
+    # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+
+    # (2) heights (ly) from frequencies (with or without rounding, based on round option):
+    hi.ly <- n.hi   # freq of n.hi (with/without rounding)
+    mi.ly <- n.mi   # freq of n.mi (with/without rounding)
+    cr.ly <- n.cr   # freq of n.cr (with/without rounding)
+    fa.ly <- n.fa   # freq of n.fa (with/without rounding)
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
@@ -483,9 +470,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
     cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     cond.false.x <- cond.true.x
 
-    # heights:
-    cond.true.ly  <- (n.ly * prev)        # re-computes cond.true (without rounding)
-    cond.false.ly <- (n.ly * (1 - prev))  # re-computes cond.false (without rounding)
+    # heights (ly) as sum of previous heights (4 cases/cells):
+    cond.true.ly  <- abs(hi.ly) + abs(mi.ly)
+    cond.false.ly <- abs(fa.ly) + abs(cr.ly)
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
@@ -534,7 +521,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
-    # heights:
+    # heights (ly) as sum of previous heights (4 cases/cells):
     dec.pos.ly <- abs(hi.ly) + abs(fa.ly)
     dec.neg.ly <- abs(mi.ly) + abs(cr.ly)
 
@@ -584,7 +571,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
-    # heights:
+    # heights (ly) as sum of previous heights (4 cases/cells):
     dec.cor.ly <- abs(hi.ly) + abs(cr.ly)
     dec.err.ly <- abs(mi.ly) + abs(fa.ly)
 
@@ -684,11 +671,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fa.x <- hi.x
     cr.x <- hi.x
 
-    # heights (in y-direction):
-    hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
-    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
-    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
-    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+    # # 2 ways of computing heights:
+    # # (1) heights (ly) from probabilities (without rounding):
+    # hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
+    # mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
+    # cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
+    # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+
+    # (2) heights (ly) from frequencies (with or without rounding, based on round option):
+    hi.ly <- n.hi   # freq of n.hi (with/without rounding)
+    mi.ly <- n.mi   # freq of n.mi (with/without rounding)
+    cr.ly <- n.cr   # freq of n.cr (with/without rounding)
+    fa.ly <- n.fa   # freq of n.fa (with/without rounding)
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
@@ -751,9 +745,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
     cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     cond.false.x <- cond.true.x
 
-    # heights:
-    cond.true.ly  <- (n.ly * prev)        # re-computes cond.true (without rounding)
-    cond.false.ly <- (n.ly * (1 - prev))  # re-computes cond.false (without rounding)
+    # heights (ly) as sum of previous heights (4 cases/cells):
+    cond.true.ly  <- abs(hi.ly) + abs(mi.ly)
+    cond.false.ly <- abs(fa.ly) + abs(cr.ly)
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
@@ -848,11 +842,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fa.x <- hi.x
     cr.x <- hi.x
 
-    # heights (in y-direction):
-    hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
-    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
-    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
-    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+    # # 2 ways of computing heights:
+    # # (1) heights (ly) from probabilities (without rounding):
+    # hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
+    # mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
+    # cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
+    # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+
+    # (2) heights (ly) from frequencies (with or without rounding, based on round option):
+    hi.ly <- n.hi   # freq of n.hi (with/without rounding)
+    mi.ly <- n.mi   # freq of n.mi (with/without rounding)
+    cr.ly <- n.cr   # freq of n.cr (with/without rounding)
+    fa.ly <- n.fa   # freq of n.fa (with/without rounding)
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
@@ -915,7 +916,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
-    # heights:
+    # heights (ly) as sum of previous heights (4 cases/cells):
     dec.pos.ly <- abs(hi.ly) + abs(fa.ly)
     dec.neg.ly <- abs(mi.ly) + abs(cr.ly)
 
@@ -1012,11 +1013,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fa.x <- hi.x
     cr.x <- hi.x
 
-    # heights (in y-direction):
-    hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
-    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
-    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
-    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+    # # 2 ways of computing heights:
+    # # (1) heights (ly) from probabilities (without rounding):
+    # hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
+    # mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
+    # cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
+    # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+
+    # (2) heights (ly) from frequencies (with or without rounding, based on round option):
+    hi.ly <- n.hi   # freq of n.hi (with/without rounding)
+    mi.ly <- n.mi   # freq of n.mi (with/without rounding)
+    cr.ly <- n.cr   # freq of n.cr (with/without rounding)
+    fa.ly <- n.fa   # freq of n.fa (with/without rounding)
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
@@ -1079,7 +1087,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
-    # heights:
+    # heights (ly) as sum of previous heights (4 cases/cells):
     dec.cor.ly <- abs(hi.ly) + abs(cr.ly)
     dec.err.ly <- abs(mi.ly) + abs(fa.ly)
 
@@ -1150,10 +1158,35 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (by == "xxx")
 
 
-  ## (8) Title and margin text: --------
+  ## (6) Title: --------
 
   # title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
   title(cur.title.lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
+
+  ## (7) Accuracy on margin: ----------
+
+  if (show.accu) {
+
+    if (round) {  # freq are rounded:
+
+      # (1) Compute accuracy info from (rounded) freq:
+      cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+
+      cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+
+    } else {  # use exact probabilities:
+
+      # (2) Compute exact accuracy from prob:
+      cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+
+      cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+
+    }
+
+    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
+
+  }
 
 
 }
