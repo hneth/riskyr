@@ -301,7 +301,8 @@ init_freq <- function() {
 #'
 #' # Rounding effects:
 #' comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
-#' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => .9 hit
+#' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => .9 hit
+#' comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
 #'
 #' # Extreme cases:
 #' comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
@@ -406,16 +407,18 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     freq$dec.err <- freq$mi + freq$fa  # N of erroneous decisions
 
     ## (6) Check results for consistency:
-    if ((freq$N != freq$hi + freq$mi + freq$fa + freq$cr) ||
-        (freq$cond.true  != freq$hi + freq$mi)            ||
-        (freq$cond.false != freq$fa + freq$cr)            ||
+    tol <- .0001  # tolerance threshold for mismatch of sums
+
+    if ((abs(freq$N - (freq$hi + freq$mi + freq$fa + freq$cr)) > tol) ||
+        (abs(freq$cond.true - (freq$hi + freq$mi)) > tol)             ||
+        (abs(freq$cond.false - (freq$fa + freq$cr)) > tol)            ||
         # (freq$dec.pos != freq$hi + freq$fa)             ||  # (computed as such above)
         # (freq$dec.neg != freq$mi + freq$cr)             ||  # (computed as such above)
         # (freq$dec.cor != freq$hi + freq$cr)             ||  # (computed as such above)
         # (freq$dec.err != freq$mi + freq$fa)             ||  # (computed as such above)
-        (freq$N != freq$cond.true + freq$cond.false)      ||
-        (freq$N != freq$dec.pos + freq$dec.neg)           ||
-        (freq$N != freq$dec.cor + freq$dec.err)           ) {
+        (abs(freq$N - (freq$cond.true + freq$cond.false)) > tol)      ||
+        (abs(freq$N - (freq$dec.pos + freq$dec.neg)) > tol)           ||
+        (abs(freq$N - (freq$dec.cor + freq$dec.err)) > tol)           ) {
 
       warning("Current frequencies do NOT add up.")
     }
@@ -435,6 +438,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 # # Rounding effects:
 # comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
 # comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => .9 hit
+# comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
 #
 # # Extreme cases:
 # comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
