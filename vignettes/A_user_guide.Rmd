@@ -193,10 +193,11 @@ For our present purposes, the notion of risk-related information refers to any s
 
 ### Promoting risk perception and communication
 
-`riskyr` facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing a dice's different facets) also represents its functionality in a variety of ways:  
-1. First, each individual facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
-2. More importantly, each facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view it from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
-3. The three facets can be counted as the three steps of (a) organizing information, (b) translating between representational formats, and (c) visualising relationships between variables.  ] 
+`riskyr` facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing 3 different dice facets) also represents its functionality in several ways:  
+1. First, each facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
+2. The 3 facets indicate the 3 perspectives that classify a population of $N$ individuals into 3 binary categories of medical diagnostics: (1) by _condition_ (true vs. false), (2) by _decision_ (positive vs. negative), and (3) by _accuracy_/_correspondence_ (correct vs. incorrect).  
+3. Any individual facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
+4. The 3 facets also hint at `riskyr`'s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualising relationships between variables.  ] 
 
 - by organizing _data structures_ and _computational functions_ in useful ways;  
 
