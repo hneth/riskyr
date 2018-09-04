@@ -18,8 +18,11 @@ Define a scenario from 4 essential frequencies (and checking for consistency wit
 
 ## Minor changes
 
+- `prob` [2018-09-04]: 
+Include `acc` as a probability (in `prob` and summary functions). 
+
 - `comp_accu.R` [2018-08-30]: 
-Compute exact accuracy values (not approximations based on rounded `freq` values, as when using `comp_accu`) by using the new function `comp_accu_prob` to compute the list `accu` from probabilities. 
+Compute exact accuracy values (not approximations, when using `comp_accu_freq` on rounded `freq` values) by using the new function `comp_accu_prob` to compute the list `accu` from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when `show.accu == TRUE` and `round == TRUE`). 
 
 - `freq` [2018-07-30]: 
 Added a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of `dec.cor` and `dec.err` (i.e., `hi + cr` vs. `mi + fa` as the diagonal of 4 SDT cases). This increases the number of frequencies in `freq` from 9 to 11. Also added corresponding labels in `init_txt.R` and colors in `init_pal.R`. 
