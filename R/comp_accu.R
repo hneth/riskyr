@@ -13,7 +13,9 @@
 
 
 
+
 ## (A) Accuracy metrics for a classification result (i.e., based on freq) ------
+
 
 ## 1. ALL current accuracy metrics from 4 freq: ------
 
@@ -262,6 +264,7 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
 
 
 
+
 ## 2. comp_accu: Wrapper function for comp_accu_freq (above) -------
 
 comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
@@ -284,7 +287,9 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 ## yet ToDo (but included in comp_accu above).
 
 
+
 ## (B) Accuracy metrics based on probabilities (without rounding) : ----------
+
 
 
 ## 1. ALL accuracy metrics from 3 prob: --------
@@ -587,6 +592,7 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 # all.equal(accu2, accu3)  # => TRUE (qed).
 
 
+
 ## 2. Individual accuracy metrics from 3 prob: --------
 
 ## yet ToDo (but included in comp_accu_prob above).
@@ -596,183 +602,8 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
 ## a. Overall accuracy (acc) from 3 prob: -------
 
-## comp_acc: Documentation --------
-
-#' Compute overall accuracy (acc) from probabilities.
-#'
-#' \code{comp_acc} computes overall accuracy \code{\link{acc}}
-#' from 3 essential probabilities
-#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
-#'
-#' \code{comp_acc} uses probabilities (not frequencies) as
-#' inputs and returns an exact probability (proportion)
-#' without rounding.
-#'
-#' Understanding the probability \code{\link{acc}}:
-#'
-#' \itemize{
-#'
-#'   \item Definition:
-#'   \code{\link{acc}} is the (non-conditional) probability:
-#'
-#'   \code{acc = p(dec.cor) = dec.cor/N}
-#'
-#'   or the base rate (or baseline probability)
-#'   of a decision being correct, but not necessarily positive.
-#'
-#'   \code{\link{acc}} values range
-#'   from 0 (no correct decision/prediction)
-#'   to 1 (perfect decision/prediction).
-#'
-#'   \item Computation: \code{\link{acc}} can be computed in 2 ways:
-#'
-#'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
-#'
-#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
-#'
-#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
-#'
-#'   \item Perspective:
-#'   \code{\link{acc}} classifies a population of \code{\link{N}} individuals
-#'   by accuracy/correspondence (\code{acc = dec.cor/N}).
-#'
-#'   \code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
-#'   to \code{\link{prev}} (which adopts a "by condition" perspective) and
-#'   to \code{\link{ppod}} (which adopts a "by decision" perspective).
-#'
-#'   \item Alternative names of \code{\link{acc}}:
-#'   base rate of correct decisions,
-#'   non-erroneous cases
-#'
-#'   \item In terms of frequencies,
-#'   \code{\link{acc}} is the ratio of
-#'   \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
-#'   divided by \code{\link{N}} (i.e.,
-#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
-#'
-#'   \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
-#'
-#'   \item Dependencies:
-#'   \code{\link{acc}} is a feature of both the environment (true condition) and
-#'   of the decision process or diagnostic procedure. It reflects the
-#'   correspondence of decisions to conditions.
-#'
-#' }
-#'
-#' See \code{\link{accu}} for other accuracy metrics
-#' and several possible interpretations of accuracy.
-#'
-#' @param prev The condition's prevalence \code{\link{prev}}
-#' (i.e., the probability of condition being \code{TRUE}).
-#'
-#' @param sens The decision's sensitivity \code{\link{sens}}
-#' (i.e., the conditional probability of a positive decision
-#' provided that the condition is \code{TRUE}).
-#'
-#' @param spec The decision's specificity value \code{\link{spec}}
-#' (i.e., the conditional probability
-#' of a negative decision provided that the condition is \code{FALSE}).
-#'
-#' @return Overall accuracy \code{\link{acc}} as a probability (proportion).
-#' A warning is provided for NaN values.
-#'
-#' See \code{\link{acc}} for definition
-#' and \code{\link{accu}} for other accuracy metrics.
-#' \code{\link{comp_accu_freq}} and \code{\link{comp_accu_prob}}
-#' compute accuracy metrics from frequencies and probabilities.
-#'
-#' @examples
-#' # ways to work:
-#' comp_acc(.10, .200, .300)  # => acc = 0.29
-#' comp_acc(.50, .333, .666)  # => acc = 0.4995
-#'
-#' # watch out for vectors:
-#' prev.range <- seq(0, 1, by = .1)
-#' comp_acc(prev.range, .5, .5)  # => 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
-#'
-#' # watch out for extreme values:
-#' comp_acc(1, 1, 1)  #  => 1
-#' comp_acc(1, 1, 0)  #  => 1
-#'
-#' comp_acc(1, 0, 1)  #  => 0
-#' comp_acc(1, 0, 0)  #  => 0
-#'
-#' comp_acc(0, 1, 1)  #  => 1
-#' comp_acc(0, 1, 0)  #  => 0
-#'
-#' comp_acc(0, 0, 1)  #  => 1
-#' comp_acc(0, 0, 0)  #  => 0
-#'
-#' @family functions computing probabilities
-#' @family metrics
-#'
-#' @seealso
-#' \code{\link{acc}} defines accuracy as a probability;
-#' \code{\link{accu}} lists all accuracy metrics;
-#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
-#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
-#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
-#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
-#' \code{\link{comp_complement}} computes a probability's complement;
-#' \code{\link{is_complement}} verifies probability complements;
-#' \code{\link{comp_prob}} computes current probability information;
-#' \code{\link{prob}} contains current probability information;
-#' \code{\link{is_prob}} verifies probabilities.
-#'
-#' @export
-
-## comp_acc: Definition --------
-
-comp_acc <- function(prev, sens, spec) {
-
-  acc <- NA  # initialize
-
-  ## ToDo: Add condition
-  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
-
-  ## Definition: acc = dec.cor / N  =  (hi + cr) / (hi + mi + fa + cr)
-  ##             but from exact (not rounded) frequencies!
-
-  ## Computation of 4 freq (from prob, without rounding):
-  hi <- prev * sens
-  mi <- prev * (1 - sens)
-  cr <- (1 - prev) * spec
-  fa <- (1 - prev) * (1 - spec)
-
-  acc <- (hi + cr) / (hi + mi + fa + cr)
-
-  ## Print a warning if NaN:
-  if (any(is.nan(acc))) {
-    warning("acc is NaN.")
-  }
-
-  return(acc)
-}
-
-## Check: ----
-
-# # Basics:
-# comp_acc(1, 1, 1)  #  => 1
-# comp_acc(1, 1, 0)  #  => 1
-#
-# comp_acc(1, 0, 1)  #  => 0
-# comp_acc(1, 0, 0)  #  => 0
-#
-# comp_acc(0, 1, 1)  #  => 1
-# comp_acc(0, 1, 0)  #  => 0
-#
-# comp_acc(0, 0, 1)  #  => 1
-# comp_acc(0, 0, 0)  #  => 0
-#
-# # Vectors:
-# prev.range <- seq(0, 1, by = .1)
-# comp_acc(prev.range, .5, .5)
-
-## for extreme values:
-## \code{\link{is_extreme_prob_set}} verifies extreme cases;
-
-
-
+## Moved comp_acc from comp_accu.R to comp_prob_prob.R
+## (as it computes a probability from 3 essential prob).
 
 
 
@@ -900,6 +731,7 @@ accu <- comp_accu_prob()
 
 ## Check: --------
 # accu
+
 
 
 

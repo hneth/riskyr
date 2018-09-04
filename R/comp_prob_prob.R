@@ -1,6 +1,6 @@
 ## comp_prob_prob.R | riskyr
-## 2018 08 28
-## Compute other probabilities from probabilities:
+## 2018 09 04
+## Compute probabilities from probabilities:
 ## -----------------------------------------------
 
 ## Note: For computing ALL prob from 3 basic probabilities
@@ -66,7 +66,8 @@
 ## ad (1):  Bayesian computations with probabilities: ----------
 
 
-## A: Compute basic probabilities from probabilities: ----------
+
+## (A) by condition: Compute basic probabilities of conditions/cases from probabilities: ----------
 
 ## Computing complementary probabilities: --------
 
@@ -517,10 +518,11 @@ comp_complete_prob_set <- function(prev,
 ## Compute derived probabilities: ----------------
 
 
-## B: Perspective: by decision: ------------------
+
+## (B) by decision: Compute probabilities of decisions/cases from probabilities: ------------------
 
 
-## (0) ppod = proportion of positive decisions (PR) from probabilities: ------
+## (a) ppod = proportion of positive decisions (PR) from probabilities: ------
 
 #' Compute the proportion of positive decisions (ppod) from probabilities.
 #'
@@ -637,9 +639,9 @@ comp_ppod <- function(prev, sens, spec) {
 ## for extreme values:
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases;
 
-## 1. Positive predictive value (PPV) ------------
+## (b) Positive predictive value (PPV) ------------
 
-## comp_PPV      (a) from probabilities: ------
+## comp_PPV      (a) PPV from probabilities: ------
 
 #' Compute a decision's positive predictive value (PPV) from probabilities.
 #'
@@ -748,7 +750,7 @@ comp_PPV <- function(prev, sens, spec) {
 
 
 
-## 2. False discovery/detection rate (FDR = complement of PPV): ------
+## (+) False discovery/detection rate (FDR = complement of PPV): ------
 
 #' Compute a decision's false detection rate (FDR) from probabilities.
 #'
@@ -834,9 +836,9 @@ comp_FDR_PPV <- function(PPV) {
 }
 
 
-## 3. Negative predictive value (NPV) ------------
+## (c) Negative predictive value (NPV) ------------
 
-## comp_NPV: (a) from probabilities ------
+## comp_NPV:     (a) from probabilities ------
 
 #' Compute a decision's negative predictive value (NPV) from probabilities.
 #'
@@ -933,9 +935,9 @@ comp_NPV <- function(prev, sens, spec) {
 
 
 
-## 4. False omission rate ------------------------
+## (+) False omission rate (FOR = complement of NPV) ------------------------
 
-## comp_FOR:     (a) FOR = complement of NPV -------
+## comp_FOR:     (a) from basic probabilities -------
 
 #' Compute a decision's false omission rate (FOR) from probabilities.
 #'
@@ -1029,13 +1031,198 @@ comp_FOR_NPV <- function(NPV) {
 
 
 
-## (C) Compute predictive values from frequencies (various versions): ------
+
+## (C) by accuracy: Compute probability of correct decisions from probabilities: ----------
+
+
+## comp_acc: Documentation --------
+
+#' Compute overall accuracy (acc) from probabilities.
+#'
+#' \code{comp_acc} computes overall accuracy \code{\link{acc}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_acc} uses probabilities (not frequencies) as
+#' inputs and returns an exact probability (proportion)
+#' without rounding.
+#'
+#' Understanding the probability \code{\link{acc}}:
+#'
+#' \itemize{
+#'
+#'   \item Definition:
+#'   \code{\link{acc}} is the (non-conditional) probability:
+#'
+#'   \code{acc = p(dec.cor) = dec.cor/N}
+#'
+#'   or the base rate (or baseline probability)
+#'   of a decision being correct, but not necessarily positive.
+#'
+#'   \code{\link{acc}} values range
+#'   from 0 (no correct decision/prediction)
+#'   to 1 (perfect decision/prediction).
+#'
+#'   \item Computation: \code{\link{acc}} can be computed in 2 ways:
+#'
+#'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+#'
+#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+#'
+#'   \item Perspective:
+#'   \code{\link{acc}} classifies a population of \code{\link{N}} individuals
+#'   by accuracy/correspondence (\code{acc = dec.cor/N}).
+#'
+#'   \code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
+#'   to \code{\link{prev}} (which adopts a "by condition" perspective) and
+#'   to \code{\link{ppod}} (which adopts a "by decision" perspective).
+#'
+#'   \item Alternative names of \code{\link{acc}}:
+#'   base rate of correct decisions,
+#'   non-erroneous cases
+#'
+#'   \item In terms of frequencies,
+#'   \code{\link{acc}} is the ratio of
+#'   \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+#'   divided by \code{\link{N}} (i.e.,
+#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+#'
+#'   \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'   \item Dependencies:
+#'   \code{\link{acc}} is a feature of both the environment (true condition) and
+#'   of the decision process or diagnostic procedure. It reflects the
+#'   correspondence of decisions to conditions.
+#'
+#' }
+#'
+#' See \code{\link{accu}} for other accuracy metrics
+#' and several possible interpretations of accuracy.
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#' @return Overall accuracy \code{\link{acc}} as a probability (proportion).
+#' A warning is provided for NaN values.
+#'
+#' See \code{\link{acc}} for definition
+#' and \code{\link{accu}} for other accuracy metrics.
+#' \code{\link{comp_accu_freq}} and \code{\link{comp_accu_prob}}
+#' compute accuracy metrics from frequencies and probabilities.
+#'
+#' @examples
+#' # ways to work:
+#' comp_acc(.10, .200, .300)  # => acc = 0.29
+#' comp_acc(.50, .333, .666)  # => acc = 0.4995
+#'
+#' # watch out for vectors:
+#' prev.range <- seq(0, 1, by = .1)
+#' comp_acc(prev.range, .5, .5)  # => 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+#'
+#' # watch out for extreme values:
+#' comp_acc(1, 1, 1)  #  => 1
+#' comp_acc(1, 1, 0)  #  => 1
+#'
+#' comp_acc(1, 0, 1)  #  => 0
+#' comp_acc(1, 0, 0)  #  => 0
+#'
+#' comp_acc(0, 1, 1)  #  => 1
+#' comp_acc(0, 1, 0)  #  => 0
+#'
+#' comp_acc(0, 0, 1)  #  => 1
+#' comp_acc(0, 0, 0)  #  => 0
+#'
+#' @family functions computing probabilities
+#' @family metrics
+#'
+#' @seealso
+#' \code{\link{acc}} defines accuracy as a probability;
+#' \code{\link{accu}} lists all accuracy metrics;
+#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_complement}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
+
+## comp_acc: Definition --------
+
+comp_acc <- function(prev, sens, spec) {
+
+  acc <- NA  # initialize
+
+  ## ToDo: Add condition
+  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+
+  ## Definition: acc = dec.cor / N  =  (hi + cr) / (hi + mi + fa + cr)
+  ##             but from exact (not rounded) frequencies!
+
+  ## Computation of 4 freq (from prob, without rounding):
+  hi <- prev * sens
+  mi <- prev * (1 - sens)
+  cr <- (1 - prev) * spec
+  fa <- (1 - prev) * (1 - spec)
+
+  acc <- (hi + cr) / (hi + mi + fa + cr)
+
+  ## Print a warning if NaN:
+  if (any(is.nan(acc))) {
+    warning("acc is NaN.")
+  }
+
+  return(acc)
+}
+
+## Check: ----
+
+# # Basics:
+# comp_acc(1, 1, 1)  #  => 1
+# comp_acc(1, 1, 0)  #  => 1
+#
+# comp_acc(1, 0, 1)  #  => 0
+# comp_acc(1, 0, 0)  #  => 0
+#
+# comp_acc(0, 1, 1)  #  => 1
+# comp_acc(0, 1, 0)  #  => 0
+#
+# comp_acc(0, 0, 1)  #  => 1
+# comp_acc(0, 0, 0)  #  => 0
+#
+# # Vectors:
+# prev.range <- seq(0, 1, by = .1)
+# comp_acc(prev.range, .5, .5)
+
+## for extreme values:
+## \code{\link{is_extreme_prob_set}} verifies extreme cases;
+
+
+
+
+
+
+
+
+## (X): Compute predictive values from frequencies (various versions): ------
 
 ## ToDo: Add alternative ways to compute probabilities
 ##       from frequencies (based on different elements of freq)!
 
 ## Moved to a separate file: comp_prob_freq.R !!!
-
 
 
 ## comp_prob_matrix: Compute some metric for an entire matrix of values ------
@@ -1244,7 +1431,11 @@ comp_prob_matrix <- function(prev, sens, spec,
 # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
 
 
+
 ## (*) Done: ----------
+
+## - Moved comp_acc from comp_accu.R to comp_prob_prob.R
+##   (as it computes a probability from 3 essential prob).   [2018 09 04]
 
 ## - Clean up code.  [2018 08 28]
 
