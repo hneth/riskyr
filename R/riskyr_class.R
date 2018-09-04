@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 08 22
+## 2018 09 04
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -767,7 +767,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
     probs.ess <- unlist(probs[c("prev", "sens", "mirt", "spec", "fart")])  # essential probabilities.
 
-    probs.ness <- unlist(probs[c("ppod", "PPV", "NPV", "FDR", "FOR")])  # non-essential probabilities.
+    probs.ness <- unlist(probs[c("ppod", "PPV", "NPV", "FDR", "FOR", "acc")])  # non-essential probabilities.
 
     obj.sum$probs <- list(probs.ess = probs.ess, probs.ness = probs.ness)
 
@@ -881,6 +881,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
     cat("\n Other probabilities:\n")
     print(round(x$probs$probs.ness, 3))  # no naming for non-essential probs.
+
   }
 
   ## (B) Frequencies: ----------
@@ -914,7 +915,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
   ## (C) Accuracy: ----------
 
-  if (("acc" %in% n) || ("accu" %in% n)) {
+  if (("acc" %in% n) || ("accu" %in% n) || ("accuracy" %in% n)) {
 
     cat("\nAccuracy:\n\n")
 
@@ -1006,8 +1007,9 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 ## (+) ToDo: ----------
 
-## - Summary: Extend to other types of accuracy in accu
-##
+## - Accuracy:
+##   - extend to other types of accuracy in accu
+##   - reflect that acc is a probability
 ## - allow riskyr() to take all kinds of inputs,
 ##   so that a full object is created.
 
