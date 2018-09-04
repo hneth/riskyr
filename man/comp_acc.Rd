@@ -19,35 +19,77 @@ provided that the condition is \code{TRUE}).}
 of a negative decision provided that the condition is \code{FALSE}).}
 }
 \value{
-Overall accuracy \code{acc} as a proportion (probability).
+Overall accuracy \code{\link{acc}} as a probability (proportion).
 A warning is provided for NaN values.
 
-See \code{\link{accu}} for other accuracy metrics.
+See \code{\link{acc}} for definition
+and \code{\link{accu}} for other accuracy metrics.
 \code{\link{comp_accu_freq}} and \code{\link{comp_accu_prob}}
 compute accuracy metrics from frequencies and probabilities.
 }
 \description{
-\code{comp_acc} computes overall accuracy \code{acc}
+\code{comp_acc} computes overall accuracy \code{\link{acc}}
 from 3 essential probabilities
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 }
 \details{
 \code{comp_acc} uses probabilities (not frequencies) as
-inputs and returns an exact proportion (probability)
+inputs and returns an exact probability (proportion)
 without rounding.
 
-Definition: \code{acc} is the overall accuracy
-as the proportion (or probability)
-of correctly classifying cases or of \code{\link{dec.cor}} cases:
+Understanding the probability \code{\link{acc}}:
 
-(a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+\itemize{
 
-(b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+\item Definition:
+  \code{\link{acc}} is the (non-conditional) probability:
 
-Values range from 0 (no correct prediction) to 1 (perfect prediction).
+\code{acc = p(dec.cor) = dec.cor/N}
 
-Importantly, correct decisions \code{\link{dec.cor}}
-are not necessarily positive decisions \code{\link{dec.pos}}.
+or the base rate (or baseline probability)
+  of a decision being correct, but not necessarily positive.
+
+\code{\link{acc}} values range
+  from 0 (no correct decision/prediction)
+  to 1 (perfect decision/prediction).
+
+\item Computation: \code{\link{acc}} can be computed in 2 ways:
+
+(a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+
+(b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+
+When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+
+\item Perspective:
+  \code{\link{acc}} classifies a population of \code{\link{N}} individuals
+  by accuracy/correspondence (\code{acc = dec.cor/N}).
+
+\code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
+  to \code{\link{prev}} (which adopts a "by condition" perspective) and
+  to \code{\link{ppod}} (which adopts a "by decision" perspective).
+
+\item Alternative names of \code{\link{acc}}:
+  base rate of correct decisions,
+  non-erroneous cases
+
+\item In terms of frequencies,
+  \code{\link{acc}} is the ratio of
+  \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+  divided by \code{\link{N}} (i.e.,
+  \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+
+\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+
+\item Dependencies:
+  \code{\link{acc}} is a feature of both the environment (true condition) and
+  of the decision process or diagnostic procedure. It reflects the
+  correspondence of decisions to conditions.
+
+}
+
+See \code{\link{accu}} for other accuracy metrics
+and several possible interpretations of accuracy.
 }
 \examples{
 # ways to work:
@@ -73,9 +115,10 @@ comp_acc(0, 0, 0)  #  => 0
 
 }
 \seealso{
-\code{\link{accu}} for all accuracy metrics;
-\code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+\code{\link{acc}} defines accuracy as a probability;
+\code{\link{accu}} lists all accuracy metrics;
 \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+\code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
 \code{\link{is_extreme_prob_set}} verifies extreme cases;
 \code{\link{comp_complement}} computes a probability's complement;
@@ -96,7 +139,7 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_prob}}, \code{\link{comp_sens}},
   \code{\link{comp_spec}}
 
-Other metrics: \code{\link{accu}},
+Other metrics: \code{\link{accu}}, \code{\link{acc}},
   \code{\link{comp_accu_freq}},
   \code{\link{comp_accu_prob}}
 }

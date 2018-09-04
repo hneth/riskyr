@@ -18,14 +18,12 @@ Current metrics include:
 
 \enumerate{
 
-\item \code{acc}: Overall accuracy as the proportion (or probability)
+\item \code{\link{acc}}: Overall accuracy as the probability (or proportion)
    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-(a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+See \code{\link{acc}} for definition and explanations.
 
-(b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
-
-Values range from 0 (no correct prediction) to 1 (perfect prediction).
+\code{\link{acc}} values range from 0 (no correct prediction) to 1 (perfect prediction).
 
 \item \code{wacc}: Weighted accuracy, as a weighted average of the
    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
@@ -69,11 +67,11 @@ There are several possible interpretations of accuracy:
 
 \enumerate{
 
+\item as \emph{probabilities} (i.e., \code{\link{acc}} being the probability or proportion
+     of correct classifications, or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+
 \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
-
-\item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
-     or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 
 \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
@@ -114,7 +112,7 @@ all.equal(accu2, accu3)  # => TRUE (qed).
 }
 \seealso{
 The corresponding generating function \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
-\code{\link{accu}} for all accuracy metrics;
+\code{\link{acc}} defines accuracy as a probability;
 \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
@@ -125,7 +123,8 @@ Other lists containing current scenario information: \code{\link{freq}},
   \code{\link{num}}, \code{\link{pal_bw}},
   \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 
-Other metrics: \code{\link{comp_accu_freq}},
+Other metrics: \code{\link{acc}},
+  \code{\link{comp_accu_freq}},
   \code{\link{comp_accu_prob}}, \code{\link{comp_acc}}
 }
 \keyword{datasets}

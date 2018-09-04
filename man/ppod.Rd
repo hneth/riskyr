@@ -11,8 +11,8 @@
 ppod
 }
 \description{
-\code{ppod} defines the proportion (baseline probability or rate):
-a decision being \code{positive} (but not necessarily true).
+\code{ppod} defines the proportion (baseline probability or rate) of
+a decision being \code{positive} (but not necessarily accurate/correct).
 }
 \details{
 Understanding or obtaining the proportion of positive decisions \code{ppod}:
@@ -25,7 +25,7 @@ Understanding or obtaining the proportion of positive decisions \code{ppod}:
 \code{ppod = p(decision = positive)}
 
 or the base rate (or baseline probability)
-  of a decision being positive (but not necessarily true).
+  of a decision being positive (but not necessarily accurate/correct).
 
 \item Perspective:
   \code{ppod} classifies a population of \code{\link{N}} individuals
@@ -78,8 +78,9 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
+  \code{\link{fart}}, \code{\link{mirt}},
+  \code{\link{prev}}, \code{\link{sens}},
+  \code{\link{spec}}
 }
 \keyword{datasets}

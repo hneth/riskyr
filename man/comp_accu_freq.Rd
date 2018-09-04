@@ -84,10 +84,11 @@ There are several possible interpretations of accuracy:
 
 \enumerate{
 
+\item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
+     or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+
 \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
-
-\item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 
 \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
@@ -150,7 +151,7 @@ for additional information.
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
 
-Other metrics: \code{\link{accu}},
+Other metrics: \code{\link{accu}}, \code{\link{acc}},
   \code{\link{comp_accu_prob}}, \code{\link{comp_acc}}
 
 Other functions computing probabilities: \code{\link{comp_FDR}},

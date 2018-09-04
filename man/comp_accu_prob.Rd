@@ -48,10 +48,11 @@ Notes:
 
    \enumerate{
 
+     \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
+     or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+
      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
-
-     \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 
      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
@@ -85,9 +86,11 @@ Currently computed accuracy metrics include:
 \item \code{acc}: Overall accuracy as the proportion (or probability)
    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-(a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+(a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
-(b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+(b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+
+When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
@@ -182,7 +185,7 @@ for additional information.
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
 
-Other metrics: \code{\link{accu}},
+Other metrics: \code{\link{accu}}, \code{\link{acc}},
   \code{\link{comp_accu_freq}}, \code{\link{comp_acc}}
 
 Other functions computing probabilities: \code{\link{comp_FDR}},

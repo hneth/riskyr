@@ -84,7 +84,7 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{NPV}},
-  \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{PPV}}, \code{\link{acc}}, \code{\link{fart}},
   \code{\link{mirt}}, \code{\link{ppod}},
   \code{\link{prev}}, \code{\link{sens}},
   \code{\link{spec}}

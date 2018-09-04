@@ -89,9 +89,10 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{ppod}},
-  \code{\link{prev}}, \code{\link{sens}}
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
+  \code{\link{fart}}, \code{\link{mirt}},
+  \code{\link{ppod}}, \code{\link{prev}},
+  \code{\link{sens}}
 
 Other essential parameters: \code{\link{cr}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
