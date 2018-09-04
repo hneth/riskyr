@@ -4,16 +4,20 @@
 \name{prob}
 \alias{prob}
 \title{List current probability information.}
-\format{An object of class \code{list} of length 10.}
+\format{An object of class \code{list} of length 11.}
 \usage{
 prob
 }
 \description{
 \code{prob} is a list of named numeric variables
-containing 3 essential (1 non-conditional and 2 conditional) probabilities
-and 7 derived (1 non-conditional and 6 conditional) probabilities:
+containing 3 essential (1 non-conditional \code{\link{prev}} and
+2 conditional \code{\link{sens}} and \code{\link{spec}}) probabilities
+and 8 derived (\code{\link{ppod}} and \code{\link{acc}},
+as well as 6 conditional) probabilities:
 }
 \details{
+\code{prob} currently contains the following probabilities:
+
 \enumerate{
 
 \item the condition's prevalence \code{\link{prev}}
@@ -42,20 +46,24 @@ and 7 derived (1 non-conditional and 6 conditional) probabilities:
  \code{ppod = \link{dec.pos}/\link{N}}.
 
 \item the decision's positive predictive value \code{\link{PPV}}
-(i.e., the conditional probability of the condition being \code{TRUE}
-provided that the decision is positive).
+ (i.e., the conditional probability of the condition being \code{TRUE}
+ provided that the decision is positive).
 
 \item the decision's false detection (or false discovery) rate \code{\link{FDR}}
-(i.e., the conditional probability of the condition being \code{FALSE}
-provided that the decision is positive).
+ (i.e., the conditional probability of the condition being \code{FALSE}
+ provided that the decision is positive).
 
 \item the decision's negative predictive value \code{\link{NPV}}
-(i.e., the conditional probability of the condition being \code{FALSE}
-provided that the decision is negative).
+ (i.e., the conditional probability of the condition being \code{FALSE}
+ provided that the decision is negative).
 
 \item the decision's false omission rate \code{\link{FOR}}
-(i.e., the conditional probability of the condition being \code{TRUE}
-provided that the decision is negative).
+ (i.e., the conditional probability of the condition being \code{TRUE}
+ provided that the decision is negative).
+
+\item the accuracy \code{\link{acc}}
+ (i.e., probability of correct decisions or
+ correspondence of decisions to conditions).
 
 }
 
@@ -74,7 +82,7 @@ evaluates to \code{TRUE}).
 \examples{
 prob <- comp_prob()  # => initialize prob to default parameters
 prob                 # => show current values
-length(prob)         # => 8
+length(prob)         # => 11
 
 }
 \seealso{
@@ -87,7 +95,8 @@ length(prob)         # => 8
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{prob}} contains current probability information;
-\code{\link{comp_prob}} computes current probability information.
+\code{\link{comp_prob}} computes current probability information;
+\code{\link{accu}} contains current accuracy information.
 
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
