@@ -309,9 +309,9 @@ plot_tree <- function(prev = num$prev,             # probabilities
   ## (1) Color of boxes: ------
 
   if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
-    # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
-    && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
-    ) {  # use named colors of col.boxes:
+      # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
+      && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
+  ) {  # use named colors of col.boxes:
 
     ## Use current color information of pal:
 
@@ -919,23 +919,29 @@ plot_tree <- function(prev = num$prev,             # probabilities
   }
 
   ## (c) Accuracy: Compute and show accuracy metrics
+
   if (show.accu) {
 
-    if (!is.na(prev) && !is.na(sens) && !is.na(spec)) {  # prob are known:
+    # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
+    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
 
-      # (1) Compute exact accuracy from prob:
-      cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    # Note: If freq are NOT rounded, then
+    #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    #       would yield the same results.
 
-    } else {  # use freq:
+    # (2) Make label:
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
 
-      # (2) Compute accuracy info from (rounded) freq:
-      cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-
+    # (3) Mark IF accu was based on rounded freq:
+    if (round) {  # freq were rounded:
+      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
     }
 
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
+    # (4) Plot label:
     mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
-  }
+
+  } # if (show.accu)...
+
 
   ## (d) Note that areas represent frequencies:
   if (area != "no") {
