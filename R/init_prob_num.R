@@ -1,5 +1,5 @@
 ## init_prob_num.R | riskyr
-## 2018 08 31
+## 2018 09 04
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
 ## -----------------------------------------------
@@ -36,7 +36,7 @@
 
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
-# acc  = overall accuracy (proportion correct)
+# acc  = overall accuracy (probability/proportion correct decision)
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
@@ -64,7 +64,7 @@ init_prob <- function() {
   ## (0) Initialize prob as a list:
   prob <- list(
 
-    ## (a) By condition: 3 essential + 2 optional probabilities:
+    ## (a) by condition: 3 essential + 2 optional probabilities:
 
     "prev" = NA,  # simple p of cond.true
 
@@ -73,14 +73,19 @@ init_prob <- function() {
     "spec" = NA,  # conditional p:
     "fart" = NA,  # conditional p: 1 - spec
 
-    ## (b) By decision: 5 derived probabilities and predictive values (PVs):
+    ## (b) by decision: 5 derived probabilities and predictive values (PVs):
 
     "ppod" = NA,  # simple p of dec.pos
 
     "PPV" = NA,   # conditional p: reversal of sens
     "FDR" = NA,   # conditional p: 1 - PPV
     "NPV" = NA,   # conditional p: reversal of spec
-    "FOR" = NA    # conditional p: 1 - NPV
+    "FOR" = NA,   # conditional p: 1 - NPV
+
+    ## (c) by accuracy/correspondence of decision to condition:
+
+    "acc" = NA    # accuracy as probability of a correct decision/prediction
+
   )
 
   ## Return entire list prob:
@@ -90,7 +95,7 @@ init_prob <- function() {
 
 ## Check: --------
 # init_prob()          # initializes empty prob
-# length(init_prob())  # => 10 probabilities
+# length(init_prob())  # => 11 probabilities
 
 
 
@@ -99,8 +104,8 @@ init_prob <- function() {
 ## So far: Compute current values of PPV and NPV
 ##         as functions of prev, sens, and spec (using Bayes).
 
-## Missing: Accuracy info, some of which can be viewed as probabilities
-##          (see comp_accu.R).
+## Missing: Additional accuracy info, some of which can be viewed as probabilities
+##          (see accu and comp_accu.R).
 
 
 ## comp_prob: Documentation --------
@@ -112,7 +117,7 @@ init_prob <- function() {
 #' (\code{\link{prev}},
 #' \code{\link{sens}} or \code{\link{mirt}},
 #' \code{\link{spec}} or \code{\link{fart}}).
-#' It returns a list of 10 probabilities \code{\link{prob}}
+#' It returns a list of 11 probabilities \code{\link{prob}}
 #' as its output.
 #'
 #' \code{comp_prob} assumes that a sufficient and
@@ -125,6 +130,7 @@ init_prob <- function() {
 #' \code{comp_prob} computes and returns a full set of basic and
 #' various derived probabilities (e.g.,
 #' the probability of a positive decision \code{\link{ppod}},
+#' the probability of a correct decision \code{\link{acc}},
 #' the predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
 #' as their complements \code{\link{FDR}} and \code{\link{FOR}})
 #' in its output of a list \code{\link{prob}}.
@@ -260,7 +266,15 @@ init_prob <- function() {
 #'
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
+#'
+#'   \item accuracy \code{\link{acc}}:
+#'
+#'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
 #'    }
+#'
+#'    When frequencies are rounded, probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+#'
 #' }
 #'
 #'
@@ -302,7 +316,7 @@ init_prob <- function() {
 #' comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 #' comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 #' comp_prob()          # => ok, using current defaults
-#' length(comp_prob())  # => 10 probabilities
+#' length(comp_prob())  # => 11 probabilities
 #'
 #' # Ways to work:
 #' comp_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
@@ -337,6 +351,7 @@ init_prob <- function() {
 #'
 #' @seealso
 #' \code{\link{prob}} contains current probability information;
+#' \code{\link{accu}} contains current accuracy information;
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{pal}} contains current color information;
@@ -379,19 +394,22 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 
     ## (4) Assign all values of prob based on current parameter values:
 
-    ## (a) By condition: basic probability parameters:
+    ## (a) by condition: basic probability parameters:
     prob$prev <- prev
     prob$sens <- sens
     prob$mirt <- mirt
     prob$spec <- spec
     prob$fart <- fart
 
-    ## (b) By decision: derived probabilities and predictive values (PVs):
+    ## (b) by decision: derived probabilities and predictive values (PVs):
     prob$ppod <- comp_ppod(prev, sens, spec)  # Note: using probabilistic versions (Bayes)
     prob$PPV  <- comp_PPV(prev, sens, spec)
     prob$NPV  <- comp_NPV(prev, sens, spec)
     prob$FDR  <- comp_FDR(prev, sens, spec)   # FDR = (1 - PPV)
     prob$FOR  <- comp_FOR(prev, sens, spec)   # FOR = (1 - NPV)
+
+    ## (c) by accuracy/correspondence of decision to condition:
+    prob$acc  <- comp_acc(prev, sens, spec)
 
     ## (5) Check derived PVs:
     if ( is.na(prob$ppod) | is.nan(prob$ppod) | !is_prob(prob$ppod) |
@@ -420,7 +438,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 # comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 # comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 # comp_prob()          # => ok, using current defaults
-# length(comp_prob())  # => 10 probabilities
+# length(comp_prob())  # => 11 probabilities
 #
 # # Ways to succeed:
 # comp_prob(.999, 1, 1)   # => ok
@@ -453,7 +471,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #' \code{prob} is a list of named numeric variables
 #' containing 3 essential (1 non-conditional and 2 conditional) probabilities
-#' and 7 derived (1 non-conditional and 6 conditional) probabilities:
+#' and 8 derived (1 non-conditional and 6 conditional + accuracy) probabilities:
 #'
 #' \enumerate{
 #'
@@ -498,6 +516,10 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' (i.e., the conditional probability of the condition being \code{TRUE}
 #' provided that the decision is negative).
 #'
+#' \item the accuracy \code{\link{acc}}
+#' (i.e., probability of correct decisions or
+#' correspondence of decisions to conditions).
+#'
 #' }
 #'
 #' These probabilities are computed from basic probabilities
@@ -515,7 +537,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' @examples
 #' prob <- comp_prob()  # => initialize prob to default parameters
 #' prob                 # => show current values
-#' length(prob)         # => 8
+#' length(prob)         # => 11
 #'
 #' @family lists containing current scenario information
 #'
@@ -529,22 +551,23 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{prob}} contains current probability information;
-#' \code{\link{comp_prob}} computes current probability information.
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{accu}} contains current accuracy information.
 #'
 #' @export
 
 prob <- comp_prob()  # => initialize prob to default parameters
 
-
 ## Check: --------
 # prob               # => show current values
-# length(prob)       # => 8
-
+# length(prob)       # => 11
 
 
 ## (*) Done: -----------
 
-## - Clean up code [2018 08 31].
+## - Add accuracy acc to prob.  [2018 09 04]
+
+## - Clean up code. [2018 08 31]
 
 
 ## (+) ToDo: ----------
