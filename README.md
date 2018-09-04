@@ -467,7 +467,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 [1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
-[2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.)
+[2] This notion of *risk* is typically contrasted with the much wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)
 
 [3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.
 

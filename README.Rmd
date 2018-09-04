@@ -49,7 +49,7 @@ The issues addressed by `riskyr` are less of a _computational_ and more of a _re
 It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.[^2] 
 For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
 
-[^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
+[^2]: This notion of _risk_ is typically contrasted with the much wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.) 
 
 <!-- On "riskyr": -->
 
