@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 08 21
+## 2018 09 04
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
@@ -527,14 +527,14 @@ fart <- 1 - spec   # default false alarm rate
 
 ## B: Define probabilities by decision: ------------------------
 
-## (0) Base rate of positive decisions (PR): -----
+## (0) Proportion of positive decisions (ppod, PR): -----
 
-## (0) ppod = base rate of decisions being positive (PR):
+## (0) ppod = proportion/base rate of decisions being positive (PR):
 
 #' The proportion (or baseline) of a positive decision.
 #'
-#' \code{ppod} defines the proportion (baseline probability or rate):
-#' a decision being \code{positive} (but not necessarily true).
+#' \code{ppod} defines the proportion (baseline probability or rate) of
+#' a decision being \code{positive} (but not necessarily accurate/correct).
 #'
 #' Understanding or obtaining the proportion of positive decisions \code{ppod}:
 #'
@@ -546,8 +546,7 @@ fart <- 1 - spec   # default false alarm rate
 #'   \code{ppod = p(decision = positive)}
 #'
 #'   or the base rate (or baseline probability)
-#'   of a decision being positive (but not necessarily true).
-#'
+#'   of a decision being positive (but not necessarily accurate/correct).
 #'
 #'   \item Perspective:
 #'   \code{ppod} classifies a population of \code{\link{N}} individuals
@@ -556,12 +555,10 @@ fart <- 1 - spec   # default false alarm rate
 #'   \code{ppod} is the "by decision" counterpart to \code{\link{prev}}
 #'   (which adopts a "by condition" perspective).
 #'
-#'
 #'   \item Alternative names:
 #'   base rate of positive decisions (\code{PR}),
 #'   proportion predicted or diagnosed,
 #'   rate of decision \code{= positive} cases
-#'
 #'
 #'   \item In terms of frequencies,
 #'   \code{ppod} is the ratio of
@@ -570,7 +567,6 @@ fart <- 1 - spec   # default false alarm rate
 #'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 #'
 #'   \code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
-#'
 #'
 #'   \item Dependencies:
 #'   \code{ppod} is a feature of the decision process
@@ -603,7 +599,6 @@ fart <- 1 - spec   # default false alarm rate
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_prob}} verifies probability inputs.
 #'
-#'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 
@@ -611,7 +606,6 @@ ppod <- 1/2  # default rate of positive decisions
 
 
 ## Predictive values (PVs): ----------------------
-
 
 ## (1) PPV: positive predictive value ------------
 
@@ -657,7 +651,6 @@ ppod <- 1/2  # default rate of positive decisions
 #'   of the sensitivity \code{\link{sens}}:
 #'
 #'   \code{sens = p(decision = positive | condition = TRUE)}
-
 #'
 #'   \item In terms of frequencies,
 #'   \code{PPV} is the ratio of
@@ -968,9 +961,111 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 
 FOR <- 1 - NPV  # default of false omission rate (FOR)
 
+
+
+
+
+## C: Define probabilities by accuracy: ----------
+
+## (1) Accuracy acc: --------
+
+#' Accuracy (acc) as the probability of a correct decision.
+#'
+#' \code{acc} defines overall accuracy
+#' as the probability of correspondence between a positive decision
+#' and true condition (i.e., the proportion of correct classification
+#' decisions or of \code{\link{dec.cor}} cases).
+#'
+#' Importantly, correct decisions \code{\link{dec.cor}}
+#' are not necessarily positive decisions \code{\link{dec.pos}}.
+#'
+#' Understanding or obtaining the accuracy metric \code{acc}:
+#'
+#' \itemize{
+#'
+#'   \item Definition:
+#'   \code{acc} is the (non-conditional) probability:
+#'
+#'   \code{acc = p(dec.cor) = dec.cor/N}
+#'
+#'   or the base rate (or baseline probability)
+#'   of a decision being correct, but not necessarily positive.
+#'
+#'   \code{acc} values range
+#'   from 0 (no correct decision/prediction)
+#'   to 1 (perfect decision/prediction).
+#'
+#'   \item Computation: \code{acc} can be computed in 2 ways:
+#'
+#'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+#'
+#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+#'
+#'   \item Perspective:
+#'   \code{acc} classifies a population of \code{\link{N}} individuals
+#'   by accuracy/correspondence (\code{acc = dec.cor/N}).
+#'
+#'   \code{acc} is the "by accuracy" or "by correspondence" counterpart
+#'   to \code{\link{prev}} (which adopts a "by condition" perspective) and
+#'   to \code{\link{ppod}} (which adopts a "by decision" perspective).
+#'
+#'   \item Alternative names:
+#'   base rate of correct decisions,
+#'   non-erroneous cases
+#'
+#'   \item In terms of frequencies,
+#'   \code{acc} is the ratio of
+#'   \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+#'   divided by \code{\link{N}} (i.e.,
+#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+#'
+#'   \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'   \item Dependencies:
+#'   \code{acc} is a feature of both the environment (true condition) and
+#'   of the decision process or diagnostic procedure. It reflects the
+#'   correspondence of decisions to conditions.
+#'
+#' }
+#'
+#' See \code{\link{accu}} for other accuracy metrics
+#' and several possible interpretations of accuracy.
+#'
+#' @aliases
+#' accurate correct
+#'
+#' @examples
+#' acc <- .50     # => sets a rate of positive decisions of 50%
+#' acc <- 50/100  # => (decision = TRUE) for 50 out of 100 individuals
+#' is_prob(acc)   # => TRUE (as acc is a probability)
+#'
+#' @family probabilities
+#' @family metrics
+#'
+#' @seealso
+#' \code{\link{comp_acc}} computes accuracy from probabilities;
+#' \code{\link{accu}} lists all accuracy metrics;
+#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_complement}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @references
+#' Consult \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia:Accuracy_and_precision} for additional information.
+
+acc <- 1/2  # initialize to random accuracy
+
 ## (*) Done: -------------------------------------
 
-## - Clean up code [2018 08 20].
+## - Add acc to prob.  [2018 09 04]
+## - Clean up code.    [2018 08 20]
 
 ## (+) ToDo: -------------------------------------
 

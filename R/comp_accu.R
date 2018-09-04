@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 08 31
+## 2018 09 04
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
@@ -84,10 +84,11 @@
 #'
 #'    \enumerate{
 #'
+#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
+#'      or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'
 #'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
 #'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
-#'
-#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 #'
 #'      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 #'
@@ -305,9 +306,11 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'    \item \code{acc}: Overall accuracy as the proportion (or probability)
 #'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 #'
-#'    (a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
-#'    (b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 #'
 #'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
@@ -397,10 +400,11 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'
 #'    \enumerate{
 #'
+#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
+#'      or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'
 #'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
 #'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
-#'
-#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 #'
 #'      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 #'
@@ -596,26 +600,67 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
 #' Compute overall accuracy (acc) from probabilities.
 #'
-#' \code{comp_acc} computes overall accuracy \code{acc}
+#' \code{comp_acc} computes overall accuracy \code{\link{acc}}
 #' from 3 essential probabilities
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
 #'
 #' \code{comp_acc} uses probabilities (not frequencies) as
-#' inputs and returns an exact proportion (probability)
+#' inputs and returns an exact probability (proportion)
 #' without rounding.
 #'
-#' Definition: \code{acc} is the overall accuracy
-#' as the proportion (or probability)
-#' of correctly classifying cases or of \code{\link{dec.cor}} cases:
+#' Understanding the probability \code{\link{acc}}:
 #'
-#'  (a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#' \itemize{
 #'
-#'  (b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+#'   \item Definition:
+#'   \code{\link{acc}} is the (non-conditional) probability:
 #'
-#' Values range from 0 (no correct prediction) to 1 (perfect prediction).
+#'   \code{acc = p(dec.cor) = dec.cor/N}
 #'
-#' Importantly, correct decisions \code{\link{dec.cor}}
-#' are not necessarily positive decisions \code{\link{dec.pos}}.
+#'   or the base rate (or baseline probability)
+#'   of a decision being correct, but not necessarily positive.
+#'
+#'   \code{\link{acc}} values range
+#'   from 0 (no correct decision/prediction)
+#'   to 1 (perfect decision/prediction).
+#'
+#'   \item Computation: \code{\link{acc}} can be computed in 2 ways:
+#'
+#'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+#'
+#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+#'
+#'   \item Perspective:
+#'   \code{\link{acc}} classifies a population of \code{\link{N}} individuals
+#'   by accuracy/correspondence (\code{acc = dec.cor/N}).
+#'
+#'   \code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
+#'   to \code{\link{prev}} (which adopts a "by condition" perspective) and
+#'   to \code{\link{ppod}} (which adopts a "by decision" perspective).
+#'
+#'   \item Alternative names of \code{\link{acc}}:
+#'   base rate of correct decisions,
+#'   non-erroneous cases
+#'
+#'   \item In terms of frequencies,
+#'   \code{\link{acc}} is the ratio of
+#'   \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+#'   divided by \code{\link{N}} (i.e.,
+#'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
+#'
+#'   \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'
+#'   \item Dependencies:
+#'   \code{\link{acc}} is a feature of both the environment (true condition) and
+#'   of the decision process or diagnostic procedure. It reflects the
+#'   correspondence of decisions to conditions.
+#'
+#' }
+#'
+#' See \code{\link{accu}} for other accuracy metrics
+#' and several possible interpretations of accuracy.
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -628,10 +673,11 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #'
-#' @return Overall accuracy \code{acc} as a proportion (probability).
+#' @return Overall accuracy \code{\link{acc}} as a probability (proportion).
 #' A warning is provided for NaN values.
 #'
-#' See \code{\link{accu}} for other accuracy metrics.
+#' See \code{\link{acc}} for definition
+#' and \code{\link{accu}} for other accuracy metrics.
 #' \code{\link{comp_accu_freq}} and \code{\link{comp_accu_prob}}
 #' compute accuracy metrics from frequencies and probabilities.
 #'
@@ -661,9 +707,10 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' @family metrics
 #'
 #' @seealso
-#' \code{\link{accu}} for all accuracy metrics;
-#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+#' \code{\link{acc}} defines accuracy as a probability;
+#' \code{\link{accu}} lists all accuracy metrics;
 #' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 #' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
 #' \code{\link{is_extreme_prob_set}} verifies extreme cases;
 #' \code{\link{comp_complement}} computes a probability's complement;
@@ -684,8 +731,9 @@ comp_acc <- function(prev, sens, spec) {
   ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
   ## Definition: acc = dec.cor / N  =  (hi + cr) / (hi + mi + fa + cr)
+  ##             but from exact (not rounded) frequencies!
 
-  ## Computation of 4 freq (without rounding):
+  ## Computation of 4 freq (from prob, without rounding):
   hi <- prev * sens
   mi <- prev * (1 - sens)
   cr <- (1 - prev) * spec
@@ -742,14 +790,12 @@ comp_acc <- function(prev, sens, spec) {
 #'
 #' \enumerate{
 #'
-#'    \item \code{acc}: Overall accuracy as the proportion (or probability)
+#'    \item \code{\link{acc}}: Overall accuracy as the probability (or proportion)
 #'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 #'
-#'    (a) from \code{freq}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    See \code{\link{acc}} for definition and explanations.
 #'
-#'    (b) from \code{prob}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
-#'
-#'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
+#'    \code{\link{acc}} values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
 #'    \item \code{wacc}: Weighted accuracy, as a weighted average of the
 #'    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
@@ -794,11 +840,11 @@ comp_acc <- function(prev, sens, spec) {
 #'
 #'    \enumerate{
 #'
+#'      \item as \emph{probabilities} (i.e., \code{\link{acc}} being the probability or proportion
+#'      of correct classifications, or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'
 #'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
 #'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
-#'
-#'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
-#'      or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
 #'
 #'      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 #'
@@ -841,7 +887,7 @@ comp_acc <- function(prev, sens, spec) {
 #'
 #' @seealso
 #' The corresponding generating function \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
-#' \code{\link{accu}} for all accuracy metrics;
+#' \code{\link{acc}} defines accuracy as a probability;
 #' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
