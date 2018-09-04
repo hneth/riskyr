@@ -19,46 +19,49 @@ comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
 \code{comp_prob_freq} computes current probability information
 from 4 essential frequencies
 (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-It returns a list of 10 probabilities \code{\link{prob}}
+It returns a list of 11 probabilities \code{\link{prob}}
 as its output.
 }
 \details{
-Key relationships:
-
-\itemize{
-
-\item Other functions translating between representational formats:
+Functions translating between representational formats:
 
 \enumerate{
 
 \item \code{comp_prob_freq} (defined here) is
    an analog to 3 other format conversion functions:
 
-\item \code{\link{comp_freq_freq}} computes
-   current \emph{frequency} information contained in \code{\link{freq}}
-   from 4 essential frequencies
-   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+\item \code{\link{comp_prob_prob}} is
+   a wrapper function for \code{\link{comp_prob}} and
+   computes current \emph{probability} information contained in \code{\link{prob}}
+   from 3 essential probabilities
+   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
 
 \item \code{\link{comp_freq_prob}} computes
    current \emph{frequency} information contained in \code{\link{freq}}
    from 3 essential probabilities
    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
 
-\item \code{\link{comp_prob_prob}} computes
-   current \emph{probability} information contained in \code{\link{prob}}
-   from 3 essential probabilities
-   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
+\item \code{\link{comp_freq_freq}} computes
+   current \emph{frequency} information contained in \code{\link{freq}}
+   from 4 essential frequencies
+   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 
 }
 
-\item Two perspectives:
+Key relationships:
+
+\itemize{
+
+\item Three perspectives on a population:
 
 A population of \code{\link{N}} individuals can be split into 2 subsets
-in 2 different ways:
+in 3 different ways:
 
 \enumerate{
 
 \item by condition:
+
+\code{\link{N} = \link{cond.true} + \link{cond.false}}
 
 The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
    and
@@ -66,41 +69,29 @@ The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev
 
 \item by decision:
 
+\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+
 The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
    and
    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 
+\item by accuracy (i.e., correspondence of decision to condition):
+
+\code{\link{N} = \link{dec.cor} + \link{dec.err}}
+
 }
 
-The population size \code{\link{N}} is a free parameter (independent of the
+Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+
+When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
 If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
-\item Combinations of frequencies:
-
-In a population of size \code{\link{N}} the following relationships hold:
-
-\enumerate{
-
-\item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-
-}
-
-The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-  (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-  in 2 different ways.
-
 \item Defining probabilities in terms of frequencies:
 
 Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
-Thus, they can be computed as ratios between frequencies.
-
-The following relationships hold (and are used in computations):
+Thus, they can be computed as ratios between frequencies:
 
 \enumerate{
 
@@ -144,32 +135,40 @@ The following relationships hold (and are used in computations):
 
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
+\item accuracy \code{\link{acc}}:
+
+\code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+
 }
+
+Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+
 }
 }
 \examples{
 ## Basics:
 comp_prob_freq()
-all.equal(prob, comp_prob_freq())  # => should be TRUE!
+all.equal(prob, comp_prob_freq())  # => should be TRUE (if freq were NOT rounded)!
 
-
-## Circular chain:
-# 1. Current numeric parameters:
+## Explain by circular chain: Compute prob from num and from freq
+# 0. Inspect current numeric parameters:
 num
 
-# 2. Compute all 10 probabilities in prob (from essential probabilities):
+# 1. Compute currently 11 probabilities in prob (from essential probabilities):
 prob <- comp_prob()
+prob
 
-# 3. Compute 9 frequencies in freq from probabilities:
-freq <- comp_freq(round = FALSE)   # prevent rounding (to obtain same probabilities later)
+# 2. Compute currently 11 frequencies in freq (from essential probabilities):
+freq <- comp_freq(round = FALSE)   # no rounding (to obtain same probabilities later)
 freq
 
-# 4. Compute all 10 probabilities again (but now from frequencies):
+# 3. Compute currently 11 probabilities again (but now from frequencies):
 prob_freq <- comp_prob_freq()
 prob_freq
 
-# 5. Check equality of results (steps 2. and 4.):
-all.equal(prob, prob_freq)  # => should be TRUE
+# 4. Check equality of probabilities (in steps 1. and 3.):
+all.equal(prob, prob_freq)  # => should be TRUE!
 
 
 }

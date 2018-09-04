@@ -35,7 +35,7 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 10 probability values.
+A list \code{\link{prob}} containing 11 probability values.
 }
 \description{
 \code{comp_prob} computes current probability information
@@ -189,7 +189,8 @@ Thus, they can be computed as ratios between frequencies:
 
 }
 
-When frequencies are rounded, probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
 }

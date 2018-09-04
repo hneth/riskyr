@@ -35,7 +35,7 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 10 probability values.
+A list \code{\link{prob}} containing 11 probability values.
 }
 \description{
 \code{comp_prob_prob} computes current probability information
@@ -43,7 +43,7 @@ from a sufficient and valid set of 3 essential probabilities
 (\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
 \code{\link{spec}} or its complement \code{\link{fart}}).
-It returns a list of 10 probabilities (\code{\link{prob}})
+It returns a list of 11 probabilities (\code{\link{prob}})
 as its output.
 }
 \details{
@@ -167,7 +167,14 @@ Thus, they can be computed as ratios between frequencies:
 
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
+\item accuracy \code{\link{acc}}:
+
+\code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+
 }
+
+Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
 }
@@ -176,7 +183,7 @@ Thus, they can be computed as ratios between frequencies:
 comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 comp_prob_prob()          # => ok, using current defaults
-length(comp_prob_prob())  # => 10 probabilities
+length(comp_prob_prob())  # => 11 probabilities
 
 # Ways to work:
 comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
