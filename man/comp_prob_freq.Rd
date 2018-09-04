@@ -148,10 +148,14 @@ Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_f
 }
 \examples{
 ## Basics:
-comp_prob_freq()
-all.equal(prob, comp_prob_freq())  # => should be TRUE (if freq were NOT rounded)!
+comp_prob_freq()  # => computes prob from current freq
 
-## Explain by circular chain: Compute prob from num and from freq
+## Beware of rounding:
+all.equal(prob, comp_prob_freq())  # => would be TRUE (IF freq were NOT rounded)!
+fe <- comp_freq(round = FALSE)     # compute exact freq (not rounded)
+all.equal(prob, comp_prob_freq(fe$hi, fe$mi, fe$fa, fe$cr))  # is TRUE (qed).
+
+## Explain by circular chain (compute prob 1. from num and 2. from freq)
 # 0. Inspect current numeric parameters:
 num
 

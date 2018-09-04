@@ -223,10 +223,14 @@
 #'
 #' @examples
 #' ## Basics:
-#' comp_prob_freq()
-#' all.equal(prob, comp_prob_freq())  # => should be TRUE (if freq were NOT rounded)!
+#' comp_prob_freq()  # => computes prob from current freq
 #'
-#' ## Explain by circular chain: Compute prob from num and from freq
+#' ## Beware of rounding:
+#' all.equal(prob, comp_prob_freq())  # => would be TRUE (IF freq were NOT rounded)!
+#' fe <- comp_freq(round = FALSE)     # compute exact freq (not rounded)
+#' all.equal(prob, comp_prob_freq(fe$hi, fe$mi, fe$fa, fe$cr))  # is TRUE (qed).
+#'
+#' ## Explain by circular chain (compute prob 1. from num and 2. from freq)
 #' # 0. Inspect current numeric parameters:
 #' num
 #'
@@ -267,14 +271,14 @@
 
 ## comp_prob_freq: Definition ------
 
-comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
+comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (which may be rounded OR not rounded)
                            mi = freq$mi,
                            fa = freq$fa,
                            cr = freq$cr
                            # N.new,       # to verify sum OR re-scale to new population size if different from freq$N?
 ) {
 
-  ## Initialize:
+  ## Initialize compound freq:
   N <- NA
   cond.true  <- NA
   cond.false <- NA
@@ -286,14 +290,31 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
   prob <- init_prob()  # initialize prob (containing only NA values)
 
 
-  ## Compute 5 other freq from 4 essential freq:
+  ## Compute compound freq from 4 essential freq:
+
+  ## (a) Using sum:
   N  <- sum(c(hi, mi, fa, cr), na.rm = TRUE)   # N
+
   cond.true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond.true cases
   cond.false <- sum(c(fa, cr), na.rm = TRUE)   # freq of cond.false cases
+
   dec.pos  <-   sum(c(hi, fa), na.rm = TRUE)   # freq of dec.pos cases
   dec.neg  <-   sum(c(mi, cr), na.rm = TRUE)   # freq of dec.neg cases
+
   dec.cor  <-   sum(c(hi, cr), na.rm = TRUE)   # freq of dec.cor cases
   dec.err  <-   sum(c(mi, fa), na.rm = TRUE)   # freq of dec.err cases
+
+  # ## (b) Using +:
+  # N <- (hi + mi + fa + cr) # N
+  #
+  # cond.true  <- (hi + mi)  # freq of cond.true cases
+  # cond.false <- (fa + cr)  # freq of cond.false cases
+  #
+  # dec.pos  <-   (hi + fa)  # freq of dec.pos cases
+  # dec.neg  <-   (mi + cr)  # freq of dec.neg cases
+  #
+  # dec.cor  <-   (hi + cr)  # freq of dec.cor cases
+  # dec.err  <-   (mi + fa)  # freq of dec.err cases
 
   ## Check for existence:
   if (is.na(N)) {
@@ -346,12 +367,17 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 ## Check: ------
 
 # ## Basics:
-# comp_prob_freq()
-# all.equal(prob, comp_prob_freq())  # => should be TRUE (if freq were NOT rounded)!
+# comp_prob_freq()  # => computes prob from current freq
 #
-# ## Explain by circular chain: Compute prob from num and from freq
-# 0. Inspect current numeric parameters:
-# num
+# ## Beware of rounding:
+# all.equal(prob, comp_prob_freq())  # => would be TRUE (IF freq were NOT rounded)!
+# fe <- comp_freq(round = FALSE)     # compute exact freq (not rounded)
+# all.equal(prob, comp_prob_freq(fe$hi, fe$mi, fe$fa, fe$cr))  # is TRUE (qed).
+#
+# ## Explain by circular chain (compute prob 1. from num and 2. from freq)
+#
+# # 0. Inspect current numeric parameters:
+# # num
 #
 # # 1. Compute currently 11 probabilities in prob (from essential probabilities):
 # prob <- comp_prob()
