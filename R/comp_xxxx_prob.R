@@ -260,7 +260,6 @@
 #'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
 #'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 #'
-#'
 #' }
 #'
 #'
