@@ -5,7 +5,7 @@
 
 ## Table of current terminology: -----------------
 
-# Probabilities (10+):              Frequencies (11):
+# Probabilities (11+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -35,7 +35,7 @@
 
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
-# acc  = overall accuracy (proportion correct)
+# acc  = overall accuracy (probability/proportion correct decision)
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
