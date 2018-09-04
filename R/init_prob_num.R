@@ -6,7 +6,7 @@
 
 ## Table of current terminology: -----------------
 
-# Probabilities (10+):              Frequencies (11):
+# Probabilities (11+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -55,7 +55,7 @@
 ##   - derived: all other values
 
 
-## (1) Initialize prob as a list (NA) of 10 probabilities (3 essential ones): ----------
+## (1) Initialize prob as a list (NA) of 11 probabilities (3 essential ones): ----------
 
 ## init_prob: Initialize prob list ------
 
@@ -273,7 +273,8 @@ init_prob <- function() {
 #'
 #'    }
 #'
-#'    When frequencies are rounded, probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+#'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+#'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 #'
 #' }
 #'
@@ -308,7 +309,7 @@ init_prob <- function() {
 #' Default: \code{tol = .01}.
 #'
 #'
-#' @return A list \code{\link{prob}} containing 10 probability values.
+#' @return A list \code{\link{prob}} containing 11 probability values.
 #'
 #'
 #' @examples

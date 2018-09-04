@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 09 03
+## 2018 09 04
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -407,22 +407,22 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     freq$dec.cor <- freq$hi + freq$cr  # N of correct decisions
     freq$dec.err <- freq$mi + freq$fa  # N of erroneous decisions
 
-    ## (6) Check results for consistency:
+    ## (6) Check current frequencies for consistency:
     tol <- .0001  # tolerance threshold for mismatch of sums
 
     if (#isTRUE(all.equal(freq$N, (freq$hi + freq$mi + freq$fa + freq$cr), tolerance = tol)) &&
         (abs(freq$N - (freq$hi + freq$mi + freq$fa + freq$cr)) > tol) ||
         (abs(freq$cond.true - (freq$hi + freq$mi)) > tol)             ||
         (abs(freq$cond.false - (freq$fa + freq$cr)) > tol)            ||
-        # (freq$dec.pos != freq$hi + freq$fa)             ||  # (computed as such above)
-        # (freq$dec.neg != freq$mi + freq$cr)             ||  # (computed as such above)
-        # (freq$dec.cor != freq$hi + freq$cr)             ||  # (computed as such above)
-        # (freq$dec.err != freq$mi + freq$fa)             ||  # (computed as such above)
+        # (abs(dec.pos - (hi + fa)) > tol)               ||  # (computed as such above)
+        # (abs(dec.neg - (mi + cr)) > tol)               ||  # (computed as such above)
+        # (abs(dec.cor - (hi + cr)) > tol)               ||  # (computed as such above)
+        # (abs(dec.err - (mi + fa)) > tol)               ||  # (computed as such above)
         (abs(freq$N - (freq$cond.true + freq$cond.false)) > tol)      ||
         (abs(freq$N - (freq$dec.pos + freq$dec.neg)) > tol)           ||
         (abs(freq$N - (freq$dec.cor + freq$dec.err)) > tol)           ) {
 
-      warning("Current frequencies do NOT add up.")
+      warning("Current frequencies do NOT add up to N.")
     }
 
   } # if (is_valid(prev, sens, spec, fart))

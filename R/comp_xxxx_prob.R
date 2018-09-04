@@ -1,12 +1,12 @@
 ## comp_xxxx_prob.R | riskyr
-## 2018 09 02
+## 2018 09 04
 ## 2 wrapper functions (that use existing functions)
 ## to translate from prob (back) to freq and prob:
 ## -----------------------------------------------
 
 ## Table of current terminology: -----------------
 
-# Probabilities (10+):              Frequencies (11):
+# Probabilities (11+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -36,7 +36,7 @@
 
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
-# acc  = overall accuracy (proportion correct)
+# acc  = overall accuracy (probability/proportion correct decision)
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
@@ -176,6 +176,7 @@
 #'    and
 #'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
+#'
 #'    \item by accuracy (i.e., correspondence of decision to condition):
 #'
 #'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
@@ -249,7 +250,16 @@
 #'
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
+#'
+#'   \item accuracy \code{\link{acc}}:
+#'
+#'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
 #'    }
+#'
+#'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+#'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+#'
 #'
 #' }
 #'
@@ -446,7 +456,7 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' (\code{\link{prev}}, and
 #' \code{\link{sens}} or its complement \code{\link{mirt}}, and
 #' \code{\link{spec}} or its complement \code{\link{fart}}).
-#' It returns a list of 10 probabilities (\code{\link{prob}})
+#' It returns a list of 11 probabilities (\code{\link{prob}})
 #' as its output.
 #'
 #' \code{comp_prob_prob} is a wrapper function for the more basic
@@ -580,7 +590,16 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'
 #'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
+#'
+#'   \item accuracy \code{\link{acc}}:
+#'
+#'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
 #'    }
+#'
+#'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+#'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
+#'
 #'
 #' }
 #'
@@ -610,14 +629,14 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
-#' @return A list \code{\link{prob}} containing 10 probability values.
+#' @return A list \code{\link{prob}} containing 11 probability values.
 #'
 #' @examples
 #' # Basics:
 #' comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 #' comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 #' comp_prob_prob()          # => ok, using current defaults
-#' length(comp_prob_prob())  # => 10 probabilities
+#' length(comp_prob_prob())  # => 11 probabilities
 #'
 #' # Ways to work:
 #' comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
@@ -691,7 +710,7 @@ comp_prob_prob <- function(prev = prob$prev,             # probabilities: 3 esse
 # comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 # comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 # comp_prob_prob()          # => ok, using current defaults
-# length(comp_prob_prob())  # => 10 probabilities
+# length(comp_prob_prob())  # => 11 probabilities
 #
 # # Ways to work:
 # comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
