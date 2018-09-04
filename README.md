@@ -143,8 +143,8 @@ summary(hustosis)  # summarizes key parameter values:
 #> 0.04 0.80 0.20 0.95 0.05 
 #> 
 #>  Other probabilities:
-#>  ppod   PPV   NPV   FDR   FOR 
-#> 0.080 0.400 0.991 0.600 0.009 
+#>  ppod   PPV   NPV   FDR   FOR   acc 
+#> 0.080 0.400 0.991 0.600 0.009 0.944 
 #> 
 #> Frequencies:
 #> 
@@ -308,8 +308,8 @@ summary(s21)  # shows key scenario information:
 #> 0.50 0.21 0.79 0.94 0.06 
 #> 
 #>  Other probabilities:
-#>  ppod   PPV   NPV   FDR   FOR 
-#> 0.135 0.778 0.543 0.222 0.457 
+#>  ppod   PPV   NPV   FDR   FOR   acc 
+#> 0.135 0.778 0.543 0.222 0.457 0.575 
 #> 
 #> Frequencies:
 #> 

@@ -10,7 +10,7 @@ output: github_document
 [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
 
-```{r, echo = FALSE}
+```{r knitr_opts_chunk, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
