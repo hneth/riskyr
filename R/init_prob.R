@@ -1117,6 +1117,7 @@ err <- (1 - acc)  # initialize err to complement of accuracy
 
 ## (*) Done: -------------------------------------
 
+## - Add err to prob.  [2018 09 05]
 ## - Add acc to prob.  [2018 09 04]
 ## - Clean up code.    [2018 08 20]
 
