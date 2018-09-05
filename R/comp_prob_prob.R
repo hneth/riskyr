@@ -1282,8 +1282,7 @@ comp_acc <- function(prev, sens, spec) {
 #' @family metrics
 #'
 #' @seealso
-#' \code{\link{comp_accu}} computes overall accuracy from probabilities;
-#' \code{\link{acc}} defines accuracy as a probability;
+#' \code{\link{comp_acc}} computes overall accuracy \code{\link{acc}} from probabilities;
 #' \code{\link{accu}} lists all accuracy metrics;
 #' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
 #' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
