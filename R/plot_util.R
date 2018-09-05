@@ -824,6 +824,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 # box_N  <- make_box("N", 4, 9, 2, 2)         # box with known freq label and type
 # box_ct <- make_box("cond.true", 8, 7, 3, 2) # ...
 # box_hi <- make_box("hi", 7, 2, 2, 2)        # ...
+#
 # ## Prepare canvas:
 # plot(c(0, 10), c(0, 10), type = "n")  # empty canvas
 # ## Plot boxes:
@@ -832,20 +833,22 @@ plot_link <- function(box1, box2,                # 2 boxes
 # plot(box_N)
 # plot(box_ct)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
+#
 # ## Link positions:
 # # plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
 # # plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
 # # plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
 # # plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
 # # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
-# #
+#
 # ## Link options:
 # ## (a) Link 2 freq boxes with a known prob:
 # plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr_code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
 # plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col.fill = pal["hi"],
 #           lbl_type = "namnum", lbl.pos = NULL, col.txt = pal["hi"], cex = .8)
-# ## (a) Link 2 boxes with NO known prob:
+#
+# ## (b) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
 # plot_link(box_N, box_hi, 1, 2, arr_code = -3,
 #           lbl = "given label in color",
