@@ -186,7 +186,8 @@ for additional information.
 \code{\link{popu}} for a table of the current population.
 
 Other metrics: \code{\link{accu}}, \code{\link{acc}},
-  \code{\link{comp_accu_freq}}, \code{\link{comp_acc}}
+  \code{\link{comp_accu_freq}}, \code{\link{comp_acc}},
+  \code{\link{err}}
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},

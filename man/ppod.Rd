@@ -79,8 +79,8 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{prev}}, \code{\link{sens}},
-  \code{\link{spec}}
+  \code{\link{err}}, \code{\link{fart}},
+  \code{\link{mirt}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
 \keyword{datasets}

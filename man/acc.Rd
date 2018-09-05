@@ -5,7 +5,7 @@
 \alias{acc}
 \alias{accurate}
 \alias{correct}
-\title{Accuracy (acc) as the probability of a correct decision.}
+\title{Accuracy (acc) is the probability of a correct decision.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
 acc
@@ -36,13 +36,15 @@ or the base rate (or baseline probability)
   from 0 (no correct decision/prediction)
   to 1 (perfect decision/prediction).
 
-\item Computation: \code{acc} can be computed in 2 ways:
+\item Computation: \code{acc} can be computed in several ways:
 
 (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
 (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
-When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+(c) as complement of the error rate \code{\link{err}}: \code{acc = 1 - err}
+
+When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a) and (c).
 
 \item Perspective:
   \code{acc} classifies a population of \code{\link{N}} individuals
@@ -75,8 +77,8 @@ See \code{\link{accu}} for other accuracy metrics
 and several possible interpretations of accuracy.
 }
 \examples{
-acc <- .50     # => sets a rate of positive decisions of 50\%
-acc <- 50/100  # => (decision = TRUE) for 50 out of 100 individuals
+acc <- .50     # => sets a rate of correct decisions of 50\%
+acc <- 50/100  # => (dec.cor) for 50 out of 100 individuals
 is_prob(acc)   # => TRUE (as acc is a probability)
 
 }
@@ -97,13 +99,14 @@ Consult \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia:Ac
 \code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{ppod}},
-  \code{\link{prev}}, \code{\link{sens}},
-  \code{\link{spec}}
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{err}},
+  \code{\link{fart}}, \code{\link{mirt}},
+  \code{\link{ppod}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 
 Other metrics: \code{\link{accu}},
   \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}}
+  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
+  \code{\link{err}}
 }
 \keyword{datasets}

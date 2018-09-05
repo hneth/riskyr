@@ -125,6 +125,7 @@ Other lists containing current scenario information: \code{\link{freq}},
 
 Other metrics: \code{\link{acc}},
   \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}}
+  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
+  \code{\link{err}}
 }
 \keyword{datasets}

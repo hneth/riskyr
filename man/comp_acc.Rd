@@ -141,5 +141,5 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
 
 Other metrics: \code{\link{accu}}, \code{\link{acc}},
   \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}}
+  \code{\link{comp_accu_prob}}, \code{\link{err}}
 }
