@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 08 28
+## 2018 09 05
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -30,8 +30,9 @@ txt.def <- list(
 
   # (e) Accuracy/correspondence of decision to condition:
   acc.lbl = "Accuracy",   # Dimension label: accuracy/correspondence
-  dec.cor.lbl = "Decision correct",  # cor  # accurate decision
-  dec.err.lbl = "Decision error",    # err  # inaccurate decision
+  dec.cor.lbl = "Decision correct",  # acc/cor  # accurate decision
+  # NOTE: "dec.cor" should better be called "dec.acc" (for consistency with probabilities "acc" vs. "err")!
+  dec.err.lbl = "Decision error",    # err      # inaccurate decision
 
   # (f) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
   sdt.lbl = "Case",  # Dimension label: cell/case/SDT 2x2 table
@@ -411,6 +412,7 @@ label_freq <- function(fname,
 
 
 ## label_prob: Label a known probability (in prob) ----------
+
 label_prob <- function(pname,
                        lbl_type = "default",  # label type: "default", "nam", "num", "namnum".
                        lbl_sep = " = "        # separator: " = " (default), ":\n"
@@ -453,9 +455,17 @@ label_prob <- function(pname,
     }
 
     # Accuracy (as probability):
-    if (tolower(pname) == "acc") { p_val <- accu$acc }
-    if (tolower(pname) == "cor") { p_val <- accu$acc }
-    if (tolower(pname) == "err") { p_val <- (1 - accu$acc) }
+    # 2 unconditional probabilities: overall accuracy acc + error rate err:
+    if (tolower(pname) == "acc") { p_val <- prob$acc }  # OR: accu$acc
+    if (tolower(pname) == "cor") { p_val <- prob$acc }  # OR: accu$acc
+    if (tolower(pname) == "err") { p_val <- (1 - prob$acc) }  # OR: (1 - accu$acc)
+
+    # 4 conditional probabilities:
+    if (tolower(pname) == "acc-hi") { p_val <- (prob$prev * prob$sens)/(prob$acc) }        # prob of hi/dec.cor
+    if (tolower(pname) == "acc-cr") { p_val <- ((1 - prob$prev) * prob$spec)/(prob$acc) }  # prob of hi/dec.cor
+
+    if (tolower(pname) == "err-mi") { p_val <- (prob$prev * (1 - prob$sens))/(1 - prob$acc) }  # prob of mi/dec.err
+    if (tolower(pname) == "err-fa") { p_val <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc) }  # prob of mi/dec.err
 
     # Ensure that p_val is numeric:
     p_val <- as.numeric(p_val)
@@ -501,6 +511,11 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
 
+    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }
+    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }
+    if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
+    if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
+
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
@@ -533,15 +548,20 @@ label_prob <- function(pname,
     if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
 
     # Accuracy (as probability):
-    if (tolower(pname) == "acc") { p_lbl <- txt$dec.cor.lbl }
+    if (tolower(pname) == "acc") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
+
+    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }
+    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }
+    if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
+    if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
 
   } else {  ## "default":
 
     ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
-    # Special cases: Set pname to some default value:
+    # Special cases: CHANGE pname to some other default value:
 
     if (tolower(pname) == "cprev") {  # if complement of prevalence:
       pname <- "(1 - prev)"           # custom basic name
@@ -552,8 +572,13 @@ label_prob <- function(pname,
 
     # Accuracy (as probability):
     if (tolower(pname) == "acc") { pname <- "acc" }
-    if (tolower(pname) == "cor") { pname <- "cor" }
+    if (tolower(pname) == "cor") { pname <- "acc" }
     if (tolower(pname) == "err") { pname <- "err" }
+
+    if (tolower(pname) == "acc-hi") { pname <- "p(hi|acc)" }
+    if (tolower(pname) == "acc-cr") { pname <- "p(cr|acc)" }
+    if (tolower(pname) == "err-mi") { pname <- "p(mi|err)" }
+    if (tolower(pname) == "err-fa") { pname <- "p(fa|err)" }
 
     # print(p_val)
     # is.numeric(p_val)
@@ -619,11 +644,13 @@ name_prob <- function(freq1, freq2) {
 
   # (1) by condition (bc):
 
+  # 2 unconditional probabilities:
   if ( (freq1 == "n" & freq2 == "cond.true") ||
        (freq2 == "n" & freq1 == "cond.true") ) { pname <- "prev" }
   if ( (freq1 == "n" & freq2 == "cond.false") ||
        (freq2 == "n" & freq1 == "cond.false") ) { pname <- "cprev" }
 
+  # 4 conditional probabilities:
   if ( (freq1 == "hi" & freq2 == "cond.true") ||
        (freq2 == "hi" & freq1 == "cond.true") ) { pname <- "sens" }
   if ( (freq1 == "mi" & freq2 == "cond.true") ||
@@ -636,11 +663,13 @@ name_prob <- function(freq1, freq2) {
 
   # (2) by decision (dc):
 
+  # 2 unconditional probabilities:
   if ( (freq1 == "n" & freq2 == "dec.pos") ||
        (freq2 == "n" & freq1 == "dec.pos") ) { pname <- "ppod" }
   if ( (freq1 == "n" & freq2 == "dec.neg") ||
        (freq2 == "n" & freq1 == "dec.neg") ) { pname <- "cppod" } # aka. "pned"
 
+  # 4 conditional probabilities:
   if ( (freq1 == "hi" & freq2 == "dec.pos") ||
        (freq2 == "hi" & freq1 == "dec.pos") ) { pname <- "PPV" }
   if ( (freq1 == "fa" & freq2 == "dec.pos") ||
@@ -653,10 +682,22 @@ name_prob <- function(freq1, freq2) {
 
   # (3) by accuracy/correspondence (ac):
 
+  # 2 unconditional probabilities:
   if ( (freq1 == "n" & freq2 == "dec.cor") ||
        (freq2 == "n" & freq1 == "dec.cor") ) { pname <- "acc" } # aka. "cor"
   if ( (freq1 == "n" & freq2 == "dec.err") ||
        (freq2 == "n" & freq1 == "dec.err") ) { pname <- "err" } # error rate
+
+  # 4 conditional probabilities:
+  if ( (freq1 == "dec.cor" & freq2 == "hi") ||
+       (freq2 == "dec.cor" & freq1 == "hi") ) { pname <- "acc-hi" } # in lack of a better name
+  if ( (freq1 == "dec.cor" & freq2 == "cr") ||
+       (freq2 == "dec.cor" & freq1 == "cr") ) { pname <- "acc-cr" } # in lack of a better name
+
+  if ( (freq1 == "dec.err" & freq2 == "mi") ||
+       (freq2 == "dec.err" & freq1 == "mi") ) { pname <- "err-mi" } # in lack of a better name
+  if ( (freq1 == "dec.err" & freq2 == "fa") ||
+       (freq2 == "dec.err" & freq1 == "fa") ) { pname <- "err-fa" } # in lack of a better name
 
   # Note: No prob for links between dec.cor OR dec.err and
   #       4 SDT cases (hi, mi, fa, cr).
