@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 09 04
+## 2018 09 05
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
@@ -39,6 +39,8 @@
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
+
+# err = error rate = (1 - acc)
 
 
 ## Data flow: Two basic directions: --------------
@@ -969,7 +971,7 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 
 ## (1) Accuracy acc: --------
 
-#' Accuracy (acc) as the probability of a correct decision.
+#' Accuracy (acc) is the probability of a correct decision.
 #'
 #' \code{acc} defines overall accuracy
 #' as the probability of correspondence between a positive decision
@@ -995,13 +997,15 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'   from 0 (no correct decision/prediction)
 #'   to 1 (perfect decision/prediction).
 #'
-#'   \item Computation: \code{acc} can be computed in 2 ways:
+#'   \item Computation: \code{acc} can be computed in several ways:
 #'
 #'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
 #'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
-#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+#'    (c) as complement of the error rate \code{\link{err}}: \code{acc = 1 - err}
+#'
+#'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a) and (c).
 #'
 #'   \item Perspective:
 #'   \code{acc} classifies a population of \code{\link{N}} individuals
@@ -1037,8 +1041,8 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #' accurate correct
 #'
 #' @examples
-#' acc <- .50     # => sets a rate of positive decisions of 50%
-#' acc <- 50/100  # => (decision = TRUE) for 50 out of 100 individuals
+#' acc <- .50     # => sets a rate of correct decisions of 50%
+#' acc <- 50/100  # => (dec.cor) for 50 out of 100 individuals
 #' is_prob(acc)   # => TRUE (as acc is a probability)
 #'
 #' @family probabilities
@@ -1061,6 +1065,55 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #' Consult \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia:Accuracy_and_precision} for additional information.
 
 acc <- 1/2  # initialize to random accuracy
+
+
+## (2) Error rate err: --------
+
+#' Error rate (err) as the probability of an incorrect decision.
+#'
+#' \code{err} defines the error rate as the complement of
+#' accuracy \code{\link{acc}} or lack of correspondence
+#' of decisions to conditions.
+#'
+#' Definition:
+#'
+#' \code{err = (1 - \link{acc})}
+#'
+#' When \code{\link{freq}} are not rounded (\code{round = FALSE}) then
+#'
+#' \code{err = \link{dec.err}/\link{N} = (\link{mi} + \link{fa})/\link{N}}
+#'
+#' \code{err} is currently not included in \code{\link{prob}},
+#' but shown in plots.
+#'
+#' See \code{err}'s complement of accuracy \code{\link{acc}}
+#' for computation and
+#' \code{\link{accu}} for current accuracy metrics
+#' and several possible interpretations of accuracy.
+#'
+#' @examples
+#' err <- .50     # => sets a rate of incorrect decisions of 50%
+#' err <- 50/100  # => (dec.err) for 50 out of 100 individuals
+#' is_prob(err)   # => TRUE (as err is a probability)
+#'
+#' @family probabilities
+#' @family metrics
+#'
+#' @seealso
+#' \code{\link{acc}} provides overall accuracy;
+#' \code{\link{comp_acc}} computes accuracy from probabilities;
+#' \code{\link{accu}} lists current accuracy metrics;
+#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_complement}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+
+err <- (1 - acc)  # initialize err to complement of accuracy
 
 ## (*) Done: -------------------------------------
 
