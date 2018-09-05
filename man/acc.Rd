@@ -107,6 +107,6 @@ Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
 Other metrics: \code{\link{accu}},
   \code{\link{comp_accu_freq}},
   \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
-  \code{\link{err}}
+  \code{\link{comp_err}}, \code{\link{err}}
 }
 \keyword{datasets}
