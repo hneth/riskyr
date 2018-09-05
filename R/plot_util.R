@@ -3,6 +3,7 @@
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
+
 ## (1) Generic plotting functions: ----------
 
 ## ex: Restore old par settings (see ?par) ------
@@ -21,6 +22,7 @@ ex <- function() {
 
 ## Check:
 # ex()  # Note: dev.off() also restores default par settings.
+
 
 
 ## (2) Generic plot labels: ----------
@@ -229,6 +231,7 @@ plot_mar <- function(show_freq = TRUE,
 
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
+
 
 ## (3) Plotting boxes and links: ----------
 
@@ -859,6 +862,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 ## 4. Call plot_link with p_lbl as lbl
 
 
+
 ## (4) Define and create box objects: ----------
 
 ## Define objects: Create an object of type "box" as a list: ----------
@@ -933,6 +937,7 @@ plot.box <- function(obj, ...) {
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
 # plot(box_mi, lbl_type = "nam",
 #      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
+
 
 
 
@@ -1176,18 +1181,18 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
 }
 
 ## Check:
-{
-  # ## Create a noisy background:
-  # plot(x = runif(1000), y = runif(1000), type = "p", pch = 16, col = "#40404060")
-  #
-  # ## Vector of labels, using argument 'pos' to position right of coordinates:
-  # box_text(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
-  #         col.bg = "gold", pos = 4, padding = 0.2)
-  #
-  # ## Tweak cex, font and adj:
-  # box_text(x = 0.2, y = 0.4, labels = "some big and bold text",
-  #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
-}
+
+# ## Create a noisy background:
+# plot(x = runif(1000), y = runif(1000), type = "p", pch = 16, col = "#40404060")
+#
+# ## Vector of labels, using argument 'pos' to position right of coordinates:
+# box_text(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
+#         col.bg = "gold", pos = 4, padding = 0.2)
+#
+# ## Tweak cex, font and adj:
+# box_text(x = 0.2, y = 0.4, labels = "some big and bold text",
+#         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
+
 
 
 ## add_legend: Reformat the plot area to place legend outside of plot ------
@@ -1210,6 +1215,7 @@ add_legend <- function(...) {
 
 ## Check:
 # add_legend()  # requires a legend argument.
+
 
 
 ## (*) Done: ----------
