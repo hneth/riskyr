@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyr
-## 2018 09 04
+## 2018 09 05
 ## Compute probabilities from probabilities:
 ## -----------------------------------------------
 
@@ -64,6 +64,7 @@
 
 
 ## ad (1):  Bayesian computations with probabilities: ----------
+
 
 
 
@@ -516,6 +517,7 @@ comp_complete_prob_set <- function(prev,
 
 
 ## Compute derived probabilities: ----------------
+
 
 
 
@@ -1032,6 +1034,7 @@ comp_FOR_NPV <- function(NPV) {
 
 
 
+
 ## (C) by accuracy: Compute probability of correct decisions from probabilities: ----------
 
 
@@ -1213,6 +1216,133 @@ comp_acc <- function(prev, sens, spec) {
 
 
 
+
+
+
+
+
+## comp_err: Documentation --------
+
+#' Compute overall error rate (err) from probabilities.
+#'
+#' \code{comp_err} computes overall error rate \code{\link{err}}
+#' from 3 essential probabilities
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}.
+#'
+#' \code{comp_err} uses \code{\link{comp_acc}} to
+#' compute \code{\link{err}} as the
+#' complement of \code{\link{acc}}:
+#'
+#' \code{err = 1 - acc}
+#'
+#' See \code{\link{comp_acc}} and \code{\link{acc}}
+#' for further details and
+#' \code{\link{accu}} for other accuracy metrics
+#' and several possible interpretations of accuracy.
+#'
+#'
+#' @param prev The condition's prevalence \code{\link{prev}}
+#' (i.e., the probability of condition being \code{TRUE}).
+#'
+#' @param sens The decision's sensitivity \code{\link{sens}}
+#' (i.e., the conditional probability of a positive decision
+#' provided that the condition is \code{TRUE}).
+#'
+#' @param spec The decision's specificity value \code{\link{spec}}
+#' (i.e., the conditional probability
+#' of a negative decision provided that the condition is \code{FALSE}).
+#'
+#' @return Overall error rate \code{\link{err}} as a probability (proportion).
+#' A warning is provided for NaN values.
+#'
+#' @examples
+#' # ways to work:
+#' comp_err(.10, .200, .300)  # => err = 0.71
+#' comp_err(.50, .333, .666)  # => err = 0.5005
+#'
+#' # watch out for vectors:
+#' prev.range <- seq(0, 1, by = .1)
+#' comp_err(prev.range, .5, .5)  # => 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+#'
+#' # watch out for extreme values:
+#' comp_err(1, 1, 1)  #  => 0
+#' comp_err(1, 1, 0)  #  => 0
+#'
+#' comp_err(1, 0, 1)  #  => 1
+#' comp_err(1, 0, 0)  #  => 1
+#'
+#' comp_err(0, 1, 1)  #  => 0
+#' comp_err(0, 1, 0)  #  => 1
+#'
+#' comp_err(0, 0, 1)  #  => 0
+#' comp_err(0, 0, 0)  #  => 1
+#'
+#'
+#' @family functions computing probabilities
+#' @family metrics
+#'
+#' @seealso
+#' \code{\link{comp_accu}} computes overall accuracy from probabilities;
+#' \code{\link{acc}} defines accuracy as a probability;
+#' \code{\link{accu}} lists all accuracy metrics;
+#' \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+#' \code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
+#' \code{\link{comp_sens}} and \code{\link{comp_PPV}} compute related probabilities;
+#' \code{\link{is_extreme_prob_set}} verifies extreme cases;
+#' \code{\link{comp_complement}} computes a probability's complement;
+#' \code{\link{is_complement}} verifies probability complements;
+#' \code{\link{comp_prob}} computes current probability information;
+#' \code{\link{prob}} contains current probability information;
+#' \code{\link{is_prob}} verifies probabilities.
+#'
+#' @export
+
+## comp_err: Definition --------
+
+comp_err <- function(prev, sens, spec) {
+
+  err <- NA  # initialize
+  acc <- NA
+
+  ## ToDo: Add condition
+  ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
+
+  ## Use comp_acc to compute accuracy:
+  acc <- comp_acc(prev, sens, spec)
+
+  ## err is the complement of acc:
+  err <- (1 - acc)
+
+  ## Print a warning if NaN:
+  if (any(is.nan(err))) {
+    warning("err is NaN.")
+  }
+
+  return(err)
+}
+
+## Check: ------
+
+# # ways to work:
+# comp_err(.10, .200, .300)  # => err = 0.71
+# comp_err(.50, .333, .666)  # => err = 0.5005
+#
+# # watch out for vectors:
+# prev.range <- seq(0, 1, by = .1)
+# comp_err(prev.range, .5, .5)  # => 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+#
+# # watch out for extreme values:
+# comp_err(1, 1, 1)  #  => 0
+# comp_err(1, 1, 0)  #  => 0
+#
+# comp_err(1, 0, 1)  #  => 1
+# comp_err(1, 0, 0)  #  => 1
+#
+# comp_err(0, 1, 1)  #  => 0
+# comp_err(0, 1, 0)  #  => 1
+#
+# comp_err(0, 0, 1)  #  => 0
+# comp_err(0, 0, 0)  #  => 1
 
 
 
