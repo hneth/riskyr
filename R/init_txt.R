@@ -507,7 +507,7 @@ label_prob <- function(pname,
     if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
 
     # Accuracy (as probability):
-    if (tolower(pname) == "acc") { p_lbl <- txt$dec.cor.lbl }
+    if (tolower(pname) == "acc") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
 
