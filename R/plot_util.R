@@ -103,7 +103,7 @@ make_freq_lbl <- function(hi, mi, fa, cr) {
 
   N <- (hi + mi + fa + cr)
 
-  lbl <- paste0("Population ",  # Name:
+  lbl <- paste0("Population of ",  # Name:
                 "N = ", N, ":  ",
                 "hi = ", hi, ", ",
                 "mi = ", mi, ", ",
@@ -125,10 +125,11 @@ plot_mar <- function(show_freq = TRUE,
                      show_cond = TRUE,
                      show_dec = TRUE,
                      show_accu = TRUE,
+                     accu_from_freq = FALSE,  # Compute accuracy based on current (rounded or non-rounded) freq (default: accu_round_freq = FALSE).
                      note = "",
                      ...) {
 
-  ## (A) Preparations: ----
+  ## (A) Preparations: ------
 
   ## Record graphical parameters (par):
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
@@ -151,53 +152,62 @@ plot_mar <- function(show_freq = TRUE,
   # box("figure", col = "forestgreen")
   # box("outer", col = "steelblue")
 
-  ## (B) Margin text: ----
+
+  ## (B) Margin text: ------
 
   m_col <- grey(.33, .99)
   m_cex <- .85
 
-  ## on left (adj = 0):
+  ## on left side (adj = 0): ----
 
   ## (1) Frequency label:
   if (show_freq) {
     freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
-    mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print label
+    mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
   }
 
   ## (2) Condition label:
   if (show_cond) {
     cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)
-    mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
+    mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print cond label
   }
 
   ## (5) Note:
-  if (nchar(note) > 0) {
+  if ( !is.null(note) && !is.na(note) && (nchar(note) > 0) ) {
     note_lbl <- paste0("Note:  ", note, "")
-    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)
+    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print note
   }
 
-  ## on right (adj = 1):
+  ## on right side (adj = 1): ----
 
   ## (4) Accuracy label:
   if (show_accu) {
 
-    w.acc <- .50  # weight parameter w
+    if ( !exists("w.acc") || is.null(w.acc) || is.na(w.acc) ) { w.acc <- .50 }  # default of weight parameter w
 
-    ## (a) from (rounded) freq:
-    cur.accu <- comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info from (rounded) freq
+    if (accu_from_freq) {
 
-    ## (b) from (exact) prob:
-    cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # compute accuracy info from (exact) prob
+      # (a) Compute accuracy from current (rounded or non-rounded) freq:
+      cur.accu <- comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info from (rounded) freq
+      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+      accu_lbl <- paste0("*", accu_lbl, " (from frequencies)")
 
-    accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
-    mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
+    } else {
 
-  }
+      # (b) Compute accuracy from (exact) prob == non-rounded freq:
+      cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # compute accuracy info from (exact) prob
+      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+
+    }
+
+    mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print accuracy label
+
+  } # if (show_accu) ...
 
   ## (3) Decision label:
   if (show_dec) {
     dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
-    mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
+    mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print decision label
   }
 
   ## (6) Imprint:
@@ -231,6 +241,7 @@ plot_mar <- function(show_freq = TRUE,
 
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
+# plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
 
 
 ## (3) Plotting boxes and links: ----------
