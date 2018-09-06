@@ -54,21 +54,23 @@ are rounded to integers. Default: \code{round = TRUE}.}
 \item \code{"dccd"} ... 1st by decision, 2nd by condition.
 }}
 
-\item{area}{A character code specifying the area of the boxes (or their relative sizes) with 4 options:
-\enumerate{
-\item \code{"no"} ... all boxes are shown with the same size;
-\item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
-\item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
-\item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
-}}
+\item{area}{A character code specifying the area of the boxes (or their relative sizes) with
+4 options:
+  \enumerate{
+  \item \code{"no"} ... all boxes are shown with the same size;
+  \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
+  \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
+  \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
+  }}
 
-\item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
-\enumerate{
-\item \code{"nam"} ... names of probabilities;
-\item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
-\item \code{"mix"} ... names of essential probabilities, values of complements;
-\item \code{"min"} ... minimal labels: names of essential probabilities.
-}}
+\item{p.lbl}{A character code specifying the type of probability information (on edges) with
+4 options:
+  \enumerate{
+  \item \code{"nam"} ... names of probabilities;
+  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals, default);
+  \item \code{"mix"} ... names of essential probabilities, values of complements;
+  \item \code{"min"} ... minimal labels: names of essential probabilities.
+  }}
 
 \item{show.accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
