@@ -43,17 +43,17 @@ are computed from scratch from current probabilities.)}
 (or the dimension by which the population is split into 2 subsets)
 with the following options:
   \enumerate{
-  \item \code{by = "cd"} ... by condition;
-  \item \code{by = "dc"} ... by decision;
-  \item \code{by = "ac"} ... by accuracy;
-  \item \code{by = "all"} ... combines perspectives (5 bars, default).
+  \item \code{by = "cd"}: by condition;
+  \item \code{by = "dc"}: by decision;
+  \item \code{by = "ac"}: by accuracy;
+  \item \code{by = "all"} combines perspectives (5 bars, default).
   }}
 
 \item{dir}{Number of directions in which bars are plotted.
 Options:
 \enumerate{
-  \item \code{dir = 1} ... uni-directional bars (all up, default);
-  \item \code{dir = 2} ... bi-directional bars (up vs. down).
+  \item \code{dir = 1}: uni-directional bars (all up, default);
+  \item \code{dir = 2}: bi-directional bars (up vs. down).
   }}
 
 \item{scale}{Scale the heights of bars either
@@ -153,11 +153,19 @@ plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
          title.lbl = "Test 5b")  # bi-directional
 
-# Rounding effects:
-plot_bar(N = 3, prev = .33, sens = .75, spec = .66, title.lbl = "Rounding effects (1)",
-         dir = 2, show.freq = TRUE)  # => Rounding freq labels, but NOT bar sizes in plot.
-plot_bar(N = 3, prev = .33, sens = .75, spec = .66, title.lbl = "Rounding effects (2)",
-         dir = 2, show.freq = TRUE, round = FALSE)  # => Bar sizes correspond to exact freq.
+# Scaling and rounding effects:
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "f", round = TRUE,
+         title.lbl = "Rounding (1)") # => Scale by freq and round freq.
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "p", round = TRUE,
+         title.lbl = "Rounding (2)") # => Scale by prob and round freq.
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "f", round = FALSE,
+         title.lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "p", round = FALSE,
+         title.lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
 
 }
 \seealso{
