@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 08 31
+## 2018 09 06
 ##  plot_icons plots an icon array in a variety
 ##  of ways, dependent on population size.
 ## -----------------------------------------------
@@ -243,8 +243,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        spec = num$spec, fart = NA,  # was: num$fart,
                        N = freq$N,    # ONLY freq used (so far)
                        ## Key options: ##
-                       type = "array",  # needs to be given if random position but nonrandom ident.
-                       ## Types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       type = "array",  # needs to be specified if random position but nonrandom ident.
+                       ## Valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
                        ident.order = c("hi", "mi", "fa", "cr"),
                        icon.colors = pal[ident.order],  # use one color for each usual type.
                        icon.types = 22,  # plotting characters; default square with border
@@ -272,6 +272,19 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
                        cex.lbl = .85
 ) {
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(type) && !is.na(type) ) {
+    type <- tolower(type)  # express type in lowercase
+  }
+  if ( type == "def" || type == "default" || is.null(type) || is.na(type) ) { type <- "array" }  # default/null
+  if ( type == "shuffled" || type == "shuffle" ) { type <- "shuffledarray" }
+  if ( type == "scattered" ) { type <- "scatter" }
+  if ( type == "left" ) { type <- "fillleft" }
+  if ( type == "top" ) { type <- "filltop" }
+  if ( type == "equal" ) { type <- "fillequal" }
+
 
   ## Currently fixed parameters:
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed

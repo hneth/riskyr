@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 08 29
+## 2018 09 06
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -153,6 +153,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        title.lbl = txt$scen.lbl, # plot title label
                        cex.lbl = .85             # scale size of text labels (e.g., on axes, legend, margin text)
 ) {
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(what) && !is.na(what) ) {
+    what <- tolower(what)  # express what in lowercase
+  }
+
+  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("ppv") }  # default/null
+  # if ( "any" %in% what ) { what <- "all" }
 
   ## (0) Collect or compute current probabilities: ----------
 
@@ -365,22 +374,22 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 ## Check: ----------
 
-  # # Basics:
-  # plot_plane()  # => current defaults (what = "PPV")
-  # plot_plane(what = "PPV")  # => plane of PPV
-  # plot_plane(what = "NPV")  # => plane of NPV
-  # plot_plane(what = "ppod") # => plane of ppod
-  # plot_plane(what = "ppod", theta = 45) # => plane of ppod
-  # plot_plane(what = "acc")  # => plane of acc
-  #
-  # # Options:
-  # plot_plane(show.point = FALSE)  # => no point shown on plane
-  # plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
-  # plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
-  # plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
-  # plot_plane(title.lbl = "Testing plot options")
-  # plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
-  # plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
+# # Basics:
+# plot_plane()  # => current defaults (what = "PPV")
+# plot_plane(what = "PPV")  # => plane of PPV
+# plot_plane(what = "NPV")  # => plane of NPV
+# plot_plane(what = "ppod") # => plane of ppod
+# plot_plane(what = "ppod", theta = 45) # => plane of ppod
+# plot_plane(what = "acc")  # => plane of acc
+#
+# # Options:
+# plot_plane(show.point = FALSE)  # => no point shown on plane
+# plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
+# plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
+# plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
+# plot_plane(title.lbl = "Testing plot options")
+# plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
+# plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
 
 ## Note: ----------
 

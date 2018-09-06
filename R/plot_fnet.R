@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 09 04
+## 2018 09 06
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -107,7 +107,8 @@
 #'   \item \code{"dccd"} ... 1st by decision, 2nd by condition.
 #'   }
 #'
-#' @param area A character code specifying the area of the boxes (or their relative sizes) with 4 options:
+#' @param area A character code specifying the area of the boxes (or their relative sizes) with
+#' 4 options:
 #'   \enumerate{
 #'   \item \code{"no"} ... all boxes are shown with the same size;
 #'   \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
@@ -115,10 +116,11 @@
 #'   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 #'   }
 #'
-#' @param p.lbl A character code specifying the type of probability information (on edges) with 4 options:
+#' @param p.lbl A character code specifying the type of probability information (on edges) with
+#' 4 options:
 #'   \enumerate{
 #'   \item \code{"nam"} ... names of probabilities;
-#'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
+#'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals, default);
 #'   \item \code{"mix"} ... names of essential probabilities, values of complements;
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
@@ -289,11 +291,37 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 ){
 
   ## (0) Handle deprecated arguments: ----------
+
   if (!missing(box.cex)) {
     warning("argument 'box.cex' is deprecated; please use 'cex.lbl' instead.",
             call. = FALSE)
     cex.lbl <- box.cex
   }
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(by) && !is.na(by) ) {
+    by <- tolower(by)  # express by in lowercase
+  }
+  if (by == "any" || by == "all" || by == "default" || by == "def" || is.null(by) || is.na(by) )  { by <- "cddc" }  # default/null
+  if (by == "cond" || by == "condition" ) { by <- "cd" }
+  if (by == "dec"  || by == "decision"  ) { by <- "dc" }
+  # if (by == "acc" || by == "accuracy" || by == "cor" )  { by <- "ac" }  # currently unsupported
+
+  if ( !is.null(area) && !is.na(area) ) {
+    area <- tolower(area)  # express area in lowercase
+  }
+  if (area == "none" || is.null(area) || is.na(area) ) { area <- "no" }          # null
+  if (area == "square" || area == "def" || area == "default" ) { area <- "sq" }  # default
+  if (area == "rect")   { area <- "vr" }
+
+  if ( !is.null(p.lbl) && !is.na(p.lbl) ) {
+    p.lbl <- tolower(p.lbl)  # express p.lbl in lowercase
+  }
+  if (p.lbl == "def" || p.lbl == "default" || is.null(p.lbl) || is.na(p.lbl) ) { p.lbl <- "mix" }  # default/null
+  if (p.lbl == "namnum" || p.lbl == "namval") { p.lbl <- "mix" }
+  if (p.lbl == "val") { p.lbl <- "num" }
+
 
   ## (0.1) Compute or collect current frequencies: ----------
 

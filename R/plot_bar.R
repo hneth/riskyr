@@ -233,15 +233,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # sens <- num$sens
   # spec <- num$spec
 
-  ## Increase robustness by anticipating and correcting common entry errors:
-  if (by == "any")  { by <- "all"}
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if (by == "any" || is.null(by) || is.na(by) )  { by <- "all"}  # default/null
   if (by == "cond") { by <- "cd" }
   if (by == "dec")  { by <- "dc" }
   if (by == "acc")  { by <- "ac" }
 
+  if (is.null(dir) || is.na(dir) ) { dir <- 1 }  # default/null
   if (dir > 2) { dir <- 2 }
 
-  if (scale == "freq") { scale <- "f" }
+  if (scale == "def" || scale == "default" || is.null(scale) || is.na(scale) ) { scale <- "f" }  # default/null
+  if (scale == "freq") { scale <- "f" }  # default/null
   if (scale == "prob") { scale <- "p" }
 
 

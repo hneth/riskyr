@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyr
-## 2018 08 28
+## 2018 09 06
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 3:
@@ -254,6 +254,31 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       col.shadow = grey(.11, alpha = .99),  # dark grey
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(by) && !is.na(by) ) {
+    by <- tolower(by)  # express by in lowercase
+  }
+  if (by == "any" || by == "all" || by == "default" || by == "def" || is.null(by) || is.na(by) )  { by <- "cd" }  # default/null
+  if (by == "cond") { by <- "cd" }
+  if (by == "dec")  { by <- "dc" }
+  # if (by == "acc")  { by <- "ac" }  # currently unsupported
+
+  if ( !is.null(area) && !is.na(area) ) {
+    area <- tolower(area)  # express area in lowercase
+  }
+  if (area == "none" || is.null(area) || is.na(area) ) { area <- "no" }          # null
+  if (area == "square" || area == "def" || area == "default" ) { area <- "sq" }  # default
+  if (area == "rect")   { area <- "hr" }
+
+  if ( !is.null(p.lbl) && !is.na(p.lbl) ) {
+    p.lbl <- tolower(p.lbl)  # express p.lbl in lowercase
+  }
+  if (p.lbl == "def" || p.lbl == "default" || is.null(p.lbl) || is.na(p.lbl) ) { p.lbl <- "mix" }  # default/null
+  if (p.lbl == "namnum" || p.lbl == "namval") { p.lbl <- "mix" }
+  if (p.lbl == "val") { p.lbl <- "num" }
+
 
   ## (0) Compute or collect all current frequencies: ------
 

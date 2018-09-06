@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 08 31
+## 2018 09 06
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -149,7 +149,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
                        ## DVs:
-                       what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod".
+                       what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod", "all".
                        ## Options:
                        what.col = pal,                  # colors for what.
                        unc = .00,         # Uncertainty range (as a percentage around current prev, sens, and spec values)
@@ -159,6 +159,16 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                        title.lbl = txt$scen.lbl, # plot title label
                        cex.lbl = .85             # scale size of text labels (e.g., on axes, legend, margin text)
 ) {
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(what) && !is.na(what) ) {
+    what <- tolower(what)  # express what in lowercase
+  }
+
+  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("prev", "ppv", "npv") }  # default/null
+  if ( "any" %in% what ) { what <- "all" }
+
 
   ## (0) Compute or collect current probabilities: ----------
 
@@ -191,6 +201,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   }
 
   ## (1) Set some (currently fixed) parameters: ----------
+
   x <- NULL  # "nulling out" to avoid NOTE (no visible binding for global variable ‘x’) in R CMD check!
 
   ## Set x-value range for plotting curves:
@@ -323,8 +334,8 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   ## (3) Interpret what argument: ----------
 
   ## (a) shortcut to get all what options:
-  if ("all" %in% what || "ALL" %in% what || "All" %in% what ) {
-    what <- c("prev", "PPV", "NPV", "ppod", "acc")
+  if ("all" %in% tolower(what)) {
+    what <- c("prev", "ppv", "npv", "ppod", "acc")
   }
 
   ## (b) express all options in lower case:
