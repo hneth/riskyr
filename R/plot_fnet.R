@@ -1707,7 +1707,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     # (3) Mark IF accu was based on rounded freq:
     if (round) {  # freq were rounded:
-      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded frequencies)")
     }
 
     # (4) Plot label:
@@ -1786,7 +1786,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 ## (*) Done: -----------
 
-## Clean up code.  [2018 08 24]
+## - Increase robustness by anticipating and
+##   correcting common entry errors.         [2018 09 06]
+## - Clean up code.                          [2018 08 24]
 
 ## (+) ToDo: -----------
 
