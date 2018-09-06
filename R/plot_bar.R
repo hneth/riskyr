@@ -32,16 +32,25 @@
 #' are computed from scratch.  Otherwise, the existing
 #' population \code{\link{popu}} is shown.
 #'
-#' Note that {plot_bar} uses frequencies (rounded or not rounded,
+#' By default, \code{plot_bar} uses frequencies (rounded or not rounded,
 #' depending on the argument of \code{round}) as bar heights,
-#' rather than using probabilities. Setting
-#' \code{round = FALSE} scales bar heights by exact probabilities.
+#' rather than using probabilities (default: \code{scale = "f"}).
+#' Using the option \code{scale = "p"} scales bar heights
+#' by probabilities (e.g., showing bars for non-natural frequencies).
+#' When \code{round = FALSE}, the bar heights for \code{scale = "f"}
+#' coincide with those for \code{scale = "p"}.
 #'
-#' Rectangles corresponding to the areas of the mosaic plot
-#' (\code{\link{plot_mosaic}})
-#' can be visualized by opting for vertical rectangles (by selecting
-#' the option \code{box = "vr"}) in \code{\link{plot_tree}}
-#' and \code{\link{plot_fnet}}.
+#' Note that the distinction between \code{scale = "f"} and
+#' \code{scale = "p"} is practically irrelevant for
+#' large populations sizes \code{\link{N}}
+#' (or when all \code{\link{freq} > 10}), but useful for small values of
+#' \code{\link{N}} (or scenarios with rounded \code{\link{freq} < 10}).
+#'
+#' \code{plot_bar} contrasts compound frequencies along 1 dimension (height).
+#' See \code{\link{plot_mosaic}} for 2-dimensional visualizations (as areas)
+#' and various \code{box}) options in
+#' \code{\link{plot_tree}} and \code{\link{plot_fnet}}
+#' for similar functions.
 #'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
@@ -357,14 +366,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # Length/height (y) of bars:
   lbase <- N    # length of base side (vertical: y)
   lelse <- 1/(2 * nr.col)  # length of other side (horizontal: x)
-  scale <- 1.0  # scaling factor (0-1)
+  sf <- 1.0  # scaling factor (0-1)
 
   # Basic height (ly) and width (lx):
-  b.ly <- lbase * scale  # basic height (scaled constant)
-  b.lx <- lelse * scale  # basic width (scaled constant)
+  b.ly <- lbase * sf  # basic height (scaled constant)
+  b.lx <- lelse * sf  # basic width (scaled constant)
 
 
-  ## (b) Define and plot N column: ----
+  ## (b) Define and plot N column (for all perspectives): ----
 
   # Dimensions and coordinates:
   n.ly <- b.ly    # height (y)
@@ -389,7 +398,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                    col = pal["txt"], # col = comp_freq_col("N"),
                    ...)
 
-  ## (c) Define dimensions of 4 SDT cases/cells: ----
+  ## (c) Define dimensions of 4 SDT cases/cells (for all perspectives): ----
 
   # x-coordinates:
   col.nr <- 3
@@ -398,19 +407,33 @@ plot_bar <- function(prev = num$prev,             # probabilities
   fa.x <- hi.x
   cr.x <- hi.x
 
-  # # 2 ways of computing heights:
+  # heights (ly):
+  # 2 ways of computing bar heights:
+  if (scale == "p") {
 
-  # # (1) heights (ly) from probabilities (without rounding):
-  # hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
-  # mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
-  # cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
-  # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
+    # (1) Compute heights (ly) from current probabilities (without any rounding):
+    hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
+    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
+    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
+    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
 
-  # (2) heights (ly) from frequencies (with or without rounding, based on round option):
-  hi.ly <- n.hi   # freq of n.hi (with/without rounding)
-  mi.ly <- n.mi   # freq of n.mi (with/without rounding)
-  cr.ly <- n.cr   # freq of n.cr (with/without rounding)
-  fa.ly <- n.fa   # freq of n.fa (with/without rounding)
+  } else if (scale == "f") {
+
+    # (2) Take heights (ly) from current frequencies (with or without rounding, based on round option):
+    hi.ly <- n.hi   # freq of n.hi (with/without rounding)
+    mi.ly <- n.mi   # freq of n.mi (with/without rounding)
+    cr.ly <- n.cr   # freq of n.cr (with/without rounding)
+    fa.ly <- n.fa   # freq of n.fa (with/without rounding)
+
+  } else { # any other setting:
+
+    # as in (2) Take heights (ly) from current frequencies (with or without rounding, based on round option):
+    hi.ly <- n.hi   # freq of n.hi (with/without rounding)
+    mi.ly <- n.mi   # freq of n.mi (with/without rounding)
+    cr.ly <- n.cr   # freq of n.cr (with/without rounding)
+    fa.ly <- n.fa   # freq of n.fa (with/without rounding)
+
+  } # (scale == ...)
 
   # Label SDT column:
   plot_ftype_label("hi", hi.x, y.min, pos = 1,
