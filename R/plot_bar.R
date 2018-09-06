@@ -233,6 +233,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # sens <- num$sens
   # spec <- num$spec
 
+  ## Increase robustness by anticipating and correcting common entry errors:
+  if (by == "any")  { by <- "all"}
+  if (by == "cond") { by <- "cd" }
+  if (by == "dec")  { by <- "dc" }
+  if (by == "acc")  { by <- "ac" }
+
+  if (dir > 2) { dir <- 2 }
+
+  if (scale == "freq") { scale <- "f" }
+  if (scale == "prob") { scale <- "p" }
+
+
   ## (1) Compute or use current popu: ----------
 
   ## (A) If a valid set of probabilities was provided:
@@ -282,13 +294,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
   #
   # type_label <- "freq type"  # to be derived below.
 
-  ## (2) Define plot and margin areas: ----------
+  ## (3) Define plot and margin areas: ----------
 
   ## Margin areas:
   par(oma = c(3, 2, 1, 1) + 0.1)  # outer margins: bottom has 3 lines of space
   par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
 
-  ## (3) Graphical parameters: ----
+  ## (4) Graphical parameters: ----
 
   # Offset from base line:
   x.base <- 0  # offset x
@@ -324,7 +336,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # lwd.help <- 2.5  # line width
 
 
-  ## (4) Define plot area: ----------
+  ## (5) Define plot area: ----------
 
   ## Plot dimensions:
   xlim = c(0, 1)
@@ -360,31 +372,31 @@ plot_bar <- function(prev = num$prev,             # probabilities
        lwd = par("lwd"), equilogs = TRUE)
 
 
-  ## (5) Custom bar plot: ----------
+  ## (6) Custom bar plot: ----------
 
-  ## (A) Always set dimensions of N and 4 SDT cases: ------
+  ##   (A) Define N and 4 SDT cases (for all perspectives): ------
 
-  ## (a) Basic length parameters: ----
+  ##     (a) Define basic length parameters: ----
 
   # Number and basic width of columns:
   if (by == "all") {
-    nr.col <- 5         # 5 (vertical) columns
+    nr.col <- 5       # 5 (vertical) columns
   } else {
     nr.col <- 3       # 3 (vertical) columns
   }
   col.x  <- 1/nr.col  # corresponding column width (x)
 
   # Length/height (y) of bars:
-  lbase <- N    # length of base side (vertical: y)
+  lbase <- N               # length of base side (vertical: y)
   lelse <- 1/(2 * nr.col)  # length of other side (horizontal: x)
-  sf <- 1.0  # scaling factor (0-1)
+  sf <- 1.0                # scaling factor (0-1)
 
   # Basic height (ly) and width (lx):
   b.ly <- lbase * sf  # basic height (scaled constant)
   b.lx <- lelse * sf  # basic width (scaled constant)
 
 
-  ## (b) Define and plot N column (for all perspectives): ----
+  ##     (b) Define and plot N column: ----
 
   # Dimensions and coordinates:
   n.ly <- b.ly    # height (y)
@@ -409,7 +421,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                    col = pal["txt"], # col = comp_freq_col("N"),
                    ...)
 
-  ## (c) Define dimensions of 4 SDT cases/cells (for all perspectives): ----
+  ##     (c) Define 4 SDT cases/cells: ----
 
   # x-coordinates:
   col.nr <- 3
@@ -452,80 +464,10 @@ plot_bar <- function(prev = num$prev,             # probabilities
                    # col = comp_freq_col("hi"),
                    ...)
 
-  ## (X) Perspective-specific settings: ------
+  ##   (B) Perspective-specific settings: ------
   if (by == "all") {
 
-    ## (1): 5 vertical bars: ----------
-
-    # # Number and basic width of columns:
-    # nr.col <- 5         # number of (vertical) columns
-    # col.x  <- 1/nr.col  # corresponding column width
-    #
-    # # Length parameters:
-    # lbase <- N    # length of base side (vertical: y)
-    # lelse <- 1/(2 * nr.col)  # length of other side (horizontal: x)
-    # scale <- 1.0  # scaling factor (0-1)
-    #
-    # # Basic height and width:
-    # b.ly <- lbase * scale  # basic height (scaled constant)
-    # b.lx <- lelse * scale  # basic width (scaled constant)
-
-
-    ## Draw bars as rectangles: ------
-
-    ## (a) N column: ----
-
-    # # Dimensions and coordinates:
-    # n.ly <- b.ly    # height (y)
-    # col.nr <- 1     # column number (out of nr.col)
-    # n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
-    # n.y  <- y.base  # y-coordinate
-    # if (dir == 2) {
-    #   ## center N bar around 0:
-    #   n.y  <- y.base - N/2
-    # }
-    #
-    # # Plot 1 box:
-    # plot_vbox(type = NA, fname = "N", fnum = N,
-    #           box.x  = n.x,
-    #           box.y  = n.y,
-    #           box.lx = b.lx,
-    #           box.ly = n.ly,
-    #           show.freq, ...)
-    #
-    # # # Column name: freq type
-    # # type_label <- paste0(comp_freq_type("N"))  # determine freq type
-    # # text(x = n.x, y = y.min,
-    # #      labels = type_label, pos = 1,
-    # #      xpd = TRUE, col = pal["txt"],
-    # #      ...)
-    #
-    # plot_ftype_label("N", n.x, y.min, pos = 1,
-    #                  col = pal["txt"], # col = comp_freq_col("N"),
-    #                  ...)
-
-    ## (b) 4 cases/cells of SDT column: ----
-
-    # # x-coordinates:
-    # col.nr <- 3
-    # hi.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    # mi.x <- hi.x
-    # fa.x <- hi.x
-    # cr.x <- hi.x
-    #
-    # # # 2 ways of computing heights:
-    # # # (1) heights (ly) from probabilities (without rounding):
-    # # hi.ly <- (n.ly * prev) * sens              # re-computes n.hi (without rounding)
-    # # mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes n.mi (without rounding)
-    # # cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes n.cr (without rounding)
-    # # fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes n.fa (without rounding)
-    #
-    # # (2) heights (ly) from frequencies (with or without rounding, based on round option):
-    # hi.ly <- n.hi   # freq of n.hi (with/without rounding)
-    # mi.ly <- n.mi   # freq of n.mi (with/without rounding)
-    # cr.ly <- n.cr   # freq of n.cr (with/without rounding)
-    # fa.ly <- n.fa   # freq of n.fa (with/without rounding)
-    #
+    ## (a) SDT column: ----
 
     # Reverse some directions:
     if (dir == 2) {
@@ -575,7 +517,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.ly = cr.ly,
               show.freq, ...)
 
-    ## (c) Condition column: ----
+    ## (b) Condition column: ----
 
     # x-coordinates:
     col.nr <- 2
@@ -622,7 +564,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("cond.true"),
                      ...)
 
-    ## (d) Decision column: ----
+    ## (c) Decision column: ----
 
     # x-coordinates:
     col.nr <- 4
@@ -668,7 +610,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("dec.pos"),
                      ...)
 
-    ## (e) Accuracy column: ----
+    ## (d) Accuracy column: ----
 
     # x-coordinates:
     col.nr <- 5
@@ -1056,12 +998,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (by == "xxx")
 
 
-  ## (6) Title: --------
+  ## (7) Title: --------
 
   # title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
   title(cur.title.lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
 
-  ## (7) Accuracy on margin: ----------
+  ## (8) Accuracy on margin: ----------
 
   if (show.accu) {
 
