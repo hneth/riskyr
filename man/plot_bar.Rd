@@ -5,9 +5,9 @@
 \title{Plot bar charts of population frequencies.}
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, round = TRUE, by = "all", dir = 1,
-  show.freq = TRUE, show.prob = FALSE, show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, col.pal = pal, ...)
+  fart = NA, N = num$N, by = "all", dir = 1, scale = "f",
+  round = TRUE, show.freq = TRUE, show.prob = FALSE, show.accu = TRUE,
+  w.acc = 0.5, title.lbl = txt$scen.lbl, col.pal = pal, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -39,9 +39,6 @@ but used when new frequency information \code{\link{freq}}
 and a new population table \code{\link{popu}}
 are computed from scratch from current probabilities.)}
 
-\item{round}{A Boolean option specifying whether computed frequencies
-are rounded to integers. Default: \code{round = TRUE}.}
-
 \item{by}{A character code specifying the perspective
 (or the dimension by which the population is split into 2 subsets)
 with the following options:
@@ -57,6 +54,15 @@ with the following options:
   \item \code{1} ... uni-directional bars;
   \item \code{2} ... bi-directional (positive vs. negative) bars;
   }}
+
+\item{scale}{Scale the heights of bars either
+by frequencies (\code{scale = "f"}) or
+by probabilities (\code{scale = "p"}).
+Default: \code{scale = "f"}.
+When \code{round = FALSE}, both settings yield the same bar heights.}
+
+\item{round}{A Boolean option specifying whether computed frequencies
+are rounded to integers. Default: \code{round = TRUE}.}
 
 \item{show.freq}{Boolean option for showing frequencies
 (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
@@ -101,16 +107,25 @@ and a new population table \code{\link{popu}}
 are computed from scratch.  Otherwise, the existing
 population \code{\link{popu}} is shown.
 
-Note that {plot_bar} uses frequencies (rounded or not rounded,
+By default, \code{plot_bar} uses frequencies (rounded or not rounded,
 depending on the argument of \code{round}) as bar heights,
-rather than using probabilities. Setting
-\code{round = FALSE} scales bar heights by exact probabilities.
+rather than using probabilities (default: \code{scale = "f"}).
+Using the option \code{scale = "p"} scales bar heights
+by probabilities (e.g., showing bars for non-natural frequencies).
+When \code{round = FALSE}, the bar heights for \code{scale = "f"}
+coincide with those for \code{scale = "p"}.
 
-Rectangles corresponding to the areas of the mosaic plot
-(\code{\link{plot_mosaic}})
-can be visualized by opting for vertical rectangles (by selecting
-the option \code{box = "vr"}) in \code{\link{plot_tree}}
-and \code{\link{plot_fnet}}.
+Note that the distinction between \code{scale = "f"} and
+\code{scale = "p"} is practically irrelevant for
+large populations sizes \code{\link{N}}
+(or when all \code{\link{freq} > 10}), but useful for small values of
+\code{\link{N}} (or scenarios with rounded \code{\link{freq} < 10}).
+
+\code{plot_bar} contrasts compound frequencies along 1 dimension (height).
+See \code{\link{plot_mosaic}} for 2-dimensional visualizations (as areas)
+and various \code{box}) options in
+\code{\link{plot_tree}} and \code{\link{plot_fnet}}
+for similar functions.
 }
 \examples{
 # Basics:
