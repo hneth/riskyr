@@ -43,21 +43,22 @@ are computed from scratch from current probabilities.)}
 (or the dimension by which the population is split into 2 subsets)
 with the following options:
   \enumerate{
-  \item \code{"cd"} ... by condition;
-  \item \code{"dc"} ... by decision;
-  \item \code{"ac"} ... by accuracy;
-  \item \code{"all"} ... shows all subdivisions.
+  \item \code{by = "cd"} ... by condition;
+  \item \code{by = "dc"} ... by decision;
+  \item \code{by = "ac"} ... by accuracy;
+  \item \code{by = "all"} ... combines perspectives (5 bars, default).
   }}
 
-\item{dir}{Number of directions of bars. Options:
+\item{dir}{Number of directions in which bars are plotted.
+Options:
 \enumerate{
-  \item \code{1} ... uni-directional bars;
-  \item \code{2} ... bi-directional (positive vs. negative) bars;
+  \item \code{dir = 1} ... uni-directional bars (all up, default);
+  \item \code{dir = 2} ... bi-directional bars (up vs. down).
   }}
 
 \item{scale}{Scale the heights of bars either
-by frequencies (\code{scale = "f"}) or
-by probabilities (\code{scale = "p"}).
+by current frequencies (\code{scale = "f"}) or
+by exact probabilities (\code{scale = "p"}).
 Default: \code{scale = "f"}.
 When \code{round = FALSE}, both settings yield the same bar heights.}
 
@@ -107,15 +108,17 @@ and a new population table \code{\link{popu}}
 are computed from scratch.  Otherwise, the existing
 population \code{\link{popu}} is shown.
 
-By default, \code{plot_bar} uses frequencies (rounded or not rounded,
-depending on the argument of \code{round}) as bar heights,
-rather than using probabilities (default: \code{scale = "f"}).
+By default, \code{plot_bar} uses current frequencies
+(i.e., rounded or not rounded, depending on the value of \code{round})
+as bar heights, rather than using exact probabilities to
+scale bar heights (i.e., default scaling is \code{scale = "f"}).
 Using the option \code{scale = "p"} scales bar heights
-by probabilities (e.g., showing bars for non-natural frequencies).
+by probabilities (e.g., showing bars for non-natural frequencies
+even when frequencies are rounded).
 When \code{round = FALSE}, the bar heights for \code{scale = "f"}
 coincide with those for \code{scale = "p"}.
 
-Note that the distinction between \code{scale = "f"} and
+The distinction between \code{scale = "f"} and
 \code{scale = "p"} is practically irrelevant for
 large populations sizes \code{\link{N}}
 (or when all \code{\link{freq} > 10}), but useful for small values of
