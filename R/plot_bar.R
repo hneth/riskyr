@@ -217,7 +217,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      ## General options:
                      round = TRUE, # should freq be rounded to integers (default: TRUE)
                      show.freq = TRUE,   # show labels of frequencies in plot
-                     show.prob = FALSE,  # show help_line (for metrics, e.g., prev, sens, spec)?
+                     show.prob = TRUE,   # show help_line (for metrics, e.g., prev, sens, spec)?
                      show.accu = TRUE,   # show (exact OR freq-based) accuracy metrics
                      w.acc = .50,        # weight w for wacc (from 0 to 1)
                      ## Text and color options: ##
