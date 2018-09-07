@@ -306,16 +306,14 @@ label_freq <- function(fname,
 
       # f_lbl <- fname  # initialize to fname
 
-      # Derive current value corresponding to freq:
-      ix <- which(tolower(names(freq)) == tolower(fname))  # index in freq
-
-      # Value of frequency in freq:
-      f_val <- freq[ix]
+      # Derive current value corresponding to fname in freq:
+      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
+      f_val <- freq[ix]  # current freq value
 
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    }
+    } # if (fname %in% names(freq)...
   }
 
   ## (2) Compose f_lbl based on lbl_type:
