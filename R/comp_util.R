@@ -1,14 +1,12 @@
 ## comp_util.R | riskyr
-## 2018 08 27
+## 2018 09 07
 ## Generic utility functions:
 ## -----------------------------------------------
 
 ## (A) Verification functions
 ## (B) Beware of extreme cases
-## (C) Display functions
-## (D) Graphic functions
-## (E) Graph labels (by cond, dec, accu)
-
+## (C) Conversion functions
+## (D) Plotting functions (moved to plot_util.R)
 
 ## (A) Verification functions: -------------------
 
@@ -1193,11 +1191,11 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 }
 
 
-## (C) Display functions: ------------------------
+## (C) Conversion functions: ------------------------
 
 ## Toggle between showing probabilities and percentages:
 
-## as_pc: Display a probability as a (numeric and rounded) percentage ----------
+## as_pc: Show a probability as a (numeric and rounded) percentage ----------
 
 #' Display a probability as a (numeric and rounded) percentage.
 #'
@@ -1285,7 +1283,7 @@ as_pc <- function(prob, n.digits = 2) {
 
 ## Percentage as probability (4 decimals):
 
-## as_pb: Display a percentage as a (numeric and rounded) probability ----------
+## as_pb: Show a percentage as a (numeric and rounded) probability ----------
 
 #' Display a percentage as a (numeric and rounded) probability.
 #'
@@ -1367,7 +1365,7 @@ as_pb <- function(perc, n.digits = 4) {
 
 
 
-## (D) Graphic functions: ------------------------
+## (D) Plotting functions: ------------------------
 
 ## Note: Moved plotting help functions to file "plot_util.R".
 
