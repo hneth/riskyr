@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 09 06
+## 2018 09 07
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -1006,34 +1006,10 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
   title(cur.title.lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
 
-  ## (8) Accuracy on margin: ----------
-
-  # if (show.accu) {
-  #
-  #   # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-  #   cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
-  #
-  #   # Note: If freq are NOT rounded, then
-  #   #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
-  #   #       would yield the same results.
-  #
-  #   # (2) Make label:
-  #   cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
-  #
-  #   # (3) Mark IF accu was based on rounded freq:
-  #   if (round) {  # freq were rounded:
-  #     cur.accu.lbl <- paste0("*", cur.accu.lbl, " (based on rounded frequencies)")
-  #   }
-  #
-  #   # (4) Plot label:
-  #   mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-  #
-  # } # if (show.accu)...
-
   ## (8) Margins: ------
 
-  plot_mar(show_freq = show.freq, show_cond = show.prob, show_dec = TRUE, show_accu = show.accu,
-           accu_from_freq = round, # default: FALSE.  Use accu_from_freq = round to show accuracy based on freq!
+  plot_mar(show_freq = show.freq, show_cond = show.prob, show_dec = TRUE,
+           show_accu = show.accu, accu_from_freq = round, # default: FALSE.  Use accu_from_freq = round to show accuracy based on freq!
            note = ""   # "Some noteworthy remark here."
            )
 
