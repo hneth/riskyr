@@ -1,10 +1,11 @@
 ## plot_util.R | riskyr
-## 2018 09 03
+## 2018 09 07
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
 
-## (1) Generic plotting functions: ----------
+
+## (0) Generic plotting functions: ----------
 
 ## ex: Restore old par settings (see ?par) ------
 
@@ -25,229 +26,175 @@ ex <- function() {
 
 
 
-## (2) Generic plot labels: ----------
 
-## make_cond_lbl: Label current condition values ------
 
-make_cond_lbl <- function(prev, sens, spec) {
+## (1) Define and create box objects: ----------
 
-  lbl <- ""  # initialize
+## Define objects: Create an object of type "box" as a list: ----------
+box0 <- list(name = "box0_name", x = .5, y = .5, lx = 1, ly = 1)  # object as list
+class(box0) <- "box"  # name class
 
-  lbl <- paste0("Conditions: ",  # Name:
-                "prev = ", as_pc(prev, n.digits = 1), "%, ",
-                "sens = ", as_pc(sens, n.digits = 1), "%, ",
-                "spec = ", as_pc(spec, n.digits = 1), "%"
-  )
+## Check:
+# box0 # shows object (list)
 
-  return(lbl)
+## box class: Create constructor function for the "box" class: ----------
+make_box <- function(name, x, y, lx, ly) {
 
+  # Note: It is good practice to give the constructor function
+  #       the same name as the class (here: box).  However, as
+  #       the function box exists (in graphics), we use make_box here.
+
+  # Check integrity of arguments:
+  if (!is.character(name)) stop("name must be a character.")
+  if (!is.numeric(x)) stop("x must be numeric.")
+  if (!is.numeric(y)) stop("y must be numeric.")
+  if (!is.numeric(lx)) stop("lx must be numeric.")
+  if (!is.numeric(ly)) stop("ly must be numeric.")
+  # if (x < x_min || x > x_max)  stop("x must be in valid range.")
+  # if (y < y_min || y > y_max)  stop("y must be in valid range.")
+
+  # Create object as a list:
+  obj <- list(name = name, x = x, y = y, lx = lx, ly = ly)
+
+  # Set class by using class() or attr() function:
+  class(obj) <- "box"          # name class
+  attr(obj, "class") <- "box"  # set attr
+
+  # Return object:
+  obj
 }
 
-## make_dec_lbl: Label current decision values ------
+## Check:
+# box1 <- make_box(1, 0, 0, 1, 1)  # => Error due to stop; no object created.
+# box1 <- make_box("box1_name", .1, .1, 1, 1) # use constructor function to create new objects.
+# box1
 
-make_dec_lbl <- function(ppod, PPV, NPV) {
+## box methods: Create generic print and plot methods for box objects: ---------
 
-  lbl <- ""  # initialize
-
-  lbl <- paste0("Decisions:  ",  # Name:
-                "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
-                "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
-                "NPV = ", as_pc(NPV, n.digits = 1), "%"
-  )
-
-  return(lbl)
-
+print.box <- function(obj) {
+  cat("box name:", obj$name, "\n")
+  cat("position: x =", obj$x, "; y =", obj$y, "\n")
+  cat("width:   lx =", obj$lx, "\n")
+  cat("height:  ly =", obj$ly, "\n")
 }
 
-## make_accu_lbl: Label current accuracy values ------
+plot.box <- function(obj, ...) {
 
-make_accu_lbl <- function(acc, w, wacc, mcc) {
-
-  lbl <- ""  # initialize
-  wacc.lbl <- ""
-
-  ## Compose sub-label wacc.lbl:
-  if (w == .50) {  # wacc is bacc:
-    wacc.lbl <- paste0("bacc = ", as_pc(wacc, n.digits = 1), "%, ")
-  } else {  # show wacc with w:
-    wacc.lbl <- paste0("wacc = ", as_pc(wacc, n.digits = 1), "% ",
-                       "(w = ", round(w, 2), "), ")
-  }
-
-  ## 2 options:
-  ## (a) Compose accu label (INcluding wacc and mcc):
-  lbl <- paste0("Accuracy:   ",  # Name:
-                "acc = ", as_pc(acc, n.digits = 1), "%, ",
-                wacc.lbl,
-                "mcc = ", round(mcc, 2),
-                "  "  # add 2 spaces at end
-  )
-
-  ## (b) Compose accu label (EXcluding wacc and mcc):
-  lbl <- paste0("Accuracy:   ",  # Name:
-                "acc = ", as_pc(acc, n.digits = 1), "%",
-                # wacc.lbl,
-                # "mcc = ", round(mcc, 2),
-                ""  # add NO space at end
-  )
-
-  return(lbl)
-
+  ## Call plot_fbox helper function:
+  plot_fbox(fname = obj$name,
+            x  = obj$x,   y = obj$y,
+            lx = obj$lx, ly = obj$ly,
+            ...)
 }
 
-## make_freq_lbl: Label current values of 4 essential frequencies ------
+# ## Check:
+# # Create some box objects:
+# box_b1 <- make_box("1st_box", 3, 9, 2, 2)  # 1st box with an arbitrary label
+# box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
+# box_hi <- make_box("hi", 3, 3, 2, 2)       # box with known freq label
+# box_mi <- make_box("mi", 6, 3, 2, 2)       # box with known freq label
+# print(box_b1)
+# print(box_hi)
+# # Plot boxes:
+# plot(c(0, 10), c(0, 10), type = "n") # 2 points, empty canvas
+# plot(box_b1)  # plot box with arbitrary label (and default color)
+# plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
+# plot(box_hi)  # plot box with known freq label (and type, color, etc.)
+# plot(box_mi, lbl_type = "nam",
+#      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
 
-make_freq_lbl <- function(hi, mi, fa, cr) {
 
-  lbl <- ""  # initialize
 
-  N <- (hi + mi + fa + cr)
 
-  lbl <- paste0("Population of ",  # Name:
-                "N = ", N, ":  ",
-                "hi = ", hi, ", ",
-                "mi = ", mi, ", ",
-                "fa = ", fa, ", ",
-                "cr = ", cr, " "
-  )
 
-  return(lbl)
+
+## (2) Plotting labels, boxes, and links: ----------
+
+
+## (a) Labels: ------
+## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
+plot_ftype_label <- function(fname,               # name of a known freq
+                             x, y,                # coordinates
+                             ## Optional arguments:
+                             suffix = "",         # suffix
+                             # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                             # offset = 0.5,      # offset, etc.
+                             # col = pal["txt"],  # default color
+                             ...                  # other (graphical) parameters
+){
+
+  ## Initialize ftype_lbl:
+  # ftype_lbl <- ""
+
+  ## Determine ftype_lbl:
+  ftype_lbl <- paste0(comp_freq_type(fname), suffix)  # determine freq_type corresponding to fname
+
+  ## Plot ftype_lbl:
+  text(x, y,
+       labels = ftype_lbl,
+       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
+       # col = col,   # pass on parameter
+       ...)  # other parameters: pos, offset, ...
+
+  ## Return ftype_lbl (as name):
+  # return(ftype_lbl)
 
 }
 
 ## Check:
-# make_freq_lbl(11, 22, 33, 44)
+# plot(0:1, 0:1, type = "n")  # empty canvas
+# plot_ftype_label("N", .1, .9)
+# plot_ftype_label("cond.false", .2, .8, suffix = ":", cex = .8)
+# plot_ftype_label("dec.pos", .3, .7, col = "red3")
+# plot_ftype_label("dec.cor", .7, .3, col = "gold")
+# plot_ftype_label("hi", .5, .5, col = "green3")
+# plot_ftype_label("hi", .5, .5, col = "steelblue1", pos = 1)
+# plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
+# plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
+# plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
 
+## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
+plot_freq_label <- function(fname,                # name of a known freq
+                            x, y,                 # coordinates
+                            ## Optional arguments:
+                            lbl_type = "nam",     # lbl_type (of label_freq)
+                            lbl_sep = " = ",      # lbl_sep  (of label_freq)
+                            suffix = "",          # suffix
+                            # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+                            # offset = 0.5,       # offset, etc.
+                            # col = pal["txt"],   # default color
+                            ...                   # other (graphical) parameters
+){
 
-## plot_mar: Plot common margin labels on an existing plot ------
+  ## Initialize f_lbl:
+  # f_lbl <- ""
 
-plot_mar <- function(show_freq = TRUE,
-                     show_cond = TRUE,
-                     show_dec = TRUE,
-                     show_accu = TRUE,
-                     accu_from_freq = FALSE,  # Compute accuracy based on current (rounded or non-rounded) freq (default: accu_round_freq = FALSE).
-                     note = "",
-                     ...) {
+  ## Determine f_lbl:
+  f_lbl <- paste0(label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep), suffix)  # determine label corresponding to fname
 
-  ## (A) Preparations: ------
+  ## Plot text label:
+  text(x, y,
+       labels = f_lbl,
+       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
+       # col = col,   # pass on parameter
+       ...)  # other parameters: pos, offset, ...
 
-  ## Record graphical parameters (par):
-  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
-  on.exit(par(opar))
+  ## Return f_lbl (as character):
+  # return(f_lbl)
 
-  ## Plot on existing plot:
-  par(new = TRUE)  # TRUE ... adds to an existing plot; FALSE ... starts a new plot.
-
-  ## Define margin areas:
-  n_lines_mar <- 3
-  n_lines_oma <- 0
-  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
-  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
-
-  ## Plot empty canvas:
-  plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-
-  ## Plotting commands:
-  # box("plot", col = "firebrick")
-  # box("figure", col = "forestgreen")
-  # box("outer", col = "steelblue")
-
-
-  ## (B) Margin text: ------
-
-  m_col <- grey(.33, .99)
-  m_cex <- .85
-
-  ## on left side (adj = 0): ----
-
-  ## (1) Frequency label:
-  if (show_freq) {
-    freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
-    mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
-  }
-
-  ## (2) Condition label:
-  if (show_cond) {
-    cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)
-    mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print cond label
-  }
-
-  ## (5) Note:
-  if ( !is.null(note) && !is.na(note) && (nchar(note) > 0) ) {
-    note_lbl <- paste0("Note:  ", note, "")
-    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print note
-  }
-
-  ## on right side (adj = 1): ----
-
-  ## (4) Accuracy label:
-  if (show_accu) {
-
-    if ( !exists("w.acc") || is.null(w.acc) || is.na(w.acc) ) { w.acc <- .50 }  # default of weight parameter w
-
-    if (accu_from_freq) {
-
-      # (a) Compute accuracy from current (rounded or non-rounded) freq:
-      cur.accu <- comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # compute accuracy info from (rounded) freq
-      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
-      accu_lbl <- paste0("*", accu_lbl, " (from frequencies)")
-
-    } else {
-
-      # (b) Compute accuracy from (exact) prob == non-rounded freq:
-      cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # compute accuracy info from (exact) prob
-      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
-
-    }
-
-    mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print accuracy label
-
-  } # if (show_accu) ...
-
-  ## (3) Decision label:
-  if (show_dec) {
-    dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
-    mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print decision label
-  }
-
-  ## (6) Imprint:
-  imprint_lbl <- ""  # "[\uA9riskyr]"
-  mtext(paste0(imprint_lbl, " "), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
-
-
-  ## (C) Outer margin text: ----
-
-  if (n_lines_oma > 0) {
-
-    m_col <- grey(.14, .99)
-    m_cex <- .75
-
-    ## (7) Note:
-    if (nchar(note) > 0) {
-      note_lbl <- paste0("Note:  ", note, "")
-      mtext(paste0("  ", note_lbl, ""), side = 1, line = 0, adj = 0, col = m_col, cex = m_cex, outer = TRUE)
-    }
-
-    ## (8) Imprint:
-    imprint_lbl <- "" # [\uA9riskyr]"
-    mtext(paste0(imprint_lbl, " "), side = 1, line = 0, adj = 1, col = m_col, cex = m_cex, outer = TRUE)
-
-  }
-
-  ## (D) Finish: ----
-
-  invisible()  # restores par(opar)
 }
 
 ## Check:
-# plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
-# plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
+# plot(0:1, 0:1, type = "n")  # empty canvas
+# plot_freq_label("N", .1, .9)
+# plot_freq_label("cond.false", suffix = ": ...", .2, .8, cex = .8)
+# plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
+# plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
 
 
-## (3) Plotting boxes and links: ----------
 
-
-## plot_vbox: Plot a vertical box (x = center, y = bottom) with text labels ----------
+## (b) Boxes: ------
+## plot_vbox: Plot a vertical box (x = center, y = bottom) with text label ----------
 
 ## Note: plot_vbox only plots provided arguments.
 ##       It is NOT "smart" by NOT automatically deriving
@@ -357,7 +304,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 #   1. generic plot_cbox (that plots a box given its CENTER coordinates and format) vs.
 #   2. plot_fbox (that determines current freq value and fill color for known freq).
 
-## plot_cbox: Plot a CENTERED box (x = center, y = center) with text labels ----------
+## plot_cbox: Plot a CENTERED box (x = center, y = center) with text label ----------
 plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
                       ## Text labels:
@@ -369,8 +316,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       col.brd = pal["brd"],       # default border color
                       col.txt = pal["txt"],       # default label color
                       ## Shading options:
-                      density = NULL,
-                      angle = 45,
+                      density = NULL,  # density of shading lines (per in)
+                      angle = 45,      # angle of shading lines
                       ...  # other graphical parameters: lwd, cex, adj, ...
 ) {
 
@@ -559,6 +506,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
 
 
+
+## (c) Links: ------
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
@@ -866,7 +815,8 @@ plot_link <- function(box1, box2,                # 2 boxes
 #           lbl.pos = 2, cex = .8,
 #           col.txt = "steelblue", col.fill = "sienna2", lwd = 3)
 
-## Already included in plot_link: plot_plink/plot_prob:
+## Note: ------
+## Functionality included in plot_link: plot_plink/plot_prob:
 ## plot_plink/plot_prob: Link 2 boxes of 2 known frequencies
 ##                       and label link by using name_prob, label_prob, plot_link...
 ## 4 steps:
@@ -877,165 +827,266 @@ plot_link <- function(box1, box2,                # 2 boxes
 
 
 
-## (4) Define and create box objects: ----------
 
-## Define objects: Create an object of type "box" as a list: ----------
-box0 <- list(name = "box0_name", x = .5, y = .5, lx = 1, ly = 1)  # object as list
-class(box0) <- "box"  # name class
-
-## Check:
-# box0 # shows object (list)
-
-## box class: Create constructor function for the "box" class: ----------
-make_box <- function(name, x, y, lx, ly) {
-
-  # Note: It is good practice to give the constructor function
-  #       the same name as the class (here: box).  However, as
-  #       the function box exists (in graphics), we use make_box here.
-
-  # Check integrity of arguments:
-  if (!is.character(name)) stop("name must be a character.")
-  if (!is.numeric(x)) stop("x must be numeric.")
-  if (!is.numeric(y)) stop("y must be numeric.")
-  if (!is.numeric(lx)) stop("lx must be numeric.")
-  if (!is.numeric(ly)) stop("ly must be numeric.")
-  # if (x < x_min || x > x_max)  stop("x must be in valid range.")
-  # if (y < y_min || y > y_max)  stop("y must be in valid range.")
-
-  # Create object as a list:
-  obj <- list(name = name, x = x, y = y, lx = lx, ly = ly)
-
-  # Set class by using class() or attr() function:
-  class(obj) <- "box"          # name class
-  attr(obj, "class") <- "box"  # set attr
-
-  # Return object:
-  obj
-}
-
-## Check:
-# box1 <- make_box(1, 0, 0, 1, 1)  # => Error due to stop; no object created.
-# box1 <- make_box("box1_name", .1, .1, 1, 1) # use constructor function to create new objects.
-# box1
-
-## box methods: Create generic print and plot methods for box objects: ---------
-
-print.box <- function(obj) {
-  cat("box name:", obj$name, "\n")
-  cat("position: x =", obj$x, "; y =", obj$y, "\n")
-  cat("width:   lx =", obj$lx, "\n")
-  cat("height:  ly =", obj$ly, "\n")
-}
-
-plot.box <- function(obj, ...) {
-
-  ## Call plot_fbox helper function:
-  plot_fbox(fname = obj$name,
-            x  = obj$x,   y = obj$y,
-            lx = obj$lx, ly = obj$ly,
-            ...)
-}
-
-# ## Check:
-# # Create some box objects:
-# box_b1 <- make_box("1st_box", 3, 9, 2, 2)  # 1st box with an arbitrary label
-# box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
-# box_hi <- make_box("hi", 3, 3, 2, 2)       # box with known freq label
-# box_mi <- make_box("mi", 6, 3, 2, 2)       # box with known freq label
-# print(box_b1)
-# print(box_hi)
-# # Plot boxes:
-# plot(c(0, 10), c(0, 10), type = "n") # 2 points, empty canvas
-# plot(box_b1)  # plot box with arbitrary label (and default color)
-# plot(box_b2, col = "skyblue", cex = 2/3, font = 2)  # plot box with arbitrary label (and specific color)
-# plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-# plot(box_mi, lbl_type = "nam",
-#      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
+## (3) Define and plot margin labels: ----------
 
 
+## (a) make_freq_lbl: Label current frequency values ------
 
+make_freq_lbl <- function(hi, mi, fa, cr) {
 
-## (5) Miscellaneous plotting functions: ----------
+  lbl <- ""  # initialize
 
-## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
-plot_ftype_label <- function(fname,               # name of a known freq
-                             x, y,                # coordinates
-                             ## Optional arguments:
-                             suffix = "",         # suffix
-                             # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
-                             # offset = 0.5,      # offset, etc.
-                             # col = pal["txt"],  # default color
-                             ...                  # other (graphical) parameters
-){
+  N <- (hi + mi + fa + cr)
 
-  ## Initialize ftype_lbl:
-  # ftype_lbl <- ""
+  lbl <- paste0(#"Frequency ",      # Dimension
+    "Freq ",            # Abbreviation
+    #"Population of ",  # Description
+    "(N = ", N, "):  ", # "(N = x):  "
+    "hi = ", hi, ", ",
+    "mi = ", mi, ", ",
+    "fa = ", fa, ", ",
+    "cr = ", cr, " "
+  )
 
-  ## Determine ftype_lbl:
-  ftype_lbl <- paste0(comp_freq_type(fname), suffix)  # determine freq_type corresponding to fname
-
-  ## Plot ftype_lbl:
-  text(x, y,
-       labels = ftype_lbl,
-       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
-       # col = col,   # pass on parameter
-       ...)  # other parameters: pos, offset, ...
-
-  ## Return ftype_lbl (as name):
-  # return(ftype_lbl)
+  return(lbl)
 
 }
 
 ## Check:
-# plot(0:1, 0:1, type = "n")  # empty canvas
-# plot_ftype_label("N", .1, .9)
-# plot_ftype_label("cond.false", .2, .8, suffix = ":", cex = .8)
-# plot_ftype_label("dec.pos", .3, .7, col = "red3")
-# plot_ftype_label("dec.cor", .7, .3, col = "gold")
-# plot_ftype_label("hi", .5, .5, col = "green3")
-# plot_ftype_label("hi", .5, .5, col = "steelblue1", pos = 1)
-# plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
-# plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
-# plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
+# make_freq_lbl(11, 22, 33, 44)
 
-## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
-plot_freq_label <- function(fname,                # name of a known freq
-                            x, y,                 # coordinates
-                            ## Optional arguments:
-                            lbl_type = "nam",     # lbl_type (of label_freq)
-                            lbl_sep = " = ",      # lbl_sep  (of label_freq)
-                            suffix = "",          # suffix
-                            # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
-                            # offset = 0.5,       # offset, etc.
-                            # col = pal["txt"],   # default color
-                            ...                   # other (graphical) parameters
-){
+## (b) make_cond_lbl: Label current key parameters/probabilities by condition ------
 
-  ## Initialize f_lbl:
-  # f_lbl <- ""
+make_cond_lbl <- function(prev, sens, spec) {
 
-  ## Determine f_lbl:
-  f_lbl <- paste0(label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep), suffix)  # determine label corresponding to fname
+  lbl <- ""  # initialize
 
-  ## Plot text label:
-  text(x, y,
-       labels = f_lbl,
-       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
-       # col = col,   # pass on parameter
-       ...)  # other parameters: pos, offset, ...
+  lbl <- paste0(#"Conditions:  ",  # Dimension:
+    #"p(cond):  ",                 # values are probabilities
+    "Cond:  ",                     # Abbreviation:
+    "prev = ", as_pc(prev, n.digits = 1), "%, ",
+    "sens = ", as_pc(sens, n.digits = 1), "%, ",
+    "spec = ", as_pc(spec, n.digits = 1), "%"
+  )
 
-  ## Return f_lbl (as character):
-  # return(f_lbl)
+  return(lbl)
 
 }
 
 ## Check:
-# plot(0:1, 0:1, type = "n")  # empty canvas
-# plot_freq_label("N", .1, .9)
-# plot_freq_label("cond.false", suffix = ": ...", .2, .8, cex = .8)
-# plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
-# plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
+# make_cond_lbl(.001, 6/7, 2/3)
 
+## (c) make_dec_lbl:  Label current key parameters/probabilities by decision ------
+
+make_dec_lbl <- function(ppod, PPV, NPV) {
+
+  lbl <- ""  # initialize
+
+  lbl <- paste0(#"Decisions:  ",  # Dimension:
+    #"p(dec):  ",                 # values are probabilities
+    "Dec:  ",                     # Abbreviation:
+    "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
+    "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
+    "NPV = ", as_pc(NPV, n.digits = 1), "%"
+  )
+
+  return(lbl)
+
+}
+
+## Check:
+# make_dec_lbl(ppod = 1/3, PPV = 2/3, NPV = 1/7)
+
+
+## (d) make_accu_lbl: Label current accuracy values ------
+
+make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
+
+  lbl <- ""  # initialize
+
+
+  if ( !is.na(w) && !is.na(wacc) && !is.na(mcc) ) {
+
+    # (a) Complete accu label:
+
+    wacc.lbl <- ""  # initialize
+
+    # Sub-label for wacc.lbl:
+    if (w == .50) {  # wacc is bacc:
+      wacc.lbl <- paste0("bacc = ", as_pc(wacc, n.digits = 1), "%, ")
+    } else {  # show wacc with w:
+      wacc.lbl <- paste0("wacc = ", as_pc(wacc, n.digits = 1), "% ",
+                         "(w = ", round(w, 2), "), ")
+    }
+
+    # Complete accu label (INcluding wacc and mcc):
+    lbl <- paste0(#"Accuracy:  ",  # Dimension:
+      # "p(dec.cor): ",            # acc value is a probability
+      "Accu:  ",                   # Abbreviation:
+      "acc = ", as_pc(acc, n.digits = 1), "%, ",
+      wacc.lbl,
+      "mcc = ", round(mcc, 2),
+      " "  # add space at end
+    )
+
+  } else {
+
+    # (b) Reduced accu label (EXcluding wacc and mcc):
+    lbl <- paste0(# "Accuracy:  ",  # Dimension:
+      # "p(dec.cor):  ",            # acc value is a probability
+      "Accu:  ",                    # Abbreviation:
+      "acc = ", as_pc(acc, n.digits = 1), "%",
+      # wacc.lbl,
+      # "mcc = ", round(mcc, 2),
+      ""  # add NO space at end
+    )
+
+  } # if (!is.na(w) && ...)
+
+  return(lbl)
+
+}
+
+## Check:
+# make_accu_lbl(acc = 1/3)
+# make_accu_lbl(acc = 1/3, w = 2/3, wacc = 3/7, mcc = 1/7)
+
+
+
+## plot_mar: Plot margin labels on an existing plot ------
+
+plot_mar <- function(show_freq = TRUE,
+                     show_cond = TRUE,
+                     show_dec = TRUE,
+                     show_accu = TRUE,
+                     accu_from_freq = FALSE,  # Compute accuracy based on current (rounded or non-rounded) freq (default: accu_round_freq = FALSE).
+                     note = "",
+                     ...) {
+
+  ## (0) Preparations: ------
+
+  ## Record graphical parameters (par):
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## Plot on existing plot:
+  par(new = TRUE)  # TRUE ... adds to an existing plot; FALSE ... starts a new plot.
+
+  ## Define margin areas:
+  n_lines_mar <- 3
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+  ## Plot empty canvas:
+  plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
+
+  ## Plotting commands:
+  # box("plot", col = "firebrick")
+  # box("figure", col = "forestgreen")
+  # box("outer", col = "steelblue")
+
+
+  ## (1) Margin text: ------
+
+  ## Text parameters:
+  m_col <- grey(.33, .99)  # color
+  m_cex <- .85             # size
+
+  ##   (a) on left side (adj = 0): ----
+
+  ## 1. freq label:
+  if (show_freq) {
+    freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # use current freq values
+    mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
+  }
+
+  ## 2. p(cond) label:
+  if (show_cond) {
+    cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)  # use current prob values
+    mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print cond label
+  }
+
+  ## 3. Note:
+  if ( !is.null(note) && !is.na(note) && (nchar(note) > 0) ) {
+    note_lbl <- paste0("Note:  ", note, "")  # use current note
+    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print note
+  }
+
+  ##   (b) on right side (adj = 1): ----
+
+  ## 1. Accuracy label:
+  if (show_accu) {
+
+    # if w.acc is undefined: use default (w.acc = .50):
+    if ( !exists("w.acc") || is.null(w.acc) || is.na(w.acc) ) { w.acc <- .50 }
+
+    if (accu_from_freq) {
+
+      # (a) Compute accuracy from current (rounded or non-rounded) freq:
+      cur.accu <- comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # use current freq values
+      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+      accu_lbl <- paste0("*", accu_lbl, " (from freq)")  # Explicitly mark accu_from_freq case
+
+    } else {
+
+      # (b) Compute accuracy from (exact) prob == non-rounded freq:
+      cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # use current prob values + w.acc
+      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+
+    }
+
+    mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print accuracy label
+
+  } # if (show_accu) ...
+
+  ## (3) Decision label:
+  if (show_dec) {
+    dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
+    mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print decision label
+  }
+
+  ## (6) Imprint:
+  imprint_lbl <- ""  # "[\uA9riskyr]"
+  mtext(paste0(imprint_lbl, " "), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
+
+
+  ## (3) Outer margin text: ----
+
+  if (n_lines_oma > 0) {
+
+    m_col <- grey(.14, .99)
+    m_cex <- .75
+
+    ## (7) Note:
+    if (nchar(note) > 0) {
+      note_lbl <- paste0("Note:  ", note, "")
+      mtext(paste0("  ", note_lbl, ""), side = 1, line = 0, adj = 0, col = m_col, cex = m_cex, outer = TRUE)
+    }
+
+    ## (8) Imprint:
+    imprint_lbl <- "" # [\uA9riskyr]"
+    mtext(paste0(imprint_lbl, " "), side = 1, line = 0, adj = 1, col = m_col, cex = m_cex, outer = TRUE)
+
+  }
+
+  ## (4) Finish: ----
+
+  invisible()  # restores par(opar)
+}
+
+## Check:
+# plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
+# plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
+
+
+
+
+
+
+
+## (4) Miscellaneous plotting functions: ----------
 
 ## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
 
@@ -1232,6 +1283,7 @@ add_legend <- function(...) {
 
 
 
+
 ## (*) Done: ----------
 
 ## - Moved many helper functions for plotting from "comp_util.R" to "plot_util.R".  [2018 08 27]
@@ -1240,9 +1292,12 @@ add_legend <- function(...) {
 
 ## (+) ToDo: ----------
 
-## - new link_boxes function that draws lines or arrows between 2 boxes
-##   (arrow position per box = 1 to 4 (side of arrow: NULL vs. bltr).)
-## - Link 2 boxes (with optional arrows, labels, and colors, etc.)
-## - ...
+## - plot_boxes fn. that takes many boxes as input,
+##   determines their current freq/prob values,
+##   and plots them in some order (e.g., from largest to smallest, to prevent occlusion of labels).
+
+## - consider separating plotting freq boxes (via plot_fbox or plot_cbox)
+##   from plotting labels (via plot_freq_label) to allow plotting labels
+##   after (on top of) boxes.
 
 ## eof. ----------
