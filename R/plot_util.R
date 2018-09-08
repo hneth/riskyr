@@ -1,7 +1,8 @@
 ## plot_util.R | riskyr
-## 2018 09 07
+## 2018 09 08
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
+
 
 
 
@@ -23,6 +24,7 @@ ex <- function() {
 
 ## Check:
 # ex()  # Note: dev.off() also restores default par settings.
+
 
 
 
@@ -110,6 +112,7 @@ plot.box <- function(obj, ...) {
 
 
 ## (2) Plotting labels, boxes, and links: ----------
+
 
 
 ## (A) Labels: ------
@@ -512,7 +515,6 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 ## (b) Computing box dimensions (width lx): -------
 
-
 ## comp_lx: Scale x of fbox given ly, mfactor mf and correction factor corf ------
 
 comp_lx <- function(ly, mf = 1, corf = 1) {
@@ -527,6 +529,10 @@ comp_lx <- function(ly, mf = 1, corf = 1) {
   return(lx)
 
 }
+
+## Check:
+# comp_lx(ly = c(0, 1, NA, 3, NULL, 5), 2, 10) # =>  0  20  NA  60 100 (i.e., NULL dropped)
+
 
 ## comp_lx_fbox: Compute length lx of fbox given f/p scale: ------
 
@@ -544,8 +550,8 @@ comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
 
     # (1) scale lN by exact probability:
 
-    # (a) Get current probability val of freq (named by fname) from current prob values:
-    val <- comp_p_fname(fname)
+    # (a) Compute current probability val of freq (named by fname) from current prob values:
+    val <- comp_prob_fname(fname)
 
     # (b) Scale lN by probability val:
     lx <- val * lN
@@ -585,9 +591,11 @@ comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
 #
 # comp_lx_fbox("xx", lN = 100)  # => NA
 
+## ToDo: Vectorize comp_lx_fbox (to allow computing many lx values at once).
 
 
-## (c) Links: ------
+
+## (3) Links: ------
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
@@ -908,7 +916,8 @@ plot_link <- function(box1, box2,                # 2 boxes
 
 
 
-## (3) Define and plot margin labels: ----------
+
+## (4) Define and plot margin labels: ----------
 
 
 ## (a) make_freq_lbl: Label current frequency values ------
@@ -1166,7 +1175,8 @@ plot_mar <- function(show_freq = TRUE,
 
 
 
-## (4) Miscellaneous plotting functions: ----------
+
+## (5) Miscellaneous plotting functions: ----------
 
 ## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
 
@@ -1360,6 +1370,7 @@ add_legend <- function(...) {
 
 ## Check:
 # add_legend()  # requires a legend argument.
+
 
 
 
