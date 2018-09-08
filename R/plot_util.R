@@ -108,10 +108,11 @@ plot.box <- function(obj, ...) {
 
 
 
+
 ## (2) Plotting labels, boxes, and links: ----------
 
 
-## (a) Labels: ------
+## (A) Labels: ------
 ## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
@@ -193,7 +194,8 @@ plot_freq_label <- function(fname,                # name of a known freq
 
 
 
-## (b) Boxes: ------
+## (B) Boxes: ------
+## (a) Plotting boxes: ------
 ## plot_vbox: Plot a vertical box (x = center, y = bottom) with text label ----------
 
 ## Note: plot_vbox only plots provided arguments.
@@ -504,6 +506,84 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # ## arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
 # plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
+
+
+
+
+## (b) Computing box dimensions (width lx): -------
+
+
+## comp_lx: Scale x of fbox given ly, mfactor mf and correction factor corf ------
+
+comp_lx <- function(ly, mf = 1, corf = 1) {
+  # Scale fbox width lx given its height ly,
+  # a multiplicative factor mf (default: mf = 1),
+  # and an optional correction factor corf:
+
+  lx <- NA
+
+  lx <- (ly * mf * corf)
+
+  return(lx)
+
+}
+
+## comp_lx_fbox: Compute length lx of fbox given f/p scale: ------
+
+comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
+  # Compute length lx of an fbox based on its name (fname),
+  # the current population length lN, population size N,
+  # and current type of scale ("f" or "p"):
+
+  lx  <- NA
+  val <- NA
+
+  # (1) get the current value (p/f) corresponding to fname:
+
+  if (scale == "p") {
+
+    # (1) scale lN by exact probability:
+
+    # (a) Get current probability val of freq (named by fname) from current prob values:
+    val <- comp_p_fname(fname)
+
+    # (b) Scale lN by probability val:
+    lx <- val * lN
+
+  } else {  # scale = "f" or any other scale:
+
+    # (2) scale lN by current freq (rounded or non-rounded):
+    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+
+      # (a) Get current freq value corresponding to fname in freq:
+      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
+      val <- freq[ix]  # current freq value
+      val <- as.numeric(val)  # ensure that val is numeric
+
+      # Type of frequency:
+      # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+
+    } # if (fname %in% names(freq)...
+
+    # (b) Scale lN by ratio of frequencies val/N:
+    lx <- val/N * lN
+
+  } # if (scale...)
+
+  return(lx)
+
+}
+
+## Check:
+# comp_lx_fbox("N",  lN = 100)  # => 100 = lN
+# comp_lx_fbox("cond.true", lN = 100)
+# comp_lx_fbox("hi", lN = 100)  # => hi/lN
+#
+# comp_lx_fbox("hi", lN = 100, scale = "f")  # => freq of hi/lN
+# comp_lx_fbox("hi", lN = 100, scale = "p")  # => p(hi) x lN
+# comp_lx_fbox("hi", lN = 100, scale = "x")  # => as in "p"
+#
+# comp_lx_fbox("xx", lN = 100)  # => NA
 
 
 

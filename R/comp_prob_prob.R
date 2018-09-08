@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyr
-## 2018 09 05
+## 2018 09 08
 ## Compute probabilities from probabilities:
 ## -----------------------------------------------
 
@@ -1344,6 +1344,56 @@ comp_err <- function(prev, sens, spec) {
 # comp_err(0, 0, 0)  #  => 1
 
 
+
+
+
+## comp_prob_fname: Compute exact p value of a freq given its fname: ------
+
+comp_prob_fname <- function(fname) {
+
+  # Compute exact probability value p of a frequency (named by fname)
+  # from the current (global list of) prob values:
+
+  n <- length(fname)  # fname can be a vector of n freq names
+  p <- rep(NA, n)  # initialize as vector
+
+  for (i in 1:n) {
+
+  # Consider fname for all frequencies in freq:
+  if (tolower(fname[i]) == "n") { p[i] <- 1 }
+
+  if (tolower(fname[i]) == "cond.true")  { p[i] <- prob$prev }
+  if (tolower(fname[i]) == "cond.false") { p[i] <- (1 - prob$prev) }
+
+  if (tolower(fname[i]) == "dec.pos") { p[i] <- prob$ppod }
+  if (tolower(fname[i]) == "dec.neg") { p[i] <- (1 - prob$ppod) }
+
+  if (tolower(fname[i]) == "dec.cor") { p[i] <- prob$acc }
+  if (tolower(fname[i]) == "dec.err") { p[i] <- (1 - prob$acc) }
+
+  if (tolower(fname[i]) == "hi")  { p[i] <- prob$prev * prob$sens }
+  if (tolower(fname[i]) == "mi")  { p[i] <- prob$prev * (1 - prob$sens) }
+  if (tolower(fname[i]) == "cr")  { p[i] <- (1 - prob$prev) * prob$spec }
+  if (tolower(fname[i]) == "fa")  { p[i] <- (1 - prob$prev) * (1 - prob$spec) }
+
+  }
+
+  return(as.numeric(p))
+
+}
+
+## Check: ----
+# comp_prob_fname("hi")
+#
+## Multiple freq names (fname as vector):
+# comp_prob_fname(c("hi", "mi", "fa", "cr"))
+# comp_prob_fname(c("hi", "mi", "cond.true"))
+#
+## Verify that (sum == 1) are TRUE:
+# sum(comp_prob_fname(c("cond.true", "cond.false"))) == 1
+# sum(comp_prob_fname(c("dec.pos", "dec.neg"))) == 1
+# sum(comp_prob_fname(c("dec.cor", "dec.err"))) == 1
+# sum(comp_prob_fname(c("hi", "mi", "fa", "cr"))) == 1
 
 
 ## (X): Compute predictive values from frequencies (various versions): ------
