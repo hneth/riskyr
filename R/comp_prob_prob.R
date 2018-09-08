@@ -68,7 +68,8 @@
 
 
 
-## (A) by condition: Compute basic probabilities of conditions/cases from probabilities: ----------
+
+## (1) by condition: Compute basic probabilities of conditions/cases from probabilities: ----------
 
 ## Computing complementary probabilities: --------
 
@@ -521,7 +522,8 @@ comp_complete_prob_set <- function(prev,
 
 
 
-## (B) by decision: Compute probabilities of decisions/cases from probabilities: ------------------
+
+## (2) by decision: Compute probabilities of decisions/cases from probabilities: ------------------
 
 
 ## (a) ppod = proportion of positive decisions (PR) from probabilities: ------
@@ -1035,7 +1037,8 @@ comp_FOR_NPV <- function(NPV) {
 
 
 
-## (C) by accuracy: Compute probability of correct decisions from probabilities: ----------
+
+## (3) by accuracy: Compute probability of correct decisions from probabilities: ----------
 
 
 ## comp_acc: Documentation --------
@@ -1347,7 +1350,8 @@ comp_err <- function(prev, sens, spec) {
 
 
 
-## comp_prob_fname: Compute exact p value of a freq given its fname: ------
+## (4) Compute prob of freq (fname) from prob: ----------
+## comp_prob_fname: Compute exact p value of a freq "fname" from prob: ------
 
 comp_prob_fname <- function(fname) {
 
@@ -1396,7 +1400,8 @@ comp_prob_fname <- function(fname) {
 # sum(comp_prob_fname(c("hi", "mi", "fa", "cr"))) == 1
 
 
-## (X): Compute predictive values from frequencies (various versions): ------
+
+## (5): Compute predictive values from frequencies (various versions): ------
 
 ## ToDo: Add alternative ways to compute probabilities
 ##       from frequencies (based on different elements of freq)!
@@ -1608,6 +1613,7 @@ comp_prob_matrix <- function(prev, sens, spec,
 #
 # comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "acc")
 # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
+
 
 
 
