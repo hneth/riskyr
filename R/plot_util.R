@@ -534,12 +534,13 @@ comp_lx <- function(ly, mf = 1, corf = 1) {
 # comp_lx(ly = c(0, 1, NA, 3, NULL, 5), 2, 10) # =>  0  20  NA  60 100 (i.e., NULL dropped)
 
 
-## comp_lx_fbox: Compute length lx of fbox given f/p scale: ------
+## comp_lx_fbox: Compute scaled length lx of fbox (fname) given f/p scale: ------
 
-comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
-  # Compute length lx of an fbox based on its name (fname),
-  # the current population length lN, population size N,
-  # and current type of scale ("f" or "p"):
+comp_lx_fbox <- function(fname, len_N, N = freq$N, scale = "f") {
+  # Compute a scaled length lx of an fbox based on its name (fname),
+  # some current population length len_N, current population size N,
+  # and current type of scale ("f" or "p") so that:
+  # lx == scaled len_N (i.e., all lx on a level sum to len_N).
 
   lx  <- NA
   val <- NA
@@ -548,17 +549,17 @@ comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
 
   if (scale == "p") {
 
-    # (1) scale lN by exact probability:
+    # (1) scale by exact probability:
 
     # (a) Compute current probability val of freq (named by fname) from current prob values:
     val <- comp_prob_fname(fname)
 
-    # (b) Scale lN by probability val:
-    lx <- val * lN
+    # (b) Scale len_N by probability val:
+    lx <- val * len_N
 
   } else {  # scale = "f" or any other scale:
 
-    # (2) scale lN by current freq (rounded or non-rounded):
+    # (2) scale by current freq (rounded or non-rounded):
     if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
 
       # (a) Get current freq value corresponding to fname in freq:
@@ -571,8 +572,8 @@ comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
 
     } # if (fname %in% names(freq)...
 
-    # (b) Scale lN by ratio of frequencies val/N:
-    lx <- val/N * lN
+    # (b) Scale len_N by the ratio of frequencies val/N:
+    lx <- (val/N) * len_N
 
   } # if (scale...)
 
@@ -581,18 +582,87 @@ comp_lx_fbox <- function(fname, lN, N = freq$N, scale = "f") {
 }
 
 ## Check:
-# comp_lx_fbox("N",  lN = 100)  # => 100 = lN
-# comp_lx_fbox("cond.true", lN = 100)
-# comp_lx_fbox("hi", lN = 100)  # => hi/lN
+# comp_lx_fbox("N",  len_N = 100)  # => 100 = lN
+# comp_lx_fbox("cond.true", len_N = 100)
+# comp_lx_fbox("hi", len_N = 100)  # => hi/lN
 #
-# comp_lx_fbox("hi", lN = 100, scale = "f")  # => freq of hi/lN
-# comp_lx_fbox("hi", lN = 100, scale = "p")  # => p(hi) x lN
-# comp_lx_fbox("hi", lN = 100, scale = "x")  # => as in "p"
+# comp_lx_fbox("hi", len_N = 100, scale = "f")  # => freq of hi/lN
+# comp_lx_fbox("hi", len_N = 100, scale = "p")  # => p(hi) x lN
+# comp_lx_fbox("hi", len_N = 100, scale = "x")  # => as in "p"
 #
-# comp_lx_fbox("xx", lN = 100)  # => NA
+# comp_lx_fbox("xx", len_N = 100)  # => NA
 
 ## ToDo: Vectorize comp_lx_fbox (to allow computing many lx values at once).
 
+
+## comp_ly_fsqr: Compute scaled height ly of fsqr (fname) given f/p scale: ------
+
+comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
+  # Compute a scaled height ly of an frequency square (fsqr) based on its name (fname),
+  # the current population area_N, current population size N,
+  # and current type of scale ("f" or "p") so that:
+  # ly ^ 2 == scaled area_N (i.e., all areas ly^2 on a level sum to area_N).
+
+  ly  <- NA
+  val <- NA
+
+  # (1) get the current value (p/f) corresponding to fname:
+
+  if (scale == "p") {
+
+    # (1) scale by exact probability:
+
+    # (a) Compute current probability val of freq (named by fname) from current prob values:
+    val <- comp_prob_fname(fname)
+
+    # (b) Scale area_N by probability val so that ly^2 == (val * area_N):
+    ly <- sqrt(val * area_N)
+
+  } else {  # scale == "f" or any other scale:
+
+    # (2) scale by current freq (rounded or non-rounded):
+    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+
+      # (a) Get current freq value corresponding to fname in freq:
+      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
+      val <- freq[ix]  # current freq value
+      val <- as.numeric(val)  # ensure that val is numeric
+
+      # Type of frequency:
+      # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+
+    } # if (fname %in% names(freq)...
+
+    # (b) Scale area_N by ratio of frequencies val/N so that ly^2 == (val/N * area_N):
+    ly <- sqrt(val/N * area_N)
+
+  } # if (scale...)
+
+  return(ly)
+
+}
+
+## Check:
+# comp_ly_fsqr("N", area_N = 100)  # => 10
+# comp_ly_fsqr("cond.true", area_N = 100)
+#
+# a_N <- rnorm(1, 100, 10)  # random area a_N
+#
+# hi_ly <- comp_ly_fsqr("hi", area_N = a_N, scale = "f")
+# mi_ly <- comp_ly_fsqr("mi", area_N = a_N, scale = "f")
+# fa_ly <- comp_ly_fsqr("fa", area_N = a_N, scale = "f")
+# cr_ly <- comp_ly_fsqr("cr", area_N = a_N, scale = "f")
+# all.equal((hi_ly^2 + mi_ly^2 + fa_ly^2 + cr_ly^2), a_N)  # should be TRUE.
+#
+# hi_ly <- comp_ly_fsqr("hi", area_N = a_N, scale = "p")
+# mi_ly <- comp_ly_fsqr("mi", area_N = a_N, scale = "p")
+# fa_ly <- comp_ly_fsqr("fa", area_N = a_N, scale = "p")
+# cr_ly <- comp_ly_fsqr("cr", area_N = a_N, scale = "p")
+# all.equal((hi_ly^2 + mi_ly^2 + fa_ly^2 + cr_ly^2), a_N)  # should be TRUE.
+#
+# comp_ly_fsqr("xx", area_N = 100) # => NA
+
+## ToDo: Vectorize comp_ly_fsqr (to allow computing many ly values at once).
 
 
 ## (3) Links: ------
