@@ -515,7 +515,93 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 ## (b) Computing box dimensions (width lx): -------
 
-## comp_lx: Scale x of fbox given ly, mfactor mf and correction factor corf ------
+
+## comp_freq_fbox: Compute freq value of fbox (based on its name) --------
+
+comp_freq_fbox <- function(fbox) {
+
+  f_val  <- NA
+  fname <- NA
+
+  if (is.list(fbox) && isTRUE(exists(fbox$name)) ) {
+
+    fname <- fbox$name
+
+    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+
+      # Derive current value corresponding to fname in freq:
+      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
+      f_val <- freq[ix]  # current freq value
+
+      # Type of frequency:
+      # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+
+    } # if (fname %in% names(freq)...
+
+  }
+
+  return(as.numeric(f_val))
+
+}
+
+## Check:
+# box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
+# box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
+# box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
+# box_fa <- make_box("fa", 6, 3, 1, 1)  # ...            fa
+# box_cr <- make_box("cr", 8, 3, 1, 1)  # ...            cr
+#
+# comp_freq_fbox(box_N)  == freq$N  # should be TRUE
+# comp_freq_fbox(box_hi) == freq$hi # should be TRUE
+# comp_freq_fbox("no_box")  # NA
+# comp_freq_fbox(1)         # NA
+#
+# # Box as list:
+# is.list(box_N)  # TRUE
+# length(box_N)   # 5
+# length(box_N[[1]]) # 1!
+#
+# # List of boxes:
+# boxes <- list(box_hi, box_mi, box_fa, box_cr)
+# is.list(boxes)  # TRUE
+# length(boxes)   # 4
+# is.list(boxes[1]) # TRUE
+# length(boxes[[1]]) # 5!
+
+
+# +++ here now +++ --------
+
+# unlist(lapply(X = list(box_N, box_hi), FUN = comp_freq_fbox)) #
+# sort(c(1, 3, 2))
+
+## plot_fbox_list: Plot a list of fboxes in some order --------
+
+plot_fbox_list <- function(fboxes, ...) {
+  # Plot a list of fboxes in some order:
+
+  if (is.list(fboxes)) {  # list of 1 or more fboxes:
+
+    while ( is.list(fboxes) && (length(fboxes) > 0) && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
+
+      plot(fboxes[[1]], ...)  # plot 1st box
+      fboxes <- fboxes[-1]  # remove 1st box
+
+      ## ToDo: Plot fboxes by decreasing frequency (from larger to smaller).
+
+    }
+
+    # if (length(fboxes[[1]] == 1)) { # fboxes is only 1 fbox:
+    #
+    #  plot(fboxes, ...)
+    #
+    # }
+
+  } # if  (is.list(fboxes))
+
+}
+
+
+## comp_lx: Compute scaled lx given ly, mfactor mf and correction factor corf ------
 
 comp_lx <- function(ly, mf = 1, corf = 1) {
   # Scale fbox width lx given its height ly,
