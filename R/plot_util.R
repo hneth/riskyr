@@ -565,14 +565,17 @@ comp_freq_fbox <- function(fbox) {
 # boxes <- list(box_hi, box_mi, box_fa, box_cr)
 # is.list(boxes)  # TRUE
 # length(boxes)   # 4
+# boxes[[2]] # 1st box of boxes
+# length(boxes[-1]) # 3
 # is.list(boxes[1]) # TRUE
 # length(boxes[[1]]) # 5!
 
+# box_freqs <- unlist(lapply(X = boxes, FUN = comp_freq_fbox))
+# box_freqs
+# ix_box_max_freq <- which(box_freqs == max(box_freqs))
+# ix_box_max_freq
+# length(ix_box_max_freq)
 
-# +++ here now +++ --------
-
-# unlist(lapply(X = list(box_N, box_hi), FUN = comp_freq_fbox)) #
-# sort(c(1, 3, 2))
 
 ## plot_fbox_list: Plot a list of fboxes in some order --------
 
@@ -581,24 +584,69 @@ plot_fbox_list <- function(fboxes, ...) {
 
   if (is.list(fboxes)) {  # list of 1 or more fboxes:
 
-    while ( is.list(fboxes) && (length(fboxes) > 0) && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
+    while ( is.list(fboxes) && (length(fboxes) > 0) ) { # } && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
 
-      plot(fboxes[[1]], ...)  # plot 1st box
-      fboxes <- fboxes[-1]  # remove 1st box
+      ## (A) Plot all boxes in order (from 1, 2, ...):
+      # plot(fboxes[[1]], ...)  # plot 1st box of list
+      # fboxes <- fboxes[-1]  # remove 1st box from list
 
-      ## ToDo: Plot fboxes by decreasing frequency (from larger to smaller).
+      ## (B) Plot fboxes by decreasing frequency (from largest to smallest):
+      box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox))  # get freq of all fboxes (with utility function)
+      ix <- which(box_freqs == max(box_freqs))  # get ix of the box with maximum freq
 
-    }
+      if (length(ix) > 1) { ix <- ix[1] }  # if ix is no scalar (i.e., fboxes has multiple freq max), use 1st element of ix.
+
+      plot(fboxes[[ix]], ...) # plot box ix
+      fboxes <- fboxes[-ix]   # remove box ix from list
+
+    } # while ...
 
     # if (length(fboxes[[1]] == 1)) { # fboxes is only 1 fbox:
     #
-    #  plot(fboxes, ...)
+    #   plot(fboxes, ...)
     #
     # }
 
   } # if  (is.list(fboxes))
 
 }
+
+# +++ here now +++ ----
+
+## Check:
+# box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
+# box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
+# box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
+# box_fa <- make_box("fa", 6, 3, 1, 1)  # ...            fa
+# box_cr <- make_box("cr", 8, 3, 1, 1)  # ...            cr
+#
+# comp_freq_fbox(box_N)  == freq$N  # should be TRUE
+# comp_freq_fbox(box_hi) == freq$hi # should be TRUE
+# comp_freq_fbox("no_box")  # NA
+# comp_freq_fbox(1)         # NA
+#
+# # Box as list:
+# is.list(box_N)  # TRUE
+# length(box_N)   # 5
+# length(box_N[[1]]) # 1!
+#
+# # List of boxes:
+# boxes <- list(box_hi, box_mi, box_fa, box_cr)
+# is.list(boxes)  # TRUE
+# length(boxes)   # 4
+# boxes[[2]] # 1st box of boxes
+# length(boxes[-1]) # 3
+# is.list(boxes[1]) # TRUE
+# length(boxes[[1]]) # 5!
+#
+# box_freqs <- unlist(lapply(X = boxes, FUN = comp_freq_fbox))
+# box_freqs
+# ix_box_max_freq <- which(box_freqs == max(box_freqs))
+# ix_box_max_freq
+# length(ix_box_max_freq)
+#
+# unlist(lapply(X = list(box_N, box_hi), FUN = comp_freq_fbox)) #
+# sort(c(1, 3, 2))
 
 
 ## comp_lx: Compute scaled lx given ly, mfactor mf and correction factor corf ------
