@@ -1361,26 +1361,26 @@ comp_prob_fname <- function(fname) {
   n <- length(fname)  # fname can be a vector of n freq names
   p <- rep(NA, n)  # initialize as vector
 
-  for (i in 1:n) {
+  for (i in 1:n) {  # loop through n elements of fname:
 
-  # Consider fname for all frequencies in freq:
-  if (tolower(fname[i]) == "n") { p[i] <- 1 }
+    # Consider fname for all frequencies in freq:
+    if (tolower(fname[i]) == "n") { p[i] <- 1 }
 
-  if (tolower(fname[i]) == "cond.true")  { p[i] <- prob$prev }
-  if (tolower(fname[i]) == "cond.false") { p[i] <- (1 - prob$prev) }
+    if (tolower(fname[i]) == "cond.true")  { p[i] <- prob$prev }
+    if (tolower(fname[i]) == "cond.false") { p[i] <- (1 - prob$prev) }
 
-  if (tolower(fname[i]) == "dec.pos") { p[i] <- prob$ppod }
-  if (tolower(fname[i]) == "dec.neg") { p[i] <- (1 - prob$ppod) }
+    if (tolower(fname[i]) == "dec.pos") { p[i] <- prob$ppod }
+    if (tolower(fname[i]) == "dec.neg") { p[i] <- (1 - prob$ppod) }
 
-  if (tolower(fname[i]) == "dec.cor") { p[i] <- prob$acc }
-  if (tolower(fname[i]) == "dec.err") { p[i] <- (1 - prob$acc) }
+    if (tolower(fname[i]) == "dec.cor") { p[i] <- prob$acc }
+    if (tolower(fname[i]) == "dec.err") { p[i] <- (1 - prob$acc) }
 
-  if (tolower(fname[i]) == "hi")  { p[i] <- prob$prev * prob$sens }
-  if (tolower(fname[i]) == "mi")  { p[i] <- prob$prev * (1 - prob$sens) }
-  if (tolower(fname[i]) == "cr")  { p[i] <- (1 - prob$prev) * prob$spec }
-  if (tolower(fname[i]) == "fa")  { p[i] <- (1 - prob$prev) * (1 - prob$spec) }
+    if (tolower(fname[i]) == "hi")  { p[i] <- prob$prev * prob$sens }
+    if (tolower(fname[i]) == "mi")  { p[i] <- prob$prev * (1 - prob$sens) }
+    if (tolower(fname[i]) == "cr")  { p[i] <- (1 - prob$prev) * prob$spec }
+    if (tolower(fname[i]) == "fa")  { p[i] <- (1 - prob$prev) * (1 - prob$spec) }
 
-  }
+  } # for loop
 
   return(as.numeric(p))
 
