@@ -1245,7 +1245,50 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 # make_accu_lbl(acc = 1/3)
 # make_accu_lbl(acc = 1/3, w = 2/3, wacc = 3/7, mcc = 1/7)
 
+## label_note: Create a note when area is scaled: --------
 
+label_note <- function(area = NULL, scale = "f") {
+
+  note_lbl <- ""  # initialize
+
+  if (!is.null(area)) {  # create an area label:
+
+    area_lbl <- "Areas"
+    scale_lbl <- ""
+
+    if (area == "hr") {
+
+      area_lbl <- "Horizontal widths"
+
+    } else if (area == "sq") {
+
+      area_lbl <- "Squares"
+
+    }
+
+    if (scale == "p") {
+
+      scale_lbl <- " by probabilities"
+
+    } else if (scale == "f") {
+
+      scale_lbl <- " by frequencies"
+
+    }
+
+    note_lbl <- paste0(area_lbl, " are scaled", scale_lbl, ".")
+
+  }
+
+  return(note_lbl)
+
+}
+
+## Check:
+# label_note("hr", "f")
+# label_note("sq", "p")
+# label_note("xx", "x") # => "Areas are scaled."
+# label_note(NULL)      # => ""
 
 ## plot_mar: Plot margin labels on an existing plot ------
 
@@ -1372,6 +1415,9 @@ plot_mar <- function(show_freq = TRUE,
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
 # plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
+
+
+
 
 
 
