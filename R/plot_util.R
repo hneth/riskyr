@@ -3,9 +3,6 @@
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
-
-
-
 ## (0) Generic plotting functions: ----------
 
 ## ex: Restore old par settings (see ?par) ------
@@ -24,9 +21,6 @@ ex <- function() {
 
 ## Check:
 # ex()  # Note: dev.off() also restores default par settings.
-
-
-
 
 
 
