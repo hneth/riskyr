@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 08
+## 2018 09 10
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -111,11 +111,462 @@ plot.box <- function(obj, ...) {
 
 
 
-## (2) Plotting labels, boxes, and links: ----------
+
+## (2) Constructing and plotting labels, boxes, and links: ----------
+
 
 
 
 ## (A) Labels: ------
+
+
+## label_freq: Label a known frequency (in freq) by fname ----------
+label_freq <- function(fname,
+                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum".
+                       lbl_sep = " = "          # separator: " = " (default), ":\n"
+                       #freq = freq, txt = txt  # use current lists
+) {
+
+  ## Initialize:
+  f_lbl <- fname # initialize (in case of unknown freq)
+  f_val  <- NA
+  f_type <- NA
+
+  ## (1) Determine the frequency value of freq corresponding to fname:
+
+  if (lbl_type != "nam") {
+
+    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+
+      # f_lbl <- fname  # initialize to fname
+
+      # Derive current value corresponding to fname in freq:
+      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
+      f_val <- freq[ix]  # current freq value
+
+      # Type of frequency:
+      # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+
+    } # if (fname %in% names(freq)...
+  }
+
+  ## (2) Compose f_lbl based on lbl_type:
+
+  if (lbl_type == "num" || lbl_type == "val" ){
+
+    # (a) Value:
+    f_lbl <- as.character(f_val)
+
+  } else if ( lbl_type == "namnum" || lbl_type == "namval" ||
+              lbl_type == "full" || lbl_type == "all" ){
+
+    ## (b) Name AND value of freq:
+
+    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
+
+    if (tolower(fname) == "hi") { f_lbl <- txt$hi.lbl }
+    if (tolower(fname) == "mi") { f_lbl <- txt$mi.lbl }
+    if (tolower(fname) == "fa") { f_lbl <- txt$fa.lbl }
+    if (tolower(fname) == "cr") { f_lbl <- txt$cr.lbl }
+
+    if (tolower(fname) == "cond.true")  { f_lbl <- txt$cond.true.lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- txt$cond.false.lbl }
+
+    if (tolower(fname) == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
+
+    if (tolower(fname) == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- txt$dec.err.lbl }
+
+    # Combine f_lbl with f_val (from above):
+    f_lbl <- paste0(f_lbl, lbl_sep, as.character(f_val))
+
+  } else if (lbl_type == "nam") {
+
+    ## (c) ONLY the name of freq:
+
+    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- txt$popu.lbl }  # use population label as f_lbl
+
+    if (tolower(fname) == "hi") { f_lbl <- txt$hi.lbl }
+    if (tolower(fname) == "mi") { f_lbl <- txt$mi.lbl }
+    if (tolower(fname) == "fa") { f_lbl <- txt$fa.lbl }
+    if (tolower(fname) == "cr") { f_lbl <- txt$cr.lbl }
+
+    if (tolower(fname) == "cond.true")  { f_lbl <- txt$cond.true.lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- txt$cond.false.lbl }
+
+    if (tolower(fname) == "dec.pos") { f_lbl <- txt$dec.pos.lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- txt$dec.neg.lbl }
+
+    if (tolower(fname) == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- txt$dec.err.lbl }
+
+  } else {  ## "default":
+
+    ## (d) Any other lbl_type: Use basic fname + f_val as default:
+    f_lbl <- paste0(fname, lbl_sep, as.character(f_val))
+
+    ## ToDo: Use abbreviated names (e.g., hi/TP, mi/FN, fa/FN, cr/TN) by default.
+
+  }
+
+  ## (3) Split/re-format long f_lbl into 2 lines of text:
+  nchar_max <- 99  # criterium for f_lbl being too long (currently fixed)
+
+  # if f_lbl is too long and it contains a lbl_sep (e.g., " = "):
+  if ((nchar(f_lbl) > nchar_max) && any(grep(pattern = lbl_sep, x = f_lbl))) {
+
+    # Split into 2 parts:
+    lbl_parts <- unlist(strsplit(f_lbl, split = lbl_sep))
+    lbl_part1 <- lbl_parts[1]  # 1st part of f_lbl
+    lbl_part2 <- lbl_parts[2]  # 2nd part of f_lbl
+
+    f_lbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
+  }
+
+  ## (4) Return f_lbl:
+  return(f_lbl)
+
+}
+
+# ## Check:
+# label_freq("hi")
+# label_freq("hi", lbl_sep = ":\n")
+# label_freq("cr", lbl_type = "num")
+# label_freq("cr", lbl_type = "nam")
+# label_freq("cr", lbl_type = "namnum")
+# label_freq("cr", lbl_type = "nix")  # default lbl_type
+# label_freq("dec.err", lbl_type = "all")
+# label_freq("dec.err")        # no lbl_type specified: use default
+# label_freq("unknown fname")  # unknown freq: return fname
+
+
+## label_prob: Label a known probability (in prob) by pname ----------
+
+label_prob <- function(pname,
+                       lbl_type = "default",  # label type: "default", "nam", "num", "namnum".
+                       lbl_sep = " = "        # separator: " = " (default), ":\n"
+                       #, prob = prob, accu = accu, txt = txt  # use current lists
+) {
+
+  ## Initialize:
+  p_lbl  <- pname  # initialize (in case of unknown prob)
+  p_val  <- NA
+  p_type <- NA
+
+  ## Currently fixed parameters:
+  n_dec <- 1  # number of decimals to round percentage to.
+
+  ## (1) Determine the probability value p_val of prob corresponding to pname:
+  if (lbl_type != "nam") {
+
+    # # (A) pname corresponds to named prob in prob:
+    # if (tolower(pname) %in% tolower(names(prob))) {
+    #
+    #   # p_lbl <- pname  # initialize to pname
+    #
+    #   # Derive current value corresponding to prob:
+    #   ix <- which(tolower(names(prob)) == tolower(pname))  # index in prob
+    #
+    #   # Value of probability in prob:
+    #   p_val <- prob[ix]
+    #
+    #   # Type of probability:
+    #   # p_type <- comp_prob_type(pname)  # toDo: helper function (to be defined in init_prob_num.R)
+    #
+    # } # if (pname %in% (names(prob)))...
+    #
+    # # (B) Special cases:
+    # if (tolower(pname) == "cprev") {  # if complement of prevalence:
+    #   p_val <- (1 - prob$prev)
+    # }
+    #
+    # if (tolower(pname) == "cppod" || tolower(pname) == "pned") {  # if complement of ppod:
+    #   p_val <- (1 - prob$ppod)
+    # }
+    #
+    # # Accuracy (as probability):
+    # # 2 unconditional probabilities: overall accuracy acc + error rate err:
+    # if (tolower(pname) == "acc") { p_val <- prob$acc }  # OR: accu$acc
+    # if (tolower(pname) == "cor") { p_val <- prob$acc }  # OR: accu$acc
+    # if (tolower(pname) == "err") { p_val <- (1 - prob$acc) }  # OR: (1 - accu$acc)
+    #
+    # # 4 conditional probabilities:
+    # if (tolower(pname) == "acc-hi") { p_val <- (prob$prev * prob$sens)/(prob$acc) }        # prob of hi/dec.cor
+    # if (tolower(pname) == "acc-cr") { p_val <- ((1 - prob$prev) * prob$spec)/(prob$acc) }  # prob of hi/dec.cor
+    # if (tolower(pname) == "err-mi") { p_val <- (prob$prev * (1 - prob$sens))/(1 - prob$acc) }        # prob of mi/dec.err
+    # if (tolower(pname) == "err-fa") { p_val <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc) }  # prob of mi/dec.err
+    #
+    # # Ensure that p_val is numeric:
+    # p_val <- as.numeric(p_val)
+
+    p_val <- comp_prob_pname(pname)  # use new fn (defined in comp_prob_prob.R)
+
+  }
+
+  ## (2) Compose p_lbl based on lbl_type:
+  if (lbl_type == "num" || lbl_type == "val" ){
+
+    # (a) Value only:
+    if (is_prob(p_val)) {
+      # Label p_val (ONLY) as a percentage:
+      p_lbl <- paste0(as.character(as_pc(p_val, n.digits = n_dec)), "%")
+    } else {
+      p_lbl <- paste0(as.character(p_val))  # Label p_val as is (as number)
+    }
+
+  } else if ( lbl_type == "namnum" || lbl_type == "namval" ||
+              lbl_type == "full" || lbl_type == "all" ){
+
+    ## (b) Name AND value of prob:
+    if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
+    if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
+
+    if (tolower(pname) == "sens") { p_lbl <- "Sensitivity" }
+    if (tolower(pname) == "spec") { p_lbl <- "Specificity" }
+
+    if (tolower(pname) == "mirt") { p_lbl <- "Miss rate" }
+    if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
+
+    if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
+    if (tolower(pname) == "cppod"){ p_lbl <- "Proportion negative" }
+    if (tolower(pname) == "pned") { p_lbl <- "Proportion negative" }
+
+    if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
+    if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
+
+    if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
+    if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { p_lbl <- "Rate correct" }
+    if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
+    if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
+
+    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }
+    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }
+    if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
+    if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
+
+    # Combine p_lbl (NOT pname) with p_val (from above):
+    if (is_prob(p_val)) {
+      # Label p_val as a percentage:
+      p_lbl <- paste0(p_lbl, lbl_sep, as.character(as_pc(p_val, n.digits = n_dec)), "%")
+    } else {
+      p_lbl <- paste0(p_lbl, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
+    }
+
+  } else if (lbl_type == "nam") {
+
+    ## (c) ONLY the name of prob:
+
+    if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
+    if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
+
+    if (tolower(pname) == "sens") { p_lbl <- "Sensitivity" }
+    if (tolower(pname) == "spec") { p_lbl <- "Specificity" }
+
+    if (tolower(pname) == "mirt") { p_lbl <- "Miss rate" }
+    if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
+
+    if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
+    if (tolower(pname) == "cppod"){ p_lbl <- "Proportion negative" }
+    if (tolower(pname) == "pned") { p_lbl <- "Proportion negative" }
+
+    if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
+    if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
+
+    if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
+    if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { p_lbl <- "Rate correct" }
+    if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
+    if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
+
+    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }
+    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }
+    if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
+    if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
+
+  } else {  ## "default":
+
+    ## (d) Any other lbl_type: Use basic pname + p_val as default:
+
+    # Special cases: CHANGE pname to some other default value:
+
+    if (tolower(pname) == "cprev") {  # if complement of prevalence:
+      pname <- "(1 - prev)"           # custom basic name
+    }
+    if (tolower(pname) == "cppod" || tolower(pname) == "pned") {  # if complement of ppod:
+      pname <- "(1 - ppod)"           # custom basic name
+    }
+
+    # Accuracy (as probability):
+    if (tolower(pname) == "acc") { pname <- "acc" }
+    if (tolower(pname) == "cor") { pname <- "acc" }
+    if (tolower(pname) == "err") { pname <- "err" }
+
+    if (tolower(pname) == "acc-hi") { pname <- "p(hi|acc)" }
+    if (tolower(pname) == "acc-cr") { pname <- "p(cr|acc)" }
+    if (tolower(pname) == "err-mi") { pname <- "p(mi|err)" }
+    if (tolower(pname) == "err-fa") { pname <- "p(fa|err)" }
+
+    # print(p_val)
+    # is.numeric(p_val)
+
+    # Combine pname (NOT p_lbl) with p_val (from above):
+    if (is_prob(p_val)) {
+      # Label p_val as a percentage:
+      p_lbl <- paste0(pname, lbl_sep, as.character(as_pc(p_val, n.digits = n_dec)), "%")
+    } else {
+      p_lbl <- paste0(pname, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
+    }
+
+  }
+
+  ## (3) Split/re-format long p_lbl into 2 lines of text:
+  nchar_max <- 99  # criterium for p_lbl being too long (currently fixed)
+
+  # if p_lbl is too long and it contains a lbl_sep (e.g., " = "):
+  if ((nchar(p_lbl) > nchar_max) && any(grep(pattern = lbl_sep, x = p_lbl))) {
+
+    # Split into 2 parts:
+    lbl_parts <- unlist(strsplit(p_lbl, split = lbl_sep))
+    lbl_part1 <- lbl_parts[1]  # 1st part of p_lbl
+    lbl_part2 <- lbl_parts[2]  # 2nd part of p_lbl
+
+    p_lbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
+  }
+
+  ## (4) Return p_lbl:
+  return(p_lbl)
+
+}
+
+## Check:
+# label_prob("prev", lbl_type = "default")
+# label_prob("prev", lbl_sep = ":\n")
+# label_prob("sens", lbl_type = "nam")
+# label_prob("spec", lbl_type = "num")
+# label_prob("fart", lbl_type = "namnum")
+# label_prob("PPV", lbl_type = "namnum")
+# label_prob("NPV", lbl_type = "namnum")
+## Special cases:
+# label_prob("cprev", lbl_type = "default")  # complement to prev
+# label_prob("cprev", lbl_type = "nam")      # complement to prev
+# label_prob("cprev", lbl_type = "namnum")   # complement to prev
+# label_prob("cppod", lbl_type = "default")
+# label_prob("pned", lbl_type = "namnum")
+# label_prob("acc", lbl_type = "default")
+# label_prob("cor", lbl_type = "nam")
+# label_prob("err", lbl_type = "namnum")
+# label_prob("unknown pname")  # unknown prob: return pname
+
+
+
+## name_prob: Determine the (name of the) prob that links 2 freq ---------
+
+name_prob <- function(freq1, freq2) {
+
+  # (0) Prepare:
+  pname <- NA  # initialize
+
+  freq1 <- tolower(freq1)  # all lowercase
+  freq2 <- tolower(freq2)
+
+  # (1) by condition (bc):
+
+  # 2 unconditional probabilities:
+  if ( (freq1 == "n" & freq2 == "cond.true") ||
+       (freq2 == "n" & freq1 == "cond.true") ) { pname <- "prev" }
+  if ( (freq1 == "n" & freq2 == "cond.false") ||
+       (freq2 == "n" & freq1 == "cond.false") ) { pname <- "cprev" }
+
+  # 4 conditional probabilities:
+  if ( (freq1 == "hi" & freq2 == "cond.true") ||
+       (freq2 == "hi" & freq1 == "cond.true") ) { pname <- "sens" }
+  if ( (freq1 == "mi" & freq2 == "cond.true") ||
+       (freq2 == "mi" & freq1 == "cond.true") ) { pname <- "mirt" }
+
+  if ( (freq1 == "cr" & freq2 == "cond.false") ||
+       (freq2 == "cr" & freq1 == "cond.false") ) { pname <- "spec" }
+  if ( (freq1 == "fa" & freq2 == "cond.false") ||
+       (freq2 == "fa" & freq1 == "cond.false") ) { pname <- "fart" }
+
+  # (2) by decision (dc):
+
+  # 2 unconditional probabilities:
+  if ( (freq1 == "n" & freq2 == "dec.pos") ||
+       (freq2 == "n" & freq1 == "dec.pos") ) { pname <- "ppod" }
+  if ( (freq1 == "n" & freq2 == "dec.neg") ||
+       (freq2 == "n" & freq1 == "dec.neg") ) { pname <- "cppod" } # aka. "pned"
+
+  # 4 conditional probabilities:
+  if ( (freq1 == "hi" & freq2 == "dec.pos") ||
+       (freq2 == "hi" & freq1 == "dec.pos") ) { pname <- "PPV" }
+  if ( (freq1 == "fa" & freq2 == "dec.pos") ||
+       (freq2 == "fa" & freq1 == "dec.pos") ) { pname <- "FDR" }
+
+  if ( (freq1 == "cr" & freq2 == "dec.neg") ||
+       (freq2 == "cr" & freq1 == "dec.neg") ) { pname <- "NPV" }
+  if ( (freq1 == "mi" & freq2 == "dec.neg") ||
+       (freq2 == "mi" & freq1 == "dec.neg") ) { pname <- "FOR" }
+
+  # (3) by accuracy/correspondence (ac):
+
+  # 2 unconditional probabilities:
+  if ( (freq1 == "n" & freq2 == "dec.cor") ||
+       (freq2 == "n" & freq1 == "dec.cor") ) { pname <- "acc" } # aka. "cor"
+  if ( (freq1 == "n" & freq2 == "dec.err") ||
+       (freq2 == "n" & freq1 == "dec.err") ) { pname <- "err" } # error rate
+
+  # 4 conditional probabilities:
+  if ( (freq1 == "dec.cor" & freq2 == "hi") ||
+       (freq2 == "dec.cor" & freq1 == "hi") ) { pname <- "acc-hi" } # in lack of a better name
+  if ( (freq1 == "dec.cor" & freq2 == "cr") ||
+       (freq2 == "dec.cor" & freq1 == "cr") ) { pname <- "acc-cr" } # in lack of a better name
+
+  if ( (freq1 == "dec.err" & freq2 == "mi") ||
+       (freq2 == "dec.err" & freq1 == "mi") ) { pname <- "err-mi" } # in lack of a better name
+  if ( (freq1 == "dec.err" & freq2 == "fa") ||
+       (freq2 == "dec.err" & freq1 == "fa") ) { pname <- "err-fa" } # in lack of a better name
+
+  # Note: No prob for links between dec.cor OR dec.err and
+  #       4 SDT cases (hi, mi, fa, cr).
+
+  # (4) Return:
+  return(pname)
+
+}
+
+## Check:
+# name_prob("no", "nix")       # => NA
+# name_prob("N", "cond.true")  # => "prev"
+# name_prob("cond.false", "N") # => "cprev"
+#
+# name_prob("N", "dec.neg")
+# name_prob("dec.pos", "hi")
+# name_prob("dec.neg", "cr")
+# name_prob("dec.neg", "mi")
+#
+# name_prob("dec.cor", "N")
+# name_prob("dec.err", "N")
+#
+# label_prob(pname = name_prob("fa", "cond.false"), lbl_type = "default")
+# label_prob(pname = name_prob("hi", "dec.pos"), lbl_type = "namnum")
+# label_prob(pname = name_prob("N", "dec.err"), lbl_type = "namnum")
+
+
+
+
+
+
+
+
+
 ## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
@@ -194,6 +645,8 @@ plot_freq_label <- function(fname,                # name of a known freq
 # plot_freq_label("cond.false", suffix = ": ...", .2, .8, cex = .8)
 # plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
 # plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
+
+
 
 
 
@@ -799,6 +1252,7 @@ comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
 ## ToDo: Vectorize comp_ly_fsqr (to allow computing many ly values at once).
 
 
+
 ## (3) Links: ------
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
@@ -1107,7 +1561,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 #           lbl.pos = 2, cex = .8,
 #           col.txt = "steelblue", col.fill = "sienna2", lwd = 3)
 
-## Note: ------
+## Note:
 ## Functionality included in plot_link: plot_plink/plot_prob:
 ## plot_plink/plot_prob: Link 2 boxes of 2 known frequencies
 ##                       and label link by using name_prob, label_prob, plot_link...
@@ -1116,9 +1570,6 @@ plot_link <- function(box1, box2,                # 2 boxes
 ## 2. Call pname <- name_prob(freq1, freq1) to get pname
 ## 3. Call p_lbl <- label_prob(pname) to get label
 ## 4. Call plot_link with p_lbl as lbl
-
-
-
 
 
 ## (4) Define and plot margin labels: ----------
@@ -1245,7 +1696,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 # make_accu_lbl(acc = 1/3)
 # make_accu_lbl(acc = 1/3, w = 2/3, wacc = 3/7, mcc = 1/7)
 
-## label_note: Create a note when area is scaled: --------
+## (e) label_note: Create a standard note when area is scaled: --------
 
 label_note <- function(area = NULL, scale = "f") {
 
@@ -1415,6 +1866,7 @@ plot_mar <- function(show_freq = TRUE,
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
 # plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
+
 
 
 
