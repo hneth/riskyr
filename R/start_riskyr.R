@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 09 04
+## 2018 09 10
 ## Final functions and start-up settings:
 ## -----------------------------------------------
 
@@ -87,7 +87,7 @@ start_riskyr <- function(...) {
 
   if (dice == 1) {
     packageStartupMessage(" ")
-    packageStartupMessage("Running riskyr (v0.1.911)...")
+    packageStartupMessage("Running riskyr (v0.1.912)...")
     packageStartupMessage(" ")
   }
 
