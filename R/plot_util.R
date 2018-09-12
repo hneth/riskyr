@@ -339,8 +339,8 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
 
-    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }
-    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }
+    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor)
+    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
     if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
     if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
 
@@ -380,8 +380,8 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
     if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
 
-    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }
-    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }
+    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor)
+    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
     if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
     if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
 
@@ -403,8 +403,8 @@ label_prob <- function(pname,
     if (tolower(pname) == "cor") { pname <- "acc" }
     if (tolower(pname) == "err") { pname <- "err" }
 
-    if (tolower(pname) == "acc-hi") { pname <- "p(hi|acc)" }
-    if (tolower(pname) == "acc-cr") { pname <- "p(cr|acc)" }
+    if (tolower(pname) == "acc-hi") { pname <- "p(hi|acc)" }  # ppcor
+    if (tolower(pname) == "acc-cr") { pname <- "p(cr|acc)" }  # pncor
     if (tolower(pname) == "err-mi") { pname <- "p(mi|err)" }
     if (tolower(pname) == "err-fa") { pname <- "p(fa|err)" }
 
@@ -1003,25 +1003,36 @@ comp_freq_fbox <- function(fbox) {
 # comp_freq_fbox("no_box")  # NA
 # comp_freq_fbox(1)         # NA
 #
+# # str(box_N)
+#
 # # Box as list:
-# is.list(box_N)  # TRUE
-# length(box_N)   # 5
+# is.list(box_N)     # TRUE
+# length(box_N)      # 5
+# length(box_N[1])   # 1
+# is.list(box_N[1])  # TRUE
 # length(box_N[[1]]) # 1!
+# # box_N[[1]] == box_N[1]
+# is.list(box_N[[1]]) # FALSE
 #
 # # List of boxes:
 # boxes <- list(box_hi, box_mi, box_fa, box_cr)
-# is.list(boxes)  # TRUE
-# length(boxes)   # 4
-# boxes[[2]] # 1st box of boxes
-# length(boxes[-1]) # 3
-# is.list(boxes[1]) # TRUE
+# is.list(boxes)     # TRUE
+# length(boxes)      # 4
+# boxes[[2]]         # 2nd box of boxes
+# length(boxes[-1])  # 3
+# is.list(boxes[1])  # TRUE
 # length(boxes[[1]]) # 5!
-
+#
 # box_freqs <- unlist(lapply(X = boxes, FUN = comp_freq_fbox))
 # box_freqs
+#
 # ix_box_max_freq <- which(box_freqs == max(box_freqs))
 # ix_box_max_freq
-# length(ix_box_max_freq)
+#
+# dec <- order(box_freqs, decreasing = TRUE)
+#
+# plot(0:10, type = "n")
+# lapply(X = boxes[dec], FUN = plot)
 
 
 ## plot_fbox_list: Plot a list of fboxes in some order --------
@@ -1029,32 +1040,46 @@ comp_freq_fbox <- function(fbox) {
 plot_fbox_list <- function(fboxes, ...) {
   # Plot a list of fboxes in some order:
 
-  if (is.list(fboxes)) {  # list of 1 or more fboxes:
+  #if (is.list(fboxes)) {  # list of 1 or more fboxes:
 
-    while ( is.list(fboxes) && (length(fboxes) > 0) ) { # } && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
+  # while ( is.list(fboxes) && (length(fboxes) > 0) && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
 
-      ## (A) Plot all boxes in order (from 1, 2, ...):
-      # plot(fboxes[[1]], ...)  # plot 1st box of list
-      # fboxes <- fboxes[-1]  # remove 1st box from list
+    if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
 
-      ## (B) Plot fboxes by decreasing frequency (from largest to smallest):
-      box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox))  # get freq of all fboxes (with utility function)
-      ix <- which(box_freqs == max(box_freqs))  # get ix of the box with maximum freq
+    ## (A) Plot all boxes in order (from 1, 2, ...):
+    ## with recursive while:
+    # plot(fboxes[[1]], ...)  # plot 1st box of list
+    # fboxes <- fboxes[-1]  # remove 1st box from list
 
-      if (length(ix) > 1) { ix <- ix[1] }  # if ix is no scalar (i.e., fboxes has multiple freq max), use 1st element of ix.
+    ## all in sequence:
+    # lapply(X = fboxes, FUN = plot, ...)    # plot all in dec_order
 
-      plot(fboxes[[ix]], ...) # plot box ix
-      fboxes <- fboxes[-ix]   # remove box ix from list
 
-    } # while ...
+    ## (B) Plot fboxes by decreasing frequency (from largest to smallest):
+    box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox))  # get freq of all fboxes (with utility function)
 
-    # if (length(fboxes[[1]] == 1)) { # fboxes is only 1 fbox:
-    #
-    #   plot(fboxes, ...)
-    #
-    # }
+    ## with recursive while:
+    # ix <- which(box_freqs == max(box_freqs))  # get ix of the box with maximum freq
 
-  } # if  (is.list(fboxes))
+    # if (length(ix) > 1) { ix <- ix[1] }  # if ix is no scalar (i.e., fboxes has multiple freq max), use 1st element of ix.
+
+    # plot(fboxes[[ix]], ...) # plot box ix
+    # fboxes <- fboxes[-ix]   # remove box ix from list
+
+    ## with lapply:
+    decr_order <- order(box_freqs, decreasing = TRUE)  # order to plot
+    lapply(X = fboxes[decr_order], FUN = plot, ...)    # plot all in dec_order
+
+
+  } # if/while ...
+
+  if (is.list(fboxes) && is.list(fboxes[[1]]) == FALSE) { # 1st element is NO list/box (i.e., fboxes is only 1 fbox):
+
+    plot(fboxes, ...)
+
+  }
+
+  #} # if  (is.list(fboxes))
 
 }
 
