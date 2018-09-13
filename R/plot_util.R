@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 10
+## 2018 09 13
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -1044,7 +1044,7 @@ plot_fbox_list <- function(fboxes, ...) {
 
   # while ( is.list(fboxes) && (length(fboxes) > 0) && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
 
-    if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
+  if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
 
     ## (A) Plot all boxes in order (from 1, 2, ...):
     ## with recursive while:
@@ -1277,7 +1277,7 @@ comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
                       pt_pch = 21, pt_cex = 1, pt_lwd = 1,  # point options
-                      arr_code = 0,         # 0...none, 1+2...arrows, 3...double arrow
+                      arr_code = 0,         # 0: none, 1-3: single/double V, 4-6: single/double T, -1 to -3: single/double points.
                       ## Optional text label:
                       lbl = NA,             # string for text label
                       lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
@@ -1307,16 +1307,27 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
   ## (1) Draw an arrow between both points:
 
-  if (arr_code > 0) {
+  if (arr_code > 0) {  # V- or T-shaped arrows:
 
-    # Draw an arrow between both points:
-    arrows(x0, y0, x1, y1,
-           length = .10, angle = 45/2, code = arr_code,    # V shape (small)
-           # length = .10, angle = 90, code = arr_code,  # T shape
-           col = col.fill,
-           ...)  # lty, lwd, ...
+    if (arr_code <= 3) {
+      # Draw V-shape arrow between both points:
+      arrows(x0, y0, x1, y1,
+             length = .10, angle = 45/2, code = arr_code,    # V shape (small)
+             # length = .08, angle = 90, code = arr_code,  # T shape
+             col = col.fill,
+             ...)  # lty, lwd, ...
+    }
+    else  if (arr_code > 3) {
+      # Draw T-shape arrow between both points:
+      arrows(x0, y0, x1, y1,
+             # length = .10, angle = 45/2, code = arr_code,    # V shape (small)
+             length = .08, angle = 90, code = (arr_code - 3),  # T shape
+             col = col.fill,
+             ...)  # lty, lwd, ...
+    }
 
-  } else { # no arrow heads:
+
+  } else { # no arrow heads, but point symbols on line end:
 
     ## Draw a line with 2 points at line ends:
     arrows(x0, y0, x1, y1,
@@ -1355,17 +1366,21 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
 }
 
-## Check:
+### Check:
 # plot(0:10, 0:10, type = "n")  # empty canvas
 # # (1) line without labels:
 # plot_line(0, 10, 9, 10)  # basic line (without label)
 # plot_line(0, 9.5, 9, 9.5, arr_code = 0)  # no arrow (without label)
 # plot_line(0, 9, 9, 9, arr_code = 1)  # left arrow (without label)
-# plot_line(0, 8, 9, 8, arr_code = 2)  # right arrow (without label)
-# plot_line(0, 7, 9, 7, arr_code = 3)  # double arrow (without label)
-# plot_line(0, 6, 9, 6, arr_code = -1) # arrow with points (without label)
-# plot_line(0, 5, 9, 5, arr_code = -2) # arrow with points (without label)
+# plot_line(0, 7, 9, 7, arr_code = 2)  # right arrow (without label)
+# plot_line(0, 5, 9, 5, arr_code = 3)  # double arrow (without label)
+# plot_line(0, 8, 9, 8, arr_code = -1) # arrow with points (without label)
+# plot_line(0, 6, 9, 6, arr_code = -2) # arrow with points (without label)
 # plot_line(0, 4, 9, 4, arr_code = -3) # arrow with points (without label)
+# plot_line(0, 8.5, 9, 8.5, arr_code = 4) # arrow with points (without label)
+# plot_line(0, 6.5, 9, 6.5, arr_code = 5) # arrow with points (without label)
+# plot_line(0, 4.5, 9, 4.5, arr_code = 6) # arrow with points (without label)
+# #
 # # (2) line with labels:
 # plot_line(0, 3, 9, 3, arr_code = 3,
 #           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
