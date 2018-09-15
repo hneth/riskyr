@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 13
+## 2018 09 15
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -852,6 +852,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 plot_fbox <- function(fname,   # name of a known frequency (freq)
                       x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,  # lengths of box (width and height)
+                      ## Optional arguments:
+                      scale_lx = 1,  # scaling factor for x-widths
+                      # scale_ly = 1,  # scaling factor for y-widths
                       ## Text labels:
                       # lbl     = NA,        # label (in middle): freq
                       # lbl.top = NA,        # title (at top)
@@ -908,7 +911,10 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     }
 
     # (e) Plot corresponding cbox with values of fname freq:
-    plot_cbox(x = x, y = y, lx = lx, ly = ly,
+    plot_cbox(x = (x),
+              y = (y),
+              lx = (lx * scale_lx),
+              ly = (ly),
               # lbl = paste0(fname, " = ", f_val),
               lbl = f_lbl,
               lbl.bot = bot_lbl,
@@ -926,7 +932,10 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     # print(f_col)
 
     # (b) Plot cbox with default settings:
-    plot_cbox(x = x, y = y, lx = lx, ly = ly,
+    plot_cbox(x = (x),
+              y = (y),
+              lx = (lx * scale_lx),
+              ly = (ly),
               lbl = paste0(fname),
               lbl.bot = bot_lbl,
               col.fill = f_col,
@@ -936,10 +945,19 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 }
 
-# ## Check:
+## Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
-#        xlim = c(0, 10), ylim = c(0, 6))  # empty canvas
-# ## Basics:
+#        xlim = c(0, 10), ylim = c(0, 10))  # empty canvas
+# # Aspect ratio of current plot:
+# plot_xy <- par("pin")                # Use par("pin") OR dev.size("in")
+# plot_ratio <- plot_xy[1]/plot_xy[2]  # Current aspect ratio
+# plot_scale <- 1/plot_ratio           # Multiplicative correction factor (for x-widths)
+#
+# # Basics:
+# plot_fbox(fname = "N1", 3, 9, 2, 2)  # square (appears as rectangle in rectangular plot area)
+# plot_fbox(fname = "N2", 7, 9, 2, 2, scale_lx = plot_scale)  # square (appears as square in any plot area)
+#
+# # Plot freq boxes:
 # plot_fbox(fname = "N", 5, 5, 1, 2/3)
 # plot_fbox(fname = "N", 5, 5, 3/2, 2/3, lbl_type = "namnum", lbl_sep = ":\nN = ")
 # plot_fbox(fname = "cond.true", 3, 4, 2, 2/3, show.type = TRUE)
@@ -953,7 +971,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
 # plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, lbl_type = "namnum")
 # plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "green2", col.brd = "red3", cex = .6, lwd = 3)
-# ## arbitrary boxes (with unknown freq): ###
+#
+# # Arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
 # plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
 
