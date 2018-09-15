@@ -949,13 +949,13 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
 #        xlim = c(0, 10), ylim = c(0, 10))  # empty canvas
 # # Aspect ratio of current plot:
-# plot_xy <- par("pin")                # Use par("pin") OR dev.size("in")
-# plot_ratio <- plot_xy[1]/plot_xy[2]  # Current aspect ratio
-# plot_scale <- 1/plot_ratio           # Multiplicative correction factor (for x-widths)
+# plot_xy <- par("pin")                # use par("pin") OR dev.size("in")
+# plot_ratio <- plot_xy[1]/plot_xy[2]  # current aspect ratio
+# scale_x <- 1/plot_ratio              # multiplicative correction factor (for x-widths)
 #
 # # Basics:
 # plot_fbox(fname = "N1", 3, 9, 2, 2)  # square (appears as rectangle in rectangular plot area)
-# plot_fbox(fname = "N2", 7, 9, 2, 2, scale_lx = plot_scale)  # square (appears as square in any plot area)
+# plot_fbox(fname = "N2", 7, 9, 2, 2, scale_lx = scale_x)  # square (appears as square in any plot area)
 #
 # # Plot freq boxes:
 # plot_fbox(fname = "N", 5, 5, 1, 2/3)
@@ -1059,36 +1059,32 @@ comp_freq_fbox <- function(fbox) {
 plot_fbox_list <- function(fboxes, ...) {
   # Plot a list of fboxes in some order:
 
-  #if (is.list(fboxes)) {  # list of 1 or more fboxes:
-
-  # while ( is.list(fboxes) && (length(fboxes) > 0) && length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
-
   if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
 
-    ## (A) Plot all boxes in order (from 1, 2, ...):
-    ## with recursive while:
+    ## (A) Plot fboxes in given order (from 1, 2, ...):
+
+    ## (a) with recursive while:
     # plot(fboxes[[1]], ...)  # plot 1st box of list
     # fboxes <- fboxes[-1]  # remove 1st box from list
 
-    ## all in sequence:
+    ## (b) with lapply:
     # lapply(X = fboxes, FUN = plot, ...)    # plot all in dec_order
 
 
     ## (B) Plot fboxes by decreasing frequency (from largest to smallest):
+
+    ## Determine order:
     box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox))  # get freq of all fboxes (with utility function)
+    decr_order <- order(box_freqs, decreasing = TRUE)  # order to plot boxes
 
-    ## with recursive while:
+    ## (a) with recursive while:
     # ix <- which(box_freqs == max(box_freqs))  # get ix of the box with maximum freq
-
     # if (length(ix) > 1) { ix <- ix[1] }  # if ix is no scalar (i.e., fboxes has multiple freq max), use 1st element of ix.
-
     # plot(fboxes[[ix]], ...) # plot box ix
     # fboxes <- fboxes[-ix]   # remove box ix from list
 
-    ## with lapply:
-    decr_order <- order(box_freqs, decreasing = TRUE)  # order to plot
+    ## (b) with lapply:
     lapply(X = fboxes[decr_order], FUN = plot, ...)    # plot all in dec_order
-
 
   } # if/while ...
 
@@ -1097,8 +1093,6 @@ plot_fbox_list <- function(fboxes, ...) {
     plot(fboxes, ...)
 
   }
-
-  #} # if  (is.list(fboxes))
 
 }
 
