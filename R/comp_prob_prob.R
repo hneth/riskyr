@@ -1443,13 +1443,13 @@ comp_prob_pname <- function(pname) {
     if (tolower(pname[i]) == "err") { p[i] <- (1 - prob$acc) }  # OR: (1 - accu$acc)
 
     # 4 conditional probabilities:
-    if (tolower(pname[i]) == "acc-hi") { p[i] <- (prob$prev * prob$sens)/(prob$acc) }        # prob of hi/dec.cor
+    if (tolower(pname[i]) == "acc-hi") { p[i] <- (prob$prev * prob$sens)/(prob$acc) }          # prob of hi/dec.cor
     # if (tolower(pname[i]) == "acc-cr") { p[i] <- ((1 - prob$prev) * prob$spec)/(prob$acc) }  # prob of cr/dec.cor computed from scratch
-    if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (prob$prev * prob$sens)/(prob$acc)) }  # prob of cr/dec.cor as complement of hi/dec.cor
+    if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (prob$prev * prob$sens)/(prob$acc)) }    # prob of cr/dec.cor as complement of hi/dec.cor
 
-    if (tolower(pname[i]) == "err-mi") { p[i] <- (prob$prev * (1 - prob$sens))/(1 - prob$acc) }        # prob of mi/dec.err
+    if (tolower(pname[i]) == "err-mi") { p[i] <- (prob$prev * (1 - prob$sens))/(1 - prob$acc) }          # prob of mi/dec.err
     # if (tolower(pname[i]) == "err-fa") { p[i] <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc) }  # prob of fa/dec.err computed from scratch
-    if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (prob$prev * (1 - prob$sens))/(1 - prob$acc)) }  # prob of fa/dec.err computed as complement of mi/dec.err
+    if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (prob$prev * (1 - prob$sens))/(1 - prob$acc)) }    # prob of fa/dec.err computed as complement of mi/dec.err
 
   } # loop
 
