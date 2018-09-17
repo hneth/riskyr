@@ -192,8 +192,8 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
                           by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
                           show.freq = TRUE,  # show labels of 4 frequencies in plot
                           show.prob = TRUE,  # show help_line (for metrics, e.g., prev, sens, spec)?
-                          show.accu = TRUE,   # compute and show accuracy metrics
-                          w.acc = .50,        # weight w for wacc (from 0 to 1)
+                          show.accu = TRUE,  # compute and show accuracy metrics
+                          w.acc = .50,       # weight w for wacc (from 0 to 1)
                           ## Text and color options: ##
                           title.lbl = txt$scen.lbl,
                           col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
