@@ -358,6 +358,9 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   prob$FOR  <- mi/dec.neg
 
   prob$acc  <- dec.cor/N
+  ## not computed/returned/stored in prob (yet):
+  # p_acc_hi <- hi/dec.cor  # p(hi | acc)
+  # p_err_fa <- fa/dec.err  # p(fa | err)
 
   ## Return entire list prob:
   return(prob)
