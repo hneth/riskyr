@@ -1756,11 +1756,11 @@ label_note <- function(area = NULL, scale = "f") {
 
     if (area == "hr") {
 
-      area_lbl <- "Horizontal widths"
+      area_lbl <- "Horizontal widths"  # "Rectangles" / "Areas" ...
 
     } else if (area == "sq") {
 
-      area_lbl <- "Squares"
+      area_lbl <- "Areas"  # "Squares" in fnet/prism, but "Rectangles" (inside square) in mosaic plot!
 
     }
 
