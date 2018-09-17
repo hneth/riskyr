@@ -1218,12 +1218,6 @@ comp_acc <- function(prev, sens, spec) {
 
 
 
-
-
-
-
-
-
 ## comp_err: Documentation --------
 
 #' Compute overall error rate (err) from probabilities.
