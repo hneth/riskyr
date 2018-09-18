@@ -116,7 +116,7 @@ plot.box <- function(obj, ...) {
 
 ## label_freq: Label a known frequency (in freq) by fname ----------
 label_freq <- function(fname,
-                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum".
+                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum" or NULL/NA.
                        lbl_sep = " = "          # separator: " = " (default), ":\n"
                        #freq = freq, txt = txt  # use current lists
 ) {
@@ -125,6 +125,14 @@ label_freq <- function(fname,
   f_lbl <- fname # initialize (in case of unknown freq)
   f_val  <- NA
   f_type <- NA
+
+  ## (0) If lbl_type is NULL or NA:
+  if ( is.null(lbl_type) || is.na(lbl_type) ) {
+
+    f_lbl <- NA
+
+    return(f_lbl)  # return NA
+  }
 
   ## (1) Determine the frequency value of freq corresponding to fname:
 
@@ -225,7 +233,8 @@ label_freq <- function(fname,
 
 }
 
-# ## Check:
+## Check:
+## Basics:
 # label_freq("hi")
 # label_freq("hi", lbl_sep = ":\n")
 # label_freq("cr", lbl_type = "num")
@@ -233,14 +242,17 @@ label_freq <- function(fname,
 # label_freq("cr", lbl_type = "namnum")
 # label_freq("cr", lbl_type = "nix")  # default lbl_type
 # label_freq("dec.err", lbl_type = "all")
-# label_freq("dec.err")        # no lbl_type specified: use default
-# label_freq("unknown fname")  # unknown freq: return fname
+#
+## Special cases:
+# label_freq("dec.err")              # no lbl_type specified: use default
+# label_freq("hi", lbl_type = NULL)  # => NA
+# label_freq("unknown fname")        # unknown freq: return fname
 
 
 ## label_prob: Label a known probability (in prob) by pname ----------
 
 label_prob <- function(pname,
-                       lbl_type = "default",  # label type: "default", "nam", "num", "namnum".
+                       lbl_type = "default",  # label type: "default", "nam", "num", "namnum" or NULL/NA.
                        lbl_sep = " = "        # separator: " = " (default), ":\n"
                        #, prob = prob, accu = accu, txt = txt  # use current lists
 ) {
@@ -252,6 +264,14 @@ label_prob <- function(pname,
 
   ## Currently fixed parameters:
   n_dec <- 1  # number of decimals to round percentage to.
+
+  ## (0) If lbl_type is NULL or NA:
+  if ( is.null(lbl_type) || is.na(lbl_type) ) {
+
+    p_lbl <- NA
+
+    return(p_lbl)  # return NA
+  }
 
   ## (1) Determine the probability value p_val of prob corresponding to pname:
   if (lbl_type != "nam") {
@@ -449,6 +469,7 @@ label_prob <- function(pname,
 # label_prob("PPV", lbl_type = "namnum")
 # label_prob("NPV", lbl_type = "namnum")
 ## Special cases:
+# label_prob("prev", lbl_type = NULL)        # => NA
 # label_prob("cprev", lbl_type = "default")  # complement to prev
 # label_prob("cprev", lbl_type = "nam")      # complement to prev
 # label_prob("cprev", lbl_type = "namnum")   # complement to prev
