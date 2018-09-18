@@ -300,9 +300,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  if ( !is.null(by) && !is.na(by) ) {
-    by <- tolower(by)  # express by in lowercase
-  }
+  if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # express by in lowercase
   if (by == "any" || by == "all" || by == "default" || by == "def" || is.null(by) || is.na(by) )  { by <- "cddc" }  # default/null
   if (by == "cond" || by == "condition" ) { by <- "cd" }
   if (by == "dec"  || by == "decision"  ) { by <- "dc" }
