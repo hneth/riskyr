@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 15
+## 2018 09 18
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -667,6 +667,7 @@ plot_freq_label <- function(fname,                # name of a known freq
 
 ## (B) Boxes: ------
 ## (a) Plotting boxes: ------
+
 ## plot_vbox: Plot a vertical box (x = center, y = bottom) with text label ----------
 
 ## Note: plot_vbox only plots provided arguments.
@@ -778,6 +779,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 #   2. plot_fbox (that determines current freq value and fill color for known freq).
 
 ## plot_cbox: Plot a CENTERED box (x = center, y = center) with text label ----------
+
 plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
                       ## Text labels:
@@ -870,6 +872,7 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
 
 ## plot_fbox: Plot a known frequency (freq) as a box ----------
+
 plot_fbox <- function(fname,   # name of a known frequency (freq)
                       x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,  # lengths of box (width and height)
