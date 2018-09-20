@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 18
+## 2018 09 20
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -116,7 +116,7 @@ plot.box <- function(obj, ...) {
 
 ## label_freq: Label a known frequency (in freq) by fname ----------
 label_freq <- function(fname,
-                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum" or NULL/NA.
+                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum", or NULL/NA/"no" (to hide label).
                        lbl_sep = " = "          # separator: " = " (default), ":\n"
                        #freq = freq, txt = txt  # use current lists
 ) {
@@ -127,7 +127,7 @@ label_freq <- function(fname,
   f_type <- NA
 
   ## (0) If lbl_type is NULL or NA:
-  if ( is.null(lbl_type) || is.na(lbl_type) ) {
+  if ( is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" ) {
 
     f_lbl <- NA
 
@@ -252,7 +252,7 @@ label_freq <- function(fname,
 ## label_prob: Label a known probability (in prob) by pname ----------
 
 label_prob <- function(pname,
-                       lbl_type = "default",  # label type: "default", "nam", "num", "namnum" or NULL/NA.
+                       lbl_type = "default",  # label type: "default", "nam", "num", "namnum", or NULL/NA/"no" (to hide label).
                        lbl_sep = " = "        # separator: " = " (default), ":\n"
                        #, prob = prob, accu = accu, txt = txt  # use current lists
 ) {
@@ -266,7 +266,7 @@ label_prob <- function(pname,
   n_dec <- 1  # number of decimals to round percentage to.
 
   ## (0) If lbl_type is NULL or NA:
-  if ( is.null(lbl_type) || is.na(lbl_type) ) {
+  if ( is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" )  {
 
     p_lbl <- NA
 
@@ -470,6 +470,7 @@ label_prob <- function(pname,
 # label_prob("NPV", lbl_type = "namnum")
 ## Special cases:
 # label_prob("prev", lbl_type = NULL)        # => NA
+# label_prob("prev", lbl_type = "no")        # => NA
 # label_prob("cprev", lbl_type = "default")  # complement to prev
 # label_prob("cprev", lbl_type = "nam")      # complement to prev
 # label_prob("cprev", lbl_type = "namnum")   # complement to prev
