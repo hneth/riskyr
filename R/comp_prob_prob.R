@@ -1,5 +1,5 @@
 ## comp_prob_prob.R | riskyr
-## 2018 09 10
+## 2018 09 20
 ## Compute probabilities from probabilities:
 ## -----------------------------------------------
 
@@ -38,7 +38,11 @@
 
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
-# acc  = overall accuracy (probability/proportion correct decision)
+# acc  = overall accuracy (proportion correct)
+# p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
+# p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+
+# Other measures of accuracy (in accu):
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
@@ -1405,45 +1409,53 @@ comp_prob_pname <- function(pname) {
 
   for (i in 1:n) {  # loop through n elements of pname:
 
-    # (A) pname corresponds to named prob in prob:
-    if (tolower(pname[i]) %in% tolower(names(prob))) {
+    if (is.null(pname[i]) || is.na(pname[i])) {
 
-      # p_lbl <- i  # initialize to pname
+      p[i] <- NA
 
-      # Derive current value corresponding to prob:
-      ix <- which(tolower(names(prob)) == tolower(pname[i]))  # index in prob
+    } else {  # 2 main cases:
 
-      # Value of probability in prob:
-      p[i] <- prob[ix]
+      # (A) pname corresponds to named prob in prob:
+      if (tolower(pname[i]) %in% tolower(names(prob))) {
 
-      # Type of probability:
-      # p_type <- comp_prob_type(pname)  # toDo: helper function (to be defined in init_prob_num.R)
+        # p_lbl <- i  # initialize to pname
 
-    } # if (i-th pname %in% (names(prob)))...
+        # Derive current value corresponding to prob:
+        ix <- which(tolower(names(prob)) == tolower(pname[i]))  # index in prob
 
-    # (B) Special cases:
-    if (tolower(pname[i]) == "cprev") {  # if complement of prevalence:
-      p[i] <- (1 - prob$prev)
-    }
+        # Value of probability in prob:
+        p[i] <- prob[ix]
 
-    if (tolower(pname[i]) == "cppod" || tolower(pname[i]) == "pned") {  # if complement of ppod:
-      p[i] <- (1 - prob$ppod)
-    }
+        # Type of probability:
+        # p_type <- comp_prob_type(pname)  # toDo: helper function (to be defined in init_prob_num.R)
 
-    # Accuracy (as probability):
-    # 2 unconditional probabilities: overall accuracy acc + error rate err:
-    if (tolower(pname[i]) == "acc") { p[i] <- prob$acc }  # OR: accu$acc
-    if (tolower(pname[i]) == "cor") { p[i] <- prob$acc }  # OR: accu$acc
-    if (tolower(pname[i]) == "err") { p[i] <- (1 - prob$acc) }  # OR: (1 - accu$acc)
+      } # if (i-th pname %in% (names(prob)))...
 
-    # 4 conditional probabilities:
-    if (tolower(pname[i]) == "acc-hi") { p[i] <- (prob$prev * prob$sens)/(prob$acc) }          # prob of hi/dec.cor
-    # if (tolower(pname[i]) == "acc-cr") { p[i] <- ((1 - prob$prev) * prob$spec)/(prob$acc) }  # prob of cr/dec.cor computed from scratch
-    if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (prob$prev * prob$sens)/(prob$acc)) }    # prob of cr/dec.cor as complement of hi/dec.cor
+      # (B) Special cases:
+      if (tolower(pname[i]) == "cprev") {  # if complement of prevalence:
+        p[i] <- (1 - prob$prev)
+      }
 
-    if (tolower(pname[i]) == "err-mi") { p[i] <- (prob$prev * (1 - prob$sens))/(1 - prob$acc) }          # prob of mi/dec.err
-    # if (tolower(pname[i]) == "err-fa") { p[i] <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc) }  # prob of fa/dec.err computed from scratch
-    if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (prob$prev * (1 - prob$sens))/(1 - prob$acc)) }    # prob of fa/dec.err computed as complement of mi/dec.err
+      if (tolower(pname[i]) == "cppod" || tolower(pname[i]) == "pned") {  # if complement of ppod:
+        p[i] <- (1 - prob$ppod)
+      }
+
+      # Accuracy (as probability):
+      # 2 unconditional probabilities: overall accuracy acc + error rate err:
+      if (tolower(pname[i]) == "acc") { p[i] <- prob$acc }  # OR: accu$acc
+      if (tolower(pname[i]) == "cor") { p[i] <- prob$acc }  # OR: accu$acc
+      if (tolower(pname[i]) == "err") { p[i] <- (1 - prob$acc) }  # OR: (1 - accu$acc)
+
+      # 4 conditional probabilities:
+      if (tolower(pname[i]) == "acc-hi") { p[i] <- (prob$prev * prob$sens)/(prob$acc) }          # prob of hi/dec.cor
+      # if (tolower(pname[i]) == "acc-cr") { p[i] <- ((1 - prob$prev) * prob$spec)/(prob$acc) }  # prob of cr/dec.cor computed from scratch
+      if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (prob$prev * prob$sens)/(prob$acc)) }    # prob of cr/dec.cor as complement of hi/dec.cor
+
+      if (tolower(pname[i]) == "err-mi") { p[i] <- (prob$prev * (1 - prob$sens))/(1 - prob$acc) }          # prob of mi/dec.err
+      # if (tolower(pname[i]) == "err-fa") { p[i] <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc) }  # prob of fa/dec.err computed from scratch
+      if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (prob$prev * (1 - prob$sens))/(1 - prob$acc)) }    # prob of fa/dec.err computed as complement of mi/dec.err
+
+    } # if (is.na(pname[i]))...
 
   } # loop
 
@@ -1452,11 +1464,17 @@ comp_prob_pname <- function(pname) {
 }
 
 ## Check: ----
+
 # comp_prob_pname("sens") # => OK
 # comp_prob_pname("hi")   # => NA (as "hi" is freq)
 #
 ## Multiple prob names (pname as vector):
 # comp_prob_pname(c("prev", "sens", "spec"))
+#
+## Missing values:
+# comp_prob_pname(NA)
+# comp_prob_pname(NULL)  # => NA
+# comp_prob_pname(c("prev", "sens", NA, "spec", NULL))  # => drops final NULL
 #
 ## Verify that (sum == 1) are TRUE:
 # sum(comp_prob_pname(c("prev", "cprev"))) == 1
