@@ -7,7 +7,8 @@
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "all", dir = 1, scale = "f",
   round = TRUE, show.freq = TRUE, show.prob = TRUE, show.accu = TRUE,
-  w.acc = 0.5, title.lbl = txt$scen.lbl, col.pal = pal, ...)
+  w.acc = 0.5, title.lbl = txt$scen.lbl, f_lbl = "default",
+  col.pal = pal, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -65,18 +66,18 @@ When \code{round = FALSE}, both settings yield the same bar heights.}
 \item{round}{A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
 
-\item{show.freq}{Boolean option for showing frequencies
+\item{show.freq}{Boolean option for showing essential frequencies
 (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-\code{\link{cr}}) in the plot.
+\code{\link{cr}}) on the margin of the plot.
 Default: \code{show.freq = TRUE}.}
 
-\item{show.prob}{Boolean option for showing visual help lines to mark
-generating metrics (e.g., \code{\link{prev}}, \code{\link{sens}}, and
-\code{\link{spec}}) in the plot.
-Default: \code{show.prob = FALSE}.}
+\item{show.prob}{Boolean option for showing essential probabilities
+(e.g., \code{\link{prev}}, \code{\link{sens}}, and
+\code{\link{spec}}) on the margin of the plot.
+Default: \code{show.prob = TRUE}.}
 
 \item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
+accuracy metrics \code{\link{accu}} on the margin of the plot.
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
@@ -85,6 +86,10 @@ Default: \code{w.acc = .50}.}
 
 \item{title.lbl}{Text label for current plot title.
 Default: \code{title.lbl = txt$scen.lbl}.}
+
+\item{f_lbl}{Type of frequency labels, as character code with the following options:
+\code{"nam"}: names, \code{"num"}: numeric values, \code{"abb"}: abbreviated names, \code{NA/NULL/"no"}: no labels.
+Default: \code{f_lbl = "default"}: abbreviated names and numeric values.}
 
 \item{col.pal}{Color palette.
 Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).}
@@ -137,21 +142,28 @@ plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
          title.lbl = "Test 2")  # by "all" (default)
 
-# Perspectives:
+# Perspectives (by):
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
          title.lbl = "Test 3a")  # by condition
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
-         title.lbl = "Test 3b")  # bi-directional
+         title.lbl = "Test 3b", f_lbl = "num")  # bi-directional
 
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
          title.lbl = "Test 4a")  # by decision
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
-         title.lbl = "Test 4b")  # bi-directional
+         title.lbl = "Test 4b", f_lbl = "num")  # bi-directional
 
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
          title.lbl = "Test 5a")  # by accuracy
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
-         title.lbl = "Test 5b")  # bi-directional
+         title.lbl = "Test 5b", f_lbl = "num")  # bi-directional
+
+# Frequency labels (f_lbl):
+plot_bar(f_lbl = "default")  # default labels: name = num
+plot_bar(f_lbl = "nam")      # name only
+plot_bar(f_lbl = "num")      # numeric value only
+plot_bar(f_lbl = "abb")      # abbreviated name
+plot_bar(f_lbl = NA)         # no labels (NA/NULL/"no")
 
 # Scaling and rounding effects:
 plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
