@@ -108,39 +108,45 @@
 #' Default: \code{scale = "f"}.
 #' When \code{round = FALSE}, both settings yield the same bar heights.
 #'
-#' @param round A Boolean option specifying whether computed frequencies
+#' @param round  Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
-#' @param show.freq Boolean option for showing essential frequencies
-#' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-#' \code{\link{cr}}) on the margin of the plot.
-#' Default: \code{show.freq = TRUE}.
+#' @param f_lbl  Type of frequency labels, as character code with the following options:
+#' \enumerate{
+#'   \item \code{f_lbl = "nam"}: names;
+#'   \item \code{f_lbl = "num"}: numeric values;
+#'   \item \code{f_lbl = "abb"}: abbreviated names;
+#'   \item \code{f_lbl = NA/NULL/"no"}: no labels;
+#'   \item \code{f_lbl = "default"}: abbreviated names and numeric values.
+#'   }
 #'
-#' @param show.prob Boolean option for showing essential probabilities
-#' (e.g., \code{\link{prev}}, \code{\link{sens}}, and
-#' \code{\link{spec}}) on the margin of the plot.
-#' Default: \code{show.prob = TRUE}.
-#'
-#' @param show.accu Option for showing current
-#' accuracy metrics \code{\link{accu}} on the margin of the plot.
-#' Default: \code{show.accu = TRUE}.
-#'
-#' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w.acc = .50}.
-#'
-#' @param title.lbl Text label for current plot title.
+#' @param title_lbl  Main plot title.
 #' Default: \code{title.lbl = txt$scen.lbl}.
 #'
-#' @param f_lbl Type of frequency labels, as character code with the following options:
-#' \code{"nam"}: names, \code{"num"}: numeric values, \code{"abb"}: abbreviated names, \code{NA/NULL/"no"}: no labels.
-#' Default: \code{f_lbl = "default"}: abbreviated names and numeric values.
+#' @param col_pal  Color palette to use.
+#' Default: \code{col_pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
 #'
-#' @param col.pal Color palette.
-#' Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
+#' @param show_freq  Boolean option for showing essential frequencies
+#' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
+#' \code{\link{cr}}) on the margin of the plot.
+#' Default: \code{show_freq = TRUE}.
 #'
-#' @param ... Other (graphical) parameters
+#' @param show_prob  Boolean option for showing essential probabilities
+#' (e.g., \code{\link{prev}}, \code{\link{sens}}, and
+#' \code{\link{spec}}) on the margin of the plot.
+#' Default: \code{show_prob = TRUE}.
+#'
+#' @param show_accu  Boolean option for showing current
+#' accuracy metrics \code{\link{accu}} on the margin of the plot.
+#' Default: \code{show_accu = TRUE}.
+#'
+#' @param w_acc  Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
+#' Default: \code{w_acc = .50}.
+#'
+#' @param ...  Other (graphical) parameters
 #' (e.g., \code{cex}, \code{lwd}, ...).
+#'
 #'
 #' @examples
 #' # Basics:
@@ -221,19 +227,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      spec = num$spec, fart = NA,
                      N = num$N,                   # population size N
                      ## Specific options:
-                     by = "all",   # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all".
-                     dir = 1,      # directions: 1 (default) vs. 2
-                     scale = "f",  # scale bars: "f" ... freq (default), "p" ... prob.
+                     by = "all",    # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all".
+                     dir = 1,       # directions: 1 (default) vs. 2
+                     scale = "f",   # scale bars: "f" ... freq (default), "p" ... prob.
+                     round = TRUE,  # should freq be rounded to integers? (default: TRUE)
+                     ## Text and color:
+                     f_lbl = "default",         # type of freq labels: "default" (current fname = current fnum), "nam"/"num"/"abb"
+                     title_lbl = txt$scen.lbl,  # main title of plot
+                     col_pal = pal,             # color palette
                      ## General options:
-                     round = TRUE, # should freq be rounded to integers (default: TRUE)
-                     show.freq = TRUE,   # show essential freq values on plot margin
-                     show.prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
-                     show.accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
-                     w.acc = .50,        # weight w for wacc (from 0 to 1)
-                     ## Text and color options:
-                     title.lbl = txt$scen.lbl,  # main title of plot
-                     f_lbl = "default",  # type of freq labels: "default" (current fname = current fnum), "nam"/"num"/"abb"
-                     col.pal = pal,         # color palette
+                     show_freq = TRUE,   # show essential freq values on plot margin
+                     show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
+                     show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
+                     w_acc = .50,        # weight w for wacc (from 0 to 1)
                      ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
@@ -268,10 +274,10 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     ## (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
-    sens <- prob_quintet[2] # gets sens (if not provided)
-    mirt <- prob_quintet[3] # gets mirt (if not provided)
-    spec <- prob_quintet[4] # gets spec (if not provided)
-    fart <- prob_quintet[5] # gets fart (if not provided)
+    sens <- prob_quintet[2]  # gets sens (if not provided)
+    mirt <- prob_quintet[3]  # gets mirt (if not provided)
+    spec <- prob_quintet[4]  # gets spec (if not provided)
+    fart <- prob_quintet[5]  # gets fart (if not provided)
 
     ## (b) Compute freq based on current parameters (N and probabilities):
     freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
@@ -301,8 +307,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (2) Text labels: ----------
 
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Bar plot of frequencies") # , "(N = ", N, ")")
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  cur_title_lbl <- paste0(title_lbl, "Bar plot of frequencies") # , "(N = ", N, ")")
 
   # cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   # # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
@@ -1016,13 +1022,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (7) Title: --------
 
-  # title(cur.title.lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
-  title(cur.title.lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
+  # title(cur_title_lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
+  title(cur_title_lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
 
   ## (8) Margins: ------
 
-  plot_mar(show_freq = show.freq, show_cond = show.prob, show_dec = TRUE,
-           show_accu = show.accu, accu_from_freq = round, # default: FALSE.  Use accu_from_freq = round to show accuracy based on freq!
+  plot_mar(show_freq = show_freq, show_cond = show_prob, show_dec = TRUE,
+           show_accu = show_accu, accu_from_freq = round,  # default: accu_from_freq = FALSE.  Use accu_from_freq = round to show accuracy based on freq!
            note = ""   # "Some noteworthy remark here."
   )
 

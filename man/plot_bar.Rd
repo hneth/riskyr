@@ -6,9 +6,9 @@
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "all", dir = 1, scale = "f",
-  round = TRUE, show.freq = TRUE, show.prob = TRUE, show.accu = TRUE,
-  w.acc = 0.5, title.lbl = txt$scen.lbl, f_lbl = "default",
-  col.pal = pal, ...)
+  round = TRUE, f_lbl = "default", title_lbl = txt$scen.lbl,
+  col_pal = pal, show_freq = TRUE, show_prob = TRUE, show_accu = TRUE,
+  w_acc = 0.5, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -63,36 +63,41 @@ by exact probabilities (\code{scale = "p"}).
 Default: \code{scale = "f"}.
 When \code{round = FALSE}, both settings yield the same bar heights.}
 
-\item{round}{A Boolean option specifying whether computed frequencies
+\item{round}{Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
 
-\item{show.freq}{Boolean option for showing essential frequencies
-(i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-\code{\link{cr}}) on the margin of the plot.
-Default: \code{show.freq = TRUE}.}
+\item{f_lbl}{Type of frequency labels, as character code with the following options:
+\enumerate{
+  \item \code{f_lbl = "nam"}: names;
+  \item \code{f_lbl = "num"}: numeric values;
+  \item \code{f_lbl = "abb"}: abbreviated names;
+  \item \code{f_lbl = NA/NULL/"no"}: no labels;
+  \item \code{f_lbl = "default"}: abbreviated names and numeric values.
+  }}
 
-\item{show.prob}{Boolean option for showing essential probabilities
-(e.g., \code{\link{prev}}, \code{\link{sens}}, and
-\code{\link{spec}}) on the margin of the plot.
-Default: \code{show.prob = TRUE}.}
-
-\item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} on the margin of the plot.
-Default: \code{show.accu = TRUE}.}
-
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w.acc = .50}.}
-
-\item{title.lbl}{Text label for current plot title.
+\item{title_lbl}{Main plot title.
 Default: \code{title.lbl = txt$scen.lbl}.}
 
-\item{f_lbl}{Type of frequency labels, as character code with the following options:
-\code{"nam"}: names, \code{"num"}: numeric values, \code{"abb"}: abbreviated names, \code{NA/NULL/"no"}: no labels.
-Default: \code{f_lbl = "default"}: abbreviated names and numeric values.}
+\item{col_pal}{Color palette to use.
+Default: \code{col_pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).}
 
-\item{col.pal}{Color palette.
-Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).}
+\item{show_freq}{Boolean option for showing essential frequencies
+(i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
+\code{\link{cr}}) on the margin of the plot.
+Default: \code{show_freq = TRUE}.}
+
+\item{show_prob}{Boolean option for showing essential probabilities
+(e.g., \code{\link{prev}}, \code{\link{sens}}, and
+\code{\link{spec}}) on the margin of the plot.
+Default: \code{show_prob = TRUE}.}
+
+\item{show_accu}{Boolean option for showing current
+accuracy metrics \code{\link{accu}} on the margin of the plot.
+Default: \code{show_accu = TRUE}.}
+
+\item{w_acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
+Default: \code{w_acc = .50}.}
 
 \item{...}{Other (graphical) parameters
 (e.g., \code{cex}, \code{lwd}, ...).}
