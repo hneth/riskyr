@@ -72,7 +72,7 @@ are rounded to integers. Default: \code{round = TRUE}.}
   \item \code{f_lbl = "num"}: numeric values (default);
   \item \code{f_lbl = "abb"}: abbreviated names;
   \item \code{f_lbl = NA/NULL/"no"}: no labels;
-  \item \code{f_lbl = "default"}: abbreviated names and numeric values.
+  \item \code{f_lbl = "any"}: abbreviated names and numeric values (abb = num).
   }}
 
 \item{box_lwd}{Line width of frequency box (border).

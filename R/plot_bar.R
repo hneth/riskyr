@@ -117,7 +117,7 @@
 #'   \item \code{f_lbl = "num"}: numeric values (default);
 #'   \item \code{f_lbl = "abb"}: abbreviated names;
 #'   \item \code{f_lbl = NA/NULL/"no"}: no labels;
-#'   \item \code{f_lbl = "default"}: abbreviated names and numeric values.
+#'   \item \code{f_lbl = "any"}: abbreviated names and numeric values (abb = num).
 #'   }
 #'
 #' @param box_lwd  Line width of frequency box (border).
@@ -250,12 +250,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (0) Handle arguments and deprecated arguments: ----------
 
-  # ## (0) Get probabilities from global numeric parameters (num):
+  ## (a) Get probabilities from global numeric parameters (num):
   # prev <- num$prev
   # sens <- num$sens
   # spec <- num$spec
 
-  ## Increase robustness by anticipating and correcting common entry errors: ------
+  ## (b) Increase robustness by anticipating and correcting common entry errors: ------
 
   if (is.null(by) || is.na(by) || by == "def" || by == "default" || by == "any")  { by <- "all"}  # default/null
   if (by == "cond") { by <- "cd" }
@@ -269,11 +269,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (scale == "freq") { scale <- "f" }  # default/null
   if (scale == "prob") { scale <- "p" }
 
+  if (is.null(f_lbl) || is.na(f_lbl)) { f_lbl <- "no" }
+  f_lbl <- tolower(f_lbl)
+  if (f_lbl == "val") (f_lbl <- "num")
+  if (f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum") (f_lbl <- "default")
+
   tiny_lwd <- .001
   if ( is.null(box_lwd) || is.na(box_lwd) ) { box_lwd <- tiny_lwd }  # default for NULL/NA
   if ( box_lwd <= 0 ) { box_lwd <- tiny_lwd }    # set to invisible width (to avoid error).
 
-  ## Additional parameters (currently fixed):
+
+  ## (c) Additional parameters (currently fixed):
+
   n_digits_bar <- 2  # n_digits to round freq to in bar plot (when round = FALSE)
 
   # Offset from base line:
@@ -1080,12 +1087,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
 #          title_lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
 #
 ## f_lbl: different types of freq labels:
-# plot_bar(f_lbl = "default")  # default labels: name = num
 # plot_bar(f_lbl = "nam")  # name only
-# plot_bar(f_lbl = "num")  # numeric value only
-# plot_bar(f_lbl = "abb")  # abbreviated name
+# plot_bar(f_lbl = "num")  # numeric value only (default)
+# plot_bar(f_lbl = "aBB")  # abbreviated name (lowercase)
 # plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
-
+# plot_bar(f_lbl = "any")  # default labels: name = num
 
 ## (*) Done: ----------
 
