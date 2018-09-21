@@ -1,20 +1,18 @@
 ## comp_accu.R | riskyr
-## 2018 09 04
+## 2018 09 21
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
 ## -----------------------------------------------
 
-## Two ways:
-## (1) Compute all accuracy metrics (from freq)
-## (2) Accuracy metrics from probabilities
+## Distinguish 2 ways:
+## (1) Compute accuracy metrics from frequencies (rounded or non-rounded)
+## (2) Compute accuracy metrics from probabilities (always exact)
 
 ## (1) assumes that freq has been computed before.
 
 
-
-
-## (A) Accuracy metrics for a classification result (i.e., based on freq) ------
+## (A) Accuracy metrics for given classification results (i.e., based on freq) ------
 
 
 ## 1. ALL current accuracy metrics from 4 freq: ------
