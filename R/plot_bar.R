@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 09 11
+## 2018 09 21
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -108,22 +108,21 @@
 #' Default: \code{scale = "f"}.
 #' When \code{round = FALSE}, both settings yield the same bar heights.
 #'
-#'
 #' @param round A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
-#' @param show.freq Boolean option for showing frequencies
+#' @param show.freq Boolean option for showing essential frequencies
 #' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-#' \code{\link{cr}}) in the plot.
+#' \code{\link{cr}}) on the margin of the plot.
 #' Default: \code{show.freq = TRUE}.
 #'
-#' @param show.prob Boolean option for showing visual help lines to mark
-#' generating metrics (e.g., \code{\link{prev}}, \code{\link{sens}}, and
-#' \code{\link{spec}}) in the plot.
-#' Default: \code{show.prob = FALSE}.
+#' @param show.prob Boolean option for showing essential probabilities
+#' (e.g., \code{\link{prev}}, \code{\link{sens}}, and
+#' \code{\link{spec}}) on the margin of the plot.
+#' Default: \code{show.prob = TRUE}.
 #'
 #' @param show.accu Option for showing current
-#' accuracy metrics \code{\link{accu}} in the plot.
+#' accuracy metrics \code{\link{accu}} on the margin of the plot.
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
@@ -132,6 +131,10 @@
 #'
 #' @param title.lbl Text label for current plot title.
 #' Default: \code{title.lbl = txt$scen.lbl}.
+#'
+#' @param f_lbl Type of frequency labels, as character code with the following options:
+#' \code{"nam"}: names, \code{"num"}: numeric values, \code{"abb"}: abbreviated names, \code{NA/NULL/"no"}: no labels.
+#' Default: \code{f_lbl = "default"}: abbreviated names and numeric values.
 #'
 #' @param col.pal Color palette.
 #' Default: \code{col.pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
@@ -146,21 +149,28 @@
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
 #'          title.lbl = "Test 2")  # by "all" (default)
 #'
-#' # Perspectives:
+#' # Perspectives (by):
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
 #'          title.lbl = "Test 3a")  # by condition
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
-#'          title.lbl = "Test 3b")  # bi-directional
+#'          title.lbl = "Test 3b", f_lbl = "num")  # bi-directional
 #'
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
 #'          title.lbl = "Test 4a")  # by decision
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
-#'          title.lbl = "Test 4b")  # bi-directional
+#'          title.lbl = "Test 4b", f_lbl = "num")  # bi-directional
 #'
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
 #'          title.lbl = "Test 5a")  # by accuracy
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
-#'          title.lbl = "Test 5b")  # bi-directional
+#'          title.lbl = "Test 5b", f_lbl = "num")  # bi-directional
+#'
+#' # Frequency labels (f_lbl):
+#' plot_bar(f_lbl = "default")  # default labels: name = num
+#' plot_bar(f_lbl = "nam")      # name only
+#' plot_bar(f_lbl = "num")      # numeric value only
+#' plot_bar(f_lbl = "abb")      # abbreviated name
+#' plot_bar(f_lbl = NA)         # no labels (NA/NULL/"no")
 #'
 #' # Scaling and rounding effects:
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
@@ -216,13 +226,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      scale = "f",  # scale bars: "f" ... freq (default), "p" ... prob.
                      ## General options:
                      round = TRUE, # should freq be rounded to integers (default: TRUE)
-                     show.freq = TRUE,   # show labels of frequencies in plot
-                     show.prob = TRUE,   # show help_line (for metrics, e.g., prev, sens, spec)?
-                     show.accu = TRUE,   # show (exact OR freq-based) accuracy metrics
+                     show.freq = TRUE,   # show essential freq values on plot margin
+                     show.prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
+                     show.accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
                      w.acc = .50,        # weight w for wacc (from 0 to 1)
-                     ## Text and color options: ##
-                     title.lbl = txt$scen.lbl,
-                     col.pal = pal,      # color palette
+                     ## Text and color options:
+                     title.lbl = txt$scen.lbl,  # main title of plot
+                     f_lbl = "default",  # type of freq labels: "default" (current fname = current fnum), "nam"/"num"/"abb"
+                     col.pal = pal,         # color palette
                      ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
@@ -414,12 +425,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
   }
 
   # Plot 1 box:
-  plot_vbox(type = NA, fname = "N", fnum = N,
+  plot_vbox(ftype = NA, fname = "N", fnum = N,
             box.x  = n.x,
             box.y  = n.y,
             box.lx = b.lx,
             box.ly = n.ly,
-            show.freq, ...)
+            lbl_type = f_lbl, ...)
 
   # Label N column:
   plot_ftype_label("N", n.x, y.min, pos = 1,
@@ -494,33 +505,33 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", fnum = hi,
+    plot_vbox(ftype = NA, fname = "hi", fnum = hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "mi", fnum = mi,
+    plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "fa", fnum = fa,
+    plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "cr", fnum = cr,
+    plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     ## (b) Condition column: ----
 
@@ -549,19 +560,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "cond.true", fnum = (hi + mi),
+    plot_vbox(ftype = NA, fname = "cond.true", fnum = (hi + mi),
               box.x  = cond.true.x,
               box.y  = cond.true.y,
               box.lx = b.lx,
               box.ly = cond.true.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "cond.false", fnum = (fa + cr),
+    plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
               box.lx = b.lx,
               box.ly = cond.false.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     # Label cond column:
     plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
@@ -596,18 +607,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.pos", fnum = (hi + fa),
+    plot_vbox(ftype = NA, fname = "dec.pos", fnum = (hi + fa),
               box.x  = dec.pos.x,
               box.y  = dec.pos.y,
               box.lx = b.lx,
               box.ly = dec.pos.ly,
-              show.freq, ...)
-    plot_vbox(type = NA, fname = "dec.neg", fnum = (mi + cr),
+              lbl_type = f_lbl, ...)
+    plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
               box.lx = b.lx,
               box.ly = dec.neg.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     # Label dec column:
     plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
@@ -642,18 +653,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.cor", fnum = (hi + cr),
+    plot_vbox(ftype = NA, fname = "dec.cor", fnum = (hi + cr),
               box.x  = dec.cor.x,
               box.y  = dec.cor.y,
               box.lx = b.lx,
               box.ly = dec.cor.ly,
-              show.freq, ...)
-    plot_vbox(type = NA, fname = "dec.err", fnum = (mi + fa),
+              lbl_type = f_lbl, ...)
+    plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
               box.lx = b.lx,
               box.ly = dec.err.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     # Label acc column:
     plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
@@ -689,33 +700,33 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", fnum = hi,
+    plot_vbox(ftype = NA, fname = "hi", fnum = hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "mi", fnum = mi,
+    plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "fa", fnum = fa,
+    plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "cr", fnum = cr,
+    plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
 
     ## (b) Condition column: ----
@@ -745,18 +756,18 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "cond.true", fnum = (hi + mi),
+    plot_vbox(ftype = NA, fname = "cond.true", fnum = (hi + mi),
               box.x  = cond.true.x,
               box.y  = cond.true.y,
               box.lx = b.lx,
               box.ly = cond.true.ly,
-              show.freq, ...)
-    plot_vbox(type = NA, fname = "cond.false", fnum = (fa + cr),
+              lbl_type = f_lbl, ...)
+    plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
               box.lx = b.lx,
               box.ly = cond.false.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     # Label cond column:
     plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
@@ -793,33 +804,33 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", fnum = hi,
+    plot_vbox(ftype = NA, fname = "hi", fnum = hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "mi", fnum = mi,
+    plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "fa", fnum = fa,
+    plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "cr", fnum = cr,
+    plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     ## (b) Decision column: ----
 
@@ -848,19 +859,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.pos", fnum = (hi + fa),
+    plot_vbox(ftype = NA, fname = "dec.pos", fnum = (hi + fa),
               box.x  = dec.pos.x,
               box.y  = dec.pos.y,
               box.lx = b.lx,
               box.ly = dec.pos.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "dec.neg", fnum = (mi + cr),
+    plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
               box.lx = b.lx,
               box.ly = dec.neg.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     # Label dec column:
     plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
@@ -896,33 +907,33 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 4 boxes:
-    plot_vbox(type = NA, fname = "hi", fnum = hi,
+    plot_vbox(ftype = NA, fname = "hi", fnum = hi,
               box.x  = hi.x,
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "mi", fnum = mi,
+    plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "fa", fnum = fa,
+    plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "cr", fnum = cr,
+    plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     ## (b) Accuracy column: ----
 
@@ -951,19 +962,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # Plot 2 boxes:
-    plot_vbox(type = NA, fname = "dec.cor", fnum = (hi + cr),
+    plot_vbox(ftype = NA, fname = "dec.cor", fnum = (hi + cr),
               box.x  = dec.cor.x,
               box.y  = dec.cor.y,
               box.lx = b.lx,
               box.ly = dec.cor.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
-    plot_vbox(type = NA, fname = "dec.err", fnum = (mi + fa),
+    plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
               box.lx = b.lx,
               box.ly = dec.err.ly,
-              show.freq, ...)
+              lbl_type = f_lbl, ...)
 
     # Label acc column:
     plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
@@ -1020,13 +1031,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
 ### Check: --------
 
-# # Basics:
+## Basics:
 # plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
 #
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
 #          title.lbl = "Test 2")  # by "all" (default)
 #
-# # Perspectives:
+## Perspectives:
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
 #          title.lbl = "Test 3a")  # by condition
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
@@ -1040,9 +1051,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
 #          title.lbl = "Test 5a")  # by accuracy
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
-#          title.lbl = "Test 5b")  # bi-directional
+#        title.lbl = "Test 5b", f_lbl = "num")  # bi-directional
 #
-# # Scaling and rounding effects:
+## Scaling and rounding effects:
 # plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #          scale = "f", round = TRUE,
 #          title.lbl = "Rounding (1)") # => Scale by freq and round freq.
@@ -1056,6 +1067,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
 #          scale = "p", round = FALSE,
 #          title.lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
 #
+## f_lbl: different types of freq labels:
+# plot_bar(f_lbl = "default")  # default labels: name = num
+# plot_bar(f_lbl = "nam")  # name only
+# plot_bar(f_lbl = "num")  # numeric value only
+# plot_bar(f_lbl = "abb")  # abbreviated name
+# plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 
 
 ## (*) Done: ----------
@@ -1064,7 +1081,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ## - Add area labels (in center of area)   [2018 08 14].
 ## - Add options for by ("all", "cd", "dc", "ac") and
 ##                   dir (1 vs. 2)         [2018 08 15].
-
+## - Add different f_lbl options.          [2018 09 21].
 
 ## (+) ToDo: ----------
 
