@@ -290,10 +290,15 @@ init_freq <- function() {
 #' If \code{\link{N}} is unknown (\code{NA}),
 #' a suitable minimum value is computed by \code{\link{comp_min_N}}.
 #'
-#' @param round A Boolean value that determines whether frequencies are
+#' @param round  Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
 #'
-#' @return A list \code{\link{freq}} containing 9 frequency values.
+#' @param n_digits  Number of digits to which frequency values
+#' are to be rounded when \code{round = FALSE}.
+#' Default: \code{n_digits = 2}.
+#'
+#'
+#' @return A list \code{\link{freq}} containing 11 frequency values.
 #'
 #' @examples
 #' comp_freq()                  # => ok, using current defaults
@@ -302,8 +307,9 @@ init_freq <- function() {
 #' # Rounding effects:
 #' comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # => yields fa = 1 (see ?round for reason)
 #' comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
-#' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => .9 hit
-#' comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
+#' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => hi = .9
+#' comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 3)  # => hi = 0.286 hit
+#' comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 1)  # => hi = 0.3
 #'
 #' # Extreme cases:
 #' comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
@@ -346,7 +352,8 @@ init_freq <- function() {
 
 comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
                       N = num$N,    # default N
-                      round = TRUE  # should freq be rounded to integers? (default: round = TRUE)
+                      round = TRUE, # should freq be rounded to integers? (default: round = TRUE)
+                      n_digits = 2  # number of digits to which non-rounded freq are to be rounded to
 ) {
 
   ## (0) Initialize freq:
@@ -427,7 +434,11 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
   } # if (is_valid(prev, sens, spec, fart))
 
-  ## (7) Return entire list freq:
+
+  ## (7) Round non-rounded freq (to n_digits):
+  if (!round) { freq <- lapply(X = freq, FUN = round, digits = n_digits) }
+
+  ## (8) Return entire list freq:
   return(freq)
 
 }
@@ -441,7 +452,8 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 # comp_freq(prev = .5, sens = .5, spec = .5, N = 1)  # => yields fa = 1 (see ?round for reason)
 # comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
 # comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => .9 hit
-# comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
+# comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 3)  # => hi = 0.286 hit
+# comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 1)  # => hi = 0.3
 #
 # # Extreme cases:
 # comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)

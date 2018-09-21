@@ -5,7 +5,7 @@
 \title{Compute frequencies from (3 essential) probabilities.}
 \usage{
 comp_freq(prev = num$prev, sens = num$sens, spec = num$spec, N = num$N,
-  round = TRUE)
+  round = TRUE, n_digits = 2)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -23,11 +23,15 @@ of a negative decision provided that the condition is \code{FALSE}).}
 If \code{\link{N}} is unknown (\code{NA}),
 a suitable minimum value is computed by \code{\link{comp_min_N}}.}
 
-\item{round}{A Boolean value that determines whether frequencies are
+\item{round}{Boolean value that determines whether frequencies are
 rounded to the nearest integer. Default: \code{round = TRUE}.}
+
+\item{n_digits}{Number of digits to which frequency values
+are to be rounded when \code{round = FALSE}.
+Default: \code{n_digits = 2}.}
 }
 \value{
-A list \code{\link{freq}} containing 9 frequency values.
+A list \code{\link{freq}} containing 11 frequency values.
 }
 \description{
 \code{comp_freq} computes frequencies (typically
@@ -183,8 +187,9 @@ length(comp_freq())          # => 11
 # Rounding effects:
 comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # => yields fa = 1 (see ?round for reason)
 comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
-comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => .9 hit
-comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => 0.2857143 hit
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => hi = .9
+comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 3)  # => hi = 0.286 hit
+comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 1)  # => hi = 0.3
 
 # Extreme cases:
 comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
