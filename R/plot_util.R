@@ -116,7 +116,7 @@ plot.box <- function(obj, ...) {
 
 ## label_freq: Label a known frequency (in freq) by fname ----------
 label_freq <- function(fname,
-                       lbl_type = "default",    # label type: "default", "nam", "num", "namnum", or NULL/NA/"no" (to hide label).
+                       lbl_type = "default",    # label type: "default", "nam"/"num"/"namnum", "abb", or NULL/NA/"no" (to hide label).
                        lbl_sep = " = "          # separator: " = " (default), ":\n"
                        #freq = freq, txt = txt  # use current lists
 ) {
@@ -127,14 +127,23 @@ label_freq <- function(fname,
   f_type <- NA
 
   ## (0) If lbl_type is NULL or NA:
-  if ( is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" ) {
+  if ( is.null(fname) || is.na(fname) ||
+       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" ) {
 
     f_lbl <- NA
-
     return(f_lbl)  # return NA
   }
 
-  ## (1) Determine the frequency value of freq corresponding to fname:
+  ## Robustness (after handling NA/NULL cases):
+  lbl_type <- tolower(lbl_type)
+
+  ## (1) Abbreviated name (i.e., variable name of fname): ----
+  if (lbl_type == "abb") {
+    f_lbl <- as.character(fname)
+    return(f_lbl)
+  }
+
+  ## (2) Determine the frequency value of freq corresponding to fname: ----
 
   if (lbl_type != "nam") {
 
@@ -152,7 +161,7 @@ label_freq <- function(fname,
     } # if (fname %in% names(freq)...
   }
 
-  ## (2) Compose f_lbl based on lbl_type:
+  ## (3) Compose f_lbl based on lbl_type: ---
 
   if (lbl_type == "num" || lbl_type == "val" ){
 
@@ -214,7 +223,7 @@ label_freq <- function(fname,
 
   }
 
-  ## (3) Split/re-format long f_lbl into 2 lines of text:
+  ## (4) Split/re-format long f_lbl into 2 lines of text: ----
   nchar_max <- 99  # criterium for f_lbl being too long (currently fixed)
 
   # if f_lbl is too long and it contains a lbl_sep (e.g., " = "):
@@ -228,14 +237,32 @@ label_freq <- function(fname,
     f_lbl <- paste0(lbl_part1, ":\n", lbl_part2)  # Put into 2 lines.
   }
 
-  ## (4) Return f_lbl:
+  ## (5) Return f_lbl: ----
   return(f_lbl)
 
 }
 
 ## Check:
+
 ## Basics:
 # label_freq("hi")
+# label_freq("prev")  # => "prev = NA" (as prev is no freq)
+#
+## Missing values:
+# label_freq(NULL)  # => NA
+# label_freq(NA)    # => NA
+# label_freq("hi", lbl_type = NULL)  # => NA
+# label_freq("hi", lbl_type = NA)    # => NA
+#
+## Abbreviated names:
+# label_freq("prev", lbl_type = "abb")
+# label_freq("err-fa", lbl_type = "abb")
+# label_freq("stuff", lbl_type = "abb")
+#
+## Standard cases:
+# label_freq("hi")
+# label_freq("HI")
+# label_freq("HI", lbl_type = "aBB")
 # label_freq("hi", lbl_sep = ":\n")
 # label_freq("cr", lbl_type = "num")
 # label_freq("cr", lbl_type = "nam")
@@ -274,6 +301,9 @@ label_prob <- function(pname,
     return(p_lbl)  # return NA
 
   }
+
+  ## Robustness (after handling NA/NULL cases):
+  lbl_type <- tolower(lbl_type)
 
   ## (1) Switch labels: Base label type on type of prob: ----
 
