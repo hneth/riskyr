@@ -136,6 +136,10 @@ label_freq <- function(fname,
 
   ## Robustness (after handling NA/NULL cases):
   lbl_type <- tolower(lbl_type)
+  if (lbl_type == "val") (lbl_type <- "num")
+  if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
+  if (lbl_type == "abbnum") (lbl_type <- "default")
+
 
   ## (1) Abbreviated name (i.e., variable name of fname): ----
   if (lbl_type == "abb") {
@@ -163,13 +167,12 @@ label_freq <- function(fname,
 
   ## (3) Compose f_lbl based on lbl_type: ---
 
-  if (lbl_type == "num" || lbl_type == "val" ){
+  if (lbl_type == "num"){
 
     # (a) Value:
     f_lbl <- as.character(f_val)
 
-  } else if ( lbl_type == "namnum" || lbl_type == "namval" ||
-              lbl_type == "full" || lbl_type == "all" ){
+  } else if (lbl_type == "namnum"){
 
     ## (b) Name AND value of freq:
 
@@ -214,12 +217,10 @@ label_freq <- function(fname,
     if (tolower(fname) == "dec.cor") { f_lbl <- txt$dec.cor.lbl }
     if (tolower(fname) == "dec.err") { f_lbl <- txt$dec.err.lbl }
 
-  } else {  ## "default":
+  } else {  ## "any"/"default":
 
     ## (d) Any other lbl_type: Use basic fname + f_val as default:
     f_lbl <- paste0(fname, lbl_sep, as.character(f_val))
-
-    ## ToDo: Use abbreviated names (e.g., hi/TP, mi/FN, fa/FN, cr/TN) by default.
 
   }
 
@@ -304,6 +305,9 @@ label_prob <- function(pname,
 
   ## Robustness (after handling NA/NULL cases):
   lbl_type <- tolower(lbl_type)
+  if (lbl_type == "val") (lbl_type <- "num")
+  if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
+  if (lbl_type == "abbnum") (lbl_type <- "default")
 
   ## (1) Switch labels: Base label type on type of prob: ----
 
@@ -362,7 +366,7 @@ label_prob <- function(pname,
   }
 
   ## (4) Compose p_lbl based on lbl_type: ----
-  if (lbl_type == "num" || lbl_type == "val" ){
+  if (lbl_type == "num"){
 
     # (a) Value only:
     if (is_prob(p_val)) {
@@ -372,8 +376,7 @@ label_prob <- function(pname,
       p_lbl <- paste0(as.character(p_val))  # Label p_val as is (as number)
     }
 
-  } else if ( lbl_type == "namnum" || lbl_type == "namval" ||
-              lbl_type == "full" || lbl_type == "all" ){
+  } else if (lbl_type == "namnum"){
 
     ## (b) Name AND value of prob:
     if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
@@ -442,7 +445,7 @@ label_prob <- function(pname,
     if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
     if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }  # key prob
 
-  } else {  ## "default":
+  } else {  ## "any"/"default":
 
     ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
