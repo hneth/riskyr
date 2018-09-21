@@ -114,14 +114,17 @@
 #' @param f_lbl  Type of frequency labels, as character code with the following options:
 #' \enumerate{
 #'   \item \code{f_lbl = "nam"}: names;
-#'   \item \code{f_lbl = "num"}: numeric values;
+#'   \item \code{f_lbl = "num"}: numeric values (default);
 #'   \item \code{f_lbl = "abb"}: abbreviated names;
 #'   \item \code{f_lbl = NA/NULL/"no"}: no labels;
 #'   \item \code{f_lbl = "default"}: abbreviated names and numeric values.
 #'   }
 #'
+#' @param box_lwd  Line width of frequency box (border).
+#' Default: \code{box_lwd = .001} (invisible).
+#'
 #' @param title_lbl  Main plot title.
-#' Default: \code{title.lbl = txt$scen.lbl}.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param col_pal  Color palette to use.
 #' Default: \code{col_pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
@@ -150,26 +153,26 @@
 #'
 #' @examples
 #' # Basics:
-#' plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
+#' plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
 #'
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
-#'          title.lbl = "Test 2")  # by "all" (default)
+#'          title_lbl = "Test 2")  # by "all" (default)
 #'
 #' # Perspectives (by):
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
-#'          title.lbl = "Test 3a")  # by condition
+#'          title_lbl = "Test 3a")  # by condition
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
-#'          title.lbl = "Test 3b", f_lbl = "num")  # bi-directional
+#'          title_lbl = "Test 3b", f_lbl = "num")  # bi-directional
 #'
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
-#'          title.lbl = "Test 4a")  # by decision
+#'          title_lbl = "Test 4a")  # by decision
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
-#'          title.lbl = "Test 4b", f_lbl = "num")  # bi-directional
+#'          title_lbl = "Test 4b", f_lbl = "num")  # bi-directional
 #'
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
-#'          title.lbl = "Test 5a")  # by accuracy
+#'          title_lbl = "Test 5a")  # by accuracy
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
-#'          title.lbl = "Test 5b", f_lbl = "num")  # bi-directional
+#'          title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
 #'
 #' # Frequency labels (f_lbl):
 #' plot_bar(f_lbl = "default")  # default labels: name = num
@@ -181,16 +184,16 @@
 #' # Scaling and rounding effects:
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #'          scale = "f", round = TRUE,
-#'          title.lbl = "Rounding (1)") # => Scale by freq and round freq.
+#'          title_lbl = "Rounding (1)") # => Scale by freq and round freq.
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #'          scale = "p", round = TRUE,
-#'          title.lbl = "Rounding (2)") # => Scale by prob and round freq.
+#'          title_lbl = "Rounding (2)") # => Scale by prob and round freq.
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #'          scale = "f", round = FALSE,
-#'          title.lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
+#'          title_lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #'          scale = "p", round = FALSE,
-#'          title.lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
+#'          title_lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -230,12 +233,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      by = "all",    # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all".
                      dir = 1,       # directions: 1 (default) vs. 2
                      scale = "f",   # scale bars: "f" ... freq (default), "p" ... prob.
-                     round = TRUE,  # should freq be rounded to integers? (default: TRUE)
-                     ## Text and color:
-                     f_lbl = "default",         # type of freq labels: "default" (current fname = current fnum), "nam"/"num"/"abb"
+                     round = TRUE,  # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                     # Freq boxes:
+                     f_lbl = "num", # type of freq labels: "nam"/"num"/"abb", NA/NULL/"no", or "default" (fname = fnum).
+                     box_lwd = .001,     # lwd of boxes: NULL vs. 1 vs. .001 (default)
+                     # Text and color:
                      title_lbl = txt$scen.lbl,  # main title of plot
                      col_pal = pal,             # color palette
-                     ## General options:
+                     # Generic options:
                      show_freq = TRUE,   # show essential freq values on plot margin
                      show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
                      show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
@@ -264,8 +269,16 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (scale == "freq") { scale <- "f" }  # default/null
   if (scale == "prob") { scale <- "p" }
 
-  # if (exists("lwd") && lwd == 0) { lwd <- .01 }
+  tiny_lwd <- .001
+  if ( is.null(box_lwd) || is.na(box_lwd) ) { box_lwd <- tiny_lwd }  # default for NULL/NA
+  if ( box_lwd <= 0 ) { box_lwd <- tiny_lwd }    # set to invisible width (to avoid error).
 
+  ## Additional parameters (currently fixed):
+  n_digits_bar <- 2  # n_digits to round freq to in bar plot (when round = FALSE)
+
+  # Offset from base line:
+  x.base <- 0  # offset x
+  y.base <- 0  # offset y
 
   ## (1) Compute or use current popu: ----------
 
@@ -280,7 +293,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
     ## (b) Compute freq based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round, n_digits = n_digits_bar)  # compute freq (default: round = TRUE)
 
     ## ToDo: Update global freq and prob objects
     ##       to use label_freq and label_prob functions.
@@ -323,10 +336,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
   par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
 
   ## (4) Graphical parameters: ----
-
-  # Offset from base line:
-  x.base <- 0  # offset x
-  y.base <- 0  # offset y
 
   ## Color info (NOW defined in init_pal):
   # col.prev <- prev.li  # prev help line
@@ -390,9 +399,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## Grid:
   grid(nx = NA, ny = NULL,  # y-axes only (at tick marks)
-       col = grey(.75, .99), lty = 1,
-       lwd = par("lwd"), equilogs = TRUE)
+       col = grey(.80, .99), lty = 3,
+       lwd = (par("lwd") * 2/3), equilogs = TRUE)
 
+  ## Horizontal base line (y = 0):
+  lines(c(0, 1), c(0, 0), col = pal["brd"], lwd = par("lwd"))
 
   ## (6) Custom bar plot: ----------
 
@@ -436,7 +447,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
             box.y  = n.y,
             box.lx = b.lx,
             box.ly = n.ly,
-            lbl_type = f_lbl, ...)
+            lbl_type = f_lbl,
+            lwd = box_lwd, ...)
 
   # Label N column:
   plot_ftype_label("N", n.x, y.min, pos = 1,
@@ -516,28 +528,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     ## (b) Condition column: ----
 
@@ -571,14 +583,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = cond.true.y,
               box.lx = b.lx,
               box.ly = cond.true.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
               box.lx = b.lx,
               box.ly = cond.false.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     # Label cond column:
     plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
@@ -618,13 +630,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = dec.pos.y,
               box.lx = b.lx,
               box.ly = dec.pos.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
               box.lx = b.lx,
               box.ly = dec.neg.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     # Label dec column:
     plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
@@ -664,13 +676,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = dec.cor.y,
               box.lx = b.lx,
               box.ly = dec.cor.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
               box.lx = b.lx,
               box.ly = dec.err.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     # Label acc column:
     plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
@@ -678,9 +690,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("dec.cor"),
                      ...)
 
-  } # if (by == "all")
-
-  else if (by == "cd") {
+  } else if (by == "cd") {
 
     ## (2): 3 vertical bars (condition in middle): ----------
 
@@ -711,28 +721,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
 
     ## (b) Condition column: ----
@@ -767,13 +777,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = cond.true.y,
               box.lx = b.lx,
               box.ly = cond.true.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
               box.lx = b.lx,
               box.ly = cond.false.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     # Label cond column:
     plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
@@ -782,9 +792,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      ...)
 
 
-  } # if (by == "cd")
-
-  else if (by == "dc") {
+  } else if (by == "dc") {
 
     ## (3): 3 vertical bars (decision in middle): ----------
 
@@ -815,28 +823,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     ## (b) Decision column: ----
 
@@ -870,14 +878,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = dec.pos.y,
               box.lx = b.lx,
               box.ly = dec.pos.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
               box.lx = b.lx,
               box.ly = dec.neg.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     # Label dec column:
     plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
@@ -918,28 +926,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = hi.y,
               box.lx = b.lx,
               box.ly = hi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
               box.x  = mi.x,
               box.y  = mi.y,
               box.lx = b.lx,
               box.ly = mi.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
               box.x  = fa.x,
               box.y  = fa.y,
               box.lx = b.lx,
               box.ly = fa.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
               box.x  = cr.x,
               box.y  = cr.y,
               box.lx = b.lx,
               box.ly = cr.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     ## (b) Accuracy column: ----
 
@@ -973,14 +981,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.y  = dec.cor.y,
               box.lx = b.lx,
               box.ly = dec.cor.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
               box.lx = b.lx,
               box.ly = dec.err.ly,
-              lbl_type = f_lbl, ...)
+              lbl_type = f_lbl, lwd = box_lwd, ...)
 
     # Label acc column:
     plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
@@ -988,9 +996,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("dec.cor"),
                      ...)
 
-  } # if (by == "ac")
-
-  else if (by == "xxx") {
+  } else if (by == "xxx") {
 
     ## Using bar plot: ----------
 
@@ -1038,40 +1044,40 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ### Check: --------
 
 ## Basics:
-# plot_bar(prev = .33, sens = .75, spec = .66, title.lbl = "Test 1")
+# plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
 #
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
-#          title.lbl = "Test 2")  # by "all" (default)
+#          title_lbl = "Test 2")  # by "all" (default)
 #
 ## Perspectives:
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
-#          title.lbl = "Test 3a")  # by condition
+#          title_lbl = "Test 3a")  # by condition
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
-#          title.lbl = "Test 3b")  # bi-directional
+#          title_lbl = "Test 3b")  # bi-directional
 #
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
-#          title.lbl = "Test 4a")  # by decision
+#          title_lbl = "Test 4a")  # by decision
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
-#          title.lbl = "Test 4b")  # bi-directional
+#          title_lbl = "Test 4b")  # bi-directional
 #
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
-#          title.lbl = "Test 5a")  # by accuracy
+#          title_lbl = "Test 5a")  # by accuracy
 # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
-#        title.lbl = "Test 5b", f_lbl = "num")  # bi-directional
+#        title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
 #
 ## Scaling and rounding effects:
 # plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #          scale = "f", round = TRUE,
-#          title.lbl = "Rounding (1)") # => Scale by freq and round freq.
+#          title_lbl = "Rounding (1)") # => Scale by freq and round freq.
 # plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #          scale = "p", round = TRUE,
-#          title.lbl = "Rounding (2)") # => Scale by prob and round freq.
+#          title_lbl = "Rounding (2)") # => Scale by prob and round freq.
 # plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #          scale = "f", round = FALSE,
-#          title.lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
+#          title_lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
 # plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 #          scale = "p", round = FALSE,
-#          title.lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
+#          title_lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
 #
 ## f_lbl: different types of freq labels:
 # plot_bar(f_lbl = "default")  # default labels: name = num
