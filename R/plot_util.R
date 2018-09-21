@@ -718,11 +718,11 @@ plot_freq_label <- function(fname,                # name of a known freq
 plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
                       box.lx, box.ly,   # lengths of box (width and height)
                       ## Text labels:
-                      type = NA,         # type of freq/box (to be shown as title below box)
+                      ftype = NA,        # type of freq/box (to be shown as title below box)
                       show.freq = TRUE,  # option to show/hide frequency labels
-                      # lbl_type = "default", # label type of label_freq: "default" or "namnum"
+                      lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
-                      fnum,              # frequency (as number).  ToDo: Derive fnum from type and/OR name!
+                      fnum,              # frequency (as number).  ToDo: Derive fnum from ftype and/OR name!
                       ## Color options:
                       col.fill = grey(.95, .75),  # default color (but derived from name below)
                       col.brd = pal["brd"],
@@ -756,11 +756,11 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
        # lwd = box.lwd,
        ...)
 
-  ## (2) Print type as box title (below box, optional):
-  if (!is.na(type)) {  # type is specified:
+  ## (2) Print ftype as box title (below box, optional):
+  if (!is.na(ftype)) {  # ftype is specified:
 
     text(x = box.x, y = box.y,
-         labels = type,
+         labels = ftype,
          pos = 1,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
@@ -770,29 +770,57 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
   }
 
   ## (3) Plot box label (centered in box, optional):
+
   if (show.freq) {
 
     # y-coordinate of label:
     mid.y <- box.y + box.ly/2  # y-value of mid point
 
-    # Compose box label:
-    if (!is.na(fname)) {  # fname is specified:
+    ## Distinguish 2 cases:
 
-      ## (a) Use local fnum only:
-      box.lbl <- paste0(fname, " = ", fnum)
+    # (A) Use label_freq function (which also reports global freq values):
 
-      ## (b) Use label_freq to query global freq values:
-      # box.lbl <- label_freq(fname, lbl_type)  # use label_freq function (with lbl_type)
+    ## A1. General case (using all lbl_type options with global freq values):
+    # box_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = " = ")
 
-    } else { # no fname specified:
+    ## ToDo: / +++ here now +++ ##:
 
-      box.lbl <- paste0(fnum)
+    ## A2. Add lbl_type argument for (only) types without values (to not require/report global freq values):
+    if ( is.null(lbl_type) || is.na(lbl_type) || (lbl_type == "no") ) {
 
-    }
+      box_lbl <- ""  # no label
+
+    } else if (lbl_type == "nam") {
+
+      box_lbl <- label_freq(fname, lbl_type = "nam")  # long name, no numeric value
+
+    } else if (lbl_type == "abb") {
+
+      box_lbl <- label_freq(fname, lbl_type = "abb")  # abbreviated name, no numeric value
+
+    } else if (lbl_type == "num") {
+
+      box_lbl <- paste0(fnum)  # use current fnum value only
+
+    } else { # default (for all other lbl_type values):
+
+      ## (B) Make simple label (based on current values of fname and fnum):
+
+      if (!is.na(fname)) {  # fname is specified:
+
+        box_lbl <- paste0(fname, " = ", fnum)  # use current values: fname = fnum (local values):
+
+      } else { # no fname specified:
+
+        box_lbl <- paste0(fnum)  # use current fnum value only
+
+      }
+
+    } # if (lbl_type == ...)
 
     # Plot freq label:
     text(x = box.x, y = mid.y,
-         labels = box.lbl,
+         labels = box_lbl,
          # pos = NULL,  # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col.txt,
@@ -803,19 +831,24 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
 }
 
-### Check:
-# plot(c(0, 100), c(0, 100), type = "n")  # prepare canvas
-# # Basics:
-# plot_vbox(10, 80, 20, 20, fnum = 111) # no name => default fill color
-# plot_vbox(50, 80, 20, 20, fname = "N", fnum = 222)  # no type label
-# plot_vbox(80, 80, 20, 20, fname = "cond.true", fnum = 333, type = comp_freq_type("cond.true"))
-# plot_vbox(10, 50, 30, 20, type = "type as box title", fname = "hi", fnum = 444)
-# plot_vbox(40, 50, 20, 20, fname = "mi", fnum = 555, lwd = 3, cex = .7, type = comp_freq_type("mi"))
-# # Other cases:
-# plot_vbox(70, 50, 20, 20, fname = "asdf", fnum = 667, type = comp_freq_type("asdf"))
+## Check:
+
+## Preparation:
+# plot(c(0, 100), c(0, 100), type = "n")  # empty canvas
+## Basics:
+# plot_vbox(10, 80, 20, 20, fnum = 111)  # no name => default fill color
+# plot_vbox(50, 80, 20, 20, fname = "N", fnum = 222)  # no ftype label
+# plot_vbox(50, 60, 20, 20, fname = "N", fnum = 222, lbl_type = "nam")  # name only
+# plot_vbox(50, 40, 20, 20, fname = "N", fnum = 222, lbl_type = "abb")  # abbreviated name only
+# plot_vbox(50, 20, 20, 20, fname = "N", fnum = 222, lbl_type = NA)  # hide label (NA/NULL/"no")
+# plot_vbox(80, 80, 20, 20, fname = "cond.true", fnum = 333, ftype = comp_freq_type("cond.true"))
+# plot_vbox(10, 50, 30, 20, ftype = "type as box title", fname = "hi", fnum = 444)
+# plot_vbox(40, 50, 20, 20, fname = "mi", fnum = 555, lwd = 3, cex = .7, ftype = comp_freq_type("mi"))
+## Other cases:
+# plot_vbox(70, 50, 20, 20, fname = "asdf", fnum = 667, ftype = comp_freq_type("asdf"))
 
 
-## Distinguish between 2 separate functions:
+## Distinguish between 2 separate box plotting functions:
 #   1. generic plot_cbox (that plots a box given its CENTER coordinates and format) vs.
 #   2. plot_fbox (that determines current freq value and fill color for known freq).
 
