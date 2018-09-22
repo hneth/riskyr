@@ -398,7 +398,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     if (show.prob) {
 
       ## sens parameters:
-      sens.lbl <- "sens" # paste0("sens = ", as_pc(sens, n.digits = 1), "%")  # label for sens
+      sens.lbl <- "sens" # paste0("sens = ", as_pc(sens, n_digits = 1), "%")  # label for sens
       lty.sens <- 1  # sens line type
       y.lbl.sens <- ((1 - sens) + (sens * 1/4))  # y-value of label
 
@@ -416,7 +416,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     if (show.prob.comp) {
 
       ## Show complement (1 - sens) as vertical help_line:
-      sens.lbl <- "(1 - sens)" # paste0("(1 - sens) = ", as_pc((1 - sens), n.digits = 1), "%")  # label for (1 - sens)
+      sens.lbl <- "(1 - sens)" # paste0("(1 - sens) = ", as_pc((1 - sens), n_digits = 1), "%")  # label for (1 - sens)
       lty.sens <- 3  # sens line type
 
       y.lbl.sens <- ((1 - sens) * 1/4)  # y-value of label
@@ -433,7 +433,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     if (show.prob) {
 
       ## sens parameters:
-      spec.lbl <- "spec" # paste0("spec = ", as_pc(spec, n.digits = 1), "%")  # label for spec
+      spec.lbl <- "spec" # paste0("spec = ", as_pc(spec, n_digits = 1), "%")  # label for spec
       lty.spec <- 1                    # spec line type
 
       ## Show spec as vertical help_line:
@@ -448,7 +448,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
 
     if (show.prob.comp) {
       ## Show complement (1 - spec) as vertical help_line:
-      spec.lbl <- "(1 - spec)" # paste0("(1 - spec) = ", as_pc((1 - spec), n.digits = 1), "%")  # label for (1 - spec)
+      spec.lbl <- "(1 - spec)" # paste0("(1 - spec) = ", as_pc((1 - spec), n_digits = 1), "%")  # label for (1 - spec)
       lty.spec <- 3
       y.lbl.spec.comp <- (spec + (1 - spec) * 1/4)
 
@@ -464,7 +464,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     if (show.prob) {
 
       ## prev parameters:
-      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n.digits = 1), "%")  # label for prev
+      prev.lbl <- "prev" # paste0("prev = ", as_pc(prev, n_digits = 1), "%")  # label for prev
       lty.prev <- 1  # prev line type
 
       ## Show prev as horizontal help_line:
@@ -480,7 +480,7 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
     if (show.prob.comp) {
 
       ## Show complement (1 - prev) as horizontal help_line:
-      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n.digits = 1), "%")  # prev label
+      prev.lbl <- "(1 - prev)" # paste0("(1 - prev) = ", as_pc((1 - prev), n_digits = 1), "%")  # prev label
       lty.prev <- 3
 
       help_line((prev + gap), y.prev, (1 + gap), y.prev,

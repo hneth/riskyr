@@ -386,7 +386,7 @@ label_prob <- function(pname,
     # (a) Value only:
     if (is_prob(p_val)) {
       # Label p_val (ONLY) as a percentage:
-      p_lbl <- paste0(as.character(as_pc(p_val, n.digits = n_digits)), "%")
+      p_lbl <- paste0(as.character(as_pc(p_val, n_digits = n_digits)), "%")
     } else {
       p_lbl <- paste0(as.character(p_val))  # Label p_val as is (as number)
     }
@@ -424,7 +424,7 @@ label_prob <- function(pname,
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
-      p_lbl <- paste0(p_lbl, lbl_sep, as.character(as_pc(p_val, n.digits = n_digits)), "%")
+      p_lbl <- paste0(p_lbl, lbl_sep, as.character(as_pc(p_val, n_digits = n_digits)), "%")
     } else {
       p_lbl <- paste0(p_lbl, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
     }
@@ -489,7 +489,7 @@ label_prob <- function(pname,
     # Combine pname (NOT p_lbl) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
-      p_lbl <- paste0(pname, lbl_sep, as.character(as_pc(p_val, n.digits = n_digits)), "%")
+      p_lbl <- paste0(pname, lbl_sep, as.character(as_pc(p_val, n_digits = n_digits)), "%")
     } else {
       p_lbl <- paste0(pname, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
     }
@@ -1775,9 +1775,9 @@ make_cond_lbl <- function(prev, sens, spec) {
   lbl <- paste0(#"Conditions:  ",  # Dimension:
     #"p(cond):  ",                 # values are probabilities
     "Cond:  ",                     # Abbreviation:
-    "prev = ", as_pc(prev, n.digits = 1), "%, ",
-    "sens = ", as_pc(sens, n.digits = 1), "%, ",
-    "spec = ", as_pc(spec, n.digits = 1), "%"
+    "prev = ", as_pc(prev, n_digits = 1), "%, ",
+    "sens = ", as_pc(sens, n_digits = 1), "%, ",
+    "spec = ", as_pc(spec, n_digits = 1), "%"
   )
 
   return(lbl)
@@ -1796,9 +1796,9 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
   lbl <- paste0(#"Decisions:  ",  # Dimension:
     #"p(dec):  ",                 # values are probabilities
     "Dec:  ",                     # Abbreviation:
-    "ppod = ", as_pc(ppod, n.digits = 1), "%, ",
-    "PPV = ", as_pc(PPV, n.digits = 1), "%, ",
-    "NPV = ", as_pc(NPV, n.digits = 1), "%"
+    "ppod = ", as_pc(ppod, n_digits = 1), "%, ",
+    "PPV = ", as_pc(PPV, n_digits = 1), "%, ",
+    "NPV = ", as_pc(NPV, n_digits = 1), "%"
   )
 
   return(lbl)
@@ -1824,9 +1824,9 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
     # Sub-label for wacc.lbl:
     if (w == .50) {  # wacc is bacc:
-      wacc.lbl <- paste0("bacc = ", as_pc(wacc, n.digits = 1), "%, ")
+      wacc.lbl <- paste0("bacc = ", as_pc(wacc, n_digits = 1), "%, ")
     } else {  # show wacc with w:
-      wacc.lbl <- paste0("wacc = ", as_pc(wacc, n.digits = 1), "% ",
+      wacc.lbl <- paste0("wacc = ", as_pc(wacc, n_digits = 1), "% ",
                          "(w = ", round(w, 2), "), ")
     }
 
@@ -1834,7 +1834,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
     lbl <- paste0(#"Accuracy:  ",  # Dimension:
       # "p(dec.cor): ",            # acc value is a probability
       "Accu:  ",                   # Abbreviation:
-      "acc = ", as_pc(acc, n.digits = 1), "%, ",
+      "acc = ", as_pc(acc, n_digits = 1), "%, ",
       wacc.lbl,
       "mcc = ", round(mcc, 2),
       " "  # add space at end
@@ -1846,7 +1846,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
     lbl <- paste0(# "Accuracy:  ",  # Dimension:
       # "p(dec.cor):  ",            # acc value is a probability
       "Accu:  ",                    # Abbreviation:
-      "acc = ", as_pc(acc, n.digits = 1), "%",
+      "acc = ", as_pc(acc, n_digits = 1), "%",
       # wacc.lbl,
       # "mcc = ", round(mcc, 2),
       ""  # add NO space at end

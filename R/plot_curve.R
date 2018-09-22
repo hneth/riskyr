@@ -295,7 +295,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
   ## x-axis:
   if (log.scale) {
     x.seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)  # log steps
-    x.lbl <- paste0(as_pc(x.seq, n.digits = 5), "%")          # log percentages (rounded to 5 decimals)
+    x.lbl <- paste0(as_pc(x.seq, n_digits = 5), "%")          # log percentages (rounded to 5 decimals)
     x.ax.lbl <- "Prevalence (on logarithmic scale)"           # log x-axis label
   } else {
     x.seq <- seq(0, 1, by = .10)        # linear steps of 10%
