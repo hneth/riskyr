@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 09 04
+## 2018 09 22
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -307,10 +307,8 @@ init_freq <- function() {
 #' # Rounding effects:
 #' comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # => yields fa = 1 (see ?round for reason)
 #' comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
-#' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)  # => hi = .9
+#' comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => hi = .9
 #' comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => hi = 0.2857143
-#' # comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 3)  # => hi = 0.286 # (removed n_digits)
-#' # comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE, n_digits = 1)  # => hi = 0.3   # (removed n_digits)
 #'
 #' # Extreme cases:
 #' comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
@@ -352,9 +350,9 @@ init_freq <- function() {
 ## comp_freq: Definition --------
 
 comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 essential probabilities (NOT: mirt, fart)
-                      N = num$N,    # default N
-                      round = TRUE  # should freq be rounded to integers? (default: round = TRUE)
-                      # n_digits = 5  # digits to which non-rounded freq are to be rounded (REMOVED: only round values SHOWN, not computed!)
+                      N = num$N,      # default N
+                      round = TRUE    # should freq be rounded to integers? (default: round = TRUE)
+                      # n_digits = 5  # digits to which non-rounded freq are rounded (REMOVED: only round values SHOWN, not computed!)
 ) {
 
   ## (0) Initialize freq:
