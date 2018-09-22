@@ -6,9 +6,9 @@
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "all", dir = 1, scale = "f",
-  round = TRUE, f_lbl = "num", box_lwd = 0.001,
-  title_lbl = txt$scen.lbl, col_pal = pal, show_freq = TRUE,
-  show_prob = TRUE, show_accu = TRUE, w_acc = 0.5, ...)
+  round = TRUE, f_lbl = "num", f_lwd = 0.001, title_lbl = txt$scen.lbl,
+  col_pal = pal, show_freq = TRUE, show_prob = TRUE, show_accu = TRUE,
+  w_acc = 0.5, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -75,8 +75,10 @@ are rounded to integers. Default: \code{round = TRUE}.}
   \item \code{f_lbl = "any"}: abbreviated names and numeric values (abb = num).
   }}
 
-\item{box_lwd}{Line width of frequency box (border).
-Default: \code{box_lwd = .001} (invisible).}
+\item{f_lwd}{Line width of frequency box (border).
+Values of \code{NA/NULL/0} set \code{lwd} to
+invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
+Default: \code{f_lwd = 0}.}
 
 \item{title_lbl}{Main plot title.
 Default: \code{title_lbl = txt$scen.lbl}.}
