@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 09 08
+## 2018 09 22
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -30,9 +30,9 @@
 #'
 #' @param prob A numeric argument (scalar or vector) that is to be checked.
 #'
-#' @param NA.warn Boolean value determining whether a warning is shown
+#' @param NA_warn Boolean value determining whether a warning is shown
 #' for \code{NA} values.
-#' Default: \code{NA.warn = FALSE}.
+#' Default: \code{NA_warn = FALSE}.
 #'
 #' @return A Boolean value:
 #' \code{TRUE} if \code{prob} is a probability,
@@ -46,14 +46,14 @@
 #'
 #' # watch out for:
 #' is_prob(NA)                   # => FALSE + NO warning!
-#  is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
+#  is_prob(NA, NA_warn = TRUE)   # => FALSE + warning (NA values)
 #' is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
-#' is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
+#' is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
 #'
 #' # ways to fail:
-#' is_prob(8, NA.warn = TRUE)         # => FALSE + warning (outside range element)
-#' is_prob(c(.5, 8), NA.warn = TRUE)  # => FALSE + warning (outside range vector element)
-#' is_prob("Laplace", NA.warn = TRUE) # => FALSE + warning (non-numeric values)
+#' is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
+#' is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
+#' is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
 #'
 #' @family verification functions
 #'
@@ -70,7 +70,7 @@
 #'
 #' @export
 
-is_prob <- function(prob, NA.warn = FALSE) {
+is_prob <- function(prob, NA_warn = FALSE) {
 
   val <- NA  # initialize
 
@@ -79,7 +79,7 @@ is_prob <- function(prob, NA.warn = FALSE) {
 
     val <- FALSE
 
-    if (NA.warn) {
+    if (NA_warn) {
       warning(paste0(prob, " contains NA values. "))
     }
   }
@@ -88,7 +88,7 @@ is_prob <- function(prob, NA.warn = FALSE) {
   #
   #   val <- FALSE
   #
-  #   if (NA.warn) {
+  #   if (NA_warn) {
   #     warning(paste0(prob, " contains NaN values. "))
   #   }
   # }
@@ -97,7 +97,7 @@ is_prob <- function(prob, NA.warn = FALSE) {
 
     val <- FALSE
 
-    if (NA.warn) {
+    if (NA_warn) {
       warning(paste0(prob, " contains non-numeric values. "))
     }
   }
@@ -106,7 +106,7 @@ is_prob <- function(prob, NA.warn = FALSE) {
 
     val <- FALSE
 
-    if (NA.warn) {
+    if (NA_warn) {
       warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
     }
   }
@@ -129,14 +129,14 @@ is_prob <- function(prob, NA.warn = FALSE) {
   #
   # ## watch out for:
   # is_prob(NA)                   # => FALSE + NO warning!
-  # is_prob(NA, NA.warn = TRUE)   # => FALSE + warning (NA values)
+  # is_prob(NA, NA_warn = TRUE)   # => FALSE + warning (NA values)
   # is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
-  # is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
+  # is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
   #
   # ## ways to fail:
-  # is_prob(8, NA.warn = TRUE)         # => FALSE + warning (outside range element)
-  # is_prob(c(.5, 8), NA.warn = TRUE)  # => FALSE + warning (outside range vector element)
-  # is_prob("Laplace", NA.warn = TRUE) # => FALSE + warning (non-numeric values)
+  # is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
+  # is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
+  # is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
 }
 
 
@@ -1200,21 +1200,22 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' Display a probability as a (numeric and rounded) percentage.
 #'
 #' \code{as_pc} is a function that displays a probability \code{prob}
-#' as a percentage (rounded to \code{n.digits} decimals).
+#' as a percentage (rounded to \code{n_digits} decimals).
 #'
 #' \code{as_pc} and its complement function \code{\link{as_pb}} allow
 #' toggling the display of numeric values between percentages and probabilities.
 #'
-#' @param prob A probability (as a scalar or vector of numeric values from 0 to 1).
-#' @param n.digits Number of decimal places to which percentage is rounded.
-#' Default: \code{n.digits = 2}.
+#' @param prob  A probability (as a scalar or vector of numeric values from 0 to 1).
+#'
+#' @param n_digits  Number of decimal places to which percentage is rounded.
+#' Default: \code{n_digits = 2}.
 #'
 #' @return A percentage (as a numeric value).
 #'
 #' @examples
 #' as_pc(.50)                # =>  50
 #' as_pc(1/3)                # =>  33.33
-#' as_pc(1/3, n.digits = 0)  # =>  33
+#' as_pc(1/3, n_digits = 0)  # =>  33
 #' as_pc(pi)                 # => 314.16 + Warning that prob is no probability
 #' as_pc(as_pb(12.3))        # =>  12.3
 #'
@@ -1248,13 +1249,13 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 
 ## Probability as percentage (2 decimals):
 
-as_pc <- function(prob, n.digits = 2) {
+as_pc <- function(prob, n_digits = 2) {
 
   perc <- NA # initialize
 
   if (is_prob(prob)) {
 
-    perc <- round(prob * 100, n.digits)  # compute percentage
+    perc <- round(prob * 100, n_digits)  # compute percentage
 
   }
 
@@ -1262,7 +1263,7 @@ as_pc <- function(prob, n.digits = 2) {
 
     warning("Argument (prob) is no probability.")
 
-    perc <- round(prob * 100, n.digits)  # still try to compute
+    perc <- round(prob * 100, n_digits)  # still try to compute
 
   }
 
@@ -1273,7 +1274,7 @@ as_pc <- function(prob, n.digits = 2) {
 {
   # as_pc(1/2)                # =>  50
   # as_pc(1/3)                # =>  33.33
-  # as_pc(1/3, n.digits = 0)  # =>  33
+  # as_pc(1/3, n_digits = 0)  # =>  33
   # as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
   # as_pc(as_pb(12.3))        # =>  12.3
   # as_pc(NA)
@@ -1288,14 +1289,15 @@ as_pc <- function(prob, n.digits = 2) {
 #' Display a percentage as a (numeric and rounded) probability.
 #'
 #' \code{as_pb} is a function that displays a percentage \code{perc}
-#' as a probability (rounded to \code{n.digits} decimals).
+#' as a probability (rounded to \code{n_digits} decimals).
 #'
 #' \code{as_pb} and its complement function \code{\link{as_pc}} allow
 #' toggling the display of numeric values between percentages and probabilities.
 #'
 #' @param perc A percentage (as a scalar or vector of numeric values from 0 to 100).
-#' @param n.digits Number of decimal places to which percentage is rounded.
-#' Default: \code{n.digits = 4}.
+#'
+#' @param n_digits Number of decimal places to which percentage is rounded.
+#' Default: \code{n_digits = 4}.
 #'
 #' @return A probability (as a numeric value).
 #'
@@ -1331,16 +1333,16 @@ as_pc <- function(prob, n.digits = 2) {
 #'
 #' @export
 
-as_pb <- function(perc, n.digits = 4) {
+as_pb <- function(perc, n_digits = 4) {
 
   prob <- NA # initialize
 
   if (is_perc(perc)) {
 
-    prob <- round(perc/100, n.digits) # compute
+    prob <- round(perc/100, n_digits) # compute
   } else {
     warning("Percentage (perc) is not in range 0 to 100.")
-    prob <- round(perc/100, n.digits) # still compute
+    prob <- round(perc/100, n_digits) # still compute
   }
 
   return(prob)  # numeric value
@@ -1374,7 +1376,7 @@ as_pb <- function(perc, n.digits = 4) {
 makeTransparent = function(..., alpha = .50) {
 
   if (alpha < 0 | alpha > 1) {
-    stop("The value for alpha must be between 0 and 1")
+    stop("alpha value must be in range from 0 to 1")
   }
 
   alpha <- floor(255 * alpha)
@@ -1396,8 +1398,8 @@ makeTransparent = function(..., alpha = .50) {
 
 ## (*) Done: ----------
 
+## - Clean up code.  [2018 09 22]
 ## - Moved graphical help functions to file "plot_util.R".  [2018 08 27]
-## - Clean up.  [2018 08 21]
 
 ## (+) ToDo: ----------
 
