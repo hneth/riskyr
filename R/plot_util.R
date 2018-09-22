@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 21
+## 2018 09 22
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -143,7 +143,19 @@ label_freq <- function(fname,
 
   ## (1) Abbreviated name (i.e., variable name of fname): ----
   if (lbl_type == "abb") {
-    f_lbl <- as.character(fname)
+
+    f_lbl <- as.character(fname)  # use fname as f_lbl
+
+    # If f_lbl contains a dot (.):  Use only the name part after the dot:
+    if (any(grep(pattern = "\\.", x = f_lbl))) {  # if f_lbl contains a dot (.):
+
+      nameparts <- unlist(strsplit(f_lbl, split = "\\."))
+      part_1 <- nameparts[1]  # 1st part of f_lbl
+      part_2 <- nameparts[2]  # 2nd part of f_lbl
+      f_lbl <- part_2  # 2nd part (after dot)
+
+    }
+
     return(f_lbl)
   }
 
