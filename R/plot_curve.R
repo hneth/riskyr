@@ -145,14 +145,14 @@
 
 ## plot_curve: Definition ----------
 
-plot_curve <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
+plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
                        ## DVs:
                        what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod", "all".
                        ## Options:
-                       what.col = pal,                  # colors for what.
-                       uc = .00,         # Uncertainty range (as a percentage around current prev, sens, and spec values)
+                       what.col = pal,      # colors for what.
+                       uc = .00,            # Uncertainty range (as a percentage around current prev, sens, and spec values)
                        show.points = TRUE,  # show points at current prev?
                        log.scale = FALSE,   # x-axis on log scale?
                        ## Text:
@@ -162,13 +162,14 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  if ( !is.null(what) && !is.na(what) ) {
-    what <- tolower(what)  # express what in lowercase
-  }
+  # what:
+  if ( !is.null(what) && !is.na(what) ) { what <- tolower(what) }  # express what in lowercase
+  if ( is.null(what) || is.na(what) ) { what <- NA } # NA/NULL Note: "no"/"nil"/"else" yields same result.
+  if ( what == "def" || what == "default" ) { what <- c("prev", "ppv", "npv") }  # default/null
+  if (("any" %in% what) || ("else" %in% what)) { what <- "all" }
 
-  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("prev", "ppv", "npv") }  # default/null
-  if ( "any" %in% what ) { what <- "all" }
-
+  # uc:
+  if ( is.null(uc) || is.na(uc) ) { uc <- 0 } # NA/NULL, to avoid error in (uc > 0) below
 
   ## (0) Compute or collect current probabilities: ----------
 
@@ -732,7 +733,7 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
                cex = cex.lbl, horiz = FALSE, bty = 'n')
   }
 
-  ## (8) Return what? : ----------
+  ## (8) Return what?: ----------
   # return(pp)     # returns plot
   # return()       # returns nothing
   # return("neat") # returns "..."
@@ -770,31 +771,28 @@ plot_curve <- function(prev = num$prev,             # probabilities (3 essential
 # plot_curve(what = "all", what.col = c("grey", "red3", "green3", "blue3", "gold"))
 
 
-## Check: How do PPV/NPV depend on sens and spec? ------
+## Check~1: How do PPV/NPV depend on sens and spec? ------
 
 # comp_NPV(prev = 1, sens = 1, spec = 1) # => NaN
 
-
-## increasing sens: => increases PPV (by increasing hi)
-
+## increasing sens: => increases PPV (by increasing hi):
 # comp_PPV(prev = 1/4, sens = 2/4, spec = 3/4) # => 0.40
 # comp_PPV(prev = 1/4, sens = 3/4, spec = 3/4) # => 0.50
 # comp_PPV(prev = 1/4, sens = 7/8, spec = 3/4) # => 0.54
 
 ## increasing spec: => increases PPV (by reducing fa)
-
 # comp_PPV(prev = 1/4, sens = 3/4, spec = 2/4) # => 0.33
 # comp_PPV(prev = 1/4, sens = 3/4, spec = 3/4) # => 0.50
 # comp_PPV(prev = 1/4, sens = 3/4, spec = 7/8) # => 0.67
 
 
-## Check: How does ppod depend on sens and spec? ------
+## Check~2: How does ppod depend on spec? ------
 
 # comp_ppod(prev = 1/4, sens = 3/4, spec = 2/4) # => 0.56
 # comp_ppod(prev = 1/4, sens = 3/4, spec = 3/4) # => 0.38
 # comp_ppod(prev = 1/4, sens = 3/4, spec = 7/8) # => 0.28
 
-## increasing spec: => DEcreases ppod!
+## increasing spec: => DEcreases ppod (as increasing cr decreases fa)!
 
 
 ## (*) Done: ----------
