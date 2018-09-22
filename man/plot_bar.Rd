@@ -64,7 +64,8 @@ Default: \code{scale = "f"}.
 When \code{round = FALSE}, both settings yield the same bar heights.}
 
 \item{round}{Boolean option specifying whether computed frequencies
-are rounded to integers. Default: \code{round = TRUE}.}
+are to be rounded to integers.
+Default: \code{round = TRUE}.}
 
 \item{f_lbl}{Type of frequency labels, as character code with the following options:
 \enumerate{
