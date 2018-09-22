@@ -211,6 +211,7 @@
 #' @importFrom graphics title
 #' @importFrom graphics mtext
 #' @importFrom graphics legend
+#' @importFrom graphics lines
 #' @importFrom graphics barplot
 #'
 #' @family visualization functions
