@@ -109,7 +109,8 @@
 #' When \code{round = FALSE}, both settings yield the same bar heights.
 #'
 #' @param round  Boolean option specifying whether computed frequencies
-#' are rounded to integers. Default: \code{round = TRUE}.
+#' are to be rounded to integers.
+#' Default: \code{round = TRUE}.
 #'
 #' @param f_lbl  Type of frequency labels, as character code with the following options:
 #' \enumerate{
@@ -235,7 +236,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      by = "all",     # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all".
                      dir = 1,        # directions: 1 (default) vs. 2
                      scale = "f",    # scale bars: "f" ... freq (default), "p" ... prob.
-                     round = TRUE,   # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
+                     round = TRUE,   # round freq to integers? (default: round = TRUE).
                      # Freq boxes:
                      f_lbl = "num",  # type of freq labels: "nam"/"num"/"abb", NA/NULL/"no", or "default" (fname = fnum).
                      f_lwd = .001,   # lwd of boxes: NULL vs. 1 vs. .001 (default)
@@ -290,8 +291,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   }
 
   ## (c) Additional parameters (currently fixed):
-
-  n_digits_bar <- 2  # n_digits to round freq to in bar plot (when round = FALSE)
+  # n_digits_bar <- 5  # n_digits to round freq to in bar plot (when round = FALSE)
 
   # Offset from base line:
   x.base <- 0  # offset x
@@ -310,7 +310,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
     ## (b) Compute freq based on current parameters (N and probabilities):
-    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round, n_digits = n_digits_bar)  # compute freq (default: round = TRUE)
+    freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
+                      # n_digits = n_digits_bar)  # Removed n_digits parameter in comp_freq!
 
     ## ToDo: Update GLOBAL freq and prob objects
     ##       (e.g., to use label_freq/label_prob and plot_mar functions).
