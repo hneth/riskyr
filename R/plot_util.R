@@ -118,7 +118,7 @@ plot.box <- function(obj, ...) {
 label_freq <- function(fname,
                        lbl_type = "default",    # label type: "default", "nam"/"num"/"namnum", "abb", or NULL/NA/"no" (to hide label).
                        lbl_sep = " = "          # separator: " = " (default), ":\n"
-                       #freq = freq, txt = txt  # use current lists
+                       # freq = freq, txt = txt  # use current lists
 ) {
 
   ## Initialize:
@@ -159,7 +159,7 @@ label_freq <- function(fname,
     return(f_lbl)
   }
 
-  ## (2) Determine the frequency value of freq corresponding to fname: ----
+  ## (2) Determine the frequency value f_val of freq corresponding to fname: ----
 
   if (lbl_type != "nam") {
 
@@ -170,6 +170,10 @@ label_freq <- function(fname,
       # Derive current value corresponding to fname in freq:
       ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
       f_val <- freq[ix]  # current freq value
+
+      # Round f_val to n_digits:
+      n_digits <- 2  # currently fixed parameter
+      f_val <- round(as.numeric(f_val), digits = n_digits)  # round f_val (i.e., value displayed, NOT the actual freq value computed!)
 
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
