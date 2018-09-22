@@ -663,15 +663,16 @@ comp_freq_col <- function(fname) {
     # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
     # (c) Color of frequency:
+
     # Note that names(freq) are sometimes longer than names(pal):
-    if (any(grep(pattern = "\\.", x = fname))) {  # if fname contains a dot (.):
+    # If fname contains a dot (.):  Use only the name part after the dot:
+    if (any(grep(pattern = "\\.", x = fname))) {
 
       nameparts <- unlist(strsplit(fname, split = "\\."))
 
-      fname_1st <- nameparts[1]  # 1st part of fname
-      fname_2nd <- nameparts[2]  # 2nd part of fname
-
-      col_name <- fname_2nd  # 2nd part corresponds to name of color
+      part_1 <- nameparts[1]  # 1st part of fname
+      part_2 <- nameparts[2]  # 2nd part of fname
+      col_name <- part_2  # 2nd part of fname corresponds to name of color
 
       # if (col_name == "true") { col_name <- "cor" }
 
