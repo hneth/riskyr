@@ -739,7 +739,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
                       ## Text labels:
                       ftype = NA,        # type of freq/box (to be shown as title below box)
                       show.freq = TRUE,  # option to show/hide frequency labels
-                      lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"
+                      lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"/"num"/"namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
                       fnum,              # frequency (as number).  ToDo: Derive fnum from ftype and/OR name!
                       ## Color options:
@@ -749,10 +749,11 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
                       ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
-  ## (0) Parameters (currently fixed):
+  ## (0) Additional parameters (currently fixed):
+
+  n_digits <- 2  # n_digits to which fnum is to be rounded (in lbl_type "num" or "namnum")
 
   ## Box parameters:
-  # box.lwd <- 1  # line width of border around rect (default = 1)
 
   ## Fill color:
   col.fill <- comp_freq_col(fname)
@@ -789,11 +790,13 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
   }
 
   ## (3) Plot box label (centered in box, optional):
-
   if (show.freq) {
 
     # y-coordinate of label:
     mid.y <- box.y + box.ly/2  # y-value of mid point
+
+    # Round fnum to n_digits:
+    fnum <- round(as.numeric(fnum), digits = n_digits)  # round fnum (i.e., value displayed, NOT the actual freq value computed!)
 
     ## Distinguish 2 cases:
 
@@ -804,7 +807,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
     ## ToDo: / +++ here now +++ ##:
 
-    ## A2. Add lbl_type argument for (only) types without values (to not require/report global freq values):
+    ## A2. Use label_freq only for types without values (to not require/report global freq values):
     if ( is.null(lbl_type) || is.na(lbl_type) || (lbl_type == "no") ) {
 
       box_lbl <- ""  # no label
@@ -821,9 +824,9 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
       box_lbl <- paste0(fnum)  # use current fnum value only
 
-    } else { # default (for all other lbl_type values):
+    } else { # default (for all other lbl_type values, including "namnum"):
 
-      ## (B) Make simple label (based on current values of fname and fnum):
+      ## (B) Construct a simple label (based on current values of fname and fnum):
 
       if (!is.na(fname)) {  # fname is specified:
 
