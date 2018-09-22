@@ -306,9 +306,8 @@ label_prob <- function(pname,
   p_val  <- NA
   p_type <- NA
 
-  ## Currently fixed parameters:
-  n_dec <- 1  # number of decimals to round percentage to.
-
+  ## Additional parameters (currently fixed):
+  n_digits <- 2  # number of decimal digits to round percentage to.
 
   ## (0) If pname is NA or lbl_type is NA/NULL/"no: ----
   if (is.na(pname) ||
@@ -387,7 +386,7 @@ label_prob <- function(pname,
     # (a) Value only:
     if (is_prob(p_val)) {
       # Label p_val (ONLY) as a percentage:
-      p_lbl <- paste0(as.character(as_pc(p_val, n.digits = n_dec)), "%")
+      p_lbl <- paste0(as.character(as_pc(p_val, n.digits = n_digits)), "%")
     } else {
       p_lbl <- paste0(as.character(p_val))  # Label p_val as is (as number)
     }
@@ -425,7 +424,7 @@ label_prob <- function(pname,
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
-      p_lbl <- paste0(p_lbl, lbl_sep, as.character(as_pc(p_val, n.digits = n_dec)), "%")
+      p_lbl <- paste0(p_lbl, lbl_sep, as.character(as_pc(p_val, n.digits = n_digits)), "%")
     } else {
       p_lbl <- paste0(p_lbl, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
     }
@@ -490,7 +489,7 @@ label_prob <- function(pname,
     # Combine pname (NOT p_lbl) with p_val (from above):
     if (is_prob(p_val)) {
       # Label p_val as a percentage:
-      p_lbl <- paste0(pname, lbl_sep, as.character(as_pc(p_val, n.digits = n_dec)), "%")
+      p_lbl <- paste0(pname, lbl_sep, as.character(as_pc(p_val, n.digits = n_digits)), "%")
     } else {
       p_lbl <- paste0(pname, lbl_sep, as.character(p_val))  # Label p_val as is (as number)
     }
