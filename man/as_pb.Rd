@@ -4,20 +4,20 @@
 \alias{as_pb}
 \title{Display a percentage as a (numeric and rounded) probability.}
 \usage{
-as_pb(perc, n.digits = 4)
+as_pb(perc, n_digits = 4)
 }
 \arguments{
 \item{perc}{A percentage (as a scalar or vector of numeric values from 0 to 100).}
 
-\item{n.digits}{Number of decimal places to which percentage is rounded.
-Default: \code{n.digits = 4}.}
+\item{n_digits}{Number of decimal places to which percentage is rounded.
+Default: \code{n_digits = 4}.}
 }
 \value{
 A probability (as a numeric value).
 }
 \description{
 \code{as_pb} is a function that displays a percentage \code{perc}
-as a probability (rounded to \code{n.digits} decimals).
+as a probability (rounded to \code{n_digits} decimals).
 }
 \details{
 \code{as_pb} and its complement function \code{\link{as_pc}} allow

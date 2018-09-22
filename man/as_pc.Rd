@@ -4,20 +4,20 @@
 \alias{as_pc}
 \title{Display a probability as a (numeric and rounded) percentage.}
 \usage{
-as_pc(prob, n.digits = 2)
+as_pc(prob, n_digits = 2)
 }
 \arguments{
 \item{prob}{A probability (as a scalar or vector of numeric values from 0 to 1).}
 
-\item{n.digits}{Number of decimal places to which percentage is rounded.
-Default: \code{n.digits = 2}.}
+\item{n_digits}{Number of decimal places to which percentage is rounded.
+Default: \code{n_digits = 2}.}
 }
 \value{
 A percentage (as a numeric value).
 }
 \description{
 \code{as_pc} is a function that displays a probability \code{prob}
-as a percentage (rounded to \code{n.digits} decimals).
+as a percentage (rounded to \code{n_digits} decimals).
 }
 \details{
 \code{as_pc} and its complement function \code{\link{as_pb}} allow
@@ -26,7 +26,7 @@ toggling the display of numeric values between percentages and probabilities.
 \examples{
 as_pc(.50)                # =>  50
 as_pc(1/3)                # =>  33.33
-as_pc(1/3, n.digits = 0)  # =>  33
+as_pc(1/3, n_digits = 0)  # =>  33
 as_pc(pi)                 # => 314.16 + Warning that prob is no probability
 as_pc(as_pb(12.3))        # =>  12.3
 
