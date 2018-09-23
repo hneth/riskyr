@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 09 22
+## 2018 09 23
 ## Helper functions for plotting objects (freq and prob).
 ## -----------------------------------------------
 
@@ -803,8 +803,7 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 
     ## A1. General case (using all lbl_type options with global freq values):
     # box_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = " = ")
-
-    ## ToDo: / +++ here now +++ ##:
+    # ToDo...
 
     ## A2. Use label_freq only for types without values (to not require/report global freq values):
     if ( is.null(lbl_type) || is.na(lbl_type) || (lbl_type == "no") ) {
@@ -816,6 +815,18 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
       box_lbl <- label_freq(fname, lbl_type = "nam")  # long name, no numeric value
 
     } else if (lbl_type == "abb") {
+
+      # box_lbl <- as.character(fname)  # use fname as box_lbl
+      #
+      # # If box_lbl contains a dot (.):  Use only the name part after the dot:
+      # if (any(grep(pattern = "\\.", x = box_lbl))) {  # if box_lbl contains a dot (.):
+      #
+      #   nameparts <- unlist(strsplit(box_lbl, split = "\\."))
+      #   part_1 <- nameparts[1]  # 1st part of f_lbl
+      #   part_2 <- nameparts[2]  # 2nd part of f_lbl
+      #   box_lbl <- part_2  # 2nd part (after dot)
+      #
+      # }
 
       box_lbl <- label_freq(fname, lbl_type = "abb")  # abbreviated name, no numeric value
 
