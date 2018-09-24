@@ -357,9 +357,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## (4) Graphical parameters: ----
 
   ## Color info (NOW defined in init_pal):
-  # col.prev <- prev.li  # prev help line
-  # col.sens <- sens.li  # sens help line
-  # col.spec <- spec.li  # spec help line
+  # col.prev <- col_p[1]  # prev.li  # prev help line
+  # col.sens <- col_p[2]  # sens.li  # sens help line
+  # col.spec <- col_p[3]  # spec.li  # spec help line
   # col.bord <- grey(.20, .99) # NA # grey(.11, .99)  # borders and labels (NA removes borders)
 
   ## Currently fixed parameters:

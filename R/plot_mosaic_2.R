@@ -292,9 +292,9 @@ plot_mosaic_2 <- function(prev = num$prev,             # probabilities
   # box("figure", col = mar.col)
 
   ## Graphical parameters:
-  col.prev <- prev.li  # prev help line
-  col.sens <- sens.li  # sens help line
-  col.spec <- spec.li  # spec help line
+  col.prev <- col_p[1]  # prev.li  # prev help line
+  col.sens <- col_p[2]  # sens.li  # sens help line
+  col.spec <- col_p[3]  # spec.li  # spec help line
   col.bord <- pal["brd"] # borders and labels
 
   ## Point appearance:

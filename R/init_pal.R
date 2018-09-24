@@ -118,11 +118,13 @@ col.npv <- my.blue    # "steelblue3", col.blue.3, "green4" "gray50" "brown4"
 col.txt <- grey(.01, .99)  # near "black" text labels, NA removes text?
 col.brd <- grey(.20, .99)  # greyish borders, NA removes borders
 
-## Probability lines within Mosaic plots:
+## Probability lines (within Mosaic/area plots):
 
 prev.li <- "gold"       # "aliceblue"
 sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
 spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
+
+col_p <- c(prev.li, sens.li, spec.li)  # 3 bright colors (visible on SDT rectangles)
 
 
 ## (3) Define corresponding default palette: ----------
