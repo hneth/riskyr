@@ -128,7 +128,7 @@ label_freq <- function(fname,
 
   ## (0) If lbl_type is NULL or NA:
   if ( is.null(fname) || is.na(fname) ||
-       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" ) {
+       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "nil" ) {
 
     f_lbl <- NA
     return(f_lbl)  # return NA
@@ -311,7 +311,7 @@ label_prob <- function(pname,
 
   ## (0) If pname is NA or lbl_type is NA/NULL/"no: ----
   if (is.na(pname) ||
-      is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" )  {
+      is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "nil" )  {
 
     p_lbl <- NA
     return(p_lbl)  # return NA
