@@ -1,6 +1,6 @@
 ## plot_util.R | riskyr
-## 2018 09 23
-## Helper functions for plotting objects (freq and prob).
+## 2018 09 24
+## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -1544,16 +1544,24 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(1, 9, 9, 9, arr_code = -3, lbl = label_prob("prev"),
 #           col.fill = comp_freq_col("cond.true"), col.txt = NA,
 #           lbl.pos = 3, cex = .8)  # horizontal
+# # vertical labels:
 # plot_line(2, 0, 2, 10, arr_code = -3, lbl = label_prob("PPV"),
 #           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # vertical
+#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = .5, cex = .8)  # vertical (long line)
+# plot_line(3, 4, 3, 5, arr_code = -3, lbl = label_prob("PPV"),
+#           col.fill = pal["ppv"], col.txt = pal["ppv"],
+#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # short (label too low!)
+# plot_line(4, 4, 4, 5, arr_code = -3, lbl = label_prob("PPV"),
+#           col.fill = pal["ppv"], col.txt = pal["ppv"],
+#           srt = 90, lbl.pos = 3, lbl.off = .5, adj = 0, cex = .8)  # short (better, but not perfect)
+# # diagonal:
 # plot_line(4, 1, 8, 10, arr_code = -3, lbl = label_prob("NPV", lbl_type = "namnum"),
 #           col.fill = pal["npv"], col.txt = pal["npv"],
 #           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
 
-
 ## plot_arrs: Plot multiple (n_arr) arrows along a line: --------
 ##      Note: Obsolete, as plot_line (defined above) is more flexible.
+
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       n_arr = 2,            # number of arrows to draw
                       l_arr = .10,          # length of arrows to draw
