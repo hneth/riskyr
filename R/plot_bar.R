@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 09 22
+## 2018 09 25
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -39,20 +39,22 @@
 #' Using the option \code{scale = "p"} scales bar heights
 #' by probabilities (e.g., showing bars for non-natural frequencies
 #' even when frequencies are rounded).
-#' When \code{round = FALSE}, the bar heights for \code{scale = "f"}
-#' coincide with those for \code{scale = "p"}.
+#' When \code{round = FALSE}, bar heights for \code{scale = "f"}
+#' correspond to those for \code{scale = "p"}.
 #'
 #' The distinction between \code{scale = "f"} and
-#' \code{scale = "p"} is practically irrelevant for
-#' large populations sizes \code{\link{N}}
-#' (or when all \code{\link{freq} > 10}), but useful for small values of
-#' \code{\link{N}} (or scenarios with rounded \code{\link{freq} < 10}).
+#' \code{scale = "p"} matters mostly for
+#' small populations sizes \code{\link{N}}
+#' (e.g., when \code{\link{N} < 100}).
+#' For rounded and small frequency values (e.g., \code{\link{freq} < 10})
+#' switching from \code{scale = "f"} to \code{scale = "p"}
+#' yields different plots.
 #'
 #' \code{plot_bar} contrasts compound frequencies along 1 dimension (height).
 #' See \code{\link{plot_mosaic}} for 2-dimensional visualizations (as areas)
 #' and various \code{box}) options in
 #' \code{\link{plot_tree}} and \code{\link{plot_fnet}}
-#' for similar functions.
+#' for related functions.
 #'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
@@ -262,10 +264,17 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## (b) Interpret arguments and increase robustness: ------
 
   # by perspective:
+  if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # by in lowercase
   if (is.null(by) || is.na(by) || by == "def" || by == "default" || by == "any")  { by <- "all"}  # default/null
   if (by == "cond") { by <- "cd" }
   if (by == "dec")  { by <- "dc" }
   if (by == "acc")  { by <- "ac" }
+
+  # Invalid perspective:
+  if ((by %in% c("cd", "dc", "ac", "all")) == FALSE) {
+    warning("Invalid perspective! Valid by = {'cd', 'dc', 'ac', 'all'}.\nUsing by = 'all'...")
+    by <- "all"  # default
+  }
 
   # dir:
   if (is.null(dir) || is.na(dir) || (dir <= 1)) { dir <- 1 }  # default/null
@@ -312,7 +321,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     ## (b) Compute freq based on current parameters (N and probabilities):
     freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
-                      # n_digits = n_digits_bar)  # Removed n_digits parameter in comp_freq!
+    # n_digits = n_digits_bar)  # Removed n_digits parameter in comp_freq!
 
     ## ToDo: Update GLOBAL freq and prob objects
     ##       (e.g., to use label_freq/label_prob and plot_mar functions).
@@ -1106,19 +1115,22 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 # plot_bar(f_lbl = "any")  # default labels: name = num
 
+
 ## (*) Done: ----------
 
-## - Scale 1 dimension by N (and add axis) [2018 08 13].
-## - Add area labels (in center of area)   [2018 08 14].
+## - Scale 1 dimension by N (and add axis).   [2018 08 13]
+## - Add area labels (in center of area).     [2018 08 14]
 ## - Add options for by ("all", "cd", "dc", "ac") and
-##                   dir (1 vs. 2)         [2018 08 15].
-## - Add different f_lbl options.          [2018 09 21].
+##                   dir (1 vs. 2).           [2018 08 15]
+## - Add various f_lbl options.               [2018 09 21]
+## - Modify defaults and increase robustness. [2018 09 25]
+
 
 ## (+) ToDo: ----------
 
-## - Use make_box and plot_fbox_list (rather than plot_vbox).
+## - Re-write with plot_fbox and plot_fbox_list (rather than plot_vbox).
 ## - Use text labels defined in txt.def and init_txt (incl. accuracy).
-## - Add probabilitiy indicators (arrows and labels).
+## - Add probabilitiy links (arrows and labels).
 ## - Allow alternative arrangements: horizontal (flip coord?), dodged bars, ...
 ## - ...
 

@@ -131,20 +131,22 @@ scale bar heights (i.e., default scaling is \code{scale = "f"}).
 Using the option \code{scale = "p"} scales bar heights
 by probabilities (e.g., showing bars for non-natural frequencies
 even when frequencies are rounded).
-When \code{round = FALSE}, the bar heights for \code{scale = "f"}
-coincide with those for \code{scale = "p"}.
+When \code{round = FALSE}, bar heights for \code{scale = "f"}
+correspond to those for \code{scale = "p"}.
 
 The distinction between \code{scale = "f"} and
-\code{scale = "p"} is practically irrelevant for
-large populations sizes \code{\link{N}}
-(or when all \code{\link{freq} > 10}), but useful for small values of
-\code{\link{N}} (or scenarios with rounded \code{\link{freq} < 10}).
+\code{scale = "p"} matters mostly for
+small populations sizes \code{\link{N}}
+(e.g., when \code{\link{N} < 100}).
+For rounded and small frequency values (e.g., \code{\link{freq} < 10})
+switching from \code{scale = "f"} to \code{scale = "p"}
+yields different plots.
 
 \code{plot_bar} contrasts compound frequencies along 1 dimension (height).
 See \code{\link{plot_mosaic}} for 2-dimensional visualizations (as areas)
 and various \code{box}) options in
 \code{\link{plot_tree}} and \code{\link{plot_fnet}}
-for similar functions.
+for related functions.
 }
 \examples{
 # Basics:
