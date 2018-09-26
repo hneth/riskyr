@@ -40,7 +40,7 @@
 #' by probabilities (e.g., showing bars for non-natural frequencies
 #' even when frequencies are rounded).
 #' When \code{round = FALSE}, bar heights for \code{scale = "f"}
-#' correspond to those for \code{scale = "p"}.
+#' and for \code{scale = "p"} are identical.
 #'
 #' The distinction between \code{scale = "f"} and
 #' \code{scale = "p"} matters mostly for
