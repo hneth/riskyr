@@ -1,5 +1,5 @@
 ## comp_prob_freq.R | riskyr
-## 2018 09 04
+## 2018 09 30
 ## Compute probabilities (prob) from frequencies (freq):
 ## -----------------------------------------------
 
@@ -344,7 +344,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 
   }
 
-  ## Compute currently 11 probabilities in prob from frequencies:
+  ## Compute all (currently 13) probabilities in prob from frequencies:
   prob$prev <- cond.true/N
   prob$sens <- hi/cond.true
   prob$mirt <- mi/cond.true
@@ -358,9 +358,9 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   prob$FOR  <- mi/dec.neg
 
   prob$acc  <- dec.cor/N
-  ## not computed/returned/stored in prob (yet):
-  # p_acc_hi <- hi/dec.cor  # p(hi | acc)
-  # p_err_fa <- fa/dec.err  # p(fa | err)
+  ## NOW also computed/stored in prob [2018 09 30]:
+  prob$p_acc_hi <- hi/dec.cor  # p(hi | acc)
+  prob$p_err_fa <- fa/dec.err  # p(fa | err)
 
   ## Return entire list prob:
   return(prob)
@@ -396,11 +396,11 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 #
 # # 4. Check equality of probabilities (in steps 1. and 3.):
 # all.equal(prob, prob_freq)  # => should be TRUE!
-
-
-## Computing individual probabilities from freq: --------
-
-# (obsolete, when ALL can be obtained above?)
+#
+#
+# ## Computing individual probabilities from freq: --------
+#
+# # (obsolete, when ALL can be obtained above?)
 
 
 
