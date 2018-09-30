@@ -1,12 +1,12 @@
 ## init_prob_num.R | riskyr
-## 2018 09 04
+## 2018 09 30
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
 ## -----------------------------------------------
 
 ## Table of current terminology: -----------------
 
-# Probabilities (11+):              Frequencies (11):
+# Probabilities (13+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -37,6 +37,10 @@
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
 # acc  = overall accuracy (probability/proportion correct decision)
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+
+# Other measures of accuracy (in accu):
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
@@ -84,7 +88,9 @@ init_prob <- function() {
 
     ## (c) by accuracy/correspondence of decision to condition:
 
-    "acc" = NA    # accuracy as probability of a correct decision/prediction
+    "acc" = NA,      # accuracy as probability of a correct decision/prediction
+    "p_acc_hi" = NA, # p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
+    "p_err_fa" = NA  # p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
 
   )
 
@@ -95,8 +101,7 @@ init_prob <- function() {
 
 ## Check: --------
 # init_prob()          # initializes empty prob
-# length(init_prob())  # => 11 probabilities
-
+# length(init_prob())  # => 13 probabilities
 
 
 ## (2) Compute the set of ALL current probabilities: ----------
@@ -411,15 +416,22 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 
     ## (c) by accuracy/correspondence of decision to condition:
     prob$acc  <- comp_acc(prev, sens, spec)
+    prob$p_acc_hi <- (prob$prev * prob$sens)/(prob$acc)  # p(hi | acc)
+    # prob$p_err_fa <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc)  # p(fa | err) computed from scratch OR:
+    prob$p_err_fa <- (1 - (prob$prev * (1 - prob$sens))/(1 - prob$acc))    # p(fa | err) computed as complement of p(mi | err)
 
-    ## (5) Check derived PVs:
+    ## (5) Check derived prob values:
     if ( is.na(prob$ppod) | is.nan(prob$ppod) | !is_prob(prob$ppod) |
          is.na(prob$PPV)  | is.nan(prob$PPV)  | !is_prob(prob$PPV)  |
          is.na(prob$NPV)  | is.nan(prob$NPV)  | !is_prob(prob$NPV)  |
          is.na(prob$FDR)  | is.nan(prob$FDR)  | !is_prob(prob$FDR)  |
-         is.na(prob$FOR)  | is.nan(prob$FOR)  | !is_prob(prob$FOR) ) {
+         is.na(prob$FOR)  | is.nan(prob$FOR)  | !is_prob(prob$FOR)  |
+         is.na(prob$acc)  | is.nan(prob$acc)  | !is_prob(prob$acc)  |
+         is.na(prob$p_acc_hi) | is.nan(prob$p_acc_hi) | !is_prob(prob$p_acc_hi) |
+         is.na(prob$p_err_fa) | is.nan(prob$p_err_fa) | !is_prob(prob$p_err_fa)
+         ) {
 
-      warning( "Some PVs are peculiar. Check for extreme probabilities!")
+      warning( "Some derived prob values are peculiar. Check for extreme probabilities!")
     }
 
     ## (6) Return the entire list prob:
@@ -439,7 +451,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 # comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 # comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 # comp_prob()          # => ok, using current defaults
-# length(comp_prob())  # => 11 probabilities
+# length(comp_prob())  # => 13 probabilities
 #
 # # Ways to succeed:
 # comp_prob(.999, 1, 1)   # => ok
@@ -524,8 +536,17 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #'
 #'  \item the accuracy \code{\link{acc}}
-#'  (i.e., probability of correct decisions or
+#'  (i.e., probability of correct decisions \code{\link{dec.cor}} or
 #'  correspondence of decisions to conditions).
+#'
+#'  \item the conditional probability \code{p_acc_hi}
+#'  (i.e., the probability of \code{\link{hi}} given that
+#'  the decision is correct \code{\link{dec.cor}}).
+#'
+#'  \item the conditional probability \code{p_err_fa}
+#'  (i.e., the probability of \code{\link{fa}} given that
+#'  the decision is erroneous \code{\link{dec.err}}).
+#'
 #'
 #' }
 #'
@@ -544,7 +565,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' @examples
 #' prob <- comp_prob()  # => initialize prob to default parameters
 #' prob                 # => show current values
-#' length(prob)         # => 11
+#' length(prob)         # => 13
 #'
 #' @family lists containing current scenario information
 #'
@@ -567,15 +588,13 @@ prob <- comp_prob()  # => initialize prob to default parameters
 
 ## Check: --------
 # prob               # => show current values
-# length(prob)       # => 11
-
+# length(prob)       # => 13
 
 ## (*) Done: -----------
 
-## - Add accuracy acc to prob.  [2018 09 04]
-
-## - Clean up code. [2018 08 31]
-
+## - Add p_acc_hi and p_err_fa to prob.  [2018 09 30]
+## - Add accuracy acc to prob.           [2018 09 04]
+## - Clean up code.                      [2018 08 31]
 
 ## (+) ToDo: ----------
 

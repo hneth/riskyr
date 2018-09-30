@@ -4,7 +4,7 @@
 \name{prob}
 \alias{prob}
 \title{List current probability information.}
-\format{An object of class \code{list} of length 11.}
+\format{An object of class \code{list} of length 13.}
 \usage{
 prob
 }
@@ -62,8 +62,16 @@ as well as 6 conditional) probabilities:
  provided that the decision is negative).
 
 \item the accuracy \code{\link{acc}}
- (i.e., probability of correct decisions or
+ (i.e., probability of correct decisions \code{\link{dec.cor}} or
  correspondence of decisions to conditions).
+
+\item the conditional probability \code{p_acc_hi}
+ (i.e., the probability of \code{\link{hi}} given that
+ the decision is correct \code{\link{dec.cor}}).
+
+\item the conditional probability \code{p_err_fa}
+ (i.e., the probability of \code{\link{fa}} given that
+ the decision is erroneous \code{\link{dec.err}}).
 
 }
 
@@ -82,7 +90,7 @@ evaluates to \code{TRUE}).
 \examples{
 prob <- comp_prob()  # => initialize prob to default parameters
 prob                 # => show current values
-length(prob)         # => 11
+length(prob)         # => 13
 
 }
 \seealso{
