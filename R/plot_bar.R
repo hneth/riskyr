@@ -659,6 +659,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.lx = b.lx,
               box.ly = dec.pos.ly,
               lbl_type = f_lbl, lwd = f_lwd, ...)
+
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
               box.x  = dec.neg.x,
               box.y  = dec.neg.y,
@@ -705,6 +706,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.lx = b.lx,
               box.ly = dec.cor.ly,
               lbl_type = f_lbl, lwd = f_lwd, ...)
+
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
               box.x  = dec.err.x,
               box.y  = dec.err.y,
@@ -806,6 +808,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box.lx = b.lx,
               box.ly = cond.true.ly,
               lbl_type = f_lbl, lwd = f_lwd, ...)
+
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
               box.x  = cond.false.x,
               box.y  = cond.false.y,
