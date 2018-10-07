@@ -118,8 +118,8 @@ plot.box <- function(obj, ...) {
 label_freq <- function(fname,
                        lbl_type = "default",    # label type: "default", "nam"/"num"/"namnum", "abb", or NULL/NA/"no" (to hide label).
                        lbl_sep = " = ",         # separator: " = " (default), ":\n"
-                       cur_freq = freq,         # use current freq
-                       cur_txt = txt            # use current txt
+                       cur_freq = freq,         # current freq
+                       cur_txt = txt            # current txt
 ) {
 
   ## Initialize:
@@ -298,8 +298,10 @@ label_freq <- function(fname,
 
 label_prob <- function(pname,
                        lbl_type = "default",  # label type: "default", "nam"/"num"/"namnum", "abb"/"min"/"mix" or NULL/NA/"no" (to hide label).
-                       lbl_sep = " = "        # separator: " = " (default), ":\n"
-                       #, prob = prob, accu = accu, txt = txt  # use current lists  +++ here now +++
+                       lbl_sep = " = ",       # separator: " = " (default), ":\n"
+                       cur_prob = prob        # current freq
+                       # cur_txt = txt        # current txt (does currently NOT include any probabilities)
+                       # accu = accu          # use current accuracy (now included in prob)  +++ here now +++
 ) {
 
   ## Initialize:
@@ -320,6 +322,8 @@ label_prob <- function(pname,
   }
 
   ## Robustness (after handling NA/NULL cases):
+  pname <- tolower(pname)
+
   lbl_type <- tolower(lbl_type)
   if (lbl_type == "val") (lbl_type <- "num")
   if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
@@ -334,7 +338,7 @@ label_prob <- function(pname,
     key_prob_1 <- c("prev", "ppod", "acc")  # key unconditional prob (3 perspectives)
     key_prob_2 <- c("sens", "spec",  "PPV", "NPV",  "acc-hi", "err-fa")  # key conditional prob (2 per perspective)
 
-    if (tolower(pname) %in% tolower(c(key_prob_1, key_prob_2))) { # pname is a key probability:
+    if (pname %in% tolower(c(key_prob_1, key_prob_2))) { # pname is a key probability:
 
       lbl_type <- "nam"  # use some explicit label: "nam" or "default"
 
@@ -354,7 +358,7 @@ label_prob <- function(pname,
     key_prob_1 <- c("prev", "ppod", "acc")  # key unconditional prob (1 for each of 3 perspectives)
     key_prob_2 <- c("sens", "spec",  "PPV", "NPV",  "acc-hi", "err-fa")  # key conditional prob (2 per perspective)
 
-    if (tolower(pname) %in% tolower(c(key_prob_1, key_prob_2))) { # pname is a key probability:
+    if (pname %in% tolower(c(key_prob_1, key_prob_2))) { # pname is a key probability:
 
       lbl_type <- "default"  # use some label with name and value: "namnum" or "default"
 
@@ -377,7 +381,7 @@ label_prob <- function(pname,
   ## (3) Values: Determine the probability value p_val of prob corresponding to pname: ----
   if (lbl_type != "nam") {
 
-    p_val <- comp_prob_pname(pname)  # use new fn (defined in comp_prob_prob.R)
+    p_val <- comp_prob_pname(pname, cur_prob = cur_prob)  # use new fn (defined in comp_prob_prob.R)
 
   }
 
@@ -395,32 +399,32 @@ label_prob <- function(pname,
   } else if (lbl_type == "namnum"){
 
     ## (b) Name AND value of prob:
-    if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
-    if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
+    if (pname == "prev") { p_lbl <- "Prevalence" }
+    if (pname == "cprev") { p_lbl <- "1 - prevalence" }
 
-    if (tolower(pname) == "sens") { p_lbl <- "Sensitivity" }
-    if (tolower(pname) == "spec") { p_lbl <- "Specificity" }
-    if (tolower(pname) == "mirt") { p_lbl <- "Miss rate" }
-    if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
+    if (pname == "sens") { p_lbl <- "Sensitivity" }
+    if (pname == "spec") { p_lbl <- "Specificity" }
+    if (pname == "mirt") { p_lbl <- "Miss rate" }
+    if (pname == "fart") { p_lbl <- "False alarm rate" }
 
-    if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
-    if (tolower(pname) == "cppod"){ p_lbl <- "Proportion negative" }
-    if (tolower(pname) == "pned") { p_lbl <- "Proportion negative" }
+    if (pname == "ppod") { p_lbl <- "Proportion positive" }
+    if (pname == "cppod"){ p_lbl <- "Proportion negative" }
+    if (pname == "pned") { p_lbl <- "Proportion negative" }
 
-    if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
-    if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
-    if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
-    if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+    if (pname == "ppv") { p_lbl <- "Positive predictive value" }
+    if (pname == "npv") { p_lbl <- "Negative predictive value" }
+    if (pname == "fdr") { p_lbl <- "False detection rate" }
+    if (pname == "for") { p_lbl <- "False omission rate" }
 
     # Accuracy (as probability):
-    if (tolower(pname) == "acc") { p_lbl <- "Rate correct" }
-    if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
-    if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
+    if (pname == "acc") { p_lbl <- "Rate correct" }
+    if (pname == "cor") { p_lbl <- "Rate correct" }
+    if (pname == "err") { p_lbl <- "Rate incorrect" }
 
-    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor)
-    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
-    if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
-    if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }
+    if (pname == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor)
+    if (pname == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
+    if (pname == "err-mi") { p_lbl <- "p(mi | dec.err)" }
+    if (pname == "err-fa") { p_lbl <- "p(fa | dec.err)" }
 
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
@@ -434,32 +438,32 @@ label_prob <- function(pname,
 
     ## (c) ONLY the name of prob:
 
-    if (tolower(pname) == "prev") { p_lbl <- "Prevalence" }
-    if (tolower(pname) == "cprev") { p_lbl <- "1 - prevalence" }
+    if (pname == "prev") { p_lbl <- "Prevalence" }
+    if (pname == "cprev") { p_lbl <- "1 - prevalence" }
 
-    if (tolower(pname) == "sens") { p_lbl <- "Sensitivity" }
-    if (tolower(pname) == "spec") { p_lbl <- "Specificity" }
-    if (tolower(pname) == "mirt") { p_lbl <- "Miss rate" }
-    if (tolower(pname) == "fart") { p_lbl <- "False alarm rate" }
+    if (pname == "sens") { p_lbl <- "Sensitivity" }
+    if (pname == "spec") { p_lbl <- "Specificity" }
+    if (pname == "mirt") { p_lbl <- "Miss rate" }
+    if (pname == "fart") { p_lbl <- "False alarm rate" }
 
-    if (tolower(pname) == "ppod") { p_lbl <- "Proportion positive" }
-    if (tolower(pname) == "cppod"){ p_lbl <- "Proportion negative" }
-    if (tolower(pname) == "pned") { p_lbl <- "Proportion negative" }
+    if (pname == "ppod") { p_lbl <- "Proportion positive" }
+    if (pname == "cppod"){ p_lbl <- "Proportion negative" }
+    if (pname == "pned") { p_lbl <- "Proportion negative" }
 
-    if (tolower(pname) == "ppv") { p_lbl <- "Positive predictive value" }
-    if (tolower(pname) == "npv") { p_lbl <- "Negative predictive value" }
-    if (tolower(pname) == "fdr") { p_lbl <- "False detection rate" }
-    if (tolower(pname) == "for") { p_lbl <- "False omission rate" }
+    if (pname == "ppv") { p_lbl <- "Positive predictive value" }
+    if (pname == "npv") { p_lbl <- "Negative predictive value" }
+    if (pname == "fdr") { p_lbl <- "False detection rate" }
+    if (pname == "for") { p_lbl <- "False omission rate" }
 
     # Accuracy (as probability):
-    if (tolower(pname) == "acc") { p_lbl <- "Rate correct" }
-    if (tolower(pname) == "cor") { p_lbl <- "Rate correct" }
-    if (tolower(pname) == "err") { p_lbl <- "Rate incorrect" }
+    if (pname == "acc") { p_lbl <- "Rate correct" }
+    if (pname == "cor") { p_lbl <- "Rate correct" }
+    if (pname == "err") { p_lbl <- "Rate incorrect" }
 
-    if (tolower(pname) == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor) / key prob
-    if (tolower(pname) == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
-    if (tolower(pname) == "err-mi") { p_lbl <- "p(mi | dec.err)" }
-    if (tolower(pname) == "err-fa") { p_lbl <- "p(fa | dec.err)" }  # key prob
+    if (pname == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor) / key prob
+    if (pname == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
+    if (pname == "err-mi") { p_lbl <- "p(mi | dec.err)" }
+    if (pname == "err-fa") { p_lbl <- "p(fa | dec.err)" }  # key prob
 
   } else {  ## "any"/"default":
 
@@ -467,22 +471,22 @@ label_prob <- function(pname,
 
     # Special cases: CHANGE pname to some other default value:
 
-    if (tolower(pname) == "cprev") {  # if complement of prevalence:
+    if (pname == "cprev") {  # if complement of prevalence:
       pname <- "(1 - prev)"           # custom basic name
     }
-    if (tolower(pname) == "cppod" || tolower(pname) == "pned") {  # if complement of ppod:
+    if (pname == "cppod" || pname == "pned") {  # if complement of ppod:
       pname <- "(1 - ppod)"           # custom basic name
     }
 
     # Accuracy (as probability):
-    if (tolower(pname) == "acc") { pname <- "acc" }
-    if (tolower(pname) == "cor") { pname <- "acc" }
-    if (tolower(pname) == "err") { pname <- "err" }
+    if (pname == "acc") { pname <- "acc" }
+    if (pname == "cor") { pname <- "acc" }
+    if (pname == "err") { pname <- "err" }
 
-    if (tolower(pname) == "acc-hi") { pname <- "p(hi|acc)" }  # ppcor / key prob
-    if (tolower(pname) == "acc-cr") { pname <- "p(cr|acc)" }  # pncor
-    if (tolower(pname) == "err-mi") { pname <- "p(mi|err)" }
-    if (tolower(pname) == "err-fa") { pname <- "p(fa|err)" }  # key prob
+    if (pname == "acc-hi") { pname <- "p(hi|acc)" }  # ppcor / key prob
+    if (pname == "acc-cr") { pname <- "p(cr|acc)" }  # pncor
+    if (pname == "err-mi") { pname <- "p(mi|err)" }
+    if (pname == "err-fa") { pname <- "p(fa|err)" }  # key prob
 
     # print(p_val)
     # is.numeric(p_val)
@@ -527,7 +531,7 @@ label_prob <- function(pname,
 ## Missing values:
 # label_prob("unknown pname")  # unknown prob: return pname
 # label_prob("hi", lbl_type = NA)
-# label_prob(NA, lbl_type = "stuff")
+# label_prob(NA, lbl_type = "stuff") # => NA
 ## Special cases:
 # label_prob("prev", lbl_type = NULL)        # => NA
 # label_prob("prev", lbl_type = "no")        # => NA
@@ -547,6 +551,7 @@ label_prob <- function(pname,
 ## Abbreviated names:
 # label_prob("spec", lbl_type = "abb")
 # label_prob("err-fa", lbl_type = "abb")
+
 
 ## name_prob: Determine the (name of the) prob that links 2 freq ---------
 
