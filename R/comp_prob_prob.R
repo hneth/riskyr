@@ -1345,17 +1345,14 @@ comp_err <- function(prev, sens, spec) {
 # comp_err(0, 0, 0)  #  => 1
 
 
-
-
-
-
 ## (4) Compute prob of freq/prob by name (fname/pname) from prob: ----------
+
 ## comp_prob_fname: Compute exact p value of a freq "fname" from prob: ------
 
-comp_prob_fname <- function(fname) {
+comp_prob_fname <- function(fname, cur_prob = prob) {
 
   # Compute exact probability value p of a frequency (named by fname)
-  # from the current (global list of) prob values:
+  # from the current prob values cur_prob:
 
   n <- length(fname)  # fname can be a vector of n freq names
   p <- rep(NA, n)  # initialize as vector
@@ -1365,19 +1362,19 @@ comp_prob_fname <- function(fname) {
     # Consider fname for all frequencies in freq:
     if (tolower(fname[i]) == "n") { p[i] <- 1 }
 
-    if (tolower(fname[i]) == "cond.true")  { p[i] <- prob$prev }
-    if (tolower(fname[i]) == "cond.false") { p[i] <- (1 - prob$prev) }
+    if (tolower(fname[i]) == "cond.true")  { p[i] <- cur_prob$prev }
+    if (tolower(fname[i]) == "cond.false") { p[i] <- (1 - cur_prob$prev) }
 
-    if (tolower(fname[i]) == "dec.pos") { p[i] <- prob$ppod }
-    if (tolower(fname[i]) == "dec.neg") { p[i] <- (1 - prob$ppod) }
+    if (tolower(fname[i]) == "dec.pos") { p[i] <- cur_prob$ppod }
+    if (tolower(fname[i]) == "dec.neg") { p[i] <- (1 - cur_prob$ppod) }
 
-    if (tolower(fname[i]) == "dec.cor") { p[i] <- prob$acc }
-    if (tolower(fname[i]) == "dec.err") { p[i] <- (1 - prob$acc) }
+    if (tolower(fname[i]) == "dec.cor") { p[i] <- cur_prob$acc }
+    if (tolower(fname[i]) == "dec.err") { p[i] <- (1 - cur_prob$acc) }
 
-    if (tolower(fname[i]) == "hi")  { p[i] <- prob$prev * prob$sens }
-    if (tolower(fname[i]) == "mi")  { p[i] <- prob$prev * (1 - prob$sens) }
-    if (tolower(fname[i]) == "cr")  { p[i] <- (1 - prob$prev) * prob$spec }
-    if (tolower(fname[i]) == "fa")  { p[i] <- (1 - prob$prev) * (1 - prob$spec) }
+    if (tolower(fname[i]) == "hi")  { p[i] <- cur_prob$prev * cur_prob$sens }
+    if (tolower(fname[i]) == "mi")  { p[i] <- cur_prob$prev * (1 - cur_prob$sens) }
+    if (tolower(fname[i]) == "cr")  { p[i] <- (1 - cur_prob$prev) * cur_prob$spec }
+    if (tolower(fname[i]) == "fa")  { p[i] <- (1 - cur_prob$prev) * (1 - cur_prob$spec) }
 
   } # for loop
 
@@ -1402,9 +1399,7 @@ comp_prob_fname <- function(fname) {
 
 ## comp_prob_pname: Get or compute the exact probability by name "pname" from current prob: ------
 
-comp_prob_pname <- function(pname,
-                            cur_prob = prob
-) {
+comp_prob_pname <- function(pname, cur_prob = prob) {
 
   n <- length(pname)  # pname can be a vector of n prob names
   p <- rep(NA, n)     # initialize as vector
