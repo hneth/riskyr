@@ -1294,14 +1294,19 @@ comp_lx <- function(ly, mf = 1, corf = 1) {
 
 ## comp_lx_fbox: Compute scaled length lx of fbox (fname) given f/p scale: ------
 
-comp_lx_fbox <- function(fname, len_N, N = freq$N, scale = "f") {
+comp_lx_fbox <- function(fname, len_N,
+                         cur_freq = freq,
+                         cur_prob = prob,
+                         scale = "f"
+) {
   # Compute a scaled length lx of an fbox based on its name (fname),
   # some current population length len_N, current population size N,
   # and current type of scale ("f" or "p") so that:
   # lx == scaled len_N (i.e., all lx on a level sum to len_N).
 
   lx  <- NA
-  val <- NA
+  fval <- NA
+  pval <- NA
 
   # (1) get the current value (p/f) corresponding to fname:
 
@@ -1309,29 +1314,29 @@ comp_lx_fbox <- function(fname, len_N, N = freq$N, scale = "f") {
 
     # (1) scale by exact probability:
 
-    # (a) Compute current probability val of freq (named by fname) from current prob values:
-    val <- comp_prob_fname(fname)
+    # (a) Compute current probability val of frequency (named by fname) from current prob values:
+    pval <- comp_prob_fname(fname, cur_prob = cur_prob)
 
     # (b) Scale len_N by probability val:
-    lx <- val * len_N
+    lx <- pval * len_N
 
   } else {  # scale = "f" or any other scale:
 
-    # (2) scale by current freq (rounded or non-rounded):
-    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+    # (2) scale by current freq cur_freq (rounded or non-rounded):
+    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in freq:
 
       # (a) Get current freq value corresponding to fname in freq:
-      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
-      val <- freq[ix]  # current freq value
-      val <- as.numeric(val)  # ensure that val is numeric
+      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      fval <- cur_freq[ix]  # current freq value
+      fval <- as.numeric(fval)  # ensure that fval is numeric
 
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(freq)...
+    } # if (fname %in% names(cur_freq)...
 
-    # (b) Scale len_N by the ratio of frequencies val/N:
-    lx <- (val/N) * len_N
+    # (b) Scale len_N by the ratio of frequencies fval/N:
+    lx <- (fval/cur_freq$N) * len_N
 
   } # if (scale...)
 
@@ -1346,7 +1351,7 @@ comp_lx_fbox <- function(fname, len_N, N = freq$N, scale = "f") {
 #
 # comp_lx_fbox("hi", len_N = 100, scale = "f")  # => freq of hi/lN
 # comp_lx_fbox("hi", len_N = 100, scale = "p")  # => p(hi) x lN
-# comp_lx_fbox("hi", len_N = 100, scale = "x")  # => as in "p"
+# comp_lx_fbox("hi", len_N = 100, scale = "x")  # => as in "f" (default)
 #
 # comp_lx_fbox("xx", len_N = 100)  # => NA
 
