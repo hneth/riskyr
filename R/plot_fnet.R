@@ -376,7 +376,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   } # if (by...)
 
-  ## (+) Define plotting region:
+  ## (0.2) Define plotting area: -----
 
   ## Record graphical parameters (par):
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
@@ -1762,7 +1762,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   invisible()  # restores par(opar)
 
-}
+} # plot_fnet(...) end.
 
 ## Check:
 {
