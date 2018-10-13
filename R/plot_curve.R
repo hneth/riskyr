@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 09 22
+## 2018 10 13
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -290,6 +290,17 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 
   ## (2) Define plotting area: ----------
+
+  ## Record graphical parameters (par):
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## Define margin areas:
+  n_lines_mar <- 4
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 4, 4, 2) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
 
   ## (a) Define steps and labels of x- and y-axes:
 
@@ -709,17 +720,49 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (6) Margin text: ----------
 
-  ## (a) by condition: 3 basic probabilities
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = cex.lbl)  # print label
+  ## Text parameters:
+  m_col <- grey(.33, .99)  # color
+  m_cex <- .85             # size
 
+  ##   (A) on left side (adj = 0): ----
+
+  ## A1. freq label:
+  show_freq <- FALSE
+
+  if (show_freq) {
+
+    N <- 1000  # HACK: compute freq values for some N:
+    freq <- comp_freq_prob(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
+
+    # Create freq label:
+    freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr) # use current freq values
+    # mtext(freq_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print freq label
+
+  } else {
+
+    freq_lbl <- ""
+
+  } # if (show_freq)...
+
+  ## A2. Condition / p(cond) label:
+  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+
+  ## Combine 2 labels:
+  cur.par.lbl <- paste0(freq_lbl, "\n", cur.cond.lbl)
+
+  mtext(cur.par.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
+
+
+  ##   (B) on rigth side (adj = 1): ----
+
+  ## B1. Note uncertainty:
   if (uc > 0) {
 
     ## (b) Note uncertainty signal and uc value:
     note <- paste0("Shading marks an uncertainty of ", as_pc(uc), "%")
 
     note_lbl <- paste0("Note:  ", note, ".")
-    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = cex.lbl)
+    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
 
   }
 
@@ -738,7 +781,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   # return()       # returns nothing
   # return("neat") # returns "..."
 
-}
+  ## Finish: ---------
+
+  invisible()  # restores par(opar)
+
+} # plot_curve(...) end.
 
 ## Check: ----------
 
