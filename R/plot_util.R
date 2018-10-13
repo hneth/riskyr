@@ -1980,29 +1980,29 @@ plot_mar <- function(show_freq = TRUE,
   m_col <- grey(.33, .99)  # color
   m_cex <- .85             # size
 
-  ##   (a) on left side (adj = 0): ----
+  ##   (A) on left side (adj = 0): ----
 
-  ## 1. freq label:
+  ## A1. freq label:
   if (show_freq) {
     freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # use current freq values
     mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
   }
 
-  ## 2. p(cond) label:
+  ## A2. Condition / p(cond) label:
   if (show_cond) {
     cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)  # use current prob values
     mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print cond label
   }
 
-  ## 3. Note:
+  ## A3. Note:
   if ( !is.null(note) && !is.na(note) && (nchar(note) > 0) ) {
     note_lbl <- paste0("Note:  ", note, "")  # use current note
     mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print note
   }
 
-  ##   (b) on right side (adj = 1): ----
+  ##   (B) on right side (adj = 1): ----
 
-  ## 1. Accuracy label:
+  ## B1. Accuracy label:
   if (show_accu) {
 
     # if w.acc is undefined: use default (w.acc = .50):
@@ -2027,13 +2027,13 @@ plot_mar <- function(show_freq = TRUE,
 
   } # if (show_accu) ...
 
-  ## (3) Decision label:
+  ## B2. Decision / p(dec) label:
   if (show_dec) {
     dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
     mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print decision label
   }
 
-  ## (6) Imprint:
+  ## B3. Imprint:
   imprint_lbl <- ""  # "[\uA9riskyr]"
   mtext(paste0(imprint_lbl, " "), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
 
