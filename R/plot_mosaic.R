@@ -1,13 +1,12 @@
 ## plot_mosaic.R | riskyr
-## 2018 08 31
+## 2018 10 13
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
 ## from 3 essential probabilities (prev, sens, spec)
 ## or current population data.frame popu.
 
-## -----------------------------------------------
-## Dependencies:
+## Dependencies: ----------
 
 # library("vcd")   # moved to "Imports:" in in DESCRIPTION!
 # library("grid")
@@ -15,7 +14,8 @@
 ## -----------------------------------------------
 ## plot_mosaic: Plot mosaic plot (with "vcd" and "grid")
 ## using only necessary arguments with good defaults:
-## -----------------------------------------------
+
+## plot_mosaic: Documentation ----------
 
 #' Plot a mosaic plot of population frequencies.
 #'
@@ -126,6 +126,8 @@
 #'
 #' @export
 
+## plot_mosaic: Definition ----------
+
 plot_mosaic <- function(prev = num$prev,             # probabilities
                         sens = num$sens, mirt = NA,
                         spec = num$spec, fart = NA,
@@ -194,12 +196,16 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
 
+  ## 1. freq label:
+  freq_lbl <- make_freq_lbl(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)   # use current freq values
+  # mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
+
+  ## 2. Condition / p(cond) label:
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  cur.par.lbl <- cur.cond.lbl
 
-  ## (3) Accuracy: ----------
-
+  ## 3. Accuracy label:
+  cur.accu.lbl <- ""
   if (show.accu) {
 
     if (!is.na(prev) && !is.na(sens) && !is.na(spec)) {  # prob are known:
@@ -216,16 +222,25 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
     cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
 
-    # mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)
-    cur.par.lbl <- paste0(cur.par.lbl, "\n", cur.accu.lbl, "\n")  # add accuracy lbl to existing cur.par.lbl
   }
 
+  ## Combine 3 labels:
+  cur.par.lbl <- paste0(freq_lbl, "\n", cur.cond.lbl, "\n", cur.accu.lbl, "\n")
 
-  ## (4) Define plot area:
-  # plot(0, type = 'n')
+  ## (3) Define plotting area: --------
+
+  ## Record graphical parameters (par):
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## Define margin areas:
+  n_lines_mar <- 3
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
 
 
-  ## (5) Mosaic plot: ----------
+  ## (4) Mosaic plot: ----------
 
   if (by == "cd") {
 
@@ -235,7 +250,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                 split_vertical = TRUE,
                 gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = TRUE)),
                 main_gp = grid::gpar(fontsize = 12, fontface = 1, adj = 0),
-                sub_gp = grid::gpar(fontsize = 10, fontface = 1, adj = 1),
+                sub_gp = grid::gpar(fontsize = 10, fontface = 1, adj = 0),
                 main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
                 sub = paste0(cur.par.lbl)  # print label
     )
@@ -258,18 +273,19 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   ## Title and margin text:
   # title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
 
-}
+  ## (5) Finish: ---------
 
-## Check:
-{
+  invisible()  # restores par(opar)
+
+} # plot_mosaic(...) end.
+
+## Check: ----------
   # plot_mosaic()
   # plot_mosaic(title.lbl = "")
   # plot_mosaic(by = "dc")
   # plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
-}
 
-## -----------------------------------------------
-## (+) ToDo:
+## (+) ToDo: ---------
 
 ## - add labels for (prev, sens, spec), (ppod, PPV, NPV), bacc.
 ## - add Decisions panel.
@@ -281,5 +297,4 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 ## - adjust parameters (zero size and gap width)
 ## - add labels (frequencies) to plot?
 
-## -----------------------------------------------
-## eof.
+## eof. ---------
