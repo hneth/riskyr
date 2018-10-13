@@ -73,7 +73,7 @@ are rounded to integers. Default: \code{round = TRUE}.}
   }}
 
 \item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
+accuracy metrics \code{\link{accu}} on the margin of the plot.
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
