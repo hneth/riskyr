@@ -298,7 +298,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   ## Define margin areas:
   n_lines_mar <- 4
   n_lines_oma <- 0
-  par(mar = c(n_lines_mar, 4, 4, 2) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(mar = c(n_lines_mar, 4, 3, 2) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
 
 
