@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 09 06
+## 2018 10 13
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -126,7 +126,7 @@
 #'   }
 #'
 #' @param show.accu Option for showing current
-#' accuracy metrics \code{\link{accu}} in the plot.
+#' accuracy metrics \code{\link{accu}} on the margin of the plot.
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
@@ -152,20 +152,25 @@
 #' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
 #'
 #' @param col.txt Color for text labels (in boxes).
+#'
 #' @param cex.lbl Scaling factor for text labels (in boxes and on arrows).
 #' Default: \code{cex.lbl = .90}.
+#'
 #' @param box.cex Deprecated argument: Please use \code{cex.lbl} instead.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
+#'
 #' @param col.border Color of borders.
 #' Default: \code{col.border = grey(.33, alpha = .99)}.
 #'
 #' @param lwd Width of arrows.
+#'
 #' @param box.lwd Width of boxes.
 #'
 #' @param col.shadow Color of box shadows.
 #' Default: \code{col.shadow = grey(.11, alpha = .99)}.
+#'
 #' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
 #' Default: \code{cex.shadow = 0}.
 #'
@@ -371,6 +376,17 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   } # if (by...)
 
+  ## (+) Define plotting region:
+
+  ## Record graphical parameters (par):
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## Define margin areas:
+  n_lines_mar <- 3
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
 
   ## (1) Color of boxes: ----------
 
@@ -1655,7 +1671,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ## (7) Title: ----------
 
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
+  if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Net"}
 
   if (area == "no") {area.lbl <- ""}
   else if (area == "sq") {area.lbl <- "Areas represent relative frequencies"}
@@ -1670,27 +1686,36 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   else {by.lbl <- ""}  # to prevent errors for other entries
 
   cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
-  title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
+  title(cur.title.lbl, line = 0, adj = 0, font.main = 1, cex.main = 1.2)  # (centered, not raised, normal font)
 
 
   ## (8) Margin text: ----------
 
-  ## (a) by condition: 3 basic probabilities
+  ## Text parameters:
+  m_col <- grey(.33, .99)  # color
+  m_cex <- .85             # size
+
+  ##   (A) on left side (adj = 0): ----
+
+  ## A1. freq label:
+  freq_lbl <- make_freq_lbl(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)   # use current freq values
+  mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
+
+  ## A2. Condition / p(cond) label:
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  mtext(cur.cond.lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
 
-  # (b) by decision:
-  if (by != "cd") {
+  ## A3. Note that areas represent frequencies:
+  if (area != "no") {
 
-    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-    mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+    cur.area.lbl <- paste0("(", area.lbl, ")")
+    mtext(cur.area.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
-  } # else {
-  #   cur.dec.lbl <- ""
-  # }
+  }
 
-  ## (c) Accuracy: Compute and show accuracy metrics
+  ##   (B) on right side (adj = 1): ----
 
+  ## B1. Accuracy label: Compute and show accuracy metrics
   if (show.accu) {
 
     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
@@ -1705,28 +1730,37 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     # (3) Mark IF accu was based on rounded freq:
     if (round) {  # freq were rounded:
-      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded frequencies)")
+      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
     }
 
-    # (4) Plot label:
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    # (4) Plot accu label:
+    mtext(cur.accu.lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
 
   } # if (show.accu)...
 
 
-  ## (d) Note that areas represent frequencies:
-  if (area != "no") {
+  ## B2. Decision / p(dec) label:
+  if (by != "cd") {
 
-    cur.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+    mtext(cur.dec.lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
 
   }
+
+  ## B3. Imprint:
+  imprint_lbl <- ""  # "[\uA9riskyr]"
+  mtext(paste0(imprint_lbl, " "), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
+
 
 
   ## (9) Return what? : ----------
   # return(pp)      # returns diagram object
   # return()        # returns nothing
   # return("nice")  # returns nothing
+
+  ## Finish: ----
+
+  invisible()  # restores par(opar)
 
 }
 
