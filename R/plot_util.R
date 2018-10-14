@@ -698,6 +698,8 @@ plot_freq_label <- function(fname,                # name of a known freq
                             lbl_type = "nam",     # lbl_type (of label_freq)
                             lbl_sep = " = ",      # lbl_sep  (of label_freq)
                             suffix = "",          # suffix
+                            cur_freq = freq,      # current freq
+                            cur_txt = txt,        # current txt
                             # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                             # offset = 0.5,       # offset, etc.
                             # col = pal["txt"],   # default color
@@ -708,7 +710,9 @@ plot_freq_label <- function(fname,                # name of a known freq
   # f_lbl <- ""
 
   ## Determine f_lbl:
-  f_lbl <- paste0(label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep), suffix)  # determine label corresponding to fname
+  f_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep,
+                      cur_freq = cur_freq, cur_txt = cur_txt)  # create label corresponding to fname
+  f_lbl <- paste0(f_lbl, suffix)  # add suffix
 
   ## Plot text label:
   text(x, y,
@@ -722,15 +726,19 @@ plot_freq_label <- function(fname,                # name of a known freq
 
 }
 
+## ToDo: Allow for vectors or lists of lists?
+
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_freq_label("N", .1, .9)
 # plot_freq_label("cond.false", suffix = ": ...", .2, .8, cex = .8)
 # plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
 # plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
-
-
-
+# # with local freq object:
+# f2 <- comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100)
+# plot_freq_label("N", .5, .5, lbl_type = "namnum", cur_freq = f2)
+# plot_freq_label("cond.true", .5, .4, lbl_type = "namnum", cur_freq = f2)
+# plot_freq_label("hi", .5, .3, lbl_type = "namnum", cur_freq = f2)
 
 
 ## (B) Boxes: ------
