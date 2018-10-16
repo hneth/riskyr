@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 10 13
+## 2018 10 16
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -205,6 +205,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   x <- NULL  # "nulling out" to avoid NOTE (no visible binding for global variable ‘x’) in R CMD check!
 
+  lbl_digits <- 2  # n_digits to which numeric values (PPV, NPV, ppod, acc) are rounded
+
   ## Set x-value range for plotting curves:
   eps <- 10^-6  # some very small number
   # if (log.scale) { x.min <- (0 + eps) } else { x.min <- 0 }  # different x.min values for different scales
@@ -409,7 +411,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       }
 
       ## 3. label:
-      prev.lbl <- paste0("prev = ", as_pc(prev), "%")  # prev label
+      prev.lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
 
 
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
@@ -488,7 +490,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.PPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppv)  # PPV point
 
       ## 3. label:
-      PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV), "%")  # PPV label
+      PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV, n_digits = lbl_digits), "%")  # PPV label
 
       if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.PPV + v.shift,
@@ -508,7 +510,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("npv" %in% what) {
 
     ## 0. parameters:
-    lty.npv <- 1                            # PPV line type
+    lty.npv <- 1  # NPV line type
 
     ## color:
     if (length(what.col) == length(what)) { # a color vector was specified:
@@ -557,7 +559,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.NPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.npv)  # NPV point
 
       ## 3. label:
-      NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV), "%")  # NPV label
+      NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV, n_digits = lbl_digits), "%")  # NPV label
 
       if (cur.NPV > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.NPV + v.shift,
@@ -627,7 +629,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.ppod, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppod)  # ppod point
 
       ## 3. label:
-      ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod), "%")  # ppod label
+      ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod, n_digits = lbl_digits), "%")  # ppod label
 
       if (cur.ppod > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.ppod + v.shift,
@@ -695,7 +697,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.acc, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.acc)  # acc point
 
       ## 3. label:
-      acc.lbl <- paste0("acc = ", as_pc(cur.acc), "%")  # acc label
+      acc.lbl <- paste0("acc = ", as_pc(cur.acc, n_digits = lbl_digits), "%")  # acc label
 
       if (cur.acc > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.acc + v.shift,
@@ -718,53 +720,60 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
 
 
-  ## (6) Margin text: ----------
+  ## (6) Margin notes: ----------
 
-  ## Text parameters:
-  m_col <- grey(.33, .99)  # color
-  m_cex <- .85             # size
+  mar_notes <- FALSE
 
-  ##   (A) on left side (adj = 0): ----
+  if (mar_notes) {
 
-  ## A1. freq label:
-  show_freq <- FALSE
+    ## Text parameters:
+    m_col <- grey(.33, .99)  # color
+    m_cex <- .85             # size
 
-  if (show_freq) {
+    ##   (A) on left side (adj = 0): ----
 
-    N <- 1000  # HACK: compute freq values for some N:
-    freq <- comp_freq_prob(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
+    ## A1. Add freq label:
+    show_freq <- FALSE
 
-    # Create freq label:
-    freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr) # use current freq values
-    # mtext(freq_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print freq label
+    if (show_freq) {
 
-  } else {
+      N <- 1000  # HACK: compute freq values for some N:
+      freq <- comp_freq_prob(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
 
-    freq_lbl <- ""
+      # Create freq label:
+      freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr) # use current freq values
+      # mtext(freq_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print freq label
 
-  } # if (show_freq)...
+    } else {
 
-  ## A2. Condition / p(cond) label:
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+      freq_lbl <- ""
 
-  ## Combine 2 labels:
-  cur.par.lbl <- paste0(freq_lbl, "\n", cur.cond.lbl)
+    } # if (show_freq)...
 
-  mtext(cur.par.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
+    ## A2. Condition / p(cond) label:
+    cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+
+    ## Combine 2 labels:
+    cur.par.lbl <- paste0(freq_lbl, "\n", cur.cond.lbl)
+
+    mtext(cur.par.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
 
-  ##   (B) on rigth side (adj = 1): ----
+    ##   (B) on rigth side (adj = 1): ----
 
-  ## B1. Note uncertainty:
-  if (uc > 0) {
+    ## B1. Note uncertainty:
+    if (uc > 0) {
 
-    ## (b) Note uncertainty signal and uc value:
-    note <- paste0("Shading marks an uncertainty of ", as_pc(uc), "%")
+      ## (b) Note uncertainty signal and uc value:
+      note <- paste0("Shading marks an uncertainty of ", as_pc(uc), "%")
 
-    note_lbl <- paste0("Note:  ", note, ".")
-    mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
+      note_lbl <- paste0("Note:  ", note, ".")
+      mtext(paste0("", note_lbl, ""), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
 
-  }
+    }
+
+  } # if (mar_notes)...
+
 
   ## (7) Legend: ----------
 
