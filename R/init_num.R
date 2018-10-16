@@ -1,5 +1,5 @@
 ## init_num.R | riskyr
-## 2018 08 21
+## 2018 10 16
 ## Define and initialize a list of basic parameters (num)
 ## that collects and contains numeric user inputs:
 ## -----------------------------------------------
@@ -67,6 +67,26 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # .5   # prevalence in t
                 "fart" = NA,                            # NA   # false alarm rate = 1 - spec        [optional, complement of spec]
                 "N"    = round(runif(1, 1, 25), 0)      # 100  # population size N                                 [optional freq]
                 )
+
+
+## Define some fixed stimuli (for MSc Joachim): ----------
+
+# scen <- tribble(
+#   ~name,           ~N,	  ~prev,	  ~sens,	 ~spec,
+#   "Beschr",		     1000,	  .01,	    .80,	   .904,
+#   "Task1 Part2",   1000,	  .09,	    .49,     .95,
+#   "Task2 Part2",	 1000,	  .90,	    .95,	   .50,
+#   "Task3 Part2",	 1000,	  .80,	    .85,     .75,
+#   "Taskx Part3",   1000,	  .02,	    .70,	   .90,
+#   "Task1 Part3",	 1000,	  .11,	    .51,	   .939,
+#   "Task2 Part3",	 1000,	  .95,	    .90,	   .50,
+#   "Task3 Part3",	 1000,    .75,	    .70,	   .85)
+
+num.def <- list("prev" = .01, "sens" = .80, "spec" = .904, "fart" = NA, "N" = 1000)  # Scenario 1: "Beschr"
+
+
+
+## init_num: ----------
 
 #' Initialize basic numeric variables.
 #'
