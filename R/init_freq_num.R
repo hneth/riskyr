@@ -645,9 +645,9 @@ comp_freq_type <- function(fname) {
 
 
 
-## comp_freq_col: Determine the color of a named frequency (freq):  ----------
+## comp_freq_col: Determine the color of a named frequency (freq) in current color palette (cur_pal):  ----------
 
-comp_freq_col <- function(fname) {
+comp_freq_col <- function(fname, cur_pal = pal) {
 
   # initialize:
   col_name <- NA
@@ -686,11 +686,11 @@ comp_freq_col <- function(fname) {
 
   }
 
-  # Find color value of col_name in color pal:
-  if (col_name %in% names(pal)) { # if col_name corresponds to a color name in pal
-    f_col <- pal[col_name]     # use this color to fill box
+  # Find color value of col_name in current color cur_pal:
+  if (col_name %in% names(cur_pal)) { # if col_name corresponds to a color name in cur_pal
+    f_col <- cur_pal[col_name]        # use this color to fill box
   } else {
-    f_col <- grey(.95, .50) # use some default color (e.g., "white")
+    f_col <- grey(.95, .50)  # use some default color (e.g., "white")
   }
 
   # print(f_col)
