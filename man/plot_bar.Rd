@@ -6,7 +6,7 @@
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "all", dir = 1, scale = "f",
-  round = TRUE, f_lbl = "num", f_lwd = 0.001, title_lbl = txt$scen.lbl,
+  round = TRUE, f_lbl = "num", f_lwd = 0.001, lbl_txt = txt,
   col_pal = pal, show_freq = TRUE, show_prob = TRUE, show_accu = TRUE,
   w_acc = 0.5, ...)
 }
@@ -81,11 +81,11 @@ Values of \code{NA/NULL/0} set \code{lwd} to
 invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
 Default: \code{f_lwd = 0}.}
 
-\item{title_lbl}{Main plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
+\item{lbl_txt}{Current text information (for labels, titles, etc.).
+Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).}
 
-\item{col_pal}{Color palette to use.
-Default: \code{col_pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).}
+\item{col_pal}{Current color palette.
+Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).}
 
 \item{show_freq}{Boolean option for showing essential frequencies
 (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and

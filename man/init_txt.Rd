@@ -81,12 +81,12 @@ objects to existing names.
 }
 \examples{
 init_txt()          # => defines a list of (default) text elements
-length(init_txt())  # => 16
+length(init_txt())  # => 20
 
 # Customizing current text elements:
-txt <- init_txt(scen.lbl = "US or Them",
-                scen.src = "Some stable genius",
-                popu.lbl = "We, the people")
+txt <- init_txt(scen.lbl = "My scenario",
+                scen.src = "My source",
+                popu.lbl = "Current population")
 
 }
 \seealso{
