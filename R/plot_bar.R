@@ -244,8 +244,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      f_lbl = "num",  # type of freq labels: "nam"/"num"/"abb", NA/NULL/"no", or "default" (fname = fnum).
                      f_lwd = .001,   # lwd of boxes: NULL vs. 1 vs. .001 (default)
                      # Text and color:
-                     title_lbl = txt$scen.lbl,  # main title of plot
-                     col_pal = pal,             # color palette
+                     lbl_txt = txt,  # label text; was: title_lbl = txt$scen.lbl,  # main title of plot
+                     col_pal = pal,  # color palette
                      # Generic options:
                      show_freq = TRUE,   # show essential freq values on plot margin
                      show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
@@ -348,6 +348,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (2) Text labels: ----------
 
+  title_lbl <- txt$scen.lbl
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
   cur_title_lbl <- paste0(title_lbl, "Bar plot of frequencies") # , "(N = ", N, ")")
 
@@ -475,6 +476,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
             box_y  = n.y,
             box_lx = b.lx,
             box_ly = n.ly,
+            cur_txt = lbl_txt, cur_pal = col_pal,
             lbl_type = f_lbl,
             lwd = f_lwd, ...)
 
@@ -556,6 +558,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -563,6 +566,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -570,6 +574,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -577,6 +582,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     ## (b) Condition column: ----
@@ -611,6 +617,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.true.y,
               box_lx = b.lx,
               box_ly = cond.true.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
@@ -618,6 +625,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.false.y,
               box_lx = b.lx,
               box_ly = cond.false.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     # Label cond column:
@@ -658,6 +666,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.pos.y,
               box_lx = b.lx,
               box_ly = dec.pos.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
@@ -665,6 +674,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.neg.y,
               box_lx = b.lx,
               box_ly = dec.neg.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     # Label dec column:
@@ -705,6 +715,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.cor.y,
               box_lx = b.lx,
               box_ly = dec.cor.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
@@ -712,6 +723,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.err.y,
               box_lx = b.lx,
               box_ly = dec.err.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     # Label acc column:
@@ -751,6 +763,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -758,6 +771,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -765,6 +779,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -772,6 +787,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
 
@@ -807,6 +823,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.true.y,
               box_lx = b.lx,
               box_ly = cond.true.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
@@ -814,6 +831,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.false.y,
               box_lx = b.lx,
               box_ly = cond.false.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     # Label cond column:
@@ -854,6 +872,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -861,6 +880,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -868,6 +888,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -875,6 +896,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     ## (b) Decision column: ----
@@ -909,6 +931,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.pos.y,
               box_lx = b.lx,
               box_ly = dec.pos.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
@@ -916,6 +939,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.neg.y,
               box_lx = b.lx,
               box_ly = dec.neg.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     # Label dec column:
@@ -957,6 +981,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -964,6 +989,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -971,6 +997,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -978,6 +1005,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     ## (b) Accuracy column: ----
@@ -1012,6 +1040,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.cor.y,
               box_lx = b.lx,
               box_ly = dec.cor.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
@@ -1019,6 +1048,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.err.y,
               box_lx = b.lx,
               box_ly = dec.err.ly,
+              cur_txt = lbl_txt, cur_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, ...)
 
     # Label acc column:
