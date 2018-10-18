@@ -759,10 +759,9 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
                       lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"/"num"/"namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
                       fnum,              # frequency (as number).  ToDo: Derive fnum from ftype and/OR name!
-                      ## Color options:
-                      col_fill = grey(.95, .75),  # default color (but derived from name below)
-                      col_brd = pal["brd"],
-                      col_txt = pal["txt"],
+                      ## Text and color:
+                      cur_txt = txt,     # current txt
+                      cur_pal = pal,     # current color palette
                       ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
@@ -772,13 +771,14 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
   ## Box parameters:
 
-  ## Fill color:
-  col_fill <- comp_freq_col(fname)
-  # if (fname %in% names(pal)) { # if fname corresponds to a color name in pal
-  #  col_fill <- pal[fname]     # use this color to fill box
-  #}
+  ## Colors:
+  col_fill = grey(.95, .75)          # default color
+  col_fill <- comp_freq_col(fname = fname, cur_pal = cur_pal)   # derived color (for freq corresponding to fname)
+  col_brd = cur_pal["brd"]
+  col_txt = cur_pal["txt"]
 
   ## Text parameters:
+
   # col.lbl <- pal["txt"]  # defined in pal
   # cex.lbl <- .90   # scaling factor for text labels
   # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
