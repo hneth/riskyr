@@ -100,12 +100,12 @@ txt.def <- list(
 #'
 #' @examples
 #' init_txt()          # => defines a list of (default) text elements
-#' length(init_txt())  # => 16
+#' length(init_txt())  # => 20
 #'
 #' # Customizing current text elements:
-#' txt <- init_txt(scen.lbl = "US or Them",
-#'                 scen.src = "Some stable genius",
-#'                 popu.lbl = "We, the people")
+#' txt <- init_txt(scen.lbl = "My scenario",
+#'                 scen.src = "My source",
+#'                 popu.lbl = "Current population")
 #'
 #' @family functions initializing scenario information
 #'
@@ -141,7 +141,6 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      fa.lbl = txt.def$fa.lbl,    # false alarms       = "False positive"
                      cr.lbl = txt.def$cr.lbl     # correct rejections = "True negative"
 ) {
-
 
   ## 1. Initialize txt:
   txt <- NULL
