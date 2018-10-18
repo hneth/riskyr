@@ -386,7 +386,6 @@ pal <- init_pal()  ## apply
 # length(pal) # => 15 colors
 # pal[2] == pal["true"]
 
-
 ## pal_bw: Define a black-and-white (b/w) palette: --------
 
 #' Alternative color palette for black-and-white graphs.
@@ -408,7 +407,7 @@ pal <- init_pal()  ## apply
 #'
 #' @seealso
 #' \code{\link{pal}} contains current color information;
-#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{init_pal}} initializes color information.
 #'
 #' @export
 
@@ -432,6 +431,59 @@ pal_bw <- init_pal(col.N = grey(1.0, .99),     # white
 ## Check:
 # pal_bw
 # pal_bw["hi"]
+
+## Use bw color scheme (as default):
+# pal <- pal_bw
+
+
+## pal_4c: Define a reduced color palette: --------
+
+#' Alternative color palette for graphs with only 4 colors.
+#'
+#' \code{pal_4c} is initialized to a vector of named elements (colors)
+#' to define an alternative (reduced) scenario color scheme.
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_4c} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_4c        # shows all current color names and values
+#' pal_4c["hi"]  # shows the current color for hits (true positives)
+#' pal_4c["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_4c <- init_pal(col.N = grey(.85, .99),     # middle grey
+                   col.true =  grey(.95, .99), # lighter grey
+                   col.false = grey(.75, .99), # darker grey
+                   col.pos = grey(.95, .99),   # lighter grey
+                   col.neg = grey(.75, .99),   # darker grey
+                   col.cor = grey(.95, .99),   # lighter grey
+                   col.err = grey(.75, .99),   # darker grey
+                   col.hi = pal["hi"],
+                   col.mi = pal["mi"],
+                   col.fa = pal["fa"],
+                   col.cr = pal["cr"],
+                   col.ppv = grey(.60, .99),   # darker grey
+                   col.npv = grey(.45, .99),   # even darker grey
+                   col.txt = "black",          # black
+                   col.brd = "black"           # black
+)
+
+## Check:
+# pal_4c
+# pal_4c["N"]  # => "#D9D9D9FC"
+
+## Use reduced color scheme (as default):
+# pal <- pal_4c
 
 ## (D) Legacy code: ggplot themes: ----------
 
