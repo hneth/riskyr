@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 10 07
+## 2018 10 18
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -751,18 +751,18 @@ plot_freq_label <- function(fname,                # name of a known freq
 ##       It is NOT "smart" by NOT automatically deriving
 ##       freq and prob labels from global objects!
 
-plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
-                      box.lx, box.ly,   # lengths of box (width and height)
+plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
+                      box_lx, box_ly,   # lengths of box (width and height)
                       ## Text labels:
                       ftype = NA,        # type of freq/box (to be shown as title below box)
-                      show.freq = TRUE,  # option to show/hide frequency labels
+                      show_freq = TRUE,  # option to show/hide frequency labels in boxes
                       lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"/"num"/"namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
                       fnum,              # frequency (as number).  ToDo: Derive fnum from ftype and/OR name!
                       ## Color options:
-                      col.fill = grey(.95, .75),  # default color (but derived from name below)
-                      col.brd = pal["brd"],
-                      col.txt = pal["txt"],
+                      col_fill = grey(.95, .75),  # default color (but derived from name below)
+                      col_brd = pal["brd"],
+                      col_txt = pal["txt"],
                       ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
@@ -773,9 +773,9 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
   ## Box parameters:
 
   ## Fill color:
-  col.fill <- comp_freq_col(fname)
+  col_fill <- comp_freq_col(fname)
   # if (fname %in% names(pal)) { # if fname corresponds to a color name in pal
-  #  col.fill <- pal[fname]     # use this color to fill box
+  #  col_fill <- pal[fname]     # use this color to fill box
   #}
 
   ## Text parameters:
@@ -786,31 +786,31 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
   # v.shift <- .05   # vertical shifting of labels
 
   ## (1) Plot rect:
-  rect(xleft  = (box.x - box.lx/2), ybottom = box.y,
-       xright = (box.x + box.lx/2), ytop    = (box.y + box.ly),
-       col = col.fill,
-       border = col.brd,
+  rect(xleft  = (box_x - box_lx/2), ybottom = box_y,
+       xright = (box_x + box_lx/2), ytop    = (box_y + box_ly),
+       col = col_fill,
+       border = col_brd,
        # lwd = box.lwd,
        ...)
 
   ## (2) Print ftype as box title (below box, optional):
   if (!is.na(ftype)) {  # ftype is specified:
 
-    text(x = box.x, y = box.y,
+    text(x = box_x, y = box_y,
          labels = ftype,
          pos = 1,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
-         col = col.txt,
+         col = col_txt,
          # cex = cex.lbl.sm,
          ...)
 
   }
 
   ## (3) Plot box label (centered in box, optional):
-  if (show.freq) {
+  if (show_freq) {
 
     # y-coordinate of label:
-    mid.y <- box.y + box.ly/2  # y-value of mid point
+    mid.y <- box_y + box_ly/2  # y-value of mid point
 
     # Round fnum to n_digits:
     fnum <- round(as.numeric(fnum), digits = n_digits)  # round fnum (i.e., value displayed, NOT the actual freq value computed!)
@@ -869,23 +869,23 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
     } # if (lbl_type == ...)
 
     # Plot freq label:
-    text(x = box.x, y = mid.y,
+    text(x = box_x, y = mid.y,
          labels = box_lbl,
          # pos = NULL,  # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
-         col = col.txt,
+         col = col_txt,
          # cex = cex.lbl.sm,
          ...)
 
-  } # if (show.freq)...
+  } # if (show_freq)...
 
 }
 
 ## Check:
 
-## Preparation:
+# # Preparation:
 # plot(c(0, 100), c(0, 100), type = "n")  # empty canvas
-## Basics:
+# # Basics:
 # plot_vbox(10, 80, 20, 20, fnum = 111)  # no name => default fill color
 # plot_vbox(50, 80, 20, 20, fname = "N", fnum = 222)  # no ftype label
 # plot_vbox(50, 60, 20, 20, fname = "N", fnum = 222, lbl_type = "nam")  # name only
@@ -894,8 +894,8 @@ plot_vbox <- function(box.x,  box.y,    # coordinates x (center) and y (bottom)
 # plot_vbox(80, 80, 20, 20, fname = "cond.true", fnum = 333, ftype = comp_freq_type("cond.true"))
 # plot_vbox(10, 50, 30, 20, ftype = "type as box title", fname = "hi", fnum = 444)
 # plot_vbox(40, 50, 20, 20, fname = "mi", fnum = 555, lwd = 3, cex = .7, ftype = comp_freq_type("mi"))
-## Other cases:
-# plot_vbox(70, 50, 20, 20, fname = "asdf", fnum = 667, ftype = comp_freq_type("asdf"))
+# # Other fname and fnum values:
+# plot_vbox(80, 50, 20, 20, fname = "asdf", fnum = 667, ftype = comp_freq_type("asdf"))
 
 
 ## Distinguish between 2 separate box plotting functions:
