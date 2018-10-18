@@ -128,11 +128,11 @@
 #' invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
 #' Default: \code{f_lwd = 0}.
 #'
-#' @param title_lbl  Main plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
+#' @param lbl_txt  Current text information (for labels, titles, etc.).
+#' Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).
 #'
-#' @param col_pal  Color palette to use.
-#' Default: \code{col_pal = pal} (see \code{\link{pal}} and \code{\link{init_pal}}).
+#' @param col_pal  Current color palette.
+#' Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).
 #'
 #' @param show_freq  Boolean option for showing essential frequencies
 #' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
