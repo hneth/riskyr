@@ -2044,6 +2044,9 @@ plot_mar <- function(show_freq = TRUE,
                      show_accu = TRUE,
                      accu_from_freq = FALSE,  # Compute accuracy based on current (rounded or non-rounded) freq (default: accu_round_freq = FALSE).
                      note = "",
+                     cur_freq = freq,
+                     cur_prob = prob,
+                     cur_txt = txt,
                      ...) {
 
   ## (0) Preparations: ------
@@ -2080,13 +2083,13 @@ plot_mar <- function(show_freq = TRUE,
 
   ## A1. freq label:
   if (show_freq) {
-    freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # use current freq values
+    freq_lbl <- make_freq_lbl(hi = cur_freq$hi, mi = cur_freq$mi, fa = cur_freq$fa, cr = cur_freq$cr) # frequency values in cur_freq
     mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
   }
 
   ## A2. Condition / p(cond) label:
   if (show_cond) {
-    cond_lbl <- make_cond_lbl(prob$prev, prob$sens, prob$spec)  # use current prob values
+    cond_lbl <- make_cond_lbl(cur_prob$prev, cur_prob$sens, cur_prob$spec)  # probability values in cur_prob
     mtext(cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print cond label
   }
 
@@ -2107,15 +2110,15 @@ plot_mar <- function(show_freq = TRUE,
     if (accu_from_freq) {
 
       # (a) Compute accuracy from current (rounded or non-rounded) freq:
-      cur.accu <- comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr, w = w.acc)  # use current freq values
-      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+      cur_accu <- comp_accu_freq(hi = cur_freq$hi, mi = cur_freq$mi, fa = cur_freq$fa, cr = cur_freq$cr, w = w.acc)  # use current freq values
+      accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w.acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
       accu_lbl <- paste0("*", accu_lbl, " (from freq)")  # Explicitly mark accu_from_freq case
 
     } else {
 
-      # (b) Compute accuracy from (exact) prob == non-rounded freq:
-      cur.accu <- comp_accu_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, w = w.acc)  # use current prob values + w.acc
-      accu_lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+      # (b) Compute accuracy from (exact) cur_prob == non-rounded freq:
+      cur_accu <- comp_accu_prob(prev = cur_prob$prev, sens = cur_prob$sens, spec = cur_prob$spec, w = w.acc)  # use current prob values + w.acc
+      accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w.acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
 
     }
 
@@ -2125,7 +2128,7 @@ plot_mar <- function(show_freq = TRUE,
 
   ## B2. Decision / p(dec) label:
   if (show_dec) {
-    dec_lbl <- make_dec_lbl(prob$ppod, prob$PPV, prob$NPV)
+    dec_lbl <- make_dec_lbl(cur_prob$ppod, cur_prob$PPV, cur_prob$NPV)
     mtext(dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print decision label
   }
 
@@ -2161,16 +2164,6 @@ plot_mar <- function(show_freq = TRUE,
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
 # plot_mar(accu_from_freq = TRUE, note = "Accuracy from current (rounded or non-rounded) frequencies.")
-
-
-
-
-
-
-
-
-
-
 
 
 ## (5) Miscellaneous plotting functions: ----------
