@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 08 28
+## 2018 10 19
 ## Define and initialize the current set
 ## of custom colors (pal):
 ## -----------------------------------------------
@@ -411,21 +411,21 @@ pal <- init_pal()  ## apply
 #'
 #' @export
 
-pal_bw <- init_pal(col.N = grey(1.0, .99),     # white
-                   col.true =  grey(.95, .99), # nearly white
-                   col.false = grey(.95, .99), # nearly white
-                   col.pos = grey(.90, .99),   # darker white
-                   col.neg = grey(.90, .99),   # darker white
-                   col.cor = grey(.85, .99),   # darker white
-                   col.err = grey(.85, .99),   # darker white
-                   col.hi = grey(.85, .99),    # white
-                   col.mi = grey(.65, .99),
-                   col.fa = grey(.65, .99),
-                   col.cr = grey(.85, .99),
-                   col.ppv = grey(.60, .99),   # lighter grey
+pal_bw <- init_pal(col.N = grey(.95, .99),     # nearly white
+                   col.true =  grey(.90, .99), # darker white
+                   col.false = grey(.80, .99), # darker white
+                   col.pos = grey(.85, .99),   # darker white
+                   col.neg = grey(.70, .99),   # darker white
+                   col.cor = grey(.75, .99),   # darker white
+                   col.err = grey(.60, .99),   # darker white
+                   col.hi = grey(.80, .99),    # brighter 1
+                   col.mi = grey(.60, .99),    # darker 1
+                   col.fa = grey(.50, .99),    # darker 2
+                   col.cr = grey(.70, .99),    # brighter 2
+                   col.ppv = grey(.60, .99),   # medium grey
                    col.npv = grey(.45, .99),   # darker grey
-                   col.txt = "black",          # black
-                   col.brd = "black"           # black
+                   col.txt = grey(0, .99),     # black
+                   col.brd = grey(.10, .99)    # almost black
 )
 
 ## Check:
@@ -461,21 +461,21 @@ pal_bw <- init_pal(col.N = grey(1.0, .99),     # white
 #'
 #' @export
 
-pal_4c <- init_pal(col.N = grey(.85, .99),     # middle grey
-                   col.true =  grey(.95, .99), # lighter grey
-                   col.false = grey(.75, .99), # darker grey
-                   col.pos = grey(.95, .99),   # lighter grey
-                   col.neg = grey(.75, .99),   # darker grey
-                   col.cor = grey(.95, .99),   # lighter grey
-                   col.err = grey(.75, .99),   # darker grey
-                   col.hi = pal["hi"],
-                   col.mi = pal["mi"],
-                   col.fa = pal["fa"],
-                   col.cr = pal["cr"],
-                   col.ppv = grey(.60, .99),   # darker grey
-                   col.npv = grey(.45, .99),   # even darker grey
-                   col.txt = "black",          # black
-                   col.brd = "black"           # black
+pal_4c <- init_pal(col.N = grey(.95, .99),     # nearly white
+                   col.true =  grey(.90, .99), # darker white
+                   col.false = grey(.75, .99), # lighter white
+                   col.pos = grey(.85, .99),   # lighter grey
+                   col.neg = grey(.70, .99),   # darker grey
+                   col.cor = grey(.75, .99),   # lighter grey
+                   col.err = grey(.60, .99),   # darker grey
+                   col.hi = pal["hi"],         # from pal
+                   col.mi = pal["mi"],         # from pal
+                   col.fa = pal["fa"],         # from pal
+                   col.cr = pal["cr"],         # from pal
+                   col.ppv = grey(.60, .99),   # medium grey
+                   col.npv = grey(.45, .99),   # darker grey
+                   col.txt = grey(0, .99),     # black
+                   col.brd = grey(.10, .99)    # almost black
 )
 
 ## Check:
