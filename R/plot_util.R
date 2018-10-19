@@ -908,12 +908,12 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
                       ## Text labels:
                       lbl     = NA,       # main label (in middle)
-                      lbl.top = NA,       # title (at top)
-                      lbl.bot = NA,       # caption (at bottom)
+                      lbl_top = NA,       # title (at top)
+                      lbl_bot = NA,       # caption (at bottom)
                       ## Color options:
-                      col.fill = grey(.95, .50),  # default fill color
-                      col.brd = pal["brd"],       # default border color
-                      col.txt = pal["txt"],       # default label color
+                      col_fill = grey(.95, .50),  # default fill color
+                      col_brd = pal["brd"],       # default border color
+                      col_txt = pal["txt"],       # default label color
                       ## Shading options:
                       density = NULL,  # density of shading lines (per in)
                       angle = 45,      # angle of shading lines
@@ -931,8 +931,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
   ## (1) Plot rectangle:
 
   rect(xleft = x_left, ybottom = y_bottom, xright = x_right, ytop = y_top,
-       col = col.fill,
-       border = col.brd,
+       col = col_fill,
+       border = col_brd,
        density = density,
        angle = angle,
        ...)
@@ -945,31 +945,30 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          labels = paste0(lbl),
          pos = NULL,    # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
-         col = col.txt,
+         col = col_txt,
          ...)
 
   }
 
-  if (!is.na(lbl.top)) {
+  if (!is.na(lbl_top)) {
 
     text(x = x, y = y_top,
-         labels = paste0(lbl.top),
+         labels = paste0(lbl_top),
          pos = 3,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
-         col = col.txt,
+         col = col_txt,
          ...)
 
   }
 
-  if (!is.na(lbl.bot)) {
+  if (!is.na(lbl_bot)) {
 
     text(x = x, y = y_bottom,
-         labels = paste0(lbl.bot),
+         labels = paste0(lbl_bot),
          pos = 1,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
-         col = col.txt,
+         col = col_txt,
          ...)
-
   }
 
 }
@@ -981,18 +980,18 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 #
 # plot_cbox(1, 5, 1, 1)  # default color, no text labels
 #
-# plot_cbox(3, 5, 1, 1, density = 15)  # with diagonal lines
+# plot_cbox(3, 5, 1, 1, col_fill = "blue", density = 15)  # with diagonal lines
 #
-# plot_cbox(5, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.")  # add text labels
+# plot_cbox(5, 5, 1, 1, lbl = "Label", lbl_top = "Title:", lbl_bot = "Caption.")  # add text labels
 #
-# plot_cbox(7, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.",
-#           cex = .75, font = 2,                                # add text options
-#           col.fill = "gold", col.brd = "steelblue", lwd = 3)  # add color options
+# plot_cbox(7, 5, 1, 1, lbl = "Label", lbl_top = "Title:", lbl_bot = "Caption.",
+#           cex = .75, font = 2,                                # text options
+#           col_fill = "gold", col_brd = "steelblue", lwd = 3)  # color options
 #
-# plot_cbox(9, 5, 1, 1, lbl = "Label", lbl.top = "Title:", lbl.bot = "Caption.",
-#           cex = .75, font = 1,                                # add text options
-#           col.fill = "firebrick", col.brd = "firebrick", lwd = 1,
-#           density = 15)  # add color options
+# plot_cbox(9, 5, 1, 1, lbl = "Label", lbl_top = "Title:", lbl_bot = "Caption.",
+#           cex = .75, font = 1,                                # text options
+#           col_fill = "firebrick", col_brd = "firebrick",      # color options
+#           lwd = 1, density = 15)                              # line options
 
 
 ## plot_fbox: Plot a known frequency (freq) as a box ----------
@@ -1010,10 +1009,11 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       lbl_type = "default",  # type of freq label
                       lbl_sep = " = ",       # label separator (" = ", ":\n")
                       show_type = FALSE,     # option to show/hide f_type label (at bottom)
-                      cur_freq = freq,       # current freq
-                      cur_txt = txt,         # current txt
-                      ## Color options:
-                      col.fill = col,  # if missing, color of fname freq is derived below
+                      ## Inputs: freq, text and color:
+                      cur_freq = freq,   # current freq
+                      cur_txt = txt,     # current txt
+                      cur_pal = pal,     # current color palette
+                      # col.fill = col,    # if missing, color of fname freq is derived below
                       # col.brd = pal["brd"],
                       # col.txt = pal["txt"],
                       ...  # other graphical parameters: lwd, cex, pos, ...
@@ -1026,69 +1026,49 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
   f_lbl <- NA
   bot_lbl <- NA
 
+  ## (1) Color of box:
+  if ((length(cur_pal) > 1) || is.na(cur_pal) || missing(cur_pal)) {
+    f_col <- comp_freq_col(fname = fname, cur_pal = cur_pal)  # determine default f_col corresponding to fname in cur_pal
+  } else if ((length(cur_pal) == 1)) {
+    f_col <- cur_pal  # assuming that cur_pal denotes a color
+  } else {
+    f_col <- grey(.95, .50)  # default fill color
+  }
+  # print(f_col)
+
+  ## (2) Text of box labels:
   if (fname %in% names(cur_freq)) { # if fname corresponds to named frequency in cur_freq:
 
-    # Derive current values corresponding to cur_freq:
+    # (a) f_lbl as value corresponding to cur_freq:
     ix <- which(names(cur_freq) == fname)  # index in cur_freq
-
-    # (a) Value of frequency in cur_freq:
-    f_val <- cur_freq[ix]
-
-    # (b) Type of frequency:
-    if (show_type) {
-      f_type <- comp_freq_type(fname)  # use helper function (defined in init_freq_num.R)
-    }
-
-    # (c) Color of frequency box:
-    if (missing(col.fill)) {  # no col.fill has been specified:
-      # if (is.na(col)) {  # no col has been specified:
-      f_col <- comp_freq_col(fname)  # determine default f_col corresponding to fname in cur_freq and pal
-    } else {
-      f_col <- col.fill  # use the color specified in function call
-      # f_col <- col  # use the color specified in function call
-    }
-    # print(f_col)
-
-    # (d) Label of frequency name and/or value:
+    f_val <- cur_freq[ix]     # value of frequency in cur_freq
     f_lbl <- label_freq(fname = fname, lbl_type = lbl_type, lbl_sep = lbl_sep,
                         cur_freq = cur_freq, cur_txt = cur_txt)
     # print(f_lbl)
 
-    # (e) Label of frequency type:
-    if (show_type) { bot_lbl <- paste0(f_type) }
-
-    # (e) Plot corresponding cbox with values of fname freq:
-    plot_cbox(x = x,
-              y = y,
-              lx = (lx * scale_lx),
-              ly = ly,
-              # lbl = paste0(fname, " = ", f_val),
-              lbl = f_lbl,
-              lbl.bot = bot_lbl,
-              col.fill = f_col,
-              ...)
+    # (b) Type of frequency:
+    if (show_type) {
+      f_type <- comp_freq_type(fname)  # use helper function (defined in init_freq_num.R)
+      bot_lbl <- paste0(f_type)
+    }
 
   } else {  # fname is NOT a known freq:
 
-    # (a) Fill color of frequency box:
-    if (missing(col.fill)) {  # no col.fill has been specified:
-      f_col <- grey(.95, .50)  # default fill color
-    } else {
-      f_col <- col.fill  # use the color specified in function call
-    }
-    # print(f_col)
-
-    # (b) Plot cbox with default settings:
-    plot_cbox(x = x,
-              y = y,
-              lx = (lx * scale_lx),
-              ly = ly,
-              lbl = paste0(fname),
-              lbl.bot = bot_lbl,
-              col.fill = f_col,
-              ...)
+    # (a) Label by fname only:
+    f_lbl <- paste0(fname)
 
   } # if (fname %in% names(freq))...
+
+  # (3) Plot corresponding cbox with values of fname freq:
+  plot_cbox(x = x,
+            y = y,
+            lx = (lx * scale_lx),
+            ly = ly,
+            # lbl = paste0(fname, " = ", f_val),
+            lbl = f_lbl,
+            lbl_bot = bot_lbl,
+            col_fill = f_col,
+            ...)
 
 }
 
@@ -1100,11 +1080,11 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_ratio <- plot_xy[1]/plot_xy[2]  # current aspect ratio
 # scale_x <- 1/plot_ratio              # multiplicative correction factor (for x-widths)
 #
-# # Basics:
+# # Basics (scale_lx):
 # plot_fbox(fname = "N1", 3, 9, 2, 2)  # square (appears as rectangle in rectangular plot area)
 # plot_fbox(fname = "N2", 7, 9, 2, 2, scale_lx = scale_x)  # square (appears as square in any plot area)
 #
-# # Plot freq boxes:
+# # Plot freq boxes (global freq and pal):
 # plot_fbox(fname = "N", 5, 5, 1, 2/3)
 # plot_fbox(fname = "N", 5, 5, 3/2, 2/3, lbl_type = "namnum", lbl_sep = ":\nN = ")
 # plot_fbox(fname = "cond.true", 3, 4, 2, 2/3, show_type = TRUE)
@@ -1117,7 +1097,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
 # plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
 # plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, lbl_type = "namnum")
-# plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "green2", col.brd = "red3", cex = .6, lwd = 3)
+# plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "blue", col_brd = "red3", cex = .6, lwd = 3)
 #
 # # Local freq object:
 # f2 <- comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100) # create f2
@@ -1127,12 +1107,14 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "mi", 4, 6, 1, 1, lbl_type = "def", cur_freq = f2)
 # plot_fbox(fname = "dec.cor", 3, 5, 1, 1, lbl_type = "def", cur_freq = f2)
 #
+# # Local col object:
+# plot_fbox(fname = "N", 9, 8, 2, 1, cur_pal = "skyblue") # only 1 color
+# plot_fbox(fname = "cond.true", 9, 7, 2, 1, cur_pal = pal_bw) # alternative color palette
+# plot_fbox(fname = "hi", 9, 6, 2, 1, cur_pal = pal_bw) # alternative color palette
+#
 # # Arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
-# plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, col = "gold", cex = .7, font = 2)
-
-
-
+# plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2)
 
 # +++ here now +++ ----
 
@@ -1253,7 +1235,6 @@ plot_fbox_list <- function(fboxes, ...) {
   }
 
 }
-
 
 ## Check:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
