@@ -100,19 +100,9 @@ plot.box <- function(obj, ...) {
 #      cex = 2/3, lwd = 4, col = "gold", font = 2) # overwrite default parameters
 
 
-
-
-
-
-
-
 ## (2) Constructing and plotting labels, boxes, and links: ----------
 
-
-
-
 ## (A) Labels: ------
-
 
 ## label_freq: Label a known frequency (in freq) by fname ----------
 
@@ -2046,7 +2036,7 @@ plot_mar <- function(show_freq = TRUE,
                      note = "",
                      cur_freq = freq,
                      cur_prob = prob,
-                     cur_txt = txt,
+                     # cur_txt = txt,  # currently not used (consider using for make_freq_lbl).
                      ...) {
 
   ## (0) Preparations: ------
