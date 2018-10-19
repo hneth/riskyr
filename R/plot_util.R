@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 10 18
+## 2018 10 19
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1396,7 +1396,7 @@ comp_lx_fbox <- function(fname, len_N,
     # (1) scale by exact probability:
 
     # (a) Compute current probability val of frequency (named by fname) from current prob values:
-    pval <- comp_prob_fname(fname, cur_prob = cur_prob)
+    pval <- comp_prob_fname(fname = fname, cur_prob = cur_prob)
 
     # (b) Scale len_N by probability val:
     lx <- pval * len_N
@@ -1439,9 +1439,13 @@ comp_lx_fbox <- function(fname, len_N,
 ## ToDo: Vectorize comp_lx_fbox (to allow computing many lx values at once).
 
 
-## comp_ly_fsqr: Compute scaled height ly of fsqr (fname) given scale (f/p): ------
+## comp_ly_fsqr: Compute scaled height ly of fsqr (given by fname) given scale (f/p): ------
 
-comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
+comp_ly_fsqr <- function(fname, area_N,
+                         # N = freq$N,
+                         cur_freq = freq,
+                         cur_prob = prob,
+                         scale = "f") {
   # Compute a scaled height ly of an frequency square (fsqr) based on its name (fname),
   # the current population area_N, current population size N,
   # and current type of scale ("f" or "p") so that:
@@ -1449,6 +1453,7 @@ comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
 
   ly  <- NA
   val <- NA
+  N <- cur_freq$N
 
   # (1) get the current value (p/f) corresponding to fname:
 
@@ -1456,26 +1461,26 @@ comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
 
     # (1) scale by exact probability:
 
-    # (a) Compute current probability val of freq (named by fname) from current prob values:
-    val <- comp_prob_fname(fname)
+    # (a) Compute current probability val of freq (named by fname) from current probabilities cur_prob:
+    val <- comp_prob_fname(fname = fname, cur_prob = cur_prob)
 
     # (b) Scale area_N by probability val so that ly^2 == (val * area_N):
     ly <- sqrt(val * area_N)
 
   } else {  # scale == "f" or any other scale:
 
-    # (2) scale by current freq (rounded or non-rounded):
-    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+    # (2) scale by current frequencies cur_freq (rounded or non-rounded):
+    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
 
-      # (a) Get current freq value corresponding to fname in freq:
-      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
-      val <- freq[ix]  # current freq value
+      # (a) Get current freq value corresponding to fname in cur_freq:
+      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      val <- cur_freq[ix]     # current freq value
       val <- as.numeric(val)  # ensure that val is numeric
 
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(freq)...
+    } # if (fname %in% names(cur_freq)...
 
     # (b) Scale area_N by ratio of frequencies val/N so that ly^2 == (val/N * area_N):
     ly <- sqrt(val/N * area_N)
@@ -1509,9 +1514,8 @@ comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
 ## ToDo: Vectorize comp_ly_fsqr (to allow computing many ly values at once).
 
 
-
-
 ## (3) Links: ------
+
 ## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
@@ -1729,6 +1733,7 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl = NA,                  # lbl (derived automatically, if NA)
                       lbl_type = "default",      # lbl_type ("default", "nam", "num", "namnum")
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
+                      cur_prob = prob,           # current prob
                       ...) {
 
   # (1) Determine link coordinates:
@@ -1788,7 +1793,8 @@ plot_link <- function(box1, box2,                # 2 boxes
 
     if (!is.na(pname)) {  # A pname is found (not NA)/prob is known:
 
-      p_lbl <- label_prob(pname, lbl_type, lbl_sep)  # make p_lbl from label_prob
+      p_lbl <- label_prob(pname = pname, cur_prob = cur_prob,
+                          lbl_type = lbl_type, lbl_sep = lbl_sep)  # generate p_lbl
 
       # (b) plot line with this p_lbl:
       plot_line(x1, y1, x2, y2, lbl = p_lbl, ...)
@@ -1804,7 +1810,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 
 }
 
-## Check:
+# ## Check:
 # ## Define some boxes:
 # box_b1 <- make_box("1st_box", 1, 9, 2, 2)   # 1st box with an arbitrary label
 # box_b2 <- make_box("2nd_box", 2, 3, 2, 3)   # 2nd box ...
@@ -1829,13 +1835,20 @@ plot_link <- function(box1, box2,                # 2 boxes
 # # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
 #
 # ## Link options:
-# ## (a) Link 2 freq boxes with a known prob:
+# ## (a) Global prob: Link 2 freq boxes with a known prob:
 # plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr_code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
 # plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col.fill = pal["hi"],
-#           lbl_type = "namnum", lbl.pos = NULL, col.txt = pal["hi"], cex = .8)
+#           lbl_type = "namnum", lbl.pos = 2, col.txt = pal["hi"], cex = .8)
 #
-# ## (b) Link 2 boxes with NO known prob:
+# ## (b) Local prob:
+# p2 <- comp_prob_prob(prev = .50, sens = .88, spec = .64)
+# plot_link(box_N, box_ct, 4, 2, cur_prob = p2, lbl.pos = NULL, cex = .8,
+#           arr_code = -3, col.fill = "firebrick", col.txt = "firebrick")
+# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3, col.fill = "steelblue",
+#           lbl_type = "namnum", lbl.pos = 4, col.txt = "steelblue", cex = .8)
+#
+# ## (c) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
 # plot_link(box_N, box_hi, 1, 2, arr_code = -3,
 #           lbl = "given label in color",
