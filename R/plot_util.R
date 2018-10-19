@@ -644,6 +644,8 @@ name_prob <- function(freq1, freq2) {
 ## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
+                             ## Text information:
+                             cur_txt = txt,       # current txt
                              ## Optional arguments:
                              suffix = "",         # suffix
                              # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
@@ -655,8 +657,8 @@ plot_ftype_label <- function(fname,               # name of a known freq
   ## Initialize ftype_lbl:
   # ftype_lbl <- ""
 
-  ## Determine ftype_lbl:
-  ftype_lbl <- paste0(comp_freq_type(fname), suffix)  # determine freq_type corresponding to fname
+  ## Determine ftype_lbl (freq_type corresponding to fname in cur_txt):
+  ftype_lbl <- paste0(comp_freq_type(fname = fname, cur_txt = cur_txt), suffix)
 
   ## Plot ftype_lbl:
   text(x, y,
@@ -675,12 +677,17 @@ plot_ftype_label <- function(fname,               # name of a known freq
 # plot_ftype_label("N", .1, .9)
 # plot_ftype_label("cond.false", .2, .8, suffix = ":", cex = .8)
 # plot_ftype_label("dec.pos", .3, .7, col = "red3")
-# plot_ftype_label("dec.cor", .7, .3, col = "gold")
+# plot_ftype_label("dec.cor", .7, .7, col = "gold")
 # plot_ftype_label("hi", .5, .5, col = "green3")
 # plot_ftype_label("hi", .5, .5, col = "steelblue1", pos = 1)
 # plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
 # plot_ftype_label("fa", .5, .5, col = "steelblue3", pos = 3)
 # plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
+#
+## Using custom txt (cur_txt):
+# plot_ftype_label("cond.false", .2, .7, suffix = "!", cur_txt = txt_TF)
+# plot_ftype_label("dec.pos", .3, .6, col = "red3", cur_txt = txt_TF)
+# plot_ftype_label("dec.cor", .7, .6, col = "gold", cur_txt = txt_TF)
 
 ## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
 plot_freq_label <- function(fname,                # name of a known freq
