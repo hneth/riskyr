@@ -12,6 +12,19 @@
 ## (1) from uni.kn:
 seeblau <- rgb(0, 169, 224, max = 255) # seeblau.4 (non-transparent)
 
+pal_uni.kn = data.frame( ## in one df:
+  "seeblau1" = rgb(204, 238, 249, maxColorValue = 255), #  1. seeblau1 (non-transparent)
+  "seeblau2" = rgb(166, 225, 244, maxColorValue = 255), #  2. seeblau2 (non-transparent)
+  "seeblau3" = rgb( 89, 199, 235, maxColorValue = 255), #  3. seeblau3 (non-transparent)
+  "seeblau4" = rgb(  0, 169, 224, maxColorValue = 255), #  4. seeblau4 (= seeblau base color)
+  "black"    = rgb(  0,   0,   0, maxColorValue = 255), #  5. black
+  "seegrau4" = rgb(102, 102, 102, maxColorValue = 255), #  6. grey40 (non-transparent)
+  "seegrau3" = rgb(153, 153, 153, maxColorValue = 255), #  7. grey60 (non-transparent)
+  "seegrau2" = rgb(204, 204, 204, maxColorValue = 255), #  8. grey80 (non-transparent)
+  "seegrau1" = rgb(229, 229, 229, maxColorValue = 255), #  9. grey90 (non-transparent)
+  "white"    = rgb(255, 255, 255, maxColorValue = 255), # 10. white
+  stringsAsFactors = FALSE)
+
 ## (2) from https://bootswatch.com/sandstone/:
 col.sand.light <- rgb(248, 245, 240, max = 255)
 col.sand.mid   <- rgb(142, 140, 132, max = 255)
@@ -435,7 +448,6 @@ pal_bw <- init_pal(col.N = grey(.95, .99),     # nearly white
 ## Use bw color scheme (as default):
 # pal <- pal_bw
 
-
 ## pal_4c: Define a reduced color palette: --------
 
 #' Alternative color palette for graphs with only 4 colors.
@@ -485,38 +497,54 @@ pal_4c <- init_pal(col.N = grey(.95, .99),     # nearly white
 ## Use reduced color scheme (as default):
 # pal <- pal_4c
 
-## (D) Legacy code: ggplot themes: ----------
+## pal_kn: Define a uni.kn palette: --------
 
-#   library("ggplot2")
-#
-#   my.theme <-  theme_bw() +
-#     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
-#           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-#           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-#           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
-#           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
-#           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
-#           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-#           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2),
-#           # panel.grid.minor.x = element_blank(),
-#           # panel.grid.minor.y = element_blank(),
-#           legend.position = "none"
-#     )
-#
-#   my.theme.legend <- theme_bw() +
-#     theme(plot.title = element_text(face = "bold", size = 12, color = col.grey.4, hjust = 0.0),
-#           axis.title = element_text(face = "plain", size = 11, color = col.sand.dark),
-#           axis.text = element_text(face = "plain", size = 10, color = col.sand.dark),
-#           # axis.line = element_line(size = 0.75, color = "black", linetype = 1),
-#           axis.ticks = element_line(size = 0.75, color = col.sand.mid, linetype = 1),
-#           panel.background = element_rect(fill = "grey99", color = col.sand.dark),
-#           panel.grid.major.x = element_line(color = col.sand.light, linetype = 1, size = .2),
-#           panel.grid.major.y = element_line(color = col.sand.light, linetype = 1, size = .2)#,
-#           # panel.grid.minor.x = element_blank(),
-#           # panel.grid.minor.y = element_blank()#,
-#           # legend.position = "none"
-#     )
+#' Alternative color palette for uni.kn.
+#'
+#' \code{pal_kn} is initialized to a vector of named elements (colors)
+#' to define an alternative (uni.kn) scenario color scheme.
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_kn} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_kn      # shows all current color names and values
+#' pal_kn["hi"]  # shows the current color for hits (true positives)
+#' pal_kn["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
 
+pal_kn <- init_pal(col.N = grey(.95, .99),     # nearly white
+                   col.true =  grey(.90, .99), # darker white
+                   col.false = grey(.80, .99), # darker white
+                   col.pos = grey(.85, .99),   # darker white
+                   col.neg = grey(.70, .99),   # darker white
+                   col.cor = grey(.75, .99),   # darker white
+                   col.err = grey(.60, .99),   # darker white
+                   col.hi = pal_uni.kn$seeblau1,
+                   col.mi = pal_uni.kn$seeblau3,
+                   col.fa = pal_uni.kn$seeblau4,
+                   col.cr = pal_uni.kn$seeblau2,
+                   col.ppv = grey(.60, .99),   # medium grey
+                   col.npv = grey(.45, .99),   # darker grey
+                   col.txt = grey(0, .99),     # black
+                   col.brd = grey(.10, .99)    # almost black
+)
+
+## Check:
+# pal_kn
+# pal_kn["hi"]
+
+## Use uni.kn color scheme (as default):
+# pal <- pal_kn
 
 ## (*) Done: ----------
 
