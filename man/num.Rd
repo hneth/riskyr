@@ -35,6 +35,6 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{pal_4c}},
   \code{\link{pal_bw}}, \code{\link{pal_kn}},
   \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt_alt}}, \code{\link{txt}}
+  \code{\link{txt_TF}}, \code{\link{txt}}
 }
 \keyword{datasets}
