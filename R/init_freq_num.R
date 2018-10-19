@@ -600,11 +600,9 @@ freq <- comp_freq()  # => initialize freq to default parameters
 # names(freq)        # => show names of known frequencies
 
 
-
-
 ## comp_freq_type: Determine the type of a named frequency (freq):  ----------
 
-comp_freq_type <- function(fname) {
+comp_freq_type <- function(fname, cur_txt = txt) {
 
   f_type <- "typeless"  # initialize
 
@@ -613,12 +611,12 @@ comp_freq_type <- function(fname) {
   # (a) Using basic names:
   # freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
 
-  # (b) Using labels defined in txt:
-  freq_types <- c(txt$popu.lbl,
-                  rep(txt$cond.lbl, 2),
-                  rep(txt$dec.lbl, 2),
-                  rep(txt$acc.lbl, 2),
-                  rep(txt$sdt.lbl, 4))
+  # (b) Using labels defined in cur_txt:
+  freq_types <- c(cur_txt$popu.lbl,
+                  rep(cur_txt$cond.lbl, 2),
+                  rep(cur_txt$dec.lbl, 2),
+                  rep(cur_txt$acc.lbl, 2),
+                  rep(cur_txt$sdt.lbl, 4))
   # freq_types
 
   # (2) Map freq to name in freq_types:
@@ -638,6 +636,10 @@ comp_freq_type <- function(fname) {
 # comp_freq_type("dec.neg")
 # comp_freq_type("dec.err")
 # comp_freq_type("cr")
+
+## Using alternative text labels:
+# comp_freq_type("cond.true", cur_txt = txt_TF) # => "Truth"
+# comp_freq_type("dec.pos", cur_txt = txt_TF)   # => "Test"
 
 ## Note:
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
