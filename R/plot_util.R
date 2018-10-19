@@ -115,6 +115,7 @@ plot.box <- function(obj, ...) {
 
 
 ## label_freq: Label a known frequency (in freq) by fname ----------
+
 label_freq <- function(fname,
                        lbl_type = "default",    # label type: "default", "nam"/"num"/"namnum", "abb", or NULL/NA/"no" (to hide label).
                        lbl_sep = " = ",         # separator: " = " (default), ":\n"
@@ -299,9 +300,9 @@ label_freq <- function(fname,
 label_prob <- function(pname,
                        lbl_type = "default",  # label type: "default", "nam"/"num"/"namnum", "abb"/"min"/"mix" or NULL/NA/"no" (to hide label).
                        lbl_sep = " = ",       # separator: " = " (default), ":\n"
-                       cur_prob = prob        # current freq
+                       cur_prob = prob        # current prob
                        # cur_txt = txt        # current txt (does currently NOT include any probabilities)
-                       # accu = accu          # use current accuracy (now included in prob)  +++ here now +++
+                       # accu = accu          # use current accuracy (now included in prob)
 ) {
 
   ## Initialize:
@@ -1112,11 +1113,16 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "cond.true", 9, 7, 2, 1, cur_pal = pal_bw) # alternative color palette
 # plot_fbox(fname = "hi", 9, 6, 2, 1, cur_pal = pal_bw) # alternative color palette
 #
+# # Local txt object:
+# t2 <- init_txt(hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+# t2$hi.lbl  # => "TP"
+# plot_fbox(fname = "hi", 2, 1, 2, 1, cur_txt = t2, lbl_type = "namnum", cur_pal = "gold") # alternative txt and color
+#
 # # Arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
 # plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2)
 
-# +++ here now +++ ----
+
 
 
 ## (b) Computing box dimensions (width lx): -------
@@ -1125,8 +1131,9 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 ## comp_freq_fbox: Compute freq value of fbox (based on fname and cur_freq) --------
 
 comp_freq_fbox <- function(fbox,
-                           cur_freq = freq,
-                           cur_pal = pal  # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
+                           cur_freq = freq  #,
+                           # cur_txt = txt, # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
+                           # cur_pal = pal  # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
                            ) {
 
   f_val  <- NA
@@ -1166,7 +1173,13 @@ comp_freq_fbox <- function(fbox,
 # comp_freq_fbox("no_box")  # NA
 # comp_freq_fbox(1)         # NA
 #
-# # str(box_N)
+## Local freq:
+# f2 <- comp_freq_prob(prev = .50, sens = 3/5, spec = 4/5, N = 10)
+# comp_freq_fbox(box_N,  cur_freq = f2) # => 10
+# comp_freq_fbox(box_hi, cur_freq = f2) # => 3
+#
+## Details:
+# str(box_N)
 #
 # # Box as list:
 # is.list(box_N)     # TRUE
@@ -1197,10 +1210,40 @@ comp_freq_fbox <- function(fbox,
 # plot(0:10, type = "n")
 # lapply(X = boxes[dec], FUN = plot)
 
+## comp_freq_fbox_list: Compute frequencies of (list of) fboxes: --------
+
+comp_freq_fbox_list <- function(fboxes, ...){
+
+  box_freqs <- NA
+
+  box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox, ...))
+
+  return(box_freqs)
+
+}
+
+## Check:
+## Define some boxes:
+# box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
+# box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
+# box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
+# box_fa <- make_box("fa", 6, 3, 1, 1)  # ...            fa
+# box_cr <- make_box("cr", 8, 3, 1, 1)  # ...            cr
+#
+# boxes <- list(box_N, box_hi, box_mi, box_fa, box_cr)  # list of boxes
+#
+## Global freq:
+# freq
+# comp_freq_fbox_list(boxes)
+#
+## Local freq:
+# f2 <- comp_freq_prob(prev = .50, sens = 3/5, spec = 4/5, N = 10)
+# comp_freq_fbox_list(boxes, cur_freq = f2)
+
 
 ## plot_fbox_list: Plot a list of fboxes in some order --------
 
-plot_fbox_list <- function(fboxes, ...) {
+plot_fbox_list <- function(fboxes, cur_freq = freq, ...) {
   # Plot a list of fboxes in some order:
 
   if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
@@ -1218,7 +1261,9 @@ plot_fbox_list <- function(fboxes, ...) {
     ## (B) Plot fboxes by decreasing frequency (from largest to smallest):
 
     ## Determine order:
-    box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox, ...))  # get freq of all fboxes (with utility function)
+    # box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox, ...))  # get freq of all fboxes (directly)
+    box_freqs <- comp_freq_fbox_list(fboxes, cur_freq = cur_freq)  # get freq of all fboxes (with utility function)
+    # print(box_freqs)
     decr_order <- order(box_freqs, decreasing = TRUE)  # order to plot boxes
 
     ## (a) with recursive while:
@@ -1228,7 +1273,7 @@ plot_fbox_list <- function(fboxes, ...) {
     # fboxes <- fboxes[-ix]   # remove box ix from list
 
     ## (b) with lapply:
-    lapply(X = fboxes[decr_order], FUN = plot, ...)    # plot all in dec_order
+    lapply(X = fboxes[decr_order], FUN = plot, cur_freq = cur_freq, ...)    # plot all in dec_order
 
   } # if/while ...
 
@@ -1280,15 +1325,26 @@ plot_fbox_list <- function(fboxes, ...) {
 # sort(c(1, 3, 2))
 #
 # ## Plotting boxes with local freq and non-default color options:
-# # with local freq:
+# # Local freq:
 # f2 <- comp_freq_prob(prev = .50, sens = 3/5, spec = 4/5, N = 10)
 # plot(0:10, type = "n")
 # plot_fbox_list(boxes, cur_freq = f2)
 #
-# # with local color palette:
-# my_pal <- pal_bw
+# # Local color palette:
+# p2 <- pal_bw
 # plot(0:10, type = "n")
-# plot_fbox_list(boxes, cur_pal = my_pal)
+# plot_fbox_list(boxes, cur_pal = p2, cur_freq = f2)
+#
+# # Local txt object:
+# t2 <- init_txt(hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+# plot(0:10, type = "n")
+# plot_fbox_list(boxes, cur_txt = t2, lbl_type = "namnum", cur_pal = p2, cur_freq = f2)
+# plot_fbox_list(boxes, cur_freq = f2, cur_txt = t2, cur_pal = p2, lbl_type = "namnum")
+# Note: lbl_type "def" or "abb" STILL uses hi/mi/fa/cr variable names:
+# plot_fbox_list(boxes, cur_txt = t2, lbl_type = "def", cur_pal = p2, cur_freq = f2)
+
+# +++ here now +++
+
 #
 # # with both (local freq and local col):
 # plot_fbox_list(boxes, cur_freq = f2, cur_pal = my_pal)
