@@ -284,7 +284,37 @@ txt <- init_txt()
 # txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
 # txt$scen.lbl <- "My favorite example" # sets a new scenario title
 
+## txt_alt: Define alternative text labels: --------
 
+#' Alternative text labels (TP, FN, FP, TN).
+#'
+#' \code{txt_alt} is initialized to alternative text labels
+#' to define a frequency naming scheme in which
+#' (hi, mi, fa, cr) are called (TP, FN, FP, TN).
+#'
+#' See \code{\link{txt}} for default text information.
+#'
+#' Assign \code{txt <- txt_alt} to use as default text labels
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' txt_alt       # shows all text labels
+#' txt_alt["hi"]  # shows the current color for hits ("TP")
+#' txt_alt["hi"] <- "hit" # defines a new label for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{txt}} contains current color information;
+#' \code{\link{init_txt}} initializes color information.
+#'
+#' @export
+
+txt_alt <- init_txt(scen.lbl = "",
+                    cond.lbl = "Truth", cond.true.lbl = "True", cond.false.lbl = "False",
+                    dec.lbl = "Test", dec.pos.lbl = "Positive", dec.neg.lbl = "Negative",
+                    acc.lbl = "Accuracy", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
+                    hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
 
 
 ## (*) Done: -------------------------------------
