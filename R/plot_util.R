@@ -1122,9 +1122,12 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 ## (b) Computing box dimensions (width lx): -------
 
 
-## comp_freq_fbox: Compute freq value of fbox (based on its name) --------
+## comp_freq_fbox: Compute freq value of fbox (based on fname and cur_freq) --------
 
-comp_freq_fbox <- function(fbox) {
+comp_freq_fbox <- function(fbox,
+                           cur_freq = freq,
+                           cur_pal = pal  # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
+                           ) {
 
   f_val  <- NA
   fname <- NA
@@ -1133,16 +1136,16 @@ comp_freq_fbox <- function(fbox) {
 
     fname <- fbox$name
 
-    if (tolower(fname) %in% tolower(names(freq))) { # if fname corresponds to named frequency in freq:
+    if (tolower(fname) %in% tolower(names(cur_freq))) { # if fname corresponds to named frequency in cur_freq:
 
       # Derive current value corresponding to fname in freq:
-      ix <- which(tolower(names(freq)) == tolower(fname))  # index of fname in freq
-      f_val <- freq[ix]  # current freq value
+      ix <- which(tolower(names(cur_freq)) == tolower(fname))  # index of fname in cur_freq
+      f_val <- cur_freq[ix]  # current freq value
 
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(freq)...
+    } # if (fname %in% names(cur_freq)...
 
   }
 
@@ -1151,6 +1154,7 @@ comp_freq_fbox <- function(fbox) {
 }
 
 ## Check:
+## Define some boxes:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
 # box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
 # box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
@@ -1173,7 +1177,7 @@ comp_freq_fbox <- function(fbox) {
 # # box_N[[1]] == box_N[1]
 # is.list(box_N[[1]]) # FALSE
 #
-# # List of boxes:
+# # Work with a list of boxes:
 # boxes <- list(box_hi, box_mi, box_fa, box_cr)
 # is.list(boxes)     # TRUE
 # length(boxes)      # 4
@@ -1214,7 +1218,7 @@ plot_fbox_list <- function(fboxes, ...) {
     ## (B) Plot fboxes by decreasing frequency (from largest to smallest):
 
     ## Determine order:
-    box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox))  # get freq of all fboxes (with utility function)
+    box_freqs <- unlist(lapply(X = fboxes, FUN = comp_freq_fbox, ...))  # get freq of all fboxes (with utility function)
     decr_order <- order(box_freqs, decreasing = TRUE)  # order to plot boxes
 
     ## (a) with recursive while:
@@ -1237,6 +1241,7 @@ plot_fbox_list <- function(fboxes, ...) {
 }
 
 ## Check:
+## Define some boxes:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
 # box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
 # box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
@@ -1253,8 +1258,11 @@ plot_fbox_list <- function(fboxes, ...) {
 # length(box_N)   # 5
 # length(box_N[[1]]) # 1!
 #
-# # List of boxes:
+# # Working with a list of boxes:
 # boxes <- list(box_hi, box_mi, box_fa, box_cr)
+# plot(0:10, type = "n")
+# plot_fbox_list(boxes)
+#
 # is.list(boxes)  # TRUE
 # length(boxes)   # 4
 # boxes[[2]] # 1st box of boxes
@@ -1270,6 +1278,24 @@ plot_fbox_list <- function(fboxes, ...) {
 #
 # unlist(lapply(X = list(box_N, box_hi), FUN = comp_freq_fbox)) #
 # sort(c(1, 3, 2))
+#
+# ## Plotting boxes with local freq and non-default color options:
+# # with local freq:
+# f2 <- comp_freq_prob(prev = .50, sens = 3/5, spec = 4/5, N = 10)
+# plot(0:10, type = "n")
+# plot_fbox_list(boxes, cur_freq = f2)
+#
+# # with local color palette:
+# my_pal <- pal_bw
+# plot(0:10, type = "n")
+# plot_fbox_list(boxes, cur_pal = my_pal)
+#
+# # with both (local freq and local col):
+# plot_fbox_list(boxes, cur_freq = f2, cur_pal = my_pal)
+#
+# # Only 1 box with some f2 and 1 color:
+# plot_fbox_list(box_fa, cur_freq = f2, cur_pal = "gold")
+# plot_fbox_list(box_cr, cur_freq = 77, cur_pal = "red")
 
 
 ## comp_lx: Compute scaled lx given ly, mfactor mf and correction factor corf ------
@@ -1357,7 +1383,7 @@ comp_lx_fbox <- function(fname, len_N,
 ## ToDo: Vectorize comp_lx_fbox (to allow computing many lx values at once).
 
 
-## comp_ly_fsqr: Compute scaled height ly of fsqr (fname) given f/p scale: ------
+## comp_ly_fsqr: Compute scaled height ly of fsqr (fname) given scale (f/p): ------
 
 comp_ly_fsqr <- function(fname, area_N, N = freq$N, scale = "f") {
   # Compute a scaled height ly of an frequency square (fsqr) based on its name (fname),
