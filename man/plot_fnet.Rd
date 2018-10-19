@@ -248,6 +248,5 @@ plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_bar}}, \code{\link{plot_curve}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree2}},
-  \code{\link{plot_tree}}
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

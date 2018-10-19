@@ -70,6 +70,5 @@ plot(s25, plot.type = "plane", what = "NPV")
 Other visualization functions: \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree2}},
-  \code{\link{plot_tree}}
+  \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }

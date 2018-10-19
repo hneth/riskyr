@@ -81,7 +81,7 @@ pal["hi"] <- "green3"  # defines a new color for hits (true positives, TP)
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_4c}}, \code{\link{pal_bw}},
-  \code{\link{prob}}, \code{\link{txt_alt}},
-  \code{\link{txt}}
+  \code{\link{pal_kn}}, \code{\link{prob}},
+  \code{\link{txt_alt}}, \code{\link{txt}}
 }
 \keyword{datasets}
