@@ -87,7 +87,7 @@ start_riskyr <- function(...) {
 
   if (dice == 1) {
     packageStartupMessage(" ")
-    packageStartupMessage("Running riskyr (v0.1.914)...")
+    packageStartupMessage("Running riskyr (v0.1.915)...")
     packageStartupMessage(" ")
   }
 
