@@ -35,7 +35,7 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 11 probability values.
+A list \code{\link{prob}} containing 13 probability values.
 }
 \description{
 \code{comp_prob} computes current probability information
@@ -43,7 +43,7 @@ from 3 essential probabilities
 (\code{\link{prev}},
 \code{\link{sens}} or \code{\link{mirt}},
 \code{\link{spec}} or \code{\link{fart}}).
-It returns a list of 11 probabilities \code{\link{prob}}
+It returns a list of 13 probabilities \code{\link{prob}}
 as its output.
 }
 \details{
@@ -199,7 +199,7 @@ Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_f
 comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 comp_prob()          # => ok, using current defaults
-length(comp_prob())  # => 11 probabilities
+length(comp_prob())  # => 13 probabilities
 
 # Ways to work:
 comp_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
@@ -227,7 +227,6 @@ comp_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
 comp_prob(8,  1, 1, NA)  # => only warning: prev no probability
 comp_prob(1,  8, 1, NA)  # => only warning: sens no probability
 comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
-
 
 }
 \seealso{
