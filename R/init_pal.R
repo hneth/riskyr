@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 10 19
+## 2018 10 20
 ## Define and initialize the current set
 ## of custom colors (pal):
 ## -----------------------------------------------
@@ -371,7 +371,7 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 #' @examples
 #' pal        # shows all current color names and values
 #' pal["hi"]  # shows the current color for hits (true positives)
-#' pal["hi"] <- "green3"  # defines a new color for hits (true positives, TP)
+#' pal["hi"] <- "gold"  # defines a new color for hits (true positives, TP)
 #'
 #'
 #' @family lists containing current scenario information
@@ -414,7 +414,7 @@ pal <- init_pal()  ## apply
 #' @examples
 #' pal_bw        # shows all current color names and values
 #' pal_bw["hi"]  # shows the current color for hits (true positives)
-#' pal_bw["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+#' pal_bw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
 #'
@@ -463,7 +463,7 @@ pal_bw <- init_pal(col.N = grey(.95, .99),     # nearly white
 #' @examples
 #' pal_4c        # shows all current color names and values
 #' pal_4c["hi"]  # shows the current color for hits (true positives)
-#' pal_4c["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+#' pal_4c["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
 #'
@@ -493,6 +493,55 @@ pal_4c <- init_pal(col.N = grey(.95, .99),     # nearly white
 ## Check:
 # pal_4c
 # pal_4c["N"]  # => "#D9D9D9FC"
+
+## Use reduced color scheme (as default):
+# pal <- pal_4c
+
+## pal_gbs: Define a gbs (green/blue/sand) color palette: --------
+
+#' Alternative color palette with gbs (green/blue/sand) colors.
+#'
+#' \code{pal_gbs} is initialized to a vector of named elements (colors)
+#' to define an alternative gbs (green/blue/sand) scenario color scheme.
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_gbs} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_gbs        # shows all current color names and values
+#' pal_gbs["hi"]  # shows the current color for hits (true positives)
+#' pal_gbs["hi"] <- "gold" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_gbs <- init_pal(col.N = grey(.90, .99),  # nearly white
+                    col.true =  col.sand.light,
+                    col.false = col.sand.mid,
+                    col.pos = col.grey.1,
+                    col.neg = col.grey.2,
+                    col.cor = my.green,
+                    col.err = my.blue,
+                    col.hi = col.green.1,
+                    col.mi = col.blue.1,
+                    col.fa = col.blue.3,
+                    col.cr = col.green.2,
+                    col.ppv = col.orange.2,
+                    col.npv = col.blue.4,
+                    col.txt = grey(0, .99),  # black
+                    col.brd = col.sand.dark
+)
+
+## Check:
+# pal_gbs
+# pal_gbs["hi"]  # => "#B8D989"
 
 ## Use reduced color scheme (as default):
 # pal <- pal_4c
