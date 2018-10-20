@@ -1,5 +1,5 @@
 ## init_prob_num.R | riskyr
-## 2018 09 30
+## 2018 10 20
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
 ## -----------------------------------------------
@@ -122,7 +122,7 @@ init_prob <- function() {
 #' (\code{\link{prev}},
 #' \code{\link{sens}} or \code{\link{mirt}},
 #' \code{\link{spec}} or \code{\link{fart}}).
-#' It returns a list of 11 probabilities \code{\link{prob}}
+#' It returns a list of 13 probabilities \code{\link{prob}}
 #' as its output.
 #'
 #' \code{comp_prob} assumes that a sufficient and
@@ -287,7 +287,6 @@ init_prob <- function() {
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of the condition being \code{TRUE}).
 #'
-#'
 #' @param sens The decision's sensitivity value \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
@@ -297,7 +296,6 @@ init_prob <- function() {
 #' (i.e., the conditional probability of a negative decision
 #' provided that the condition is \code{TRUE}).
 #' \code{mirt} is optional when its complement \code{\link{sens}} is provided.
-#'
 #'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
@@ -309,12 +307,11 @@ init_prob <- function() {
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{\link{spec}} is provided.
 #'
-#'
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
 #'
-#' @return A list \code{\link{prob}} containing 11 probability values.
+#' @return A list \code{\link{prob}} containing 13 probability values.
 #'
 #'
 #' @examples
@@ -322,7 +319,7 @@ init_prob <- function() {
 #' comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 #' comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 #' comp_prob()          # => ok, using current defaults
-#' length(comp_prob())  # => 11 probabilities
+#' length(comp_prob())  # => 13 probabilities
 #'
 #' # Ways to work:
 #' comp_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
@@ -351,9 +348,7 @@ init_prob <- function() {
 #' comp_prob(1,  8, 1, NA)  # => only warning: sens no probability
 #' comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 #'
-#'
 #' @family functions computing probabilities
-#'
 #'
 #' @seealso
 #' \code{\link{prob}} contains current probability information;
@@ -389,7 +384,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
     prob <- init_prob()  # initialize prob (containing only NA values)
 
     ## (2) Compute the complete quintet of probabilities:
-    prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
+    prob_quintet <- comp_complete_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart)
     sens <- prob_quintet[2] # gets sens (if not provided)
     mirt <- prob_quintet[3] # gets mirt (if not provided)
     spec <- prob_quintet[4] # gets spec (if not provided)
@@ -437,10 +432,9 @@ comp_prob <- function(prev = num$prev,             # probabilities:
     ## (6) Return the entire list prob:
     return(prob)
 
-
   } else { # (B) NO valid set of probabilities was provided:
 
-    warning("Please enter a valid set of essential probabilities.")
+    warning("Invalid probabilities. Please enter a valid set of essential probabilities.")
 
   }  # if (is_valid_prob_set(...
 
