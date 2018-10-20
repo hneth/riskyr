@@ -89,7 +89,8 @@ txt$scen.lbl <- "My favorite example"  # => set a new scenario title
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_4c}}, \code{\link{pal_bw}},
-  \code{\link{pal_kn}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt_TF}}
+  \code{\link{pal_gbs}}, \code{\link{pal_kn}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}
 }
 \keyword{datasets}

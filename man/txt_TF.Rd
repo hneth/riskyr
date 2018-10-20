@@ -32,7 +32,7 @@ txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_4c}}, \code{\link{pal_bw}},
-  \code{\link{pal_kn}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt}}
+  \code{\link{pal_gbs}}, \code{\link{pal_kn}},
+  \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 }
 \keyword{datasets}

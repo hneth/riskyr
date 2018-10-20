@@ -21,7 +21,7 @@ throughout the \code{riskyr} package.
 \examples{
 pal_bw        # shows all current color names and values
 pal_bw["hi"]  # shows the current color for hits (true positives)
-pal_bw["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+pal_bw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 
 }
 \seealso{
@@ -30,8 +30,9 @@ pal_bw["hi"] <- "grey" # defines a new color for hits (true positives, TP)
 
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
-  \code{\link{pal_4c}}, \code{\link{pal_kn}},
-  \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt_TF}}, \code{\link{txt}}
+  \code{\link{pal_4c}}, \code{\link{pal_gbs}},
+  \code{\link{pal_kn}}, \code{\link{pal}},
+  \code{\link{prob}}, \code{\link{txt_TF}},
+  \code{\link{txt}}
 }
 \keyword{datasets}

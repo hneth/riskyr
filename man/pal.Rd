@@ -63,7 +63,7 @@ the condition is FALSE, provided that the decision is negative).
 \examples{
 pal        # shows all current color names and values
 pal["hi"]  # shows the current color for hits (true positives)
-pal["hi"] <- "green3"  # defines a new color for hits (true positives, TP)
+pal["hi"] <- "gold"  # defines a new color for hits (true positives, TP)
 
 
 }
@@ -81,7 +81,8 @@ pal["hi"] <- "green3"  # defines a new color for hits (true positives, TP)
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_4c}}, \code{\link{pal_bw}},
-  \code{\link{pal_kn}}, \code{\link{prob}},
-  \code{\link{txt_TF}}, \code{\link{txt}}
+  \code{\link{pal_gbs}}, \code{\link{pal_kn}},
+  \code{\link{prob}}, \code{\link{txt_TF}},
+  \code{\link{txt}}
 }
 \keyword{datasets}
