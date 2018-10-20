@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 10 19
+## 2018 10 20
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -998,7 +998,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       x,  y,   # coordinates of box CENTER (x and y)
                       lx, ly,  # lengths of box (width and height)
                       ## Optional arguments:
-                      scale_lx = 1,  # scaling factor for x-widths
+                      scale_lx = 1,    # scaling factor for x-widths
                       # scale_ly = 1,  # scaling factor for y-widths
                       ## Text labels:
                       # lbl     = NA,        # label (in middle): freq
