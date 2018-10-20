@@ -65,7 +65,7 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # .5   # prevalence in t
                 "sens" = round(runif(1, .01, .99), 2),  # .5   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
                 "spec" = round(runif(1, .01, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
                 "fart" = NA,                            # NA   # false alarm rate = 1 - spec        [optional, complement of spec]
-                "N"    = round(runif(1, 1, 25), 0)      # 100  # population size N                                 [optional freq]
+                "N"    = round(runif(1, 1, 15), 0)      # 100  # population size N                                 [optional freq]
                 )
 
 
@@ -82,7 +82,7 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # .5   # prevalence in t
 #   "Task2 Part3",	 1000,	  .95,	    .90,	   .50,
 #   "Task3 Part3",	 1000,    .75,	    .70,	   .85)
 
-num.def <- list("prev" = .01, "sens" = .80, "spec" = .904, "fart" = NA, "N" = 1000)  # Scenario 1: "Beschr"
+# num.def <- list("prev" = .01, "sens" = .80, "spec" = .904, "fart" = NA, "N" = 1000)  # Scenario 1: "Beschr"
 
 
 
