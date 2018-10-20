@@ -6,9 +6,9 @@
 as a function of prevalence.}
 \usage{
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, what = c("prev", "PPV", "NPV"), what.col = pal, uc = 0,
-  show.points = TRUE, log.scale = FALSE, title.lbl = txt$scen.lbl,
-  cex.lbl = 0.85)
+  fart = NA, what = c("prev", "PPV", "NPV"), what_col = pal, uc = 0,
+  show_points = TRUE, log_scale = FALSE, title_lbl = NA, lbl_txt = txt,
+  cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -40,9 +40,9 @@ options are \code{c("prev", "PPV", "NPV", "ppod", "acc")}
 (shortcut: \code{what = "all"}).
 Default: \code{what = c("prev", "PPV", "NPV")}.}
 
-\item{what.col}{Vector of colors corresponding to the elements
+\item{what_col}{Vector of colors corresponding to the elements
 specified in \code{what}.
-Default: \code{what.col = pal}.}
+Default: \code{what_col = \link{pal}}.}
 
 \item{uc}{Uncertainty range, given as a percentage of the current
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} values
@@ -50,21 +50,32 @@ Default: \code{what.col = pal}.}
 Default: \code{uc = .00} (i.e., no uncertainty).
 Plausible ranges are \code{0 < uc < .25}.}
 
-\item{show.points}{Boolean option for showing the point of
+\item{show_points}{Boolean value for showing the point of
 intersection with the current prevalence \code{\link{prev}}
 in all selected curves.
-Default: \code{show.points = TRUE}.}
+Default: \code{show_points = TRUE}.}
 
-\item{log.scale}{Boolean value for switching from a linear
+\item{log_scale}{Boolean value for switching from a linear
 to a logarithmic x-axis.
-Default: \code{log.scale = FALSE}.}
+Default: \code{log_scale = FALSE}.}
 
-\item{title.lbl}{The title of the current plot.
-Default: \code{title.lbl = txt$scen.lbl}.}
+\item{title_lbl}{Main plot title.
+Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).}
 
-\item{cex.lbl}{Scaling factor for the size of text labels
+\item{lbl_txt}{Labels and text elements.
+Default: \code{lbl_txt = \link{txt}}.}
+
+\item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
-Default: \code{cex.lbl = .85}.}
+Default: \code{cex_lbl = .85}.}
+
+\item{col_pal}{Color palette (if what_col is unspecified).
+Default: \code{col_pal = \link{pal}}.}
+
+\item{mar_notes}{Boolean value for showing margin notes.
+Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
 }
 \description{
 \code{plot_curve} draws curves of selected values
@@ -84,12 +95,12 @@ that allows for additional dependent values.
 \examples{
 # Basics:
 plot_curve()                     # => default plot: what = ("prev", "PPV", "NPV")
-plot_curve(show.points = FALSE)  # => default plot without points
+plot_curve(show_points = FALSE)  # => default plot without points
 plot_curve(prev = .2, sens = .8, spec = .7, uc = .1)  # => 10\% uncertainty range
 
 # All curves:
 plot_curve(what = "all") # => all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-plot_curve(what = "all", show.points = FALSE)  # => all curves, no points
+plot_curve(what = "all", show_points = FALSE)  # => all curves, no points
 
 # Selected curves:
 plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
@@ -104,15 +115,17 @@ plot_curve(prev = .2, sens = .8, spec = .7, what = "all",
 
 # X-axis as linear vs. log scale:
 plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
-plot_curve(prev = .01, sens = .9, spec = .8, log.scale = TRUE)   # => log scale
+plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)   # => log scale
 
 plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
-plot_curve(prev = .0001, sens = .7, spec = .6, log.scale = TRUE) # => log scale
+plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # => log scale
 
-# Other options:
-plot_curve(title.lbl = "Testing tiny labels", cex.lbl = .60, uc = .1)
-plot_curve(what = "all", title.lbl = "Testing colors",
-           what.col = c("grey", "red3", "blue3", "gold", "green3"), uc = .2)
+# Text and color settings:
+plot_curve(title_lbl = "Testing tiny text labels", cex_lbl = .60)
+plot_curve(title_lbl = "Testing specific colors", uc = .05,
+           what = "all", what_col = c("grey", "red3", "green3", "blue3", "gold"))
+plot_curve(title_lbl = "Testing color palette", uc = .05,
+           what = "all", col_pal = pal_gbs)
 
 }
 \seealso{
