@@ -472,13 +472,13 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
   # (3) Add cur.scen (riskyr object) as i-th element of scenarios
   scenarios[[i]] <- cur.scen
 
-} # end for
+} # end for ...
 
 ## Check: --------
 # length(scenarios)
 # scenarios$n25  # => shows elements of a scenario
 
-## (B) Deal with riskyr objects: ------------------
+## (B) Handle riskyr objects: ------------------
 
 ## 1. plot.riskyr function: -----
 
@@ -578,7 +578,6 @@ plot.riskyr <- function(x = NULL,
 
   ## Plotting functions: ----------
 
-
   ## A. Frequency net (default):
   if ((plot.type == "fnet") || (plot.type == "network") || (plot.type == "net")) {
 
@@ -598,7 +597,6 @@ plot.riskyr <- function(x = NULL,
     )
 
   } # if (plot.type == "network")
-
 
   ## B. Frequency tree:
   if ((plot.type == "tree") || (plot.type == "ftree")) {
@@ -626,8 +624,7 @@ plot.riskyr <- function(x = NULL,
 
   } #  if (plot.type == "tree")
 
-
-  ## C. Mosaicplot:
+  ## C. Mosaic plot:
   if ((plot.type == "mosaic") || (plot.type == "mosaicplot")) {
     plot_mosaic(prev = x$prev,
                 sens = x$sens, mirt = NA,
@@ -638,8 +635,7 @@ plot.riskyr <- function(x = NULL,
 
   } # if (plot.type == "mosaicplot")
 
-
-  ## D. Iconarrays
+  ## D. Icon array
   if ((plot.type == "icons") || (plot.type == "iconarray") || (plot.type == "icon")) {
 
     plot_icons(prev = x$prev,             # probabilities
@@ -655,8 +651,7 @@ plot.riskyr <- function(x = NULL,
 
   } #  if (plot.type == "iconarray")
 
-
-  ## E. Curve:
+  ## E. Curve of probabilities:
   if ((plot.type == "curve") || (plot.type == "curves")) {
 
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
@@ -668,7 +663,7 @@ plot.riskyr <- function(x = NULL,
   } # if (plot.type == "curve")
 
 
-  ## F. Plane/Cube:
+  ## F. Plane/cube of probabilities:
   if ((plot.type == "plane") || (plot.type == "planes") || (plot.type == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
@@ -772,7 +767,6 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
     obj.sum$probs <- list(probs.ess = probs.ess, probs.ness = probs.ness)
 
   } # if "prob"
-
 
 
   ## (B) Frequency information: ----------

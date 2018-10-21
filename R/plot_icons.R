@@ -1003,15 +1003,16 @@ plot_icons <- function(prev = num$prev,             # probabilities
 # plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
 #            icon.border.lwd = .5, cex = 3)
 
-
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - add borders to left and top type of sorting.
+## - Hyprid plots: Combine icons with fnet/ftree/prism.
 ##
-## - Each of the plot types may be a potential function.  Then it is more modular!
+## - Add borders to left and top type of sorting.
 ##
-## - Understand cex --> how does it work, when does it change size, when not?
+## - Make more modular: Different plot types may be separate (sub-)functions.
+##
+## - Better understand cex --> how does it work, when does it change sizes, when not?
 
 ## -----------------------------------------------
 ## eof.
