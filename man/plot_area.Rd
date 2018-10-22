@@ -7,10 +7,10 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "cddc", p_split = "v", area = "sq",
   scale = "p", round = TRUE, brd_w = 0.25, gaps = c(NA, NA),
-  f_lbl = "def", f_lwd = 0, p_lbl = "def", arr_c = -3,
-  col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"), brd_dis = 0.06,
-  title_lbl = txt$scen.lbl, lbl_txt = txt, cex_lbl = 0.9,
-  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE, ...)
+  f_lbl = "def", lbl_sep = " = ", f_lwd = 0, p_lbl = "def",
+  arr_c = -3, col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"),
+  brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
+  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -99,8 +99,11 @@ with 6 options:
   \item \code{"num"} ... numeric frequency values;
   \item \code{"namnum"} ... names (as specified in \code{lbl_txt = txt}) and numeric values;
   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
-  }
-Note: \code{lbl_sep = ":\n"} adjusts separator between name and numeric value.}
+  }}
+
+\item{lbl_sep}{Label separator for \code{f_lbl = "def" OR "namnum"}.
+Use \code{lbl_sep = ":\n"} to add line between name and numeric value.
+Default: \code{lbl_sep = " = "}.}
 
 \item{f_lwd}{Line width of areas.
 Default: \code{f_lwd = 0}.}

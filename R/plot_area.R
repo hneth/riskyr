@@ -113,7 +113,10 @@
 #'   \item \code{"namnum"} ... names (as specified in \code{lbl_txt = txt}) and numeric values;
 #'   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
-#' Note: \code{lbl_sep = ":\n"} adjusts separator between name and numeric value.
+#'
+#' @param lbl_sep  Label separator for \code{f_lbl = "def" OR "namnum"}.
+#' Use \code{lbl_sep = ":\n"} to add line between name and numeric value.
+#' Default: \code{lbl_sep = " = "}.
 #'
 #' @param f_lwd  Line width of areas.
 #' Default: \code{f_lwd = 0}.
@@ -168,7 +171,6 @@
 #' @param mar_notes Boolean option for showing margin notes.
 #' Default: \code{mar_notes = TRUE}.
 #'
-#' @param ... Other (graphical) parameters.
 #'
 #'
 #' @return Nothing (NULL).
@@ -291,6 +293,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "def",      # freq label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
+                      lbl_sep = " = ",    # freq label separator (use ":\n" to add line break)
                       f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                       # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
 
@@ -310,8 +313,8 @@ plot_area <- function(prev = num$prev,    # probabilities
                       col_pal = pal,      # color palette
 
                       ## Generic options:
-                      mar_notes = TRUE,   # show margin notes?
-                      ...                 # other (graphical) parameters
+                      mar_notes = TRUE#,   # show margin notes?
+                      #...                 # other (graphical) parameters
 ) {
 
   ## (0) Compute new freq and prob objects (based on probability inputs): ----------
@@ -1124,7 +1127,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   plot_fbox_list(fboxes,  # plot list of fboxes:
                  scale_lx = 1,
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                 lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, ...)
+                 lbl_type = f_lbl, lbl_sep = lbl_sep, cex = cex_lbl, lwd = f_lwd)
 
   # plot_fbox_list(fboxes, scale_lx = scale_x,
   #               lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, ...)  # plot list of boxes (scaled)
@@ -1226,7 +1229,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_top <- list(box_cond.true, box_cond.false)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd, ...)
+                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)
 
     } # if (brd_w > 0)...
 
@@ -1246,7 +1249,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_top <- list(box_dec.pos, box_dec.neg)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd, ...)
+                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)
 
     } # if (brd_w > 0)...
 
@@ -1265,7 +1268,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_top <- list(box_dec.cor, box_dec.err)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd, ...)
+                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)
 
     } # if (brd_w > 0)...
 
@@ -1294,7 +1297,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_left <- list(box_cond.true, box_cond.false)  # as list of boxes
       plot_fbox_list(fbox_left,
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd, ...)
+                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)
 
     } # if (brd_w > 0)...
 
@@ -1314,7 +1317,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_left <- list(box_dec.pos, box_dec.neg)  # as list of boxes
       plot_fbox_list(fbox_left,
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd, ...)  # plot list of boxes (on left)
+                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes (on left)
 
     } # if (brd_w > 0)...
 
@@ -1335,7 +1338,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_left <- list(box_dec.cor, box_dec.err)  # as list of boxes
       plot_fbox_list(fbox_left,
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd, ...)  # plot list of boxes (on left)
+                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes (on left)
 
     } # if (brd_w > 0)...
 
