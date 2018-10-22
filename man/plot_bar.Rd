@@ -203,7 +203,8 @@ plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_area}}, \code{\link{plot_curve}},
+  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_tree}}
 }

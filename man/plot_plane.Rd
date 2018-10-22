@@ -113,7 +113,8 @@ plot_plane(what.col = "steelblue4", theta = -90, phi = 45)   # => rotated, from 
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_bar}}, \code{\link{plot_curve}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
+  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_tree}}
 }

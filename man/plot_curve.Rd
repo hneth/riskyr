@@ -138,7 +138,8 @@ plot_curve(title_lbl = "Testing color palette", uc = .05,
 \code{\link{pal}} for current color settings.
 
 Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_bar}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
+  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_tree}}
 }
