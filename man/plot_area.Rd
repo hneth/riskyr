@@ -157,8 +157,6 @@ Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = TRUE}.}
-
-\item{...}{Other (graphical) parameters.}
 }
 \value{
 Nothing (NULL).
