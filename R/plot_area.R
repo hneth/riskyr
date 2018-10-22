@@ -114,9 +114,10 @@
 #'   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
 #'
-#' @param lbl_sep  Label separator for \code{f_lbl = "def" OR "namnum"}.
-#' Use \code{lbl_sep = ":\n"} to add line between name and numeric value.
-#' Default: \code{lbl_sep = " = "}.
+#' @param f_lbl_sep  Label separator for main frequencies
+#' (when \code{f_lbl = "def" OR "namnum"}).
+#' Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
+#' Default: \code{f_lbl_sep = " = "}.
 #'
 #' @param f_lwd  Line width of areas.
 #' Default: \code{f_lwd = 0}.
@@ -187,12 +188,12 @@
 #' plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #'           by = "cddc", p_split = "v", scale = "p",
 #'           title_lbl = "Custom text and color:",
-#'           lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n",
+#'           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
 #'           f_lwd = 2, col_pal = pal_gbs)  # custom color
 #' plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #'           by = "cdac", p_split = "h", scale = "p",
 #'           title_lbl = "Custom text and color:",
-#'           lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n",  # custom text
+#'           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",  # custom text
 #'           f_lwd = 1, col_pal = pal_kn)  # custom color
 #'
 #' ## Versions:
@@ -229,12 +230,12 @@
 #' plot_area(gaps = c(.05, .01))  # v_gap > h_gap
 #'
 #' # freq labels:
-#' plot_area(f_lbl = "default", lbl_sep = " = ")  # default
+#' plot_area(f_lbl = "default", f_lbl_sep = " = ")  # default
 #' plot_area(f_lbl = NA)      # NA/NULL: no freq labels (in main area & top/left boxes)
 #' plot_area(f_lbl = "abb")   # abbreviated name (i.e., variable name)
 #' plot_area(f_lbl = "nam")   # only freq name
 #' plot_area(f_lbl = "num")   # only freq number
-#' plot_area(f_lbl = "namnum", lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
+#' plot_area(f_lbl = "namnum", f_lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
 #'
 #' # prob labels:
 #' plot_area(p_lbl = NA)      # no prob labels (and no links)
@@ -293,7 +294,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "def",      # freq label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
-                      lbl_sep = " = ",    # freq label separator (use ":\n" to add line break)
+                      f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
                       f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                       # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
 
@@ -625,38 +626,13 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## Grid:
   # grid(nx = NULL, ny = NA,  # x-axes only (at tick marks)
-  #      col = grey(.75, .99), lty = 2,
-  #      lwd = par("lwd"), equilogs = TRUE)
-
-
-  ## (+) Mark plot areas: ------------
-
-  # (A) Mark plot area:
-  col.plot <- "firebrick3"
-  # box("plot", col = col.plot)
-  # text(x_max/2, y_max/2, "Plot area", col = col.plot, cex = 1, font = 2)  ## plot text
-
-  # (B) Mark margin area:
-  mar.col <- "forestgreen"
-  # box("figure", col = mar.col)
-  # mtext("Margin area", side = 3, line = 2, cex = 1, font = 2, col = mar.col)
-  # mtext("side 1, line 3, adj 0", side = 1, line = 3, adj = 0.0, cex = cex_lbl, col = mar.col)
-  # mtext("side 1, line 3, adj 1", side = 1, line = 3, adj = 1.0, cex = cex_lbl, col = mar.col)
-  # mtext("side 3, line 0, adj 0", side = 3, line = 0, adj = 0.0, cex = cex_lbl, col = mar.col)
-  # mtext("side 3, line 0, adj 1", side = 3, line = 0, adj = 1.0, cex = cex_lbl, col = mar.col)
-
-  # (C) Mark outer margin area (oma):
-  oma.col <- "steelblue4"
-  # box("outer", col = oma.col)
-  # mtext("Outer margin area", side = 1, line = 1, cex = 1, font = 2, col = oma.col, outer = TRUE)
-  # mtext("side 1, line 0, adj 0", side = 1, line = 0, adj = 0.0, cex = cex_lbl, col = oma.col, outer = TRUE)
-  # mtext("side 1, line 0, adj 1", side = 1, line = 0, adj = 1.0, cex = cex_lbl, col = oma.col, outer = TRUE)
+  #      col = grey(.75, .99), lty = 2, lwd = par("lwd"), equilogs = TRUE)
 
   ## (4) Draw plot points: ----------
 
-  # # Grid of points:
-  grid_x <- rep(seq(0, 1, by = .25), times = length(seq(0, 1, by = .25))) # x/horizontal
-  grid_y <- rep(seq(0, 1, by = .25), each =  length(seq(0, 1, by = .25))) # y/vertical
+  ## Grid of points:
+  # grid_x <- rep(seq(0, 1, by = .25), times = length(seq(0, 1, by = .25))) # x/horizontal
+  # grid_y <- rep(seq(0, 1, by = .25), each =  length(seq(0, 1, by = .25))) # y/vertical
   # points(grid_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)      # grid points
 
   # points(grid_x * scale_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)      # grid points (scaled)
@@ -1127,7 +1103,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   plot_fbox_list(fboxes,  # plot list of fboxes:
                  scale_lx = 1,
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                 lbl_type = f_lbl, lbl_sep = lbl_sep, cex = cex_lbl, lwd = f_lwd)
+                 lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd)
 
   # plot_fbox_list(fboxes, scale_lx = scale_x,
   #               lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, ...)  # plot list of boxes (scaled)
@@ -1872,12 +1848,12 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #           by = "cddc", p_split = "v", scale = "p",
 #           title_lbl = "Custom text and color:",
-#           lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n",
+#           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
 #           f_lwd = 2, col_pal = pal_gbs)  # custom color
 # plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #           by = "cdac", p_split = "h", scale = "p",
 #           title_lbl = "Custom text and color:",
-#           lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n",  # custom text
+#           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",  # custom text
 #           f_lwd = 1, col_pal = pal_kn)  # custom color
 #
 # ## Versions:
@@ -1917,15 +1893,15 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(gaps = c(.01, .05))  # v_gap < h_gap
 #
 # # freq labels:
-# plot_area(f_lbl = "default", lbl_sep = " = ")  # default
+# plot_area(f_lbl = "default", f_lbl_sep = " = ")  # default
 # plot_area(f_lbl = NA)      # NA/NULL: no freq labels (in main area & top/left boxes)
 # plot_area(f_lbl = "abb")   # abbreviated name (i.e., variable name)
 # plot_area(f_lbl = "nam")   # only freq name
 # plot_area(f_lbl = "num")   # only freq number
-# plot_area(f_lbl = "namnum", lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
+# plot_area(f_lbl = "namnum", f_lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
 #
 # # prob labels:
-# plot_area(p_lbl = "default", lbl_sep = " = ")  # default
+# plot_area(p_lbl = "default")  # default
 # plot_area(p_lbl = NA)      # no prob labels (and no links)
 # plot_area(p_lbl = "no")    # show links, but no labels
 # plot_area(p_lbl = "abb")   # abbreviated name (i.e., variable name)

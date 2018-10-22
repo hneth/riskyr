@@ -7,7 +7,7 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "cddc", p_split = "v", area = "sq",
   scale = "p", round = TRUE, brd_w = 0.25, gaps = c(NA, NA),
-  f_lbl = "def", lbl_sep = " = ", f_lwd = 0, p_lbl = "def",
+  f_lbl = "def", f_lbl_sep = " = ", f_lwd = 0, p_lbl = "def",
   arr_c = -3, col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"),
   brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
@@ -101,9 +101,10 @@ with 6 options:
   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
 
-\item{lbl_sep}{Label separator for \code{f_lbl = "def" OR "namnum"}.
-Use \code{lbl_sep = ":\n"} to add line between name and numeric value.
-Default: \code{lbl_sep = " = "}.}
+\item{f_lbl_sep}{Label separator for main frequencies
+(when \code{f_lbl = "def" OR "namnum"}).
+Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
+Default: \code{f_lbl_sep = " = "}.}
 
 \item{f_lwd}{Line width of areas.
 Default: \code{f_lwd = 0}.}
@@ -193,12 +194,12 @@ plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 10)
 plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
           by = "cddc", p_split = "v", scale = "p",
           title_lbl = "Custom text and color:",
-          lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\\n",
+          lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
           f_lwd = 2, col_pal = pal_gbs)  # custom color
 plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
           by = "cdac", p_split = "h", scale = "p",
           title_lbl = "Custom text and color:",
-          lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\\n",  # custom text
+          lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",  # custom text
           f_lwd = 1, col_pal = pal_kn)  # custom color
 
 ## Versions:
@@ -235,12 +236,12 @@ plot_area(gaps = c(0, 0))      # no gaps
 plot_area(gaps = c(.05, .01))  # v_gap > h_gap
 
 # freq labels:
-plot_area(f_lbl = "default", lbl_sep = " = ")  # default
+plot_area(f_lbl = "default", f_lbl_sep = " = ")  # default
 plot_area(f_lbl = NA)      # NA/NULL: no freq labels (in main area & top/left boxes)
 plot_area(f_lbl = "abb")   # abbreviated name (i.e., variable name)
 plot_area(f_lbl = "nam")   # only freq name
 plot_area(f_lbl = "num")   # only freq number
-plot_area(f_lbl = "namnum", lbl_sep = ":\\n", cex_lbl = .75)  # explicit & smaller
+plot_area(f_lbl = "namnum", f_lbl_sep = ":\\n", cex_lbl = .75)  # explicit & smaller
 
 # prob labels:
 plot_area(p_lbl = NA)      # no prob labels (and no links)
