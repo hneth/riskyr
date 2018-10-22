@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 10 20
+## 2018 10 22
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -118,9 +118,11 @@ label_freq <- function(fname,
   f_val  <- NA
   f_type <- NA
 
-  ## (0) If lbl_type is NULL or NA:
+  ## (0) If lbl_type is "no"/NA/NULL or "nil":
   if ( is.null(fname) || is.na(fname) ||
-       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "nil" ) {
+       is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "hide" ||
+       tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "non" ||
+       tolower(lbl_type) == "nope" || tolower(lbl_type) == "nil" )  {
 
     f_lbl <- NA
     return(f_lbl)  # return NA
@@ -130,7 +132,7 @@ label_freq <- function(fname,
   lbl_type <- tolower(lbl_type)
   if (lbl_type == "val") (lbl_type <- "num")
   if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
-  if (lbl_type == "abbnum") (lbl_type <- "default")
+  if (lbl_type == "abbnum" || lbl_type == "def") (lbl_type <- "default")
 
 
   ## (1) Abbreviated name (i.e., variable name of fname): ----
@@ -305,7 +307,9 @@ label_prob <- function(pname,
 
   ## (0) If pname is NA or lbl_type is NA/NULL/"no: ----
   if (is.na(pname) ||
-      is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "nil" )  {
+      is.null(lbl_type) || is.na(lbl_type) || tolower(lbl_type) == "hide" ||
+      tolower(lbl_type) == "no" || tolower(lbl_type) == "none" || tolower(lbl_type) == "non" ||
+      tolower(lbl_type) == "nope" || tolower(lbl_type) == "nil" )  {
 
     p_lbl <- NA
     return(p_lbl)  # return NA
@@ -318,7 +322,7 @@ label_prob <- function(pname,
   lbl_type <- tolower(lbl_type)
   if (lbl_type == "val") (lbl_type <- "num")
   if (lbl_type == "namval" || lbl_type == "full" || lbl_type == "all") (lbl_type <- "namnum")
-  if (lbl_type == "abbnum") (lbl_type <- "default")
+  if (lbl_type == "abbnum" || lbl_type == "def") (lbl_type <- "default")
 
   ## (1) Switch labels: Base label type on type of prob: ----
 
