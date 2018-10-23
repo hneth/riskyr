@@ -1206,7 +1206,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_top <- list(box_cond.true, box_cond.false)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
     } # if (brd_w > 0)...
 
@@ -1226,7 +1226,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_top <- list(box_dec.pos, box_dec.neg)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
     } # if (brd_w > 0)...
 
@@ -1245,7 +1245,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_top <- list(box_dec.cor, box_dec.err)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
     } # if (brd_w > 0)...
 
@@ -1274,7 +1274,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_left <- list(box_cond.true, box_cond.false)  # as list of boxes
       plot_fbox_list(fbox_left,
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
     } # if (brd_w > 0)...
 
@@ -1294,7 +1294,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_left <- list(box_dec.pos, box_dec.neg)  # as list of boxes
       plot_fbox_list(fbox_left,  # plot list of boxes (on left):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
     } # if (brd_w > 0)...
 
@@ -1315,7 +1315,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       fbox_left <- list(box_dec.cor, box_dec.err)  # as list of boxes
       plot_fbox_list(fbox_left,  # plot list of boxes (on left):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_s, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
     } # if (brd_w > 0)...
 
