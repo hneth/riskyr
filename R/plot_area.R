@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 10 22
+## 2018 10 23
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -106,10 +106,10 @@
 #' @param f_lbl  Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
 #'   \enumerate{
-#'   \item \code{"def"} ... abbreviated names and frequency values (default);
-#'   \item \code{"abb"} ... abbreviated frequency names (as specified in code);
-#'   \item \code{"nam"} ... names (as specified in \code{lbl_txt = txt});
-#'   \item \code{"num"} ... numeric frequency values;
+#'   \item \code{"def"} ... abbreviated names and frequency values;
+#'   \item \code{"abb"} ... abbreviated frequency names only (as specified in code);
+#'   \item \code{"nam"} ... names only (as specified in \code{lbl_txt = txt});
+#'   \item \code{"num"} ... numeric frequency values only (default);
 #'   \item \code{"namnum"} ... names (as specified in \code{lbl_txt = txt}) and numeric values;
 #'   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
@@ -125,13 +125,13 @@
 #' @param p_lbl  Type of label for showing 3 key probability links and values,
 #' with 7 options:
 #'   \enumerate{
-#'   \item \code{"def"} ... show links and abbreviated names and probability values (default);
+#'   \item \code{"def"} ... show links and abbreviated names and probability values;
 #'   \item \code{"abb"} ... show links and abbreviated probability names;
 #'   \item \code{"nam"} ... show links and probability names (as specified in code);
 #'   \item \code{"num"} ... show links and numeric probability values;
 #'   \item \code{"namnum"} ... show links with names and numeric probability values;
 #'   \item \code{"no"} ... show links with no labels;
-#'   \item \code{NA} ... no link (same for \code{p_lbl = NULL}).
+#'   \item \code{NA} ... no link (same for \code{p_lbl = NULL}, default).
 #'   }
 #'
 #' @param arr_c Arrow code for symbols at ends of probability links
@@ -155,7 +155,7 @@
 #' Negative values show links outside of main area.
 #'
 #' @param title_lbl Text label for current plot title.
-#' Default: \code{title.lbl = txt$scen.lbl}.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param lbl_txt Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
@@ -293,13 +293,13 @@ plot_area <- function(prev = num$prev,    # probabilities
                       brd_w = .25,        # border width: (default: brd_w = .25), setting brd_w = NULL/NA/<=0  hides top and left panel.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
-                      f_lbl = "def",      # freq label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
+                      f_lbl = "num",      # freq label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
                       f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
                       f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                       # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
 
                       ## Prob links:
-                      p_lbl = "def",      # prob label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide prob lines).
+                      p_lbl = NA,         # prob label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide prob lines).
                       # p_lwd,            # lwd of prob links: set to default = 1 (currently not used)
                       # p_lty,            # lty of prob links: set to default = 1 (currently not used)
                       arr_c = -3,         # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
@@ -1801,9 +1801,15 @@ plot_area <- function(prev = num$prev,    # probabilities
   ## (6) Title: ------
 
   # Define parts:
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # main plot title
+  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
-  type_lbl <- paste0("Area plot (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/...
+
+  if (title_lbl == "") {  # if title has been set to "":
+    type_lbl <- ""        # assume that no subtitle is desired either
+  } else {
+    type_lbl <- paste0("Area plot (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/...
+  }
 
   # Compose label:
   cur_title_lbl <- paste0(title_lbl, type_lbl)
