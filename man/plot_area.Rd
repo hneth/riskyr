@@ -7,10 +7,10 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "cddc", p_split = "v", area = "sq",
   scale = "p", round = TRUE, brd_w = 0.25, gaps = c(NA, NA),
-  f_lbl = "def", f_lbl_sep = " = ", f_lwd = 0, p_lbl = "def",
-  arr_c = -3, col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"),
-  brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
-  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
+  f_lbl = "num", f_lbl_sep = " = ", f_lwd = 0, p_lbl = NA, arr_c = -3,
+  col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"), brd_dis = 0.06,
+  title_lbl = txt$scen.lbl, lbl_txt = txt, cex_lbl = 0.9,
+  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -80,8 +80,8 @@ with 2 options:
 are rounded to integers. Default: \code{round = TRUE}.}
 
 \item{brd_w}{Border width for showing 2 perspective summaries
-on top and to the left of main area (as a proportion of area size)
-in a range \code{0 <= brd_w <= .50}.
+on top and left borders of main area (as a proportion of area size)
+in a range \code{0 <= brd_w <= 1}.
 Default: \code{brd_w = .25}.
 Setting \code{brd_w = 0}, \code{NA}, or \code{NULL} removes summaries.}
 
@@ -93,10 +93,10 @@ Defaults: \code{gaps = c(.02, .00)} for \code{p_split = "v"} and
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
   \enumerate{
-  \item \code{"def"} ... abbreviated names and frequency values (default);
-  \item \code{"abb"} ... abbreviated frequency names (as specified in code);
-  \item \code{"nam"} ... names (as specified in \code{lbl_txt = txt});
-  \item \code{"num"} ... numeric frequency values;
+  \item \code{"def"} ... abbreviated names and frequency values;
+  \item \code{"abb"} ... abbreviated frequency names only (as specified in code);
+  \item \code{"nam"} ... names only (as specified in \code{lbl_txt = txt});
+  \item \code{"num"} ... numeric frequency values only (default);
   \item \code{"namnum"} ... names (as specified in \code{lbl_txt = txt}) and numeric values;
   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
@@ -112,13 +112,13 @@ Default: \code{f_lwd = 0}.}
 \item{p_lbl}{Type of label for showing 3 key probability links and values,
 with 7 options:
   \enumerate{
-  \item \code{"def"} ... show links and abbreviated names and probability values (default);
+  \item \code{"def"} ... show links and abbreviated names and probability values;
   \item \code{"abb"} ... show links and abbreviated probability names;
   \item \code{"nam"} ... show links and probability names (as specified in code);
   \item \code{"num"} ... show links and numeric probability values;
   \item \code{"namnum"} ... show links with names and numeric probability values;
   \item \code{"no"} ... show links with no labels;
-  \item \code{NA} ... no link (same for \code{p_lbl = NULL}).
+  \item \code{NA} ... no link (same for \code{p_lbl = NULL}, default).
   }}
 
 \item{arr_c}{Arrow code for symbols at ends of probability links
@@ -142,7 +142,7 @@ Note: Adjust to avoid overlapping labels.
 Negative values show links outside of main area.}
 
 \item{title_lbl}{Text label for current plot title.
-Default: \code{title.lbl = txt$scen.lbl}.}
+Default: \code{title_lbl = txt$scen.lbl}.}
 
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}

@@ -93,8 +93,8 @@
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
 #' @param brd_w  Border width for showing 2 perspective summaries
-#' on top and to the left of main area (as a proportion of area size)
-#' in a range \code{0 <= brd_w <= .50}.
+#' on top and left borders of main area (as a proportion of area size)
+#' in a range \code{0 <= brd_w <= 1}.
 #' Default: \code{brd_w = .25}.
 #' Setting \code{brd_w = 0}, \code{NA}, or \code{NULL} removes summaries.
 #'
@@ -556,8 +556,9 @@ plot_area <- function(prev = num$prev,    # probabilities
   ## 5. Plot borders: ----
 
   # brd_w:
+  brd_w_max <- 1  # maximal value
   if ( is.null(brd_w) || is.na(brd_w) ) { brd_w <- 0 }  # set to 0 (min)
-  if ( brd_w > .5 ) { brd_w <- 0.5 }                    # set to 0.5 (max)
+  if ( brd_w > brd_w_max ) { brd_w <- brd_w_max }       # set to brd_w_max
 
   ## 6. Additional parameters (currently fixed): ----
 
