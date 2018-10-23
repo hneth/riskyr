@@ -524,9 +524,9 @@ pal_4c <- init_pal(col.N = grey(.95, .99),     # nearly white
 #'
 #' @export
 
-pal_gbs <- init_pal(col.N = grey(.90, .99),  # nearly white
-                    col.true =  "wheat3", # col.sand.light,
-                    col.false = col.sand.mid, # "wheat4"
+pal_gbs <- init_pal(col.N = grey(.90, .99),  # "wheat3", nearly white
+                    col.true =  grey(.80, .99), # col.sand.light, # "wheat3", #
+                    col.false = grey(.60, .99), # col.sand.mid, # "wheat4"
                     col.pos = col.grey.1,
                     col.neg = col.grey.2,
                     col.cor = my.green,
