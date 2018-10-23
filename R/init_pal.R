@@ -496,6 +496,9 @@ pal_4c <- init_pal(col.N = grey(.95, .99),     # nearly white
 ## Use reduced color scheme (as default):
 # pal <- pal_4c
 
+## Note: Check http://colorbrewer2.org for alternatives:
+## http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=4
+
 ## pal_gbs: Define a gbs (green/blue/sand) color palette: --------
 
 #' Alternative color palette with gbs (green/blue/sand) colors.
