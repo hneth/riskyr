@@ -3,7 +3,7 @@
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
-## plot_area: Documentation ----------
+## (1) plot_area: Documentation ----------
 
 #' Plot an area diagram of probabilities or frequencies.
 #'
@@ -275,7 +275,7 @@
 #' @export
 
 
-## plot_area: Definition ----------
+## (2) plot_area: Definition ----------
 
 plot_area <- function(prev = num$prev,    # probabilities
                       sens = num$sens, mirt = NA,
@@ -634,9 +634,9 @@ plot_area <- function(prev = num$prev,    # probabilities
   ## Grid of points:
   # grid_x <- rep(seq(0, 1, by = .25), times = length(seq(0, 1, by = .25))) # x/horizontal
   # grid_y <- rep(seq(0, 1, by = .25), each =  length(seq(0, 1, by = .25))) # y/vertical
-  # points(grid_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)      # grid points
+  # points(grid_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)        # grid points
 
-  # points(grid_x * scale_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)      # grid points (scaled)
+  # points(grid_x * scale_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)  # grid points (scaled)
   # points(0, 0, pch = 1, col = grey(.33, .50), cex = 1)  # mark origin
 
   ## (5) Main: Custom area/mosaic plot: -----------
@@ -1833,7 +1833,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 } # plot_area end.
 
 
-## Check: ------
+## (3) Check: ------
 
 # ## Basics:
 # plot_area()  # default area plot, same as:
@@ -1939,11 +1939,16 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(f_lbl = "num", p_lbl = "num")
 # plot_area(f_lbl = "namnum", p_lbl = "nam", cex_lbl = .80)
 
-## ToDo: [2018 10 22] ------
+## (+) ToDo: ------
+
+## - Fix top/left captions when brd_w = 0 (and consider setting
+##   3 summary shapes to 3 squares to boundary case of brd_w = 1).
+
+## - Shift entire plot to center (right) when area == "sq".
 
 ## - Shorten and simplify code (by removing redundancies).
 
-## Done: ----------
+## (*) Done: ----------
 
 ## (1) Make plot area (nearly) square (by removing compound freq on right)
 ##     and correct 1 side (x) for current aspect ratio
