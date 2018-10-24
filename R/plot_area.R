@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 10 23
+## 2018 10 24
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -58,33 +58,33 @@
 #' @param by  A character code specifying 2 perspectives that split the population into subsets,
 #' with 6 options:
 #'   \enumerate{
-#'   \item \code{"cddc"} ... by condition (cd) and by decision (dc) (default);
-#'   \item \code{"cdac"} ... by condition (cd) and by accuracy (ac);
-#'   \item \code{"dccd"} ... by decision (dc) and by condition (cd);
-#'   \item \code{"dcac"} ... by decision (dc) and by accuracy (ac);
-#'   \item \code{"accd"} ... by accuracy (ac) and by condition (cd);
-#'   \item \code{"acdc"} ... by accuracy (ac) and by decision (dc).
+#'   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
+#'   \item \code{"cdac"}: by condition (cd) and by accuracy (ac);
+#'   \item \code{"dccd"}: by decision (dc) and by condition (cd);
+#'   \item \code{"dcac"}: by decision (dc) and by accuracy (ac);
+#'   \item \code{"accd"}: by accuracy (ac) and by condition (cd);
+#'   \item \code{"acdc"}: by accuracy (ac) and by decision (dc).
 #'   }
 #'
 #' @param p_split  Primary perspective for population split,
 #' with 2 options:
 #'   \enumerate{
-#'   \item \code{"v"} ... vertical (default);
-#'   \item \code{"h"} ... horizontal.
+#'   \item \code{"v"}: vertical (default);
+#'   \item \code{"h"}: horizontal.
 #'   }
 #'
 #' @param area  A character code specifying the shape of the main area,
 #' with 4 options:
 #'   \enumerate{
-#'   \item \code{"sq"} ... main area is scaled to square (default);
-#'   \item \code{"no"} ... no scaling (rectangular area fills plot size).
+#'   \item \code{"sq"}: main area is scaled to square (default);
+#'   \item \code{"no"}: no scaling (rectangular area fills plot size).
 #'   }
 #'
 #' @param scale  Scale areas either by their probability or by their frequency,
 #' with 2 options:
 #'   \enumerate{
-#'   \item \code{"p"} ... scale main areas by their probability (default);
-#'   \item \code{"f"} ... scale main areas by their frequency.
+#'   \item \code{"p"}: scale main areas by their probability (default);
+#'   \item \code{"f"}: scale main areas by their frequency.
 #'   }
 #'  Note: This matters mostly for small population sizes \code{\link{N}}
 #'  and when \code{round = TRUE}.
@@ -106,12 +106,12 @@
 #' @param f_lbl  Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
 #'   \enumerate{
-#'   \item \code{"def"} ... abbreviated names and frequency values;
-#'   \item \code{"abb"} ... abbreviated frequency names only (as specified in code);
-#'   \item \code{"nam"} ... names only (as specified in \code{lbl_txt = txt});
-#'   \item \code{"num"} ... numeric frequency values only (default);
-#'   \item \code{"namnum"} ... names (as specified in \code{lbl_txt = txt}) and numeric values;
-#'   \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
+#'   \item \code{"def"}: abbreviated names and frequency values;
+#'   \item \code{"abb"}: abbreviated frequency names only (as specified in code);
+#'   \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
+#'   \item \code{"num"}: numeric frequency values only (default);
+#'   \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
+#'   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
 #'
 #' @param f_lbl_sep  Label separator for main frequencies
@@ -125,23 +125,23 @@
 #' @param p_lbl  Type of label for showing 3 key probability links and values,
 #' with 7 options:
 #'   \enumerate{
-#'   \item \code{"def"} ... show links and abbreviated names and probability values;
-#'   \item \code{"abb"} ... show links and abbreviated probability names;
-#'   \item \code{"nam"} ... show links and probability names (as specified in code);
-#'   \item \code{"num"} ... show links and numeric probability values;
-#'   \item \code{"namnum"} ... show links with names and numeric probability values;
-#'   \item \code{"no"} ... show links with no labels;
-#'   \item \code{NA} ... no link (same for \code{p_lbl = NULL}, default).
+#'   \item \code{"def"}: show links and abbreviated names and probability values;
+#'   \item \code{"abb"}: show links and abbreviated probability names;
+#'   \item \code{"nam"}: show links and probability names (as specified in code);
+#'   \item \code{"num"}: show links and numeric probability values;
+#'   \item \code{"namnum"}: show links with names and numeric probability values;
+#'   \item \code{"no"}: show links with no labels;
+#'   \item \code{NA}: no link (same for \code{p_lbl = NULL}, default).
 #'   }
 #'
 #' @param arr_c Arrow code for symbols at ends of probability links
 #' (as a numeric value \code{-3 <= arr_c <= +6}),
 #' with the following options:
 #'   \itemize{
-#'   \item \code{-1} to \code{-3} ... points at one/other/both end/s;
-#'   \item \code{0} ... no symbols;
-#'   \item \code{+1} to \code{+3} ... V-arrow at one/other/both end/s;
-#'   \item \code{+4} to \code{+6} ... T-arrow at one/other/both end/s.
+#'   \item \code{-1} to \code{-3}: points at one/other/both end/s;
+#'   \item \code{0}: no symbols;
+#'   \item \code{+1} to \code{+3}: V-arrow at one/other/both end/s;
+#'   \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
 #' }
 #' Default: \code{arr_c = -3} (points at both ends).
 #'
@@ -246,7 +246,7 @@
 #' plot_area(arr_c = +3, f_lbl = NA)  # V-shape arrows
 #' plot_area(arr_c = +6, f_lbl = NA)  # T-shape arrows
 #' plot_area(arr_c = +6, f_lbl = NA,
-#'  brd_dis = -.02, col_p = c("black")) # adjust arrow type/position
+#'           brd_dis = -.02, col_p = c("black")) # adjust arrow type/position
 #'
 #' # f_lwd:
 #' plot_area(f_lwd =  3)  # thicker lines
@@ -285,7 +285,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       ## Plot options:
                       by = "cddc",        # 2 perspectives (top + left): by = "cd" "dc" "ac"  (default: "cddc")
                       p_split = "v",      # primary/perspective split: "v": vertical vs. "h": horizontal
-                      area = "sq",        # sq" (default: correcting x-values for aspect ratio of current plot) vs. "no" (NA, NULL, "fix", "hr" ...)
+                      area = "sq",        # sq" (default: correcting x-values for aspect ratio of current plot) vs. "no" (NA, NULL, "fix", "hr" )
                       scale = "p",        # "p": exact probabilities (default) vs. "f": Re-compute prob from (rounded or non-rounded) freq.
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
@@ -314,8 +314,8 @@ plot_area <- function(prev = num$prev,    # probabilities
                       col_pal = pal,      # color palette
 
                       ## Generic options:
-                      mar_notes = TRUE#,   # show margin notes?
-                      #...                 # other (graphical) parameters
+                      mar_notes = TRUE #,  # show margin notes?
+                      # ...                # other (graphical) parameters
 ) {
 
   ## (0) Compute new freq and prob objects (based on probability inputs): ----------
@@ -334,17 +334,17 @@ plot_area <- function(prev = num$prev,    # probabilities
     freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
     prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
 
-    # message("Computed local freq and prob to plot prism...")
+    # message("Computed local freq and prob to plot prism.")
 
     ## (c) Compute cur.popu from computed frequencies (not needed):
     # cur.popu <- comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)  # compute cur.popu (from 4 essential frequencies)
-    # message("Generated new population (cur.popu) to plot...")
+    # message("Generated new population (cur.popu) to plot.")
 
   } else {  # (B) NO valid set of probabilities was provided:
 
-    message("No valid set of probabilities provided. Using global freq & prob to plot prism...")
+    message("No valid set of probabilities provided. Using global freq & prob to plot prism.")
 
-  } # if (is_valid_prob_set...)
+  } # if (is_valid_prob_set etc.)
 
   ## (1) Prepare parameters: ----------
 
@@ -372,24 +372,24 @@ plot_area <- function(prev = num$prev,    # probabilities
   }
   # Invalid perspectives:
   if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
-    warning("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'...")
+    warning("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
     by_top <- "cd"  # default
   }
   if ((by_bot %in% c("cd", "dc", "ac")) == FALSE) {
-    warning("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'...")
+    warning("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
     by_bot <- "dc"  # default
   }
   # Valid 1st but invalid 2nd perspective:
   if ((by_top == "cd") && (by_bot != ("dc") & by_bot != ("ac"))) {
-    warning("If 1st perspective by = 'cd', 2nd perspective must be 'dc' or 'ac'.\nUsing by = 'cddc'...")
+    warning("If 1st perspective by = 'cd', 2nd perspective must be 'dc' or 'ac'.\nUsing by = 'cddc'.")
     by_bot <- "dc"  # default
   }
   if ((by_top == "dc") && (by_bot != ("cd") & by_bot != ("ac"))) {
-    warning("If 1st perspective by = 'dc', 2nd perspective must be 'cd' or 'ac'.\nUsing by = 'dccd'...")
+    warning("If 1st perspective by = 'dc', 2nd perspective must be 'cd' or 'ac'.\nUsing by = 'dccd'.")
     by_bot <- "cd"  # default
   }
   if ((by_top == "ac") && (by_bot != ("cd") & by_bot != ("dc"))) {
-    warning("If 1st perspective by = 'ac', 2nd perspective must be 'cd' or 'dc'.\nUsing by = 'accd'...")
+    warning("If 1st perspective by = 'ac', 2nd perspective must be 'cd' or 'dc'.\nUsing by = 'accd'.")
     by_bot <- "cd"  # default
   }
 
@@ -417,7 +417,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # gaps:
   if ( is.null(gaps) ) { gaps <- c(0, 0) }  # sensible zero
   if ( !is.na(gaps) && (length(gaps) != 2 || !is.numeric(gaps)) ) {
-    warning("gaps should have 2 numeric arguments. Using default gaps = c(NA, NA)...")
+    warning("gaps should have 2 numeric arguments. Using default gaps = c(NA, NA).")
     gaps <- c(NA, NA)  # use defaults
   }
 
@@ -510,7 +510,7 @@ plot_area <- function(prev = num$prev,    # probabilities
     # sum(comp_prob_pname(c("acc-hi", "acc-cr"))) == 1
     # sum(comp_prob_pname(c("err-mi", "err-fa"))) == 1
 
-  } # if (scale == ...)
+  } # if (scale == etc.)
 
   # f_lwd & lty:
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {
@@ -700,7 +700,7 @@ plot_area <- function(prev = num$prev,    # probabilities
         fa_y <- fa_ly/2
         cr_y <- fa_ly + cr_ly/2 + h_gap
 
-      } # if (by_bot == ...)
+      } # if (by_bot == etc.)
 
 
     } else if (p_split == "h") {
@@ -783,9 +783,9 @@ plot_area <- function(prev = num$prev,    # probabilities
         fa_y <- fa_ly/2
         cr_y <- fa_ly + cr_ly/2 + h_gap
 
-      } # if (by_bot == ...)
+      } # if (by_bot == etc.)
 
-    } # if (p_split == ...)
+    } # if (p_split == etc.)
 
 
   } else if (by_top == "dc") {
@@ -843,7 +843,7 @@ plot_area <- function(prev = num$prev,    # probabilities
         mi_y <- mi_ly/2
         cr_y <- mi_ly + cr_ly/2 + h_gap
 
-      } # if (by_bot == ...)
+      } # if (by_bot == etc.)
 
     } else if (p_split == "h") {
 
@@ -926,9 +926,9 @@ plot_area <- function(prev = num$prev,    # probabilities
         mi_y <- mi_ly/2
         cr_y <- mi_ly + cr_ly/2 + h_gap
 
-      } # if (by_bot == ...)
+      } # if (by_bot == etc.)
 
-    } # if (p_split == ...)
+    } # if (p_split == etc.)
 
 
   } else if (by_top == "ac") {
@@ -991,7 +991,7 @@ plot_area <- function(prev = num$prev,    # probabilities
         fa_y <- fa_ly/2
         mi_y <- fa_ly + mi_ly/2 + h_gap
 
-      } # if (by_bot == ...)
+      } # if (by_bot == etc.)
 
     } else if (p_split == "h") {
 
@@ -1073,15 +1073,15 @@ plot_area <- function(prev = num$prev,    # probabilities
         fa_y <- fa_ly/2
         mi_y <- fa_ly + mi_ly/2 + h_gap
 
-      } # if (by_bot == ...)
+      } # if (by_bot == etc.)
 
-    } # if (p_split == ...)
+    } # if (p_split == etc.)
 
   } else {
 
     warning("Defining 4 SDT cases/cells: Unknown by_top argument/perspective!")
 
-  } # if (by_top == ...)
+  } # if (by_top == etc.)
 
 
   ## Define 4 boxes (with optional scale_x):
@@ -1107,8 +1107,8 @@ plot_area <- function(prev = num$prev,    # probabilities
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
   # plot_fbox_list(sdt_boxes, scale_lx = scale_x,
-  #               lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, ...)  # plot list of boxes (scaled)
-  # plot_fbox_list(sdt_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = NULL, density = 10, ...)  # plot list of boxes (bw version)
+  #               lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes (scaled)
+  # plot_fbox_list(sdt_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = NULL, density = 10)  # plot list of boxes (bw version)
 
 
 
@@ -1183,7 +1183,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       points((NPV * scale_x), (1 - ppod), pch = 5)       # key point p2: cr
     }
 
-  } # if (mark_key_points)...
+  } # if (mark_key_points) etc.
 
 
   ##   (b) Plot 2 perspectives (compound frequencies and labels) on 2 sides: ----------
@@ -1208,7 +1208,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
   } else if (by_top == "dc") {
 
@@ -1228,7 +1228,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
   } else if (by_top == "ac") {
 
@@ -1247,13 +1247,13 @@ plot_area <- function(prev = num$prev,    # probabilities
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
   } else {
 
     warning("Plotting top fboxes: Unknown by_top argument/perspective!")
 
-  } # if (by_top == ...)
+  } # if (by_top == etc.)
 
 
   ## (B) bottom/left (vertical):
@@ -1276,7 +1276,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
   } else if (by_bot == "dc") {
 
@@ -1296,14 +1296,14 @@ plot_area <- function(prev = num$prev,    # probabilities
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
 
   } else if (by_bot == "ac") {
 
     # (c) by accuracy (on left):
     # acc_x <- 0 - (.60 * brd_w) # constant
-    dec.err_y <- (1 - acc)/2                # OR (rounded freq): ...
+    dec.err_y <- (1 - acc)/2                # OR (rounded freq)
     dec.cor_y <- (1 - acc) + acc/2 + h_gap  # OR (rounded freq): (freq$dec.cor/freq$N * 1/2)
 
     if (brd_w > 0) {
@@ -1317,13 +1317,13 @@ plot_area <- function(prev = num$prev,    # probabilities
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
   } else {
 
     warning("Plotting left fboxes: Unknown by_bot argument/perspective!")
 
-  } # if (by_bot == ...)
+  } # if (by_bot == etc.)
 
 
   ##   (c) Plot 3 key probabilities (as lines/arrows): ----------
@@ -1345,8 +1345,7 @@ plot_area <- function(prev = num$prev,    # probabilities
         plot_line(0, prev_y, (prev * scale_x), prev_y,
                   arr_code = arr_c, lbl = label_prob("prev", cur_prob = prob, lbl_type = p_lbl),
                   col.fill = p_col_1, col.txt = p_col_1,
-                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)
-        # Note: NOT using ... (for lwd, lty, ...)
+                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)  # No ...!
 
         # sens (vertical, left, top): hi
         plot_line(sens_x, (1 - sens + h_gap), sens_x, (1 + h_gap),
@@ -1370,7 +1369,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_3, col.txt = p_col_3,
                     srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
 
-        } # if (by_bot == ...)
+        } # if (by_bot == etc.)
 
       } else if (p_split == "h") {
 
@@ -1385,8 +1384,7 @@ plot_area <- function(prev = num$prev,    # probabilities
           plot_line(ppod_x, (1 - ppod + h_gap), ppod_x, (1 + h_gap),  # ppod
                     arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
                     col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
-          # Note: NOT using ... (for lwd, lty, ...)
+                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
           # ppod_x <- ((0 - brd_w * .90) * scale_x)        # vertical (out left)
           # ppod_x <- ((1 + v_gap + brd_dis) * scale_x)    # vertical (out right)
@@ -1418,8 +1416,7 @@ plot_area <- function(prev = num$prev,    # probabilities
           plot_line(acc_x, (1 - acc + h_gap), acc_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("acc", cur_prob = prob, lbl_type = p_lbl),
                     col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
-          # Note: NOT using ... (for lwd, lty, ...)
+                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
           # p_acc_hi (horizontal, left, top): hi
           plot_line(0, acc_hi_y, (p_acc_hi * scale_x), acc_hi_y,
@@ -1433,9 +1430,9 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_3, col.txt = p_col_3,
                     lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)
 
-        } # if (by_bot == ...)
+        } # if (by_bot == etc.)
 
-      } # if (p_split == ...)
+      } # if (p_split == etc.)
 
     } else if (by_top == "dc") {
 
@@ -1452,8 +1449,7 @@ plot_area <- function(prev = num$prev,    # probabilities
         plot_line(0, ppod_y, (ppod * scale_x), ppod_y,
                   arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
                   col.fill = p_col_1, col.txt = p_col_1,
-                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)
-        # Note: NOT using ... (for lwd, lty, ...)
+                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)  # No ...!
 
         # PPV (vertical, left, top): hi
         plot_line(PPV_x, (1 - PPV + h_gap), PPV_x, (1 + h_gap),
@@ -1477,7 +1473,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_3, col.txt = p_col_3,
                     srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
 
-        } # if (by_bot == ...)
+        } # if (by_bot == etc.)
 
       } else if (p_split == "h") {
 
@@ -1492,8 +1488,7 @@ plot_area <- function(prev = num$prev,    # probabilities
           plot_line(prev_x, (1 - prev + h_gap), prev_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("prev", cur_prob = prob, lbl_type = p_lbl),
                     col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
-          # Note: NOT using ... (for lwd, lty, ...)
+                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
           # sens (horizontal, left, top): hi
           plot_line(0, sens_y, (sens * scale_x), sens_y,
@@ -1518,8 +1513,7 @@ plot_area <- function(prev = num$prev,    # probabilities
           plot_line(acc_x, (1 - acc + h_gap), acc_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("acc", cur_prob = prob, lbl_type = p_lbl),
                     col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
-          # Note: NOT using ... (for lwd, lty, ...)
+                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
           # p_acc_hi (horizontal, left, top): hi
           plot_line(0, acc_hi_y, (p_acc_hi * scale_x), acc_hi_y,
@@ -1533,9 +1527,9 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_3, col.txt = p_col_3,
                     lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)
 
-        } # if (by_bot == ...)
+        } # if (by_bot == etc.)
 
-      } # if (p_split == ...)
+      } # if (p_split == etc.)
 
 
     } else if (by_top == "ac") {
@@ -1553,8 +1547,7 @@ plot_area <- function(prev = num$prev,    # probabilities
         plot_line(0, acc_y, (acc * scale_x), acc_y,
                   arr_code = arr_c, lbl = label_prob("acc", cur_prob = prob, lbl_type = p_lbl),
                   col.fill = p_col_1, col.txt = p_col_1,
-                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)
-        # Note: NOT using ... (for lwd, lty, ...)
+                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)  # No ...!
 
         # p_acc_hi (vertical, left, top): hi
         plot_line(acc_hi_x, (1 - p_acc_hi + h_gap), acc_hi_x, (1 + h_gap),
@@ -1578,7 +1571,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_3, col.txt = p_col_3,
                     srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
 
-        } # if (by_bot == ...)
+        } # if (by_bot == etc.)
 
       } else if (p_split == "h") {
 
@@ -1593,8 +1586,7 @@ plot_area <- function(prev = num$prev,    # probabilities
           plot_line(prev_x, (1 - prev + h_gap), prev_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("prev", cur_prob = prob, lbl_type = p_lbl),
                     col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
-          # Note: NOT using ... (for lwd, lty, ...)
+                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
           # sens (horizontal, left, top): hi
           plot_line(0, sens_y, (sens * scale_x), sens_y,
@@ -1619,8 +1611,7 @@ plot_area <- function(prev = num$prev,    # probabilities
           plot_line(ppod_x, (1 - ppod + h_gap), ppod_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
                     col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
-          # Note: NOT using ... (for lwd, lty, ...)
+                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
           # PPV (horizontal, left, top): hi
           plot_line(0, PPV_y, (PPV * scale_x), PPV_y,
@@ -1634,17 +1625,17 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_3, col.txt = p_col_3,
                     lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl)
 
-        } # if (by_bot == ...)
+        } # if (by_bot == etc.)
 
-      } # if (p_split == ...)
+      } # if (p_split == etc.)
 
     } else {
 
       warning("Plotting p-lines: Unknown by argument/perspective!")
 
-    } # if (by_top == ...)
+    } # if (by_top == etc.)
 
-  } # if ( !is.null(p_lbl) && !is.na(p_lbl) )...
+  } # if ( !is.null(p_lbl) && !is.na(p_lbl) ) etc.
 
 
   ##   (d) Plot text labels (for 2 perspectives) on 2 sides: ----------
@@ -1661,7 +1652,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_ftype_label("cond.true", (1/2 * scale_x), (1 + brd_w),
                        cur_txt = lbl_txt, suffix = ":", pos = NULL, col = pal["txt"], cex = cex_lbl)  # Condition (center, horizontal)
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("cond.true", (cond.true_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
@@ -1681,7 +1672,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_ftype_label("dec.pos", (1/2 * scale_x), (1 + brd_w),
                        cur_txt = lbl_txt, suffix = ":", pos = NULL, col = pal["txt"], cex = cex_lbl)  # Decision (center, horizontal)
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.pos", (dec.pos_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
@@ -1702,7 +1693,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_ftype_label("dec.cor", (1/2 * scale_x), (1 + brd_w),
                        cur_txt = lbl_txt, suffix = ":", pos = NULL, col = pal["txt"], cex = cex_lbl)  # Accuracy (center, horizontal)
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.cor", (dec.cor_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
@@ -1717,7 +1708,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     warning("Plotting top labels: Unknown by_top argument/perspective!")
 
-  } # if (by_top == ...)
+  } # if (by_top ==  etc.)
 
 
   ## (B) bottom/left labels (vertical):
@@ -1733,7 +1724,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                        cur_txt = lbl_txt, suffix = ":",
                        srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)  # Condition (left, vertical up)
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("cond.true",  ((0 - v_shift) * scale_x), cond.true_y,  lbl_type = f_lbl_hd,
@@ -1754,7 +1745,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_ftype_label("dec.pos", ((0 - brd_w) * scale_x), .5, cur_txt = lbl_txt, suffix = ":",
                        srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)  # Decision (left, vertical up)
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.pos", ((0 - v_shift) * scale_x), dec.pos_y, lbl_type = f_lbl_hd,
@@ -1776,7 +1767,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                        cur_txt = lbl_txt, suffix = ":",
                        srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)  # Accuracy (left, vertical up)
 
-    } # if (brd_w > 0)...
+    } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.cor", ((0 - v_shift) * scale_x), dec.cor_y, lbl_type = f_lbl_hd,
@@ -1791,7 +1782,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     warning("Plotting left labels: Unknown by_bot argument/perspective!")
 
-  } # if (by_bot == ...)
+  } # if (by_bot == etc.)
 
 
   ##   (f) Plot other stuff: ----------
@@ -1809,7 +1800,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Area plot (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/...
+    type_lbl <- paste0("Area plot (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/etc.
   }
 
   # Compose label:
@@ -1831,7 +1822,7 @@ plot_area <- function(prev = num$prev,    # probabilities
              note = note_lbl,
              cur_freq = freq, cur_prob = prob, cur_txt = lbl_txt)
 
-  } # if (mar_notes)...
+  } # if (mar_notes) etc.
 
 
   ## Finish: ---------

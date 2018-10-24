@@ -45,33 +45,33 @@ from current probabilities \code{\link{prob}}.}
 \item{by}{A character code specifying 2 perspectives that split the population into subsets,
 with 6 options:
   \enumerate{
-  \item \code{"cddc"} ... by condition (cd) and by decision (dc) (default);
-  \item \code{"cdac"} ... by condition (cd) and by accuracy (ac);
-  \item \code{"dccd"} ... by decision (dc) and by condition (cd);
-  \item \code{"dcac"} ... by decision (dc) and by accuracy (ac);
-  \item \code{"accd"} ... by accuracy (ac) and by condition (cd);
-  \item \code{"acdc"} ... by accuracy (ac) and by decision (dc).
+  \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
+  \item \code{"cdac"}: by condition (cd) and by accuracy (ac);
+  \item \code{"dccd"}: by decision (dc) and by condition (cd);
+  \item \code{"dcac"}: by decision (dc) and by accuracy (ac);
+  \item \code{"accd"}: by accuracy (ac) and by condition (cd);
+  \item \code{"acdc"}: by accuracy (ac) and by decision (dc).
   }}
 
 \item{p_split}{Primary perspective for population split,
 with 2 options:
   \enumerate{
-  \item \code{"v"} ... vertical (default);
-  \item \code{"h"} ... horizontal.
+  \item \code{"v"}: vertical (default);
+  \item \code{"h"}: horizontal.
   }}
 
 \item{area}{A character code specifying the shape of the main area,
 with 4 options:
   \enumerate{
-  \item \code{"sq"} ... main area is scaled to square (default);
-  \item \code{"no"} ... no scaling (rectangular area fills plot size).
+  \item \code{"sq"}: main area is scaled to square (default);
+  \item \code{"no"}: no scaling (rectangular area fills plot size).
   }}
 
 \item{scale}{Scale areas either by their probability or by their frequency,
 with 2 options:
   \enumerate{
-  \item \code{"p"} ... scale main areas by their probability (default);
-  \item \code{"f"} ... scale main areas by their frequency.
+  \item \code{"p"}: scale main areas by their probability (default);
+  \item \code{"f"}: scale main areas by their frequency.
   }
  Note: This matters mostly for small population sizes \code{\link{N}}
  and when \code{round = TRUE}.}
@@ -93,12 +93,12 @@ Defaults: \code{gaps = c(.02, .00)} for \code{p_split = "v"} and
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
   \enumerate{
-  \item \code{"def"} ... abbreviated names and frequency values;
-  \item \code{"abb"} ... abbreviated frequency names only (as specified in code);
-  \item \code{"nam"} ... names only (as specified in \code{lbl_txt = txt});
-  \item \code{"num"} ... numeric frequency values only (default);
-  \item \code{"namnum"} ... names (as specified in \code{lbl_txt = txt}) and numeric values;
-  \item \code{"no"} ... no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
+  \item \code{"def"}: abbreviated names and frequency values;
+  \item \code{"abb"}: abbreviated frequency names only (as specified in code);
+  \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
+  \item \code{"num"}: numeric frequency values only (default);
+  \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
+  \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
 
 \item{f_lbl_sep}{Label separator for main frequencies
@@ -112,23 +112,23 @@ Default: \code{f_lwd = 0}.}
 \item{p_lbl}{Type of label for showing 3 key probability links and values,
 with 7 options:
   \enumerate{
-  \item \code{"def"} ... show links and abbreviated names and probability values;
-  \item \code{"abb"} ... show links and abbreviated probability names;
-  \item \code{"nam"} ... show links and probability names (as specified in code);
-  \item \code{"num"} ... show links and numeric probability values;
-  \item \code{"namnum"} ... show links with names and numeric probability values;
-  \item \code{"no"} ... show links with no labels;
-  \item \code{NA} ... no link (same for \code{p_lbl = NULL}, default).
+  \item \code{"def"}: show links and abbreviated names and probability values;
+  \item \code{"abb"}: show links and abbreviated probability names;
+  \item \code{"nam"}: show links and probability names (as specified in code);
+  \item \code{"num"}: show links and numeric probability values;
+  \item \code{"namnum"}: show links with names and numeric probability values;
+  \item \code{"no"}: show links with no labels;
+  \item \code{NA}: no link (same for \code{p_lbl = NULL}, default).
   }}
 
 \item{arr_c}{Arrow code for symbols at ends of probability links
 (as a numeric value \code{-3 <= arr_c <= +6}),
 with the following options:
   \itemize{
-  \item \code{-1} to \code{-3} ... points at one/other/both end/s;
-  \item \code{0} ... no symbols;
-  \item \code{+1} to \code{+3} ... V-arrow at one/other/both end/s;
-  \item \code{+4} to \code{+6} ... T-arrow at one/other/both end/s.
+  \item \code{-1} to \code{-3}: points at one/other/both end/s;
+  \item \code{0}: no symbols;
+  \item \code{+1} to \code{+3}: V-arrow at one/other/both end/s;
+  \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
 }
 Default: \code{arr_c = -3} (points at both ends).}
 
@@ -252,7 +252,7 @@ plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller size.
 plot_area(arr_c = +3, f_lbl = NA)  # V-shape arrows
 plot_area(arr_c = +6, f_lbl = NA)  # T-shape arrows
 plot_area(arr_c = +6, f_lbl = NA,
- brd_dis = -.02, col_p = c("black")) # adjust arrow type/position
+          brd_dis = -.02, col_p = c("black")) # adjust arrow type/position
 
 # f_lwd:
 plot_area(f_lwd =  3)  # thicker lines
