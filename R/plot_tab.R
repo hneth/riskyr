@@ -121,7 +121,7 @@
 #' Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
 #' Default: \code{f_lbl_sep = " = "}.
 #'
-#' #' @param f_lbl_sum  Type of label for showing frequency values in summary cells,
+#' @param f_lbl_sum  Type of label for showing frequency values in summary cells,
 #' with same 6 options as \code{f_lbl} (above).
 #' Default: \code{f_lbl_sum = "def"}: abbreviated names and numeric values.
 #'
@@ -216,7 +216,8 @@
 #' plot_tab(f_lbl = "abb", p_lbl = NA)  # abbreviated labels, no probability links
 #' plot_tab(f_lbl = "num", f_lbl_sum = "abb", p_lbl = "num", f_lbl_hd = "abb")
 #' plot_tab(f_lbl = "abb", f_lbl_sum = "abb", p_lbl = "nam", f_lbl_hd = "nam")
-#' plot_tab(f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "namnum", f_lbl_hd = "nam", p_lbl = "namnum")
+#' plot_tab(f_lbl = "namnum", f_lbl_sep = ":\n",
+#'          f_lbl_sum = "namnum", f_lbl_hd = "nam", p_lbl = "namnum")
 #'
 #' ## Misc. options:
 #' plot_tab(area = "sq")        # area: square
@@ -257,12 +258,30 @@
 #' #
 #' # (2) scale does not matter for dimensions (which are constant),
 #' #     but for values shown in prob links and on margins:
-#' plot_tab(by = "cddc", scale = "p", p_lbl = "def", round = TRUE)  # (a) prob show exact probabilities
-#' plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) re-compute prob from rounded freq!
-#' plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same as (a)
+#' plot_tab(by = "cddc", scale = "p", p_lbl = "def", round = TRUE)  # (a) exact prob values
+#' plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) prob from rounded freq!
+#' plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same values as (a)
+#'
+#'
+#' @importFrom graphics par
+#' @importFrom graphics plot
+#' @importFrom graphics box
+#' @importFrom graphics axis
+#' @importFrom graphics grid
+#' @importFrom graphics abline
+#' @importFrom graphics rect
+#' @importFrom graphics arrows
+#' @importFrom graphics points
+#' @importFrom graphics text
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom graphics legend
+#' @importFrom graphics lines
+#' @importFrom grDevices dev.size
 #'
 #'
 #' @family visualization functions
+#'
 #'
 #' @seealso
 #' \code{\link{plot_area}} for plotting mosaic plot (scaling area dimensions);

@@ -174,8 +174,8 @@
 #' Default: \code{mar_notes = TRUE}.
 #'
 #'
-#'
 #' @return Nothing (NULL).
+#'
 #'
 #' @examples
 #' ## Basics:
@@ -264,6 +264,23 @@
 #' plot_area(gap = c(0, 0), brd_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
 #' plot_area(f_lbl = "abb", p_lbl = NA) # plot with abbreviated labels
 #' plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
+#'
+#'
+#' @importFrom graphics par
+#' @importFrom graphics plot
+#' @importFrom graphics box
+#' @importFrom graphics axis
+#' @importFrom graphics grid
+#' @importFrom graphics abline
+#' @importFrom graphics rect
+#' @importFrom graphics arrows
+#' @importFrom graphics points
+#' @importFrom graphics text
+#' @importFrom graphics title
+#' @importFrom graphics mtext
+#' @importFrom graphics legend
+#' @importFrom graphics lines
+#' @importFrom grDevices dev.size
 #'
 #'
 #' @family visualization functions

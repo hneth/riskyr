@@ -98,9 +98,9 @@ with 6 options:
 \item{f_lbl_sep}{Label separator for main frequencies
 (when \code{f_lbl = "def" OR "namnum"}).
 Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
-Default: \code{f_lbl_sep = " = "}.
+Default: \code{f_lbl_sep = " = "}.}
 
-#' @param f_lbl_sum  Type of label for showing frequency values in summary cells,
+\item{f_lbl_sum}{Type of label for showing frequency values in summary cells,
 with same 6 options as \code{f_lbl} (above).
 Default: \code{f_lbl_sum = "def"}: abbreviated names and numeric values.}
 
@@ -222,7 +222,8 @@ plot_tab(by = "acdc", p_split = "h", p_lbl = "def")  # v12 (is v06 rotated)
 plot_tab(f_lbl = "abb", p_lbl = NA)  # abbreviated labels, no probability links
 plot_tab(f_lbl = "num", f_lbl_sum = "abb", p_lbl = "num", f_lbl_hd = "abb")
 plot_tab(f_lbl = "abb", f_lbl_sum = "abb", p_lbl = "nam", f_lbl_hd = "nam")
-plot_tab(f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "namnum", f_lbl_hd = "nam", p_lbl = "namnum")
+plot_tab(f_lbl = "namnum", f_lbl_sep = ":\\n",
+         f_lbl_sum = "namnum", f_lbl_hd = "nam", p_lbl = "namnum")
 
 ## Misc. options:
 plot_tab(area = "sq")        # area: square
@@ -263,9 +264,9 @@ plot_tab(by = "cddc", p_split = "h")  # v03 (see v05)
 #
 # (2) scale does not matter for dimensions (which are constant),
 #     but for values shown in prob links and on margins:
-plot_tab(by = "cddc", scale = "p", p_lbl = "def", round = TRUE)  # (a) prob show exact probabilities
-plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) re-compute prob from rounded freq!
-plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same as (a)
+plot_tab(by = "cddc", scale = "p", p_lbl = "def", round = TRUE)  # (a) exact prob values
+plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) prob from rounded freq!
+plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same values as (a)
 
 
 }
