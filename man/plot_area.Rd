@@ -67,14 +67,15 @@ with 4 options:
   \item \code{"no"}: no scaling (rectangular area fills plot size).
   }}
 
-\item{scale}{Scale areas either by their probability or by their frequency,
-with 2 options:
+\item{scale}{Scale probabilities and corresponding area dimensions either by
+exact probability or by (rounded or non-rounded) frequency, with 2 options:
   \enumerate{
-  \item \code{"p"}: scale main areas by their probability (default);
-  \item \code{"f"}: scale main areas by their frequency.
+  \item \code{"p"}: scale main area dimensions by exact probability (default);
+  \item \code{"f"}: re-compute probabilities from (rounded or non-rounded) frequencies
+  and scale main area dimensions by their frequency.
   }
- Note: This matters mostly for small population sizes \code{\link{N}}
- and when \code{round = TRUE}.}
+ Note: \code{scale} setting matters for the display of probability values and for
+ area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.}
 
 \item{round}{A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
@@ -274,6 +275,7 @@ plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
 }
 \seealso{
 \code{\link{plot_mosaic}} for older (obsolete) version;
+\code{\link{plot_tab}} for plotting table (without scaling area dimensions);
 \code{\link{pal}} contains current color settings;
 \code{\link{txt}} contains current text settings;
 

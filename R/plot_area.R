@@ -80,14 +80,15 @@
 #'   \item \code{"no"}: no scaling (rectangular area fills plot size).
 #'   }
 #'
-#' @param scale  Scale areas either by their probability or by their frequency,
-#' with 2 options:
+#' @param scale  Scale probabilities and corresponding area dimensions either by
+#' exact probability or by (rounded or non-rounded) frequency, with 2 options:
 #'   \enumerate{
-#'   \item \code{"p"}: scale main areas by their probability (default);
-#'   \item \code{"f"}: scale main areas by their frequency.
+#'   \item \code{"p"}: scale main area dimensions by exact probability (default);
+#'   \item \code{"f"}: re-compute probabilities from (rounded or non-rounded) frequencies
+#'   and scale main area dimensions by their frequency.
 #'   }
-#'  Note: This matters mostly for small population sizes \code{\link{N}}
-#'  and when \code{round = TRUE}.
+#'  Note: \code{scale} setting matters for the display of probability values and for
+#'  area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.
 #'
 #' @param round  A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
@@ -269,6 +270,7 @@
 #'
 #' @seealso
 #' \code{\link{plot_mosaic}} for older (obsolete) version;
+#' \code{\link{plot_tab}} for plotting table (without scaling area dimensions);
 #' \code{\link{pal}} contains current color settings;
 #' \code{\link{txt}} contains current text settings;
 #'
@@ -290,7 +292,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                       ## Freq boxes:
-                      brd_w = .25,        # border width: (default: brd_w = .25), setting brd_w = NULL/NA/<=0  hides top and left panel.
+                      brd_w = .25,        # border width: (default: brd_w = .25), setting brd_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
@@ -464,7 +466,8 @@ plot_area <- function(prev = num$prev,    # probabilities
   # use input:
   if (scale == "f") {
 
-    # Recompute probabilities from current (4 essential) freq
+    # (A) Use scale for area dimensions:
+    # Recompute specific probabilities from current (4 essential) freq
     # which may be rounded or not rounded:
 
     prob_from_freq <- comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
@@ -485,6 +488,14 @@ plot_area <- function(prev = num$prev,    # probabilities
     acc <- prob_from_freq$acc
     p_acc_hi <- freq$hi/freq$dec.cor  # p(hi | acc)
     p_err_fa <- freq$fa/freq$dec.err  # p(fa | err)
+
+    ## Note: (A) only re-computes probabilities used for scaling,
+    ##       but does not change prob values (used for labels).
+
+    ## (B) Use scale for area dimensions AND prob values:
+    ## A more radical type of scale (i.e., re-defining prob based on current freq)
+    ## also changes the prob values displayed in links and margins:
+    prob <- prob_from_freq  # use re-computed values for all prob values!
 
   } else {
 
@@ -537,9 +548,6 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   # arr_c:
   if ( is.null(arr_c) || is.na(arr_c) ) { arr_c <- 0 }  # sensible zero
-
-  # cex_p_lbl:
-  cex_p_lbl <- (cex_lbl - .05)  # size of prob labels
 
 
   ## 4. Text labels: ----
@@ -1939,6 +1947,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(f_lbl = "num", p_lbl = "num")
 # plot_area(f_lbl = "namnum", p_lbl = "nam", cex_lbl = .80)
 
+
 ## (+) ToDo: ------
 
 ## - Fix top/left captions when brd_w = 0 (and consider setting
@@ -1947,6 +1956,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 ## - Shift entire plot to center (right) when area == "sq".
 
 ## - Shorten and simplify code (by removing redundancies).
+
 
 ## (*) Done: ----------
 
@@ -2021,5 +2031,8 @@ plot_area <- function(prev = num$prev,    # probabilities
 ##   and pass local txt and pal arguments (to allow changes when calling function).
 
 ## - Add documentation and integrate in riskyr project [2018 10 22].
+
+## - Use scale == "f" to re-compute prob values from (rounded or non-rounded) freq.
+
 
 ## eof. ----------
