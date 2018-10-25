@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 10 24
+## 2018 10 25
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -1675,17 +1675,17 @@ plot_area <- function(prev = num$prev,    # probabilities
 
       # ftype label:
       plot_ftype_label("cond.true", (1/2 * scale_x), (1 + brd_w),
-                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = pal["txt"], cex = cex_lbl)  # Condition (center, horizontal)
+                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Condition (center, horizontal)
 
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("cond.true", (cond.true_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
     plot_freq_label("cond.false", (cond.false_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
   } else if (by_top == "dc") {
 
@@ -1695,17 +1695,17 @@ plot_area <- function(prev = num$prev,    # probabilities
 
       # ftype label:
       plot_ftype_label("dec.pos", (1/2 * scale_x), (1 + brd_w),
-                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = pal["txt"], cex = cex_lbl)  # Decision (center, horizontal)
+                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Decision (center, horizontal)
 
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.pos", (dec.pos_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
     plot_freq_label("dec.neg", (dec.neg_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
 
   } else if (by_top == "ac") {
@@ -1716,17 +1716,17 @@ plot_area <- function(prev = num$prev,    # probabilities
 
       # ftype label:
       plot_ftype_label("dec.cor", (1/2 * scale_x), (1 + brd_w),
-                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = pal["txt"], cex = cex_lbl)  # Accuracy (center, horizontal)
+                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (center, horizontal)
 
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.cor", (dec.cor_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
     plot_freq_label("dec.err", (dec.err_x * scale_x), (1 + h_gap + h_shift), lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
 
   } else {
@@ -1747,17 +1747,17 @@ plot_area <- function(prev = num$prev,    # probabilities
       ## ftype label:
       plot_ftype_label("cond.true", ((0 - brd_w) * scale_x), .5,
                        cur_txt = lbl_txt, suffix = ":",
-                       srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)  # Condition (left, vertical up)
+                       srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Condition (left, vertical up)
 
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("cond.true",  ((0 - v_shift) * scale_x), cond.true_y,  lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
     plot_freq_label("cond.false", ((0 - v_shift) * scale_x), cond.false_y, lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
 
   } else if (by_bot == "dc") {
@@ -1768,17 +1768,17 @@ plot_area <- function(prev = num$prev,    # probabilities
 
       ## ftype label:
       plot_ftype_label("dec.pos", ((0 - brd_w) * scale_x), .5, cur_txt = lbl_txt, suffix = ":",
-                       srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)  # Decision (left, vertical up)
+                       srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Decision (left, vertical up)
 
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.pos", ((0 - v_shift) * scale_x), dec.pos_y, lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
     plot_freq_label("dec.neg", ((0 - v_shift) * scale_x), dec.neg_y, lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
 
   } else if (by_bot == "ac") {
@@ -1790,17 +1790,17 @@ plot_area <- function(prev = num$prev,    # probabilities
       ## ftype label:
       plot_ftype_label("dec.cor", ((0 - brd_w) * scale_x), .5,
                        cur_txt = lbl_txt, suffix = ":",
-                       srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)  # Accuracy (left, vertical up)
+                       srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (left, vertical up)
 
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.cor", ((0 - v_shift) * scale_x), dec.cor_y, lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
     plot_freq_label("dec.err", ((0 - v_shift) * scale_x), dec.err_y, lbl_type = f_lbl_hd,
                     cur_freq = freq, cur_txt = lbl_txt,
-                    suffix = ":", srt = 90, pos = 3, col = pal["txt"], cex = cex_lbl)
+                    suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
 
   } else {
@@ -1811,6 +1811,8 @@ plot_area <- function(prev = num$prev,    # probabilities
 
 
   ##   (f) Plot other stuff: ----------
+
+  ## +++ here now +++
 
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
