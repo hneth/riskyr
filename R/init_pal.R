@@ -545,8 +545,8 @@ pal_gbs <- init_pal(col.N = grey(.90, .99),  # "wheat3", nearly white
 # pal_gbs
 # pal_gbs["hi"]  # => "#B8D989"
 
-## Use reduced color scheme (as default):
-# pal <- pal_4c
+## Use gbs color scheme (as default):
+pal <- pal_gbs
 
 ## pal_kn: Define a uni.kn palette: --------
 
