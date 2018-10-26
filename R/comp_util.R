@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 09 22
+## 2018 10 26
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -68,7 +68,7 @@
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_prob <- function(prob, NA_warn = FALSE) {
 
@@ -179,7 +179,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#' @export
+#'
 
 is_perc <- function(perc) {
 
@@ -258,7 +258,7 @@ is_perc <- function(perc) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#' @export
+#'
 
 is_freq <- function(freq) {
 
@@ -397,7 +397,7 @@ is_freq <- function(freq) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_suff_prob_set <- function(prev,
                              sens = NA, mirt = NA,
@@ -530,7 +530,7 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_complement <- function(p1, p2, tol = .01) {
 
@@ -693,7 +693,7 @@ is_complement <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#' @export
+#'
 
 is_extreme_prob_set <- function(prev,
                                 sens = NA, mirt = NA,
@@ -915,7 +915,7 @@ is_extreme_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
@@ -1057,7 +1057,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_valid_prob_set <- function(prev,
                               sens = NA, mirt = NA,
@@ -1164,7 +1164,7 @@ is_valid_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_valid_prob_triple <- function(prev, sens, spec) {
 
