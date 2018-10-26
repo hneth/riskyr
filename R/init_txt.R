@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 09 10
+## 2018 10 26
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
