@@ -60,6 +60,8 @@ By default, \code{comp_freq} and its wrapper function
 \code{\link{comp_freq_prob}}
 round frequencies to nearest integers to avoid decimal values in
 \code{\link{freq}} (i.e., \code{round = TRUE} by default).
+When frequencies are rounded, probabilities computed from
+\code{\link{freq}} may differ from exact probabilities.
 Using the option \code{round = FALSE} turns off rounding.
 
 Key relationships between frequencies and probabilities:

@@ -88,7 +88,7 @@ In addition to \code{\link{prev}}, both \code{\link{sens}}
    If only their complements \code{\link{mirt}} or \code{\link{fart}}
    are known, first use \code{\link{comp_complement}},
    \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
-   to obtain the 3 essential probabilities.
+   to compute the 3 essential probabilities.
 
 \item Rounding:
 
@@ -96,7 +96,11 @@ By default, \code{comp_freq_prob} and its basic function
    \code{\link{comp_freq}} round frequencies to nearest integers
    to avoid decimal values in \code{\link{freq}}
    (i.e., \code{round = TRUE} by default).
-   Using the option \code{round = FALSE} turns off rounding.
+
+When frequencies are rounded, probabilities computed from
+   \code{\link{freq}} may differ from exact probabilities.
+
+Using the option \code{round = FALSE} turns off rounding.
 
 }
 
@@ -219,10 +223,6 @@ Thus, they can be computed as ratios between frequencies:
 \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
 }
-
-Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
-   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
-
 }
 }
 \examples{

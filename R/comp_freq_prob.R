@@ -1,5 +1,5 @@
 ## comp_freq_prob.R | riskyr
-## 2018 10 24
+## 2018 10 26
 ## Compute frequencies from probabilities:
 ## -----------------------------------------------
 
@@ -65,7 +65,6 @@
 ## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
 ## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
 
-
 ## ad (1) from prob ==> to freq: ----------
 
 ## (1) Determine a suitable population size N: --------
@@ -83,11 +82,11 @@
 #' \code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
 #'
 #' Using this function helps avoiding excessively small decimal values in categories
-#' (esp. true positives, false negatives, false positives, and true negatives)
-#' when expressing combinations of conditions and decisions as natural frequencies.
-#' As values of zero (0) are tolerable, the function only increases  \code{\link{N}}
+#' (especially hi, mi, fa, cr) when expressing combinations of conditions and decisions
+#' as natural frequencies.
+#' As values of zero (0) are tolerable, the function only increases \code{\link{N}}
 #' (in powers of 10) while the current value of any frequency (cell in confusion table or
-#' leaf of tree) is positive but below \code{min.freq}.
+#' leaf of a frequency tree) is positive but below \code{min.freq}.
 #'
 #' By default, \code{\link{{comp_freq_prob}} and \code{\link{comp_freq}}
 #' round frequencies to nearest integers to avoid decimal values in
@@ -189,8 +188,6 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
 # comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
 # comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 # comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
-
-
 
 
 ## (*) Done: ----------

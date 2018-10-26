@@ -20,9 +20,14 @@ comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa,
 \code{comp_prob_freq} computes current probability information
 from 4 essential frequencies
 (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-It returns a list of 11 probabilities \code{\link{prob}} as its output.
+It returns a list of 11 frequencies \code{\link{freq}}
+for a population of \code{\link{N}} individuals
+as its output.
 }
 \details{
+Key relationships between frequencies and probabilities:
+See documentation of \code{\link{comp_freq_prob}}.
+
 Functions translating between representational formats:
 
 \enumerate{
@@ -45,104 +50,6 @@ Functions translating between representational formats:
    current \emph{frequency} information contained in \code{\link{freq}}
    from 4 essential frequencies
    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-
-}
-
-Key relationships:
-
-\itemize{
-
-\item Three perspectives on a population:
-
-A population of \code{\link{N}} individuals can be split into 2 subsets
-in 3 different ways:
-
-\enumerate{
-
-\item by condition:
-
-\code{\link{N} = \link{cond.true} + \link{cond.false}}
-
-The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
-   and
-   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
-
-\item by decision:
-
-\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
-
-The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
-   and
-   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
-
-\item by accuracy (i.e., correspondence of decision to condition):
-
-\code{\link{N} = \link{dec.cor} + \link{dec.err}}
-
-}
-
-Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
-
-When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
-essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
-
-If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-
-\item Defining probabilities in terms of frequencies:
-
-Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
-Thus, they can be computed as ratios between frequencies:
-
-\enumerate{
-
-\item prevalence \code{\link{prev}}:
-
-\code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-
-\item sensitivity \code{\link{sens}}:
-
-\code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
-
-\item miss rate \code{\link{mirt}}:
-
-\code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
-
-\item specificity \code{\link{spec}}:
-
-\code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
-
-\item false alarm rate \code{\link{fart}}:
-
-\code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
-
-\item proportion of positive decisions \code{\link{ppod}}:
-
-\code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-
-\item positive predictive value \code{\link{PPV}}:
-
-\code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
-
-\item negative predictive value \code{\link{NPV}}:
-
-\code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-
-\item false detection rate \code{\link{FDR}}:
-
-\code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
-
-\item false omission rate \code{\link{FOR}}:
-
-\code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
-
-\item accuracy \code{\link{acc}}:
-
-\code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-
-}
-
-Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
-   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
 }

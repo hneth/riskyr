@@ -4,63 +4,6 @@
 ## to translate from prob (back) to freq and prob:
 ## -----------------------------------------------
 
-## Table of current terminology: -----------------
-
-# Probabilities (11+):              Frequencies (11):
-# -------------------               ------------------
-# (A) by condition:
-
-# non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
-
-# conditional:
-# sens* = hit rate = TPR                hi* = TP
-# mirt  = miss rate = FNR               mi* = FN
-# fart  = false alarm rate = FPR        fa* = FP
-# spec* = true negative rate = TNR      cr* = TN
-
-# [Note: *...is essential]
-
-
-# (B) by decision:                 Combined frequencies:
-
-# non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
-
-# conditional:
-# PPV = precision
-# FDR = false detection rate
-# FOR = false omission rate
-# NPV = neg. pred. value
-
-# (C) by accuracy/correspondence of decision to condition (see accu):
-
-# acc  = overall accuracy (probability/proportion correct decision)
-# wacc = weighted accuracy
-# mcc  = Matthews correlation coefficient
-# f1s  = harmonic mean of PPV and sens
-
-
-## Data flow: Two basic directions: --------------
-
-## (1) Probabilities ==> frequencies:
-##     Bayesian: based on 3 essential probabilities:
-##   - given:   prev;  sens, spec
-##   - derived: all other values
-
-## (2) Frequencies ==> probabilities:
-##     Frequentist: based on 4 essential natural frequencies:
-##   - given:   N = hi, mi, fa, cr
-##   - derived: all other values
-
-
-## 2 main functions convert between formats: ----------
-
-## a. comp_freq_prob: Computes freq from prob (here in comp_xxxx_prob.R)
-## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
-
-
 
 ## (A) Compute frequencies from (3 essential) probabilities: --------
 
@@ -112,7 +55,7 @@
 #'    If only their complements \code{\link{mirt}} or \code{\link{fart}}
 #'    are known, first use \code{\link{comp_complement}},
 #'    \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
-#'    to obtain the 3 essential probabilities.
+#'    to compute the 3 essential probabilities.
 #'
 #'    \item Rounding:
 #'
@@ -120,6 +63,10 @@
 #'    \code{\link{comp_freq}} round frequencies to nearest integers
 #'    to avoid decimal values in \code{\link{freq}}
 #'    (i.e., \code{round = TRUE} by default).
+#'
+#'    When frequencies are rounded, probabilities computed from
+#'    \code{\link{freq}} may differ from exact probabilities.
+#'
 #'    Using the option \code{round = FALSE} turns off rounding.
 #'
 #' }
@@ -192,7 +139,6 @@
 #' If \code{\link{N}} is unknown (\code{NA}),
 #' a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
-#'
 #' \item Defining probabilities in terms of frequencies:
 #'
 #' Probabilities \emph{are} -- determine, describe, or are defined as --
@@ -256,10 +202,6 @@
 #'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'    }
-#'
-#'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
-#'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
-#'
 #' }
 #'
 #'
@@ -467,6 +409,9 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
 #'
+#' Key relationships between frequencies and probabilities:
+#' See documentation of \code{\link{comp_freq_prob}}.
+#'
 #' Functions translating between representational formats:
 #'
 #' \enumerate{
@@ -491,116 +436,6 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 #'
 #'  }
-#'
-#' Key relationships between frequencies and probabilities:
-#'
-#' \itemize{
-#'
-#' \item Three \emph{perspectives} on a population:
-#'
-#' A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
-#'
-#'    \enumerate{
-#'
-#'    \item by condition:
-#'
-#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
-#'
-#'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
-#'    and
-#'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
-#'
-#'
-#'    \item by decision:
-#'
-#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
-#'
-#'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
-#'    and
-#'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
-#'
-#'    \item by accuracy (i.e., correspondence of decision to condition):
-#'
-#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
-#'
-#'    }
-#'
-#' Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
-#'
-#' When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
-#' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
-#'
-#' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-#'
-#'
-#' \item Defining probabilities in terms of frequencies:
-#'
-#' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
-#' Thus, they can be computed as ratios between frequencies:
-#'
-#'   \enumerate{
-#'
-#'   \item prevalence \code{\link{prev}}:
-#'
-#'   \code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-#'
-#'
-#'   \item sensitivity \code{\link{sens}}:
-#'
-#'   \code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
-#'
-#'
-#'   \item miss rate \code{\link{mirt}}:
-#'
-#'   \code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
-#'
-#'
-#'   \item specificity \code{\link{spec}}:
-#'
-#'   \code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
-#'
-#'
-#'   \item false alarm rate \code{\link{fart}}:
-#'
-#'   \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
-#'
-#'
-#'   \item proportion of positive decisions \code{\link{ppod}}:
-#'
-#'   \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-#'
-#'
-#'   \item positive predictive value \code{\link{PPV}}:
-#'
-#'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
-#'
-#'
-#'   \item negative predictive value \code{\link{NPV}}:
-#'
-#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-#'
-#'
-#'   \item false detection rate \code{\link{FDR}}:
-#'
-#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
-#'
-#'
-#'   \item false omission rate \code{\link{FOR}}:
-#'
-#'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
-#'
-#'
-#'   \item accuracy \code{\link{acc}}:
-#'
-#'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-#'
-#'    }
-#'
-#'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
-#'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
-#'
-#'
-#' }
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).

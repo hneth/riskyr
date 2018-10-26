@@ -4,11 +4,9 @@
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
 
-## Note: Always use num (essential) rather than env (NON-essential)!
-
 ## Table of current terminology: -----------------
 
-# Probabilities (10+):              Frequencies (11):
+# Probabilities (13+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -38,10 +36,17 @@
 
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
-# acc  = overall accuracy (proportion correct)
+# acc  = overall accuracy (probability/proportion correct decision)
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+
+# Other measures of accuracy (in accu):
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
+
+# err = error rate = (1 - acc)
+
 
 
 ## Data flow: Two basic directions: --------------
@@ -60,6 +65,7 @@
 
 ## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
 ## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
+
 
 
 
@@ -143,6 +149,8 @@ init_freq <- function() {
 #' \code{\link{comp_freq_prob}}
 #' round frequencies to nearest integers to avoid decimal values in
 #' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
+#' When frequencies are rounded, probabilities computed from
+#' \code{\link{freq}} may differ from exact probabilities.
 #' Using the option \code{round = FALSE} turns off rounding.
 #'
 #' Key relationships between frequencies and probabilities:
@@ -171,6 +179,7 @@ init_freq <- function() {
 #'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
 #'    and
 #'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'
 #'
 #'    \item by accuracy (i.e., correspondence of decision to condition):
 #'
@@ -481,6 +490,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
 
 
+
 ## (3) Apply to initialize freq: -----------------
 
 ## freq: Documentation --------
@@ -702,12 +712,14 @@ comp_freq_col <- function(fname, cur_pal = pal) {
 }
 
 ## Check: --------
+
 # comp_freq_col("N")
 # comp_freq_col("hi")
 # comp_freq_col("dec.err")
 # comp_freq_col("dec.cor")
 #
 # comp_freq_col("default")  # default color
+
 
 
 
