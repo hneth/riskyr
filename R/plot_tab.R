@@ -25,7 +25,6 @@
 #' \code{plot_tab} is derived from \code{\link{plot_area}},
 #' but does not scale the dimensions of table cells.
 #'
-#'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
@@ -102,8 +101,9 @@
 #' Default: \code{brd_w = .10}.
 #'
 #' @param gaps Size of gaps (as binary numeric vector) specifying
-#' the width of vertical and horizontal gaps in 2 x 2 table.
-#' Default: \code{gaps = c(.00, .00)}.
+#' the widths of vertical and horizontal gaps between 2 x 2 table
+#' and sums (in bottom row and right column).
+#' Default: \code{gaps = c(.05, .06)}.
 #'
 #' @param f_lbl  Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
@@ -305,7 +305,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
                      ## Freq boxes:
                      round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
-                     f_lbl = "def",      # freq label of 4 SDT & N cells: "default" vs. "abb", "nam", "num", "namnum". (Set to NA/NULL to hide freq labels).
+                     f_lbl = "num",      # freq label of 4 SDT & N cells: "default" vs. "abb", "nam", "num", "namnum". (Set to NA/NULL to hide freq labels).
                      f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
                      f_lbl_sum = f_lbl,  # freq label of summary cells (bottom row and right column)
                      f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
@@ -438,37 +438,26 @@ plot_tab <- function(prev = num$prev,    # probabilities
   }
 
   # gap defaults:
-  v_gap_def <- 0  # .02
-  h_gap_def <- 0  # .02
+  v_gap_def <- .05
+  h_gap_def <- .06
 
   # use input:
   v_gap <- gaps[1]  # default: v_gap = NA
   h_gap <- gaps[2]  # default: h_gap = NA
 
   if (is.na(v_gap) || v_gap < 0 ) { # use default:
-
-    if (p_split == "v") {
       v_gap <- v_gap_def
-    } else if (p_split == "h") {
-      v_gap <- 0
-    } else { # default:
-      v_gap <- v_gap_def
-    }
   }
 
   if (is.na(h_gap) || h_gap < 0 ) { # use default:
-
-    if (p_split == "v") {
-      h_gap <- 0
-    } else if (p_split == "h") {
       h_gap <- h_gap_def
-    } else { # default:
-      h_gap <- h_gap_def
-    }
   }
 
-  if ( h_gap > .10 ) {
-    warning("Horizontal gap (i.e., gaps[2]) should be in the range from 0 to .10.")
+  if ( h_gap > .20 ) {
+    message("Horizontal gap (i.e., gaps[2]) should be in the range from 0 to .20.")
+  }
+  if ( v_gap > 1 ) {
+    message("Vertical gap (i.e., gaps[1]) should be in the range from 0 to 1.")
   }
 
   # scale:
@@ -589,14 +578,13 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   # 3 columns (center points):
   c1_x <- 0 + sdt_lx/2
-  c2_x <- sdt_lx + v_gap + sdt_lx/2
-  c3_x <- sdt_lx + v_gap + sdt_lx + sdt_lx/2
+  c2_x <- sdt_lx + sdt_lx/2
+  c3_x <- sdt_lx + v_gap + sdt_lx + sdt_lx/2  # v_gap between c2 and c3
 
   # 3 rows (center points):
-  r3_y <- 0 + sdt_ly/2
-  r2_y <- sdt_ly + sdt_ly/2
-  r1_y <- sdt_ly + sdt_ly + h_gap + sdt_ly/2
-
+  r3_y <- 0 + sdt_ly/2  # h_gap between r1 and r2
+  r2_y <- sdt_ly + h_gap + sdt_ly/2
+  r1_y <- sdt_ly + h_gap + sdt_ly + sdt_ly/2
 
   # Correction values (as constants):
   v_top   <- .03  # blank space on top of plotting area

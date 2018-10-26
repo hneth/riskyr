@@ -7,7 +7,7 @@
 plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "no", scale = "p", round = TRUE,
-  f_lbl = "def", f_lbl_sep = " = ", f_lbl_sum = f_lbl,
+  f_lbl = "num", f_lbl_sep = " = ", f_lbl_sum = f_lbl,
   f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
   p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
   "yellow"), brd_dis = 0.3, title_lbl = txt$scen.lbl, lbl_txt = txt,
@@ -112,8 +112,9 @@ Default: \code{f_lbl_hd = "abb"}: abbreviated names only.}
 Default: \code{f_lwd = 1}.}
 
 \item{gaps}{Size of gaps (as binary numeric vector) specifying
-the width of vertical and horizontal gaps in 2 x 2 table.
-Default: \code{gaps = c(.00, .00)}.}
+the widths of vertical and horizontal gaps between 2 x 2 table
+and sums (in bottom row and right column).
+Default: \code{gaps = c(.05, .06)}.}
 
 \item{brd_w}{Border width for showing 2 perspective summaries
 on top and left borders of main area (as a proportion of area size)
