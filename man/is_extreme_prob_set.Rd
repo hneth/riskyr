@@ -92,7 +92,6 @@ plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
 is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
 plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 
-
 }
 \seealso{
 \code{\link{is_valid_prob_pair}} verifies that a pair of probabilities can be complements;

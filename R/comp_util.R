@@ -68,7 +68,7 @@
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_prob <- function(prob, NA_warn = FALSE) {
 
@@ -121,23 +121,23 @@ is_prob <- function(prob, NA_warn = FALSE) {
 }
 
 ## Checks:
-{
-  # ## ways to succeed:
-  # is_prob(1/2)                  # => TRUE
-  # p.seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
-  # is_prob(p.seq)                # => TRUE (for vector)
-  #
-  # ## watch out for:
-  # is_prob(NA)                   # => FALSE + NO warning!
-  # is_prob(NA, NA_warn = TRUE)   # => FALSE + warning (NA values)
-  # is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
-  # is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
-  #
-  # ## ways to fail:
-  # is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
-  # is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
-  # is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
-}
+
+# ## ways to succeed:
+# is_prob(1/2)                  # => TRUE
+# p.seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
+# is_prob(p.seq)                # => TRUE (for vector)
+#
+# ## watch out for:
+# is_prob(NA)                   # => FALSE + NO warning!
+# is_prob(NA, NA_warn = TRUE)   # => FALSE + warning (NA values)
+# is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+# is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
+#
+# ## ways to fail:
+# is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
+# is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
+# is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
+
 
 
 ## is_perc: Verify that input is a percentage --------------------
@@ -179,7 +179,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#'
+#' @export
 
 is_perc <- function(perc) {
 
@@ -258,7 +258,7 @@ is_perc <- function(perc) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#'
+#' @export
 
 is_freq <- function(freq) {
 
@@ -397,7 +397,7 @@ is_freq <- function(freq) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_suff_prob_set <- function(prev,
                              sens = NA, mirt = NA,
@@ -435,23 +435,22 @@ is_suff_prob_set <- function(prev,
 }
 
 ## Checks:
-{
-  # # ways to work:
-  # is_suff_prob_set(prev = 1, sens = 1, spec = 1)  # => TRUE
-  # is_suff_prob_set(prev = 1, mirt = 1, spec = 1)  # => TRUE
-  # is_suff_prob_set(prev = 1, sens = 1, fart = 1)  # => TRUE
-  # is_suff_prob_set(prev = 1, mirt = 1, fart = 1)  # => TRUE
-  #
-  # # watch out for:
-  # is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob would be FALSE for 2 and 3
-  # is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
-  # is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
-  #
-  # ## ways to fail:
-  # # is_suff_prob_set()                    # => FALSE + warning (prev missing)
-  # # is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
-  # # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
-}
+# # ways to work:
+# is_suff_prob_set(prev = 1, sens = 1, spec = 1)  # => TRUE
+# is_suff_prob_set(prev = 1, mirt = 1, spec = 1)  # => TRUE
+# is_suff_prob_set(prev = 1, sens = 1, fart = 1)  # => TRUE
+# is_suff_prob_set(prev = 1, mirt = 1, fart = 1)  # => TRUE
+#
+# # watch out for:
+# is_suff_prob_set(prev = 1, sens = 2, spec = 3)            # => TRUE, but is_prob would be FALSE for 2 and 3
+# is_suff_prob_set(prev = 1, mirt = 2, fart = 4)            # => TRUE, but is_prob would be FALSE for 2 and 4
+# is_suff_prob_set(prev = 1, sens = 2, spec = 3, fart = 4)  # => TRUE, but is_prob would be FALSE for 2, 3, and 4
+#
+# ## ways to fail:
+# # is_suff_prob_set()                    # => FALSE + warning (prev missing)
+# # is_suff_prob_set(prev = 1)            # => FALSE + warning (sens or mirt missing)
+# # is_suff_prob_set(prev = 1, sens = 1)  # => FALSE + warning (spec or fart missing)
+
 
 ## ToDo: Analog fn for freq: is_suff_freq_set ----------
 
@@ -492,7 +491,6 @@ is_suff_prob_set <- function(prev,
 #' and complements (in \code{tol} range);
 #' otherwise \code{FALSE}.
 #'
-#'
 #' @examples
 #' # Basics:
 #' is_complement(0, 1)           # => TRUE
@@ -508,14 +506,12 @@ is_suff_prob_set <- function(prev,
 #' is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
 #' is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 #'
-#' ## ways to fail:
+#' # ways to fail:
 #' # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
 #' # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
 #' # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 #'
-#'
 #' @family verification functions
-#'
 #'
 #' @seealso
 #' \code{\link{comp_complement}} computes a probability's complement;
@@ -530,7 +526,7 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_complement <- function(p1, p2, tol = .01) {
 
@@ -568,24 +564,23 @@ is_complement <- function(p1, p2, tol = .01) {
 }
 
 ## Checks:
-{
-  # # ways to succeed:
-  # is_complement(0, 1)           # => TRUE
-  # is_complement(1/3, 2/3)       # => TRUE
-  # is_complement(.33, .66)       # => TRUE
-  #
-  # # watch out for:
-  # is_complement(2, -1)             # => TRUE + warnings (p1 and p2 beyond range)
-  # is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
-  # is_complement(1, NA)             # => NA (but not FALSE)
-  # is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
-  # is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
-  #
-  # ## ways to fail:
-  # # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
-  # # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
-  # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
-}
+# # ways to succeed:
+# is_complement(0, 1)           # => TRUE
+# is_complement(1/3, 2/3)       # => TRUE
+# is_complement(.33, .66)       # => TRUE
+#
+# # watch out for:
+# is_complement(2, -1)             # => TRUE + warnings (p1 and p2 beyond range)
+# is_complement(8, -7)             # => TRUE + warnings (p1 and p2 beyond range)
+# is_complement(1, NA)             # => NA (but not FALSE)
+# is_complement(.3, .6)            # => FALSE + warning (beyond tolerance)
+# is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
+#
+# # ways to fail:
+# # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
+# # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
+# # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
+
 
 
 
@@ -678,7 +673,6 @@ is_complement <- function(p1, p2, tol = .01) {
 #' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
 #' plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 #'
-#'
 #' @family verification functions
 #'
 #' @seealso
@@ -693,7 +687,7 @@ is_complement <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#'
+#' @export
 
 is_extreme_prob_set <- function(prev,
                                 sens = NA, mirt = NA,
@@ -809,44 +803,42 @@ is_extreme_prob_set <- function(prev,
 }
 
 ## Check:
-{
 
-  # # Identify 6 extreme cases (+ 4 variants):
-  # is_extreme_prob_set(1, 1, NA, 1, NA)       # => TRUE + warning: N true positives
-  # plot_tree(1, 1, NA, 1, NA, N = 100)        # => illustrates this case
-  #
-  # is_extreme_prob_set(1, 0, NA, 1, NA)       # => TRUE + warning: N false negatives
-  # plot_tree(1, 0, NA, 1, NA, N = 200)        # => illustrates this case
-  #
-  # sens <- .50
-  # is_extreme_prob_set(0, sens, NA, 0, NA)    # => TRUE + warning: N false positives
-  # plot_tree(0, sens, NA, 0, N = 300)         # => illustrates this case
-  # # Variant:
-  # is_extreme_prob_set(0, sens, NA, NA, 1)    # => TRUE + warning: N false positives
-  # plot_tree(0, sens, NA, NA, 1, N = 350)     # => illustrates this case
-  #
-  # sens <- .50
-  # is_extreme_prob_set(0, sens, NA, 1)        # => TRUE + warning: N true negatives
-  # plot_tree(0, sens, NA, NA, 1, N = 400)     # => illustrates this case
-  # # Variant:
-  # is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
-  # plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
-  #
-  # prev <- .50
-  # is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
-  # plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
-  # # # Variant:
-  # is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
-  # plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
-  #
-  # prev <- .50
-  # is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
-  # plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
-  # # # Variant:
-  # is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
-  # plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
+# # Identify 6 extreme cases (+ 4 variants):
+# is_extreme_prob_set(1, 1, NA, 1, NA)       # => TRUE + warning: N true positives
+# plot_tree(1, 1, NA, 1, NA, N = 100)        # => illustrates this case
+#
+# is_extreme_prob_set(1, 0, NA, 1, NA)       # => TRUE + warning: N false negatives
+# plot_tree(1, 0, NA, 1, NA, N = 200)        # => illustrates this case
+#
+# sens <- .50
+# is_extreme_prob_set(0, sens, NA, 0, NA)    # => TRUE + warning: N false positives
+# plot_tree(0, sens, NA, 0, N = 300)         # => illustrates this case
+# # Variant:
+# is_extreme_prob_set(0, sens, NA, NA, 1)    # => TRUE + warning: N false positives
+# plot_tree(0, sens, NA, NA, 1, N = 350)     # => illustrates this case
+#
+# sens <- .50
+# is_extreme_prob_set(0, sens, NA, 1)        # => TRUE + warning: N true negatives
+# plot_tree(0, sens, NA, NA, 1, N = 400)     # => illustrates this case
+# # Variant:
+# is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
+# plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
+#
+# prev <- .50
+# is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+# plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
+# # # Variant:
+# is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+# plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
+#
+# prev <- .50
+# is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+# plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
+# # # Variant:
+# is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+# plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 
-}
 
 ## is_valid_prob_pair: Verify a pair of probability inputs -------------
 
@@ -915,7 +907,7 @@ is_extreme_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
@@ -937,19 +929,18 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 }
 
 ## Check:
-{
-  # # ways to succeed:
-  # is_valid_prob_pair(1, 0)      # => TRUE
-  # is_valid_prob_pair(0, 1)      # => TRUE
-  # is_valid_prob_pair(1, NA)     # => TRUE + warning (NA)
-  # is_valid_prob_pair(NA, 1)     # => TRUE + warning (NA)
-  # is_valid_prob_pair(.50, .51)  # => TRUE (as within tol)
-  #
-  # # ways to fail:
-  # is_valid_prob_pair(.50, .52)  # => FALSE (as beyond tol)
-  # is_valid_prob_pair(1, 2)      # => FALSE + warning (beyond range)
-  # is_valid_prob_pair(NA, NA)    # => FALSE + warning (NA)
-}
+# # ways to succeed:
+# is_valid_prob_pair(1, 0)      # => TRUE
+# is_valid_prob_pair(0, 1)      # => TRUE
+# is_valid_prob_pair(1, NA)     # => TRUE + warning (NA)
+# is_valid_prob_pair(NA, 1)     # => TRUE + warning (NA)
+# is_valid_prob_pair(.50, .51)  # => TRUE (as within tol)
+#
+# # ways to fail:
+# is_valid_prob_pair(.50, .52)  # => FALSE (as beyond tol)
+# is_valid_prob_pair(1, 2)      # => FALSE + warning (beyond range)
+# is_valid_prob_pair(NA, NA)    # => FALSE + warning (NA)
+
 
 ## is_valid_prob_set: Verify a set of probability inputs ------------
 
@@ -972,13 +963,11 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' probabilities there is a choice:
 #'
 #' \enumerate{
+#'   \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+#'         (as both are complements).
 #'
-#' \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
-#' (as both are complements).
-#'
-#' \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
-#' (as both are complements).
-#'
+#'   \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+#'        (as both are complements).
 #' }
 #'
 #' The argument \code{tol} is optional (with a default value of .01)
@@ -1020,7 +1009,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' ## ways to succeed:
+#' # ways to succeed:
 #' is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
 #' is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
 #' is_valid_prob_set(.3, .9, .1, .8, NA)            # => TRUE + warning (NA)
@@ -1028,14 +1017,14 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
 #' is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
 #'
-#' ## watch out for:
+#' # watch out for:
 #' is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
 #' is_valid_prob_set(1, 1, 0, 1, 0)    # => TRUE, but NO warning about extreme case!
 #' is_valid_prob_set(1, 1, 0, 1, NA)   # => TRUE, but NO warning about extreme case!
 #' is_valid_prob_set(1, 1, 0, NA, 1)   # => TRUE, but NO warning about extreme case!
 #' is_valid_prob_set(1, 1, 0, NA, 0)   # => TRUE, but NO warning about extreme case!
 #'
-#' ## ways to fail:
+#' # ways to fail:
 #' is_valid_prob_set(8, 1, 0, 1, 0)      # => FALSE + warning (is_prob fails)
 #' is_valid_prob_set(1, 1, 8, 1, 0)      # => FALSE + warning (is_prob fails)
 #' is_valid_prob_set(2, 1, 3, 1, 4)      # => FALSE + warning (is_prob fails)
@@ -1057,7 +1046,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_valid_prob_set <- function(prev,
                               sens = NA, mirt = NA,
@@ -1077,31 +1066,29 @@ is_valid_prob_set <- function(prev,
 }
 
 ## Check:
-{
-  # ## ways to succeed:
-  # is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
-  # is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
-  # is_valid_prob_set(.3, .9, .1, .8, NA)            # => TRUE + warning (NA)
-  # is_valid_prob_set(.3, .9, NA, .8, NA)            # => TRUE + warning (NAs)
-  # is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
-  # is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
-  #
-  # ## watch out for:
-  # is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
-  # is_valid_prob_set(1, 1, 0, 1, 0)    # => TRUE, but NO warning about extreme case!
-  # is_valid_prob_set(1, 1, 0, 1, NA)   # => TRUE, but NO warning about extreme case!
-  # is_valid_prob_set(1, 1, 0, NA, 1)   # => TRUE, but NO warning about extreme case!
-  # is_valid_prob_set(1, 1, 0, NA, 0)   # => TRUE, but NO warning about extreme case!
-  #
-  # ## ways to fail:
-  # is_valid_prob_set(8, 1, 0, 1, 0)      # => FALSE + warning (is_prob fails)
-  # is_valid_prob_set(1, 1, 8, 1, 0)      # => FALSE + warning (is_prob fails)
-  # is_valid_prob_set(2, 1, 3, 1, 4)      # => FALSE + warning (is_prob fails)
-  # is_valid_prob_set(1, .8, .2, .7, .2)  # => FALSE + warning (beyond complement range)
-  # is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
-  # is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
-  # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
-}
+# # ways to succeed:
+# is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
+# is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
+# is_valid_prob_set(.3, .9, .1, .8, NA)            # => TRUE + warning (NA)
+# is_valid_prob_set(.3, .9, NA, .8, NA)            # => TRUE + warning (NAs)
+# is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
+# is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
+#
+# # watch out for:
+# is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
+# is_valid_prob_set(1, 1, 0, 1, 0)    # => TRUE, but NO warning about extreme case!
+# is_valid_prob_set(1, 1, 0, 1, NA)   # => TRUE, but NO warning about extreme case!
+# is_valid_prob_set(1, 1, 0, NA, 1)   # => TRUE, but NO warning about extreme case!
+# is_valid_prob_set(1, 1, 0, NA, 0)   # => TRUE, but NO warning about extreme case!
+#
+# # ways to fail:
+# is_valid_prob_set(8, 1, 0, 1, 0)      # => FALSE + warning (is_prob fails)
+# is_valid_prob_set(1, 1, 8, 1, 0)      # => FALSE + warning (is_prob fails)
+# is_valid_prob_set(2, 1, 3, 1, 4)      # => FALSE + warning (is_prob fails)
+# is_valid_prob_set(1, .8, .2, .7, .2)  # => FALSE + warning (beyond complement range)
+# is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
+# is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
+# is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
 
 ## is_valid_prob_triple: Verify a triple of essential probability inputs ---------------
 
@@ -1164,7 +1151,7 @@ is_valid_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_valid_prob_triple <- function(prev, sens, spec) {
 
@@ -1179,16 +1166,15 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 }
 
 ## Check:
-{
-  # is_valid_prob_triple(0, 0, 0)
-  # is_valid_prob_triple(1, 1, 1)
-  #
-  # # ways to fail:
-  # is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
-  # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
-  # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
-  # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
-}
+# is_valid_prob_triple(0, 0, 0)
+# is_valid_prob_triple(1, 1, 1)
+#
+# ## ways to fail:
+# # is_valid_prob_triple(0, 0)       # => ERROR (as no triple)
+# # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
+# # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
+# # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+
 
 
 ## (C) Conversion functions: ------------------------
