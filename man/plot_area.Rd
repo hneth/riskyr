@@ -7,7 +7,7 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
   fart = NA, N = num$N, by = "cddc", p_split = "v", area = "sq",
   scale = "p", round = TRUE, brd_w = 0.25, gaps = c(NA, NA),
-  f_lbl = "num", f_lbl_sep = " = ", f_lwd = 0, p_lbl = NA, arr_c = -3,
+  f_lbl = "def", f_lbl_sep = " = ", f_lwd = 0, p_lbl = NA, arr_c = -3,
   col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"), brd_dis = 0.06,
   title_lbl = txt$scen.lbl, lbl_txt = txt, cex_lbl = 0.9,
   cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
@@ -94,10 +94,10 @@ Defaults: \code{gaps = c(.02, .00)} for \code{p_split = "v"} and
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
   \enumerate{
-  \item \code{"def"}: abbreviated names and frequency values;
+  \item \code{"def"}: abbreviated names and frequency values (default);
   \item \code{"abb"}: abbreviated frequency names only (as specified in code);
   \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
-  \item \code{"num"}: numeric frequency values only (default);
+  \item \code{"num"}: numeric frequency values only;
   \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
