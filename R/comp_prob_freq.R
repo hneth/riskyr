@@ -3,77 +3,6 @@
 ## Compute probabilities (prob) from frequencies (freq):
 ## -----------------------------------------------
 
-## Note: Always use num (essential) and freq (derived)
-##       rather than env (NON-essential)!
-
-
-## Table of current terminology: -----------------
-
-# Probabilities (13+):              Frequencies (11):
-# -------------------               ------------------
-# (A) by condition:
-
-# non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
-
-# conditional:
-# sens* = hit rate = TPR                hi* = TP
-# mirt  = miss rate = FNR               mi* = FN
-# fart  = false alarm rate = FPR        fa* = FP
-# spec* = true negative rate = TNR      cr* = TN
-
-# [Note: *...is essential]
-
-
-# (B) by decision:                 Combined frequencies:
-
-# non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
-
-# conditional:
-# PPV = precision
-# FDR = false detection rate
-# FOR = false omission rate
-# NPV = neg. pred. value
-
-# (C) by accuracy/correspondence of decision to condition (see accu):
-
-# acc  = overall accuracy (probability/proportion correct decision)
-# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
-
-# Other measures of accuracy (in accu):
-# wacc = weighted accuracy
-# mcc  = Matthews correlation coefficient
-# f1s  = harmonic mean of PPV and sens
-
-# err = error rate = (1 - acc)
-
-
-## Data flow: Two basic directions: --------------
-
-## (1) Probabilities ==> frequencies:
-##     Bayesian: based on 3 essential probabilities:
-##   - given:   prev;  sens, spec
-##   - derived: all other values
-
-## (2) Frequencies ==> probabilities:
-##     Frequentist: based on 4 essential natural frequencies:
-##   - given:   N = hi, mi, fa, cr
-##   - derived: all other values
-
-
-## 2 functions convert between formats: ----------
-
-## a. comp_freq_prob: Computes freq from prob
-## b. comp_prob_freq: Computes prob from freq
-
-
-
-## ad (2): Frequencies ==> probabilities: ---------
-
-
 ## (A) Compute ALL probabilities from (4 essential) frequencies: --------
 
 ## comp_prob_freq: Documentation ------
@@ -83,8 +12,7 @@
 #' \code{comp_prob_freq} computes current probability information
 #' from 4 essential frequencies
 #' (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-#' It returns a list of 11 probabilities \code{\link{prob}}
-#' as its output.
+#' It returns a list of 11 probabilities \code{\link{prob}} as its output.
 #'
 #' Functions translating between representational formats:
 #'
@@ -255,10 +183,8 @@
 #' # 4. Check equality of probabilities (in steps 1. and 3.):
 #' all.equal(prob, prob_freq)  # => should be TRUE!
 #'
-#'
 #' @family functions computing probabilities
 #' @family format conversion functions
-#'
 #'
 #' @seealso
 #' \code{\link{comp_freq_freq}} computes current frequency information from (4 essential) frequencies;
@@ -404,13 +330,12 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 # all.equal(prob, prob_freq)  # => should be TRUE!
 #
 #
-# ## Computing individual probabilities from freq: --------
-#
-# # (obsolete, when ALL can be obtained above?)
+## Computing individual probabilities from freq: --------
+
+## (obsolete, when ALL can be obtained above?)
 
 
-
-##  (B) Compute 3 essential probabilities (prev, sens, spec) from existing frequencies ------
+## (B) Compute 3 essential probabilities (prev, sens, spec) from existing frequencies ------
 
 ## comp_prev: Documentation -----
 
@@ -495,9 +420,9 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
 
 
 
-##  (C) Compute other probabilities (mirt, fart) from existing frequencies ------
+## (C) Compute other probabilities (mirt, fart) from existing frequencies ------
 
-##  (D) Compute non-essential probabilities (mirt, fart) and derived probabilities (ppod, PPV, NPV, ...) from frequencies ------
+## (D) Compute non-essential probabilities (mirt, fart) and derived probabilities (ppod, PPV, NPV, ...) from frequencies ------
 
 ## ALL probabilities can be computed from 4 frequencies
 ## of the confusion table!
@@ -506,7 +431,7 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
 ## for a collection of metrics.
 
 
-## (X) Compute predictive values (PVs: PPV and NPV, FDR and FOR) from various frequencies (alternative versions) ------
+## (E) Compute predictive values (PVs: PPV and NPV, FDR and FOR) from various frequencies (alternative versions) ------
 
 ## 1. comp_PPV_freq: Positive predictive value (PPV) from frequencies ------
 
@@ -546,8 +471,7 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 }
 
 
-## (Y): Comparing the alternative PV calculations: ------
-
+## (F): Comparing the alternative PV calculations: ------
 
 # ## A: Using default settings:
 # num$N
@@ -559,13 +483,11 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 #
 # comp_NPV()
 # comp_NPV_freq() # Note: Deviation due to rounding of freq to nearest integers!
-#
+
 # ## B: But when using exact frequencies for freq:
 # freq <- comp_freq(round = FALSE) # do NOT round to nearest integers:
 # all.equal(comp_PPV_freq(), comp_PPV()) # => TRUE
 # all.equal(comp_NPV_freq(), comp_NPV()) # => TRUE
-
-
 
 ## (*) Done: ----------
 

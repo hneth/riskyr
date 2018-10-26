@@ -20,8 +20,7 @@ comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa,
 \code{comp_prob_freq} computes current probability information
 from 4 essential frequencies
 (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-It returns a list of 11 probabilities \code{\link{prob}}
-as its output.
+It returns a list of 11 probabilities \code{\link{prob}} as its output.
 }
 \details{
 Functions translating between representational formats:
@@ -174,7 +173,6 @@ prob_freq
 
 # 4. Check equality of probabilities (in steps 1. and 3.):
 all.equal(prob, prob_freq)  # => should be TRUE!
-
 
 }
 \seealso{

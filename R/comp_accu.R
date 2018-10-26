@@ -731,8 +731,6 @@ accu <- comp_accu_prob()
 # accu
 
 
-
-
 ## (*) Done: ----------
 
 ## - Added comp_accu_prob to compute exact accuracy from prob.

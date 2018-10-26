@@ -544,10 +544,8 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #' plot(s25)  # => default plot (fnet)
 #' plot(s25, plot.type = "fnet")  # => network diagram (same as default)
 #' plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+#' plot(s25, plot.type = "icons", type = "mosaic")
 #' plot(s25, plot.type = "curve", what = "all")
-#' plot(s25, plot.type = "icons")
-#' plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameter to create.
-#' plot(s25, plot.type = "mosaic")
 #' plot(s25, plot.type = "plane", what = "NPV")
 #'
 #' plot(s25, plot.type = "area", by = "cddc")
@@ -1035,9 +1033,6 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 ## (+) ToDo: ----------
 
-## - Accuracy:
-##   - extend to other types of accuracy in accu
-##   - reflect that acc is a probability
 ## - allow riskyr() to take all kinds of inputs,
 ##   so that a full object is created.
 
