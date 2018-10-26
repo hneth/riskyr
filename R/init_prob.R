@@ -786,9 +786,8 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @examples
-#' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
+#' FDR <- .45     # => sets a false detection rate (FDR) of 45%
 #' FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
-#'
 
 FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 

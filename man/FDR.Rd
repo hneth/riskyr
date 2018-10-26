@@ -68,9 +68,8 @@ However, due to being a conditional probability,
 }
 }
 \examples{
-FDR <- .45     # => sets a false discovery rate (FDR) of 45\%
+FDR <- .45     # => sets a false detection rate (FDR) of 45\%
 FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
-
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
