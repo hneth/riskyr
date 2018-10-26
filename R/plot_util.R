@@ -81,6 +81,7 @@ plot.box <- function(obj, ...) {
             x  = obj$x,   y = obj$y,
             lx = obj$lx, ly = obj$ly,
             ...)
+
 }
 
 # ## Check:
@@ -1245,8 +1246,8 @@ comp_freq_fbox_list <- function(fboxes, ...){
 ## plot_fbox_list: Plot a list of fboxes in some order --------
 
 plot_fbox_list <- function(fboxes,
-                           cur_freq = freq, cur_txt = txt, cur_pal = pal,  # pass current settings
-                           scale_lx = 1, lbl_type = "default", lbl_sep = " = ",
+                           cur_freq = freq, # cur_txt = txt, cur_pal = pal,  # pass current settings
+                           # scale_lx = 1, lbl_type = "default", lbl_sep = " = ",
                            ...) {
   # Plot a list of fboxes in some order:
 
@@ -1278,8 +1279,8 @@ plot_fbox_list <- function(fboxes,
 
     ## (b) with lapply:  plot all fboxes in dec_order
     lapply(X = fboxes[decr_order], FUN = plot,
-           cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
-           scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
+           cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+           # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
            ...)
 
   } # if/while ...
@@ -1288,8 +1289,8 @@ plot_fbox_list <- function(fboxes,
 
     # (C) plot fboxes (as only 1 box):
     plot(fboxes,
-         cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
-         scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
+         cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+         # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
          ...)
 
   }
