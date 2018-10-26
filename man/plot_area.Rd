@@ -7,7 +7,7 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "sq", scale = "p", round = TRUE,
-  brd_w = 0.25, gaps = c(NA, NA), f_lbl = "def", f_lbl_sep = " = ",
+  brd_w = 0.25, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
   f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
   arr_c = -3, col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"),
   brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
@@ -95,10 +95,10 @@ Defaults: \code{gaps = c(.02, .00)} for \code{p_split = "v"} and
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
 with 6 options:
   \enumerate{
-  \item \code{"def"}: abbreviated names and frequency values (default);
+  \item \code{"def"}: abbreviated names and frequency values;
   \item \code{"abb"}: abbreviated frequency names only (as specified in code);
   \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
-  \item \code{"num"}: numeric frequency values only;
+  \item \code{"num"}: numeric frequency values only (default);
   \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
@@ -203,14 +203,14 @@ plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 10)
 # Customizing text and color:
 plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
           by = "cddc", p_split = "v", scale = "p",
-          title_lbl = "Custom text and color:",
-          lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
-          f_lwd = 2, col_pal = pal_gbs)  # custom color
+          title_lbl = "Text and color:",
+          lbl_txt = txt_TF, f_lbl = "namnum",
+          f_lwd = 2, col_pal = pal_gbs)
 plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
-          by = "cdac", p_split = "h", scale = "p",
-          title_lbl = "Custom text and color:",
-          lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",  # custom text
-          f_lwd = 1, col_pal = pal_kn)  # custom color
+          by = "cdac", p_split = "h", scale = "f",
+          title_lbl = "Text and color:",
+          lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
+          f_lwd = 1, col_pal = pal_kn)
 
 ## Versions:
 # by x p_split (= [3 x 2 x 2] = 12 versions):
@@ -254,9 +254,9 @@ plot_area(f_lbl = "num")   # only freq number
 plot_area(f_lbl = "namnum", f_lbl_sep = ":\\n", cex_lbl = .75)  # explicit & smaller
 
 # prob labels:
-plot_area(p_lbl = NA)      # no prob labels (and no links)
+plot_area(p_lbl = NA)      # no prob labels, no links
 plot_area(p_lbl = "no")    # show links, but no labels
-plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller size.
+plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller labels
 
 # prob arrows:
 plot_area(arr_c = +3, f_lbl = NA)  # V-shape arrows
@@ -279,7 +279,6 @@ plot_area(brd_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on to
 plot_area(gap = c(0, 0), brd_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
 plot_area(f_lbl = "abb", p_lbl = NA) # plot with abbreviated labels
 plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
-
 
 }
 \seealso{

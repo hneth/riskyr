@@ -25,7 +25,6 @@
 #'
 #' \code{plot_area} generalizes and replaces \code{\link{plot_mosaic}}.
 #'
-#'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
@@ -107,10 +106,10 @@
 #' @param f_lbl  Type of label for showing frequency values in 4 main areas,
 #' with 6 options:
 #'   \enumerate{
-#'   \item \code{"def"}: abbreviated names and frequency values (default);
+#'   \item \code{"def"}: abbreviated names and frequency values;
 #'   \item \code{"abb"}: abbreviated frequency names only (as specified in code);
 #'   \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
-#'   \item \code{"num"}: numeric frequency values only;
+#'   \item \code{"num"}: numeric frequency values only (default);
 #'   \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
 #'   \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
 #'   }
@@ -196,14 +195,14 @@
 #' # Customizing text and color:
 #' plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #'           by = "cddc", p_split = "v", scale = "p",
-#'           title_lbl = "Custom text and color:",
-#'           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
-#'           f_lwd = 2, col_pal = pal_gbs)  # custom color
+#'           title_lbl = "Text and color:",
+#'           lbl_txt = txt_TF, f_lbl = "namnum",
+#'           f_lwd = 2, col_pal = pal_gbs)
 #' plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
-#'           by = "cdac", p_split = "h", scale = "p",
-#'           title_lbl = "Custom text and color:",
-#'           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",  # custom text
-#'           f_lwd = 1, col_pal = pal_kn)  # custom color
+#'           by = "cdac", p_split = "h", scale = "f",
+#'           title_lbl = "Text and color:",
+#'           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
+#'           f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Versions:
 #' # by x p_split (= [3 x 2 x 2] = 12 versions):
@@ -247,9 +246,9 @@
 #' plot_area(f_lbl = "namnum", f_lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
 #'
 #' # prob labels:
-#' plot_area(p_lbl = NA)      # no prob labels (and no links)
+#' plot_area(p_lbl = NA)      # no prob labels, no links
 #' plot_area(p_lbl = "no")    # show links, but no labels
-#' plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller size.
+#' plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller labels
 #'
 #' # prob arrows:
 #' plot_area(arr_c = +3, f_lbl = NA)  # V-shape arrows
@@ -273,7 +272,6 @@
 #' plot_area(f_lbl = "abb", p_lbl = NA) # plot with abbreviated labels
 #' plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
 #'
-#'
 #' @importFrom graphics par
 #' @importFrom graphics plot
 #' @importFrom graphics box
@@ -289,7 +287,6 @@
 #' @importFrom graphics legend
 #' @importFrom graphics lines
 #' @importFrom grDevices dev.size
-#'
 #'
 #' @family visualization functions
 #'
@@ -320,7 +317,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       brd_w = .25,        # border width: (default: brd_w = .25), setting brd_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
-                      f_lbl = "def",      # freq label: "def" (default) vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
+                      f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
                       f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
                       f_lbl_sum = "num",  # freq label of summary cells (bottom row and right column)
                       f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
