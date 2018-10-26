@@ -55,3 +55,5 @@ Other utility functions: \code{\link{as_pc}}
 
 Other display functions: \code{\link{as_pc}}
 }
+\concept{display functions}
+\concept{utility functions}

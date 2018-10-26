@@ -104,4 +104,6 @@ Other essential parameters: \code{\link{cr}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
   \code{\link{prev}}, \code{\link{spec}}
 }
+\concept{essential parameters}
+\concept{probabilities}
 \keyword{datasets}

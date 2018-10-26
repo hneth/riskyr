@@ -75,3 +75,4 @@ Other visualization functions: \code{\link{plot_area}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

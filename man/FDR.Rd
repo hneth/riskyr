@@ -90,4 +90,5 @@ Other probabilities: \code{\link{FOR}}, \code{\link{NPV}},
   \code{\link{ppod}}, \code{\link{prev}},
   \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{probabilities}
 \keyword{datasets}

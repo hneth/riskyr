@@ -4,7 +4,8 @@
 \alias{comp_complete_prob_set}
 \title{Compute a complete set of probabilities from valid probability inputs.}
 \usage{
-comp_complete_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
+comp_complete_prob_set(prev, sens = NA, mirt = NA, spec = NA,
+  fart = NA)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -82,3 +83,4 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_prob}}, \code{\link{comp_sens}},
   \code{\link{comp_spec}}
 }
+\concept{functions computing probabilities}

@@ -230,3 +230,5 @@ Other format conversion functions: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}},
   \code{\link{comp_prob_freq}}
 }
+\concept{format conversion functions}
+\concept{functions computing frequencies}

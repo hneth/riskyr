@@ -81,3 +81,4 @@ Other verification functions: \code{\link{is_extreme_prob_set}},
   \code{\link{is_valid_prob_set}},
   \code{\link{is_valid_prob_triple}}
 }
+\concept{verification functions}

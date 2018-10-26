@@ -4,14 +4,14 @@
 \alias{plot_tab}
 \title{Plot a 2 x 2 contingency table of population frequencies.}
 \usage{
-plot_tab(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, by = "cddc", p_split = "v", area = "no",
-  scale = "p", round = TRUE, f_lbl = "def", f_lbl_sep = " = ",
-  f_lbl_sum = f_lbl, f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA),
-  brd_w = 0.1, p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99),
-  "yellow", "yellow"), brd_dis = 0.3, title_lbl = txt$scen.lbl,
-  lbl_txt = txt, cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal,
-  mar_notes = TRUE)
+plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = num$N, by = "cddc",
+  p_split = "v", area = "no", scale = "p", round = TRUE,
+  f_lbl = "def", f_lbl_sep = " = ", f_lbl_sum = f_lbl,
+  f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
+  p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
+  "yellow"), brd_dis = 0.3, title_lbl = txt$scen.lbl, lbl_txt = txt,
+  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -281,3 +281,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
   \code{\link{plot_plane}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

@@ -4,14 +4,14 @@
 \alias{plot_area}
 \title{Plot an area diagram of probabilities or frequencies.}
 \usage{
-plot_area(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, by = "cddc", p_split = "v", area = "sq",
-  scale = "p", round = TRUE, brd_w = 0.25, gaps = c(NA, NA),
-  f_lbl = "def", f_lbl_sep = " = ", f_lbl_sum = "num", f_lbl_hd = "abb",
-  f_lwd = 0, p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99),
-  "cornsilk", "whitesmoke"), brd_dis = 0.06, title_lbl = txt$scen.lbl,
-  lbl_txt = txt, cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal,
-  mar_notes = TRUE)
+plot_area(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = num$N, by = "cddc",
+  p_split = "v", area = "sq", scale = "p", round = TRUE,
+  brd_w = 0.25, gaps = c(NA, NA), f_lbl = "def", f_lbl_sep = " = ",
+  f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
+  arr_c = -3, col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"),
+  brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
+  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -294,3 +294,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

@@ -4,11 +4,11 @@
 \alias{plot_bar}
 \title{Plot bar charts of population frequencies.}
 \usage{
-plot_bar(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = num$N, by = "all", dir = 1, scale = "f",
-  round = TRUE, f_lbl = "num", f_lwd = 0.001, lbl_txt = txt,
-  col_pal = pal, show_freq = TRUE, show_prob = TRUE, show_accu = TRUE,
-  w_acc = 0.5, ...)
+plot_bar(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = num$N, by = "all", dir = 1,
+  scale = "f", round = TRUE, f_lbl = "num", f_lwd = 0.001,
+  lbl_txt = txt, col_pal = pal, show_freq = TRUE, show_prob = TRUE,
+  show_accu = TRUE, w_acc = 0.5, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -208,3 +208,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

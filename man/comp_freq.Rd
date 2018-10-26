@@ -4,8 +4,8 @@
 \alias{comp_freq}
 \title{Compute frequencies from (3 essential) probabilities.}
 \usage{
-comp_freq(prev = num$prev, sens = num$sens, spec = num$spec, N = num$N,
-  round = TRUE)
+comp_freq(prev = num$prev, sens = num$sens, spec = num$spec,
+  N = num$N, round = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -228,3 +228,4 @@ Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}}, \code{\link{comp_min_N}},
   \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 }
+\concept{functions computing frequencies}

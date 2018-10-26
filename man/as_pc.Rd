@@ -58,3 +58,5 @@ Other utility functions: \code{\link{as_pb}}
 
 Other display functions: \code{\link{as_pb}}
 }
+\concept{display functions}
+\concept{utility functions}

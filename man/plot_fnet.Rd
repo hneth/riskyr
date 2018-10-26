@@ -4,16 +4,17 @@
 \alias{plot_fnet}
 \title{Plot a network diagram of frequencies and probabilities.}
 \usage{
-plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, round = TRUE, by = "cddc", area = "sq",
-  p.lbl = "num", show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85,
-  box.cex, col.boxes = pal, col.border = grey(0.33, alpha = 0.99),
-  lwd = 1.5, box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99),
+plot_fnet(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = freq$N, round = TRUE,
+  by = "cddc", area = "sq", p.lbl = "num", show.accu = TRUE,
+  w.acc = 0.5, title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
+  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
+  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+  col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85, box.cex,
+  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
+  box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99),
   cex.shadow = 0)
 }
 \arguments{
@@ -251,3 +252,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

@@ -131,4 +131,6 @@ Other metrics: \code{\link{acc}},
   \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
   \code{\link{comp_err}}, \code{\link{err}}
 }
+\concept{lists containing current scenario information}
+\concept{metrics}
 \keyword{datasets}

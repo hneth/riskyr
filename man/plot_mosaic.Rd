@@ -120,3 +120,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_icons}}, \code{\link{plot_plane}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

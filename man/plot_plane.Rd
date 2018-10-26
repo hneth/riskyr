@@ -5,10 +5,10 @@
 \title{Plot a plane of selected values (e.g., PPV or NPV)
 as a function of sensitivity and specificity.}
 \usage{
-plot_plane(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, what = "PPV", what.col = pal, line.col = "grey85",
-  show.point = TRUE, step.size = 0.05, theta = -45, phi = 0,
-  title.lbl = txt$scen.lbl, cex.lbl = 0.85)
+plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, what = "PPV", what.col = pal,
+  line.col = "grey85", show.point = TRUE, step.size = 0.05,
+  theta = -45, phi = 0, title.lbl = txt$scen.lbl, cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -118,3 +118,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}

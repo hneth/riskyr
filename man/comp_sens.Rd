@@ -52,3 +52,4 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
   \code{\link{comp_spec}}
 }
+\concept{functions computing probabilities}

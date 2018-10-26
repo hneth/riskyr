@@ -83,4 +83,5 @@ Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{mirt}}, \code{\link{prev}},
   \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{probabilities}
 \keyword{datasets}

@@ -116,3 +116,4 @@ Other verification functions: \code{\link{is_complement}},
   \code{\link{is_valid_prob_pair}},
   \code{\link{is_valid_prob_triple}}
 }
+\concept{verification functions}

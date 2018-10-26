@@ -5,7 +5,8 @@
 \title{Compute frequencies from (3 essential) probabilities.}
 \usage{
 comp_freq_prob(prev = prob$prev, sens = prob$sens, mirt = NA,
-  spec = prob$spec, fart = NA, tol = 0.01, N = freq$N, round = TRUE)
+  spec = prob$spec, fart = NA, tol = 0.01, N = freq$N,
+  round = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -289,3 +290,5 @@ Other format conversion functions: \code{\link{comp_freq_freq}},
   \code{\link{comp_prob_freq}},
   \code{\link{comp_prob_prob}}
 }
+\concept{format conversion functions}
+\concept{functions computing frequencies}

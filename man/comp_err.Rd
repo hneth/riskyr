@@ -93,3 +93,5 @@ Other metrics: \code{\link{accu}}, \code{\link{acc}},
   \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
   \code{\link{err}}
 }
+\concept{functions computing probabilities}
+\concept{metrics}

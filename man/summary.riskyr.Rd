@@ -33,3 +33,4 @@ are summarized by default.
 summary(scenarios$n4)
 
 }
+\concept{summary functions}

@@ -4,8 +4,8 @@
 \alias{comp_accu_freq}
 \title{Compute accuracy metrics of current classification results.}
 \usage{
-comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
-  w = 0.5)
+comp_accu_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa,
+  cr = freq$cr, w = 0.5)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -166,3 +166,5 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
   \code{\link{comp_sens}}, \code{\link{comp_spec}}
 }
+\concept{functions computing probabilities}
+\concept{metrics}

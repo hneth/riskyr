@@ -4,7 +4,8 @@
 \alias{comp_freq_freq}
 \title{Compute frequencies from (4 essential) frequencies.}
 \usage{
-comp_freq_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
+comp_freq_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa,
+  cr = freq$cr)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -199,3 +200,5 @@ Other format conversion functions: \code{\link{comp_freq_prob}},
   \code{\link{comp_prob_freq}},
   \code{\link{comp_prob_prob}}
 }
+\concept{format conversion functions}
+\concept{functions computing frequencies}

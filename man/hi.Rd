@@ -65,4 +65,6 @@ Other essential parameters: \code{\link{cr}},
   \code{\link{fa}}, \code{\link{mi}}, \code{\link{prev}},
   \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{essential parameters}
+\concept{frequencies}
 \keyword{datasets}

@@ -92,4 +92,5 @@ Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{ppod}}, \code{\link{prev}},
   \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{probabilities}
 \keyword{datasets}

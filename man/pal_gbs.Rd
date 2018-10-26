@@ -35,4 +35,5 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{prob}}, \code{\link{txt_TF}},
   \code{\link{txt}}
 }
+\concept{lists containing current scenario information}
 \keyword{datasets}

@@ -61,4 +61,6 @@ Other metrics: \code{\link{accu}}, \code{\link{acc}},
   \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
   \code{\link{comp_err}}
 }
+\concept{metrics}
+\concept{probabilities}
 \keyword{datasets}

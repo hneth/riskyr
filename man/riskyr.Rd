@@ -7,14 +7,15 @@
 with 21 entries on textual and numeric information on
 a riskyr scenario.}
 \usage{
-riskyr(scen.lbl = "", scen.lng = txt$scen.lng, scen.txt = txt$scen.txt,
-  popu.lbl = txt$popu.lbl, cond.lbl = txt$cond.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.lbl = txt$dec.lbl, dec.pos.lbl = txt$dec.pos.lbl,
-  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
-  fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl, prev = NA, sens = NA,
-  spec = NA, fart = NA, N = NA, hi = NA, mi = NA, fa = NA,
-  cr = NA, scen.src = txt$scen.src, scen.apa = txt$scen.apa)
+riskyr(scen.lbl = "", scen.lng = txt$scen.lng,
+  scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
+  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
+  cr.lbl = txt$cr.lbl, prev = NA, sens = NA, spec = NA,
+  fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
+  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 }
 \arguments{
 \item{scen.lbl}{The current scenario title (sometimes in Title Caps).}

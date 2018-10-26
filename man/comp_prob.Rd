@@ -4,8 +4,8 @@
 \alias{comp_prob}
 \title{Compute probabilities from (3 essential) probabilities.}
 \usage{
-comp_prob(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, tol = 0.01)
+comp_prob(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, tol = 0.01)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -258,3 +258,4 @@ Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_prob_freq}}, \code{\link{comp_sens}},
   \code{\link{comp_spec}}
 }
+\concept{functions computing probabilities}

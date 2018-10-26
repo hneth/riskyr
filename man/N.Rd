@@ -84,4 +84,5 @@ Other frequencies: \code{\link{cond.false}},
   \code{\link{dec.neg}}, \code{\link{dec.pos}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
+\concept{frequencies}
 \keyword{datasets}

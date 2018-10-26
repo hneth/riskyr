@@ -4,7 +4,8 @@
 \alias{is_extreme_prob_set}
 \title{Verify that a set of probabilities describes an extreme case.}
 \usage{
-is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
+is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA,
+  fart = NA)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -112,3 +113,4 @@ Other verification functions: \code{\link{is_complement}},
   \code{\link{is_valid_prob_set}},
   \code{\link{is_valid_prob_triple}}
 }
+\concept{verification functions}

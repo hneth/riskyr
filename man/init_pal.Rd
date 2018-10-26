@@ -8,9 +8,10 @@ init_pal(col.N = pal.def["N"], col.true = pal.def["true"],
   col.false = pal.def["false"], col.pos = pal.def["pos"],
   col.neg = pal.def["neg"], col.cor = pal.def["cor"],
   col.err = pal.def["err"], col.hi = pal.def["hi"],
-  col.mi = pal.def["mi"], col.fa = pal.def["fa"], col.cr = pal.def["cr"],
-  col.ppv = pal.def["ppv"], col.npv = pal.def["npv"],
-  col.txt = pal.def["txt"], col.brd = pal.def["brd"])
+  col.mi = pal.def["mi"], col.fa = pal.def["fa"],
+  col.cr = pal.def["cr"], col.ppv = pal.def["ppv"],
+  col.npv = pal.def["npv"], col.txt = pal.def["txt"],
+  col.brd = pal.def["brd"])
 }
 \arguments{
 \item{col.N}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}
@@ -83,3 +84,4 @@ pal <- init_pal(col.brd = NA)          # => remove a color
 Other functions initializing scenario information: \code{\link{init_num}},
   \code{\link{init_txt}}
 }
+\concept{functions initializing scenario information}

@@ -20,3 +20,4 @@ generic print function.}
 summary(scenarios$n4)
 
 }
+\concept{print functions}

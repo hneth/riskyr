@@ -93,4 +93,5 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{pal}}, \code{\link{prob}},
   \code{\link{txt_TF}}
 }
+\concept{lists containing current scenario information}
 \keyword{datasets}

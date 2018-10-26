@@ -97,3 +97,4 @@ txt <- init_txt(scen.lbl = "My scenario",
 Other functions initializing scenario information: \code{\link{init_num}},
   \code{\link{init_pal}}
 }
+\concept{functions initializing scenario information}

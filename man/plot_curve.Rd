@@ -5,10 +5,11 @@
 \title{Plot curves of selected values (e.g., PPV or NPV)
 as a function of prevalence.}
 \usage{
-plot_curve(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, what = c("prev", "PPV", "NPV"), what_col = pal, uc = 0,
-  show_points = TRUE, log_scale = FALSE, title_lbl = NA, lbl_txt = txt,
-  cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE, ...)
+plot_curve(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, what = c("prev", "PPV", "NPV"),
+  what_col = pal, uc = 0, show_points = TRUE, log_scale = FALSE,
+  title_lbl = NA, lbl_txt = txt, cex_lbl = 0.85, col_pal = pal,
+  mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -143,3 +144,4 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_tab}}, \code{\link{plot_tree}}
 }
+\concept{visualization functions}
