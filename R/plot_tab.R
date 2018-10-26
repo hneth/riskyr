@@ -307,7 +307,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
                      f_lbl = "def",      # freq label of 4 SDT & N cells: "default" vs. "abb", "nam", "num", "namnum". (Set to NA/NULL to hide freq labels).
                      f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
-                     f_lbl_sum = "def",  # freq label of summary cells (bottom row and right column)
+                     f_lbl_sum = f_lbl,  # freq label of summary cells (bottom row and right column)
                      f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
                      f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                      # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
