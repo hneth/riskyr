@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 09 20
+## 2018 10 26
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
@@ -142,9 +142,9 @@
 #' @seealso
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{is_prob}} verifies probability inputs;
 #' \code{\link{comp_prob}} computes derived probabilities;
-#' \code{\link{comp_freq}} computes natural frequencies from probabilities
+#' \code{\link{comp_freq}} computes natural frequencies from probabilities;
+#' \code{\link{is_prob}} verifies probability inputs.
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additional information.
@@ -788,9 +788,9 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #' @examples
 #' FDR <- .45     # => sets a false discovery rate (FDR) of 45%
 #' FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
-#' is_prob(FDR)   # => TRUE (as FDR is a probability)
+#'
 
-FDR <- 1 - PPV  # default of false discorvery rate (FDR)
+FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 
 
 ## (3) NPV: negative predictive value ------------
@@ -906,10 +906,8 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #'   the subset of \code{\link{dec.neg}} individuals
 #'   by condition (\code{FOR = mi/dec.neg = mi/(mi + cr)}).
 #'
-#'
 #'   \item Alternative names:
 #'   none?
-#'
 #'
 #'   \item Relationships:
 #'
@@ -925,14 +923,12 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #'
 #'   \code{mirt = p(decision = negative | condition = TRUE)}
 #'
-#'
 #'   \item In terms of frequencies,
 #'   \code{FOR} is the ratio of
 #'   \code{\link{mi}} divided by \code{\link{dec.neg}}
 #'   (i.e., \code{\link{mi} + \link{cr}}):
 #'
 #'   \code{NPV = mi/dec.neg = mi/(mi + cr)}
-#'
 #'
 #'   \item Dependencies:
 #'   \code{FOR} is a feature of a decision process
