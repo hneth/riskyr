@@ -121,7 +121,6 @@ is_prob <- function(prob, NA_warn = FALSE) {
 }
 
 ## Checks:
-
 # ## ways to succeed:
 # is_prob(1/2)                  # => TRUE
 # p.seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
@@ -137,7 +136,6 @@ is_prob <- function(prob, NA_warn = FALSE) {
 # is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
 # is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
 # is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
-
 
 
 ## is_perc: Verify that input is a percentage --------------------
