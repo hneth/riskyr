@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 09 04
+## 2018 10 26
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -489,7 +489,7 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #
 # test_fun(N = 100, blubb = 5, prev = 0.7)
 #
-## apparently, they behave well...
+## ok...
 
 ## plot.riskyr Documentation: ------
 
@@ -550,100 +550,131 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #' plot(s25, plot.type = "mosaic")
 #' plot(s25, plot.type = "plane", what = "NPV")
 #'
+#' plot(s25, plot.type = "area", by = "cddc")
+#' plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
 #'
 #' @family visualization functions
-#'
 #'
 #' @export
 
 ## plot.riskyr Definition: ------
 
-plot.riskyr <- function(x = NULL,
+plot.riskyr <- function(x = NULL,  # require riskyr scenario
                         plot.type = "network",  # default plot.type
-                        ...    # ellipsis for additional type and display parameters in plot_XXX().
+                        ...        # other type and display parameters in plot_XXX().
 ) {
 
-  ## Note: every function except for plot_icons currently lacks the ellipsis.
-  ## Therefore, these functions will throw an exception, if unnecessary parameters are passed.
+  ## Note: Most other functions (except for plot_icons) currently lack the ellipsis.
+  ## Therefore, these functions will throw an exception when unnecessary parameters are passed.
 
   ## Test plot.type argument:
   if (!plot.type %in% c("fnet", "network", "net",
+                        "area", "farea",
+                        "tab", "table", "ftab", "ctab",
                         "tree", "ftree",
                         "icons", "iconarray", "icon",
                         "mosaic", "mosaicplot",
                         "curve", "curves",
                         "plane", "planes", "cube")) {
-    stop("Invalid plot.type specified in plot.riskyr.")
+    stop("Unknown plot.type specified in plot.riskyr.")
   }
+
+  ## Increase robustness: ----------
+
+  plot.type <- tolower(plot.type)  # ensure lowercase
 
   ## Plotting functions: ----------
 
-  ## A. Frequency net (default):
+  ## frequency net/fnet (default):
   if ((plot.type == "fnet") || (plot.type == "network") || (plot.type == "net")) {
 
     plot_fnet(prev = x$prev,
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,
               N = x$N,
+              ## Options:
               title.lbl = x$scen.lbl,
               popu.lbl = x$popu.lbl,
               cond.true.lbl = x$cond.true.lbl,
               cond.false.lbl = x$cond.false.lbl,
               dec.pos.lbl = x$dec.pos.lbl,
               dec.neg.lbl = x$dec.neg.lbl,
-              hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl, fa.lbl = x$fa.lbl,
-              cr.lbl = x$cr.lbl,
+              hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl,
+              fa.lbl = x$fa.lbl, cr.lbl = x$cr.lbl,
               ...
     )
 
   } # if (plot.type == "network")
 
-  ## B. Frequency tree:
+  ## area / mosaic plot:
+  if ((plot.type == "area") || (plot.type == "farea")) {  # "mosaic"
+
+    plot_area(prev = x$prev,
+              sens = x$sens, mirt = NA,
+              spec = x$spec, fart = NA,
+              N = x$N,
+              ## Options:
+              # title_lbl = x$scen.lbl,
+              ...
+    )
+
+  } # if (plot.type == "area")
+
+  ## Contingency/frequency table / tab plot:
+  if ((plot.type == "tab") || (plot.type == "table") || (plot.type == "ftab") || (plot.type == "ctab")) {
+
+    plot_tab(prev = x$prev,
+             sens = x$sens, mirt = NA,
+             spec = x$spec, fart = NA,
+             N = x$N,
+             ## Options:
+             # title_lbl = x$scen.lbl,
+             ...
+    )
+
+  } # if (plot.type == "tab")
+
+  ## frequency tree:
   if ((plot.type == "tree") || (plot.type == "ftree")) {
 
     plot_tree(prev = x$prev,             # probabilities
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,  # was: num$fart,
               N = x$N,    # ONLY freq used (so far)
-              ## Labels:
+              ## Options:
               title.lbl = x$scen.lbl,     # custom text labels
               popu.lbl = x$popu.lbl,
-              ## Condition labels:
               cond.true.lbl = x$cond.true.lbl,
               cond.false.lbl = x$cond.false.lbl,
-              ## Decision labels:
               dec.pos.lbl = x$dec.pos.lbl,
               dec.neg.lbl = x$dec.neg.lbl,
-              ## SDT combinations:
-              hi.lbl = x$hi.lbl,
-              mi.lbl = x$mi.lbl,
-              fa.lbl = x$fa.lbl,
-              cr.lbl = x$cr.lbl,
+              hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl,
+              fa.lbl = x$fa.lbl, cr.lbl = x$cr.lbl,
               ...
     )
 
   } #  if (plot.type == "tree")
 
-  ## C. Mosaic plot:
+  ## Mosaic plot:
   if ((plot.type == "mosaic") || (plot.type == "mosaicplot")) {
     plot_mosaic(prev = x$prev,
                 sens = x$sens, mirt = NA,
                 spec = x$spec, fart = NA,
                 N = x$N,
+                ## Options:
                 title.lbl = x$scen.lbl,
                 ...)
 
   } # if (plot.type == "mosaicplot")
 
-  ## D. Icon array
+  ## Icon array
   if ((plot.type == "icons") || (plot.type == "iconarray") || (plot.type == "icon")) {
 
     plot_icons(prev = x$prev,             # probabilities
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,  # was: num$fart,
                N = x$N,    # ONLY freq used (so far)
-               ## Key options: ##
-               # labelling:
+               ## Options:
                title.lbl = x$scen.lbl,
                type.lbls = x[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
                ...
@@ -651,25 +682,26 @@ plot.riskyr <- function(x = NULL,
 
   } #  if (plot.type == "iconarray")
 
-  ## E. Curve of probabilities:
+  ## Curve of probabilities:
   if ((plot.type == "curve") || (plot.type == "curves")) {
 
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
+               ## Options:
                title.lbl = x$scen.lbl,
                ...
     )
   } # if (plot.type == "curve")
 
 
-  ## F. Plane/cube of probabilities:
+  ## Plane/cube of probabilities:
   if ((plot.type == "plane") || (plot.type == "planes") || (plot.type == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
-               ## Text:
+               ## Options:
                title.lbl = x$scen.lbl, # plot title label
                ...
     )
@@ -685,18 +717,20 @@ plot.riskyr <- function(x = NULL,
 
 ## (B) with scenarios from scenarios (defined BELOW):
 #
-# s25 <- scenarios$n25  # select scenario 25 from scenarios
+# s25 <- scenarios$n25  # select Scenario 25 from scenarios
 #
 # plot(s25)  # => default plot (fnet)
 # plot(s25, plot.type = "fnet")  # => network diagram (same as default)
 # plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-# plot(s25, plot.type = "curve", what = "all")
 # plot(s25, plot.type = "icons")
 # plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameters.
 # plot(s25, plot.type = "mosaic")
-# plot(s25, plot.type = "plane", what = "NPV")
+# plot(s25, plot.type = "curve", what = "all")
+# plot(s25, plot.type = "plane", what = "npv")
 # # plot(s25, plot.type = "wetwork")
-
+## Newer plots:
+# plot(s25, plot.type = "area", by = "cddc")
+# plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
 
 ## 2. summary.riskyr function: ------------------
 

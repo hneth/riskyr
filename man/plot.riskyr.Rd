@@ -64,6 +64,8 @@ plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional paramet
 plot(s25, plot.type = "mosaic")
 plot(s25, plot.type = "plane", what = "NPV")
 
+plot(s25, plot.type = "area", by = "cddc")
+plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
 
 }
 \seealso{
