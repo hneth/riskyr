@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2018 10 25
+## 2018 10 26
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -1270,7 +1270,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       fbox_r3 <- list(box_cond.true, box_cond.false)  # as list of boxes
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
+                     cex = cex_lbl, lwd = f_lwd)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1290,7 +1291,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       fbox_r3 <- list(box_dec.pos, box_dec.neg)  # as list of boxes
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
+                     cex = cex_lbl, lwd = f_lwd)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1309,7 +1311,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       fbox_r3 <- list(box_dec.cor, box_dec.err)  # as list of boxes
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
+                     cex = cex_lbl, lwd = f_lwd)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1338,7 +1341,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       fbox_c3 <- list(box_cond.true, box_cond.false)  # as list of boxes
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
+                     cex = cex_lbl, lwd = f_lwd)  # No ...!
 
 
     } # if (brd_w > 0) etc.
@@ -1359,7 +1363,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       fbox_c3 <- list(box_dec.pos, box_dec.neg)  # as list of boxes
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
+                     cex = cex_lbl, lwd = f_lwd)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1379,7 +1384,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       fbox_c3 <- list(box_dec.cor, box_dec.err)  # as list of boxes
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                     lbl_type = f_lbl_sum, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
+                     cex = cex_lbl, lwd = f_lwd)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1395,7 +1401,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
   fbox_N <- list(box_N)  # as list of boxes
   plot_fbox_list(fbox_N, # plot only 1 box (in row 3, col 3):
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                 lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                 lbl_type = f_lbl, lbl_sep = f_lbl_sep,
+                 cex = cex_lbl, lwd = f_lwd)  # No ...!
 
 
   ##   (d) Plot key probabilities (as lines/arrows): ----------
@@ -1790,10 +1797,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
     } # if (brd_w > 0)
 
     # 2 sub-group labels:
-    plot_freq_label("cond.true", (cond.true_x * scale_x), (n_rows + h_gap + h_shift), lbl_type = f_lbl_hd ,
+    plot_freq_label("cond.true", (cond.true_x * scale_x), (n_rows + h_gap + h_shift),
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("cond.false", (cond.false_x * scale_x), (n_rows + h_gap + h_shift), lbl_type = f_lbl_hd ,
+    plot_freq_label("cond.false", (cond.false_x * scale_x), (n_rows + h_gap + h_shift),
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
@@ -1811,10 +1820,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
     } # if (brd_w > 0)
 
     # 2 sub-group labels:
-    plot_freq_label("dec.pos", (dec.pos_x * scale_x), (n_rows + h_gap + h_shift), lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.pos", (dec.pos_x * scale_x), (n_rows + h_gap + h_shift),
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.neg", (dec.neg_x * scale_x), (n_rows + h_gap + h_shift), lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.neg", (dec.neg_x * scale_x), (n_rows + h_gap + h_shift),
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
@@ -1832,10 +1843,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("dec.cor", (dec.cor_x * scale_x), (n_rows + h_gap + h_shift), lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.cor", (dec.cor_x * scale_x), (n_rows + h_gap + h_shift),
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.err", (dec.err_x * scale_x), (n_rows + h_gap + h_shift), lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.err", (dec.err_x * scale_x), (n_rows + h_gap + h_shift),
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
@@ -1862,10 +1875,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("cond.true",  ((0 - v_shift) * scale_x), cond.true_y,  lbl_type = f_lbl_hd ,
+    plot_freq_label("cond.true",  ((0 - v_shift) * scale_x), cond.true_y,
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("cond.false", ((0 - v_shift) * scale_x), cond.false_y, lbl_type = f_lbl_hd ,
+    plot_freq_label("cond.false", ((0 - v_shift) * scale_x), cond.false_y,
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
@@ -1883,10 +1898,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("dec.pos", ((0 - v_shift) * scale_x), dec.pos_y, lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.pos", ((0 - v_shift) * scale_x), dec.pos_y,
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.neg", ((0 - v_shift) * scale_x), dec.neg_y, lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.neg", ((0 - v_shift) * scale_x), dec.neg_y,
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
 
@@ -1904,10 +1921,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
     } # if (brd_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("dec.cor", ((0 - v_shift) * scale_x), dec.cor_y, lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.cor", ((0 - v_shift) * scale_x), dec.cor_y,
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.err", ((0 - v_shift) * scale_x), dec.err_y, lbl_type = f_lbl_hd ,
+    plot_freq_label("dec.err", ((0 - v_shift) * scale_x), dec.err_y,
+                    lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, cur_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
 

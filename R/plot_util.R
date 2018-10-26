@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 10 22
+## 2018 10 26
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1244,7 +1244,10 @@ comp_freq_fbox_list <- function(fboxes, ...){
 
 ## plot_fbox_list: Plot a list of fboxes in some order --------
 
-plot_fbox_list <- function(fboxes, cur_freq = freq, ...) {
+plot_fbox_list <- function(fboxes,
+                           cur_freq = freq, cur_txt = txt, cur_pal = pal,  # pass current settings
+                           scale_lx = 1, lbl_type = "default", lbl_sep = " = ",
+                           ...) {
   # Plot a list of fboxes in some order:
 
   if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
@@ -1273,14 +1276,21 @@ plot_fbox_list <- function(fboxes, cur_freq = freq, ...) {
     # plot(fboxes[[ix]], ...) # plot box ix
     # fboxes <- fboxes[-ix]   # remove box ix from list
 
-    ## (b) with lapply:
-    lapply(X = fboxes[decr_order], FUN = plot, cur_freq = cur_freq, ...)    # plot all in dec_order
+    ## (b) with lapply:  plot all fboxes in dec_order
+    lapply(X = fboxes[decr_order], FUN = plot,
+           cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+           scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
+           ...)
 
   } # if/while ...
 
   if (is.list(fboxes) && is.list(fboxes[[1]]) == FALSE) { # 1st element is NO list/box (i.e., fboxes is only 1 fbox):
 
-    plot(fboxes, ...)
+    # (C) plot fboxes (as only 1 box):
+    plot(fboxes,
+         cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+         scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
+         ...)
 
   }
 
