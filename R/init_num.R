@@ -6,7 +6,7 @@
 
 ## Table of current terminology: -----------------
 
-# Probabilities (10+):              Frequencies (11):
+# Probabilities (13+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
@@ -36,10 +36,16 @@
 
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
-# acc  = overall accuracy (proportion correct)
+# acc  = overall accuracy (probability/proportion correct decision)
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+
+# Other measures of accuracy (in accu):
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
+
+# err = error rate = (1 - acc)
 
 
 ## Data flow: Two basic directions: --------------
