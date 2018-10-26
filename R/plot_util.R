@@ -2196,7 +2196,6 @@ factors_min_diff <- function (n) {
 }
 
 
-
 ## box_text: Add text with background box to a plot ------
 ## from https://stackoverflow.com/questions/45366243/text-labels-with-background-colour-in-r
 
