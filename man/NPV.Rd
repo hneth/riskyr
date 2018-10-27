@@ -73,6 +73,7 @@ However, due to being a conditional probability,
 NPV <- .95     # => sets a negative predictive value of 95\%
 NPV <- 95/100  # => (condition = FALSE) for 95 out of 100 people with (decision = negative)
 is_prob(NPV)   # => TRUE (as NPV is a probability)
+
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
