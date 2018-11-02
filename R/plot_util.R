@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 10 26
+## 2018 11 02
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -920,7 +920,16 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       ## Shading options:
                       density = NULL,  # density of shading lines (per in)
                       angle = 45,      # angle of shading lines
-                      ...  # other graphical parameters: lwd, cex, adj, ...
+                      ## Inputs: freq, text and color:
+                      # cur_freq = freq,   # current freq
+                      # cur_txt = txt,     # current txt
+                      # cur_pal = pal,     # current color palette
+                      ##
+                      # ...  # other graphical parameters: lwd, cex, font, adj, ...
+                      lty = 1,
+                      lwd = 1,
+                      cex = 1,
+                      font = 1
 ) {
 
   ## (0) Parameters (currently fixed):
@@ -938,7 +947,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
        border = col_brd,
        density = density,
        angle = angle,
-       ...)
+       # ...
+       lty = lty,
+       lwd = lwd)
 
   ## (2) Print optional text labels:
 
@@ -949,7 +960,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          pos = NULL,    # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col_txt,
-         ...)
+         # ...
+         cex = cex,
+         font = font)
 
   }
 
@@ -960,7 +973,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          pos = 3,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col_txt,
-         ...)
+         # ...
+         cex = cex,
+         font = font)
 
   }
 
@@ -971,13 +986,14 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          pos = 1,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col_txt,
-         ...)
+         # ...
+         cex = cex,
+         font = font)
   }
 
 }
 
 ## Check:
-#
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
 #     xlim = c(0, 10), ylim = c(0, 6))
 #
@@ -992,9 +1008,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 #           col_fill = "gold", col_brd = "steelblue", lwd = 3)  # color options
 #
 # plot_cbox(9, 5, 1, 1, lbl = "Label", lbl_top = "Title:", lbl_bot = "Caption.",
-#           cex = .75, font = 1,                                # text options
-#           col_fill = "firebrick", col_brd = "firebrick",      # color options
-#           lwd = 1, density = 15)                              # line options
+#           cex = .75, font = 2, col_txt = "forestgreen",   # text options
+#           col_fill = "firebrick", col_brd = "firebrick",  # color options
+#           lwd = .5, density = 15)                         # line options
 
 
 ## plot_fbox: Plot a known frequency (freq) as a box ----------
@@ -1016,10 +1032,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       cur_freq = freq,   # current freq
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
-                      # col.fill = col,    # if missing, color of fname freq is derived below
-                      # col.brd = pal["brd"],
-                      # col.txt = pal["txt"],
-                      ...  # other graphical parameters: lwd, cex, pos, ...
+                      ##
+                      ...  # other graphical parameters: lwd, cex, font, adj, ...
 ) {
 
   # Initialize:
@@ -1071,6 +1085,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             lbl = f_lbl,
             lbl_bot = bot_lbl,
             col_fill = f_col,
+            # col_brd = cur_pal["brd"],       # default border color
+            # col_txt = cur_pal["txt"],       # default label color
             ...)
 
 }
@@ -1100,7 +1116,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
 # plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
 # plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, lbl_type = "namnum")
-# plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "blue", col_brd = "red3", cex = .6, lwd = 3)
+# plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "yellow", col_brd = "red3", cex = .6, lwd = 3)
 #
 # # Local freq object:
 # f2 <- comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100) # create f2
@@ -1122,7 +1138,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 #
 # # Arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
-# plot_fbox(fname = "other_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2)
+# plot_fbox(fname = "some_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2, lwd = 3, adj = .1)
 
 
 
@@ -1136,7 +1152,7 @@ comp_freq_fbox <- function(fbox,
                            cur_freq = freq  #,
                            # cur_txt = txt, # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
                            # cur_pal = pal  # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
-                           ) {
+) {
 
   f_val  <- NA
   fname <- NA
@@ -1248,7 +1264,8 @@ comp_freq_fbox_list <- function(fboxes, ...){
 plot_fbox_list <- function(fboxes,
                            cur_freq = freq, # cur_txt = txt, cur_pal = pal,  # pass current settings
                            # scale_lx = 1, lbl_type = "default", lbl_sep = " = ",
-                           ...) {
+                           ...
+) {
   # Plot a list of fboxes in some order:
 
   if ( is.list(fboxes) && (length(fboxes) > 0) && is.list(fboxes[[1]]) ) { # length(fboxes[[1]] == 5) ) { # fboxes is a list of 1+ fboxes:
@@ -2058,8 +2075,9 @@ plot_mar <- function(show_freq = TRUE,
                      note = "",
                      cur_freq = freq,
                      cur_prob = prob,
-                     # cur_txt = txt,  # currently not used (consider using for make_freq_lbl).
-                     ...) {
+                     cur_txt = txt  # currently not used (consider using for make_freq_lbl).
+                     #...
+) {
 
   ## (0) Preparations: ------
 
@@ -2068,7 +2086,7 @@ plot_mar <- function(show_freq = TRUE,
   on.exit(par(opar))
 
   ## Plot on existing plot:
-  par(new = TRUE)  # TRUE ... adds to an existing plot; FALSE ... starts a new plot.
+  par(new = TRUE)  # TRUE: adds to an existing plot; FALSE: starts a new plot.
 
   ## Define margin areas:
   n_lines_mar <- 3
@@ -2136,7 +2154,7 @@ plot_mar <- function(show_freq = TRUE,
 
     mtext(accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print accuracy label
 
-  } # if (show_accu) ...
+  } # if (show_accu)
 
   ## B2. Decision / p(dec) label:
   if (show_dec) {
