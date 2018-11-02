@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2018 10 26
+## 2018 11 02
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -866,9 +866,9 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
       # x-coordinates:
       hi_x <- hi_lx/2
-      mi_x <- hi_lx + mi_lx/2 + v_gap
+      mi_x <- hi_lx + mi_lx/2  # + v_gap
       fa_x <- fa_lx/2
-      cr_x <- fa_lx + cr_lx/2 + v_gap
+      cr_x <- fa_lx + cr_lx/2  # + v_gap
 
       # y-coordinates (left):
       fa_y <- r2_y  # fa_ly/2
@@ -929,8 +929,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
         # x-coordinates:
         hi_x <- hi_lx/2
         fa_x <- fa_lx/2
-        mi_x <- hi_lx + mi_lx/2 + v_gap
-        cr_x <- fa_lx + cr_lx/2 + v_gap
+        mi_x <- hi_lx + mi_lx/2  # + v_gap
+        cr_x <- fa_lx + cr_lx/2  # + v_gap
 
         # y-coordinates (left):
         fa_y <- r2_y  # fa_ly/2
@@ -968,8 +968,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
         # x-coordinates:
         hi_x <- hi_lx/2
         fa_x <- fa_lx/2
-        cr_x <- hi_lx + cr_lx/2 + v_gap
-        mi_x <- fa_lx + mi_lx/2 + v_gap
+        cr_x <- hi_lx + cr_lx/2  # + v_gap
+        mi_x <- fa_lx + mi_lx/2  # + v_gap
 
         # y-coordinates (left):
         fa_y <- r2_y  # fa_ly/2
@@ -1015,8 +1015,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
       # x-coordinates:
       hi_x <- hi_lx/2
       cr_x <- cr_lx/2
-      mi_x <- hi_lx + mi_lx/2 + v_gap
-      fa_x <- cr_lx + fa_lx/2 + v_gap
+      mi_x <- hi_lx + mi_lx/2  # + v_gap
+      fa_x <- cr_lx + fa_lx/2  # + v_gap
 
       # y-coordinates (left):
       cr_y <- r2_y  # cr_ly/2
@@ -1077,8 +1077,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
         # x-coordinates:
         hi_x <- hi_lx/2
         cr_x <- cr_lx/2
-        fa_x <- hi_lx + fa_lx/2 + v_gap
-        mi_x <- cr_lx + mi_lx/2 + v_gap
+        fa_x <- hi_lx + fa_lx/2  # + v_gap
+        mi_x <- cr_lx + mi_lx/2  # + v_gap
 
         # y-coordinates (left):
         cr_y <- r2_y  # cr_ly/2
@@ -1114,9 +1114,9 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
         # x-coordinates:
         hi_x <- hi_lx/2
-        mi_x <- hi_lx + mi_lx/2 + v_gap
+        mi_x <- hi_lx + mi_lx/2  # + v_gap
         cr_x <- cr_lx/2
-        fa_x <- cr_lx + fa_lx/2 + v_gap
+        fa_x <- cr_lx + fa_lx/2  # + v_gap
 
         # y-coordinates (left):
         cr_y <- r2_y  # cr_ly/2
