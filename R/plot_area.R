@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 10 26
+## 2018 11 02
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
