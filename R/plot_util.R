@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 02
+## 2018 11 03
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1033,7 +1033,11 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
                       ##
-                      ...  # other graphical parameters: lwd, cex, font, adj, ...
+                      # ...  # other graphical parameters: lwd, cex, font, adj, ...
+                      lty = 1,
+                      lwd = 1,
+                      cex = 1,
+                      font = 1
 ) {
 
   # Initialize:
@@ -1081,17 +1085,21 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             y = y,
             lx = (lx * scale_lx),
             ly = ly,
-            # lbl = paste0(fname, " = ", f_val),
-            lbl = f_lbl,
+            lbl = f_lbl,  # lbl = paste0(fname, " = ", f_val),
             lbl_bot = bot_lbl,
             col_fill = f_col,
             # col_brd = cur_pal["brd"],       # default border color
             # col_txt = cur_pal["txt"],       # default label color
-            ...)
+            # ...
+            lty = lty,
+            lwd = lwd,
+            cex = cex,
+            font = font
+            )
 
 }
 
-# ## Check:
+### Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
 #        xlim = c(0, 10), ylim = c(0, 10))  # empty canvas
 # # Aspect ratio of current plot:
@@ -1138,7 +1146,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 #
 # # Arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
-# plot_fbox(fname = "some_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2, lwd = 3, adj = .1)
+# plot_fbox(fname = "some_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2, lwd = 3)
 
 
 
@@ -1296,7 +1304,7 @@ plot_fbox_list <- function(fboxes,
 
     ## (b) with lapply:  plot all fboxes in dec_order
     lapply(X = fboxes[decr_order], FUN = plot,
-           cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+           # cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
            # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
            ...)
 
@@ -1306,7 +1314,7 @@ plot_fbox_list <- function(fboxes,
 
     # (C) plot fboxes (as only 1 box):
     plot(fboxes,
-         cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+         # cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
          # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
          ...)
 
