@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2018 11 02
+## 2018 11 03
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -659,13 +659,13 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## (+) Mark plot areas: ------------
 
-  # (A) Mark plot area:
-  col.plot <- "firebrick3"
+  ## (A) Mark plot area:
+  # col.plot <- "firebrick3"
   # box("plot", col = col.plot)
   # text(x_max/2, y_max/2, "Plot area", col = col.plot, cex = 1, font = 2)  ## plot text
 
-  # (B) Mark margin area:
-  mar.col <- "forestgreen"
+  ## (B) Mark margin area:
+  # mar.col <- "forestgreen"
   # box("figure", col = mar.col)
   # mtext("Margin area", side = 3, line = 2, cex = 1, font = 2, col = mar.col)
   # mtext("side 1, line 3, adj 0", side = 1, line = 3, adj = 0.0, cex = cex_lbl, col = mar.col)
@@ -673,8 +673,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
   # mtext("side 3, line 0, adj 0", side = 3, line = 0, adj = 0.0, cex = cex_lbl, col = mar.col)
   # mtext("side 3, line 0, adj 1", side = 3, line = 0, adj = 1.0, cex = cex_lbl, col = mar.col)
 
-  # (C) Mark outer margin area (oma):
-  oma.col <- "steelblue4"
+  ## (C) Mark outer margin area (oma):
+  # oma.col <- "steelblue4"
   # box("outer", col = oma.col)
   # mtext("Outer margin area", side = 1, line = 1, cex = 1, font = 2, col = oma.col, outer = TRUE)
   # mtext("side 1, line 0, adj 0", side = 1, line = 0, adj = 0.0, cex = cex_lbl, col = oma.col, outer = TRUE)
@@ -682,10 +682,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## (3) Draw plot points: ----------
 
-  # # Grid of points:
-  step_size <- 1
-  grid_x <- rep(seq(0, n_cols, by = step_size), each = (n_rows + 1))   # x/horizontal
-  grid_y <- rep(seq(0, n_rows, by = step_size), times = (n_cols + 1))  # y/vertical
+  ## Grid of points:
+  # step_size <- 1
+  # grid_x <- rep(seq(0, n_cols, by = step_size), each = (n_rows + 1))   # x/horizontal
+  # grid_y <- rep(seq(0, n_rows, by = step_size), times = (n_cols + 1))  # y/vertical
   # points(grid_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)   # grid points
 
   # points(grid_x * scale_x, grid_y, pch = 3, col = grey(.66, .50), cex = 3/4)  # grid points (scaled)
@@ -787,8 +787,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
         # x-coordinates:
         hi_x <- hi_lx/2
         mi_x <- mi_lx/2
-        fa_x <- hi_lx + fa_lx/2 + v_gap
-        cr_x <- mi_lx + cr_lx/2 + v_gap
+        fa_x <- hi_lx + fa_lx/2  # + v_gap
+        cr_x <- mi_lx + cr_lx/2  # + v_gap
 
         # y-coordinates (left):
         mi_y <- r2_y  # mi_ly/2
@@ -825,8 +825,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
         # x-coordinates:
         hi_x <- hi_lx/2
         mi_x <- mi_lx/2
-        fa_x <- mi_lx + fa_lx/2 + v_gap
-        cr_x <- hi_lx + cr_lx/2 + v_gap
+        fa_x <- mi_lx + fa_lx/2  # + v_gap
+        cr_x <- hi_lx + cr_lx/2  # + v_gap
 
         # y-coordinates (left):
         mi_y <- r2_y  # mi_ly/2
