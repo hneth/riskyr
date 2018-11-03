@@ -9,7 +9,7 @@ plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   p_split = "v", area = "sq", scale = "p", round = TRUE,
   brd_w = 0.25, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
   f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
-  arr_c = -3, col_p = c(grey(0.15, 0.99), "cornsilk", "whitesmoke"),
+  arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
   brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
@@ -143,7 +143,8 @@ with the following options:
 Default: \code{arr_c = -3} (points at both ends).}
 
 \item{col_p}{Colors of probability links (as vector of 3 colors).
-Default: \code{col_p = c(grey(.15, .99), "cornsilk", "whitesmoke")}.}
+Default: \code{col_p = c(grey(.15, .99), "yellow", "yellow")}.
+(Also consider: "black", "cornsilk", "whitesmoke").}
 
 \item{brd_dis}{Distance of probability links from area border
 (as proportion of area width).

@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 02
+## 2018 11 03
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -142,7 +142,7 @@
 #'   \item \code{NA}: no link (same for \code{p_lbl = NULL}, default).
 #'   }
 #'
-#' @param arr_c Arrow code for symbols at ends of probability links
+#' @param arr_c  Arrow code for symbols at ends of probability links
 #' (as a numeric value \code{-3 <= arr_c <= +6}),
 #' with the following options:
 #'   \itemize{
@@ -153,31 +153,32 @@
 #' }
 #' Default: \code{arr_c = -3} (points at both ends).
 #'
-#' @param col_p Colors of probability links (as vector of 3 colors).
-#' Default: \code{col_p = c(grey(.15, .99), "cornsilk", "whitesmoke")}.
+#' @param col_p  Colors of probability links (as vector of 3 colors).
+#' Default: \code{col_p = c(grey(.15, .99), "yellow", "yellow")}.
+#' (Also consider: "black", "cornsilk", "whitesmoke").
 #'
-#' @param brd_dis Distance of probability links from area border
+#' @param brd_dis  Distance of probability links from area border
 #' (as proportion of area width).
 #' Default: \code{brd_dis = .06}.
 #' Note: Adjust to avoid overlapping labels.
 #' Negative values show links outside of main area.
 #'
-#' @param title_lbl Text label for current plot title.
+#' @param title_lbl  Text label for current plot title.
 #' Default: \code{title_lbl = txt$scen.lbl}.
 #'
-#' @param lbl_txt Default label set for text elements.
+#' @param lbl_txt  Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param cex_lbl Scaling factor for text labels (frequencies and headers).
+#' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
 #'
-#' @param cex_p_lbl Scaling factor for text labels (probabilities).
+#' @param cex_p_lbl  Scaling factor for text labels (probabilities).
 #' Default: \code{cex_p_lbl = cex_lbl - .05}.
 #'
-#' @param col_pal Color palette.
+#' @param col_pal  Color palette.
 #' Default: \code{col_pal = \link{pal}}.
 #'
-#' @param mar_notes Boolean option for showing margin notes.
+#' @param mar_notes  Boolean option for showing margin notes.
 #' Default: \code{mar_notes = TRUE}.
 #'
 #'
@@ -329,7 +330,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       # p_lwd,            # lwd of prob links: set to default = 1 (currently not used)
                       # p_lty,            # lty of prob links: set to default = 1 (currently not used)
                       arr_c = -3,         # arrow code (-3 to +6): 0: no arrow, 1--3: V-shape, 4--6: T-shape, -1 to -3: point at ends.
-                      col_p = c(grey(.15, .99), "cornsilk", "whitesmoke"),  # colors for prob-links: use 1-3 bright colors (visible on SDT rectangles).
+                      col_p = c(grey(.15, .99), "yellow", "yellow"),  # colors for prob-links: use 1-3 bright colors (visible on SDT rectangles). WAS: "black", "cornsilk", "whitesmoke"
                       brd_dis = .06,      # distance of prob links from border. (Adjust to avoid overlapping labels).
 
                       ## Text and color:
