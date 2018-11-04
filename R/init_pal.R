@@ -303,7 +303,6 @@ init_pal <- function(col.N = pal.def["N"],          # population N
 # pal <- init_pal(col.N = "steelblue4")  # => change a color (stored in pal)
 # pal <- init_pal(col.brd = NA)          # => remove a color
 
-
 ## (C) Initialize vector pal with current color information: ----------
 
 ## pal: Documentation ------
@@ -397,6 +396,36 @@ pal <- init_pal()  ## apply
 # pal
 # length(pal) # => 15 colors
 # pal[2] == pal["true"]
+
+
+## pal_org: Keep a copy of pal in pal_org: --------
+
+#' Original color palette.
+#'
+#' \code{pal_org} is a copy of \code{\link{pal}}
+#' (to retrieve original set of colors in case
+#' \code{\link{pal}} is changed).
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_org} to re-set default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_org        # shows all current color names and values
+#' pal_org["hi"]  # shows the current color for hits (true positives)
+#' pal_org["hi"] <- "gold" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_org <- pal
+
 
 ## pal_bw: Define a black-and-white (b/w) palette: --------
 
