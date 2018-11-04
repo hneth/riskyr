@@ -1956,7 +1956,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Confusion table (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/etc.
+    type_lbl <- paste0("Confusion table (by ", as.character(by), ")")  # plot name: Table/Contingency table/etc.
   }
 
   # Compose label:
