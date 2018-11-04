@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2018 11 03
+## 2018 11 04
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -378,7 +378,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   if ( is.null(by) || is.na(by) )  { by <- "cddc" }        # use default
   if (by == "any" || by == "all" || by == "default" || by == "def" || by == "no" ) { by <- "cddc" }
 
-  # use input:
+  # use by input:
   by_top <- substr(by, 1, 2)  # top perspective (row 2): by = "cd" "dc" "ac"
   by_bot <- substr(by, 3, 4)  # bottom perspective (row 4): by = "cd" "dc" "ac"
 
@@ -417,7 +417,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   if ( area == "square" || area == "mosaic" ) { area <- "sq" }
   # print(paste0("area = ", area))
 
-  # use input:
+  # use area input:
   if (area == "sq") {
 
     plot_xy <- dev.size("in")  # use par("pin") OR dev.size("in") to determine aspect ratio
@@ -441,7 +441,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   v_gap_def <- .05
   h_gap_def <- .06
 
-  # use input:
+  # use gap input:
   v_gap <- gaps[1]  # default: v_gap = NA
   h_gap <- gaps[2]  # default: h_gap = NA
 
@@ -465,12 +465,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
   if (tolower(scale) == "freq" || tolower(scale) == "f") { scale <- "f" }
   if (tolower(scale) == "prob" || tolower(scale) == "p") { scale <- "p" }
 
-  # use input:
+  # use scale input:
   if (scale == "f") {
 
-    # (A) Use scale for area dimensions:
-    # Recompute specific probabilities from current (4 essential) freq
-    # which may be rounded or not rounded:
+    ## (A) Use scale for area dimensions:
+    ## Recompute specific probabilities from current (4 essential) freq
+    ## which may be rounded or not rounded:
 
     prob_from_freq <- comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
 
