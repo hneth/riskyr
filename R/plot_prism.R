@@ -316,7 +316,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        ## Plot options:
                        by = "cddc",        # 2 perspectives (rows 2 and 4): each by = "cd"/"dc"/"ac"  (default: "cddc")
                        area = "no",        # "no" (default = NA, NULL, "fix") vs: "hr", "sq"
-                       scale = "f",        # "f" (default) vs. "p"
+                       scale = "p",        # "f" vs. "p" (default)
                        round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                        ## Freq boxes:
@@ -386,7 +386,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   if ( is.null(by) || is.na(by) )  { by <- "cddc" }        # use default
   if (by == "any" || by == "all" || by == "default" || by == "def" || by == "no" ) { by <- "cddc" }
 
-  # use input:
+  # use by input:
   by_top <- substr(by, 1, 2)  # top perspective (row 2): by = "cd" "dc" "ac"
   by_bot <- substr(by, 3, 4)  # bottom perspective (row 4): by = "cd" "dc" "ac"
 
@@ -427,8 +427,27 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   # scale:
   if ( is.null(scale) || is.na(scale)  ) { scale <- "f" }  # default
-  if (tolower(scale) == "freq" || tolower(scale) == "f") { scale <- "f" }
-  if (tolower(scale) == "prob" || tolower(scale) == "p") { scale <- "p" }
+  if ( !is.null(scale) && !is.na(scale) ) { scale <- tolower(scale) }  # scale in lowercase
+  if (scale == "freq" || scale == "f") { scale <- "f" }
+  if (scale == "prob" || scale == "p") { scale <- "p" }
+
+  # use scale input:
+  if (scale == "f") {
+
+    ## (A) Use scale for area dimensions:
+    ## Recompute specific probabilities from current (4 essential) freq
+    ## which may be rounded or not rounded:
+    prob_from_freq <- comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
+
+    ## Adjusting width of boxes in comp_lx_fbox (by scale argument) below!
+
+    ## (B) Use scale for area dimensions AND prob values:
+    ## A more radical type of scale (i.e., re-defining prob based on current freq)
+    ## also changes the prob values displayed in links and margins:
+    prob <- prob_from_freq  # use re-computed values for all prob values!
+
+  }
+
 
   # f_lwd & lty:
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {

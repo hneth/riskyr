@@ -6,7 +6,7 @@
 \usage{
 plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  area = "no", scale = "f", round = TRUE, f_lbl = "def",
+  area = "no", scale = "p", round = TRUE, f_lbl = "def",
   f_lbl_sep = " = ", f_lwd = 0, p_lbl = "mix", arr_c = NA,
   title_lbl = txt$scen.lbl, lbl_txt = txt, cex_lbl = 0.9,
   cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
