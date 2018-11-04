@@ -74,18 +74,21 @@ print.box <- function(obj) {
   cat("height:  ly =", obj$ly, "\n")
 }
 
-plot.box <- function(obj, ...) {
+plot.box <- function(obj,
+                     cur_freq = freq, cur_txt = txt, cur_pal = pal,  # current settings
+                     ...) {
 
   ## Call plot_fbox helper function:
   plot_fbox(fname = obj$name,
             x  = obj$x,   y = obj$y,
             lx = obj$lx, ly = obj$ly,
+            cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current (cur_) settings!
             ...)
 
 }
 
 # ## Check:
-# # Create some box objects:
+# ## Create some box objects:
 # box_b1 <- make_box("1st_box", 3, 9, 2, 2)  # 1st box with an arbitrary label
 # box_b2 <- make_box("2nd_box", 3, 6, 2, 2)  # 2nd box with an arbitrary label
 # box_hi <- make_box("hi", 3, 3, 2, 2)       # box with known freq label
@@ -925,7 +928,7 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       # cur_txt = txt,     # current txt
                       # cur_pal = pal,     # current color palette
                       ##
-                      # ...  # other graphical parameters: lwd, cex, font, adj, ...
+                      ## Other graphical parameters:
                       lty = 1,
                       lwd = 1,
                       cex = 1,
@@ -947,7 +950,6 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
        border = col_brd,
        density = density,
        angle = angle,
-       # ...
        lty = lty,
        lwd = lwd)
 
@@ -960,7 +962,6 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          pos = NULL,    # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col_txt,
-         # ...
          cex = cex,
          font = font)
 
@@ -973,7 +974,6 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          pos = 3,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col_txt,
-         # ...
          cex = cex,
          font = font)
 
@@ -986,7 +986,6 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
          pos = 1,       # NULL...center (default), 1...below, 3...above
          # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
          col = col_txt,
-         # ...
          cex = cex,
          font = font)
   }
@@ -1032,8 +1031,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       cur_freq = freq,   # current freq
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
-                      ##
-                      # ...  # other graphical parameters: lwd, cex, font, adj, ...
+                      ## Other graphical parameters:
+                      col = NA,
                       lty = 1,
                       lwd = 1,
                       cex = 1,
@@ -1049,11 +1048,11 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
   ## (1) Color of box:
   if ((length(cur_pal) > 1) || is.na(cur_pal) || missing(cur_pal)) {
-    f_col <- comp_freq_col(fname = fname, cur_pal = cur_pal)  # determine default f_col corresponding to fname in cur_pal
+    f_col <- comp_freq_col(fname = fname, cur_pal = cur_pal, col = col)  # determine f_col corresponding to fname in cur_pal
   } else if ((length(cur_pal) == 1)) {
     f_col <- cur_pal  # assuming that cur_pal denotes a color
   } else {
-    f_col <- grey(.95, .50)  # default fill color
+    f_col <- grey(.95, .50)  # use some default color (e.g., "white")
   }
   # print(f_col)
 
@@ -1147,7 +1146,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # # Arbitrary boxes (with unknown freq): ###
 # plot_fbox(fname = "unknown_freq", 9, 2, 1, 2/3)  # unknown fname (freq) with defaults
 # plot_fbox(fname = "some_freq", 9, 1, 1, 2/3, cur_pal = "gold", cex = .7, font = 2, lwd = 3)
-
+# plot_fbox(fname = "some_freq", 9, 4, 1, 2/3, cur_pal = NA, col = "gold", cex = .7, font = 2, lwd = 3)
 
 
 
@@ -1158,8 +1157,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 
 comp_freq_fbox <- function(fbox,
                            cur_freq = freq  #,
-                           # cur_txt = txt, # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
-                           # cur_pal = pal  # Note: Not used here, but needed to pass argument (in plot_fbox_list below)!
+                           # cur_txt = txt, # Note: Not used here.
+                           # cur_pal = pal  # Note: Not used here.
 ) {
 
   f_val  <- NA
@@ -1270,7 +1269,7 @@ comp_freq_fbox_list <- function(fboxes, ...){
 ## plot_fbox_list: Plot a list of fboxes in some order --------
 
 plot_fbox_list <- function(fboxes,
-                           cur_freq = freq, # cur_txt = txt, cur_pal = pal,  # pass current settings
+                           cur_freq = freq, cur_txt = txt, cur_pal = pal,  # current settings
                            # scale_lx = 1, lbl_type = "default", lbl_sep = " = ",
                            ...
 ) {
@@ -1304,7 +1303,7 @@ plot_fbox_list <- function(fboxes,
 
     ## (b) with lapply:  plot all fboxes in dec_order
     lapply(X = fboxes[decr_order], FUN = plot,
-           cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+           cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current (cur_) settings!
            # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
            ...)
 
@@ -1314,7 +1313,7 @@ plot_fbox_list <- function(fboxes,
 
     # (C) plot fboxes (as only 1 box):
     plot(fboxes,
-         # cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+         cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current (cur_) settings!
          # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
          ...)
 
