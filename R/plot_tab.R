@@ -286,7 +286,7 @@
 #' @seealso
 #' \code{\link{plot_area}} for plotting mosaic plot (scaling area dimensions);
 #' \code{\link{pal}} contains current color settings;
-#' \code{\link{txt}} contains current text settings;
+#' \code{\link{txt}} contains current text settings.
 #'
 #' @export
 

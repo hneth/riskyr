@@ -24,6 +24,8 @@
 #' and a population size of \code{\link{N}} individuals.
 #'
 #' \code{plot_area} generalizes and replaces \code{\link{plot_mosaic}}.
+#' by removing the dependency on the R packages \code{vcd} and \code{grid}
+#' and providing many additional options.
 #'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -73,7 +75,7 @@
 #'   }
 #'
 #' @param area  A character code specifying the shape of the main area,
-#' with 4 options:
+#' with 2 options:
 #'   \enumerate{
 #'   \item \code{"sq"}: main area is scaled to square (default);
 #'   \item \code{"no"}: no scaling (rectangular area fills plot size).
@@ -295,7 +297,7 @@
 #' \code{\link{plot_mosaic}} for older (obsolete) version;
 #' \code{\link{plot_tab}} for plotting table (without scaling area dimensions);
 #' \code{\link{pal}} contains current color settings;
-#' \code{\link{txt}} contains current text settings;
+#' \code{\link{txt}} contains current text settings.
 #'
 #' @export
 

@@ -37,8 +37,8 @@
 #'
 #' \code{plot_fnet} is a generalization of \code{\link{plot_tree}}
 #' and offers the additional option of plotting the interplay
-#' between the 9 frequencies of \code{\link{freq}} and
-#' and the 10 probabilities of \code{\link{prob}}
+#' between 9 frequencies of \code{\link{freq}} and
+#' and 10 probabilities of \code{\link{prob}}
 #' in a single network diagram.
 #'
 #' The option \code{by} (as 2 or 4 characters) allows specifying
