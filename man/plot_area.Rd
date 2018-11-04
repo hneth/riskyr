@@ -216,21 +216,21 @@ plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
           f_lwd = 1, col_pal = pal_kn)
 
 ## Versions:
-# by x p_split (= [3 x 2 x 2] = 12 versions):
+## by x p_split (= [3 x 2 x 2] = 12 versions):
 plot_area(by = "cddc", p_split = "v")  # v01 (see v07)
 plot_area(by = "cdac", p_split = "v")  # v02 (see v11)
 plot_area(by = "cddc", p_split = "h")  # v03 (see v05)
 plot_area(by = "cdac", p_split = "h")  # v04 (see v09)
 
-plot_area(by = "dccd", p_split = "v")  # v05 (is v03 rotated)
+# plot_area(by = "dccd", p_split = "v")  # v05 (is v03 rotated)
 plot_area(by = "dcac", p_split = "v")  # v06 (see v12)
-plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)
+# plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)
 plot_area(by = "dcac", p_split = "h")  # v08 (see v10)
 
 plot_area(by = "accd", p_split = "v")  # v09 (is v04 rotated)
-plot_area(by = "acdc", p_split = "v")  # v10 (is v08 rotated)
-plot_area(by = "accd", p_split = "h")  # v11 (is v02 rotated)
-plot_area(by = "acdc", p_split = "h")  # v12 (is v06 rotated)
+# plot_area(by = "acdc", p_split = "v")  # v10 (is v08 rotated)
+# plot_area(by = "accd", p_split = "h")  # v11 (is v02 rotated)
+# plot_area(by = "acdc", p_split = "h")  # v12 (is v06 rotated)
 
 ## Options:
 # area:
@@ -238,10 +238,10 @@ plot_area(area = "sq")  # main area as square (by scaling x-values)
 plot_area(area = "no")  # rectangular main area (using full plotting region)
 
 # scale (matters for small N):
-plot_area(N = 4, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
-plot_area(N = 4, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
-plot_area(N = 3, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
-plot_area(N = 3, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
+plot_area(N = 8, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
+# plot_area(N = 8, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
+plot_area(N = 7, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
+# plot_area(N = 7, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
 
 # gaps (sensible range: 0--.10):
 plot_area(gaps = NA)           # use default gaps (based on p_split)
