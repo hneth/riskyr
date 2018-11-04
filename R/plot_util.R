@@ -12,9 +12,8 @@ ex <- function() {
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
   on.exit(par(opar))
 
-  ## ...
-  ## ... lots of par() settings and plots
-  ## ...
+  ## lots of par() settings and plots
+  ## etc.
 
   invisible()  # restores par(opar)
 }
@@ -176,7 +175,7 @@ label_freq <- function(fname,
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(cur_freq)...
+    } # if (fname %in% names(cur_freq)
   }
 
   ## (3) Compose f_lbl based on lbl_type: ---
@@ -348,7 +347,7 @@ label_prob <- function(pname,
 
     }
 
-  } # if (lbl_type == "min")...
+  } # if (lbl_type == "min")
 
   ## (b) If lbl_type == "mix": Label key probs by name and numeric value, others only by numeric value (num):
   if (lbl_type == "mix") {
@@ -367,7 +366,7 @@ label_prob <- function(pname,
 
     }
 
-  } # if (lbl_type == "mix")...
+  } # if (lbl_type == "mix")
 
 
   ## (2) Abbreviated name (i.e., variable name of pname): ----
@@ -671,9 +670,9 @@ plot_ftype_label <- function(fname,               # name of a known freq
   ## Plot ftype_lbl:
   text(x, y,
        labels = ftype_lbl,
-       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
+       xpd = TRUE,    # NA: plotting clipped to device region; T: figure region; F: plot region
        # col = col,   # pass on parameter
-       ...)  # other parameters: pos, offset, ...
+       ...)  # other parameters: pos, offset, etc.
 
   ## Return ftype_lbl (as name):
   # return(ftype_lbl)
@@ -723,9 +722,9 @@ plot_freq_label <- function(fname,                # name of a known freq
   ## Plot text label:
   text(x, y,
        labels = f_lbl,
-       xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
+       xpd = TRUE,    # NA: plotting clipped to device region; T: figure region; F: plot region
        # col = col,   # pass on parameter
-       ...)  # other parameters: pos, offset, ...
+       ...)  # other parameters: pos, offset, etc.
 
   ## Return f_lbl (as character):
   # return(f_lbl)
@@ -737,7 +736,7 @@ plot_freq_label <- function(fname,                # name of a known freq
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_freq_label("N", .1, .9)
-# plot_freq_label("cond.false", suffix = ": ...", .2, .8, cex = .8)
+# plot_freq_label("cond.false", suffix = ": etc.", .2, .8, cex = .8)
 # plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
 # plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
 #
@@ -768,7 +767,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
                       ## Text and color:
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
-                      ...  # other (graphical) parameters: lwd, cex, ...
+                      ...  # other (graphical) parameters: lwd, cex, etc.
 ) {
 
   ## (0) Additional parameters (currently fixed):
@@ -804,8 +803,8 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
     text(x = box_x, y = box_y,
          labels = ftype,
-         pos = 1,       # NULL...center (default), 1...below, 3...above
-         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+         pos = 1,       # NULL: center (default), 1: below, 3: above
+         # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
          # cex = cex.lbl.sm,
          ...)
@@ -827,7 +826,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
     ## A1. General case (using all lbl_type options with global freq values):
     # box_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = " = ")
-    # ToDo...
+    # ToDo.
 
     ## A2. Use label_freq only for types without values (to not require/report global freq values):
     if ( is.null(lbl_type) || is.na(lbl_type) || (lbl_type == "no") ) {
@@ -872,18 +871,18 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
       }
 
-    } # if (lbl_type == ...)
+    } # if (lbl_type == etc.)
 
     # Plot freq label:
     text(x = box_x, y = mid.y,
          labels = box_lbl,
-         # pos = NULL,  # NULL...center (default), 1...below, 3...above
-         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+         # pos = NULL,  # NULL: center (default), 1: below, 3: above
+         # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
          # cex = cex.lbl.sm,
          ...)
 
-  } # if (show_freq)...
+  } # if (show_freq)
 
 }
 
@@ -959,8 +958,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
     text(x = x, y = y,
          labels = paste0(lbl),
-         pos = NULL,    # NULL...center (default), 1...below, 3...above
-         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+         pos = NULL,    # NULL: center (default), 1: below, 3: above
+         # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
          cex = cex,
          font = font)
@@ -971,8 +970,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
     text(x = x, y = y_top,
          labels = paste0(lbl_top),
-         pos = 3,       # NULL...center (default), 1...below, 3...above
-         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+         pos = 3,       # NULL: center (default), 1: below, 3: above
+         # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
          cex = cex,
          font = font)
@@ -983,8 +982,8 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
     text(x = x, y = y_bottom,
          labels = paste0(lbl_bot),
-         pos = 1,       # NULL...center (default), 1...below, 3...above
-         # xpd = TRUE,  # NA...plotting clipped to device region; T...figure region; F...plot region
+         pos = 1,       # NULL: center (default), 1: below, 3: above
+         # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
          cex = cex,
          font = font)
@@ -1077,7 +1076,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
     # (a) Label by fname only:
     f_lbl <- paste0(fname)
 
-  } # if (fname %in% names(freq))...
+  } # if (fname %in% names(freq))
 
   # (3) Plot corresponding cbox with values of fname freq:
   plot_cbox(x = x,
@@ -1089,7 +1088,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             col_fill = f_col,
             # col_brd = cur_pal["brd"],       # default border color
             # col_txt = cur_pal["txt"],       # default label color
-            # ...
+            # Graphical parameters:
             lty = lty,
             lwd = lwd,
             cex = cex,
@@ -1177,7 +1176,7 @@ comp_freq_fbox <- function(fbox,
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(cur_freq)...
+    } # if (fname %in% names(cur_freq)
 
   }
 
@@ -1188,10 +1187,10 @@ comp_freq_fbox <- function(fbox,
 ## Check:
 ## Define some boxes:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
-# box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
-# box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
-# box_fa <- make_box("fa", 6, 3, 1, 1)  # ...            fa
-# box_cr <- make_box("cr", 8, 3, 1, 1)  # ...            cr
+# box_hi <- make_box("hi", 2, 3, 1, 1)  #                hi
+# box_mi <- make_box("mi", 4, 3, 1, 1)  #                mi
+# box_fa <- make_box("fa", 6, 3, 1, 1)  #                fa
+# box_cr <- make_box("cr", 8, 3, 1, 1)  #                cr
 #
 # comp_freq_fbox(box_N)  == freq$N  # should be TRUE
 # comp_freq_fbox(box_hi) == freq$hi # should be TRUE
@@ -1250,10 +1249,10 @@ comp_freq_fbox_list <- function(fboxes, ...){
 ## Check:
 ## Define some boxes:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
-# box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
-# box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
-# box_fa <- make_box("fa", 6, 3, 1, 1)  # ...            fa
-# box_cr <- make_box("cr", 8, 3, 1, 1)  # ...            cr
+# box_hi <- make_box("hi", 2, 3, 1, 1)  #                hi
+# box_mi <- make_box("mi", 4, 3, 1, 1)  #                mi
+# box_fa <- make_box("fa", 6, 3, 1, 1)  #                fa
+# box_cr <- make_box("cr", 8, 3, 1, 1)  #                cr
 #
 # boxes <- list(box_N, box_hi, box_mi, box_fa, box_cr)  # list of boxes
 #
