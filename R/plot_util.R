@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 03
+## 2018 11 04
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1304,7 +1304,7 @@ plot_fbox_list <- function(fboxes,
 
     ## (b) with lapply:  plot all fboxes in dec_order
     lapply(X = fboxes[decr_order], FUN = plot,
-           # cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
+           cur_freq = cur_freq, # cur_txt = cur_txt, cur_pal = cur_pal,  # pass current settings
            # scale_lx = scale_lx, lbl_type = lbl_type, lbl_sep = lbl_sep,
            ...)
 
