@@ -767,7 +767,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
                       ## Text and color:
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
-                      ...  # other (graphical) parameters: lwd, cex, etc.
+                      ...  # other (graphical) parameters: lwd, lty, cex, density, etc.
 ) {
 
   ## (0) Additional parameters (currently fixed):
@@ -835,7 +835,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
     } else if (lbl_type == "nam") {
 
-      box_lbl <- label_freq(fname, lbl_type = "nam")  # long name, no numeric value
+      box_lbl <- label_freq(fname, cur_txt = cur_txt, lbl_type = "nam")  # long name, no numeric value
 
     } else if (lbl_type == "abb") {
 
@@ -851,7 +851,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
       #
       # }
 
-      box_lbl <- label_freq(fname, lbl_type = "abb")  # abbreviated name, no numeric value
+      box_lbl <- label_freq(fname, cur_txt = cur_txt, lbl_type = "abb")  # abbreviated name, no numeric value
 
     } else if (lbl_type == "num") {
 
@@ -887,8 +887,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 }
 
 ## Check:
-
-# # Preparation:
+# ## Preparation:
 # plot(c(0, 100), c(0, 100), type = "n")  # empty canvas
 # # Basics:
 # plot_vbox(10, 80, 20, 20, fnum = 111)  # no name => default fill color
@@ -900,8 +899,8 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 # plot_vbox(10, 50, 30, 20, ftype = "type as box title", fname = "hi", fnum = 444)
 # plot_vbox(40, 50, 20, 20, fname = "mi", fnum = 555, lwd = 3, cex = .7, ftype = comp_freq_type("mi"))
 # # Other fname and fnum values:
-# plot_vbox(80, 50, 20, 20, fname = "asdf", fnum = 667, ftype = comp_freq_type("asdf"))
-
+# plot_vbox(80, 50, 20, 20, fname = "asdf", fnum = 123, ftype = comp_freq_type("fdsa"))
+# plot_vbox(80, 20, 20, 20, fname = "test", fnum = 321, ftype = comp_freq_type("test"))
 
 ## Distinguish between 2 separate box plotting functions:
 #   1. generic plot_cbox (that plots a box given its CENTER coordinates and format) vs.
@@ -926,7 +925,6 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       # cur_freq = freq,   # current freq
                       # cur_txt = txt,     # current txt
                       # cur_pal = pal,     # current color palette
-                      ##
                       ## Other graphical parameters:
                       lty = 1,
                       lwd = 1,
@@ -1323,10 +1321,10 @@ plot_fbox_list <- function(fboxes,
 ## Check:
 ## Define some boxes:
 # box_N  <- make_box("N",  5, 5, 4, 1)  # define box for N
-# box_hi <- make_box("hi", 2, 3, 1, 1)  # ...            hi
-# box_mi <- make_box("mi", 4, 3, 1, 1)  # ...            mi
-# box_fa <- make_box("fa", 6, 3, 1, 1)  # ...            fa
-# box_cr <- make_box("cr", 8, 3, 1, 1)  # ...            cr
+# box_hi <- make_box("hi", 2, 3, 1, 1)  #                hi
+# box_mi <- make_box("mi", 4, 3, 1, 1)  #                mi
+# box_fa <- make_box("fa", 6, 3, 1, 1)  #                fa
+# box_cr <- make_box("cr", 8, 3, 1, 1)  #                cr
 #
 # comp_freq_fbox(box_N)  == freq$N  # should be TRUE
 # comp_freq_fbox(box_hi) == freq$hi # should be TRUE
@@ -1449,12 +1447,12 @@ comp_lx_fbox <- function(fname, len_N,
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(cur_freq)...
+    } # if (fname %in% names(cur_freq)
 
     # (b) Scale len_N by the ratio of frequencies fval/N:
     lx <- (fval/cur_freq$N) * len_N
 
-  } # if (scale...)
+  } # if (scale)
 
   return(lx)
 
@@ -1515,12 +1513,12 @@ comp_ly_fsqr <- function(fname, area_N,
       # Type of frequency:
       # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-    } # if (fname %in% names(cur_freq)...
+    } # if (fname %in% names(cur_freq)
 
     # (b) Scale area_N by ratio of frequencies val/N so that ly^2 == (val/N * area_N):
     ly <- sqrt(val/N * area_N)
 
-  } # if (scale...)
+  } # if (scale)
 
   return(ly)
 
@@ -1567,7 +1565,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       col.brd =  pal["brd"],
                       col.txt =  pal["txt"],
                       # lbl.cex = 1,        # size of text label
-                      ...                   # other graphical parameters: lwd, cex, pos, ...
+                      ...                   # other graphical parameters: lwd, cex, pos, etc.
 ) {
 
   ## (0) Preparations:
@@ -1593,7 +1591,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
              length = .10, angle = 45/2, code = arr_code,    # V shape (small)
              # length = .08, angle = 90, code = arr_code,  # T shape
              col = col.fill,
-             ...)  # lty, lwd, ...
+             ...)  # lty, lwd, etc.
     }
     else  if (arr_code > 3) {
       # Draw T-shape arrow between both points:
@@ -1601,7 +1599,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
              # length = .10, angle = 45/2, code = arr_code,    # V shape (small)
              length = .08, angle = 90, code = (arr_code - 3),  # T shape
              col = col.fill,
-             ...)  # lty, lwd, ...
+             ...)  # lty, lwd, etc.
     }
 
 
@@ -1611,7 +1609,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
     arrows(x0, y0, x1, y1,
            length = 0, angle = 0, code = 0,       # no arrows
            col = col.fill,
-           ...)  # lty, lwd, ...
+           ...)  # lty, lwd, etc.
 
     if (arr_code < 0) {  # draw points:
 
@@ -1627,7 +1625,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
     }
 
-  } # if (arr_code ...
+  } # if (arr_code etc.
 
   ## (2) Optional text label: ------
 
@@ -1639,7 +1637,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
          col = col.txt,  # text color
          pos = lbl.pos,
          offset = lbl.off,
-         ...)  # cex, ...
+         ...)  # cex, etc.
   }
 
 }
@@ -1769,7 +1767,8 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl_type = "default",      # lbl_type ("default", "nam", "num", "namnum")
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
                       cur_prob = prob,           # current prob
-                      ...) {
+                      ...                        # Other graphical parameters
+                      ) {
 
   # (1) Determine link coordinates:
 
@@ -1848,10 +1847,10 @@ plot_link <- function(box1, box2,                # 2 boxes
 # ## Check:
 # ## Define some boxes:
 # box_b1 <- make_box("1st_box", 1, 9, 2, 2)   # 1st box with an arbitrary label
-# box_b2 <- make_box("2nd_box", 2, 3, 2, 3)   # 2nd box ...
+# box_b2 <- make_box("2nd_box", 2, 3, 2, 3)   # 2nd box
 # box_N  <- make_box("N", 4, 9, 2, 2)         # box with known freq label and type
-# box_ct <- make_box("cond.true", 8, 7, 3, 2) # ...
-# box_hi <- make_box("hi", 7, 2, 2, 2)        # ...
+# box_ct <- make_box("cond.true", 8, 7, 3, 2) #
+# box_hi <- make_box("hi", 7, 2, 2, 2)        #
 #
 # ## Prepare canvas:
 # plot(c(0, 10), c(0, 10), type = "n")  # empty canvas
@@ -1893,7 +1892,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 ## Note:
 ## Functionality included in plot_link: plot_plink/plot_prob:
 ## plot_plink/plot_prob: Link 2 boxes of 2 known frequencies
-##                       and label link by using name_prob, label_prob, plot_link...
+##                       and label link by using name_prob, label_prob, plot_link, etc.
 ## 4 steps:
 ## 1. Get names of freq1 and freq2 from 2 boxes
 ## 2. Call pname <- name_prob(freq1, freq1) to get pname
@@ -2016,7 +2015,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
       ""  # add NO space at end
     )
 
-  } # if (!is.na(w) && ...)
+  } # if (!is.na(w) && etc.)
 
   return(lbl)
 
@@ -2039,7 +2038,7 @@ label_note <- function(area = NULL, scale = "f") {
 
     if (area == "hr") {
 
-      area_lbl <- "Horizontal widths"  # "Rectangles" / "Areas" ...
+      area_lbl <- "Horizontal widths"  # "Rectangles" / "Areas" etc.
 
     } else if (area == "sq") {
 
