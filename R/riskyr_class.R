@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 10 26
+## 2018 11 04
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -567,6 +567,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   ## Test plot.type argument:
   if (!plot.type %in% c("fnet", "network", "net",
+                        "prism", "fprism",
                         "area", "farea",
                         "tab", "table", "ftab", "ctab",
                         "tree", "ftree",
@@ -604,6 +605,20 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (plot.type == "network")
 
+  ## prism plot:
+  if ((plot.type == "prism") || (plot.type == "fprism")) {  # "prism"
+
+    plot_prism(prev = x$prev,
+               sens = x$sens, mirt = NA,
+               spec = x$spec, fart = NA,
+               N = x$N,
+               ## Options:
+               # title_lbl = x$scen.lbl,
+               ...
+    )
+
+  } # if (plot.type == "prism")
+
   ## area / mosaic plot:
   if ((plot.type == "area") || (plot.type == "farea")) {  # "mosaic"
 
@@ -618,7 +633,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (plot.type == "area")
 
-  ## Contingency/frequency table / tab plot:
+  ## Contingency / frequency table / tab plot:
   if ((plot.type == "tab") || (plot.type == "table") || (plot.type == "ftab") || (plot.type == "ctab")) {
 
     plot_tab(prev = x$prev,
@@ -727,6 +742,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 # plot(s25, plot.type = "plane", what = "npv")
 # # plot(s25, plot.type = "wetwork")
 ## Newer plots:
+# plot(s25, plot.type = "prism", by = "cddc", f_lbl = "num")
 # plot(s25, plot.type = "area", by = "cddc")
 # plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
 
