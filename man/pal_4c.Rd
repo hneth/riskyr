@@ -31,9 +31,9 @@ pal_4c["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_bw}}, \code{\link{pal_gbs}},
-  \code{\link{pal_kn}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt_TF}},
-  \code{\link{txt}}
+  \code{\link{pal_kn}}, \code{\link{pal_org}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}, \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}
