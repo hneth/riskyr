@@ -1893,7 +1893,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")
 #
 # # Computing local freq and prob values:
-# plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 10)
+# plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 4)
 #
 # # Customizing text and color:
 # plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
