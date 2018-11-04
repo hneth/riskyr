@@ -161,28 +161,30 @@
 #'
 #' # Custom text and color settings:
 #' plot_prism(col = "gold")  # overwrite other colors
-#' t2 <- init_txt(scen.lbl = "",
-#'                cond.lbl = "Truth", cond.true.lbl = "True", cond.false.lbl = "False",
-#'                dec.lbl = "Test", dec.pos.lbl = "Positive", dec.neg.lbl = "Negative",
-#'                acc.lbl = "Accuracy", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
-#'                hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
-#' p2 <- init_pal(col.N = seeblau,
-#'                col.true = "grey", col.false = "darkgrey",
-#'                col.pos =  "grey", col.neg = "darkgrey",
-#'                col.hi = "gold1", col.mi = "firebrick1", col.fa = "firebrick2", col.cr = "orange1")
-#' plot_prism(lbl_txt = t2, f_lbl = "namnum", lbl_sep = ":\n", col_pal = p2)  # custom text & colors
+#' my_txt <- init_txt(scen.lbl = "",
+#'                    cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
+#'                    dec.lbl = "Test", dec.pos.lbl = "pos", dec.neg.lbl = "neg",
+#'                    acc.lbl = "Accu", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
+#'                    hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+#' my_pal <- init_pal(col.N = rgb(0, 169, 224, max = 255), # seeblau.4 (non-transparent)
+#'                    col.true = "grey", col.false = "darkgrey",
+#'                    col.pos =  "grey", col.neg = "darkgrey",
+#'                    col.hi = "gold1", col.mi = "firebrick1",
+#'                    col.fa = "firebrick2", col.cr = "orange1")
+#' plot_prism(lbl_txt = my_txt, f_lbl = "namnum", f_lbl_sep = ":\n",
+#'            col_pal = my_pal)  # custom text & colors
 #'
 #' ## Local values and custom color and text settings:
 #' plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-#'            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n",
+#'            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
 #'            col_pal = pal_4c)  # custom colors
 #'
 #' plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #'            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 #'
-#' plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",           # note scale!
-#'            area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n", # custom text
-#'            col_pal = pal_kn, f_lwd = .5)                                     # custom colors
+#' plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             # note scale!
+#'            area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
+#'            col_pal = pal_kn, f_lwd = .5)                                       # custom colors
 #'
 #' ## Plot versions:
 #' # by (3 x 2) = 6 versions (+ 3 redundant ones):
@@ -1100,8 +1102,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ##   row 1 to 2: ----
 
-  plot_link(box_1, box_2_1, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl.pos = 2, cex = cex_p_lbl)
-  plot_link(box_1, box_2_2, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl.pos = 4, lbl.off = 1, cex = cex_p_lbl, lbl_sep = "\n    = ")  # link label in 2 lines
+  plot_link(box_1, box_2_1, 1, 3, cur_prob = prob, arr_code = arr_c,
+            lbl_type = p_lbl, lbl.pos = 2, cex = cex_p_lbl)
+  plot_link(box_1, box_2_2, 1, 3, cur_prob = prob, arr_code = arr_c,
+            lbl_type = p_lbl, lbl.pos = 4, lbl.off = 1, cex = cex_p_lbl, lbl_sep = "\n    = ")  # link label in 2 lines
 
   ##   row 2 to 3: ----
 
@@ -1291,28 +1295,29 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #
 # ## Custom text and color settings:
-# t2 <- init_txt(scen.lbl = "",
+# my_txt <- init_txt(scen.lbl = "",
 #                cond.lbl = "Truth", cond.true.lbl = "True", cond.false.lbl = "False",
 #                dec.lbl = "Test", dec.pos.lbl = "Positive", dec.neg.lbl = "Negative",
 #                acc.lbl = "Accuracy", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
 #                hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
-# p2 <- init_pal(col.N = seeblau,
+# my_col <- init_pal(col.N = rgb(0, 169, 224, max = 255),  # seeblau.4 (non-transparent),
 #                col.true = "grey", col.false = "darkgrey",
 #                col.pos =  "grey", col.neg = "darkgrey",
 #                col.hi = "gold1", col.mi = "firebrick1", col.fa = "firebrick2", col.cr = "orange1")
-# plot_prism(lbl_txt = t2, f_lbl = "namnum", lbl_sep = ":\n", col_pal = p2)  # custom text & colors
+# plot_prism(lbl_txt = my_txt, f_lbl = "namnum", f_lbl_sep = ":\n",
+#            col_pal = my_col)  # custom text & colors
 #
 # ## Local values and custom color and text settings:
 # plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-#            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n",
+#            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
 #            col_pal = pal_4c)  # custom colors
 #
 # plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 #
-# plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",           # note scale!
-#            area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\n", # custom text
-#            col_pal = pal_kn, f_lwd = .5)                                     # custom colors
+# plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             # note scale!
+#            area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
+#            col_pal = pal_kn, f_lwd = .5)                                       # custom colors
 #
 # ## Plot versions:
 #

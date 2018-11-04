@@ -167,28 +167,30 @@ plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = 
 
 # Custom text and color settings:
 plot_prism(col = "gold")  # overwrite other colors
-t2 <- init_txt(scen.lbl = "",
-               cond.lbl = "Truth", cond.true.lbl = "True", cond.false.lbl = "False",
-               dec.lbl = "Test", dec.pos.lbl = "Positive", dec.neg.lbl = "Negative",
-               acc.lbl = "Accuracy", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
-               hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
-p2 <- init_pal(col.N = seeblau,
-               col.true = "grey", col.false = "darkgrey",
-               col.pos =  "grey", col.neg = "darkgrey",
-               col.hi = "gold1", col.mi = "firebrick1", col.fa = "firebrick2", col.cr = "orange1")
-plot_prism(lbl_txt = t2, f_lbl = "namnum", lbl_sep = ":\\n", col_pal = p2)  # custom text & colors
+my_txt <- init_txt(scen.lbl = "",
+                   cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
+                   dec.lbl = "Test", dec.pos.lbl = "pos", dec.neg.lbl = "neg",
+                   acc.lbl = "Accu", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
+                   hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+my_pal <- init_pal(col.N = rgb(0, 169, 224, max = 255), # seeblau.4 (non-transparent)
+                   col.true = "grey", col.false = "darkgrey",
+                   col.pos =  "grey", col.neg = "darkgrey",
+                   col.hi = "gold1", col.mi = "firebrick1",
+                   col.fa = "firebrick2", col.cr = "orange1")
+plot_prism(lbl_txt = my_txt, f_lbl = "namnum", f_lbl_sep = ":\\n",
+           col_pal = my_pal)  # custom text & colors
 
 ## Local values and custom color and text settings:
 plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-           by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\\n",
+           by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
            col_pal = pal_4c)  # custom colors
 
 plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 
-plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",           # note scale!
-           area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", lbl_sep = ":\\n", # custom text
-           col_pal = pal_kn, f_lwd = .5)                                     # custom colors
+plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             # note scale!
+           area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n", # custom text
+           col_pal = pal_kn, f_lwd = .5)                                       # custom colors
 
 ## Plot versions:
 # by (3 x 2) = 6 versions (+ 3 redundant ones):
