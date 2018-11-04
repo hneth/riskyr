@@ -213,6 +213,7 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tab}}
+  \code{\link{plot_plane}}, \code{\link{plot_prism}},
+  \code{\link{plot_tab}}
 }
 \concept{visualization functions}

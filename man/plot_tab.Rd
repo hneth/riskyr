@@ -274,12 +274,13 @@ plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same valu
 \seealso{
 \code{\link{plot_area}} for plotting mosaic plot (scaling area dimensions);
 \code{\link{pal}} contains current color settings;
-\code{\link{txt}} contains current text settings;
+\code{\link{txt}} contains current text settings.
 
 Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
   \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_plane}}, \code{\link{plot_prism}},
+  \code{\link{plot_tree}}
 }
 \concept{visualization functions}

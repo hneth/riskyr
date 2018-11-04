@@ -143,8 +143,8 @@ and a population size of \code{\link{N}} individuals.
 \details{
 \code{plot_fnet} is a generalization of \code{\link{plot_tree}}
 and offers the additional option of plotting the interplay
-between the 9 frequencies of \code{\link{freq}} and
-and the 10 probabilities of \code{\link{prob}}
+between 9 frequencies of \code{\link{freq}} and
+and 10 probabilities of \code{\link{prob}}
 in a single network diagram.
 
 The option \code{by} (as 2 or 4 characters) allows specifying
@@ -250,6 +250,7 @@ Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_icons}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
-  \code{\link{plot_tab}}, \code{\link{plot_tree}}
+  \code{\link{plot_prism}}, \code{\link{plot_tab}},
+  \code{\link{plot_tree}}
 }
 \concept{visualization functions}
