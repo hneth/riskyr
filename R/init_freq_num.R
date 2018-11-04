@@ -659,54 +659,65 @@ comp_freq_type <- function(fname, cur_txt = txt) {
 
 ## comp_freq_col: Determine the color of a named frequency (freq) in current color palette (cur_pal):  ----------
 
-comp_freq_col <- function(fname, cur_pal = pal) {
+comp_freq_col <- function(fname,
+                          cur_pal = pal,
+                          col = NA  # primary color
+) {
 
   # initialize:
   col_name <- NA
   f_col <- NA
 
-  if (fname %in% names(freq)) { # if freq corresponds to named frequency in freq:
+  if (!is.na(col)) { # if col is specified:
 
-    ## Derive current values corresponding to freq:
-    ix <- which(names(freq) == fname)  # index in freq
+    f_col <- col  # use it!
 
-    ## (a) Value of frequency in freq:
-    # f_val <- freq[ix]
+  } else {  # figure out f_col from fname and cur_pal:
 
-    ## (b) Type of frequency:
-    # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
+    # (A) if freq corresponds to named frequency in freq:
+    if (fname %in% names(freq)) {
 
-    # (c) Color of frequency:
+      ## Derive current values corresponding to freq:
+      ix <- which(names(freq) == fname)  # index in freq
 
-    # Note that names(freq) are sometimes longer than names(pal):
-    # If fname contains a dot (.):  Use only the name part after the dot:
-    if (any(grep(pattern = "\\.", x = fname))) {
+      ## (a) Value of frequency in freq:
+      # f_val <- freq[ix]
 
-      nameparts <- unlist(strsplit(fname, split = "\\."))
+      ## (b) Type of frequency:
+      # f_type <- comp_freq_type(fname)  # see helper function (defined in init_freq_num.R)
 
-      part_1 <- nameparts[1]  # 1st part of fname
-      part_2 <- nameparts[2]  # 2nd part of fname
-      col_name <- part_2  # 2nd part of fname corresponds to name of color
+      # (c) Color of frequency:
 
-      # if (col_name == "true") { col_name <- "cor" }
+      # Note that names(freq) are sometimes longer than names(pal):
+      # If fname contains a dot (.):  Use only the name part after the dot:
+      if (any(grep(pattern = "\\.", x = fname))) {
 
-    } else {
-      col_name <- fname
+        nameparts <- unlist(strsplit(fname, split = "\\."))
+
+        part_1 <- nameparts[1]  # 1st part of fname
+        part_2 <- nameparts[2]  # 2nd part of fname
+        col_name <- part_2  # 2nd part of fname corresponds to name of color
+
+        # if (col_name == "true") { col_name <- "cor" }
+
+      } else {
+        col_name <- fname
+      }
+
+      # print(col_name)
+
     }
 
-    # print(col_name)
+    # (B) Find color value of col_name in current color cur_pal:
+    if (col_name %in% names(cur_pal)) { # if col_name corresponds to a color name in cur_pal
+      f_col <- cur_pal[col_name]        # use this color to fill box
+    } else {
+      f_col <- grey(.95, .50)  # use some default color (e.g., "white")
+    }
 
-  }
-
-  # Find color value of col_name in current color cur_pal:
-  if (col_name %in% names(cur_pal)) { # if col_name corresponds to a color name in cur_pal
-    f_col <- cur_pal[col_name]        # use this color to fill box
-  } else {
-    f_col <- grey(.95, .50)  # use some default color (e.g., "white")
-  }
+  } # else.
 
   # print(f_col)
-
   return(f_col)
 
 }
@@ -714,6 +725,8 @@ comp_freq_col <- function(fname, cur_pal = pal) {
 ## Check: --------
 
 # comp_freq_col("N")
+# comp_freq_col("N", col = "gold")
+# comp_freq_col("nn", col = "gold")
 # comp_freq_col("hi")
 # comp_freq_col("dec.err")
 # comp_freq_col("dec.cor")
