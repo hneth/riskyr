@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 04
+## 2018 11 05
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -230,10 +230,10 @@
 #' plot_area(area = "no")  # rectangular main area (using full plotting region)
 #'
 #' # scale (matters for small N):
-#' plot_area(N = 8, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
-#' # plot_area(N = 8, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
-#' plot_area(N = 7, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
-#' # plot_area(N = 7, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
+#' plot_area(N = 9, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
+#' plot_area(N = 9, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
+#' plot_area(N = 8, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
+#' plot_area(N = 8, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
 #'
 #' # gaps (sensible range: 0--.10):
 #' plot_area(gaps = NA)           # use default gaps (based on p_split)

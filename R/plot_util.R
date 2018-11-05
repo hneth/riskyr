@@ -409,8 +409,8 @@ label_prob <- function(pname,
     if (pname == "cppod"){ p_lbl <- "Proportion negative" }
     if (pname == "pned") { p_lbl <- "Proportion negative" }
 
-    if (pname == "ppv") { p_lbl <- "Positive predictive value" }
-    if (pname == "npv") { p_lbl <- "Negative predictive value" }
+    if (pname == "ppv") { p_lbl <- "Positive predictive value (PPV)" }
+    if (pname == "npv") { p_lbl <- "Negative predictive value (NPV)" }
     if (pname == "fdr") { p_lbl <- "False detection rate" }
     if (pname == "for") { p_lbl <- "False omission rate" }
 
@@ -448,8 +448,8 @@ label_prob <- function(pname,
     if (pname == "cppod"){ p_lbl <- "Proportion negative" }
     if (pname == "pned") { p_lbl <- "Proportion negative" }
 
-    if (pname == "ppv") { p_lbl <- "Positive predictive value" }
-    if (pname == "npv") { p_lbl <- "Negative predictive value" }
+    if (pname == "ppv") { p_lbl <- "Positive predictive value (PPV)" }
+    if (pname == "npv") { p_lbl <- "Negative predictive value (NPV)" }
     if (pname == "fdr") { p_lbl <- "False detection rate" }
     if (pname == "for") { p_lbl <- "False omission rate" }
 
