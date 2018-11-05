@@ -1161,7 +1161,7 @@ comp_freq_fbox <- function(fbox,
   f_val  <- NA
   fname <- NA
 
-  if (is.list(fbox) && isTRUE(exists(fbox$name)) ) {
+  if (is.list(fbox)) { # } && isTRUE(exists(fbox$name)) ) {
 
     fname <- fbox$name
 
