@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 04
+## 2018 11 05
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -159,7 +159,7 @@
 #' plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 #' plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #'
-#' # Custom text and color settings:
+#' ## Custom text and color settings:
 #' plot_prism(col = "gold")  # overwrite other colors
 #' my_txt <- init_txt(scen.lbl = "",
 #'                    cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
