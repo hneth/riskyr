@@ -94,8 +94,8 @@ are provided by \code{\link{plot_tree}} and
 \examples{
 freq <- comp_freq()  # => initialize freq to default parameters
 freq                 # => show current values
-length(freq)         # => 11
-
+length(freq)         # => 11 known frequencies
+names(freq)          # => show names of known frequencies
 
 }
 \seealso{
@@ -111,7 +111,11 @@ length(freq)         # => 11
 \code{\link{init_pal}} initializes color information.
 
 Other lists containing current scenario information: \code{\link{accu}},
-  \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt}}
+  \code{\link{num}}, \code{\link{pal_4c}},
+  \code{\link{pal_bw}}, \code{\link{pal_gbs}},
+  \code{\link{pal_kn}}, \code{\link{pal_org}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}, \code{\link{txt}}
 }
+\concept{lists containing current scenario information}
 \keyword{datasets}

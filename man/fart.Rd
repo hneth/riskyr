@@ -78,6 +78,7 @@ However, due to being a conditional probability,
 fart <- .25     # => sets a false alarm rate of 25\%
 fart <- 25/100  # => (decision = positive) for 25 out of 100 people with (condition = FALSE)
 is_prob(fart)   # => TRUE (as fart is a probability)
+
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -92,8 +93,10 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{mirt}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
+  \code{\link{err}}, \code{\link{mirt}},
   \code{\link{ppod}}, \code{\link{prev}},
   \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{probabilities}
 \keyword{datasets}

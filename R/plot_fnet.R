@@ -1,6 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 02 17
-## -----------------------------------------------
+## 2018 10 13
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -12,18 +11,18 @@
 ## - p.lbl ... "nam", "num" (default), "mix", "min".
 ## - show.accu ... show current accuracy metrics (with bacc/wacc).
 
-## -----------------------------------------------
 ## Dependencies:
 
 # library("diagram") # moved to "Imports:" in in DESCRIPTION!
 
-## -----------------------------------------------
 ## plot_fnet is a generalization of plot_tree:
 ## Plot a network or tree diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## (using only necessary arguments with good defaults):
 
 ## Assuming that freq$N (+ num txt pal) is known!
+
+## plot_fnet: Documentation: ---------
 
 #' Plot a network diagram of frequencies and probabilities.
 #'
@@ -38,8 +37,8 @@
 #'
 #' \code{plot_fnet} is a generalization of \code{\link{plot_tree}}
 #' and offers the additional option of plotting the interplay
-#' between the 9 frequencies of \code{\link{freq}} and
-#' and the 10 probabilities of \code{\link{prob}}
+#' between 9 frequencies of \code{\link{freq}} and
+#' and 10 probabilities of \code{\link{prob}}
 #' in a single network diagram.
 #'
 #' The option \code{by} (as 2 or 4 characters) allows specifying
@@ -70,7 +69,6 @@
 #'
 #' \code{plot_fnet} requires and uses the R package "diagram"
 #' (\code{library("diagram")}).
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -109,7 +107,8 @@
 #'   \item \code{"dccd"} ... 1st by decision, 2nd by condition.
 #'   }
 #'
-#' @param area A character code specifying the area of the boxes (or their relative sizes) with 4 options:
+#' @param area A character code specifying the area of the boxes (or their relative sizes) with
+#' 4 options:
 #'   \enumerate{
 #'   \item \code{"no"} ... all boxes are shown with the same size;
 #'   \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
@@ -117,20 +116,21 @@
 #'   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 #'   }
 #'
-#' @param p.lbl A character code specifying the type of probability information (on edges) with 4 options:
+#' @param p.lbl A character code specifying the type of probability information (on edges) with
+#' 4 options:
 #'   \enumerate{
 #'   \item \code{"nam"} ... names of probabilities;
-#'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
+#'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals, default);
 #'   \item \code{"mix"} ... names of essential probabilities, values of complements;
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
 #'
 #' @param show.accu Option for showing current
-#' accuracy metrics \code{\link{accu}} in the plot.
+#' accuracy metrics \code{\link{accu}} on the margin of the plot.
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 #' Default: \code{w.acc = .50}.
 #'
 #' Various other options allow the customization of text labels and colors:
@@ -152,20 +152,25 @@
 #' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
 #'
 #' @param col.txt Color for text labels (in boxes).
+#'
 #' @param cex.lbl Scaling factor for text labels (in boxes and on arrows).
 #' Default: \code{cex.lbl = .90}.
+#'
 #' @param box.cex Deprecated argument: Please use \code{cex.lbl} instead.
 #'
 #' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
+#'
 #' @param col.border Color of borders.
 #' Default: \code{col.border = grey(.33, alpha = .99)}.
 #'
 #' @param lwd Width of arrows.
+#'
 #' @param box.lwd Width of boxes.
 #'
 #' @param col.shadow Color of box shadows.
 #' Default: \code{col.shadow = grey(.11, alpha = .99)}.
+#'
 #' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
 #' Default: \code{cex.shadow = 0}.
 #'
@@ -248,6 +253,8 @@
 #'
 #' @export
 
+## plot_fnet: Definition: ---------
+
 plot_fnet <- function(prev = num$prev,             # probabilities
                       sens = num$sens, mirt = NA,
                       spec = num$spec, fart = NA,  # was: num$fart,
@@ -288,14 +295,38 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
 
-  ## (0) Handle deprecated arguments:
+  ## (0) Handle deprecated arguments: ----------
+
   if (!missing(box.cex)) {
     warning("argument 'box.cex' is deprecated; please use 'cex.lbl' instead.",
             call. = FALSE)
     cex.lbl <- box.cex
   }
 
-  ## (0.1) Compute or collect all current frequencies: ----------
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # express by in lowercase
+  if (by == "any" || by == "all" || by == "default" || by == "def" || is.null(by) || is.na(by) )  { by <- "cddc" }  # default/null
+  if (by == "cond" || by == "condition" ) { by <- "cd" }
+  if (by == "dec"  || by == "decision"  ) { by <- "dc" }
+  # if (by == "acc" || by == "accuracy" || by == "cor" )  { by <- "ac" }  # currently unsupported
+
+  if ( !is.null(area) && !is.na(area) ) {
+    area <- tolower(area)  # express area in lowercase
+  }
+  if (area == "none" || is.null(area) || is.na(area) ) { area <- "no" }          # null
+  if (area == "square" || area == "def" || area == "default" ) { area <- "sq" }  # default
+  if (area == "rect")   { area <- "vr" }
+
+  if ( !is.null(p.lbl) && !is.na(p.lbl) ) {
+    p.lbl <- tolower(p.lbl)  # express p.lbl in lowercase
+  }
+  if (p.lbl == "def" || p.lbl == "default" || is.null(p.lbl) || is.na(p.lbl) ) { p.lbl <- "mix" }  # default/null
+  if (p.lbl == "namnum" || p.lbl == "namval") { p.lbl <- "mix" }
+  if (p.lbl == "val") { p.lbl <- "num" }
+
+
+  ## (0.1) Compute or collect current frequencies: ----------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -345,47 +376,60 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   } # if (by...)
 
+  ## (0.2) Define plotting area: -----
+
+  ## Record graphical parameters (par):
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))
+
+  ## Define margin areas:
+  n_lines_mar <- 3
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
 
   ## (1) Color of boxes: ----------
 
-  if ((length(col.boxes) == length(pal)) &&
-      all.equal(col.boxes, pal)) {  # no change from default:
+  if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
+      # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
+      && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
+  ) {  # use named colors of col.boxes:
 
-    ## Use current color information of pal:
+    ## Get current color vector from pal:
 
     if (by == "cd") {  # (a) by condition:
 
       ## 7 boxes (including cond.true and cond.false):
       # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["true"], pal["false"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["true"], col.boxes["false"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## 7 boxes (including dec.pos and dec.neg):
       # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } else if (by == "cddc") {  # (c) by condition + decision:
 
       ## 10 boxes (top: cond.true and cond.false; bot: dec.pos and dec.neg):
       # col.boxes <- col.boxes[c(1:3, 6:9, 4:5, 1)  ]  # select 9 of 9 colors
-      col.boxes <- c(pal["N"],
-                     pal["true"], pal["false"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"],
-                     pal["pos"], pal["neg"],
-                     pal["N"])
+      col.boxes <- c(col.boxes["N"],
+                     col.boxes["true"], col.boxes["false"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"],
+                     col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["N"])
 
     } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
 
       ## 10 boxes (top: dec.pos and dec.neg; bot: cond.true and cond.false):
       # col.boxes <- col.boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
-      col.boxes <- c(pal["N"],
-                     pal["pos"], pal["neg"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"],
-                     pal["true"], pal["false"],
-                     pal["N"])
+      col.boxes <- c(col.boxes["N"],
+                     col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"],
+                     col.boxes["true"], col.boxes["false"],
+                     col.boxes["N"])
 
     } else {  # ANY other by-setting:
 
@@ -393,7 +437,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } # if (by...)
 
-  } # if (all.equal(col.boxes, pal))...
+  } # if (length(col.boxes) == length(pal)) #
+  #     # && all.equal(col.boxes, pal))...
 
 
   ## (2) Text/labels in 7 or 10 boxes: ----------
@@ -551,7 +596,6 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     }  # if (area...)
 
   } # if (by...)
-
 
   ## (3) Make matrix M: ----------
 
@@ -1603,7 +1647,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          box.size = x.boxes,   # widths of boxes
                          box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
                          box.type = "rect",    # "rect", "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes,  # scalar or vector of length 7.
+                         box.col = col.boxes,  # scalar or vector (of length 7 or 10?).
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                          box.lcol = col.border,  # col.boxes,
                          box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
@@ -1627,7 +1671,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ## (7) Title: ----------
 
   if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Network"}
+  if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Net"}
 
   if (area == "no") {area.lbl <- ""}
   else if (area == "sq") {area.lbl <- "Areas represent relative frequencies"}
@@ -1642,39 +1686,71 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   else {by.lbl <- ""}  # to prevent errors for other entries
 
   cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
-  title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
+  title(cur.title.lbl, line = 0, adj = 0, font.main = 1, cex.main = 1.2)  # (centered, not raised, normal font)
 
 
   ## (8) Margin text: ----------
 
-  ## (a) by condition: 3 basic probabilities
+  ## Text parameters:
+  m_col <- grey(.33, .99)  # color
+  m_cex <- .85             # size
+
+  ##   (A) on left side (adj = 0): ----
+
+  ## A1. freq label:
+  freq_lbl <- make_freq_lbl(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)   # use current freq values
+  mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
+
+  ## A2. Condition / p(cond) label:
   cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  mtext(cur.cond.lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
 
-  # (b) by decision:
-  if (by != "cd") {
-
-    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-    mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
-
-  } # else {
-  #   cur.dec.lbl <- ""
-  # }
-
-  ## (c) Accuracy: Compute and show accuracy metrics
-  if (show.accu) {
-    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
-  }
-
-  ## (d) Note that areas represent frequencies:
+  ## A3. Note that areas represent frequencies:
   if (area != "no") {
 
     cur.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    mtext(cur.area.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
   }
+
+  ##   (B) on right side (adj = 1): ----
+
+  ## B1. Accuracy label: Compute and show accuracy metrics
+  if (show.accu) {
+
+    # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
+    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+
+    # Note: If freq are NOT rounded, then
+    #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    #       would yield the same results.
+
+    # (2) Make label:
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+
+    # (3) Mark IF accu was based on rounded freq:
+    if (round) {  # freq were rounded:
+      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+    }
+
+    # (4) Plot accu label:
+    mtext(cur.accu.lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
+
+  } # if (show.accu)...
+
+
+  ## B2. Decision / p(dec) label:
+  if (by != "cd") {
+
+    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+    mtext(cur.dec.lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
+
+  }
+
+  ## B3. Imprint:
+  imprint_lbl <- ""  # "[\uA9riskyr]"
+  mtext(paste0(imprint_lbl, " "), side = 1, line = 2, adj = 1, col = m_col, cex = m_cex)
+
 
 
   ## (9) Return what? : ----------
@@ -1682,7 +1758,11 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   # return()        # returns nothing
   # return("nice")  # returns nothing
 
-}
+  ## Finish: ----
+
+  invisible()  # restores par(opar)
+
+} # plot_fnet(...) end.
 
 ## Check:
 {
@@ -1736,12 +1816,16 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 }
 
-## -----------------------------------------------
-## (+) ToDo:
+## (*) Done: -----------
+
+## - Increase robustness by anticipating and
+##   correcting common entry errors.         [2018 09 06]
+## - Clean up code.                          [2018 08 24]
+
+## (+) ToDo: -----------
 
 ## - Add a 3rd perspective:
 ##   "by correctness" or correspondence of condition and decision:
-##   "dec.corr" vs. "dec.err" (i.e., diagonal of confusion matrix)
+##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
 
-## -----------------------------------------------
-## eof.
+## eof. -----------

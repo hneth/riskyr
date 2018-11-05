@@ -4,16 +4,17 @@
 \alias{plot_fnet}
 \title{Plot a network diagram of frequencies and probabilities.}
 \usage{
-plot_fnet(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, round = TRUE, by = "cddc", area = "sq",
-  p.lbl = "num", show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85,
-  box.cex, col.boxes = pal, col.border = grey(0.33, alpha = 0.99),
-  lwd = 1.5, box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99),
+plot_fnet(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = freq$N, round = TRUE,
+  by = "cddc", area = "sq", p.lbl = "num", show.accu = TRUE,
+  w.acc = 0.5, title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
+  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
+  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+  col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85, box.cex,
+  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
+  box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99),
   cex.shadow = 0)
 }
 \arguments{
@@ -54,28 +55,30 @@ are rounded to integers. Default: \code{round = TRUE}.}
 \item \code{"dccd"} ... 1st by decision, 2nd by condition.
 }}
 
-\item{area}{A character code specifying the area of the boxes (or their relative sizes) with 4 options:
-\enumerate{
-\item \code{"no"} ... all boxes are shown with the same size;
-\item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
-\item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
-\item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
-}}
+\item{area}{A character code specifying the area of the boxes (or their relative sizes) with
+4 options:
+  \enumerate{
+  \item \code{"no"} ... all boxes are shown with the same size;
+  \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
+  \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
+  \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
+  }}
 
-\item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
-\enumerate{
-\item \code{"nam"} ... names of probabilities;
-\item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals) (default);
-\item \code{"mix"} ... names of essential probabilities, values of complements;
-\item \code{"min"} ... minimal labels: names of essential probabilities.
-}}
+\item{p.lbl}{A character code specifying the type of probability information (on edges) with
+4 options:
+  \enumerate{
+  \item \code{"nam"} ... names of probabilities;
+  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals, default);
+  \item \code{"mix"} ... names of essential probabilities, values of complements;
+  \item \code{"min"} ... minimal labels: names of essential probabilities.
+  }}
 
 \item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
+accuracy metrics \code{\link{accu}} on the margin of the plot.
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 Default: \code{w.acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
@@ -140,8 +143,8 @@ and a population size of \code{\link{N}} individuals.
 \details{
 \code{plot_fnet} is a generalization of \code{\link{plot_tree}}
 and offers the additional option of plotting the interplay
-between the 9 frequencies of \code{\link{freq}} and
-and the 10 probabilities of \code{\link{prob}}
+between 9 frequencies of \code{\link{freq}} and
+and 10 probabilities of \code{\link{prob}}
 in a single network diagram.
 
 The option \code{by} (as 2 or 4 characters) allows specifying
@@ -244,7 +247,10 @@ plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic_2}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_prism}}, \code{\link{plot_tab}},
+  \code{\link{plot_tree}}
 }
+\concept{visualization functions}

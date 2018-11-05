@@ -1,7 +1,7 @@
 ---
 title: "Contingency Matrix"
 author: "SPDS, uni.kn"
-date: "2018 03 26"
+date: "2018 06 07"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -35,6 +35,7 @@ The following "contingency matrix"" is a generalization of the "confusion matrix
 | r2 (`FALSE`):  | `r2c1`  | `r2c2`         | `n_r2` | `pr_r2c1` = `r2c1`/`r2`        `pr_r2c2` = `r2c2`/`r2` |
 |      Sum:          | `n_c1`   | `n_c2`          | `N`   | `p_c1` =  `n_c1`/`N`     |
 | (a) by condition  | `pc_r1c1` = `r1c1`/`c1` `pc_r2c1` = `r2`/`c1`   | `pc_r1c2` = `r1c2`/`c2`   `pc_r2c2` = `r2c2`/`c2` | `p_r1` = `n_r1`/`N` |  `rc12` = `diag`/`N` = (`r1c1`+`r2c2`)/`N`|
+
 
 
 

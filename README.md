@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) <!-- [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) -->
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
 riskyr
 ======
@@ -40,8 +40,8 @@ Installation
 The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
-install.packages("riskyr")  # install riskyr from CRAN client
-library("riskyr")           # load to use the package
+install.packages("riskyr"")  # install riskyr from CRAN client
+library("riskyr"")           # load to use the package
 ```
 
 The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
@@ -62,12 +62,12 @@ Quick Start Guide
 <!-- Example: -->
 > **Screening for hustosis**
 >
-> A screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not perfect. It has the following properties:
+> A screening device for detecting the clinical condition of *hustosis* is developed. The current device is very good, but not perfect. We have the following information:
 > 1. About 4% of the people of the general population suffer from *hustosis*.
 > 2. If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.
-> 3. If someone is free from hustosis, there is a chance of 4% that he or she will still test positively for the condition.
+> 3. If someone is free from hustosis, there is a chance of 5% that he or she will still test positively for the condition.
 >
-> Mr. and Ms. Smith have both been screened with this device:
+> Mr. and Ms. Smith have both been screened with the device:
 > - Mr. Smith tested positively (i.e., received a diagnosis of hustosis).
 > - Ms. Smith tested negatively (i.e., was judged to be free of hustosis).
 >
@@ -81,7 +81,7 @@ The first challenge in solving such problems is in understanding the information
 
 1.  The condition's *prevalence* (in the general population) is 4%: `prev = .04`.
 2.  The device's or diagnostic decision's *sensitivity* is 80%: `sens = .80`.
-3.  The device's or diagnostic decision's *false alarm rate* is 4%, implying a *specificity* of (100% − 4%) = 96%: `spec = .04`.
+3.  The device's or diagnostic decision's *false alarm rate* is 5%: `fart = .05`, implying a *specificity* of (100% − 5%) = 95%: `spec = .95`.
 
 #### Understanding the questions asked
 
@@ -143,8 +143,8 @@ summary(hustosis)  # summarizes key parameter values:
 #> 0.04 0.80 0.20 0.95 0.05 
 #> 
 #>  Other probabilities:
-#>  ppod   PPV   NPV   FDR   FOR 
-#> 0.080 0.400 0.991 0.600 0.009 
+#>  ppod   PPV   NPV   FDR   FOR   acc 
+#> 0.080 0.400 0.991 0.600 0.009 0.944 
 #> 
 #> Frequencies:
 #> 
@@ -308,8 +308,8 @@ summary(s21)  # shows key scenario information:
 #> 0.50 0.21 0.79 0.94 0.06 
 #> 
 #>  Other probabilities:
-#>  ppod   PPV   NPV   FDR   FOR 
-#> 0.135 0.778 0.543 0.222 0.457 
+#>  ppod   PPV   NPV   FDR   FOR   acc 
+#> 0.135 0.778 0.543 0.222 0.457 0.575 
 #> 
 #> Frequencies:
 #> 
@@ -467,7 +467,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 [1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
-[2] This notion of *risk* is typically contrasted with the wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.)
+[2] This notion of *risk* is typically contrasted with the much wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)
 
 [3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.
 

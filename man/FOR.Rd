@@ -70,6 +70,7 @@ However, due to being a conditional probability,
 FOR <- .05     # => sets a false omission rate of 5\%
 FOR <- 5/100   # => (condition = TRUE) for 5 out of 100 people with (decision = negative)
 is_prob(FOR)   # => TRUE (as FOR is a probability)
+
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
@@ -84,9 +85,10 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{NPV}},
-  \code{\link{PPV}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{ppod}},
-  \code{\link{prev}}, \code{\link{sens}},
-  \code{\link{spec}}
+  \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},
+  \code{\link{fart}}, \code{\link{mirt}},
+  \code{\link{ppod}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{probabilities}
 \keyword{datasets}

@@ -4,16 +4,17 @@
 \alias{plot_icons}
 \title{Plot an icon array of a population.}
 \usage{
-plot_icons(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, type = "array", ident.order = c("hi", "mi",
-  "fa", "cr"), icon.colors = pal[ident.order], icon.types = 22,
+plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = freq$N, type = "array",
+  ident.order = c("hi", "mi", "fa", "cr"),
+  icon.colors = pal[ident.order], icon.types = 22,
   icon.border.col = grey(0.1, 0.5), icon.border.lwd = 1.5,
-  transparency = 0.5, icon.size = NULL, block.d = NULL, border.d = 0.1,
-  block.size.row = 10, block.size.col = 10, nblocks.row = NULL,
-  nblocks.col = NULL, fill.array = "left", fill.blocks = "rowwise",
-  show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
-  type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-  cex.lbl = 0.85)
+  transparency = 0.5, icon.size = NULL, block.d = NULL,
+  border.d = 0.1, block.size.row = 10, block.size.col = 10,
+  nblocks.row = NULL, nblocks.col = NULL, fill.array = "left",
+  fill.blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
+  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl",
+  "fa.lbl", "cr.lbl")], cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -76,7 +77,7 @@ resulting in different types of displays:
 }}
 
 \item{ident.order}{The order in which icon identities
-(i.e, hi, mi, fa, and cr) are plotted.
+(i.e., hi, mi, fa, and cr) are plotted.
 Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon.colors}{Specifies the icon colors as a vector.}
@@ -122,7 +123,7 @@ accuracy metrics \code{\link{accu}} in the plot.
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 Default: \code{w.acc = .50}.
 
 
@@ -193,7 +194,10 @@ plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
 }
 \seealso{
 Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_mosaic_2}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_prism}}, \code{\link{plot_tab}},
+  \code{\link{plot_tree}}
 }
+\concept{visualization functions}

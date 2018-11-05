@@ -1,43 +1,53 @@
 ## init_txt.R | riskyr
-## 2018 02 17
-## -----------------------------------------------
+## 2018 10 26
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
-
 ## -----------------------------------------------
-## (A) Defaults for all titles and labels (txt):
+
+## (A) Set defaults for all titles and labels (txt) ----------
 
 txt.def <- list(
-  scen.lbl = "Scenario name", # put scenario label in Title Caps (if desired in plot titles)
+
+  # (a) Scenario:
+  scen.lbl = "Scenario", # provide scenario name/label in Title Caps (if desired in plot titles)
   scen.txt = "Description of the current scenario in a short paragraph of text. This description may include several sentences.",
   scen.src = "Source information",
   scen.apa = "Source information in APA format",
   scen.lng = "en/de", # language
 
-  popu.lbl = "Current population",
+  # (b) Population:
+  popu.lbl = "Population",  # current population label
 
-  ## (a) Condition:
-  cond.lbl = "Current condition",             # "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
-  cond.true.lbl  = "Condition true",  # "has condition", "is affected"
-  cond.false.lbl = "Condition false", # "does not have condition", "is unaffected"
+  # (c) Condition:
+  cond.lbl = "Condition",  # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
+  cond.true.lbl  = "Condition true",   # "has condition", "is affected"
+  cond.false.lbl = "Condition false",  # "does not have condition", "is unaffected"
 
-  ## (b) Decision/prediction/predicted condition:
-  dec.lbl = "Current decision",                # "Prediction", "Diagnostic decision", "Mammography", "HIV test"
+  # (d) Decision/prediction/predicted condition:
+  dec.lbl = "Decision",  # Dimension label: "Prediction", "Diagnostic decision", "Mammography", "HIV test"
   dec.pos.lbl  = "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec.neg.lbl = "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
-  ## (c) Labels for the 4 SDT cases (combinations):
+  # (e) Accuracy/correspondence of decision to condition:
+  acc.lbl = "Accuracy",   # Dimension label: accuracy/correspondence
+  dec.cor.lbl = "Decision correct",  # acc/cor  # accurate decision
+  # NOTE: "dec.cor" should better be called "dec.acc" (for consistency with probabilities "acc" vs. "err")!
+  dec.err.lbl = "Decision error",    # err      # inaccurate decision
+
+  # (f) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
+  sdt.lbl = "Case",  # Dimension label: cell/case/SDT 2x2 table
   hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
   mi.lbl = "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
   fa.lbl = "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
   cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
+
 )
 
-# length(txt.def) # => 14 text elements
+## Check:
+# length(txt.def)  # => 20 text elements
 
-## -----------------------------------------------
-## (B) Initialization function for all text
-##     elements (all titles and labels):
+
+## (B) Initialization of all text elements (titles and labels) ----------
 
 #' Initialize basic text elements.
 #'
@@ -56,7 +66,7 @@ txt.def <- list(
 #' @param scen.src The source information for the current scenario.
 #' @param scen.apa Source information in APA format.
 #' @param scen.lng Language of the current scenario (as character code).
-#' Options: \code{"en"}...English, \code{"de"}... German.
+#' Options: \code{"en"}...English, \code{"de"}...German.
 #'
 #' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
@@ -72,6 +82,13 @@ txt.def <- list(
 #' @param dec.neg.lbl A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
+#' @param acc.lbl A name for judgment \emph{accuracy} (e.g., correspondence of decision to condition).
+#' @param dec.cor.lbl A label for \emph{correct} decisions
+#' or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).
+#' @param dec.err.lbl A label for \emph{erroneous} decisions
+#' or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).
+#'
+#' @param sdt.lbl A name for the case/category/cell in the 2x2 contingency table (SDT: condition x decision).
 #' @param hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 #' @param mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
@@ -83,12 +100,12 @@ txt.def <- list(
 #'
 #' @examples
 #' init_txt()          # => defines a list of (default) text elements
-#' length(init_txt())  # => 16
+#' length(init_txt())  # => 20
 #'
 #' # Customizing current text elements:
-#' txt <- init_txt(scen.lbl = "US or Them",
-#'                 scen.src = "Some stable genius",
-#'                 popu.lbl = "We, the people")
+#' txt <- init_txt(scen.lbl = "My scenario",
+#'                 scen.src = "My source",
+#'                 popu.lbl = "Current population")
 #'
 #' @family functions initializing scenario information
 #'
@@ -98,7 +115,6 @@ txt.def <- list(
 #' \code{\link{num}} for basic numeric parameters
 #'
 #' @export
-#'
 
 init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      scen.txt = txt.def$scen.txt,  # text with scenario description
@@ -114,13 +130,17 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      dec.lbl = txt.def$dec.lbl,                # Decision
                      dec.pos.lbl  = txt.def$dec.pos.lbl,       # "Decision positive"
                      dec.neg.lbl = txt.def$dec.neg.lbl,        # "Decision negative"
-                     ## (c) Labels for the 4 SDT cases (combinations):
-                     hi.lbl = txt.def$hi.lbl,  # hits               = "True positive"
-                     mi.lbl = txt.def$mi.lbl,  # misses             = "False negative"
-                     fa.lbl = txt.def$fa.lbl,  # false alarms       = "False positive"
-                     cr.lbl = txt.def$cr.lbl   # correct rejections = "True negative"
-                     ) {
-
+                     ## (c) Accuracy/correspondence of decision to condition:
+                     acc.lbl = txt.def$acc.lbl,                # Accuracy
+                     dec.cor.lbl = txt.def$dec.cor.lbl,        # "Decision accurate"
+                     dec.err.lbl = txt.def$dec.err.lbl,        # "Decision inaccurate"
+                     ## (d) Labels for the 4 SDT cases (combinations):
+                     sdt.lbl = txt.def$sdt.lbl,  # case/category/cell/SDT
+                     hi.lbl = txt.def$hi.lbl,    # hits               = "True positive"
+                     mi.lbl = txt.def$mi.lbl,    # misses             = "False negative"
+                     fa.lbl = txt.def$fa.lbl,    # false alarms       = "False positive"
+                     cr.lbl = txt.def$cr.lbl     # correct rejections = "True negative"
+) {
 
   ## 1. Initialize txt:
   txt <- NULL
@@ -143,7 +163,12 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
     dec.lbl = dec.lbl,
     dec.pos.lbl = dec.pos.lbl,
     dec.neg.lbl = dec.neg.lbl,
-    ## (c) Labels for the 4 SDT cases (combinations):
+    ## (c) Accuracy:
+    acc.lbl = acc.lbl,
+    dec.cor.lbl = dec.cor.lbl,
+    dec.err.lbl = dec.err.lbl,
+    ## (d) Labels for the 4 SDT cases/cells (combinations):
+    sdt.lbl = sdt.lbl,
     hi.lbl = hi.lbl,
     mi.lbl = mi.lbl,
     fa.lbl = fa.lbl,
@@ -157,8 +182,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 
 ## Check:
 {
-  # init_txt()          # => defines a list of (default) text elements
-  # length(init_txt())  # => 16
+  init_txt()          # => defines a list of (default) text elements
+  length(init_txt())  # => 20
   #
   # # Customizing current text elements:
   # txt <- init_txt(scen.lbl = "US or Them",
@@ -166,9 +191,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
   #                 popu.lbl = "We, the people")
 }
 
-## -----------------------------------------------
-## (C) Initialize a list txt to contain
-##     all current text elements:
+
+## (C) Initialize a list txt to contain all current text elements ---------
 
 #' List current values of basic text elements.
 #'
@@ -214,6 +238,8 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' \item \code{dec.neg.lbl} A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
+#' \item \code{sdt.lbl} A name for the \emph{case/category/cell} in the 2x2 contingency table (condition x decision, SDT).
+#'
 #' \item \code{hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 #'
@@ -249,22 +275,64 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' \code{\link{comp_prob}} computes current probability information.
 #'
 #' @export
-#'
 
 ## Apply:
 txt <- init_txt()
 
 ## Check:
-{
-  # txt          # displays all current names and elements
-  # txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
-  # txt$scen.lbl <- "My favorite example" # sets a new scenario title
-}
+# txt          # displays all current names and elements
+# txt$scen.lbl # displays the current scenario label (e.g., used in plot titles)
+# txt$scen.lbl <- "My favorite example" # sets a new scenario title
 
-## -----------------------------------------------
-## (+) ToDo:
 
-## - add txt to a cus object?
+## txt_TF: Define alternative set of text labels: --------
 
-## -----------------------------------------------
-## eof.
+#' Alternative text labels (TP, FN, FP, TN).
+#'
+#' \code{txt_TF} is initialized to alternative text labels
+#' to define a frequency naming scheme in which
+#' (hi, mi, fa, cr) are called (TP, FN, FP, TN).
+#'
+#' See \code{\link{txt}} for default text information.
+#'
+#' Assign \code{txt <- txt_TF} to use as default text labels
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' txt_TF       # shows all text labels
+#' txt_TF["hi"]  # shows the current color for hits ("TP")
+#' txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{txt}} contains current color information;
+#' \code{\link{init_txt}} initializes color information.
+#'
+#' @export
+
+txt_TF <- init_txt(scen.lbl = "",
+                   cond.lbl = "Truth", cond.true.lbl = "True", cond.false.lbl = "False",
+                   dec.lbl = "Test", dec.pos.lbl = "Positive", dec.neg.lbl = "Negative",
+                   acc.lbl = "Accuracy", dec.cor.lbl = "Correct", dec.err.lbl = "Incorrect",
+                   hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+
+## (*) Done: -------------------------------------
+
+## - name_prob: Add function to look up the prob that corresponds
+##   to 2 freq    [2018 08 20].
+## - label_freq + label_prob: Added functions to obtain labels
+##   of freq and prob (from fname or pname).
+## - Rename acc.cor and acc.err to dec.cor and dec.err
+##   (to remain consistent with freq names).
+## - Add text labels for accuracy/correspondence of decision to condition
+##   (acc.lbl, dec.cor.lbl, dec.err.lbl) and for sdt.lbl.
+## - Clean up code [2018 08 20].
+
+## (+) ToDo: -------------------------------------
+
+## - Add shorter, abbreviated versions of text elements (to use as labels)?
+##   (e.g., hi/TP, mi/FN, fa/FN, cr/TN)
+## - Add text elements for probabilities (to be used in labels)?
+
+## eof. ------------------------------------------

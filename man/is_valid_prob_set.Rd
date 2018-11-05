@@ -54,13 +54,11 @@ is always necessary. However, for 2 other essential
 probabilities there is a choice:
 
 \enumerate{
-
-\item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
-(as both are complements).
+  \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+        (as both are complements).
 
 \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
-(as both are complements).
-
+       (as both are complements).
 }
 
 The argument \code{tol} is optional (with a default value of .01)
@@ -73,7 +71,7 @@ that describe extreme cases and \code{\link{init_num}}
 for initializing basic parameters.
 }
 \examples{
-## ways to succeed:
+# ways to succeed:
 is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
 is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
 is_valid_prob_set(.3, .9, .1, .8, NA)            # => TRUE + warning (NA)
@@ -81,14 +79,14 @@ is_valid_prob_set(.3, .9, NA, .8, NA)            # => TRUE + warning (NAs)
 is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
 is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
 
-## watch out for:
+# watch out for:
 is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
 is_valid_prob_set(1, 1, 0, 1, 0)    # => TRUE, but NO warning about extreme case!
 is_valid_prob_set(1, 1, 0, 1, NA)   # => TRUE, but NO warning about extreme case!
 is_valid_prob_set(1, 1, 0, NA, 1)   # => TRUE, but NO warning about extreme case!
 is_valid_prob_set(1, 1, 0, NA, 0)   # => TRUE, but NO warning about extreme case!
 
-## ways to fail:
+# ways to fail:
 is_valid_prob_set(8, 1, 0, 1, 0)      # => FALSE + warning (is_prob fails)
 is_valid_prob_set(1, 1, 8, 1, 0)      # => FALSE + warning (is_prob fails)
 is_valid_prob_set(2, 1, 3, 1, 4)      # => FALSE + warning (is_prob fails)
@@ -116,3 +114,4 @@ Other verification functions: \code{\link{is_complement}},
   \code{\link{is_valid_prob_pair}},
   \code{\link{is_valid_prob_triple}}
 }
+\concept{verification functions}

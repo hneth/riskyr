@@ -4,16 +4,17 @@
 \alias{plot_tree}
 \title{Plot a tree diagram of frequencies and probabilities.}
 \usage{
-plot_tree(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, N = freq$N, round = TRUE, by = "cd", area = "no",
-  p.lbl = "mix", show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, col.txt = grey(0.01, alpha = 0.99), box.cex = 0.9,
-  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.6,
-  box.lwd = 1.8, col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
+plot_tree(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, N = freq$N, round = TRUE,
+  by = "cd", area = "no", p.lbl = "mix", show.accu = TRUE,
+  w.acc = 0.5, title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
+  cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
+  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
+  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+  col.txt = grey(0.01, alpha = 0.99), box.cex = 0.9, col.boxes = pal,
+  col.border = grey(0.33, alpha = 0.99), lwd = 1.6, box.lwd = 1.8,
+  col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -71,7 +72,7 @@ accuracy metrics \code{\link{accu}} in the plot.
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 Default: \code{w.acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
@@ -209,7 +210,10 @@ plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow"
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic_2}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_plane}}
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_plane}}, \code{\link{plot_prism}},
+  \code{\link{plot_tab}}
 }
+\concept{visualization functions}

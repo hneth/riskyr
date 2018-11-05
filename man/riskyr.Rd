@@ -7,14 +7,15 @@
 with 21 entries on textual and numeric information on
 a riskyr scenario.}
 \usage{
-riskyr(scen.lbl = "", scen.lng = txt$scen.lng, scen.txt = txt$scen.txt,
-  popu.lbl = txt$popu.lbl, cond.lbl = txt$cond.lbl,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.lbl = txt$dec.lbl, dec.pos.lbl = txt$dec.pos.lbl,
-  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
-  fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl, prev = NA, sens = NA,
-  spec = NA, fart = NA, N = NA, hi = NA, mi = NA, fa = NA,
-  cr = NA, scen.src = txt$scen.src, scen.apa = txt$scen.apa)
+riskyr(scen.lbl = "", scen.lng = txt$scen.lng,
+  scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
+  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
+  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
+  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
+  cr.lbl = txt$cr.lbl, prev = NA, sens = NA, spec = NA,
+  fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
+  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
 }
 \arguments{
 \item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
@@ -134,8 +135,8 @@ summary(scen.reoffend)
 plot(scen.reoffend)
 
 # 2 ways of defining the same scenario:
-s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # define s1
-s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same in terms of freq
+s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1: define by 3 prob & N
+s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 all.equal(s1, s2)  # should be TRUE
 
 # Ways to work:
@@ -143,7 +144,7 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # w
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 
 ## Watch out for:
-# riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses sum of freq
+# riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses actual sum of freq
 # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 
 }

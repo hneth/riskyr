@@ -93,6 +93,64 @@
 </table>
 <p>Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. This is no surprise when considering explanations like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.</p>
 <p>Fortunately, the basic matrix is also known as 2-by-2 contingency table, actually quite simple, and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.</p>
+<div id="terminology" class="section level2">
+<h2>Terminology</h2>
+<table style="width:78%;">
+<colgroup>
+<col width="16%"></col>
+<col width="15%"></col>
+<col width="15%"></col>
+<col width="15%"></col>
+<col width="15%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right"></th>
+<th align="center">‘cols’</th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><code>rows</code></td>
+<td align="center">left (<code>TRUE</code>):</td>
+<td align="center">right (<code>FALSE</code>):</td>
+<td align="center">Sum:</td>
+<td align="center">(b) by decision:</td>
+</tr>
+<tr class="even">
+<td align="right">top (<code>TRUE</code>):</td>
+<td align="center"><code>tl</code></td>
+<td align="center"><code>tr</code></td>
+<td align="center"><code>t</code></td>
+<td align="center"><code>ptl</code> = <code>tl</code>/<code>t</code> <code>ptr</code> = <code>tr</code>/<code>t</code></td>
+</tr>
+<tr class="odd">
+<td align="right">bottom (<code>FALSE</code>):</td>
+<td align="center"><code>bl</code></td>
+<td align="center"><code>br</code></td>
+<td align="center"><code>b</code></td>
+<td align="center"><code>NPV</code> = <code>cr</code>/<code>dec.neg</code></td>
+</tr>
+<tr class="even">
+<td align="right">Sum:</td>
+<td align="center"><code>l</code></td>
+<td align="center"><code>r</code></td>
+<td align="center"><code>N</code></td>
+<td align="center"><code>pl</code> = <code>nl</code>/<code>N</code></td>
+</tr>
+<tr class="odd">
+<td align="right">(a) by condition</td>
+<td align="center"><code>ptl</code> = <code>tl</code>/<code>l</code> <code>pbl</code> = <code>bl</code>/<code>l</code></td>
+<td align="center"><code>spec</code> = <code>cr</code>/<code>cond.false</code></td>
+<td align="center"><code>pt</code> = <code>nt</code>/<code>N</code></td>
+<td align="center"><code>acc</code> = <code>dec.cor</code>/<code>N</code> = (<code>hi</code>+<code>cr</code>)/<code>N</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="basics" class="section level2">
 <h2>Basics</h2>
 <p>Condensed to its core, the confusion matrix cross-tabulates two binary dimensions and classifies each individual case into one of 4 possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:</p>

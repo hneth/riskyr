@@ -145,7 +145,7 @@ These numbers are defined to reflect particular quantities and can be expressed 
 
 ### Definitions
 
-The following 10 probabilities are distinguished by `riskyr` and contained in `prob`:
+The following 11 probabilities are distinguished by `riskyr` and contained in `prob`:
 
 |Nr.| Variable | Name | Definition |
 |--: |:---   |:------------  |:----------------------------------------------|
@@ -158,21 +158,23 @@ The following 10 probabilities are distinguished by `riskyr` and contained in `p
 |  7. | `PPV` | positive predictive value | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _positive_. |
 |  8. | `FDR` | false detection rate | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _positive_. |
 |  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. |
-| 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. |
+| 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | 
+| 11. | `acc` | accuracy | The probability of a _correct decision_ (i.e., correspondence of decisions to conditions). | 
 
 
 ### Non-conditional vs. conditional probabilities
 
-Note that there are only two _non-conditional_ probabilities:
+Note that there are several _non-conditional_ probabilities:
 
 - The prevalence `prev` (1.) only depends on features of the _condition_.
-- The proportion of positive decisions `ppod` (6.) only depends on features of the _decision_.
+- The proportion of positive decisions `ppod` (6.) only depends on features of the _decision_. 
+- The accuracy `acc` (11.) depends on `prev` and `ppod`, but unconditionally dissects a population into 2 groups (`dec.cor` vs. `dec.err`). 
 
-The other eight probabilities are _conditional_ probabilities:
+The other probabilities are _conditional_ probabilities based on 3 perspectives:
 
-- Four conditional probabilities (2. to 5.) depend on the _condition_'s `prev` and features of the _decision_.
-- Four conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.
-
+- by condition: conditional probabilities (2. to 5.) depend on the _condition_'s `prev` and features of the _decision_.
+- by decision: conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.
+- by accuracy: conditional probabilities based on _accuracy_ `acc` are currently not computed or defined. 
 
 ### Relationships among probabilities
 
@@ -229,16 +231,18 @@ The easiest way to think about, define, and compute the probabilities (contained
 |  8. | `FDR` | false detection rate | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _positive_. | `FDR` = `fa`/`dec.pos` |
 |  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. | `NPV` = `cr`/`dec.neg` |
 | 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | `FOR` = `mi`/`dec.neg` |
+| 11. | `acc` | accuracy | The probability of a _correct decision_ (i.e., correspondence of decisions to conditions). | `acc` = `dec.cor`/`N` |
 
 
 Note that the ratios of frequencies are straightforward consequences of the probabilities' definitions:
 
-1. The two unconditional probabilities (1. and 6.) are proportions of the entire population:
+1. The unconditional probabilities (1., 6. and 11.) are proportions of the entire population:
 
    - `prev` = `cond.true`/`N`
    - `ppod` = `dec.pos`/`N`
+   - `acc` = `dec.cor`/`N`
 
-2. All conditional probabilities (2.--5. and 7.--10.) can be computed as a proportion of the reference group on which they are conditional. More specifically, if we schematically read each definition as "The conditional probability of $X$ provided that $Y$", then the ratio of the corresponding frequencies is `X & Y`/`Y`. More explicitly, 
+2. The conditional probabilities (2.--5. and 7.--10.) can be computed as a proportion of the reference group on which they are conditional. More specifically, if we schematically read each definition as "The conditional probability of $X$ provided that $Y$", then the ratio of the corresponding frequencies is `X & Y`/`Y`. More explicitly, 
 
 - the ratio's numerator is the frequency of the joint occurrence (i.e., both `X & Y`) being the case; 
 - the ratio's denominator is the frequency of the condition (`Y`) being the case.
@@ -271,7 +275,6 @@ plot_fnet(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
 1. Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?
 
 2. What is the frequency of `dec.cor` and `dec.err` cases? Where do these cases appear in the diagram?
-
 
 
 ## References

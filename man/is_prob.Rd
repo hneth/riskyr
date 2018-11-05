@@ -4,14 +4,14 @@
 \alias{is_prob}
 \title{Verify that input is a probability (numeric value from 0 to 1).}
 \usage{
-is_prob(prob, NA.warn = FALSE)
+is_prob(prob, NA_warn = FALSE)
 }
 \arguments{
 \item{prob}{A numeric argument (scalar or vector) that is to be checked.}
 
-\item{NA.warn}{Boolean value determining whether a warning is shown
+\item{NA_warn}{Boolean value determining whether a warning is shown
 for \code{NA} values.
-Default: \code{NA.warn = FALSE}.}
+Default: \code{NA_warn = FALSE}.}
 }
 \value{
 A Boolean value:
@@ -25,18 +25,18 @@ is a probability (i.e., a numeric value in the range from 0 to 1).
 \examples{
 # ways to succeed:
 is_prob(1/2)                  # => TRUE
-p.seq <- seq(0, 1, by = .1)
+p.seq <- seq(0, 1, by = .1)   # Vector of probabilities
 is_prob(p.seq)                # => TRUE (for vector)
 
 # watch out for:
 is_prob(NA)                   # => FALSE + NO warning!
 is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
-is_prob(0/0, NA.warn = TRUE)  # => FALSE + warning (NA values)
+is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
 
 # ways to fail:
-is_prob(8)                    # => FALSE + warning (outside range)
-is_prob(c(.5, 8))             # => FALSE + warning (for vector)
-is_prob("Laplace")            # => FALSE + warning (non-numeric values)
+is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
+is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
+is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
 
 }
 \seealso{
@@ -57,3 +57,4 @@ Other verification functions: \code{\link{is_complement}},
   \code{\link{is_valid_prob_set}},
   \code{\link{is_valid_prob_triple}}
 }
+\concept{verification functions}

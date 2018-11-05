@@ -89,4 +89,5 @@ Other frequencies: \code{\link{N}},
   \code{\link{dec.err}}, \code{\link{dec.pos}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
+\concept{frequencies}
 \keyword{datasets}

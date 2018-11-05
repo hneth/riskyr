@@ -5,10 +5,10 @@
 \title{Plot a plane of selected values (e.g., PPV or NPV)
 as a function of sensitivity and specificity.}
 \usage{
-plot_plane(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, what = "PPV", what.col = pal, show.point = TRUE,
-  step.size = 0.05, theta = -45, phi = 0, title.lbl = txt$scen.lbl,
-  cex.lbl = 0.85)
+plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, what = "PPV", what.col = pal,
+  line.col = "grey85", show.point = TRUE, step.size = 0.05,
+  theta = -45, phi = 0, title.lbl = txt$scen.lbl, cex.lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -39,9 +39,12 @@ to be plotted as a plane. Currently available
 options are \code{c("PPV", "NPV", "ppod", "acc")}.
 Default: \code{what = "PPV"}.}
 
-\item{what.col}{A color corresponding to the metric
+\item{what.col}{Color for surface facets corresponding to the metric
 specified in \code{what}.
 Default: \code{what.col = pal}.}
+
+\item{line.col}{Color for lines between surface facets.
+Default: \code{line.col = "grey85"}.}
 
 \item{show.point}{Boolean option for showing the current value
 of the selected metric for the current conditions
@@ -81,18 +84,22 @@ that allows for additional dependent values.
 }
 \examples{
 # Basics:
-plot_plane()  # => current defaults (what = "PPV")
+plot_plane()              # => default plot (what = "PPV")
 plot_plane(what = "PPV")  # => plane of PPV
 plot_plane(what = "NPV")  # => plane of NPV
 plot_plane(what = "ppod") # => plane of ppod
 plot_plane(what = "acc")  # => plane of acc
 
-# Options:
+# Plot options:
 plot_plane(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 plot_plane(show.point = FALSE)  # => no point shown on plane
-plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
+
+plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
+plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
+
+plot_plane(step.size = .333, what.col = "firebrick")    # => coarser granularity + color
 plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
-plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
+plot_plane(what.col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
 
 
 }
@@ -106,7 +113,10 @@ plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from a
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic_2}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_tree}}
+  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
+  \code{\link{plot_prism}}, \code{\link{plot_tab}},
+  \code{\link{plot_tree}}
 }
+\concept{visualization functions}

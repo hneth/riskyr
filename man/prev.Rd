@@ -78,12 +78,13 @@ Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additiona
 \seealso{
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
-\code{\link{is_prob}} verifies probability inputs;
 \code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities
+\code{\link{comp_freq}} computes natural frequencies from probabilities;
+\code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
+  \code{\link{err}}, \code{\link{fart}},
   \code{\link{mirt}}, \code{\link{ppod}},
   \code{\link{sens}}, \code{\link{spec}}
 
@@ -91,4 +92,6 @@ Other essential parameters: \code{\link{cr}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
   \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{essential parameters}
+\concept{probabilities}
 \keyword{datasets}

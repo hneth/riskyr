@@ -42,3 +42,4 @@ divided by
 \code{\link{is_prob}} verifies probability inputs;
 \code{\link{is_freq}} verifies frequency inputs.
 }
+\concept{functions computing probabilities from frequencies}

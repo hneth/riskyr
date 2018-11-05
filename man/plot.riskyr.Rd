@@ -58,17 +58,20 @@ s25 <- scenarios$n25  # select scenario 25 from scenarios
 plot(s25)  # => default plot (fnet)
 plot(s25, plot.type = "fnet")  # => network diagram (same as default)
 plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+plot(s25, plot.type = "icons", type = "mosaic")
 plot(s25, plot.type = "curve", what = "all")
-plot(s25, plot.type = "icons")
-plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameter to create.
-plot(s25, plot.type = "mosaic")
 plot(s25, plot.type = "plane", what = "NPV")
 
+plot(s25, plot.type = "area", by = "cddc")
+plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
 
 }
 \seealso{
-Other visualization functions: \code{\link{plot_curve}},
+Other visualization functions: \code{\link{plot_area}},
+  \code{\link{plot_bar}}, \code{\link{plot_curve}},
   \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic_2}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
+  \code{\link{plot_prism}}, \code{\link{plot_tab}},
+  \code{\link{plot_tree}}
 }
+\concept{visualization functions}

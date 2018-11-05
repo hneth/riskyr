@@ -66,4 +66,6 @@ Other frequencies: \code{\link{N}},
   \code{\link{dec.neg}}, \code{\link{dec.pos}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
+\concept{essential parameters}
+\concept{frequencies}
 \keyword{datasets}

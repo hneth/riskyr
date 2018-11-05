@@ -1,7 +1,8 @@
 ## start_riskyr.R | riskyr
-## 2018 02 28
+## 2018 10 26
+## Final functions and start-up settings:
 ## -----------------------------------------------
-## Final functions and settings:
+
 
 ## (1) Open package guide: -----------------------
 
@@ -49,7 +50,7 @@ start_riskyr <- function(...) {
   ## (4) Compute derived data structures and variables:
   prob <- comp_prob()
   freq <- comp_freq()
-  accu <- comp_accu()
+  accu <- comp_accu_prob()  # was: comp_accu() which used to call comp_accu_freq()
 
   ## (5) Insert computed values into riskyr.lst:
   riskyr.lst <- list(txt = txt,
@@ -78,15 +79,15 @@ start_riskyr <- function(...) {
   # packageStartupMessage("riskyr.guide() opens user guides.")
   # packageStartupMessage("citation('riskyr') provides citation info.")
 
-  ## Roll riskyr dice
-  ## (to illustrate the underlying notion of "risk"): ------
+  ## Roll riskyr dice: ------
+  ## (to illustrate the underlying notion of "risk")
   dice <- sample(1:6, 1)
 
   # if (dice == 0) {packageStartupMessage("citation('riskyr') provides citation info.")}
 
   if (dice == 1) {
     packageStartupMessage(" ")
-    packageStartupMessage("Running riskyr (v0.1.0)...")
+    packageStartupMessage("Running riskyr (v0.1.922)...")
     packageStartupMessage(" ")
   }
 
@@ -134,7 +135,13 @@ start_riskyr <- function(...) {
 
 }
 
-## (+) ToDo: -------------------------------------
+
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 22].
+
+## (+) ToDo: ----------
+
 ## - ...
-## -----------------------------------------------
-## eof.
+
+## eof. ------------------------------------------

@@ -10,6 +10,8 @@ init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
   cond.lbl = txt.def$cond.lbl, cond.true.lbl = txt.def$cond.true.lbl,
   cond.false.lbl = txt.def$cond.false.lbl, dec.lbl = txt.def$dec.lbl,
   dec.pos.lbl = txt.def$dec.pos.lbl, dec.neg.lbl = txt.def$dec.neg.lbl,
+  acc.lbl = txt.def$acc.lbl, dec.cor.lbl = txt.def$dec.cor.lbl,
+  dec.err.lbl = txt.def$dec.err.lbl, sdt.lbl = txt.def$sdt.lbl,
   hi.lbl = txt.def$hi.lbl, mi.lbl = txt.def$mi.lbl,
   fa.lbl = txt.def$fa.lbl, cr.lbl = txt.def$cr.lbl)
 }
@@ -24,7 +26,7 @@ init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
 \item{scen.apa}{Source information in APA format.}
 
 \item{scen.lng}{Language of the current scenario (as character code).
-Options: \code{"en"}...English, \code{"de"}... German.}
+Options: \code{"en"}...English, \code{"de"}...German.}
 
 \item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
 
@@ -43,6 +45,16 @@ or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 
 \item{dec.neg.lbl}{A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
+
+\item{acc.lbl}{A name for judgment \emph{accuracy} (e.g., correspondence of decision to condition).}
+
+\item{dec.cor.lbl}{A label for \emph{correct} decisions
+or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).}
+
+\item{dec.err.lbl}{A label for \emph{erroneous} decisions
+or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).}
+
+\item{sdt.lbl}{A name for the case/category/cell in the 2x2 contingency table (SDT: condition x decision).}
 
 \item{hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
@@ -69,12 +81,12 @@ objects to existing names.
 }
 \examples{
 init_txt()          # => defines a list of (default) text elements
-length(init_txt())  # => 16
+length(init_txt())  # => 20
 
 # Customizing current text elements:
-txt <- init_txt(scen.lbl = "US or Them",
-                scen.src = "Some stable genius",
-                popu.lbl = "We, the people")
+txt <- init_txt(scen.lbl = "My scenario",
+                scen.src = "My source",
+                popu.lbl = "Current population")
 
 }
 \seealso{
@@ -85,3 +97,4 @@ txt <- init_txt(scen.lbl = "US or Them",
 Other functions initializing scenario information: \code{\link{init_num}},
   \code{\link{init_pal}}
 }
+\concept{functions initializing scenario information}

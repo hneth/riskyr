@@ -35,43 +35,31 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 10 probability values.
+A list \code{\link{prob}} containing 11 probability values.
 }
 \description{
 \code{comp_prob_prob} computes current probability information
-from 3 essential probabilities
-(\code{\link{prev}},
-\code{\link{sens}} or \code{\link{mirt}},
-\code{\link{spec}} or \code{\link{fart}}).
-It returns a list of 10 probabilities \code{\link{prob}}
+from a sufficient and valid set of 3 essential probabilities
+(\code{\link{prev}}, and
+\code{\link{sens}} or its complement \code{\link{mirt}}, and
+\code{\link{spec}} or its complement \code{\link{fart}}).
+It returns a list of 11 probabilities (\code{\link{prob}})
 as its output.
 }
 \details{
-\code{comp_prob} assumes that a sufficient and
-consistent set of essential probabilities
-(i.e., \code{\link{prev}} and
-either \code{\link{sens}} or its complement \code{\link{mirt}}, and
-either \code{\link{spec}} or its complement \code{\link{fart}})
-is provided.
+\code{comp_prob_prob} is a wrapper function for the more basic
+function \code{\link{comp_prob}}.
 
-\code{comp_prob} computes and returns a full set of basic and
-various derived probabilities (e.g.,
-the probability of a positive decision \code{\link{ppod}},
-the predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
-as their complements \code{\link{FDR}} and \code{\link{FOR}})
-in its output of a list \code{\link{prob}}.
-
-Extreme probabilities (sets containing two or more
+Extreme probabilities (sets containing 2 or more
 probabilities of 0 or 1) may yield unexpected values
 (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}}
 turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
-Key relationships:
+Key relationships between frequencies and probabilities:
+See documentation of \code{\link{comp_freq_prob}}.
 
-\itemize{
-
-\item Other functions translating between representational formats:
+Functions translating between representational formats:
 
 \enumerate{
 
@@ -95,110 +83,13 @@ Key relationships:
    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 
 }
-
-\item Two perspectives:
-
-A population of \code{\link{N}} individuals can be split into 2 subsets
-in 2 different ways:
-
-\enumerate{
-
-\item by condition:
-
-The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
-   and
-   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
-
-\item by decision:
-
-The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
-   and
-   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
-
-}
-
-The population size \code{\link{N}} is a free parameter (independent of the
-essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
-
-If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-
-\item Combinations of frequencies:
-
-In a population of size \code{\link{N}} the following relationships hold:
-
-\enumerate{
-
-\item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-
-}
-
-The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-  (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-  in 2 different ways.
-
-\item Defining probabilities in terms of frequencies:
-
-Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
-Thus, they can be computed as ratios between frequencies:
-
-\enumerate{
-
-\item prevalence \code{\link{prev}}:
-
-\code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-
-\item sensitivity \code{\link{sens}}:
-
-\code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
-
-\item miss rate \code{\link{mirt}}:
-
-\code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
-
-\item specificity \code{\link{spec}}:
-
-\code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
-
-\item false alarm rate \code{\link{fart}}:
-
-\code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
-
-
-
-\item proportion of positive decisions \code{\link{ppod}}:
-
-\code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-
-\item positive predictive value \code{\link{PPV}}:
-
-\code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
-
-\item negative predictive value \code{\link{NPV}}:
-
-\code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-
-\item false detection rate \code{\link{FDR}}:
-
-\code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
-
-\item false omission rate \code{\link{FOR}}:
-
-\code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
-
-}
-
-}
 }
 \examples{
 # Basics:
 comp_prob_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 comp_prob_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 comp_prob_prob()          # => ok, using current defaults
-length(comp_prob_prob())  # => 10 probabilities
+length(comp_prob_prob())  # => 11 probabilities
 
 # Ways to work:
 comp_prob_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
@@ -220,7 +111,6 @@ comp_prob_prob(NA, 1, 1, NA)  # => only warning: invalid set (prev not numeric)
 comp_prob_prob(8,  1, 1, NA)  # => only warning: prev no probability
 comp_prob_prob(1,  8, 1, NA)  # => only warning: sens no probability
 comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
-
 
 }
 \seealso{
@@ -246,3 +136,5 @@ Other format conversion functions: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}},
   \code{\link{comp_prob_freq}}
 }
+\concept{format conversion functions}
+\concept{functions computing frequencies}

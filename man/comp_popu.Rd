@@ -8,10 +8,10 @@ with \code{\link{N}} rows
 and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
-  cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl)
+  cond.true.lbl = txt$cond.true.lbl,
+  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
+  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
+  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -79,3 +79,4 @@ Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
   \code{\link{comp_min_N}}, \code{\link{comp_prob_prob}}
 }
+\concept{functions computing frequencies}

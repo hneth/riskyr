@@ -4,8 +4,8 @@
 \alias{comp_freq}
 \title{Compute frequencies from (3 essential) probabilities.}
 \usage{
-comp_freq(prev = num$prev, sens = num$sens, spec = num$spec, N = num$N,
-  round = TRUE)
+comp_freq(prev = num$prev, sens = num$sens, spec = num$spec,
+  N = num$N, round = TRUE)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -23,18 +23,22 @@ of a negative decision provided that the condition is \code{FALSE}).}
 If \code{\link{N}} is unknown (\code{NA}),
 a suitable minimum value is computed by \code{\link{comp_min_N}}.}
 
-\item{round}{A Boolean value that determines whether frequencies are
-rounded to the nearest integer. Default: \code{round = TRUE}.}
+\item{round}{Boolean value that determines whether frequencies are
+rounded to the nearest integer. Default: \code{round = TRUE}.
+
+Note: Removed \code{n_digits} parameter:  Number of digits to which frequency values
+are to be rounded when \code{round = FALSE}.
+Default: \code{n_digits = 5}.}
 }
 \value{
-A list \code{\link{freq}} containing 9 frequency values.
+A list \code{\link{freq}} containing 11 frequency values.
 }
 \description{
 \code{comp_freq} computes frequencies (typically
 as rounded integers) given 3 basic probabilities --
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} --
 -- for a population of \code{\link{N}} individuals.
-It returns a list of 9 frequencies \code{\link{freq}}
+It returns a list of 11 frequencies \code{\link{freq}}
 as its output.
 }
 \details{
@@ -52,51 +56,129 @@ to obtain the 3 essential probabilities.
 \code{comp_freq} is the frequency counterpart to the
 probability function \code{\link{comp_prob}}.
 
-By default, \code{\link{comp_freq}} rounds frequencies
-to nearest integers to avoid decimal values in
-\code{\link{freq}}. Use \code{round = FALSE}
-to switch off rounding.
+By default, \code{comp_freq} and its wrapper function
+\code{\link{comp_freq_prob}}
+round frequencies to nearest integers to avoid decimal values in
+\code{\link{freq}} (i.e., \code{round = TRUE} by default).
+When frequencies are rounded, probabilities computed from
+\code{\link{freq}} may differ from exact probabilities.
+Using the option \code{round = FALSE} turns off rounding.
 
-Key relationships:
-
-\enumerate{
-
-\item to probabilities:
-A population of \code{\link{N}} individuals can be split into 2 subsets
-in 2 different ways:
-
-\enumerate{
-  \item by condition:
-  The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
-  and
-  the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
-
-\item by decision:
-  The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
-  and
-  the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
-
-}
-
-The population size \code{\link{N}} is a free parameter (independent of the
-essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
-
-If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code{\link{comp_min_N}}.
-
-\item to other frequencies:
-  In a population of size \code{\link{N}}
-  the following relationships hold:
+Key relationships between frequencies and probabilities:
 
 \itemize{
 
-\item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+\item Three \emph{perspectives} on a population:
 
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
 
-\item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+\enumerate{
 
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-  }
+\item by condition:
+
+\code{\link{N} = \link{cond.true} + \link{cond.false}}
+
+The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+   and
+   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+
+\item by decision:
+
+\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+
+The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+   and
+   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+
+\item by accuracy (i.e., correspondence of decision to condition):
+
+\code{\link{N} = \link{dec.cor} + \link{dec.err}}
+
+}
+
+Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+
+When providing probabilities, the population size \code{\link{N}}
+is a free parameter (independent of the essential probabilities
+\code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+
+If \code{\link{N}} is unknown (\code{NA}),
+a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+
+\item Defining probabilities in terms of frequencies:
+
+Probabilities \emph{are} -- determine, describe, or are defined as --
+the relationships between frequencies.
+Thus, they can be computed as ratios between frequencies:
+
+\enumerate{
+
+\item prevalence \code{\link{prev}}:
+
+\code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+
+\item sensitivity \code{\link{sens}}:
+
+\code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
+
+\item miss rate \code{\link{mirt}}:
+
+\code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
+
+\item specificity \code{\link{spec}}:
+
+\code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
+
+\item false alarm rate \code{\link{fart}}:
+
+\code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
+
+\item proportion of positive decisions \code{\link{ppod}}:
+
+\code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+
+\item positive predictive value \code{\link{PPV}}:
+
+\code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
+
+\item negative predictive value \code{\link{NPV}}:
+
+\code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+
+\item false detection rate \code{\link{FDR}}:
+
+\code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+
+\item false omission rate \code{\link{FOR}}:
+
+\code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
+
+}
+
+}
+
+Functions translating between representational formats:
+
+\enumerate{
+
+\item \code{\link{comp_freq_prob}} is
+   a wrapper function for \code{comp_freq} and
+   an analog to 3 other format conversion functions:
+
+\item \code{\link{comp_freq_freq}} computes
+   current \emph{frequency} information contained in \code{\link{freq}}
+   from 4 essential frequencies
+   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+
+\item \code{\link{comp_prob_freq}} computes
+   current \emph{probability} information contained in \code{\link{prob}}
+   from 4 essential frequencies
+   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+
+\item \code{\link{comp_prob_prob}} computes
+   current \emph{probability} information contained in \code{\link{prob}}
+   from 3 essential probabilities
+   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
 
 }
 }
@@ -104,7 +186,13 @@ If \code{\link{N}} is unknown, a suitable minimum value can be computed by \code
 comp_freq()                  # => ok, using current defaults
 length(comp_freq())          # => 11
 
-# Ways to succeed:
+# Rounding effects:
+comp_freq(prev = .5, sens = .5, spec = .5, N = 1)   # => yields fa = 1 (see ?round for reason)
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10)  # => 1 hit (TP, rounded)
+comp_freq(prev = .1, sens = .9, spec = .8, N = 10, round = FALSE)    # => hi = .9
+comp_freq(prev = 1/3, sens = 6/7, spec = 2/3, N = 1, round = FALSE)  # => hi = 0.2857143
+
+# Extreme cases:
 comp_freq(prev = 1, sens = 1, spec = 1, 100)  # => ok, N hits (TP)
 comp_freq(prev = 1, sens = 1, spec = 0, 100)  # => ok, N hits
 comp_freq(prev = 1, sens = 0, spec = 1, 100)  # => ok, N misses (FN)
@@ -125,9 +213,9 @@ comp_freq(prev = 1,  sens = 1,  spec = NA, 100)   # => NAs + warning (spec NA)
 comp_freq(prev = 8,  sens = 1,  spec = 1,  100)   # => NAs + warning (prev beyond range)
 comp_freq(prev = 1,  sens = 8,  spec = 1,  100)   # => NAs + warning (sens beyond range)
 
-
 }
 \seealso{
+\code{\link{comp_freq_prob}} corresponding wrapper function;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{freq}} contains current frequency information;
@@ -142,3 +230,4 @@ Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}}, \code{\link{comp_min_N}},
   \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 }
+\concept{functions computing frequencies}

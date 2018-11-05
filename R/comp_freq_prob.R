@@ -1,18 +1,16 @@
 ## comp_freq_prob.R | riskyr
-## 2018 01 31
-## -----------------------------------------------
+## 2018 10 26
 ## Compute frequencies from probabilities:
 ## -----------------------------------------------
 
-## -----------------------------------------------
-## Table of current terminology:
+## Table of current terminology: -----------------
 
-# Probabilities (10):               Frequencies (9):
+# Probabilities (13+):              Frequencies (11):
 # -------------------               ------------------
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false
+# prev*                           cond.true | cond.false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -26,7 +24,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg
+# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
+#                                  dec.cor | dec.err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -34,9 +33,21 @@
 # FOR = false omission rate
 # NPV = neg. pred. value
 
+# (C) by accuracy/correspondence of decision to condition (see accu):
 
-## -----------------------------------------------
-## Data flow: Two basic directions:
+# acc  = overall accuracy (probability/proportion correct decision)
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+
+# Other measures of accuracy (in accu):
+# wacc = weighted accuracy
+# mcc  = Matthews correlation coefficient
+# f1s  = harmonic mean of PPV and sens
+
+# err = error rate = (1 - acc)
+
+
+## Data flow: Two basic directions: --------------
 
 ## (1) Probabilities ==> frequencies:
 ##     Bayesian: based on 3 essential probabilities:
@@ -48,23 +59,19 @@
 ##   - given:   N = hi, mi, fa, cr
 ##   - derived: all other values
 
-## -----------------------------------------------
-## 2 functions convert between formats:
 
-## a. comp_freq_prob: Computes freq from prob
-## b. comp_prob_freq: Computes prob from freq
+## 2 main functions convert between formats: ----------
 
-## -----------------------------------------------
+## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
+## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
 
+## ad (1) from prob ==> to freq: ----------
 
-## -----------------------------------------------
-## ad (1) Probabilities ==> frequencies:
-## -----------------------------------------------
+## (1) Determine a suitable population size N: --------
 
+## Criterion: All 4 SDT cells should have a minimal frequency of min.freq:
 
-## -----------------------------------------------
-## (1) Determine a suitable population size N:
-##     Criterion: All 4 SDT cells should have a minimal frequency of min.freq:
+## comp_min_N: Compute suitable minimum population size value N ------
 
 #' Compute a suitable minimum population size value N.
 #'
@@ -75,15 +82,16 @@
 #' \code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
 #'
 #' Using this function helps avoiding excessively small decimal values in categories
-#' (esp. true positives, false negatives, false positives, and true negatives)
-#' when expressing combinations of conditions and decisions as natural frequencies.
-#' As values of zero (0) are tolerable, the function only increases  \code{\link{N}}
+#' (especially hi, mi, fa, cr) when expressing combinations of conditions and decisions
+#' as natural frequencies.
+#' As values of zero (0) are tolerable, the function only increases \code{\link{N}}
 #' (in powers of 10) while the current value of any frequency (cell in confusion table or
-#' leaf of tree) is positive but below \code{min.freq}.
+#' leaf of a frequency tree) is positive but below \code{min.freq}.
 #'
-#' Note that \code{\link{comp_freq}} still needs to round to avoid decimal values
-#' in frequencies \code{\link{freq}}.
-#'
+#' By default, \code{\link{{comp_freq_prob}} and \code{\link{comp_freq}}
+#' round frequencies to nearest integers to avoid decimal values in
+#' \code{\link{freq}} (i.e., \code{round = TRUE} by default).
+#' Using the option \code{round = FALSE} turns off rounding.
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of condition being TRUE).
@@ -100,9 +108,7 @@
 #' a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
 #' Default: \code{min.freq = 1}.
 #'
-#'
 #' @return An integer value \code{\link{N}} (as a power of 10).
-#'
 #'
 #' @examples
 #' comp_min_N(0, 0, 0)  # => 1
@@ -116,9 +122,7 @@
 #' comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 #' comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 #'
-#'
 #' @family functions computing frequencies
-#'
 #'
 #' @seealso
 #' population size \code{\link{N}};
@@ -146,22 +150,22 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
     ## (3) Issue a warning if probabilities describe an extreme case:
     is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
-    ## (4) Compute frequency of 4 SDT cases:
+    ## (4) Compute frequency of 4 SDT cases (without rounding):
     n.hi <- N * prev * sens
     n.mi <- N * prev * (1 - sens)
     n.cr <- N * (1 - prev) * spec
     n.fa <- N * (1 - prev) * (1 - spec)
 
     ## (5) While freq of 4 SDT cases < min.freq:
-    while ((n.hi > 0 & n.hi < min.freq) |
-           (n.mi > 0 & n.mi < min.freq) |
-           (n.cr > 0 & n.cr < min.freq) |
-           (n.fa > 0 & n.fa < min.freq)) {
+    while ((n.hi > 0  &&  n.hi < min.freq) |
+           (n.mi > 0  &&  n.mi < min.freq) |
+           (n.cr > 0  &&  n.cr < min.freq) |
+           (n.fa > 0  &&  n.fa < min.freq)) {
 
       ## (a) Multiply N by 10:
       N <- (N * 10)
 
-      ## (b) Update frequency of 4 SDT cases for new N:
+      ## (b) Update frequency of 4 SDT cases for current N (in next loop):
       n.hi <- N * prev * sens
       n.mi <- N * prev * (1 - sens)
       n.cr <- N * (1 - prev) * spec
@@ -175,27 +179,26 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
 
 }
 
-## Check:
-{
-  # comp_min_N(0, 0, 0)  # => 1
-  # comp_min_N(1, 1, 1)  # => 1
-  # comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
-  # comp_min_N(1, 1, 1, min.freq = 99)  # => 100
-  # comp_min_N(.1, .1, .1)        # =>       100 = 10^2
-  # comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
-  # comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
-  # comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
-}
+## Check: -----
+# comp_min_N(0, 0, 0)  # => 1
+# comp_min_N(1, 1, 1)  # => 1
+# comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
+# comp_min_N(1, 1, 1, min.freq = 99)  # => 100
+# comp_min_N(.1, .1, .1)        # =>       100 = 10^2
+# comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
+# comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
+# comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
 
 
-## -----------------------------------------------
+## (*) Done: ----------
 
-## -----------------------------------------------
-## (+) ToDo:
+## - Clean up code.  [2018 08 30]
+
+
+## (+) ToDo: ----------
 
 # cond.true  cond.false
 # hi mi fa cr
 # dec.pos  dec.neg
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------

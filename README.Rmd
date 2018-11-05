@@ -6,9 +6,11 @@ output: github_document
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
-<!-- [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) -->
+[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
+[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
-```{r, echo = FALSE}
+
+```{r knitr_opts_chunk, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -47,7 +49,7 @@ The issues addressed by `riskyr` are less of a _computational_ and more of a _re
 It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.[^2] 
 For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
 
-[^2]: This notion of _risk_ is typically contrasted with the wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this distinction and corresponding decision strategies.) 
+[^2]: This notion of _risk_ is typically contrasted with the much wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.) 
 
 <!-- On "riskyr": -->
 
@@ -65,14 +67,14 @@ To deliver on these assumptions and goals, we provide a range of computational a
 
 The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at  <https://CRAN.R-project.org/package=riskyr>: 
 
-```{r install_CRAN, eval = FALSE}
-install.packages("riskyr")  # install riskyr from CRAN client
-library("riskyr")           # load to use the package
+```{r install_CRAN, echo = TRUE, eval = FALSE}
+install.packages("riskyr"")  # install riskyr from CRAN client
+library("riskyr"")           # load to use the package
 ```
 
 The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
 
-```{r install_github, eval = FALSE}
+```{r install_github, echo = TRUE, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("hneth/riskyr")
 ```
@@ -92,12 +94,12 @@ devtools::install_github("hneth/riskyr")
 
 > **Screening for hustosis**  
 >  
-> A screening device for detecting the clinical condition of _hustosis_ is developed. The current device is very good, but not perfect. It has the following properties:  
+> A screening device for detecting the clinical condition of _hustosis_ is developed. The current device is very good, but not perfect. We have the following information:  
 > 1. About 4% of the people of the general population suffer from _hustosis_.  
 > 2. If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.    
-> 3. If someone is free from hustosis, there is a chance of 4% that he or she will still test positively for the condition.   
+> 3. If someone is free from hustosis, there is a chance of 5% that he or she will still test positively for the condition.  
 > 
-> Mr. and Ms. Smith have both been screened with this device:  
+> Mr. and Ms. Smith have both been screened with the device:  
 > - Mr. Smith tested positively (i.e., received a diagnosis of hustosis).     
 > - Ms. Smith tested negatively (i.e., was judged to be free of hustosis).   
 > 
@@ -113,8 +115,8 @@ The problem description provides three essential probabilities:
 
 1. The condition's _prevalence_ (in the general population) is 4%: `prev = .04`.  
 2. The device's or diagnostic decision's _sensitivity_ is 80%: `sens = .80`.  
-3. The device's or diagnostic decision's _false alarm rate_ is 4%, 
-implying a _specificity_ of (100% $-$ 4%) = 96%: `spec = .04`.  
+3. The device's or diagnostic decision's _false alarm rate_ is 5%: `fart = .05`, 
+implying a _specificity_ of (100% $-$ 5%) = 95%: `spec = .95`.  
 
 
 #### Understanding the questions asked

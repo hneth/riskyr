@@ -4,7 +4,8 @@
 \alias{comp_complete_prob_set}
 \title{Compute a complete set of probabilities from valid probability inputs.}
 \usage{
-comp_complete_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
+comp_complete_prob_set(prev, sens = NA, mirt = NA, spec = NA,
+  fart = NA)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -73,10 +74,13 @@ comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA + no warning (sic)
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu}},
-  \code{\link{comp_acc}}, \code{\link{comp_comp_pair}},
-  \code{\link{comp_complement}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
-  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
-  \code{\link{comp_sens}}, \code{\link{comp_spec}}
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
+  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
+  \code{\link{comp_comp_pair}},
+  \code{\link{comp_complement}}, \code{\link{comp_err}},
+  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
+  \code{\link{comp_ppod}}, \code{\link{comp_prob_freq}},
+  \code{\link{comp_prob}}, \code{\link{comp_sens}},
+  \code{\link{comp_spec}}
 }
+\concept{functions computing probabilities}

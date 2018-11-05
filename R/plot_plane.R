@@ -1,17 +1,17 @@
 ## plot_plane.R | riskyr
-## 2018 02 14
-## -----------------------------------------------
+## 2018 09 06
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
 ## -----------------------------------------------
-## Utility function:
 
+## Utility function:
 # comp_prob_matrix() (moved to file comp_prob.R)
 
-## -----------------------------------------------
 ## Plot a 3d-plane of what (e.g., PPV, NPV, ...)
 ## (using persp):
+
+## plot_plane: Documentation ----------
 
 #' Plot a plane of selected values (e.g., PPV or NPV)
 #' as a function of sensitivity and specificity.
@@ -56,9 +56,12 @@
 #' options are \code{c("PPV", "NPV", "ppod", "acc")}.
 #' Default: \code{what = "PPV"}.
 #'
-#' @param what.col A color corresponding to the metric
+#' @param what.col Color for surface facets corresponding to the metric
 #' specified in \code{what}.
 #' Default: \code{what.col = pal}.
+#'
+#' @param line.col Color for lines between surface facets.
+#' Default: \code{line.col = "grey85"}.
 #'
 #' @param show.point Boolean option for showing the current value
 #' of the selected metric for the current conditions
@@ -88,18 +91,22 @@
 #'
 #' @examples
 #' # Basics:
-#' plot_plane()  # => current defaults (what = "PPV")
+#' plot_plane()              # => default plot (what = "PPV")
 #' plot_plane(what = "PPV")  # => plane of PPV
 #' plot_plane(what = "NPV")  # => plane of NPV
 #' plot_plane(what = "ppod") # => plane of ppod
 #' plot_plane(what = "acc")  # => plane of acc
 #'
-#' # Options:
+#' # Plot options:
 #' plot_plane(title.lbl = "Testing smaller text labels", cex.lbl = .60)
 #' plot_plane(show.point = FALSE)  # => no point shown on plane
-#' plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
+#'
+#' plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
+#' plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
+#'
+#' plot_plane(step.size = .333, what.col = "firebrick")    # => coarser granularity + color
 #' plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
-#' plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
+#' plot_plane(what.col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
 #'
 #'
 #' @family visualization functions
@@ -127,15 +134,18 @@
 #'
 #' @export
 
+## plot_plane: Definition ----------
+
 plot_plane <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
                        ## DVs:
                        what = "PPV",  # what metric?  Options: "PPV", "NPV", "acc", "ppod".
                        ## Options:
-                       what.col = pal,     # color for what.
-                       show.point = TRUE,  # show point on plane
-                       step.size = .05,    # resolution of matrix (sens.range and spec.range)
+                       what.col = pal,       # color for facets of what (i.e., metric specified above)
+                       line.col = "grey85",  # color for lines between facets
+                       show.point = TRUE,    # show point on plane
+                       step.size = .05,      # resolution of matrix (sens.range and spec.range)
                        ## Main persp() options [adjustable]:
                        theta = -45,
                        phi = 0,
@@ -143,6 +153,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        title.lbl = txt$scen.lbl, # plot title label
                        cex.lbl = .85             # scale size of text labels (e.g., on axes, legend, margin text)
 ) {
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(what) && !is.na(what) ) {
+    what <- tolower(what)  # express what in lowercase
+  }
+
+  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("ppv") }  # default/null
+  # if ( "any" %in% what ) { what <- "all" }
 
   ## (0) Collect or compute current probabilities: ----------
 
@@ -196,7 +215,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_PPV(prev, sens, spec)             # cur.val (PPV)
     cur.lbl <- paste0("PPV = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of positive predictive values (PPV)"
+    sub.title.lbl <- "Probability plane of positive predictive values (PPV)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["ppv"] }  # cur.col
     z.lbl <- "PPV"    # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -217,7 +236,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_NPV(prev, sens, spec)             # cur.val (NPV)
     cur.lbl <- paste0("NPV = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of negative predictive values (NPV)"
+    sub.title.lbl <- "Probability plane of negative predictive values (NPV)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["npv"] }  # cur.col
     z.lbl <- "NPV"    # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -238,7 +257,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_ppod(prev, sens, spec)             # cur.val (ppod)
     cur.lbl <- paste0("ppod = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of the proportion of positive predictions (ppod)"
+    sub.title.lbl <- "Probability plane of the proportion of positive predictions (ppod)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["pos"] }  # cur.col for ppod (using "pos")
     z.lbl <- "ppod"   # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -259,7 +278,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 1. Parameters:
     cur.val <- comp_acc(prev, sens, spec)             # cur.val (acc)
     cur.lbl <- paste0("acc = ", as_pc(cur.val), "%")  # cur.lbl
-    sub.title.lbl <- "Plane of accuracy values (acc)"
+    sub.title.lbl <- "Probability plane of accuracy values (acc)"
     if (length(what.col) == 1) { cur.col <- what.col } else { cur.col <- pal["hi"] }  # cur.col for acc (using "hi")
     z.lbl <- "acc"    # label of z-axis
     z.lim <- c(0, 1)  # range of z-axis
@@ -274,7 +293,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "acc")...
 
-
   ## (3) Define persp parameters: ----------
 
   x <- sens.range
@@ -285,13 +303,17 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   d = 1.5
   expand = 1.1
   ltheta = 200
-  shade = .25
+  shade = .300  # default was .25, NULL implies no shade
+
+  line.wd = .6  # lwd parameter (for axes and lines between surface facets); default = 1.
 
   ## (4) Draw 3D plane (of z) with persp: ----------
 
   plane <- persp(x, y, z,
                  theta = theta, phi = phi, d = d, expand = expand,  # perspective
-                 col = cur.col, border = NA,     # color
+                 col = cur.col,     # color of surface facets
+                 # border = NA,     # color of line between surface facets (NA disables borders)
+                 border = line.col, # color of line between surface facets (NA disables borders)
                  ltheta = ltheta, shade = shade, # illumination
                  ticktype = "detailed",
                  nticks = 6, # at 20% intervals
@@ -301,7 +323,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                  zlim = z.lim,
                  cex = cex.lbl,
                  cex.axis = cex.lbl,
-                 cex.lab = cex.lbl
+                 cex.lab = cex.lbl,
+                 # optional:
+                 lwd = line.wd  # width of border and axes lines
   )
 
   ## (5) Add cur.val as point to plot: ----------
@@ -324,7 +348,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (6) Title: ----------
 
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put title.lbl on top (in separate line)
   cur.title.lbl <- paste0(title.lbl, sub.title.lbl)
 
   title(cur.title.lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
@@ -348,27 +372,26 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 }
 
-## Check:
+## Check: ----------
 
-{
-  # # Basics:
-  # plot_plane()  # => current defaults (what = "PPV")
-  # plot_plane(what = "PPV")  # => plane of PPV
-  # plot_plane(what = "NPV")  # => plane of NPV
-  # plot_plane(what = "ppod") # => plane of ppod
-  # plot_plane(what = "acc")  # => plane of acc
-  #
-  # # Options:
-  # plot_plane(show.point = FALSE)  # => no point shown on plane
-  # plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
-  # plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
-  # plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
-  # plot_plane(title.lbl = "Testing plot options")
+# # Basics:
+# plot_plane()  # => current defaults (what = "PPV")
+# plot_plane(what = "PPV")  # => plane of PPV
+# plot_plane(what = "NPV")  # => plane of NPV
+# plot_plane(what = "ppod") # => plane of ppod
+# plot_plane(what = "ppod", theta = 45) # => plane of ppod
+# plot_plane(what = "acc")  # => plane of acc
+#
+# # Options:
+# plot_plane(show.point = FALSE)  # => no point shown on plane
+# plot_plane(step.size = .333, what.col = "firebrick")  # => coarser granularity + color
+# plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
+# plot_plane(what.col = "steelblue4", theta = -90, phi = 45)  # => rotated, from above
+# plot_plane(title.lbl = "Testing plot options")
+# plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
+# plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
 
-}
-
-## -----------------------------------------------
-## Note:
+## Note: ----------
 
 ## The following persp() parameters are currently fixed:
 #
@@ -391,10 +414,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 # #'
 # #' @param shade Shading value (used by \code{\link{persp}}).
 # #' Default: \code{shade = .25}.
-#
 
-## -----------------------------------------------
-## OLDER function (2 in 1 plot):
+
+## OLDER function (2 in 1 plot): ----------
 
 {
 
@@ -495,13 +517,16 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 }
 
-## -----------------------------------------------
-## (+) ToDo:
+
+## (*) Done: ----------
+
+## - Clean up code.  [2018 08 28]
+
+## (+) ToDo: ----------
 
 ## - Use ... instead re-naming arguments passed on to persp?
 ## - Generalize to additional metrics (e.g., wacc, mcc, etc.)
 ## - Change labels for all axes to percentages (as in plot_curve)
 ## - Pimp plot (titles, axes, grid, colors, transparency)
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------

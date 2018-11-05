@@ -32,17 +32,6 @@ as a power of 10) so that the frequencies of the 4 combinations of conditions an
 reach or exceed a minimum value \code{min.freq} given the basic parameters
 \code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
 }
-\details{
-Using this function helps avoiding excessively small decimal values in categories
-(esp. true positives, false negatives, false positives, and true negatives)
-when expressing combinations of conditions and decisions as natural frequencies.
-As values of zero (0) are tolerable, the function only increases  \code{\link{N}}
-(in powers of 10) while the current value of any frequency (cell in confusion table or
-leaf of tree) is positive but below \code{min.freq}.
-
-Note that \code{\link{comp_freq}} still needs to round to avoid decimal values
-in frequencies \code{\link{freq}}.
-}
 \examples{
 comp_min_N(0, 0, 0)  # => 1
 comp_min_N(1, 1, 1)  # => 1
@@ -54,7 +43,6 @@ comp_min_N(.1, .1, .1)        # =>       100 = 10^2
 comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
 comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6
 comp_min_N(.001, .001, .001)  # => 1 000 000 = 10^6
-
 
 }
 \seealso{
@@ -73,3 +61,4 @@ Other functions computing frequencies: \code{\link{comp_freq_freq}},
   \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
   \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
 }
+\concept{functions computing frequencies}

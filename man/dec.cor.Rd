@@ -11,8 +11,8 @@ dec.cor
 \description{
 \code{dec.cor} is a frequency that describes the
 number of individuals in the current population \code{\link{N}}
-for which the decision is correct (i.e., cases in which the
-decision corresponds to the condition).
+for which the decision is correct/accurate
+(i.e., cases in which the decision corresponds to the condition).
 }
 \details{
 Key relationships:
@@ -21,7 +21,7 @@ Key relationships:
 
 \item to probabilities:
 The frequency of \code{dec.cor} individuals depends on the population size \code{\link{N}} and
-is equal to the sum of true positives \code{\link{hi}} and true negatives \code{\link{cr}}.
+the accuracy \code{\link{acc}}.
 
 \item to other frequencies:
 In a population of size \code{\link{N}} the following relationships hold:
@@ -40,6 +40,13 @@ In a population of size \code{\link{N}} the following relationships hold:
 
 \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
+
+\item correspondence:
+When not rounding the frequencies of \code{\link{freq}} then
+
+\code{dec.cor = N x acc = hi + cr}
+
+(i.e., \code{dec.cor} corresponds to the sum of true positives \code{\link{hi}} and true negatives \code{\link{cr}}.
 
 }
 
@@ -70,4 +77,5 @@ Other frequencies: \code{\link{N}},
   \code{\link{dec.neg}}, \code{\link{dec.pos}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
+\concept{frequencies}
 \keyword{datasets}

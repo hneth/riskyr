@@ -68,26 +68,28 @@ However, due to being a conditional probability,
 }
 }
 \examples{
-FDR <- .45     # => sets a false discovery rate (FDR) of 45\%
+FDR <- .45     # => sets a false detection rate (FDR) of 45\%
 FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
 is_prob(FDR)   # => TRUE (as FDR is a probability)
+
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 }
 \seealso{
-\code{\link{comp_FDR}} computes \code{FDR} as the complement of \code{\link{PPV}};
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
+\code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FOR}}, \code{\link{NPV}},
-  \code{\link{PPV}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{ppod}},
-  \code{\link{prev}}, \code{\link{sens}},
-  \code{\link{spec}}
+  \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},
+  \code{\link{fart}}, \code{\link{mirt}},
+  \code{\link{ppod}}, \code{\link{prev}},
+  \code{\link{sens}}, \code{\link{spec}}
 }
+\concept{probabilities}
 \keyword{datasets}

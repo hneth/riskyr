@@ -48,12 +48,13 @@ are computed from scratch from current probabilities.)}
 \item{vsplit}{Deprecated option for toggling between
 vertical and horizontal split. Please use \code{by} instead.}
 
-\item{show.accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
+\item{show.accu}{Option for showing current and exact
+accuracy metrics \code{\link{accu}} in the plot
+(computed by \code{\link{comp_accu_prob}}).
 Default: \code{show.accu = TRUE}.}
 
 \item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+weighted accuracy \code{w.acc} in \code{\link{comp_accu_prob}}.
 Default: \code{w.acc = .50}.}
 
 \item{title.lbl}{Text label for current plot title.
@@ -83,6 +84,10 @@ can be visualized byopting for vertical rectangles (by selecting
 the option \code{box = "vr"}) in \code{\link{plot_tree}}
 and \code{\link{plot_fnet}}.
 
+Note that exact accuracy information is computed based on probabilities
+(by \code{\link{comp_accu_prob}}), not approximations based on
+rounded frequencies (by \code{\link{comp_accu_freq}}).
+
 \code{plot_mosaic} requires and uses the R packages "vcd" and
 "grid" (\code{library("vcd", "grid")}).
 }
@@ -110,7 +115,10 @@ plot_mosaic(show.accu = FALSE)              # => no accuracy info.
 \code{\link{pal}} for current color settings
 
 Other visualization functions: \code{\link{plot.riskyr}},
+  \code{\link{plot_area}}, \code{\link{plot_bar}},
   \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic_2}},
-  \code{\link{plot_plane}}, \code{\link{plot_tree}}
+  \code{\link{plot_icons}}, \code{\link{plot_plane}},
+  \code{\link{plot_prism}}, \code{\link{plot_tab}},
+  \code{\link{plot_tree}}
 }
+\concept{visualization functions}

@@ -1,6 +1,5 @@
 ## plot_tree.R | riskyr
-## 2018 02 10
-## -----------------------------------------------
+## 2018 09 06
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 3:
@@ -11,16 +10,16 @@
 ## - p.lbl ... "nam", "num", "mix", "min".
 ## - show.accu ... show current accuracy metrics (with bacc/wacc).
 
-## -----------------------------------------------
 ## Dependencies:
+## - library("diagram") # moved to "Imports:" in DESCRIPTION!
 
-# library("diagram") # moved to "Imports:" in in DESCRIPTION!
+## plot_tree: Plot a tree diagram of natural frequencies ----------
 
-## -----------------------------------------------
-## plot_tree: Plot tree diagram of natural frequencies
-## (using only necessary arguments with good defaults):
+## plot_tree: Documentation --------
 
-## Assuming that freq$N (+ num txt pal) is known!
+## Note:
+## - Using only necessary arguments with good defaults.
+## - Assuming that freq$N (+ num txt pal) is known!
 
 #' Plot a tree diagram of frequencies and probabilities.
 #'
@@ -112,7 +111,7 @@
 #' Default: \code{show.accu = TRUE}.
 #'
 #' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu}}.
+#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 #' Default: \code{w.acc = .50}.
 #'
 #' Various other options allow the customization of text labels and colors:
@@ -215,6 +214,8 @@
 #'
 #' @export
 
+## plot_tree: Definition --------
+
 plot_tree <- function(prev = num$prev,             # probabilities
                       sens = num$sens, mirt = NA,
                       spec = num$spec, fart = NA,  # was: num$fart,
@@ -253,6 +254,31 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       col.shadow = grey(.11, alpha = .99),  # dark grey
                       cex.shadow = 0  # [values > 0 show shadows]
 ){
+
+  ## Increase robustness by anticipating and correcting common entry errors: ------
+
+  if ( !is.null(by) && !is.na(by) ) {
+    by <- tolower(by)  # express by in lowercase
+  }
+  if (by == "any" || by == "all" || by == "default" || by == "def" || is.null(by) || is.na(by) )  { by <- "cd" }  # default/null
+  if (by == "cond") { by <- "cd" }
+  if (by == "dec")  { by <- "dc" }
+  # if (by == "acc")  { by <- "ac" }  # currently unsupported
+
+  if ( !is.null(area) && !is.na(area) ) {
+    area <- tolower(area)  # express area in lowercase
+  }
+  if (area == "none" || is.null(area) || is.na(area) ) { area <- "no" }          # null
+  if (area == "square" || area == "def" || area == "default" ) { area <- "sq" }  # default
+  if (area == "rect")   { area <- "hr" }
+
+  if ( !is.null(p.lbl) && !is.na(p.lbl) ) {
+    p.lbl <- tolower(p.lbl)  # express p.lbl in lowercase
+  }
+  if (p.lbl == "def" || p.lbl == "default" || is.null(p.lbl) || is.na(p.lbl) ) { p.lbl <- "mix" }  # default/null
+  if (p.lbl == "namnum" || p.lbl == "namval") { p.lbl <- "mix" }
+  if (p.lbl == "val") { p.lbl <- "num" }
+
 
   ## (0) Compute or collect all current frequencies: ------
 
@@ -307,8 +333,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   ## (1) Color of boxes: ------
 
-  if ((length(col.boxes) == length(pal)) &&
-      all.equal(col.boxes, pal)) {  # no change from default:
+  if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
+      # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
+      && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
+  ) {  # use named colors of col.boxes:
 
     ## Use current color information of pal:
 
@@ -316,15 +344,15 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
       ## 7 boxes (including cond.true and cond.false):
       # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["true"], pal["false"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["true"], col.boxes["false"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## 7 boxes (including dec.pos and dec.neg):
       # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-      col.boxes <- c(pal["N"], pal["pos"], pal["neg"],
-                     pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+      col.boxes <- c(col.boxes["N"], col.boxes["pos"], col.boxes["neg"],
+                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
 
     } # if (by...)
 
@@ -859,7 +887,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          box.size = x.boxes,   # widths of boxes
                          box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
                          box.type = "rect",    # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes,  # scalar or vector of length 7.
+                         box.col = col.boxes,  # scalar or vector (of length 7 or 10?).
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
                          box.lcol = col.border,
                          box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
@@ -916,11 +944,29 @@ plot_tree <- function(prev = num$prev,             # probabilities
   }
 
   ## (c) Accuracy: Compute and show accuracy metrics
+
   if (show.accu) {
-    cur.accu <- comp_accu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)  # compute accuracy info
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc) # use utility function
+
+    # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
+    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+
+    # Note: If freq are NOT rounded, then
+    #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    #       would yield the same results.
+
+    # (2) Make label:
+    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+
+    # (3) Mark IF accu was based on rounded freq:
+    if (round) {  # freq were rounded:
+      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+    }
+
+    # (4) Plot label:
     mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
-  }
+
+  } # if (show.accu)...
+
 
   ## (d) Note that areas represent frequencies:
   if (area != "no") {
@@ -938,33 +984,37 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
 }
 
-## Check:
-{
-  # plot_tree()
-  # plot_tree(title.lbl = "")
-  # plot_tree(N = 33)
-  # plot_tree(N = NA)
-  # plot_tree(prev = 1/3)
-  # plot_tree(prev = 1/3, N = 55)
-  # plot_tree(prev = 1/3, N = NA)
-  # plot_tree(prev = 1/3, round = FALSE)
-  # plot_tree(prev = .10, sens = .90, spec = 1/3, N = 100)
-  # plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
-  # plot_tree(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
-  # plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
-  #
-  # plot_tree(area = "sq")
-  # plot_tree(area = "sq", round = FALSE)
-  # plot_tree(area = "hr")
-  # plot_tree(area = "vr", round = FALSE)
-  #
-  # plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-  # plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-  # plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
-}
+## Check: ----------
+# plot_tree()
+# plot_tree(title.lbl = "")
+# plot_tree(N = 33)
+# plot_tree(N = NA)              # => compute suitable population size (+ warning)
+# plot_tree(prev = 1/3, p.lbl = "num")
+# plot_tree(prev = 1/3, N = 55)
+# plot_tree(prev = 1/3, N = NA)  # => compute suitable population size (+ warning)
+# plot_tree(prev = 1/3, round = FALSE)
+# plot_tree(prev = .10, sens = .90, spec = 1/3, N = 100)
+# plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
+# plot_tree(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
+# plot_tree(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
+#
+# plot_tree(area = "sq")
+# plot_tree(area = "sq", round = FALSE)
+# plot_tree(area = "hr")
+# plot_tree(area = "vr", round = FALSE)
+#
+# plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
+# plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
+#           col.shadow = "steelblue4", cex.shadow = .008)
+# plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7),
+#           cex.shadow = .008, col.shadow = grey(.1, .9))
 
-## -----------------------------------------------
-## (+) ToDo:
+
+## (*) Done: ---------
+
+## Clean up code.  [2018 08 22]
+
+## (+) ToDo: ---------
 
 ## - Add a 3rd perspective:
 ##   "by correctness" or correspondence of condition and decision:
@@ -977,5 +1027,4 @@ plot_tree <- function(prev = num$prev,             # probabilities
 ## - 3. make text color adjustable (using col.txt)
 ## - 4. pimp plot (labels, colors, transparency)
 
-## -----------------------------------------------
-## eof.
+## eof. ------------------------------------------

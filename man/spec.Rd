@@ -75,6 +75,7 @@ However, due to being a conditional probability,
 spec <- .75     # => sets a specificity value of 75\%
 spec <- 75/100  # => (decision = negative) for 75 out of 100 people with (condition = FALSE)
 is_prob(spec)   # => TRUE (as spec is a probability)
+
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -89,7 +90,8 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{is_prob}} verifies probability inputs.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{fart}},
+  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
+  \code{\link{err}}, \code{\link{fart}},
   \code{\link{mirt}}, \code{\link{ppod}},
   \code{\link{prev}}, \code{\link{sens}}
 
@@ -97,4 +99,6 @@ Other essential parameters: \code{\link{cr}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
   \code{\link{prev}}, \code{\link{sens}}
 }
+\concept{essential parameters}
+\concept{probabilities}
 \keyword{datasets}

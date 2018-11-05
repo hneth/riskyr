@@ -4,8 +4,8 @@
 \alias{comp_prob}
 \title{Compute probabilities from (3 essential) probabilities.}
 \usage{
-comp_prob(prev = num$prev, sens = num$sens, mirt = NA, spec = num$spec,
-  fart = NA, tol = 0.01)
+comp_prob(prev = num$prev, sens = num$sens, mirt = NA,
+  spec = num$spec, fart = NA, tol = 0.01)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -35,7 +35,7 @@ of a positive decision provided that the condition is \code{FALSE}).
 Default: \code{tol = .01}.}
 }
 \value{
-A list \code{\link{prob}} containing 10 probability values.
+A list \code{\link{prob}} containing 13 probability values.
 }
 \description{
 \code{comp_prob} computes current probability information
@@ -43,7 +43,7 @@ from 3 essential probabilities
 (\code{\link{prev}},
 \code{\link{sens}} or \code{\link{mirt}},
 \code{\link{spec}} or \code{\link{fart}}).
-It returns a list of 10 probabilities \code{\link{prob}}
+It returns a list of 13 probabilities \code{\link{prob}}
 as its output.
 }
 \details{
@@ -57,6 +57,7 @@ is provided.
 \code{comp_prob} computes and returns a full set of basic and
 various derived probabilities (e.g.,
 the probability of a positive decision \code{\link{ppod}},
+the probability of a correct decision \code{\link{acc}},
 the predictive values \code{\link{PPV}} and \code{\link{NPV}}, as well
 as their complements \code{\link{FDR}} and \code{\link{FOR}})
 in its output of a list \code{\link{prob}}.
@@ -70,16 +71,12 @@ evaluates to \code{TRUE}).
 \code{comp_prob} is the probability counterpart to the
 frequency function \code{\link{comp_freq}}.
 
-Key relationships:
-
-\itemize{
-
-\item Other functions translating between representational formats:
+Functions translating between representational formats:
 
 \enumerate{
 
-\item \code{comp_prob_prob} (defined here) is
-   a wrapper function for \code{\link{comp_prob}} and
+\item \code{\link{comp_prob_prob}} is
+   a wrapper function for \code{comp_prob} (defined here) and
    an analog to 3 other format conversion functions:
 
 \item \code{\link{comp_prob_freq}} computes
@@ -99,14 +96,20 @@ Key relationships:
 
 }
 
-\item Two perspectives:
+Key relationships:
+
+\itemize{
+
+\item Three perspectives on a population:
 
 A population of \code{\link{N}} individuals can be split into 2 subsets
-in 2 different ways:
+in 3 different ways:
 
 \enumerate{
 
 \item by condition:
+
+\code{\link{N} = \link{cond.true} + \link{cond.false}}
 
 The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
    and
@@ -114,39 +117,29 @@ The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev
 
 \item by decision:
 
+\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+
 The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
    and
    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 
+\item by accuracy (i.e., correspondence of decision to condition):
+
+\code{\link{N} = \link{dec.cor} + \link{dec.err}}
+
 }
 
-The population size \code{\link{N}} is a free parameter (independent of the
+Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
+
+When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
 essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
 If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
-\item Combinations of frequencies:
-
-In a population of size \code{\link{N}} the following relationships hold:
-
-\enumerate{
-
-\item \code{\link{N} = \link{cond.true} + \link{cond.false} = (\link{hi} + \link{mi}) + (\link{fa} + \link{cr})} (by condition)
-
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg} = (\link{hi} + \link{fa}) + (\link{mi} + \link{cr})} (by decision)
-
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
-
-}
-
-The two perspectives (by condition vs. by decision) combine the 4 essential frequencies
-  (i.e., \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
-  in 2 different ways.
-
 \item Defining probabilities in terms of frequencies:
 
-Probabilities \emph{are} numbers from 0 to 1 and determine, describe, or are defined as relationships between frequencies.
-The following probabilities can be computed as ratios between frequencies:
+Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
+Thus, they can be computed as ratios between frequencies:
 
 \enumerate{
 
@@ -170,8 +163,6 @@ The following probabilities can be computed as ratios between frequencies:
 
 \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 
-
-
 \item proportion of positive decisions \code{\link{ppod}}:
 
 \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
@@ -180,19 +171,26 @@ The following probabilities can be computed as ratios between frequencies:
 
 \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 
-\item false detection rate \code{\link{FDR}}:
-
-\code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
-
 \item negative predictive value \code{\link{NPV}}:
 
 \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+
+\item false detection rate \code{\link{FDR}}:
+
+\code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 
 \item false omission rate \code{\link{FOR}}:
 
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
+\item accuracy \code{\link{acc}}:
+
+\code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+
 }
+
+Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
 }
@@ -201,7 +199,7 @@ The following probabilities can be computed as ratios between frequencies:
 comp_prob(prev = .11, sens = .88, spec = .77)                        # => ok: PPV = 0.3210614
 comp_prob(prev = .11, sens = NA, mirt = .12, spec = NA, fart = .23)  # => ok: PPV = 0.3210614
 comp_prob()          # => ok, using current defaults
-length(comp_prob())  # => 10 probabilities
+length(comp_prob())  # => 13 probabilities
 
 # Ways to work:
 comp_prob(.99, sens = .99, spec = .99)              # => ok: PPV = 0.999898
@@ -230,10 +228,10 @@ comp_prob(8,  1, 1, NA)  # => only warning: prev no probability
 comp_prob(1,  8, 1, NA)  # => only warning: sens no probability
 comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 
-
 }
 \seealso{
 \code{\link{prob}} contains current probability information;
+\code{\link{accu}} contains current accuracy information;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{pal}} contains current color information;
@@ -250,11 +248,14 @@ comp_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated range
 
 Other functions computing probabilities: \code{\link{comp_FDR}},
   \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu}},
-  \code{\link{comp_acc}}, \code{\link{comp_comp_pair}},
+  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
+  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
+  \code{\link{comp_comp_pair}},
   \code{\link{comp_complement}},
   \code{\link{comp_complete_prob_set}},
-  \code{\link{comp_fart}}, \code{\link{comp_mirt}},
-  \code{\link{comp_ppod}}, \code{\link{comp_prob_freq}},
-  \code{\link{comp_sens}}, \code{\link{comp_spec}}
+  \code{\link{comp_err}}, \code{\link{comp_fart}},
+  \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
+  \code{\link{comp_prob_freq}}, \code{\link{comp_sens}},
+  \code{\link{comp_spec}}
 }
+\concept{functions computing probabilities}

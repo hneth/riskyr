@@ -1,8 +1,8 @@
 Package: riskyr
 Type: Package
-Title: Rendering Risk Literacy more Transparent 
-Version: 0.1.0.904
-Date: 2018-03-14
+Title: Rendering risk literacy more transparent 
+Version: 0.1.0.922
+Date: 2018-11-04
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"), 
              person("Felix", "Gaisbauer", role = "aut"), 
@@ -15,12 +15,12 @@ Author: Hansjoerg Neth [aut, cre],
 Maintainer: Hansjoerg Neth <h.neth@uni.kn>
 Description: Risk-related information (like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, 'riskyr' computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
 Depends:
-    R (>= 3.4.2)
+    R (>= 3.4.0)
 Imports:
     diagram (>= 1.6.4),
-    grid (>= 3.4.2),
+    grid (>= 3.4.0),
     vcd (>= 1.4),
-    utils (>= 3.4.2)
+    utils (>= 3.4.0)
 Suggests:
     devtools,
     rmarkdown,
@@ -41,8 +41,12 @@ Collate: 'comp_util.R'
          'comp_xxxx_prob.R'
          'comp_popu.R'
          'comp_accu.R'
+         'plot_util.R'
+         'plot_prism.R'
+         'plot_area.R'
+         'plot_tab.R'
          'plot_mosaic.R'
-         'plot_mosaic_2.R'
+         'plot_bar.R' 
          'plot_icons.R'
          'plot_tree.R'
          'plot_fnet.R'
@@ -57,4 +61,4 @@ LazyData: true
 License: GPL-2 | GPL-3
 BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

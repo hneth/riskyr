@@ -11,19 +11,19 @@ accu
 \description{
 \code{accu} contains current accuracy information
 returned by the corresponding generating function
-\code{\link{comp_accu}}.
+\code{\link{comp_accu_prob}}.
 }
 \details{
 Current metrics include:
 
 \enumerate{
 
-\item \code{acc}: Overall accuracy as the proportion (or probability)
+\item \code{\link{acc}}: Overall accuracy as the probability (or proportion)
    of correctly classifying cases or of \code{\link{dec.cor}} cases:
 
-\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+See \code{\link{acc}} for definition and explanations.
 
-Values range from 0 (no correct prediction) to 1 (perfect prediction).
+\code{\link{acc}} values range from 0 (no correct prediction) to 1 (perfect prediction).
 
 \item \code{wacc}: Weighted accuracy, as a weighted average of the
    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
@@ -57,26 +57,80 @@ See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for addit
 
 }
 
-Note that some accuracy metrics can be interpreted
-as probabilities (e.g., \code{acc}) or correlations (e.g., \code{mcc}).
+Notes:
+
+\itemize{
+
+\item Accuracy metrics describe the \emph{correspondence} of decisions (or predictions) to actual conditions (or truth).
+
+There are several possible interpretations of accuracy:
+
+\enumerate{
+
+\item as \emph{probabilities} (i.e., \code{\link{acc}} being the probability or proportion
+     of correct classifications, or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+
+\item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
+     individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+
+\item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
+
+}
+
+\item Computing exact accuracy values based on probabilities (by \code{\link{comp_accu_prob}}) may differ from
+   accuracy values computed from (possibly rounded) frequencies (by \code{\link{comp_accu_freq}}).
+
+When frequencies are rounded to integers (see the default of \code{round = TRUE}
+   in \code{\link{comp_freq}} and \code{\link{comp_freq_prob}}) the accuracy metrics computed by
+   \code{comp_accu_freq} correspond to these rounded values.
+   Use \code{\link{comp_accu_prob}} to obtain exact accuracy metrics from probabilities.
+
+}
 }
 \examples{
-accu <- comp_accu()  # => computes current accuracy information and saves results in accu
-accu                 # => shows current accuracy information
+accu <- comp_accu_prob()  # => compute exact accuracy metrics (from probabilities)
+accu                      # => current accuracy information
+
+## Contrasting comp_accu_freq and comp_accu_prob:
+# (a) comp_accu_freq (based on rounded frequencies):
+freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => rounded frequencies!
+accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
+# accu1
+#
+# (b) comp_accu_prob (based on probabilities):
+accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
+# accu2
+all.equal(accu1, accu2)  # => 4 differences!
+#
+# (c) comp_accu_freq (exact values, i.e., without rounding):
+freq3 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4, round = FALSE)
+accu3 <- comp_accu_freq(freq3$hi, freq3$mi, freq3$fa, freq3$cr)  # => accu3 (based on EXACT freq).
+# accu3
+all.equal(accu2, accu3)  # => TRUE (qed).
+
 
 }
 \seealso{
-The corresponding generating function \code{\link{comp_accu}};
+The corresponding generating function \code{\link{comp_accu_prob}} computes exact accuracy metrics from probabilities;
+\code{\link{acc}} defines accuracy as a probability;
+\code{\link{comp_accu_freq}} computes accuracy metrics from frequencies;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
 \code{\link{prob}} for current probability information;
 \code{\link{txt}} for current text settings.
 
 Other lists containing current scenario information: \code{\link{freq}},
-  \code{\link{num}}, \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt}}
+  \code{\link{num}}, \code{\link{pal_4c}},
+  \code{\link{pal_bw}}, \code{\link{pal_gbs}},
+  \code{\link{pal_kn}}, \code{\link{pal_org}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}, \code{\link{txt}}
 
-Other metrics: \code{\link{comp_accu}},
-  \code{\link{comp_acc}}
+Other metrics: \code{\link{acc}},
+  \code{\link{comp_accu_freq}},
+  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
+  \code{\link{comp_err}}, \code{\link{err}}
 }
+\concept{lists containing current scenario information}
+\concept{metrics}
 \keyword{datasets}
