@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 05
+## 2018 11 06
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -644,14 +644,19 @@ plot_area <- function(prev = num$prev,    # probabilities
   # brd_w <- .250  # border width (default)
   # brd_w <- 0     # to HIDE borders
 
-  x_min <- (0 - brd_w)
-  x_max <- (1 + v_gap)
-
   y_min <- 0
 
-  if (!is.null(brd_w) && !is.na(brd_w) ) {
+  if (!is.null(v_gap) && !is.na(v_gap) ) {
+    x_max <- (1 + v_gap)
+  } else {
+    x_max <- 1
+  }
+
+  if ( !is.null(brd_w) && !is.na(brd_w) ) {
+    x_min <- (0 - brd_w)
     y_max <- (1 + h_gap) + (brd_w + v_top)
   } else {
+    x_min <- 0
     y_max <- (1 + h_gap) + v_top
   }
 
