@@ -94,11 +94,11 @@
 #' @param round  A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
-#' @param brd_w  Border width for showing 2 perspective summaries
+#' @param sum_w  Border width for showing 2 perspective summaries
 #' on top and left borders of main area (as a proportion of area size)
-#' in a range \code{0 <= brd_w <= 1}.
-#' Default: \code{brd_w = .25}.
-#' Setting \code{brd_w = 0}, \code{NA}, or \code{NULL} removes summaries.
+#' in a range \code{0 <= sum_w <= 1}.
+#' Default: \code{sum_w = .25}.
+#' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries.
 #'
 #' @param gaps Size of gaps (as binary numeric vector) specifying
 #' the width of vertical and horizontal gaps as proportions of area size.
@@ -264,14 +264,14 @@
 #' plot_area(f_lwd = .5)  # thinner lines
 #' plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 #'
-#' # brd_w:
-#' plot_area(brd_w = .25)  # default (showing top and left freq panels & labels)
-#' plot_area(brd_w = .15)  # narrow borders
-#' plot_area(brd_w = 0)    # remove top and left freq panels
+#' # sum_w:
+#' plot_area(sum_w = .25)  # default (showing top and left freq panels & labels)
+#' plot_area(sum_w = .15)  # narrow borders
+#' plot_area(sum_w = 0)    # remove top and left freq panels
 #'
 #' ## Plain plot versions:
-#' plot_area(brd_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
-#' plot_area(gap = c(0, 0), brd_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
+#' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
+#' plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
 #' plot_area(f_lbl = "abb", p_lbl = NA) # plot with abbreviated labels
 #' plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
 #'
@@ -317,7 +317,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                       ## Freq boxes:
-                      brd_w = .25,        # border width: (default: brd_w = .25), setting brd_w = NULL/NA/<=0  hides top and left panels.
+                      sum_w = .25,        # border width: (default: sum_w = .25), setting sum_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
@@ -590,22 +590,25 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## 5. Plot borders: ----
 
-  # brd_w:
-  brd_w_max <- 1  # maximal value
-  if ( is.null(brd_w) || is.na(brd_w) ) { brd_w <- 0 }  # set to 0 (min)
-  if ( abs(brd_w) > brd_w_max ) { brd_w <- brd_w_max }  # set to brd_w_max
+  # sum_w: Must be a value in range 0 to 1:
+  sum_w_max <- 1  # maximal value
+  sum_w_min <- 0  # minimal value
+  if ( is.null(sum_w) || is.na(sum_w) ) { sum_w <- 0 }  # set to 0 (min)
+  if ( sum_w > sum_w_max ) { sum_w <- sum_w_max }  # set to sum_w_max
+  if ( sum_w < sum_w_min ) { sum_w <- sum_w_min }  # set to sum_w_min
+
 
   ## 6. Additional parameters (currently fixed): ----
 
   # Correction values (as constants):
-  v_top   <- .03  # blank space on top of plotting area
+  buffer  <- .03  # blank buffer space (on top and left) of plotting area
   v_shift <- .04  # shifting vertical/rotated text labels (left)
   h_shift <- .01  # shifting horizontal text labels (up)
 
   # Frequency bars (on top and left):
-  bar_lx <- brd_w/3            # bar widths (constant based on brd_w)
-  tbar_y <- 1 + (.65 * brd_w)  # y-value of top  bar (constant based on brd_w)
-  lbar_x <- 0 - (.60 * brd_w)  # x-value of left bar (constant based on brd_w)
+  bar_lx <- sum_w              # bar widths (constant based on sum_w (from 0 to 1)
+  tbar_y <- 1 + buffer + (.50 * sum_w)  # y-value of top  bar (constant based on sum_w)
+  lbar_x <- 0 - buffer - (.50 * sum_w)  # x-value of left bar (constant based on sum_w)
 
   # # f_lbl_sum: freq labels for sums (inside bars on top and left:
   # if ( is.null(f_lbl) || is.na(f_lbl) ) {
@@ -641,23 +644,23 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## Plot dimensions:
 
-  # brd_w <- .250  # border width (default)
-  # brd_w <- 0     # to HIDE borders
+  # sum_w <- .250  # border width (default)
+  # sum_w <- 0     # to HIDE borders
 
   y_min <- 0
 
   if (!is.null(v_gap) && !is.na(v_gap) ) {
-    x_max <- (1 + v_gap)
+    x_max <- (1 + v_gap + buffer)
   } else {
-    x_max <- 1
+    x_max <- (1 + buffer)
   }
 
-  if ( !is.null(brd_w) && !is.na(brd_w) ) {
-    x_min <- (0 - brd_w)
-    y_max <- (1 + h_gap) + (brd_w + v_top)
+  if ( !is.null(sum_w) && !is.na(sum_w) ) {
+    x_min <- (0 - buffer - sum_w - buffer)  # 2 x buffer (for text labels)
+    y_max <- (1 + h_gap) + (buffer + sum_w + buffer)
   } else {
-    x_min <- 0
-    y_max <- (1 + h_gap) + v_top
+    x_min <- (0 - buffer - buffer)   # 2 x buffer (for text labels)
+    y_max <- (1 + h_gap) + (buffer + buffer)
   }
 
   ## Draw empty plot:
@@ -1238,11 +1241,11 @@ plot_area <- function(prev = num$prev,    # probabilities
   if (by_top == "cd") {
 
     # (a) by condition (at top):
-    # cond_y <- 1 + (.65 * brd_w)  # constant
+    # cond_y <- 1 + (.65 * sum_w)  # constant
     cond.true_x  <- prev/2
     cond.false_x <- prev + (1 - prev)/2 + v_gap
 
-    if (brd_w > 0) {
+    if (sum_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
       box_cond.true  <- make_box("cond.true",  (cond.true_x * scale_x),  tbar_y, (prev * scale_x), bar_lx)        # cond.true
@@ -1254,16 +1257,16 @@ plot_area <- function(prev = num$prev,    # probabilities
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
                      cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0) etc.
+    } # if (sum_w > 0) etc.
 
   } else if (by_top == "dc") {
 
     # (b) by decision (at top):
-    # dec_y <- 1 + (.65 * brd_w)  # constant
+    # dec_y <- 1 + (.65 * sum_w)  # constant
     dec.pos_x <- ppod/2
     dec.neg_x <- ppod + (1 - ppod)/2 + v_gap
 
-    if (brd_w > 0) {
+    if (sum_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
       box_dec.pos <- make_box("dec.pos", (dec.pos_x * scale_x), tbar_y, (ppod * scale_x), bar_lx)        # dec.pos
@@ -1275,7 +1278,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
                      cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0) etc.
+    } # if (sum_w > 0) etc.
 
   } else if (by_top == "ac") {
 
@@ -1283,7 +1286,7 @@ plot_area <- function(prev = num$prev,    # probabilities
     dec.cor_x <- acc/2
     dec.err_x <- acc + (1 - acc)/2 + v_gap
 
-    if (brd_w > 0) {
+    if (sum_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
       box_dec.cor <- make_box("dec.cor", (dec.cor_x * scale_x), tbar_y, (acc * scale_x), bar_lx)        # dec.cor
@@ -1295,7 +1298,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
                      cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0) etc.
+    } # if (sum_w > 0) etc.
 
   } else {
 
@@ -1309,11 +1312,11 @@ plot_area <- function(prev = num$prev,    # probabilities
   if (by_bot == "cd") {
 
     # (a) by condition (on left):
-    # cond_x <- 0 - (.60 * brd_w) # constant
+    # cond_x <- 0 - (.60 * sum_w) # constant
     cond.false_y  <- (1 - prev)/2
     cond.true_y <- (1 - prev) + prev/2 + h_gap
 
-    if (brd_w > 0) {
+    if (sum_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
       box_cond.true  <- make_box("cond.true",  (lbar_x * scale_x), cond.true_y,  (bar_lx * scale_x), prev)        # cond.true
@@ -1325,16 +1328,16 @@ plot_area <- function(prev = num$prev,    # probabilities
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
                      cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0) etc.
+    } # if (sum_w > 0) etc.
 
   } else if (by_bot == "dc") {
 
     # (b) by decision (on left):
-    # dec_x <- 0 - (.60 * brd_w) # constant
+    # dec_x <- 0 - (.60 * sum_w) # constant
     dec.neg_y <- (1 - ppod)/2
     dec.pos_y <- (1 - ppod) + ppod/2  + h_gap
 
-    if (brd_w > 0) {
+    if (sum_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
       box_dec.pos <- make_box("dec.pos", (lbar_x * scale_x), dec.pos_y, (bar_lx * scale_x), ppod)        # dec.pos
@@ -1346,17 +1349,17 @@ plot_area <- function(prev = num$prev,    # probabilities
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
                      cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0) etc.
+    } # if (sum_w > 0) etc.
 
 
   } else if (by_bot == "ac") {
 
     # (c) by accuracy (on left):
-    # acc_x <- 0 - (.60 * brd_w) # constant
+    # acc_x <- 0 - (.60 * sum_w) # constant
     dec.err_y <- (1 - acc)/2                # OR (rounded freq)
     dec.cor_y <- (1 - acc) + acc/2 + h_gap  # OR (rounded freq): (freq$dec.cor/freq$N * 1/2)
 
-    if (brd_w > 0) {
+    if (sum_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
       box_dec.cor <- make_box("dec.cor", (lbar_x * scale_x), dec.cor_y, (bar_lx * scale_x), acc)        # dec.cor
@@ -1368,7 +1371,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
                      cex = cex_lbl, lwd = f_lwd)  # no ...!
 
-    } # if (brd_w > 0) etc.
+    } # if (sum_w > 0) etc.
 
   } else {
 
@@ -1437,7 +1440,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                     col.fill = p_col_1, col.txt = p_col_1,
                     srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)  # No ...!
 
-          # ppod_x <- ((0 - brd_w * .90) * scale_x)        # vertical (out left)
+          # ppod_x <- ((0 - sum_w * .90) * scale_x)        # vertical (out left)
           # ppod_x <- ((1 + v_gap + brd_dis) * scale_x)    # vertical (out right)
           # plot_line(ppod_x, (1 - ppod + h_gap), ppod_x, (1 + h_gap),  # ppod
           #           arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
@@ -1697,13 +1700,13 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     ## (a) by condition:
 
-    if (brd_w > 0) {
+    #if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
       # ftype label:
-      plot_ftype_label("cond.true", (1/2 * scale_x), (1 + brd_w),
+      plot_ftype_label("cond.true", (1/2 * scale_x), y_max,
                        cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Condition (center, horizontal)
 
-    } # if (brd_w > 0) etc.
+    #} # if (sum_w etc.)
 
     # 2 sub-group labels:
     plot_freq_label("cond.true", (cond.true_x * scale_x), (1 + h_gap + h_shift),
@@ -1719,13 +1722,13 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     ## (b) by decision:
 
-    if (brd_w > 0) {
+    #if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
       # ftype label:
-      plot_ftype_label("dec.pos", (1/2 * scale_x), (1 + brd_w),
+      plot_ftype_label("dec.pos", (1/2 * scale_x), y_max,
                        cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Decision (center, horizontal)
 
-    } # if (brd_w > 0) etc.
+    #} # if (sum_w etc.)
 
     # 2 sub-group labels:
     plot_freq_label("dec.pos", (dec.pos_x * scale_x), (1 + h_gap + h_shift),
@@ -1742,13 +1745,13 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     ## (c) by accuracy:
 
-    if (brd_w > 0) {
+    # if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
       # ftype label:
-      plot_ftype_label("dec.cor", (1/2 * scale_x), (1 + brd_w),
+      plot_ftype_label("dec.cor", (1/2 * scale_x), y_max,
                        cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (center, horizontal)
 
-    } # if (brd_w > 0) etc.
+    #} # if (sum_w etc.)
 
     # 2 sub-group labels:
     plot_freq_label("dec.cor", (dec.cor_x * scale_x), (1 + h_gap + h_shift),
@@ -1774,14 +1777,14 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (a) by condition:
 
-    if (brd_w > 0) {
+    # if (sum_w > 0) {
 
       ## ftype label:
-      plot_ftype_label("cond.true", ((0 - brd_w) * scale_x), .5,
+      plot_ftype_label("cond.true", (x_min * scale_x), .5,
                        cur_txt = lbl_txt, suffix = ":",
                        srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Condition (left, vertical up)
 
-    } # if (brd_w > 0) etc.
+    #} # if (sum_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("cond.true",  ((0 - v_shift) * scale_x), cond.true_y,
@@ -1798,13 +1801,13 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (b) by decision:
 
-    if (brd_w > 0) {
+    # if (sum_w > 0) {
 
       ## ftype label:
-      plot_ftype_label("dec.pos", ((0 - brd_w) * scale_x), .5, cur_txt = lbl_txt, suffix = ":",
+      plot_ftype_label("dec.pos", (x_min * scale_x), .5, cur_txt = lbl_txt, suffix = ":",
                        srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Decision (left, vertical up)
 
-    } # if (brd_w > 0) etc.
+    #} # if (sum_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.pos", ((0 - v_shift) * scale_x), dec.pos_y,
@@ -1821,14 +1824,14 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (c) by accuracy:
 
-    if (brd_w > 0) {
+    # if (sum_w > 0) {
 
       ## ftype label:
-      plot_ftype_label("dec.cor", ((0 - brd_w) * scale_x), .5,
+      plot_ftype_label("dec.cor", (x_min * scale_x), .5,
                        cur_txt = lbl_txt, suffix = ":",
                        srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (left, vertical up)
 
-    } # if (brd_w > 0) etc.
+    #} # if (sum_w > 0) etc.
 
     # 2 sub-group labels:
     plot_freq_label("dec.cor", ((0 - v_shift) * scale_x), dec.cor_y,
@@ -1985,17 +1988,17 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(f_lwd = .5)  # thinner lines
 # plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 #
-# # brd_w:
-# plot_area(brd_w = .25)  # default (showing top and left freq panels & labels)
-# plot_area(brd_w = .33)  # 1/3 borders
-# plot_area(brd_w = .50)  # max. brd_w
-# plot_area(brd_w = 999)  # corrected to max. brd_w = 1
-# plot_area(brd_w = 0)    # if brd_w = 0 / NULL / NA => remove top and left freq panels
-# plot_area(by = "cdac", p_split = "h", brd_w = 0)
+# # sum_w:
+# plot_area(sum_w = .25)  # default (showing top and left freq panels & labels)
+# plot_area(sum_w = .33)  # 1/3 borders
+# plot_area(sum_w = .50)  # max. sum_w
+# plot_area(sum_w = 999)  # corrected to max. sum_w = 1
+# plot_area(sum_w = 0)    # if sum_w = 0 / NULL / NA => remove top and left freq panels
+# plot_area(by = "cdac", p_split = "h", sum_w = 0)
 #
 # ## Plain plot versions:
-# plot_area(brd_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
-# plot_area(gap = c(0, 0), brd_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
+# plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
+# plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
 # plot_area(f_lbl = "abb", p_lbl = NA) # plot with abbreviated labels
 # plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
 #
@@ -2007,8 +2010,8 @@ plot_area <- function(prev = num$prev,    # probabilities
 
 ## (+) ToDo: ------
 
-## - Fix top/left captions when brd_w = 0 (and consider setting
-##   3 summary shapes to 3 squares to boundary case of brd_w = 1).
+## - Fix top/left captions when sum_w = 0 (and consider setting
+##   3 summary shapes to 3 squares to boundary case of sum_w = 1).
 
 ## - Shift entire plot to center (right) when area == "sq".
 
