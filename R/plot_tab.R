@@ -639,7 +639,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
   x_max <- (n_rows + v_gap)
 
   y_min <- 0
-  y_max <- (n_cols + h_gap) + (brd_w + v_top)
+
+  if (!is.null(brd_w) && !is.na(brd_w) ) {
+    y_max <- (n_cols + h_gap) + (brd_w + v_top)
+  } else {
+    y_max <- (n_cols + h_gap) + v_top
+  }
 
   ## Draw empty plot:
   plot(0, 0, type = "n",      # type = "n" hides the points

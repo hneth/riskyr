@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 04
+## 2018 11 05
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -230,10 +230,10 @@
 #' plot_area(area = "no")  # rectangular main area (using full plotting region)
 #'
 #' # scale (matters for small N):
-#' plot_area(N = 8, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
-#' # plot_area(N = 8, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
-#' plot_area(N = 7, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
-#' # plot_area(N = 7, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
+#' plot_area(N = 9, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
+#' plot_area(N = 9, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
+#' plot_area(N = 8, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
+#' plot_area(N = 8, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
 #'
 #' # gaps (sensible range: 0--.10):
 #' plot_area(gaps = NA)           # use default gaps (based on p_split)
@@ -593,7 +593,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # brd_w:
   brd_w_max <- 1  # maximal value
   if ( is.null(brd_w) || is.na(brd_w) ) { brd_w <- 0 }  # set to 0 (min)
-  if ( brd_w > brd_w_max ) { brd_w <- brd_w_max }       # set to brd_w_max
+  if ( abs(brd_w) > brd_w_max ) { brd_w <- brd_w_max }  # set to brd_w_max
 
   ## 6. Additional parameters (currently fixed): ----
 
@@ -648,7 +648,12 @@ plot_area <- function(prev = num$prev,    # probabilities
   x_max <- (1 + v_gap)
 
   y_min <- 0
-  y_max <- (1 + h_gap) + (brd_w + v_top)
+
+  if (!is.null(brd_w) && !is.na(brd_w) ) {
+    y_max <- (1 + h_gap) + (brd_w + v_top)
+  } else {
+    y_max <- (1 + h_gap) + v_top
+  }
 
   ## Draw empty plot:
   plot(0, 0, type = "n",      # type = "n" hides the points
@@ -1979,7 +1984,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(brd_w = .25)  # default (showing top and left freq panels & labels)
 # plot_area(brd_w = .33)  # 1/3 borders
 # plot_area(brd_w = .50)  # max. brd_w
-# plot_area(brd_w = 999)  # corrected to max. brd_w = .50
+# plot_area(brd_w = 999)  # corrected to max. brd_w = 1
 # plot_area(brd_w = 0)    # if brd_w = 0 / NULL / NA => remove top and left freq panels
 # plot_area(by = "cdac", p_split = "h", brd_w = 0)
 #

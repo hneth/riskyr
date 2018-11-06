@@ -149,49 +149,48 @@ and various \code{box}) options in
 for related functions.
 }
 \examples{
+# Basics:
+plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
 
-## Basics:
-# plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
-#
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
-#          title_lbl = "Test 2")  # by "all" (default)
-#
-## Perspectives (by):
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
-#          title_lbl = "Test 3a")  # by condition
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
-#          title_lbl = "Test 3b", f_lbl = "num")  # bi-directional
-#
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
-#          title_lbl = "Test 4a")  # by decision
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
-#          title_lbl = "Test 4b", f_lbl = "num")  # bi-directional
-#
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
-#          title_lbl = "Test 5a")  # by accuracy
-# plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
-#          title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
-#
-## Frequency labels (f_lbl):
-# plot_bar(f_lbl = "default")  # default labels: name = num
-# plot_bar(f_lbl = "nam")      # name only
-# plot_bar(f_lbl = "num")      # numeric value only
-# plot_bar(f_lbl = "abb")      # abbreviated name
-# plot_bar(f_lbl = NA)         # no labels (NA/NULL/"no")
-#
-## Scaling and rounding effects:
-# plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
-#          scale = "f", round = TRUE,
-#          title_lbl = "Rounding (1)") # => Scale by freq and round freq.
-# plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
-#          scale = "p", round = TRUE,
-#          title_lbl = "Rounding (2)") # => Scale by prob and round freq.
-# plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
-#          scale = "f", round = FALSE,
-#          title_lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
-# plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
-#          scale = "p", round = FALSE,
-#          title_lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
+         title_lbl = "Test 2")  # by "all" (default)
+
+# Perspectives (by):
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
+         title_lbl = "Test 3a")  # by condition
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
+         title_lbl = "Test 3b", f_lbl = "num")  # bi-directional
+
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
+         title_lbl = "Test 4a")  # by decision
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
+         title_lbl = "Test 4b", f_lbl = "num")  # bi-directional
+
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
+         title_lbl = "Test 5a")  # by accuracy
+plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
+         title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
+
+# Frequency labels (f_lbl):
+plot_bar(f_lbl = "default")  # default labels: name = num
+plot_bar(f_lbl = "nam")      # name only
+plot_bar(f_lbl = "num")      # numeric value only
+plot_bar(f_lbl = "abb")      # abbreviated name
+plot_bar(f_lbl = NA)         # no labels (NA/NULL/"no")
+
+# Scaling and rounding effects:
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "f", round = TRUE,
+         title_lbl = "Rounding (1)") # => Scale by freq and round freq.
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "p", round = TRUE,
+         title_lbl = "Rounding (2)") # => Scale by prob and round freq.
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "f", round = FALSE,
+         title_lbl = "Rounding (3)") # => Scale by freq and do NOT round freq.
+plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
+         scale = "p", round = FALSE,
+         title_lbl = "Rounding (4)") # => Scale by prob and do NOT round freq.
 
 }
 \seealso{
