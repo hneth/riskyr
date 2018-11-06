@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 05
+## 2018 11 06
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -150,7 +150,7 @@
 #' ## Basics:
 #' # Global freq and prob objects:
 #' plot_prism()  # default, same as:
-#' plot_prism(by = "cddc", area = "no", scale = "f",
+#' plot_prism(by = "cddc", area = "no", scale = "p",
 #'            f_lbl = "default", f_lwd = 0, cex_lbl = .90,
 #'            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 #'
