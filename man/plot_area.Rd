@@ -7,7 +7,7 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "sq", scale = "p", round = TRUE,
-  sum_w = 0.25, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
+  sum_w = 0.1, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
   f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
   arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
   brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
@@ -81,11 +81,12 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:
 \item{round}{A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
 
-\item{sum_w}{Border width for showing 2 perspective summaries
-on top and left borders of main area (as a proportion of area size)
-in a range \code{0 <= sum_w <= 1}.
-Default: \code{sum_w = .25}.
-Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries.}
+\item{sum_w}{Border width of 2 perspective summaries
+(on top and left borders) of main area as a proportion of area size
+(i.e., in range \code{0 <= sum_w <= 1}).
+Default: \code{sum_w = .10}.
+Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
+setting \code{sum_w = 1} scales summaries to same size as main areas.}
 
 \item{gaps}{Size of gaps (as binary numeric vector) specifying
 the width of vertical and horizontal gaps as proportions of area size.
@@ -273,9 +274,9 @@ plot_area(f_lwd = .5)  # thinner lines
 plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 
 # sum_w:
-plot_area(sum_w = .25)  # default (showing top and left freq panels & labels)
-plot_area(sum_w = .15)  # narrow borders
-plot_area(sum_w = 0)    # remove top and left freq panels
+plot_area(sum_w = .1)  # default (showing top and left freq panels & labels)
+plot_area(sum_w =  0)  # remove top and left freq panels
+plot_area(sum_w =  1)  # top and left freq panels are scaled to size of main areas
 
 ## Plain plot versions:
 plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)

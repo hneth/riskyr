@@ -94,11 +94,12 @@
 #' @param round  A Boolean option specifying whether computed frequencies
 #' are rounded to integers. Default: \code{round = TRUE}.
 #'
-#' @param sum_w  Border width for showing 2 perspective summaries
-#' on top and left borders of main area (as a proportion of area size)
-#' in a range \code{0 <= sum_w <= 1}.
-#' Default: \code{sum_w = .25}.
-#' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries.
+#' @param sum_w  Border width of 2 perspective summaries
+#' (on top and left borders) of main area as a proportion of area size
+#' (i.e., in range \code{0 <= sum_w <= 1}).
+#' Default: \code{sum_w = .10}.
+#' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
+#' setting \code{sum_w = 1} scales summaries to same size as main areas.
 #'
 #' @param gaps Size of gaps (as binary numeric vector) specifying
 #' the width of vertical and horizontal gaps as proportions of area size.
@@ -265,9 +266,9 @@
 #' plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 #'
 #' # sum_w:
-#' plot_area(sum_w = .25)  # default (showing top and left freq panels & labels)
-#' plot_area(sum_w = .15)  # narrow borders
-#' plot_area(sum_w = 0)    # remove top and left freq panels
+#' plot_area(sum_w = .1)  # default (showing top and left freq panels & labels)
+#' plot_area(sum_w =  0)  # remove top and left freq panels
+#' plot_area(sum_w =  1)  # top and left freq panels are scaled to size of main areas
 #'
 #' ## Plain plot versions:
 #' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
@@ -317,7 +318,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                       ## Freq boxes:
-                      sum_w = .25,        # border width: (default: sum_w = .25), setting sum_w = NULL/NA/<=0  hides top and left panels.
+                      sum_w = .10,        # border width: (default: sum_w = .25), setting sum_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
@@ -591,9 +592,9 @@ plot_area <- function(prev = num$prev,    # probabilities
   ## 5. Plot borders: ----
 
   # sum_w: Must be a value in range 0 to 1:
+  if ( is.null(sum_w) || is.na(sum_w) ) { sum_w <- 0 }  # set to 0 (min)
   sum_w_max <- 1  # maximal value
   sum_w_min <- 0  # minimal value
-  if ( is.null(sum_w) || is.na(sum_w) ) { sum_w <- 0 }  # set to 0 (min)
   if ( sum_w > sum_w_max ) { sum_w <- sum_w_max }  # set to sum_w_max
   if ( sum_w < sum_w_min ) { sum_w <- sum_w_min }  # set to sum_w_min
 
@@ -601,14 +602,14 @@ plot_area <- function(prev = num$prev,    # probabilities
   ## 6. Additional parameters (currently fixed): ----
 
   # Correction values (as constants):
-  buffer  <- .03  # blank buffer space (on top and left) of plotting area
-  v_shift <- .04  # shifting vertical/rotated text labels (left)
-  h_shift <- .01  # shifting horizontal text labels (up)
+  buffer  <- .08  # blank buffer space (on top and left) of plotting area
+  v_shift <- .03  # shifting vertical/rotated text labels (left)
+  h_shift <- .00  # shifting horizontal text labels (up)
 
   # Frequency bars (on top and left):
-  bar_lx <- sum_w              # bar widths (constant based on sum_w (from 0 to 1)
-  tbar_y <- 1 + buffer + (.50 * sum_w)  # y-value of top  bar (constant based on sum_w)
-  lbar_x <- 0 - buffer - (.50 * sum_w)  # x-value of left bar (constant based on sum_w)
+  bar_lx <- sum_w  # bar widths (constant based on sum_w (from 0 to 1)
+  tbar_y <- (1 + buffer) + (.52 * sum_w)    # y-value of top  bar (constant based on sum_w)
+  lbar_x <- ((0 - buffer) - (.52 * sum_w))  # x-value of left bar (constant based on sum_w)
 
   # # f_lbl_sum: freq labels for sums (inside bars on top and left:
   # if ( is.null(f_lbl) || is.na(f_lbl) ) {
@@ -655,12 +656,12 @@ plot_area <- function(prev = num$prev,    # probabilities
     x_max <- (1 + buffer)
   }
 
-  if ( !is.null(sum_w) && !is.na(sum_w) ) {
-    x_min <- (0 - buffer - sum_w - buffer)  # 2 x buffer (for text labels)
+  if ( (sum_w > 0) ) {  # 2 x buffer (for text labels):
+    x_min <- (0 - buffer - sum_w - buffer)
     y_max <- (1 + h_gap) + (buffer + sum_w + buffer)
   } else {
-    x_min <- (0 - buffer - buffer)   # 2 x buffer (for text labels)
-    y_max <- (1 + h_gap) + (buffer + buffer)
+    x_min <- (0 - buffer) # 1 x buffer (for text labels)
+    y_max <- (1 + h_gap) + (buffer)
   }
 
   ## Draw empty plot:
@@ -1702,9 +1703,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     #if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
-      # ftype label:
-      plot_ftype_label("cond.true", (1/2 * scale_x), y_max,
-                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Condition (center, horizontal)
+    # ftype label:
+    plot_ftype_label("cond.true", (1/2 * scale_x), y_max,
+                     cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Condition (center, horizontal)
 
     #} # if (sum_w etc.)
 
@@ -1724,9 +1725,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     #if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
-      # ftype label:
-      plot_ftype_label("dec.pos", (1/2 * scale_x), y_max,
-                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Decision (center, horizontal)
+    # ftype label:
+    plot_ftype_label("dec.pos", (1/2 * scale_x), y_max,
+                     cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Decision (center, horizontal)
 
     #} # if (sum_w etc.)
 
@@ -1747,9 +1748,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
-      # ftype label:
-      plot_ftype_label("dec.cor", (1/2 * scale_x), y_max,
-                       cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (center, horizontal)
+    # ftype label:
+    plot_ftype_label("dec.cor", (1/2 * scale_x), y_max,
+                     cur_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (center, horizontal)
 
     #} # if (sum_w etc.)
 
@@ -1779,10 +1780,10 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # if (sum_w > 0) {
 
-      ## ftype label:
-      plot_ftype_label("cond.true", (x_min * scale_x), .5,
-                       cur_txt = lbl_txt, suffix = ":",
-                       srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Condition (left, vertical up)
+    ## ftype label:
+    plot_ftype_label("cond.true", (x_min * scale_x), .5,
+                     cur_txt = lbl_txt, suffix = ":",
+                     srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Condition (left, vertical up)
 
     #} # if (sum_w > 0) etc.
 
@@ -1803,9 +1804,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # if (sum_w > 0) {
 
-      ## ftype label:
-      plot_ftype_label("dec.pos", (x_min * scale_x), .5, cur_txt = lbl_txt, suffix = ":",
-                       srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Decision (left, vertical up)
+    ## ftype label:
+    plot_ftype_label("dec.pos", (x_min * scale_x), .5, cur_txt = lbl_txt, suffix = ":",
+                     srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Decision (left, vertical up)
 
     #} # if (sum_w > 0) etc.
 
@@ -1826,10 +1827,10 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # if (sum_w > 0) {
 
-      ## ftype label:
-      plot_ftype_label("dec.cor", (x_min * scale_x), .5,
-                       cur_txt = lbl_txt, suffix = ":",
-                       srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (left, vertical up)
+    ## ftype label:
+    plot_ftype_label("dec.cor", (x_min * scale_x), .5,
+                     cur_txt = lbl_txt, suffix = ":",
+                     srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)  # Accuracy (left, vertical up)
 
     #} # if (sum_w > 0) etc.
 
