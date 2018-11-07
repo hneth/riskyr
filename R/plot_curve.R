@@ -71,6 +71,9 @@
 #' to a logarithmic x-axis.
 #' Default: \code{log_scale = FALSE}.
 #'
+#' @param lbl_txt  Labels and text elements.
+#' Default: \code{lbl_txt = \link{txt}}.
+#'
 #' @param title_lbl  Main plot title.
 #' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
 #'
@@ -84,9 +87,6 @@
 #'   \item \code{"namnum"}: show names and numeric probability values;
 #'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
 #'   }
-#'
-#' @param lbl_txt  Labels and text elements.
-#' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -183,9 +183,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
                        log_scale = FALSE,   # x-axis on log scale?
 
                        # Text and color:
+                       lbl_txt = txt,      # labels and text elements
                        title_lbl = NA,     # plot title
                        p_lbl = "def",      # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
-                       lbl_txt = txt,      # labels and text elements
                        cex_lbl = .85,      # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,      # color palette
 

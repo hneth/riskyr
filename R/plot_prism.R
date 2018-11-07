@@ -124,11 +124,11 @@
 #' }
 #' Default: \code{arr_c = NA}, but adjusted by \code{area}.
 #'
-#' @param title_lbl  Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
-#'
 #' @param lbl_txt  Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
+#'
+#' @param title_lbl  Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -338,8 +338,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        arr_c = NA,         # arrow code (-3 to +6). Set to defaults of -2 or 0 (by area, below).
 
                        # Text and color:
-                       title_lbl = txt$scen.lbl,  # main plot title
                        lbl_txt = txt,      # labels and text elements
+                       title_lbl = txt$scen.lbl,  # main plot title
                        cex_lbl = .90,      # size of freq & text labels.
                        cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
                        col_pal = pal,      # color palette

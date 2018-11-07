@@ -82,9 +82,8 @@
 #' @param phi Vertical rotation angle (used by \code{\link{persp}}).
 #' Default: \code{phi = 0}.
 #'
-#'
-#' @param title_lbl  Main plot title.
-#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
+#' @param lbl_txt  Labels and text elements.
+#' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param p_lbl  Type of label for shown probability values,
 #' with the following options:
@@ -97,8 +96,8 @@
 #'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
 #'   }
 #'
-#' @param lbl_txt  Labels and text elements.
-#' Default: \code{lbl_txt = \link{txt}}.
+#' @param title_lbl  Main plot title.
+#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
 #'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -177,9 +176,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        phi = 0,
 
                        # Text and color:
+                       lbl_txt = txt,   # labels and text elements
                        title_lbl = NA,  # plot title
                        p_lbl = "def",   # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
-                       lbl_txt = txt,   # labels and text elements
                        cex_lbl = .85,   # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,   # color palette
 

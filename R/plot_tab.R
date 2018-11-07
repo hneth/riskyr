@@ -163,11 +163,11 @@
 #' Default: \code{brd_dis = .30}.
 #' Note: Adjust to avoid overlapping labels.
 #'
-#' @param title_lbl Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
-#'
 #' @param lbl_txt Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
+#'
+#' @param title_lbl Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param cex_lbl Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -327,8 +327,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      brd_dis = .30,      # distance of prob links from cell center. (Adjust to avoid overlapping labels).
 
                      # Text and color:
-                     title_lbl = txt$scen.lbl,  # main plot title
                      lbl_txt = txt,      # labels and text elements
+                     title_lbl = txt$scen.lbl,  # main plot title
                      cex_lbl = .90,      # size of freq & text labels
                      cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
                      col_pal = pal,      # color palette
