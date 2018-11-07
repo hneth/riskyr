@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 11 04
+## 2018 11 05
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -16,7 +16,7 @@
 # class(scenario3) <- "riskyr"
 
 
-## 1. riskyr object (i.e., scenario) -----------
+## (1) Function to create diagnostic riskyr scenarios: ------
 
 ## riskyr Documentation: ------
 
@@ -473,6 +473,7 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
   scenarios[[i]] <- cur.scen
 
 } # end for ...
+
 
 ## Check: --------
 # length(scenarios)
