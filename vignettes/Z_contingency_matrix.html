@@ -42,13 +42,13 @@
 <div id="terminology" class="section level2">
 <h2>Terminology</h2>
 <p>The following “contingency matrix”&quot; is a generalization of the “confusion matrix”:</p>
-<table style="width:78%;">
+<table style="width:71%;">
 <colgroup>
 <col width="16%"></col>
 <col width="15%"></col>
 <col width="15%"></col>
 <col width="15%"></col>
-<col width="15%"></col>
+<col width="8%"></col>
 </colgroup>
 <thead>
 <tr class="header">
@@ -62,38 +62,38 @@
 <tbody>
 <tr class="odd">
 <td align="right"><code>rows</code></td>
-<td align="center">left (<code>TRUE</code>):</td>
-<td align="center">right (<code>FALSE</code>):</td>
+<td align="center">c1 (<code>TRUE</code>):</td>
+<td align="center">c2 (<code>FALSE</code>):</td>
 <td align="center">Sum:</td>
 <td align="center">(b) by decision:</td>
 </tr>
 <tr class="even">
-<td align="right">top (<code>TRUE</code>):</td>
-<td align="center"><code>n_tl</code> or <code>r1c1</code></td>
-<td align="center"><code>n_tr</code> or <code>r1c2</code></td>
-<td align="center"><code>n_t</code> or <code>r1</code></td>
-<td align="center"><code>p_tl</code> = <code>tl</code>/<code>t</code> <code>ptr</code> = <code>n_tr</code>/<code>t</code></td>
+<td align="right">r1 (<code>TRUE</code>):</td>
+<td align="center"><code>r1c1</code></td>
+<td align="center"><code>r1c2</code></td>
+<td align="center"><code>n_r1</code></td>
+<td align="center"><code>pr_r1c1</code> = <code>r1c1</code>/<code>r1</code> <code>pr_r1c2</code> = <code>r1c2</code>/<code>r1</code></td>
 </tr>
 <tr class="odd">
-<td align="right">bottom (<code>FALSE</code>):</td>
-<td align="center"><code>n_bl</code> or <code>r2c1</code></td>
-<td align="center"><code>n_br</code> or <code>r2c2</code></td>
-<td align="center"><code>n_b</code> or <code>r2</code></td>
-<td align="center"><code>p_br</code> = <code>br</code>/<code>n_b</code></td>
+<td align="right">r2 (<code>FALSE</code>):</td>
+<td align="center"><code>r2c1</code></td>
+<td align="center"><code>r2c2</code></td>
+<td align="center"><code>n_r2</code></td>
+<td align="center"><code>pr_r2c1</code> = <code>r2c1</code>/<code>r2</code> <code>pr_r2c2</code> = <code>r2c2</code>/<code>r2</code></td>
 </tr>
 <tr class="even">
 <td align="right">Sum:</td>
-<td align="center"><code>n_l</code> or <code>c1</code></td>
-<td align="center"><code>n_r</code> or <code>c2</code></td>
+<td align="center"><code>n_c1</code></td>
+<td align="center"><code>n_c2</code></td>
 <td align="center"><code>N</code></td>
-<td align="center"><code>p_l</code> = <code>n_l</code>/<code>N</code></td>
+<td align="center"><code>p_c1</code> = <code>n_c1</code>/<code>N</code></td>
 </tr>
 <tr class="odd">
 <td align="right">(a) by condition</td>
-<td align="center"><code>p_tl</code> = <code>n_tl</code>/<code>n_l</code> <code>p_bl</code> = <code>n_bl</code>/<code>n_l</code></td>
-<td align="center"><code>spec</code> = <code>n_br</code>/<code>n_r</code></td>
-<td align="center"><code>p_t</code> = <code>n_t</code>/<code>N</code></td>
-<td align="center"><code>acc</code> = <code>dec.cor</code>/<code>N</code> = (<code>n_tl</code>+<code>n_br</code>)/<code>N</code></td>
+<td align="center"><code>pc_r1c1</code> = <code>r1c1</code>/<code>c1</code> <code>pc_r2c1</code> = <code>r2</code>/<code>c1</code></td>
+<td align="center"><code>pc_r1c2</code> = <code>r1c2</code>/<code>c2</code> <code>pc_r2c2</code> = <code>r2c2</code>/<code>c2</code></td>
+<td align="center"><code>p_r1</code> = <code>n_r1</code>/<code>N</code></td>
+<td align="center"><code>rc12</code> = <code>diag</code>/<code>N</code> = (<code>r1c1</code>+<code>r2c2</code>)/<code>N</code></td>
 </tr>
 </tbody>
 </table>
