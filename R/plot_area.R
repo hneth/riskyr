@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 06
+## 2018 11 07
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -97,7 +97,7 @@
 #' @param sum_w  Border width of 2 perspective summaries
 #' (on top and left borders) of main area as a proportion of area size
 #' (i.e., in range \code{0 <= sum_w <= 1}).
-#' Default: \code{sum_w = .10}.
+#' Default: \code{sum_w = .08}.
 #' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
 #' setting \code{sum_w = 1} scales summaries to same size as main areas.
 #'
@@ -266,9 +266,10 @@
 #' plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 #'
 #' # sum_w:
-#' plot_area(sum_w = .1)  # default (showing top and left freq panels & labels)
-#' plot_area(sum_w =  0)  # remove top and left freq panels
-#' plot_area(sum_w =  1)  # top and left freq panels are scaled to size of main areas
+#' plot_area(sum_w = .08)  # default (showing top and left freq panels & labels)
+#' plot_area(sum_w =  0)   # remove top and left freq panels
+#' plot_area(sum_w =  1,   # top and left freq panels are scaled to size of main areas
+#'           col_pal = pal_org)
 #'
 #' ## Plain plot versions:
 #' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
@@ -318,7 +319,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                       ## Freq boxes:
-                      sum_w = .10,        # border width: (default: sum_w = .25), setting sum_w = NULL/NA/<=0  hides top and left panels.
+                      sum_w = .08,        # border width: (default: sum_w = .08), setting sum_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
