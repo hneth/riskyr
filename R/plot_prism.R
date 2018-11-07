@@ -1419,7 +1419,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
 
 
-## Done: [2018 11 04] ------
+## Done: [2018 11 07] ------
 
 ## (0) Design as function plot_prism (generalizing plot_fnet).
 
@@ -1448,6 +1448,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
 ##     to prevent occlusion of freq labels of smaller boxes) => plot_util.R
 
 ## (5) Add documentation and integrate in current riskyr package (./R).
+
+## (6) Add x_lab_pos parameter and adjust x_lab and x_min
+##     to control ftype labels on left.
 
 
 ## ToDo: [2018 11 04] ------
