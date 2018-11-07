@@ -6,9 +6,11 @@
 as a function of sensitivity and specificity.}
 \usage{
 plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, what = "PPV", what.col = pal,
-  line.col = "grey85", show.point = TRUE, step.size = 0.05,
-  theta = -45, phi = 0, title.lbl = txt$scen.lbl, cex.lbl = 0.85)
+  spec = num$spec, fart = NA, what = "PPV", what_col = pal,
+  line_col = "grey85", point_col = "yellow", show_point = TRUE,
+  step_size = 0.05, theta = -45, phi = 0, title_lbl = NA,
+  lbl_txt = txt, cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -39,22 +41,27 @@ to be plotted as a plane. Currently available
 options are \code{c("PPV", "NPV", "ppod", "acc")}.
 Default: \code{what = "PPV"}.}
 
-\item{what.col}{Color for surface facets corresponding to the metric
+\item{what_col}{Color for surface facets corresponding to the metric
 specified in \code{what}.
-Default: \code{what.col = pal}.}
+Default: \code{what_col} uses color corresponding to \code{what}
+in current \code{col_pal}.}
 
-\item{line.col}{Color for lines between surface facets.
-Default: \code{line.col = "grey85"}.}
+\item{line_col}{Color for lines between surface facets.
+Default: \code{line_col = "grey85"}.}
 
-\item{show.point}{Boolean option for showing the current value
+\item{point_col}{Fill color for showing current value on plane.
+Default: \code{point_col = "yellow"}.}
+
+\item{show_point}{Boolean option for showing the current value
 of the selected metric for the current conditions
 (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
 as a point on the plane.
-Default: \code{show.point = TRUE}.}
+Default: \code{show_point = TRUE}.}
 
-\item{step.size}{Sets the granularity of the
+\item{step_size}{Sets the granularity of the
 \code{\link{sens}}-by-\code{\link{spec}} grid.
-Default: \code{step.size = .05}.}
+(in range \code{.01 <= step_size <= 1}).
+Default: \code{step_size = .05}.}
 
 \item{theta}{Horizontal rotation angle (used by \code{\link{persp}}).
 Default: \code{theta = -45}.}
@@ -62,12 +69,23 @@ Default: \code{theta = -45}.}
 \item{phi}{Vertical rotation angle (used by \code{\link{persp}}).
 Default: \code{phi = 0}.}
 
-\item{title.lbl}{The title of the current plot.
-Default: \code{title.lbl = txt$scen.lbl}.}
+\item{title_lbl}{Main plot title.
+Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).}
 
-\item{cex.lbl}{Scaling factor for the size of text labels
+\item{lbl_txt}{Labels and text elements.
+Default: \code{lbl_txt = \link{txt}}.}
+
+\item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
-Default: \code{cex.lbl = .85}.}
+Default: \code{cex_lbl = .85}.}
+
+\item{col_pal}{Color palette (if what_col is unspecified).
+Default: \code{col_pal = \link{pal}}.}
+
+\item{mar_notes}{Boolean value for showing margin notes.
+Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
 }
 \description{
 \code{plot_plane} draws a 3D-plane of selected values
@@ -91,16 +109,15 @@ plot_plane(what = "ppod") # => plane of ppod
 plot_plane(what = "acc")  # => plane of acc
 
 # Plot options:
-plot_plane(title.lbl = "Testing smaller text labels", cex.lbl = .60)
-plot_plane(show.point = FALSE)  # => no point shown on plane
+plot_plane(title_lbl = "Testing smaller text labels", cex_lbl = .60)
+plot_plane(show_point = FALSE)  # => no point shown on plane
 
-plot_plane(title.lbl = "Testing plot colors", what.col = "royalblue4", line.col = "sienna2")
-plot_plane(title.lbl = "Testing plot in b/w", what.col = "white", line.col = "black")
+plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
+plot_plane(title_lbl = "Testing plot in b/w", what_col = "white", line_col = "black")
 
-plot_plane(step.size = .333, what.col = "firebrick")    # => coarser granularity + color
-plot_plane(step.size = .025, what.col = "chartreuse4")  # => finer granularity + color
-plot_plane(what.col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
-
+plot_plane(step_size = .333, what_col = "firebrick")    # => coarser granularity + color
+plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color
+plot_plane(what_col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
 
 }
 \seealso{
