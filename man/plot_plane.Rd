@@ -9,8 +9,8 @@ plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = "PPV", what_col = pal,
   line_col = "grey85", point_col = "yellow", show_point = TRUE,
   step_size = 0.05, theta = -45, phi = 0, title_lbl = NA,
-  lbl_txt = txt, cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE,
-  ...)
+  p_lbl = "def", lbl_txt = txt, cex_lbl = 0.85, col_pal = pal,
+  mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -71,6 +71,17 @@ Default: \code{phi = 0}.}
 
 \item{title_lbl}{Main plot title.
 Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).}
+
+\item{p_lbl}{Type of label for shown probability values,
+with the following options:
+  \enumerate{
+  \item \code{"abb"}: show abbreviated probability names;
+  \item \code{"def"}: show abbreviated probability names and values (default);
+  \item \code{"nam"}: show only probability names (as specified in code);
+  \item \code{"num"}: show only numeric probability values;
+  \item \code{"namnum"}: show names and numeric probability values;
+  \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
+  }}
 
 \item{lbl_txt}{Labels and text elements.
 Default: \code{lbl_txt = \link{txt}}.}

@@ -86,6 +86,17 @@
 #' @param title_lbl  Main plot title.
 #' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
 #'
+#' @param p_lbl  Type of label for shown probability values,
+#' with the following options:
+#'   \enumerate{
+#'   \item \code{"abb"}: show abbreviated probability names;
+#'   \item \code{"def"}: show abbreviated probability names and values (default);
+#'   \item \code{"nam"}: show only probability names (as specified in code);
+#'   \item \code{"num"}: show only numeric probability values;
+#'   \item \code{"namnum"}: show names and numeric probability values;
+#'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
+#'   }
+#'
 #' @param lbl_txt  Labels and text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
@@ -167,6 +178,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
                        # Text and color:
                        title_lbl = NA,  # plot title
+                       p_lbl = "def",   # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
                        lbl_txt = txt,   # labels and text elements
                        cex_lbl = .85,   # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,   # color palette
@@ -215,8 +227,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (is_valid_prob_set(prev...
 
-  ## Additional parameters (currently fixed):
-  # point_col <- "yellow"
+  ## (+) Additional parameters (currently fixed):
+  p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
 
   ## (1) Ranges on x- and y-axes: ----------
 
@@ -253,8 +265,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   if (what == "ppv") {
 
     ## 1. Parameters:
-    cur_val <- comp_PPV(prev, sens, spec)             # cur_val (PPV)
-    cur_lbl <- paste0("PPV = ", as_pc(cur_val), "%")  # cur_lbl
+    # cur_val <- comp_PPV(prev, sens, spec)  # cur_val (PPV)
+    cur_val <- prob$PPV                      # automatic value
+
+    # cur_lbl <- paste0("PPV = ", as_pc(cur_val), "%")  # cur_lbl
+    cur_lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+
     type_lbl <- "Probability plane of positive predictive values (PPV)"
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["ppv"] }  # cur_col
     z_lbl <- "PPV"    # label of z-axis
@@ -274,8 +290,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   if (what == "npv") {
 
     ## 1. Parameters:
-    cur_val <- comp_NPV(prev, sens, spec)             # cur_val (NPV)
-    cur_lbl <- paste0("NPV = ", as_pc(cur_val), "%")  # cur_lbl
+    # cur_val <- comp_NPV(prev, sens, spec)  # cur_val (NPV)
+    cur_val <- prob$NPV                      # automatic value
+
+    # cur_lbl <- paste0("NPV = ", as_pc(cur_val), "%")  # cur_lbl
+    cur_lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+
     type_lbl <- "Probability plane of negative predictive values (NPV)"
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["npv"] }  # cur_col
     z_lbl <- "NPV"    # label of z-axis
@@ -295,8 +315,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   if (what == "ppod") {
 
     ## 1. Parameters:
-    cur_val <- comp_ppod(prev, sens, spec)             # cur_val (ppod)
-    cur_lbl <- paste0("ppod = ", as_pc(cur_val), "%")  # cur_lbl
+    # cur_val <- comp_ppod(prev, sens, spec)  # cur_val (ppod)
+    cur_val <- prob$ppod                      # automatic value
+
+    # cur_lbl <- paste0("ppod = ", as_pc(cur_val), "%")  # cur_lbl
+    cur_lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+
     type_lbl <- "Probability plane of the proportion of positive predictions (ppod)"
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["pos"] }  # cur_col for ppod (using "pos")
     z_lbl <- "ppod"   # label of z-axis
@@ -316,8 +340,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   if (what == "acc") {
 
     ## 1. Parameters:
-    cur_val <- comp_acc(prev, sens, spec)             # cur_val (acc)
-    cur_lbl <- paste0("acc = ", as_pc(cur_val), "%")  # cur_lbl
+    # cur_val <- comp_acc(prev, sens, spec)  # cur_val (acc)
+    cur_val <- prob$acc                      # automatic value
+
+    # cur_lbl <- paste0("acc = ", as_pc(cur_val), "%")  # cur_lbl
+    cur_lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+
     type_lbl <- "Probability plane of accuracy values (acc)"
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["hi"] }  # cur_col for acc (using "hi")
     z_lbl <- "acc"    # label of z-axis
@@ -416,7 +444,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     mtext(cur_cond_lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = cex_lbl)  # print label
 
     if (show_point) {
-      mtext(paste0(cur_lbl), side = 1, line = 2, adj = 1, col = cur_col, cex = (cex_lbl + .05), font = 1)
+      mtext(cur_lbl, side = 1, line = 2, adj = 1, col = cur_col, cex = (cex_lbl + .05), font = 1)
     }
 
   } # if (mar_notes)
@@ -585,6 +613,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 ## (+) ToDo: ----------
 
+## - Add p_lbl option (as in plot_curve) to use label_prob for cur_lbl.
 ## - Use ... instead re-naming arguments passed on to persp?
 ## - Generalize to additional metrics (e.g., wacc, mcc, etc.)
 ## - Change labels for all axes to percentages (as in plot_curve)
