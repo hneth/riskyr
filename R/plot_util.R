@@ -73,7 +73,7 @@ print.box <- function(obj) {
   cat("height:  ly =", obj$ly, "\n")
 }
 
-## Export the plot.box() method! !!!
+## Note: Export the plot.box() method (to allow using method in riskyr namespace)!
 
 #' Plot information of a riskyr object.
 #'
@@ -83,24 +83,29 @@ print.box <- function(obj) {
 #' specified in the "riskyr" object.
 #'
 #' @param obj The object of class "box" to be plotted.
+#'
 #' @param cur_freq The frequency information related to this box object.
+#'
 #' @param cur_txt The text information associate with this box object.
-#' @param cur_pal The color information related to this box object. #'
-#' @param ... Additional parameters to be passed to the
+#'
+#' @param cur_pal The color information related to this box object.
+#'
+#' @param ... Additional (graphical) parameters to be passed to the
 #' underlying plotting functions.
 #'
 #' @family utility functions
 #'
 #' @export
-plot.box <- function(obj,
+
+plot.box <- function(x,
                      cur_freq = freq, cur_txt = txt, cur_pal = pal,  # current settings
                      ...) {
 
   # print("@@@@ I am the plot.box() method!")
   ## Call plot_fbox helper function:
-  plot_fbox(fname = obj$name,
-            x  = obj$x,   y = obj$y,
-            lx = obj$lx, ly = obj$ly,
+  plot_fbox(fname = x$name,
+            x  = x$x,   y = x$y,
+            lx = x$lx, ly = x$ly,
             cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current (cur_) settings!
             ...)
 

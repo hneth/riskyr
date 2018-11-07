@@ -4,20 +4,20 @@
 \alias{plot.box}
 \title{Plot information of a riskyr object.}
 \usage{
-\method{plot}{box}(obj, cur_freq = freq, cur_txt = txt,
-  cur_pal = pal, ...)
+\method{plot}{box}(x, cur_freq = freq, cur_txt = txt, cur_pal = pal,
+  ...)
 }
 \arguments{
-\item{obj}{The object of class "box" to be plotted.}
-
 \item{cur_freq}{The frequency information related to this box object.}
 
 \item{cur_txt}{The text information associate with this box object.}
 
-\item{cur_pal}{The color information related to this box object. #'}
+\item{cur_pal}{The color information related to this box object.}
 
-\item{...}{Additional parameters to be passed to the
+\item{...}{Additional (graphical) parameters to be passed to the
 underlying plotting functions.}
+
+\item{obj}{The object of class "box" to be plotted.}
 }
 \description{
 \code{plot.box} is a utility method that allows to plot low level boxes for \code{riskyr} plots.
