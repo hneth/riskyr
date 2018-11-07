@@ -73,10 +73,30 @@ print.box <- function(obj) {
   cat("height:  ly =", obj$ly, "\n")
 }
 
+## Export the plot.box() method! !!!
+
+#' Plot information of a riskyr object.
+#'
+#' \code{plot.box} is a utility method that allows to plot low level boxes for \code{riskyr} plots.
+#'
+#' \code{plot.riskyr} also uses the text settings
+#' specified in the "riskyr" object.
+#'
+#' @param obj The object of class "box" to be plotted.
+#' @param cur_freq The frequency information related to this box object.
+#' @param cur_txt The text information associate with this box object.
+#' @param cur_pal The color information related to this box object. #'
+#' @param ... Additional parameters to be passed to the
+#' underlying plotting functions.
+#'
+#' @family utility functions
+#'
+#' @export
 plot.box <- function(obj,
                      cur_freq = freq, cur_txt = txt, cur_pal = pal,  # current settings
                      ...) {
 
+  # print("@@@@ I am the plot.box() method!")
   ## Call plot_fbox helper function:
   plot_fbox(fname = obj$name,
             x  = obj$x,   y = obj$y,
