@@ -310,8 +310,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # n_digits_bar <- 5  # n_digits to round freq to in bar plot (when round = FALSE)
 
   # Offset from base line:
-  x.base <- 0  # offset x
-  y.base <- 0  # offset y
+  x_base <- 0  # offset x
+  y_base <- 0  # offset y
 
   ## (1) Compute or use current popu: ----------
 
@@ -351,9 +351,17 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (3) Define plot and margin areas: ----------
 
-  ## Margin areas:
-  par(oma = c(3, 2, 1, 1) + 0.1)  # outer margins: bottom has 3 lines of space
-  par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
+  ## Define margin areas:
+  par(mar = c(2, 2, 3, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(3, 1, 1, 1) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+
+  ## Axis label locations:
+  # par(mgp = c(3, 1, 0)) # default: c(3, 1, 0)
+
+  ## Orientation of the tick mark labels (and corresponding mtext captions below):
+  # par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
+
 
   ## (4) Graphical parameters: ----
 
@@ -393,11 +401,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
   xlim = c(0, 1)
 
   if (dir == 1) {
-    y.min <- 0
+    y_min <- 0
   } else if (dir == 2) {
-    y.min <- -N
+    y_min <- -N
   }
-  ylim = c(y.min, N)
+  ylim = c(y_min, N)
 
   ## Plot area setup:
   plot(x = 1,
@@ -408,10 +416,10 @@ plot_bar <- function(prev = num$prev,             # probabilities
   )
 
   ## Mark plot and margin area:
-  # col.plot <- "grey80"
-  # box("plot", col = col.plot)
-  # mar.col <- "grey60"
-  # box("figure", col = mar.col)
+  # col_plot <- "forestgreen"
+  # box("plot", col = col_plot)
+  # mar_col <- "firebrick"
+  # box("figure", col = mar_col)
 
   ## Axes:
   # axis(side = 1, las = 1) # x-axis, horizontal labels
@@ -454,11 +462,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # Dimensions and coordinates:
   n.ly <- b.ly    # height (y)
   col.nr <- 1     # column number (out of nr.col)
-  n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
-  n.y  <- y.base  # y-coordinate
+  n.x  <- (x_base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
+  n.y  <- y_base  # y-coordinate
   if (dir == 2) {
     ## center N bar around 0:
-    n.y  <- y.base - N/2
+    n.y  <- y_base - N/2
   }
 
   # Plot 1 box:
@@ -472,7 +480,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
             ...)
 
   # Label N column:
-  plot_ftype_label("N", n.x, y.min, pos = 1,
+  plot_ftype_label("N", n.x, y_min, pos = 1,
                    col = pal["txt"], # col = comp_freq_col("N"),
                    ...)
 
@@ -480,7 +488,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   # x-coordinates:
   col.nr <- 3
-  hi.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+  hi.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
   mi.x <- hi.x
   fa.x <- hi.x
   cr.x <- hi.x
@@ -514,7 +522,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # (scale == ...)
 
   # Label SDT column:
-  plot_ftype_label("hi", hi.x, y.min, pos = 1,
+  plot_ftype_label("hi", hi.x, y_min, pos = 1,
                    col = pal["txt"],
                    # col = comp_freq_col("hi"),
                    ...)
@@ -532,14 +540,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     mi.y <- hi.y + hi.ly
     fa.y <- mi.y + mi.ly
     cr.y <- fa.y + fa.ly
 
     if (dir == 2) {
       ## reverse y-coordinates (y) of 2 bars:
-      cr.y <- y.base
+      cr.y <- y_base
       fa.y <- cr.y + cr.ly
     }
 
@@ -584,7 +592,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 2
-    cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    cond.true.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     cond.false.x <- cond.true.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -598,12 +606,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    cond.true.y <- y.base
+    cond.true.y <- y_base
     cond.false.y <- cond.true.y + cond.true.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      cond.false.y <- y.base
+      cond.false.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -626,7 +634,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
     # Label cond column:
-    plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
+    plot_ftype_label("cond.true", cond.true.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("cond.true"),
                      ...)
@@ -635,7 +643,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 4
-    dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.pos.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -649,12 +657,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.pos.y <- y.base
+    dec.pos.y <- y_base
     dec.neg.y <- dec.pos.y + dec.pos.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      dec.neg.y <- y.base
+      dec.neg.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -677,7 +685,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
     # Label dec column:
-    plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
+    plot_ftype_label("dec.pos", dec.pos.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.pos"),
                      ...)
@@ -686,7 +694,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 5
-    dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.cor.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -700,12 +708,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.cor.y <- y.base
+    dec.cor.y <- y_base
     dec.err.y <- dec.cor.y + dec.cor.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      dec.err.y <- y.base
+      dec.err.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -728,7 +736,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
     # Label acc column:
-    plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
+    plot_ftype_label("dec.cor", dec.cor.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.cor"),
                      ...)
@@ -747,14 +755,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     mi.y <- hi.y + hi.ly
     fa.y <- mi.y + mi.ly
     cr.y <- fa.y + fa.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 2 bars:
-      cr.y <- y.base
+      cr.y <- y_base
       fa.y <- cr.y + cr.ly
     }
 
@@ -800,7 +808,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 2
-    cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    cond.true.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     cond.false.x <- cond.true.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -814,12 +822,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    cond.true.y <- y.base
+    cond.true.y <- y_base
     cond.false.y <- cond.true.y + cond.true.ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      cond.false.y <- y.base
+      cond.false.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -842,7 +850,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
     # Label cond column:
-    plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
+    plot_ftype_label("cond.true", cond.true.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("cond.true"),
                      ...)
@@ -862,14 +870,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     fa.y <- hi.y + hi.ly
     cr.y <- fa.y + fa.ly
     mi.y <- cr.y + cr.ly
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      cr.y <- y.base
+      cr.y <- y_base
       mi.y <- cr.y + cr.ly
     }
 
@@ -914,7 +922,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 2
-    dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.pos.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -928,12 +936,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.pos.y <- y.base
+    dec.pos.y <- y_base
     dec.neg.y <- dec.pos.y + dec.pos.ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.neg.y <- y.base
+      dec.neg.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -956,7 +964,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
     # Label dec column:
-    plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
+    plot_ftype_label("dec.pos", dec.pos.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.pos"),
                      ...)
@@ -977,14 +985,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     cr.y <- hi.y + hi.ly
     mi.y <- cr.y + cr.ly
     fa.y <- mi.y + mi.ly
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      mi.y <- y.base
+      mi.y <- y_base
       fa.y <- mi.y + mi.ly
     }
 
@@ -1029,7 +1037,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 2
-    dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.cor.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -1043,12 +1051,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.cor.y <- y.base
+    dec.cor.y <- y_base
     dec.err.y <- dec.cor.y + dec.cor.ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.err.y <- y.base
+      dec.err.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -1071,7 +1079,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
     # Label acc column:
-    plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
+    plot_ftype_label("dec.cor", dec.cor.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.cor"),
                      ...)
@@ -1123,7 +1131,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   cur_title_lbl <- paste0(title_lbl, type_lbl)
 
   # Plot title:
-  title(cur_title_lbl, adj = 0, line = 2, font.main = 1, cex.main = 1.2)  # (left, raised, normal font)
+  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, raised by 1, normal font)
 
 
   ## (8) Margins: ------
