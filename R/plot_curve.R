@@ -459,7 +459,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
       ## 3. label:
       # prev.lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
-      prev.lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic
+      prev.lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
         if ((prev < .50) | !(prev > 1 - h.shift)) {
@@ -538,7 +538,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
       ## 3. label:
       # PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV, n_digits = lbl_digits), "%")  # PPV label
-      PPV.lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic
+      PPV.lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.PPV + v.shift,
@@ -608,7 +608,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
       ## 3. label:
       # NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV, n_digits = lbl_digits), "%")  # NPV label
-      NPV.lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic
+      NPV.lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if (cur.NPV > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.NPV + v.shift,
@@ -680,7 +680,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
       ## 3. label:
       # ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod, n_digits = lbl_digits), "%")  # ppod label
-      ppod.lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic
+      ppod.lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if (cur.ppod > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.ppod + v.shift,
@@ -750,7 +750,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
       ## 3. label:
       # acc.lbl <- paste0("acc = ", as_pc(cur.acc, n_digits = lbl_digits), "%")  # acc label
-      acc.lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic
+      acc.lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if (cur.acc > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.acc + v.shift,
