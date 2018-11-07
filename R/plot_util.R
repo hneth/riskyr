@@ -82,7 +82,7 @@ print.box <- function(obj) {
 #' \code{plot.riskyr} also uses the text settings
 #' specified in the "riskyr" object.
 #'
-#' @param obj The object of class "box" to be plotted.
+#' @param x The box (object of class "box") to be plotted.
 #'
 #' @param cur_freq The frequency information related to this box object.
 #'
