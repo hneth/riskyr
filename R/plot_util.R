@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 04
+## 2018 11 07
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -293,11 +293,11 @@ label_freq <- function(fname,
 ## label_prob: Label a known probability (in prob) by pname ----------
 
 label_prob <- function(pname,
-                       lbl_type = "default",  # label type: "default", "nam"/"num"/"namnum", "abb"/"min"/"mix" or NULL/NA/"no" (to hide label).
-                       lbl_sep = " = ",       # separator: " = " (default), ":\n"
-                       cur_prob = prob        # current prob
-                       # cur_txt = txt        # current txt (does currently NOT include any probabilities)
-                       # accu = accu          # use current accuracy (now included in prob)
+                       lbl_type = "def",  # label type: "def"/"default", "nam"/"num"/"namnum", "abb"/"min"/"mix" or NULL/NA/"no" (to hide label).
+                       lbl_sep = " = ",   # separator: " = " (default), ":\n"
+                       cur_prob = prob    # current prob
+                       # cur_txt = txt    # current txt (does NOT YET include probability names!)
+                       # accu = accu      # use current accuracy (now included in prob)
 ) {
 
   ## Initialize:
@@ -371,7 +371,13 @@ label_prob <- function(pname,
 
   ## (2) Abbreviated name (i.e., variable name of pname): ----
   if (lbl_type == "abb") {
+
+    # Capitalize some abbreviated names:
+    if (pname == "ppv") { pname <- "PPV" }
+    if (pname == "npv") { pname <- "NPV" }
+
     p_lbl <- as.character(pname)
+
     return(p_lbl)
   }
 
@@ -467,7 +473,11 @@ label_prob <- function(pname,
 
     ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
-    # Special cases: CHANGE pname to some other default value:
+    ## Special cases: CHANGE pname to some other default value:
+
+    # Capitalize some abbreviated names:
+    if (pname == "ppv") { pname <- "PPV" }
+    if (pname == "npv") { pname <- "NPV" }
 
     if (pname == "cprev") {  # if complement of prevalence:
       pname <- "(1 - prev)"           # custom basic name
