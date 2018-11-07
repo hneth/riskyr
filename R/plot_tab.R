@@ -635,14 +635,19 @@ plot_tab <- function(prev = num$prev,    # probabilities
   n_cols <- 3
   brd_w  <- brd_w * max(n_rows, n_cols)
 
-  x_min <- (0 - brd_w)
-  x_max <- (n_rows + v_gap)
-
   y_min <- 0
 
+  if (!is.null(v_gap) && !is.na(v_gap) ) {
+    x_max <- (n_rows + v_gap)
+  } else {
+    x_max <- n_rows
+  }
+
   if (!is.null(brd_w) && !is.na(brd_w) ) {
+    x_min <- (0 - brd_w)
     y_max <- (n_cols + h_gap) + (brd_w + v_top)
   } else {
+    x_min <- 0
     y_max <- (n_cols + h_gap) + v_top
   }
 
