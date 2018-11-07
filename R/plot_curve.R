@@ -172,19 +172,23 @@
 plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
-                       ## DVs:
+
+                       # DVs:
                        what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod", "all".
-                       ## Options:
+
+                       # Options:
                        what_col = pal,      # colors for what.
                        uc = .00,            # Uncertainty range (as a percentage around current prev, sens, and spec values)
                        show_points = TRUE,  # show points at current prev?
                        log_scale = FALSE,   # x-axis on log scale?
+
                        # Text and color:
                        title_lbl = NA,     # plot title
                        p_lbl = "def",      # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
                        lbl_txt = txt,      # labels and text elements
                        cex_lbl = .85,      # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,      # color palette
+
                        # Generic options:
                        mar_notes = TRUE,   # show margin notes?
                        ...                 # other (graphical) parameters
@@ -232,6 +236,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     message("No valid set of probabilities provided. Using global prob to plot curves.")
 
+    ## Use current values of prob:
     prev <- prob$prev
     sens <- prob$sens
     spec <- prob$spec
@@ -831,7 +836,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     }
 
-  } # if (mar_notes)...
+  } # if (mar_notes)
 
 
   ## (7) Legend: ----------
