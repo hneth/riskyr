@@ -239,10 +239,14 @@ plot_area(area = "sq")  # main area as square (by scaling x-values)
 plot_area(area = "no")  # rectangular main area (using full plotting region)
 
 # scale (matters for small N):
-plot_area(N = 9, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
-plot_area(N = 9, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
-plot_area(N = 8, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
-plot_area(N = 8, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
+plot_area(N = 5, prev = .5, sens = .8, spec = .6,
+          by = "cddc", p_split = "v", scale = "p", p_lbl = "def")  # scaled by prob (default)
+plot_area(N = 5, prev = .5, sens = .8, spec = .6,
+          by = "cddc", p_split = "v", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
+plot_area(N = 4, prev = .4, sens = .8, spec = .6,
+          by = "cdac", p_split = "h", scale = "p", p_lbl = "def")  # scaled by prob (default)
+plot_area(N = 4, prev = .4, sens = .8, spec = .6,
+          by = "cdac", p_split = "h", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
 
 # gaps (sensible range: 0--.10):
 plot_area(gaps = NA)           # use default gaps (based on p_split)

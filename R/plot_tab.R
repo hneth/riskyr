@@ -257,10 +257,13 @@
 #' plot_tab(by = "cddc", p_split = "h")  # v03 (see v05)
 #' #
 #' # (2) scale does not matter for dimensions (which are constant),
-#' #     but for values shown in prob links and on margins:
-#' plot_tab(by = "cddc", scale = "p", p_lbl = "def", round = TRUE)  # (a) exact prob values
-#' plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) prob from rounded freq!
-#' plot_tab(by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same values as (a)
+#' #     BUT matters for values shown in prob links and on margins:
+#' plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
+#'          by = "cddc", scale = "p", p_lbl = "def", round = TRUE)  # (a) exact prob values
+#' plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
+#'          by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) prob from rounded freq!
+#' plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
+#'          by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same values as (a)
 #'
 #'
 #' @importFrom graphics par

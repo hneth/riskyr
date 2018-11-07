@@ -207,10 +207,14 @@
 #' plot_prism(area = "sq")  # squares (areas on each level sum to N)
 #'
 #' # scale (matters for scaled areas and small N):
-#' plot_prism(area = "hr", scale = "f")  # widths scaled by (rounded or non-rounded) freq
-#' plot_prism(area = "hr", scale = "p")  # widths scaled by prob
-#' plot_prism(area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
-#' plot_prism(area = "sq", scale = "p")  # areas scaled by prob
+#' plot_prism(N = 5, prev = .3, sens = .8, spec = .6,
+#'            area = "hr", scale = "p")  # widths scaled by prob
+#' plot_prism(N = 5, prev = .3, sens = .8, spec = .6,
+#'            area = "hr", scale = "f")  # widths scaled by (rounded or non-rounded) freq
+#' plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
+#'            area = "sq", scale = "p")  # areas scaled by prob
+#' plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
+#'            area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 #'
 #' ## Freq (as boxes):
 #' # f_lbl:
