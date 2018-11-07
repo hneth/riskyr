@@ -2071,7 +2071,11 @@ label_note <- function(area = NULL, scale = "f") {
     area_lbl <- "Areas"
     scale_lbl <- ""
 
-    if (area == "hr") {
+    if (area == "bar") {
+
+      area_lbl <- "Bar heights"  # "Bars" etc.
+
+    } else if (area == "hr") {
 
       area_lbl <- "Horizontal widths"  # "Rectangles" / "Areas" etc.
 
@@ -2083,15 +2087,15 @@ label_note <- function(area = NULL, scale = "f") {
 
     if (scale == "p") {
 
-      scale_lbl <- " by probabilities"
+      scale_lbl <- "probabilities"
 
     } else if (scale == "f") {
 
-      scale_lbl <- " by frequencies"
+      scale_lbl <- "frequencies"
 
     }
 
-    note_lbl <- paste0(area_lbl, " are scaled", scale_lbl, ".")
+    note_lbl <- paste0(area_lbl, " are scaled by ", scale_lbl, ".")
 
   }
 
