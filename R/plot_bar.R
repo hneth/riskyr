@@ -86,7 +86,6 @@
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
 #'
-#'
 #' @param by  A character code specifying the perspective
 #' (or the dimension by which the population is split into 2 subsets)
 #' with the following options:
@@ -108,7 +107,8 @@
 #' by current frequencies (\code{scale = "f"}) or
 #' by exact probabilities (\code{scale = "p"}).
 #' Default: \code{scale = "f"}.
-#' When \code{round = FALSE}, both settings yield the same bar heights.
+#' For large population sizes \code{\link{N}} and
+#' when \code{round = FALSE}, both settings yield the same bar heights.
 #'
 #' @param round  Boolean option specifying whether computed frequencies
 #' are to be rounded to integers.
@@ -133,6 +133,8 @@
 #' \code{lty <- 0}.
 #' Default: \code{lty = 0} (i.e., no line).
 #'
+#' @param title_lbl  Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param lbl_txt  Current text information (for labels, titles, etc.).
 #' Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).
@@ -140,23 +142,8 @@
 #' @param col_pal  Current color palette.
 #' Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).
 #'
-#' @param show_freq  Boolean option for showing essential frequencies
-#' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-#' \code{\link{cr}}) on the margin of the plot.
-#' Default: \code{show_freq = TRUE}.
-#'
-#' @param show_prob  Boolean option for showing essential probabilities
-#' (e.g., \code{\link{prev}}, \code{\link{sens}}, and
-#' \code{\link{spec}}) on the margin of the plot.
-#' Default: \code{show_prob = TRUE}.
-#'
-#' @param show_accu  Boolean option for showing current
-#' accuracy metrics \code{\link{accu}} on the margin of the plot.
-#' Default: \code{show_accu = TRUE}.
-#'
-#' @param w_acc  Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w_acc = .50}.
+#' @param mar_notes  Boolean option for showing margin notes.
+#' Default: \code{mar_notes = TRUE}.
 #'
 #' @param ...  Other (graphical) parameters
 #' (e.g., \code{cex}, \code{lwd}, ...).
@@ -254,25 +241,31 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      lty = 0,        # default line type (0: no line, 1: solid line, etc.)
 
                      # Text and color:
-                     lbl_txt = txt,  # label text; was: title_lbl = txt$scen.lbl,  # main title of plot
-                     col_pal = pal,  # color palette
+                     lbl_txt = txt,             # labels and text elements
+                     title_lbl = txt$scen.lbl,  # main plot title
+                     col_pal = pal,             # color palette
 
                      # Generic options:
-                     show_freq = TRUE,   # show essential freq values on plot margin
-                     show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
-                     show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
-                     w_acc = .50,        # weight w for wacc (from 0 to 1)
+                     mar_notes = TRUE,   # show margin notes?
+                     # show_freq = TRUE,   # show essential freq values on plot margin
+                     # show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
+                     # show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
+                     # w_acc = .50,        # weight w for wacc (from 0 to 1)
+
                      ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
   ## (0) Handle arguments and deprecated arguments: ----------
 
-  ## (a) Get probabilities from global numeric parameters (num/prob):
-  # prev <- num$prev
-  # sens <- num$sens
-  # spec <- num$spec
 
-  ## (b) Interpret arguments and increase robustness: ------
+  ## (1) Prepare parameters: ----------
+
+  ## (A) Generic:
+
+  opar <- par(no.readonly = TRUE)  # copy of current settings
+  on.exit(par(opar))  # par(opar)  # restore original settings
+
+  ## (B) Interpret arguments and increase robustness: ------
 
   # by perspective:
   if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # by in lowercase
@@ -336,34 +329,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
     freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
     # n_digits = n_digits_bar)  # Removed n_digits parameter in comp_freq!
 
-    ## ToDo: Update GLOBAL freq and prob objects
-    ##       (e.g., to use label_freq/label_prob and plot_mar functions).
-
-    ## Assign (only needed) elements based on freq:
+    ## (c) Assign (only needed) elements based on freq:
     hi  <- freq$hi
     mi  <- freq$mi
     fa  <- freq$fa
     cr  <- freq$cr
 
-    ## (c) Compute cur.popu from computed frequencies:
-    # cur.popu <- comp_popu(hi = hi, mi = mi, fa = fa, cr = cr)  # compute cur.popu (from 4 essential frequencies)
-
-    ## warning("Generated new population (cur.popu) to plot...")
-
   } else {  # (B) NO valid set of probabilities was provided:
 
-    ## Use the current popu:
-    # cur.popu <- popu
-
-    ## warning("Using existing population (popu) to plot...")
+    message("No valid set of probabilities provided. Using global freq for bar plot.")
 
   } # if (is_valid_prob_set...)
 
   ## (2) Text labels: ----------
-
-  title_lbl <- txt$scen.lbl
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
-  cur_title_lbl <- paste0(title_lbl, "Bar plot of frequencies") # , "(N = ", N, ")")
 
   # cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   # # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
@@ -1130,18 +1108,54 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (7) Title: --------
 
-  # title(cur_title_lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
-  title(cur_title_lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
+  # Define parts:
+  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+
+  if (title_lbl == "") {  # if title has been set to "":
+    type_lbl <- ""        # assume that no subtitle is desired either
+  } else {
+    type_lbl <- paste0("Bar plot of frequencies (by ", as.character(by), ")")  # plot name: Bar/etc.
+  }
+
+  # Compose label:
+  cur_title_lbl <- paste0(title_lbl, type_lbl)
+
+  # Plot title:
+  title(cur_title_lbl, adj = 0, line = 2, font.main = 1, cex.main = 1.2)  # (left, raised, normal font)
+
 
   ## (8) Margins: ------
 
-  # Plot GLOBAL freq/prob/accu values:
-  plot_mar(show_freq = show_freq, show_cond = show_prob, show_dec = TRUE,
-           show_accu = show_accu, accu_from_freq = round,  # default: accu_from_freq = FALSE.  Use accu_from_freq = round to show accuracy based on freq!
-           note = "Showing global values on margin."   # "Some noteworthy remark here."
-  )
+  if (mar_notes) {
 
-}
+    # ## Plot GLOBAL freq/prob/accu values:
+    # plot_mar(show_freq = show_freq, show_cond = show_prob, show_dec = TRUE,
+    #          show_accu = show_accu, accu_from_freq = round,  # default: accu_from_freq = FALSE.  Use accu_from_freq = round to show accuracy based on freq!
+    #          note = "Showing global values on margin."   # "Some noteworthy remark here."
+    # )
+
+    # Note:
+    note_lbl <- ""  # initialize
+    #if (scale == "f") {
+      note_lbl <- label_note(area = "bar", scale = scale)
+    #}
+
+    plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
+             show_accu = TRUE, accu_from_freq = FALSE,
+             note = note_lbl,
+             cur_freq = freq, cur_prob = prob, cur_txt = lbl_txt)
+
+  } # if (mar_notes) etc.
+
+
+  ## Finish: ---------
+
+  # on.exit(par(opar))  # par(opar)  # restore original settings
+  invisible()# restores par(opar)
+
+} # plot_bar end.
 
 
 ### Check: --------
@@ -1188,6 +1202,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(f_lbl = "aBB")  # abbreviated name (lowercase)
 # plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 # plot_bar(f_lbl = "any")  # default labels: name = num
+
+
+## Retired parameters: ----------
+
+
+# @param show_freq  Boolean option for showing essential frequencies
+# (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
+# \code{\link{cr}}) on the margin of the plot.
+# Default: \code{show_freq = TRUE}.
+#
+# @param show_prob  Boolean option for showing essential probabilities
+# (e.g., \code{\link{prev}}, \code{\link{sens}}, and
+# \code{\link{spec}}) on the margin of the plot.
+# Default: \code{show_prob = TRUE}.
+#
+# @param show_accu  Boolean option for showing current
+# accuracy metrics \code{\link{accu}} on the margin of the plot.
+# Default: \code{show_accu = TRUE}.
+#
+# @param w_acc  Weigthing parameter \code{w} used to compute
+# weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
+# Default: \code{w_acc = .50}.
 
 
 ## (*) Done: ----------
