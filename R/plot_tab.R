@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2018 11 04
+## 2018 11 07
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -571,6 +571,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
 
   ## 6. Additional parameters (currently fixed): ----
+
+  lty <- 1  # default
 
   ## Cell width and height:
   sdt_lx <- 1
@@ -1172,7 +1174,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   plot_fbox_list(sdt_boxes,  # plot list of 4 sdt_boxes:
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                 lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd)  # No ...!
+                 lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
   ##   (+) Check: Mark 2 key points/checkpoints (per plot): ------
   mark_key_points <- FALSE  # default
@@ -1269,7 +1271,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1290,7 +1292,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1310,7 +1312,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1340,7 +1342,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
 
     } # if (brd_w > 0) etc.
@@ -1362,7 +1364,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1383,7 +1385,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # No ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
     } # if (brd_w > 0) etc.
 
@@ -1400,7 +1402,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   plot_fbox_list(fbox_N, # plot only 1 box (in row 3, col 3):
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep,
-                 cex = cex_lbl, lwd = f_lwd)  # No ...!
+                 cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
 
   ##   (d) Plot key probabilities (as lines/arrows): ----------

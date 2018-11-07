@@ -6,7 +6,7 @@
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "all", dir = 1,
-  scale = "f", round = TRUE, f_lbl = "num", f_lwd = 0.001,
+  scale = "f", round = TRUE, f_lbl = "num", f_lwd = 1, lty = 0,
   lbl_txt = txt, col_pal = pal, show_freq = TRUE, show_prob = TRUE,
   show_accu = TRUE, w_acc = 0.5, ...)
 }
@@ -79,7 +79,12 @@ Default: \code{round = TRUE}.}
 \item{f_lwd}{Line width of frequency box (border).
 Values of \code{NA/NULL/0} set \code{lwd} to
 invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
-Default: \code{f_lwd = 0}.}
+Default: \code{f_lwd = 1}.}
+
+\item{lty}{Line type of frequency box (border).
+Values of \code{NA/NULL/0} set \code{lty} to
+\code{lty <- 0}.
+Default: \code{lty = 0} (i.e., no line).}
 
 \item{lbl_txt}{Current text information (for labels, titles, etc.).
 Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).}

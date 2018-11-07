@@ -483,6 +483,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
 
   ## 5. Additional parameters (currently fixed):
+  lty <- 1
   x_lab <- -5.5    # x-value of ftype labels
   x_lab_pos <- 4   # pos of ftype labels (NULL: centered, 2: right justified, or 4: left justified)
 
@@ -1093,7 +1094,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   plot_fbox_list(all_boxes,  # plot list of boxes
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep,
-                 cex = cex_lbl, lwd = f_lwd)  # no ...!
+                 cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
 
   ## (B) Plot probabilities as links: ------
