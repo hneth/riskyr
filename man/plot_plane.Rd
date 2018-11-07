@@ -8,8 +8,8 @@ as a function of sensitivity and specificity.}
 plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = "PPV", what_col = pal,
   line_col = "grey85", point_col = "yellow", show_point = TRUE,
-  step_size = 0.05, theta = -45, phi = 0, title_lbl = NA,
-  p_lbl = "def", lbl_txt = txt, cex_lbl = 0.85, col_pal = pal,
+  step_size = 0.05, theta = -45, phi = 0, lbl_txt = txt,
+  title_lbl = NA, p_lbl = "def", cex_lbl = 0.85, col_pal = pal,
   mar_notes = TRUE, ...)
 }
 \arguments{
@@ -69,6 +69,9 @@ Default: \code{theta = -45}.}
 \item{phi}{Vertical rotation angle (used by \code{\link{persp}}).
 Default: \code{phi = 0}.}
 
+\item{lbl_txt}{Labels and text elements.
+Default: \code{lbl_txt = \link{txt}}.}
+
 \item{title_lbl}{Main plot title.
 Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).}
 
@@ -82,9 +85,6 @@ with the following options:
   \item \code{"namnum"}: show names and numeric probability values;
   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
   }}
-
-\item{lbl_txt}{Labels and text elements.
-Default: \code{lbl_txt = \link{txt}}.}
 
 \item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).

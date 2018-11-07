@@ -8,7 +8,7 @@ plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   area = "no", scale = "p", round = TRUE, f_lbl = "def",
   f_lbl_sep = " = ", f_lwd = 0, p_lbl = "mix", arr_c = NA,
-  title_lbl = txt$scen.lbl, lbl_txt = txt, cex_lbl = 0.9,
+  lbl_txt = txt, title_lbl = txt$scen.lbl, cex_lbl = 0.9,
   cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
@@ -116,11 +116,11 @@ with the following options:
 }
 Default: \code{arr_c = NA}, but adjusted by \code{area}.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
-
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
+
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen.lbl}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}

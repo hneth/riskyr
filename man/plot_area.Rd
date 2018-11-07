@@ -10,7 +10,7 @@ plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   sum_w = 0.08, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
   f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
   arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
-  brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
+  brd_dis = 0.06, lbl_txt = txt, title_lbl = txt$scen.lbl,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
@@ -153,11 +153,11 @@ Default: \code{brd_dis = .06}.
 Note: Adjust to avoid overlapping labels.
 Negative values show links outside of main area.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
-
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
+
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen.lbl}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}

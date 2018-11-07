@@ -8,7 +8,7 @@ as a function of prevalence.}
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = c("prev", "PPV", "NPV"),
   what_col = pal, uc = 0, show_points = TRUE, log_scale = FALSE,
-  title_lbl = NA, p_lbl = "def", lbl_txt = txt, cex_lbl = 0.85,
+  lbl_txt = txt, title_lbl = NA, p_lbl = "def", cex_lbl = 0.85,
   col_pal = pal, mar_notes = TRUE, ...)
 }
 \arguments{
@@ -60,6 +60,9 @@ Default: \code{show_points = TRUE}.}
 to a logarithmic x-axis.
 Default: \code{log_scale = FALSE}.}
 
+\item{lbl_txt}{Labels and text elements.
+Default: \code{lbl_txt = \link{txt}}.}
+
 \item{title_lbl}{Main plot title.
 Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).}
 
@@ -73,9 +76,6 @@ with the following options:
   \item \code{"namnum"}: show names and numeric probability values;
   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
   }}
-
-\item{lbl_txt}{Labels and text elements.
-Default: \code{lbl_txt = \link{txt}}.}
 
 \item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
