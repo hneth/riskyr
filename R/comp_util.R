@@ -14,9 +14,9 @@
 ## 1. is_prob               (exported)
 ## 2. is_perc               (exported)
 ## 3. is_freq               (exported)
-## 4. is_suff_prob_set
+## 4. is_suff_prob_set      (exported)
 ## +. is_suff_freq_set
-## 5. is_complement
+## 5. is_complement         (exported)
 ## 6. is_extreme_prob_set   (exported)
 ## 7. is_valid_prob_pair
 ## 8. is_valid_prob_set     (exported)
@@ -323,14 +323,14 @@ is_freq <- function(freq) {
 #' specification of the essential probability \code{\link{prev}}
 #' is always necessary.
 #'
-#' However, for two other essential probabilities there is a choice:
+#' However, for 2 other essential probabilities there is a choice:
 #'
 #' \enumerate{
 #'
-#' \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+#' \item either \code{\link{sens}} or \code{\link{mirt}} is necessary
 #' (as both are complements).
 #'
-#' \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+#' \item either \code{\link{spec}} or \code{\link{fart}} is necessary
 #' (as both are complements).
 #'
 #' }
@@ -396,7 +396,7 @@ is_freq <- function(freq) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_suff_prob_set <- function(prev,
                              sens = NA, mirt = NA,
@@ -456,13 +456,16 @@ is_suff_prob_set <- function(prev,
 ## Analog function: is_suff_freq_set
 ## that verifies an input for sufficient number of frequencies
 
+
+
 ## is_complement: Verify that 2 numbers are complements -----------------
 
 #' Verify that two numbers are complements.
 #'
 #' \code{is_complement} is a function that
 #' takes 2 numeric arguments (typically probabilities) as inputs and
-#' verifies that they are \emph{complements} (i.e., add up to 1).
+#' verifies that they are \emph{complements} (i.e., add up to 1,
+#' within some tolerance range \code{tol}).
 #'
 #' Both \code{p1} and \code{p2} are necessary arguments.
 #' If one or both arguments are \code{NA}, \code{is_complement}
@@ -525,7 +528,7 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_complement <- function(p1, p2, tol = .01) {
 
@@ -1385,10 +1388,10 @@ makeTransparent = function(..., alpha = .50) {
 
 ## (*) Done: ----------
 
-## - Clean up code                    [2018 09 22].
 ## - Moved graphical help functions to file "plot_util.R" [2018 08 27].
-## - Do not export some utility functions  [2018 11 08].
-
+## - Clean up code                                        [2018 09 22].
+## - Export most utility functions,
+##   as they are used in many examples                    [2018 11 08].
 
 
 ## (+) ToDo: ----------
@@ -1401,6 +1404,5 @@ makeTransparent = function(..., alpha = .50) {
 ## - prev = 0, spec = 1: only cr cases
 ## - Also: Deal with 0/0 in probability computations
 ##   (especially from rounded freq with low N).
-
 
 ## eof. ------------------------------------------

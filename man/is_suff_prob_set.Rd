@@ -47,14 +47,14 @@ While no alternative input option for frequencies is provided,
 specification of the essential probability \code{\link{prev}}
 is always necessary.
 
-However, for two other essential probabilities there is a choice:
+However, for 2 other essential probabilities there is a choice:
 
 \enumerate{
 
-\item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+\item either \code{\link{sens}} or \code{\link{mirt}} is necessary
 (as both are complements).
 
-\item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+\item either \code{\link{spec}} or \code{\link{fart}} is necessary
 (as both are complements).
 
 }
