@@ -877,7 +877,9 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
 ## Function takes a riskyr object and transforms it into a matrix: ---------
 
-riskyr_table <- function(obj) {
+tst <- riskyr(N = 10, prev = 0.3, sens = 0.8, spec = 0.6)
+
+riskyr_table <- function(object) {
 
 
   ## Note:  this interface is specific to the diagnostic case (alias: riskyr.diagnostic):
@@ -895,23 +897,34 @@ riskyr_table <- function(obj) {
   ## Variable names are commented out for current purposes.
 
   ## for user-defined display an additional flexible matrix may be used:
-  cnd_dec_lab <- matrix(c(obj$hi.lbl, obj$mi.lbl, obj$cond.true.lbl, "Sensitivity", "False positive rate",
-                          obj$fa.lbl, obj$cr.lbl, obj$cond.false.lbl, "False negative rate", "Specificity",
-                          obj$dec.pos.lbl, obj$dec.neg.lbl, "N", "Proportion of positive decisions",
-                          "Proportion of negative decisions",
-                          "PPV", "FOR", "Prevalence", "Accuracy", "",
-                          "FDR", "NPV", "1-prev", "", ""),
-                        nrow = 5, ncol = 5)
+  cnd_dec_lab <- with(object,
+                      matrix(c(hi.lbl, mi.lbl, cond.true.lbl, "Sensitivity", "False positive rate",
+                               fa.lbl, cr.lbl, cond.false.lbl, "False negative rate", "Specificity",
+                               dec.pos.lbl, dec.neg.lbl, "N", "Proportion of positive decisions",
+                               "Proportion of negative decisions",
+                               "PPV", "FOR", "Prevalence", "Accuracy", "",
+                               "FDR", "NPV", "1-prev", "", ""),
+                             nrow = 5, ncol = 5)
+  )
 
   ## Basic: dim 1 (cnd) and dim 2 (dec)
-  num_mat1 <- matrix(c(hi, mi, hi+mi, sens, NA,
-                       fa, cr, fa+cr, fart, spec,
-                       hi+fa, mi+cr, N, ppod, NA,
-                       NA, NA, prev, NA, NA,
-                       NA, NA, NA, NA, NA,
-                       NA, NA, NA, NA, NA),
-                     nrow = 5, ncol = 5
+  probs <- comp_prob_prob(prev = object$prev, sens = object$sens, spec = object$spec)
+  freqs <- comp_freq_prob(N = object$N, prev = object$prev, sens = object$sens, spec = object$spec)
+
+
+  ## Create a numeric matrix:
+  num_mat <- with(object,
+                   matrix(c(freqs$hi, freqs$mi, freqs$cond.true, probs$sens, probs$mirt,
+                            freqs$fa, freqs$cr, freqs$cond.false, probs$fart, probs$spec,
+                            freqs$dec.pos, freqs$dec.neg, freqs$N, probs$ppod, 1-probs$ppod,
+                            probs$PPV, probs$FOR, probs$prev, probs$acc, NA,
+                            probs$FDR, probs$NPV, 1-probs$prev, NA, NA,
+                            NA, NA, NA, NA, NA),
+                          nrow = 5, ncol = 5
+                   )
   )
+
+  obj <- list(lbl = cnd_dec_lab, num = num_mat)
 
   ## TODO: For now limit to 1st and 2nd dimension!
 
@@ -922,76 +935,9 @@ riskyr_table <- function(obj) {
 }
 
 
-
-
-
-
-
-riskyr(hi = 1, mi = 3, fa = 4, cr = 5)
-
 ## 3b. nice_table function: --------------------
 
-## 3c. table.riskyr method: --------------------
-
-
-
-
-
-## testing method:
-## Setting a general riskyr class:
-setClass("riskyr",
-         slots = c(numeric = "numeric",
-                   vars = "character",
-                   labels = "character",
-                   source = "character")
-)
-## Setting a specific class for the diagnostic case:
-setClass("riskyr.diagnostic", contains = "riskyr",  # let riskyr.diagnostic inherit riskyr.
-         slots = c(numeric = "numeric",
-                   vars = "character",
-                   labels = "character",
-                   source = "character")
-)
-
-## Set method for the generic class:
-setMethod("summary", signature = "riskyr",
-          definition = function(object){return(round(object$numeric[[1]], 2))})
-
-
-
-## Overwrite the cite method to obtain source information:
-setMethod("cite", signature = "riskyr",
-          definition = function(keys){return(keys$source)})
-
-
-## Overwrite the summary method to obtain a summary of the table:
-setMethod("summary", signature = c("riskyr.diagnostic"),
-          definition = function(object, dims  = "cd", relf = FALSE){
-
-            if(dims == "cd") ix_dim <- 1
-            if(dims == "ca") ix_dim <- 2
-            if(dims == "da") ix_dim <- 3
-
-            ## TODO: Allow the transposed forms as well.
-
-            ix <- ifelse(relf, 2, 1)  # decide whether to report relative frequencies.
-
-            nums <- round(object$numeric[[ix_dim]][[ix]], 2)
-            vars <- object$vars[[ix_dim]]
-            vars[is.na(vars)] <- ""
-            out <- matrix(paste0(vars, " = ", nums), nrow = 5, ncol = 5)
-
-            head <- ifelse(relf, "relf", "freq")
-            cat(head, "\n")
-            return(out)
-          })
-
-
-## Test the class and method:
-tst <- riskyr(hi = 1, mi = 3, fa = 4, cr = 5)
-
-(smr <- summary(tst, dims = "da", relf = FALSE))  # summary now returns the source info (obviously this is just a test).
-cite(tst)  # cite now returns source information (also for object of class riskyr.diagnostic, inheriting riskyr)!
+smr <- riskyr_table(tst)
 
 nice_tab <- function(smr, space = 2) {  # TODO: Give object class summary.
 
@@ -1023,6 +969,15 @@ nice_tab <- function(smr, space = 2) {  # TODO: Give object class summary.
   ## TODO: First row is off; maybe due to the \n separator.
 
 }
+
+nice_tab()
+
+## 3c. table.riskyr method: --------------------
+
+## Test the class and method:
+# tst <- riskyr(hi = 1, mi = 3, fa = 4, cr = 5)
+#
+
 
 
 ## 4. print.summary.riskyr function: ------------------
