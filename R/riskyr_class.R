@@ -970,9 +970,16 @@ nice_tab <- function(smr, space = 2) {  # TODO: Give object class summary.
 
 }
 
-nice_tab()
 
 ## 3c. table.riskyr method: --------------------
+## Takes a riskyr object and prints out a nice table:
+table.riskyr <- function(x, sep = " = ") {
+
+  tab <- riskyr_table(x)  # convert riskyr to table.
+  tab$num
+  tabp <- matrix(paste(tab$lbl, tab$num, sep = sep), nrow = 5, ncol = 5)
+
+}
 
 ## Test the class and method:
 # tst <- riskyr(hi = 1, mi = 3, fa = 4, cr = 5)
