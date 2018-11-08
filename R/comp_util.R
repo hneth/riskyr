@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 10 26
+## 2018 11 08
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -68,7 +68,7 @@
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_prob <- function(prob, NA_warn = FALSE) {
 
@@ -177,7 +177,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#' @export
+#'
 
 is_perc <- function(perc) {
 
@@ -256,7 +256,7 @@ is_perc <- function(perc) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#' @export
+#'
 
 is_freq <- function(freq) {
 
@@ -395,7 +395,7 @@ is_freq <- function(freq) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_suff_prob_set <- function(prev,
                              sens = NA, mirt = NA,
@@ -524,7 +524,7 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_complement <- function(p1, p2, tol = .01) {
 
@@ -685,7 +685,7 @@ is_complement <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#' @export
+#'
 
 is_extreme_prob_set <- function(prev,
                                 sens = NA, mirt = NA,
@@ -905,7 +905,7 @@ is_extreme_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
@@ -1044,7 +1044,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_valid_prob_set <- function(prev,
                               sens = NA, mirt = NA,
@@ -1149,7 +1149,7 @@ is_valid_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#' @export
+#'
 
 is_valid_prob_triple <- function(prev, sens, spec) {
 
@@ -1229,7 +1229,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 #'
-#' @export
+#'
 
 ## Probability as percentage (2 decimals):
 
@@ -1255,15 +1255,13 @@ as_pc <- function(prob, n_digits = 2) {
 }
 
 ## Check:
-{
-  # as_pc(1/2)                # =>  50
-  # as_pc(1/3)                # =>  33.33
-  # as_pc(1/3, n_digits = 0)  # =>  33
-  # as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
-  # as_pc(as_pb(12.3))        # =>  12.3
-  # as_pc(NA)
-  # as_pc(0/0)
-}
+# as_pc(1/2)                # =>  50
+# as_pc(1/3)                # =>  33.33
+# as_pc(1/3, n_digits = 0)  # =>  33
+# as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
+# as_pc(as_pb(12.3))        # =>  12.3
+# as_pc(NA)
+# as_pc(0/0)
 
 
 ## Percentage as probability (4 decimals):
@@ -1315,7 +1313,7 @@ as_pc <- function(prob, n_digits = 2) {
 #' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 #'
-#' @export
+#'
 
 as_pb <- function(perc, n_digits = 4) {
 
@@ -1334,24 +1332,22 @@ as_pb <- function(perc, n_digits = 4) {
 }
 
 ## Check:
-{
-  # as_pb(1/3)          # => 0.0033
-  # as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
-  #
-  # prob.seq <- seq(0, 1, by = 1/10)
-  # perc.seq <- seq(0, 100, by = 10)
-  #
-  # as_pc(prob.seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
-  # as_pb(perc.seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-  #
-  # perc.seq == as_pc(as_pb(perc.seq)) # all TRUE
-  # prob.seq == as_pb(as_pc(prob.seq)) # some FALSE due to rounding errors!
-  # round(prob.seq, 4) == as_pb(as_pc(prob.seq)) # all TRUE (as both rounded to 4 decimals)
-}
+# as_pb(1/3)          # => 0.0033
+# as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
+#
+# prob.seq <- seq(0, 1, by = 1/10)
+# perc.seq <- seq(0, 100, by = 10)
+#
+# as_pc(prob.seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
+# as_pb(perc.seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+#
+# perc.seq == as_pc(as_pb(perc.seq)) # all TRUE
+# prob.seq == as_pb(as_pc(prob.seq)) # some FALSE due to rounding errors!
+# round(prob.seq, 4) == as_pb(as_pc(prob.seq)) # all TRUE (as both rounded to 4 decimals)
 
 
 
-## (D) Plotting functions: ------------------------
+## (D) Plotting functions: ----------
 
 ## Note: Moved plotting help functions to file "plot_util.R".
 
@@ -1382,8 +1378,10 @@ makeTransparent = function(..., alpha = .50) {
 
 ## (*) Done: ----------
 
-## - Clean up code.  [2018 09 22]
-## - Moved graphical help functions to file "plot_util.R".  [2018 08 27]
+## - Clean up code                    [2018 09 22].
+## - Moved graphical help functions to file "plot_util.R" [2018 08 27].
+## - Do not export utility functions  [2018 11 08].
+
 
 ## (+) ToDo: ----------
 
@@ -1393,5 +1391,7 @@ makeTransparent = function(..., alpha = .50) {
 ##
 ## - prev = 0, spec = 0: only fa cases
 ## - prev = 0, spec = 1: only cr cases
+## - Also: Deal with 0/0 in probability computations
+##   (especially from rounded freq with low N).
 
 ## eof. ------------------------------------------
