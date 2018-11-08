@@ -156,13 +156,14 @@
 #'            f_lbl = "default", f_lwd = 0, cex_lbl = .90,
 #'            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 #'
-#' # Locally computed values:
+#' # Computed values:
 #' plot_prism(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 #' plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 #' plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #'
 #' ## Custom color and text settings:
-#' plot_prism(col = "snow", f_lwd = .5, lty = 2, lwd = .5)  # custom fbox color and probability links
+#' plot_prism(col = "snow", f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
+#'            font = 3, cex_p_lbl = .75)                   # and text labels
 #'
 #' my_txt <- init_txt(scen.lbl = "",
 #'                    cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
@@ -259,7 +260,6 @@
 #' plot_prism(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
 #' plot_prism(arr_c = +3)  # V-shape arrows at both ends
 #' plot_prism(arr_c = +6)  # arr_c = 4-6: T-shape arrows
-#'
 #'
 #' ## Plain plot versions:
 #' plot_prism(area = "no", f_lbl = "def", p_lbl = NA, col = "white", f_lwd = 1)
@@ -1101,7 +1101,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   plot_fbox_list(all_boxes,  # plot list of boxes
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep,
-                 cex = cex_lbl, lwd = f_lwd, lty = lty, ...)  # Allow ...! OR  # no ...!
+                 cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
 
   ## (B) Plot probabilities as links: ------
