@@ -70,7 +70,7 @@ However, due to being a conditional probability,
 \examples{
 FDR <- .45     # => sets a false detection rate (FDR) of 45\%
 FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
-is_prob(FDR)   # => TRUE (as FDR is a probability)
+# is_prob(FDR) # => TRUE (as FDR is a probability)
 
 }
 \references{

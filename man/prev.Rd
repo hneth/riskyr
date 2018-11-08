@@ -69,7 +69,7 @@ The value of \code{prev} does \emph{not} depend
 \examples{
 prev <- .10     # => sets a prevalence value of 10\%
 prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
-is_prob(prev)   # => TRUE (as prev is a probability)
+# is_prob(prev) # => TRUE (as prev is a probability)
 
 }
 \references{

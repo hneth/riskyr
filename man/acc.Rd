@@ -79,7 +79,7 @@ and several possible interpretations of accuracy.
 \examples{
 acc <- .50     # => sets a rate of correct decisions of 50\%
 acc <- 50/100  # => (dec.cor) for 50 out of 100 individuals
-is_prob(acc)   # => TRUE (as acc is a probability)
+# is_prob(acc) # => TRUE (as acc is a probability)
 
 }
 \references{

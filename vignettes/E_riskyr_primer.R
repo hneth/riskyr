@@ -3,11 +3,65 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-# initialize some stuff:
+
+## Initialize some stuff:
 library("riskyr")  # loads the package
 op <- par(no.readonly = TRUE)
 
-## ----utility_functions---------------------------------------------------
+
+## Utility functions used (and no longer exported from riskyr package):
+
+is_prob <- function(prob, NA_warn = FALSE) {
+
+  val <- NA  # initialize
+
+  ## many ways to fail:
+  if (any(is.na(prob))) {
+
+    val <- FALSE
+
+    if (NA_warn) {
+      warning(paste0(prob, " contains NA values. "))
+    }
+  }
+
+  # else if (any(is.nan(prob))) {  ## NOTE: is.nan not implemented for lists!
+  #
+  #   val <- FALSE
+  #
+  #   if (NA_warn) {
+  #     warning(paste0(prob, " contains NaN values. "))
+  #   }
+  # }
+
+  else if (any(!is.numeric(prob))) {
+
+    val <- FALSE
+
+    if (NA_warn) {
+      warning(paste0(prob, " contains non-numeric values. "))
+    }
+  }
+
+  else if (any(prob < 0) || any(prob > 1)) {
+
+    val <- FALSE
+
+    if (NA_warn) {
+      warning(paste0(prob, " contains values beyond the range from 0 to 1. "))
+    }
+  }
+
+  else {  ## one way to succeed:
+
+    val <- TRUE
+  }
+
+  return(val)
+
+}
+
+
 ## Probability as percentage (2 decimals):
 
 as_pc <- function(prob, n_digits = 2) {
