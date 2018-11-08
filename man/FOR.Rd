@@ -69,7 +69,6 @@ However, due to being a conditional probability,
 \examples{
 FOR <- .05     # => sets a false omission rate of 5\%
 FOR <- 5/100   # => (condition = TRUE) for 5 out of 100 people with (decision = negative)
-# is_prob(FOR) # => TRUE (as FOR is a probability)
 
 }
 \references{
@@ -81,8 +80,7 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
-\code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_prob}} verifies probability inputs.
+\code{\link{comp_freq}} computes current frequency information.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{NPV}},
   \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},

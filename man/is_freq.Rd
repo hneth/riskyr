@@ -40,7 +40,7 @@ is.integer(2)          # => FALSE!
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 \code{\link{as_pc}} displays a probability as a percentage;
-\code{\link{as_pb}} displays a percentage as probability
+\code{\link{as_pb}} displays a percentage as probability.
 
 Other verification functions: \code{\link{is_complement}},
   \code{\link{is_extreme_prob_set}}, \code{\link{is_perc}},

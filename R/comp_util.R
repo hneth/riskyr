@@ -8,18 +8,19 @@
 ## (C) Conversion functions
 ## (D) Plotting functions (moved to plot_util.R)
 
+
 ## (A) Verification functions: -------------------
 
-## 1. is_prob
-## 2. is_perc
-## 3. is_freq
+## 1. is_prob               (exported)
+## 2. is_perc               (exported)
+## 3. is_freq               (exported)
 ## 4. is_suff_prob_set
 ## +. is_suff_freq_set
 ## 5. is_complement
 ## 6. is_extreme_prob_set
 ## 7. is_valid_prob_pair
-## 8. is_valid_prob_set
-## 9. is_valid_prob_triple [deprecated]
+## 8. is_valid_prob_set     (exported)
+## 9. is_valid_prob_triple  [deprecated]
 
 ## is_prob: Verify that input is a probability ------------------
 
@@ -68,7 +69,7 @@
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_prob <- function(prob, NA_warn = FALSE) {
 
@@ -175,9 +176,9 @@ is_prob <- function(prob, NA_warn = FALSE) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_perc <- function(perc) {
 
@@ -254,9 +255,9 @@ is_perc <- function(perc) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_freq <- function(freq) {
 
@@ -582,6 +583,7 @@ is_complement <- function(p1, p2, tol = .01) {
 
 
 
+
 ## (B) Beware of extreme cases: ----------
 ##     Verify if the current set of (sufficient) probabilities
 ##     describe an extreme case:
@@ -798,10 +800,10 @@ is_extreme_prob_set <- function(prev,
   ## (4) Return value:
   return(val)
 
-}
+} # is_extreme_prob_set end.
 
 ## Check:
-
+#
 # # Identify 6 extreme cases (+ 4 variants):
 # is_extreme_prob_set(1, 1, NA, 1, NA)       # => TRUE + warning: N true positives
 # plot_tree(1, 1, NA, 1, NA, N = 100)        # => illustrates this case
@@ -924,7 +926,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
   return(val)
 
-}
+} # is_valid_prob_pair end.
 
 ## Check:
 # # ways to succeed:
@@ -1044,7 +1046,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_valid_prob_set <- function(prev,
                               sens = NA, mirt = NA,
@@ -1061,9 +1063,10 @@ is_valid_prob_set <- function(prev,
 
   return(val)
 
-}
+} # is_valid_prob_set end.
 
 ## Check:
+#
 # # ways to succeed:
 # is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
 # is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
@@ -1087,6 +1090,7 @@ is_valid_prob_set <- function(prev,
 # is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
 # is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
 # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
+
 
 ## is_valid_prob_triple: Verify a triple of essential probability inputs ---------------
 
@@ -1175,6 +1179,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 
 
 
+
 ## (C) Conversion functions: ------------------------
 
 ## Toggle between showing probabilities and percentages:
@@ -1229,7 +1234,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 #'
-#'
+#' @export
 
 ## Probability as percentage (2 decimals):
 
@@ -1313,7 +1318,7 @@ as_pc <- function(prob, n_digits = 2) {
 #' \code{\link{comp_complement}} computes a probability's complement;
 #' \code{\link{comp_comp_pair}} computes pairs of complements.
 #'
-#'
+#' @export
 
 as_pb <- function(perc, n_digits = 4) {
 
@@ -1347,6 +1352,7 @@ as_pb <- function(perc, n_digits = 4) {
 
 
 
+
 ## (D) Plotting functions: ----------
 
 ## Note: Moved plotting help functions to file "plot_util.R".
@@ -1376,11 +1382,13 @@ makeTransparent = function(..., alpha = .50) {
 ## Note also: adjustcolor(col = "green", alpha.f = .50)
 
 
+
 ## (*) Done: ----------
 
 ## - Clean up code                    [2018 09 22].
 ## - Moved graphical help functions to file "plot_util.R" [2018 08 27].
-## - Do not export utility functions  [2018 11 08].
+## - Do not export some utility functions  [2018 11 08].
+
 
 
 ## (+) ToDo: ----------
@@ -1393,5 +1401,6 @@ makeTransparent = function(..., alpha = .50) {
 ## - prev = 0, spec = 1: only cr cases
 ## - Also: Deal with 0/0 in probability computations
 ##   (especially from rounded freq with low N).
+
 
 ## eof. ------------------------------------------
