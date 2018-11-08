@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 07
+## 2018 11 08
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
