@@ -75,8 +75,9 @@ However, due to being a conditional probability,
 }
 }
 \examples{
-fart <- .25     # => sets a false alarm rate of 25\%
-fart <- 25/100  # => (decision = positive) for 25 out of 100 people with (condition = FALSE)
+fart <- .25     # sets a false alarm rate of 25\%
+fart <- 25/100  # (decision = positive) for 25 out of 100 people with (condition = FALSE)
+is_prob(fart)   # TRUE
 
 }
 \references{
@@ -88,7 +89,8 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
-\code{\link{comp_freq}} computes current frequency information.
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},

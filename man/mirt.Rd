@@ -73,7 +73,6 @@ However, due to being a conditional probability,
 \examples{
 mirt <- .15     # => sets a miss rate of 15\%
 mirt <- 15/100  # => (decision = negative) for 15 out of 100 people with (condition = TRUE)
-
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -84,7 +83,8 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
-\code{\link{comp_freq}} computes current frequency information.
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},

@@ -31,8 +31,9 @@ for computation and
 and several possible interpretations of accuracy.
 }
 \examples{
-err <- .50     # => sets a rate of incorrect decisions of 50\%
-err <- 50/100  # => (dec.err) for 50 out of 100 individuals
+err <- .50     # sets a rate of incorrect decisions of 50\%
+err <- 50/100  # (dec.err) for 50 out of 100 individuals
+is_prob(err)   # TRUE
 
 }
 \seealso{
@@ -46,7 +47,8 @@ err <- 50/100  # => (dec.err) for 50 out of 100 individuals
 \code{\link{comp_complement}} computes a probability's complement;
 \code{\link{is_complement}} verifies probability complements;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{prob}} contains current probability information.
+\code{\link{prob}} contains current probability information;
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},

@@ -77,8 +77,9 @@ See \code{\link{accu}} for other accuracy metrics
 and several possible interpretations of accuracy.
 }
 \examples{
-acc <- .50     # => sets a rate of correct decisions of 50\%
-acc <- 50/100  # => (dec.cor) for 50 out of 100 individuals
+acc <- .50     # sets a rate of correct decisions of 50\%
+acc <- 50/100  # (dec.cor) for 50 out of 100 individuals
+is_prob(acc)   # TRUE
 
 }
 \references{
@@ -94,7 +95,8 @@ Consult \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia:Ac
 \code{\link{comp_complement}} computes a probability's complement;
 \code{\link{is_complement}} verifies probability complements;
 \code{\link{comp_prob}} computes current probability information;
-\code{\link{prob}} contains current probability information.
+\code{\link{prob}} contains current probability information;
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{err}},

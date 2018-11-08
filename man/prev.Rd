@@ -67,8 +67,9 @@ The value of \code{prev} does \emph{not} depend
 }
 }
 \examples{
-prev <- .10     # => sets a prevalence value of 10\%
-prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
+prev <- .10     # sets a prevalence value of 10\%
+prev <- 10/100  # (condition = TRUE) for 10 out of 100 individuals
+is_prob(prev)   # TRUE
 
 }
 \references{
@@ -78,7 +79,8 @@ Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additiona
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{comp_prob}} computes derived probabilities;
-\code{\link{comp_freq}} computes natural frequencies from probabilities.
+\code{\link{comp_freq}} computes natural frequencies from probabilities;
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},

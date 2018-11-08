@@ -60,8 +60,9 @@ However, the conditional probabilities
 }
 }
 \examples{
-ppod <- .50     # => sets a rate of positive decisions of 50\%
-ppod <- 50/100  # => (decision = TRUE) for 50 out of 100 individuals
+ppod <- .50     # sets a rate of positive decisions of 50\%
+ppod <- 50/100  # (decision = TRUE) for 50 out of 100 individuals
+is_prob(ppod)   # TRUE
 
 }
 \references{
@@ -73,7 +74,8 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{freq}} contains current frequency information;
-\code{\link{comp_freq}} computes current frequency information.
+\code{\link{comp_freq}} computes current frequency information;
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
