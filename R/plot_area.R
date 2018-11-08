@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 06
+## 2018 11 07
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -97,7 +97,7 @@
 #' @param sum_w  Border width of 2 perspective summaries
 #' (on top and left borders) of main area as a proportion of area size
 #' (i.e., in range \code{0 <= sum_w <= 1}).
-#' Default: \code{sum_w = .10}.
+#' Default: \code{sum_w = .08}.
 #' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
 #' setting \code{sum_w = 1} scales summaries to same size as main areas.
 #'
@@ -166,11 +166,11 @@
 #' Note: Adjust to avoid overlapping labels.
 #' Negative values show links outside of main area.
 #'
-#' @param title_lbl  Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
-#'
 #' @param lbl_txt  Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
+#'
+#' @param title_lbl  Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -231,10 +231,14 @@
 #' plot_area(area = "no")  # rectangular main area (using full plotting region)
 #'
 #' # scale (matters for small N):
-#' plot_area(N = 9, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
-#' plot_area(N = 9, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
-#' plot_area(N = 8, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
-#' plot_area(N = 8, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
+#' plot_area(N = 5, prev = .5, sens = .8, spec = .6,
+#'           by = "cddc", p_split = "v", scale = "p", p_lbl = "def")  # scaled by prob (default)
+#' plot_area(N = 5, prev = .5, sens = .8, spec = .6,
+#'           by = "cddc", p_split = "v", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
+#' plot_area(N = 4, prev = .4, sens = .8, spec = .6,
+#'           by = "cdac", p_split = "h", scale = "p", p_lbl = "def")  # scaled by prob (default)
+#' plot_area(N = 4, prev = .4, sens = .8, spec = .6,
+#'           by = "cdac", p_split = "h", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
 #'
 #' # gaps (sensible range: 0--.10):
 #' plot_area(gaps = NA)           # use default gaps (based on p_split)
@@ -266,9 +270,10 @@
 #' plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 #'
 #' # sum_w:
-#' plot_area(sum_w = .1)  # default (showing top and left freq panels & labels)
-#' plot_area(sum_w =  0)  # remove top and left freq panels
-#' plot_area(sum_w =  1)  # top and left freq panels are scaled to size of main areas
+#' plot_area(sum_w = .08)  # default (showing top and left freq panels & labels)
+#' plot_area(sum_w =  0)   # remove top and left freq panels
+#' plot_area(sum_w =  1,   # top and left freq panels are scaled to size of main areas
+#'           col_pal = pal_org)
 #'
 #' ## Plain plot versions:
 #' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
@@ -318,7 +323,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                       ## Freq boxes:
-                      sum_w = .10,        # border width: (default: sum_w = .25), setting sum_w = NULL/NA/<=0  hides top and left panels.
+                      sum_w = .08,        # border width: (default: sum_w = .08), setting sum_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
@@ -337,8 +342,8 @@ plot_area <- function(prev = num$prev,    # probabilities
                       brd_dis = .06,      # distance of prob links from border. (Adjust to avoid overlapping labels).
 
                       ## Text and color:
-                      title_lbl = txt$scen.lbl,  # main plot title
                       lbl_txt = txt,      # labels and text elements
+                      title_lbl = txt$scen.lbl,  # main plot title
                       cex_lbl = .90,      # size of freq & text labels
                       cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
                       col_pal = pal,      # color palette
@@ -600,6 +605,8 @@ plot_area <- function(prev = num$prev,    # probabilities
 
 
   ## 6. Additional parameters (currently fixed): ----
+
+  lty <- 1  # default
 
   # Correction values (as constants):
   buffer  <- .08  # blank buffer space (on top and left) of plotting area
@@ -1153,7 +1160,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   plot_fbox_list(sdt_boxes,  # plot list of 4 sdt_boxes:
                  scale_lx = 1,
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
-                 lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd)  # no ...!
+                 lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
   # plot_fbox_list(sdt_boxes, scale_lx = scale_x,
   #               lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes (scaled)
@@ -1256,7 +1263,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
     } # if (sum_w > 0) etc.
 
@@ -1277,7 +1284,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
     } # if (sum_w > 0) etc.
 
@@ -1297,7 +1304,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
     } # if (sum_w > 0) etc.
 
@@ -1327,7 +1334,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_left,
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
     } # if (sum_w > 0) etc.
 
@@ -1348,7 +1355,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_left,  # plot list of boxes (on left):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
     } # if (sum_w > 0) etc.
 
@@ -1370,7 +1377,7 @@ plot_area <- function(prev = num$prev,    # probabilities
       plot_fbox_list(fbox_left,  # plot list of boxes (on left):
                      cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
-                     cex = cex_lbl, lwd = f_lwd)  # no ...!
+                     cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
     } # if (sum_w > 0) etc.
 
@@ -1854,10 +1861,9 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ##   (f) Plot other stuff: ----------
 
-  ## +++ here now +++
-
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
+
 
   ## (6) Title: ------
 
@@ -1877,6 +1883,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   # Plot title:
   title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+
 
   ## (7) Margins: ------
 

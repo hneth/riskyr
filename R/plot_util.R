@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 04
+## 2018 11 07
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -73,7 +73,7 @@ print.box <- function(obj) {
   cat("height:  ly =", obj$ly, "\n")
 }
 
-## Export the plot.box() method! !!!
+## Note: Export the plot.box() method (to allow using method in riskyr namespace)!
 
 #' Plot information of a riskyr object.
 #'
@@ -82,25 +82,30 @@ print.box <- function(obj) {
 #' \code{plot.riskyr} also uses the text settings
 #' specified in the "riskyr" object.
 #'
-#' @param obj The object of class "box" to be plotted.
+#' @param x The box (object of class "box") to be plotted.
+#'
 #' @param cur_freq The frequency information related to this box object.
+#'
 #' @param cur_txt The text information associate with this box object.
-#' @param cur_pal The color information related to this box object. #'
-#' @param ... Additional parameters to be passed to the
+#'
+#' @param cur_pal The color information related to this box object.
+#'
+#' @param ... Additional (graphical) parameters to be passed to the
 #' underlying plotting functions.
 #'
 #' @family utility functions
 #'
 #' @export
-plot.box <- function(obj,
+
+plot.box <- function(x,
                      cur_freq = freq, cur_txt = txt, cur_pal = pal,  # current settings
                      ...) {
 
   # print("@@@@ I am the plot.box() method!")
   ## Call plot_fbox helper function:
-  plot_fbox(fname = obj$name,
-            x  = obj$x,   y = obj$y,
-            lx = obj$lx, ly = obj$ly,
+  plot_fbox(fname = x$name,
+            x  = x$x,   y = x$y,
+            lx = x$lx, ly = x$ly,
             cur_freq = cur_freq, cur_txt = cur_txt, cur_pal = cur_pal,  # pass current (cur_) settings!
             ...)
 
@@ -313,11 +318,11 @@ label_freq <- function(fname,
 ## label_prob: Label a known probability (in prob) by pname ----------
 
 label_prob <- function(pname,
-                       lbl_type = "default",  # label type: "default", "nam"/"num"/"namnum", "abb"/"min"/"mix" or NULL/NA/"no" (to hide label).
-                       lbl_sep = " = ",       # separator: " = " (default), ":\n"
-                       cur_prob = prob        # current prob
-                       # cur_txt = txt        # current txt (does currently NOT include any probabilities)
-                       # accu = accu          # use current accuracy (now included in prob)
+                       lbl_type = "def",  # label type: "def"/"default", "nam"/"num"/"namnum", "abb"/"min"/"mix" or NULL/NA/"no" (to hide label).
+                       lbl_sep = " = ",   # separator: " = " (default), ":\n"
+                       cur_prob = prob    # current prob
+                       # cur_txt = txt    # current txt (does NOT YET include probability names!)
+                       # accu = accu      # use current accuracy (now included in prob)
 ) {
 
   ## Initialize:
@@ -391,7 +396,13 @@ label_prob <- function(pname,
 
   ## (2) Abbreviated name (i.e., variable name of pname): ----
   if (lbl_type == "abb") {
+
+    # Capitalize some abbreviated names:
+    if (pname == "ppv") { pname <- "PPV" }
+    if (pname == "npv") { pname <- "NPV" }
+
     p_lbl <- as.character(pname)
+
     return(p_lbl)
   }
 
@@ -487,7 +498,11 @@ label_prob <- function(pname,
 
     ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
-    # Special cases: CHANGE pname to some other default value:
+    ## Special cases: CHANGE pname to some other default value:
+
+    # Capitalize some abbreviated names:
+    if (pname == "ppv") { pname <- "PPV" }
+    if (pname == "npv") { pname <- "NPV" }
 
     if (pname == "cprev") {  # if complement of prevalence:
       pname <- "(1 - prev)"           # custom basic name
@@ -2056,7 +2071,11 @@ label_note <- function(area = NULL, scale = "f") {
     area_lbl <- "Areas"
     scale_lbl <- ""
 
-    if (area == "hr") {
+    if (area == "bar") {
+
+      area_lbl <- "Bar heights"  # "Bars" etc.
+
+    } else if (area == "hr") {
 
       area_lbl <- "Horizontal widths"  # "Rectangles" / "Areas" etc.
 
@@ -2068,15 +2087,15 @@ label_note <- function(area = NULL, scale = "f") {
 
     if (scale == "p") {
 
-      scale_lbl <- " by probabilities"
+      scale_lbl <- "probabilities"
 
     } else if (scale == "f") {
 
-      scale_lbl <- " by frequencies"
+      scale_lbl <- "frequencies"
 
     }
 
-    note_lbl <- paste0(area_lbl, " are scaled", scale_lbl, ".")
+    note_lbl <- paste0(area_lbl, " are scaled by ", scale_lbl, ".")
 
   }
 

@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 11 04
+## 2018 11 07
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -86,7 +86,6 @@
 #' and a new population table \code{\link{popu}}
 #' are computed from scratch from current probabilities.)
 #'
-#'
 #' @param by  A character code specifying the perspective
 #' (or the dimension by which the population is split into 2 subsets)
 #' with the following options:
@@ -108,7 +107,8 @@
 #' by current frequencies (\code{scale = "f"}) or
 #' by exact probabilities (\code{scale = "p"}).
 #' Default: \code{scale = "f"}.
-#' When \code{round = FALSE}, both settings yield the same bar heights.
+#' For large population sizes \code{\link{N}} and
+#' when \code{round = FALSE}, both settings yield the same bar heights.
 #'
 #' @param round  Boolean option specifying whether computed frequencies
 #' are to be rounded to integers.
@@ -126,7 +126,15 @@
 #' @param f_lwd  Line width of frequency box (border).
 #' Values of \code{NA/NULL/0} set \code{lwd} to
 #' invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
-#' Default: \code{f_lwd = 0}.
+#' Default: \code{f_lwd = 1}.
+#'
+#' @param lty  Line type of frequency box (border).
+#' Values of \code{NA/NULL/0} set \code{lty} to
+#' \code{lty <- 0}.
+#' Default: \code{lty = 0} (i.e., no line).
+#'
+#' @param title_lbl  Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param lbl_txt  Current text information (for labels, titles, etc.).
 #' Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).
@@ -134,23 +142,8 @@
 #' @param col_pal  Current color palette.
 #' Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).
 #'
-#' @param show_freq  Boolean option for showing essential frequencies
-#' (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-#' \code{\link{cr}}) on the margin of the plot.
-#' Default: \code{show_freq = TRUE}.
-#'
-#' @param show_prob  Boolean option for showing essential probabilities
-#' (e.g., \code{\link{prev}}, \code{\link{sens}}, and
-#' \code{\link{spec}}) on the margin of the plot.
-#' Default: \code{show_prob = TRUE}.
-#'
-#' @param show_accu  Boolean option for showing current
-#' accuracy metrics \code{\link{accu}} on the margin of the plot.
-#' Default: \code{show_accu = TRUE}.
-#'
-#' @param w_acc  Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w_acc = .50}.
+#' @param mar_notes  Boolean option for showing margin notes.
+#' Default: \code{mar_notes = TRUE}.
 #'
 #' @param ...  Other (graphical) parameters
 #' (e.g., \code{cex}, \code{lwd}, ...).
@@ -235,33 +228,44 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      sens = num$sens, mirt = NA,
                      spec = num$spec, fart = NA,
                      N = num$N,                   # population size N
-                     ## Specific options:
+
+                     # Specific options:
                      by = "all",     # perspective: "cd"...condition, "dc"...decision; "ac" accuracy, default: "all".
                      dir = 1,        # directions: 1 (default) vs. 2
                      scale = "f",    # scale bars: "f" ... freq (default), "p" ... prob.
                      round = TRUE,   # round freq to integers? (default: round = TRUE).
+
                      # Freq boxes:
                      f_lbl = "num",  # type of freq labels: "nam"/"num"/"abb", NA/NULL/"no", or "default" (fname = fnum).
-                     f_lwd = .001,   # lwd of boxes: NULL vs. 1 vs. .001 (default)
+                     f_lwd = 1,      # lwd of boxes: NULL vs. 1 vs. .001 (default)
+                     lty = 0,        # default line type (0: no line, 1: solid line, etc.)
+
                      # Text and color:
-                     lbl_txt = txt,  # label text; was: title_lbl = txt$scen.lbl,  # main title of plot
-                     col_pal = pal,  # color palette
+                     lbl_txt = txt,             # labels and text elements
+                     title_lbl = txt$scen.lbl,  # main plot title
+                     col_pal = pal,             # color palette
+
                      # Generic options:
-                     show_freq = TRUE,   # show essential freq values on plot margin
-                     show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
-                     show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
-                     w_acc = .50,        # weight w for wacc (from 0 to 1)
+                     mar_notes = TRUE,   # show margin notes?
+                     # show_freq = TRUE,   # show essential freq values on plot margin
+                     # show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
+                     # show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
+                     # w_acc = .50,        # weight w for wacc (from 0 to 1)
+
                      ...  # other (graphical) parameters: lwd, cex, ...
 ) {
 
   ## (0) Handle arguments and deprecated arguments: ----------
 
-  ## (a) Get probabilities from global numeric parameters (num/prob):
-  # prev <- num$prev
-  # sens <- num$sens
-  # spec <- num$spec
 
-  ## (b) Interpret arguments and increase robustness: ------
+  ## (1) Prepare parameters: ----------
+
+  ## (A) Generic:
+
+  opar <- par(no.readonly = TRUE)  # copy of current settings
+  on.exit(par(opar))  # par(opar)  # restore original settings
+
+  ## (B) Interpret arguments and increase robustness: ------
 
   # by perspective:
   if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # by in lowercase
@@ -292,6 +296,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum") (f_lbl <- "default")
 
   # f_lwd & lty:
+  if (is.null(lty) || is.na(lty) || (lty < 0)) { lty <- 0 }  # default/null
+
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {
 
     tiny_lwd <- .001   # tiny, invisible width
@@ -304,8 +310,8 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # n_digits_bar <- 5  # n_digits to round freq to in bar plot (when round = FALSE)
 
   # Offset from base line:
-  x.base <- 0  # offset x
-  y.base <- 0  # offset y
+  x_base <- 0  # offset x
+  y_base <- 0  # offset y
 
   ## (1) Compute or use current popu: ----------
 
@@ -323,34 +329,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
     freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
     # n_digits = n_digits_bar)  # Removed n_digits parameter in comp_freq!
 
-    ## ToDo: Update GLOBAL freq and prob objects
-    ##       (e.g., to use label_freq/label_prob and plot_mar functions).
-
-    ## Assign (only needed) elements based on freq:
+    ## (c) Assign (only needed) elements based on freq:
     hi  <- freq$hi
     mi  <- freq$mi
     fa  <- freq$fa
     cr  <- freq$cr
 
-    ## (c) Compute cur.popu from computed frequencies:
-    # cur.popu <- comp_popu(hi = hi, mi = mi, fa = fa, cr = cr)  # compute cur.popu (from 4 essential frequencies)
-
-    ## warning("Generated new population (cur.popu) to plot...")
-
   } else {  # (B) NO valid set of probabilities was provided:
 
-    ## Use the current popu:
-    # cur.popu <- popu
-
-    ## warning("Using existing population (popu) to plot...")
+    message("No valid set of probabilities provided. Using global freq for bar plot.")
 
   } # if (is_valid_prob_set...)
 
   ## (2) Text labels: ----------
-
-  title_lbl <- txt$scen.lbl
-  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
-  cur_title_lbl <- paste0(title_lbl, "Bar plot of frequencies") # , "(N = ", N, ")")
 
   # cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
   # # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
@@ -360,9 +351,17 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (3) Define plot and margin areas: ----------
 
-  ## Margin areas:
-  par(oma = c(3, 2, 1, 1) + 0.1)  # outer margins: bottom has 3 lines of space
-  par(mar = c(4, 2, 4, 2) + 0.1)  # margin: default: c(5.1, 4.1, 4.1, 2.1)
+  ## Define margin areas:
+  par(mar = c(2, 2, 3, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(3, 1, 1, 1) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+
+  ## Axis label locations:
+  # par(mgp = c(3, 1, 0)) # default: c(3, 1, 0)
+
+  ## Orientation of the tick mark labels (and corresponding mtext captions below):
+  # par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
+
 
   ## (4) Graphical parameters: ----
 
@@ -402,11 +401,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
   xlim = c(0, 1)
 
   if (dir == 1) {
-    y.min <- 0
+    y_min <- 0
   } else if (dir == 2) {
-    y.min <- -N
+    y_min <- -N
   }
-  ylim = c(y.min, N)
+  ylim = c(y_min, N)
 
   ## Plot area setup:
   plot(x = 1,
@@ -417,10 +416,10 @@ plot_bar <- function(prev = num$prev,             # probabilities
   )
 
   ## Mark plot and margin area:
-  # col.plot <- "grey80"
-  # box("plot", col = col.plot)
-  # mar.col <- "grey60"
-  # box("figure", col = mar.col)
+  # col_plot <- "forestgreen"
+  # box("plot", col = col_plot)
+  # mar_col <- "firebrick"
+  # box("figure", col = mar_col)
 
   ## Axes:
   # axis(side = 1, las = 1) # x-axis, horizontal labels
@@ -463,11 +462,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # Dimensions and coordinates:
   n.ly <- b.ly    # height (y)
   col.nr <- 1     # column number (out of nr.col)
-  n.x  <- (x.base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
-  n.y  <- y.base  # y-coordinate
+  n.x  <- (x_base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
+  n.y  <- y_base  # y-coordinate
   if (dir == 2) {
     ## center N bar around 0:
-    n.y  <- y.base - N/2
+    n.y  <- y_base - N/2
   }
 
   # Plot 1 box:
@@ -477,12 +476,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
             box_lx = b.lx,
             box_ly = n.ly,
             cur_txt = lbl_txt, cur_pal = col_pal,
-            lbl_type = f_lbl,
-            lwd = f_lwd,
+            lbl_type = f_lbl, lwd = f_lwd, lty = lty,
             ...)
 
   # Label N column:
-  plot_ftype_label("N", n.x, y.min, pos = 1,
+  plot_ftype_label("N", n.x, y_min, pos = 1,
                    col = pal["txt"], # col = comp_freq_col("N"),
                    ...)
 
@@ -490,7 +488,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   # x-coordinates:
   col.nr <- 3
-  hi.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+  hi.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
   mi.x <- hi.x
   fa.x <- hi.x
   cr.x <- hi.x
@@ -524,7 +522,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # (scale == ...)
 
   # Label SDT column:
-  plot_ftype_label("hi", hi.x, y.min, pos = 1,
+  plot_ftype_label("hi", hi.x, y_min, pos = 1,
                    col = pal["txt"],
                    # col = comp_freq_col("hi"),
                    ...)
@@ -542,14 +540,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     mi.y <- hi.y + hi.ly
     fa.y <- mi.y + mi.ly
     cr.y <- fa.y + fa.ly
 
     if (dir == 2) {
       ## reverse y-coordinates (y) of 2 bars:
-      cr.y <- y.base
+      cr.y <- y_base
       fa.y <- cr.y + cr.ly
     }
 
@@ -560,7 +558,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = hi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -569,7 +567,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = mi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -578,7 +576,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = fa.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -587,14 +585,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cr.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     ## (b) Condition column: ----
 
     # x-coordinates:
     col.nr <- 2
-    cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    cond.true.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     cond.false.x <- cond.true.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -608,12 +606,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    cond.true.y <- y.base
+    cond.true.y <- y_base
     cond.false.y <- cond.true.y + cond.true.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      cond.false.y <- y.base
+      cond.false.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -623,7 +621,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cond.true.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
@@ -632,11 +630,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cond.false.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label cond column:
-    plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
+    plot_ftype_label("cond.true", cond.true.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("cond.true"),
                      ...)
@@ -645,7 +643,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 4
-    dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.pos.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -659,12 +657,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.pos.y <- y.base
+    dec.pos.y <- y_base
     dec.neg.y <- dec.pos.y + dec.pos.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      dec.neg.y <- y.base
+      dec.neg.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -674,7 +672,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.pos.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
@@ -683,11 +681,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.neg.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label dec column:
-    plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
+    plot_ftype_label("dec.pos", dec.pos.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.pos"),
                      ...)
@@ -696,7 +694,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 5
-    dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.cor.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -710,12 +708,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.cor.y <- y.base
+    dec.cor.y <- y_base
     dec.err.y <- dec.cor.y + dec.cor.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      dec.err.y <- y.base
+      dec.err.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -725,7 +723,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.cor.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
@@ -734,11 +732,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.err.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label acc column:
-    plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
+    plot_ftype_label("dec.cor", dec.cor.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.cor"),
                      ...)
@@ -757,14 +755,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     mi.y <- hi.y + hi.ly
     fa.y <- mi.y + mi.ly
     cr.y <- fa.y + fa.ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 2 bars:
-      cr.y <- y.base
+      cr.y <- y_base
       fa.y <- cr.y + cr.ly
     }
 
@@ -775,7 +773,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = hi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -784,7 +782,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = mi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -793,7 +791,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = fa.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -802,7 +800,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cr.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
 
@@ -810,7 +808,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     # x-coordinates:
     col.nr <- 2
-    cond.true.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    cond.true.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     cond.false.x <- cond.true.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -824,12 +822,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    cond.true.y <- y.base
+    cond.true.y <- y_base
     cond.false.y <- cond.true.y + cond.true.ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      cond.false.y <- y.base
+      cond.false.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -839,7 +837,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cond.true.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
@@ -848,11 +846,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cond.false.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label cond column:
-    plot_ftype_label("cond.true", cond.true.x, y.min, pos = 1,
+    plot_ftype_label("cond.true", cond.true.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("cond.true"),
                      ...)
@@ -872,14 +870,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     fa.y <- hi.y + hi.ly
     cr.y <- fa.y + fa.ly
     mi.y <- cr.y + cr.ly
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      cr.y <- y.base
+      cr.y <- y_base
       mi.y <- cr.y + cr.ly
     }
 
@@ -890,7 +888,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = hi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -899,7 +897,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = mi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -908,7 +906,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = fa.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -917,14 +915,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cr.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     ## (b) Decision column: ----
 
     # x-coordinates:
     col.nr <- 2
-    dec.pos.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.pos.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.neg.x <- dec.pos.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -938,12 +936,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.pos.y <- y.base
+    dec.pos.y <- y_base
     dec.neg.y <- dec.pos.y + dec.pos.ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.neg.y <- y.base
+      dec.neg.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -953,7 +951,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.pos.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
@@ -962,11 +960,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.neg.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label dec column:
-    plot_ftype_label("dec.pos", dec.pos.x, y.min, pos = 1,
+    plot_ftype_label("dec.pos", dec.pos.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.pos"),
                      ...)
@@ -987,14 +985,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    hi.y <- y.base
+    hi.y <- y_base
     cr.y <- hi.y + hi.ly
     mi.y <- cr.y + cr.ly
     fa.y <- mi.y + mi.ly
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      mi.y <- y.base
+      mi.y <- y_base
       fa.y <- mi.y + mi.ly
     }
 
@@ -1005,7 +1003,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = hi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
@@ -1014,7 +1012,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = mi.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
@@ -1023,7 +1021,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = fa.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
@@ -1032,14 +1030,14 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = cr.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     ## (b) Accuracy column: ----
 
     # x-coordinates:
     col.nr <- 2
-    dec.cor.x <- (x.base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
+    dec.cor.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
     dec.err.x <- dec.cor.x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
@@ -1053,12 +1051,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
     }
 
     # y-coordinates (given heights):
-    dec.cor.y <- y.base
+    dec.cor.y <- y_base
     dec.err.y <- dec.cor.y + dec.cor.ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.err.y <- y.base
+      dec.err.y <- y_base
     }
 
     # Plot 2 boxes:
@@ -1068,7 +1066,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.cor.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
@@ -1077,11 +1075,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_lx = b.lx,
               box_ly = dec.err.ly,
               cur_txt = lbl_txt, cur_pal = col_pal,
-              lbl_type = f_lbl, lwd = f_lwd,
+              lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label acc column:
-    plot_ftype_label("dec.cor", dec.cor.x, y.min, pos = 1,
+    plot_ftype_label("dec.cor", dec.cor.x, y_min, pos = 1,
                      col = pal["txt"],
                      # col = comp_freq_col("dec.cor"),
                      ...)
@@ -1118,18 +1116,54 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (7) Title: --------
 
-  # title(cur_title_lbl, adj = 0.5, line = 1.5, font.main = 1) # (centered, raised, normal font)
-  title(cur_title_lbl, adj = 0.0, line = 1.5, font.main = 1) # (left, raised, normal font)
+  # Define parts:
+  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+
+  if (title_lbl == "") {  # if title has been set to "":
+    type_lbl <- ""        # assume that no subtitle is desired either
+  } else {
+    type_lbl <- paste0("Bar plot of frequencies (by ", as.character(by), ")")  # plot name: Bar/etc.
+  }
+
+  # Compose label:
+  cur_title_lbl <- paste0(title_lbl, type_lbl)
+
+  # Plot title:
+  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, raised by 1, normal font)
+
 
   ## (8) Margins: ------
 
-  # Plot GLOBAL freq/prob/accu values:
-  plot_mar(show_freq = show_freq, show_cond = show_prob, show_dec = TRUE,
-           show_accu = show_accu, accu_from_freq = round,  # default: accu_from_freq = FALSE.  Use accu_from_freq = round to show accuracy based on freq!
-           note = "Showing global values on margin."   # "Some noteworthy remark here."
-  )
+  if (mar_notes) {
 
-}
+    # ## Plot GLOBAL freq/prob/accu values:
+    # plot_mar(show_freq = show_freq, show_cond = show_prob, show_dec = TRUE,
+    #          show_accu = show_accu, accu_from_freq = round,  # default: accu_from_freq = FALSE.  Use accu_from_freq = round to show accuracy based on freq!
+    #          note = "Showing global values on margin."   # "Some noteworthy remark here."
+    # )
+
+    # Note:
+    note_lbl <- ""  # initialize
+    #if (scale == "f") {
+      note_lbl <- label_note(area = "bar", scale = scale)
+    #}
+
+    plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
+             show_accu = TRUE, accu_from_freq = FALSE,
+             note = note_lbl,
+             cur_freq = freq, cur_prob = prob, cur_txt = lbl_txt)
+
+  } # if (mar_notes) etc.
+
+
+  ## Finish: ---------
+
+  # on.exit(par(opar))  # par(opar)  # restore original settings
+  invisible()# restores par(opar)
+
+} # plot_bar end.
 
 
 ### Check: --------
@@ -1176,6 +1210,28 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(f_lbl = "aBB")  # abbreviated name (lowercase)
 # plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 # plot_bar(f_lbl = "any")  # default labels: name = num
+
+
+## Retired parameters: ----------
+
+
+# @param show_freq  Boolean option for showing essential frequencies
+# (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
+# \code{\link{cr}}) on the margin of the plot.
+# Default: \code{show_freq = TRUE}.
+#
+# @param show_prob  Boolean option for showing essential probabilities
+# (e.g., \code{\link{prev}}, \code{\link{sens}}, and
+# \code{\link{spec}}) on the margin of the plot.
+# Default: \code{show_prob = TRUE}.
+#
+# @param show_accu  Boolean option for showing current
+# accuracy metrics \code{\link{accu}} on the margin of the plot.
+# Default: \code{show_accu = TRUE}.
+#
+# @param w_acc  Weigthing parameter \code{w} used to compute
+# weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
+# Default: \code{w_acc = .50}.
 
 
 ## (*) Done: ----------

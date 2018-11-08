@@ -915,13 +915,15 @@ riskyr_table <- function(obj) {
 
   ## TODO: For now limit to 1st and 2nd dimension!
 
-  class(object) <- c("riskyr.tabular")
+  class(obj) <- c("riskyr.tabular")
 
+
+  return(obj)
 }
 
 
 
-return(object)
+
 
 
 

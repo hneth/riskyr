@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 06
+## 2018 11 07
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -124,11 +124,11 @@
 #' }
 #' Default: \code{arr_c = NA}, but adjusted by \code{area}.
 #'
-#' @param title_lbl  Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
-#'
 #' @param lbl_txt  Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
+#'
+#' @param title_lbl  Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen.lbl}.
 #'
 #' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -207,10 +207,14 @@
 #' plot_prism(area = "sq")  # squares (areas on each level sum to N)
 #'
 #' # scale (matters for scaled areas and small N):
-#' plot_prism(area = "hr", scale = "f")  # widths scaled by (rounded or non-rounded) freq
-#' plot_prism(area = "hr", scale = "p")  # widths scaled by prob
-#' plot_prism(area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
-#' plot_prism(area = "sq", scale = "p")  # areas scaled by prob
+#' plot_prism(N = 5, prev = .3, sens = .8, spec = .6,
+#'            area = "hr", scale = "p")  # widths scaled by prob
+#' plot_prism(N = 5, prev = .3, sens = .8, spec = .6,
+#'            area = "hr", scale = "f")  # widths scaled by (rounded or non-rounded) freq
+#' plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
+#'            area = "sq", scale = "p")  # areas scaled by prob
+#' plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
+#'            area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 #'
 #' ## Freq (as boxes):
 #' # f_lbl:
@@ -334,8 +338,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        arr_c = NA,         # arrow code (-3 to +6). Set to defaults of -2 or 0 (by area, below).
 
                        # Text and color:
-                       title_lbl = txt$scen.lbl,  # main plot title
                        lbl_txt = txt,      # labels and text elements
+                       title_lbl = txt$scen.lbl,  # main plot title
                        cex_lbl = .90,      # size of freq & text labels.
                        cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
                        col_pal = pal,      # color palette
@@ -483,8 +487,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
 
   ## 5. Additional parameters (currently fixed):
-  x_lab <- -5      # x-value of ftype labels
-
+  lty <- 1
+  x_lab <- -5.5    # x-value of ftype labels
+  x_lab_pos <- 4   # pos of ftype labels (NULL: centered, 2: right justified, or 4: left justified)
 
   ## (3) Define plot and margin areas: ----------
 
@@ -514,7 +519,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   x_min <- -5  # x_ctr - ((x_levels - 1)/2 + .5)
   x_max <- +5  # x_ctr + ((x_levels - 1)/2 + .5)
 
-  y_min <- -5  # y_ctr - 2 * ((y_levels - 1)/2 + .5)
+  y_min <- min(-5, x_lab)  # y_ctr - 2 * ((y_levels - 1)/2 + .5)
   y_max <- +5  # y_ctr + 2 * ((y_levels - 1)/2 + .5)
 
   # Plot empty canvas:
@@ -665,8 +670,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # plot_fbox_list(box_5, lbl_type = f_lbl, cex = cex_lbl, lwd = 1.0, density = 20)  # N (bot): illustrate diagonal lines (via density)
 
   # plot labels:
-  plot_ftype_label("N", x_lab, box_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
-  plot_ftype_label("N", x_lab, box_5_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+  plot_ftype_label("N", x_lab, box_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
+  plot_ftype_label("N", x_lab, box_5_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   ##   3rd row (y = 0, center): SDT cases/cells as 4 boxes: ------
 
@@ -757,7 +762,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # plot_fbox_list(row_3_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes
 
   # plot label:
-  plot_ftype_label("hi", x_lab, box_3_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+  plot_ftype_label("hi", x_lab, box_3_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
 
   ##   2nd row (y = +2): by perspective ------
@@ -812,7 +817,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("cond.false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("cond.true", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   } else if (by_top == "dc") {
 
@@ -845,7 +850,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("dec.neg", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.pos", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("dec.pos", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   } else if (by_top == "ac") {
 
@@ -878,7 +883,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("dec.err", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.cor", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("dec.cor", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   } else {  # default on top: same as (by_top == "cd")
 
@@ -911,7 +916,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("cond.false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("cond.true", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   }
 
@@ -975,7 +980,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_4_2 <- make_box("cond.false", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("cond.true", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   } else if (by_bot == "dc") {
 
@@ -1008,7 +1013,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.pos", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("dec.pos", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   } else if (by_bot == "ac") {
 
@@ -1041,7 +1046,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_4_2 <- make_box("dec.err", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.cor", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("dec.cor", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   } else {  # default on bot: same as (by_bot == "dc")
 
@@ -1074,7 +1079,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.pos", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
+    plot_ftype_label("dec.pos", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
 
   }
 
@@ -1093,7 +1098,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   plot_fbox_list(all_boxes,  # plot list of boxes
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep,
-                 cex = cex_lbl, lwd = f_lwd)  # no ...!
+                 cex = cex_lbl, lwd = f_lwd, lty = lty)  # no ...!
 
 
   ## (B) Plot probabilities as links: ------
@@ -1227,10 +1232,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
 
   ## ftype labels:
-  # plot_ftype_label("N", x_lab, 4, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
-  # plot_ftype_label("cond.true", x_lab, 2, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
-  # plot_ftype_label("hi", x_lab, 0, cur_txt = lbl_txt, suffix = ":", pos = 4, col = pal["txt"], cex = cex_lbl)
-  # plot_ftype_label("N", x_lab, -4, pos = 4, cur_txt = lbl_txt, suffix = ":", col = pal["txt"], cex = cex_lbl)
+  # plot_ftype_label("N", x_lab, 4, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
+  # plot_ftype_label("cond.true", x_lab, 2, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
+  # plot_ftype_label("hi", x_lab, 0, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl)
+  # plot_ftype_label("N", x_lab, -4, pos = x_lab_pos, cur_txt = lbl_txt, suffix = ":", col = pal["txt"], cex = cex_lbl)
 
 
   ## (6) Title: ------
@@ -1419,7 +1424,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
 
 
-## Done: [2018 11 04] ------
+## Done: [2018 11 07] ------
 
 ## (0) Design as function plot_prism (generalizing plot_fnet).
 
@@ -1448,6 +1453,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
 ##     to prevent occlusion of freq labels of smaller boxes) => plot_util.R
 
 ## (5) Add documentation and integrate in current riskyr package (./R).
+
+## (6) Add x_lab_pos parameter and adjust x_lab and x_min
+##     to control ftype labels on left.
 
 
 ## ToDo: [2018 11 04] ------

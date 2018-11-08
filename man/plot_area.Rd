@@ -7,10 +7,10 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "sq", scale = "p", round = TRUE,
-  sum_w = 0.1, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
+  sum_w = 0.08, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
   f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
   arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
-  brd_dis = 0.06, title_lbl = txt$scen.lbl, lbl_txt = txt,
+  brd_dis = 0.06, lbl_txt = txt, title_lbl = txt$scen.lbl,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
 }
 \arguments{
@@ -84,7 +84,7 @@ are rounded to integers. Default: \code{round = TRUE}.}
 \item{sum_w}{Border width of 2 perspective summaries
 (on top and left borders) of main area as a proportion of area size
 (i.e., in range \code{0 <= sum_w <= 1}).
-Default: \code{sum_w = .10}.
+Default: \code{sum_w = .08}.
 Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
 setting \code{sum_w = 1} scales summaries to same size as main areas.}
 
@@ -153,11 +153,11 @@ Default: \code{brd_dis = .06}.
 Note: Adjust to avoid overlapping labels.
 Negative values show links outside of main area.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
-
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
+
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen.lbl}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -239,10 +239,14 @@ plot_area(area = "sq")  # main area as square (by scaling x-values)
 plot_area(area = "no")  # rectangular main area (using full plotting region)
 
 # scale (matters for small N):
-plot_area(N = 9, by = "cddc", p_split = "v", scale = "p")  # scaled by prob (default)
-plot_area(N = 9, by = "cddc", p_split = "v", scale = "f")  # scaled by freq (for small N)
-plot_area(N = 8, by = "cdac", p_split = "h", scale = "p")  # scaled by prob (default)
-plot_area(N = 8, by = "cdac", p_split = "h", scale = "f")  # scaled by freq (for small N)
+plot_area(N = 5, prev = .5, sens = .8, spec = .6,
+          by = "cddc", p_split = "v", scale = "p", p_lbl = "def")  # scaled by prob (default)
+plot_area(N = 5, prev = .5, sens = .8, spec = .6,
+          by = "cddc", p_split = "v", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
+plot_area(N = 4, prev = .4, sens = .8, spec = .6,
+          by = "cdac", p_split = "h", scale = "p", p_lbl = "def")  # scaled by prob (default)
+plot_area(N = 4, prev = .4, sens = .8, spec = .6,
+          by = "cdac", p_split = "h", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
 
 # gaps (sensible range: 0--.10):
 plot_area(gaps = NA)           # use default gaps (based on p_split)
@@ -274,9 +278,10 @@ plot_area(f_lwd = .5)  # thinner lines
 plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 
 # sum_w:
-plot_area(sum_w = .1)  # default (showing top and left freq panels & labels)
-plot_area(sum_w =  0)  # remove top and left freq panels
-plot_area(sum_w =  1)  # top and left freq panels are scaled to size of main areas
+plot_area(sum_w = .08)  # default (showing top and left freq panels & labels)
+plot_area(sum_w =  0)   # remove top and left freq panels
+plot_area(sum_w =  1,   # top and left freq panels are scaled to size of main areas
+          col_pal = pal_org)
 
 ## Plain plot versions:
 plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)

@@ -6,9 +6,9 @@
 \usage{
 plot_bar(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "all", dir = 1,
-  scale = "f", round = TRUE, f_lbl = "num", f_lwd = 0.001,
-  lbl_txt = txt, col_pal = pal, show_freq = TRUE, show_prob = TRUE,
-  show_accu = TRUE, w_acc = 0.5, ...)
+  scale = "f", round = TRUE, f_lbl = "num", f_lwd = 1, lty = 0,
+  lbl_txt = txt, title_lbl = txt$scen.lbl, col_pal = pal,
+  mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -61,7 +61,8 @@ Options:
 by current frequencies (\code{scale = "f"}) or
 by exact probabilities (\code{scale = "p"}).
 Default: \code{scale = "f"}.
-When \code{round = FALSE}, both settings yield the same bar heights.}
+For large population sizes \code{\link{N}} and
+when \code{round = FALSE}, both settings yield the same bar heights.}
 
 \item{round}{Boolean option specifying whether computed frequencies
 are to be rounded to integers.
@@ -79,31 +80,24 @@ Default: \code{round = TRUE}.}
 \item{f_lwd}{Line width of frequency box (border).
 Values of \code{NA/NULL/0} set \code{lwd} to
 invisible \code{tiny_lwd <- .001} and \code{lty <- 0} (\code{"blank"}).
-Default: \code{f_lwd = 0}.}
+Default: \code{f_lwd = 1}.}
+
+\item{lty}{Line type of frequency box (border).
+Values of \code{NA/NULL/0} set \code{lty} to
+\code{lty <- 0}.
+Default: \code{lty = 0} (i.e., no line).}
 
 \item{lbl_txt}{Current text information (for labels, titles, etc.).
 Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).}
 
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen.lbl}.}
+
 \item{col_pal}{Current color palette.
 Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).}
 
-\item{show_freq}{Boolean option for showing essential frequencies
-(i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
-\code{\link{cr}}) on the margin of the plot.
-Default: \code{show_freq = TRUE}.}
-
-\item{show_prob}{Boolean option for showing essential probabilities
-(e.g., \code{\link{prev}}, \code{\link{sens}}, and
-\code{\link{spec}}) on the margin of the plot.
-Default: \code{show_prob = TRUE}.}
-
-\item{show_accu}{Boolean option for showing current
-accuracy metrics \code{\link{accu}} on the margin of the plot.
-Default: \code{show_accu = TRUE}.}
-
-\item{w_acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w_acc = .50}.}
+\item{mar_notes}{Boolean option for showing margin notes.
+Default: \code{mar_notes = TRUE}.}
 
 \item{...}{Other (graphical) parameters
 (e.g., \code{cex}, \code{lwd}, ...).}

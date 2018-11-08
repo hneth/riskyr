@@ -1,15 +1,9 @@
 ## plot_curve.R | riskyr
-## 2018 10 20
+## 2018 11 07
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
 ## -----------------------------------------------
-
-## Utility function:
-## add_legend() moved to comp_util.R
-
-## Plot PV curves: PPV and NPV as functions of prevalence
-## (using only necessary arguments with good defaults):
 
 ## plot_curve: Documentation ----------
 
@@ -77,11 +71,22 @@
 #' to a logarithmic x-axis.
 #' Default: \code{log_scale = FALSE}.
 #'
+#' @param lbl_txt  Labels and text elements.
+#' Default: \code{lbl_txt = \link{txt}}.
+#'
 #' @param title_lbl  Main plot title.
 #' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
 #'
-#' @param lbl_txt  Labels and text elements.
-#' Default: \code{lbl_txt = \link{txt}}.
+#' @param p_lbl  Type of label for shown probability values,
+#' with the following options:
+#'   \enumerate{
+#'   \item \code{"abb"}: show abbreviated probability names;
+#'   \item \code{"def"}: show abbreviated probability names and values (default);
+#'   \item \code{"nam"}: show only probability names (as specified in code);
+#'   \item \code{"num"}: show only numeric probability values;
+#'   \item \code{"namnum"}: show names and numeric probability values;
+#'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
+#'   }
 #'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -97,18 +102,18 @@
 #'
 #' @examples
 #' # Basics:
-#' plot_curve()                     # => default plot: what = ("prev", "PPV", "NPV")
-#' plot_curve(show_points = FALSE)  # => default plot without points
-#' plot_curve(prev = .2, sens = .8, spec = .7, uc = .1)  # => 10% uncertainty range
+#' plot_curve()                     # default plot: what = ("prev", "PPV", "NPV")
+#' plot_curve(show_points = FALSE)  # default plot without points
+#' plot_curve(prev = .2, sens = .8, spec = .7, uc = .1)  # 10% uncertainty range
 #'
 #' # All curves:
-#' plot_curve(what = "all") # => all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-#' plot_curve(what = "all", show_points = FALSE)  # => all curves, no points
+#' plot_curve(what = "all") # all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
+#' plot_curve(what = "all", show_points = FALSE)  # all curves, no points
 #'
 #' # Selected curves:
-#' plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
-#' plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # => prev, PPV, NPV, and acc
-#' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
+#' plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
+#' plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # prev, PPV, NPV, and acc
+#' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and acc
 #'
 #' # Visualizing uncertainty (uc as percentage range):
 #' plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
@@ -117,11 +122,17 @@
 #'            uc = .10)  # => all with a 10% uncertainty range
 #'
 #' # X-axis as linear vs. log scale:
-#' plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
-#' plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)   # => log scale
+#' plot_curve(prev = .01, sens = .9, spec = .8)                     # linear scale
+#' plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)   # log scale
 #'
-#' plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
-#' plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # => log scale
+#' plot_curve(prev = .0001, sens = .7, spec = .6)                   # linear scale
+#' plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # log scale
+#'
+#' # Probability labels:
+#' plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
+#' plot_curve(p_lbl = "nam", what = "all")     # names only
+#' plot_curve(p_lbl = "num", what = "all")     # numeric values only
+#' plot_curve(p_lbl = "namnum", what = "all")  # names and values
 #'
 #' # Text and color settings:
 #' plot_curve(title_lbl = "Testing tiny text labels", cex_lbl = .60)
@@ -161,18 +172,23 @@
 plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,
-                       ## DVs:
+
+                       # DVs:
                        what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod", "all".
-                       ## Options:
+
+                       # Options:
                        what_col = pal,      # colors for what.
                        uc = .00,            # Uncertainty range (as a percentage around current prev, sens, and spec values)
                        show_points = TRUE,  # show points at current prev?
                        log_scale = FALSE,   # x-axis on log scale?
+
                        # Text and color:
-                       title_lbl = NA,     # plot title
                        lbl_txt = txt,      # labels and text elements
+                       title_lbl = NA,     # plot title
+                       p_lbl = "def",      # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
                        cex_lbl = .85,      # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,      # color palette
+
                        # Generic options:
                        mar_notes = TRUE,   # show margin notes?
                        ...                 # other (graphical) parameters
@@ -202,16 +218,28 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.prob from scratch based on current parameters (N and probabilities):
-    # cur.prob <- comp_prob(prev = prev, sens = sens, spec = spec, fart = fart)  # compute prob from scratch
+    ## (b) Compute LOCAL [freq and] prob based on current parameters (N and probabilities):
+    # freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
+    prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
 
     ## Compute and assign current PVs:
-    cur.PPV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
-    cur.NPV <- comp_NPV(prev, sens, spec)  # compute NPV from probabilities
+    # cur.PPV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
+    # cur.NPV <- comp_NPV(prev, sens, spec)  # compute NPV from probabilities
+
+    ## Use current PVs of prob:
+    cur.PPV <- prob$PPV  # use PPV from prob
+    cur.NPV <- prob$NPV  # use NPV from prob
 
   } else {
 
     ## (2) NO valid set of probabilities is provided:
+
+    message("No valid set of probabilities provided. Using global prob to plot curves.")
+
+    ## Use current values of prob:
+    prev <- prob$prev
+    sens <- prob$sens
+    spec <- prob$spec
 
     ## Use current PVs of prob:
     cur.PPV <- prob$PPV  # use PPV from prob
@@ -219,11 +247,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   }
 
-  ## (1) Set some (currently fixed) parameters: ----------
+  ## (1) Additional parameters (currently fixed): ----------
 
   x <- NULL  # "nulling out" to avoid NOTE (no visible binding for global variable ‘x’) in R CMD check!
 
-  lbl_digits <- 2  # n_digits to which numeric values (PPV, NPV, ppod, acc) are rounded
+  p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
+  lbl_digits <- 2     # n_digits to which numeric probability values (PPV, NPV, ppod, acc) are rounded
 
   ## Set x-value range for plotting curves:
   eps <- 10^-6  # some very small number
@@ -429,8 +458,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       }
 
       ## 3. label:
-      prev.lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
-
+      # prev.lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
+      prev.lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
         if ((prev < .50) | !(prev > 1 - h.shift)) {
@@ -508,7 +537,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.PPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppv)  # PPV point
 
       ## 3. label:
-      PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV, n_digits = lbl_digits), "%")  # PPV label
+      # PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV, n_digits = lbl_digits), "%")  # PPV label
+      PPV.lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.PPV + v.shift,
@@ -577,7 +607,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.NPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.npv)  # NPV point
 
       ## 3. label:
-      NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV, n_digits = lbl_digits), "%")  # NPV label
+      # NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV, n_digits = lbl_digits), "%")  # NPV label
+      NPV.lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if (cur.NPV > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.NPV + v.shift,
@@ -597,8 +628,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("ppod" %in% what) {
 
     ## 0. parameters:
-    cur.ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
-    lty.ppod <- 1                            # ppod line type
+    # cur.ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
+    cur.ppod <- prob$ppod                      # get ppod from prob
+    lty.ppod <- 1                              # ppod line type
 
     ## color:
     if (length(what_col) == length(what)) { # a color vector was specified:
@@ -647,7 +679,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.ppod, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppod)  # ppod point
 
       ## 3. label:
-      ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod, n_digits = lbl_digits), "%")  # ppod label
+      # ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod, n_digits = lbl_digits), "%")  # ppod label
+      ppod.lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if (cur.ppod > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.ppod + v.shift,
@@ -666,8 +699,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("acc" %in% what) {
 
     ## 0. parameters:
-    cur.acc <- comp_acc(prev, sens, spec)   # compute current acc
-    lty.acc <- 1                            # acc line type
+    # cur.acc <- comp_acc(prev, sens, spec)  # compute current acc
+    cur.acc <- prob$acc                      # get acc from prob
+    lty.acc <- 1                             # acc line type
 
     ## color:
     if (length(what_col) == length(what)) { # a color vector was specified:
@@ -715,7 +749,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       points(x = prev, y = cur.acc, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.acc)  # acc point
 
       ## 3. label:
-      acc.lbl <- paste0("acc = ", as_pc(cur.acc, n_digits = lbl_digits), "%")  # acc label
+      # acc.lbl <- paste0("acc = ", as_pc(cur.acc, n_digits = lbl_digits), "%")  # acc label
+      acc.lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if (cur.acc > .75 | (prev < h.shift)) {
         text(x = prev + h.shift, y = cur.acc + v.shift,
@@ -732,11 +767,24 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (5) Title: ----------
 
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # main plot title
+  # Define parts:
+  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
-  cur_title_lbl <- paste0(title_lbl, "Probability curves by prevalence") #, "\n", cur.sens.spec.lbl)
 
-  title(cur_title_lbl, adj = 0.0, line = 1.0, font.main = 1) # (left, raised, normal font)
+  if (title_lbl == "") {  # if title has been set to "":
+    type_lbl <- ""        # assume that no subtitle is desired either
+  } else {
+    type_lbl <- paste0("Probability curves by prevalence") #, "\n", cur.sens.spec.lbl)
+  }
+
+  # Compose label:
+  cur_title_lbl <- paste0(title_lbl, type_lbl)
+
+  # Plot title:
+  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+
+
 
   ## (6) Margin notes: ----------
 
@@ -788,7 +836,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     }
 
-  } # if (mar_notes)...
+  } # if (mar_notes)
 
 
   ## (7) Legend: ----------
@@ -840,6 +888,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 # plot_curve(prev = .0001, sens = .7, spec = .6)                   # => linear scale
 # plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # => log scale
 #
+# ## Probability labels:
+# plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
+# plot_curve(p_lbl = "nam", what = "all")     # names only
+# plot_curve(p_lbl = "num", what = "all")     # numeric values only
+# plot_curve(p_lbl = "namnum", what = "all")  # names and values
+#
 # ## Text labels and colors:
 # plot_curve(title_lbl = "Testing smaller text labels", cex_lbl = .60)
 # plot_curve(title_lbl = "Testing specific colors", uc = .05,
@@ -876,12 +930,16 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 ## - Add option uc to show _ranges_ (polygons) to better visualize uncertainty.
 ## - Clean up code.  [2018 08 28]
+## - Compute and use local prob for all probability values
+## - Add p_lbl argument (to use label_prob helper)
 
 ## (+) ToDo: ----------
+
+## - adjust title
+## - use label_prob for labels of probability points
 
 ## - Add option to sample multiple points from given _prob_ distributions.
 ## - Add more options: ppod, accu, etc.
 ## - fine-tune positions of labels and legend (on linear vs. log scale)
-## - pimp plot (titles, axes, grid, colors, transparency)
 
 ## eof. ------------------------------------------
