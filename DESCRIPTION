@@ -61,4 +61,4 @@ LazyData: true
 License: GPL-2 | GPL-3
 BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
