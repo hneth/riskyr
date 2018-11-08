@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 11 07
+## 2018 11 08
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
