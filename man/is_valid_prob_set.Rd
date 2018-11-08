@@ -98,9 +98,10 @@ is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement ra
 }
 \seealso{
 \code{\link{is_valid_prob_pair}} verifies that probability pairs are complements;
+\code{\link{is_prob}} verifies probabilities;
+\code{\link{prob}} contains current probability information;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
-\code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;

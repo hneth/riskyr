@@ -9,7 +9,7 @@
 ## (D) Plotting functions (moved to plot_util.R)
 
 
-## (A) Verification functions: -------------------
+## (A) Verification functions: ----------
 
 ## 1. is_prob               (exported)
 ## 2. is_perc               (exported)
@@ -18,11 +18,11 @@
 ## +. is_suff_freq_set
 ## 5. is_complement         (exported)
 ## 6. is_extreme_prob_set   (exported)
-## 7. is_valid_prob_pair
+## 7. is_valid_prob_pair    (exported)
 ## 8. is_valid_prob_set     (exported)
 ## 9. is_valid_prob_triple  [deprecated]
 
-## is_prob: Verify that input is a probability ------------------
+## is_prob: Verify that input is a probability ----------
 
 #' Verify that input is a probability (numeric value from 0 to 1).
 #'
@@ -910,7 +910,7 @@ is_extreme_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
@@ -1040,9 +1040,10 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #'
 #' @seealso
 #' \code{\link{is_valid_prob_pair}} verifies that probability pairs are complements;
+#' \code{\link{is_prob}} verifies probabilities;
+#' \code{\link{prob}} contains current probability information;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
