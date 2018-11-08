@@ -33,4 +33,7 @@ are summarized by default.
 summary(scenarios$n4)
 
 }
+\seealso{
+Other summary functions: \code{\link{as.table.riskyr}}
+}
 \concept{summary functions}

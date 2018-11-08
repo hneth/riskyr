@@ -969,9 +969,27 @@ nice_tab <- function(smr, space = 2) {  # TODO: Give object class summary.
 }
 
 
-## 3c. table.riskyr method: --------------------
+## 3c. as.table.riskyr method: --------------------
 ## Takes a riskyr object and prints out a nice table:
-table.riskyr <- function(x, sep = " = ", space = 2) {
+
+#' Create table of risk information.
+#'
+#' \code{as.table.riskyr} provides a \code{as.table} method for objects of class "riskyr" to allow for readable output.
+#'
+#' @format A "riskyr" object.
+#'
+#' @param x An object of class "riskyr", usually a result of a call to \code{riskyr}.
+#'
+#' @param sep By which character should the entries be separated from the labels? (default " = ").
+#'
+#' @examples
+#' table(scenarios$n4)
+#'
+#' @family summary functions
+#'
+#' @export
+
+as.table.riskyr <- function(x, sep = " = ") {
 
   tab <- riskyr_table(x)  # convert riskyr to table.
 
@@ -981,7 +999,7 @@ table.riskyr <- function(x, sep = " = ", space = 2) {
   out <- matrix(paste0(lbl, sep, nums), nrow = 5, ncol = 5)
   out[out == sep] <- ""  # replace empty cells.
 
-  class(out) <- "table.riskyr"
+  class(out) <- c("table.riskyr")
 
   return(out)
 
@@ -1001,6 +1019,24 @@ table.riskyr <- function(x, sep = " = ", space = 2) {
 #
 
 ## 3d. print.table.riskyr method: ----------------
+
+#' Printing tabular risk information.
+#'
+#' \code{print.table.riskyr} provides a \code{print} method for objects of class "table.riskyr".
+#'
+#' @format Printed output of a "table.riskyr" object.
+#'
+#' @param x An object of class "table.riskyr", usually a result of a call to \code{table.riskyr}.
+#'
+#' @param space How much space should be included left and right of the table entries?
+#'
+#' @examples
+#' table(scenarios$n4)
+#'
+#' @family print functions
+#'
+#' @export
+
 print.table.riskyr <- function(x, space = 2) {
   nice_tab(x, space = space)
 }
