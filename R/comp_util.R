@@ -20,7 +20,7 @@
 ## 6. is_extreme_prob_set   (exported)
 ## 7. is_valid_prob_pair    (exported)
 ## 8. is_valid_prob_set     (exported)
-## 9. is_valid_prob_triple  [deprecated]
+## 9. is_valid_prob_triple  [exported, but deprecated]
 
 ## is_prob: Verify that input is a probability ----------
 
@@ -1157,7 +1157,7 @@ is_valid_prob_set <- function(prev,
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability.
 #'
-#'
+#' @export
 
 is_valid_prob_triple <- function(prev, sens, spec) {
 
@@ -1391,8 +1391,8 @@ makeTransparent = function(..., alpha = .50) {
 
 ## - Moved graphical help functions to file "plot_util.R" [2018 08 27].
 ## - Clean up code                                        [2018 09 22].
-## - Export most utility functions,
-##   as they are used in many examples                    [2018 11 08].
+## - Export utility functions again,
+##   as they are used in some examples                    [2018 11 08].
 
 
 ## (+) ToDo: ----------
