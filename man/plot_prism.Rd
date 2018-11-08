@@ -9,7 +9,7 @@ plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   area = "no", scale = "p", round = TRUE, f_lbl = "def",
   f_lbl_sep = " = ", f_lwd = 0, p_lbl = "mix", arr_c = NA,
   lbl_txt = txt, title_lbl = txt$scen.lbl, cex_lbl = 0.9,
-  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
+  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -133,6 +133,8 @@ Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
 }
 \value{
 Nothing (NULL).
@@ -165,16 +167,17 @@ plot_prism(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
-## Custom text and color settings:
-plot_prism(col = "gold")  # overwrite other colors
+## Custom color and text settings:
+plot_prism(col = "snow", f_lwd = .5, lty = 2, lwd = .5)  # custom fbox color and probability links
+
 my_txt <- init_txt(scen.lbl = "",
                    cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
                    dec.lbl = "Test", dec.pos.lbl = "pos", dec.neg.lbl = "neg",
                    acc.lbl = "Accu", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
                    hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
 my_pal <- init_pal(col.N = rgb(0, 169, 224, max = 255), # seeblau.4 (non-transparent)
-                   col.true = "grey", col.false = "darkgrey",
-                   col.pos =  "grey", col.neg = "darkgrey",
+                   col.true = "lightgrey", col.false = "darkgrey",
+                   col.pos =  "lightgrey", col.neg = "darkgrey",
                    col.hi = "gold1", col.mi = "firebrick1",
                    col.fa = "firebrick2", col.cr = "orange1")
 plot_prism(lbl_txt = my_txt, f_lbl = "namnum", f_lbl_sep = ":\\n",
