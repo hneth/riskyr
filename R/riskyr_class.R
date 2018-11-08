@@ -880,137 +880,46 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 riskyr_table <- function(obj) {
 
 
+  ## Note:  this interface is specific to the diagnostic case (alias: riskyr.diagnostic):
+
+  ## TODO: Decide on flexibility!
+  ## Matrix for condition-decision case:
+  ## This one should probably not be flexible to have clear variable names for internal use:
+  # cnd_dec_var <- matrix(c("hi", "mi", "cond.true", "sens", "FPR",
+  #                         "fa", "cr", "cond.false", "FNR", "spec",
+  #                         "dec.pos", "dec.neg", "N", "ppod", "pned",  # pned: proportion negative decisions.
+  #                         "PPV", "FOR", "prev", "acc", "",
+  #                         "FDR", "NPV", "nprev", "", ""),
+  #                       ## TODO: Find good variable names for the missing quantities.
+  #                       nrow = 5, ncol = 5)
+  ## Variable names are commented out for current purposes.
+
+  ## for user-defined display an additional flexible matrix may be used:
+  cnd_dec_lab <- matrix(c(obj$hi.lbl, obj$mi.lbl, obj$cond.true.lbl, "Sensitivity", "False positive rate",
+                          obj$fa.lbl, obj$cr.lbl, obj$cond.false.lbl, "False negative rate", "Specificity",
+                          obj$dec.pos.lbl, obj$dec.neg.lbl, "N", "Proportion of positive decisions",
+                          "Proportion of negative decisions",
+                          "PPV", "FOR", "Prevalence", "Accuracy", "",
+                          "FDR", "NPV", "1-prev", "", ""),
+                        nrow = 5, ncol = 5)
+
+  ## Basic: dim 1 (cnd) and dim 2 (dec)
+  num_mat1 <- matrix(c(hi, mi, hi+mi, sens, NA,
+                       fa, cr, fa+cr, fart, spec,
+                       hi+fa, mi+cr, N, ppod, NA,
+                       NA, NA, prev, NA, NA,
+                       NA, NA, NA, NA, NA,
+                       NA, NA, NA, NA, NA),
+                     nrow = 5, ncol = 5
+  )
+
+  ## TODO: For now limit to 1st and 2nd dimension!
+
+  class(object) <- c("riskyr.tabular")
 
 }
 
 
-## Note:  this interface is specific to the diagnostic case (alias: riskyr.diagnostic):
-
-
-
-
-## TODO: Decide on flexibility!
-## Matrix for condition-decision case:
-## This one should probably not be flexible to have clear variable names for internal use:
-cnd_dec_var <- matrix(c("hi", "mi", "cond.true", "sens", "FPR",
-                        "fa", "cr", "cond.false", "FNR", "spec",
-                        "dec.pos", "dec.neg", "N", "ppod", "pned",  # pned: proportion negative decisions.
-                        "PPV", "FOR", "prev", "acc", "",
-                        "FDR", "NPV", "nprev", "", ""),
-                      ## TODO: Find good variable names for the missing quantities.
-                      nrow = 5, ncol = 5)
-
-## for user-defined display an additional flexible matrix may be used:
-cnd_dec_lab <- matrix(c(hi.lbl, mi.lbl, cond.true.lbl, "sens", "FPR",
-                        fa.lbl, cr.lbl, cond.false.lbl, "FNR", "spec",
-                        dec.pos.lbl, dec.neg.lbl, "N", "ppod", "1-ppod",
-                        "PPV", "FOR", "prev", "acc", "",
-                        "FDR", "NPV", "1-prev", "", ""),
-                      nrow = 5, ncol = 5)
-
-
-## (0): Initialize some stuff: ------
-## Basic: dim 1 (cnd) and dim 2 (dec)
-num_mat1 <- matrix(c(hi, mi, hi+mi, sens, NA,
-                     fa, cr, fa+cr, fart, spec,
-                     hi+fa, mi+cr, N, ppod, NA,
-                     NA, NA, prev, NA, NA,
-                     NA, NA, NA, NA, NA,
-                     NA, NA, NA, NA, NA),
-                   nrow = 5, ncol = 5
-)
-
-## TODO: Provide inputs for composite variables!
-
-
-numeric1 <- calc_tab(num_mat1)  # calculate the table object (maybe use try catch?)
-
-## TODO: In which order to calculate the tables?
-
-## Calculate dim1 (cnd) and dim 3 (acc) --------------------------
-num_mat2 <- matrix(NA,
-                   nrow = 5, ncol = 5
-)
-#num_mat2[4, 3] <- numeric1[[1]][4, 4]  # enter accuracy instead of ppod.
-num_mat2[3, 4] <- numeric1[[1]][3, 4]  # enter prevalence (needed, so that the table is specified!).
-num_mat2[4, 1:2] <- diag(numeric1[[1]][c(4, 5), c(1, 2)])  # enter sens and spec (note, that this reverses the columns!).
-num_mat2[3, 3] <- numeric1[[1]][3, 3]  # enter N; CAUTION: may not always work.
-
-numeric2 <- calc_tab(num_mat2)  # calculate dim 3 (acc).
-
-## Important: Columnns need to be reveactually the reversal is sufficient to do the trick!
-
-cnd_acc_var <- matrix(c("hi", "mi", "cond.true", "sens", "FPR",
-                        "cr", "fa", "cond.false", "spec", "FNR",
-                        "cor", "inc", "N", "acc", "err",  # pned: proportion negative decisions.
-                        "hi.cor", "mi.err", "prev", "ppod", "",
-                        "cr.cor", "fa.err", "nprev", "", ""),
-                      ## TODO: Find good variable names for the missing quantities.
-                      nrow = 5, ncol = 5)
-
-## TODO (in calc tab) name table types.
-
-## Calculate dim 2 (dec) and dim 3 (acc):
-num_mat3 <- matrix(NA,
-                   nrow = 5, ncol = 5
-)
-
-tnum1 <- t(numeric1[[1]])  # transpose whole table!
-t(cnd_dec_var)  # for testing: transposed variables.
-
-num_mat3[3, 4] <- tnum1[3, 4]  # enter ppod (needed, so that the table is specified!).
-num_mat3[4, 1:2] <- diag(tnum1[c(4, 5), c(1, 2)])  # enter PPV and NPV (note, that this reverses the columns!).
-num_mat3[3, 3] <- tnum1[3, 3]  # enter N; CAUTION: may not always work.
-
-numeric3 <- calc_tab(num_mat3)  # calculate dim 3 (acc).
-
-dec_acc_var <- matrix(c("hi", "fa", "dec.yes", "PPV", "FOR",
-                        "cr", "mi", "dec.no", "NPV", "FDR",
-                        "cor", "inc", "N", "acc", "err",  # pned: proportion negative decisions.
-                        "hi.cor", "fa.err", "ppod", "prev", "",
-                        "cr.cor", "mi.err", "pned", "", ""),
-                      ## TODO: Find good variable names for the missing quantities.
-                      nrow = 5, ncol = 5)
-
-
-## TODO: Decide where to put numeric and related label info.  Current idea:
-## - one list for each dimension (numeric, vars, labels)
-## - global dictionary, which dimension is which? (alternatively: by order)
-## - plus: global attributes; including colors for specific variables (color scheme); potentially labels
-
-## Bind into one object:
-object <- list(numeric = list(
-  dim1_2 = numeric1,
-  dim1_3 = numeric2,
-  dim2_3 = numeric3
-),  # slot for all numeric content (how to split for different types?)
-
-## TODO: Use specific or generic names in the object?
-## I currently seem to have solved a rather generic case...
-vars = list(  # slot for variable names to access elements
-  cnd_dec_var = cnd_dec_var,
-  cnd_acc_var = cnd_acc_var,
-  dec_acc_var = dec_acc_var),
-global_labels = list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
-                     popu.lbl = popu.lbl, cond.lbl = cond.lbl),  # labels not pertaining to cells.
-source = list(scen.src = scen.src, scen.apa = scen.apa)  # source info.
-)
-
-# object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
-#                popu.lbl = popu.lbl, cond.lbl = cond.lbl,
-#                cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
-#                dec.lbl = dec.lbl, dec.pos.lbl = dec.pos.lbl, dec.neg.lbl = dec.neg.lbl,
-#                hi.lbl = hi.lbl, mi.lbl = mi.lbl, fa.lbl = fa.lbl, cr.lbl = cr.lbl,
-#                prev = probs[1],
-#                sens = probs[2],
-#                spec = probs[4], fart = probs[5],
-#                N = N,
-#                hi = freqs$hi, mi = freqs$mi,
-#                fa = freqs$fa, cr = freqs$cr,
-#                scen.src = scen.src, scen.apa = scen.apa)
-#
-## Add class riskyr:
-class(object) <- c("riskyr.diagnostic")
 
 return(object)
 
