@@ -11,7 +11,8 @@ plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
   f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
   p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
   "yellow"), brd_dis = 0.3, lbl_txt = txt, title_lbl = txt$scen.lbl,
-  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
+  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -169,6 +170,8 @@ Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
 }
 \value{
 Nothing (NULL).
