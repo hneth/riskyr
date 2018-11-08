@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 10 26
+## 2018 11 08
 ## Final functions and start-up settings:
 ## -----------------------------------------------
 
@@ -72,10 +72,18 @@ start_riskyr <- function(...) {
 
 .onAttach <- function(libname, pkgname) {
 
+
+
   ## Welcome message: ------
-  packageStartupMessage("Welcome to riskyr!")
+
+  pkg_version <- utils::packageVersion("riskyr", lib.loc = NULL)
+  # welcome_message <- paste0("Welcome to riskyr (v", pkg_version, ")!")
+  welcome_message <- paste0("Welcome to riskyr!")
+
+  packageStartupMessage(welcome_message)
 
   ## User guidance: ------
+
   # packageStartupMessage("riskyr.guide() opens user guides.")
   # packageStartupMessage("citation('riskyr') provides citation info.")
 
@@ -86,8 +94,11 @@ start_riskyr <- function(...) {
   # if (dice == 0) {packageStartupMessage("citation('riskyr') provides citation info.")}
 
   if (dice == 1) {
+    pkg_version <- utils::packageVersion("riskyr", lib.loc = NULL)
+    pkg_message <- paste0("Running riskyr (v", pkg_version, ")...")
+
     packageStartupMessage(" ")
-    packageStartupMessage("Running riskyr (v0.1.927)...")
+    packageStartupMessage(pkg_message)
     packageStartupMessage(" ")
   }
 
