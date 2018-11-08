@@ -17,7 +17,7 @@
 ## 4. is_suff_prob_set
 ## +. is_suff_freq_set
 ## 5. is_complement
-## 6. is_extreme_prob_set
+## 6. is_extreme_prob_set   (exported)
 ## 7. is_valid_prob_pair
 ## 8. is_valid_prob_set     (exported)
 ## 9. is_valid_prob_triple  [deprecated]
@@ -687,7 +687,7 @@ is_complement <- function(p1, p2, tol = .01) {
 #' \code{\link{as_pc}} displays a probability as a percentage;
 #' \code{\link{as_pb}} displays a percentage as probability
 #'
-#'
+#' @export
 
 is_extreme_prob_set <- function(prev,
                                 sens = NA, mirt = NA,
