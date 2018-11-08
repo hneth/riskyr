@@ -686,9 +686,11 @@ name_prob <- function(freq1, freq2) {
 ## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
-                             ## Text information:
+
+                             # Current information:
                              cur_txt = txt,       # current txt
-                             ## Optional arguments:
+
+                             # Optional arguments:
                              suffix = "",         # suffix
                              # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                              # offset = 0.5,      # offset, etc.
@@ -734,12 +736,15 @@ plot_ftype_label <- function(fname,               # name of a known freq
 ## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
 plot_freq_label <- function(fname,                # name of a known freq
                             x, y,                 # coordinates
-                            ## Optional arguments:
+
+                            # Current information:
+                            cur_freq = freq,      # current freq
+                            cur_txt = txt,        # current txt
+
+                            # Optional arguments:
                             lbl_type = "nam",     # lbl_type (of label_freq)
                             lbl_sep = " = ",      # lbl_sep  (of label_freq)
                             suffix = "",          # suffix
-                            cur_freq = freq,      # current freq
-                            cur_txt = txt,        # current txt
                             # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                             # offset = 0.5,       # offset, etc.
                             # col = pal["txt"],   # default color
@@ -793,13 +798,15 @@ plot_freq_label <- function(fname,                # name of a known freq
 
 plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
                       box_lx, box_ly,   # lengths of box (width and height)
-                      ## Text labels:
+
+                      # Text labels:
                       ftype = NA,        # type of freq/box (to be shown as title below box)
                       show_freq = TRUE,  # option to show/hide frequency labels in boxes
                       lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"/"num"/"namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
                       fnum,              # frequency (as number).  ToDo: Derive fnum from ftype and/OR name!
-                      ## Text and color:
+
+                      # Text and color:
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
                       ...  # other (graphical) parameters: lwd, lty, cex, density, etc.
@@ -945,22 +952,26 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
 plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
-                      ## Text labels:
+
+                      # Text labels:
                       lbl     = NA,       # main label (in middle)
                       lbl_top = NA,       # title (at top)
                       lbl_bot = NA,       # caption (at bottom)
-                      ## Color options:
+
+                      # Color options:
                       col_fill = grey(.95, .50),  # default fill color
                       col_brd = pal["brd"],       # default border color
                       col_txt = pal["txt"],       # default label color
-                      ## Shading options:
+
+                      # Shading options:
                       density = NULL,  # density of shading lines (per in)
                       angle = 45,      # angle of shading lines
                       ## Inputs: freq, text and color:
                       # cur_freq = freq,   # current freq
                       # cur_txt = txt,     # current txt
                       # cur_pal = pal,     # current color palette
-                      ## Other graphical parameters:
+
+                      # Other graphical parameters:
                       lty = 1,
                       lwd = 1,
                       cex = 1,
@@ -1069,6 +1080,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       lwd = 1,
                       cex = 1,
                       font = 1
+                      # ...
 ) {
 
   # Initialize:
@@ -1121,11 +1133,12 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             col_fill = f_col,
             # col_brd = cur_pal["brd"],       # default border color
             # col_txt = cur_pal["txt"],       # default label color
-            # Graphical parameters:
+            ## Graphical parameters:
             lty = lty,
             lwd = lwd,
             cex = cex,
             font = font
+            # ...
             )
 
 }
