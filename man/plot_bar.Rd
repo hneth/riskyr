@@ -100,7 +100,7 @@ Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).}
 Default: \code{mar_notes = TRUE}.}
 
 \item{...}{Other (graphical) parameters
-(e.g., \code{cex}, \code{lwd}, ...).}
+(e.g., \code{cex}, \code{font}, \code{lty}, etc.).}
 }
 \description{
 \code{plot_bar} draws bar charts that

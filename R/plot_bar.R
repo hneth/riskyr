@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 11 08
+## 2018 11 09
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -146,7 +146,7 @@
 #' Default: \code{mar_notes = TRUE}.
 #'
 #' @param ...  Other (graphical) parameters
-#' (e.g., \code{cex}, \code{lwd}, ...).
+#' (e.g., \code{cex}, \code{font}, \code{lty}, etc.).
 #'
 #'
 #' @examples
@@ -252,7 +252,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
                      # w_acc = .50,        # weight w for wacc (from 0 to 1)
 
-                     ...  # other (graphical) parameters: lwd, cex, ...
+                     ...  # other (graphical) parameters: cex, font, lty, etc.
 ) {
 
   ## (0) Handle arguments and deprecated arguments: ----------
