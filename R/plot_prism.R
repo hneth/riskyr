@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 08
+## 2018 11 09
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -1092,12 +1092,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   # NEW:
   row_4_boxes <- list(box_4_1, box_4_2)  # list of boxes (lists)
-  # plot_fbox_list(row_4_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes
 
   ## Plot ALL boxes at once:
   all_boxes <- c(row_1_boxes, row_2_boxes, row_3_boxes, row_4_boxes)
-  # plot_fbox_list(all_boxes, lbl_type = f_lbl, lbl_sep = ":\n", cex = cex_lbl, lwd = f_lwd, density = NA)  # plot list of boxes
 
+  # plot_fbox_list(all_boxes, lbl_type = f_lbl, lbl_sep = ":\n", cex = cex_lbl, lwd = f_lwd, density = NA)  # plot list of boxes
   plot_fbox_list(all_boxes,  # plot list of boxes
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep,
@@ -1191,7 +1190,6 @@ plot_prism <- function(prev = num$prev,    # probabilities
     plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl.pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
     plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl.pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
 
-
     ## OLDER default: show 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
 
     # # 2 default boxes:
@@ -1263,12 +1261,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## (7) Margins: ------
 
-
   if (mar_notes) {
 
     # Note:
     note_lbl <- ""  # initialize
-    if (area != "no") { # Note area and scale:
+    if ( (area != "no") && (scale == "f") ) { # Note area type and scaling by f:
       note_lbl <- label_note(area = area, scale = scale)
     }
 
@@ -1427,7 +1424,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
 
 
-## Done: [2018 11 07] ------
+## Done: [2018 11 08] ------
 
 ## (0) Design as function plot_prism (generalizing plot_fnet).
 
@@ -1459,6 +1456,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
 ## (6) Add x_lab_pos parameter and adjust x_lab and x_min
 ##     to control ftype labels on left.
+
+## (7) Allow ... to pass graphical parameters (to plot_link & plot_ftype_label, but NOT plot_fbox_list).
 
 
 ## ToDo: [2018 11 04] ------
