@@ -18,7 +18,7 @@ Motivation
 > Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)[1]
 
 <!-- Risk perception as representational effects: -->
-The issues addressed by `riskyr` are less of a *computational* and more of a *representational* nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of probabilities, the same information is often easy to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+The goals of `riskyr` are less of a *computational* and more of a *representational* nature, by addressing the expression in and translation between different formats of information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. We hope that interacting with and switching between different representations will boost the transparency and human understanding of risk-related information.
 
 <!-- Defining "risk": -->
 It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term *risk* typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
@@ -28,11 +28,12 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 1.  Effective training in risk literacy requires simple tools and transparent representations.
 
-2.  More specifically, it would be desirable to have a set of (computational and representational) tools that allow various calculations, translations (between formats), and a range of alternative views on the interplay between probabilities and frequencies.
+<!-- More specifically: -->
+1.  It is desirable to have a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies.
 
-3.  Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
+2.  Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
 
-To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs.
+Based on these assumptions, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.
 
 Installation
 ------------
@@ -112,9 +113,9 @@ Let us define a new `riskyr` scenario (called `hustosis`) with the information p
 
 ``` r
 hustosis <- riskyr(scen.lbl = "Example", 
-                   cond.lbl = "hustosis",
-                   dec.lbl = "screening test",
-                   popu.lbl = "representative sample", 
+                   cond.lbl = "Hustosis",
+                   dec.lbl = "Screening test",
+                   popu.lbl = "Sample", 
                    N = 1000, 
                    prev = .04, sens = .80, spec = (1 - .05)
                    )
@@ -130,9 +131,9 @@ To obtain a quick overview of key parameter values, we ask for the `summary` of 
 summary(hustosis)  # summarizes key parameter values: 
 #> Scenario:  Example 
 #> 
-#> Condition:  hustosis 
-#> Decision:  screening test 
-#> Population:  representative sample 
+#> Condition:  Hustosis 
+#> Decision:  Screening test 
+#> Population:  Sample 
 #> N =  1000 
 #> Source:  Source information 
 #> 
@@ -180,15 +181,15 @@ In case you are surprised by these answers, you are a good candidate for additio
 
 #### Creating a scenario from frequencies
 
-If we had been provided with 4 essential frequencies (of `hi`, `mi`, `fa`, and `cr`) instead of 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`), the same scenario can be defined as follows:
+Rather than defining our `hustosis` scenario by providing 3 essential probabilities (`prev`, `sens`, and `spec`), we could define the same scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and `cr`) as follows:
 
 ``` r
 hustosis_2 <- riskyr(scen.lbl = "Example", 
-                    cond.lbl = "hustosis",
-                    dec.lbl = "screening test",
-                    popu.lbl = "representative sample", 
-                    hi = 32, mi = 8, fa = 48, cr = 912
-                    )
+                     cond.lbl = "Hustosis",
+                     dec.lbl = "Screening test",
+                     popu.lbl = "Sample", 
+                     hi = 32, mi = 8, fa = 48, cr = 912
+                     )
 ```
 
 As we took the values of these frequencies from the `summary` of `hustosis`, the `hustosis_2` scenario should contain exactly the same information as `hustosis`:
@@ -208,6 +209,11 @@ A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` 
 
 ``` r
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
+
+## Using new functions:
+plot(hustosis, plot.type = "prism", by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")  
+plot(hustosis, plot.type = "area",  by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
+plot(hustosis, plot.type = "tab",   by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
 ```
 
 ![](inst/pix/README-ex1_tree-1.png)
@@ -343,6 +349,12 @@ A network diagram is a generalization of a tree diagram that simultaneously prov
 
 ``` r
 plot(s21) # plots a network diagram (by default):
+
+## Using newer functions:
+# s21$popu.lbl <- "Patients with symptoms taking PSA test"  # shorter popu.lbl
+# plot(s21, plot.type = "prism")
+# plot(s21, plot.type = "area")
+# plot(s21, plot.type = "tab")
 ```
 
 ![](inst/pix/README-ex2_fnet-1.png)
