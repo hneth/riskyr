@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 11 08
+## 2018 11 10
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -7,6 +7,7 @@
 ## (B) Beware of extreme cases
 ## (C) Conversion functions
 ## (D) Plotting functions (moved to plot_util.R)
+## (E) Text functions
 
 
 ## (A) Verification functions: ----------
@@ -1385,6 +1386,19 @@ makeTransparent = function(..., alpha = .50) {
 
 ## Note also: adjustcolor(col = "green", alpha.f = .50)
 
+
+## (E) Text functions: ----------
+
+capitalise_1st <- function(string) {
+  String <- ""
+  String <- paste0(toupper(substr(string, 1, 1)), substr(string, 2, nchar(string)))
+  return(String)
+}
+
+## Check:
+# capitalise_1st("the end.") # "The end."
+# capitalise_1st("")         # ""
+# capitalise_1st(123)        # "123"
 
 
 ## (*) Done: ----------
