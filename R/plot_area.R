@@ -1172,9 +1172,11 @@ plot_area <- function(prev = num$prev,    # probabilities
 
 
   ##   (+) Check: Mark 2 key points/checkpoints (per plot): ------
-  mark_key_points <- FALSE  # default
+  mark_key_points <- TRUE  # default
 
   if (mark_key_points) {
+
+   # +++ here now +++: ToDo: adjust point colors
 
     # (a) by condition:
 
@@ -1194,7 +1196,7 @@ plot_area <- function(prev = num$prev,    # probabilities
     }
 
     if (by == "cdac" && p_split == "h") {  # v04:
-      points(p_acc_hi * scale_x, (1 - acc + h_gap), pch = 0)     # key point p1: hi
+      points(p_acc_hi * scale_x, (1 - acc + h_gap), pch = 0)         # key point p1: hi
       points(((1 - p_err_fa + v_gap) * scale_x), (1 - acc), pch = 5) # key point p2: fa!
     }
 
@@ -1409,30 +1411,30 @@ plot_area <- function(prev = num$prev,    # probabilities
         # prev (horizontal, left, top): hi
         plot_line(0, prev_y, (prev * scale_x), prev_y,
                   arr_code = arr_c, lbl = label_prob("prev", cur_prob = prob, lbl_type = p_lbl),
-                  col.fill = p_col_1, col.txt = p_col_1,
-                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                  col_fill = p_col_1, col_txt = p_col_1,
+                  lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         # sens (vertical, left, top): hi
         plot_line(sens_x, (1 - sens + h_gap), sens_x, (1 + h_gap),
                   arr_code = arr_c, lbl = label_prob("sens", cur_prob = prob, lbl_type = p_lbl),
-                  col.fill = p_col_2, col.txt = p_col_2,
-                  srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                  col_fill = p_col_2, col_txt = p_col_2,
+                  srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         if (by_bot == "dc") { # v01:
 
           # spec (vertical, right, bottom): cr
           plot_line(spec_x, 0, spec_x, spec,
                     arr_code = arr_c, lbl = label_prob("spec", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         } else if (by_bot == "ac") { # v02:
 
           # spec (vertical, right, top): cr
           plot_line(spec_x, (1 - spec + h_gap), spec_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("spec", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         } # if (by_bot == etc.)
 
@@ -1448,27 +1450,27 @@ plot_area <- function(prev = num$prev,    # probabilities
           # ppod (vertical, left, top): hi
           plot_line(ppod_x, (1 - ppod + h_gap), ppod_x, (1 + h_gap),  # ppod
                     arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_1, col_txt = p_col_1,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
           # ppod_x <- ((0 - sum_w * .90) * scale_x)        # vertical (out left)
           # ppod_x <- ((1 + v_gap + brd_dis) * scale_x)    # vertical (out right)
           # plot_line(ppod_x, (1 - ppod + h_gap), ppod_x, (1 + h_gap),  # ppod
           #           arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
-          #           col.fill = "black", col.txt = "black",  # WAS: p_col_1
-          #           srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl)
+          #           col_fill = "black", col_txt = "black",  # WAS: p_col_1
+          #           srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl)
 
           # PPV (horizontal, left, top): hi
           plot_line(0, PPV_y, (PPV * scale_x), PPV_y,
                     arr_code = arr_c, lbl = label_prob("PPV", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_2, col.txt = p_col_2,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_2, col_txt = p_col_2,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
           # NPV (horizontal, right, bottom): cr
           plot_line(((1 - NPV + v_gap) * scale_x), NPV_y, ((1 + v_gap) * scale_x), NPV_y,
                     arr_code = arr_c, lbl = label_prob("NPV", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         } else if (by_bot == "ac") { # v04:
 
@@ -1480,20 +1482,20 @@ plot_area <- function(prev = num$prev,    # probabilities
           # acc (vertical, left, top): hi
           plot_line(acc_x, (1 - acc + h_gap), acc_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("acc", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_1, col_txt = p_col_1,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
           # p_acc_hi (horizontal, left, top): hi
           plot_line(0, acc_hi_y, (p_acc_hi * scale_x), acc_hi_y,
                     arr_code = arr_c, lbl = label_prob("acc-hi", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_2, col.txt = p_col_2,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_2, col_txt = p_col_2,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
           # p_err_fa (horizontal, right, bottom): fa!
           plot_line(((1 - p_err_fa + v_gap) * scale_x), err_fa_y, ((1 + v_gap) * scale_x), err_fa_y,
                     arr_code = arr_c, lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         } # if (by_bot == etc.)
 
@@ -1513,30 +1515,30 @@ plot_area <- function(prev = num$prev,    # probabilities
         # ppod (horizontal, left, top): hi
         plot_line(0, ppod_y, (ppod * scale_x), ppod_y,
                   arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
-                  col.fill = p_col_1, col.txt = p_col_1,
-                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                  col_fill = p_col_1, col_txt = p_col_1,
+                  lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         # PPV (vertical, left, top): hi
         plot_line(PPV_x, (1 - PPV + h_gap), PPV_x, (1 + h_gap),
                   arr_code = arr_c, lbl = label_prob("PPV", cur_prob = prob, lbl_type = p_lbl),
-                  col.fill = p_col_2, col.txt = p_col_2,
-                  srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                  col_fill = p_col_2, col_txt = p_col_2,
+                  srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         if (by_bot == "cd") { # v05:
 
           # NPV (vertical, right, bottom): cr
           plot_line(NPV_x, 0, NPV_x, NPV,
                     arr_code = arr_c, lbl = label_prob("NPV", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         } else if (by_bot == "ac") { # v06:
 
           # NPV (vertical, right, top): cr
           plot_line(NPV_x, (1 - NPV + h_gap), NPV_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("NPV", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         } # if (by_bot == etc.)
 
@@ -1552,20 +1554,20 @@ plot_area <- function(prev = num$prev,    # probabilities
           # prev (vertical, left, top): hi
           plot_line(prev_x, (1 - prev + h_gap), prev_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("prev", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_1, col_txt = p_col_1,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
           # sens (horizontal, left, top): hi
           plot_line(0, sens_y, (sens * scale_x), sens_y,
                     arr_code = arr_c, lbl = label_prob("sens", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_2, col.txt = p_col_2,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_2, col_txt = p_col_2,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
           # spec (horizontal, right, bottom): cr
           plot_line(((1 - spec + v_gap) * scale_x), spec_y, ((1 + v_gap) * scale_x), spec_y,
                     arr_code = arr_c, lbl = label_prob("spec", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         } else if (by_bot == "ac") { # v08:
 
@@ -1577,20 +1579,20 @@ plot_area <- function(prev = num$prev,    # probabilities
           # acc (vertical, left, top): hi
           plot_line(acc_x, (1 - acc + h_gap), acc_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("acc", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_1, col_txt = p_col_1,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
           # p_acc_hi (horizontal, left, top): hi
           plot_line(0, acc_hi_y, (p_acc_hi * scale_x), acc_hi_y,
                     arr_code = arr_c, lbl = label_prob("acc-hi", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_2, col.txt = p_col_2,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_2, col_txt = p_col_2,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
           # p_err_fa (horizontal, right, bottom): fa!
           plot_line(0, err_fa_y, (p_err_fa * scale_x), err_fa_y,
                     arr_code = arr_c, lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         } # if (by_bot == etc.)
 
@@ -1611,30 +1613,30 @@ plot_area <- function(prev = num$prev,    # probabilities
         # acc (horizontal, left, top): hi
         plot_line(0, acc_y, (acc * scale_x), acc_y,
                   arr_code = arr_c, lbl = label_prob("acc", cur_prob = prob, lbl_type = p_lbl),
-                  col.fill = p_col_1, col.txt = p_col_1,
-                  lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                  col_fill = p_col_1, col_txt = p_col_1,
+                  lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         # p_acc_hi (vertical, left, top): hi
         plot_line(acc_hi_x, (1 - p_acc_hi + h_gap), acc_hi_x, (1 + h_gap),
                   arr_code = arr_c, lbl = label_prob("acc-hi", cur_prob = prob, lbl_type = p_lbl),
-                  col.fill = p_col_2, col.txt = p_col_2,
-                  srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                  col_fill = p_col_2, col_txt = p_col_2,
+                  srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         if (by_bot == "cd") { # v09:
 
           # p_err_fa (vertical, right, bottom): fa!
           plot_line(err_fa_x, 0, err_fa_x, p_err_fa,
                     arr_code = arr_c, lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         } else if (by_bot == "dc") { # v10:
 
           # p_err_fa (vertical, right, top): fa!
           plot_line(err_fa_x, (1 - p_err_fa + h_gap), err_fa_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
         } # if (by_bot == etc.)
 
@@ -1650,20 +1652,20 @@ plot_area <- function(prev = num$prev,    # probabilities
           # prev (vertical, left, top): hi
           plot_line(prev_x, (1 - prev + h_gap), prev_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("prev", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_1, col_txt = p_col_1,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
           # sens (horizontal, left, top): hi
           plot_line(0, sens_y, (sens * scale_x), sens_y,
                     arr_code = arr_c, lbl = label_prob("sens", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_2, col.txt = p_col_2,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_2, col_txt = p_col_2,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
           # spec (horizontal, left, bottom): cr
           plot_line(0, spec_y, (spec * scale_x), spec_y,
                     arr_code = arr_c, lbl = label_prob("spec", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         } else if (by_bot == "dc") { # v12:
 
@@ -1675,20 +1677,20 @@ plot_area <- function(prev = num$prev,    # probabilities
           # ppod (vertical, left, top): hi
           plot_line(ppod_x, (1 - ppod + h_gap), ppod_x, (1 + h_gap),
                     arr_code = arr_c, lbl = label_prob("ppod", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_1, col.txt = p_col_1,
-                    srt = 90, lbl.pos = 3, lbl.off = 0, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_1, col_txt = p_col_1,
+                    srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
           # PPV (horizontal, left, top): hi
           plot_line(0, PPV_y, (PPV * scale_x), PPV_y,
                     arr_code = arr_c, lbl = label_prob("PPV", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_2, col.txt = p_col_2,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_2, col_txt = p_col_2,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
           # NPV (horizontal, left, bottom): cr
           plot_line(0, NPV_y, (NPV * scale_x), NPV_y,
                     arr_code = arr_c, lbl = label_prob("NPV", cur_prob = prob, lbl_type = p_lbl),
-                    col.fill = p_col_3, col.txt = p_col_3,
-                    lbl.pos = 3, lbl.off = .33, cex = cex_p_lbl, ...)  # Allow ...!
+                    col_fill = p_col_3, col_txt = p_col_3,
+                    lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
         } # if (by_bot == etc.)
 

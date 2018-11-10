@@ -1611,28 +1611,28 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       arr_code = 0,         # 0: none, 1-3: single/double V, 4-6: single/double T, -1 to -3: single/double points.
                       ## Optional text label:
                       lbl = NA,             # string for text label
-                      lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-                      lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                      lbl.pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
-                      lbl.off = .75,        # offset of text label
+                      lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
+                      lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
+                      lbl_pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
+                      lbl_off = .75,        # offset of text label
                       ## Colors:
-                      col.fill = pal["brd"], # if missing, color of fname freq is derived below
-                      col.brd =  pal["brd"],
-                      col.txt =  pal["txt"],
+                      col_fill = pal["brd"], # if missing, color of fname freq is derived below
+                      col_brd =  pal["brd"],
+                      col_txt =  pal["txt"],
                       # lbl.cex = 1,        # size of text label
                       ...                   # other graphical parameters: lwd, cex, pos, etc.
 ) {
 
   ## (0) Preparations:
 
-  # ## Determine col.fill:
-  # if (missing(col.fill)) {  # no color was specified:
-  #   col.fill <- pal["brd"] # default fill color
+  # ## Determine col_fill:
+  # if (missing(col_fill)) {  # no color was specified:
+  #   col_fill <- pal["brd"] # default fill color
   # } else {
-  #   col.fill <- col  # use the color specified in function call
+  #   col_fill <- col  # use the color specified in function call
   # }
   #
-  # print(col.fill)
+  # print(col_fill)
 
   arrow <- TRUE # FALSE # initialize
 
@@ -1645,7 +1645,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
       arrows(x0, y0, x1, y1,
              length = .10, angle = 45/2, code = arr_code,    # V shape (small)
              # length = .08, angle = 90, code = arr_code,  # T shape
-             col = col.fill,
+             col = col_fill,
              ...)  # lty, lwd, etc.
     }
     else  if (arr_code > 3) {
@@ -1653,7 +1653,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
       arrows(x0, y0, x1, y1,
              # length = .10, angle = 45/2, code = arr_code,    # V shape (small)
              length = .08, angle = 90, code = (arr_code - 3),  # T shape
-             col = col.fill,
+             col = col_fill,
              ...)  # lty, lwd, etc.
     }
 
@@ -1663,19 +1663,19 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
     ## Draw a line with 2 points at line ends:
     arrows(x0, y0, x1, y1,
            length = 0, angle = 0, code = 0,       # no arrows
-           col = col.fill,
+           col = col_fill,
            ...)  # lty, lwd, etc.
 
     if (arr_code < 0) {  # draw points:
 
       if (arr_code == -1 || arr_code == -3) {
         points(x0, y0, pch = pt_pch, cex = pt_cex,    # 1st point
-               lwd = pt_lwd, col = col.brd, bg = col.fill)
+               lwd = pt_lwd, col = col_brd, bg = col_fill)
       }
 
       if (arr_code == -2 || arr_code == -3) {
         points(x1, y1, pch = pt_pch, cex = pt_cex,    # 2nd point
-               lwd = pt_lwd, col = col.brd, bg = col.fill)
+               lwd = pt_lwd, col = col_brd, bg = col_fill)
       }
 
     }
@@ -1684,14 +1684,14 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
   ## (2) Optional text label: ------
 
-  if (!is.na(lbl.x)) { # if lbl.x exists:
+  if (!is.na(lbl_x)) { # if lbl_x exists:
 
     ## Text label:
-    text(lbl.x, lbl.y,
+    text(lbl_x, lbl_y,
          labels = lbl,
-         col = col.txt,  # text color
-         pos = lbl.pos,
-         offset = lbl.off,
+         col = col_txt,  # text color
+         pos = lbl_pos,
+         offset = lbl_off,
          ...)  # cex, etc.
   }
 
@@ -1716,36 +1716,36 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(0, 3, 9, 3, arr_code = 3,
 #           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
 # plot_line(0, 2, 9, 2, lbl = "Label 2", arr_code = -3,
-#           lbl.pos = 4, lbl.off = 1,
-#           col.fill = "firebrick", col.txt = "forestgreen",
+#           lbl_pos = 4, lbl_off = 1,
+#           col_fill = "firebrick", col_txt = "forestgreen",
 #           font = 2, cex = .8)  # basic with raised text label
 # plot_line(0, 1, 9, 9,  arr_code = -3,
 #           pt_pch = 22, pt_cex = 2, pt_lwd = 2,  # point paramters
 #           # Text label (with options):
-#           lbl.x = 10, lbl.y = 9,
+#           lbl_x = 10, lbl_y = 9,
 #           lbl = "Some label\nthat takes\nmultiple (3) lines",
-#           lbl.pos = NULL, lbl.off = 0,
+#           lbl_pos = NULL, lbl_off = 0,
 #           # Colors:
-#           col = "gold", col.brd = "steelblue", col.txt = "steelblue",
+#           col = "gold", col_brd = "steelblue", col_txt = "steelblue",
 #           cex = .7, lty = 2, lwd = 2) # grapical parameters
 # # (3) probability lines:
 # plot_line(1, 9, 9, 9, arr_code = -3, lbl = label_prob("prev"),
-#           col.fill = comp_freq_col("cond.true"), col.txt = NA,
-#           lbl.pos = 3, cex = .8)  # horizontal
+#           col_fill = comp_freq_col("cond.true"), col_txt = NA,
+#           lbl_pos = 3, cex = .8)  # horizontal
 # # vertical labels:
 # plot_line(2, 0, 2, 10, arr_code = -3, lbl = label_prob("PPV"),
-#           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = .5, cex = .8)  # vertical (long line)
+#           col_fill = pal["ppv"], col_txt = pal["ppv"],
+#           srt = 90, lbl_pos = 2, lbl_off = .5, adj = .5, cex = .8)  # vertical (long line)
 # plot_line(3, 4, 3, 5, arr_code = -3, lbl = label_prob("PPV"),
-#           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # short (label too low!)
+#           col_fill = pal["ppv"], col_txt = pal["ppv"],
+#           srt = 90, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # short (label too low!)
 # plot_line(4, 4, 4, 5, arr_code = -3, lbl = label_prob("PPV"),
-#           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 3, lbl.off = .5, adj = 0, cex = .8)  # short (better, but not perfect)
+#           col_fill = pal["ppv"], col_txt = pal["ppv"],
+#           srt = 90, lbl_pos = 3, lbl_off = .5, adj = 0, cex = .8)  # short (better, but not perfect)
 # # diagonal:
 # plot_line(4, 1, 8, 10, arr_code = -3, lbl = label_prob("NPV", lbl_type = "namnum"),
-#           col.fill = pal["npv"], col.txt = pal["npv"],
-#           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
+#           col_fill = pal["npv"], col_txt = pal["npv"],
+#           srt = 0, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # diagonal
 
 ## plot_arrs: Plot multiple (n_arr) arrows along a line: --------
 ##      Note: Obsolete, as plot_line (defined above) is more flexible.
@@ -1756,8 +1756,8 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       a_arr = 45/2,         # angle of arrows to draw
                       ## Optional label:
                       lbl = NA,         # string for text label
-                      lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-                      lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
+                      lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
+                      lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
                       pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                       offset = 1,           # offset, etc.
                       ...                   # other graphical parameters
@@ -1784,13 +1784,13 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 
   ## (3) Optional text label: ------
 
-  if (!is.na(lbl.x)) { # if lbl.x exists:
+  if (!is.na(lbl_x)) { # if lbl_x exists:
 
     # Parameters:
     # lbl.cex = 1          # size of text label
 
     ## Text label:
-    text(lbl.x, lbl.y,
+    text(lbl_x, lbl_y,
          labels = lbl,
          # col = col,
          # cex = lbl.cex,
@@ -1925,24 +1925,24 @@ plot_link <- function(box1, box2,                # 2 boxes
 #
 # ## Link options:
 # ## (a) Global prob: Link 2 freq boxes with a known prob:
-# plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr_code = -2)
-# plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
-# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col.fill = pal["hi"],
-#           lbl_type = "namnum", lbl.pos = 2, col.txt = pal["hi"], cex = .8)
+# plot_link(box_N, box_ct, 4, 3, lbl_pos = 3, cex = .8, arr_code = -2)
+# plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl_pos = 1, cex = .8)
+# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"],
+#           lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8)
 #
 # ## (b) Local prob:
 # p2 <- comp_prob_prob(prev = .50, sens = .88, spec = .64)
-# plot_link(box_N, box_ct, 4, 2, cur_prob = p2, lbl.pos = NULL, cex = .8,
-#           arr_code = -3, col.fill = "firebrick", col.txt = "firebrick")
-# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3, col.fill = "steelblue",
-#           lbl_type = "namnum", lbl.pos = 4, col.txt = "steelblue", cex = .8)
+# plot_link(box_N, box_ct, 4, 2, cur_prob = p2, lbl_pos = NULL, cex = .8,
+#           arr_code = -3, col_fill = "firebrick", col_txt = "firebrick")
+# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3, col_fill = "steelblue",
+#           lbl_type = "namnum", lbl_pos = 4, col_txt = "steelblue", cex = .8)
 #
 # ## (c) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
 # plot_link(box_N, box_hi, 1, 2, arr_code = -3,
 #           lbl = "given label in color",
-#           lbl.pos = 2, cex = .8,
-#           col.txt = "steelblue", col.fill = "sienna2", lwd = 3)
+#           lbl_pos = 2, cex = .8,
+#           col_txt = "steelblue", col_fill = "sienna2", lwd = 3)
 
 ## Note:
 ## Functionality included in plot_link: plot_plink/plot_prob:
@@ -2333,7 +2333,7 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
                      padding = c(0.5, 0.5), cex = 1, font = graphics::par('font')){
 
   ## The Character expansion factro to be used:
-  theCex <- graphics::par('cex')*cex
+  theCex <- graphics::par('cex') * cex
 
   ## Is y provided:
   if (missing(y)) y <- x
@@ -2427,7 +2427,7 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
 # box_text(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
 #         col.bg = "gold", pos = 4, padding = 0.2)
 #
-# ## Tweak cex, font and adj:
+# ## Adjust cex, font and adj:
 # box_text(x = 0.2, y = 0.4, labels = "some big and bold text",
 #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
 
