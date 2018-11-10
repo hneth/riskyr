@@ -2349,11 +2349,11 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
     }
   }
 
-  ## Width and height of text
+  ## Width and height of text:
   textHeight <- graphics::strheight(labels, cex = theCex, font = font)
-  textWidth <- graphics::strwidth(labels, cex = theCex, font = font)
+  textWidth  <- graphics::strwidth(labels, cex = theCex, font = font)
 
-  ## Width of one character:
+  ## Width of 1 character:
   charWidth <- graphics::strwidth("e", cex = theCex, font = font)
 
   ## Is 'adj' of length 1 or 2?
@@ -2419,16 +2419,15 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
 }
 
 ## Check:
-
 # ## Create a noisy background:
-# plot(x = runif(1000), y = runif(1000), type = "p", pch = 16, col = "#40404060")
+# plot(x = runif(500), y = runif(500), type = "p", pch = 16, cex = 3, col = "#40404060")
 #
 # ## Vector of labels, using argument 'pos' to position right of coordinates:
-# box_text(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
+# box_text(x = c(.1, .6), y = c(.1, .6), labels = c("Some highlighted text here.", "Something else here."),
 #         col.bg = "gold", pos = 4, padding = 0.2)
 #
 # ## Adjust cex, font and adj:
-# box_text(x = 0.2, y = 0.4, labels = "some big and bold text",
+# box_text(x = .1, y = .9, labels = "Some messy data plot",
 #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
 
 
