@@ -6,7 +6,7 @@
 \usage{
 plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  area = "no", scale = "p", round = TRUE, f_lbl = "def",
+  area = "no", scale = "p", round = TRUE, f_lbl = "num",
   f_lbl_sep = " = ", f_lwd = 0, p_lbl = "mix", arr_c = NA,
   lbl_txt = txt, title_lbl = txt$scen.lbl, cex_lbl = 0.9,
   cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE, ...)
@@ -159,7 +159,7 @@ and providing many additional options.
 # Global freq and prob objects:
 plot_prism()  # default, same as:
 plot_prism(by = "cddc", area = "no", scale = "p",
-           f_lbl = "default", f_lwd = 0, cex_lbl = .90,
+           f_lbl = "num", f_lwd = 0, cex_lbl = .90,
            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 
 # Computed values:
@@ -228,14 +228,13 @@ plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
 
 ## Freq (as boxes):
 # f_lbl:
-plot_prism(f_lbl = "default") # default: short name and numeric value (abb = num)
 plot_prism(f_lbl = "abb")     # abbreviated freq names (variable names)
 plot_prism(f_lbl = "nam")     # only freq names
-plot_prism(f_lbl = "num")     # only numeric freq values
+plot_prism(f_lbl = "num")     # only numeric freq values (default)
 plot_prism(f_lbl = "namnum")  # names and numeric freq values
 plot_prism(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
 plot_prism(f_lbl = NA)        # no freq labels
-plot_prism(f_lbl = "any")     # short name and value (abb = num)
+plot_prism(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
 
 # f_lwd:
 plot_prism(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)

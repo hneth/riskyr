@@ -7,7 +7,8 @@
 init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
   scen.src = txt.def$scen.src, scen.apa = txt.def$scen.apa,
   scen.lng = txt.def$scen.lng, popu.lbl = txt.def$popu.lbl,
-  cond.lbl = txt.def$cond.lbl, cond.true.lbl = txt.def$cond.true.lbl,
+  N.lbl = txt.def$N.lbl, cond.lbl = txt.def$cond.lbl,
+  cond.true.lbl = txt.def$cond.true.lbl,
   cond.false.lbl = txt.def$cond.false.lbl, dec.lbl = txt.def$dec.lbl,
   dec.pos.lbl = txt.def$dec.pos.lbl, dec.neg.lbl = txt.def$dec.neg.lbl,
   acc.lbl = txt.def$acc.lbl, dec.cor.lbl = txt.def$dec.cor.lbl,
@@ -28,44 +29,46 @@ init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
 \item{scen.lng}{Language of the current scenario (as character code).
 Options: \code{"en"}...English, \code{"de"}...German.}
 
-\item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
+\item{popu.lbl}{A general name for \emph{population} dimension.}
 
-\item{cond.lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
+\item{N.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
 
-\item{cond.true.lbl}{A label for the \emph{presence} of the current condition
+\item{cond.lbl}{A general name for the \emph{condition} (e.g., some disease) currently considered.}
+
+\item{cond.true.lbl}{A short label for the \emph{presence} of the current condition
 or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false.lbl}{A label for the \emph{absence} of the current condition
+\item{cond.false.lbl}{A short label for the \emph{absence} of the current condition
 or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
 
-\item{dec.lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
+\item{dec.lbl}{A general name for the \emph{decision} dimension (e.g., some diagnostic test) currently made.}
 
-\item{dec.pos.lbl}{A label for \emph{positive} decisions
+\item{dec.pos.lbl}{A short label for \emph{positive} decisions
 or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.neg.lbl}{A label for \emph{negative} decisions
+\item{dec.neg.lbl}{A short label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
-\item{acc.lbl}{A name for judgment \emph{accuracy} (e.g., correspondence of decision to condition).}
+\item{acc.lbl}{A general name for the \emph{accuracy} dimension (e.g., correspondence of decision to condition).}
 
-\item{dec.cor.lbl}{A label for \emph{correct} decisions
+\item{dec.cor.lbl}{A short label for \emph{correct} decisions
 or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).}
 
-\item{dec.err.lbl}{A label for \emph{erroneous} decisions
+\item{dec.err.lbl}{A short label for \emph{erroneous} decisions
 or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).}
 
-\item{sdt.lbl}{A name for the case/category/cell in the 2x2 contingency table (SDT: condition x decision).}
+\item{sdt.lbl}{A name for the case/category/cell dimension in the 2x2 contingency table (SDT: condition x decision).}
 
-\item{hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item{hi.lbl}{A short label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
 
-\item{mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item{mi.lbl}{A short label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
 
-\item{fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item{fa.lbl}{A short label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
 
-\item{cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item{cr.lbl}{A short label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).}
 }
 \description{
@@ -80,13 +83,13 @@ are stored as named elements (of type character) in a list \code{txt}.
 objects to existing names.
 }
 \examples{
-init_txt()          # => defines a list of (default) text elements
-length(init_txt())  # => 20
+init_txt()          # defines a list of (default) text elements
+length(init_txt())  # 21
 
 # Customizing current text elements:
 txt <- init_txt(scen.lbl = "My scenario",
                 scen.src = "My source",
-                popu.lbl = "Current population")
+                N.lbl = "My population")
 
 }
 \seealso{

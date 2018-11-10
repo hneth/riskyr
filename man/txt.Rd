@@ -4,7 +4,7 @@
 \name{txt}
 \alias{txt}
 \title{List current values of basic text elements.}
-\format{An object of class \code{list} of length 20.}
+\format{An object of class \code{list} of length 21.}
 \usage{
 txt
 }
@@ -69,9 +69,9 @@ or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 }
 }
 \examples{
-txt           # => show  all current names and elements
-txt$scen.lbl  # => show the current scenario label (e.g., used in plot titles)
-txt$scen.lbl <- "My favorite example"  # => set a new scenario title
+txt           # Show  all current names and elements
+txt$scen.lbl  # Show the current scenario label (e.g., used in plot titles)
+txt$scen.lbl <- "My example"  # Set a new scenario title
 
 
 }
