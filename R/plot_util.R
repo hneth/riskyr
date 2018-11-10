@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 08
+## 2018 11 10
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -214,8 +214,9 @@ label_freq <- function(fname,
 
     ## (b) Name AND value of cur_freq:
 
-    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use population label as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use general population label as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- cur_txt$N.lbl }       # use new N.lbl as f_lbl
 
     if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi.lbl }
     if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi.lbl }
@@ -238,8 +239,9 @@ label_freq <- function(fname,
 
     ## (c) ONLY the name of cur_freq:
 
-    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use population label as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use general population label as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- cur_txt$N.lbl }       # use new N.lbl as f_lbl
 
     if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi.lbl }
     if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi.lbl }
@@ -683,7 +685,8 @@ name_prob <- function(freq1, freq2) {
 
 
 
-## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
+## plot_ftype_label: Label the freq type OR dimension corresponding to fname at (x, y): ----------
+
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
 
@@ -703,6 +706,9 @@ plot_ftype_label <- function(fname,               # name of a known freq
 
   ## Determine ftype_lbl (freq_type corresponding to fname in cur_txt):
   ftype_lbl <- paste0(comp_freq_type(fname = fname, cur_txt = cur_txt), suffix)
+
+  ## Capitalize 1st letter:
+  ftype_lbl <- paste0(toupper(substr(ftype_lbl, 1, 1)), substr(ftype_lbl, 2, nchar(ftype_lbl)))
 
   ## Plot ftype_lbl:
   text(x, y,
