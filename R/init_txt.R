@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 10 26
+## 2018 11 10
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -16,35 +16,41 @@ txt.def <- list(
   scen.lng = "en/de", # language
 
   # (b) Population:
-  popu.lbl = "Population",  # current population label
+  ## Distinguish between 2 different population labels:
+  ## 1. Dimension: general ftype_label ("Population") vs.
+  popu.lbl = "Population",  # Dimension: current population label: "Population", "Sample", "N", etc.
+  ## 2. Frequency box: current label for fbox of ftype N ("Current sample"/"N").
+  N.lbl = "N",  # Label for fbox of ftype N.
+  ## Note: Consider a 3rd population label that provides a longer description of the current population
+  # popu.txt  # Longer description of the current population (as in s21: PSA test example)
 
   # (c) Condition:
-  cond.lbl = "Condition",  # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis" etc.
-  cond.true.lbl  = "Condition true",   # "has condition", "is affected"
-  cond.false.lbl = "Condition false",  # "does not have condition", "is unaffected"
+  cond.lbl = "Condition",   # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis", etc.
+  cond.true.lbl  = "True",  # "Condition true",   # "has condition", "is affected"
+  cond.false.lbl = "False", # "Condition false",  # "does not have condition", "is unaffected"
 
   # (d) Decision/prediction/predicted condition:
   dec.lbl = "Decision",  # Dimension label: "Prediction", "Diagnostic decision", "Mammography", "HIV test"
-  dec.pos.lbl  = "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
-  dec.neg.lbl = "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
+  dec.pos.lbl  = "Positive", # "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
+  dec.neg.lbl = "Negative",  # "Decision negative",   # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
   # (e) Accuracy/correspondence of decision to condition:
   acc.lbl = "Accuracy",   # Dimension label: accuracy/correspondence
-  dec.cor.lbl = "Decision correct",  # acc/cor  # accurate decision
-  # NOTE: "dec.cor" should better be called "dec.acc" (for consistency with probabilities "acc" vs. "err")!
-  dec.err.lbl = "Decision error",    # err      # inaccurate decision
+  dec.cor.lbl = "Correct", # Decision correct", "accurate"  # acc/cor  # accurate decision
+  # Note: "dec.cor" should better be called "dec.acc" (for consistency with probabilities "acc" vs. "err")!
+  dec.err.lbl = "Erroneous", # "Decision error", "inaccurate"  # err   # inaccurate decision
 
   # (f) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
-  sdt.lbl = "Case",  # Dimension label: cell/case/SDT 2x2 table
-  hi.lbl = "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
-  mi.lbl = "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
-  fa.lbl = "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
-  cr.lbl = "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
+  sdt.lbl = "Cases",  # Dimension label: "Classification" or cell/case/SDT 2x2 table, etc.
+  hi.lbl = "TP", # "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
+  mi.lbl = "FN", # "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
+  fa.lbl = "FP", # "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
+  cr.lbl = "TN"  # "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
 
 )
 
 ## Check:
-# length(txt.def)  # => 20 text elements
+# length(txt.def)  # 21 text elements
 
 
 ## (B) Initialization of all text elements (titles and labels) ----------
@@ -68,44 +74,45 @@ txt.def <- list(
 #' @param scen.lng Language of the current scenario (as character code).
 #' Options: \code{"en"}...English, \code{"de"}...German.
 #'
-#' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
+#' @param popu.lbl A general name for \emph{population} dimension.
+#' @param N.lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
-#' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true.lbl A label for the \emph{presence} of the current condition
+#' @param cond.lbl A general name for the \emph{condition} (e.g., some disease) currently considered.
+#' @param cond.true.lbl A short label for the \emph{presence} of the current condition
 #' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
-#' @param cond.false.lbl A label for the \emph{absence} of the current condition
+#' @param cond.false.lbl A short label for the \emph{absence} of the current condition
 #' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 #'
-#' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.pos.lbl A label for \emph{positive} decisions
+#' @param dec.lbl A general name for the \emph{decision} dimension (e.g., some diagnostic test) currently made.
+#' @param dec.pos.lbl A short label for \emph{positive} decisions
 #' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
-#' @param dec.neg.lbl A label for \emph{negative} decisions
+#' @param dec.neg.lbl A short label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param acc.lbl A name for judgment \emph{accuracy} (e.g., correspondence of decision to condition).
-#' @param dec.cor.lbl A label for \emph{correct} decisions
+#' @param acc.lbl A general name for the \emph{accuracy} dimension (e.g., correspondence of decision to condition).
+#' @param dec.cor.lbl A short label for \emph{correct} decisions
 #' or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).
-#' @param dec.err.lbl A label for \emph{erroneous} decisions
+#' @param dec.err.lbl A short label for \emph{erroneous} decisions
 #' or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).
 #'
-#' @param sdt.lbl A name for the case/category/cell in the 2x2 contingency table (SDT: condition x decision).
-#' @param hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' @param sdt.lbl A name for the case/category/cell dimension in the 2x2 contingency table (SDT: condition x decision).
+#' @param hi.lbl A short label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
-#' @param mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' @param mi.lbl A short label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 #' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
-#' @param fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' @param fa.lbl A short label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 #' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
-#' @param cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' @param cr.lbl A short label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' @examples
-#' init_txt()          # => defines a list of (default) text elements
-#' length(init_txt())  # => 20
+#' init_txt()          # defines a list of (default) text elements
+#' length(init_txt())  # 21
 #'
 #' # Customizing current text elements:
 #' txt <- init_txt(scen.lbl = "My scenario",
 #'                 scen.src = "My source",
-#'                 popu.lbl = "Current population")
+#'                 N.lbl = "My population")
 #'
 #' @family functions initializing scenario information
 #'
@@ -121,17 +128,19 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
                      scen.src = txt.def$scen.src,  # scenario source
                      scen.apa = txt.def$scen.apa,  # scenario source in APA format
                      scen.lng = txt.def$scen.lng,  # language
-                     popu.lbl = txt.def$popu.lbl,  # target population
+                     ## (+) Population:
+                     popu.lbl = txt.def$popu.lbl,  # Population dimension label
+                     N.lbl = txt.def$N.lbl,        # Current target population label
                      ## (a) Condition:
-                     cond.lbl = txt.def$cond.lbl,              # Condition
+                     cond.lbl = txt.def$cond.lbl,              # Condition dimension label
                      cond.true.lbl  = txt.def$cond.true.lbl,   # Condition true
                      cond.false.lbl = txt.def$cond.false.lbl,  # Condition false
                      ## (b) Decision/prediction/predicted condition:
-                     dec.lbl = txt.def$dec.lbl,                # Decision
+                     dec.lbl = txt.def$dec.lbl,                # Decision dimension label
                      dec.pos.lbl  = txt.def$dec.pos.lbl,       # "Decision positive"
                      dec.neg.lbl = txt.def$dec.neg.lbl,        # "Decision negative"
                      ## (c) Accuracy/correspondence of decision to condition:
-                     acc.lbl = txt.def$acc.lbl,                # Accuracy
+                     acc.lbl = txt.def$acc.lbl,                # Accuracy dimension label
                      dec.cor.lbl = txt.def$dec.cor.lbl,        # "Decision accurate"
                      dec.err.lbl = txt.def$dec.err.lbl,        # "Decision inaccurate"
                      ## (d) Labels for the 4 SDT cases (combinations):
@@ -153,8 +162,9 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
     scen.src = scen.src,
     scen.apa = scen.apa,
     scen.lng = scen.lng,
-    ## Population:
+    ## (+) Population:
     popu.lbl = popu.lbl,
+    N.lbl = N.lbl,
     ## (a) Condition:
     cond.lbl = cond.lbl,
     cond.true.lbl  = cond.true.lbl,
@@ -181,15 +191,14 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 }
 
 ## Check:
-{
-  init_txt()          # => defines a list of (default) text elements
-  length(init_txt())  # => 20
-  #
-  # # Customizing current text elements:
-  # txt <- init_txt(scen.lbl = "US or Them",
-  #                 scen.src = "Some stable genius",
-  #                 popu.lbl = "We, the people")
-}
+# init_txt()          # => defines a list of (default) text elements
+# length(init_txt())  # => 21
+#
+# # Customizing current text elements:
+# txt <- init_txt(scen.lbl = "US or Them",
+#                 scen.src = "Some stable genius",
+#                 N.lbl = "We, the people")
+
 
 
 ## (C) Initialize a list txt to contain all current text elements ---------
@@ -255,9 +264,9 @@ init_txt <- function(scen.lbl = txt.def$scen.lbl,  # Scenario title
 #' }
 #'
 #' @examples
-#' txt           # => show  all current names and elements
-#' txt$scen.lbl  # => show the current scenario label (e.g., used in plot titles)
-#' txt$scen.lbl <- "My favorite example"  # => set a new scenario title
+#' txt           # Show  all current names and elements
+#' txt$scen.lbl  # Show the current scenario label (e.g., used in plot titles)
+#' txt$scen.lbl <- "My example"  # Set a new scenario title
 #'
 #'
 #' @family lists containing current scenario information
