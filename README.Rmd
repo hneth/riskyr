@@ -42,7 +42,7 @@ Risk-related information — like the prevalence of conditions and the sensitivi
 
 <!-- Risk perception as representational effects: -->
 
-The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of probabilities, the same information is often easy to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+The goals of `riskyr` are less of a _computational_ and more of a _representational_ nature, by addressing the expression in and translation between different formats of information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. We hope that interacting with and switching between different representations will boost the transparency and human understanding of risk-related information.
 
 <!-- Defining "risk": -->
 
@@ -57,11 +57,13 @@ Basic assumptions and goals driving the current development of `riskyr` include 
 
 1. Effective training in risk literacy requires simple tools and transparent representations. 
 
-2. More specifically, it would be desirable to have a set of (computational and representational) tools that allow various calculations, translations (between formats), and a range of alternative views on the interplay between probabilities and frequencies. 
+<!-- More specifically: -->
+
+2. It is desirable to have a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies. 
 
 3. Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning.  It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters. 
 
-To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs. 
+Based on these assumptions, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.  
 
 ## Installation
 
@@ -153,9 +155,9 @@ Let us define a new `riskyr` scenario (called `hustosis`) with the information p
 
 ```{r ex1_definition, eval = TRUE}
 hustosis <- riskyr(scen.lbl = "Example", 
-                   cond.lbl = "hustosis",
-                   dec.lbl = "screening test",
-                   popu.lbl = "representative sample", 
+                   cond.lbl = "Hustosis",
+                   dec.lbl = "Screening test",
+                   popu.lbl = "Sample", 
                    N = 1000, 
                    prev = .04, sens = .80, spec = (1 - .05)
                    )
@@ -179,18 +181,17 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 
 In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. To get you started immediately, we provide a few introductory examples that illustrate different types of visualizations. 
 
-
 #### Creating a scenario from frequencies
 
-If we had been provided with 4 essential frequencies (of `hi`, `mi`, `fa`, and `cr`) instead of 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`), the same scenario can be defined as follows:
+Rather than defining our `hustosis` scenario by providing 3 essential probabilities (`prev`, `sens`, and `spec`), we could define the same scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and `cr`) as follows:
 
 ```{r ex1_definition_freq}
 hustosis_2 <- riskyr(scen.lbl = "Example", 
-                    cond.lbl = "hustosis",
-                    dec.lbl = "screening test",
-                    popu.lbl = "representative sample", 
-                    hi = 32, mi = 8, fa = 48, cr = 912
-                    )
+                     cond.lbl = "Hustosis",
+                     dec.lbl = "Screening test",
+                     popu.lbl = "Sample", 
+                     hi = 32, mi = 8, fa = 48, cr = 912
+                     )
 ```
 
 As we took the values of these frequencies from the `summary` of `hustosis`, the `hustosis_2` scenario should contain exactly the same information as `hustosis`:
@@ -198,6 +199,7 @@ As we took the values of these frequencies from the `summary` of `hustosis`, the
 ```{r ex1_all_equal}
 all.equal(hustosis, hustosis_2)  # do both contain the same information? 
 ```
+
 
 ### Visualizations
 
@@ -209,6 +211,11 @@ A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` 
 
 ```{r ex1_tree, eval = FALSE, fig.width = 7.2, fig.height = 5.8}
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
+
+## Using new functions:
+plot(hustosis, plot.type = "prism", by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")  
+plot(hustosis, plot.type = "area",  by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
+plot(hustosis, plot.type = "tab",   by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
 ```
 
 ![](inst/pix/README-ex1_tree-1.png)
@@ -302,6 +309,12 @@ A network diagram is a generalization of a tree diagram that simultaneously prov
 
 ```{r ex2_fnet, eval = FALSE, fig.width = 7.2, fig.height = 6.5}
 plot(s21) # plots a network diagram (by default):
+
+## Using newer functions:
+# s21$popu.lbl <- "Patients with symptoms taking PSA test"  # shorter popu.lbl
+# plot(s21, plot.type = "prism")
+# plot(s21, plot.type = "area")
+# plot(s21, plot.type = "tab")
 ```
 
 ![](inst/pix/README-ex2_fnet-1.png)
