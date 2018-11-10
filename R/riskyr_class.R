@@ -459,10 +459,11 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 
   ## (2) pass scenario s to riskyr function:
   cur.scen <- riskyr(scen.lbl = s$scen.lbl, scen.lng = s$scen.lng, scen.txt = s$scen.txt,
-                     popu.lbl = s$popu.lbl, cond.lbl = s$cond.lbl,
-                     cond.true.lbl = s$cond.true.lbl, cond.false.lbl = s$cond.false.lbl,
-                     dec.lbl = s$dec.lbl, dec.pos.lbl = s$dec.pos.lbl, dec.neg.lbl = s$dec.neg.lbl,
-                     hi.lbl = s$hi.lbl, mi.lbl = s$mi.lbl, fa.lbl = s$fa.lbl, cr.lbl = s$cr.lbl,
+                     popu.lbl = s$popu.lbl,                                                                     # population dimension
+                     # ToDo: N.lbl = txt$N.lbl,
+                     cond.lbl = s$cond.lbl, cond.true.lbl = s$cond.true.lbl, cond.false.lbl = s$cond.false.lbl, # by condition
+                     dec.lbl = s$dec.lbl, dec.pos.lbl = s$dec.pos.lbl, dec.neg.lbl = s$dec.neg.lbl,             # by decision
+                     hi.lbl = s$hi.lbl, mi.lbl = s$mi.lbl, fa.lbl = s$fa.lbl, cr.lbl = s$cr.lbl,                # 4 cases
                      prev = s$prev,
                      sens = s$sens,
                      spec = s$spec, fart = s$fart,
@@ -583,6 +584,17 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   plot.type <- tolower(plot.type)  # ensure lowercase
 
+  ## Use lbl info of scenario x for current txt information: ----------
+
+  x_txt <- init_txt(scen.lbl = x$scen.lbl,
+                    popu.lbl = x$popu.lbl,
+                    cond.lbl = x$cond.lbl,
+                    dec.lbl  = x$dec.lbl,
+                    hi.lbl = x$hi.lbl,
+                    mi.lbl = x$mi.lbl,
+                    fa.lbl = x$fa.lbl,
+                    cr.lbl = x$cr.lbl)
+
   ## Plotting functions: ----------
 
   ## frequency net/fnet (default):
@@ -614,7 +626,8 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
                spec = x$spec, fart = NA,
                N = x$N,
                ## Options:
-               # title_lbl = x$scen.lbl,
+               lbl_txt = x_txt,
+               title_lbl = x$scen.lbl,
                ...
     )
 
@@ -628,7 +641,8 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
               spec = x$spec, fart = NA,
               N = x$N,
               ## Options:
-              # title_lbl = x$scen.lbl,
+              lbl_txt = x_txt,
+              title_lbl = x$scen.lbl,
               ...
     )
 
@@ -642,7 +656,8 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
              spec = x$spec, fart = NA,
              N = x$N,
              ## Options:
-             # title_lbl = x$scen.lbl,
+             lbl_txt = x_txt,
+             title_lbl = x$scen.lbl,
              ...
     )
 
