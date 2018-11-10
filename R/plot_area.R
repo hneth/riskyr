@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 08
+## 2018 11 10
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -441,9 +441,10 @@ plot_area <- function(prev = num$prev,    # probabilities
   # use area input:
   if (area == "sq") {
 
-    plot_xy <- par("pin")                # use par("pin") OR dev.size("in") to determine aspect ratio
-    plot_ratio <- plot_xy[1]/plot_xy[2]  # current aspect ratio
-    scale_x <- 1/plot_ratio              # multiplicative correction factor (for x-widths)
+    plot_xy <- par("pin")                  # use par("pin") OR dev.size("in") to determine aspect ratio
+    plot_ratio <- plot_xy[1]/plot_xy[2]    # current aspect ratio
+    cc_scale_x <- .055                     # correction constant for scale_x
+    scale_x  <- 1/plot_ratio + cc_scale_x  # multiplicative correction factor (for x-widths)
 
   } else { # default:
 
@@ -611,9 +612,9 @@ plot_area <- function(prev = num$prev,    # probabilities
   lty <- 1  # default
 
   # Correction values (as constants):
-  buffer  <- .08  # blank buffer space (on top and left) of plotting area
-  v_shift <- .03  # shifting vertical/rotated text labels (left)
-  h_shift <- .00  # shifting horizontal text labels (up)
+  buffer  <- +.09  # blank buffer space (on top and left) of plotting area
+  v_shift <- +.03  # shifting vertical/rotated text labels (left)
+  h_shift <- -.01  # shifting horizontal text labels (up)
 
   # Frequency bars (on top and left):
   bar_lx <- sum_w  # bar widths (constant based on sum_w (from 0 to 1)
