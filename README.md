@@ -41,8 +41,8 @@ Installation
 The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
-install.packages("riskyr"")  # install riskyr from CRAN client
-library("riskyr"")           # load to use the package
+install.packages("riskyr")  # install riskyr from CRAN client
+library("riskyr")           # load to use the package
 ```
 
 The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
@@ -116,8 +116,8 @@ hustosis <- riskyr(scen.lbl = "Example",
                    cond.lbl = "Hustosis",
                    dec.lbl = "Screening test",
                    popu.lbl = "Sample", 
-                   N = 1000, 
-                   prev = .04, sens = .80, spec = (1 - .05)
+                   N = 1000,                                 # population size
+                   prev = .04, sens = .80, spec = (1 - .05)  # 3 key probabilities
                    )
 ```
 
@@ -188,7 +188,7 @@ hustosis_2 <- riskyr(scen.lbl = "Example",
                      cond.lbl = "Hustosis",
                      dec.lbl = "Screening test",
                      popu.lbl = "Sample", 
-                     hi = 32, mi = 8, fa = 48, cr = 912
+                     hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
                      )
 ```
 
@@ -210,10 +210,10 @@ A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` 
 ``` r
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
 
-## Using new functions:
-plot(hustosis, plot.type = "prism", by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")  
-plot(hustosis, plot.type = "area",  by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
-plot(hustosis, plot.type = "tab",   by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
+## Using newer functions:
+# plot(hustosis, plot.type = "prism", by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")  
+# plot(hustosis, plot.type = "area",  by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
+# plot(hustosis, plot.type = "tab",   by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
 ```
 
 ![](inst/pix/README-ex1_tree-1.png)
