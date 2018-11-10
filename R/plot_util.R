@@ -707,8 +707,7 @@ plot_ftype_label <- function(fname,               # name of a known freq
   ## Determine ftype_lbl (freq_type corresponding to fname in cur_txt):
   ftype_lbl <- paste0(comp_freq_type(fname = fname, cur_txt = cur_txt), suffix)
 
-  ## Capitalize 1st letter:
-  ftype_lbl <- paste0(toupper(substr(ftype_lbl, 1, 1)), substr(ftype_lbl, 2, nchar(ftype_lbl)))
+  ftype_lbl <- capitalise_1st(ftype_lbl)  # capitalize 1st letter
 
   ## Plot ftype_lbl:
   text(x, y,
@@ -764,6 +763,8 @@ plot_freq_label <- function(fname,                # name of a known freq
   f_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep,
                       cur_freq = cur_freq, cur_txt = cur_txt)  # create label corresponding to fname
   f_lbl <- paste0(f_lbl, suffix)  # add suffix
+
+  f_lbl <- capitalise_1st(f_lbl)  # capitalize 1st letter
 
   ## Plot text label:
   text(x, y,
