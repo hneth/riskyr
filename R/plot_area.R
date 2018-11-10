@@ -97,7 +97,7 @@
 #' @param sum_w  Border width of 2 perspective summaries
 #' (on top and left borders) of main area as a proportion of area size
 #' (i.e., in range \code{0 <= sum_w <= 1}).
-#' Default: \code{sum_w = .08}.
+#' Default: \code{sum_w = .10}.
 #' Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
 #' setting \code{sum_w = 1} scales summaries to same size as main areas.
 #'
@@ -272,7 +272,7 @@
 #' plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 #'
 #' # sum_w:
-#' plot_area(sum_w = .08)  # default (showing top and left freq panels & labels)
+#' plot_area(sum_w = .10)  # default (showing top and left freq panels & labels)
 #' plot_area(sum_w =  0)   # remove top and left freq panels
 #' plot_area(sum_w =  1,   # top and left freq panels are scaled to size of main areas
 #'           col_pal = pal_org)
@@ -325,7 +325,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                       ## Freq boxes:
-                      sum_w = .08,        # border width: (default: sum_w = .08), setting sum_w = NULL/NA/<=0  hides top and left panels.
+                      sum_w = .10,        # border width: (default: sum_w = .10), setting sum_w = NULL/NA/<=0  hides top and left panels.
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
@@ -1172,22 +1172,33 @@ plot_area <- function(prev = num$prev,    # probabilities
 
 
   ##   (+) Check: Mark 2 key points/checkpoints (per plot): ------
-  mark_key_points <- TRUE  # default
+  mark_key_points <- FALSE  # default
 
   if (mark_key_points) {
 
-   # +++ here now +++: ToDo: adjust point colors
+    ## Adjust parameters of point appearance:
+    pch_p1 <- 21  # set to: 3 OR 12 OR 21
+    pch_p2 <- 22  # set to: 4 OR 13 OR 22
+    pt_cex <- 1
+    pt_lwd <- 1
+    col_brd <- col_pal["brd"]
+    col_fill_p1 <- makeTransparent("gold", .33)
+    col_fill_p2 <- makeTransparent("red3", .33)
 
     # (a) by condition:
 
     if (by == "cddc" && p_split == "v") {  # v01:
-      points(prev * scale_x, (1 - sens + h_gap), pch = 0) # key point p1: hi
-      points(((prev + v_gap) * scale_x), spec, pch = 5)   # key point p2: cr
+      points(prev * scale_x, (1 - sens + h_gap), pch = pch_p1,
+             cex = pt_cex, lwd = pt_lwd, col = col_brd, bg = col_fill_p1)   # key point p1: hi
+      points(((prev + v_gap) * scale_x), spec, pch = pch_p2,
+             cex = pt_cex, lwd = pt_lwd, col = col_brd, bg = col_fill_p2)   # key point p2: cr
     }
 
     if (by == "cdac" && p_split == "v") {  # v02:
-      points(prev * scale_x, (1 - sens + h_gap), pch = 0)              # key point p1: hi
-      points(((prev + v_gap) * scale_x), (1 - spec + h_gap), pch = 5)  # key point p2: cr
+      points(prev * scale_x, (1 - sens + h_gap), pch = pch_p1,
+             cex = pt_cex, lwd = pt_lwd, col = col_brd, bg = col_fill_p1)   # key point p1: hi
+      points(((prev + v_gap) * scale_x), (1 - spec + h_gap), pch = pch_p2,
+             cex = pt_cex, lwd = pt_lwd, col = col_brd, bg = col_fill_p2)   # key point p2: cr
     }
 
     if (by == "cddc" && p_split == "h") {  # v03:
