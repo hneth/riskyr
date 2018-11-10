@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 09
+## 2018 11 10
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -153,7 +153,7 @@
 #' # Global freq and prob objects:
 #' plot_prism()  # default, same as:
 #' plot_prism(by = "cddc", area = "no", scale = "p",
-#'            f_lbl = "default", f_lwd = 0, cex_lbl = .90,
+#'            f_lbl = "num", f_lwd = 0, cex_lbl = .90,
 #'            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 #'
 #' # Computed values:
@@ -222,14 +222,13 @@
 #'
 #' ## Freq (as boxes):
 #' # f_lbl:
-#' plot_prism(f_lbl = "default") # default: short name and numeric value (abb = num)
 #' plot_prism(f_lbl = "abb")     # abbreviated freq names (variable names)
 #' plot_prism(f_lbl = "nam")     # only freq names
-#' plot_prism(f_lbl = "num")     # only numeric freq values
+#' plot_prism(f_lbl = "num")     # only numeric freq values (default)
 #' plot_prism(f_lbl = "namnum")  # names and numeric freq values
 #' plot_prism(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
 #' plot_prism(f_lbl = NA)        # no freq labels
-#' plot_prism(f_lbl = "any")     # short name and value (abb = num)
+#' plot_prism(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
 #'
 #' # f_lwd:
 #' plot_prism(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
@@ -329,7 +328,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
                        ## Freq boxes:
-                       f_lbl = "def",      # freq labels: "def", "nam"/"num"/"namnum", "abb", or NA/NULL/"no" to hide freq labels.
+                       f_lbl = "num",      # freq labels: "def", "nam"/"num"/"namnum", "abb", or NA/NULL/"no" to hide freq labels.
                        f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
                        f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                        # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
