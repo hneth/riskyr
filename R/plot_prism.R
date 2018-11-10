@@ -266,21 +266,21 @@
 #' plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 #' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #'
-#' plot_prism(area = "hr", f_lbl = "abb", p_lbl = NA, arr_c = 0, col_pal = pal_4c)
-#' plot_prism(area = "hr", f_lbl = "num", p_lbl = NA, arr_c = 0)
-#' plot_prism(area = "hr", f_lbl = "abb", p_lbl = "num", arr_c = 0)
+#' plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0, lwd = .5)
+#' plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
+#' plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = "num")
 #'
 #' plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_4c)
-#' plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw)
-#' plot_prism(area = "sq", f_lbl = "def", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
+#' plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw, lwd = .5)
+#' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Suggested combinations:
 #' plot_prism(f_lbl = "def", p_lbl = "mix")
 #' plot_prism(f_lbl = "namnum", p_lbl = "mix", cex_lbl = .80, cex_p_lbl = .75)
 #'
-#' plot_prism(area = "hr", f_lbl = "nam", p_lbl = NA, arr_c = 0, lbl_txt = txt_TF)
+#' plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", lbl_txt = txt_TF)
 #' plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_bw)
-#' plot_prism(area = "hr", f_lbl = "num", p_lbl = "num", col_pal = pal_4c)
+#' plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 #'
 #' plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 #' plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_4c)
