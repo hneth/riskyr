@@ -4,17 +4,17 @@
 \alias{init_txt}
 \title{Initialize basic text elements.}
 \usage{
-init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
-  scen.src = txt.def$scen.src, scen.apa = txt.def$scen.apa,
-  scen.lng = txt.def$scen.lng, popu.lbl = txt.def$popu.lbl,
-  N.lbl = txt.def$N.lbl, cond.lbl = txt.def$cond.lbl,
-  cond.true.lbl = txt.def$cond.true.lbl,
-  cond.false.lbl = txt.def$cond.false.lbl, dec.lbl = txt.def$dec.lbl,
-  dec.pos.lbl = txt.def$dec.pos.lbl, dec.neg.lbl = txt.def$dec.neg.lbl,
-  acc.lbl = txt.def$acc.lbl, dec.cor.lbl = txt.def$dec.cor.lbl,
-  dec.err.lbl = txt.def$dec.err.lbl, sdt.lbl = txt.def$sdt.lbl,
-  hi.lbl = txt.def$hi.lbl, mi.lbl = txt.def$mi.lbl,
-  fa.lbl = txt.def$fa.lbl, cr.lbl = txt.def$cr.lbl)
+init_txt(scen.lbl = txt_def$scen.lbl, scen.txt = txt_def$scen.txt,
+  scen.src = txt_def$scen.src, scen.apa = txt_def$scen.apa,
+  scen.lng = txt_def$scen.lng, popu.lbl = txt_def$popu.lbl,
+  N.lbl = txt_def$N.lbl, cond.lbl = txt_def$cond.lbl,
+  cond.true.lbl = txt_def$cond.true.lbl,
+  cond.false.lbl = txt_def$cond.false.lbl, dec.lbl = txt_def$dec.lbl,
+  dec.pos.lbl = txt_def$dec.pos.lbl, dec.neg.lbl = txt_def$dec.neg.lbl,
+  acc.lbl = txt_def$acc.lbl, dec.cor.lbl = txt_def$dec.cor.lbl,
+  dec.err.lbl = txt_def$dec.err.lbl, sdt.lbl = txt_def$sdt.lbl,
+  hi.lbl = txt_def$hi.lbl, mi.lbl = txt_def$mi.lbl,
+  fa.lbl = txt_def$fa.lbl, cr.lbl = txt_def$cr.lbl)
 }
 \arguments{
 \item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
