@@ -1247,7 +1247,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ## (+) ToDo: ----------
 
 ## - Re-write with plot_fbox and plot_fbox_list (rather than plot_vbox).
-## - Use text labels defined in txt.def and init_txt (incl. accuracy).
+## - Use text labels defined in txt_def and init_txt (incl. accuracy).
 ## - Add probabilitiy links (arrows and labels).
 ## - Allow alternative arrangements: horizontal (flip coord?), dodged bars, ...
 ## - ...
