@@ -55,7 +55,7 @@ Changed Boolean `vsplit` argument to `by = "cd"` vs. `by = "dc"` to ensure consi
 - `plot_fnet` [2018-02-17]: 
 Changed argument `box.cex` to `cex.lbl` to ensure consistency with `plot_curves` and `plot_plane` (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.
 
-- `txt.def` [2018-02-17]: 
+- `txt_def` [2018-02-17]: 
 Simplified some default text labels (e.g., for current population, condition, and decision). 
 
 - `.onAttach` [2018-02-17]: 
