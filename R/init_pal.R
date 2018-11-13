@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 10 22
+## 2018 11 13
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -626,15 +626,86 @@ pal_kn <- init_pal(col.N = grey(.95, .99),     # nearly white
 ## Use uni.kn color scheme (as default):
 # pal <- pal_kn
 
+
+## pal_vir: Define a viridis color scale: ----------
+
+## Using viridisLite (version 0.3.0):
+## URL: https://github.com/sjmgarnier/viridisLite
+## Maintainer: Simon Garnier <garnier@njit.edu>
+
+# viridisLite::viridis(4)
+vir_04 <- c("#440154FF", "#31688EFF", "#35B779FF", "#FDE725FF")
+
+# viridisLite::viridis(8)
+vir_08 <- c("#440154FF", "#46337EFF", "#365C8DFF", "#277F8EFF",
+            "#1FA187FF", "#4AC16DFF", "#9FDA3AFF", "#FDE725FF")
+
+# viridisLite::viridis(12)
+vir_12 <- c("#440154FF", "#482173FF", "#433E85FF", "#38598CFF",
+            "#2D708EFF", "#25858EFF", "#1E9B8AFF", "#2BB07FFF",
+            "#51C56AFF", "#85D54AFF", "#C2DF23FF", "#FDE725FF")
+
+#' Alternative color palette using viridis colors.
+#'
+#' \code{pal_vir} is initialized to a vector of named elements (colors)
+#' to define a scenario color scheme modeled on the \code{viridis} color scale.
+#'
+#' These colors are select by the Matplotlib \code{viridis} color map
+#' created by Stéfan van der Walt and Nathaniel Smith.
+#' See the \code{viridisLite} package (maintained by Simon Garnier)
+#' for further information.
+#'
+#' Assign \code{pal <- pal_vir} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_vir        # shows all current color names and values
+#' pal_vir["hi"]  # shows the current color for hits (true positives)
+#' pal_vir["hi"] <- "green3" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_vir <- init_pal(col.N = grey(.70, .99),     # mid-grey
+                    col.true =  grey(.85, .99), # brighter by 15
+                    col.false = grey(.55, .99), # darker
+                    col.pos = grey(.80, .99),   # brighter by 10
+                    col.neg = grey(.60, .99),   # darker
+                    col.cor = grey(.90, .99),   # brighter by 20
+                    col.err = grey(.50, .99),   # darker
+                    col.hi = vir_12[10],        # hi: bright green
+                    col.mi = vir_12[12],        # mi: yellow
+                    col.fa = vir_12[5],         # fa: bluish
+                    col.cr = vir_12[8],         # cr: darker green
+                    col.ppv = vir_12[9],        # between hi and cr
+                    col.npv = vir_12[3],        # beyond fa
+                    col.txt = grey(0, .99),     # black
+                    col.brd = grey(.10, .99)    # almost black
+)
+
+## Check:
+# pal_vir
+# pal_vir["hi"]
+
+## Use viridis color scheme (as default):
+# pal <- pal_vir
+
 ## (*) Done: ----------
 
-## - Clean up code.  [2018 08 26]
+## - Clean up code.  [2018 09 01]
+## - Colors are user-customizable
+## - Add some pre-defined color palettes.
 
 ## (+) ToDo: ----------
 
-## - Add pre-defined color palettes. For instance,
-##   - b/w palette
-##   - b/w-color high-lighting palettes (e.g., for 3 perspectives)
-## - Make colors user-customizable
+## - Add 2x2-dimensional (+/-, T/F) color palette.
+## - Add dark (inverted) color palette (bright text on dark boxes).
+## - Add RGB, true b+w, and corrected palettes (for color-blind persons).
+## - Add b/w-color high-lighting palettes (e.g., for 3 perspectives).
 
 ## eof. ------------------------------------------
