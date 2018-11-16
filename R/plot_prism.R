@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 10
+## 2018 11 16
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -390,40 +390,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## 1. Perspective:
 
   # by:
-  if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # by in lowercase
-  if ( is.null(by) || is.na(by) )  { by <- "cddc" }        # use default
-  if (by == "any" || by == "all" || by == "default" || by == "def" || by == "no" ) { by <- "cddc" }
-
-  # use by input:
-  by_top <- substr(by, 1, 2)  # top perspective (row 2): by = "cd" "dc" "ac"
-  by_bot <- substr(by, 3, 4)  # bottom perspective (row 4): by = "cd" "dc" "ac"
-
-  # catch & correct invalid entries:
-  if (by_top == by_bot) {
-    warning("Specified 2 identical perspectives.")
-  }
-  # Invalid perspectives:
-  if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
-    warning("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
-    by_top <- "cd"  # default
-  }
-  if ((by_bot %in% c("cd", "dc", "ac")) == FALSE) {
-    warning("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
-    by_bot <- "dc"  # default
-  }
-  # Valid 1st but invalid 2nd perspective:
-  if ((by_top == "cd") && (by_bot != ("dc") & by_bot != ("ac") & by_bot != ("cd"))) {
-    warning("If 1st perspective by = 'cd', 2nd perspective should be 'dc' or 'ac'.\nUsing by = 'cddc'.")
-    by_bot <- "dc"  # default
-  }
-  if ((by_top == "dc") && (by_bot != ("cd") & by_bot != ("ac") & by_bot != ("dc"))) {
-    warning("If 1st perspective by = 'dc', 2nd perspective should be 'cd' or 'ac'.\nUsing by = 'dccd'.")
-    by_bot <- "cd"  # default
-  }
-  if ((by_top == "ac") && (by_bot != ("cd") & by_bot != ("dc") & by_bot != ("ac"))) {
-    warning("If 1st perspective by = 'ac', 2nd perspective should be 'cd' or 'dc'.\nUsing by = 'accd'.")
-    by_bot <- "cd"  # default
-  }
+  by_vec <- read_by(by = by) # helper function returns vector with 3 elements:
+  by_top <- by_vec[1]
+  by_bot <- by_vec[2]
+  by     <- by_vec[3]  # updates original by to (possibly changed) by_now
 
   ## 2. Freq boxes
 
@@ -455,7 +425,6 @@ plot_prism <- function(prev = num$prev,    # probabilities
     prob <- prob_from_freq  # use re-computed values for all prob values!
 
   }
-
 
   # f_lwd & lty:
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {
@@ -1421,6 +1390,82 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 # plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_4c)
 # plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
+
+read_by <- function(by){
+  # Helper function with
+  # - input:  by argument and
+  # - output: vector of by_top, by_bot, and (possibly different) by_now:
+
+  # Initialize outputs:
+  by_top <- NULL
+  by_bot <- NULL
+  by_now <- NULL
+
+  # Interpret inputs:
+  if ( !is.null(by) && !is.na(by) ) { by <- tolower(by) }  # by in lowercase
+  if ( is.null(by) || is.na(by) )  { by <- "cddc" }        # use default
+  if (by == "any" || by == "all" || by == "default" || by == "def" || by == "no" ) { by <- "cddc" }  # use default
+
+  # Use by input:
+  # Case 1: Plot 2 perspectives (prism, double tree):
+  if (nchar(by) >= 4) {
+
+    by_top <- substr(by, 1, 2)  # top perspective (row 2): by = "cd" "dc" "ac"
+    by_bot <- substr(by, 3, 4)  # bottom perspective (row 4): by = "cd" "dc" "ac"
+
+    # Catch & correct invalid entries:
+    if (by_top == by_bot) {
+      warning("Specified 2 identical perspectives.")
+    }
+
+    # Invalid perspectives:
+    if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
+      warning("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
+      by_top <- "cd"  # default
+    }
+    if ((by_bot %in% c("cd", "dc", "ac")) == FALSE) {
+      warning("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
+      by_bot <- "dc"  # default
+    }
+
+    # Valid 1st but invalid 2nd perspective:
+    if ((by_top == "cd") && (by_bot != ("dc") & by_bot != ("ac") & by_bot != ("cd"))) {
+      warning("If 1st perspective by = 'cd', 2nd perspective should be 'dc' or 'ac'.\nUsing by = 'cddc'.")
+      by_bot <- "dc"  # default 1
+    }
+    if ((by_top == "dc") && (by_bot != ("cd") & by_bot != ("ac") & by_bot != ("dc"))) {
+      warning("If 1st perspective by = 'dc', 2nd perspective should be 'cd' or 'ac'.\nUsing by = 'dccd'.")
+      by_bot <- "cd"  # default 2
+    }
+    if ((by_top == "ac") && (by_bot != ("cd") & by_bot != ("dc") & by_bot != ("ac"))) {
+      warning("If 1st perspective by = 'ac', 2nd perspective should be 'cd' or 'dc'.\nUsing by = 'accd'.")
+      by_bot <- "cd"  # default 3
+    }
+
+  }
+
+  # Case 2: Plot 1 perspective (single tree):
+  if (nchar(by) <= 2) {
+
+    by_top <- substr(by, 1, 2)  # top perspective (row 2): by = "cd" "dc" "ac"
+
+    if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
+      warning("Invalid perspective! Valid by = {'cd', 'dc', 'ac'}.\nUsing by = 'cd'.")
+      by_top <- "cd"  # default
+    }
+
+    by_bot <- "dc" # Temporary HACK (to allow testing Case 2 with plot code requiring 2 perspectives)!
+
+  }
+
+  # Determine current version of by (by_now, which may be different from original by):
+  by_now <- paste0(by_top, by_bot)
+  # print(by_now)
+
+  # Finish:
+  return(c(by_top, by_bot, by_now))
+}
+
 
 
 ## Done: [2018 11 08] ------
