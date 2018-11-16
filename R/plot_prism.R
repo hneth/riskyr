@@ -1467,8 +1467,7 @@ read_by <- function(by){
 }
 
 
-
-## Done: [2018 11 08] ------
+## Done: [2018 11 15] ------
 
 ## (0) Design as function plot_prism (generalizing plot_fnet).
 
@@ -1496,24 +1495,29 @@ read_by <- function(by){
 ## (4) Plot sets/lists of boxes by their freq/prob values (from large to small,
 ##     to prevent occlusion of freq labels of smaller boxes) => plot_util.R
 
-## (5) Add documentation and integrate in current riskyr package (./R).
+## (5) Add better options for box and link labels
+##     (e.g., analog to previous "mix" and "min".) => plot_util.R
 
-## (6) Add x_lab_pos parameter and adjust x_lab and x_min
+## (6) Add documentation and integrate in current riskyr package (./R)
+##     with sensible defaults.
+
+## (7) Now scaling prob by freq when scale == "f" (as in plot_area, plot_tab)!
+
+## (8) Add x_lab_pos parameter and adjust x_lab and x_min
 ##     to control ftype labels on left.
 
-## (7) Allow ... to pass graphical parameters (to plot_link & plot_ftype_label, but NOT plot_fbox_list).
+## (9) Allow ... to pass graphical parameters (to plot_link & plot_ftype_label, but NOT plot_fbox_list).
+
+## (10) Interpret by argument in separate read_by helper function.
 
 
-## ToDo: [2018 11 04] ------
+## ToDo: [2018 11 16] ------
 
-## (1) Set sensible defaults.
+## (1) Generalise from 2 perspectives (prism, double-tree) to
+##     only showing 1 perspective (by_top: frequency tree).
 
-## (2) Consider scaling prob by freq when scale == "p" (as in plot_area, plot_tab)
+## (2) Add option to scale width of links by prob.
 
-## (3) Add option to scale width of links by prob.
-
-## (4) Add better options for box and link labels
-##     (e.g., analog to previous "mix" and "min".) => plot_util.R
 
 ## eof. ----------
 
