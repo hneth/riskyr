@@ -459,8 +459,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## 5. Additional parameters (currently fixed):
   lty <- 1
-  x_lab <- -5.5    # x-value of ftype labels
-  x_lab_pos <- 4   # pos of ftype labels (NULL: centered, 2: right justified, or 4: left justified)
+  ftype_x <- -5.5    # x-value of ftype labels
+  ftype_pos <- 4   # pos of ftype labels (NULL: centered, 2: right justified, or 4: left justified)
 
   ## (3) Define plot and margin areas: ----------
 
@@ -487,11 +487,15 @@ plot_prism <- function(prev = num$prev,    # probabilities
   y_ctr <- 0  # horizontal middle / center
 
   # Dimensions:
-  x_min <- -5  # x_ctr - ((x_levels - 1)/2 + .5)
-  x_max <- +5  # x_ctr + ((x_levels - 1)/2 + .5)
+  x_min <- -5
+  x_max <- +5
 
-  y_min <- min(-5, x_lab)  # y_ctr - 2 * ((y_levels - 1)/2 + .5)
-  y_max <- +5  # y_ctr + 2 * ((y_levels - 1)/2 + .5)
+  if ( !is.na(by_bot) ) {
+    y_min <- -5
+  } else {
+    y_min <- -1
+  } # if ( !is.na(by_bot) ) etc.
+  y_max <- +5
 
   # Plot empty canvas:
   plot(0:1, 0:1, type = "n",
@@ -556,16 +560,36 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## Box areas with fixed size:
 
   ## (a) rectangular box (default):
-  b_h_scale <- 5/4      # optional scaling factor (for larger box heights)
-  b_h <- 1 * b_h_scale  # basic box height
-  gold_ratio  <- 1.618  # (golden ratio = x 1.6180339887)
-  wide_screen <- 16/9
-  # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # wider + corrected for aspect ratio
-  b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)  # wider + corrected for aspect ratio
+  if ( !is.na(by_bot) ) {
+
+    b_h_scale <- 5/4        # optional scaling factor (for larger box heights)
+    b_h <- (1 * b_h_scale)  # basic box height
+
+    # gold_ratio  <- 1.618  # (golden ratio = x 1.6180339887)
+    wide_screen <- 16/9     # 1.778
+
+    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # wider + corrected for aspect ratio
+    b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)  # wider + corrected for aspect ratio
+
+  } else {
+
+    b_h <- 1
+    wider <- 3
+
+    b_w <- comp_lx(b_h, mf = wider, corf = scale_x)  # wider + corrected for aspect ratio
+
+  } # if ( !is.na(by_bot) ) etc.
 
   ## (b) Square box:
   if (area == "sq") {
-    b_w <- comp_lx(b_h, mf = 1, corf = scale_x)  # same as b_h + corrected for aspect ratio
+
+    if ( !is.na(by_bot) ) {
+      b_w <- comp_lx(b_h, mf = 1, corf = scale_x)  # same as b_h + corrected for aspect ratio
+    } else {
+      # +++ here now +++
+      b_w <- comp_lx(b_h, mf = 1, corf = scale_x)  # same as b_h + corrected for aspect ratio
+    } # if ( !is.na(by_bot) ) etc.
+
   }
 
   ## (B) Other graphical parameters:
@@ -615,34 +639,35 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   }
 
-  # box coordinates:
-
-  # fixed:
+  # box 1:
   box_1_x <-  0  # center
   box_1_y <- +4  # top row
-
-  box_5_x <-  0  # center
-  box_5_y <- -4  # bottom row
-
-  # define boxes:
   box_1 <- make_box("N", box_1_x, box_1_y, box_1_w, box_1_h)
-  box_5 <- make_box("N", box_5_x, box_5_y, box_1_w, box_1_h)
 
-  ## OLD: plot boxes separately:
   # plot(box_1, lbl_type = "namnum", cex = cex_lbl, lwd = f_lwd, lbl_sep = ":\nN = ")  # N (top)
-  # plot(box_5, lbl_type = f_lbl, cex = cex_lbl, lwd = 1.0, density = 20)  # N (bot): illustrate diagonal lines (via density)
+  row_1_boxes <- list(box_1)  # list of boxes (lists)
 
-  ## NEW:
-  row_1_boxes <- list(box_1, box_5)  # list of boxes (lists)
+  # plot label:
+  plot_ftype_label("N", ftype_x, box_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+
+  if ( !is.na(by_bot) ) {
+
+    # box 5:
+    box_5_x <-  0  # center
+    box_5_y <- -4  # bottom row
+    box_5 <- make_box("N", box_5_x, box_5_y, box_1_w, box_1_h)
+
+    # plot(box_5, lbl_type = f_lbl, cex = cex_lbl, lwd = 1.0, density = 20)  # N (bot): illustrate diagonal lines (via density)
+    row_1_boxes <- list(box_1, box_5)  # list of boxes (lists)
+
+    # plot label:
+    plot_ftype_label("N", ftype_x, box_5_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+
+  } # if ( !is.na(by_bot) ) etc.
+
+  # plot list of fboxes:
   # plot_fbox_list(row_1_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes
 
-  ## Customize boxes:
-  # plot_fbox_list(box_1, lbl_type = "namnum", cex = cex_lbl, lwd = f_lwd, lbl_sep = ":\nN = ")  # N (top)
-  # plot_fbox_list(box_5, lbl_type = f_lbl, cex = cex_lbl, lwd = 1.0, density = 20)  # N (bot): illustrate diagonal lines (via density)
-
-  # plot labels:
-  plot_ftype_label("N", x_lab, box_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
-  plot_ftype_label("N", x_lab, box_5_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   ##   3rd row (y = 0, center): SDT cases/cells as 4 boxes: ------
 
@@ -733,10 +758,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
   # plot_fbox_list(row_3_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes
 
   # plot label:
-  plot_ftype_label("hi", x_lab, box_3_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+  plot_ftype_label("hi", ftype_x, box_3_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
 
-  ##   2nd row (y = +2): by perspective ------
+  ##   2nd row (y = +2): by_top perspective ------
 
   # Note: Express all widths of compound frequencies
   #       as sums of hi_lx mi_lx fa_lx cr_lx!
@@ -788,7 +813,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("cond.false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("cond.true", ftype_x, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   } else if (by_top == "dc") {
 
@@ -821,7 +846,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("dec.neg", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.pos", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("dec.pos", ftype_x, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   } else if (by_top == "ac") {
 
@@ -854,7 +879,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("dec.err", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.cor", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("dec.cor", ftype_x, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   } else {  # default on top: same as (by_top == "cd")
 
@@ -887,7 +912,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     box_2_2 <- make_box("cond.false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", x_lab, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("cond.true", ftype_x, box_2_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   }
 
@@ -902,168 +927,177 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ##   4th row (y = -2): by perspective ------
 
-  ## Note: Repeat code of 2nd row above (with 4 changes:
-  ##       mirrored y-values, "by_bot" for "by_top", "box_4_" for "box_2_", default on top/bot):
+  if ( !is.na(by_bot) ) {
 
-  # box dimensions (w and h):
-  box_4_1_lx <- b_w  # default box width
-  box_4_2_lx <- b_w
+    ## Note: Repeat code of 2nd row above (with 4 changes:
+    ##       mirrored y-values, "by_bot" for "by_top", "box_4_" for "box_2_", default on top/bot):
 
-  box_4_1_ly <- b_h  # default box height
-  box_4_2_ly <- b_h
+    # box dimensions (w and h):
+    box_4_1_lx <- b_w  # default box width
+    box_4_2_lx <- b_w
 
-  # fixed box coordindates (x and y):
-  box_4_1_x <- -2  # left of center
-  box_4_2_x <- +2  # right of center
+    box_4_1_ly <- b_h  # default box height
+    box_4_2_ly <- b_h
 
-  box_4_1_y <- -2  # BELOW center
-  box_4_2_y <- -2  # BELOW center
+    # fixed box coordindates (x and y):
+    box_4_1_x <- -2  # left of center
+    box_4_2_x <- +2  # right of center
 
-  # Define boxes and labels by perspective:
-  if (by_bot == "cd") {
+    box_4_1_y <- -2  # BELOW center
+    box_4_2_y <- -2  # BELOW center
 
-    ## (a) by condition:
+    # Define boxes and labels by perspective:
+    if (by_bot == "cd") {
 
-    if (area == "hr") {
+      ## (a) by condition:
 
-      # scale dimensions (as sums of SDT dimensions):
-      box_4_1_lx <- (hi_lx + mi_lx)  # lx of cond.true
-      box_4_2_lx <- (fa_lx + cr_lx)  # lx of cond.true
+      if (area == "hr") {
 
-      # adjust x-coordinates to scaled dimensions:
-      box_4_1_x <- (x_min + 1) + box_4_1_lx/2
-      box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
+        # scale dimensions (as sums of SDT dimensions):
+        box_4_1_lx <- (hi_lx + mi_lx)  # lx of cond.true
+        box_4_2_lx <- (fa_lx + cr_lx)  # lx of cond.true
 
-    } else if (area == "sq") { # Scale area as square:
+        # adjust x-coordinates to scaled dimensions:
+        box_4_1_x <- (x_min + 1) + box_4_1_lx/2
+        box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
 
-      # Compute ly for current scale:
-      box_4_1_ly <- comp_ly_fsqr("cond.true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.true
-      box_4_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
+      } else if (area == "sq") { # Scale area as square:
 
-      # Compute lx corresponding to ly:
-      box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        # Compute ly for current scale:
+        box_4_1_ly <- comp_ly_fsqr("cond.true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.true
+        box_4_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
 
-    } # if (area == etc.)
+        # Compute lx corresponding to ly:
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
 
-    # define boxes:
-    box_4_1 <- make_box("cond.true",  box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-    box_4_2 <- make_box("cond.false", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      } # if (area == etc.)
 
-    # plot label:
-    plot_ftype_label("cond.true", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      # define boxes:
+      box_4_1 <- make_box("cond.true",  box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("cond.false", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
-  } else if (by_bot == "dc") {
+      # plot label:
+      plot_ftype_label("cond.true", ftype_x, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
-    ## (b) by decision:
+    } else if (by_bot == "dc") {
 
-    if (area == "hr") {
+      ## (b) by decision:
 
-      # scale dimensions (as sums of SDT dimensions):
-      box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
-      box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
+      if (area == "hr") {
 
-      # adjust x-coordinates to scaled dimensions:
-      box_4_1_x <- (x_min + 1) + box_4_1_lx/2
-      box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
+        # scale dimensions (as sums of SDT dimensions):
+        box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
+        box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
 
-    } else if (area == "sq") { # Scale area as square:
+        # adjust x-coordinates to scaled dimensions:
+        box_4_1_x <- (x_min + 1) + box_4_1_lx/2
+        box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
 
-      # Compute ly for current scale:
-      box_4_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
-      box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
+      } else if (area == "sq") { # Scale area as square:
 
-      # Compute lx corresponding to ly:
-      box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        # Compute ly for current scale:
+        box_4_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
+        box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
 
-    } # if (area == etc.)
+        # Compute lx corresponding to ly:
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
 
-    # define boxes:
-    box_4_1 <- make_box("dec.pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-    box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      } # if (area == etc.)
 
-    # plot label:
-    plot_ftype_label("dec.pos", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      # define boxes:
+      box_4_1 <- make_box("dec.pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
-  } else if (by_bot == "ac") {
+      # plot label:
+      plot_ftype_label("dec.pos", ftype_x, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
-    ## (c) by accuracy:
+    } else if (by_bot == "ac") {
 
-    if (area == "hr") {
+      ## (c) by accuracy:
 
-      # scale dimensions (as sums of SDT dimensions):
-      box_4_1_lx <- (hi_lx + cr_lx)  # lx of dec.cor
-      box_4_2_lx <- (mi_lx + fa_lx)  # lx of dec.err
+      if (area == "hr") {
 
-      # adjust x-coordinates to scaled dimensions:
-      box_4_1_x <- (x_min + 1) + box_4_1_lx/2
-      box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
+        # scale dimensions (as sums of SDT dimensions):
+        box_4_1_lx <- (hi_lx + cr_lx)  # lx of dec.cor
+        box_4_2_lx <- (mi_lx + fa_lx)  # lx of dec.err
 
-    } else if (area == "sq") { # Scale area as square:
+        # adjust x-coordinates to scaled dimensions:
+        box_4_1_x <- (x_min + 1) + box_4_1_lx/2
+        box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
 
-      # Compute ly for current scale:
-      box_4_1_ly <- comp_ly_fsqr("dec.cor", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.cor
-      box_4_2_ly <- comp_ly_fsqr("dec.err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.err
+      } else if (area == "sq") { # Scale area as square:
 
-      # Compute lx corresponding to ly:
-      box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        # Compute ly for current scale:
+        box_4_1_ly <- comp_ly_fsqr("dec.cor", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.cor
+        box_4_2_ly <- comp_ly_fsqr("dec.err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.err
 
-    } # if (area == etc.)
+        # Compute lx corresponding to ly:
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
 
-    # define boxes:
-    box_4_1 <- make_box("dec.cor", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-    box_4_2 <- make_box("dec.err", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      } # if (area == etc.)
 
-    # plot label:
-    plot_ftype_label("dec.cor", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      # define boxes:
+      box_4_1 <- make_box("dec.cor", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("dec.err", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
-  } else {  # default on bot: same as (by_bot == "dc")
+      # plot label:
+      plot_ftype_label("dec.cor", ftype_x, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
-    ## (+) by decision:
+    } else {  # default on bot: same as (by_bot == "dc")
 
-    if (area == "hr") {
+      ## (+) by decision:
 
-      # scale dimensions (as sums of SDT dimensions):
-      box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
-      box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
+      if (area == "hr") {
 
-      # adjust x-coordinates to scaled dimensions:
-      box_4_1_x <- (x_min + 1) + box_4_1_lx/2
-      box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
+        # scale dimensions (as sums of SDT dimensions):
+        box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
+        box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
 
-    } else if (area == "sq") { # Scale area as square:
+        # adjust x-coordinates to scaled dimensions:
+        box_4_1_x <- (x_min + 1) + box_4_1_lx/2
+        box_4_2_x <- (x_min + 1) + box_4_1_lx + box_4_2_lx/2
 
-      # Compute ly for current scale:
-      box_4_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
-      box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
+      } else if (area == "sq") { # Scale area as square:
 
-      # Compute lx corresponding to ly:
-      box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        # Compute ly for current scale:
+        box_4_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
+        box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
 
-    }  # if (area == etc.)
+        # Compute lx corresponding to ly:
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
 
-    # define boxes:
-    box_4_1 <- make_box("dec.pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-    box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      }  # if (area == etc.)
 
-    # plot label:
-    plot_ftype_label("dec.pos", x_lab, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      # define boxes:
+      box_4_1 <- make_box("dec.pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
-  }
+      # plot label:
+      plot_ftype_label("dec.pos", ftype_x, box_4_1_y, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
-  ## OLD: plot boxes:
-  # plot(box_4_1, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, lbl_sep = ":\n")
-  # plot(box_4_2, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, lbl_sep = ":\n")
+    }
 
-  # NEW:
-  row_4_boxes <- list(box_4_1, box_4_2)  # list of boxes (lists)
+    ## OLD: plot boxes:
+    # plot(box_4_1, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, lbl_sep = ":\n")
+    # plot(box_4_2, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd, lbl_sep = ":\n")
+
+    # NEW:
+    row_4_boxes <- list(box_4_1, box_4_2)  # list of boxes (lists)
+
+  } # if ( !is.na(by_bot) ) etc.
+
+  ## Combine ALL boxes:
+  if ( !is.na(by_bot) ) {
+    all_boxes <- c(row_1_boxes, row_2_boxes, row_3_boxes, row_4_boxes)
+  } else {
+    all_boxes <- c(row_1_boxes, row_2_boxes, row_3_boxes)
+  } # if ( !is.na(by_bot) ) etc.
 
   ## Plot ALL boxes at once:
-  all_boxes <- c(row_1_boxes, row_2_boxes, row_3_boxes, row_4_boxes)
-
   # plot_fbox_list(all_boxes, lbl_type = f_lbl, lbl_sep = ":\n", cex = cex_lbl, lwd = f_lwd, density = NA)  # plot list of boxes
   plot_fbox_list(all_boxes,  # plot list of boxes
                  cur_freq = freq, cur_txt = lbl_txt, cur_pal = col_pal,  # PASS current freq/txt/pal arguments!
@@ -1122,89 +1156,93 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## from bottom:
 
-  ##   row 4 to 3: ----
+  if ( !is.na(by_bot) ) {
 
-  # Links depend on perspectives/box types:
+    ##   row 4 to 3: ----
 
-  if (by_bot == "cd") {  # row 4: by condition (cond.true vs. cond.false)
+    # Links depend on perspectives/box types:
 
-    ## (a) by condition:
-    plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - hi
-    plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
-    plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
-    plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - cr
+    if (by_bot == "cd") {  # row 4: by condition (cond.true vs. cond.false)
 
-  } else if (by_bot == "dc") {  # row 4: by decision (dec.pos vs. dec.neg)
+      ## (a) by condition:
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - hi
+      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - cr
 
-    ## (b) by decision:
-    plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
-    plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
-    plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
-    plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
+    } else if (by_bot == "dc") {  # row 4: by decision (dec.pos vs. dec.neg)
 
-  } else if (by_bot == "ac") {  # row 4: by accuracy (dec.cor vs. dec.err)
+      ## (b) by decision:
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
+      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
 
-    ## (c) by accuracy:
-    plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - hi: acc-hi
-    plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - cr: acc-cr
-    plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi: err-mi
-    plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa: err-fa
+    } else if (by_bot == "ac") {  # row 4: by accuracy (dec.cor vs. dec.err)
 
-  } else {  # default on bot: same as (by_bot == "dc")
+      ## (c) by accuracy:
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - hi: acc-hi
+      plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - cr: acc-cr
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi: err-mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa: err-fa
 
-    ## (+) by decision:
-    plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
-    plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
-    plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
-    plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
+    } else {  # default on bot: same as (by_bot == "dc")
 
-    ## OLDER default: show 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
+      ## (+) by decision:
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
+      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
 
-    # # 2 default boxes:
-    # plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi / PPV
-    # plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa
-    # plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 3, cex = cex_p_lbl, ...)     # Allow ...!     # dec.neg - mi
-    # plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, ...)     # Allow ...!     # dec.neg - cr / NPV
-    #
-    # # 2 additional boxes:
-    # plot_link(box_4_3, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, ...)     # Allow ...!     # dec.cor - hi
-    # plot_link(box_4_3, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, ...)     # Allow ...!     # dec.cor - cr
-    # plot_link(box_4_4, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi
-    # plot_link(box_4_4, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa
+      ## OLDER default: show 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
 
-  }
+      # # 2 default boxes:
+      # plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi / PPV
+      # plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa
+      # plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 3, cex = cex_p_lbl, ...)     # Allow ...!     # dec.neg - mi
+      # plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, ...)     # Allow ...!     # dec.neg - cr / NPV
+      #
+      # # 2 additional boxes:
+      # plot_link(box_4_3, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, ...)     # Allow ...!     # dec.cor - hi
+      # plot_link(box_4_3, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, ...)     # Allow ...!     # dec.cor - cr
+      # plot_link(box_4_4, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi
+      # plot_link(box_4_4, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa
 
-  ##   row 5 to 4: ----
+    }
 
-  if (by_bot == "cd" || by_bot == "dc" || by_bot == "ac" ) {
+    ##   row 5 to 4: ----
 
-    # link to 2 default boxes:
-    plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
-    plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+    if (by_bot == "cd" || by_bot == "dc" || by_bot == "ac" ) {
 
-  } else {  # link to 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
+      # link to 2 default boxes:
+      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
+      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
 
-    # link to 2 default boxes:
-    plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
-    plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+    } else {  # link to 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
 
-    ## OLDER: link to 2 additional boxes:
-    # plot_link(box_5, box_4_3,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!
-    # plot_link(box_5, box_4_4,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+      # link to 2 default boxes:
+      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
+      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
 
-  }
+      ## OLDER: link to 2 additional boxes:
+      # plot_link(box_5, box_4_3,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!
+      # plot_link(box_5, box_4_4,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+
+    }
+
+  } # if ( !is.na(by_bot) ) etc.
 
 
   ## (C) Plot other stuff: ------
 
-  box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
+  # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
 
   ## ftype labels:
-  # plot_ftype_label("N", x_lab, 4, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
-  # plot_ftype_label("cond.true", x_lab, 2, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
-  # plot_ftype_label("hi", x_lab, 0, cur_txt = lbl_txt, suffix = ":", pos = x_lab_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
-  # plot_ftype_label("N", x_lab, -4, pos = x_lab_pos, cur_txt = lbl_txt, suffix = ":", col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+  # plot_ftype_label("N", ftype_x, 4, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+  # plot_ftype_label("cond.true", ftype_x, 2, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+  # plot_ftype_label("hi", ftype_x, 0, cur_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+  # plot_ftype_label("N", ftype_x, -4, pos = ftype_pos, cur_txt = lbl_txt, suffix = ":", col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
 
   ## (6) Title: ------
@@ -1454,18 +1492,27 @@ read_by <- function(by){
       by_top <- "cd"  # default
     }
 
-    by_bot <- "dc" # Temporary HACK (to allow testing Case 2 with plot code requiring 2 perspectives)!
-
+    # by_bot <- "dc" # Temporary HACK (to allow testing Case 2 with plot code requiring 2 perspectives)!
+    by_bot <- NA  # signal absence of 2nd perspective
   }
 
   # Determine current version of by (by_now, which may be different from original by):
-  by_now <- paste0(by_top, by_bot)
+  if ( !is.na(by_bot) ) {
+    by_now <- paste0(by_top, by_bot)
+  } else {
+    by_now <- by_top
+  } # if ( !is.na(by_bot) ) etc.
   # print(by_now)
 
   # Finish:
   return(c(by_top, by_bot, by_now))
 }
-
+## Check:
+# read_by(by = "cd")
+# read_by(by = "cddc")
+# read_by(by = "xx")
+# read_by(by = "cdxx")
+# read_by(by = "xxxxxx")
 
 ## Done: [2018 11 15] ------
 
@@ -1503,7 +1550,7 @@ read_by <- function(by){
 
 ## (7) Now scaling prob by freq when scale == "f" (as in plot_area, plot_tab)!
 
-## (8) Add x_lab_pos parameter and adjust x_lab and x_min
+## (8) Add ftype_pos parameter and adjust ftype_x and x_min
 ##     to control ftype labels on left.
 
 ## (9) Allow ... to pass graphical parameters (to plot_link & plot_ftype_label, but NOT plot_fbox_list).
