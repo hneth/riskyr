@@ -798,19 +798,37 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 #
 # s25 <- scenarios$n25  # select Scenario 25 from scenarios
 #
-# plot(s25)  # => default plot (fnet)
-# plot(s25, plot.type = "fnet")  # => network diagram (same as default)
+# plot(s25)  # => default plot (prism/net)
+# plot(s25, plot.type = "ofnet")  # => old network diagram (old default)
 # plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
 # plot(s25, plot.type = "icons")
 # plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameters.
-# plot(s25, plot.type = "mosaic")
 # plot(s25, plot.type = "curve", what = "all")
 # plot(s25, plot.type = "plane", what = "npv")
 # # plot(s25, plot.type = "wetwork")
-## Newer plots:
+#
+# New plots:
 # plot(s25, plot.type = "prism", by = "cddc", f_lbl = "num")
+# plot(s25, plot.type = "tree", by = "ac", f_lbl = "num")
 # plot(s25, plot.type = "area", by = "cddc")
-# plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
+# plot(s25, plot.type = "tab", by = "cddc", f_lwd = 2)
+# plot(s25, plot.type = "bar", dir = 2)
+#
+# # Plot types currently available:
+# plot(s25, plot.type = "prism")                # prism/network diagram (default)
+# plot(s25, plot.type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+# plot(s25, plot.type = "area")                 # area/mosaic plot
+# plot(s25, plot.type = "tab")                  # 2x2 frequency/contingency table
+# plot(s25, plot.type = "bar", dir = 2)         # bar plot
+# plot(s25, plot.type = "icons")                # icon array
+# plot(s25, plot.type = "curve", what = "all")  # curves as fn. of prev
+# plot(s25, plot.type = "plane", what = "NPV")  # plane as function of sens & spec
+#
+# # Older plot types (obsolete):
+# plot(s25, plot.type = "onet")     # plot_fnet (replaced by plot_prism)
+# plot(s25, plot.type = "otree")    # plot_tree (replaced by plot_prism)
+# plot(s25, plot.type = "omosaic")  # plot_mosaic (replaced by plot_area)
+
 
 ## 2. summary.riskyr function: ------------------
 
