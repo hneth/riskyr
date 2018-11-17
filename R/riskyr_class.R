@@ -510,21 +510,25 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #'
 #' \enumerate{
 #'
-#'   \item \code{plot.type = "fnet"} or \code{plot.type = "network"}:
+#'   \item \code{plot.type = "prism"} or \code{plot.type = "net"} or \code{plot.type = "tree"}:
 #'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
-#'   See \code{\link{plot_fnet}} for further options.
+#'   See \code{\link{plot_prism}} for further options.
 #'
-#'   \item \code{plot.type = "ftree"} or \code{plot.type = "ftree"}:
-#'   Risk information is plotted in a frequency tree.
-#'   See \code{\link{plot_tree}} for further options.
+#'   \item \code{plot.type = "area"} or \code{plot.type = "mosaic"}:
+#'   Risk information is plotted as a mosaic plot (scaled area).
+#'   See \code{\link{plot_area}} for further options.
+#'
+#'   \item \code{plot.type = "tab"} or \code{plot.type = "ftab"}:
+#'   Risk information is plotted as a 2x2 frequency or contingency table.
+#'   See \code{\link{plot_tab}} for further options.
+#'
+#'   \item \code{plot.type = "bar"} or \code{plot.type = "fbar"}:
+#'   Risk information is plotted as a bar chart.
+#'   See \code{\link{plot_bar}} for further options.
 #'
 #'   \item \code{plot.type = "icons"} or \code{plot.type = "iconarray"}:
 #'   The underlying population is plotted as icons.
 #'   See \code{\link{plot_icons}} for further options.
-#'
-#'   \item \code{plot.type = "mosaic"} or \code{plot.type = "mosaicplot"}:
-#'   Risk information is plotted as a mosaicplot.
-#'   See \code{\link{plot_mosaic}} for further options.
 #'
 #'   \item \code{plot.type = "curve"} or \code{plot.type = "curves"}:
 #'   Draws curves of selected values (including \code{\link{PPV}}, \code{\link{NPV}})
@@ -533,6 +537,21 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #'   \item \code{plot.type = "plane"} or \code{plot.type = "planes"}:
 #'   Draws a 3D-plane of selected values (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}})
 #'   See \code{\link{plot_plane}} for further options.
+#'
+#'   Older plot types (replaced by the above, to be retired):
+#'
+#'   \item \code{plot.type = "onet"} or \code{plot.type = "ofnet"}:
+#'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
+#'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_fnet}} for further options.
+#'
+#'   \item \code{plot.type = "otree"} or \code{plot.type = "oftree"}:
+#'   Risk information is plotted in a frequency tree.
+#'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_tree}} for further options.
+#'
+#'   \item \code{plot.type = "omosaic"} or \code{plot.type = "omosaicplot"}:
+#'   Risk information is plotted as a mosaicplot.
+#'   Replaced by \code{\link{plot_area}}, but see \code{\link{plot_mosaic}} for further options.
+#'
 #' }
 #'
 #' @param ... Additional parameters to be passed to the
@@ -541,17 +560,23 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #' @examples
 #' # Select a scenario from list of scenarios:
 #' s25 <- scenarios$n25  # select scenario 25 from scenarios
+#' plot(s25)  # default plot (plot.type = "prism")
 #'
-#' # Plot different types:
-#' plot(s25)  # => default plot (fnet)
-#' plot(s25, plot.type = "fnet")  # => network diagram (same as default)
-#' plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-#' plot(s25, plot.type = "icons", type = "mosaic")
-#' plot(s25, plot.type = "curve", what = "all")
-#' plot(s25, plot.type = "plane", what = "NPV")
+#' # Plot types currently available:
+#' plot(s25, plot.type = "prism")                # prism/network diagram (default)
+#' plot(s25, plot.type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+#' plot(s25, plot.type = "area")                 # area/mosaic plot
+#' plot(s25, plot.type = "tab")                  # 2x2 frequency/contingency table
+#' plot(s25, plot.type = "bar", dir = 2)         # bar plot
+#' plot(s25, plot.type = "icons")                # icon array
+#' plot(s25, plot.type = "curve", what = "all")  # curves as fn. of prev
+#' plot(s25, plot.type = "plane", what = "NPV")  # plane as function of sens & spec
 #'
-#' plot(s25, plot.type = "area", by = "cddc")
-#' plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
+#' # Older plot types (obsolete):
+#' plot(s25, plot.type = "onet")     # plot_fnet (replaced by plot_prism)
+#' plot(s25, plot.type = "otree")    # plot_tree (replaced by plot_prism)
+#' plot(s25, plot.type = "omosaic")  # plot_mosaic (replaced by plot_area)
+#'
 #'
 #' @family visualization functions
 #'
