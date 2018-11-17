@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 09 21
+## 2018 11 17
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
@@ -122,6 +122,7 @@
 #'
 #' # Extreme cases:
 #' comp_accu_freq(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
+#' comp_accu_freq(hi = 0, mi = 0, fa = 1, cr = 1)  # random performance: wacc and f1s are NaN
 #' comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal performance
 #' comp_accu_freq(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst performance, but see f1s
 #' comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 0)  # perfect accuracy, but see wacc and mcc
@@ -174,12 +175,14 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
                            w = .50  # weight for wacc (from 0 to 1). Default: w = .50 (aka. bacc).
 ) {
 
-  ## (1) Verify w:
+  # (1) Verify w:
   if (!is_prob(w)) {
     warning("The weighting parameter w (for wacc) must range from 0 to 1.")
   }
 
-  ## (2) Initialize accu list: # Metric:
+  ## ToDo: Verify that a valid set of 4 freq was provided.
+
+  # (2) Initialize accu list: # Metric:
   accu <- list("acc"  = NA,    # 1. overall accuracy
                "w"    = w,     #    weighting parameter w
                "wacc" = NA,    # 2. weighted/balanced accuracy
@@ -187,31 +190,31 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
                "f1s"  = NA     # 4. F1 score
   )
 
-  ## (3) Compute combined frequencies from 4 essential frequencies:
+  # (3) Compute combined frequencies from 4 essential frequencies:
 
-  ## (a) by condition (columns of confusion matrix):
+  # (a) by condition (columns of confusion matrix):
   cond.true  <- (hi + mi)
   cond.false <- (fa + cr)
   N.cond     <- (cond.true + cond.false)
 
-  ## (b) by decision (rows of confusion matrix):
+  # (b) by decision (rows of confusion matrix):
   dec.pos <- (hi + fa)  # positive decisions
   dec.neg <- (mi + cr)
   N.dec   <- (dec.pos + dec.neg)
 
-  ## (c) by truth/correctness of decision (diagonals of confusion matrix):
+  # (c) by truth/correctness of decision (diagonals of confusion matrix):
   dec.cor <- (hi + cr)  # correct decisions
   dec.err <- (mi + fa)  # erroneous decisions
   N.truth <- (dec.cor + dec.err)
 
-  ## Check:
+  # Check:
   if ((N.cond != N.dec) || (N.cond != N.truth))  {
     warning("A violation of commutativity occurred: 4 basic frequencies do not add up to N.")
   } else {
     N <- N.cond
   }
 
-  ## (4) Compute auxiliary values (used below):
+  # (4) Compute auxiliary values (used below):
 
   sens <- hi/cond.true  # conditional probabilities 1
   spec <- cr/cond.false
@@ -220,7 +223,7 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
   # NPV <- cr/dec.neg  # (not needed here)
 
 
-  ## (5) Compute current accuracy metrics:
+  # (5) Compute current accuracy metrics:
 
   # 1. Overall accuracy (acc) / proportion correct:
   accu$acc  <- dec.cor/N
@@ -241,7 +244,7 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
   accu$f1s  <- 2 * (PPV * sens)/(PPV + sens)
 
 
-  ## (5) Return the entire list accu:
+  # (5) Return the entire list accu:
   return(accu)
 
 }
@@ -250,6 +253,7 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
 # comp_accu_freq(hi = 1, mi = 2, fa = 3, cr = 4)  # medium accuracy, but cr > hi.
 #
 # # Extreme cases:
+# comp_accu_freq(hi = 0, mi = 0, fa = 1, cr = 1)  # random performance: wacc and f1s are NaN
 # comp_accu_freq(hi = 1, mi = 1, fa = 1, cr = 1)  # random performance
 # comp_accu_freq(hi = 1, mi = 0, fa = 0, cr = 1)  # perfect accuracy/optimal prediction performance
 # comp_accu_freq(hi = 0, mi = 1, fa = 1, cr = 0)  # zero accuracy/worst prediction performance, but see f1s
@@ -427,23 +431,26 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' comp_accu_prob()  # => accuracy metrics for prob of current scenario
 #' comp_accu_prob(prev = .2, sens = .5, spec = .5)  # medium accuracy, but cr > hi.
 #'
-#' ## Extreme cases:
+#' # Extreme cases:
+#' comp_accu_prob(prev = NaN, sens = NaN, spec = NaN)  # returns list of NA values
+#' comp_accu_prob(prev = 0, sens = NaN, spec = 1)      # returns list of NA values
+#' comp_accu_prob(prev = 0, sens = 0, spec = 1)     # perfect acc = 1, but f1s is NaN
 #' comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
 #' comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
-#' comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
+#' comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, but f1s is NaN
 #' comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #'
-#' ## Effects of w:
+#' # Effects of w:
 #' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
-#' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight to sens
-#' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight to spec
+#' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight on sens: wacc up
+#' comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight on spec: wacc down
 #'
-#' ## Contrasting comp_accu_freq and comp_accu_prob:
+#' # Contrasting comp_accu_freq and comp_accu_prob:
 #' # (a) comp_accu_freq (based on rounded frequencies):
 #' freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => rounded frequencies!
 #' accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
 #' # accu1
-#' #
+#'
 #' # (b) comp_accu_prob (based on probabilities):
 #' accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
 #' # accu2
@@ -483,30 +490,31 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
                            w = .50  # weight for wacc (from 0 to 1). Default: w = .50 (aka. bacc).
 ) {
 
-  ## (A) If a valid set of probabilities was provided:
+  # (1) Verify w:
+  if (!is_prob(w)) {
+    warning("The weighting parameter w (for wacc) must range from 0 to 1.")
+  }
+
+  # (2) Initialize accu list: # Metric:
+  accu <- list("acc"  = NA,    # 1. overall accuracy
+               "w"    = w,     #    weighting parameter w
+               "wacc" = NA,    # 2. weighted/balanced accuracy
+               "mcc"  = NA,    # 3. MCC
+               "f1s"  = NA     # 4. F1 score
+  )
+
+
+  ## (3) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = tol)) {
 
-    ## (0) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
     sens <- prob_quintet[2]  # gets sens (if not provided)
     mirt <- prob_quintet[3]  # gets mirt (if not provided)
     spec <- prob_quintet[4]  # gets spec (if not provided)
     fart <- prob_quintet[5]  # gets fart (if not provided)
 
-    ## (1) Verify w:
-    if (!is_prob(w)) {
-      warning("The weighting parameter w (for wacc) must range from 0 to 1.")
-    }
-
-    ## (2) Initialize accu list: # Metric:
-    accu <- list("acc"  = NA,    # 1. overall accuracy
-                 "w"    = w,     #    weighting parameter w
-                 "wacc" = NA,    # 2. weighted/balanced accuracy
-                 "mcc"  = NA,    # 3. MCC
-                 "f1s"  = NA     # 4. F1 score
-    )
-
-    ## (3) Computation of 4 freq (as probabilities without rounding):
+    # (b) Computate 4 freq (as probabilities without rounding):
     hi <- prev * sens
     mi <- prev * (1 - sens)
     cr <- (1 - prev) * spec
@@ -517,13 +525,13 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
       warning("The 4 freq (as probabilities) should add up to 1.")
     }
 
-    ## (4) Compute some auxiliary values (used below):
+    # (c) Compute some auxiliary values (used below):
 
     dec.cor <- (hi + cr)  # correct decisions
     dec.pos <- (hi + fa)  # positive decisions
     PPV <- hi/dec.pos     # conditional probabilities 2
 
-    ## (5) Compute current accuracy metrics:
+    # (d) Compute current accuracy metrics:
 
     # 1. Overall accuracy (acc) / proportion correct:
     accu$acc  <- dec.cor/N
@@ -543,17 +551,16 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
     # 4. F1Score (f1s): Harmonic mean of PPV (precision) and sens (recall):
     accu$f1s  <- 2 * (PPV * sens)/(PPV + sens)
 
-
-    ## (5) Return the entire list accu:
-    return(accu)
-
   }
 
   else { # (B) NO valid set of probabilities was provided:
 
     warning("Please enter a valid set of essential probabilities.")
 
-  }
+  } # if (is_valid_prob_set(etc.
+
+  # (4) Return the entire list accu:
+  return(accu)
 
 }
 
@@ -562,15 +569,19 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 # comp_accu_prob(prev = .2, sens = .5, spec = .5)  # medium accuracy, but cr > hi.
 #
 # ## Extreme cases:
+# comp_accu_prob(prev = NaN, sens = NaN, spec = NaN)  # returns list of NA values
+# comp_accu_prob(prev = 0, sens = NaN, spec = 1)      # returns list of NA values
+# comp_accu_prob(prev = 0, sens = 0, spec = 1)  # perfect acc = 1, but f1s is NaN
+#
 # comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
 # comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
-# comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
+# comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, but f1s is NaN
 # comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 #
 # ## Effects of w:
 # comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
-# comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight to sens
-# comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight to spec
+# comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight on sens: wacc up
+# comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight on spec: wacc down
 #
 # ## Comparing comp_accu_prob with comp_accu (based on freq):
 # # (a) comp_accu_freq (based on rounded frequencies):
