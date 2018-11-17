@@ -1179,16 +1179,16 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
     ## (b) by decision:
     plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
-    plot_link(box_2_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
-    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
+    plot_link(box_2_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
+    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
     plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
 
   } else if (by_top == "ac") {  # row 2: by accuracy (dec.cor vs. dec.err)
 
     ## (c) by accuracy:
     plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - hi: acc-hi
-    plot_link(box_2_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - cr: acc-cr
-    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi: err-mi
+    plot_link(box_2_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - cr: acc-cr
+    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi: err-mi
     plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa: err-fa
 
   } else {  # default on top: same as (by_top == "cd")
@@ -1213,8 +1213,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
       ## (a) by condition:
       plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - hi
-      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
-      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
+      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
       plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - cr
 
     } else if (by_bot == "dc") {  # row 4: by decision (dec.pos vs. dec.neg)
@@ -1302,7 +1302,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Prism plot (by ", as.character(by), ")")  # plot name:Prism/Network/Double-tree.
+    if ( !is.na(by_bot) ) {
+      type_lbl <- paste0("Prism plot (by ", as.character(by), ")")  # plot name: prism/network/double tree.
+    } else {
+      type_lbl <- paste0("Tree plot (by ", as.character(by), ")")  # plot name: tree/double tree.
+    } # if ( !is.na(by_bot) )
   }
 
   # Compose label:
@@ -1561,7 +1565,7 @@ read_by <- function(by){
 # read_by(by = "cdxx")
 # read_by(by = "xxxxxx")
 
-## Done: [2018 11 15] ------
+## Done: [2018 11 17] ------
 
 ## (0) Design as function plot_prism (generalizing plot_fnet).
 
@@ -1604,14 +1608,15 @@ read_by <- function(by){
 
 ## (10) Interpret by argument in separate read_by helper function.
 
+## (11) Generalise from 2 perspectives (prism, double tree) to
+##      only showing 1 perspective (by_top: single tree).
 
-## ToDo: [2018 11 16] ------
+## (12) Re-shuffle x positions of 4 SDT boxes by 1st perspective (by_top)
+##      so that prob-links from level 2 to 3 do not cross.
 
-## (1) Generalise from 2 perspectives (prism, double-tree) to
-##     only showing 1 perspective (by_top: frequency tree).
+## ToDo: [2018 11 17] ------
 
-## (2) Add option to scale width of links by prob.
-
+## (1) Add option to scale width of links by prob.
 
 ## eof. ----------
 
