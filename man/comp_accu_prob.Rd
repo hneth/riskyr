@@ -142,23 +142,26 @@ metrics computed by \code{comp_accu} correspond these rounded values.
 comp_accu_prob()  # => accuracy metrics for prob of current scenario
 comp_accu_prob(prev = .2, sens = .5, spec = .5)  # medium accuracy, but cr > hi.
 
-## Extreme cases:
+# Extreme cases:
+comp_accu_prob(prev = NaN, sens = NaN, spec = NaN)  # returns list of NA values
+comp_accu_prob(prev = 0, sens = NaN, spec = 1)      # returns list of NA values
+comp_accu_prob(prev = 0, sens = 0, spec = 1)     # perfect acc = 1, but f1s is NaN
 comp_accu_prob(prev = .5, sens = .5, spec = .5)  # random performance
 comp_accu_prob(prev = .5, sens = 1,  spec = 1)   # perfect accuracy
-comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, see f1s
+comp_accu_prob(prev = .5, sens = 0,  spec = 0)   # zero accuracy, but f1s is NaN
 comp_accu_prob(prev = 1,  sens = 1,  spec = 0)   # perfect, but see wacc (0.5) and mcc (0)
 
-## Effects of w:
+# Effects of w:
 comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/2)  # equal weights to sens and spec
-comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight to sens
-comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight to spec
+comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 2/3)  # more weight on sens: wacc up
+comp_accu_prob(prev = .5, sens = .6, spec = .4, w = 1/3)  # more weight on spec: wacc down
 
-## Contrasting comp_accu_freq and comp_accu_prob:
+# Contrasting comp_accu_freq and comp_accu_prob:
 # (a) comp_accu_freq (based on rounded frequencies):
 freq1 <- comp_freq(N = 10, prev = 1/3, sens = 2/3, spec = 3/4)   # => rounded frequencies!
 accu1 <- comp_accu_freq(freq1$hi, freq1$mi, freq1$fa, freq1$cr)  # => accu1 (based on rounded freq).
 # accu1
-#
+
 # (b) comp_accu_prob (based on probabilities):
 accu2 <- comp_accu_prob(prev = 1/3, sens = 2/3, spec = 3/4)      # => exact accu (based on prob).
 # accu2
