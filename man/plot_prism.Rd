@@ -41,7 +41,16 @@ Note: \code{\link{N}} is not represented in the plot,
 but used for computing frequency information \code{\link{freq}}
 from current probabilities \code{\link{prob}}.}
 
-\item{by}{A character code specifying 2 perspectives that split the population into subsets,
+\item{by}{A character code specifying 1 or 2 perspectives
+that split the population into 2 subsets.
+Specifying 1 perspective plots a frequency tree (single tree)
+with 3 options:
+  \enumerate{
+  \item \code{"cd"}: by condition only;
+  \item \code{"dc"}: by decision only;
+  \item \code{"ac"}: by accuracy only.
+  }
+Specifying 2 perspectives plots a frequency prism (network, double tree)
 with 6 options:
   \enumerate{
   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
@@ -197,7 +206,14 @@ plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             #
            col_pal = pal_kn, f_lwd = .5)                                       # custom colors
 
 ## Plot versions:
-# by (3 x 2) = 6 versions (+ 3 redundant ones):
+# (a) tree/single tree (nchar(by) == 2):
+#     3 versions:
+plot_prism(by = "cd", f_lbl = "def")  # by condition (freq boxes: hi mi fa cr)
+plot_prism(by = "dc", f_lbl = "def")  # by decision  (freq boxes: hi fa mi cr)
+plot_prism(by = "ac", f_lbl = "def")  # by decision  (freq boxes: hi cr mi fa)
+
+# (b) prism/double tree (nchar(by) == 4):
+#     6 (3 x 2) versions (+ 3 redundant ones):
 plot_prism(by = "cddc")  # v01 (default)
 plot_prism(by = "cdac")  # v02
 plot_prism(by = "cdcd")  # (+) Warning
