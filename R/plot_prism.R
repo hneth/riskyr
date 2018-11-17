@@ -583,8 +583,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## (b) Square box:
   if (area == "sq") {
 
-    # Correction factor for showing 3 (single tree) instead of 5 levels (prism, double tree):
-    # +++ here now +++
+    # Scale correction factor for showing 3 (single tree) instead of 5 levels (prism, double tree):
     if ( !is.na(by_bot) ) { corr_3 <- 1.00 } else { corr_3 <- 1.60 } # if ( !is.na(by_bot) ) etc.
 
     b_w <- comp_lx(b_h, mf = corr_3, corf = scale_x)  # same as b_h + corrected for aspect ratio
@@ -721,18 +720,68 @@ plot_prism <- function(prev = num$prev,    # probabilities
   if (area == "hr") {
 
     # adjust x-coordinates to scaled dimensions:
-    hi_x <- (x_min + 1) + (hi_lx)/2
-    mi_x <- (x_min + 1) + (hi_lx) + (mi_lx)/2
-    fa_x <- (x_min + 1) + (hi_lx) + (mi_lx) + (fa_lx)/2
-    cr_x <- (x_min + 1) + (hi_lx) + (mi_lx) + (fa_lx) + (cr_lx)/2
+    if (by_top == "cd") {
 
-  } else { # default: area == "no" and all others:
+      # by cd: hi mi fa cr
+      hi_x <- (x_min + 1) + (hi_lx)/2
+      mi_x <- (x_min + 1) + (hi_lx) + (mi_lx)/2
+      fa_x <- (x_min + 1) + (hi_lx) + (mi_lx) + (fa_lx)/2
+      cr_x <- (x_min + 1) + (hi_lx) + (mi_lx) + (fa_lx) + (cr_lx)/2
+
+    } else if (by_top == "dc") {
+
+      # by dc: hi fa mi cr
+      hi_x <- (x_min + 1) + (hi_lx)/2
+      fa_x <- (x_min + 1) + (hi_lx) + (fa_lx)/2
+      mi_x <- (x_min + 1) + (hi_lx) + (fa_lx) + (mi_lx)/2
+      cr_x <- (x_min + 1) + (hi_lx) + (fa_lx) + (mi_lx) + (cr_lx)/2
+
+    } else if (by_top == "ac") {
+
+      # by ac: hi cr mi fa
+      hi_x <- (x_min + 1) + (hi_lx)/2
+      cr_x <- (x_min + 1) + (hi_lx) + (cr_lx)/2
+      mi_x <- (x_min + 1) + (hi_lx) + (cr_lx) + (mi_lx)/2
+      fa_x <- (x_min + 1) + (hi_lx) + (cr_lx) + (mi_lx) + (fa_lx)/2
+
+    } else {
+
+      message(paste0("Unknown primary perspective: by_top = ", by_top))
+
+    } # if (by_top == etc.)
+
+  } else { # area == "no" OR "sq":
 
     # fixed x-coordinates:
-    hi_x <- -3
-    mi_x <- -1
-    fa_x <- +1
-    cr_x <- +3
+    if (by_top == "cd") {
+
+      # by cd: hi mi fa cr
+      hi_x <- -3
+      mi_x <- -1
+      fa_x <- +1
+      cr_x <- +3
+
+    } else if (by_top == "dc") {
+
+      # by dc: hi fa mi cr
+      hi_x <- -3
+      fa_x <- -1
+      mi_x <- +1
+      cr_x <- +3
+
+    } else if (by_top == "ac") {
+
+      # by ac: hi cr mi fa
+      hi_x <- -3
+      cr_x <- -1
+      mi_x <- +1
+      fa_x <- +3
+
+    } else {
+
+      message(paste0("Unknown primary perspective: by_top = ", by_top))
+
+    } # if (by_top == etc.)
 
   } # if (area == etc.)
 
