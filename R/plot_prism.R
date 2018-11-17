@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 16
+## 2018 11 17
 ## Plot prism (replacing plot_fnet.R)
 ## -----------------------------------------------
 
@@ -574,7 +574,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   } else {
 
     b_h <- 1
-    wider <- 3
+    wider <- 2.5
 
     b_w <- comp_lx(b_h, mf = wider, corf = scale_x)  # wider + corrected for aspect ratio
 
@@ -583,13 +583,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## (b) Square box:
   if (area == "sq") {
 
-    if ( !is.na(by_bot) ) {
-      b_w <- comp_lx(b_h, mf = 1, corf = scale_x)  # same as b_h + corrected for aspect ratio
-    } else {
-      # +++ here now +++
-      b_w <- comp_lx(b_h, mf = 1, corf = scale_x)  # same as b_h + corrected for aspect ratio
-    } # if ( !is.na(by_bot) ) etc.
+    # Correction factor for showing 3 (single tree) instead of 5 levels (prism, double tree):
+    # +++ here now +++
+    if ( !is.na(by_bot) ) { corr_3 <- 1.00 } else { corr_3 <- 1.60 } # if ( !is.na(by_bot) ) etc.
 
+    b_w <- comp_lx(b_h, mf = corr_3, corf = scale_x)  # same as b_h + corrected for aspect ratio
   }
 
   ## (B) Other graphical parameters:
@@ -629,7 +627,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
     N_area  <- N_l^2
 
     box_1_h <- N_l
-    box_1_w <- comp_lx(box_1_h, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+    box_1_w <- comp_lx(box_1_h, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
   } else { # default: area == "no" and all others:
 
@@ -696,10 +694,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
     cr_ly <- comp_ly_fsqr("cr", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)
 
     # Compute lx corresponding to ly:
-    hi_lx <- comp_lx(hi_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-    mi_lx <- comp_lx(mi_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-    fa_lx <- comp_lx(fa_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-    cr_lx <- comp_lx(cr_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+    hi_lx <- comp_lx(hi_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+    mi_lx <- comp_lx(mi_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+    fa_lx <- comp_lx(fa_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+    cr_lx <- comp_lx(cr_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
   } else { # default: area == "no" and all others:
 
@@ -803,8 +801,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       box_2_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
 
       # Compute lx corresponding to ly:
-      box_2_1_lx <- comp_lx(box_2_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_2_2_lx <- comp_lx(box_2_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_2_lx <- comp_lx(box_2_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
     } # if (area == etc.)
 
@@ -836,8 +834,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       box_2_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
 
       # Compute lx corresponding to ly:
-      box_2_1_lx <- comp_lx(box_2_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_2_2_lx <- comp_lx(box_2_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_2_lx <- comp_lx(box_2_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
     }  # if (area == etc.)
 
@@ -869,8 +867,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       box_2_2_ly <- comp_ly_fsqr("dec.err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.err
 
       # Compute lx corresponding to ly:
-      box_2_1_lx <- comp_lx(box_2_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_2_2_lx <- comp_lx(box_2_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_2_lx <- comp_lx(box_2_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
     }  # if (area == etc.)
 
@@ -902,8 +900,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       box_2_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
 
       # Compute lx corresponding to ly:
-      box_2_1_lx <- comp_lx(box_2_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-      box_2_2_lx <- comp_lx(box_2_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+      box_2_2_lx <- comp_lx(box_2_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
     } # if (area == etc.)
 
@@ -968,8 +966,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
         box_4_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
 
         # Compute lx corresponding to ly:
-        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
       } # if (area == etc.)
 
@@ -1001,8 +999,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
         box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
 
         # Compute lx corresponding to ly:
-        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
       } # if (area == etc.)
 
@@ -1034,8 +1032,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
         box_4_2_ly <- comp_ly_fsqr("dec.err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.err
 
         # Compute lx corresponding to ly:
-        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
       } # if (area == etc.)
 
@@ -1067,8 +1065,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
         box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
 
         # Compute lx corresponding to ly:
-        box_4_1_lx <- comp_lx(box_4_1_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
-        box_4_2_lx <- comp_lx(box_4_2_ly, mf = 1, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
+        box_4_2_lx <- comp_lx(box_4_2_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
 
       }  # if (area == etc.)
 
