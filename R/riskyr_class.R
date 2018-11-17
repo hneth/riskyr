@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 11 05
+## 2018 11 17
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -568,15 +568,23 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
   ## Therefore, these functions will throw an exception when unnecessary parameters are passed.
 
   ## Test plot.type argument:
-  if (!plot.type %in% c("fnet", "network", "net",
-                        "prism", "fprism",
-                        "area", "farea",
-                        "tab", "table", "ftab", "ctab",
-                        "tree", "ftree",
-                        "icons", "iconarray", "icon",
-                        "mosaic", "mosaicplot",
-                        "curve", "curves",
-                        "plane", "planes", "cube")) {
+  if (!plot.type %in% c(# plot_prism:
+    "prism", "fprism", "tree", "ftree", "net", "fnet", "network",
+    "onet", "ofnet",    # old: plot_fnet
+    "otree", "oftree",  # old: plot_tree
+    # plot_area:
+    "area", "farea", "mosaic", # call: plot_area
+    "omosaic", "omosaicplot",  # old: plot_mosaic
+    # plot_tab:
+    "tab", "table", "ftab", "ctab",
+    # plot_icons:
+    "icon", "icons", "iconarray",
+    # plot_bar:
+    "bar", "bars", "barplot", "fbar",
+    # plot_curve:
+    "curve", "curves",
+    # plot_plane:
+    "plane", "planes", "cube")) {
     stop("Unknown plot.type specified in plot.riskyr.")
   }
 
@@ -597,8 +605,56 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   ## Plotting functions: ----------
 
-  ## frequency net/fnet (default):
-  if ((plot.type == "fnet") || (plot.type == "network") || (plot.type == "net")) {
+  ## Prism plot:
+  if ((substr(plot.type, 1, 5) == "prism") || (plot.type == "fprism") ||
+      (substr(plot.type, 1, 3) == "net") || (substr(plot.type, 1, 4) == "fnet") ||
+      (substr(plot.type, 1, 4) == "tree") ||  (substr(plot.type, 1, 5) == "ftree")) {
+
+    plot_prism(prev = x$prev,
+               sens = x$sens, mirt = NA,
+               spec = x$spec, fart = NA,
+               N = x$N,
+               ## Options:
+               lbl_txt = x_txt,
+               title_lbl = x$scen.lbl,
+               ...
+    )
+
+  } # if (plot.type == "prism")
+
+  ## Area / mosaic plot:
+  if ((substr(plot.type, 1, 4) == "area") || (plot.type == "farea") ||
+      (substr(plot.type, 1, 6) == "mosaic")) {  # "mosaic"
+
+    plot_area(prev = x$prev,
+              sens = x$sens, mirt = NA,
+              spec = x$spec, fart = NA,
+              N = x$N,
+              ## Options:
+              lbl_txt = x_txt,
+              title_lbl = x$scen.lbl,
+              ...
+    )
+
+  } # if (plot.type == "area")
+
+  ## Table / contingency/confusion/frequency table / tab plot:
+  if ((substr(plot.type, 1, 3) == "tab") || (plot.type == "ftab") || (plot.type == "ctab")) {
+
+    plot_tab(prev = x$prev,
+             sens = x$sens, mirt = NA,
+             spec = x$spec, fart = NA,
+             N = x$N,
+             ## Options:
+             lbl_txt = x_txt,
+             title_lbl = x$scen.lbl,
+             ...
+    )
+
+  } # if (plot.type == "tab")
+
+  ## old frequency network/net/fnet:
+  if (((substr(plot.type, 1, 4)) == "onet") || (substr(plot.type, 1, 5) == "ofnet")) {
 
     plot_fnet(prev = x$prev,
               sens = x$sens, mirt = NA,
@@ -616,55 +672,10 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
               ...
     )
 
-  } # if (plot.type == "network")
+  } # if (plot.type == "old network")
 
-  ## prism plot:
-  if ((plot.type == "prism") || (plot.type == "fprism")) {  # "prism"
-
-    plot_prism(prev = x$prev,
-               sens = x$sens, mirt = NA,
-               spec = x$spec, fart = NA,
-               N = x$N,
-               ## Options:
-               lbl_txt = x_txt,
-               title_lbl = x$scen.lbl,
-               ...
-    )
-
-  } # if (plot.type == "prism")
-
-  ## area / mosaic plot:
-  if ((plot.type == "area") || (plot.type == "farea")) {  # "mosaic"
-
-    plot_area(prev = x$prev,
-              sens = x$sens, mirt = NA,
-              spec = x$spec, fart = NA,
-              N = x$N,
-              ## Options:
-              lbl_txt = x_txt,
-              title_lbl = x$scen.lbl,
-              ...
-    )
-
-  } # if (plot.type == "area")
-
-  ## Contingency / frequency table / tab plot:
-  if ((plot.type == "tab") || (plot.type == "table") || (plot.type == "ftab") || (plot.type == "ctab")) {
-
-    plot_tab(prev = x$prev,
-             sens = x$sens, mirt = NA,
-             spec = x$spec, fart = NA,
-             N = x$N,
-             ## Options:
-             lbl_txt = x_txt,
-             title_lbl = x$scen.lbl,
-             ...
-    )
-
-  } # if (plot.type == "tab")
-
-  ## frequency tree:
-  if ((plot.type == "tree") || (plot.type == "ftree")) {
+  ## old frequency tree:
+  if ((plot.type == "otree") || (plot.type == "oftree")) {
 
     plot_tree(prev = x$prev,             # probabilities
               sens = x$sens, mirt = NA,
@@ -682,10 +693,10 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
               ...
     )
 
-  } #  if (plot.type == "tree")
+  } #  if (plot.type == "otree")
 
-  ## Mosaic plot:
-  if ((plot.type == "mosaic") || (plot.type == "mosaicplot")) {
+  ## old mosaic plot:
+  if (substr(plot.type, 1, 7) == "omosaic") {
     plot_mosaic(prev = x$prev,
                 sens = x$sens, mirt = NA,
                 spec = x$spec, fart = NA,
@@ -694,10 +705,10 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
                 title.lbl = x$scen.lbl,
                 ...)
 
-  } # if (plot.type == "mosaicplot")
+  } # if (plot.type == "omosaic")
 
   ## Icon array
-  if ((plot.type == "icons") || (plot.type == "iconarray") || (plot.type == "icon")) {
+  if (substr(plot.type, 1, 4) == "icon") {
 
     plot_icons(prev = x$prev,             # probabilities
                sens = x$sens, mirt = NA,
@@ -709,10 +720,25 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
                ...
     )
 
-  } #  if (plot.type == "iconarray")
+  } #  if (plot.type == "icon")
+
+  ## Bar plot / frequency bars:
+  if ((substr(plot.type, 1, 3) == "bar") || (substr(plot.type, 1, 4) == "fbar")) {
+
+    plot_bar(prev = x$prev,
+             sens = x$sens, mirt = NA,
+             spec = x$spec, fart = NA,
+             N = x$N,
+             ## Options:
+             lbl_txt = x_txt,
+             title_lbl = x$scen.lbl,
+             ...
+    )
+
+  } # if (plot.type == "bar")
 
   ## Curve of probabilities:
-  if ((plot.type == "curve") || (plot.type == "curves")) {
+  if (substr(plot.type, 1, 5) == "curve") {
 
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
@@ -723,9 +749,8 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
     )
   } # if (plot.type == "curve")
 
-
   ## Plane/cube of probabilities:
-  if ((plot.type == "plane") || (plot.type == "planes") || (plot.type == "cube")) {
+  if ((substr(plot.type, 1, 5) == "plane") || (plot.type == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
