@@ -211,11 +211,6 @@ A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` 
 
 ```{r ex1_tree, eval = FALSE, fig.width = 7.2, fig.height = 5.8}
 plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
-
-## Using newer functions:
-# plot(hustosis, plot.type = "prism", by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")  
-# plot(hustosis, plot.type = "area",  by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
-# plot(hustosis, plot.type = "tab",   by = "cddc", f_lbl = "namnum") # , f_lbl_sep = ":\n")
 ```
 
 ![](inst/pix/README-ex1_tree-1.png)
@@ -255,7 +250,7 @@ plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot:
 By adopting a functional perspective, we can ask how the values of some parameters (e.g., `PPV` or `NPV`) change as a function of another (e.g., `prev`):
 
 ```{r ex1_curve, eval = FALSE, fig.width = 7.2, fig.height = 5}
-plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
+plot(hustosis, plot.type = "curve")   # plot probability curves (by prevalence):
 ```
 
 ![](inst/pix/README-ex1_curve-1.png)
@@ -265,13 +260,29 @@ plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence
 When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`) of our test for a given prevalence (`prev`): 
 
 ```{r ex1_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
-plot(hustosis, plot.type = "plane", theta = -60)  # plot plane (as a function of sens x spec):
+plot(hustosis, plot.type = "plane", theta = -60)  # plot probability plane (as a function of sens x spec):
 ```
 
 ![](inst/pix/README-ex1_plane-1.png)
 
-The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. While our current value of 95% (`spec = .95`) may sound pretty good, it still is not high enough to yield a `PPV` beyond 40%. 
+The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. Although our current specificity value of 95% (`spec = .95`) may sound pretty good, it is still not high enough to yield a `PPV` beyond 40%. 
 
+#### Plots currently under development
+
+The current development version of `riskyr` (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To preview their effects, try out the following commands:
+
+```{r preview, echo = TRUE, eval = FALSE}
+## Install current development version: 
+# install.packages("devtools")
+devtools::install_github("hneth/riskyr")
+
+## Preview new functions (riskyr > v0.0.1.930):
+plot(hustosis, plot.type = "tab",   by = "cddc")
+plot(hustosis, plot.type = "prism", by = "cddc")  
+plot(hustosis, plot.type = "tree",  by = "ac") 
+plot(hustosis, plot.type = "area",  by = "cddc")
+plot(hustosis, plot.type = "bar",   dir = 2)
+```
 
 <!-- 2: Loading and using pre-defined scenarios -->
 
