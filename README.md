@@ -112,10 +112,10 @@ library(riskyr)  # loads the package
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
 ``` r
-hustosis <- riskyr(scen.lbl = "Example", 
-                   cond.lbl = "Hustosis",
-                   dec.lbl = "Screening test",
-                   popu.lbl = "Sample", 
+hustosis <- riskyr(scen_lbl = "Example", 
+                   cond_lbl = "Hustosis",
+                   dec_lbl = "Screening test",
+                   popu_lbl = "Sample", 
                    N = 1000,                                 # population size
                    prev = .04, sens = .80, spec = (1 - .05)  # 3 key probabilities
                    )
@@ -184,10 +184,10 @@ In case you are surprised by these answers, you are a good candidate for additio
 Rather than defining our `hustosis` scenario by providing 3 essential probabilities (`prev`, `sens`, and `spec`), we could define the same scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and `cr`) as follows:
 
 ``` r
-hustosis_2 <- riskyr(scen.lbl = "Example", 
-                     cond.lbl = "Hustosis",
-                     dec.lbl = "Screening test",
-                     popu.lbl = "Sample", 
+hustosis_2 <- riskyr(scen_lbl = "Example", 
+                     cond_lbl = "Hustosis",
+                     dec_lbl = "Screening test",
+                     popu_lbl = "Sample", 
                      hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
                      )
 ```
@@ -205,10 +205,10 @@ Various visualizations of `riskyr` scenarios can be created by a range of plotti
 
 #### Tree diagram
 
-A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` option:
+A tree diagram is obtained by plotting a scenario with the `plot_type = "tree"` option:
 
 ``` r
-plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
+plot(hustosis, plot_type = "tree", by = "dc")  # plot a tree diagram (by decision):
 ```
 
 ![](inst/pix/README-ex1_tree-1.png)
@@ -225,7 +225,7 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 An icon array shows the classification result for each of `N = 1000` individuals in our population:
 
 ``` r
-plot(hustosis, plot.type = "icons")   # plot an icon array: 
+plot(hustosis, plot_type = "icons")   # plot an icon array: 
 ```
 
 ![](inst/pix/README-ex1_icons-1.png)
@@ -237,7 +237,7 @@ While this particular icon array is highly regular (as both the icons and classi
 The mosaic plot offers a way of expressing classification results as the relationship between areas. Here, the entire population is represented as a square and the probability of its subgroups as the size of rectangles:
 
 ``` r
-plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
+plot(hustosis, plot_type = "mosaic")  # plot a mosaic plot: 
 ```
 
 ![](inst/pix/README-ex1_mosaic-1.png)
@@ -247,7 +247,7 @@ plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot:
 By adopting a functional perspective, we can ask how the values of some parameters (e.g., `PPV` or `NPV`) change as a function of another (e.g., `prev`):
 
 ``` r
-plot(hustosis, plot.type = "curve")   # plot probability curves (by prevalence):
+plot(hustosis, plot_type = "curve")   # plot probability curves (by prevalence):
 ```
 
 ![](inst/pix/README-ex1_curve-1.png)
@@ -257,7 +257,7 @@ plot(hustosis, plot.type = "curve")   # plot probability curves (by prevalence):
 When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`) of our test for a given prevalence (`prev`):
 
 ``` r
-plot(hustosis, plot.type = "plane", theta = -60)  # plot probability plane (as a function of sens x spec):
+plot(hustosis, plot_type = "plane", theta = -60)  # plot probability plane (as a function of sens x spec):
 ```
 
 ![](inst/pix/README-ex1_plane-1.png)
@@ -274,11 +274,11 @@ The current development version of `riskyr` (version 0.1.0.930+) replaces some o
 devtools::install_github("hneth/riskyr")
 
 ## Preview new functions (riskyr > v0.0.1.930):
-plot(hustosis, plot.type = "tab",   by = "cddc")
-plot(hustosis, plot.type = "prism", by = "cddc")  
-plot(hustosis, plot.type = "tree",  by = "ac") 
-plot(hustosis, plot.type = "area",  by = "cddc")
-plot(hustosis, plot.type = "bar",   dir = 2)
+plot(hustosis, plot_type = "tab",   by = "cddc")
+plot(hustosis, plot_type = "prism", by = "cddc")  
+plot(hustosis, plot_type = "tree",  by = "ac") 
+plot(hustosis, plot_type = "area",  by = "cddc")
+plot(hustosis, plot_type = "bar",   dir = 2)
 ```
 
 <!-- 2: Loading and using pre-defined scenarios -->
@@ -299,25 +299,25 @@ s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
 The following commands provide a quick overview of the scenario content in text form:
 
 ``` r
-s21$scen.lbl  # shows descriptive label:
-#> [1] "PSA test 1 (high prev)"
-s21$cond.lbl  # shows current condition:
-#> [1] "prostate cancer"
-s21$dec.lbl   # shows current decision:
-#> [1] "PSA test"
-s21$popu.lbl  # shows current population:
-#> [1] "1000 patients with symptoms diagnostic of prostate cancer taking a PSA test."
+s21$scen_lbl  # shows descriptive label:
+#> NULL
+s21$cond_lbl  # shows current condition:
+#> NULL
+s21$dec_lbl   # shows current decision:
+#> NULL
+s21$popu_lbl  # shows current population:
+#> NULL
 s21$scen.apa  # shows current source: 
-#> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
+#> NULL
 
 summary(s21)  # shows key scenario information:
-#> Scenario:  PSA test 1 (high prev) 
+#> Scenario:  
 #> 
-#> Condition:  prostate cancer 
-#> Decision:  PSA test 
-#> Population:  1000 patients with symptoms diagnostic of prostate cancer taking a PSA test. 
+#> Condition:  
+#> Decision:  
+#> Population:  
 #> N =  1000 
-#> Source:  Arkes & Gaissmaier (2012), p. 550 
+#> Source:  
 #> 
 #> Probabilities:
 #> 
@@ -363,10 +363,10 @@ A network diagram is a generalization of a tree diagram that simultaneously prov
 plot(s21) # plots a network diagram (by default):
 
 ## Using newer functions:
-# s21$popu.lbl <- "Patients with symptoms taking PSA test"  # shorter popu.lbl
-# plot(s21, plot.type = "prism")
-# plot(s21, plot.type = "area")
-# plot(s21, plot.type = "tab")
+# s21$popu_lbl <- "Patients with symptoms taking PSA test"  # shorter popu_lbl
+# plot(s21, plot_type = "prism")
+# plot(s21, plot_type = "area")
+# plot(s21, plot_type = "tab")
 ```
 
 ![](inst/pix/README-ex2_fnet-1.png)
@@ -374,13 +374,13 @@ plot(s21) # plots a network diagram (by default):
 #### Icon array
 
 ``` r
-plot(s21, plot.type = "icons")   # plot an icon array: 
+plot(s21, plot_type = "icons")   # plot an icon array: 
 ```
 
 #### Mosaic plot
 
 ``` r
-plot(s21, plot.type = "mosaic")   # plot a mosaic plot: 
+plot(s21, plot_type = "mosaic")   # plot a mosaic plot: 
 ```
 
 #### Curves
@@ -388,7 +388,7 @@ plot(s21, plot.type = "mosaic")   # plot a mosaic plot:
 The following curves show values of conditional probabilities as a function of prevalence:
 
 ``` r
-plot(s21, plot.type = "curve", what = "all")  # plot all curves (as a function of prevalence):
+plot(s21, plot_type = "curve", what = "all")  # plot all curves (as a function of prevalence):
 ```
 
 ![](inst/pix/README-ex2_curve-1.png)
@@ -400,7 +400,7 @@ Adding the argument `what = "all"` also shows the proportion of positive decisio
 The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence):
 
 ``` r
-plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+plot(s21, plot_type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
 Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
