@@ -1,18 +1,18 @@
 ## riskyr_class.R | riskyr
-## 2018 11 17
+## 2018 11 21
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
-## - Re-define df.scenarios as a list of riskyr objects.
+## - Re-define df_scenarios as a list of riskyr objects.
 
 ## (A) Create riskyr objects: ---------------
 
 ## Get some exemplary scenarios with "riskyr" class attribute -----
 
-# scenario2 <- df.scenarios[2, ]  # get scenario 2 of df.scenarios
+# scenario2 <- df_scenarios[2, ]  # get scenario 2 of df_scenarios
 # class(scenario2) <- "riskyr"
 
-# scenario3 <- df.scenarios[3, ]  # get scenario 3 of df.scenarios
+# scenario3 <- df_scenarios[3, ]  # get scenario 3 of df_scenarios
 # class(scenario3) <- "riskyr"
 
 
@@ -41,34 +41,34 @@
 #'
 #' Text elements (all elements of \code{\link{txt}}:
 #'
-#' @param scen.lbl The current scenario title (sometimes in Title Caps).
-#' @param scen.txt A longer text description of the current scenario
+#' @param scen_lbl The current scenario title (sometimes in Title Caps).
+#' @param scen_txt A longer text description of the current scenario
 #' (which may extend over several lines).
 #'
-#' @param scen.lng Language of the current scenario (as character code).
+#' @param scen_lng Language of the current scenario (as character code).
 #' Options: \code{"en"} for English, \code{"de"} for  German.
 #'
-#' @param popu.lbl A brief description of the current target population \code{\link{popu}} or sample.
+#' @param popu_lbl A brief description of the current target population \code{\link{popu}} or sample.
 #'
-#' @param cond.lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true.lbl A label for the \emph{presence} of the current condition
+#' @param cond_lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+#' @param cond.true_lbl A label for the \emph{presence} of the current condition
 #' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
-#' @param cond.false.lbl A label for the \emph{absence} of the current condition
+#' @param cond.false_lbl A label for the \emph{absence} of the current condition
 #' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 #'
-#' @param dec.lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.pos.lbl A label for \emph{positive} decisions
+#' @param dec_lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+#' @param dec.pos_lbl A label for \emph{positive} decisions
 #' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
-#' @param dec.neg.lbl A label for \emph{negative} decisions
+#' @param dec.neg_lbl A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param hi.lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' @param hi_lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
-#' @param mi.lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' @param mi_lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 #' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
-#' @param fa.lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' @param fa_lbl A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 #' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
-#' @param cr.lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' @param cr_lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' Numeric elements:
@@ -98,27 +98,27 @@
 #'
 #' Source information:
 #'
-#' @param scen.src Source information for the current scenario.
-#' @param scen.apa Source information for the current scenario
+#' @param scen_src Source information for the current scenario.
+#' @param scen_apa Source information for the current scenario
 #' in the style of the American Psychological Association (APA style).
 #'
 #' @examples
 #' # Defining a scenario:
-#' scen.reoffend <- riskyr(scen.lbl = "Identify reoffenders",
-#'                         cond.lbl = "being a reoffender",
-#'                         popu.lbl = "Prisoners",
-#'                         cond.true.lbl = "has reoffended",
-#'                         cond.false.lbl = "has not reoffended",
-#'                         dec.lbl = "test result",
-#'                         dec.pos.lbl = "will reoffend",
-#'                         dec.neg.lbl = "will not reoffend",
-#'                         hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
-#'                         fa.lbl = "false accusation", cr.lbl = "correct release",
+#' scen.reoffend <- riskyr(scen_lbl = "Identify reoffenders",
+#'                         cond_lbl = "being a reoffender",
+#'                         popu_lbl = "Prisoners",
+#'                         cond.true_lbl = "has reoffended",
+#'                         cond.false_lbl = "has not reoffended",
+#'                         dec_lbl = "test result",
+#'                         dec.pos_lbl = "will reoffend",
+#'                         dec.neg_lbl = "will not reoffend",
+#'                         hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
+#'                         fa_lbl = "false accusation", cr_lbl = "correct release",
 #'                         prev = .45,  # prevalence of being a reoffender.
 #'                         sens = .98,
 #'                         spec = .46, fart = NA,  # (provide 1 of 2)
 #'                         N = 753,
-#'                         scen.src = "Example scenario")
+#'                         scen_src = "Example scenario")
 #'
 #' # Using a scenario:
 #' summary(scen.reoffend)
@@ -141,23 +141,23 @@
 
 ## riskyr Definition: ------
 
-riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
-                   scen.lng = txt$scen.lng,
-                   scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
-                   cond.lbl = txt$cond.lbl,
-                   cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-                   dec.lbl = txt$dec.lbl,
-                   dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-                   hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
-                   fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
+riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
+                   scen_lng = txt$scen_lng,
+                   scen_txt = txt$scen_txt, popu_lbl = txt$popu_lbl,
+                   cond_lbl = txt$cond_lbl,
+                   cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
+                   dec_lbl = txt$dec_lbl,
+                   dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+                   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
+                   fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
                    prev = NA,
                    sens = NA,
                    spec = NA, fart = NA,
                    N = NA,  ## WAS: freq$N,
                    hi = NA, mi = NA,
                    fa = NA, cr = NA,
-                   scen.src = txt$scen.src,
-                   scen.apa = txt$scen.apa) {
+                   scen_src = txt$scen_src,
+                   scen_apa = txt$scen_apa) {
 
   ## (0): Initialize some stuff: ------
   freqs <- NA
@@ -280,18 +280,18 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
   ## Define object (scenario) as a list: ------
 
-  object <- list(scen.lbl = scen.lbl, scen.lng = scen.lng, scen.txt = scen.txt,
-                 popu.lbl = popu.lbl, cond.lbl = cond.lbl,
-                 cond.true.lbl = cond.true.lbl, cond.false.lbl = cond.false.lbl,
-                 dec.lbl = dec.lbl, dec.pos.lbl = dec.pos.lbl, dec.neg.lbl = dec.neg.lbl,
-                 hi.lbl = hi.lbl, mi.lbl = mi.lbl, fa.lbl = fa.lbl, cr.lbl = cr.lbl,
+  object <- list(scen_lbl = scen_lbl, scen_lng = scen_lng, scen_txt = scen_txt,
+                 popu_lbl = popu_lbl, cond_lbl = cond_lbl,
+                 cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
+                 dec_lbl = dec_lbl, dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+                 hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
                  prev = probs[1],
                  sens = probs[2],
                  spec = probs[4], fart = probs[5],
                  N = N,
                  hi = freqs$hi, mi = freqs$mi,
                  fa = freqs$fa, cr = freqs$cr,
-                 scen.src = scen.src, scen.apa = scen.apa)
+                 scen_src = scen_src, scen_apa = scen_apa)
 
   ## Add class riskyr:
   class(object) <- "riskyr"
@@ -322,9 +322,9 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 ## +++ here now +++
 ## riskyr(prev = NA, hi = NA)
 
-## Compare with df.scenarios:
-# names(df.scenarios)
-# all.equal(names(test.obj), names(df.scenarios))
+## Compare with df_scenarios:
+# names(df_scenarios)
+# all.equal(names(test.obj), names(df_scenarios))
 
 # # cat(
 # #   paste0(
@@ -334,13 +334,13 @@ riskyr <- function(scen.lbl = "",  ## WAS: txt$scen.lbl,
 
 ## 2. scenarios: Define scenarios as a list of riskyr objects -----------
 
-## Note: Convert the data frame df.scenarios into a list "scenarios"
+## Note: Convert the data frame df_scenarios into a list "scenarios"
 ##       of riskyr objects:
 
 scenarios <- NULL # initialize
 
 ## Note helper stuff:
-# cat(paste0("#'   \\item ", df.scenarios$scen.lbl[-1], "\n#'\n"))
+# cat(paste0("#'   \\item ", df_scenarios$scen_lbl[-1], "\n#'\n"))
 
 ## scenarios: Documentation ------
 
@@ -400,24 +400,24 @@ scenarios <- NULL # initialize
 #'
 #' \enumerate{
 #'
-#'   \item \code{scen.lbl} Text label for current scenario.
-#'   \item \code{scen.lng} Language of current scenario.
-#'   \item \code{scen.txt} Description text of current scenario.
+#'   \item \code{scen_lbl} Text label for current scenario.
+#'   \item \code{scen_lng} Language of current scenario.
+#'   \item \code{scen_txt} Description text of current scenario.
 #'
-#'   \item \code{popu.lbl} Text label for current population.
+#'   \item \code{popu_lbl} Text label for current population.
 #'
-#'   \item \code{cond.lbl} Text label for current condition.
-#'   \item \code{cond.true.lbl} Text label for \code{\link{cond.true}} cases.
-#'   \item \code{cond.false.lbl} Text label for \code{\link{cond.false}} cases.
+#'   \item \code{cond_lbl} Text label for current condition.
+#'   \item \code{cond.true_lbl} Text label for \code{\link{cond.true}} cases.
+#'   \item \code{cond.false_lbl} Text label for \code{\link{cond.false}} cases.
 #'
-#'   \item \code{dec.lbl} Text label for current decision.
-#'   \item \code{dec.pos.lbl} Text label for \code{\link{dec.pos}} cases.
-#'   \item \code{dec.neg.lbl} Text label for \code{\link{dec.neg}} cases.
+#'   \item \code{dec_lbl} Text label for current decision.
+#'   \item \code{dec.pos_lbl} Text label for \code{\link{dec.pos}} cases.
+#'   \item \code{dec.neg_lbl} Text label for \code{\link{dec.neg}} cases.
 #'
-#'   \item \code{hi.lbl} Text label for cases of hits \code{\link{hi}}.
-#'   \item \code{mi.lbl} Text label for cases of misses \code{\link{mi}}.
-#'   \item \code{fa.lbl} Text label for cases of false alarms \code{\link{fa}}.
-#'   \item \code{cr.lbl} Text label for cases of correct rejections \code{\link{cr}}.
+#'   \item \code{hi_lbl} Text label for cases of hits \code{\link{hi}}.
+#'   \item \code{mi_lbl} Text label for cases of misses \code{\link{mi}}.
+#'   \item \code{fa_lbl} Text label for cases of false alarms \code{\link{fa}}.
+#'   \item \code{cr_lbl} Text label for cases of correct rejections \code{\link{cr}}.
 #'
 #'   \item \code{prev} Value of current prevalence \code{\link{prev}}.
 #'   \item \code{sens} Value of current sensitivity \code{\link{sens}}.
@@ -426,8 +426,8 @@ scenarios <- NULL # initialize
 #'
 #'   \item \code{N} Current population size \code{\link{N}}.
 #'
-#'   \item \code{scen.src} Source information for current scenario.
-#'   \item \code{scen.apa} Source information in APA format.
+#'   \item \code{scen_src} Source information for current scenario.
+#'   \item \code{scen_apa} Source information in APA format.
 #'
 #' }
 #'
@@ -435,11 +435,11 @@ scenarios <- NULL # initialize
 #' correspond to \code{\link{init_txt}} (to initialize \code{\link{txt}})
 #' and \code{\link{init_num}} (to initialize \code{\link{num}}).
 #'
-#' See columns \code{scen.src} and \code{scen.apa}
+#' See columns \code{scen_src} and \code{scen_apa}
 #' for a scenario's source information.
 #'
 #' The information of \code{scenarios} is also contained in an
-#' R data frame \code{\link{df.scenarios}} (and generated from
+#' R data frame \code{\link{df_scenarios}} (and generated from
 #' the corresponding \code{.rda} file in \code{/data/}).
 #'
 #' @format A list with currently 26 objects of class "riskyr" (i.e., scenarios)
@@ -449,26 +449,26 @@ scenarios <- NULL # initialize
 
 ## scenarios: Definition ------
 
-scenarios <- vector("list", nrow(df.scenarios))  # initialize scenarios as a list (from df.scenarios)
-names(scenarios) <- paste0("n", 1:nrow(df.scenarios))
+scenarios <- vector("list", nrow(df_scenarios))  # initialize scenarios as a list (from df_scenarios)
+names(scenarios) <- paste0("n", 1:nrow(df_scenarios))
 
-for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
+for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 
   ## (1) define scenario s:
-  s <- df.scenarios[i, ]
+  s <- df_scenarios[i, ]
 
   ## (2) pass scenario s to riskyr function:
-  cur.scen <- riskyr(scen.lbl = s$scen.lbl, scen.lng = s$scen.lng, scen.txt = s$scen.txt,
-                     popu.lbl = s$popu.lbl,                                                                     # population dimension
-                     # ToDo: N.lbl = txt$N.lbl,
-                     cond.lbl = s$cond.lbl, cond.true.lbl = s$cond.true.lbl, cond.false.lbl = s$cond.false.lbl, # by condition
-                     dec.lbl = s$dec.lbl, dec.pos.lbl = s$dec.pos.lbl, dec.neg.lbl = s$dec.neg.lbl,             # by decision
-                     hi.lbl = s$hi.lbl, mi.lbl = s$mi.lbl, fa.lbl = s$fa.lbl, cr.lbl = s$cr.lbl,                # 4 cases
+  cur.scen <- riskyr(scen_lbl = s$scen_lbl, scen_lng = s$scen_lng, scen_txt = s$scen_txt,
+                     popu_lbl = s$popu_lbl,                                                                     # population dimension
+                     # ToDo: N_lbl = txt$N_lbl,
+                     cond_lbl = s$cond_lbl, cond.true_lbl = s$cond.true_lbl, cond.false_lbl = s$cond.false_lbl, # by condition
+                     dec_lbl = s$dec_lbl, dec.pos_lbl = s$dec.pos_lbl, dec.neg_lbl = s$dec.neg_lbl,             # by decision
+                     hi_lbl = s$hi_lbl, mi_lbl = s$mi_lbl, fa_lbl = s$fa_lbl, cr_lbl = s$cr_lbl,                # 4 cases
                      prev = s$prev,
                      sens = s$sens,
                      spec = s$spec, fart = s$fart,
                      N = s$N,
-                     scen.src = s$scen.src, scen.apa = s$scen.apa)  # use initialization function.
+                     scen_src = s$scen_src, scen_apa = s$scen_apa)  # use initialization function.
 
   # (3) Add cur.scen (riskyr object) as i-th element of scenarios
   scenarios[[i]] <- cur.scen
@@ -506,49 +506,49 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #' @param x An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
 #' Pre-defined \code{\link{scenarios}} are also of type "riskyr".
 #'
-#' @param plot.type The type of plot to be generated.
+#' @param plot_type The type of plot to be generated.
 #'
 #' \enumerate{
 #'
-#'   \item \code{plot.type = "prism"} or \code{plot.type = "net"} or \code{plot.type = "tree"}:
+#'   \item \code{plot_type = "prism"} or \code{plot_type = "net"} or \code{plot_type = "tree"}:
 #'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
 #'   See \code{\link{plot_prism}} for further options.
 #'
-#'   \item \code{plot.type = "area"} or \code{plot.type = "mosaic"}:
+#'   \item \code{plot_type = "area"} or \code{plot_type = "mosaic"}:
 #'   Risk information is plotted as a mosaic plot (scaled area).
 #'   See \code{\link{plot_area}} for further options.
 #'
-#'   \item \code{plot.type = "tab"} or \code{plot.type = "ftab"}:
+#'   \item \code{plot_type = "tab"} or \code{plot_type = "ftab"}:
 #'   Risk information is plotted as a 2x2 frequency or contingency table.
 #'   See \code{\link{plot_tab}} for further options.
 #'
-#'   \item \code{plot.type = "bar"} or \code{plot.type = "fbar"}:
+#'   \item \code{plot_type = "bar"} or \code{plot_type = "fbar"}:
 #'   Risk information is plotted as a bar chart.
 #'   See \code{\link{plot_bar}} for further options.
 #'
-#'   \item \code{plot.type = "icons"} or \code{plot.type = "iconarray"}:
+#'   \item \code{plot_type = "icons"} or \code{plot_type = "iconarray"}:
 #'   The underlying population is plotted as icons.
 #'   See \code{\link{plot_icons}} for further options.
 #'
-#'   \item \code{plot.type = "curve"} or \code{plot.type = "curves"}:
+#'   \item \code{plot_type = "curve"} or \code{plot_type = "curves"}:
 #'   Draws curves of selected values (including \code{\link{PPV}}, \code{\link{NPV}})
 #'   See \code{\link{plot_curve}} for further options.
 #'
-#'   \item \code{plot.type = "plane"} or \code{plot.type = "planes"}:
+#'   \item \code{plot_type = "plane"} or \code{plot_type = "planes"}:
 #'   Draws a 3D-plane of selected values (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}})
 #'   See \code{\link{plot_plane}} for further options.
 #'
 #'   Older plot types (replaced by the above, to be retired):
 #'
-#'   \item \code{plot.type = "onet"} or \code{plot.type = "ofnet"}:
+#'   \item \code{plot_type = "onet"} or \code{plot_type = "ofnet"}:
 #'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
 #'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_fnet}} for further options.
 #'
-#'   \item \code{plot.type = "otree"} or \code{plot.type = "oftree"}:
+#'   \item \code{plot_type = "otree"} or \code{plot_type = "oftree"}:
 #'   Risk information is plotted in a frequency tree.
 #'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_tree}} for further options.
 #'
-#'   \item \code{plot.type = "omosaic"} or \code{plot.type = "omosaicplot"}:
+#'   \item \code{plot_type = "omosaic"} or \code{plot_type = "omosaicplot"}:
 #'   Risk information is plotted as a mosaicplot.
 #'   Replaced by \code{\link{plot_area}}, but see \code{\link{plot_mosaic}} for further options.
 #'
@@ -560,22 +560,22 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 #' @examples
 #' # Select a scenario from list of scenarios:
 #' s25 <- scenarios$n25  # select scenario 25 from scenarios
-#' plot(s25)  # default plot (plot.type = "prism")
+#' plot(s25)  # default plot (plot_type = "prism")
 #'
 #' # Plot types currently available:
-#' plot(s25, plot.type = "prism")                # prism/network diagram (default)
-#' plot(s25, plot.type = "tree", by = "cd")      # tree diagram (only 1 perspective)
-#' plot(s25, plot.type = "area")                 # area/mosaic plot
-#' plot(s25, plot.type = "tab")                  # 2x2 frequency/contingency table
-#' plot(s25, plot.type = "bar", dir = 2)         # bar plot
-#' plot(s25, plot.type = "icons")                # icon array
-#' plot(s25, plot.type = "curve", what = "all")  # curves as fn. of prev
-#' plot(s25, plot.type = "plane", what = "NPV")  # plane as function of sens & spec
+#' plot(s25, plot_type = "prism")                # prism/network diagram (default)
+#' plot(s25, plot_type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+#' plot(s25, plot_type = "area")                 # area/mosaic plot
+#' plot(s25, plot_type = "tab")                  # 2x2 frequency/contingency table
+#' plot(s25, plot_type = "bar", dir = 2)         # bar plot
+#' plot(s25, plot_type = "icons")                # icon array
+#' plot(s25, plot_type = "curve", what = "all")  # curves as fn. of prev
+#' plot(s25, plot_type = "plane", what = "NPV")  # plane as function of sens & spec
 #'
 #' # Older plot types (obsolete):
-#' plot(s25, plot.type = "onet")     # plot_fnet (replaced by plot_prism)
-#' plot(s25, plot.type = "otree")    # plot_tree (replaced by plot_prism)
-#' plot(s25, plot.type = "omosaic")  # plot_mosaic (replaced by plot_area)
+#' plot(s25, plot_type = "onet")     # plot_fnet (replaced by plot_prism)
+#' plot(s25, plot_type = "otree")    # plot_tree (replaced by plot_prism)
+#' plot(s25, plot_type = "omosaic")  # plot_mosaic (replaced by plot_area)
 #'
 #'
 #' @family visualization functions
@@ -585,15 +585,15 @@ for (i in 1:nrow(df.scenarios)) {  # for each scenario i in df.scenarios:
 ## plot.riskyr Definition: ------
 
 plot.riskyr <- function(x = NULL,  # require riskyr scenario
-                        plot.type = "network",  # default plot.type
+                        plot_type = "network",  # default plot_type
                         ...        # other type and display parameters in plot_XXX().
 ) {
 
   ## Note: Most other functions (except for plot_icons) currently lack the ellipsis.
   ## Therefore, these functions will throw an exception when unnecessary parameters are passed.
 
-  ## Test plot.type argument:
-  if (!plot.type %in% c(# plot_prism:
+  ## Test plot_type argument:
+  if (!plot_type %in% c(# plot_prism:
     "prism", "fprism", "tree", "ftree", "net", "fnet", "network",
     "onet", "ofnet",    # old: plot_fnet
     "otree", "oftree",  # old: plot_tree
@@ -610,30 +610,30 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
     "curve", "curves",
     # plot_plane:
     "plane", "planes", "cube")) {
-    stop("Unknown plot.type specified in plot.riskyr.")
+    stop("Unknown plot_type specified in plot.riskyr.")
   }
 
   ## Increase robustness: ----------
 
-  plot.type <- tolower(plot.type)  # ensure lowercase
+  plot_type <- tolower(plot_type)  # ensure lowercase
 
   ## Use lbl info of scenario x for current txt information: ----------
 
-  x_txt <- init_txt(scen.lbl = x$scen.lbl,
-                    popu.lbl = x$popu.lbl,
-                    cond.lbl = x$cond.lbl,
-                    dec.lbl  = x$dec.lbl,
-                    hi.lbl = x$hi.lbl,
-                    mi.lbl = x$mi.lbl,
-                    fa.lbl = x$fa.lbl,
-                    cr.lbl = x$cr.lbl)
+  x_txt <- init_txt(scen_lbl = x$scen_lbl,
+                    popu_lbl = x$popu_lbl,
+                    cond_lbl = x$cond_lbl,
+                    dec_lbl  = x$dec_lbl,
+                    hi_lbl = x$hi_lbl,
+                    mi_lbl = x$mi_lbl,
+                    fa_lbl = x$fa_lbl,
+                    cr_lbl = x$cr_lbl)
 
   ## Plotting functions: ----------
 
   ## Prism plot:
-  if ((substr(plot.type, 1, 5) == "prism") || (plot.type == "fprism") ||
-      (substr(plot.type, 1, 3) == "net") || (substr(plot.type, 1, 4) == "fnet") ||
-      (substr(plot.type, 1, 4) == "tree") ||  (substr(plot.type, 1, 5) == "ftree")) {
+  if ((substr(plot_type, 1, 5) == "prism") || (plot_type == "fprism") ||
+      (substr(plot_type, 1, 3) == "net") || (substr(plot_type, 1, 4) == "fnet") ||
+      (substr(plot_type, 1, 4) == "tree") ||  (substr(plot_type, 1, 5) == "ftree")) {
 
     plot_prism(prev = x$prev,
                sens = x$sens, mirt = NA,
@@ -641,15 +641,15 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
                N = x$N,
                ## Options:
                lbl_txt = x_txt,
-               title_lbl = x$scen.lbl,
+               title_lbl = x$scen_lbl,
                ...
     )
 
-  } # if (plot.type == "prism")
+  } # if (plot_type == "prism")
 
   ## Area / mosaic plot:
-  if ((substr(plot.type, 1, 4) == "area") || (plot.type == "farea") ||
-      (substr(plot.type, 1, 6) == "mosaic")) {  # "mosaic"
+  if ((substr(plot_type, 1, 4) == "area") || (plot_type == "farea") ||
+      (substr(plot_type, 1, 6) == "mosaic")) {  # "mosaic"
 
     plot_area(prev = x$prev,
               sens = x$sens, mirt = NA,
@@ -657,14 +657,14 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
               N = x$N,
               ## Options:
               lbl_txt = x_txt,
-              title_lbl = x$scen.lbl,
+              title_lbl = x$scen_lbl,
               ...
     )
 
-  } # if (plot.type == "area")
+  } # if (plot_type == "area")
 
   ## Table / contingency/confusion/frequency table / tab plot:
-  if ((substr(plot.type, 1, 3) == "tab") || (plot.type == "ftab") || (plot.type == "ctab")) {
+  if ((substr(plot_type, 1, 3) == "tab") || (plot_type == "ftab") || (plot_type == "ctab")) {
 
     plot_tab(prev = x$prev,
              sens = x$sens, mirt = NA,
@@ -672,83 +672,83 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
              N = x$N,
              ## Options:
              lbl_txt = x_txt,
-             title_lbl = x$scen.lbl,
+             title_lbl = x$scen_lbl,
              ...
     )
 
-  } # if (plot.type == "tab")
+  } # if (plot_type == "tab")
 
   ## old frequency network/net/fnet:
-  if (((substr(plot.type, 1, 4)) == "onet") || (substr(plot.type, 1, 5) == "ofnet")) {
+  if (((substr(plot_type, 1, 4)) == "onet") || (substr(plot_type, 1, 5) == "ofnet")) {
 
     plot_fnet(prev = x$prev,
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,
               N = x$N,
               ## Options:
-              title.lbl = x$scen.lbl,
-              popu.lbl = x$popu.lbl,
-              cond.true.lbl = x$cond.true.lbl,
-              cond.false.lbl = x$cond.false.lbl,
-              dec.pos.lbl = x$dec.pos.lbl,
-              dec.neg.lbl = x$dec.neg.lbl,
-              hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl,
-              fa.lbl = x$fa.lbl, cr.lbl = x$cr.lbl,
+              title_lbl = x$scen_lbl,
+              popu_lbl = x$popu_lbl,
+              cond.true_lbl = x$cond.true_lbl,
+              cond.false_lbl = x$cond.false_lbl,
+              dec.pos_lbl = x$dec.pos_lbl,
+              dec.neg_lbl = x$dec.neg_lbl,
+              hi_lbl = x$hi_lbl, mi_lbl = x$mi_lbl,
+              fa_lbl = x$fa_lbl, cr_lbl = x$cr_lbl,
               ...
     )
 
-  } # if (plot.type == "old network")
+  } # if (plot_type == "old network")
 
   ## old frequency tree:
-  if ((plot.type == "otree") || (plot.type == "oftree")) {
+  if ((plot_type == "otree") || (plot_type == "oftree")) {
 
     plot_tree(prev = x$prev,             # probabilities
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,  # was: num$fart,
               N = x$N,    # ONLY freq used (so far)
               ## Options:
-              title.lbl = x$scen.lbl,     # custom text labels
-              popu.lbl = x$popu.lbl,
-              cond.true.lbl = x$cond.true.lbl,
-              cond.false.lbl = x$cond.false.lbl,
-              dec.pos.lbl = x$dec.pos.lbl,
-              dec.neg.lbl = x$dec.neg.lbl,
-              hi.lbl = x$hi.lbl, mi.lbl = x$mi.lbl,
-              fa.lbl = x$fa.lbl, cr.lbl = x$cr.lbl,
+              title_lbl = x$scen_lbl,     # custom text labels
+              popu_lbl = x$popu_lbl,
+              cond.true_lbl = x$cond.true_lbl,
+              cond.false_lbl = x$cond.false_lbl,
+              dec.pos_lbl = x$dec.pos_lbl,
+              dec.neg_lbl = x$dec.neg_lbl,
+              hi_lbl = x$hi_lbl, mi_lbl = x$mi_lbl,
+              fa_lbl = x$fa_lbl, cr_lbl = x$cr_lbl,
               ...
     )
 
-  } #  if (plot.type == "otree")
+  } #  if (plot_type == "otree")
 
   ## old mosaic plot:
-  if (substr(plot.type, 1, 7) == "omosaic") {
+  if (substr(plot_type, 1, 7) == "omosaic") {
     plot_mosaic(prev = x$prev,
                 sens = x$sens, mirt = NA,
                 spec = x$spec, fart = NA,
                 N = x$N,
                 ## Options:
-                title.lbl = x$scen.lbl,
+                title_lbl = x$scen_lbl,
                 ...)
 
-  } # if (plot.type == "omosaic")
+  } # if (plot_type == "omosaic")
 
   ## Icon array
-  if (substr(plot.type, 1, 4) == "icon") {
+  if (substr(plot_type, 1, 4) == "icon") {
 
     plot_icons(prev = x$prev,             # probabilities
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,  # was: num$fart,
                N = x$N,    # ONLY freq used (so far)
                ## Options:
-               title.lbl = x$scen.lbl,
-               type.lbls = x[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
+               title_lbl = x$scen_lbl,
+               type_lbls = x[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
                ...
     )
 
-  } #  if (plot.type == "icon")
+  } #  if (plot_type == "icon")
 
   ## Bar plot / frequency bars:
-  if ((substr(plot.type, 1, 3) == "bar") || (substr(plot.type, 1, 4) == "fbar")) {
+  if ((substr(plot_type, 1, 3) == "bar") || (substr(plot_type, 1, 4) == "fbar")) {
 
     plot_bar(prev = x$prev,
              sens = x$sens, mirt = NA,
@@ -756,78 +756,78 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
              N = x$N,
              ## Options:
              lbl_txt = x_txt,
-             title_lbl = x$scen.lbl,
+             title_lbl = x$scen_lbl,
              ...
     )
 
-  } # if (plot.type == "bar")
+  } # if (plot_type == "bar")
 
   ## Curve of probabilities:
-  if (substr(plot.type, 1, 5) == "curve") {
+  if (substr(plot_type, 1, 5) == "curve") {
 
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
                ## Options:
-               title.lbl = x$scen.lbl,
+               title_lbl = x$scen_lbl,
                ...
     )
-  } # if (plot.type == "curve")
+  } # if (plot_type == "curve")
 
   ## Plane/cube of probabilities:
-  if ((substr(plot.type, 1, 5) == "plane") || (plot.type == "cube")) {
+  if ((substr(plot_type, 1, 5) == "plane") || (plot_type == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
                ## Options:
-               title.lbl = x$scen.lbl, # plot title label
+               title_lbl = x$scen_lbl, # plot title label
                ...
     )
-  } # if (plot.type == "plane")
+  } # if (plot_type == "plane")
 
 }
 
 
 ## Check: ------
 ## (A) with example scenarios (defined above):
-# plot(scenario2, plot.type = "icons")
-# plot(scenario3, plot.type = "tree")
+# plot(scenario2, plot_type = "icons")
+# plot(scenario3, plot_type = "tree")
 
 ## (B) with scenarios from scenarios (defined BELOW):
 #
 # s25 <- scenarios$n25  # select Scenario 25 from scenarios
 #
 # plot(s25)  # => default plot (prism/net)
-# plot(s25, plot.type = "ofnet")  # => old network diagram (old default)
-# plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-# plot(s25, plot.type = "icons")
-# plot(s25, plot.type = "icons", type = "mosaic")  # passing on additional parameters.
-# plot(s25, plot.type = "curve", what = "all")
-# plot(s25, plot.type = "plane", what = "npv")
-# # plot(s25, plot.type = "wetwork")
+# plot(s25, plot_type = "ofnet")  # => old network diagram (old default)
+# plot(s25, plot_type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+# plot(s25, plot_type = "icons")
+# plot(s25, plot_type = "icons", type = "mosaic")  # passing on additional parameters.
+# plot(s25, plot_type = "curve", what = "all")
+# plot(s25, plot_type = "plane", what = "npv")
+# # plot(s25, plot_type = "wetwork")
 #
 # New plots:
-# plot(s25, plot.type = "prism", by = "cddc", f_lbl = "num")
-# plot(s25, plot.type = "tree", by = "ac", f_lbl = "num")
-# plot(s25, plot.type = "area", by = "cddc")
-# plot(s25, plot.type = "tab", by = "cddc", f_lwd = 2)
-# plot(s25, plot.type = "bar", dir = 2)
+# plot(s25, plot_type = "prism", by = "cddc", f_lbl = "num")
+# plot(s25, plot_type = "tree", by = "ac", f_lbl = "num")
+# plot(s25, plot_type = "area", by = "cddc")
+# plot(s25, plot_type = "tab", by = "cddc", f_lwd = 2)
+# plot(s25, plot_type = "bar", dir = 2)
 #
 # # Plot types currently available:
-# plot(s25, plot.type = "prism")                # prism/network diagram (default)
-# plot(s25, plot.type = "tree", by = "cd")      # tree diagram (only 1 perspective)
-# plot(s25, plot.type = "area")                 # area/mosaic plot
-# plot(s25, plot.type = "tab")                  # 2x2 frequency/contingency table
-# plot(s25, plot.type = "bar", dir = 2)         # bar plot
-# plot(s25, plot.type = "icons")                # icon array
-# plot(s25, plot.type = "curve", what = "all")  # curves as fn. of prev
-# plot(s25, plot.type = "plane", what = "NPV")  # plane as function of sens & spec
+# plot(s25, plot_type = "prism")                # prism/network diagram (default)
+# plot(s25, plot_type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+# plot(s25, plot_type = "area")                 # area/mosaic plot
+# plot(s25, plot_type = "tab")                  # 2x2 frequency/contingency table
+# plot(s25, plot_type = "bar", dir = 2)         # bar plot
+# plot(s25, plot_type = "icons")                # icon array
+# plot(s25, plot_type = "curve", what = "all")  # curves as fn. of prev
+# plot(s25, plot_type = "plane", what = "NPV")  # plane as function of sens & spec
 #
 # # Older plot types (obsolete):
-# plot(s25, plot.type = "onet")     # plot_fnet (replaced by plot_prism)
-# plot(s25, plot.type = "otree")    # plot_tree (replaced by plot_prism)
-# plot(s25, plot.type = "omosaic")  # plot_mosaic (replaced by plot_area)
+# plot(s25, plot_type = "onet")     # plot_fnet (replaced by plot_prism)
+# plot(s25, plot_type = "otree")    # plot_tree (replaced by plot_prism)
+# plot(s25, plot_type = "omosaic")  # plot_mosaic (replaced by plot_area)
 
 
 ## 2. summary.riskyr function: ------------------
@@ -872,13 +872,13 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
   obj.sum <- list()  # initialize as list
 
-  obj.sum$scen.lbl <- object$scen.lbl
+  obj.sum$scen_lbl <- object$scen_lbl
 
-  obj.sum$cond.lbl <- object$cond.lbl  # condition
-  obj.sum$dec.lbl <- object$dec.lbl    # decision
-  obj.sum$popu.lbl <- object$popu.lbl  # population
+  obj.sum$cond_lbl <- object$cond_lbl  # condition
+  obj.sum$dec_lbl <- object$dec_lbl    # decision
+  obj.sum$popu_lbl <- object$popu_lbl  # population
   obj.sum$N <- object$N                # N
-  obj.sum$scen.src <- object$scen.src  # source (short)
+  obj.sum$scen_src <- object$scen_src  # source (short)
 
   ## (0) If all should be summarized: ----------
 
@@ -966,8 +966,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #'
 #' @param x An object of class "summary.riskyr", usually a result of a call to \code{summary.riskyr}.
 #'
-#' @param ... Additional parameters to be passed to the
-#' generic print function.
+#' @param ... Additional parameters to be passed to the generic print function.
 #'
 #' @examples
 #' summary(scenarios$n4)
@@ -982,13 +981,13 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
   ## 1. Always print header: ----------
 
-  cat("Scenario: ",   x$scen.lbl, "\n\n")  # always show scenario name.
+  cat("Scenario: ",   x$scen_lbl, "\n\n")  # always show scenario name.
 
-  cat("Condition: ",  x$cond.lbl, "\n")  # always show current condition.
-  cat("Decision: ",   x$dec.lbl,  "\n")  # always show current decision.
-  cat("Population: ", x$popu.lbl, "\n")  # always show current condition.
+  cat("Condition: ",  x$cond_lbl, "\n")  # always show current condition.
+  cat("Decision: ",   x$dec_lbl,  "\n")  # always show current decision.
+  cat("Population: ", x$popu_lbl, "\n")  # always show current condition.
   cat("N = ", x$N, "\n")                 # always show population size N.
-  cat("Source: ", x$scen.src, "\n")      # always show (short) source info
+  cat("Source: ", x$scen_src, "\n")      # always show (short) source info
 
   ## 2. Print only on demand: ----------
 
@@ -1081,8 +1080,8 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 # ## (c) Visualization:
 # plot(s25)  # => default plot (fnet)
-# plot(s25, plot.type = "icons")
-# plot(s25, plot.type = "curve")
+# plot(s25, plot_type = "icons")
+# plot(s25, plot_type = "curve")
 
 
 ## Example 2: PSA screening ----------------
@@ -1092,10 +1091,10 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(scenarios$n21)
 
 ## Visualization:
-# plot(scenarios$n21, plot.type = "tree", area = "sq")
-# plot(scenarios$n21, plot.type = "icons")
-# plot(scenarios$n21, plot.type = "curves", what = "all")
-# plot(scenarios$n21, plot.type = "planes", what = "PPV")
+# plot(scenarios$n21, plot_type = "tree", area = "sq")
+# plot(scenarios$n21, plot_type = "icons")
+# plot(scenarios$n21, plot_type = "curves", what = "all")
+# plot(scenarios$n21, plot_type = "planes", what = "PPV")
 
 ## Contrast with lower prevalence version:
 
@@ -1103,10 +1102,10 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(scenarios$n22)
 
 ## Visualization:
-# plot(scenarios$n22, plot.type = "tree", area = "sq")
-# plot(scenarios$n22, plot.type = "icons")
-# plot(scenarios$n22, plot.type = "curves", what = "all")
-# plot(scenarios$n22, plot.type = "planes", what = "PPV")
+# plot(scenarios$n22, plot_type = "tree", area = "sq")
+# plot(scenarios$n22, plot_type = "icons")
+# plot(scenarios$n22, plot_type = "curves", what = "all")
+# plot(scenarios$n22, plot_type = "planes", what = "PPV")
 
 
 ## Example 3: Bowel cancer (FOB screening): ------
@@ -1119,13 +1118,13 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(s20, summarize = "freq")
 
 ## Visualization:
-# plot(s20, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-# plot(s20, plot.type = "curve", what = "all")
-# plot(s20, plot.type = "icons")
-# plot(s20, plot.type = "icons", type = "mosaic")  # passing on additional parameters.
-# plot(s20, plot.type = "mosaic")
-# plot(s20, plot.type = "plane", what = "NPV")
-## plot(s20, plot.type = "wetwork")
+# plot(s20, plot_type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+# plot(s20, plot_type = "curve", what = "all")
+# plot(s20, plot_type = "icons")
+# plot(s20, plot_type = "icons", type = "mosaic")  # passing on additional parameters.
+# plot(s20, plot_type = "mosaic")
+# plot(s20, plot_type = "plane", what = "NPV")
+## plot(s20, plot_type = "wetwork")
 
 ## (*) Done: ----------
 
