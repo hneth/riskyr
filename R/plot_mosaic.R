@@ -280,10 +280,10 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 } # plot_mosaic(...) end.
 
 ## Check: ----------
-  plot_mosaic()
-  # plot_mosaic(title_lbl = "")
-  # plot_mosaic(by = "dc")
-  # plot_mosaic(title_lbl = "Just testing", col_sdt = "goldenrod")
+# plot_mosaic()
+# plot_mosaic(title_lbl = "")
+# plot_mosaic(by = "dc")
+# plot_mosaic(title_lbl = "Just testing", col_sdt = "goldenrod")
 
 ## (+) ToDo: ---------
 
