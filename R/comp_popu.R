@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 02 12
+## 2018 11 21
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]
@@ -7,11 +7,7 @@
 ##   c. the current text labels of txt
 ## -----------------------------------------------
 
-## Notes:
-## - changed on 2018 01 25 to use only
-##   the 4 essential frequencies of freq (hi mi fa cr)
-## - Called "popu" rather than "pop" as it is an output,
-##   rather than an input!
+
 
 ## (1) Compute current population (popu): --------
 
@@ -47,14 +43,14 @@
 #' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
 #' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
-#' @param cond.true.lbl Text label for \code{\link{cond.true}} cases.
-#' @param cond.false.lbl Text label for \code{\link{cond.false}} cases.
-#' @param dec.pos.lbl Text label for \code{\link{dec.pos}} cases.
-#' @param dec.neg.lbl Text label for \code{\link{dec.neg}} cases.
-#' @param hi.lbl Text label for \code{\link{hi}} cases.
-#' @param mi.lbl Text label for \code{\link{mi}} cases.
-#' @param fa.lbl Text label for \code{\link{fa}} cases.
-#' @param cr.lbl Text label for \code{\link{cr}} cases.
+#' @param cond.true_lbl Text label for \code{\link{cond.true}} cases.
+#' @param cond.false_lbl Text label for \code{\link{cond.false}} cases.
+#' @param dec.pos_lbl Text label for \code{\link{dec.pos}} cases.
+#' @param dec.neg_lbl Text label for \code{\link{dec.neg}} cases.
+#' @param hi_lbl Text label for \code{\link{hi}} cases.
+#' @param mi_lbl Text label for \code{\link{mi}} cases.
+#' @param fa_lbl Text label for \code{\link{fa}} cases.
+#' @param cr_lbl Text label for \code{\link{cr}} cases.
 #'
 #' @examples
 #' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
@@ -82,10 +78,10 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       fa = freq$fa,
                       cr = freq$cr,
                       ## text labels (from txt): ##
-                      cond.true.lbl = txt$cond.true.lbl, cond.false.lbl = txt$cond.false.lbl,
-                      dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-                      hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl,
-                      fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl) {
+                      cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
+                      dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+                      hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
+                      fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond.true  <- (hi + fa)
@@ -112,19 +108,19 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   ## (a) Condition (truth):
   truth <- factor(truth,
                   levels = c(TRUE, FALSE),                   # as Booleans
-                  labels = c(cond.true.lbl, cond.false.lbl), # explicit labels: "true" vs. "false"
+                  labels = c(cond.true_lbl, cond.false_lbl), # explicit labels: "true" vs. "false"
                   ordered = TRUE)
 
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
                      levels = c(TRUE, FALSE),                 # also as Booleans, NOT: (-1, +1) or (0, 1)
-                     labels = c(dec.pos.lbl, dec.neg.lbl), # explicit labels: "pos" vs. "neg"
+                     labels = c(dec.pos_lbl, dec.neg_lbl), # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
   ## (c) SDT (status decision/truth):
   sdt <- factor(sdt,
                 levels = c("hi", "mi", "fa", "cr"),                         # as character: 4 cases
-                labels = c(hi.lbl, mi.lbl, fa.lbl, cr.lbl), # explicit labels: "TP", "FN", "FP", "TN"
+                labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl), # explicit labels: "TP", "FN", "FP", "TN"
                 # labels = c("hi", "mi", "fa", "cr"), # implicit labels
                 ordered = TRUE)
 
@@ -210,8 +206,12 @@ popu <- NULL        # initialize
 
 ## (*) Done: -----------
 
-## - Clean up code [2018 09 02].
-
+## - changed on 2018 01 25 to use only
+##   the 4 essential frequencies of freq (hi mi fa cr)
+## - Called "popu" rather than "pop" as it is an output,
+##   rather than an input!
+## - Clean up code         [2018 09 02].
+## - Update variable names [2018 11 21].
 
 ## (+) ToDo: ----------
 
