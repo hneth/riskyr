@@ -75,7 +75,7 @@
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param title_lbl  Main plot title.
-#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
+#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
 #'
 #' @param p_lbl  Type of label for shown probability values,
 #' with the following options:
@@ -769,7 +769,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   # Define parts:
   if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":

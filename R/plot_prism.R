@@ -137,7 +137,7 @@
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param title_lbl  Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
 #' @param cex_lbl  Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -174,11 +174,11 @@
 #' plot_prism(col = "snow", f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
 #'            font = 3, cex_p_lbl = .75)                   # and text labels
 #'
-#' my_txt <- init_txt(scen.lbl = "",
-#'                    cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
-#'                    dec.lbl = "Test", dec.pos.lbl = "pos", dec.neg.lbl = "neg",
-#'                    acc.lbl = "Accu", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
-#'                    hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+#' my_txt <- init_txt(scen_lbl = "",
+#'                    cond_lbl = "Truth", cond.true_lbl = "true", cond.false_lbl = "false",
+#'                    dec_lbl = "Test", dec.pos_lbl = "pos", dec.neg_lbl = "neg",
+#'                    acc_lbl = "Accu", dec.cor_lbl = "correct", dec.err_lbl = "incorrect",
+#'                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 #' my_pal <- init_pal(col.N = rgb(0, 169, 224, max = 255), # seeblau.4 (non-transparent)
 #'                    col.true = "lightgrey", col.false = "darkgrey",
 #'                    col.pos =  "lightgrey", col.neg = "darkgrey",
@@ -357,7 +357,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
-                       title_lbl = txt$scen.lbl,  # main plot title
+                       title_lbl = txt$scen_lbl,  # main plot title
                        cex_lbl = .90,      # size of freq & text labels.
                        cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
                        col_pal = pal,      # color palette
@@ -1312,7 +1312,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   # Define parts:
   if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
@@ -1373,11 +1373,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #
 # ## Custom text and color settings:
-# my_txt <- init_txt(scen.lbl = "",
-#                cond.lbl = "Truth", cond.true.lbl = "True", cond.false.lbl = "False",
-#                dec.lbl = "Test", dec.pos.lbl = "Positive", dec.neg.lbl = "Negative",
-#                acc.lbl = "Accuracy", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
-#                hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+# my_txt <- init_txt(scen_lbl = "",
+#                cond_lbl = "Truth", cond.true_lbl = "True", cond.false_lbl = "False",
+#                dec_lbl = "Test", dec.pos_lbl = "Positive", dec.neg_lbl = "Negative",
+#                acc_lbl = "Accuracy", dec.cor_lbl = "correct", dec.err_lbl = "incorrect",
+#                hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 # my_col <- init_pal(col.N = rgb(0, 169, 224, max = 255),  # seeblau.4 (non-transparent),
 #                col.true = "grey", col.false = "darkgrey",
 #                col.pos =  "grey", col.neg = "darkgrey",

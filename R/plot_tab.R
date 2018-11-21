@@ -167,7 +167,7 @@
 #' Default: \code{lbl_txt = \link{txt}}.
 #'
 #' @param title_lbl Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
 #' @param cex_lbl Scaling factor for text labels (frequencies and headers).
 #' Default: \code{cex_lbl = .90}.
@@ -330,7 +330,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
                      # Text and color:
                      lbl_txt = txt,      # labels and text elements
-                     title_lbl = txt$scen.lbl,  # main plot title
+                     title_lbl = txt$scen_lbl,  # main plot title
                      cex_lbl = .90,      # size of freq & text labels
                      cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default)
                      col_pal = pal,      # color palette
@@ -1968,7 +1968,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   # Define parts:
   if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
