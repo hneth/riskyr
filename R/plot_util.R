@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 12
+## 2018 11 22
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -215,22 +215,22 @@ label_freq <- function(fname,
     ## (b) Name AND value of cur_freq:
 
     # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
-    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use general population label as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- cur_txt$N.lbl }       # use new N.lbl as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu_lbl }  # use general population label as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- cur_txt$N_lbl }       # use new N_lbl as f_lbl
 
-    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi.lbl }
-    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi.lbl }
-    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa.lbl }
-    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr.lbl }
+    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi_lbl }
+    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi_lbl }
+    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa_lbl }
+    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr_lbl }
 
-    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true.lbl }
-    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false.lbl }
+    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true_lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false_lbl }
 
-    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos.lbl }
-    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg.lbl }
+    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos_lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg_lbl }
 
-    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor.lbl }
-    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err.lbl }
+    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor_lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err_lbl }
 
     # Combine f_lbl with f_val (from above):
     f_lbl <- paste0(f_lbl, lbl_sep, as.character(f_val))
@@ -240,22 +240,22 @@ label_freq <- function(fname,
     ## (c) ONLY the name of cur_freq:
 
     # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
-    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use general population label as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- cur_txt$N.lbl }       # use new N.lbl as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu_lbl }  # use general population label as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- cur_txt$N_lbl }       # use new N_lbl as f_lbl
 
-    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi.lbl }
-    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi.lbl }
-    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa.lbl }
-    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr.lbl }
+    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi_lbl }
+    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi_lbl }
+    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa_lbl }
+    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr_lbl }
 
-    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true.lbl }
-    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false.lbl }
+    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true_lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false_lbl }
 
-    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos.lbl }
-    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg.lbl }
+    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos_lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg_lbl }
 
-    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor.lbl }
-    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err.lbl }
+    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor_lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err_lbl }
 
   } else {  ## "any"/"default":
 
@@ -837,9 +837,9 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
   ## Text parameters:
 
-  # col.lbl <- pal["txt"]  # defined in pal
-  # cex.lbl <- .90   # scaling factor for text labels
-  # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
+  # col_lbl <- pal["txt"]  # defined in pal
+  # cex_lbl <- .90   # scaling factor for text labels
+  # cex_lbl.sm <- if (cex_lbl > .50) {cex_lbl - .10} else {cex_lbl}  # slightly smaller than cex_lbl
   # h.shift <- .05   # horizontal shifting of labels
   # v.shift <- .05   # vertical shifting of labels
 
@@ -859,7 +859,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
          pos = 1,       # NULL: center (default), 1: below, 3: above
          # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
-         # cex = cex.lbl.sm,
+         # cex = cex_lbl.sm,
          ...)
 
   }
@@ -932,7 +932,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
          # pos = NULL,  # NULL: center (default), 1: below, 3: above
          # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
-         # cex = cex.lbl.sm,
+         # cex = cex_lbl.sm,
          ...)
 
   } # if (show_freq)
@@ -1195,8 +1195,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "hi", 9, 6, 2, 1, cur_pal = pal_bw) # alternative color palette
 #
 # # Local txt object:
-# t2 <- init_txt(hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
-# t2$hi.lbl  # => "TP"
+# t2 <- init_txt(hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
+# t2$hi_lbl  # => "TP"
 # plot_fbox(fname = "hi", 2, 1, 2, 1, cur_txt = t2, lbl_type = "namnum", cur_pal = "gold") # alternative txt and color
 #
 # # Arbitrary boxes (with unknown freq): ###
@@ -1428,7 +1428,7 @@ plot_fbox_list <- function(fboxes,
 # plot_fbox_list(boxes, cur_pal = p2, cur_freq = f2)
 #
 # # Local txt object:
-# t2 <- init_txt(hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+# t2 <- init_txt(hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 # plot(0:10, type = "n")
 # plot_fbox_list(boxes, cur_txt = t2, lbl_type = "namnum", cur_pal = p2, cur_freq = f2)
 # plot_fbox_list(boxes, cur_freq = f2, cur_txt = t2, cur_pal = p2, lbl_type = "namnum")
@@ -2042,13 +2042,13 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
     # (a) Complete accu label:
 
-    wacc.lbl <- ""  # initialize
+    wacc_lbl <- ""  # initialize
 
-    # Sub-label for wacc.lbl:
+    # Sub-label for wacc_lbl:
     if (w == .50) {  # wacc is bacc:
-      wacc.lbl <- paste0("bacc = ", as_pc(wacc, n_digits = 1), "%, ")
+      wacc_lbl <- paste0("bacc = ", as_pc(wacc, n_digits = 1), "%, ")
     } else {  # show wacc with w:
-      wacc.lbl <- paste0("wacc = ", as_pc(wacc, n_digits = 1), "% ",
+      wacc_lbl <- paste0("wacc = ", as_pc(wacc, n_digits = 1), "% ",
                          "(w = ", round(w, 2), "), ")
     }
 
@@ -2057,7 +2057,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
       # "p(dec.cor): ",            # acc value is a probability
       "Accu:  ",                   # Abbreviation:
       "acc = ", as_pc(acc, n_digits = 1), "%, ",
-      wacc.lbl,
+      wacc_lbl,
       "mcc = ", round(mcc, 2),
       " "  # add space at end
     )
@@ -2069,7 +2069,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
       # "p(dec.cor):  ",            # acc value is a probability
       "Accu:  ",                    # Abbreviation:
       "acc = ", as_pc(acc, n_digits = 1), "%",
-      # wacc.lbl,
+      # wacc_lbl,
       # "mcc = ", round(mcc, 2),
       ""  # add NO space at end
     )
