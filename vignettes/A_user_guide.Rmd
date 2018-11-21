@@ -360,11 +360,11 @@ To obtain the same results when translating back and forth between probabilities
 In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key varialbes of a risk-related situation, you can always define a `riskyr` scenario:
 
 ```{r riskyr_scenario_def}
-s <- riskyr(scen.lbl = "Mammography screening", 
-            cond.lbl = "breast cancer",
-            cond.true.lbl = "cancer", cond.false.lbl = "no cancer",
-            dec.lbl = "screening test",
-            dec.pos.lbl = "predict cancer", dec.neg.lbl = "predict no cancer",
+s <- riskyr(scen_lbl = "Mammography screening", 
+            cond_lbl = "breast cancer",
+            cond.true_lbl = "cancer", cond.false_lbl = "no cancer",
+            dec_lbl = "screening test",
+            dec.pos_lbl = "predict cancer", dec.neg_lbl = "predict no cancer",
             prev = .01, 
             sens = .80, 
             spec = NA, 
@@ -401,8 +401,8 @@ A straightforward way of plotting an entire population of individuals is provide
 
 ```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.2, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-           icon.types = c(21, 21, 22, 22),
-           title.lbl = "Mammography screening")
+           icon_types = c(21, 21, 22, 22),
+           title_lbl = "Mammography screening")
 ```
 
 
@@ -412,7 +412,7 @@ Perhaps the most intuitive visualization of the relationships between probabilit
 
 ```{r plot_tree_cd, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
 plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-          title.lbl = "Mammography screening")
+          title_lbl = "Mammography screening")
 ```
 
 Importantly, the `plot_tree` function is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between concepts and quantities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalance (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases).
@@ -426,7 +426,7 @@ An alternative way to split a group of individuals into subgroups depicts the po
 
 ```{r plot_mosaic_cd, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
-            title.lbl = "Mammography screening")
+            title_lbl = "Mammography screening")
 ```
 
 The vertical split dissects the population into two subgroups that correspond to the frequency of `cond.true` and `cond.false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left.
@@ -441,9 +441,9 @@ Both the tree diagram and the mosaic plot shown above adopted a particular persp
 ```{r plot_tree_dc, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc", 
-          title.lbl = "Mammography screening",
-          dec.pos.lbl = "positive test",
-          dec.neg.lbl = "negative test")
+          title_lbl = "Mammography screening",
+          dec.pos_lbl = "positive test",
+          dec.neg_lbl = "negative test")
 ```
 
 Similarly, the population area of the mosaic plot can first be split by decisions (i.e., horizontally) by specifying the option `by = "dc"`:
@@ -451,7 +451,7 @@ Similarly, the population area of the mosaic plot can first be split by decision
 ```{r plot_mosaic_dc, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
             by = "dc",  # split population by decision (horizontal 1st) 
-            title.lbl = "Mammography screening")
+            title_lbl = "Mammography screening")
 ```
 
 `riskyr` uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option `area = "hr"` further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:
@@ -460,18 +460,18 @@ plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
           by = "dc",
           area = "hr", 
-          title.lbl = "Mammography screening",
-          dec.pos.lbl = "positive test",
-          dec.neg.lbl = "negative test")
+          title_lbl = "Mammography screening",
+          dec.pos_lbl = "positive test",
+          dec.neg_lbl = "negative test")
 ```
 
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. This is still visible when relaxing the positional constraint of icons in the icon array:
 
 ```{r plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
-plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block.d = 0.01,
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block_d = 0.01,
            type = "mosaic",
-           icon.types = c(21, 21, 22, 22),
-           title.lbl = "Mammography screening")
+           icon_types = c(21, 21, 22, 22),
+           title_lbl = "Mammography screening")
 ```
 
 Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.) 
@@ -483,7 +483,7 @@ The following network diagram is a generalization of the tree diagram (Wassner e
 
 ```{r plot_fnet, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."}
 plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-          title.lbl = "Mammography screening")
+          title_lbl = "Mammography screening")
 ```
 
 In addition to showing the interplay between all key frequencies and probabilities, the network diagram notes accuracy metrics that are based on the confusion matrix depicted as the middle row 4 central nodes (`hi`, `mi`, `fa`, and `cr`).
