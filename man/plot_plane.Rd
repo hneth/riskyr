@@ -73,7 +73,7 @@ Default: \code{phi = 0}.}
 Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Main plot title.
-Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).}
+Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).}
 
 \item{p_lbl}{Type of label for shown probability values,
 with the following options:

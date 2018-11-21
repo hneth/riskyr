@@ -10,7 +10,7 @@ plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
   f_lbl = "num", f_lbl_sep = " = ", f_lbl_sum = f_lbl,
   f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
   p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
-  "yellow"), brd_dis = 0.3, lbl_txt = txt, title_lbl = txt$scen.lbl,
+  "yellow"), brd_dis = 0.3, lbl_txt = txt, title_lbl = txt$scen_lbl,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
   ...)
 }
@@ -157,7 +157,7 @@ Note: Adjust to avoid overlapping labels.}
 Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
+Default: \code{title_lbl = txt$scen_lbl}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}

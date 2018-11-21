@@ -6,8 +6,8 @@
 \usage{
 plot_mosaic(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cd", vsplit,
-  show.accu = TRUE, w.acc = 0.5, title.lbl = txt$scen.lbl,
-  col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
+  show_accu = TRUE, w_acc = 0.5, title_lbl = txt$scen_lbl,
+  col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -48,20 +48,20 @@ are computed from scratch from current probabilities.)}
 \item{vsplit}{Deprecated option for toggling between
 vertical and horizontal split. Please use \code{by} instead.}
 
-\item{show.accu}{Option for showing current and exact
+\item{show_accu}{Option for showing current and exact
 accuracy metrics \code{\link{accu}} in the plot
 (computed by \code{\link{comp_accu_prob}}).
-Default: \code{show.accu = TRUE}.}
+Default: \code{show_accu = TRUE}.}
 
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu_prob}}.
-Default: \code{w.acc = .50}.}
+\item{w_acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w_acc} in \code{\link{comp_accu_prob}}.
+Default: \code{w_acc = .50}.}
 
-\item{title.lbl}{Text label for current plot title.
-Default: \code{title.lbl = txt$scen.lbl}.}
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen_lbl}.}
 
-\item{col.sdt}{Colors for cases of 4 essential frequencies.
-Default: \code{col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.}
+\item{col_sdt}{Colors for cases of 4 essential frequencies.
+Default: \code{col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.}
 }
 \description{
 \code{plot_mosaic} draws a mosaic plot that
@@ -94,14 +94,14 @@ rounded frequencies (by \code{\link{comp_accu_freq}}).
 \examples{
 # Basics:
 plot_mosaic()                # => default options
-plot_mosaic(title.lbl = "")  # => no title
+plot_mosaic(title_lbl = "")  # => no title
 plot_mosaic(by = "dc")       # => by decision (horizontal split 1st)
-plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
+plot_mosaic(title_lbl = "My favorite scenario", col_sdt = "goldenrod")
 
 # Accuracy:
-plot_mosaic(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-plot_mosaic(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
-plot_mosaic(show.accu = FALSE)              # => no accuracy info.
+plot_mosaic(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+plot_mosaic(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
+plot_mosaic(show_accu = FALSE)              # => no accuracy info.
 
 
 }

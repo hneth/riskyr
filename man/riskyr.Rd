@@ -7,53 +7,53 @@
 with 21 entries on textual and numeric information on
 a riskyr scenario.}
 \usage{
-riskyr(scen.lbl = "", scen.lng = txt$scen.lng,
-  scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
-  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, prev = NA, sens = NA, spec = NA,
+riskyr(scen_lbl = "", scen_lng = txt$scen_lng,
+  scen_txt = txt$scen_txt, popu_lbl = txt$popu_lbl,
+  cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl,
+  cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
+  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+  hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
+  cr_lbl = txt$cr_lbl, prev = NA, sens = NA, spec = NA,
   fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
-  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
+  scen_src = txt$scen_src, scen_apa = txt$scen_apa)
 }
 \arguments{
-\item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
+\item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
 
-\item{scen.lng}{Language of the current scenario (as character code).
+\item{scen_lng}{Language of the current scenario (as character code).
 Options: \code{"en"} for English, \code{"de"} for  German.}
 
-\item{scen.txt}{A longer text description of the current scenario
+\item{scen_txt}{A longer text description of the current scenario
 (which may extend over several lines).}
 
-\item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
+\item{popu_lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
 
-\item{cond.lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
+\item{cond_lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
 
-\item{cond.true.lbl}{A label for the \emph{presence} of the current condition
+\item{cond.true_lbl}{A label for the \emph{presence} of the current condition
 or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false.lbl}{A label for the \emph{absence} of the current condition
+\item{cond.false_lbl}{A label for the \emph{absence} of the current condition
 or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
 
-\item{dec.lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
+\item{dec_lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
 
-\item{dec.pos.lbl}{A label for \emph{positive} decisions
+\item{dec.pos_lbl}{A label for \emph{positive} decisions
 or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.neg.lbl}{A label for \emph{negative} decisions
+\item{dec.neg_lbl}{A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
-\item{hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item{hi_lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
 
-\item{mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item{mi_lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
 
-\item{fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item{fa_lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
 
-\item{cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item{cr_lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 
 Numeric elements:}
@@ -89,9 +89,9 @@ A suitable value of \code{\link{N}} is computed, if not provided.}
 
 Source information:}
 
-\item{scen.src}{Source information for the current scenario.}
+\item{scen_src}{Source information for the current scenario.}
 
-\item{scen.apa}{Source information for the current scenario
+\item{scen_apa}{Source information for the current scenario
 in the style of the American Psychological Association (APA style).}
 }
 \value{
@@ -114,21 +114,21 @@ are used and returned.
 }
 \examples{
 # Defining a scenario:
-scen.reoffend <- riskyr(scen.lbl = "Identify reoffenders",
-                        cond.lbl = "being a reoffender",
-                        popu.lbl = "Prisoners",
-                        cond.true.lbl = "has reoffended",
-                        cond.false.lbl = "has not reoffended",
-                        dec.lbl = "test result",
-                        dec.pos.lbl = "will reoffend",
-                        dec.neg.lbl = "will not reoffend",
-                        hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
-                        fa.lbl = "false accusation", cr.lbl = "correct release",
+scen.reoffend <- riskyr(scen_lbl = "Identify reoffenders",
+                        cond_lbl = "being a reoffender",
+                        popu_lbl = "Prisoners",
+                        cond.true_lbl = "has reoffended",
+                        cond.false_lbl = "has not reoffended",
+                        dec_lbl = "test result",
+                        dec.pos_lbl = "will reoffend",
+                        dec.neg_lbl = "will not reoffend",
+                        hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
+                        fa_lbl = "false accusation", cr_lbl = "correct release",
                         prev = .45,  # prevalence of being a reoffender.
                         sens = .98,
                         spec = .46, fart = NA,  # (provide 1 of 2)
                         N = 753,
-                        scen.src = "Example scenario")
+                        scen_src = "Example scenario")
 
 # Using a scenario:
 summary(scen.reoffend)

@@ -8,10 +8,10 @@ with \code{\link{N}} rows
 and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
-  cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
-  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
-  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl)
+  cond.true_lbl = txt$cond.true_lbl,
+  cond.false_lbl = txt$cond.false_lbl, dec.pos_lbl = txt$dec.pos_lbl,
+  dec.neg_lbl = txt$dec.neg_lbl, hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -22,21 +22,21 @@ comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
 
 \item{cr}{The number of correct rejections \code{\link{cr}} (or true negatives).}
 
-\item{cond.true.lbl}{Text label for \code{\link{cond.true}} cases.}
+\item{cond.true_lbl}{Text label for \code{\link{cond.true}} cases.}
 
-\item{cond.false.lbl}{Text label for \code{\link{cond.false}} cases.}
+\item{cond.false_lbl}{Text label for \code{\link{cond.false}} cases.}
 
-\item{dec.pos.lbl}{Text label for \code{\link{dec.pos}} cases.}
+\item{dec.pos_lbl}{Text label for \code{\link{dec.pos}} cases.}
 
-\item{dec.neg.lbl}{Text label for \code{\link{dec.neg}} cases.}
+\item{dec.neg_lbl}{Text label for \code{\link{dec.neg}} cases.}
 
-\item{hi.lbl}{Text label for \code{\link{hi}} cases.}
+\item{hi_lbl}{Text label for \code{\link{hi}} cases.}
 
-\item{mi.lbl}{Text label for \code{\link{mi}} cases.}
+\item{mi_lbl}{Text label for \code{\link{mi}} cases.}
 
-\item{fa.lbl}{Text label for \code{\link{fa}} cases.}
+\item{fa_lbl}{Text label for \code{\link{fa}} cases.}
 
-\item{cr.lbl}{Text label for \code{\link{cr}} cases.}
+\item{cr_lbl}{Text label for \code{\link{cr}} cases.}
 }
 \value{
 A data frame \code{popu}

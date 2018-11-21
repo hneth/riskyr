@@ -65,24 +65,24 @@ Variables describing each scenario:
 
 \enumerate{
 
-\item \code{scen.lbl} Text label for current scenario.
-  \item \code{scen.lng} Language of current scenario.
-  \item \code{scen.txt} Description text of current scenario.
+\item \code{scen_lbl} Text label for current scenario.
+  \item \code{scen_lng} Language of current scenario.
+  \item \code{scen_txt} Description text of current scenario.
 
-\item \code{popu.lbl} Text label for current population.
+\item \code{popu_lbl} Text label for current population.
 
-\item \code{cond.lbl} Text label for current condition.
-  \item \code{cond.true.lbl} Text label for \code{\link{cond.true}} cases.
-  \item \code{cond.false.lbl} Text label for \code{\link{cond.false}} cases.
+\item \code{cond_lbl} Text label for current condition.
+  \item \code{cond.true_lbl} Text label for \code{\link{cond.true}} cases.
+  \item \code{cond.false_lbl} Text label for \code{\link{cond.false}} cases.
 
-\item \code{dec.lbl} Text label for current decision.
-  \item \code{dec.pos.lbl} Text label for \code{\link{dec.pos}} cases.
-  \item \code{dec.neg.lbl} Text label for \code{\link{dec.neg}} cases.
+\item \code{dec_lbl} Text label for current decision.
+  \item \code{dec.pos_lbl} Text label for \code{\link{dec.pos}} cases.
+  \item \code{dec.neg_lbl} Text label for \code{\link{dec.neg}} cases.
 
-\item \code{hi.lbl} Text label for cases of hits \code{\link{hi}}.
-  \item \code{mi.lbl} Text label for cases of misses \code{\link{mi}}.
-  \item \code{fa.lbl} Text label for cases of false alarms \code{\link{fa}}.
-  \item \code{cr.lbl} Text label for cases of correct rejections \code{\link{cr}}.
+\item \code{hi_lbl} Text label for cases of hits \code{\link{hi}}.
+  \item \code{mi_lbl} Text label for cases of misses \code{\link{mi}}.
+  \item \code{fa_lbl} Text label for cases of false alarms \code{\link{fa}}.
+  \item \code{cr_lbl} Text label for cases of correct rejections \code{\link{cr}}.
 
 \item \code{prev} Value of current prevalence \code{\link{prev}}.
   \item \code{sens} Value of current sensitivity \code{\link{sens}}.
@@ -91,8 +91,8 @@ Variables describing each scenario:
 
 \item \code{N} Current population size \code{\link{N}}.
 
-\item \code{scen.src} Source information for current scenario.
-  \item \code{scen.apa} Source information in APA format.
+\item \code{scen_src} Source information for current scenario.
+  \item \code{scen_apa} Source information in APA format.
 
 }
 
@@ -100,11 +100,11 @@ Note that names of variables (columns)
 correspond to \code{\link{init_txt}} (to initialize \code{\link{txt}})
 and \code{\link{init_num}} (to initialize \code{\link{num}}).
 
-See columns \code{scen.src} and \code{scen.apa}
+See columns \code{scen_src} and \code{scen_apa}
 for a scenario's source information.
 
 The information of \code{scenarios} is also contained in an
-R data frame \code{\link{df.scenarios}} (and generated from
+R data frame \code{\link{df_scenarios}} (and generated from
 the corresponding \code{.rda} file in \code{/data/}).
 }
 \keyword{datasets}

@@ -6,15 +6,15 @@
 \usage{
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, type = "array",
-  ident.order = c("hi", "mi", "fa", "cr"),
-  icon.colors = pal[ident.order], icon.types = 22,
-  icon.border.col = grey(0.1, 0.5), icon.border.lwd = 1.5,
-  transparency = 0.5, icon.size = NULL, block.d = NULL,
-  border.d = 0.1, block.size.row = 10, block.size.col = 10,
-  nblocks.row = NULL, nblocks.col = NULL, fill.array = "left",
-  fill.blocks = "rowwise", show.accu = TRUE, w.acc = 0.5,
-  title.lbl = txt$scen.lbl, type.lbls = txt[c("hi.lbl", "mi.lbl",
-  "fa.lbl", "cr.lbl")], cex.lbl = 0.85)
+  ident_order = c("hi", "mi", "fa", "cr"),
+  icon_colors = pal[ident_order], icon_types = 22,
+  icon_border_col = grey(0.1, 0.5), icon_border_lwd = 1.5,
+  transparency = 0.5, icon_size = NULL, block_d = NULL,
+  border_d = 0.1, block_size_row = 10, block_size_col = 10,
+  nblocks_row = NULL, nblocks_col = NULL, fill_array = "left",
+  fill_blocks = "rowwise", show_accu = TRUE, w_acc = 0.5,
+  title_lbl = txt$scen_lbl, type_lbls = txt[c("hi_lbl", "mi_lbl",
+  "fa_lbl", "cr_lbl")], cex_lbl = 0.85)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -52,15 +52,15 @@ resulting in different types of displays:
 
   \item \code{type = "array"}: Icons are plotted in a
   classical icon array (default).
-  Icons can be arranged in blocks using \code{block.d}.
+  Icons can be arranged in blocks using \code{block_d}.
   The order of filling the array can be customized using
-  \code{fill.array} and \code{fill.blocks}.
+  \code{fill_array} and \code{fill_blocks}.
 
   \item \code{type = "shuffledarray"}: Icons are plotted in an
   icon array, but positions are shuffled (randomized).
-  Icons can be arranged in blocks using \code{block.d}.
+  Icons can be arranged in blocks using \code{block_d}.
   The order of filling the array can be customized using
-  \code{fill.array} and \code{fill.blocks}.
+  \code{fill_array} and \code{fill_blocks}.
 
   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
   The area size displays the relative proportions of their frequencies.
@@ -76,66 +76,66 @@ resulting in different types of displays:
 
 }}
 
-\item{ident.order}{The order in which icon identities
+\item{ident_order}{The order in which icon identities
 (i.e., hi, mi, fa, and cr) are plotted.
-Default: \code{ident.order = c("hi", "mi", "fa", "cr")}}
+Default: \code{ident_order = c("hi", "mi", "fa", "cr")}}
 
-\item{icon.colors}{Specifies the icon colors as a vector.}
+\item{icon_colors}{Specifies the icon colors as a vector.}
 
-\item{icon.types}{Specifies the appearance of the icons as a vector.
+\item{icon_types}{Specifies the appearance of the icons as a vector.
 Accepts values from 1 to 25 (see \code{?points}).}
 
-\item{icon.border.col}{Specifies the border color of icons (if applicable).}
+\item{icon_border_col}{Specifies the border color of icons (if applicable).}
 
-\item{icon.border.lwd}{Specifies the border width of icons (if applicable).}
+\item{icon_border_lwd}{Specifies the border width of icons (if applicable).}
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{type} "array" and "shuffledarray").}
 
-\item{icon.size}{Manually specifies the size of the icons via \code{cex}
+\item{icon_size}{Manually specifies the size of the icons via \code{cex}
 (calculated dynamically by default.)}
 
-\item{block.d}{The distance between blocks
+\item{block_d}{The distance between blocks
 (does not apply to "filleft", "filltop", and "scatter")}
 
-\item{border.d}{The distance of icons to the border.
+\item{border_d}{The distance of icons to the border.
 
 
 Additional options allow to control the arrangement of the arrays
 (\code{type} "array" and "shuffledarray"):}
 
-\item{block.size.row}{specifies how many icons should be in each block row.}
+\item{block_size_row}{specifies how many icons should be in each block row.}
 
-\item{block.size.col}{specifies how many icons should be in each block column.}
+\item{block_size_col}{specifies how many icons should be in each block column.}
 
-\item{nblocks.row}{specifies how many blocks there are in each row.  Is calculated by default.}
+\item{nblocks_row}{specifies how many blocks there are in each row.  Is calculated by default.}
 
-\item{nblocks.col}{specifies how many blocks are there in each column.  Is calculated by default.}
+\item{nblocks_col}{specifies how many blocks are there in each column.  Is calculated by default.}
 
-\item{fill.array}{specifies how the blocks are filled into the array
+\item{fill_array}{specifies how the blocks are filled into the array
 (Options "left" (default) and "top").}
 
-\item{fill.blocks}{specifies how icons within blocks are filled
-(Options: \code{fill.blocks = "rowwise"} (default) and \code{fill.blocks = "colwise"})}
+\item{fill_blocks}{specifies how icons within blocks are filled
+(Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})}
 
-\item{show.accu}{Option for showing current
+\item{show_accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
-Default: \code{show.accu = TRUE}.}
+Default: \code{show_accu = TRUE}.}
 
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w.acc = .50}.
+\item{w_acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+Default: \code{w_acc = .50}.
 
 
 Various other options allow the customization of text labels and colors:}
 
-\item{title.lbl}{Text label to set plot title.}
+\item{title_lbl}{Text label to set plot title.}
 
-\item{type.lbls}{Text labels for icon types to be displayed in legend.}
+\item{type_lbls}{Text labels for icon types to be displayed in legend.}
 
-\item{cex.lbl}{Scaling factor for the size of text labels
+\item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
-Default: \code{cex.lbl = .85}.}
+Default: \code{cex_lbl = .85}.}
 }
 \description{
 \code{plot_icons} plots a population of which individual's
@@ -165,30 +165,30 @@ plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density refl
 plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
 plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 
-plot_icons(icon.types = c(21,23,24,23),
-               block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
-               block.d = 0.5, border.d = 0.9)
+plot_icons(icon_types = c(21,23,24,23),
+               block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
+               block_d = 0.5, border_d = 0.9)
 plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
 
 # some variants:
-plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
-           block.d = 0.5, border.d = 0.5)
+plot_icons(N = 800, type = "array", icon_types = c(21,22,23,24),
+           block_d = 0.5, border_d = 0.5)
 
 plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon.types = c(21,23,24,23),
-               block.size.row = 10, block.size.col = 5,
-               nblocks.row = 5, nblocks.col = 5,
-               block.d = 0.8,
-               border.d = 0.2,
-               fill.array = "top")
-plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-           block.d = 0.5, border.d = 0.5)
+               icon_types = c(21,23,24,23),
+               block_size_row = 10, block_size_col = 5,
+               nblocks_row = 5, nblocks_col = 5,
+               block_d = 0.8,
+               border_d = 0.2,
+               fill_array = "top")
+plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+           block_d = 0.5, border_d = 0.5)
 
-plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-           icon.border.col = grey(.33, .99), icon.border.lwd = 3)
+plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+           icon_border_col = grey(.33, .99), icon_border_lwd = 3)
 
-plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
-           icon.border.lwd = .5, cex = 3)
+plot_icons(N = 800, type = "fillequal", icon_types = c(21,22,22,21),
+           icon_border_lwd = .5, cex = 3)
 
 
 }
