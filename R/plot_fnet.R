@@ -8,8 +8,8 @@
 ## Options available in this version:
 ## - by    ... "cd", "dc", "cddc" (default), "dccd".
 ## - area  ... "no", "sq" (default), "hr", "vr".
-## - p.lbl ... "nam", "num" (default), "mix", "min".
-## - show.accu ... show current accuracy metrics (with bacc/wacc).
+## - p_lbl ... "nam", "num" (default), "mix", "min".
+## - show_accu ... show current accuracy metrics (with bacc/wacc).
 
 ## Dependencies:
 
@@ -116,7 +116,7 @@
 #'   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 #'   }
 #'
-#' @param p.lbl A character code specifying the type of probability information (on edges) with
+#' @param p_lbl A character code specifying the type of probability information (on edges) with
 #' 4 options:
 #'   \enumerate{
 #'   \item \code{"nam"} ... names of probabilities;
@@ -125,54 +125,54 @@
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
 #'
-#' @param show.accu Option for showing current
+#' @param show_accu Option for showing current
 #' accuracy metrics \code{\link{accu}} on the margin of the plot.
-#' Default: \code{show.accu = TRUE}.
+#' Default: \code{show_accu = TRUE}.
 #'
-#' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w.acc = .50}.
+#' @param w_acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+#' Default: \code{w_acc = .50}.
 #'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param title.lbl Text label for current plot title.
-#' Default: \code{title.lbl = txt$scen.lbl}.
+#' @param title_lbl Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
-#' @param popu.lbl Text label for current population \code{\link{popu}}.
+#' @param popu_lbl Text label for current population \code{\link{popu}}.
 #'
-#' @param cond.true.lbl Text label for current cases of \code{\link{cond.true}}.
-#' @param cond.false.lbl Text label for current cases of \code{\link{cond.false}}.
+#' @param cond.true_lbl Text label for current cases of \code{\link{cond.true}}.
+#' @param cond.false_lbl Text label for current cases of \code{\link{cond.false}}.
 #'
-#' @param dec.pos.lbl Text label for current cases of \code{\link{dec.pos}}.
-#' @param dec.neg.lbl Text label for current cases of \code{\link{dec.neg}}.
+#' @param dec.pos_lbl Text label for current cases of \code{\link{dec.pos}}.
+#' @param dec.neg_lbl Text label for current cases of \code{\link{dec.neg}}.
 #'
-#' @param hi.lbl Text label for hits \code{\link{hi}}.
-#' @param mi.lbl Text label for misses \code{\link{mi}}.
-#' @param fa.lbl Text label for false alarms \code{\link{fa}}.
-#' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
+#' @param hi_lbl Text label for hits \code{\link{hi}}.
+#' @param mi_lbl Text label for misses \code{\link{mi}}.
+#' @param fa_lbl Text label for false alarms \code{\link{fa}}.
+#' @param cr_lbl Text label for correct rejections \code{\link{cr}}.
 #'
-#' @param col.txt Color for text labels (in boxes).
+#' @param col_txt Color for text labels (in boxes).
 #'
-#' @param cex.lbl Scaling factor for text labels (in boxes and on arrows).
-#' Default: \code{cex.lbl = .90}.
+#' @param cex_lbl Scaling factor for text labels (in boxes and on arrows).
+#' Default: \code{cex_lbl = .90}.
 #'
-#' @param box.cex Deprecated argument: Please use \code{cex.lbl} instead.
+#' @param box.cex Deprecated argument: Please use \code{cex_lbl} instead.
 #'
-#' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
+#' @param col_boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
 #'
-#' @param col.border Color of borders.
-#' Default: \code{col.border = grey(.33, alpha = .99)}.
+#' @param col_border Color of borders.
+#' Default: \code{col_border = grey(.33, alpha = .99)}.
 #'
 #' @param lwd Width of arrows.
 #'
-#' @param box.lwd Width of boxes.
+#' @param box_lwd Width of boxes.
 #'
-#' @param col.shadow Color of box shadows.
-#' Default: \code{col.shadow = grey(.11, alpha = .99)}.
+#' @param col_shadow Color of box shadows.
+#' Default: \code{col_shadow = grey(.11, alpha = .99)}.
 #'
-#' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
-#' Default: \code{cex.shadow = 0}.
+#' @param cex_shadow Scaling factor of shadows (values > 0 showing shadows).
+#' Default: \code{cex_shadow = 0}.
 #'
 #' @return Nothing (NULL).
 #'
@@ -181,8 +181,8 @@
 #' plot_fnet()  # => plot current freq with default options
 #' plot_fnet(by = "dccd")
 #' plot_fnet(area = "no")
-#' plot_fnet(p.lbl = "num")
-#' plot_fnet(title.lbl = "")
+#' plot_fnet(p_lbl = "num")
+#' plot_fnet(title_lbl = "")
 #' plot_fnet(N = 33)
 #' plot_fnet(N = NA)
 #'
@@ -210,28 +210,28 @@
 #' plot_fnet(area = "vr", round = FALSE)
 #'
 #' # Accuracy:
-#' plot_fnet(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-#' plot_fnet(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
-#' plot_fnet(show.accu = FALSE)              # => no accuracy info.
+#' plot_fnet(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+#' plot_fnet(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
+#' plot_fnet(show_accu = FALSE)              # => no accuracy info.
 #'
 #' # Rounding:
 #' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
-#'           p.lbl = "num", round = TRUE)    # => mi = 0
+#'           p_lbl = "num", round = TRUE)    # => mi = 0
 #' plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
-#'           p.lbl = "num", round = FALSE)   # => mi = 0.3
+#'           p_lbl = "num", round = FALSE)   # => mi = 0.3
 #'
 #' # Combining perspectives, areas, and label options:
-#' plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
-#' plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
-#' plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + mix names and numbers
-#' plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
+#' plot_fnet(by = "cd", area = "sq", p_lbl = "nam")  # => by cond + sq + prob names
+#' plot_fnet(by = "cd", area = "hr", p_lbl = "num")  # => by cond + hr + prob numbers
+#' plot_fnet(by = "dc", area = "sq", p_lbl = "num")  # => by dec  + sq + mix names and numbers
+#' plot_fnet(by = "dc", area = "vr", p_lbl = "mix")  # => by dec  + vr + min. labels
 #'
 #' # Custom colors and shadows:
 #' plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-#' plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4",
-#'           col.shadow = "steelblue4", cex.shadow = .008)
-#' plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
-#'           col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+#' plot_fnet(area = "sq", col_boxes = "gold", col_border = "steelblue4",
+#'           col_shadow = "steelblue4", cex_shadow = .008)
+#' plot_fnet(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow",
+#'           col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
 #'
 #'
 #' @family visualization functions
@@ -263,44 +263,44 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                       round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
                       by = "cddc",   # 4 perspectives: "cd" by condition, "dc" by decision; "cddc" by condition and decision (default), "dccd" by decision and condition.
                       area = "sq",   # 4 area types: "no" none, "sq" square (default), "hr" horizontal rectangles, "vr" vertical rectangles
-                      p.lbl = "num", # 4 probability (edge) label types: "nam" names, "num" numeric values (default), "mix" essential names + complement values, "min" minimal.
+                      p_lbl = "num", # 4 probability (edge) label types: "nam" names, "num" numeric values (default), "mix" essential names + complement values, "min" minimal.
                       ## Compute and show accuracy info:
-                      show.accu = TRUE,  # compute and show accuracy metrics
-                      w.acc = .50,       # weight w for wacc (from 0 to 1)
+                      show_accu = TRUE,  # compute and show accuracy metrics
+                      w_acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
-                      title.lbl = txt$scen.lbl,
-                      popu.lbl = txt$popu.lbl,
+                      title_lbl = txt$scen_lbl,
+                      popu_lbl = txt$popu_lbl,
                       ## Condition labels:
-                      cond.true.lbl = txt$cond.true.lbl,
-                      cond.false.lbl = txt$cond.false.lbl,
+                      cond.true_lbl = txt$cond.true_lbl,
+                      cond.false_lbl = txt$cond.false_lbl,
                       ## Decision labels:
-                      dec.pos.lbl = txt$dec.pos.lbl,
-                      dec.neg.lbl = txt$dec.neg.lbl,
+                      dec.pos_lbl = txt$dec.pos_lbl,
+                      dec.neg_lbl = txt$dec.neg_lbl,
                       ## SDT combinations:
-                      hi.lbl = txt$hi.lbl,
-                      mi.lbl = txt$mi.lbl,
-                      fa.lbl = txt$fa.lbl,
-                      cr.lbl = txt$cr.lbl,
+                      hi_lbl = txt$hi_lbl,
+                      mi_lbl = txt$mi_lbl,
+                      fa_lbl = txt$fa_lbl,
+                      cr_lbl = txt$cr_lbl,
                       ## Box settings:
-                      col.txt = grey(.01, alpha = .99),  # black
-                      cex.lbl = .85,                     # relative text size (of box and arrow labels)
-                      box.cex,                           # deprecated predecessor of cex.lbl
-                      col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
-                      col.border = grey(.33, alpha = .99),  # mid grey
+                      col_txt = grey(.01, alpha = .99),  # black
+                      cex_lbl = .85,                     # relative text size (of box and arrow labels)
+                      box_cex,                           # deprecated predecessor of cex_lbl
+                      col_boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
+                      col_border = grey(.33, alpha = .99),  # mid grey
                       ## Widths of arrows and box borders:
                       lwd = 1.5,      # width of arrows
-                      box.lwd = 1.5,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
+                      box_lwd = 1.5,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
-                      col.shadow = grey(.11, alpha = .99),  # dark grey
-                      cex.shadow = 0  # [values > 0 show shadows]
+                      col_shadow = grey(.11, alpha = .99),  # dark grey
+                      cex_shadow = 0  # [values > 0 show shadows]
 ){
 
   ## (0) Handle deprecated arguments: ----------
 
-  if (!missing(box.cex)) {
-    warning("argument 'box.cex' is deprecated; please use 'cex.lbl' instead.",
+  if (!missing(box_cex)) {
+    warning("argument 'box_cex' is deprecated; please use 'cex_lbl' instead.",
             call. = FALSE)
-    cex.lbl <- box.cex
+    cex_lbl <- box_cex
   }
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
@@ -318,12 +318,12 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   if (area == "square" || area == "def" || area == "default" ) { area <- "sq" }  # default
   if (area == "rect")   { area <- "vr" }
 
-  if ( !is.null(p.lbl) && !is.na(p.lbl) ) {
-    p.lbl <- tolower(p.lbl)  # express p.lbl in lowercase
+  if ( !is.null(p_lbl) && !is.na(p_lbl) ) {
+    p_lbl <- tolower(p_lbl)  # express p_lbl in lowercase
   }
-  if (p.lbl == "def" || p.lbl == "default" || is.null(p.lbl) || is.na(p.lbl) ) { p.lbl <- "mix" }  # default/null
-  if (p.lbl == "namnum" || p.lbl == "namval") { p.lbl <- "mix" }
-  if (p.lbl == "val") { p.lbl <- "num" }
+  if (p_lbl == "def" || p_lbl == "default" || is.null(p_lbl) || is.na(p_lbl) ) { p_lbl <- "mix" }  # default/null
+  if (p_lbl == "namnum" || p_lbl == "namval") { p_lbl <- "mix" }
+  if (p_lbl == "val") { p_lbl <- "num" }
 
 
   ## (0.1) Compute or collect current frequencies: ----------
@@ -338,19 +338,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.freq based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq
+    ## (b) Compute cur_freq based on current parameters (N and probabilities):
+    cur_freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq
 
-    ## Assign elements of cur.freq:
-    N <- cur.freq$N
-    n.true  <- cur.freq$cond.true
-    n.false <- cur.freq$cond.false
-    n.pos <- cur.freq$dec.pos
-    n.neg <- cur.freq$dec.neg
-    n.hi  <- cur.freq$hi
-    n.mi  <- cur.freq$mi
-    n.fa  <- cur.freq$fa
-    n.cr  <- cur.freq$cr
+    ## Assign elements of cur_freq:
+    N <- cur_freq$N
+    n.true  <- cur_freq$cond.true
+    n.false <- cur_freq$cond.false
+    n.pos <- cur_freq$dec.pos
+    n.neg <- cur_freq$dec.neg
+    n.hi  <- cur_freq$hi
+    n.mi  <- cur_freq$mi
+    n.fa  <- cur_freq$fa
+    n.cr  <- cur_freq$cr
 
   } else { # (B) NO valid set of probabilities was provided:
 
@@ -390,55 +390,55 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   ## (1) Color of boxes: ----------
 
-  if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
-      # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
-      && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
-  ) {  # use named colors of col.boxes:
+  if ((length(col_boxes) == length(pal))    # length of col_boxes corresponds to pal
+      # && isTRUE(all.equal(col_boxes, pal))  # values of col_boxes correspond to pal
+      && isTRUE(all.equal(names(col_boxes), names(pal)))  # names of col_boxes correspond to pal
+  ) {  # use named colors of col_boxes:
 
     ## Get current color vector from pal:
 
     if (by == "cd") {  # (a) by condition:
 
       ## 7 boxes (including cond.true and cond.false):
-      # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-      col.boxes <- c(col.boxes["N"], col.boxes["true"], col.boxes["false"],
-                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
+      # col_boxes <- col_boxes[c(1:3, 6:9)]  # select 7 of 9 colors
+      col_boxes <- c(col_boxes["N"], col_boxes["true"], col_boxes["false"],
+                     col_boxes["hi"], col_boxes["mi"], col_boxes["fa"], col_boxes["cr"])
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## 7 boxes (including dec.pos and dec.neg):
-      # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-      col.boxes <- c(col.boxes["N"], col.boxes["pos"], col.boxes["neg"],
-                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
+      # col_boxes <- col_boxes[c(1, 4:9)  ]  # select 7 of 9 colors
+      col_boxes <- c(col_boxes["N"], col_boxes["pos"], col_boxes["neg"],
+                     col_boxes["hi"], col_boxes["mi"], col_boxes["fa"], col_boxes["cr"])
 
     } else if (by == "cddc") {  # (c) by condition + decision:
 
       ## 10 boxes (top: cond.true and cond.false; bot: dec.pos and dec.neg):
-      # col.boxes <- col.boxes[c(1:3, 6:9, 4:5, 1)  ]  # select 9 of 9 colors
-      col.boxes <- c(col.boxes["N"],
-                     col.boxes["true"], col.boxes["false"],
-                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"],
-                     col.boxes["pos"], col.boxes["neg"],
-                     col.boxes["N"])
+      # col_boxes <- col_boxes[c(1:3, 6:9, 4:5, 1)  ]  # select 9 of 9 colors
+      col_boxes <- c(col_boxes["N"],
+                     col_boxes["true"], col_boxes["false"],
+                     col_boxes["hi"], col_boxes["mi"], col_boxes["fa"], col_boxes["cr"],
+                     col_boxes["pos"], col_boxes["neg"],
+                     col_boxes["N"])
 
     } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
 
       ## 10 boxes (top: dec.pos and dec.neg; bot: cond.true and cond.false):
-      # col.boxes <- col.boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
-      col.boxes <- c(col.boxes["N"],
-                     col.boxes["pos"], col.boxes["neg"],
-                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"],
-                     col.boxes["true"], col.boxes["false"],
-                     col.boxes["N"])
+      # col_boxes <- col_boxes[c(1, 4:9, 2:3, 1)  ]  # select 9 of 9 colors
+      col_boxes <- c(col_boxes["N"],
+                     col_boxes["pos"], col_boxes["neg"],
+                     col_boxes["hi"], col_boxes["mi"], col_boxes["fa"], col_boxes["cr"],
+                     col_boxes["true"], col_boxes["false"],
+                     col_boxes["N"])
 
     } else {  # ANY other by-setting:
 
-      col.boxes <- pal["N"]  # to prevent errors for other entries
+      col_boxes <- pal["N"]  # to prevent errors for other entries
 
     } # if (by...)
 
-  } # if (length(col.boxes) == length(pal)) #
-  #     # && all.equal(col.boxes, pal))...
+  } # if (length(col_boxes) == length(pal)) #
+  #     # && all.equal(col_boxes, pal))...
 
 
   ## (2) Text/labels in 7 or 10 boxes: ----------
@@ -448,19 +448,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (area == "no") {  # default box labels:
 
       ## Full box labels (label: value):
-      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
-                 paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false.lbl, ":\n", round(n.false, 2)),
-                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr.lbl, ":\n", round(n.cr, 2))
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
+                 paste0(cond.true_lbl, ":\n",  round(n.true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n.false, 2)),
+                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n.cr, 2))
       )
 
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
-      names <- c(paste0("N = ", N),  # popu.lbl
+      names <- c(paste0("N = ", N),  # popu_lbl
                  paste0("true:\n",  round(n.true, 2)),
                  paste0("false:\n", round(n.false, 2)),
                  paste0("hi:\n", round(n.hi, 2)),
@@ -476,19 +476,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (area == "no") {  # default box labels:
 
       ## Full box labels (label: value):
-      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
-                 paste0(dec.pos.lbl, ":\n",  round(n.pos, 2)),
-                 paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
-                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr.lbl, ":\n", round(n.cr, 2))
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
+                 paste0(dec.pos_lbl, ":\n",  round(n.pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n.neg, 2)),
+                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n.cr, 2))
       )
 
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
-      names <- c(paste0("N = ", N),  # popu.lbl
+      names <- c(paste0("N = ", N),  # popu_lbl
                  paste0("positive:\n",  round(n.pos, 2)),
                  paste0("negative:\n", round(n.neg, 2)),
                  paste0("hi:\n", round(n.hi, 2)),
@@ -504,35 +504,35 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (area == "no") {  # default box labels:
 
       ## Full box labels (label: value):
-      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
-                 paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false.lbl, ":\n", round(n.false, 2)),
-                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr.lbl, ":\n", round(n.cr, 2)),
-                 paste0(dec.pos.lbl, ":\n", round(n.pos, 2)),
-                 paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
-                 paste0("Population", ":\n", "N = ", N)  # popu.lbl
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
+                 paste0(cond.true_lbl, ":\n",  round(n.true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n.false, 2)),
+                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n.cr, 2)),
+                 paste0(dec.pos_lbl, ":\n", round(n.pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n.neg, 2)),
+                 paste0("Population", ":\n", "N = ", N)  # popu_lbl
       )
 
       # ## ToDo: Names with more explicit labels:
-      # names <- c(paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N),                # using argument popu.lbl
-      #            paste0(txt$cond.lbl, ":\n", cond.true.lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
-      #            paste0(txt$cond.lbl, ":\n", cond.false.lbl, ":\n", round(n.false, 1)), # using global setting of txt
-      #            paste0("Hits", ":\n", hi.lbl, ":\n", round(n.hi, 1)),
-      #            paste0("Misses", ":\n", mi.lbl, ":\n", round(n.mi, 1)),
-      #            paste0("False alarms", ":\n", fa.lbl, ":\n", round(n.fa, 1)),
-      #            paste0("Correct rejections", ":\n", cr.lbl, ":\n", round(n.cr, 1)),
-      #            paste0(txt$dec.lbl, ":\n", dec.pos.lbl, ":\n", round(n.pos, 2)), # using global setting of txt
-      #            paste0(txt$dec.lbl, ":\n", dec.neg.lbl, ":\n", round(n.neg, 2)), # using global setting of txt
-      #            paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N)           # using argument popu.lbl
+      # names <- c(paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N),                # using argument popu_lbl
+      #            paste0(txt$cond_lbl, ":\n", cond.true_lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
+      #            paste0(txt$cond_lbl, ":\n", cond.false_lbl, ":\n", round(n.false, 1)), # using global setting of txt
+      #            paste0("Hits", ":\n", hi_lbl, ":\n", round(n.hi, 1)),
+      #            paste0("Misses", ":\n", mi_lbl, ":\n", round(n.mi, 1)),
+      #            paste0("False alarms", ":\n", fa_lbl, ":\n", round(n.fa, 1)),
+      #            paste0("Correct rejections", ":\n", cr_lbl, ":\n", round(n.cr, 1)),
+      #            paste0(txt$dec_lbl, ":\n", dec.pos_lbl, ":\n", round(n.pos, 2)), # using global setting of txt
+      #            paste0(txt$dec_lbl, ":\n", dec.neg_lbl, ":\n", round(n.neg, 2)), # using global setting of txt
+      #            paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N)           # using argument popu_lbl
       # )
 
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
-      names <- c(paste0("N = ", N),  # popu.lbl
+      names <- c(paste0("N = ", N),  # popu_lbl
                  paste0("true:\n",  round(n.true, 2)),
                  paste0("false:\n", round(n.false, 2)),
                  paste0("hi:\n", round(n.hi, 2)),
@@ -541,7 +541,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                  paste0("cr:\n", round(n.cr, 2)),
                  paste0("positive:\n",  round(n.pos, 2)),
                  paste0("negative:\n", round(n.neg, 2)),
-                 paste0("N = ", N)   # popu.lbl
+                 paste0("N = ", N)   # popu_lbl
       )
 
     }  # if (area...)
@@ -553,35 +553,35 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (area == "no") {  # default box labels:
 
       ## Full box labels (label: value):
-      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
-                 paste0(dec.pos.lbl, ":\n", round(n.pos, 2)),
-                 paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
-                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr.lbl, ":\n", round(n.cr, 2)),
-                 paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false.lbl, ":\n", round(n.false, 2)),
-                 paste0("Population", ":\n", "N = ", N)  # popu.lbl
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
+                 paste0(dec.pos_lbl, ":\n", round(n.pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n.neg, 2)),
+                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n.cr, 2)),
+                 paste0(cond.true_lbl, ":\n",  round(n.true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n.false, 2)),
+                 paste0("Population", ":\n", "N = ", N)  # popu_lbl
       )
 
       # ## ToDo: Names with more explicit labels:
-      # names <- c(paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N),         # using argument popu.lbl
-      #            paste0(txt$dec.lbl, ":\n", dec.pos.lbl, ":\n", round(n.pos, 2)), # using global setting of txt
-      #            paste0(txt$dec.lbl, ":\n", dec.neg.lbl, ":\n", round(n.neg, 2)), # using global setting of txt
-      #            paste0("Hits", ":\n", hi.lbl, ":\n", round(n.hi, 1)),
-      #            paste0("Misses", ":\n", mi.lbl, ":\n", round(n.mi, 1)),
-      #            paste0("False alarms", ":\n", fa.lbl, ":\n", round(n.fa, 1)),
-      #            paste0("Correct rejections", ":\n", cr.lbl, ":\n", round(n.cr, 1)),
-      #            paste0(txt$cond.lbl, ":\n", cond.true.lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
-      #            paste0(txt$cond.lbl, ":\n", cond.false.lbl, ":\n", round(n.false, 1)), # using global setting of txt
-      #            paste0("Population", ":\n", popu.lbl, ":\n", "N = ", N)                # using argument popu.lbl
+      # names <- c(paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N),         # using argument popu_lbl
+      #            paste0(txt$dec_lbl, ":\n", dec.pos_lbl, ":\n", round(n.pos, 2)), # using global setting of txt
+      #            paste0(txt$dec_lbl, ":\n", dec.neg_lbl, ":\n", round(n.neg, 2)), # using global setting of txt
+      #            paste0("Hits", ":\n", hi_lbl, ":\n", round(n.hi, 1)),
+      #            paste0("Misses", ":\n", mi_lbl, ":\n", round(n.mi, 1)),
+      #            paste0("False alarms", ":\n", fa_lbl, ":\n", round(n.fa, 1)),
+      #            paste0("Correct rejections", ":\n", cr_lbl, ":\n", round(n.cr, 1)),
+      #            paste0(txt$cond_lbl, ":\n", cond.true_lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
+      #            paste0(txt$cond_lbl, ":\n", cond.false_lbl, ":\n", round(n.false, 1)), # using global setting of txt
+      #            paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N)                # using argument popu_lbl
       # )
 
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
-      names <- c(paste0("N = ", N),  # popu.lbl
+      names <- c(paste0("N = ", N),  # popu_lbl
                  paste0("positive:\n",  round(n.pos, 2)),
                  paste0("negative:\n", round(n.neg, 2)),
                  paste0("hi:\n", round(n.hi, 2)),
@@ -590,7 +590,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                  paste0("cr:\n", round(n.cr, 2)),
                  paste0("true:\n",  round(n.true, 2)),
                  paste0("false:\n", round(n.false, 2)),
-                 paste0("N = ", N)   # popu.lbl
+                 paste0("N = ", N)   # popu_lbl
       )
 
     }  # if (area...)
@@ -615,15 +615,15 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ## (4) Arrow/edge labels: ----------
 
   ## ToDo: Use more informative arrow/edge labels:
-  # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
-  # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
+  # prev_lbl <- paste0("prev = ", as_pc(prev), "%")
+  # prev_lbl <- paste0("prev = ", prev) # ERROR: WHY does prev_lbl not work with spaces???
 
-  if (cex.lbl > .50) { cex.arr <- (cex.lbl - .05) } else { cex.arr <- cex.lbl } # cex.arr <= cex.lbl
+  if (cex_lbl > .50) { cex_arr <- (cex_lbl - .05) } else { cex_arr <- cex_lbl } # cex_arr <= cex_lbl
 
   if (by == "cd") {  # by condition:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
-    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+    if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
       M[2, 1] <- "prev"         # "prevalence"
       M[3, 1] <- "(1 - prev)"   # "(N - n.true)"
@@ -632,7 +632,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 3] <- "fart"         # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
       M[7, 3] <- "spec"         # "specificity"
 
-    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+    } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
       M[2, 1] <- round(prev, 3)
       M[3, 1] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
@@ -641,7 +641,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 3] <- round((1 - spec), 3)  # fart = (1 - spec) = "n(false - cr)"
       M[7, 3] <- round(spec, 3)
 
-    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+    } else if (p_lbl == "mix") {  # mixed labels: essential names + numeric complements:
 
       M[2, 1] <- "prev"                # "prevalence"
       M[3, 1] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
@@ -659,22 +659,22 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 3] <- ""             # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
       M[7, 3] <- "spec"         # "specificity"
 
-    } # (p.lbl ==...
+    } # (p_lbl ==...
 
   } else if (by == "dc") {  # by decision:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
 
-    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+    if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
-      M[2, 1] <- "ppod"         # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"         # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <-  "(1 - ppod)"  # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"          # PPV
       M[6, 2] <- "FDR"          # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 3] <- "FOR"          # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 3] <- "NPV"          # NPV
 
-    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+    } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
       M[2, 1] <- round(ppod, 3)        # ppod
       M[3, 1] <- round((1 - ppod), 3)  # "n(N - dec.pos)"
@@ -683,9 +683,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[5, 3] <- round((1 - NPV), 3)   # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 3] <- round(NPV, 3)         # NPV
 
-    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+    } else if (p_lbl == "mix") {  # mixed labels: essential names + numeric complements:
 
-      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <- round((1 - ppod), 3)  # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"                 # PPV
       M[6, 2] <- round((1 - PPV), 3)   # FDR = (1 - PPV) = "n(pos - hi)"
@@ -694,19 +694,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } else {  # "min" minimal labels:
 
-      M[2, 1] <- "ppod"         # ppod   ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"         # ppod   ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <-  ""            # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"          # PPV
       M[6, 2] <- ""             # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 3] <- ""             # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 3] <- "NPV"          # NPV
 
-    } # (p.lbl ==...
+    } # (p_lbl ==...
 
   } else if (by == "cddc") {  # (c) by condition + decision:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
-    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+    if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
       M[2, 1] <- "prev"         # "prevalence"
       M[3, 1] <- "(1 - prev)"   # "(N - n.true)"
@@ -719,10 +719,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 8]  <- "FDR"         # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 9]  <- "FOR"         # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 9]  <- "NPV"         # NPV
-      M[8, 10] <- "ppod"        # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[8, 10] <- "ppod"        # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[9, 10] <- "(1 - ppod)"  # (1 - ppod) = "n(N - dec.pos)"
 
-    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+    } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
       M[2, 1] <- round(prev, 3)
       M[3, 1] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
@@ -738,7 +738,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[8, 10] <- round(ppod, 3)        # ppod
       M[9, 10] <- round((1 - ppod), 3)  # "n(N - dec.pos)"
 
-    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+    } else if (p_lbl == "mix") {  # mixed labels: essential names + numeric complements:
 
       M[2, 1] <- "prev"                # "prevalence"
       M[3, 1] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
@@ -751,7 +751,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 8]  <- round((1 - PPV), 3)   # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 9]  <- round((1 - NPV), 3)   # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 9]  <- "NPV"                 # NPV
-      M[8, 10] <- "ppod"                # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[8, 10] <- "ppod"                # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[9, 10] <- round((1 - ppod), 3)  # (1 - ppod) = "n(N - dec.pos)"
 
     } else {  # "min" minimal labels:
@@ -767,19 +767,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 8]  <- ""            # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 9]  <- ""            # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 9]  <- "NPV"         # NPV
-      M[8, 10] <- "ppod"        # ppod   ERROR: WHY does prev.lbl not work with spaces???
+      M[8, 10] <- "ppod"        # ppod   ERROR: WHY does prev_lbl not work with spaces???
       M[9, 10] <-  ""           # (1 - ppod) = "n(N - dec.pos)"
 
-    } # (p.lbl ==...
+    } # (p_lbl ==...
 
     # } else if (by == "dccd") {  # (d) 1st by decision, then by condition:
 
   } else { # ANY other by-setting:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
-    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+    if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
-      M[2, 1] <- "ppod"        # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"        # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <- "(1 - ppod)"  # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"         # PPV
       M[6, 2] <- "FDR"         # FDR = (1 - PPV) = "n(pos - hi)"
@@ -793,7 +793,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[8, 10] <- "prev"         # "prevalence"
       M[9, 10] <- "(1 - prev)"   # "(N - n.true)"
 
-    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+    } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
       M[2, 1] <- round(ppod, 3)        # ppod
       M[3, 1] <- round((1 - ppod), 3)  # "n(N - dec.pos)"
@@ -809,9 +809,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[8, 10] <- round(prev, 3)
       M[9, 10] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
 
-    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+    } else if (p_lbl == "mix") {  # mixed labels: essential names + numeric complements:
 
-      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <- round((1 - ppod), 3)  # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"                 # PPV
       M[6, 2] <- round((1 - PPV), 3)   # FDR = (1 - PPV) = "n(pos - hi)"
@@ -827,7 +827,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     } else {  # "min" minimal labels:
 
-      M[2, 1] <- "ppod"        # ppod   ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"        # ppod   ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <-  ""           # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"         # PPV
       M[6, 2] <- ""            # FDR = (1 - PPV) = "n(pos - hi)"
@@ -841,7 +841,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[8, 10] <- "prev"         # "prevalence"
       M[9, 10] <- ""             # "(N - n.true)"
 
-    } # (p.lbl ==...
+    } # (p_lbl ==...
 
   } # if (by...)
 
@@ -858,8 +858,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.y.pop <- 2/3  # basic proportion is rectangular (width > height)
 
       ## Collect all sizes and proportions:
-      x.boxes <- rep(x.pop, 7)     # all boxes have the same width
-      x.y.prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
+      x_boxes <- rep(x.pop, 7)     # all boxes have the same width
+      x_y_prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
 
     } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
 
@@ -867,8 +867,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.y.pop <- 5/9  # basic proportion is rectangular (width > height)
 
       ## Collect all sizes and proportions:
-      x.boxes <- rep(x.pop, 10)     # all boxes have the same width
-      x.y.prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
+      x_boxes <- rep(x.pop, 10)     # all boxes have the same width
+      x_y_prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
 
     } # if (by...)
 
@@ -989,38 +989,38 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (by == "cd") {  # (a) by condition:
 
       ## Widths and proportions of 7 boxes:
-      x.boxes <- c(x.pop,
+      x_boxes <- c(x.pop,
                    x.true, x.false,
                    x.hi, x.mi, x.fa, x.cr)
-      x.y.prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
+      x_y_prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## Widths and proportions of 7 boxes:
-      x.boxes <- c(x.pop,
+      x_boxes <- c(x.pop,
                    x.pos, x.neg,
                    x.hi, x.mi, x.fa, x.cr)
-      x.y.prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
+      x_y_prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
 
     } else if (by == "cddc") {  # (c) by condition and by decision:
 
       ## Widths and proportions of 10 boxes:
-      x.boxes <- c(x.pop,
+      x_boxes <- c(x.pop,
                    x.true, x.false,
                    x.hi, x.mi, x.fa, x.cr,
                    x.pos, x.neg,
                    x.pop)
-      x.y.prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
+      x_y_prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
 
     } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
 
       ## Widths and proportions of 10 boxes:
-      x.boxes <- c(x.pop,
+      x_boxes <- c(x.pop,
                    x.pos, x.neg,
                    x.hi, x.mi, x.fa, x.cr,
                    x.true, x.false,
                    x.pop)
-      x.y.prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
+      x_y_prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
 
     } # (if by...)
 
@@ -1086,8 +1086,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x.boxes <-  c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
+      x_boxes <-  c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)  # specific widths
+      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
 
 
     } else if (by == "dc") {  # (b) by decision:
@@ -1144,10 +1144,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x.boxes <-  c(x.pop,
+      x_boxes <-  c(x.pop,
                     x.pos, x.neg,
                     x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x.y.prop <- c(x.y.pop,
+      x_y_prop <- c(x.y.pop,
                     x.y.pos, x.y.neg,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
 
@@ -1217,10 +1217,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
       ## Collect widths and proportions of 10 boxes:
-      x.boxes <-  c(x.pop,  x.true, x.false,
+      x_boxes <-  c(x.pop,  x.true, x.false,
                     x.hi, x.mi, x.fa, x.cr,
                     x.pos, x.neg,  x.pop)  # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,
+      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
                     x.y.pos, x.y.neg,  x.y.pop)  # specific proportions
 
@@ -1290,12 +1290,12 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
       ## Collect widths and proportions of 10 boxes:
-      x.boxes <-  c(x.pop,
+      x_boxes <-  c(x.pop,
                     x.pos, x.neg,
                     x.hi, x.mi, x.fa, x.cr,
                     x.true, x.false,
                     x.pop)        # specific widths
-      x.y.prop <- c(x.y.pop,
+      x_y_prop <- c(x.y.pop,
                     x.y.pos, x.y.neg,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
                     x.y.true, x.y.false,
@@ -1365,9 +1365,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x.boxes <- c(x.pop,  x.true, x.false,
+      x_boxes <- c(x.pop,  x.true, x.false,
                    x.hi, x.mi, x.fa, x.cr) # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,
+      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
 
     } else if (by == "dc") {  # (b) by decision:
@@ -1421,9 +1421,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x.boxes <- c(x.pop,  x.pos, x.neg,
+      x_boxes <- c(x.pop,  x.pos, x.neg,
                    x.hi, x.mi, x.fa, x.cr) # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.pos, x.y.neg,
+      x_y_prop <- c(x.y.pop,  x.y.pos, x.y.neg,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
 
 
@@ -1497,10 +1497,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
       ## Collect widths and proportions of 10 boxes:
-      x.boxes <- c(x.pop,  x.true, x.false,
+      x_boxes <- c(x.pop,  x.true, x.false,
                    x.hi, x.mi, x.fa, x.cr,
                    x.pos, x.neg,  x.pop)             # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,
+      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
                     x.y.pos, x.y.neg,  x.y.pop)      # specific proportions
 
@@ -1578,12 +1578,12 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 
       ## Collect widths and proportions of 10 boxes:
-      x.boxes <- c(x.pop,
+      x_boxes <- c(x.pop,
                    x.pos, x.neg,
                    x.hi, x.mi, x.fa, x.cr,
                    x.true, x.false,
                    x.pop)             # specific widths
-      x.y.prop <- c(x.y.pop,
+      x_y_prop <- c(x.y.pop,
                     x.y.pos, x.y.neg,
                     x.y.hi, x.y.mi, x.y.fa, x.y.cr,
                     x.y.true, x.y.false,
@@ -1602,8 +1602,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.y.pop <- 2/3  # basic proportion is rectangular (width > height)
 
       ## Collect all sizes and proportions:
-      x.boxes <- rep(x.pop, 7)     # all boxes have the same width
-      x.y.prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
+      x_boxes <- rep(x.pop, 7)     # all boxes have the same width
+      x_y_prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
 
     } else {  # (c) + (d) + ANY other by-setting:
 
@@ -1611,8 +1611,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       x.y.pop <- 1/1  # basic proportion is square (width = height)
 
       ## Collect all sizes and proportions:
-      x.boxes <- rep(x.pop, 10)     # all boxes have the same width
-      x.y.prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
+      x_boxes <- rep(x.pop, 10)     # all boxes have the same width
+      x_y_prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
 
     } # if (by...)
 
@@ -1644,49 +1644,49 @@ plot_fnet <- function(prev = num$prev,             # probabilities
                          relsize	= .98, # a scaling factor for the size of the graph
                          lwd = lwd,  # width of arrows
                          ## Boxes:
-                         box.size = x.boxes,   # widths of boxes
-                         box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
+                         box.size = x_boxes,   # widths of boxes
+                         box.prop = x_y_prop,  # proportionality (length/width) ratio of boxes
                          box.type = "rect",    # "rect", "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes,  # scalar or vector (of length 7 or 10?).
+                         box.col = col_boxes,  # scalar or vector (of length 7 or 10?).
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
-                         box.lcol = col.border,  # col.boxes,
-                         box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
-                         lcol = col.border,  # default color for box and arrow lines
+                         box.lcol = col_border,  # col_boxes,
+                         box.lwd = box_lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
+                         lcol = col_border,  # default color for box and arrow lines
                          ## Text in Boxes:
-                         txt.col = col.txt,
-                         box.cex = cex.lbl,  # relative size of text in boxes
+                         txt.col = col_txt,
+                         box.cex = cex_lbl,  # relative size of text in boxes
                          txt.font = 1,       # 1 = plain, 2 = bold, ...
                          ## Arrows:
-                         cex.txt = cex.arr,  # relative size of arrow text
+                         cex.txt = cex_arr,  # relative size of arrow text
                          arr.pos = .50,  # relative position of arrowhead on arrow segment/curve
                          arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
                          arr.length = .20,
                          arr.width = .15,
-                         arr.col = col.border,
-                         shadow.size = cex.shadow,  # .005
-                         shadow.col = col.shadow    #,
-                         # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
+                         arr.col = col_border,
+                         shadow.size = cex_shadow,  # .005
+                         shadow.col = col_shadow    #,
+                         # main = paste0(title_lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
   ## (7) Title: ----------
 
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  if ((by == "cd") || (by == "dc")) {type.lbl <- "Tree"} else {type.lbl <- "Net"}
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  if ((by == "cd") || (by == "dc")) {type_lbl <- "Tree"} else {type_lbl <- "Net"}
 
-  if (area == "no") {area.lbl <- ""}
-  else if (area == "sq") {area.lbl <- "Areas represent relative frequencies"}
-  else if (area == "hr") {area.lbl <- "Areas represent relative frequencies"}
-  else if (area == "vr") {area.lbl <- "Areas represent relative frequencies"}
-  else {area.lbl <- ""}  # to prevent errors for other entries
+  if (area == "no") {area_lbl <- ""}
+  else if (area == "sq") {area_lbl <- "Areas represent relative frequencies"}
+  else if (area == "hr") {area_lbl <- "Areas represent relative frequencies"}
+  else if (area == "vr") {area_lbl <- "Areas represent relative frequencies"}
+  else {area_lbl <- ""}  # to prevent errors for other entries
 
-  if (by == "cd") {by.lbl <- "(by condition)"}
-  else if (by == "dc") {by.lbl <- "(by decision)"}
-  else if (by == "cddc") {by.lbl <- "(by condition and decision)"}
-  else if (by == "dccd") {by.lbl <- "(by decision and condition)"}
-  else {by.lbl <- ""}  # to prevent errors for other entries
+  if (by == "cd") {by_lbl <- "(by condition)"}
+  else if (by == "dc") {by_lbl <- "(by decision)"}
+  else if (by == "cddc") {by_lbl <- "(by condition and decision)"}
+  else if (by == "dccd") {by_lbl <- "(by decision and condition)"}
+  else {by_lbl <- ""}  # to prevent errors for other entries
 
-  cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
-  title(cur.title.lbl, line = 0, adj = 0, font.main = 1, cex.main = 1.2)  # (centered, not raised, normal font)
+  cur_title_lbl <- paste0(title_lbl, type_lbl, " of frequencies and probabilities ", by_lbl)  # , "(N = ", N, ")")
+  title(cur_title_lbl, line = 0, adj = 0, font.main = 1, cex.main = 1.2)  # (centered, not raised, normal font)
 
 
   ## (8) Margin text: ----------
@@ -1702,48 +1702,48 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
 
   ## A2. Condition / p(cond) label:
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
+  cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  mtext(cur_cond_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print label
 
   ## A3. Note that areas represent frequencies:
   if (area != "no") {
 
-    cur.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(cur.area.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
+    cur_area_lbl <- paste0("(", area_lbl, ")")
+    mtext(cur_area_lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
   }
 
   ##   (B) on right side (adj = 1): ----
 
   ## B1. Accuracy label: Compute and show accuracy metrics
-  if (show.accu) {
+  if (show_accu) {
 
     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+    cur_accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w_acc)
 
     # Note: If freq are NOT rounded, then
-    #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
     #       would yield the same results.
 
     # (2) Make label:
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+    cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
 
     # (3) Mark IF accu was based on rounded freq:
     if (round) {  # freq were rounded:
-      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+      cur_accu_lbl <- paste0("*", cur_accu_lbl, " (rounded)")
     }
 
     # (4) Plot accu label:
-    mtext(cur.accu.lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
+    mtext(cur_accu_lbl, side = 1, line = 0, adj = 1, col = m_col, cex = m_cex)  # print label
 
-  } # if (show.accu)...
+  } # if (show_accu)...
 
 
   ## B2. Decision / p(dec) label:
   if (by != "cd") {
 
-    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-    mtext(cur.dec.lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
+    cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+    mtext(cur_dec_lbl, side = 1, line = 1, adj = 1, col = m_col, cex = m_cex)  # print label
 
   }
 
@@ -1771,8 +1771,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   # plot_fnet()  # => plot current freq with default options
   # plot_fnet(by = "dccd")
   # plot_fnet(area = "no")
-  # plot_fnet(p.lbl = "num")
-  # plot_fnet(title.lbl = "")
+  # plot_fnet(p_lbl = "num")
+  # plot_fnet(title_lbl = "")
   # plot_fnet(N = 33)
   # plot_fnet(N = NA)
   #
@@ -1800,19 +1800,19 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   # plot_fnet(area = "vr", round = FALSE)
   #
   # # Combining perspectives, areas, and label options:
-  # plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by condition + squares               + probability names
-  # plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-  # plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by decision  + squares               + mix of names and numbers
-  # plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+  # plot_fnet(by = "cd", area = "sq", p_lbl = "nam")  # => by condition + squares               + probability names
+  # plot_fnet(by = "cd", area = "hr", p_lbl = "num")  # => by condition + horizontal rectangles + probability numbers
+  # plot_fnet(by = "dc", area = "sq", p_lbl = "num")  # => by decision  + squares               + mix of names and numbers
+  # plot_fnet(by = "dc", area = "vr", p_lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
   #
   # # Rounding:
-  # plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = TRUE)  # => mi = 0
-  # plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p.lbl = "num", round = FALSE) # => mi = 0.3
+  # plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p_lbl = "num", round = TRUE)  # => mi = 0
+  # plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p_lbl = "num", round = FALSE) # => mi = 0.3
   #
   # # Custom colors and shadows:
   # plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-  # plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4", col.shadow = "steelblue4", cex.shadow = .008)
-  # plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+  # plot_fnet(area = "sq", col_boxes = "gold", col_border = "steelblue4", col_shadow = "steelblue4", cex_shadow = .008)
+  # plot_fnet(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow", col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
 
 }
 

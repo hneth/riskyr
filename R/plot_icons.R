@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 09 06
+## 2018 11 21
 ##  plot_icons plots an icon array in a variety
 ##  of ways, dependent on population size.
 ## -----------------------------------------------
@@ -48,12 +48,10 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
-#'
 #' @param N The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
 #' If N is 100,000 or greater it is reduced to 10,000
 #' for the array types if the frequencies allow it.
-#'
 #'
 #' @param type The icons can be arranged in different ways
 #' resulting in different types of displays:
@@ -62,15 +60,15 @@
 #'
 #'   \item \code{type = "array"}: Icons are plotted in a
 #'   classical icon array (default).
-#'   Icons can be arranged in blocks using \code{block.d}.
+#'   Icons can be arranged in blocks using \code{block_d}.
 #'   The order of filling the array can be customized using
-#'   \code{fill.array} and \code{fill.blocks}.
+#'   \code{fill_array} and \code{fill_blocks}.
 #'
 #'   \item \code{type = "shuffledarray"}: Icons are plotted in an
 #'   icon array, but positions are shuffled (randomized).
-#'   Icons can be arranged in blocks using \code{block.d}.
+#'   Icons can be arranged in blocks using \code{block_d}.
 #'   The order of filling the array can be customized using
-#'   \code{fill.array} and \code{fill.blocks}.
+#'   \code{fill_array} and \code{fill_blocks}.
 #'
 #'   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
 #'   The area size displays the relative proportions of their frequencies.
@@ -87,68 +85,67 @@
 #' }
 #'
 #'
-#' @param ident.order  The order in which icon identities
+#' @param ident_order  The order in which icon identities
 #' (i.e., hi, mi, fa, and cr) are plotted.
-#' Default: \code{ident.order = c("hi", "mi", "fa", "cr")}
+#' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
 #'
-#' @param block.d  The distance between blocks
+#' @param block_d  The distance between blocks
 #' (does not apply to "filleft", "filltop", and "scatter")
 #'
-#' @param border.d  The distance of icons to the border.
+#' @param border_d  The distance of icons to the border.
 #'
 #'
 #' Additional options allow to control the arrangement of the arrays
 #' (\code{type} "array" and "shuffledarray"):
 #'
-#' @param block.size.row specifies how many icons should be in each block row.
+#' @param block_size_row specifies how many icons should be in each block row.
 #'
-#' @param block.size.col specifies how many icons should be in each block column.
+#' @param block_size_col specifies how many icons should be in each block column.
 #'
-#' @param nblocks.row specifies how many blocks there are in each row.  Is calculated by default.
+#' @param nblocks_row specifies how many blocks there are in each row.  Is calculated by default.
 #'
-#' @param nblocks.col specifies how many blocks are there in each column.  Is calculated by default.
+#' @param nblocks_col specifies how many blocks are there in each column.  Is calculated by default.
 #'
-#' @param fill.array specifies how the blocks are filled into the array
+#' @param fill_array specifies how the blocks are filled into the array
 #' (Options "left" (default) and "top").
 #'
-#' @param fill.blocks specifies how icons within blocks are filled
-#' (Options: \code{fill.blocks = "rowwise"} (default) and \code{fill.blocks = "colwise"})
+#' @param fill_blocks specifies how icons within blocks are filled
+#' (Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})
 #'
 #'
-#' @param show.accu Option for showing current
+#' @param show_accu Option for showing current
 #' accuracy metrics \code{\link{accu}} in the plot.
-#' Default: \code{show.accu = TRUE}.
+#' Default: \code{show_accu = TRUE}.
 #'
-#' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w.acc = .50}.
+#' @param w_acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+#' Default: \code{w_acc = .50}.
 #'
 #'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param icon.colors Specifies the icon colors as a vector.
+#' @param icon_colors Specifies the icon colors as a vector.
 #'
-#' @param icon.types Specifies the appearance of the icons as a vector.
+#' @param icon_types Specifies the appearance of the icons as a vector.
 #' Accepts values from 1 to 25 (see \code{?points}).
 #'
-#' @param icon.border.col Specifies the border color of icons (if applicable).
+#' @param icon_border_col Specifies the border color of icons (if applicable).
 #'
-#' @param icon.border.lwd Specifies the border width of icons (if applicable).
+#' @param icon_border_lwd Specifies the border width of icons (if applicable).
 #'
 #' @param transparency Specifies the transparency for overlapping icons
 #' (not \code{type} "array" and "shuffledarray").
 #'
-#' @param icon.size Manually specifies the size of the icons via \code{cex}
+#' @param icon_size Manually specifies the size of the icons via \code{cex}
 #' (calculated dynamically by default.)
 #'
+#' @param title_lbl Text label to set plot title.
 #'
-#' @param title.lbl Text label to set plot title.
+#' @param type_lbls Text labels for icon types to be displayed in legend.
 #'
-#' @param type.lbls Text labels for icon types to be displayed in legend.
-#'
-#' @param cex.lbl Scaling factor for the size of text labels
+#' @param cex_lbl Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
-#' Default: \code{cex.lbl = .85}.
+#' Default: \code{cex_lbl = .85}.
 #'
 #'
 #' @examples
@@ -161,30 +158,30 @@
 #' plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
 #' plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 #'
-#' plot_icons(icon.types = c(21,23,24,23),
-#'                block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
-#'                block.d = 0.5, border.d = 0.9)
+#' plot_icons(icon_types = c(21,23,24,23),
+#'                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
+#'                block_d = 0.5, border_d = 0.9)
 #' plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
 #'
 #' # some variants:
-#' plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
-#'            block.d = 0.5, border.d = 0.5)
+#' plot_icons(N = 800, type = "array", icon_types = c(21,22,23,24),
+#'            block_d = 0.5, border_d = 0.5)
 #'
 #' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-#'                icon.types = c(21,23,24,23),
-#'                block.size.row = 10, block.size.col = 5,
-#'                nblocks.row = 5, nblocks.col = 5,
-#'                block.d = 0.8,
-#'                border.d = 0.2,
-#'                fill.array = "top")
-#' plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-#'            block.d = 0.5, border.d = 0.5)
+#'                icon_types = c(21,23,24,23),
+#'                block_size_row = 10, block_size_col = 5,
+#'                nblocks_row = 5, nblocks_col = 5,
+#'                block_d = 0.8,
+#'                border_d = 0.2,
+#'                fill_array = "top")
+#' plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+#'            block_d = 0.5, border_d = 0.5)
 #'
-#' plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-#'            icon.border.col = grey(.33, .99), icon.border.lwd = 3)
+#' plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+#'            icon_border_col = grey(.33, .99), icon_border_lwd = 3)
 #'
-#' plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
-#'            icon.border.lwd = .5, cex = 3)
+#' plot_icons(N = 800, type = "fillequal", icon_types = c(21,22,22,21),
+#'            icon_border_lwd = .5, cex = 3)
 #'
 #'
 #' @family visualization functions
@@ -245,32 +242,32 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        ## Key options: ##
                        type = "array",  # needs to be specified if random position but nonrandom ident.
                        ## Valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
-                       ident.order = c("hi", "mi", "fa", "cr"),
-                       icon.colors = pal[ident.order],  # use one color for each usual type.
-                       icon.types = 22,  # plotting characters; default square with border
-                       icon.border.col = grey(.10, .50),  # border color of icons
-                       icon.border.lwd = 1.5, # line width of icons
+                       ident_order = c("hi", "mi", "fa", "cr"),
+                       icon_colors = pal[ident_order],  # use one color for each usual type.
+                       icon_types = 22,  # plotting characters; default square with border
+                       icon_border_col = grey(.10, .50),  # border color of icons
+                       icon_border_lwd = 1.5, # line width of icons
                        transparency = .50,
-                       icon.size = NULL,
-                       block.d = NULL,  # distance between blocks (where applicable).
-                       border.d = 0.1,  # distance of icons to border.
+                       icon_size = NULL,
+                       block_d = NULL,  # distance between blocks (where applicable).
+                       border_d = 0.1,  # distance of icons to border.
 
                        ## Classic icon arrays only:
-                       block.size.row = 10,
-                       block.size.col = 10,
-                       nblocks.row = NULL,
-                       nblocks.col = NULL,
+                       block_size_row = 10,
+                       block_size_col = 10,
+                       nblocks_row = NULL,
+                       nblocks_col = NULL,
 
-                       fill.array = "left",
-                       fill.blocks = "rowwise",
+                       fill_array = "left",
+                       fill_blocks = "rowwise",
 
-                       show.accu = TRUE, # Option for showing current accuracy metrics.
-                       w.acc = 0.50,
+                       show_accu = TRUE, # Option for showing current accuracy metrics.
+                       w_acc = 0.50,
 
                        ## Text labels:
-                       title.lbl = txt$scen.lbl,
-                       type.lbls = txt[c("hi.lbl", "mi.lbl", "fa.lbl", "cr.lbl")],
-                       cex.lbl = .85
+                       title_lbl = txt$scen_lbl,
+                       type_lbls = txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
+                       cex_lbl = .85
 ) {
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
@@ -289,7 +286,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   ## Currently fixed parameters:
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed
   ylim = c(0, 1)
-  cex = icon.size      # if NULL, cex will be calculated on demand
+  cex = icon_size      # if NULL, cex will be calculated on demand
 
   # #' @param cex Size of the icons (calculated by default).
 
@@ -323,7 +320,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   # TODO: Either check for missing N or use other comparison.
 
-  ## A0.3: Different routes to col.vec and pch.vec ----------------------------------------
+  ## A0.3: Different routes to col_vec and pch.vec ----------------------------------------
 
   # A0.3.1: Calculation from probabilities ----------------------------------------------
 
@@ -338,20 +335,20 @@ plot_icons <- function(prev = num$prev,             # probabilities
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.freq and popu based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE) # compute cur.freq (with round = TRUE).
+    ## (b) Compute cur_freq and popu based on current parameters (N and probabilities):
+    cur_freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE) # compute cur_freq (with round = TRUE).
 
   }
   else { # A0.3.2: Using existing frequencies:
 
-    cur.freq <- freq
+    cur_freq <- freq
 
   }
 
   # Check size of N.Ist it needed?  Scale down if not needed and greater 100.000:
   ## Specify N:
-  N <- cur.freq$N
-  ind.lbl <- ""
+  N <- cur_freq$N
+  ind_lbl <- ""
 
   if (N >= 100000) {
     # get the minimal N:
@@ -361,11 +358,11 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       exponent <- ((N %/% 100000) %/% 10) + 1  # get exponent dependent on size.
       ind_per_icon <- 10 ^ exponent  # individuals per icon.
-      # ind.lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
-      ind.lbl <- paste0("(Each icon represents ", ind_per_icon, " individuals.)")
+      # ind_lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
+      ind_lbl <- paste0("(Each icon represents ", ind_per_icon, " individuals.)")
 
       N <- N / (10^exponent)
-      cur.freq <- lapply(cur.freq,  function(x) {x / (10^exponent)})  # adjust cur.freq and N.
+      cur_freq <- lapply(cur_freq,  function(x) {x / (10^exponent)})  # adjust cur_freq and N.
 
     }
 
@@ -373,26 +370,26 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   # DO SOME CHECKS HERE!?
   ## Determine order:
-  if (is.null(names(icon.colors))) {
-    names(icon.colors) <- ident.order
+  if (is.null(names(icon_colors))) {
+    names(icon_colors) <- ident_order
   }
 
-  if (is.null(names(icon.types))) {
+  if (is.null(names(icon_types))) {
 
-    if (length(icon.types) < length(icon.colors)) {
+    if (length(icon_types) < length(icon_colors)) {
 
-      if (length(icon.types) > 1) {warning("Icon types are recycled to number of colors.")}
+      if (length(icon_types) > 1) {warning("Icon types are recycled to number of colors.")}
 
-      icon.types <- rep(icon.types, length.out = length(icon.colors))
+      icon_types <- rep(icon_types, length.out = length(icon_colors))
     }
-    names(icon.types) <- names(icon.colors)
+    names(icon_types) <- names(icon_colors)
   }
 
-  ## (c) Compute icon.colors from frequencies:
-  col.vec <- rep(icon.colors[ident.order], times = cur.freq[ident.order])
+  ## (c) Compute icon_colors from frequencies:
+  col_vec <- rep(icon_colors[ident_order], times = cur_freq[ident_order])
 
   ## (d) Compute pch.vec from frequencies:
-  pch.vec <- rep(icon.types[ident.order], times = cur.freq[ident.order])
+  pch.vec <- rep(icon_types[ident_order], times = cur_freq[ident_order])
 
 
 
@@ -405,8 +402,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
     posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
 
     # 2) Randomize vectors:
-    rand_ix <- sample(1:length(col.vec), replace = FALSE)  # create random vector.
-    col.vec <- col.vec[rand_ix]  # randomize colors and
+    rand_ix <- sample(1:length(col_vec), replace = FALSE)  # create random vector.
+    col_vec <- col_vec[rand_ix]  # randomize colors and
 
     if (length(pch.vec) == length(posx_vec)) {
       pch.vec <- pch.vec[rand_ix]  # characters accordingy.
@@ -450,19 +447,19 @@ plot_icons <- function(prev = num$prev,             # probabilities
       posy_vec <- NULL
 
       # create n = "ident_type" compartments of the plot:
-      block_n <- length(unique(col.vec))  # number of blocks for x and y.
+      block_n <- length(unique(col_vec))  # number of blocks for x and y.
       # TODO: not final; they should be distributed.
 
       # calculate number of observations in each block retaining original order:
-      type_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+      type_n <- sapply(unique(col_vec), function(x) sum(col_vec == x))
 
 
       # equal compartments:
       if (type == "fillequal") {  # density varies, area is constant.
 
 
-        if (is.null(block.d)) {
-          block.d <- 0.05
+        if (is.null(block_d)) {
+          block_d <- 0.05
         }
 
         # determine breakpoints:
@@ -480,9 +477,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # add distance between icon blocks:
         global_min <- min(min_ranges)  # get global minimum of minima.
         global_max <- max(max_ranges)  # get global maximum of maxima.
-        min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block.d
+        min_ranges[min_ranges != global_min] <- min_ranges[min_ranges != global_min] + block_d
         # we don't want distance at the global minima nad maxima.
-        max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block.d
+        max_ranges[max_ranges != global_max] <- max_ranges[max_ranges != global_max] - block_d
 
         # TODO: flipping by swapping x and y or by changing vector of frequencies?
         # TODO: Bind ranges into one object?
@@ -532,28 +529,28 @@ plot_icons <- function(prev = num$prev,             # probabilities
         blocks <- rbind(block1, block2, block3, block4)
 
         # set distance parameter:
-        # block.d may not be half the size of the distance between min and max.
+        # block_d may not be half the size of the distance between min and max.
         # for the example of prevalence == 0.15 it may not exceed 0.075.
         diff_dx <- apply(X = blocks[, c(1, 2)], MARGIN = 1, FUN = diff)
         diff_dy <- apply(X = blocks[, c(3, 4)], MARGIN = 1, FUN = diff)
 
         boundary_d <- min(c(abs(diff_dx), abs(diff_dy))) / 2
 
-        if (is.null(block.d)){
+        if (is.null(block_d)){
 
-          block.d <- 0.01  # a little messy though...
-
-        }
-
-        if ( block.d >= boundary_d ) {
-
-          block.d <- boundary_d - 0.0001  # a little messy though...
+          block_d <- 0.01  # a little messy though...
 
         }
 
-        blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block.d
-        blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block.d
-        block_n <- sapply(unique(col.vec), function(x) sum(col.vec == x))
+        if ( block_d >= boundary_d ) {
+
+          block_d <- boundary_d - 0.0001  # a little messy though...
+
+        }
+
+        blocks[, c(1, 3)] <- blocks[, c(1, 3)] + block_d
+        blocks[, c(2, 4)] <- blocks[, c(2, 4)] - block_d
+        block_n <- sapply(unique(col_vec), function(x) sum(col_vec == x))
         # calculate number of observations in each compartment.
         blocks <- cbind(blocks, block_n)  # bind to matrix.
 
@@ -596,23 +593,23 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (!random.position) {
 
     # 0. Check arrangement parameters: ----------------------------------
-    if (is.null(block.d)) {
+    if (is.null(block_d)) {
 
-      block.d <- 0.4  # set to a default value.
+      block_d <- 0.4  # set to a default value.
     }
 
     transparency <- NULL  # set transparency to zero.
 
     #given:
-    # block.size.row
-    # block.size.col
+    # block_size_row
+    # block_size_col
 
     # calculate icons per block:
-    icons_per_block <- block.size.row * block.size.col
+    icons_per_block <- block_size_row * block_size_col
 
     # If no number of blocks or cols is given:
 
-    if (is.null(nblocks.row) & is.null(nblocks.col)) {
+    if (is.null(nblocks_row) & is.null(nblocks_col)) {
 
       # calculate number of blocks required:
       n_blocks <- ceiling(N / icons_per_block)
@@ -624,49 +621,49 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       if( dim_in[1] >= dim_in[2] ) {  # if x greater y:
 
-        nblocks.row <- blocking_dim[2]  # larger in x dimension (cols).
-        nblocks.col <- blocking_dim[1]  # smaller in y dimension (rows).
+        nblocks_row <- blocking_dim[2]  # larger in x dimension (cols).
+        nblocks_col <- blocking_dim[1]  # smaller in y dimension (rows).
 
       } else {
-        nblocks.row <- blocking_dim[1]  # smaller in x dimension (cols).
-        nblocks.col <- blocking_dim[2]  # larger in y dimension (rows).
+        nblocks_row <- blocking_dim[1]  # smaller in x dimension (cols).
+        nblocks_col <- blocking_dim[2]  # larger in y dimension (rows).
       }
 
     } else {  # if at least one of both is given:
 
       # TODO: Provide some testing, whether given numbers of blocks are valid!
-      test_N <- nblocks.row * nblocks.col * icons_per_block
+      test_N <- nblocks_row * nblocks_col * icons_per_block
 
       if ( test_N < N) {
         stop("The number of blocks and columns is too small to accomodate the population.")
       }
 
 
-      if (is.null(nblocks.row)) {  # if nblocks.row is not given:
+      if (is.null(nblocks_row)) {  # if nblocks_row is not given:
 
-        nblocks.row <- n_blocks / nblocks.col  # calculate number of blocks per row.
+        nblocks_row <- n_blocks / nblocks_col  # calculate number of blocks per row.
 
       }
 
-      if (is.null(nblocks.col)) {  # if ncol_rows is not given:
+      if (is.null(nblocks_col)) {  # if ncol_rows is not given:
 
-        nblocks.col <- n_blocks / nblocks.row  # calculate number of blocks per column.
+        nblocks_col <- n_blocks / nblocks_row  # calculate number of blocks per column.
 
         # TODO: Change naming scheme!
 
       }
 
       # calculate number of blocks required:
-      n_blocks <- nblocks.row * nblocks.col
+      n_blocks <- nblocks_row * nblocks_col
 
     }
 
     # calculate total ncols and nrows:
-    ncols <- block.size.row * nblocks.row
-    nrows <- block.size.col * nblocks.col
+    ncols <- block_size_row * nblocks_row
+    nrows <- block_size_col * nblocks_col
 
     # Given a default of 10x10 blocks:
-    #N / (block.size.row * block.size.col)
+    #N / (block_size_row * block_size_col)
 
 
     # 1. Define positions:
@@ -674,13 +671,13 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # find maximum for the positions given the units icons are moved:
     # find a monotonically increasing sequence, resulting in exactly the endpoint of xlim/ylim.
     # For x:
-    max_posx <- ((ncols - 1) * xlim[2]) - (block.d * (nblocks.row - 1)) - border.d
-    min_posx <- xlim[1] + border.d
+    max_posx <- ((ncols - 1) * xlim[2]) - (block_d * (nblocks_row - 1)) - border_d
+    min_posx <- xlim[1] + border_d
     adj_posx <- seq(min_posx, max_posx, length.out = ncols)
 
     # For y:
-    max_posy <- ((nrows - 1) * ylim[2]) - (block.d * (nblocks.col - 1)) - border.d
-    min_posy <- ylim[1] + border.d
+    max_posy <- ((nrows - 1) * ylim[2]) - (block_d * (nblocks_col - 1)) - border_d
+    min_posy <- ylim[1] + border_d
     adj_posy <- seq(max_posy, min_posy, length.out = nrows)
 
     # create position matrices:
@@ -689,16 +686,16 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
     # add  a sequence to the x matrix:
     # For x:
-    seqx_off <- seq(0, (nblocks.row - 1) * block.d, by = block.d)
+    seqx_off <- seq(0, (nblocks_row - 1) * block_d, by = block_d)
     # get the sequence of offsets for icons in each block.
-    seqx <- rep(seqx_off, each = block.size.row)
+    seqx <- rep(seqx_off, each = block_size_row)
     # repeat this sequence by block size so every icon is affected.
     pos_mx <- pos_mx + rep(seqx, each = nrow(pos_mx))
     # do so for every row in the matrix.
 
     # For y:
-    seqy_off <- seq((nblocks.col - 1) * block.d, 0, by = -block.d)  # create sequence of number to add.
-    seqy <- rep(seqy_off, each = block.size.col)  # repeat to number of rows.
+    seqy_off <- seq((nblocks_col - 1) * block_d, 0, by = -block_d)  # create sequence of number to add.
+    seqy <- rep(seqy_off, each = block_size_col)  # repeat to number of rows.
     pos_my <- pos_my + seqy  # will be repeated for each column anyways.
 
 
@@ -723,56 +720,56 @@ plot_icons <- function(prev = num$prev,             # probabilities
       seq_block <- 1:n_blocks  # create sequence of block positions.
 
       ## Determine, whether blocks are used colwise or rowwise:
-      # fill.array <- "left"  # alternatively: "rowwise"
+      # fill_array <- "left"  # alternatively: "rowwise"
 
       ## If blocks are to be filled in x direction:
-      if (fill.array == "left"){
+      if (fill_array == "left"){
 
-        seq_blockx <- rep(seq_block, each = block.size.row)
+        seq_blockx <- rep(seq_block, each = block_size_row)
         # create sequence repeted to the number of cols (can be changed to number of rows).
         mat_block <- matrix(seq_blockx, ncol = ncols, byrow = TRUE)
         # create a matrix from it.
-        ind_block <- rep(1:nrow(mat_block), each = block.size.col)  # create index to repeat matrix.
+        ind_block <- rep(1:nrow(mat_block), each = block_size_col)  # create index to repeat matrix.
         mat_block <- mat_block[ind_block, ]
         # repeat each row of the matrix to the number of rows.
       }
 
       ## If blocks are to be filled in y direction:
-      if (fill.array == "top"){
+      if (fill_array == "top"){
 
-        seq_blocky <- rep(seq_block, each = block.size.col)
+        seq_blocky <- rep(seq_block, each = block_size_col)
         # create sequence repeted to the number of cols (can be changed to number of rows).
         mat_block <- matrix(seq_blocky, nrow = nrows, byrow = FALSE)
         # create a matrix from it.
-        ind_block <- rep(1:ncol(mat_block), each = block.size.row)  # create index to repeat matrix.
+        ind_block <- rep(1:ncol(mat_block), each = block_size_row)  # create index to repeat matrix.
         mat_block <- mat_block[ , ind_block]
         # repeat each row of the matrix to the number of columns.
       }
 
       ## Determine, whether blocks (within) are filled col- or rowwise:
-      # fill.blocks <- "colwise"
+      # fill_blocks <- "colwise"
 
       ## Sort colors accordingly:
       ## TODO: Find out WHY ON EARTH order(order()) works!
 
-      if (fill.blocks == "rowwise"){
+      if (fill_blocks == "rowwise"){
         order_mat <- order(order(t(mat_block)))  # matrix has to be transposed to get the rows.
         m <- matrix(order_mat, nrow = nrows, ncol = ncols, byrow = TRUE)  # This is the "rowwise witin blocks" version.
 
-        # if (fill.array == "top") { m <- t(m) }
+        # if (fill_array == "top") { m <- t(m) }
       }
 
-      if (fill.blocks == "colwise") {
+      if (fill_blocks == "colwise") {
         order_mat <- order(order(mat_block))
         m <- matrix(order_mat, nrow = nrows, ncol = ncols, byrow = FALSE)  # This is the "colwise within blocks" version.
 
-        # if (fill.array == "top") { m <- t(m) }
+        # if (fill_array == "top") { m <- t(m) }
       }
 
 
       ## If the color vector already has the appropriate length:
-      if (length(col.vec) == length(m)) {
-        col.vec <- col.vec[m]  # order the color vector.
+      if (length(col_vec) == length(m)) {
+        col_vec <- col_vec[m]  # order the color vector.
       }
 
       if (length(pch.vec) == length(m)) {
@@ -782,15 +779,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
       ## If the color vector is too short:
       ## TODO: what to do if too long?
-      if (length(col.vec) < length(m)) {
+      if (length(col_vec) < length(m)) {
 
-        len_diff <- length(pos_mx) - length(col.vec)  # calculate difference.
-        col.vec <- c(col.vec, rep(NA, len_diff))  # enlarge the color vector.
-        col.vec <- col.vec[m]  # order this color vector.
+        len_diff <- length(pos_mx) - length(col_vec)  # calculate difference.
+        col_vec <- c(col_vec, rep(NA, len_diff))  # enlarge the color vector.
+        col_vec <- col_vec[m]  # order this color vector.
 
         ## Mute the respective positions:
-        posx_vec[is.na(col.vec)] <- NA  # set NA x positions...
-        posy_vec[is.na(col.vec)] <- NA  # ... and y positions.
+        posx_vec[is.na(col_vec)] <- NA  # set NA x positions...
+        posy_vec[is.na(col_vec)] <- NA  # ... and y positions.
 
       }
 
@@ -812,8 +809,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
     ## For A3:
     if (random.identities) {
 
-      rand_ix <- sample(1:length(col.vec), replace = FALSE)  # random index.
-      col.vec <- col.vec[rand_ix]  # sample from the vector of colors.
+      rand_ix <- sample(1:length(col_vec), replace = FALSE)  # random index.
+      col_vec <- col_vec[rand_ix]  # sample from the vector of colors.
 
       if (length(pch.vec) > 1) {
         pch.vec <- pch.vec[rand_ix]  # analog sample from character vector.
@@ -821,15 +818,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
 
       ## If the color vector is too short.
-      if (length(col.vec) < (ncols * nrows) & length(col.vec) > 1) {
+      if (length(col_vec) < (ncols * nrows) & length(col_vec) > 1) {
 
         ## for colors:
-        len_diff <- (ncols * nrows) - length(col.vec)
-        if (length(icon.border.col) > 1) {
-          icon.border.col <- c(icon.border.col, rep(NA, len_diff))
+        len_diff <- (ncols * nrows) - length(col_vec)
+        if (length(icon_border_col) > 1) {
+          icon_border_col <- c(icon_border_col, rep(NA, len_diff))
         }
 
-        col.vec <- c(col.vec, rep(NA, len_diff))
+        col_vec <- c(col_vec, rep(NA, len_diff))
 
       }
 
@@ -870,7 +867,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # if any of the plotting characters is not in the ones with border,
     # omit border and color accordingly.
 
-    icon.border.col <- col.vec
+    icon_border_col <- col_vec
 
   }
 
@@ -885,81 +882,81 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # cex <- 0.5
 
   if (!is.null(transparency)) {
-    col.vec <- adjustcolor(col.vec, alpha.f = 1 - transparency)
+    col_vec <- adjustcolor(col_vec, alpha.f = 1 - transparency)
   }
 
   ## Additional information:
   points(x = posx_vec, y = posy_vec,  # positions.
          ## visual details:
-         pch = pch.vec, col = icon.border.col, bg = col.vec, lwd = icon.border.lwd, cex = cex)
+         pch = pch.vec, col = icon_border_col, bg = col_vec, lwd = icon_border_lwd, cex = cex)
 
 
   ## Legend:
-  if (sum(nchar(type.lbls)) > 0) {
+  if (sum(nchar(type_lbls)) > 0) {
     # reorder labels:
-    names(type.lbls) <- c("hi", "mi", "fa", "cr")
-    type.lbls <- type.lbls[ident.order]
+    names(type_lbls) <- c("hi", "mi", "fa", "cr")
+    type_lbls <- type_lbls[ident_order]
   }
 
   legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
-         legend = type.lbls,
+         legend = type_lbls,
          horiz = TRUE, bty = "n",
-         pt.bg = icon.colors, pch = icon.types,
-         cex = cex.lbl, xjust = 0.5, xpd = TRUE)
+         pt.bg = icon_colors, pch = icon_types,
+         cex = cex_lbl, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
   ## Title:
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Icon array") # , "(N = ", N, ")")
-  title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  cur_title_lbl <- paste0(title_lbl, "Icon array") # , "(N = ", N, ")")
+  title(cur_title_lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
   ## Margin text:
 
   ## (a) by condition: 3 basic probabilities
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  mtext(cur_cond_lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
   # (b) by decision:
   ppod <- comp_ppod(prev, sens, spec)  # compute ppod etc.
   PPV <- comp_PPV(prev, sens, spec)
   NPV <- comp_NPV(prev, sens, spec)
 
-  cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  mtext(cur_dec_lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
   ## (c) Accuracy: Compute and show accuracy metrics
 
-  if (show.accu) {
+  if (show_accu) {
 
-    # (0) Get 4 essential freq from cur.freq (computed above with round = TRUE):
-    n.hi <- cur.freq$hi
-    n.mi <- cur.freq$mi
-    n.fa <- cur.freq$fa
-    n.cr <- cur.freq$cr
+    # (0) Get 4 essential freq from cur_freq (computed above with round = TRUE):
+    n_hi <- cur_freq$hi
+    n_mi <- cur_freq$mi
+    n_fa <- cur_freq$fa
+    n_cr <- cur_freq$cr
 
     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+    cur_accu <- comp_accu_freq(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr, w = w_acc)
 
     # Note: If freq are NOT rounded, then
-    #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
     #       would yield the same results.
 
     # (2) Make label:
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+    cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
 
     # (3) Mark IF accu was based on rounded freq:
-    # if (round) {  # freq were rounded to compute cur.freq above:
-    cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+    # if (round) {  # freq were rounded to compute cur_freq above:
+    cur_accu_lbl <- paste0("*", cur_accu_lbl, " (rounded)")
     # }
 
     # (4) Plot label:
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    mtext(cur_accu_lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
 
-  } # if (show.accu)...
+  } # if (show_accu)...
 
 
   ## (d) Note scaling:
-  mtext(ind.lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
+  mtext(ind_lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
 
 }  # end of function.
 
@@ -971,9 +968,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
 # plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
 #
 
-# plot_icons(icon.types = c(21,23,24,23),
-#                block.size.row = 5, block.size.col = 5, #nblocks.row = 2, nblocks.col = 2,
-#                block.d = 0.5, border.d = 0.9)
+# plot_icons(icon_types = c(21, 23, 24, 23),
+#                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
+#                block_d = 0.5, border_d = 0.9)
 
 # plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
 # plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
@@ -984,24 +981,24 @@ plot_icons <- function(prev = num$prev,             # probabilities
 #
 
 # plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-#                icon.types = c(21,23,24,23),
-#                block.size.row = 10, block.size.col = 5,
-#                nblocks.row = 5, nblocks.col = 5,
-#                block.d = 0.8,
-#                border.d = 0.2,
-#                fill.array = "top")
+#                icon_types = c(21,23,24,23),
+#                block_size_row = 10, block_size_col = 5,
+#                nblocks_row = 5, nblocks_col = 5,
+#                block_d = 0.8,
+#                border_d = 0.2,
+#                fill_array = "top")
 # # some variants:
-# plot_icons(N = 800, type = "array", icon.types = c(21,22,23,24),
-#            block.d = 0.5, border.d = 0.5)
+# plot_icons(N = 800, type = "array", icon_types = c(21,22,23,24),
+#            block_d = 0.5, border_d = 0.5)
 #
-# plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-#            block.d = 0.5, border.d = 0.5)
+# plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+#            block_d = 0.5, border_d = 0.5)
 #
-# plot_icons(N = 800, type = "shuffledarray", icon.types = c(21,23,24,22),
-#            icon.border.col = grey(.33, .99), icon.border.lwd = 3)
+# plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+#            icon_border_col = grey(.33, .99), icon_border_lwd = 3)
 #
-# plot_icons(N = 800, type = "fillequal", icon.types = c(21,22,22,21),
-#            icon.border.lwd = .5, cex = 3)
+# plot_icons(N = 800, type = "fillequal", icon_types = c(21,22,22,21),
+#            icon_border_lwd = .5, cex = 3)
 
 ## -----------------------------------------------
 ## (+) ToDo:

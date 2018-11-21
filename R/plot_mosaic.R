@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 10 13
+## 2018 11 21
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -84,32 +84,32 @@
 #' @param vsplit Deprecated option for toggling between
 #' vertical and horizontal split. Please use \code{by} instead.
 #'
-#' @param show.accu Option for showing current and exact
+#' @param show_accu Option for showing current and exact
 #' accuracy metrics \code{\link{accu}} in the plot
 #' (computed by \code{\link{comp_accu_prob}}).
-#' Default: \code{show.accu = TRUE}.
+#' Default: \code{show_accu = TRUE}.
 #'
-#' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_prob}}.
-#' Default: \code{w.acc = .50}.
+#' @param w_acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w_acc} in \code{\link{comp_accu_prob}}.
+#' Default: \code{w_acc = .50}.
 #'
-#' @param title.lbl Text label for current plot title.
-#' Default: \code{title.lbl = txt$scen.lbl}.
+#' @param title_lbl Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
-#' @param col.sdt Colors for cases of 4 essential frequencies.
-#' Default: \code{col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.
+#' @param col_sdt Colors for cases of 4 essential frequencies.
+#' Default: \code{col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.
 #'
 #' @examples
 #' # Basics:
 #' plot_mosaic()                # => default options
-#' plot_mosaic(title.lbl = "")  # => no title
+#' plot_mosaic(title_lbl = "")  # => no title
 #' plot_mosaic(by = "dc")       # => by decision (horizontal split 1st)
-#' plot_mosaic(title.lbl = "My favorite scenario", col.sdt = "goldenrod")
+#' plot_mosaic(title_lbl = "My favorite scenario", col_sdt = "goldenrod")
 #'
 #' # Accuracy:
-#' plot_mosaic(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-#' plot_mosaic(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
-#' plot_mosaic(show.accu = FALSE)              # => no accuracy info.
+#' plot_mosaic(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+#' plot_mosaic(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
+#' plot_mosaic(show_accu = FALSE)              # => no accuracy info.
 #'
 #'
 #' @family visualization functions
@@ -135,11 +135,11 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                         ## Options:
                         by = "cd",  # "cd"...condition 1st vs. "dc"...decision 1st
                         vsplit,     # deprecated predecessor of "by": toggle vertical vs. horizontal split
-                        show.accu = TRUE, # compute and show accuracy metrics
-                        w.acc = .50,      # weight w for wacc (from 0 to 1)
+                        show_accu = TRUE, # compute and show accuracy metrics
+                        w_acc = .50,      # weight w for wacc (from 0 to 1)
                         ## Text and color options: ##
-                        title.lbl = txt$scen.lbl,
-                        col.sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+                        title_lbl = txt$scen_lbl,
+                        col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
 ) {
 
   ## (0) Handle deprecated arguments: ----------
@@ -167,25 +167,25 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur.freq and popu based on current parameters (N and probabilities):
-    cur.freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)  # compute cur.freq (with round = TRUE)
+    ## (b) Compute cur_freq and popu based on current parameters (N and probabilities):
+    cur_freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)  # compute cur_freq (with round = TRUE)
 
-    ## Assign (only needed) elements of cur.freq:
-    n.hi  <- cur.freq$hi
-    n.mi  <- cur.freq$mi
-    n.fa  <- cur.freq$fa
-    n.cr  <- cur.freq$cr
+    ## Assign (only needed) elements of cur_freq:
+    n.hi  <- cur_freq$hi
+    n.mi  <- cur_freq$mi
+    n.fa  <- cur_freq$fa
+    n.cr  <- cur_freq$cr
 
-    ## (c) Compute cur.popu from computed frequencies:
-    cur.popu <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)  # compute cur.popu (from 4 essential frequencies)
+    ## (c) Compute cur_popu from computed frequencies:
+    cur_popu <- comp_popu(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)  # compute cur_popu (from 4 essential frequencies)
 
-    # warning("Generated new population (cur.popu) to draw mosaic plot...")
+    # warning("Generated new population (cur_popu) to draw mosaic plot...")
 
 
   } else {  # (B) NO valid set of probabilities was provided:
 
     ## Use the current popu:
-    cur.popu <- popu
+    cur_popu <- popu
 
     # warning("Using existing population (popu) to draw mosaic plot...")
 
@@ -193,39 +193,39 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   ## (2) Text labels: ----------
 
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
-  cur.title.lbl <- paste0(title.lbl, "Mosaic plot") # , "(N = ", N, ")")
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
+  cur_title_lbl <- paste0(title_lbl, "Mosaic plot") # , "(N = ", N, ")")
 
   ## 1. freq label:
   freq_lbl <- make_freq_lbl(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)   # use current freq values
   # mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
 
   ## 2. Condition / p(cond) label:
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  # cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
 
   ## 3. Accuracy label:
-  cur.accu.lbl <- ""
-  if (show.accu) {
+  cur_accu_lbl <- ""
+  if (show_accu) {
 
     if (!is.na(prev) && !is.na(sens) && !is.na(spec)) {  # prob are known:
 
       # (1) Compute exact accuracy from prob:
-      cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+      cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
 
     } else {  # use freq:
 
       # (2) Compute accuracy info from (rounded) freq:
-      cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+      cur_accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w_acc)
 
     }
 
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+    cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
 
   }
 
   ## Combine 3 labels:
-  cur.par.lbl <- paste0(freq_lbl, "\n", cur.cond.lbl, "\n", cur.accu.lbl, "\n")
+  cur_par_lbl <- paste0(freq_lbl, "\n", cur_cond_lbl, "\n", cur_accu_lbl, "\n")
 
   ## (3) Define plotting area: --------
 
@@ -245,33 +245,33 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   if (by == "cd") {
 
     ## (a) by condition (vertical split 1st):
-    vcd::mosaic(Decision ~ Truth, data = cur.popu,
+    vcd::mosaic(Decision ~ Truth, data = cur_popu,
                 shade = TRUE, colorize = TRUE,
                 split_vertical = TRUE,
-                gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = TRUE)),
+                gp = grid::gpar(fill = matrix(data = col_sdt, nrow = 2, ncol = 2, byrow = TRUE)),
                 main_gp = grid::gpar(fontsize = 12, fontface = 1, adj = 0),
                 sub_gp = grid::gpar(fontsize = 10, fontface = 1, adj = 0),
-                main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
-                sub = paste0(cur.par.lbl)  # print label
+                main = paste0(cur_title_lbl), #, "\n", cur_par_lbl),
+                sub = paste0(cur_par_lbl)  # print label
     )
   }
 
   else if (by == "dc") {
 
     ## (b) by decision (horizontal split 1st):
-    vcd::mosaic(Truth ~ Decision, data = cur.popu,
+    vcd::mosaic(Truth ~ Decision, data = cur_popu,
                 shade = TRUE, colorize = TRUE,
                 split_vertical = FALSE,
-                gp = grid::gpar(fill = matrix(data = col.sdt, nrow = 2, ncol = 2, byrow = FALSE)),
+                gp = grid::gpar(fill = matrix(data = col_sdt, nrow = 2, ncol = 2, byrow = FALSE)),
                 main_gp = grid::gpar(fontsize = 12, fontface = 1),
                 sub_gp = grid::gpar(fontsize = 10, fontface = 1),
-                main = paste0(cur.title.lbl), #, "\n", cur.par.lbl),
-                sub = paste0(cur.par.lbl)
+                main = paste0(cur_title_lbl), #, "\n", cur_par_lbl),
+                sub = paste0(cur_par_lbl)
     )
   } # if (by == ...)
 
   ## Title and margin text:
-  # title(cur.title.lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
+  # title(cur_title_lbl, adj = 0.5, line = -0.5, font.main = 1) # (left, lowered, normal font)
 
   ## (5) Finish: ---------
 
@@ -280,10 +280,10 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 } # plot_mosaic(...) end.
 
 ## Check: ----------
-  # plot_mosaic()
-  # plot_mosaic(title.lbl = "")
+  plot_mosaic()
+  # plot_mosaic(title_lbl = "")
   # plot_mosaic(by = "dc")
-  # plot_mosaic(title.lbl = "Just testing", col.sdt = "goldenrod")
+  # plot_mosaic(title_lbl = "Just testing", col_sdt = "goldenrod")
 
 ## (+) ToDo: ---------
 
