@@ -34,16 +34,16 @@ The problems addressed by `riskyr` and the scientific discussion surrounding the
 
 `riskyr` reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called `freq`) and objects that contain probabilities (a list called `prob`). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined. 
 
-In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following network plot shows frequencies as its nodes and probabilities as the edges that link the nodes: 
+In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following prism (or network) plot shows frequencies as its nodes and probabilities as the edges that link the nodes: 
 
-```{r plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that shows frequencies as nodes and probabilities as edges between nodes."}
+```{r prism_plot_1, message = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A network diagram showing frequencies as nodes and probabilities as edges linking nodes."}
 library("riskyr") # load the "riskyr" package
 
-plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
-          N = 1000,       # 1 frequency
-          area = "no",    # all boxes have the same size
-          p.lbl = "nam",  # show probability names on edges
-          title.lbl = "Mammography screening")
+plot_prism(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
+           N = 1000,       # 1 frequency
+           area = "no",    # same size for all boxes
+           p_lbl = "abb",  # show abbreviated names of probabilities on edges
+           title_lbl = "Example")
 ```
 
 
@@ -252,7 +252,7 @@ Note that the ratios of frequencies are straightforward consequences of the prob
 
 ### An example
 
-The following network diagram is based on the following inputs:
+The following prism (or network) diagram is based on the following inputs:
 
 - a condition's prevalence of 50\% (`prev = .50`);
 - a decision's sensitivity of 80\% (`sens = .80`);
@@ -261,12 +261,12 @@ The following network diagram is based on the following inputs:
 
 and illustrates the relationship between frequencies and probabilities: 
 
-```{r plot_fnet_example, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "An example network diagram that shows how probabilities can be computed as ratios of frequencies."}
-plot_fnet(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
-          N = 10,         # 1 frequency
-          area = "no",    # all boxes have the same size
-          p.lbl = "num",  # show numeric probability values on edges
-          title.lbl = "A simple example")
+```{r prism_plot_2, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A simple network diagram that shows how probabilities can be computed as ratios of frequencies."}
+plot_prism(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
+           N = 10,         # 1 frequency
+           area = "no",    # all boxes have the same size
+           p_lbl = "num",  # show numeric probability values on edges
+           title_lbl = "Probabilities as ratios of frequencies")
 ```
 
 

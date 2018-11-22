@@ -40,7 +40,7 @@ This page assumes that you just installed the package and are now eager to see w
 
 ## Getting Started 
 
-How can you use `riskyr`?  Basically, there are two ways to get started:
+How can you use `riskyr`? Basically, there are two ways to get started:
 
 1. Define your own `riskyr` scenario from risk-related information (typically provided in terms of probabilities).
 
@@ -48,13 +48,13 @@ How can you use `riskyr`?  Basically, there are two ways to get started:
 
 Either way, you will soon explore some specific scenario and uncover relationships between its parameters. Please load the package first (if you have not already done so):
 
-```{r load_riskyr}
+```{r load_riskyr, message = FALSE}
 library("riskyr")  # loads the package
 ```
 
 ### Defining a scenario  
 
-Let us launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch:^[The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.]
+Let's launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch:^[The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.]
 
 
 #### Example
@@ -178,7 +178,7 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
 We always _can_ inspect the details of `my_scenario` by computing additional metrics and studying their values with `summary(my_scenario)`. But anyone who regularly works with data knows that graphs can provide key insights in very different ways than written summaries and tables. To illustrate this point, let us look at some visualizations of our scenario:
 
 ```{r fnet, include = FALSE, fig.width = 7.2, fig.height = 6}
-plot(my_scenario, plot_type = "fnet")
+plot(my_scenario)
 ```
 
 This so-called _network diagram_ shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the squares corresponds to their relative frequencies.
@@ -213,7 +213,7 @@ summary(my_scenario, summarize = "prob")
 
 An alternative way to view the our scenario is a _frequency tree_ that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
 
-```{r tree, fig.width = 7.2, fig.height = 5.8}
+```{r tree, fig.width = 7.2, fig.height = 5}
 plot(my_scenario, plot_type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 ```
 
@@ -222,13 +222,13 @@ frequencies (shown in the boxes): PPV = (number of offenders found)/(number of p
 
 The tree also depicts additional information that corresponds to our `summary` from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be `NPV = 190/197` or about 96.4\% (as `NPV = cr/dec.neg`). Again, this closely corresponds to our `summary` information of `NPV = 0.966`.^[The difference between `NPV = 190/197 = 0.964467` (when computing the ratio of frequencies) and `NPV = 0.966` (in the `summary`) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument `round = FALSE`. ]  
 
-A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev`: 
+A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev` (and additionally assumes a 5%-uncertainty concerning the exact parameter values): 
 
-```{r plotting_curve, fig.width = 7.2, fig.height = 6.0}
-plot(my_scenario, plot_type = "curve")  # plot default curve [what = c("prev", "PPV", "NPV")]:
+```{r plotting_curve, fig.width = 7.2, fig.height = 5}
+plot(my_scenario, plot_type = "curve", uc = .05)
 ```
 
-As before, we can read off that the current values of `PPV = 59.76%` and `NPV = 96,56%`. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both `PPV` and `NPV`. For instance, if `prev` dropped further, the `PPV` of our test was also considerably lower. In fact, both the PPV and NPV vary from 0 to 1 depending on the value of `prev`, which means that specifying them is actually meaningless when the corresponding value of `prev` is not communicated as well. (See the guide on [functional perspectives](D_functional_perspectives.html) for additional information and options.) 
+As before, we can read off that the current values of `PPV = 59.76%` and `NPV = 96,56%`, but also see that our 5%-uncertainty implies relatively large fluctuations of the exact numeric values. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both `PPV` and `NPV`. For instance, if `prev` dropped further, the `PPV` of our test was also considerably lower. In fact, both the PPV and NPV always vary from 0 to 1 depending on the value of `prev`, which means that specifying them is actually meaningless when the corresponding value of `prev` is not communicated as well. (See the guide on [functional perspectives](D_functional_perspectives.html) for additional information and options.) 
 
 Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the `riskyr` package.
 
@@ -295,32 +295,45 @@ This initial inspection reveals that the overall accuracy of the decision consid
 
 Next, we plot and look at a network diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
-```{r s21_fnet, fig.width = 7.2, fig.height = 6.5}
-plot(s21, plot_type = "fnet", area = "sq")  # network diagram (with numeric probability labels):
+```{r s21_prism_1, fig.width = 7.2, fig.height = 5.5}
+plot(s21, 
+     by = "cddc",      # perspective: upper half by condition, lower half by decision 
+     area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
+     p_lbl = "num")    # probability labels: numeric only
 ```
 
-The plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (listed in the summary). Calling the same command with the optional argument `p_lbl = "nam"` prints the probability names, rather than their values (see also the options `p_lbl = "min"` and `"mix"`.) The middle row of boxes shows the four essential frequencies (of hits `hi`, misses `mi`, false alarms `fa`, and correct rejections `cr`) in colors corresponding to the icon array above. Our setting of `area = "sq"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the areas at each level of the network add up to the area of `N` and the areas of boxes linked by arrows on lower levels add up to the area of the box on the higher level. Thus, the relative sizes of boxes illustrate the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
+The plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (listed in the summary). Calling the same command with the optional argument `p_lbl = "nam"` prints the probability names, rather than their values (see also the options `p_lbl = "min"` and `"mix"`.) The middle row of boxes shows the four essential frequencies (of hits `hi`, misses `mi`, false alarms `fa`, and correct rejections `cr`) in colors corresponding to the icon array above. Setting `area = "hr"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence `hr`) and the box widths are scaled to add up to the population width `N` on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
 
-A fact that was not obvious in the icon array is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%).  Of those, 470 (or 54.3%) are correct (see `cr` shown in light green) and 395 (or 45.7%) are incorrect (see `mi` shown in dark red). The ratio `cr/dec.neg = 470/865 = 54.3`% indicates the negative predictive value (`NPV`) of the test. 
+A fact that was not obvious in the icon array -- but shown in the lower half of the prism plot -- is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%).  Of those negative decisions, 470 (or 54.34%) are correct (see `cr` shown in light green) and 395 (or 45.66%) are incorrect (see `mi` shown in dark red). The ratio `cr/dec.neg = 470/865 = 54.34`% indicates the negative predictive value (`NPV`) of the test. 
 
-##### Exercise
+##### Practice
 
-Can you find the current positive predictive value (`PPV`) in the diagram? (Hint: Its value marks an arrow between two boxes, but is also shown on the margin and was contained in the summary above.) 
+- Can you find the current positive predictive value (`PPV`) in the diagram? (Hint: Its value marks an arrow between two boxes, but is also shown on the margin and was contained in the summary above.) 
+
+- Re-create the prism plot of `s21` from different perspectives (e.g., `by = "cdac"`) and different area settings (e.g., `area = "sq"`, see "?plot_prism" for the options available). For instance, what would the following commands plot:   
+
+```{r s21_prism_2, eval = FALSE}
+plot(s21, by = "cdac", area = "sq")
+plot(s21, by = "ac", area = "hr")
+```
+
 
 
 #### 4. Visualizing probabilistic relationships
 
 One way to further understand the relations between basic probabilities -- like the prevalence `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s21$cond_lbl`") -- and probabilities conditional on both the condition and on features of the decision (like `PPV` and `NPV`) is to plot the latter as a function of the former. Calling `plot_type = "curve"` does this for us: 
 
-```{r s21_curve, fig.width = 7.2, fig.height = 5.8}
-plot(s21, plot_type = "curve", what = "all")  # plot "all" available curves:
+```{r s21_curve, fig.width = 7.2, fig.height = 6.2}
+plot(s21, plot_type = "curve", 
+     what = "all",  # plot "all" available curves 
+     uc = .05)      # with a 5%-uncertainty range 
 ```
 
-The additional argument `what = "all"` instructed `riskyr` to provide us with additional curves, corresponding to the percentage of positive decisions (`ppod`) and overall accuracy (`acc`). Just like `PPV` and `NPV`, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis). Interestingly, the curves of `ppod` and `acc` appear quite linear, even though the `riskyr` function plots them in exactly the same way as `PPV` and `NPV`. Would you have predicted this without seeing it?
+The additional argument `what = "all"` instructed `riskyr` to provide us with additional curves, corresponding to the percentage of positive decisions (`ppod`) and overall accuracy (`acc`). Just like `PPV` and `NPV`, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis) and on our current range of uncertainty (shown as shaded polygons around the curves). Interestingly, the curves of `ppod` and `acc` appear to be linear, even though the `riskyr` function plots them in exactly the same way as `PPV` and `NPV`. Would you have predicted this without seeing it?
 
-##### Exercise 
+##### Practice 
 
-Explain why the line of `acc` intersects the curve of `PPV` at the point at the same point as the curve of `NPV`. 
+- Explain why the line of `acc` intersects the curve of `PPV` at the point at the same point as the curve of `NPV`. 
 
 While the curves shown for `PPV` and `NPV` so far illustrate their dependence on the prevalence (`prev`), we can also ask: 
 How do these conditional probabilities vary as a function of the decisions sensitivity (`sens`) and specificity (`spec`)? 
@@ -331,22 +344,21 @@ op <- par(no.readonly = TRUE)  # save plot settings.
 par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s21, plot_type = "plane", what = "PPV", cex_lbl = 0.75)  # PPV by sens x spec (fixed prev)
-plot(s21, plot_type = "plane", what = "NPV", cex_lbl = 0.75)  # NPV by sens x spec (fixed prev)
+plot(s21, plot_type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
+plot(s21, plot_type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
 par(op)  # reset plot settings.
 ```
 
 This comparison shows that the curves of `PPV` and `NPV` (created by `plot_type = "curve"` above) were only two out of an infinite number of possible intersections of two planes (created by `plot_type = "plane"` here). Consequently, the current values of `PPV` and `NPV` (shown as yellow points on the planes) crucially depend on the condition's prevalence (`prev`), the decision's sensitivity (`sens`), and the decision's specificity (`spec`). 
-
 
 <!-- Conclusion: --> 
 
 In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What's the probability of having some condition when testing positive or negative for it? While `riskyr` cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent. 
 
 
-### Exercise 
+### Practice 
 
-Scenario 22 in the `riskyr` collection of `scenarios` contains a version of this situation that assumes a different population with a lower prevalence value for the same condition. Inspect and explore the consequence of this change by following the steps shown above.
+- Scenario 22 in the `riskyr` collection of `scenarios` contains a version of this situation that assumes a different population with a lower prevalence value for the same condition. Inspect and explore the consequence of this change by following the steps shown above.
 
 <!-- Spoiler alarm: `r scenarios$n22$scen.txt` --> 
 
@@ -360,8 +372,8 @@ s22$scen_lbl  # shows descriptive label:
 s22$popu_lbl  # shows current population:
 ```
 
-
-This should suffice to get you started with using `riskyr`. Have fun exploring the provided scenarios and creating your own examples!
+This should suffice to get you started with using `riskyr`. 
+Have fun exploring the provided scenarios and creating your own examples!
 
 
 ## References

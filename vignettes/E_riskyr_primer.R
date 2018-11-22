@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
 library("riskyr")  # loads the package
 op <- par(no.readonly = TRUE)
 
-## ----load_riskyr---------------------------------------------------------
+## ----load_riskyr, message = FALSE----------------------------------------
 library("riskyr")  # loads the package
 
 ## ----create_scenario_minimal_prob----------------------------------------
@@ -45,7 +45,7 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
                       scen_src = "(a ficticious example)")
 
 ## ----fnet, include = FALSE, fig.width = 7.2, fig.height = 6--------------
-plot(my_scenario, plot_type = "fnet")
+plot(my_scenario)
 
 ## ----icons, fig.width = 7.2, fig.height = 4.8----------------------------
 plot(my_scenario, plot_type = "icons")
@@ -56,11 +56,11 @@ summary(my_scenario)
 ## ----summary_prob, include = FALSE---------------------------------------
 summary(my_scenario, summarize = "prob")
 
-## ----tree, fig.width = 7.2, fig.height = 5.8-----------------------------
+## ----tree, fig.width = 7.2, fig.height = 5-------------------------------
 plot(my_scenario, plot_type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 
-## ----plotting_curve, fig.width = 7.2, fig.height = 6.0-------------------
-plot(my_scenario, plot_type = "curve")  # plot default curve [what = c("prev", "PPV", "NPV")]:
+## ----plotting_curve, fig.width = 7.2, fig.height = 5---------------------
+plot(my_scenario, plot_type = "curve", uc = .05)
 
 ## ----scenario_table, echo = FALSE, results = "asis"----------------------
 library(knitr)
@@ -88,19 +88,28 @@ summary(s21) # summarizes key scenario information:
 ## ----s21_icons, fig.width = 7.2, fig.height = 4.5------------------------
 plot(s21, plot_type = "icons", cex_lbl = 0.75)  # plot default icon array: 
 
-## ----s21_fnet, fig.width = 7.2, fig.height = 6.5-------------------------
-plot(s21, plot_type = "fnet", area = "sq")  # network diagram (with numeric probability labels):
+## ----s21_prism_1, fig.width = 7.2, fig.height = 5.5----------------------
+plot(s21, 
+     by = "cddc",      # perspective: upper half by condition, lower half by decision 
+     area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
+     p_lbl = "num")    # probability labels: numeric only
 
-## ----s21_curve, fig.width = 7.2, fig.height = 5.8------------------------
-plot(s21, plot_type = "curve", what = "all")  # plot "all" available curves:
+## ----s21_prism_2, eval = FALSE-------------------------------------------
+#  plot(s21, by = "cdac", area = "sq")
+#  plot(s21, by = "ac", area = "hr")
+
+## ----s21_curve, fig.width = 7.2, fig.height = 6.2------------------------
+plot(s21, plot_type = "curve", 
+     what = "all",  # plot "all" available curves 
+     uc = .05)      # with a 5%-uncertainty range 
 
 ## ----s21_planes, results = "hold", fig.width = 7.9, fig.height = 4.2-----
 op <- par(no.readonly = TRUE)  # save plot settings.
 par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s21, plot_type = "plane", what = "PPV", cex_lbl = 0.75)  # PPV by sens x spec (fixed prev)
-plot(s21, plot_type = "plane", what = "NPV", cex_lbl = 0.75)  # NPV by sens x spec (fixed prev)
+plot(s21, plot_type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
+plot(s21, plot_type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
 par(op)  # reset plot settings.
 
 ## ----s22_summary---------------------------------------------------------
