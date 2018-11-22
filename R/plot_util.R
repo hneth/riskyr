@@ -75,20 +75,23 @@ print.box <- function(obj) {
 
 ## Note: Export the plot.box() method (to allow using method in riskyr namespace)!
 
-#' Plot information of a riskyr object.
+#' Plot a frequency box object.
 #'
 #' \code{plot.box} is a utility method that allows to plot low level boxes for \code{riskyr} plots.
 #'
 #' \code{plot.riskyr} also uses the text settings
 #' specified in the "riskyr" object.
 #'
-#' @param x The box (object of class "box") to be plotted.
+#' @param x The box (i.e., an object of class \code{box}) to be plotted.
 #'
-#' @param cur_freq The frequency information related to this box object.
+#' @param cur_freq Current frequency information
+#' (see \code{\link{freq}} for details).
 #'
-#' @param cur_txt The text information associate with this box object.
+#' @param cur_txt Current text information
+#' (see \code{\link{txt}} for details).
 #'
-#' @param cur_pal The color information related to this box object.
+#' @param cur_pal Current color palette
+#' (see \code{\link{pal}} for details).
 #'
 #' @param ... Additional (graphical) parameters to be passed to the
 #' underlying plotting functions.
