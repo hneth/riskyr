@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 10 13
+## 2018 11 22
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -156,7 +156,7 @@
 #' @param cex_lbl Scaling factor for text labels (in boxes and on arrows).
 #' Default: \code{cex_lbl = .90}.
 #'
-#' @param box.cex Deprecated argument: Please use \code{cex_lbl} instead.
+#' @param box_cex Deprecated argument: Please use \code{cex_lbl} instead.
 #'
 #' @param col_boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
@@ -343,36 +343,36 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     ## Assign elements of cur_freq:
     N <- cur_freq$N
-    n.true  <- cur_freq$cond.true
-    n.false <- cur_freq$cond.false
-    n.pos <- cur_freq$dec.pos
-    n.neg <- cur_freq$dec.neg
-    n.hi  <- cur_freq$hi
-    n.mi  <- cur_freq$mi
-    n.fa  <- cur_freq$fa
-    n.cr  <- cur_freq$cr
+    n_true  <- cur_freq$cond.true
+    n_false <- cur_freq$cond.false
+    n_pos <- cur_freq$dec.pos
+    n_neg <- cur_freq$dec.neg
+    n_hi  <- cur_freq$hi
+    n_mi  <- cur_freq$mi
+    n_fa  <- cur_freq$fa
+    n_cr  <- cur_freq$cr
 
   } else { # (B) NO valid set of probabilities was provided:
 
     ## Use the current values of freq:
     N <- freq$N
-    n.true  <- freq$cond.true
-    n.false <- freq$cond.false
-    n.pos <- freq$dec.pos
-    n.neg <- freq$dec.neg
-    n.hi  <- freq$hi
-    n.mi  <- freq$mi
-    n.fa  <- freq$fa
-    n.cr  <- freq$cr
+    n_true  <- freq$cond.true
+    n_false <- freq$cond.false
+    n_pos <- freq$dec.pos
+    n_neg <- freq$dec.neg
+    n_hi  <- freq$hi
+    n_mi  <- freq$mi
+    n_fa  <- freq$fa
+    n_cr  <- freq$cr
 
   } # if (is_valid_prob_set...)
 
   if (by != "cd") {  # in ANY case NOT solely by condition:
 
     # Compute current PVs from current frequencies:
-    ppod <- n.pos/N
-    PPV  <- n.hi/n.pos
-    NPV  <- n.cr/n.neg
+    ppod <- n_pos/N
+    PPV  <- n_hi/n_pos
+    NPV  <- n_cr/n_neg
 
   } # if (by...)
 
@@ -449,24 +449,24 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
-                 paste0(cond.true_lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false_lbl, ":\n", round(n.false, 2)),
-                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr_lbl, ":\n", round(n.cr, 2))
+                 paste0(cond.true_lbl, ":\n",  round(n_true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n_false, 2)),
+                 paste0(hi_lbl, ":\n", round(n_hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n_mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n_fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n_cr, 2))
       )
 
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu_lbl
-                 paste0("true:\n",  round(n.true, 2)),
-                 paste0("false:\n", round(n.false, 2)),
-                 paste0("hi:\n", round(n.hi, 2)),
-                 paste0("mi:\n", round(n.mi, 2)),
-                 paste0("fa:\n", round(n.fa, 2)),
-                 paste0("cr:\n", round(n.cr, 2))
+                 paste0("true:\n",  round(n_true, 2)),
+                 paste0("false:\n", round(n_false, 2)),
+                 paste0("hi:\n", round(n_hi, 2)),
+                 paste0("mi:\n", round(n_mi, 2)),
+                 paste0("fa:\n", round(n_fa, 2)),
+                 paste0("cr:\n", round(n_cr, 2))
       )
 
     }  # if (area...)
@@ -477,24 +477,24 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
-                 paste0(dec.pos_lbl, ":\n",  round(n.pos, 2)),
-                 paste0(dec.neg_lbl, ":\n", round(n.neg, 2)),
-                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr_lbl, ":\n", round(n.cr, 2))
+                 paste0(dec.pos_lbl, ":\n",  round(n_pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n_neg, 2)),
+                 paste0(hi_lbl, ":\n", round(n_hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n_mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n_fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n_cr, 2))
       )
 
     } else {  # shorter box labels:
 
       ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu_lbl
-                 paste0("positive:\n",  round(n.pos, 2)),
-                 paste0("negative:\n", round(n.neg, 2)),
-                 paste0("hi:\n", round(n.hi, 2)),
-                 paste0("mi:\n", round(n.mi, 2)),
-                 paste0("fa:\n", round(n.fa, 2)),
-                 paste0("cr:\n", round(n.cr, 2))
+                 paste0("positive:\n",  round(n_pos, 2)),
+                 paste0("negative:\n", round(n_neg, 2)),
+                 paste0("hi:\n", round(n_hi, 2)),
+                 paste0("mi:\n", round(n_mi, 2)),
+                 paste0("fa:\n", round(n_fa, 2)),
+                 paste0("cr:\n", round(n_cr, 2))
       )
 
     }  # if (area...)
@@ -505,27 +505,27 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
-                 paste0(cond.true_lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false_lbl, ":\n", round(n.false, 2)),
-                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr_lbl, ":\n", round(n.cr, 2)),
-                 paste0(dec.pos_lbl, ":\n", round(n.pos, 2)),
-                 paste0(dec.neg_lbl, ":\n", round(n.neg, 2)),
+                 paste0(cond.true_lbl, ":\n",  round(n_true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n_false, 2)),
+                 paste0(hi_lbl, ":\n", round(n_hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n_mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n_fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n_cr, 2)),
+                 paste0(dec.pos_lbl, ":\n", round(n_pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n_neg, 2)),
                  paste0("Population", ":\n", "N = ", N)  # popu_lbl
       )
 
       # ## ToDo: Names with more explicit labels:
       # names <- c(paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N),                # using argument popu_lbl
-      #            paste0(txt$cond_lbl, ":\n", cond.true_lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
-      #            paste0(txt$cond_lbl, ":\n", cond.false_lbl, ":\n", round(n.false, 1)), # using global setting of txt
-      #            paste0("Hits", ":\n", hi_lbl, ":\n", round(n.hi, 1)),
-      #            paste0("Misses", ":\n", mi_lbl, ":\n", round(n.mi, 1)),
-      #            paste0("False alarms", ":\n", fa_lbl, ":\n", round(n.fa, 1)),
-      #            paste0("Correct rejections", ":\n", cr_lbl, ":\n", round(n.cr, 1)),
-      #            paste0(txt$dec_lbl, ":\n", dec.pos_lbl, ":\n", round(n.pos, 2)), # using global setting of txt
-      #            paste0(txt$dec_lbl, ":\n", dec.neg_lbl, ":\n", round(n.neg, 2)), # using global setting of txt
+      #            paste0(txt$cond_lbl, ":\n", cond.true_lbl,  ":\n", round(n_true, 1)),  # using global setting of txt
+      #            paste0(txt$cond_lbl, ":\n", cond.false_lbl, ":\n", round(n_false, 1)), # using global setting of txt
+      #            paste0("Hits", ":\n", hi_lbl, ":\n", round(n_hi, 1)),
+      #            paste0("Misses", ":\n", mi_lbl, ":\n", round(n_mi, 1)),
+      #            paste0("False alarms", ":\n", fa_lbl, ":\n", round(n_fa, 1)),
+      #            paste0("Correct rejections", ":\n", cr_lbl, ":\n", round(n_cr, 1)),
+      #            paste0(txt$dec_lbl, ":\n", dec.pos_lbl, ":\n", round(n_pos, 2)), # using global setting of txt
+      #            paste0(txt$dec_lbl, ":\n", dec.neg_lbl, ":\n", round(n_neg, 2)), # using global setting of txt
       #            paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N)           # using argument popu_lbl
       # )
 
@@ -533,14 +533,14 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu_lbl
-                 paste0("true:\n",  round(n.true, 2)),
-                 paste0("false:\n", round(n.false, 2)),
-                 paste0("hi:\n", round(n.hi, 2)),
-                 paste0("mi:\n", round(n.mi, 2)),
-                 paste0("fa:\n", round(n.fa, 2)),
-                 paste0("cr:\n", round(n.cr, 2)),
-                 paste0("positive:\n",  round(n.pos, 2)),
-                 paste0("negative:\n", round(n.neg, 2)),
+                 paste0("true:\n",  round(n_true, 2)),
+                 paste0("false:\n", round(n_false, 2)),
+                 paste0("hi:\n", round(n_hi, 2)),
+                 paste0("mi:\n", round(n_mi, 2)),
+                 paste0("fa:\n", round(n_fa, 2)),
+                 paste0("cr:\n", round(n_cr, 2)),
+                 paste0("positive:\n",  round(n_pos, 2)),
+                 paste0("negative:\n", round(n_neg, 2)),
                  paste0("N = ", N)   # popu_lbl
       )
 
@@ -554,27 +554,27 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Full box labels (label: value):
       names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
-                 paste0(dec.pos_lbl, ":\n", round(n.pos, 2)),
-                 paste0(dec.neg_lbl, ":\n", round(n.neg, 2)),
-                 paste0(hi_lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi_lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa_lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr_lbl, ":\n", round(n.cr, 2)),
-                 paste0(cond.true_lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false_lbl, ":\n", round(n.false, 2)),
+                 paste0(dec.pos_lbl, ":\n", round(n_pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n_neg, 2)),
+                 paste0(hi_lbl, ":\n", round(n_hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n_mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n_fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n_cr, 2)),
+                 paste0(cond.true_lbl, ":\n",  round(n_true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n_false, 2)),
                  paste0("Population", ":\n", "N = ", N)  # popu_lbl
       )
 
       # ## ToDo: Names with more explicit labels:
       # names <- c(paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N),         # using argument popu_lbl
-      #            paste0(txt$dec_lbl, ":\n", dec.pos_lbl, ":\n", round(n.pos, 2)), # using global setting of txt
-      #            paste0(txt$dec_lbl, ":\n", dec.neg_lbl, ":\n", round(n.neg, 2)), # using global setting of txt
-      #            paste0("Hits", ":\n", hi_lbl, ":\n", round(n.hi, 1)),
-      #            paste0("Misses", ":\n", mi_lbl, ":\n", round(n.mi, 1)),
-      #            paste0("False alarms", ":\n", fa_lbl, ":\n", round(n.fa, 1)),
-      #            paste0("Correct rejections", ":\n", cr_lbl, ":\n", round(n.cr, 1)),
-      #            paste0(txt$cond_lbl, ":\n", cond.true_lbl,  ":\n", round(n.true, 1)),  # using global setting of txt
-      #            paste0(txt$cond_lbl, ":\n", cond.false_lbl, ":\n", round(n.false, 1)), # using global setting of txt
+      #            paste0(txt$dec_lbl, ":\n", dec.pos_lbl, ":\n", round(n_pos, 2)), # using global setting of txt
+      #            paste0(txt$dec_lbl, ":\n", dec.neg_lbl, ":\n", round(n_neg, 2)), # using global setting of txt
+      #            paste0("Hits", ":\n", hi_lbl, ":\n", round(n_hi, 1)),
+      #            paste0("Misses", ":\n", mi_lbl, ":\n", round(n_mi, 1)),
+      #            paste0("False alarms", ":\n", fa_lbl, ":\n", round(n_fa, 1)),
+      #            paste0("Correct rejections", ":\n", cr_lbl, ":\n", round(n_cr, 1)),
+      #            paste0(txt$cond_lbl, ":\n", cond.true_lbl,  ":\n", round(n_true, 1)),  # using global setting of txt
+      #            paste0(txt$cond_lbl, ":\n", cond.false_lbl, ":\n", round(n_false, 1)), # using global setting of txt
       #            paste0("Population", ":\n", popu_lbl, ":\n", "N = ", N)                # using argument popu_lbl
       # )
 
@@ -582,14 +582,14 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Reduced labels (as areas get quite small):
       names <- c(paste0("N = ", N),  # popu_lbl
-                 paste0("positive:\n",  round(n.pos, 2)),
-                 paste0("negative:\n", round(n.neg, 2)),
-                 paste0("hi:\n", round(n.hi, 2)),
-                 paste0("mi:\n", round(n.mi, 2)),
-                 paste0("fa:\n", round(n.fa, 2)),
-                 paste0("cr:\n", round(n.cr, 2)),
-                 paste0("true:\n",  round(n.true, 2)),
-                 paste0("false:\n", round(n.false, 2)),
+                 paste0("positive:\n",  round(n_pos, 2)),
+                 paste0("negative:\n", round(n_neg, 2)),
+                 paste0("hi:\n", round(n_hi, 2)),
+                 paste0("mi:\n", round(n_mi, 2)),
+                 paste0("fa:\n", round(n_fa, 2)),
+                 paste0("cr:\n", round(n_cr, 2)),
+                 paste0("true:\n",  round(n_true, 2)),
+                 paste0("false:\n", round(n_false, 2)),
                  paste0("N = ", N)   # popu_lbl
       )
 
@@ -626,7 +626,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
       M[2, 1] <- "prev"         # "prevalence"
-      M[3, 1] <- "(1 - prev)"   # "(N - n.true)"
+      M[3, 1] <- "(1 - prev)"   # "(N - n_true)"
       M[4, 2] <- "sens"         # "sensitivity"
       M[5, 2] <- "mirt"         # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
       M[6, 3] <- "fart"         # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
@@ -653,7 +653,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     } else {  # "min" minimal labels:
 
       M[2, 1] <- "prev"         # "prevalence"
-      M[3, 1] <- ""             # "(N - n.true)"
+      M[3, 1] <- ""             # "(N - n_true)"
       M[4, 2] <- "sens"         # "sensitivity"
       M[5, 2] <- ""             # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
       M[6, 3] <- ""             # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
@@ -709,7 +709,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
       M[2, 1] <- "prev"         # "prevalence"
-      M[3, 1] <- "(1 - prev)"   # "(N - n.true)"
+      M[3, 1] <- "(1 - prev)"   # "(N - n_true)"
       M[4, 2] <- "sens"         # "sensitivity"
       M[5, 2] <- "mirt"         # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
       M[6, 3] <- "fart"         # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
@@ -757,7 +757,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     } else {  # "min" minimal labels:
 
       M[2, 1] <- "prev"         # "prevalence"
-      M[3, 1] <- ""             # "(N - n.true)"
+      M[3, 1] <- ""             # "(N - n_true)"
       M[4, 2] <- "sens"         # "sensitivity"
       M[5, 2] <- ""             # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
       M[6, 3] <- ""             # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
@@ -791,7 +791,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 9]  <- "fart"         # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
       M[7, 9]  <- "spec"         # "specificity"
       M[8, 10] <- "prev"         # "prevalence"
-      M[9, 10] <- "(1 - prev)"   # "(N - n.true)"
+      M[9, 10] <- "(1 - prev)"   # "(N - n_true)"
 
     } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
@@ -839,7 +839,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       M[6, 9]  <- ""             # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
       M[7, 9]  <- "spec"         # "specificity"
       M[8, 10] <- "prev"         # "prevalence"
-      M[9, 10] <- ""             # "(N - n.true)"
+      M[9, 10] <- ""             # "(N - n_true)"
 
     } # (p_lbl ==...
 
@@ -854,21 +854,21 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
       ## Box size and proportions:
-      x.pop <- .11    # basic width of population box
-      x.y.pop <- 2/3  # basic proportion is rectangular (width > height)
+      x_pop <- .11    # basic width of population box
+      x_y_pop <- 2/3  # basic proportion is rectangular (width > height)
 
       ## Collect all sizes and proportions:
-      x_boxes <- rep(x.pop, 7)     # all boxes have the same width
-      x_y_prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
+      x_boxes <- rep(x_pop, 7)     # all boxes have the same width
+      x_y_prop <- rep(x_y_pop, 7)  # all boxes have the same proportion
 
     } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
 
-      x.pop <- .10    # basic width of population box
-      x.y.pop <- 5/9  # basic proportion is rectangular (width > height)
+      x_pop <- .10    # basic width of population box
+      x_y_pop <- 5/9  # basic proportion is rectangular (width > height)
 
       ## Collect all sizes and proportions:
-      x_boxes <- rep(x.pop, 10)     # all boxes have the same width
-      x_y_prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
+      x_boxes <- rep(x_pop, 10)     # all boxes have the same width
+      x_y_prop <- rep(x_y_pop, 10)  # all boxes have the same proportion
 
     } # if (by...)
 
@@ -881,8 +881,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     ## Level 1: Population square
 
-    x.pop <- .10    # basic width of population box: Area N = x.pop^2
-    x.y.pop <- 1/1  # square
+    x_pop <- .10    # basic width of population box: Area N = x_pop^2
+    x_y_pop <- 1/1  # square
 
     ## Determine all other box sizes by their relative proportions in freq:
 
@@ -890,10 +890,10 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Level 2: cond is true vs. false
 
-      x.true  <- sqrt(n.true/N  * x.pop^2)  # cond.true cases
-      x.false <- sqrt(n.false/N * x.pop^2)  # cond.false cases
+      x_true  <- sqrt(n_true/N  * x_pop^2)  # cond.true cases
+      x_false <- sqrt(n_false/N * x_pop^2)  # cond.false cases
 
-      if (!all.equal(x.pop^2, sum(c(x.true^2, x.false^2), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c(x_true^2, x_false^2), na.rm = TRUE))) {
         warning("sumtree 1a: Sum of cond.true and cond.false area differs from population area.")
       }
 
@@ -901,86 +901,86 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Level 2: dec is pos vs. neg
 
-      x.pos  <- sqrt(n.pos/N * x.pop^2)  # dec.pos cases
-      x.neg <- sqrt(n.neg/N * x.pop^2)   # dec.neg cases
+      x_pos  <- sqrt(n_pos/N * x_pop^2)  # dec.pos cases
+      x_neg <- sqrt(n_neg/N * x_pop^2)   # dec.neg cases
 
-      if (!all.equal(x.pop^2, sum(c(x.pos^2, x.neg^2), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c(x_pos^2, x_neg^2), na.rm = TRUE))) {
         warning("sumtree 1b: Sum of dec.pos and dec.neg area differs from population area.")
       }
 
     } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
 
       ## Level 1: Population square
-      x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
-      x.y.pop <- 1/1  # square
+      x_pop <- .08    # shrink basic width of population box: Area N = x_pop^2
+      x_y_pop <- 1/1  # square
 
       ## Level 2 (top): cond is true vs. false
-      x.true  <- sqrt(n.true/N  * x.pop^2)  # cond.true cases
-      x.false <- sqrt(n.false/N * x.pop^2)  # cond.false cases
+      x_true  <- sqrt(n_true/N  * x_pop^2)  # cond.true cases
+      x_false <- sqrt(n_false/N * x_pop^2)  # cond.false cases
 
-      if (!all.equal(x.pop^2, sum(c(x.true^2, x.false^2), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c(x_true^2, x_false^2), na.rm = TRUE))) {
         warning("sumtree 1c+d: Sum of cond.true and cond.false area differs from population area.")
       }
 
       ## Level 2 (bot): dec is pos vs. neg
-      x.pos  <- sqrt(n.pos/N * x.pop^2)  # dec.pos cases
-      x.neg <- sqrt(n.neg/N * x.pop^2)   # dec.neg cases
+      x_pos  <- sqrt(n_pos/N * x_pop^2)  # dec.pos cases
+      x_neg <- sqrt(n_neg/N * x_pop^2)   # dec.neg cases
 
-      if (!all.equal(x.pop^2, sum(c(x.pos^2, x.neg^2), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c(x_pos^2, x_neg^2), na.rm = TRUE))) {
         warning("sumtree 1c+d: Sum of dec.pos and dec.neg area differs from population area.")
       }
 
     } # (if by...)
 
     ## Level 3: 4 SDT squares (irrespective of current by option!)
-    x.hi <- sqrt(n.hi/N * x.pop^2)
-    x.mi <- sqrt(n.mi/N * x.pop^2)
-    x.fa <- sqrt(n.fa/N * x.pop^2)
-    x.cr <- sqrt(n.cr/N * x.pop^2)
+    x_hi <- sqrt(n_hi/N * x_pop^2)
+    x_mi <- sqrt(n_mi/N * x_pop^2)
+    x_fa <- sqrt(n_fa/N * x_pop^2)
+    x_cr <- sqrt(n_cr/N * x_pop^2)
 
     ## Checks by condition/decision:
     if (by == "cd") {  # (a) by condition:
 
-      if (!all.equal(x.true^2, sum(c(x.hi^2, x.mi^2), na.rm = TRUE))) {
+      if (!all.equal(x_true^2, sum(c(x_hi^2, x_mi^2), na.rm = TRUE))) {
         warning("sumtree 2a: Sum of HI and MI area differs from cond.TRUE area.")
       }
 
-      if (!all.equal(x.false^2, sum(c(x.fa^2, x.cr^2), na.rm = TRUE))) {
+      if (!all.equal(x_false^2, sum(c(x_fa^2, x_cr^2), na.rm = TRUE))) {
         warning("sumtree 3a: Sum of FA and CR area differs from cond.FALSE area.")
       }
 
     } else if (by == "dc") {  # (b) by decision:
 
-      if (!all.equal(x.pos^2, sum(c(x.hi^2, x.fa^2), na.rm = TRUE))) {
+      if (!all.equal(x_pos^2, sum(c(x_hi^2, x_fa^2), na.rm = TRUE))) {
         warning("sumtree 2b: Sum of HI and FA area differs from dec.POS area.")
       }
 
-      if (!all.equal(x.neg^2, sum(c(x.mi^2, x.cr^2), na.rm = TRUE))) {
+      if (!all.equal(x_neg^2, sum(c(x_mi^2, x_cr^2), na.rm = TRUE))) {
         warning("sumtree 3b: Sum of MI and CR area differs from dec.NEG area.")
       }
 
     } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
 
-      if (!all.equal(x.true^2, sum(c(x.hi^2, x.mi^2), na.rm = TRUE))) {
+      if (!all.equal(x_true^2, sum(c(x_hi^2, x_mi^2), na.rm = TRUE))) {
         warning("sumtree 2c: Sum of HI and MI area differs from cond.TRUE area.")
       }
 
-      if (!all.equal(x.false^2, sum(c(x.fa^2, x.cr^2), na.rm = TRUE))) {
+      if (!all.equal(x_false^2, sum(c(x_fa^2, x_cr^2), na.rm = TRUE))) {
         warning("sumtree 2c: Sum of FA and CR area differs from cond.FALSE area.")
       }
 
-      if (!all.equal(x.pos^2, sum(c(x.hi^2, x.fa^2), na.rm = TRUE))) {
+      if (!all.equal(x_pos^2, sum(c(x_hi^2, x_fa^2), na.rm = TRUE))) {
         warning("sumtree 2d: Sum of HI and FA area differs from dec.POS area.")
       }
 
-      if (!all.equal(x.neg^2, sum(c(x.mi^2, x.cr^2), na.rm = TRUE))) {
+      if (!all.equal(x_neg^2, sum(c(x_mi^2, x_cr^2), na.rm = TRUE))) {
         warning("sumtree 3d: Sum of MI and CR area differs from dec.NEG area.")
       }
 
     } # (if by...)
 
     ## Check (irrespective of current by option):
-    if (!all.equal(x.pop^2, sum(c(x.hi^2, x.mi^2, x.fa^2, x.cr^2), na.rm = TRUE))) {
+    if (!all.equal(x_pop^2, sum(c(x_hi^2, x_mi^2, x_fa^2, x_cr^2), na.rm = TRUE))) {
       warning("sumtree 4: Population area differs from the area sum of all 4 SDT cases.")
     }
 
@@ -989,38 +989,38 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (by == "cd") {  # (a) by condition:
 
       ## Widths and proportions of 7 boxes:
-      x_boxes <- c(x.pop,
-                   x.true, x.false,
-                   x.hi, x.mi, x.fa, x.cr)
-      x_y_prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
+      x_boxes <- c(x_pop,
+                   x_true, x_false,
+                   x_hi, x_mi, x_fa, x_cr)
+      x_y_prop <- rep(x_y_pop, 7) # all 7 boxes have the same proportion (squares)
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## Widths and proportions of 7 boxes:
-      x_boxes <- c(x.pop,
-                   x.pos, x.neg,
-                   x.hi, x.mi, x.fa, x.cr)
-      x_y_prop <- rep(x.y.pop, 7) # all 7 boxes have the same proportion (squares)
+      x_boxes <- c(x_pop,
+                   x_pos, x_neg,
+                   x_hi, x_mi, x_fa, x_cr)
+      x_y_prop <- rep(x_y_pop, 7) # all 7 boxes have the same proportion (squares)
 
     } else if (by == "cddc") {  # (c) by condition and by decision:
 
       ## Widths and proportions of 10 boxes:
-      x_boxes <- c(x.pop,
-                   x.true, x.false,
-                   x.hi, x.mi, x.fa, x.cr,
-                   x.pos, x.neg,
-                   x.pop)
-      x_y_prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
+      x_boxes <- c(x_pop,
+                   x_true, x_false,
+                   x_hi, x_mi, x_fa, x_cr,
+                   x_pos, x_neg,
+                   x_pop)
+      x_y_prop <- rep(x_y_pop, 10) # all 10 boxes have the same proportion (squares)
 
     } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
 
       ## Widths and proportions of 10 boxes:
-      x_boxes <- c(x.pop,
-                   x.pos, x.neg,
-                   x.hi, x.mi, x.fa, x.cr,
-                   x.true, x.false,
-                   x.pop)
-      x_y_prop <- rep(x.y.pop, 10) # all 10 boxes have the same proportion (squares)
+      x_boxes <- c(x_pop,
+                   x_pos, x_neg,
+                   x_hi, x_mi, x_fa, x_cr,
+                   x_true, x_false,
+                   x_pop)
+      x_y_prop <- rep(x_y_pop, 10) # all 10 boxes have the same proportion (squares)
 
     } # (if by...)
 
@@ -1033,8 +1033,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
     ## Level 1: Population square
 
-    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
-    x.y.pop <- 1/1 # square
+    x_pop <- .10   # basic width x of population box: Area N = x_pop^2
+    x_y_pop <- 1/1 # square
 
     ## Determine all other box sizes by their relative proportions in freq:
 
@@ -1042,13 +1042,13 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Level 2: 2 vertical rectangles
 
-      x.true <- (n.true/N) * x.pop  # scale x.pop by proportion of cond.true cases
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop  # scale x_pop by proportion of cond.true cases
+      x_y_true <- x_pop/x_true
 
-      x.false <- n.false/N * x.pop  # scale x.pop by proportion of cond.false cases
-      x.y.false <- x.pop/x.false
+      x_false <- n_false/N * x_pop  # scale x_pop by proportion of cond.false cases
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1a: Sum of cond.true + cond.false areas differs from population area.")
       }
 
@@ -1057,37 +1057,37 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## (and their widths summing up to the height of the Level 2 rectangles)
 
       ## Box cond.true = hi + mi:
-      x.hi <- (n.hi/n.true) * x.pop  # hi: scale x.pop by sens = n.hi/n.true
-      x.y.hi <- x.true/x.hi
+      x_hi <- (n_hi/n_true) * x_pop  # hi: scale x_pop by sens = n_hi/n_true
+      x_y_hi <- x_true/x_hi
 
-      x.mi <-  (1 - (n.hi/n.true)) * x.pop  # mi: scale x.pop by mirt = (1 - sens)
-      x.y.mi <- x.true/x.mi
+      x_mi <-  (1 - (n_hi/n_true)) * x_pop  # mi: scale x_pop by mirt = (1 - sens)
+      x_y_mi <- x_true/x_mi
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * x.true), (x.mi * x.true)), na.rm = TRUE))) {
+      if (!all.equal((x_true * x_pop),
+                     sum(c((x_hi * x_true), (x_mi * x_true)), na.rm = TRUE))) {
         warning("hrectree 2a: Sum of HI + MI area differs from cond.TRUE area.")
       }
 
       ## Box cond.false = fa + cr:
-      x.cr <- (n.cr/n.false) * x.pop  # cr: scale x.pop by spec = n.cr/n.false
-      x.y.cr <- x.false/x.cr
+      x_cr <- (n_cr/n_false) * x_pop  # cr: scale x_pop by spec = n_cr/n_false
+      x_y_cr <- x_false/x_cr
 
-      x.fa <- (1 - (n.cr/n.false)) * x.pop  # fa: scale x.pop by (1 - spec)
-      x.y.fa <- x.false/x.fa
+      x_fa <- (1 - (n_cr/n_false)) * x_pop  # fa: scale x_pop by (1 - spec)
+      x_y_fa <- x_false/x_fa
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
+      if (!all.equal((x_false * x_pop),
+                     sum(c((x_fa * x_false), (x_cr * x_false)), na.rm = TRUE))) {
         warning("hrectree 3a: Sum of FA + CR area differs from cond.FALSE area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * x_true), (x_mi * x_true), (x_fa * x_false), (x_cr * x_false)), na.rm = TRUE))) {
         warning("hrectree 4a: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x_boxes <-  c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
+      x_boxes <-  c(x_pop,  x_true, x_false,  x_hi, x_mi, x_fa, x_cr)  # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_true, x_y_false,  x_y_hi, x_y_mi, x_y_fa, x_y_cr)  # specific proportions
 
 
     } else if (by == "dc") {  # (b) by decision:
@@ -1095,13 +1095,13 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Level 2: 2 vertical rectangles
 
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos cases
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos cases
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- n.neg/N * x.pop  # scale x.pop by proportion of dec.neg cases
-      x.y.neg <- x.pop/x.neg
+      x_neg <- n_neg/N * x_pop  # scale x_pop by proportion of dec.neg cases
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1b: Sum of dec.pos + dec.neg areas differs from population area.")
       }
 
@@ -1110,74 +1110,74 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## (and their widths summing up to the height of the Level 2 rectangles)
 
       ## Box dec.pos = hi + FA:
-      x.hi <- (n.hi/n.pos) * x.pop  # hi: scale x.pop by PPV = n.hi/dec.pos
-      x.y.hi <- x.pos/x.hi
+      x_hi <- (n_hi/n_pos) * x_pop  # hi: scale x_pop by PPV = n_hi/dec.pos
+      x_y_hi <- x_pos/x_hi
 
       # FA (now belongs to dec.pos):
-      x.fa <-  (1 - (n.hi/n.pos)) * x.pop  # FA: scale x.pop by (1 - PPV)
-      x.y.fa <- x.pos/x.fa
+      x_fa <-  (1 - (n_hi/n_pos)) * x_pop  # FA: scale x_pop by (1 - PPV)
+      x_y_fa <- x_pos/x_fa
 
-      if (!all.equal((x.pos * x.pop),
-                     sum(c((x.hi * x.pos), (x.fa * x.pos)), na.rm = TRUE))) {
+      if (!all.equal((x_pos * x_pop),
+                     sum(c((x_hi * x_pos), (x_fa * x_pos)), na.rm = TRUE))) {
         warning("hrectree 2b: Sum of HI + FA area differs from dec.POS area.")
       }
 
       ## Box dec.neg = cr + MI:
-      x.cr <- (n.cr/n.neg) * x.pop  # cr: scale x.pop by NPV = n.cr/dec.false
-      x.y.cr <- x.neg/x.cr
+      x_cr <- (n_cr/n_neg) * x_pop  # cr: scale x_pop by NPV = n_cr/dec.false
+      x_y_cr <- x_neg/x_cr
 
       # MI (now belongs to dec.neg):
-      x.mi <- (1 - (n.cr/n.neg)) * x.pop  # MI: scale x.pop by (1 - NPV)
-      x.y.mi <- x.neg/x.mi
+      x_mi <- (1 - (n_cr/n_neg)) * x_pop  # MI: scale x_pop by (1 - NPV)
+      x_y_mi <- x_neg/x_mi
 
-      if (!all.equal((x.neg * x.pop),
-                     sum(c((x.mi * x.neg), (x.cr * x.neg)), na.rm = TRUE))) {
+      if (!all.equal((x_neg * x_pop),
+                     sum(c((x_mi * x_neg), (x_cr * x_neg)), na.rm = TRUE))) {
         warning("hrectree 3b: Sum of MI + CR area differs from dec.NEG area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.pos),
-                           (x.fa * x.pos),
-                           (x.mi * x.neg),
-                           (x.cr * x.neg)), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * x_pos),
+                           (x_fa * x_pos),
+                           (x_mi * x_neg),
+                           (x_cr * x_neg)), na.rm = TRUE))) {
         warning("hrectree 4b: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x_boxes <-  c(x.pop,
-                    x.pos, x.neg,
-                    x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x_y_prop <- c(x.y.pop,
-                    x.y.pos, x.y.neg,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
+      x_boxes <-  c(x_pop,
+                    x_pos, x_neg,
+                    x_hi, x_mi, x_fa, x_cr)  # specific widths
+      x_y_prop <- c(x_y_pop,
+                    x_y_pos, x_y_neg,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr)  # specific proportions
 
 
     } else if (by == "cddc") {  # (c) by condition and by decision:
 
 
       ## Level 1: Population square
-      x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
-      x.y.pop <- 1/1  # square
+      x_pop <- .08    # shrink basic width of population box: Area N = x_pop^2
+      x_y_pop <- 1/1  # square
 
       ## Level 2 (top): 2 vertical rectangles by condition:
-      x.true <- (n.true/N) * x.pop  # scale x.pop by proportion of cond.true cases
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop  # scale x_pop by proportion of cond.true cases
+      x_y_true <- x_pop/x_true
 
-      x.false <- n.false/N * x.pop  # scale x.pop by proportion of cond.false cases
-      x.y.false <- x.pop/x.false
+      x_false <- n_false/N * x_pop  # scale x_pop by proportion of cond.false cases
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1cddc: Sum of cond.true + cond.false areas differs from population area.")
       }
 
       ## Level 2 (bot): 2 vertical rectangles by decision:
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos cases
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos cases
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- n.neg/N * x.pop  # scale x.pop by proportion of dec.neg cases
-      x.y.neg <- x.pop/x.neg
+      x_neg <- n_neg/N * x_pop  # scale x_pop by proportion of dec.neg cases
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1c: Sum of dec.pos + dec.neg areas differs from population area.")
       }
 
@@ -1187,71 +1187,71 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## (and their widths summing up to the height of the Level 2 rectangles of (top) by condition)
 
       ## Box cond.true = hi + mi:
-      x.hi <- (n.hi/n.true) * x.pop  # hi: scale x.pop by sens = n.hi/n.true
-      x.y.hi <- x.true/x.hi
+      x_hi <- (n_hi/n_true) * x_pop  # hi: scale x_pop by sens = n_hi/n_true
+      x_y_hi <- x_true/x_hi
 
-      x.mi <-  (1 - (n.hi/n.true)) * x.pop  # mi: scale x.pop by mirt = (1 - sens)
-      x.y.mi <- x.true/x.mi
+      x_mi <-  (1 - (n_hi/n_true)) * x_pop  # mi: scale x_pop by mirt = (1 - sens)
+      x_y_mi <- x_true/x_mi
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * x.true), (x.mi * x.true)), na.rm = TRUE))) {
+      if (!all.equal((x_true * x_pop),
+                     sum(c((x_hi * x_true), (x_mi * x_true)), na.rm = TRUE))) {
         warning("hrectree 2c: Sum of HI + MI area differs from cond.TRUE area.")
       }
 
       ## Box cond.false = fa + cr:
-      x.cr <- (n.cr/n.false) * x.pop  # cr: scale x.pop by spec = n.cr/n.false
-      x.y.cr <- x.false/x.cr
+      x_cr <- (n_cr/n_false) * x_pop  # cr: scale x_pop by spec = n_cr/n_false
+      x_y_cr <- x_false/x_cr
 
-      x.fa <- (1 - (n.cr/n.false)) * x.pop  # fa: scale x.pop by (1 - spec)
-      x.y.fa <- x.false/x.fa
+      x_fa <- (1 - (n_cr/n_false)) * x_pop  # fa: scale x_pop by (1 - spec)
+      x_y_fa <- x_false/x_fa
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
+      if (!all.equal((x_false * x_pop),
+                     sum(c((x_fa * x_false), (x_cr * x_false)), na.rm = TRUE))) {
         warning("hrectree 3c: Sum of FA + CR area differs from cond.FALSE area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * x_true), (x_mi * x_true), (x_fa * x_false), (x_cr * x_false)), na.rm = TRUE))) {
         warning("hrectree 4c: Population area differs from the area sum of all 4 SDT cases.")
       }
 
 
       ## Collect widths and proportions of 10 boxes:
-      x_boxes <-  c(x.pop,  x.true, x.false,
-                    x.hi, x.mi, x.fa, x.cr,
-                    x.pos, x.neg,  x.pop)  # specific widths
-      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr,
-                    x.y.pos, x.y.neg,  x.y.pop)  # specific proportions
+      x_boxes <-  c(x_pop,  x_true, x_false,
+                    x_hi, x_mi, x_fa, x_cr,
+                    x_pos, x_neg,  x_pop)  # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_true, x_y_false,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr,
+                    x_y_pos, x_y_neg,  x_y_pop)  # specific proportions
 
 
     } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
 
       ## Level 1: Population square
-      x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
-      x.y.pop <- 1/1  # square
+      x_pop <- .08    # shrink basic width of population box: Area N = x_pop^2
+      x_y_pop <- 1/1  # square
 
 
       ## Level 2 (top): 2 vertical rectangles by decision:
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos cases
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos cases
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg cases
-      x.y.neg <- x.pop/x.neg
+      x_neg <- (n_neg/N) * x_pop  # scale x_pop by proportion of dec.neg cases
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1d: Sum of dec.pos + dec.neg areas differs from population area.")
       }
 
 
       ## Level 2 (bot): 2 vertical rectangles by condition:
-      x.true <- (n.true/N) * x.pop  # scale x.pop by proportion of cond.true cases
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop  # scale x_pop by proportion of cond.true cases
+      x_y_true <- x_pop/x_true
 
-      x.false <- (n.false/N) * x.pop  # scale x.pop by proportion of cond.false cases
-      x.y.false <- x.pop/x.false
+      x_false <- (n_false/N) * x_pop  # scale x_pop by proportion of cond.false cases
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1d: Sum of cond.true + cond.false areas differs from population area.")
       }
 
@@ -1261,45 +1261,45 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## (and their widths summing up to the height of the Level 2 rectangles of (top) by condition)
 
       ## Box dec.POS = hi + FA:
-      x.hi <- (n.hi/n.pos) * x.pop  # hi: scale x.pop by PPV = n.hi/n.pos
-      x.y.hi <- x.pos/x.hi
+      x_hi <- (n_hi/n_pos) * x_pop  # hi: scale x_pop by PPV = n_hi/n_pos
+      x_y_hi <- x_pos/x_hi
 
-      x.fa <- (1 - (n.hi/n.pos)) * x.pop  # FA: scale x.pop by (1 - PPV) = FDR
-      x.y.fa <- x.pos/x.fa
+      x_fa <- (1 - (n_hi/n_pos)) * x_pop  # FA: scale x_pop by (1 - PPV) = FDR
+      x_y_fa <- x_pos/x_fa
 
-      if (!all.equal((x.pos * x.pop),
-                     sum(c((x.hi * x.pos), (x.fa * x.pos)), na.rm = TRUE))) {
+      if (!all.equal((x_pos * x_pop),
+                     sum(c((x_hi * x_pos), (x_fa * x_pos)), na.rm = TRUE))) {
         warning("hrectree 2d: Sum of HI + FA area differs from dec.POS area.")
       }
 
       ## Box dec.NEG = cr + MI:
-      x.cr <- (n.cr/n.neg) * x.pop  # cr: scale x.pop by NPV = n.cr/n.neg
-      x.y.cr <- x.neg/x.cr
+      x_cr <- (n_cr/n_neg) * x_pop  # cr: scale x_pop by NPV = n_cr/n_neg
+      x_y_cr <- x_neg/x_cr
 
-      x.mi <-  (1 - (n.cr/n.neg)) * x.pop  # MI: scale x.pop by (1 - NPV) = FOR
-      x.y.mi <- x.neg/x.mi
+      x_mi <-  (1 - (n_cr/n_neg)) * x_pop  # MI: scale x_pop by (1 - NPV) = FOR
+      x_y_mi <- x_neg/x_mi
 
-      if (!all.equal((x.neg * x.pop),
-                     sum(c((x.mi * x.neg), (x.cr * x.neg)), na.rm = TRUE))) {
+      if (!all.equal((x_neg * x_pop),
+                     sum(c((x_mi * x_neg), (x_cr * x_neg)), na.rm = TRUE))) {
         warning("hrectree 3d: Sum of MI + CR area differs from dec.NEG area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.pos), (x.mi * x.neg), (x.fa * x.pos), (x.cr * x.neg)), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * x_pos), (x_mi * x_neg), (x_fa * x_pos), (x_cr * x_neg)), na.rm = TRUE))) {
         warning("hrectree 4d: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect widths and proportions of 10 boxes:
-      x_boxes <-  c(x.pop,
-                    x.pos, x.neg,
-                    x.hi, x.mi, x.fa, x.cr,
-                    x.true, x.false,
-                    x.pop)        # specific widths
-      x_y_prop <- c(x.y.pop,
-                    x.y.pos, x.y.neg,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr,
-                    x.y.true, x.y.false,
-                    x.y.pop)  # specific proportions
+      x_boxes <-  c(x_pop,
+                    x_pos, x_neg,
+                    x_hi, x_mi, x_fa, x_cr,
+                    x_true, x_false,
+                    x_pop)        # specific widths
+      x_y_prop <- c(x_y_pop,
+                    x_y_pos, x_y_neg,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr,
+                    x_y_true, x_y_false,
+                    x_y_pop)  # specific proportions
 
     } # (if by...)
 
@@ -1311,8 +1311,8 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   else if (area == "vr") {
 
     ## Level 1: Population square
-    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
-    x.y.pop <- 1/1 # square
+    x_pop <- .10   # basic width x of population box: Area N = x_pop^2
+    x_y_pop <- 1/1 # square
 
     ## Determine all other box sizes by their relative proportions in freq:
 
@@ -1320,13 +1320,13 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
       ## Level 2:
       ## 2 vertical rectangles for a) cond.true vs.cond.false:
-      x.true <- (n.true/N) * x.pop # scale x.pop by proportion true
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop # scale x_pop by proportion true
+      x_y_true <- x_pop/x_true
 
-      x.false <- (n.false/N) * x.pop # scale x.pop by proportion false
-      x.y.false <- x.pop/x.false
+      x_false <- (n_false/N) * x_pop # scale x_pop by proportion false
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1a: Sum of cond.TRUE + cond.FALSE areas differs from Population area.")
       }
 
@@ -1334,53 +1334,53 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## 4 rectangles with widths matching the widths of the Level 2 rectangles
       ## (and their heights summing up to the height of the Level 2 rectangles)
 
-      x.hi <- x.true # keep constant
-      x.y.hi <- x.y.true * (n.hi/n.true) # scale previous prop by prop hi
+      x_hi <- x_true # keep constant
+      x_y_hi <- x_y_true * (n_hi/n_true) # scale previous prop by prop hi
 
-      x.mi <- x.true # keep constant
-      x.y.mi <- x.y.true * (n.mi/n.true) # scale previous prop by prop mi
+      x_mi <- x_true # keep constant
+      x_y_mi <- x_y_true * (n_mi/n_true) # scale previous prop by prop mi
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * (x.hi * x.y.hi)), (x.mi * (x.mi * x.y.mi))), na.rm = TRUE))) {
+      if (!all.equal((x_true * x_pop),
+                     sum(c((x_hi * (x_hi * x_y_hi)), (x_mi * (x_mi * x_y_mi))), na.rm = TRUE))) {
         warning("vrectree 2a: Sum of HI + MI area differs from Cond TRUE area.")
       }
 
-      x.fa <- x.false # keep constant
-      x.y.fa <- x.y.false * (n.fa/n.false) # scale previous prop by prop fa
+      x_fa <- x_false # keep constant
+      x_y_fa <- x_y_false * (n_fa/n_false) # scale previous prop by prop fa
 
-      x.cr <- x.false # keep constant
-      x.y.cr <- x.y.false * (n.cr/n.false) # scale previous prop by prop cr
+      x_cr <- x_false # keep constant
+      x_y_cr <- x_y_false * (n_cr/n_false) # scale previous prop by prop cr
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * (x.fa * x.y.fa)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_false * x_pop),
+                     sum(c((x_fa * (x_fa * x_y_fa)), (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 3a: Sum of FA + CR area differs from Cond FALSE area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * (x.hi * x.y.hi)),
-                           (x.mi * (x.mi * x.y.mi)),
-                           (x.fa * (x.fa * x.y.fa)),
-                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * (x_hi * x_y_hi)),
+                           (x_mi * (x_mi * x_y_mi)),
+                           (x_fa * (x_fa * x_y_fa)),
+                           (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 4a: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x_boxes <- c(x.pop,  x.true, x.false,
-                   x.hi, x.mi, x.fa, x.cr) # specific widths
-      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
+      x_boxes <- c(x_pop,  x_true, x_false,
+                   x_hi, x_mi, x_fa, x_cr) # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_true, x_y_false,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr) # specific proportions
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## Level 2:
       ## 2 vertical rectangles for b) dec.pos vs. dec.neg:
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg
-      x.y.neg <- x.pop/x.neg
+      x_neg <- (n_neg/N) * x_pop  # scale x_pop by proportion of dec.neg
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1b: Sum of dec.POS + dec.FALSE areas differs from Population area.")
       }
 
@@ -1388,75 +1388,75 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## 4 rectangles with widths matching the widths of the Level 2 rectangles
       ## (and their heights summing up to the height of the Level 2 rectangles)
 
-      x.hi <- x.pos  # keep constant to Level 2
-      x.y.hi <- x.y.pos * (n.hi/n.pos)  # scale previous prop by prop n.hi/n.pos = PPV
+      x_hi <- x_pos  # keep constant to Level 2
+      x_y_hi <- x_y_pos * (n_hi/n_pos)  # scale previous prop by prop n_hi/n_pos = PPV
 
       # FA (now belongs to dec.pos):
-      x.fa <- x.pos  # keep constant to Level 2
-      x.y.fa <- x.y.pos * (n.fa/n.pos)  # scale previous prop by prop n.fa/n.pos = (1 - PPV)
+      x_fa <- x_pos  # keep constant to Level 2
+      x_y_fa <- x_y_pos * (n_fa/n_pos)  # scale previous prop by prop n_fa/n_pos = (1 - PPV)
 
-      if (!all.equal((x.pos * x.pop),
-                     sum(c((x.hi * (x.hi * x.y.hi)), (x.fa * (x.fa * x.y.fa))), na.rm = TRUE))) {
+      if (!all.equal((x_pos * x_pop),
+                     sum(c((x_hi * (x_hi * x_y_hi)), (x_fa * (x_fa * x_y_fa))), na.rm = TRUE))) {
         warning("vrectree 2b: Sum of HI + FA area differs from dec.POS area.")
       }
 
-      x.cr <- x.neg  # keep constant to Level 2
-      x.y.cr <- x.y.neg * (n.cr/n.neg)  # scale previous prop by prop n.cr/n.neg = NPV
+      x_cr <- x_neg  # keep constant to Level 2
+      x_y_cr <- x_y_neg * (n_cr/n_neg)  # scale previous prop by prop n_cr/n_neg = NPV
 
       # MI (now belongs to dec.neg):
-      x.mi <- x.neg  # keep constant to Level 2
-      x.y.mi <- x.y.neg * (n.mi/n.neg)  # scale previous prop by prop n.mi/n.neg = (1 - NPV)
+      x_mi <- x_neg  # keep constant to Level 2
+      x_y_mi <- x_y_neg * (n_mi/n_neg)  # scale previous prop by prop n_mi/n_neg = (1 - NPV)
 
-      if (!all.equal((x.neg * x.pop),
-                     sum(c((x.mi * (x.mi * x.y.mi)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_neg * x_pop),
+                     sum(c((x_mi * (x_mi * x_y_mi)), (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 3b: Sum of MI + CR area differs from dec.NEG area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * (x.hi * x.y.hi)),
-                           (x.mi * (x.mi * x.y.mi)),
-                           (x.fa * (x.fa * x.y.fa)),
-                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * (x_hi * x_y_hi)),
+                           (x_mi * (x_mi * x_y_mi)),
+                           (x_fa * (x_fa * x_y_fa)),
+                           (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 4b: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect widths and proportions of 7 boxes:
-      x_boxes <- c(x.pop,  x.pos, x.neg,
-                   x.hi, x.mi, x.fa, x.cr) # specific widths
-      x_y_prop <- c(x.y.pop,  x.y.pos, x.y.neg,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
+      x_boxes <- c(x_pop,  x_pos, x_neg,
+                   x_hi, x_mi, x_fa, x_cr) # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_pos, x_y_neg,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr) # specific proportions
 
 
     } else if (by == "cddc") {  # (c) by condition and by decision:
 
 
       ## Level 1: Population square
-      x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
-      x.y.pop <- 1/1  # square
+      x_pop <- .08    # shrink basic width of population box: Area N = x_pop^2
+      x_y_pop <- 1/1  # square
 
 
       ## Level 2 (top):
       ## 2 vertical rectangles for a) cond.true vs.cond.false:
-      x.true <- (n.true/N) * x.pop # scale x.pop by proportion true
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop # scale x_pop by proportion true
+      x_y_true <- x_pop/x_true
 
-      x.false <- (n.false/N) * x.pop # scale x.pop by proportion false
-      x.y.false <- x.pop/x.false
+      x_false <- (n_false/N) * x_pop # scale x_pop by proportion false
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1c: Sum of cond.TRUE + cond.FALSE areas differs from Population area.")
       }
 
 
       ## Level 2 (bot):
       ## 2 vertical rectangles for b) dec.pos vs. dec.neg:
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg
-      x.y.neg <- x.pop/x.neg
+      x_neg <- (n_neg/N) * x_pop  # scale x_pop by proportion of dec.neg
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1c: Sum of dec.POS + dec.FALSE areas differs from Population area.")
       }
 
@@ -1465,75 +1465,75 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## 4 rectangles with widths matching the widths of the Level 2 rectangles
       ## (and their heights summing up to the height of the Level 2 rectangles)
 
-      x.hi <- x.true  # keep constant
-      x.y.hi <- x.y.true * (n.hi/n.true)  # scale previous prop by prop hi
+      x_hi <- x_true  # keep constant
+      x_y_hi <- x_y_true * (n_hi/n_true)  # scale previous prop by prop hi
 
-      x.mi <- x.true # keep constant
-      x.y.mi <- x.y.true * (n.mi/n.true)  # scale previous prop by prop mi
+      x_mi <- x_true # keep constant
+      x_y_mi <- x_y_true * (n_mi/n_true)  # scale previous prop by prop mi
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * (x.hi * x.y.hi)), (x.mi * (x.mi * x.y.mi))), na.rm = TRUE))) {
+      if (!all.equal((x_true * x_pop),
+                     sum(c((x_hi * (x_hi * x_y_hi)), (x_mi * (x_mi * x_y_mi))), na.rm = TRUE))) {
         warning("vrectree 2c: Sum of HI + MI area differs from Cond TRUE area.")
       }
 
-      x.fa <- x.false  # keep constant
-      x.y.fa <- x.y.false * (n.fa/n.false)  # scale previous prop by prop fa
+      x_fa <- x_false  # keep constant
+      x_y_fa <- x_y_false * (n_fa/n_false)  # scale previous prop by prop fa
 
-      x.cr <- x.false  # keep constant
-      x.y.cr <- x.y.false * (n.cr/n.false)  # scale previous prop by prop cr
+      x_cr <- x_false  # keep constant
+      x_y_cr <- x_y_false * (n_cr/n_false)  # scale previous prop by prop cr
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * (x.fa * x.y.fa)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_false * x_pop),
+                     sum(c((x_fa * (x_fa * x_y_fa)), (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 3c: Sum of FA + CR area differs from Cond FALSE area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * (x.hi * x.y.hi)),
-                           (x.mi * (x.mi * x.y.mi)),
-                           (x.fa * (x.fa * x.y.fa)),
-                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * (x_hi * x_y_hi)),
+                           (x_mi * (x_mi * x_y_mi)),
+                           (x_fa * (x_fa * x_y_fa)),
+                           (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 4c: Population area differs from the area sum of all 4 SDT cases.")
       }
 
 
       ## Collect widths and proportions of 10 boxes:
-      x_boxes <- c(x.pop,  x.true, x.false,
-                   x.hi, x.mi, x.fa, x.cr,
-                   x.pos, x.neg,  x.pop)             # specific widths
-      x_y_prop <- c(x.y.pop,  x.y.true, x.y.false,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr,
-                    x.y.pos, x.y.neg,  x.y.pop)      # specific proportions
+      x_boxes <- c(x_pop,  x_true, x_false,
+                   x_hi, x_mi, x_fa, x_cr,
+                   x_pos, x_neg,  x_pop)             # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_true, x_y_false,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr,
+                    x_y_pos, x_y_neg,  x_y_pop)      # specific proportions
 
 
     } else if (by == "dccd") {  # (d) 1st by decision, 2nd by condition:
 
 
       ## Level 1: Population square
-      x.pop <- .08    # shrink basic width of population box: Area N = x.pop^2
-      x.y.pop <- 1/1  # square
+      x_pop <- .08    # shrink basic width of population box: Area N = x_pop^2
+      x_y_pop <- 1/1  # square
 
 
       ## Level 2 (top):
       ## 2 vertical rectangles for b) dec.pos vs. dec.neg:
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg
-      x.y.neg <- x.pop/x.neg
+      x_neg <- (n_neg/N) * x_pop  # scale x_pop by proportion of dec.neg
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1d: Sum of dec.POS + dec.FALSE areas differs from Population area.")
       }
 
       ## Level 2 (bot):
       ## 2 vertical rectangles for a) cond.true vs.cond.false:
-      x.true <- (n.true/N) * x.pop # scale x.pop by proportion true
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop # scale x_pop by proportion true
+      x_y_true <- x_pop/x_true
 
-      x.false <- (n.false/N) * x.pop # scale x.pop by proportion false
-      x.y.false <- x.pop/x.false
+      x_false <- (n_false/N) * x_pop # scale x_pop by proportion false
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1d: Sum of cond.TRUE + cond.FALSE areas differs from Population area.")
       }
 
@@ -1543,51 +1543,51 @@ plot_fnet <- function(prev = num$prev,             # probabilities
       ## (and their heights summing up to the height of the Level 2 rectangles)
 
       ## dec.POS cases:
-      x.hi <- x.pos  # keep constant
-      x.y.hi <- x.y.pos * (n.hi/n.pos)  # scale previous prop by prop n.hi/n.pos (PPV)
+      x_hi <- x_pos  # keep constant
+      x_y_hi <- x_y_pos * (n_hi/n_pos)  # scale previous prop by prop n_hi/n_pos (PPV)
 
-      x.fa <- x.pos  # keep constant
-      x.y.fa <- x.y.pos * (n.fa/n.pos)  # scale previous prop by prop n.FA/n.pos (1 - PPV)
+      x_fa <- x_pos  # keep constant
+      x_y_fa <- x_y_pos * (n_fa/n_pos)  # scale previous prop by prop n.FA/n_pos (1 - PPV)
 
-      if (!all.equal((x.pos * x.pop),
-                     sum(c((x.hi * (x.hi * x.y.hi)), (x.fa * (x.fa * x.y.fa))), na.rm = TRUE))) {
+      if (!all.equal((x_pos * x_pop),
+                     sum(c((x_hi * (x_hi * x_y_hi)), (x_fa * (x_fa * x_y_fa))), na.rm = TRUE))) {
         warning("vrectree 2d: Sum of HI + FA area differs from dec.POS area.")
       }
 
 
       ## dec.NEG cases:
-      x.cr <- x.neg  # keep constant
-      x.y.cr <- x.y.neg * (n.cr/n.neg)  # scale previous prop by prop n.cr/n.neg (NPV)
+      x_cr <- x_neg  # keep constant
+      x_y_cr <- x_y_neg * (n_cr/n_neg)  # scale previous prop by prop n_cr/n_neg (NPV)
 
-      x.mi <- x.neg # keep constant
-      x.y.mi <- x.y.neg * (n.mi/n.neg)  # scale previous prop by prop n.mi/n.neg (1 - NPV)
+      x_mi <- x_neg # keep constant
+      x_y_mi <- x_y_neg * (n_mi/n_neg)  # scale previous prop by prop n_mi/n_neg (1 - NPV)
 
 
-      if (!all.equal((x.neg * x.pop),
-                     sum(c((x.mi * (x.mi * x.y.mi)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_neg * x_pop),
+                     sum(c((x_mi * (x_mi * x_y_mi)), (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 3d: Sum of MI + CR area differs from dec.NEG area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * (x.hi * x.y.hi)),
-                           (x.mi * (x.mi * x.y.mi)),
-                           (x.fa * (x.fa * x.y.fa)),
-                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * (x_hi * x_y_hi)),
+                           (x_mi * (x_mi * x_y_mi)),
+                           (x_fa * (x_fa * x_y_fa)),
+                           (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 4d: Population area differs from the area sum of all 4 SDT cases.")
       }
 
 
       ## Collect widths and proportions of 10 boxes:
-      x_boxes <- c(x.pop,
-                   x.pos, x.neg,
-                   x.hi, x.mi, x.fa, x.cr,
-                   x.true, x.false,
-                   x.pop)             # specific widths
-      x_y_prop <- c(x.y.pop,
-                    x.y.pos, x.y.neg,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr,
-                    x.y.true, x.y.false,
-                    x.y.pop)      # specific proportions
+      x_boxes <- c(x_pop,
+                   x_pos, x_neg,
+                   x_hi, x_mi, x_fa, x_cr,
+                   x_true, x_false,
+                   x_pop)             # specific widths
+      x_y_prop <- c(x_y_pop,
+                    x_y_pos, x_y_neg,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr,
+                    x_y_true, x_y_false,
+                    x_y_pop)      # specific proportions
 
     } # (if by...)
 
@@ -1598,21 +1598,21 @@ plot_fnet <- function(prev = num$prev,             # probabilities
     if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
       ## Box size and proportions:
-      x.pop <- .10    # basic width of population box
-      x.y.pop <- 2/3  # basic proportion is rectangular (width > height)
+      x_pop <- .10    # basic width of population box
+      x_y_pop <- 2/3  # basic proportion is rectangular (width > height)
 
       ## Collect all sizes and proportions:
-      x_boxes <- rep(x.pop, 7)     # all boxes have the same width
-      x_y_prop <- rep(x.y.pop, 7)  # all boxes have the same proportion
+      x_boxes <- rep(x_pop, 7)     # all boxes have the same width
+      x_y_prop <- rep(x_y_pop, 7)  # all boxes have the same proportion
 
     } else {  # (c) + (d) + ANY other by-setting:
 
-      x.pop <- .05    # basic width of population box
-      x.y.pop <- 1/1  # basic proportion is square (width = height)
+      x_pop <- .05    # basic width of population box
+      x_y_pop <- 1/1  # basic proportion is square (width = height)
 
       ## Collect all sizes and proportions:
-      x_boxes <- rep(x.pop, 10)     # all boxes have the same width
-      x_y_prop <- rep(x.y.pop, 10)  # all boxes have the same proportion
+      x_boxes <- rep(x_pop, 10)     # all boxes have the same width
+      x_y_prop <- rep(x_y_pop, 10)  # all boxes have the same proportion
 
     } # if (by...)
 
@@ -1624,21 +1624,21 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
   if (by == "cd" || by == "dc") {  # (a) by condition OR (b) by decision:
 
-    box.pos = c(1, 2, 4)  # 7 boxes
+    box_pos = c(1, 2, 4)  # 7 boxes
 
   } else if (by == "cddc" || by == "dccd") {  # (c) + (d) by condition AND by decision:
 
-    box.pos = c(1, 2, 4, 2, 1)  # 10 boxes
+    box_pos = c(1, 2, 4, 2, 1)  # 10 boxes
 
   } else { # ANY other by-setting:
 
-    box.pos = c(1, 2, 4, 2, 1)  # 10 boxes
+    box_pos = c(1, 2, 4, 2, 1)  # 10 boxes
 
   } # if (by...)
 
 
   pp <- diagram::plotmat(M, # square coefficient matrix, specifying the links (rows = to, cols = from)
-                         pos = box.pos,  # 7 or 10 boxes
+                         pos = box_pos,  # 7 or 10 boxes
                          curve = 0.0, # no curve (> 0 curve left, < 0 curve right)
                          name = names,
                          relsize	= .98, # a scaling factor for the size of the graph
@@ -1698,7 +1698,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   ##   (A) on left side (adj = 0): ----
 
   ## A1. freq label:
-  freq_lbl <- make_freq_lbl(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr)   # use current freq values
+  freq_lbl <- make_freq_lbl(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr)   # use current freq values
   mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
 
   ## A2. Condition / p(cond) label:
@@ -1719,7 +1719,7 @@ plot_fnet <- function(prev = num$prev,             # probabilities
   if (show_accu) {
 
     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-    cur_accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w_acc)
+    cur_accu <- comp_accu_freq(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr, w = w_acc)
 
     # Note: If freq are NOT rounded, then
     #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
@@ -1764,68 +1764,69 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 
 } # plot_fnet(...) end.
 
-## Check:
-{
+## Check: -----
 
-  # # Plotting existing freq:
-  # plot_fnet()  # => plot current freq with default options
-  # plot_fnet(by = "dccd")
-  # plot_fnet(area = "no")
-  # plot_fnet(p_lbl = "num")
-  # plot_fnet(title_lbl = "")
-  # plot_fnet(N = 33)
-  # plot_fnet(N = NA)
-  #
-  # # Computing and plotting new frequencies from probabilities:
-  # plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
-  # plot_fnet(prev = 1/3, N = 55)
-  # plot_fnet(prev = 1/3, N = NA)
-  # plot_fnet(prev = 1/3, round = FALSE)
-  # plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
-  # plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
-  # plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
-  # plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
-  #
-  # # Perspective options:
-  # plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
-  # plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
-  # plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
-  # plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
-  #
-  # # Area options:
-  # plot_fnet(area = "sq")  # => (default)
-  # plot_fnet(area = "no")
-  # plot_fnet(area = "sq", round = FALSE)
-  # plot_fnet(area = "hr")
-  # plot_fnet(area = "vr", round = FALSE)
-  #
-  # # Combining perspectives, areas, and label options:
-  # plot_fnet(by = "cd", area = "sq", p_lbl = "nam")  # => by condition + squares               + probability names
-  # plot_fnet(by = "cd", area = "hr", p_lbl = "num")  # => by condition + horizontal rectangles + probability numbers
-  # plot_fnet(by = "dc", area = "sq", p_lbl = "num")  # => by decision  + squares               + mix of names and numbers
-  # plot_fnet(by = "dc", area = "vr", p_lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
-  #
-  # # Rounding:
-  # plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p_lbl = "num", round = TRUE)  # => mi = 0
-  # plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p_lbl = "num", round = FALSE) # => mi = 0.3
-  #
-  # # Custom colors and shadows:
-  # plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-  # plot_fnet(area = "sq", col_boxes = "gold", col_border = "steelblue4", col_shadow = "steelblue4", cex_shadow = .008)
-  # plot_fnet(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow", col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
+# # Plotting existing freq:
+# plot_fnet()  # => plot current freq with default options
+# plot_fnet(by = "dccd")
+# plot_fnet(area = "no")
+# plot_fnet(p_lbl = "num")
+# plot_fnet(title_lbl = "")
+# plot_fnet(N = 33)
+# plot_fnet(N = NA)
+#
+# # Computing and plotting new frequencies from probabilities:
+# plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
+# plot_fnet(prev = 1/3, N = 55)
+# plot_fnet(prev = 1/3, N = NA)
+# plot_fnet(prev = 1/3, round = FALSE)
+# plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
+# plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
+# plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
+# plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
+#
+# # Perspective options:
+# plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
+# plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
+# plot_fnet(by = "cddc")  # => 3. Network diagram (1st by condition, 2nd by decision) (default)
+# plot_fnet(by = "dccd")  # => 4. Network diagram (1st by decision, 2nd by condition)
+#
+# # Area options:
+# plot_fnet(area = "sq")  # => (default)
+# plot_fnet(area = "no")
+# plot_fnet(area = "sq", round = FALSE)
+# plot_fnet(area = "hr")
+# plot_fnet(area = "vr", round = FALSE)
+#
+# # Combining perspectives, areas, and label options:
+# plot_fnet(by = "cd", area = "sq", p_lbl = "nam")  # => by condition + squares               + probability names
+# plot_fnet(by = "cd", area = "hr", p_lbl = "num")  # => by condition + horizontal rectangles + probability numbers
+# plot_fnet(by = "dc", area = "sq", p_lbl = "num")  # => by decision  + squares               + mix of names and numbers
+# plot_fnet(by = "dc", area = "vr", p_lbl = "mix")  # => by decision  + vertical rectangles   + minimal labels
+#
+# # Rounding:
+# plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p_lbl = "num", round = TRUE)  # => mi = 0
+# plot_fnet(prev = .10, sens = .70, spec = .90, N = 10, by = "cddc", area = "sq", p_lbl = "num", round = FALSE) # => mi = 0.3
+#
+# # Custom colors and shadows:
+# plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
+# plot_fnet(area = "sq", col_boxes = "gold", col_border = "steelblue4", col_shadow = "steelblue4", cex_shadow = .008)
+# plot_fnet(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow", col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
 
-}
 
 ## (*) Done: -----------
 
 ## - Increase robustness by anticipating and
 ##   correcting common entry errors.         [2018 09 06]
 ## - Clean up code.                          [2018 08 24]
+## - Update argument and variables
+##   to new naming scheme (snake_case).      [2018 11 22]
 
 ## (+) ToDo: -----------
 
 ## - Add a 3rd perspective:
 ##   "by correctness" or correspondence of condition and decision:
 ##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
+## - Replace by newer and better "plot_prism" function!
 
 ## eof. -----------

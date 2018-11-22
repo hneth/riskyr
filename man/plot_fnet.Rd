@@ -109,6 +109,8 @@ Default: \code{title_lbl = txt$scen_lbl}.}
 \item{cex_lbl}{Scaling factor for text labels (in boxes and on arrows).
 Default: \code{cex_lbl = .90}.}
 
+\item{box_cex}{Deprecated argument: Please use \code{cex_lbl} instead.}
+
 \item{col_boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
 
@@ -124,8 +126,6 @@ Default: \code{col_shadow = grey(.11, alpha = .99)}.}
 
 \item{cex_shadow}{Scaling factor of shadows (values > 0 showing shadows).
 Default: \code{cex_shadow = 0}.}
-
-\item{box.cex}{Deprecated argument: Please use \code{cex_lbl} instead.}
 }
 \value{
 Nothing (NULL).
