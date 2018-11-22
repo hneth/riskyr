@@ -860,15 +860,12 @@ dec.cor <- 0  # default frequency of negative decisions
 dec.err <- 0  # default frequency of negative decisions
 
 
-
 ## (*) Done: -----------
 
 ## - Clean up code [2018 09 02].
-
 
 ## (+) ToDo: ----------
 
 ## - ...
 
 ## eof. ------------------------------------------
-
