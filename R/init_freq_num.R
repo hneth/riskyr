@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 09 22
+## 2018 11 22
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -622,11 +622,11 @@ comp_freq_type <- function(fname, cur_txt = txt) {
   # freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
 
   # (b) Using labels defined in cur_txt:
-  freq_types <- c(cur_txt$popu.lbl,
-                  rep(cur_txt$cond.lbl, 2),
-                  rep(cur_txt$dec.lbl, 2),
-                  rep(cur_txt$acc.lbl, 2),
-                  rep(cur_txt$sdt.lbl, 4))
+  freq_types <- c(cur_txt$popu_lbl,
+                  rep(cur_txt$cond_lbl, 2),
+                  rep(cur_txt$dec_lbl, 2),
+                  rep(cur_txt$acc_lbl, 2),
+                  rep(cur_txt$sdt_lbl, 4))
   # freq_types
 
   # (2) Map freq to name in freq_types:
