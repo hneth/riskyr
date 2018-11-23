@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 11 21
+## 2018 11 23
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -506,49 +506,49 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #' @param x An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
 #' Pre-defined \code{\link{scenarios}} are also of type "riskyr".
 #'
-#' @param plot_type The type of plot to be generated.
+#' @param type The type of plot to be generated.
 #'
 #' \enumerate{
 #'
-#'   \item \code{plot_type = "prism"} or \code{plot_type = "net"} or \code{plot_type = "tree"}:
+#'   \item \code{type = "prism"} or \code{type = "net"} or \code{type = "tree"}:
 #'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
 #'   See \code{\link{plot_prism}} for further options.
 #'
-#'   \item \code{plot_type = "area"} or \code{plot_type = "mosaic"}:
+#'   \item \code{type = "area"} or \code{type = "mosaic"}:
 #'   Risk information is plotted as a mosaic plot (scaled area).
 #'   See \code{\link{plot_area}} for further options.
 #'
-#'   \item \code{plot_type = "tab"} or \code{plot_type = "ftab"}:
+#'   \item \code{type = "tab"} or \code{type = "ftab"}:
 #'   Risk information is plotted as a 2x2 frequency or contingency table.
 #'   See \code{\link{plot_tab}} for further options.
 #'
-#'   \item \code{plot_type = "bar"} or \code{plot_type = "fbar"}:
+#'   \item \code{type = "bar"} or \code{type = "fbar"}:
 #'   Risk information is plotted as a bar chart.
 #'   See \code{\link{plot_bar}} for further options.
 #'
-#'   \item \code{plot_type = "icons"} or \code{plot_type = "iconarray"}:
+#'   \item \code{type = "icons"} or \code{type = "iconarray"}:
 #'   The underlying population is plotted as icons.
 #'   See \code{\link{plot_icons}} for further options.
 #'
-#'   \item \code{plot_type = "curve"} or \code{plot_type = "curves"}:
+#'   \item \code{type = "curve"} or \code{type = "curves"}:
 #'   Draws curves of selected values (including \code{\link{PPV}}, \code{\link{NPV}})
 #'   See \code{\link{plot_curve}} for further options.
 #'
-#'   \item \code{plot_type = "plane"} or \code{plot_type = "planes"}:
+#'   \item \code{type = "plane"} or \code{type = "planes"}:
 #'   Draws a 3D-plane of selected values (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}})
 #'   See \code{\link{plot_plane}} for further options.
 #'
 #'   Older plot types (replaced by the above, to be retired):
 #'
-#'   \item \code{plot_type = "onet"} or \code{plot_type = "ofnet"}:
+#'   \item \code{type = "onet"} or \code{type = "ofnet"}:
 #'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
 #'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_fnet}} for further options.
 #'
-#'   \item \code{plot_type = "otree"} or \code{plot_type = "oftree"}:
+#'   \item \code{type = "otree"} or \code{type = "oftree"}:
 #'   Risk information is plotted in a frequency tree.
 #'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_tree}} for further options.
 #'
-#'   \item \code{plot_type = "omosaic"} or \code{plot_type = "omosaicplot"}:
+#'   \item \code{type = "omosaic"} or \code{type = "omosaicplot"}:
 #'   Risk information is plotted as a mosaicplot.
 #'   Replaced by \code{\link{plot_area}}, but see \code{\link{plot_mosaic}} for further options.
 #'
@@ -560,23 +560,23 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #' @examples
 #' # Select a scenario from list of scenarios:
 #' s25 <- scenarios$n25  # select scenario 25 from scenarios
-#' plot(s25)  # default plot (plot_type = "prism")
+#' plot(s25)  # default plot (type = "prism")
 #'
 #' # Plot types currently available:
-#' plot(s25, plot_type = "prism")                # prism/network diagram (default)
-#' plot(s25, plot_type = "tree", by = "cd")      # tree diagram (only 1 perspective)
-#' plot(s25, plot_type = "area")                 # area/mosaic plot
-#' plot(s25, plot_type = "tab")                  # 2x2 frequency/contingency table
-#' plot(s25, plot_type = "bar", dir = 2)         # bar plot
-#' plot(s25, plot_type = "icons")                # icon array
-#' plot(s25, plot_type = "curve", what = "all")  # curves as fn. of prev
-#' plot(s25, plot_type = "plane", what = "NPV")  # plane as function of sens & spec
+#' plot(s25, type = "prism")                # prism/network diagram (default)
+#' plot(s25, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+#' plot(s25, type = "area")                 # area/mosaic plot
+#' plot(s25, type = "tab")                  # 2x2 frequency/contingency table
+#' plot(s25, type = "bar", dir = 2)         # bar plot
+#' plot(s25, type = "icons")                # icon array
+#' plot(s25, type = "curve", what = "all")  # curves as fn. of prev
+#' plot(s25, type = "plane", what = "NPV")  # plane as function of sens & spec
+#' plot(s25, type = "default")              # unknown type: use default plot
 #'
 #' # Older plot types (obsolete):
-#' plot(s25, plot_type = "onet")     # plot_fnet (replaced by plot_prism)
-#' plot(s25, plot_type = "otree")    # plot_tree (replaced by plot_prism)
-#' plot(s25, plot_type = "omosaic")  # plot_mosaic (replaced by plot_area)
-#'
+#' plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
+#' plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
+#' plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
 #'
 #' @family visualization functions
 #'
@@ -585,15 +585,19 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 ## plot.riskyr Definition: ------
 
 plot.riskyr <- function(x = NULL,  # require riskyr scenario
-                        plot_type = "network",  # default plot_type
+                        type = "network",  # default type
                         ...        # other type and display parameters in plot_XXX().
 ) {
 
   ## Note: Most other functions (except for plot_icons) currently lack the ellipsis.
   ## Therefore, these functions will throw an exception when unnecessary parameters are passed.
 
-  ## Test plot_type argument:
-  if (!plot_type %in% c(# plot_prism:
+  ## Increase robustness: ----------
+
+  type <- tolower(type)  # ensure lowercase
+
+  ## Test type argument:
+  if (!type %in% c(# plot_prism:
     "prism", "fprism", "tree", "ftree", "net", "fnet", "network",
     "onet", "ofnet",    # old: plot_fnet
     "otree", "oftree",  # old: plot_tree
@@ -610,12 +614,11 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
     "curve", "curves",
     # plot_plane:
     "plane", "planes", "cube")) {
-    stop("Unknown plot_type specified in plot.riskyr.")
+
+    message("Unknown plot type (in plot.riskyr): Using type = 'prism'.")
+    type <- "prism"
+
   }
-
-  ## Increase robustness: ----------
-
-  plot_type <- tolower(plot_type)  # ensure lowercase
 
   ## Use lbl info of scenario x for current txt information: ----------
 
@@ -630,41 +633,8 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   ## Plotting functions: ----------
 
-  ## Prism plot:
-  if ((substr(plot_type, 1, 5) == "prism") || (plot_type == "fprism") ||
-      (substr(plot_type, 1, 3) == "net") || (substr(plot_type, 1, 4) == "fnet") ||
-      (substr(plot_type, 1, 4) == "tree") ||  (substr(plot_type, 1, 5) == "ftree")) {
-
-    plot_prism(prev = x$prev,
-               sens = x$sens, mirt = NA,
-               spec = x$spec, fart = NA,
-               N = x$N,
-               ## Options:
-               lbl_txt = x_txt,
-               title_lbl = x$scen_lbl,
-               ...
-    )
-
-  } # if (plot_type == "prism")
-
-  ## Area / mosaic plot:
-  if ((substr(plot_type, 1, 4) == "area") || (plot_type == "farea") ||
-      (substr(plot_type, 1, 6) == "mosaic")) {  # "mosaic"
-
-    plot_area(prev = x$prev,
-              sens = x$sens, mirt = NA,
-              spec = x$spec, fart = NA,
-              N = x$N,
-              ## Options:
-              lbl_txt = x_txt,
-              title_lbl = x$scen_lbl,
-              ...
-    )
-
-  } # if (plot_type == "area")
-
-  ## Table / contingency/confusion/frequency table / tab plot:
-  if ((substr(plot_type, 1, 3) == "tab") || (plot_type == "ftab") || (plot_type == "ctab")) {
+  ## (1) Table / contingency/confusion/frequency table / tab plot:
+  if ((substr(type, 1, 3) == "tab") || (type == "ftab") || (type == "ctab")) {
 
     plot_tab(prev = x$prev,
              sens = x$sens, mirt = NA,
@@ -676,10 +646,99 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
              ...
     )
 
-  } # if (plot_type == "tab")
+  } # if (type == "tab")
 
-  ## old frequency network/net/fnet:
-  if (((substr(plot_type, 1, 4)) == "onet") || (substr(plot_type, 1, 5) == "ofnet")) {
+  ## (2) Area / mosaic plot:
+  if ((substr(type, 1, 4) == "area") || (type == "farea") ||
+      (substr(type, 1, 6) == "mosaic")) {  # "mosaic"
+
+    plot_area(prev = x$prev,
+              sens = x$sens, mirt = NA,
+              spec = x$spec, fart = NA,
+              N = x$N,
+              ## Options:
+              lbl_txt = x_txt,
+              title_lbl = x$scen_lbl,
+              ...
+    )
+
+  } # if (type == "area")
+
+  ## (3) Icon array
+  if (substr(type, 1, 4) == "icon") {
+
+    plot_icons(prev = x$prev,             # probabilities
+               sens = x$sens, mirt = NA,
+               spec = x$spec, fart = NA,  # was: num$fart,
+               N = x$N,    # ONLY freq used (so far)
+               ## Options:
+               title_lbl = x$scen_lbl,
+               type_lbls = x[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
+               ...
+    )
+
+  } #  if (type == "icon")
+
+  ## (4) Prism plot:
+  if ((substr(type, 1, 5) == "prism") || (substr(type, 1, 6) == "fprism") ||
+      (substr(type, 1, 3) == "net")   || (substr(type, 1, 4) == "fnet")   ||
+      (substr(type, 1, 4) == "tree")  || (substr(type, 1, 5) == "ftree")) {
+
+    plot_prism(prev = x$prev,
+               sens = x$sens, mirt = NA,
+               spec = x$spec, fart = NA,
+               N = x$N,
+               ## Options:
+               lbl_txt = x_txt,
+               title_lbl = x$scen_lbl,
+               ...
+    )
+
+  } # if (type == "prism")
+
+  ## (5) Bar plot / frequency bars:
+  if ((substr(type, 1, 3) == "bar") || (substr(type, 1, 4) == "fbar")) {
+
+    plot_bar(prev = x$prev,
+             sens = x$sens, mirt = NA,
+             spec = x$spec, fart = NA,
+             N = x$N,
+             ## Options:
+             lbl_txt = x_txt,
+             title_lbl = x$scen_lbl,
+             ...
+    )
+
+  } # if (type == "bar")
+
+  ## (6) Curve of probabilities:
+  if (substr(type, 1, 5) == "curve") {
+
+    plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
+               sens = x$sens, mirt = NA,
+               spec = x$spec, fart = NA,
+               ## Options:
+               title_lbl = x$scen_lbl,
+               ...
+    )
+  } # if (type == "curve")
+
+  ## (7) Plane/cube of probabilities:
+  if ((substr(type, 1, 5) == "plane") || (substr(type, 1, 4) == "cube")) {
+
+    plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
+               sens = x$sens, mirt = NA,
+               spec = x$spec, fart = NA,
+               ## Options:
+               title_lbl = x$scen_lbl, # plot title label
+               ...
+    )
+  } # if (type == "plane")
+
+  ## OLDER plotting functions: -----
+
+  ## (8) old frequency network/net/fnet:
+  if (((substr(type, 1, 4)) == "onet") || (substr(type, 1, 5) == "ofnet")) {
 
     plot_fnet(prev = x$prev,
               sens = x$sens, mirt = NA,
@@ -697,10 +756,10 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
               ...
     )
 
-  } # if (plot_type == "old network")
+  } # if (type == "old network")
 
-  ## old frequency tree:
-  if ((plot_type == "otree") || (plot_type == "oftree")) {
+  ## (9) old frequency tree:
+  if ((type == "otree") || (type == "oftree")) {
 
     plot_tree(prev = x$prev,             # probabilities
               sens = x$sens, mirt = NA,
@@ -718,10 +777,10 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
               ...
     )
 
-  } #  if (plot_type == "otree")
+  } #  if (type == "otree")
 
-  ## old mosaic plot:
-  if (substr(plot_type, 1, 7) == "omosaic") {
+  ## (10) old mosaic plot:
+  if (substr(type, 1, 7) == "omosaic") {
     plot_mosaic(prev = x$prev,
                 sens = x$sens, mirt = NA,
                 spec = x$spec, fart = NA,
@@ -730,104 +789,49 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
                 title_lbl = x$scen_lbl,
                 ...)
 
-  } # if (plot_type == "omosaic")
-
-  ## Icon array
-  if (substr(plot_type, 1, 4) == "icon") {
-
-    plot_icons(prev = x$prev,             # probabilities
-               sens = x$sens, mirt = NA,
-               spec = x$spec, fart = NA,  # was: num$fart,
-               N = x$N,    # ONLY freq used (so far)
-               ## Options:
-               title_lbl = x$scen_lbl,
-               type_lbls = x[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
-               ...
-    )
-
-  } #  if (plot_type == "icon")
-
-  ## Bar plot / frequency bars:
-  if ((substr(plot_type, 1, 3) == "bar") || (substr(plot_type, 1, 4) == "fbar")) {
-
-    plot_bar(prev = x$prev,
-             sens = x$sens, mirt = NA,
-             spec = x$spec, fart = NA,
-             N = x$N,
-             ## Options:
-             lbl_txt = x_txt,
-             title_lbl = x$scen_lbl,
-             ...
-    )
-
-  } # if (plot_type == "bar")
-
-  ## Curve of probabilities:
-  if (substr(plot_type, 1, 5) == "curve") {
-
-    plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
-               sens = x$sens, mirt = NA,
-               spec = x$spec, fart = NA,
-               ## Options:
-               title_lbl = x$scen_lbl,
-               ...
-    )
-  } # if (plot_type == "curve")
-
-  ## Plane/cube of probabilities:
-  if ((substr(plot_type, 1, 5) == "plane") || (plot_type == "cube")) {
-
-    plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
-               sens = x$sens, mirt = NA,
-               spec = x$spec, fart = NA,
-               ## Options:
-               title_lbl = x$scen_lbl, # plot title label
-               ...
-    )
-  } # if (plot_type == "plane")
+  } # if (type == "omosaic")
 
 }
 
-
 ## Check: ------
 ## (A) with example scenarios (defined above):
-# plot(scenario2, plot_type = "icons")
-# plot(scenario3, plot_type = "tree")
+# plot(scenario2, type = "icons")
+# plot(scenario3, type = "tree")
 
 ## (B) with scenarios from scenarios (defined BELOW):
 #
 # s25 <- scenarios$n25  # select Scenario 25 from scenarios
 #
 # plot(s25)  # => default plot (prism/net)
-# plot(s25, plot_type = "ofnet")  # => old network diagram (old default)
-# plot(s25, plot_type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-# plot(s25, plot_type = "icons")
-# plot(s25, plot_type = "icons", type = "mosaic")  # passing on additional parameters.
-# plot(s25, plot_type = "curve", what = "all")
-# plot(s25, plot_type = "plane", what = "npv")
-# # plot(s25, plot_type = "wetwork")
+# plot(s25, type = "ofnet")  # => old network diagram (old default)
+# plot(s25, type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+# plot(s25, type = "icons")
+# plot(s25, type = "icons", type = "mosaic")  # passing on additional parameters.
+# plot(s25, type = "curve", what = "all")
+# plot(s25, type = "plane", what = "npv")
+# plot(s25, type = "wetwork")
 #
 # New plots:
-# plot(s25, plot_type = "prism", by = "cddc", f_lbl = "num")
-# plot(s25, plot_type = "tree", by = "ac", f_lbl = "num")
-# plot(s25, plot_type = "area", by = "cddc")
-# plot(s25, plot_type = "tab", by = "cddc", f_lwd = 2)
-# plot(s25, plot_type = "bar", dir = 2)
+# plot(s25, type = "prism", by = "cddc", f_lbl = "num")
+# plot(s25, type = "tree", by = "ac", f_lbl = "num")
+# plot(s25, type = "area", by = "cddc")
+# plot(s25, type = "tab", by = "cddc", f_lwd = 2)
+# plot(s25, type = "bar", dir = 2)
 #
 # # Plot types currently available:
-# plot(s25, plot_type = "prism")                # prism/network diagram (default)
-# plot(s25, plot_type = "tree", by = "cd")      # tree diagram (only 1 perspective)
-# plot(s25, plot_type = "area")                 # area/mosaic plot
-# plot(s25, plot_type = "tab")                  # 2x2 frequency/contingency table
-# plot(s25, plot_type = "bar", dir = 2)         # bar plot
-# plot(s25, plot_type = "icons")                # icon array
-# plot(s25, plot_type = "curve", what = "all")  # curves as fn. of prev
-# plot(s25, plot_type = "plane", what = "NPV")  # plane as function of sens & spec
+# plot(s25, type = "prism")                # prism/network diagram (default)
+# plot(s25, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+# plot(s25, type = "area")                 # area/mosaic plot
+# plot(s25, type = "tab")                  # 2x2 frequency/contingency table
+# plot(s25, type = "bar", dir = 2)         # bar plot
+# plot(s25, type = "icons")                # icon array
+# plot(s25, type = "curve", what = "all")  # curves as fn. of prev
+# plot(s25, type = "plane", what = "NPV")  # plane as function of sens & spec
 #
 # # Older plot types (obsolete):
-# plot(s25, plot_type = "onet")     # plot_fnet (replaced by plot_prism)
-# plot(s25, plot_type = "otree")    # plot_tree (replaced by plot_prism)
-# plot(s25, plot_type = "omosaic")  # plot_mosaic (replaced by plot_area)
+# plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
+# plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
+# plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
 
 
 ## 2. summary.riskyr function: ------------------
@@ -1080,8 +1084,8 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 # ## (c) Visualization:
 # plot(s25)  # => default plot (fnet)
-# plot(s25, plot_type = "icons")
-# plot(s25, plot_type = "curve")
+# plot(s25, type = "icons")
+# plot(s25, type = "curve")
 
 
 ## Example 2: PSA screening ----------------
@@ -1091,10 +1095,10 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(scenarios$n21)
 
 ## Visualization:
-# plot(scenarios$n21, plot_type = "tree", area = "sq")
-# plot(scenarios$n21, plot_type = "icons")
-# plot(scenarios$n21, plot_type = "curves", what = "all")
-# plot(scenarios$n21, plot_type = "planes", what = "PPV")
+# plot(scenarios$n21, type = "tree", area = "sq")
+# plot(scenarios$n21, type = "icons")
+# plot(scenarios$n21, type = "curves", what = "all")
+# plot(scenarios$n21, type = "planes", what = "PPV")
 
 ## Contrast with lower prevalence version:
 
@@ -1102,10 +1106,10 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(scenarios$n22)
 
 ## Visualization:
-# plot(scenarios$n22, plot_type = "tree", area = "sq")
-# plot(scenarios$n22, plot_type = "icons")
-# plot(scenarios$n22, plot_type = "curves", what = "all")
-# plot(scenarios$n22, plot_type = "planes", what = "PPV")
+# plot(scenarios$n22, type = "tree", area = "sq")
+# plot(scenarios$n22, type = "icons")
+# plot(scenarios$n22, type = "curves", what = "all")
+# plot(scenarios$n22, type = "planes", what = "PPV")
 
 
 ## Example 3: Bowel cancer (FOB screening): ------
@@ -1118,13 +1122,13 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(s20, summarize = "freq")
 
 ## Visualization:
-# plot(s20, plot_type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-# plot(s20, plot_type = "curve", what = "all")
-# plot(s20, plot_type = "icons")
-# plot(s20, plot_type = "icons", type = "mosaic")  # passing on additional parameters.
-# plot(s20, plot_type = "mosaic")
-# plot(s20, plot_type = "plane", what = "NPV")
-## plot(s20, plot_type = "wetwork")
+# plot(s20, type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
+# plot(s20, type = "curve", what = "all")
+# plot(s20, type = "icons")
+# plot(s20, type = "icons", type = "mosaic")  # passing on additional parameters.
+# plot(s20, type = "mosaic")
+# plot(s20, type = "plane", what = "NPV")
+## plot(s20, type = "wetwork")
 
 ## (*) Done: ----------
 
@@ -1132,7 +1136,8 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 ## (+) ToDo: ----------
 
-## - allow riskyr() to take all kinds of inputs,
-##   so that a full object is created.
+## - allow riskyr() to take different kinds of inputs (prob, freq, ...),
+##   until a full object is created.
+## - allow incomplete riskyr scenarios (e.g., 1 branch of tree)
 
 ## eof. ------------------------------------------
