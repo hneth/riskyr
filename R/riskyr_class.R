@@ -879,8 +879,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 #' for frequencies, probabilities, and accuracy respectively.
 #' The default "all" is an alias to all three.
 #'
-#' @param ... Additional parameters to be passed to the
-#' underlying summary functions.
+#' @param ... Additional parameters (to be passed to summary functions).
 #'
 #' @examples
 #' summary(scenarios$n4)
@@ -990,7 +989,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #'
 #' @param x An object of class "summary.riskyr", usually a result of a call to \code{summary.riskyr}.
 #'
-#' @param ... Additional parameters to be passed to the generic print function.
+#' @param ... Additional parameters (to be passed to generic print function).
 #'
 #' @examples
 #' summary(scenarios$n4)
@@ -1184,13 +1183,15 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #' @param fa_lbl Variable label of cases classified as fa (FP).
 #' @param cr_lbl Variable label of cases classified as cr (TN).
 #'
+#' @param ... Additional parameters (to be passed to \code{\link{riskyr}} function).
+#'
 #' @examples
 #' ## Generating and interpreting different scenario types:
 #'
 #' # (A) Diagnostic/screening scenario (using default labels): ------
 #' popu_diag <- comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)
 #' # popu_diag
-#' scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostic scenario", popu_lbl = "Population tested")
+#' scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostics", popu_lbl = "Population tested")
 #' plot(scen_diag, type = "prism", area = "no", f_lbl = "namnum")
 #'
 #' # (B) Intervention/treatment scenario: ------
@@ -1198,7 +1199,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #'                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
 #'                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
 #' # popu_treat
-#' scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment scenario", popu_lbl = "Population treated")
+#' scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
 #' plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
 #' plot(scen_treat, type = "icon")
 #'
@@ -1207,14 +1208,15 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #'                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
 #'                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
 #' # popu_vacc
-#' scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention scenario", popu_lbl = "Population vaccinated")
+#' scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 #' plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
 #'
 #' @family riskyr scenario functions
 #'
 #' @seealso
 #' the corresponding data frame \code{\link{popu}};
-#' the corresponding generating function \code{\link{comp_popu}}.
+#' the corresponding generating function \code{\link{comp_popu}};
+#' main \code{\link{riskyr}} function.
 #'
 #' @export
 
@@ -1262,7 +1264,7 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 # # (A) Diagnostic/screening scenario (using default labels): ------
 # popu_diag <- comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)
 # # popu_diag
-# scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostic scenario", popu_lbl = "Population tested")
+# scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostics", popu_lbl = "Population tested")
 # plot(scen_diag, type = "prism", area = "no", f_lbl = "namnum")
 #
 # # (B) Intervention/treatment scenario: ------
@@ -1270,7 +1272,7 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 #                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
 #                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
 # # popu_treat
-# scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment scenario", popu_lbl = "Population treated")
+# scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
 # plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
 # plot(scen_treat, type = "icon")
 #
@@ -1279,7 +1281,7 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 #                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
 #                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
 # # popu_vacc
-# scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention scenario", popu_lbl = "Population vaccinated")
+# scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 # plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
 
 
