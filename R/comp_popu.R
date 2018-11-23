@@ -25,7 +25,6 @@
 #' contained in \code{\link{popu}}
 #' is provided by \code{plot_icon}.
 #'
-#'
 #' @format An object of class \code{data.frame}
 #' with \code{\link{N}} rows
 #' and 3 columns (\code{"Truth", "Decision", "SDT"}).
@@ -36,15 +35,20 @@
 #' encoded as ordered factors
 #' (with 2, 2, and 4 levels, respectively).
 #'
-#' @param hi  The number of hits \code{\link{hi}} (or true positives).
-#' @param mi  The number of misses \code{\link{mi}} (or false negatives).
-#' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
-#' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#' @param hi The number of hits \code{\link{hi}} (or true positives).
+#' @param mi The number of misses \code{\link{mi}} (or false negatives).
+#' @param fa The number of false alarms \code{\link{fa}} (or false positives).
+#' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
+#' @param cond_lbl Text label for condition dimension ("by cd" perspective).
 #' @param cond.true_lbl Text label for \code{\link{cond.true}} cases.
 #' @param cond.false_lbl Text label for \code{\link{cond.false}} cases.
+#'
+#' @param dec_lbl Text label for decision dimension ("by dc" perspective).
 #' @param dec.pos_lbl Text label for \code{\link{dec.pos}} cases.
 #' @param dec.neg_lbl Text label for \code{\link{dec.neg}} cases.
+#'
+#' @param sdt_lbl Text label for 4 cases/combinations (SDT classifications).
 #' @param hi_lbl Text label for \code{\link{hi}} cases.
 #' @param mi_lbl Text label for \code{\link{mi}} cases.
 #' @param fa_lbl Text label for \code{\link{fa}} cases.
@@ -197,13 +201,11 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' A visualization of the current population
 #' \code{popu} is provided by \code{\link{plot_icons}}.
 #'
-#'
 #' @return A data frame \code{popu}
 #' containing \code{\link{N}} rows (individual cases)
 #' and 3 columns (\code{"Truth", "Decision", "SDT"})
 #' encoded as ordered factors
 #' (with 2, 2, and 4 levels, respectively).
-#'
 #'
 #' @examples
 #' popu <- comp_popu()  # => initializes popu with current values of freq and txt

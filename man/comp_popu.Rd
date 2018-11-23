@@ -23,13 +23,19 @@ comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
 
 \item{cr}{The number of correct rejections \code{\link{cr}} (or true negatives).}
 
+\item{cond_lbl}{Text label for condition dimension ("by cd" perspective).}
+
 \item{cond.true_lbl}{Text label for \code{\link{cond.true}} cases.}
 
 \item{cond.false_lbl}{Text label for \code{\link{cond.false}} cases.}
 
+\item{dec_lbl}{Text label for decision dimension ("by dc" perspective).}
+
 \item{dec.pos_lbl}{Text label for \code{\link{dec.pos}} cases.}
 
 \item{dec.neg_lbl}{Text label for \code{\link{dec.neg}} cases.}
+
+\item{sdt_lbl}{Text label for 4 cases/combinations (SDT classifications).}
 
 \item{hi_lbl}{Text label for \code{\link{hi}} cases.}
 
