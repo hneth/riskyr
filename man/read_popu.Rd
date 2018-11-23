@@ -2,7 +2,7 @@
 % Please edit documentation in R/riskyr_class.R
 \name{read_popu}
 \alias{read_popu}
-\title{Printing summarized risk information.}
+\title{Read a population (given as data frame) into a riskyr scenario.}
 \usage{
 read_popu(df = popu, ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,
   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
@@ -39,7 +39,7 @@ An object of class "riskyr" describing a risk-related scenario.
 \description{
 \code{read_popu} interprets a data frame \code{df}
 (that contains individual observations of some population)
-and returns a scenario of class "riskyr".
+and returns a scenario of class \code{"riskyr"}.
 }
 \details{
 Note that \code{df} needs to be structured according to
@@ -78,7 +78,6 @@ the corresponding generating function \code{\link{comp_popu}};
 main \code{\link{riskyr}} function.
 
 Other riskyr scenario functions: \code{\link{plot.riskyr}},
-  \code{\link{print.summary.riskyr}}, \code{\link{riskyr}},
-  \code{\link{summary.riskyr}}
+  \code{\link{riskyr}}, \code{\link{summary.riskyr}}
 }
 \concept{riskyr scenario functions}

@@ -151,7 +151,6 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 }
 \seealso{
 Other riskyr scenario functions: \code{\link{plot.riskyr}},
-  \code{\link{print.summary.riskyr}},
   \code{\link{read_popu}}, \code{\link{summary.riskyr}}
 }
 \concept{riskyr scenario functions}
