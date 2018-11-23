@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 11 21
+## 2018 11 23
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -242,10 +242,14 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   ## (4) Mosaic plot: ----------
 
+  # cur_names <- names(cur_popu)
+  # by_cd <- cur_names[1] # Condition
+  # by_dc <- cur_names[2] # Decision
+
   if (by == "cd") {
 
     ## (a) by condition (vertical split 1st):
-    vcd::mosaic(Decision ~ Truth, data = cur_popu,
+    vcd::mosaic(Decision ~ Condition, data = cur_popu,
                 shade = TRUE, colorize = TRUE,
                 split_vertical = TRUE,
                 gp = grid::gpar(fill = matrix(data = col_sdt, nrow = 2, ncol = 2, byrow = TRUE)),
@@ -259,7 +263,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
   else if (by == "dc") {
 
     ## (b) by decision (horizontal split 1st):
-    vcd::mosaic(Truth ~ Decision, data = cur_popu,
+    vcd::mosaic(Condition ~ Decision, data = cur_popu,
                 shade = TRUE, colorize = TRUE,
                 split_vertical = FALSE,
                 gp = grid::gpar(fill = matrix(data = col_sdt, nrow = 2, ncol = 2, byrow = FALSE)),
