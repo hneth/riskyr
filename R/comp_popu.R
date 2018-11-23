@@ -1,13 +1,11 @@
 ## comp_popu.R | riskyr
-## 2018 11 21
+## 2018 11 23
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]
 ##   b. the 4 essential frequencies of freq (hi mi fa cr)
 ##   c. the current text labels of txt
 ## -----------------------------------------------
-
-
 
 ## (1) Compute current population (popu): --------
 
@@ -53,17 +51,28 @@
 #' @param cr_lbl Text label for \code{\link{cr}} cases.
 #'
 #' @examples
-#' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
-#'
 #' popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 #' dim(popu)            # => N x 3
-#' head(popu)           # => shows head of data frame
+#' head(popu)
 #'
+#' # (A) Diagnostic/screening scenario (using default labels):
+#' comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases.
+#'
+#' # (B) Intervention/treatment scenario:
+#' comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
+#'           cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
+#'           dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#'
+#' # (C) Prevention scenario (e.g., vaccination):
+#' comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
+#'           cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
+#'           dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
 #'
 #' @family functions computing frequencies
 #'
 #' @seealso
-#' The corresponding data frame \code{\link{popu}};
+#' the corresponding data frame \code{\link{popu}};
+#' \code{\link{read_popu}} interprets a data frame as a riskyr scenario;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings;
@@ -77,11 +86,10 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       mi = freq$mi,
                       fa = freq$fa,
                       cr = freq$cr,
-                      ## text labels (from txt): ##
-                      cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
-                      dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
-                      hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
-                      fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
+                      ## text labels (from txt):
+                      cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
+                      dec_lbl = txt$dec_lbl, dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+                      sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond.true  <- (hi + fa)
@@ -113,22 +121,25 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
-                     levels = c(TRUE, FALSE),                 # also as Booleans, NOT: (-1, +1) or (0, 1)
+                     levels = c(TRUE, FALSE),              # also as Booleans, NOT: (-1, +1) or (0, 1)
                      labels = c(dec.pos_lbl, dec.neg_lbl), # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
   ## (c) SDT (status decision/truth):
   sdt <- factor(sdt,
-                levels = c("hi", "mi", "fa", "cr"),                         # as character: 4 cases
-                labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl), # explicit labels: "TP", "FN", "FP", "TN"
-                # labels = c("hi", "mi", "fa", "cr"), # implicit labels
+                levels = c("hi", "mi", "fa", "cr"),         # as character: 4 cases
+                labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl), # explicit labels (e.g., "TP", "FN", "FP", "TN")
+                # labels = c("hi", "mi", "fa", "cr"),       # implicit labels
                 ordered = TRUE)
 
   ## (3) Combine 3 vectors in a population data frame pop:
   popu <- data.frame(truth = truth,
                      decision = decision,
                      sdt = sdt)
-  names(popu) <- c("Truth", "Decision", "STD")
+
+  ## (4) Name variables (by labels of dimensions):
+  # names(popu) <- c("Truth", "Decision", "STD")
+  names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)
 
   ## (4) Return the entire data frame pop:
   return(popu)
@@ -136,8 +147,22 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 }
 
 ## Check: --------
-
+# popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
+# dim(popu)            # => N x 3
+# head(popu)
+#
+# # (A) Diagnostic/screening scenario (using default labels):
 # comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases.
+#
+# # (B) Intervention/treatment scenario:
+# comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
+#           cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
+#           dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#
+# # (C) Prevention scenario (e.g., vaccination):
+# comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
+#           cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
+#           dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
 
 
 ## (2) Apply to initialize popu (as data frame): ----------
@@ -186,7 +211,8 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' head(popu)           # => shows head of data frame
 #'
 #' @seealso
-#' The corresponding generating function \code{\link{comp_popu}};
+#' the corresponding generating function \code{\link{comp_popu}};
+#' \code{\link{read_popu}} interprets a data frame as a riskyr scenario;
 #' \code{\link{num}} for basic numeric parameters;
 #' \code{\link{freq}} for current frequency information;
 #' \code{\link{txt}} for current text settings.
@@ -203,6 +229,7 @@ popu <- NULL        # initialize
 # dim(popu)
 # head(popu)
 # tail(popu)
+
 
 ## (*) Done: -----------
 
