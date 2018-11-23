@@ -33,11 +33,9 @@
 #' are used and returned.
 #'
 #' @format An object of class "riskyr"
-#' with 21 entries on textual and numeric information on
-#' a riskyr scenario.
+#' with 21 entries of textual and numeric information describing a risk-related scenario.
 #'
-#' @return A list \code{object} of class "riskyr"
-#' containing information on a risky scenario.
+#' @return An object of class "riskyr" describing a risk-related scenario.
 #'
 #' Text elements (all elements of \code{\link{txt}}:
 #'
@@ -62,6 +60,7 @@
 #' @param dec.neg_lbl A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
+#' @param sdt_lbl A name for the combination of \emph{condition} and \emph{decision} currently made.
 #' @param hi_lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 #' @param mi_lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
@@ -112,6 +111,7 @@
 #'                         dec_lbl = "test result",
 #'                         dec.pos_lbl = "will reoffend",
 #'                         dec.neg_lbl = "will not reoffend",
+#'                         sdt_lbl = "combination",
 #'                         hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
 #'                         fa_lbl = "false accusation", cr_lbl = "correct release",
 #'                         prev = .45,  # prevalence of being a reoffender.
@@ -137,6 +137,8 @@
 #' # riskyr(hi = 25, mi = 25, fa = 25, cr = 25, N = 101)  # warns, uses actual sum of freq
 #' # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 #'
+#' @family riskyr scenario functions
+#'
 #' @export
 
 ## riskyr Definition: ------
@@ -148,6 +150,7 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
                    cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
                    dec_lbl = txt$dec_lbl,
                    dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+                   sdt_lbl = txt$sdt_lbl,
                    hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
                    fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
                    prev = NA,
@@ -284,6 +287,7 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
                  popu_lbl = popu_lbl, cond_lbl = cond_lbl,
                  cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
                  dec_lbl = dec_lbl, dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+                 sdt_lbl = sdt_lbl,
                  hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
                  prev = probs[1],
                  sens = probs[2],
@@ -319,7 +323,6 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
 # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warn: use freq
 
 ## Check incomplete or inconsistent entries:
-## +++ here now +++
 ## riskyr(prev = NA, hi = NA)
 
 ## Compare with df_scenarios:
@@ -554,8 +557,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #'
 #' }
 #'
-#' @param ... Additional parameters to be passed to the
-#' underlying plotting functions.
+#' @param ... Additional parameters to be passed to the underlying plotting functions.
 #'
 #' @examples
 #' # Select a scenario from list of scenarios:
@@ -579,6 +581,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #' plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
 #'
 #' @family visualization functions
+#' @family riskyr scenario functions
 #'
 #' @export
 
@@ -623,9 +626,26 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
   ## Use lbl info of scenario x for current txt information: ----------
 
   x_txt <- init_txt(scen_lbl = x$scen_lbl,
+                    scen_txt = x$scen_txt,
+                    scen_src = x$scen_src,
+                    scen_apa = x$scen_apa,
+                    scen_lng = x$scen_lng,
+
                     popu_lbl = x$popu_lbl,
+
                     cond_lbl = x$cond_lbl,
+                    cond.true_lbl = x$cond.true_lbl,
+                    cond.false_lbl = x$cond.false_lbl,
+
                     dec_lbl  = x$dec_lbl,
+                    dec.pos_lbl = x$dec.pos_lbl,
+                    dec.neg_lbl = x$dec.neg_lbl,
+
+                    acc_lbl = x$acc_lbl,
+                    dec.cor_lbl = x$dec.cor_lbl,
+                    dec.err_lbl = x$dec.err_lbl,
+
+                    sdt_lbl = x$sdt_lbl,
                     hi_lbl = x$hi_lbl,
                     mi_lbl = x$mi_lbl,
                     fa_lbl = x$fa_lbl,
@@ -844,8 +864,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 #'
 #' \code{summary.riskyr} provides a \code{summary} method for objects of class "riskyr".
 #'
-#' @format An object of class \code{summary.riskyr}
-#' with up to 9 entries.
+#' @format An object of class \code{summary.riskyr} with up to 9 entries.
 #'
 #' @return A summary list \code{obj.sum}
 #' with up to 9 entries, dependent on which information is requested by \code{summarize}.
@@ -867,6 +886,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 #' summary(scenarios$n4)
 #'
 #' @family summary functions
+#' @family riskyr scenario functions
 #'
 #' @export
 
@@ -976,6 +996,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #' summary(scenarios$n4)
 #'
 #' @family print functions
+#' @family riskyr scenario functions
 #'
 #' @export
 
@@ -1065,14 +1086,14 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # summary(scenario2, summarize = "accu")
 
 
-## (C) Demo: Typical user interaction / session: -------
+## (C) Demo: Typical user interaction / session: ----------
 
-## 1. Defining and viewing your own scenario: -----
+## 1. Defining and viewing your own scenario: -----------
 ## see Vignette of riskyr primer
 
-## 2. Exporing pre-defined scenarios: ------------
+## 2. Exporing pre-defined scenarios: -----------
 
-## Example 1: Mammography screening (standard example) ------
+## Example 1: Mammography screening (standard example) -----
 ## Source: Hoffrage et al. (2015), p. 3
 
 # ## (a) Choosing a scenario
@@ -1088,7 +1109,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # plot(s25, type = "curve")
 
 
-## Example 2: PSA screening ----------------
+## Example 2: PSA screening ------
 ## Source: Arkes & Gaissmaier (2012), p. 550
 
 ## Overview:
@@ -1129,6 +1150,135 @@ print.summary.riskyr <- function(x = NULL, ...) {
 # plot(s20, type = "mosaic")
 # plot(s20, type = "plane", what = "NPV")
 ## plot(s20, type = "wetwork")
+
+
+## (3) Read riskyr scenario from a population (popu, given as data frame) ----------
+
+## read_popu: Documentation: ------
+
+#' Printing summarized risk information.
+#'
+#' \code{read_popu} interprets a data frame \code{df}
+#' (that contains individual observations of some population)
+#' and returns a scenario of class "riskyr".
+#'
+#' Note that \code{df} needs to be structured according to
+#' the \code{\link{popu}} created by \code{\link{comp_popu}}.
+#'
+#' @return An object of class "riskyr" describing a risk-related scenario.
+#'
+#' @param df A data frame providing a population \code{\link{popu}}
+#' of individuals, which are identified on at least
+#' 2 binary variables and classified into 4 cases in a 3rd variable.
+#'
+#' @param ix_by_top Index of variable (column) providing the 1st (top) perspective (in df).
+#' @param ix_by_bot Index of variable (column) providing the 2nd (bot) perspective (in df).
+#' @param ix_sdt    Index of variable (column) providing a classification into 4 cases (in df).
+#'
+#' @param hi_lbl Variable label of cases classified as hi (TP).
+#' @param mi_lbl Variable label of cases classified as mi (FN).
+#' @param fa_lbl Variable label of cases classified as fa (FP).
+#' @param cr_lbl Variable label of cases classified as cr (TN).
+#'
+#'
+#' @examples
+#' ## Generating and interpreting different scenario types:
+#'
+#' # (A) Diagnostic/screening scenario (using default labels): ------
+#' popu_diag <- comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)
+#' # popu_diag
+#' scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostic scenario", popu_lbl = "Population tested")
+#' plot(scen_diag, type = "prism", area = "no", f_lbl = "namnum")
+#'
+#' # (B) Intervention/treatment scenario: ------
+#' popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
+#'                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
+#'                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#' # popu_treat
+#' scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment scenario", popu_lbl = "Population treated")
+#' plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
+#' plot(scen_treat, type = "icon")
+#'
+#' # (C) Prevention scenario (e.g., vaccination): ------
+#' popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
+#'                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
+#'                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+#' # popu_vacc
+#' scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention scenario", popu_lbl = "Population vaccinated")
+#' plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
+#'
+#' @family riskyr scenario functions
+#'
+#' @seealso
+#' the corresponding data frame \code{\link{popu}};
+#' the corresponding generating function \code{\link{comp_popu}}.
+#'
+#' @export
+
+## read_popu: Definition ----------
+
+read_popu <- function(df,                                        # df (as population with 3+ columns, see comp_popu)
+                      ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,  # column indices of by_top, by_bot, and sdt variables in df
+                      # text labels (from txt):
+                      hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
+                      ...) {
+
+  sdt_cases <- df[ , ix_sdt]
+
+  n_hi <- length(sdt_cases[sdt_cases == hi_lbl])
+  n_mi <- length(sdt_cases[sdt_cases == mi_lbl])
+  n_fa <- length(sdt_cases[sdt_cases == fa_lbl])
+  n_cr <- length(sdt_cases[sdt_cases == cr_lbl])
+
+  # Labels:
+  cond_lbl <- names(df)[ix_by_top]
+  cond.true_lbl  <- levels(df[ , ix_by_top])[1]
+  cond.false_lbl <- levels(df[ , ix_by_top])[2]
+
+  dec_lbl <- names(df)[ix_by_bot]
+  dec.pos_lbl <- levels(df[ , ix_by_bot])[1]
+  dec.neg_lbl <- levels(df[ , ix_by_bot])[2]
+
+  sdt_lbl <- names(df)[ix_sdt]
+
+  # Create riskyr scenario:
+  scen <- riskyr(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr,
+                 cond_lbl = cond_lbl, cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
+                 dec_lbl = dec_lbl, dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+                 sdt_lbl = sdt_lbl,
+                 ...)
+
+  return(scen)
+
+}
+
+## Check: ----------
+
+# ## Generating and interpreting different scenario types:
+#
+# # (A) Diagnostic/screening scenario (using default labels): ------
+# popu_diag <- comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)
+# # popu_diag
+# scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostic scenario", popu_lbl = "Population tested")
+# plot(scen_diag, type = "prism", area = "no", f_lbl = "namnum")
+#
+# # (B) Intervention/treatment scenario: ------
+# popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
+#                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
+#                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+# # popu_treat
+# scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment scenario", popu_lbl = "Population treated")
+# plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
+# plot(scen_treat, type = "icon")
+#
+# # (C) Prevention scenario (e.g., vaccination): ------
+# popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
+#                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
+#                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+# # popu_vacc
+# scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention scenario", popu_lbl = "Population vaccinated")
+# plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
+
 
 ## (*) Done: ----------
 
