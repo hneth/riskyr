@@ -995,7 +995,6 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #' summary(scenarios$n4)
 #'
 #' @family print functions
-#' @family riskyr scenario functions
 #'
 #' @export
 
@@ -1155,11 +1154,11 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 ## read_popu: Documentation: ------
 
-#' Printing summarized risk information.
+#' Read a population (given as data frame) into a riskyr scenario.
 #'
 #' \code{read_popu} interprets a data frame \code{df}
 #' (that contains individual observations of some population)
-#' and returns a scenario of class "riskyr".
+#' and returns a scenario of class \code{"riskyr"}.
 #'
 #' Note that \code{df} needs to be structured according to
 #' the \code{\link{popu}} created by \code{\link{comp_popu}}.
