@@ -4,20 +4,24 @@
 \alias{read_popu}
 \title{Printing summarized risk information.}
 \usage{
-read_popu(df, ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,
+read_popu(df = popu, ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,
   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
   cr_lbl = txt$cr_lbl, ...)
 }
 \arguments{
 \item{df}{A data frame providing a population \code{\link{popu}}
 of individuals, which are identified on at least
-2 binary variables and classified into 4 cases in a 3rd variable.}
+2 binary variables and classified into 4 cases in a 3rd variable.
+Default: \code{df = \link{popu}} (as data frame).}
 
-\item{ix_by_top}{Index of variable (column) providing the 1st (top) perspective (in df).}
+\item{ix_by_top}{Index of variable (column) providing the 1st (top) perspective (in df).
+Default: \code{ix_by_top = 1} (1st column).}
 
-\item{ix_by_bot}{Index of variable (column) providing the 2nd (bot) perspective (in df).}
+\item{ix_by_bot}{Index of variable (column) providing the 2nd (bot) perspective (in df).
+Default: \code{ix_by_bot = 2} (2nd column).}
 
-\item{ix_sdt}{Index of variable (column) providing a classification into 4 cases (in df).}
+\item{ix_sdt}{Index of variable (column) providing a classification into 4 cases (in df).
+Default: \code{ix_by_bot = 3} (3rd column).}
 
 \item{hi_lbl}{Variable label of cases classified as hi (TP).}
 

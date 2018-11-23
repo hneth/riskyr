@@ -1170,16 +1170,19 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #' @param df A data frame providing a population \code{\link{popu}}
 #' of individuals, which are identified on at least
 #' 2 binary variables and classified into 4 cases in a 3rd variable.
+#' Default: \code{df = \link{popu}} (as data frame).
 #'
 #' @param ix_by_top Index of variable (column) providing the 1st (top) perspective (in df).
+#' Default: \code{ix_by_top = 1} (1st column).
 #' @param ix_by_bot Index of variable (column) providing the 2nd (bot) perspective (in df).
-#' @param ix_sdt    Index of variable (column) providing a classification into 4 cases (in df).
+#' Default: \code{ix_by_bot = 2} (2nd column).
+#' @param ix_sdt Index of variable (column) providing a classification into 4 cases (in df).
+#' Default: \code{ix_by_bot = 3} (3rd column).
 #'
 #' @param hi_lbl Variable label of cases classified as hi (TP).
 #' @param mi_lbl Variable label of cases classified as mi (FN).
 #' @param fa_lbl Variable label of cases classified as fa (FP).
 #' @param cr_lbl Variable label of cases classified as cr (TN).
-#'
 #'
 #' @examples
 #' ## Generating and interpreting different scenario types:
@@ -1217,8 +1220,8 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 ## read_popu: Definition ----------
 
-read_popu <- function(df,                                        # df (as population with 3+ columns, see comp_popu)
-                      ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,  # column indices of by_top, by_bot, and sdt variables in df
+read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_popu)
+                      ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,  # indices of by_top, by_bot, and sdt cols in df
                       # text labels (from txt):
                       hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
                       ...) {
