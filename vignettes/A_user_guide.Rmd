@@ -414,39 +414,38 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            by = "cd", title_lbl = "Mammography screening")
 ```
 
-Importantly, the `plot_tree` function is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between concepts and quantities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalance (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases).
+Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalance (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases). (For details and additional options of the `plot_prism` function, see the documentation of `?plot_prism`.)
 
-For details and additional options of the `plot_tree` function, see the documentation of `?plot_tree`.
-
-
-#### Mosaic plot
+#### Area plot
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-```{r plot_mosaic_cd, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
+```{r plot_mosaic_cd, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."}
 plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 ```
 
-The vertical split dissects the population into two subgroups that correspond to the frequency of `cond.true` and `cond.false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left.
-
-For details and additional options of the `plot_mosaic` function, see the documentation of `?plot_mosaic`.
+The vertical split dissects the population into two subgroups that correspond to the frequency of `cond.true` and `cond.false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left. (For details and additional options of the `plot_area` function, see the documentation of `?plot_area`.)
 
 #### Alternative perspectives
 
-Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram first splits the population by decisions into `dec.pos` and `dec.neg` cases: 
+Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec.pos` and `dec.neg` cases: 
 
-```{r plot_tree_dc, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."}
+```{r plot_tree_dc, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by decision."}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-           by = "dc", 
-           title_lbl = "Mammography screening",
-           dec.pos_lbl = "positive test",
-           dec.neg_lbl = "negative test")
+           by = "dc", title_lbl = "Mammography screening")
+```
+
+Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (`dec.cor` and `dec.err`) decisions:
+
+```{r plot_tree_ac, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by accuracy"}
+plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+           by = "ac", title_lbl = "Mammography screening")
 ```
 
 Similarly, the population area of the mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options `by = "cddc"` and `p_split = "h"`:
 
-```{r plot_mosaic_dc, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+```{r plot_mosaic_dc, fig.align = "center", fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           by = "cddc",    # show by condition x decision
           p_split = "h",  # horizontal perspective is primary 
@@ -455,17 +454,16 @@ plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 `riskyr` uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option `area = "hr"` further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:
 
-```{r plot_tree_dc_vr, fig.width = 7, fig.height = 4, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles."}
+```{r plot_tree_dc_vr, fig.width = 7, fig.height = 4.5, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles."}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-           by = "dc", area = "hr", 
-           title_lbl = "Mammography screening")
+           by = "dc", area = "hr", title_lbl = "Mammography screening")
 ```
 
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. Even when relaxing the positional constraint of icons in the icon array, the similarity is still visible:
 
-```{r plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+```{r plot_icons_mosaic, warning = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for 1000 mosaic puzzle parts."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-           arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 4,  
+           arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 3,  
            title_lbl = "Mammography screening")
 ```
 
@@ -477,14 +475,10 @@ The following prism plot (aka. network diagram) is a generalization of the tree 
 
 ```{r plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates both tree diagrams and represents relative frequency by area size."}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-           by = "cddc", area = "sq", 
-           title_lbl = "Mammography screening")
+           by = "cddc", area = "sq", title_lbl = "Mammography screening")
 ```
 
-In addition to showing the interplay between all key frequencies and probabilities, the network diagram notes accuracy metrics that are based on the confusion matrix depicted as the middle row 4 central nodes (`hi`, `mi`, `fa`, and `cr`).
-
-For details and additional options of the `plot_fnet` function, see the documentation of `?plot_fnet`.
-
+In addition to showing the interplay between all key frequencies and probabilities, the network diagram notes accuracy metrics that are based on the confusion matrix depicted as the middle row 4 central nodes (`hi`, `mi`, `fa`, and `cr`). (For more detailed documentation of the graphical options, see the documentation of the `plot_area`, `plot_icon`, and `plot_prism` functions.) 
 
 
 ## References
