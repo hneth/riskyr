@@ -18,22 +18,19 @@ Motivation
 > Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)[1]
 
 <!-- Risk perception as representational effects: -->
-The goals of `riskyr` are less of a *computational* and more of a *representational* nature, by addressing the expression in and translation between different formats of information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. We hope that interacting with and switching between different representations will boost the transparency and human understanding of risk-related information.
+The goals of `riskyr` are less of a *computational* and more of a *representational* nature, by addressing the expression in and translation between different formats of information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. We hope that interacting with and switching between different representations will boost the transparency and human understanding of risk-related information.[2]
 
-<!-- Defining "risk": -->
-It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term *risk* typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.[2] For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
-
+<!-- Defining "risk" (in footnote): -->
 <!-- On "riskyr": -->
-Basic assumptions and goals driving the current development of `riskyr` include the following:
+Basic assumptions and goals driving the current development of `riskyr` include:
 
-1.  Effective training in risk literacy requires simple tools and transparent representations.
+1.  Effective training in risk literacy requires transparent representations, smart strategies, and simple tools.
 
-<!-- More specifically: -->
-1.  It is desirable to have a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies.
+2.  More specifically, we aim for a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies.
 
-2.  Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters.
+3.  We hypothesize that a variety of visualizations, which illustrate how parameters and metrics interact and influence each other, will facilitate active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative perspectives and to observe the change of one parameter as a function of others.
 
-Based on these assumptions, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.
+Based on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.
 
 Installation
 ------------
@@ -491,7 +488,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 [1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).
 
-[2] This notion of *risk* is typically contrasted with the much wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)
+[2] It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term *risk* typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided. For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes). This notion of *risk* is typically contrasted with the much wider notion of *uncertainty* in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)
 
 [3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.
 
