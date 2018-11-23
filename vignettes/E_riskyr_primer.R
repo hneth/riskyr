@@ -48,7 +48,7 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
 plot(my_scenario)
 
 ## ----icons, fig.width = 7.2, fig.height = 4.8----------------------------
-plot(my_scenario, plot_type = "icons")
+plot(my_scenario, type = "icons")
 
 ## ----full_summary--------------------------------------------------------
 summary(my_scenario)
@@ -57,10 +57,10 @@ summary(my_scenario)
 summary(my_scenario, summarize = "prob")
 
 ## ----tree, fig.width = 7.2, fig.height = 5-------------------------------
-plot(my_scenario, plot_type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
+plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 
 ## ----plotting_curve, fig.width = 7.2, fig.height = 5---------------------
-plot(my_scenario, plot_type = "curve", uc = .05)
+plot(my_scenario, type = "curve", uc = .05)
 
 ## ----scenario_table, echo = FALSE, results = "asis"----------------------
 library(knitr)
@@ -86,7 +86,7 @@ s21$scen_apa  # shows current source:
 summary(s21) # summarizes key scenario information:
 
 ## ----s21_icons, fig.width = 7.2, fig.height = 4.5------------------------
-plot(s21, plot_type = "icons", cex_lbl = 0.75)  # plot default icon array: 
+plot(s21, type = "icons", cex_lbl = 0.75)  # plot default icon array: 
 
 ## ----s21_prism_1, fig.width = 7.2, fig.height = 5.5----------------------
 plot(s21, 
@@ -99,7 +99,7 @@ plot(s21,
 #  plot(s21, by = "ac", area = "hr")
 
 ## ----s21_curve, fig.width = 7.2, fig.height = 6.2------------------------
-plot(s21, plot_type = "curve", 
+plot(s21, type = "curve", 
      what = "all",  # plot "all" available curves 
      uc = .05)      # with a 5%-uncertainty range 
 
@@ -108,8 +108,8 @@ op <- par(no.readonly = TRUE)  # save plot settings.
 par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s21, plot_type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
-plot(s21, plot_type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
+plot(s21, type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
+plot(s21, type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
 par(op)  # reset plot settings.
 
 ## ----s22_summary---------------------------------------------------------

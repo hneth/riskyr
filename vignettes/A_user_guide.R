@@ -143,7 +143,7 @@ plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 ## ----plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block_d = 0.01,
-           type = "mosaic",
+           arr_type = "mosaic",
            icon_types = c(21, 21, 22, 22),
            title_lbl = "Mammography screening")
 

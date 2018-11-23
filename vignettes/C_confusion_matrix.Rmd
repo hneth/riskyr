@@ -36,6 +36,7 @@ This is no surprise when considering explanations like the corresponding article
 
 Fortunately, the basic matrix is also known as 2-by-2 contingency table, actually quite simple, and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
 
+<!-- 
 
 ## Terminology
 
@@ -47,7 +48,7 @@ Fortunately, the basic matrix is also known as 2-by-2 contingency table, actuall
 |      Sum:    | `l`  | `r` |       `N` |         `pl` =  `nl`/`N`     |
 | (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond.false` | `pt` = `nt`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
 
-
+-->
 
 ## Basics
 
@@ -106,17 +107,34 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 |      Sum:            | `cond.true`  | `cond.false` |       `N` |
 
 
-**ToDo:** 
+#### Example
+
+To view a 2x2 confusion table in `riskyr`, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
+
+```{r plot_tab_demo, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
+## Plot table from basic input parameters: ----- 
+plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
+         p_lbl = "def", title_lbl = "Scenario 1")
+
+## Plot an existing riskyr scenario: ----- 
+# s <- scenarios$n21
+# plot(s, type = "tab", p_lbl = "def")
+```
+
+<!-- 
+
+#### ToDo
 
 - Provide a numeric example.
 
-- Show corresponding mosaic plot and/or network diagram. 
+- Show corresponding table, mosaic plot, and/or prism plot/network diagram. 
 
 - Distinguish between different scenario types and causal models: 
     - detection (e.g., in clinical diagnostics), 
     - treatment (e.g., RCTs), 
     - prevention (e.g., vaccination). 
 
+-->
 
 ### Accuracy as a 3rd perspective
 
@@ -143,28 +161,35 @@ $$
 \end{aligned}
 $$ 
 
+#### Example
 
-### Avoiding common sources of confusion
+Re-arranging the cells of the 2x2 confusion table allows illustrating accuracy as a 3rd perspective (e.g., by specifying the perspective `by = "cdac"`): 
+
+```{r plot_tab_cdac, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
+plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
+         by = "cdac", p_split = "h", 
+         p_lbl = "def", title_lbl = "Scenario 2")
+```
+
+#### Avoiding common sources of confusion
 
 It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided:
 
 1. Beware of alternative terms for `mi` and `cr`:  
 
-    - Misses `mi` are often called "false negatives", but are nevertheless cases for which the condition is `TRUE` 
+    - Misses `mi` are often called "false negatives" (FN), but are nevertheless cases for which the condition is `TRUE` 
     (i.e., in the `cond.true` column of the confusion table).
 
-    - Correct rejections `cr`are often called "true negatives", are nevertheless cases for which the condition is `FALSE` 
+    - Correct rejections `cr` are often called "true negatives" (TN), but are nevertheless cases for which the condition is `FALSE` 
     (i.e., in the `cond.false` column of the confusion table).
 
-Thus, the terms "true" and "false" are ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr`, rather than "false negatives" and "true negatives".
-
+Thus, the terms "true" and "false" are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr`, rather than "false negatives" and "true negatives".
 
 2. Beware of alternative terms for `dec.cor` and `dec.err`:  
 Similarly, it may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond.false` cases (`cr`) and "false decisions" would include `cond.true` cases (`mi`). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions".
 
 
-
-## Accuracy Metrics
+## Accuracy metrics
 
 The perspective of accuracy raises an important question: How good is a given decision (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal --- measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
 
