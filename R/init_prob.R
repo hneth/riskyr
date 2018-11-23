@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 11 08
+## 2018 11 23
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
@@ -39,7 +39,7 @@
 # p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
 # p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
 
-# Other measures of accuracy (in accu):
+## Other measures of accuracy (in accu):
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
@@ -63,7 +63,7 @@
 
 ## A: Define probabilities by condition: ---------
 
-## ***: 3 essential probabilities: prev; sens, spec
+## ***: 3 essential probabilities: prev; sens, spec/fart.
 
 ## (0) prev*** = base rate of condition: ---------
 
@@ -83,8 +83,7 @@
 #'   \code{prev = p(condition = TRUE)}
 #'
 #'   or the base rate (or baseline probability)
-#'   of the condition's occurrence.
-#'
+#'   of the condition's occurrence or truth.
 #'
 #'   \item In terms of frequencies,
 #'   \code{prev} is the ratio of
@@ -94,37 +93,35 @@
 #'
 #'   \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
-#'
 #'   \item Perspective:
 #'   \code{prev} classifies a population of \code{\link{N}} individuals
 #'   by condition (\code{prev = cond.true/N}).
 #'
-#'   \code{prev} is the "by condition" counterpart to \code{\link{ppod}}
-#'   (which adopts a "by decision" perspective).
-#'
+#'   \code{prev} is the "by condition" counterpart
+#'   to \code{\link{ppod}} (when adopting a "by decision" perspective) and
+#'   to \code{\link{acc}}  (when adopting a "by accuracy" perspective).
 #'
 #'   \item Alternative names:
 #'   base rate of condition,
 #'   proportion affected,
-#'   rate of condition \code{= TRUE} cases
+#'   rate of condition \code{= TRUE} cases.
 #'
 #'   \code{prev} is often distinguished from the \emph{incidence rate}
 #'   (i.e., the rate of new cases within a certain time period).
 #'
-#'
 #'   \item Dependencies:
 #'   \code{prev} is a feature of the population
-#'   and condition, but independent of the decision process
+#'   and of the condition, but independent of the decision process
 #'   or diagnostic procedure.
 #'
-#'   The value of \code{prev} does \emph{not} depend
-#'   on features of the decision process or diagnostic procedure.
-#'   However, \code{prev} must be taken into account when
+#'   While the value of \code{prev} does \emph{not} depend
+#'   on features of the decision process or diagnostic procedure,
+#'   \code{prev} must be taken into account when
 #'   computing the conditional probabilities
 #'   \code{\link{sens}}, \code{\link{mirt}},
 #'   \code{\link{spec}}, \code{\link{fart}},
 #'   \code{\link{PPV}}, and \code{\link{NPV}}
-#'   (as they partly depend on \code{prev}).
+#'   (as they depend on \code{prev}).
 #'
 #' }
 #'
@@ -140,6 +137,7 @@
 #' @family essential parameters
 #'
 #' @seealso
+#' \code{\link{prob}} contains current probability information;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{comp_prob}} computes derived probabilities;
@@ -269,7 +267,6 @@ sens <- 1/2  # default sensitivity
 #'   or the probability of failing to detect true cases
 #'   (\code{condition = TRUE}).
 #'
-
 #'   \item Perspective:
 #'   \code{mirt} further classifies
 #'   the subset of \code{\link{cond.true}} individuals
@@ -280,7 +277,6 @@ sens <- 1/2  # default sensitivity
 #'   false negative rate (\code{FNR}),
 #'   rate of type-II errors (\code{beta})
 #'
-
 #'   \item Relationships:
 #'
 #'   a. \code{mirt} is the complement of the
@@ -294,7 +290,6 @@ sens <- 1/2  # default sensitivity
 #'
 #'   \code{FOR = p(condition = TRUE | decision = negative)}
 #'
-
 #'   \item In terms of frequencies,
 #'   \code{mirt} is the ratio of
 #'   \code{\link{mi}} divided by \code{\link{cond.true}}
