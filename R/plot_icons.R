@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 11 21
+## 2018 11 23
 ##  plot_icons plots an icon array in a variety
 ##  of ways, dependent on population size.
 ## -----------------------------------------------
@@ -53,34 +53,34 @@
 #' If N is 100,000 or greater it is reduced to 10,000
 #' for the array types if the frequencies allow it.
 #'
-#' @param type The icons can be arranged in different ways
+#' @param arr_type The icons can be arranged in different ways
 #' resulting in different types of displays:
 #'
 #' \enumerate{
 #'
-#'   \item \code{type = "array"}: Icons are plotted in a
+#'   \item \code{arr_type = "array"}: Icons are plotted in a
 #'   classical icon array (default).
 #'   Icons can be arranged in blocks using \code{block_d}.
 #'   The order of filling the array can be customized using
 #'   \code{fill_array} and \code{fill_blocks}.
 #'
-#'   \item \code{type = "shuffledarray"}: Icons are plotted in an
+#'   \item \code{arr_type = "shuffledarray"}: Icons are plotted in an
 #'   icon array, but positions are shuffled (randomized).
 #'   Icons can be arranged in blocks using \code{block_d}.
 #'   The order of filling the array can be customized using
 #'   \code{fill_array} and \code{fill_blocks}.
 #'
-#'   \item \code{type = "mosaic"}: Icons are ordered like in a mosaic plot.
+#'   \item \code{arr_type = "mosaic"}: Icons are ordered like in a mosaic plot.
 #'   The area size displays the relative proportions of their frequencies.
 #'
-#'   \item \code{type = "fillequal"}: Icons are positioned into equally sized blocks.
+#'   \item \code{arr_type = "fillequal"}: Icons are positioned into equally sized blocks.
 #'   Thus, their density reflects the relative proportions of their frequencies.
 #'
-#'   \item \code{type = "fillleft"}: Icons are randomly filled from the left.
+#'   \item \code{arr_type = "fillleft"}: Icons are randomly filled from the left.
 #'
-#'   \item \code{type = "filltop"}: Icons are randomly filled from the top.
+#'   \item \code{arr_type = "filltop"}: Icons are randomly filled from the top.
 #'
-#'   \item \code{type = "scatter"}: Icons are randomly scattered into the plot.
+#'   \item \code{arr_type = "scatter"}: Icons are randomly scattered into the plot.
 #'
 #' }
 #'
@@ -96,7 +96,7 @@
 #'
 #'
 #' Additional options allow to control the arrangement of the arrays
-#' (\code{type} "array" and "shuffledarray"):
+#' (\code{arr_type} "array" and "shuffledarray"):
 #'
 #' @param block_size_row specifies how many icons should be in each block row.
 #'
@@ -134,7 +134,7 @@
 #' @param icon_border_lwd Specifies the border width of icons (if applicable).
 #'
 #' @param transparency Specifies the transparency for overlapping icons
-#' (not \code{type} "array" and "shuffledarray").
+#' (not \code{arr_type} "array" and "shuffledarray").
 #'
 #' @param icon_size Manually specifies the size of the icons via \code{cex}
 #' (calculated dynamically by default.)
@@ -150,21 +150,21 @@
 #'
 #' @examples
 #' # ways to work:
-#' plot_icons()  # => plots icon array for default population (with default type = "array")
-#' plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
+#' plot_icons()  # => plots icon array for default population (with default arr_type = "array")
+#' plot_icons(arr_type = "shuffledarray")  # => icon array with shuffled IDs
 #'
-#' plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
-#' plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
-#' plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
-#' plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
+#' plot_icons(arr_type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+#' plot_icons(arr_type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+#' plot_icons(arr_type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+#' plot_icons(arr_type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 #'
 #' plot_icons(icon_types = c(21,23,24,23),
 #'                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
 #'                block_d = 0.5, border_d = 0.9)
-#' plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
+#' plot_icons(arr_type = "scatter",   N = 1000)  # => icons randomly scattered.
 #'
 #' # some variants:
-#' plot_icons(N = 800, type = "array", icon_types = c(21,22,23,24),
+#' plot_icons(N = 800, arr_type = "array", icon_types = c(21,22,23,24),
 #'            block_d = 0.5, border_d = 0.5)
 #'
 #' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
@@ -174,13 +174,13 @@
 #'                block_d = 0.8,
 #'                border_d = 0.2,
 #'                fill_array = "top")
-#' plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
 #'            block_d = 0.5, border_d = 0.5)
 #'
-#' plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
 #'            icon_border_col = grey(.33, .99), icon_border_lwd = 3)
 #'
-#' plot_icons(N = 800, type = "fillequal", icon_types = c(21,22,22,21),
+#' plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
 #'            icon_border_lwd = .5, cex = 3)
 #'
 #'
@@ -240,10 +240,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        spec = num$spec, fart = NA,  # was: num$fart,
                        N = freq$N,    # ONLY freq used (so far)
                        ## Key options: ##
-                       type = "array",  # needs to be specified if random position but nonrandom ident.
+                       arr_type = "array",  # needs to be specified if random position but nonrandom ident.
                        ## Valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
                        ident_order = c("hi", "mi", "fa", "cr"),
-                       icon_colors = pal[ident_order],  # use one color for each usual type.
+                       icon_colors = pal[ident_order],  # use one color for each usual arr_type.
                        icon_types = 22,  # plotting characters; default square with border
                        icon_border_col = grey(.10, .50),  # border color of icons
                        icon_border_lwd = 1.5, # line width of icons
@@ -272,15 +272,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  if ( !is.null(type) && !is.na(type) ) {
-    type <- tolower(type)  # express type in lowercase
+  if ( !is.null(arr_type) && !is.na(arr_type) ) {
+    arr_type <- tolower(arr_type)  # express arr_type in lowercase
   }
-  if ( type == "def" || type == "default" || is.null(type) || is.na(type) ) { type <- "array" }  # default/null
-  if ( type == "shuffled" || type == "shuffle" ) { type <- "shuffledarray" }
-  if ( type == "scattered" ) { type <- "scatter" }
-  if ( type == "left" ) { type <- "fillleft" }
-  if ( type == "top" ) { type <- "filltop" }
-  if ( type == "equal" ) { type <- "fillequal" }
+  if ( arr_type == "def" || arr_type == "default" || is.null(arr_type) || is.na(arr_type) ) { arr_type <- "array" }  # default/null
+  if ( arr_type == "shuffled" || arr_type == "shuffle" ) { arr_type <- "shuffledarray" }
+  if ( arr_type == "scattered" ) { arr_type <- "scatter" }
+  if ( arr_type == "left" ) { arr_type <- "fillleft" }
+  if ( arr_type == "top" ) { arr_type <- "filltop" }
+  if ( arr_type == "equal" ) { arr_type <- "fillequal" }
 
 
   ## Currently fixed parameters:
@@ -290,19 +290,19 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   # #' @param cex Size of the icons (calculated by default).
 
-  ## Reconstruct logical values from type:
-  if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
+  ## Reconstruct logical values from arr_type:
+  if (arr_type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
 
     random.position <-  TRUE
   } else {
-    if (type %in% c("array", "shuffledarray")) {
+    if (arr_type %in% c("array", "shuffledarray")) {
       random.position <- FALSE
     } else {
-      stop('Invalid "type" argument in plot_icons. ')
+      stop('Invalid "arr_type" argument in plot_icons. ')
     }
   }
 
-  if (type %in% c("mosaic", "fillequal", "fillleft", "filltop", "array")) {
+  if (arr_type %in% c("mosaic", "fillequal", "fillleft", "filltop", "array")) {
     random.identities <- FALSE
   } else {
     random.identities <- TRUE
@@ -424,20 +424,20 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # right: from left to right, top: from top to bottom,
     # equal: in equal spaces of the plot, mosaic: relative to area.
 
-    if (type %in% c("fillleft", "filltop")) {
+    if (arr_type %in% c("fillleft", "filltop")) {
 
       # 1a) draw random positions:
       posx_vec <- runif(n = N, min = xlim[1], max = xlim[2])
       posy_vec <- runif(n = N, min = ylim[1], max = ylim[2])
 
       # Then sort one of the vectors accordingly (presupposes ordered color vector).
-      # type: from left to right:
-      if (type == "fillleft") {
+      # arr_type: from left to right:
+      if (arr_type == "fillleft") {
         posx_vec <- sort(posx_vec)
       }
 
-      # type: from top to bottom:
-      if(type == "filltop"){
+      # arr_type: from top to bottom:
+      if(arr_type == "filltop"){
         posy_vec <- sort(posy_vec)
       }
     } else {  # if in equal or mosaic:
@@ -455,7 +455,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
 
       # equal compartments:
-      if (type == "fillequal") {  # density varies, area is constant.
+      if (arr_type == "fillequal") {  # density varies, area is constant.
 
 
         if (is.null(block_d)) {
@@ -506,7 +506,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
       }
 
       # mosaic style:
-      if (type == "mosaic") {
+      if (arr_type == "mosaic") {
 
         block_prop <- type_n / sum(type_n)  # proportion in each compartment.
 
@@ -572,7 +572,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
       }
     }
 
-  }  # end: valid type
+  }  # end: valid arr_type
   # end A2: (random.position & !random.identities)
 
   if (random.position) {
@@ -964,20 +964,20 @@ plot_icons <- function(prev = num$prev,             # probabilities
 ## Check: ----------
 
 # # ways to work:
-# plot_icons()  # => plots icon array for default population (with default type = "array")
-# plot_icons(type = "shuffledarray")  # => icon array with shuffled IDs
+# plot_icons()  # => plots icon array for default population (with default arr_type = "array")
+# plot_icons(arr_type = "shuffledarray")  # => icon array with shuffled IDs
 #
 
 # plot_icons(icon_types = c(21, 23, 24, 23),
 #                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
 #                block_d = 0.5, border_d = 0.9)
 
-# plot_icons(type = "mosaic",    N = 1000)  # => areas as in mosaic plot
-# plot_icons(type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
-# plot_icons(type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
-# plot_icons(type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
+# plot_icons(arr_type = "mosaic",    N = 1000)  # => areas as in mosaic plot
+# plot_icons(arr_type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
+# plot_icons(arr_type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
+# plot_icons(arr_type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 #
-# plot_icons(type = "scatter",   N = 1000)  # => icons randomly scattered.
+# plot_icons(arr_type = "scatter",   N = 1000)  # => icons randomly scattered.
 #
 
 # plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
@@ -987,18 +987,18 @@ plot_icons <- function(prev = num$prev,             # probabilities
 #                block_d = 0.8,
 #                border_d = 0.2,
 #                fill_array = "top")
-# # some variants:
-# plot_icons(N = 800, type = "array", icon_types = c(21,22,23,24),
+# # pretty variants:
+# plot_icons(N = 800, arr_type = "array", icon_types = c(21,22,23,24),
 #            block_d = 0.5, border_d = 0.5)
 #
-# plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+# plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
 #            block_d = 0.5, border_d = 0.5)
 #
-# plot_icons(N = 800, type = "shuffledarray", icon_types = c(21,23,24,22),
+# plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
 #            icon_border_col = grey(.33, .99), icon_border_lwd = 3)
 #
-# plot_icons(N = 800, type = "fillequal", icon_types = c(21,22,22,21),
-#            icon_border_lwd = .5, cex = 3)
+# plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
+#            icon_border_lwd = .5, cex = 2)
 
 ## -----------------------------------------------
 ## (+) ToDo:
