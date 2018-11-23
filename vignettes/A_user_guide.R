@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----comp_PPV------------------------------------------------------------
+## ----comp_PPV, messages = FALSE, warning = FALSE-------------------------
 library("riskyr")  # loads the package
 
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
@@ -105,49 +105,47 @@ s <- riskyr(scen_lbl = "Mammography screening",
 ## ----riskyr_scenario_summary---------------------------------------------
 summary(s)  # provides an overview over key scenario information:
 
-## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 7.2-------------
-plot(s, area = "no")  # plots a (default) network diagram of key frequencies and probabilities: 
+## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 6---------------
+plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 
 ## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.2, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            icon_types = c(21, 21, 22, 22),
            title_lbl = "Mammography screening")
 
-## ----plot_tree_cd, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."----
-plot_tree(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
-          title_lbl = "Mammography screening")
+## ----plot_tree_cd, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."----
+plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+           by = "cd", title_lbl = "Mammography screening")
 
 ## ----plot_mosaic_cd, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."----
-plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
-            title_lbl = "Mammography screening")
+plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
+          title_lbl = "Mammography screening")
 
 ## ----plot_tree_dc, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "Alternative tree diagram that first splits the population by decision."----
-plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-          by = "dc", 
-          title_lbl = "Mammography screening",
-          dec.pos_lbl = "positive test",
-          dec.neg_lbl = "negative test")
+plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+           by = "dc", 
+           title_lbl = "Mammography screening",
+           dec.pos_lbl = "positive test",
+           dec.neg_lbl = "negative test")
 
 ## ----plot_mosaic_dc, fig.align = "center", fig.width = 5, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."----
-plot_mosaic(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
-            by = "dc",  # split population by decision (horizontal 1st) 
-            title_lbl = "Mammography screening")
+plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
+          by = "cddc",    # show by condition x decision
+          p_split = "h",  # horizontal perspective is primary 
+          title_lbl = "Mammography screening")
 
-## ----plot_tree_dc_vr, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "A tree diagram that represents relative frequencies by area sizes."----
-plot_tree(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-          by = "dc",
-          area = "hr", 
-          title_lbl = "Mammography screening",
-          dec.pos_lbl = "positive test",
-          dec.neg_lbl = "negative test")
-
-## ----plot_icons_mosaic, warning = FALSE, fig.width = 7.2, fig.height = 5.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
-plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, block_d = 0.01,
-           arr_type = "mosaic",
-           icon_types = c(21, 21, 22, 22),
+## ----plot_tree_dc_vr, fig.width = 7, fig.height = 4, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles."----
+plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+           by = "dc", area = "hr", 
            title_lbl = "Mammography screening")
 
-## ----plot_fnet, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "A network diagram that integrates two tree diagrams and represents relative frequencies by area sizes."----
-plot_fnet(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-          title_lbl = "Mammography screening")
+## ----plot_icons_mosaic, warning = FALSE, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
+           arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 4,  
+           title_lbl = "Mammography screening")
+
+## ----plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates both tree diagrams and represents relative frequency by area size."----
+plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+           by = "cddc", area = "sq", 
+           title_lbl = "Mammography screening")
 
