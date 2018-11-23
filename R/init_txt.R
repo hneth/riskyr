@@ -1,21 +1,23 @@
 ## init_txt.R | riskyr
-## 2018 11 21
+## 2018 11 23
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
 
-## (A) Set defaults for all titles and labels (txt) ----------
+## (A) Set defaults for all titles and labels (txt & prob) ----------
 
-txt_def <- list(
+## txt_lbl_def: Define a list of all scenario and freq labels ----------
 
-  # (a) Scenario:
+txt_lbl_def <- list(
+
+  # (1) Scenario:
   scen_lbl = "Scenario", # provide scenario name/label in Title Caps (if desired in plot titles)
   scen_txt = "Description of the current scenario in a short paragraph of text. This description may include several sentences.",
   scen_src = "Source information",
   scen_apa = "Source information in APA format",
   scen_lng = "en/de", # language
 
-  # (b) Population:
+  # (2) Population:
   ## Distinguish between 2 different population labels:
   ## 1. Dimension: general ftype_label ("Population") vs.
   popu_lbl = "Population",  # Dimension: current population label: "Population", "Sample", "N", etc.
@@ -24,23 +26,24 @@ txt_def <- list(
   ## Note: Consider a 3rd population label that provides a longer description of the current population
   # popu.txt  # Longer description of the current population (as in s21: PSA test example)
 
-  # (c) Condition:
+  # (3) 3 perspectives:
+  # (A) by condition:
   cond_lbl = "Condition",   # Dimension label: "Condition X", "disease", "Breast cancer", "HIV", "Sepsis", etc.
   cond.true_lbl  = "True",  # "Condition true",   # "has condition", "is affected"
   cond.false_lbl = "False", # "Condition false",  # "does not have condition", "is unaffected"
 
-  # (d) Decision/prediction/predicted condition:
+  # (B) by decision/prediction/predicted condition:
   dec_lbl = "Decision",  # Dimension label: "Prediction", "Diagnostic decision", "Mammography", "HIV test"
   dec.pos_lbl  = "Positive", # "Decision positive",  # "Prediction positive", "called", "is judged to have condition", "is classified as affected"
   dec.neg_lbl  = "Negative", # "Decision negative",  # "Prediction negative", "not called", "is judged to not have condition", "is classified as unaffected"
 
-  # (e) Accuracy/correspondence of decision to condition:
+  # (C) by accuracy/correspondence of decision to condition:
   acc_lbl = "Accuracy",   # Dimension label: accuracy/correspondence
   dec.cor_lbl = "Correct", # Decision correct", "accurate"  # acc/cor  # accurate decision
   # Note: "dec.cor" should better be called "dec.acc" (for consistency with probabilities "acc" vs. "err")!
   dec.err_lbl = "Erroneous", # "Decision error", "inaccurate"  # err   # inaccurate decision
 
-  # (f) Labels for the 4 SDT cases/cells in 2x2 contingency table (combinations):
+  # (4) Labels for the 4 cases/cells/classes/SDT combinations in 2x2 contingency table:
   sdt_lbl = "Cases",  # Dimension label: "Classification" or cell/case/SDT 2x2 table, etc.
   hi_lbl = "TP", # "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
   mi_lbl = "FN", # "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
@@ -50,7 +53,46 @@ txt_def <- list(
 )
 
 ## Check:
-# length(txt_def)  # 21 text elements
+# length(txt_lbl_def)  # 21
+# txt_lbl_def$cond.true_lbl
+
+
+## prob_lbl_def: Define a list of all probability labels ----------
+
+## ToDo: Integrate prob_lbl_def into txt (to consult current set of probability names)
+##       and use in label_prob (to determine probability labels in plot_util.R).
+
+prob_lbl_def <- list(
+
+  # (a) by condition:
+  prev = "Prevalence",
+  prev_c = "1 - prevalence",
+  sens = "Sensitivity",       # aka. hit rate, recall
+  mirt = "Miss rate",         # rate of type-2 errors, beta
+  spec = "Specificity",       # aka. true negative rate, correct rejection rate
+  fart = "False alarm rate",  # aka. false positive rate, rate of type-1 errors, alpha
+
+  # (b) by decision:
+  ppod = "Proportion positive",
+  ppod_c = "Proportion negative",
+  PPV = "Positive predictive value (PPV)",  # aka. precision
+  FDR = "False detection rate",             # aka. false discovery rate
+  NPV = "Negative predictive value (NPV)",  # aka. true omission rate
+  FOR = "False omission rate",
+
+  # (c) by accuracy:
+  acc = "Rate correct",        # correct, accurate
+  err = "Rate incorrect",      # error rate, inaccurate
+  acc_hi = "p(hi | dec.cor)",  # "Proportion positive correct" (ppcor)
+  acc_cr = "p(cr | dec.cor)",  # "Proportion negative correct" (pncor)
+  err_mi = "p(mi | dec.err)",
+  err_fa = "p(fa | dec.err)"
+
+)
+
+## Check:
+# length(prob_lbl_def)  # 18
+# prob_lbl_def$PPV
 
 
 ## (B) Initialization of all text elements (titles and labels) ----------
@@ -123,32 +165,32 @@ txt_def <- list(
 #'
 #' @export
 
-init_txt <- function(scen_lbl = txt_def$scen_lbl,  # Scenario title
-                     scen_txt = txt_def$scen_txt,  # text with scenario description
-                     scen_src = txt_def$scen_src,  # scenario source
-                     scen_apa = txt_def$scen_apa,  # scenario source in APA format
-                     scen_lng = txt_def$scen_lng,  # language
+init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
+                     scen_txt = txt_lbl_def$scen_txt,  # text with scenario description
+                     scen_src = txt_lbl_def$scen_src,  # scenario source
+                     scen_apa = txt_lbl_def$scen_apa,  # scenario source in APA format
+                     scen_lng = txt_lbl_def$scen_lng,  # language
                      ## (+) Population:
-                     popu_lbl = txt_def$popu_lbl,  # Population dimension label
-                     N_lbl = txt_def$N_lbl,        # Current target population label
+                     popu_lbl = txt_lbl_def$popu_lbl,  # Population dimension label
+                     N_lbl = txt_lbl_def$N_lbl,        # Current target population label
                      ## (a) Condition:
-                     cond_lbl = txt_def$cond_lbl,              # Condition dimension label
-                     cond.true_lbl  = txt_def$cond.true_lbl,   # Condition true
-                     cond.false_lbl = txt_def$cond.false_lbl,  # Condition false
+                     cond_lbl = txt_lbl_def$cond_lbl,              # Condition dimension label
+                     cond.true_lbl  = txt_lbl_def$cond.true_lbl,   # Condition true
+                     cond.false_lbl = txt_lbl_def$cond.false_lbl,  # Condition false
                      ## (b) Decision/prediction/predicted condition:
-                     dec_lbl = txt_def$dec_lbl,                # Decision dimension label
-                     dec.pos_lbl  = txt_def$dec.pos_lbl,       # "Decision positive"
-                     dec.neg_lbl = txt_def$dec.neg_lbl,        # "Decision negative"
+                     dec_lbl = txt_lbl_def$dec_lbl,                # Decision dimension label
+                     dec.pos_lbl  = txt_lbl_def$dec.pos_lbl,       # "Decision positive"
+                     dec.neg_lbl = txt_lbl_def$dec.neg_lbl,        # "Decision negative"
                      ## (c) Accuracy/correspondence of decision to condition:
-                     acc_lbl = txt_def$acc_lbl,                # Accuracy dimension label
-                     dec.cor_lbl = txt_def$dec.cor_lbl,        # "Decision accurate"
-                     dec.err_lbl = txt_def$dec.err_lbl,        # "Decision inaccurate"
+                     acc_lbl = txt_lbl_def$acc_lbl,                # Accuracy dimension label
+                     dec.cor_lbl = txt_lbl_def$dec.cor_lbl,        # "Decision accurate"
+                     dec.err_lbl = txt_lbl_def$dec.err_lbl,        # "Decision inaccurate"
                      ## (d) Labels for the 4 SDT cases (combinations):
-                     sdt_lbl = txt_def$sdt_lbl,  # case/category/cell/SDT
-                     hi_lbl = txt_def$hi_lbl,    # hits               = "True positive"
-                     mi_lbl = txt_def$mi_lbl,    # misses             = "False negative"
-                     fa_lbl = txt_def$fa_lbl,    # false alarms       = "False positive"
-                     cr_lbl = txt_def$cr_lbl     # correct rejections = "True negative"
+                     sdt_lbl = txt_lbl_def$sdt_lbl,  # case/category/cell/SDT
+                     hi_lbl = txt_lbl_def$hi_lbl,    # hits               = "True positive"
+                     mi_lbl = txt_lbl_def$mi_lbl,    # misses             = "False negative"
+                     fa_lbl = txt_lbl_def$fa_lbl,    # false alarms       = "False positive"
+                     cr_lbl = txt_lbl_def$cr_lbl     # correct rejections = "True negative"
 ) {
 
   ## 1. Initialize txt:
@@ -156,33 +198,40 @@ init_txt <- function(scen_lbl = txt_def$scen_lbl,  # Scenario title
 
   ## 2. Pass arguments to list:
   txt <- list(
-    ## Scenario:
+
+    # Scenario:
     scen_lbl = scen_lbl,
     scen_txt = scen_txt,
     scen_src = scen_src,
     scen_apa = scen_apa,
     scen_lng = scen_lng,
-    ## (+) Population:
+
+    # (+) Population:
     popu_lbl = popu_lbl,
     N_lbl = N_lbl,
-    ## (a) Condition:
+
+    # (a) Condition:
     cond_lbl = cond_lbl,
     cond.true_lbl  = cond.true_lbl,
     cond.false_lbl = cond.false_lbl,
-    ## (b) Decision/prediction/predicted condition:
+
+    # (b) Decision/prediction/predicted condition:
     dec_lbl = dec_lbl,
     dec.pos_lbl = dec.pos_lbl,
     dec.neg_lbl = dec.neg_lbl,
-    ## (c) Accuracy:
+
+    # (c) Accuracy:
     acc_lbl = acc_lbl,
     dec.cor_lbl = dec.cor_lbl,
     dec.err_lbl = dec.err_lbl,
-    ## (d) Labels for the 4 SDT cases/cells (combinations):
+
+    # (d) Labels for the 4 SDT cases/cells (combinations):
     sdt_lbl = sdt_lbl,
     hi_lbl = hi_lbl,
     mi_lbl = mi_lbl,
     fa_lbl = fa_lbl,
     cr_lbl = cr_lbl
+
   )
 
   ## 3. Return entire list txt:
@@ -326,40 +375,6 @@ txt_TF <- init_txt(scen_lbl = "",
                    acc_lbl = "Accuracy", dec.cor_lbl = "Correct", dec.err_lbl = "Incorrect",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 
-
-## prob_lbl: List of probability labels ----------
-
-## ToDo: Integrate prob_lbl into txt (to look up and define current set of probability names).
-
-prob_lbl <- list(
-
-  # (a) by condition:
-  prev = "Prevalence",
-  prev_c = "1 - prevalence",
-  sens = "Sensitivity",       # aka. hit rate, recall
-  mirt = "Miss rate",         # rate of type-2 errors, beta
-  spec = "Specificity",       # aka. true negative rate, correct rejection rate
-  fart = "False alarm rate",  # aka. false positive rate, rate of type-1 errors, alpha
-
-  # (b) by decision:
-  ppod = "Proportion positive",
-  ppod_c = "Proportion negative",
-  PPV = "Positive predictive value (PPV)",  # aka. precision
-  FDR = "False detection rate",             # aka. false discovery rate
-  NPV = "Negative predictive value (NPV)",  # aka. true omission rate
-  FOR = "False omission rate",
-
-  # (c) by accuracy:
-  acc = "Rate correct",        # correct, accurate
-  err = "Rate incorrect",      # error rate, inaccurate
-  acc_hi = "p(hi | dec.cor)",  # "Proportion positive correct" (ppcor)
-  acc_cr = "p(cr | dec.cor)",  # "Proportion negative correct" (pncor)
-  err_mi = "p(mi | dec.err)",
-  err_fa = "p(fa | dec.err)"
-
-)
-
-
 ## (*) Done: -------------------------------------
 
 ## - name_prob: Add function to look up the prob that corresponds
@@ -374,8 +389,10 @@ prob_lbl <- list(
 
 ## (+) ToDo: -------------------------------------
 
+## - Integrate prob_lbl_def into txt (to also include prob labels).
 ## - Add shorter, abbreviated versions of text elements (to use as labels)?
 ##   (e.g., hi/TP, mi/FN, fa/FN, cr/TN)
-## - Add text elements for probabilities (to be used in labels)?
+## - Add pre-defined naming schemes (like txt_TF, to accommodate
+##   different scenario types).
 
 ## eof. ------------------------------------------

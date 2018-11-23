@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 22
+## 2018 11 23
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -432,7 +432,7 @@ label_prob <- function(pname,
 
   } else if (lbl_type == "namnum"){
 
-    ## ToDo: Use prob_lbl (or txt) to look up current set of probability names.
+    ## ToDo: Use prob_lbl_def (or txt) to use pre-defined set of probability names.
 
     ## (b) Name AND value of prob:
     if (pname == "prev") { p_lbl <- "Prevalence" }

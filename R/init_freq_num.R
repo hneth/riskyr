@@ -69,6 +69,7 @@
 
 
 
+
 ## (1) Initialize all frequencies as a list (of NA values) freq: ---------
 ##     Currently 11 frequencies (4 essential ones):
 
@@ -114,6 +115,7 @@ init_freq <- function() {
 ## Check: ------
 # init_freq()          # initializes empty freq
 # length(init_freq())  # =>  11 frequencies
+
 
 
 
@@ -491,6 +493,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
 
 
+
 ## (3) Apply to initialize freq: -----------------
 
 ## freq: Documentation --------
@@ -610,6 +613,7 @@ freq <- comp_freq()  # => initialize freq to default parameters
 # names(freq)        # => show names of known frequencies
 
 
+
 ## comp_freq_type: Determine the type of a named frequency (freq):  ----------
 
 comp_freq_type <- function(fname, cur_txt = txt) {
@@ -654,6 +658,7 @@ comp_freq_type <- function(fname, cur_txt = txt) {
 ## Note:
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
 # comp_freq_type("false")  # => typeless (as full name is required)
+
 
 
 
@@ -725,14 +730,14 @@ comp_freq_col <- function(fname,
 ## Check: --------
 
 # comp_freq_col("N")
-# comp_freq_col("N", col = "gold")
-# comp_freq_col("nn", col = "gold")
 # comp_freq_col("hi")
-# comp_freq_col("dec.err")
+# comp_freq_col("cond.true")
+# comp_freq_col("dec.pos")
 # comp_freq_col("dec.cor")
 #
-# comp_freq_col("default")  # default color
-
+# comp_freq_col("default")          # use default color
+# comp_freq_col("N", col = "gold")  # "gold"
+# comp_freq_col("nn", col = "gold") # "gold"
 
 
 
