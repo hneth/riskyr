@@ -30,6 +30,8 @@ Default: \code{ix_by_bot = 3} (3rd column).}
 \item{fa_lbl}{Variable label of cases classified as fa (FP).}
 
 \item{cr_lbl}{Variable label of cases classified as cr (TN).}
+
+\item{...}{Additional parameters (to be passed to \code{\link{riskyr}} function).}
 }
 \value{
 An object of class "riskyr" describing a risk-related scenario.
@@ -49,7 +51,7 @@ the \code{\link{popu}} created by \code{\link{comp_popu}}.
 # (A) Diagnostic/screening scenario (using default labels): ------
 popu_diag <- comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)
 # popu_diag
-scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostic scenario", popu_lbl = "Population tested")
+scen_diag <- read_popu(popu_diag, scen_lbl = "Diagnostics", popu_lbl = "Population tested")
 plot(scen_diag, type = "prism", area = "no", f_lbl = "namnum")
 
 # (B) Intervention/treatment scenario: ------
@@ -57,7 +59,7 @@ popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
 # popu_treat
-scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment scenario", popu_lbl = "Population treated")
+scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
 plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
 plot(scen_treat, type = "icon")
 
@@ -66,13 +68,14 @@ popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
 # popu_vacc
-scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention scenario", popu_lbl = "Population vaccinated")
+scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
 
 }
 \seealso{
 the corresponding data frame \code{\link{popu}};
-the corresponding generating function \code{\link{comp_popu}}.
+the corresponding generating function \code{\link{comp_popu}};
+main \code{\link{riskyr}} function.
 
 Other riskyr scenario functions: \code{\link{plot.riskyr}},
   \code{\link{print.summary.riskyr}}, \code{\link{riskyr}},

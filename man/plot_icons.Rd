@@ -160,10 +160,10 @@ to avoid decimal values in \code{\link{freq}}.
 plot_icons()  # => plots icon array for default population (with default arr_type = "array")
 plot_icons(arr_type = "shuffledarray")  # => icon array with shuffled IDs
 
-plot_icons(arr_type = "mosaic",    N = 1000)  # => areas as in mosaic plot
-plot_icons(arr_type = "fillequal", N = 1000)  # => areas of equal size (density reflects probability)
-plot_icons(arr_type = "fillleft",  N = 1000)  # => icons filled from left to right (in columns)
-plot_icons(arr_type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
+plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot
+plot_icons(arr_type = "fillequal", N = 1000)  # areas of equal size (probability as density)
+plot_icons(arr_type = "fillleft",  N = 1000)  # icons filled from left to right (in columns)
+plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
 
 plot_icons(icon_types = c(21,23,24,23),
                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,

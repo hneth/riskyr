@@ -15,8 +15,7 @@ Inbuilt \code{scenarios} are also of type "riskyr".}
 for frequencies, probabilities, and accuracy respectively.
 The default "all" is an alias to all three.}
 
-\item{...}{Additional parameters to be passed to the
-underlying summary functions.}
+\item{...}{Additional parameters (to be passed to summary functions).}
 }
 \value{
 A summary list \code{obj.sum}

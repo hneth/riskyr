@@ -10,7 +10,7 @@
 \arguments{
 \item{x}{An object of class "summary.riskyr", usually a result of a call to \code{summary.riskyr}.}
 
-\item{...}{Additional parameters to be passed to the generic print function.}
+\item{...}{Additional parameters (to be passed to generic print function).}
 }
 \description{
 \code{print.summary.riskyr} provides a \code{print} method for objects of class "summary.riskyr".
