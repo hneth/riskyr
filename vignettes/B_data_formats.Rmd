@@ -25,18 +25,18 @@ knitr::opts_chunk$set(
 
 <!-- Introduction: Uncertainty: Risks as probabilities vs. frequencies --> 
 
-A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be measured and calculated --- or "reckoned" --- with (Gigerenzer, 2002). Nevertheless, probabilities are pretty big obstacles for everyone not trained as a statistician. As probabilities are notoriously difficult to communicate and understand, this vignette explains how probabilities can be defined and computed in terms of frequencies. 
+A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be measured and calculated --- or "reckoned" --- with (Gigerenzer, 2002). Nevertheless, information expressed in probabilities is often difficult to understand, even for statistical experts. 
+A smart and effective way to communicate probabilities is by expressing them in terms of frequencies. 
 
+## Two representational formats
 
-## Two Representational Formats
-
-The problems addressed by `riskyr` and the scientific discussion surrounding them is framed in terms of two representational formats: _frequencies_ are distinguished from _probabilities_. (See the [user guide](user_guide.html) for background and references.)
+The problems addressed by `riskyr` and the scientific discussion surrounding them can be framed in terms of two representational formats: _frequencies_ are distinguished from _probabilities_. (See the [user guide](user_guide.html) for background and references.)
 
 `riskyr` reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called `freq`) and objects that contain probabilities (a list called `prob`). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined. 
 
 In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following prism (or network) plot shows frequencies as its nodes and probabilities as the edges that link the nodes: 
 
-```{r prism_plot_1, message = FALSE, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A network diagram showing frequencies as nodes and probabilities as edges linking nodes."}
+```{r prism_plot_1, message = FALSE, fig.width = 7, fig.height = 5.5, fig.show = 'asis', fig.cap = "A prism plot showing frequencies as nodes and probabilities as edges linking nodes."}
 library("riskyr") # load the "riskyr" package
 
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
@@ -45,7 +45,6 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probab
            p_lbl = "abb",  # show abbreviated names of probabilities on edges
            title_lbl = "Example")
 ```
-
 
 ## Frequencies
 
@@ -88,7 +87,7 @@ The following relationships hold among the 11 frequencies:
 
     a. by condition; 
     b. by decision; 
-    c. by the correspondence of decisions to conditions; 
+    c. by accuracy (i.e., the correspondence of decisions to conditions); 
     d. by the actual combination of condition and decision. 
 
 Depending on the criterion used, the following relationships hold:
@@ -102,7 +101,7 @@ $$
 \end{aligned}
 $$ 
 
-Similarly, each of the subsets resulting from using the splits by condition, by decision, or by their correspondence, can also be expressed as a sum of two of the four essential frequencies. This results in three different ways of grouping the four essential frequencies:
+Similarly, each of the subsets resulting from using the splits by condition, by decision, or by accuracy, can also be expressed as a sum of two of the four essential frequencies. This results in three different ways of grouping the four essential frequencies:
 
 (a) by condition (corresponding to the two columns of the [confusion matrix](confusion_matrix.html)): 
 
@@ -113,7 +112,6 @@ $$
 \end{aligned}
 $$
 
-
 (b) by decision (corresponding to the two rows of the [confusion matrix](confusion_matrix.html)): 
 
 $$ 
@@ -123,8 +121,7 @@ $$
 \end{aligned}
 $$ 
 
-
-(c) by the correspondence of decisions to conditions (corresponding to the two diagonals of the [confusion matrix](confusion_matrix.html)): 
+(c) by accuracy (or the correspondence of decisions to conditions, corresponding to the two diagonals of the [confusion matrix](confusion_matrix.html)): 
 
 $$ 
 \begin{aligned}
@@ -136,16 +133,14 @@ $$
 It may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". 
 However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`).
 
-
 ## Probabilities
 
-The notions of _probability_ is as elusive as ubiquitous (see Hájek, 2012, for a solid exposition of its different concepts and interpretations). For our present purposes, probabilities are simply numbers between 0 and 1. 
-These numbers are defined to reflect particular quantities and can be expressed as percentages or fractions of other numbers (frequencies or probabilities).
-
+The notions of _probability_ is as elusive as ubiquitous (see Hájek, 2012, for a solid exposition of its different concepts and interpretations). For our present purposes, _probabilities_ are simply numbers between 0 and 1. 
+These numbers are defined to reflect particular quantities and can be expressed as percentages, as functions of and ratios between other numbers (frequencies or probabilities).
 
 ### Definitions
 
-The following 11 probabilities are distinguished by `riskyr` and contained in `prob`:
+`riskyr` distinguishes between 13 probabilities (see `prob` for current values):
 
 |Nr.| Variable | Name | Definition |
 |--: |:---   |:------------  |:----------------------------------------------|
@@ -160,7 +155,10 @@ The following 11 probabilities are distinguished by `riskyr` and contained in `p
 |  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. |
 | 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | 
 | 11. | `acc` | accuracy | The probability of a _correct decision_ (i.e., correspondence of decisions to conditions). | 
+| 12. | `p_acc_hi` | -- | The conditional probability of the _condition_ being `TRUE` provided that a decision or prediction is _accurate_. | 
+| 13. | `p_err_fa` | -- | The conditional probability of the _condition_ being `FALSE` provided that a decision or prediction is _inaccurate_ or _erroneous_. | 
 
+Note that the prism diagram (`plot_prism`) shows a total of 18 probabilities: 3 perspectives (`by = "cd"`, `by = "dc"`, and `by = "ac"`) and 6 links denoting probabilities per perspective. However, as some probabilities are the complements of others, we currently do not identify all possible probabilities.
 
 ### Non-conditional vs. conditional probabilities
 
@@ -212,9 +210,7 @@ $$
 
 Although this is how the functions `comp_PPV` and `comp_NPV` compute the desired conditional probability, it is difficult to remember and think in these terms. Instead, we recommend thinking about and defining all conditional probabilities in terms of frequencies (see below).
 
-
-
-## Probabilities as Ratios of Frequencies
+## Probabilities as ratios of frequencies
 
 The easiest way to think about, define, and compute the probabilities (contained in `prob`) are in terms of frequencies (contained in `freq`): 
 
@@ -232,7 +228,8 @@ The easiest way to think about, define, and compute the probabilities (contained
 |  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. | `NPV` = `cr`/`dec.neg` |
 | 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | `FOR` = `mi`/`dec.neg` |
 | 11. | `acc` | accuracy | The probability of a _correct decision_ (i.e., correspondence of decisions to conditions). | `acc` = `dec.cor`/`N` |
-
+| 12. | `p_acc_hi` | -- | The conditional probability of the _condition_ being `TRUE` provided that a decision or prediction is _accurate_. | `p_acc_hi` = `hi`/`dec.cor` | 
+| 13. | `p_err_fa` | -- | The conditional probability of the _condition_ being `FALSE` provided that a decision or prediction is _inaccurate_ or _erroneous_. | `p_err_fa` = `fa`/`dec.err` | 
 
 Note that the ratios of frequencies are straightforward consequences of the probabilities' definitions:
 
@@ -242,13 +239,14 @@ Note that the ratios of frequencies are straightforward consequences of the prob
    - `ppod` = `dec.pos`/`N`
    - `acc` = `dec.cor`/`N`
 
-2. The conditional probabilities (2.--5. and 7.--10.) can be computed as a proportion of the reference group on which they are conditional. More specifically, if we schematically read each definition as "The conditional probability of $X$ provided that $Y$", then the ratio of the corresponding frequencies is `X & Y`/`Y`. More explicitly, 
+2. The conditional probabilities (2.--5., 7.--10., and 11.--12.) can be computed as a proportion of the reference group on which they are conditional. More specifically, if we schematically read each definition as "The conditional probability of $X$ provided that $Y$", then the ratio of the corresponding frequencies is `X & Y`/`Y`. More explicitly, 
 
 - the ratio's numerator is the frequency of the joint occurrence (i.e., both `X & Y`) being the case; 
 - the ratio's denominator is the frequency of the condition (`Y`) being the case.
 
+When computing probabilities from rounded frequencies, their numeric values may deviate from the true underlying probabilities, particularly for small population sizes `N`.  (Use the `scale` argument of many `riskyr` plotting functions to control whether probabilities are based on frequencies.) 
 
-## Exercise
+## Practice
 
 ### An example
 
@@ -261,20 +259,22 @@ The following prism (or network) diagram is based on the following inputs:
 
 and illustrates the relationship between frequencies and probabilities: 
 
-```{r prism_plot_2, fig.width = 7.2, fig.height = 6, fig.show = 'asis', fig.cap = "A simple network diagram that shows how probabilities can be computed as ratios of frequencies."}
+```{r prism_plot_2, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "A prism plot showing how probabilities can be computed as ratios of frequencies."}
 plot_prism(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
-           N = 10,         # 1 frequency
-           area = "no",    # all boxes have the same size
+           N = 10,         # population frequency
+           scale = "f",    # scale by frequency, rather than probability ("p") 
+           area = "sq",    # boxes as squares, with sizes scaled by current scale  
            p_lbl = "num",  # show numeric probability values on edges
            title_lbl = "Probabilities as ratios of frequencies")
 ```
-
 
 ### Your tasks
 
 1. Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?
 
 2. What is the frequency of `dec.cor` and `dec.err` cases? Where do these cases appear in the diagram?
+
+3. The parameter values in the example do not require any rounding of frequencies. Change them (e.g., to `N = 5`) and explore what happens when alternating between `scale = "f"` and `scale = "p"`.
 
 
 ## References
@@ -298,7 +298,6 @@ URL: https://plato.stanford.edu/entries/probability-interpret/ [2012 Archive](ht
 - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
 Representation facilitates reasoning: What natural frequencies are and what they are not. 
 _Cognition_, _84_, 343--352.
-
 
 ## Contact
 
