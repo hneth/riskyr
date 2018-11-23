@@ -26,11 +26,11 @@ Default: \code{min.freq = 1}.}
 An integer value \code{\link{N}} (as a power of 10).
 }
 \description{
-\code{comp_min_N} is a function that computes a population size value \code{\link{N}} (an integer
+\code{comp_min_N} computes a population size value \code{\link{N}} (an integer
 as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
-(i.e., the cells of the confusion table, or bottom row of boxes in the natural frequency tree)
+(i.e., the cells of the confusion table, or center row of boxes in the frequency prism)
 reach or exceed a minimum value \code{min.freq} given the basic parameters
-\code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
+\code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} (\code{spec = 1 - \link{fart}}).
 }
 \examples{
 comp_min_N(0, 0, 0)  # => 1

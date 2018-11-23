@@ -75,15 +75,15 @@
 
 #' Compute a suitable minimum population size value N.
 #'
-#' \code{comp_min_N} is a function that computes a population size value \code{\link{N}} (an integer
+#' \code{comp_min_N} computes a population size value \code{\link{N}} (an integer
 #' as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
-#' (i.e., the cells of the confusion table, or bottom row of boxes in the natural frequency tree)
+#' (i.e., the cells of the confusion table, or center row of boxes in the frequency prism)
 #' reach or exceed a minimum value \code{min.freq} given the basic parameters
-#' \code{prev}, \code{sens}, and \code{spec} (\code{spec = 1 - fart}).
+#' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} (\code{spec = 1 - \link{fart}}).
 #'
 #' Using this function helps avoiding excessively small decimal values in categories
-#' (especially hi, mi, fa, cr) when expressing combinations of conditions and decisions
-#' as natural frequencies.
+#' (especially \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}})
+#' when expressing combinations of conditions and decisions as natural frequencies.
 #' As values of zero (0) are tolerable, the function only increases \code{\link{N}}
 #' (in powers of 10) while the current value of any frequency (cell in confusion table or
 #' leaf of a frequency tree) is positive but below \code{min.freq}.
@@ -194,11 +194,7 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
 
 ## - Clean up code.  [2018 08 30]
 
-
 ## (+) ToDo: ----------
 
-# cond.true  cond.false
-# hi mi fa cr
-# dec.pos  dec.neg
 
 ## eof. ------------------------------------------
