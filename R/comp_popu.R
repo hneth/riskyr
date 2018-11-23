@@ -221,8 +221,12 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 
 ## popu Definition: --------
 
-popu <- NULL        # initialize
+## NOT RUN for random num (as it would always change dimensions):
 # popu <- comp_popu() # set to current global parameters
+
+## INSTEAD:
+popu <- NULL          # initialize
+
 
 ## Check: --------
 # popu
