@@ -50,7 +50,8 @@ head(popu)           # => shows head of data frame
 
 }
 \seealso{
-The corresponding generating function \code{\link{comp_popu}};
+the corresponding generating function \code{\link{comp_popu}};
+\code{\link{read_popu}} interprets a data frame as a riskyr scenario;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings.

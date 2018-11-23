@@ -58,8 +58,7 @@ Pre-defined \code{\link{scenarios}} are also of type "riskyr".}
 
 }}
 
-\item{...}{Additional parameters to be passed to the
-underlying plotting functions.}
+\item{...}{Additional parameters to be passed to the underlying plotting functions.}
 }
 \description{
 \code{plot.riskyr} is a method that allows to generate
@@ -98,5 +97,10 @@ Other visualization functions: \code{\link{plot_area}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_prism}}, \code{\link{plot_tab}},
   \code{\link{plot_tree}}
+
+Other riskyr scenario functions: \code{\link{print.summary.riskyr}},
+  \code{\link{read_popu}}, \code{\link{riskyr}},
+  \code{\link{summary.riskyr}}
 }
+\concept{riskyr scenario functions}
 \concept{visualization functions}

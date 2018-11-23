@@ -8,10 +8,11 @@ with \code{\link{N}} rows
 and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
-  cond.true_lbl = txt$cond.true_lbl,
-  cond.false_lbl = txt$cond.false_lbl, dec.pos_lbl = txt$dec.pos_lbl,
-  dec.neg_lbl = txt$dec.neg_lbl, hi_lbl = txt$hi_lbl,
-  mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl)
+  cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl,
+  cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
+  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+  sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -60,16 +61,27 @@ contained in \code{\link{popu}}
 is provided by \code{plot_icon}.
 }
 \examples{
-comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
-
 popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 dim(popu)            # => N x 3
-head(popu)           # => shows head of data frame
+head(popu)
 
+# (A) Diagnostic/screening scenario (using default labels):
+comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases.
+
+# (B) Intervention/treatment scenario:
+comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
+          cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
+          dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+
+# (C) Prevention scenario (e.g., vaccination):
+comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
+          cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
+          dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
 
 }
 \seealso{
-The corresponding data frame \code{\link{popu}};
+the corresponding data frame \code{\link{popu}};
+\code{\link{read_popu}} interprets a data frame as a riskyr scenario;
 \code{\link{num}} for basic numeric parameters;
 \code{\link{freq}} for current frequency information;
 \code{\link{txt}} for current text settings;

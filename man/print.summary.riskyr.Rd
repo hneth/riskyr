@@ -19,4 +19,10 @@
 summary(scenarios$n4)
 
 }
+\seealso{
+Other riskyr scenario functions: \code{\link{plot.riskyr}},
+  \code{\link{read_popu}}, \code{\link{riskyr}},
+  \code{\link{summary.riskyr}}
+}
 \concept{print functions}
+\concept{riskyr scenario functions}

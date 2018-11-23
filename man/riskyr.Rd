@@ -4,18 +4,17 @@
 \alias{riskyr}
 \title{Create riskyr scenarios.}
 \format{An object of class "riskyr"
-with 21 entries on textual and numeric information on
-a riskyr scenario.}
+with 21 entries of textual and numeric information describing a risk-related scenario.}
 \usage{
 riskyr(scen_lbl = "", scen_lng = txt$scen_lng,
   scen_txt = txt$scen_txt, popu_lbl = txt$popu_lbl,
   cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl,
   cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
   dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
-  hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
-  cr_lbl = txt$cr_lbl, prev = NA, sens = NA, spec = NA,
-  fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
-  scen_src = txt$scen_src, scen_apa = txt$scen_apa)
+  sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl, prev = NA, sens = NA,
+  spec = NA, fart = NA, N = NA, hi = NA, mi = NA, fa = NA,
+  cr = NA, scen_src = txt$scen_src, scen_apa = txt$scen_apa)
 }
 \arguments{
 \item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
@@ -43,6 +42,8 @@ or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 
 \item{dec.neg_lbl}{A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
+
+\item{sdt_lbl}{A name for the combination of \emph{condition} and \emph{decision} currently made.}
 
 \item{hi_lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
@@ -95,8 +96,7 @@ Source information:}
 in the style of the American Psychological Association (APA style).}
 }
 \value{
-A list \code{object} of class "riskyr"
-containing information on a risky scenario.
+An object of class "riskyr" describing a risk-related scenario.
 
 Text elements (all elements of \code{\link{txt}}:
 }
@@ -122,6 +122,7 @@ scen.reoffend <- riskyr(scen_lbl = "Identify reoffenders",
                         dec_lbl = "test result",
                         dec.pos_lbl = "will reoffend",
                         dec.neg_lbl = "will not reoffend",
+                        sdt_lbl = "combination",
                         hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
                         fa_lbl = "false accusation", cr_lbl = "correct release",
                         prev = .45,  # prevalence of being a reoffender.
@@ -148,3 +149,9 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 
 }
+\seealso{
+Other riskyr scenario functions: \code{\link{plot.riskyr}},
+  \code{\link{print.summary.riskyr}},
+  \code{\link{read_popu}}, \code{\link{summary.riskyr}}
+}
+\concept{riskyr scenario functions}
