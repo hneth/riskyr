@@ -299,6 +299,11 @@ URL: https://plato.stanford.edu/entries/probability-interpret/ [2012 Archive](ht
 Representation facilitates reasoning: What natural frequencies are and what they are not. 
 _Cognition_, _84_, 343--352.
 
+- Trevethan, R. (2017). 
+Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. 
+_Frontiers in Public Health_, _5_, 307.  
+doi: [10.3389/fpubh.2017.00307](https://doi.org/10.3389/fpubh.2017.00307) 
+
 ## Contact
 
 <!-- uni.kn logo and link to SPDS: -->  

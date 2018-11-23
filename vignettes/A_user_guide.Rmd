@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 What is the probability of a disease or clinical condition given a positive test result? 
 This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
-Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities, but have no problem to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews).
+Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities (e.g., see Mandel & Navarrete, 2015, and Trevethan, 2017, for overviews), but find it easier to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews). 
 
 <!-- On riskyr: -->
 
@@ -562,6 +562,11 @@ _Journal of Experimental Psychology: General_, _130_, 380--400.
 - Strevens, M. (2013). 
 _Tychomancy: Inferring probability from causal structure_. 
 Cambridge, MA: Harvard University Press.
+
+- Trevethan, R. (2017). 
+Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. 
+_Frontiers in Public Health_, _5_, 307.  
+doi: [10.3389/fpubh.2017.00307](https://doi.org/10.3389/fpubh.2017.00307) 
 
 - Wassner, C., Martignon, L., & Biehler, R. (2004). 
 Bayesianisches Denken in der Schule. 
