@@ -8,11 +8,11 @@
 ## (1) Import ready-made and worked out example data
 ##     (for both ui.R and server.R):
 
-df_scenarios <- NULL  # initialize df of scenarios
+# df_scenarios <- NULL  # initialize df of scenarios
 
 ## Working (except for German Umlauts):
 # df_scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0 [2018 02]
-df_scenarios <- read.csv2("./data-raw/scenarios_8.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0.935 [2018 11]
+# df_scenarios <- read.csv2("./data-raw/scenarios_8.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0.935 [2018 11]
 
 ### Not working any better:
 ## df_scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
