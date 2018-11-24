@@ -28,11 +28,11 @@ my_scenario_2 <- riskyr(hi = my_scenario$hi,
 all.equal(my_scenario, my_scenario_2)
 
 ## ----create_scenario_custom----------------------------------------------
-# Create a customized scenario: 
+# Create a scenario with custom labels: 
 my_scenario <- riskyr(scen_lbl = "Identifying reoffenders", 
                       popu_lbl = "prison inmates", 
                       cond_lbl = "reoffending",
-                      cond.true_lbl = "offends again", cond.false_lbl = "does not offend again",
+                      cond.true_lbl = "reoffends", cond.false_lbl = "does not reoffend",
                       dec_lbl = "test result",
                       dec.pos_lbl = "predict to\nreoffend", dec.neg_lbl = "predict to\nnot reoffend",
                       hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
@@ -44,8 +44,16 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
                       N = 753,     # population size
                       scen_src = "(a ficticious example)")
 
-## ----fnet, include = FALSE, fig.width = 7.2, fig.height = 6--------------
+## ----plot_default, include = TRUE, fig.width = 7, fig.height = 5.5-------
 plot(my_scenario)
+
+## ----plot_area_sq, include = TRUE, fig.width = 7, fig.height = 5.5-------
+plot(my_scenario, area = "sq", f_lbl = "nam")
+
+## ----prism_practice, echo = FALSE, eval = FALSE--------------------------
+#  plot(my_scenario, area = "hr")
+#  plot(my_scenario, area = "no", by = "cdac")
+#  plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
 
 ## ----icons, fig.width = 7.2, fig.height = 4.8----------------------------
 plot(my_scenario, type = "icons")

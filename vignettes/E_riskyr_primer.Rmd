@@ -33,19 +33,19 @@ op <- par(no.readonly = TRUE)
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
 <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
 
-`riskyr` is a toolbox for rendering risk literacy more transparent. Its goal is to gain deeper insights into risk-related scenarios with a minimum of hassle and maximum of fun.
+`riskyr` is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.
 
-This page assumes that you just installed the package and are now eager to see what you can do with it. (See the [User guide](A_user_guide.html) for a more general introduction.)
+This page assumes that you just installed the package and are eager to see what you can do with it. (See the [User guide](A_user_guide.html) for a more comprehensive introduction.)
 
 ## Getting started 
 
 How can you use `riskyr`? Basically, there are two ways to get started:
 
-1. Define your own `riskyr` scenario from risk-related information (typically provided in terms of probabilities).
+1. Define your own scenario from risk-related information (typically provided in terms of probabilities).
 
-2. Inspect one of `r length(scenarios) - 1` predefined `riskyr` scenarios to get a glimpse of what types of scenarios are possible. 
+2. Inspect one of `r length(scenarios) - 1` predefined scenarios to get a glimpse of what types of scenarios are possible. 
 
-Either way, you will soon explore some specific scenario and uncover relationships between its parameters. Please load the package first (if you have not already done so):
+Either way, you will soon explore some specific risk-related scenario and uncover relationships between its parameters. Please load the package first, if you have not already done so:
 
 ```{r load_riskyr, message = FALSE}
 library("riskyr")  # loads the package
@@ -54,7 +54,6 @@ library("riskyr")  # loads the package
 ### Defining a scenario  
 
 Let's launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch:^[The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.]
-
 
 #### Example
 
@@ -65,7 +64,7 @@ Let's launch your `riskyr`-career by creating a ficticious risk scenario that we
 > Imagine you are developing a test to predict if a jailed criminal offender will reoffend after his or her release. 
 > Your research yields the following information: 
 >
-> 1. 45% of 753 jailed offenders in this prison re-offend after they are released (`prev = .45`).  
+> 1. 45% of 753 jailed offenders in some prison re-offend after they are released (`prev = .45`).  
 > 2. Your test correctly detects those who will re-offend in 98% of the cases (`sens = .98`).  
 > 3. Your test falsely identifies 54% of those who will not re-offend as potential re-offenders. 
 > Conversely, this implies that your test correctly identifies 46% of those that will not reoffend (`spec = .46`).  
@@ -75,7 +74,6 @@ Let's launch your `riskyr`-career by creating a ficticious risk scenario that we
 > What is the probability that John D. will actually reoffend, given his test result? 
 
 To answer this question, you could calculate the corresponding probabilities or frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a `riskyr` scenario that you can modify, inspect, and visualize in various ways.
-
 
 #### Necessary scenario information
 
@@ -115,12 +113,11 @@ my_scenario_2 <- riskyr(hi = my_scenario$hi,
                         cr = my_scenario$cr)
 ```
 
-If this succeeds, `my_scenario` and `my_scenario_2` should contain the same information: 
+If this succeeds, `my_scenario` and `my_scenario_2` contain the same information: 
 
 ```{r verify_equal_prob_freq}
 all.equal(my_scenario, my_scenario_2)
 ```
-
 
 #### Optional scenario information
 
@@ -148,11 +145,11 @@ To make various outputs more recognizable, many aspects of a `riskyr` scenario c
 Whereas specifying three essential probabilities is necessary to define a valid `riskyr` scenario, providing `N` and the other arguments are entirely optional. For illustrative purposes, we create a very well-specified `riskyr` scenario:
 
 ```{r create_scenario_custom}
-# Create a customized scenario: 
+# Create a scenario with custom labels: 
 my_scenario <- riskyr(scen_lbl = "Identifying reoffenders", 
                       popu_lbl = "prison inmates", 
                       cond_lbl = "reoffending",
-                      cond.true_lbl = "offends again", cond.false_lbl = "does not offend again",
+                      cond.true_lbl = "reoffends", cond.false_lbl = "does not reoffend",
                       dec_lbl = "test result",
                       dec.pos_lbl = "predict to\nreoffend", dec.neg_lbl = "predict to\nnot reoffend",
                       hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
@@ -165,7 +162,6 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
                       scen_src = "(a ficticious example)")
 ```
 
-
 #### Viewing scenario information
 
 <!-- Motto: -->  
@@ -174,13 +170,35 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
 > (...) the meat of the matter can usually be set out in a graph.  
 > (John W. Tukey)^[Tukey, J.W. (1962). _The future of data analysis_. (In: The Collected Works of John W. Tukey, Volume 3, p. 457).] 
 
-We always _can_ inspect the details of `my_scenario` by computing additional metrics and studying their values with `summary(my_scenario)`. But anyone who regularly works with data knows that graphs can provide key insights in very different ways than written summaries and tables. To illustrate this point, let us look at some visualizations of our scenario:
+We always _can_ inspect the details of `my_scenario` by computing additional metrics and studying their values with `summary(my_scenario)`. But anyone who regularly works with data knows that graphs can provide key insights faster and in different ways than written summaries and tables. To illustrate this point, we create and inspect some visualizations of our scenario.
 
-```{r fnet, include = FALSE, fig.width = 7.2, fig.height = 6}
+##### Prism plot
+
+```{r plot_default, include = TRUE, fig.width = 7, fig.height = 5.5}
 plot(my_scenario)
 ```
 
-This so-called _network diagram_ shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the squares corresponds to their relative frequencies.
+A _prism plot_ (or network diagram) shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the boxes is fixed. However, we can visualize the relative size of frequencies by using the `area` argument and show the names of the frequencies (as provided by our text labels) by adding the `f_lbl = "nam"` argument: 
+
+```{r plot_area_sq, include = TRUE, fig.width = 7, fig.height = 5.5}
+plot(my_scenario, area = "sq", f_lbl = "nam")
+```
+
+The resulting graph maps frequency to the size of square boxes, which makes it easier to distinguish between cases with high and with low frequencies.
+
+##### Practice
+
+- Plot `my_scenario` with the option `area = "hr"`. What do you see? 
+- Add `by = "cdac"` as another argument to your plotting call. How does the resulting plot relate to the previous ones?
+- When calling `plot(my_scenario)`, `riskyr` creates a plot of `type = "prism"` by default. Use `?plot_prism` for the documentation of `plot_prism` to learn about and try out additional arguments.
+
+```{r prism_practice, echo = FALSE, eval = FALSE}
+plot(my_scenario, area = "hr")
+plot(my_scenario, area = "no", by = "cdac")
+plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
+```
+
+##### Icon array
 
 An _icon array_ displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `type = "icons"`:
 
@@ -188,11 +206,11 @@ An _icon array_ displays the entire population of inmates classified by conditio
 plot(my_scenario, type = "icons")
 ```
 
-From the icon array, we can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark red). The majority of the reoffenders are classified correctly (shown in dark green rather than dark red). 
+From the icon array, we can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark blue). The majority of the reoffenders are classified correctly (shown in dark green rather than dark blue). 
 
 But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will _either_ be classified as a "reoffender found" (if he actually reoffends: dark green icons) _or_ as a "false accusation" (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards "reoffenders found"), it appears that his chances of actually reoffending are only slighly higher than chance.
 
-To dig into the dirty details of `my_scenario`, let us look at its `summary`:
+To dig deeper into the dirty details of `my_scenario`, let us look at its `summary`:
 
 ```{r full_summary}
 summary(my_scenario)
@@ -289,7 +307,7 @@ plot(s21, type = "icons", cex_lbl = 0.75)  # plot default icon array:
 
 This initial inspection reveals that the overall accuracy of the decision considered (`r s21$scen_lbl`) is not great: There are almost as many cases of incorrect classifications (shown in red) as correct ones (shown in green). In fact, both the summary and the icon array note that the overall accuracy of the test is at 57.5%. Given that green squares signal correct classifications and red squares signal incorrect classifications, it is immediately obvious that our main issue with accuracy here consists in so-called misses: Patients with cancer that remain undetected (marked with "`r s21$mi_lbl`" and denoted by icons in dark red). 
 
-Next, we plot and look at a network diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
+Next, we create another prism diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
 ```{r s21_prism_1, fig.width = 7.2, fig.height = 5.5}
 plot(s21, 
