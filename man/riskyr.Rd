@@ -41,6 +41,10 @@ or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
 \item{acc_lbl}{A label for \emph{accuracy} (i.e., correspondence between condition and decision or judgment).}
 
+\item{dec.cor_lbl}{A label for \emph{correct} (or accurate) decisions or judgments.}
+
+\item{dec.err_lbl}{A label for \emph{incorrect} (or erroneous) decisions or judgments.}
+
 \item{sdt_lbl}{A label for the combination of \emph{condition} and \emph{decision} currently made.}
 
 \item{hi_lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
@@ -100,10 +104,6 @@ Options: \code{"en"} for English, \code{"de"} for German.}
 
 \item{scen_apa}{Source information for the current scenario
 according to the American Psychological Association (APA style).}
-
-\item{acc.cor_lbl}{A label for \emph{correct} (or accurate) decisions or judgments.}
-
-\item{acc.err_lbl}{A label for \emph{incorrect} (or erroneous) decisions or judgments.}
 }
 \value{
 An object of class "riskyr" describing a risk-related scenario.

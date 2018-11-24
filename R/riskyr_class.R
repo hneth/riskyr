@@ -55,8 +55,8 @@
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
 #' @param acc_lbl A label for \emph{accuracy} (i.e., correspondence between condition and decision or judgment).
-#' @param acc.cor_lbl A label for \emph{correct} (or accurate) decisions or judgments.
-#' @param acc.err_lbl A label for \emph{incorrect} (or erroneous) decisions or judgments.
+#' @param dec.cor_lbl A label for \emph{correct} (or accurate) decisions or judgments.
+#' @param dec.err_lbl A label for \emph{incorrect} (or erroneous) decisions or judgments.
 #'
 #' @param sdt_lbl A label for the combination of \emph{condition} and \emph{decision} currently made.
 #' @param hi_lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
