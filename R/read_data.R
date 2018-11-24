@@ -1,45 +1,44 @@
 ## read_data.R | riskyr
-## 2018 02 14
+## 2018 11 24
 ## Read data file for scenario information:
 ## -----------------------------------------------
 
+## Part A: Do ONCE (for any new data file): ----------
 
-## (1) Do ONCE (for any new data file): ----------
+## (1) Import ready-made and worked out example data
+##     (for both ui.R and server.R):
 
-## Import ready-made and worked out example data
-## (for both ui.R and server.R):
-
-
-# df_scenarios <- NULL  # initialize df of scenarios
+df_scenarios <- NULL  # initialize df of scenarios
 
 ## Working (except for German Umlauts):
-# df_scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)
+# df_scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0 [2018 02]
+df_scenarios <- read.csv2("./data-raw/scenarios_8.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0.935 [2018 11]
 
-## Not working any better:
-# df_scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
-# df_scenarios <- read.csv2("./data_sources/scenarios_6_tab.txt", stringsAsFactors = FALSE)
-# df_scenarios <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
+### Not working any better:
+## df_scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
+## df_scenarios <- read.csv2("./data_sources/scenarios_6_tab.txt", stringsAsFactors = FALSE)
+## df_scenarios <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
 
-## Check:
+## (2) Check:
 # dim(df_scenarios)     # 26 rows x 21 variables
 # names(df_scenarios)
 ## View(df_scenarios)
 
 ## Note that German Umlauts are corrupted.
 
-## Write out to ./data/ directory:
-# write.csv2(df_scenarios, file = "./data/df_scenarios.csv")  # as .csv file
-# save(scenarios_df, file = "./data/df_scenarios.RData")  # as .RData file
+## (3) Write out df_scenarios to ./data/ directory:
+# write.csv2(df_scenarios, file = "./data/df_scenarios.csv")  # 1. as .csv file
+# save(df_scenarios, file = "./data/df_scenarios.RData")      # 2. as .RData file
 
-## OLD: Using devtools:
-# devtools::use_data(df_scenarios, overwrite = TRUE) # deprecated
-# devtools::use_data_raw() # deprecated
+### OLD: Using devtools:
+## devtools::use_data(df_scenarios, overwrite = TRUE) # deprecated
+## devtools::use_data_raw() # deprecated
 
 ## NEW: Using usethis:
 # usethis::use_data(df_scenarios, overwrite = TRUE)
 
 
-## (2) Do EVERY TIME the package loads: ----------
+## Part B: Do EVERY TIME the package loads: ----------
 
 ## Read in again (from ./data/):
 
