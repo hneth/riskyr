@@ -4,7 +4,7 @@
 \alias{plot.riskyr}
 \title{Plot information of a riskyr object.}
 \usage{
-\method{plot}{riskyr}(x = NULL, type = "network", ...)
+\method{plot}{riskyr}(x = NULL, type = "prism", ...)
 }
 \arguments{
 \item{x}{An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
@@ -23,7 +23,7 @@ Pre-defined \code{\link{scenarios}} are also of type "riskyr".}
   See \code{\link{plot_area}} for further options.
 
   \item \code{type = "tab"} or \code{type = "ftab"}:
-  Risk information is plotted as a 2x2 frequency or contingency table.
+  Risk information is plotted as a 2-by-2 frequency or contingency table.
   See \code{\link{plot_tab}} for further options.
 
   \item \code{type = "bar"} or \code{type = "fbar"}:
@@ -31,7 +31,7 @@ Pre-defined \code{\link{scenarios}} are also of type "riskyr".}
   See \code{\link{plot_bar}} for further options.
 
   \item \code{type = "icons"} or \code{type = "iconarray"}:
-  The underlying population is plotted as icons.
+  The underlying population is plotted as an array of icons.
   See \code{\link{plot_icons}} for further options.
 
   \item \code{type = "curve"} or \code{type = "curves"}:

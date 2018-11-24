@@ -158,36 +158,36 @@
 ## riskyr Definition: ------
 
 riskyr <- function(# (1) Scenario information:
-                   scen_lbl = txt$scen_lbl,    # OR: ""
-                   popu_lbl = txt$popu_lbl,
-                   # (2) Three perspectives:
-                   # (A) by condition:
-                   cond_lbl = txt$cond_lbl,
-                   cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
-                   # (B) by decision:
-                   dec_lbl = txt$dec_lbl,
-                   dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
-                   # (C) by accuracy:
-                   acc_lbl = txt$acc_lbl,
-                   dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
-                   # (3) 4 SDT cases:
-                   sdt_lbl = txt$sdt_lbl,
-                   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
-                   fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
-                   # (4) Essential probabilities:
-                   prev = NA,
-                   sens = NA,
-                   spec = NA, fart = NA,
-                   # (5) Essential frequencies:
-                   N = NA,  # WAS: freq$N,
-                   hi = NA, mi = NA,
-                   fa = NA, cr = NA,
-                   # (6) Scenario details:
-                   scen_lng = txt$scen_lng,
-                   scen_txt = txt$scen_txt,
-                   scen_src = txt$scen_src,
-                   scen_apa = txt$scen_apa
-                   ) {
+  scen_lbl = txt$scen_lbl,    # OR: ""
+  popu_lbl = txt$popu_lbl,
+  # (2) Three perspectives:
+  # (A) by condition:
+  cond_lbl = txt$cond_lbl,
+  cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
+  # (B) by decision:
+  dec_lbl = txt$dec_lbl,
+  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+  # (C) by accuracy:
+  acc_lbl = txt$acc_lbl,
+  dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
+  # (3) 4 SDT cases:
+  sdt_lbl = txt$sdt_lbl,
+  hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
+  # (4) Essential probabilities:
+  prev = NA,
+  sens = NA,
+  spec = NA, fart = NA,
+  # (5) Essential frequencies:
+  N = NA,  # WAS: freq$N,
+  hi = NA, mi = NA,
+  fa = NA, cr = NA,
+  # (6) Scenario details:
+  scen_lng = txt$scen_lng,
+  scen_txt = txt$scen_txt,
+  scen_src = txt$scen_src,
+  scen_apa = txt$scen_apa
+) {
 
   ## (0): Initialize some stuff: ------
   freqs <- NA
@@ -561,7 +561,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #'   See \code{\link{plot_area}} for further options.
 #'
 #'   \item \code{type = "tab"} or \code{type = "ftab"}:
-#'   Risk information is plotted as a 2x2 frequency or contingency table.
+#'   Risk information is plotted as a 2-by-2 frequency or contingency table.
 #'   See \code{\link{plot_tab}} for further options.
 #'
 #'   \item \code{type = "bar"} or \code{type = "fbar"}:
@@ -569,7 +569,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #'   See \code{\link{plot_bar}} for further options.
 #'
 #'   \item \code{type = "icons"} or \code{type = "iconarray"}:
-#'   The underlying population is plotted as icons.
+#'   The underlying population is plotted as an array of icons.
 #'   See \code{\link{plot_icons}} for further options.
 #'
 #'   \item \code{type = "curve"} or \code{type = "curves"}:
@@ -626,20 +626,22 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 
 ## plot.riskyr Definition: ------
 
-plot.riskyr <- function(x = NULL,  # require riskyr scenario
-                        type = "network",  # default type
-                        ...        # other type and display parameters in plot_XXX().
+plot.riskyr <- function(x = NULL,        # require riskyr scenario
+                        type = "prism",  # default type
+                        # by = "cddc",     # default perspectives
+                        ...              # other type and display parameters in plot_xxx functions
 ) {
 
   ## Note: Most other functions (except for plot_icons) currently lack the ellipsis.
   ## Therefore, these functions will throw an exception when unnecessary parameters are passed.
 
-  ## Increase robustness: ----------
+  ## (1) Increase robustness: ----------
 
   type <- tolower(type)  # ensure lowercase
 
-  ## Test type argument:
-  if (!type %in% c(# plot_prism:
+  # Test type argument:
+  if (!type %in% c(#
+    # plot_prism:
     "prism", "fprism", "tree", "ftree", "net", "fnet", "network",
     "onet", "ofnet",    # old: plot_fnet
     "otree", "oftree",  # old: plot_tree
@@ -662,7 +664,21 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   }
 
-  ## Use lbl info of scenario x for current txt information: ----------
+  # # If type == "tree" and current by contains more than 1 perspective:
+  # if ( (substr(type, 1, 4) == "tree") || (substr(type, 1, 5) == "ftree") ) {
+  #   if ( !is.null(by) ) {
+  #     if ( is.character(by) && (nchar(by) > 2) ) {
+  #
+  #       # print(paste0("1. by = ", by))  # debugging
+  #       by <- substr(by, 1, 2)           # use only 1st perspective of by
+  #       # print(paste0("2. by = ", by))  # debugging
+  #
+  #     }
+  #   }
+  # }
+
+
+  ## (2) Use lbl info of scenario x for current txt information: ----------
 
   x_txt <- init_txt(scen_lbl = x$scen_lbl,
                     scen_txt = x$scen_txt,
@@ -690,9 +706,9 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
                     fa_lbl = x$fa_lbl,
                     cr_lbl = x$cr_lbl)
 
-  ## Plotting functions: ----------
+  ## (3) Call plotting functions: ----------
 
-  ## (1) Table / contingency/confusion/frequency table / tab plot:
+  ## 1. Table / contingency/confusion/frequency table / tab plot:
   if ((substr(type, 1, 3) == "tab") || (type == "ftab") || (type == "ctab")) {
 
     plot_tab(prev = x$prev,
@@ -707,7 +723,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (type == "tab")
 
-  ## (2) Area / mosaic plot:
+  ## 2. Area / mosaic plot:
   if ((substr(type, 1, 4) == "area") || (type == "farea") ||
       (substr(type, 1, 6) == "mosaic")) {  # "mosaic"
 
@@ -723,7 +739,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (type == "area")
 
-  ## (3) Icon array
+  ## 3. Icon array
   if (substr(type, 1, 4) == "icon") {
 
     plot_icons(prev = x$prev,             # probabilities
@@ -738,7 +754,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } #  if (type == "icon")
 
-  ## (4) Prism plot:
+  ## 4. Prism plot:
   if ((substr(type, 1, 5) == "prism") || (substr(type, 1, 6) == "fprism") ||
       (substr(type, 1, 3) == "net")   || (substr(type, 1, 4) == "fnet")   ||
       (substr(type, 1, 4) == "tree")  || (substr(type, 1, 5) == "ftree")) {
@@ -755,7 +771,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (type == "prism")
 
-  ## (5) Bar plot / frequency bars:
+  ## 5. Bar plot / frequency bars:
   if ((substr(type, 1, 3) == "bar") || (substr(type, 1, 4) == "fbar")) {
 
     plot_bar(prev = x$prev,
@@ -770,7 +786,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (type == "bar")
 
-  ## (6) Curve of probabilities:
+  ## 6. Curve of probabilities:
   if (substr(type, 1, 5) == "curve") {
 
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
@@ -782,7 +798,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
     )
   } # if (type == "curve")
 
-  ## (7) Plane/cube of probabilities:
+  ## 7. Plane/cube of probabilities:
   if ((substr(type, 1, 5) == "plane") || (substr(type, 1, 4) == "cube")) {
 
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
@@ -796,7 +812,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   ## OLDER plotting functions: -----
 
-  ## (8) old frequency network/net/fnet:
+  ## 8. old frequency network/net/fnet:
   if (((substr(type, 1, 4)) == "onet") || (substr(type, 1, 5) == "ofnet")) {
 
     plot_fnet(prev = x$prev,
@@ -817,7 +833,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (type == "old network")
 
-  ## (9) old frequency tree:
+  ## 9. old frequency tree:
   if ((type == "otree") || (type == "oftree")) {
 
     plot_tree(prev = x$prev,             # probabilities
@@ -838,7 +854,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } #  if (type == "otree")
 
-  ## (10) old mosaic plot:
+  ## 10. old mosaic plot:
   if (substr(type, 1, 7) == "omosaic") {
     plot_mosaic(prev = x$prev,
                 sens = x$sens, mirt = NA,
@@ -850,7 +866,7 @@ plot.riskyr <- function(x = NULL,  # require riskyr scenario
 
   } # if (type == "omosaic")
 
-}
+} # plot.riskyr end.
 
 ## Check: ------
 ## (A) with example scenarios (defined above):
