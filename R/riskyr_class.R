@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 11 23
+## 2018 11 24
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -32,35 +32,33 @@
 #' \code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}, and \code{\link{fart}}
 #' are used and returned.
 #'
-#' @format An object of class "riskyr"
-#' with 21 entries of textual and numeric information describing a risk-related scenario.
+#' @format An object of class "riskyr" with textual and numeric information
+#' describing a risk-related scenario.
 #'
 #' @return An object of class "riskyr" describing a risk-related scenario.
 #'
-#' Text elements (all elements of \code{\link{txt}}:
+#' Titles and text labels (see \code{\link{txt}}:
 #'
 #' @param scen_lbl The current scenario title (sometimes in Title Caps).
-#' @param scen_txt A longer text description of the current scenario
-#' (which may extend over several lines).
+#' @param popu_lbl A brief description of the current target population or sample.
 #'
-#' @param scen_lng Language of the current scenario (as character code).
-#' Options: \code{"en"} for English, \code{"de"} for  German.
-#'
-#' @param popu_lbl A brief description of the current target population \code{\link{popu}} or sample.
-#'
-#' @param cond_lbl A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+#' @param cond_lbl A label for the \emph{condition} or feature (e.g., some disease) currently considered.
 #' @param cond.true_lbl A label for the \emph{presence} of the current condition
 #' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
 #' @param cond.false_lbl A label for the \emph{absence} of the current condition
 #' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 #'
-#' @param dec_lbl A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+#' @param dec_lbl A label for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
 #' @param dec.pos_lbl A label for \emph{positive} decisions
 #' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 #' @param dec.neg_lbl A label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' @param sdt_lbl A name for the combination of \emph{condition} and \emph{decision} currently made.
+#' @param acc_lbl A label for \emph{accuracy} (i.e., correspondence between condition and decision or judgment).
+#' @param acc.cor_lbl A label for \emph{correct} (or accurate) decisions or judgments.
+#' @param acc.err_lbl A label for \emph{incorrect} (or erroneous) decisions or judgments.
+#'
+#' @param sdt_lbl A label for the combination of \emph{condition} and \emph{decision} currently made.
 #' @param hi_lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 #' @param mi_lbl A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
@@ -70,10 +68,7 @@
 #' @param cr_lbl A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
-#' Numeric elements:
-#'
-#' @param N The number of individuals in the scenario's population.
-#' A suitable value of \code{\link{N}} is computed, if not provided.
+#' Essential probabilities:
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -90,20 +85,36 @@
 #' of a positive decision provided that the condition is \code{FALSE}).
 #' \code{fart} is optional when its complement \code{spec} is provided.
 #'
+#' Essential frequencies:
+#'
+#' @param N The number of individuals in the scenario's population.
+#' A suitable value of \code{\link{N}} is computed, if not provided.
 #' @param hi The number of hits \code{\link{hi}} (or true positives).
 #' @param mi The number of misses \code{\link{mi}} (or false negatives).
 #' @param fa The number of false alarms \code{\link{fa}} (or false positives).
 #' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
-#' Source information:
+#' Details and source information:
+#'
+#' @param scen_lng Language of the current scenario (as character code).
+#' Options: \code{"en"} for English, \code{"de"} for German.
+#'
+#' @param scen_txt A longer text description of the current scenario
+#' (which may extend over several lines).
 #'
 #' @param scen_src Source information for the current scenario.
+#'
 #' @param scen_apa Source information for the current scenario
-#' in the style of the American Psychological Association (APA style).
+#' according to the American Psychological Association (APA style).
 #'
 #' @examples
-#' # Defining a scenario:
-#' scen.reoffend <- riskyr(scen_lbl = "Identify reoffenders",
+#' # Defining scenarios: -----
+#' # (a) minimal information:
+#' hustosis <- riskyr(scen_lbl = "Screening for hustosis",
+#'                    N = 1000, prev = .04, sens = .80, spec = .95)
+#'
+#' # (2) detailed information:
+#' scen_reoffend <- riskyr(scen_lbl = "Identify reoffenders",
 #'                         cond_lbl = "being a reoffender",
 #'                         popu_lbl = "Prisoners",
 #'                         cond.true_lbl = "has reoffended",
@@ -120,16 +131,19 @@
 #'                         N = 753,
 #'                         scen_src = "Example scenario")
 #'
-#' # Using a scenario:
-#' summary(scen.reoffend)
-#' plot(scen.reoffend)
+#' # Using scenarios: -----
+#' summary(hustosis)
+#' plot(hustosis)
 #'
-#' # 2 ways of defining the same scenario:
+#' summary(scen_reoffend)
+#' plot(scen_reoffend)
+#'
+#' # 2 ways of defining the same scenario: -----
 #' s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1: define by 3 prob & N
 #' s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 #' all.equal(s1, s2)  # should be TRUE
 #'
-#' # Ways to work:
+#' # Ways to work: -----
 #' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 #' riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 #'
@@ -143,24 +157,37 @@
 
 ## riskyr Definition: ------
 
-riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
-                   scen_lng = txt$scen_lng,
-                   scen_txt = txt$scen_txt, popu_lbl = txt$popu_lbl,
+riskyr <- function(# (1) Scenario information:
+                   scen_lbl = txt$scen_lbl,    # OR: ""
+                   popu_lbl = txt$popu_lbl,
+                   # (2) Three perspectives:
+                   # (A) by condition:
                    cond_lbl = txt$cond_lbl,
                    cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
+                   # (B) by decision:
                    dec_lbl = txt$dec_lbl,
                    dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+                   # (C) by accuracy:
+                   acc_lbl = txt$acc_lbl,
+                   dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
+                   # (3) 4 SDT cases:
                    sdt_lbl = txt$sdt_lbl,
                    hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
                    fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
+                   # (4) Essential probabilities:
                    prev = NA,
                    sens = NA,
                    spec = NA, fart = NA,
-                   N = NA,  ## WAS: freq$N,
+                   # (5) Essential frequencies:
+                   N = NA,  # WAS: freq$N,
                    hi = NA, mi = NA,
                    fa = NA, cr = NA,
+                   # (6) Scenario details:
+                   scen_lng = txt$scen_lng,
+                   scen_txt = txt$scen_txt,
                    scen_src = txt$scen_src,
-                   scen_apa = txt$scen_apa) {
+                   scen_apa = txt$scen_apa
+                   ) {
 
   ## (0): Initialize some stuff: ------
   freqs <- NA
@@ -196,7 +223,7 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
 
     probs_calc <- comp_prob_freq(hi, mi, fa, cr)
     probs <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
-    need.probs <- FALSE  # set flag that probs are no longer needed
+    need_probs <- FALSE  # set flag that probs are no longer needed
 
     ## (c) Calculate ALL frequencies from 4 essential frequencies:
     freqs <- comp_freq_freq(hi, mi, fa, cr)
@@ -204,7 +231,7 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
   } else {  # if not all 4 essential frequencies are provided:
 
     probs <- NA         # set probs to NA (and use inputs below).
-    need.probs <- TRUE  # set flag that probs are still needed
+    need_probs <- TRUE  # set flag that probs are still needed
 
   } # if (!any(is.na(c(hi, mi, fa, cr))))...
 
@@ -258,7 +285,7 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
 
   else { # no valid set of probabilities was provided:
 
-    if (need.probs) {  # not all 4 essential frequencies were provided above:
+    if (need_probs) {  # not all 4 essential frequencies were provided above:
 
       ## Case_3: Not all frequencies OR a valid set of probabilities were provided:
       warning("Neither a full set of frequencies nor a valid set of probabilities was provided.")
@@ -283,18 +310,30 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
 
   ## Define object (scenario) as a list: ------
 
-  object <- list(scen_lbl = scen_lbl, scen_lng = scen_lng, scen_txt = scen_txt,
-                 popu_lbl = popu_lbl, cond_lbl = cond_lbl,
+  object <- list(scen_lbl = scen_lbl,
+                 popu_lbl = popu_lbl,
+                 # by condition:
+                 cond_lbl = cond_lbl,
                  cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
-                 dec_lbl = dec_lbl, dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+                 # by decision:
+                 dec_lbl = dec_lbl,
+                 dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+                 # by accuracy:
+                 acc_lbl = acc_lbl,
+                 dec.cor_lbl = dec.cor_lbl, dec.err_lbl = dec.err_lbl,
+                 # SDT cases:
                  sdt_lbl = sdt_lbl,
                  hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
+                 # Probabilities:
                  prev = probs[1],
                  sens = probs[2],
                  spec = probs[4], fart = probs[5],
+                 # Frequencies:
                  N = N,
                  hi = freqs$hi, mi = freqs$mi,
                  fa = freqs$fa, cr = freqs$cr,
+                 # Details:
+                 scen_lng = scen_lng, scen_txt = scen_txt,
                  scen_src = scen_src, scen_apa = scen_apa)
 
   ## Add class riskyr:
@@ -302,7 +341,7 @@ riskyr <- function(scen_lbl = "",  ## WAS: txt$scen_lbl,
 
   return(object)
 
-}
+} # riskyr end.
 
 
 ## Check: ----------
