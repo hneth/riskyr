@@ -1003,6 +1003,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
 ## -----------------------------------------------
 ## (+) ToDo:
 
+## - Use by = "cd", "cddc", etc. argument.
+## - Use default txt and pal arguments.
+## - Provide area = "icons" functionality to other plots.
+
 ## - Hyprid plots: Combine icons with fnet/ftree/prism.
 ##
 ## - Add borders to left and top type of sorting.
