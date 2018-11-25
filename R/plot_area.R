@@ -1182,8 +1182,8 @@ plot_area <- function(prev = num$prev,    # probabilities
     pt_cex <- 1
     pt_lwd <- 1
     col_brd <- col_pal["brd"]
-    col_fill_p1 <- makeTransparent("gold", .33)
-    col_fill_p2 <- makeTransparent("red3", .33)
+    col_fill_p1 <- make_transparent("gold", .33)
+    col_fill_p2 <- make_transparent("red3", .33)
 
     # (a) by condition:
 

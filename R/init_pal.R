@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 11 22
+## 2018 11 25
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -57,20 +57,20 @@ my_green <- "olivedrab4"
 my_yellow <- "lightgoldenrod1"
 my_orange <- "sienna1"
 
-green_1 <- makeTransparent(my_green, alpha = .50)
-green_2 <- makeTransparent(my_green, alpha = 1.0)
+green_1 <- make_transparent(my_green, alpha = .50)
+green_2 <- make_transparent(my_green, alpha = 1.0)
 
-red_1 <- makeTransparent(my_red, alpha = .50)
-red_2 <- makeTransparent(my_red, alpha = 1.0)
+red_1 <- make_transparent(my_red, alpha = .50)
+red_2 <- make_transparent(my_red, alpha = 1.0)
 
-blue_1 <- makeTransparent(my_blue, alpha = .50)
-blue_2 <- makeTransparent(my_blue, alpha = 1.0)
+blue_1 <- make_transparent(my_blue, alpha = .50)
+blue_2 <- make_transparent(my_blue, alpha = 1.0)
 
-yellow_1 <- makeTransparent(my_yellow, alpha = .50)
-yellow_2 <- makeTransparent(my_yellow, alpha = 1.0)
+yellow_1 <- make_transparent(my_yellow, alpha = .50)
+yellow_2 <- make_transparent(my_yellow, alpha = 1.0)
 
-orange_1 <- makeTransparent(my_orange, alpha = .50)
-orange_2 <- makeTransparent(my_orange, alpha = 1.0)
+orange_1 <- make_transparent(my_orange, alpha = .50)
+orange_2 <- make_transparent(my_orange, alpha = 1.0)
 
 my_whitish <- "antiquewhite" # "whitesmoke"
 my_bluish <- "aliceblue"

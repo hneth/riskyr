@@ -428,7 +428,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (uc > 0) {
 
       ## Color of uncertainty polygon (here: rectangle):
-      uc_col  <- makeTransparent(col.prev, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col.prev, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon (here: rectangle):
       x_lower_prev <- c(max(0, (prev - uc * prev)), min((prev + uc * prev), 1)) # only 2 points (left & right)
@@ -508,7 +508,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (uc > 0) {
 
       ## Color of PPV uncertainty polygon:
-      uc_col  <- makeTransparent(col.ppv, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col.ppv, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -578,7 +578,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (uc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- makeTransparent(col.npv, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col.npv, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -649,7 +649,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (uc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- makeTransparent(col.ppod, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col.ppod, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -720,7 +720,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (uc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- makeTransparent(col.acc, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col.acc, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)

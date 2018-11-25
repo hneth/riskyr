@@ -1,14 +1,13 @@
 ## comp_util.R | riskyr
-## 2018 11 23
+## 2018 11 25
 ## Generic utility functions:
 ## -----------------------------------------------
 
 ## (A) Verification functions
 ## (B) Beware of extreme cases
 ## (C) Conversion functions
-## (D) Plotting functions (moved to plot_util.R)
+## (D) Color and plotting functions (mostly moved to plot_util.R)
 ## (E) Text functions
-
 
 ## (A) Verification functions: ----------
 
@@ -1358,13 +1357,13 @@ as_pb <- function(perc, n_digits = 4) {
 
 
 
-## (D) Plotting functions: ----------
+## (D) Color and plotting functions: ----------
 
 ## Note: Moved plotting help functions to file "plot_util.R".
 
-## makeTransparent: Make color transparent ------
+## make_transparent: Make colors transparent ------
 
-makeTransparent = function(..., alpha = .50) {
+make_transparent <- function(..., alpha = .50) {
 
   if (alpha < 0 | alpha > 1) {
     stop("alpha value must be in range from 0 to 1")
@@ -1373,19 +1372,22 @@ makeTransparent = function(..., alpha = .50) {
   alpha <- floor(255 * alpha)
   newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
 
-  .makeTransparent <- function(col, alpha) {
+  .make_transparent <- function(col, alpha) {
     rgb(red = col[1], green = col[2], blue = col[3],
         alpha = alpha, maxColorValue = 255)
   }
 
-  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
+  newColor <- apply(newColor, 2, .make_transparent, alpha = alpha)
 
   return(newColor)
 
 }
 
-## Note also: adjustcolor(col = "green", alpha.f = .50)
+## Check:
+# make_transparent("black")
 
+## See also:
+# adjustcolor(col = "green", alpha.f = .50)
 
 ## (E) Text functions: ----------
 
