@@ -381,7 +381,7 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 # txt_TF$hi      # "TP", rather than "hi"
 
 ## Use as default:
-txt <- txt_TF
+# txt <- txt_TF
 
 ## (*) Done: -------------------------------------
 
