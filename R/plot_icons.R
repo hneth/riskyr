@@ -1,6 +1,6 @@
 ## plot_icons.R | riskyr
 ## 2018 11 25
-##  Plots an icon array in a variety of ways.
+## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
 ## plot_icons Documentation: ----------
@@ -22,7 +22,6 @@
 #' the values currently contained in \code{\link{freq}} are used.
 #' By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 #' to avoid decimal values in \code{\link{freq}}.
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -87,6 +86,14 @@
 #' (i.e., hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
 #'
+#' @param icon_types Specifies the appearance of the icons as a vector.
+#' Accepts values from 1 to 25 (see \code{?points}).
+#'
+#' @param icon_size Manually specifies the size of the icons via \code{cex}
+#' (calculated dynamically by default).
+#'
+#' @param icon_brd_lwd Specifies the border width of icons (if applicable).
+#'
 #' @param block_d  The distance between blocks
 #' (does not apply to "filleft", "filltop", and "scatter")
 #'
@@ -109,77 +116,77 @@
 #' @param fill_blocks specifies how icons within blocks are filled
 #' (Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})
 #'
+#' Generic text and color options:
 #'
-#' @param show_accu Option for showing current accuracy metrics
-#' \code{\link{accu}} in the plot.
-#' Default: \code{show_accu = TRUE}.
+#' @param lbl_txt  Default label set for text elements.
+#' Default: \code{lbl_txt = \link{txt}}.
 #'
-#' @param w_acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w_acc = .50}.
+#' @param title_lbl  Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
+#' @param cex_lbl  Scaling factor for text labels.
+#' Default: \code{cex_lbl = .90}.
 #'
-#' Various other options allow the customization of text labels and colors:
-#'
-#' @param icon_col Specifies the icon colors as a vector.
-#'
-#' @param icon_types Specifies the appearance of the icons as a vector.
-#' Accepts values from 1 to 25 (see \code{?points}).
-#'
-#' @param icon_brd_col Specifies the border color of icons (if applicable).
-#'
-#' @param icon_brd_lwd Specifies the border width of icons (if applicable).
+#' @param col_pal  Color palette.
+#' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param transparency Specifies the transparency for overlapping icons
-#' (not \code{arr_type} "array" and "shuffledarray").
+#' (not for \code{arr_type = "array"} and \code{"shuffledarray"}).
 #'
-#' @param icon_size Manually specifies the size of the icons via \code{cex}
-#' (calculated dynamically by default).
+#' @param mar_notes  Boolean option for showing margin notes.
+#' Default: \code{mar_notes = TRUE}.
 #'
-#' @param title_lbl Text label to set plot title.
+#' @param ...  Other (graphical) parameters.
 #'
-#' @param type_lbls Text labels for icon types to be displayed in legend.
 #'
-#' @param cex_lbl Scaling factor for the size of text labels
-#' (e.g., on axes, legend, margin text).
-#' Default: \code{cex_lbl = .85}.
-#'
+#' @return Nothing (NULL).
 #'
 #' @examples
 #' # ways to work:
-#' plot_icons()  # => plots icon array for default population (with default arr_type = "array")
-#' plot_icons(arr_type = "shuffledarray")  # => icon array with shuffled IDs
+#' plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
+#' plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
 #'
 #' plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot
 #' plot_icons(arr_type = "fillequal", N = 1000)  # areas of equal size (probability as density)
 #' plot_icons(arr_type = "fillleft",  N = 1000)  # icons filled from left to right (in columns)
 #' plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
+#' plot_icons(arr_type = "scatter",   N = 1000)  # icons randomly scattered
 #'
-#' plot_icons(icon_types = c(21,23,24,23),
+#' # Icon symbols:
+#' plot_icons(N = 100, icon_types = c(21, 23, 24, 23),
 #'                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
 #'                block_d = 0.5, border_d = 0.9)
-#' plot_icons(arr_type = "scatter",   N = 1000)  # => icons randomly scattered.
 #'
-#' # some variants:
-#' plot_icons(N = 800, arr_type = "array", icon_types = c(21,22,23,24),
+#' # Variants:
+#' plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
 #'            block_d = 0.5, border_d = 0.5)
 #'
 #' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-#'                icon_types = c(21,23,24,23),
+#'                icon_types = c(21, 23, 24, 23),
 #'                block_size_row = 10, block_size_col = 5,
 #'                nblocks_row = 5, nblocks_col = 5,
 #'                block_d = 0.8,
 #'                border_d = 0.2,
 #'                fill_array = "top")
-#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
+#'
+#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
 #'            block_d = 0.5, border_d = 0.5)
 #'
-#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
+#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
 #'            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
 #'
-#' plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
-#'            icon_brd_lwd = .5, cex = 3)
+#' plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
+#'            icon_brd_lwd = .5, cex = 1)
 #'
+#' # Text and color options:
+#' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
+#'            title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = FALSE)
+#'
+#' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
+#'            title_lbl = "Green vs. red", col_pal = pal_4c, transparency = .5)
+#'
+#' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
+#'            title_lbl = "Shades of blue", col_pal = pal_kn, transparency = .3)
 #'
 #' @family visualization functions
 #'
@@ -235,19 +242,19 @@
 plot_icons <- function(prev = num$prev,             # probabilities
                        sens = num$sens, mirt = NA,
                        spec = num$spec, fart = NA,  # was: num$fart,
-                       N = freq$N,    # ONLY freq used (so far)
+                       N = freq$N,                  # ONLY freq used
+
                        ## Key options: ##
                        arr_type = "array",  # needs to be specified if random position but nonrandom ident.
-                       ## Valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       ## valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+
+                       ## Icon settings:
                        ident_order = c("hi", "mi", "fa", "cr"),
-                       icon_col = pal[ident_order],  # use one color for each usual arr_type.
-                       icon_types = 22,  # plotting characters; default square with border
-                       icon_brd_col = grey(.10, .50),  # border color of icons
+                       icon_types = 22,    # plotting symbols; default: square with border
+                       icon_size = NULL,   # size of icons
                        icon_brd_lwd = 1.5, # line width of icons
-                       transparency = .50,
-                       icon_size = NULL,
-                       block_d = NULL,  # distance between blocks (where applicable).
-                       border_d = 0.1,  # distance of icons to border.
+                       block_d = NULL,     # distance between blocks (where applicable).
+                       border_d = 0.1,     # distance of icons to border.
 
                        ## Classic icon arrays only:
                        block_size_row = 10,
@@ -258,14 +265,53 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        fill_array = "left",
                        fill_blocks = "rowwise",
 
-                       show_accu = TRUE, # Option for showing current accuracy metrics.
-                       w_acc = 0.50,
-
                        ## Text labels:
-                       title_lbl = txt$scen_lbl,
-                       type_lbls = txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],  # 4 SDT cases/combinations
-                       cex_lbl = .85
+                       # title_lbl = txt$scen_lbl,
+
+                       # cex_lbl = .85
+
+                       # Text and color:
+                       lbl_txt = txt,  # labels and text elements
+                       title_lbl = txt$scen_lbl,  # main plot title
+                       # type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],  # 4 SDT cases/combinations
+                       cex_lbl = .90,        # size of text labels.
+                       # cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
+
+                       col_pal = pal,        # color palette
+                       transparency = .50,   # alpha level for icons and icon_brd_col
+                       # icon_col = col_pal[ident_order], # use one color for each usual arr_type.
+                       # icon_brd_col = col_pal["brd"],   # border color of icons [was: grey(.10, .50)]
+
+                       # Generic options:
+                       mar_notes = TRUE,   # show margin notes?
+                       # show_accu = TRUE,   # Option for showing current accuracy metrics.
+                       # w_acc = 0.50,
+                       ...                 # other (graphical) parameters (passed to plot_link and plot_ftype_label)
+
 ) {
+
+  ## (1) Prepare parameters: ----------
+
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))  # par(opar)  # restore original settings
+
+  ## (2) Define plot and margin areas: ----------
+
+  ## Define margin areas:
+  n_lines_mar <- 3 + 2  # to accommodate legend
+  n_lines_oma <- 0
+  par(mar = c(n_lines_mar, 1, 3, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+  ## (3) Key options and parameters: ----------
+
+  # (a) Get current SDT case labels from lbl_txt:
+  type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")]  # 4 SDT cases/combinations
+
+  # (b) Get current colors from col_pal:
+  icon_col     <- col_pal[ident_order]  # use one color for each usual arr_type.
+  icon_brd_col <- col_pal["brd"]        # border color of icons [was: grey(.10, .50)]
+  icon_brd_col <- makeTransparent(icon_brd_col, alpha = transparency)  # OR: alpha = 2/3
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
@@ -306,20 +352,20 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }
 
 
-  ## A0.1: Check entered parameters for plausibility!--------------------------------------------
+  ## A0.1: Check entered parameters for plausibility ------
 
   # Check whether random.position and random.identities are logical:
   if ( !(is.logical(random.position) | is.logical(random.identities)) ) {
     stop("random.position and random.identities must be logical!")
   }
 
-  ## A0.2: Check entered parameters for usabililty:------------------------------------------
+  ## A0.2: Check entered parameters for usabililty ------
 
   # TODO: Either check for missing N or use other comparison.
 
-  ## A0.3: Different routes to col_vec and pch.vec ----------------------------------------
+  ## A0.3: Different routes to col_vec and pch.vec  ------
 
-  # A0.3.1: Calculation from probabilities ----------------------------------------------
+  # A0.3.1: Calculation from probabilities  ------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt,
@@ -390,7 +436,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
 
 
-  ## A1 Random position, random colors:---------------------------------------
+  ## A1 Random position, random colors ------
   if (random.position & random.identities) {
 
     # 1) Define positions:
@@ -413,7 +459,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }  # end A1: (random position & random colors)
 
 
-  ## A2 Random position, clustered colors: ---------------------------------------
+  ## A2 Random position, clustered colors ------
   if (random.position & !random.identities) {
 
     # 1b) sort dependent on parameter:
@@ -586,10 +632,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }  # end (random.position)
 
 
-  ## A3 and A4: Fixed positions:  --------------------------------------
+  ## A3 and A4: Fixed positions ----------
   if (!random.position) {
 
-    # 0. Check arrangement parameters: ----------------------------------
+    # 0. Check arrangement parameters ------
     if (is.null(block_d)) {
 
       block_d <- 0.4  # set to a default value.
@@ -696,7 +742,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
     pos_my <- pos_my + seqy  # will be repeated for each column anyways.
 
 
-    # Plotting preparations:
+    # Plotting preparations: ------
 
     # save into respective vectors and norm on 0,1 space.
     posx_vec <- pos_mx / (ncols - 1)
@@ -762,7 +808,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
         # if (fill_array == "top") { m <- t(m) }
       }
-
 
       ## If the color vector already has the appropriate length:
       if (length(col_vec) == length(m)) {
@@ -856,7 +901,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }  # end A3 and A4 (fixed positions).
 
 
-  ## B. Plotting
+  ## B. Plotting ------
 
   ## TODO: Add text!
 
@@ -888,7 +933,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
          pch = pch.vec, col = icon_brd_col, bg = col_vec, lwd = icon_brd_lwd, cex = cex)
 
 
-  ## Legend:
+  ## Legend: -----
+
   if (sum(nchar(type_lbls)) > 0) {
     # reorder labels:
     names(type_lbls) <- c("hi", "mi", "fa", "cr")
@@ -902,60 +948,103 @@ plot_icons <- function(prev = num$prev,             # probabilities
          cex = cex_lbl, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
-  ## Title:
+
+  ## Title: -----
+
+  # Define parts:
+  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
-  cur_title_lbl <- paste0(title_lbl, "Icon array") # , "(N = ", N, ")")
-  title(cur_title_lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  ## Margin text:
+  if (title_lbl == "") {  # if title has been set to "":
+    type_lbl <- ""        # assume that no subtitle is desired either
+  } else {
+    type_lbl <- paste0("Icon array") # , "(N = ", N, ")") # plot name: icon array.
+  }
 
-  ## (a) by condition: 3 basic probabilities
-  cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur_cond_lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  # Compose label:
+  cur_title_lbl <- paste0(title_lbl, type_lbl)
 
-  # (b) by decision:
-  ppod <- comp_ppod(prev, sens, spec)  # compute ppod etc.
-  PPV <- comp_PPV(prev, sens, spec)
-  NPV <- comp_NPV(prev, sens, spec)
+  # Plot title:
+  title(cur_title_lbl, adj = 0, line = +1, font.main = 1, cex.main = 1.2)  # (left, raised by +1, normal font)
 
-  cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  mtext(cur_dec_lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
-  ## (c) Accuracy: Compute and show accuracy metrics
+  ## Margins: ------
 
-  if (show_accu) {
+  ## OLD code:
+  # if (mar_notes) {
+  #
+  #   ## (a) by condition: 3 basic probabilities
+  #   cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  #   mtext(cur_cond_lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  #
+  #   # (b) by decision:
+  #   ppod <- comp_ppod(prev, sens, spec)  # compute ppod etc.
+  #   PPV <- comp_PPV(prev, sens, spec)
+  #   NPV <- comp_NPV(prev, sens, spec)
+  #
+  #   cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+  #   mtext(cur_dec_lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  #
+  #   ## (c) Accuracy: Compute and show accuracy metrics
+  #
+  #   if (show_accu) {
+  #
+  #     # (0) Get 4 essential freq from cur_freq (computed above with round = TRUE):
+  #     n_hi <- cur_freq$hi
+  #     n_mi <- cur_freq$mi
+  #     n_fa <- cur_freq$fa
+  #     n_cr <- cur_freq$cr
+  #
+  #     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
+  #     cur_accu <- comp_accu_freq(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr, w = w_acc)
+  #
+  #     # Note: If freq are NOT rounded, then
+  #     #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
+  #     #       would yield the same results.
+  #
+  #     # (2) Make label:
+  #     cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
+  #
+  #     # (3) Mark IF accu was based on rounded freq:
+  #     # if (round) {  # freq were rounded to compute cur_freq above:
+  #     cur_accu_lbl <- paste0("*", cur_accu_lbl, " (rounded)")
+  #     # }
+  #
+  #     # (4) Plot label:
+  #     mtext(cur_accu_lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+  #
+  #   } # if (show_accu)...
+  #
+  #
+  #   ## (d) Note scaling:
+  #   mtext(ind_lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
+  #
+  # } # if (mar_notes) etc.
 
-    # (0) Get 4 essential freq from cur_freq (computed above with round = TRUE):
-    n_hi <- cur_freq$hi
-    n_mi <- cur_freq$mi
-    n_fa <- cur_freq$fa
-    n_cr <- cur_freq$cr
+  ## NEW code:
+  if (mar_notes) {
 
-    # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-    cur_accu <- comp_accu_freq(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr, w = w_acc)
-
-    # Note: If freq are NOT rounded, then
-    #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
-    #       would yield the same results.
-
-    # (2) Make label:
-    cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
-
-    # (3) Mark IF accu was based on rounded freq:
-    # if (round) {  # freq were rounded to compute cur_freq above:
-    cur_accu_lbl <- paste0("*", cur_accu_lbl, " (rounded)")
+    # Note:
+    note_lbl <- ""  # initialize
+    # if ( (area != "no") && (scale == "f") ) { # Note area type and scaling by f:
+    #   note_lbl <- label_note(area = area, scale = scale)
     # }
 
-    # (4) Plot label:
-    mtext(cur_accu_lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
+             show_accu = TRUE, accu_from_freq = FALSE, # TRUE,
+             note = note_lbl,
+             cur_freq = freq, cur_prob = prob, cur_txt = lbl_txt)
 
-  } # if (show_accu)...
+  } # if (mar_notes)
 
 
-  ## (d) Note scaling:
-  mtext(ind_lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
+  ##   Finish: ---------
 
-}  # end of function.
+  # on.exit(par(opar))  # par(opar)  # restore original settings
+  invisible() # restores par(opar)
+
+} # plot_icons end.
 
 
 ## Check: ----------

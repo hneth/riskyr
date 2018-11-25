@@ -6,14 +6,13 @@
 \usage{
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, arr_type = "array",
-  ident_order = c("hi", "mi", "fa", "cr"), icon_col = pal[ident_order],
-  icon_types = 22, icon_brd_col = grey(0.1, 0.5), icon_brd_lwd = 1.5,
-  transparency = 0.5, icon_size = NULL, block_d = NULL,
+  ident_order = c("hi", "mi", "fa", "cr"), icon_types = 22,
+  icon_size = NULL, icon_brd_lwd = 1.5, block_d = NULL,
   border_d = 0.1, block_size_row = 10, block_size_col = 10,
   nblocks_row = NULL, nblocks_col = NULL, fill_array = "left",
-  fill_blocks = "rowwise", show_accu = TRUE, w_acc = 0.5,
-  title_lbl = txt$scen_lbl, type_lbls = txt[c("hi_lbl", "mi_lbl",
-  "fa_lbl", "cr_lbl")], cex_lbl = 0.85)
+  fill_blocks = "rowwise", lbl_txt = txt, title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9, col_pal = pal, transparency = 0.5,
+  mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -79,20 +78,13 @@ resulting in different types of displays:
 (i.e., hi, mi, fa, and cr) are plotted.
 Default: \code{ident_order = c("hi", "mi", "fa", "cr")}}
 
-\item{icon_col}{Specifies the icon colors as a vector.}
-
 \item{icon_types}{Specifies the appearance of the icons as a vector.
 Accepts values from 1 to 25 (see \code{?points}).}
 
-\item{icon_brd_col}{Specifies the border color of icons (if applicable).}
-
-\item{icon_brd_lwd}{Specifies the border width of icons (if applicable).}
-
-\item{transparency}{Specifies the transparency for overlapping icons
-(not \code{arr_type} "array" and "shuffledarray").}
-
 \item{icon_size}{Manually specifies the size of the icons via \code{cex}
 (calculated dynamically by default).}
+
+\item{icon_brd_lwd}{Specifies the border width of icons (if applicable).}
 
 \item{block_d}{The distance between blocks
 (does not apply to "filleft", "filltop", and "scatter")}
@@ -114,26 +106,32 @@ Additional options for controlling the arrangement of arrays
 (Options "left" (default) and "top").}
 
 \item{fill_blocks}{specifies how icons within blocks are filled
-(Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})}
+(Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})
 
-\item{show_accu}{Option for showing current accuracy metrics
-\code{\link{accu}} in the plot.
-Default: \code{show_accu = TRUE}.}
+Generic text and color options:}
 
-\item{w_acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w_acc = .50}.
+\item{lbl_txt}{Default label set for text elements.
+Default: \code{lbl_txt = \link{txt}}.}
 
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen_lbl}.}
 
-Various other options allow the customization of text labels and colors:}
+\item{cex_lbl}{Scaling factor for text labels.
+Default: \code{cex_lbl = .90}.}
 
-\item{title_lbl}{Text label to set plot title.}
+\item{col_pal}{Color palette.
+Default: \code{col_pal = \link{pal}}.}
 
-\item{type_lbls}{Text labels for icon types to be displayed in legend.}
+\item{transparency}{Specifies the transparency for overlapping icons
+(not for \code{arr_type = "array"} and \code{"shuffledarray"}).}
 
-\item{cex_lbl}{Scaling factor for the size of text labels
-(e.g., on axes, legend, margin text).
-Default: \code{cex_lbl = .85}.}
+\item{mar_notes}{Boolean option for showing margin notes.
+Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
+}
+\value{
+Nothing (NULL).
 }
 \description{
 \code{plot_icons} plots a population of which individual's
@@ -155,39 +153,50 @@ to avoid decimal values in \code{\link{freq}}.
 }
 \examples{
 # ways to work:
-plot_icons()  # => plots icon array for default population (with default arr_type = "array")
-plot_icons(arr_type = "shuffledarray")  # => icon array with shuffled IDs
+plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
+plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
 
 plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot
 plot_icons(arr_type = "fillequal", N = 1000)  # areas of equal size (probability as density)
 plot_icons(arr_type = "fillleft",  N = 1000)  # icons filled from left to right (in columns)
 plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
+plot_icons(arr_type = "scatter",   N = 1000)  # icons randomly scattered
 
-plot_icons(icon_types = c(21,23,24,23),
+# Icon symbols:
+plot_icons(N = 100, icon_types = c(21, 23, 24, 23),
                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
                block_d = 0.5, border_d = 0.9)
-plot_icons(arr_type = "scatter",   N = 1000)  # => icons randomly scattered.
 
-# some variants:
-plot_icons(N = 800, arr_type = "array", icon_types = c(21,22,23,24),
+# Variants:
+plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
            block_d = 0.5, border_d = 0.5)
 
 plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon_types = c(21,23,24,23),
+               icon_types = c(21, 23, 24, 23),
                block_size_row = 10, block_size_col = 5,
                nblocks_row = 5, nblocks_col = 5,
                block_d = 0.8,
                border_d = 0.2,
                fill_array = "top")
-plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
+
+plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
            block_d = 0.5, border_d = 0.5)
 
-plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
+plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
 
-plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
-           icon_brd_lwd = .5, cex = 3)
+plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
+           icon_brd_lwd = .5, cex = 1)
 
+# Text and color options:
+plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
+           title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = FALSE)
+
+plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
+           title_lbl = "Green vs. red", col_pal = pal_4c, transparency = .5)
+
+plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
+           title_lbl = "Shades of blue", col_pal = pal_kn, transparency = .3)
 
 }
 \seealso{
