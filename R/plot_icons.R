@@ -1,7 +1,6 @@
 ## plot_icons.R | riskyr
-## 2018 11 23
-##  plot_icons plots an icon array in a variety
-##  of ways, dependent on population size.
+## 2018 11 25
+##  Plots an icon array in a variety of ways.
 ## -----------------------------------------------
 
 ## plot_icons Documentation: ----------
@@ -84,7 +83,6 @@
 #'
 #' }
 #'
-#'
 #' @param ident_order  The order in which icon identities
 #' (i.e., hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
@@ -94,9 +92,8 @@
 #'
 #' @param border_d  The distance of icons to the border.
 #'
-#'
-#' Additional options allow to control the arrangement of the arrays
-#' (\code{arr_type} "array" and "shuffledarray"):
+#' Additional options for controlling the arrangement of arrays
+#' (for \code{arr_type = "array"} and \code{"shuffledarray"}):
 #'
 #' @param block_size_row specifies how many icons should be in each block row.
 #'
@@ -113,8 +110,8 @@
 #' (Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})
 #'
 #'
-#' @param show_accu Option for showing current
-#' accuracy metrics \code{\link{accu}} in the plot.
+#' @param show_accu Option for showing current accuracy metrics
+#' \code{\link{accu}} in the plot.
 #' Default: \code{show_accu = TRUE}.
 #'
 #' @param w_acc Weigthing parameter \code{w} used to compute
@@ -124,20 +121,20 @@
 #'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param icon_colors Specifies the icon colors as a vector.
+#' @param icon_col Specifies the icon colors as a vector.
 #'
 #' @param icon_types Specifies the appearance of the icons as a vector.
 #' Accepts values from 1 to 25 (see \code{?points}).
 #'
-#' @param icon_border_col Specifies the border color of icons (if applicable).
+#' @param icon_brd_col Specifies the border color of icons (if applicable).
 #'
-#' @param icon_border_lwd Specifies the border width of icons (if applicable).
+#' @param icon_brd_lwd Specifies the border width of icons (if applicable).
 #'
 #' @param transparency Specifies the transparency for overlapping icons
 #' (not \code{arr_type} "array" and "shuffledarray").
 #'
 #' @param icon_size Manually specifies the size of the icons via \code{cex}
-#' (calculated dynamically by default.)
+#' (calculated dynamically by default).
 #'
 #' @param title_lbl Text label to set plot title.
 #'
@@ -178,10 +175,10 @@
 #'            block_d = 0.5, border_d = 0.5)
 #'
 #' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
-#'            icon_border_col = grey(.33, .99), icon_border_lwd = 3)
+#'            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
 #'
 #' plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
-#'            icon_border_lwd = .5, cex = 3)
+#'            icon_brd_lwd = .5, cex = 3)
 #'
 #'
 #' @family visualization functions
@@ -243,10 +240,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        arr_type = "array",  # needs to be specified if random position but nonrandom ident.
                        ## Valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
                        ident_order = c("hi", "mi", "fa", "cr"),
-                       icon_colors = pal[ident_order],  # use one color for each usual arr_type.
+                       icon_col = pal[ident_order],  # use one color for each usual arr_type.
                        icon_types = 22,  # plotting characters; default square with border
-                       icon_border_col = grey(.10, .50),  # border color of icons
-                       icon_border_lwd = 1.5, # line width of icons
+                       icon_brd_col = grey(.10, .50),  # border color of icons
+                       icon_brd_lwd = 1.5, # line width of icons
                        transparency = .50,
                        icon_size = NULL,
                        block_d = NULL,  # distance between blocks (where applicable).
@@ -266,7 +263,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
                        ## Text labels:
                        title_lbl = txt$scen_lbl,
-                       type_lbls = txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
+                       type_lbls = txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],  # 4 SDT cases/combinations
                        cex_lbl = .85
 ) {
 
@@ -370,23 +367,23 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   # DO SOME CHECKS HERE!?
   ## Determine order:
-  if (is.null(names(icon_colors))) {
-    names(icon_colors) <- ident_order
+  if (is.null(names(icon_col))) {
+    names(icon_col) <- ident_order
   }
 
   if (is.null(names(icon_types))) {
 
-    if (length(icon_types) < length(icon_colors)) {
+    if (length(icon_types) < length(icon_col)) {
 
       if (length(icon_types) > 1) {warning("Icon types are recycled to number of colors.")}
 
-      icon_types <- rep(icon_types, length.out = length(icon_colors))
+      icon_types <- rep(icon_types, length.out = length(icon_col))
     }
-    names(icon_types) <- names(icon_colors)
+    names(icon_types) <- names(icon_col)
   }
 
-  ## (c) Compute icon_colors from frequencies:
-  col_vec <- rep(icon_colors[ident_order], times = cur_freq[ident_order])
+  ## (c) Compute icon_col from frequencies:
+  col_vec <- rep(icon_col[ident_order], times = cur_freq[ident_order])
 
   ## (d) Compute pch.vec from frequencies:
   pch.vec <- rep(icon_types[ident_order], times = cur_freq[ident_order])
@@ -822,8 +819,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
         ## for colors:
         len_diff <- (ncols * nrows) - length(col_vec)
-        if (length(icon_border_col) > 1) {
-          icon_border_col <- c(icon_border_col, rep(NA, len_diff))
+        if (length(icon_brd_col) > 1) {
+          icon_brd_col <- c(icon_brd_col, rep(NA, len_diff))
         }
 
         col_vec <- c(col_vec, rep(NA, len_diff))
@@ -867,7 +864,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # if any of the plotting characters is not in the ones with border,
     # omit border and color accordingly.
 
-    icon_border_col <- col_vec
+    icon_brd_col <- col_vec
 
   }
 
@@ -888,7 +885,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   ## Additional information:
   points(x = posx_vec, y = posy_vec,  # positions.
          ## visual details:
-         pch = pch.vec, col = icon_border_col, bg = col_vec, lwd = icon_border_lwd, cex = cex)
+         pch = pch.vec, col = icon_brd_col, bg = col_vec, lwd = icon_brd_lwd, cex = cex)
 
 
   ## Legend:
@@ -901,7 +898,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
          legend = type_lbls,
          horiz = TRUE, bty = "n",
-         pt.bg = icon_colors, pch = icon_types,
+         pt.bg = icon_col, pch = icon_types,
          cex = cex_lbl, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
@@ -995,23 +992,22 @@ plot_icons <- function(prev = num$prev,             # probabilities
 #            block_d = 0.5, border_d = 0.5)
 #
 # plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
-#            icon_border_col = grey(.33, .99), icon_border_lwd = 3)
+#            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
 #
 # plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
-#            icon_border_lwd = .5, cex = 2)
+#            icon_brd_lwd = .5, cex = 2)
 
 ## -----------------------------------------------
 ## (+) ToDo:
 
-## - Use by = "cd", "cddc", etc. argument.
 ## - Use default txt and pal arguments.
+## - Use by = "cd", "cddc", etc. argument.
 ## - Provide area = "icons" functionality to other plots.
 
-## - Hyprid plots: Combine icons with fnet/ftree/prism.
-##
+## - Show as 4 distinct clusters (rectangles?) of icons.
+## - Hybrid plots: Combine icons with fnet/ftree/prism.
 ## - Add borders to left and top type of sorting.
-##
-## - Make more modular: Different plot types may be separate (sub-)functions.
+## - More modular: Different plot types as separate (sub-)functions?
 ##
 ## - Better understand cex --> how does it work, when does it change sizes, when not?
 

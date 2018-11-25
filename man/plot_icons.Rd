@@ -6,9 +6,8 @@
 \usage{
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, arr_type = "array",
-  ident_order = c("hi", "mi", "fa", "cr"),
-  icon_colors = pal[ident_order], icon_types = 22,
-  icon_border_col = grey(0.1, 0.5), icon_border_lwd = 1.5,
+  ident_order = c("hi", "mi", "fa", "cr"), icon_col = pal[ident_order],
+  icon_types = 22, icon_brd_col = grey(0.1, 0.5), icon_brd_lwd = 1.5,
   transparency = 0.5, icon_size = NULL, block_d = NULL,
   border_d = 0.1, block_size_row = 10, block_size_col = 10,
   nblocks_row = NULL, nblocks_col = NULL, fill_array = "left",
@@ -80,29 +79,28 @@ resulting in different types of displays:
 (i.e., hi, mi, fa, and cr) are plotted.
 Default: \code{ident_order = c("hi", "mi", "fa", "cr")}}
 
-\item{icon_colors}{Specifies the icon colors as a vector.}
+\item{icon_col}{Specifies the icon colors as a vector.}
 
 \item{icon_types}{Specifies the appearance of the icons as a vector.
 Accepts values from 1 to 25 (see \code{?points}).}
 
-\item{icon_border_col}{Specifies the border color of icons (if applicable).}
+\item{icon_brd_col}{Specifies the border color of icons (if applicable).}
 
-\item{icon_border_lwd}{Specifies the border width of icons (if applicable).}
+\item{icon_brd_lwd}{Specifies the border width of icons (if applicable).}
 
 \item{transparency}{Specifies the transparency for overlapping icons
 (not \code{arr_type} "array" and "shuffledarray").}
 
 \item{icon_size}{Manually specifies the size of the icons via \code{cex}
-(calculated dynamically by default.)}
+(calculated dynamically by default).}
 
 \item{block_d}{The distance between blocks
 (does not apply to "filleft", "filltop", and "scatter")}
 
 \item{border_d}{The distance of icons to the border.
 
-
-Additional options allow to control the arrangement of the arrays
-(\code{arr_type} "array" and "shuffledarray"):}
+Additional options for controlling the arrangement of arrays
+(for \code{arr_type = "array"} and \code{"shuffledarray"}):}
 
 \item{block_size_row}{specifies how many icons should be in each block row.}
 
@@ -118,8 +116,8 @@ Additional options allow to control the arrangement of the arrays
 \item{fill_blocks}{specifies how icons within blocks are filled
 (Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})}
 
-\item{show_accu}{Option for showing current
-accuracy metrics \code{\link{accu}} in the plot.
+\item{show_accu}{Option for showing current accuracy metrics
+\code{\link{accu}} in the plot.
 Default: \code{show_accu = TRUE}.}
 
 \item{w_acc}{Weigthing parameter \code{w} used to compute
@@ -185,10 +183,10 @@ plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
            block_d = 0.5, border_d = 0.5)
 
 plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21,23,24,22),
-           icon_border_col = grey(.33, .99), icon_border_lwd = 3)
+           icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
 
 plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
-           icon_border_lwd = .5, cex = 3)
+           icon_brd_lwd = .5, cex = 3)
 
 
 }
