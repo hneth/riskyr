@@ -20,7 +20,7 @@ Assign \code{txt <- txt_TF} to use as default text labels
 throughout the \code{riskyr} package.
 }
 \examples{
-txt_TF       # shows all text labels
+txt_TF        # shows all text labels
 txt_TF["hi"]  # shows the current color for hits ("TP")
 txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
 

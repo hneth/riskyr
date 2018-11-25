@@ -45,10 +45,10 @@ txt_lbl_def <- list(
 
   # (4) Labels for the 4 cases/cells/classes/SDT combinations in 2x2 contingency table:
   sdt_lbl = "Cases",  # Dimension label: "Classification" or cell/case/SDT 2x2 table, etc.
-  hi_lbl = "TP", # "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
-  mi_lbl = "FN", # "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
-  fa_lbl = "FP", # "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
-  cr_lbl = "TN"  # "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
+  hi_lbl  = "hi", # "TP", # "True positive",  # "hit", "true positive", "has condition and is detected/predicted as such", "set(dec POS & cond TRUE)"
+  mi_lbl  = "mi", # "FN", # "False negative", # "miss", "false negative", "omission", "has condition and is NOT detected/predicted as such", "set(dec NEG & cond TRUE)"
+  fa_lbl  = "fa", # "FP", # "False positive", # "false alarm",       "false positive", "set(dec POS & cond FALSE)"
+  cr_lbl  = "cr"  # "TN"  # "True negative"   # "correct rejection", "true negative",  "set(dec NEG & cond FALSE)"
 
 )
 
@@ -343,7 +343,7 @@ txt <- init_txt()
 # txt$scen_lbl <- "My favorite example" # sets a new scenario title
 
 
-## txt_TF: Define alternative set of text labels: --------
+## txt_TF: Define an alternative set of text labels: --------
 
 #' Alternative text labels (TP, FN, FP, TN).
 #'
@@ -357,7 +357,7 @@ txt <- init_txt()
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' txt_TF       # shows all text labels
+#' txt_TF        # shows all text labels
 #' txt_TF["hi"]  # shows the current color for hits ("TP")
 #' txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
 #'
@@ -369,11 +369,19 @@ txt <- init_txt()
 #'
 #' @export
 
-txt_TF <- init_txt(scen_lbl = "",
+txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
                    cond_lbl = "Truth", cond.true_lbl = "True", cond.false_lbl = "False",
                    dec_lbl = "Test", dec.pos_lbl = "Positive", dec.neg_lbl = "Negative",
                    acc_lbl = "Accuracy", dec.cor_lbl = "Correct", dec.err_lbl = "Incorrect",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
+
+## Check:
+# length(txt_TF) # 21
+# txt_TF$sdt_lbl # unchanged from txt_lbl_def
+# txt_TF$hi      # "TP", rather than "hi"
+
+## Use as default:
+txt <- txt_TF
 
 ## (*) Done: -------------------------------------
 
