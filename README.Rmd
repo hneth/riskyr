@@ -212,7 +212,7 @@ plot(hustosis)  # default plot
 # plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
 ```
 
-![](inst/pix/README-ex1_prism-1.png)
+![Prism plot](inst/pix/README-ex1_prism-1.png)
 
 #### Tree diagram 
 
@@ -228,7 +228,7 @@ For instance, the following command plots a frequency tree by decisions:
 plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 ```
 
-![](inst/pix/README-ex1_tree-1.png)
+![Tree diagram](inst/pix/README-ex1_tree-1.png)
 
 This particular tree splits the population of `N = 1000` individuals into two subgroups _by decision_ (`by = "dc"`) and contains the answer to the second (frequency) version of our questions:
 
@@ -241,11 +241,11 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 
 An icon array shows the classification result for each of `N = 1000` individuals in our population: 
 
-```{r ex1_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
+```{r ex1_icons, eval = FALSE, fig.width = 7.8, fig.height = 4.2}
 plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
-![](inst/pix/README-ex1_icons-1.png)
+![Icon array](inst/pix/README-ex1_icons-1.png)
 
 While this particular icon array is highly regular (as both the icons and classification types are ordered), `riskyr` provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see `?plot_icons` for details and examples). 
 
@@ -257,17 +257,17 @@ An area plot (or mosaic plot) offers a way of expressing classification results 
 plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
-![](inst/pix/README-ex1_area-1.png)
+![Area/mosaic plot](inst/pix/README-ex1_area-1.png)
 
 #### Table plot
 
 When not scaling the size of rectangles by their relative frequencies or probabilities, we can plot basic scenario information as a 2-by-2 confusion (or contingency) table (see `?plot_tab` for details and examples):  
 
-```{r ex1_tab, eval = FALSE, fig.width = 6, fig.height = 5}
+```{r ex1_tab, eval = FALSE, fig.width = 7.2, fig.height = 5}
 plot(hustosis, type = "tab")  # plot 2x2 confusion table (by = "cddc") 
 ```
 
-![](inst/pix/README-ex1_tab-1.png)
+![Table plot](inst/pix/README-ex1_tab-1.png)
 
 #### Bar plot
 
@@ -277,7 +277,7 @@ A _bar plot_ allows comparing relative frequencies as the heights of bars (see `
 plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
 ```
 
-![](inst/pix/README-ex1_bar-1.png)
+![Bar plot](inst/pix/README-ex1_bar-1.png)
 
 #### Curves
 
@@ -287,7 +287,7 @@ By adopting a functional perspective, we can ask how the values of some probabil
 plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 ```
 
-![](inst/pix/README-ex1_curve-1.png)
+![Probability curves](inst/pix/README-ex1_curve-1.png)
 
 #### Planes 
 
@@ -297,7 +297,7 @@ When parameter values systematically depend on two other parameters, we can plot
 plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
-![](inst/pix/README-ex1_plane-1.png)
+![Probability plane](inst/pix/README-ex1_plane-1.png)
 
 The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. Although our current specificity value of 95% (`spec = .95`) may sound pretty good, it is still not high enough to yield a `PPV` beyond 40%. 
 
@@ -362,7 +362,7 @@ plot(s21, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
      f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
 
-![](inst/pix/README-ex2_tree-1.png)
+![Prism/tree plot (with scaled squares)](inst/pix/README-ex2_tree-1.png)
 
 The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). `riskyr` provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup: 
 
@@ -371,7 +371,7 @@ plot(s21, type = "prism", by = "acdc", area = "hr",  # prism plot with horizonta
      p_lbl = "num")                                  # numeric probability labels
 ```
 
-![](inst/pix/README-ex2_prism_hr-1.png)
+![Prism plot (with scaled horizontal rectangles)](inst/pix/README-ex2_prism_hr-1.png)
 
 #### Icon array
 
@@ -405,7 +405,7 @@ The following curves show the values of several conditional probabilities as a f
 plot(s21, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 ```
 
-![](inst/pix/README-ex2_curve-1.png) 
+![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png) 
 
 Adding the argument `what = "all"` also shows the proportion of positive decisions (`ppod`) and the decision's overall accuracy (`accu`) as a function of the prevalence (`prev`). Would you have predicted their shape without seeing this graph?
 
@@ -417,7 +417,7 @@ The following surface shows the negative predictive value (NPV) as a function of
 plot(s21, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
-![](inst/pix/README-ex2_plane-1.png) 
+![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png) 
 
 Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information. 
 
