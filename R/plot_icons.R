@@ -3,6 +3,35 @@
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
+
+# Preparation:------------------------------------
+
+# Note: The final function only needs:
+# - A vector of identities (colors.)
+#   This can be obtained in different ways (e.g., calculation by respective function)
+# - A vector of positions (to be generated according to version.)
+# - A number of blocks.
+# - A size for the icons (cex)
+# - etc.?
+
+# Plotting symbols: -----
+
+# Important insight: an icon array is equivalent to an ordered (position constrained) scatterplot.
+# All variants of it display the population concerning some property.
+
+# (A) Four types:
+#  1. Random position, random colors (typical scatterplot)
+#  2. Random position, clustered colors (clustered scatterplot?)
+#  3. Fixed positions (sample of positions constrained), random colors (random icon array)
+#  4. Fixed positions, clustered colors (typical icon array)
+
+# (B) Two dimensions:
+#  1. Position
+#  2. Identity
+
+# (C) Translating these dimensions into code:
+
+
 ## plot_icons Documentation: ----------
 
 #' Plot an icon array of a population.
@@ -173,10 +202,10 @@
 #'            block_d = 0.5, border_d = 0.5)
 #'
 #' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
-#'            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
+#'            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3, cex_lbl = 1.2)
 #'
 #' plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
-#'            icon_brd_lwd = .5, cex = 1)
+#'            icon_brd_lwd = .5, cex = 1, cex_lbl = 1.1)
 #'
 #' # Text and color options:
 #' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
@@ -202,41 +231,6 @@
 #'
 #' @export
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Preparation:------------------------------------
-#
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Note: The function finally only needs:
-# A vector of identities (colors.)
-# This can be obtained in different ways (e.g., calculation by respective function)
-# A vector of positions (to be generated according to version.)
-# A number of blocks.
-# A size for the icons (cex)
-# ...?
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-# Plotting symbols:-------------------------------
-#
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Important insight: an icon array is equivalent to an ordered (position constrained) scatterplot.
-# All variants of it display the population concerning some property.
-
-# (A) Four types:
-# 1. Random position, random colors (typical scatterplot)
-# 2. Random position, clustered colors (clustered scatterplot?)
-# 3. Fixed positions (sample of positions constrained), random colors (random icon array)
-# 4. Fixed positions, clustered colors (typical icon array)
-
-# (B) Two dimensions:
-# 1. Position
-# 2. Identity
-
-# (C) Translating these dimensions into code:
-
 ## plot_icons Definition: ----------
 
 plot_icons <- function(prev = num$prev,             # probabilities
@@ -244,11 +238,11 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        spec = num$spec, fart = NA,  # was: num$fart,
                        N = freq$N,                  # ONLY freq used
 
-                       ## Key options: ##
+                       # Key option:
                        arr_type = "array",  # needs to be specified if random position but nonrandom ident.
-                       ## valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                                            # valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
 
-                       ## Icon settings:
+                       # Icon settings:
                        ident_order = c("hi", "mi", "fa", "cr"),
                        icon_types = 22,    # plotting symbols; default: square with border
                        icon_size = NULL,   # size of icons
@@ -256,7 +250,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        block_d = NULL,     # distance between blocks (where applicable).
                        border_d = 0.1,     # distance of icons to border.
 
-                       ## Classic icon arrays only:
+                       # Classic icon arrays only:
                        block_size_row = 10,
                        block_size_col = 10,
                        nblocks_row = NULL,
@@ -265,17 +259,11 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        fill_array = "left",
                        fill_blocks = "rowwise",
 
-                       ## Text labels:
-                       # title_lbl = txt$scen_lbl,
-
-                       # cex_lbl = .85
-
                        # Text and color:
                        lbl_txt = txt,  # labels and text elements
                        title_lbl = txt$scen_lbl,  # main plot title
                        # type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],  # 4 SDT cases/combinations
-                       cex_lbl = .90,        # size of text labels.
-                       # cex_p_lbl = NA,     # size of prob labels (set to cex_lbl - .05 by default).
+                       cex_lbl = .90,        # size of text labels
 
                        col_pal = pal,        # color palette
                        transparency = .50,   # alpha level for icons and icon_brd_col
@@ -311,7 +299,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # (b) Get current colors from col_pal:
   icon_col     <- col_pal[ident_order]  # use one color for each usual arr_type.
   icon_brd_col <- col_pal["brd"]        # border color of icons [was: grey(.10, .50)]
-  icon_brd_col <- makeTransparent(icon_brd_col, alpha = transparency)  # OR: alpha = 2/3
+  icon_brd_col <- make_transparent(icon_brd_col, alpha = (1 - transparency))  # OR: alpha = 2/3
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 

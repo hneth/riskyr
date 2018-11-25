@@ -183,10 +183,10 @@ plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
            block_d = 0.5, border_d = 0.5)
 
 plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
-           icon_brd_col = grey(.33, .99), icon_brd_lwd = 3)
+           icon_brd_col = grey(.33, .99), icon_brd_lwd = 3, cex_lbl = 1.2)
 
 plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
-           icon_brd_lwd = .5, cex = 1)
+           icon_brd_lwd = .5, cex = 1, cex_lbl = 1.1)
 
 # Text and color options:
 plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
