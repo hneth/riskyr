@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 23
+## 2018 11 25
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1153,7 +1153,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             cex = cex,
             font = font
             # ...
-            )
+  )
 
 }
 
@@ -1830,7 +1830,7 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
                       cur_prob = prob,           # current prob
                       ...                        # Other graphical parameters
-                      ) {
+) {
 
   # (1) Determine link coordinates:
 
@@ -1968,7 +1968,9 @@ plot_link <- function(box1, box2,                # 2 boxes
 
 ## (a) make_freq_lbl: Label current frequency values ------
 
-make_freq_lbl <- function(hi, mi, fa, cr) {
+make_freq_lbl <- function(hi, mi, fa, cr,
+                          cur_txt = txt   # current txt
+) {
 
   lbl <- ""  # initialize
 
@@ -1977,19 +1979,20 @@ make_freq_lbl <- function(hi, mi, fa, cr) {
   lbl <- paste0(#"Frequency ",      # Dimension
     "Freq ",            # Abbreviation
     #"Population of ",  # Description
-    "(N = ", N, "):  ", # "(N = x):  "
-    "hi = ", hi, ", ",
-    "mi = ", mi, ", ",
-    "fa = ", fa, ", ",
-    "cr = ", cr, " "
+    "(" , cur_txt$N_lbl, " = ", N, "):  ", # "(N = x):  "
+    cur_txt$hi_lbl, " = ", hi, ", ",
+    cur_txt$mi_lbl, " = ", mi, ", ",
+    cur_txt$fa_lbl, " = ", fa, ", ",
+    cur_txt$cr_lbl, " = ", cr, ""
   )
 
   return(lbl)
 
-}
+} # make_freq_lbl end.
 
 ## Check:
 # make_freq_lbl(11, 22, 33, 44)
+# make_freq_lbl(11, 22, 33, 44, cur_txt = txt_TF)
 
 ## (b) make_cond_lbl: Label current key parameters/probabilities by condition ------
 
@@ -2007,7 +2010,7 @@ make_cond_lbl <- function(prev, sens, spec) {
 
   return(lbl)
 
-}
+} # make_cond_lbl end.
 
 ## Check:
 # make_cond_lbl(.001, 6/7, 2/3)
@@ -2028,7 +2031,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
   return(lbl)
 
-}
+} # make_dec_lbl end.
 
 ## Check:
 # make_dec_lbl(ppod = 1/3, PPV = 2/3, NPV = 1/7)
@@ -2081,7 +2084,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
   return(lbl)
 
-}
+} # make_accu_lbl end.
 
 ## Check:
 # make_accu_lbl(acc = 1/3)
@@ -2128,7 +2131,7 @@ label_note <- function(area = NULL, scale = "f") {
 
   return(note_lbl)
 
-}
+} # label_note end.
 
 ## Check:
 # label_note("hr", "f")
@@ -2184,7 +2187,7 @@ plot_mar <- function(show_freq = TRUE,
 
   ## A1. freq label:
   if (show_freq) {
-    freq_lbl <- make_freq_lbl(hi = cur_freq$hi, mi = cur_freq$mi, fa = cur_freq$fa, cr = cur_freq$cr) # frequency values in cur_freq
+    freq_lbl <- make_freq_lbl(hi = cur_freq$hi, mi = cur_freq$mi, fa = cur_freq$fa, cr = cur_freq$cr, cur_txt = cur_txt) # frequency values in cur_freq
     mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
   }
 
@@ -2260,7 +2263,8 @@ plot_mar <- function(show_freq = TRUE,
   ## (4) Finish: ----
 
   invisible()  # restores par(opar)
-}
+
+} # plot_mar end.
 
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
