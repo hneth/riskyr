@@ -13,6 +13,7 @@ output: github_document
 
 
 
+
 ```{r knitr_opts_chunk, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -241,7 +242,7 @@ Of course, the frequencies of these ratios were already contained in the `hustos
 
 An icon array shows the classification result for each of `N = 1000` individuals in our population: 
 
-```{r ex1_icons, eval = FALSE, fig.width = 7.8, fig.height = 4.2}
+```{r ex1_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
 plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
