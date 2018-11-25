@@ -214,7 +214,6 @@ init_prob <- function() {
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
-#'
 #' \item Defining probabilities in terms of frequencies:
 #'
 #' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
@@ -283,7 +282,6 @@ init_prob <- function() {
 #'
 #' }
 #'
-#'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of the condition being \code{TRUE}).
 #'
@@ -310,9 +308,7 @@ init_prob <- function() {
 #' @param tol A numeric tolerance value for \code{\link{is_complement}}.
 #' Default: \code{tol = .01}.
 #'
-#'
 #' @return A list \code{\link{prob}} containing 13 probability values.
-#'
 #'
 #' @examples
 #' # Basics:
@@ -410,7 +406,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
     prob$FOR  <- comp_FOR(prev, sens, spec)   # FOR = (1 - NPV)
 
     ## (c) by accuracy/correspondence of decision to condition:
-    prob$acc  <- comp_acc(prev, sens, spec)
+    prob$acc      <- comp_acc(prev, sens, spec)
     prob$p_acc_hi <- (prob$prev * prob$sens)/(prob$acc)  # p(hi | acc)
     # prob$p_err_fa <- ((1 - prob$prev) * (1 - prob$spec))/(1 - prob$acc)  # p(fa | err) computed from scratch OR:
     prob$p_err_fa <- (1 - (prob$prev * (1 - prob$sens))/(1 - prob$acc))    # p(fa | err) computed as complement of p(mi | err)

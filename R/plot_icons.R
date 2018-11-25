@@ -3,7 +3,6 @@
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
-
 # Preparation:------------------------------------
 
 # Note: The final function only needs:
@@ -240,7 +239,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
                        # Key option:
                        arr_type = "array",  # needs to be specified if random position but nonrandom ident.
-                                            # valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
+                       # valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
 
                        # Icon settings:
                        ident_order = c("hi", "mi", "fa", "cr"),
@@ -359,29 +358,30 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt,
                         spec = spec, fart = fart, tol = .01)) {
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
     sens <- prob_quintet[2] # gets sens (if not provided)
     mirt <- prob_quintet[3] # gets mirt (if not provided)
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute cur_freq and popu based on current parameters (N and probabilities):
+    # (b) Compute cur_freq and popu based on current parameters (N and probabilities):
     cur_freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = TRUE) # compute cur_freq (with round = TRUE).
 
-  }
-  else { # A0.3.2: Using existing frequencies:
+  } else { # A0.3.2: Using existing frequencies:
 
     cur_freq <- freq
 
-  }
+  } # if (is_valid_prob_set(etc.
 
   # Check size of N.Ist it needed?  Scale down if not needed and greater 100.000:
+
   ## Specify N:
   N <- cur_freq$N
   ind_lbl <- ""
 
   if (N >= 100000) {
+
     # get the minimal N:
     min_N <- riskyr::comp_min_N(prev = prev, sens = sens, spec = spec)
 
@@ -397,7 +397,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
     }
 
-  }
+  } # if (N >= 100000) etc.
 
   # DO SOME CHECKS HERE!?
   ## Determine order:
@@ -516,7 +516,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
         # TODO: Bind ranges into one object?
         # TODO: notice the overlap!  Use cut?
 
-
         # sample the coordinates from the deterimined ranges:
         for(i in 1:nrow(min_ranges)){  # TODO: avoid for-loop!
 
@@ -610,7 +609,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
     if (is.null(cex)) {
       # TODO: How to covary cex with device size & point number?
-
 
       cex1 <- ((par("pin")[1] * 10) + 3) / sqrt(length(posx_vec))  # ad hoc formula.
       cex2 <- ((par("pin")[2] * 10) + 3) / sqrt(length(posx_vec))  # ad hoc formula.
@@ -1013,6 +1011,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
   ## NEW code:
   if (mar_notes) {
 
+    # Determine current probabilities cur_prob:
+    cur_prob <- comp_prob(prev = prev, sens = sens, spec = spec)
+
     # Note:
     note_lbl <- ""  # initialize
     # if ( (area != "no") && (scale == "f") ) { # Note area type and scaling by f:
@@ -1022,7 +1023,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
     plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
              show_accu = TRUE, accu_from_freq = FALSE, # TRUE,
              note = note_lbl,
-             cur_freq = freq, cur_prob = prob, cur_txt = lbl_txt)
+             cur_freq = cur_freq, cur_prob = cur_prob, cur_txt = lbl_txt)
 
   } # if (mar_notes)
 
@@ -1074,19 +1075,24 @@ plot_icons <- function(prev = num$prev,             # probabilities
 # plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21,22,22,21),
 #            icon_brd_lwd = .5, cex = 2)
 
-## -----------------------------------------------
-## (+) ToDo:
 
-## - Use default txt and pal arguments.
-## - Use by = "cd", "cddc", etc. argument.
+## (*) Done: ----------
+
+## - Use default txt and pal arguments.   [2018 11 25]
+## - Use default title and margin (mar_notes) options.
+
+
+## (+) ToDo: ----------
+
+## - Add by = "cd", "dc", "ac" arguments (default: "cddc").
 ## - Provide area = "icons" functionality to other plots.
 
 ## - Show as 4 distinct clusters (rectangles?) of icons.
 ## - Hybrid plots: Combine icons with fnet/ftree/prism.
+
 ## - Add borders to left and top type of sorting.
 ## - More modular: Different plot types as separate (sub-)functions?
-##
-## - Better understand cex --> how does it work, when does it change sizes, when not?
 
-## -----------------------------------------------
-## eof.
+## - Understand cex: how does it work, when does it (not) change size?
+
+## eof. ------------------------------------------
