@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 11 07
+## 2018 11 26
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -223,12 +223,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
 
     ## Compute and assign current PVs:
-    # cur.PPV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
-    # cur.NPV <- comp_NPV(prev, sens, spec)  # compute NPV from probabilities
+    # cur_PPV <- comp_PPV(prev, sens, spec)  # compute PPV from probabilities
+    # cur_NPV <- comp_NPV(prev, sens, spec)  # compute NPV from probabilities
 
     ## Use current PVs of prob:
-    cur.PPV <- prob$PPV  # use PPV from prob
-    cur.NPV <- prob$NPV  # use NPV from prob
+    cur_PPV <- prob$PPV  # use PPV from prob
+    cur_NPV <- prob$NPV  # use NPV from prob
 
   } else {
 
@@ -242,8 +242,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     spec <- prob$spec
 
     ## Use current PVs of prob:
-    cur.PPV <- prob$PPV  # use PPV from prob
-    cur.NPV <- prob$NPV  # use NPV from prob
+    cur_PPV <- prob$PPV  # use PPV from prob
+    cur_NPV <- prob$NPV  # use NPV from prob
 
   }
 
@@ -256,9 +256,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## Set x-value range for plotting curves:
   eps <- 10^-6  # some very small number
-  # if (log_scale) { x.min <- (0 + eps) } else { x.min <- 0 }  # different x.min values for different scales
-  x.min <- (0 + eps)  # was: above
-  x.max <- (1 - eps)  # was: 1
+  # if (log_scale) { x_min <- (0 + eps) } else { x_min <- 0 }  # different x_min values for different scales
+  x_min <- (0 + eps)  # was: above
+  x_max <- (1 - eps)  # was: 1
 
   ## Set x-value (prev) range for plotting uncertainty polygons:
   if (uc > 0) {  # plot a polygon:
@@ -268,8 +268,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     ## Select x-value (prev) ranges based on current type of scale (log or linear):
     if (log_scale) {
 
-      x_min <- 0 + eps  # avoid 0 (to avoid extreme values)
-      x_max <- 1 - eps  # avoid 1 (to avoid extreme values)
+      x_min <- (0 + eps)  # avoid 0 (to avoid extreme values)
+      x_max <- (1 - eps)  # avoid 1 (to avoid extreme values)
 
       ## Ranges for x-values (prev) of polygon:
       x_lower <- c(10^-6, 10^-5, 10^-4, (1 * 10^-3), (2 * 10^-3), (5 * 10^-3),
@@ -296,13 +296,13 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       # x_3r <- 1 - x_3l
       #
       # # Ranges for x-values (prev) of polygon:
-      # x_lower <- c(x.min, x_1l, x_2l, x_3l,  # 1 extreme + 3 points on left
+      # x_lower <- c(x_min, x_1l, x_2l, x_3l,  # 1 extreme + 3 points on left
       #              x_mid_range,              # main steps (in mid range)
-      #              x_3r, x_2r, x_1r, x.max)  # 3 points on right + 1 extreme (left to right)
+      #              x_3r, x_2r, x_1r, x_max)  # 3 points on right + 1 extreme (left to right)
       # x_upper <- rev(x_lower)                # same steps (from right to left)
 
       ## (b) Define a FIXED range for linear scale:
-      x_left  <- c(x.min, .010, .020, .033, .050, .075, .100, .125, .150, .200, .250, .333)  # fixed steps (on left)
+      x_left  <- c(x_min, .010, .020, .033, .050, .075, .100, .125, .150, .200, .250, .333)  # fixed steps (on left)
       x_right <- rev(1 - x_left)           # reverse complements (from right to left)
       x_range <- c(x_left, .500, x_right)  # combine and add mid point
 
@@ -316,26 +316,32 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## Positional parameters (for raising and shifting labels):
   if (log_scale) { h.shift <- prev * 2 } else { h.shift <- .075 }
-  v.shift <- .025
-  low.PV  <- .15  # threshold value for judging PPV or NPV to be low
-  v.raise <- min(c(cur.PPV, cur.NPV)) + .15 # vertical raise of y-prev when PPV or NPV < low.PV
+  v_shift <- .025
+  low_PV  <- .15  # threshold value for judging PPV or NPV to be low
+  v_raise <- min(c(cur_PPV, cur_NPV)) + .15 # vertical raise of y-prev when PPV or NPV < low_PV
 
   ## Point appearance:
-  pt.pch <- 21    # pch symbol of points
-  pt.cex <- 1.6   # cex scaling of points
-  pt.lwd <- 1.6   # lwd of point borders
+  pt_pch <- 21    # pch symbol of points
+  pt_cex <- 1.6   # cex scaling of points
+  pt_lwd <- 1.6   # lwd of point borders
 
   ## Colors:
   uc_alpha <- .20                     # transparency of uncertainty polygons
-  col.axes <- grey(.10, alpha = .99)  # axes
-  col.bord <- grey(.10, alpha = .50)  # borders (also of points)
+  col_axes <- grey(.10, alpha = .99)  # axes
+  col_bord <- grey(.10, alpha = .50)  # borders (also of points)
+
+  ## Text labels:
+
+  # Plot title:
+  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
   # Text label size:
   cex_lbl_sm <- if (cex_lbl > .50) {cex_lbl - .075} else {cex_lbl}  # slightly smaller than cex_lbl
 
-  legend.lbls <- NULL  # initialize vector
-  legend.cols <- NULL
-  legend.ltys <- NULL
+  legend_lbls <- NULL  # initialize vector
+  legend_cols <- NULL
+  legend_ltys <- NULL
 
 
   ## (2) Define plotting area: ----------
@@ -345,49 +351,50 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   on.exit(par(opar))
 
   ## Define margin areas:
-  n_lines_mar <- 4
-  n_lines_oma <- 0
-  par(mar = c(n_lines_mar, 4, 3, 2) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
-  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+  if (nchar(title_lbl) > 0) { n_lines_top <- 4 } else { n_lines_top <- 3 }
+  if (mar_notes) { n_lines_bot <- 4 } else { n_lines_bot <- 4 }
+
+  par(mar = c(n_lines_bot, 4, n_lines_top, 2) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
 
   ## (a) Define steps and labels of x- and y-axes:
 
   ## x-axis:
   if (log_scale) {
-    x.seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)  # log steps
-    x.lbl <- paste0(as_pc(x.seq, n_digits = 5), "%")          # log percentages (rounded to 5 decimals)
-    x.ax.lbl <- "Prevalence (on logarithmic scale)"           # log x-axis label
+    x_seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)  # log steps
+    x_lbl <- paste0(as_pc(x_seq, n_digits = 5), "%")          # log percentages (rounded to 5 decimals)
+    x_ax_lbl <- "Prevalence (on logarithmic scale)"           # log x-axis label
   } else {
-    x.seq <- seq(0, 1, by = .10)        # linear steps of 10%
-    x.lbl <- paste0(as_pc(x.seq), "%")  # linear percentages
-    x.ax.lbl <- "Prevalence"            # linear x-axis label
+    x_seq <- seq(0, 1, by = .10)        # linear steps of 10%
+    x_lbl <- paste0(as_pc(x_seq), "%")  # linear percentages
+    x_ax_lbl <- "Prevalence"            # linear x-axis label
   }
 
   ## y-axis:
   y.seq <- seq(0, 1, by = .10)        # linear steps of 10%
-  y.lbl <- paste0(as_pc(y.seq), "%")  # linear percentages
-  y.ax.lbl <- "Probability"           # y-axis label
+  y_lbl <- paste0(as_pc(y.seq), "%")  # linear percentages
+  y.ax_lbl <- "Probability"           # y-axis label
 
   ## (b) Initialize plot:
   if (log_scale) {
-    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE,
+    plot(0, xlim = c(x_min, 1), ylim = c(0, 1), axes = FALSE,
          log = "x",
-         ylab = y.ax.lbl, xlab = x.ax.lbl, cex.axis = cex_lbl, type = "n")
+         ylab = y.ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
   } else {
-    plot(0, xlim = c(x.min, 1), ylim = c(0, 1), axes = FALSE,
-         ylab = y.ax.lbl, xlab = x.ax.lbl, cex.axis = cex_lbl, type = "n")
+    plot(0, xlim = c(x_min, 1), ylim = c(0, 1), axes = FALSE,
+         ylab = y.ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
   }
 
   ## (c) Axes (on 4 sides):
-  axis(side = 1, at = x.seq, labels = x.lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
-       las = 1, pos = 0, tck = -.02, col.axis = col.axes, col.ticks = col.axes)       # x at bottom
-  axis(side = 1, at = x.seq, labels = FALSE, cex.axis = cex_lbl, cex.lab = (cex_lbl),
-       las = 1, pos = 1, tck = -.01, col.axis = col.axes, col.ticks = col.axes)       # x at top
-  axis(side = 2, at = y.seq, labels = y.lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
-       las = 1, pos = x.min, tck = -.02, col.axis = col.axes, col.ticks = col.axes)   # y at left
-  axis(side = 4, at = y.seq, labels = y.lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
-       las = 1, pos = 1, tck = -.02, col.axis = col.axes, col.ticks = col.axes)       # y at right
+  axis(side = 1, at = x_seq, labels = x_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
+       las = 1, pos = 0, tck = -.02, col.axis = col_axes, col.ticks = col_axes)       # x at bottom
+  axis(side = 1, at = x_seq, labels = FALSE, cex.axis = cex_lbl, cex.lab = (cex_lbl),
+       las = 1, pos = 1, tck = -.01, col.axis = col_axes, col.ticks = col_axes)       # x at top
+  axis(side = 2, at = y.seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
+       las = 1, pos = x_min, tck = -.02, col.axis = col_axes, col.ticks = col_axes)   # y at left
+  axis(side = 4, at = y.seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
+       las = 1, pos = 1, tck = -.02, col.axis = col_axes, col.ticks = col_axes)       # y at right
 
   ## (d) Grid:
   grid(col = grey(.80, .80))
@@ -409,26 +416,26 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("prev" %in% what) {
 
     ## 0. parameters:
-    lty.prev <- 2  # prev line type
+    lty_prev <- 2  # prev line type
 
     ## color:
     if (length(what_col) == length(what)) { # a color vector was specified:
-      pos.prev <- which(what == "prev")  # find position of "prev" in what
-      col.prev <- what_col[pos.prev]     # use color specified for prev
+      pos_prev <- which(what == "prev")  # find position of "prev" in what
+      col_prev <- what_col[pos_prev]     # use color specified for prev
     } else {
-      col.prev <- grey(.50, alpha = .99) # use default color for prev
+      col_prev <- grey(.50, alpha = .99) # use default color for prev
     }
 
-    legend.lbls <- c(legend.lbls, "prev")    # add prev label
-    legend.cols <- c(legend.cols, col.prev)  # add prev color
-    legend.ltys <- c(legend.ltys, lty.prev)  # add prev line type
+    legend_lbls <- c(legend_lbls, "prev")    # add prev label
+    legend_cols <- c(legend_cols, col_prev)  # add prev color
+    legend_ltys <- c(legend_ltys, lty_prev)  # add prev line type
 
     ## 0. Mark uncertainty about prev (as polygon/here: rectangle):
 
     if (uc > 0) {
 
       ## Color of uncertainty polygon (here: rectangle):
-      uc_col  <- make_transparent(col.prev, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col_prev, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon (here: rectangle):
       x_lower_prev <- c(max(0, (prev - uc * prev)), min((prev + uc * prev), 1)) # only 2 points (left & right)
@@ -446,36 +453,36 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. curve: prev as vline
-    abline(v = prev, lty = lty.prev, lwd = 1, col = col.prev)  # prev curve/line
+    abline(v = prev, lty = lty_prev, lwd = 1, col = col_prev)  # prev curve/line
 
     ## 2. point:
     if (show_points) {
 
-      if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y-pos at v.raise:
-        points(x = prev, y = 0 + v.raise, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.prev)  # prev point
+      if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y-pos at v_raise:
+        points(x = prev, y = 0 + v_raise, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_prev)  # prev point
       } else { # y-pos at bottom (y = 0):
-        points(x = prev, y = 0,           pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.prev)  # prev point
+        points(x = prev, y = 0,           pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_prev)  # prev point
       }
 
       ## 3. label:
-      # prev.lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
-      prev.lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+      # prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
+      prev_lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if ((cur.NPV < low.PV) | (cur.PPV < low.PV)) { # y at v.raise:
+      if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y at v_raise:
         if ((prev < .50) | !(prev > 1 - h.shift)) {
-          text(x = prev + h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = cex_lbl_sm) # on right
+          text(x = prev + h.shift, y = 0 + v_raise,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on right
         } else {
-          text(x = prev - h.shift, y = 0 + v.raise,
-               labels = prev.lbl, col = col.prev, cex = cex_lbl_sm) # on left+
+          text(x = prev - h.shift, y = 0 + v_raise,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on left+
         }
       } else { # y at bottom (y = 0):
         if ((prev < .50) | !(prev > 1 - h.shift)) {
-          text(x = prev + h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = cex_lbl_sm) # on right
+          text(x = prev + h.shift, y = 0 + v_shift,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on right
         } else {
-          text(x = prev - h.shift, y = 0 + v.shift,
-               labels = prev.lbl, col = col.prev, cex = cex_lbl_sm) # on left+
+          text(x = prev - h.shift, y = 0 + v_shift,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on left+
         }
       }
 
@@ -489,26 +496,26 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("ppv" %in% what) {
 
     ## 0. parameters:
-    lty.ppv <- 1                            # PPV line type
+    lty_ppv <- 1                            # PPV line type
 
     ## colors:
     if (length(what_col) == length(what)) { # a color vector was specified:
-      pos.ppv <- which(what == "ppv")  # find position of "PPV" in what
-      col.ppv <- what_col[pos.ppv]     # use color specified for PPV
+      pos_ppv <- which(what == "ppv")  # find position of "PPV" in what
+      col_ppv <- what_col[pos_ppv]     # use color specified for PPV
     } else {
-      col.ppv <- col_pal["ppv"]  # use default color for PPV
+      col_ppv <- col_pal["ppv"]  # use default color for PPV
     }
 
-    legend.lbls <- c(legend.lbls, "PPV")    # add PPV label
-    legend.cols <- c(legend.cols, col.ppv)  # add PPV color
-    legend.ltys <- c(legend.ltys, lty.ppv)  # add PPV line type
+    legend_lbls <- c(legend_lbls, "PPV")    # add PPV label
+    legend_cols <- c(legend_cols, col_ppv)  # add PPV color
+    legend_ltys <- c(legend_ltys, lty_ppv)  # add PPV line type
 
     ## 0. Mark uncertainty about PPV based on vague values of sens and spec (as polygon):
 
     if (uc > 0) {
 
       ## Color of PPV uncertainty polygon:
-      uc_col  <- make_transparent(col.ppv, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col_ppv, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -529,23 +536,23 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. PPV curve:
-    curve(expr = comp_PPV(prev = x, sens, spec), from = x.min, to = x.max, add = TRUE, lty = lty.ppv, lwd = 2, col = col.ppv)  # PPV curve
+    curve(expr = comp_PPV(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_ppv, lwd = 2, col = col_ppv)  # PPV curve
 
     ## 2. PPV point:
     if (show_points) {
 
-      points(x = prev, y = cur.PPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppv)  # PPV point
+      points(x = prev, y = cur_PPV, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_ppv)  # PPV point
 
       ## 3. label:
-      # PPV.lbl <- paste0("PPV = ", as_pc(cur.PPV, n_digits = lbl_digits), "%")  # PPV label
-      PPV.lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+      # PPV_lbl <- paste0("PPV = ", as_pc(cur_PPV, n_digits = lbl_digits), "%")  # PPV label
+      PPV_lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if ((cur.PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = cex_lbl_sm) # on right
+      if ((cur_PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
+        text(x = prev + h.shift, y = cur_PPV + v_shift,
+             labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm) # on right
       } else {
-        text(x = prev - h.shift, y = cur.PPV + v.shift,
-             labels = PPV.lbl, col = col.ppv, cex = cex_lbl_sm) # on left+
+        text(x = prev - h.shift, y = cur_PPV + v_shift,
+             labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm) # on left+
       }
 
     } # if (show_points)...
@@ -558,19 +565,19 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("npv" %in% what) {
 
     ## 0. parameters:
-    lty.npv <- 1  # NPV line type
+    lty_npv <- 1  # NPV line type
 
     ## color:
     if (length(what_col) == length(what)) { # a color vector was specified:
-      pos.npv <- which(what == "npv")  # find position of "NPV" in what
-      col.npv <- what_col[pos.npv]     # use color specified for NPV
+      pos_npv <- which(what == "npv")  # find position of "NPV" in what
+      col_npv <- what_col[pos_npv]     # use color specified for NPV
     } else {
-      col.npv <- col_pal["npv"]  # use default color for NPV
+      col_npv <- col_pal["npv"]  # use default color for NPV
     }
 
-    legend.lbls <- c(legend.lbls, "NPV")    # add NPV label
-    legend.cols <- c(legend.cols, col.npv)  # add NPV color
-    legend.ltys <- c(legend.ltys, lty.npv)  # add NPV line type
+    legend_lbls <- c(legend_lbls, "NPV")    # add NPV label
+    legend_cols <- c(legend_cols, col_npv)  # add NPV color
+    legend_ltys <- c(legend_ltys, lty_npv)  # add NPV line type
 
 
     ## 0. Mark uncertainty about NPV based on vague values of sens and spec (as polygon):
@@ -578,7 +585,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (uc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- make_transparent(col.npv, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col_npv, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -599,23 +606,23 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. NPV curve:
-    curve(expr = comp_NPV(prev = x, sens, spec), from = x.min, to = x.max, add = TRUE, lty = lty.npv, lwd = 2, col = col.npv)  # NPV curve
+    curve(expr = comp_NPV(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_npv, lwd = 2, col = col_npv)  # NPV curve
 
     ## 2. NPV point:
     if (show_points) {
 
-      points(x = prev, y = cur.NPV, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.npv)  # NPV point
+      points(x = prev, y = cur_NPV, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_npv)  # NPV point
 
       ## 3. label:
-      # NPV.lbl <- paste0("NPV = ", as_pc(cur.NPV, n_digits = lbl_digits), "%")  # NPV label
-      NPV.lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+      # NPV_lbl <- paste0("NPV = ", as_pc(cur_NPV, n_digits = lbl_digits), "%")  # NPV label
+      NPV_lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if (cur.NPV > .75 | (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur.NPV + v.shift,
-             labels = NPV.lbl, col = col.npv, cex = cex_lbl_sm) # on right+
+      if (cur_NPV > .75 | (prev < h.shift)) {
+        text(x = prev + h.shift, y = cur_NPV + v_shift,
+             labels = NPV_lbl, col = col_npv, cex = cex_lbl_sm) # on right+
       } else {
-        text(x = prev - h.shift, y = cur.NPV - v.shift,
-             labels = NPV.lbl, col = col.npv, cex = cex_lbl_sm) # on left-
+        text(x = prev - h.shift, y = cur_NPV - v_shift,
+             labels = NPV_lbl, col = col_npv, cex = cex_lbl_sm) # on left-
       }
 
     } # if (show_points)...
@@ -628,28 +635,28 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("ppod" %in% what) {
 
     ## 0. parameters:
-    # cur.ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
-    cur.ppod <- prob$ppod                      # get ppod from prob
-    lty.ppod <- 1                              # ppod line type
+    # cur_ppod <- comp_ppod(prev, sens, spec)  # compute current ppod
+    cur_ppod <- prob$ppod                      # get ppod from prob
+    lty_ppod <- 1                              # ppod line type
 
     ## color:
     if (length(what_col) == length(what)) { # a color vector was specified:
-      pos.ppod <- which(what == "ppod")  # find position of "ppod" in what
-      col.ppod <- what_col[pos.ppod]     # use color specified for ppod
+      pos_ppod <- which(what == "ppod")  # find position of "ppod" in what
+      col_ppod <- what_col[pos_ppod]     # use color specified for ppod
     } else {
-      col.ppod <- col_pal["pos"]  # use default color for ppod (using "pos")
+      col_ppod <- col_pal["pos"]  # use default color for ppod (using "pos")
     }
 
-    legend.lbls <- c(legend.lbls, "ppod")    # add NPV label
-    legend.cols <- c(legend.cols, col.ppod)  # add NPV color
-    legend.ltys <- c(legend.ltys, lty.ppod)  # add NPV line type
+    legend_lbls <- c(legend_lbls, "ppod")    # add NPV label
+    legend_cols <- c(legend_cols, col_ppod)  # add NPV color
+    legend_ltys <- c(legend_ltys, lty_ppod)  # add NPV line type
 
     ## 0. Mark uncertainty about ppod based on vague values of sens and spec (as polygon):
 
     if (uc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- make_transparent(col.ppod, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col_ppod, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -671,23 +678,23 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. curve:
-    curve(expr = comp_ppod(prev = x, sens, spec), from = x.min, to = x.max, add = TRUE, lty = lty.ppod, lwd = 2, col = col.ppod)  # ppod curve
+    curve(expr = comp_ppod(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_ppod, lwd = 2, col = col_ppod)  # ppod curve
 
     ## 2. point:
     if (show_points) {
 
-      points(x = prev, y = cur.ppod, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.ppod)  # ppod point
+      points(x = prev, y = cur_ppod, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_ppod)  # ppod point
 
       ## 3. label:
-      # ppod.lbl <- paste0("ppod = ", as_pc(cur.ppod, n_digits = lbl_digits), "%")  # ppod label
-      ppod.lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+      # ppod_lbl <- paste0("ppod = ", as_pc(cur_ppod, n_digits = lbl_digits), "%")  # ppod label
+      ppod_lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if (cur.ppod > .75 | (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur.ppod + v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = cex_lbl_sm) # on right+
+      if (cur_ppod > .75 | (prev < h.shift)) {
+        text(x = prev + h.shift, y = cur_ppod + v_shift,
+             labels = ppod_lbl, col = col_ppod, cex = cex_lbl_sm) # on right+
       } else {
-        text(x = prev - h.shift, y = cur.ppod - v.shift,
-             labels = ppod.lbl, col = col.ppod, cex = cex_lbl_sm) # on left-
+        text(x = prev - h.shift, y = cur_ppod - v_shift,
+             labels = ppod_lbl, col = col_ppod, cex = cex_lbl_sm) # on left-
       }
 
     } # if (show_points)...
@@ -699,28 +706,28 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("acc" %in% what) {
 
     ## 0. parameters:
-    # cur.acc <- comp_acc(prev, sens, spec)  # compute current acc
-    cur.acc <- prob$acc                      # get acc from prob
-    lty.acc <- 1                             # acc line type
+    # cur_acc <- comp_acc(prev, sens, spec)  # compute current acc
+    cur_acc <- prob$acc                      # get acc from prob
+    lty_acc <- 1                             # acc line type
 
     ## color:
     if (length(what_col) == length(what)) { # a color vector was specified:
-      pos.acc <- which(what == "acc")  # find position of "acc" in what
-      col.acc <- what_col[pos.acc]     # use color specified for acc (using "hi")
+      pos_acc <- which(what == "acc")  # find position of "acc" in what
+      col_acc <- what_col[pos_acc]     # use color specified for acc (using "hi")
     } else {
-      col.acc <- col_pal["cor"]  # use default color for acc (using "cor")
+      col_acc <- col_pal["cor"]  # use default color for acc (using "cor")
     }
 
-    legend.lbls <- c(legend.lbls, "acc")    # add acc label
-    legend.cols <- c(legend.cols, col.acc)  # add acc color
-    legend.ltys <- c(legend.ltys, lty.acc)  # add acc line type
+    legend_lbls <- c(legend_lbls, "acc")    # add acc label
+    legend_cols <- c(legend_cols, col_acc)  # add acc color
+    legend_ltys <- c(legend_ltys, lty_acc)  # add acc line type
 
     ## 0. Mark uncertainty about acc based on vague values of sens and spec (as polygon):
 
     if (uc > 0) {
 
       ## Color of uncertainty polygon:
-      uc_col  <- make_transparent(col.acc, alpha = uc_alpha)  # grey(.80, .33)
+      uc_col  <- make_transparent(col_acc, alpha = uc_alpha)  # grey(.80, .33)
 
       ## Ranges for x-values (prev) of polygon:
       ## (See x_lower and x_upper above.)
@@ -741,23 +748,23 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. acc curve:
-    curve(expr = comp_acc(prev = x, sens, spec), from = x.min, to = x.max, add = TRUE, lty = lty.acc, lwd = 2, col = col.acc)  # acc curve
+    curve(expr = comp_acc(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_acc, lwd = 2, col = col_acc)  # acc curve
 
     ## 2. acc point:
     if (show_points) {
 
-      points(x = prev, y = cur.acc, pch = pt.pch, cex = pt.cex, lwd = pt.lwd, col = col.bord, bg = col.acc)  # acc point
+      points(x = prev, y = cur_acc, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_acc)  # acc point
 
       ## 3. label:
-      # acc.lbl <- paste0("acc = ", as_pc(cur.acc, n_digits = lbl_digits), "%")  # acc label
-      acc.lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+      # acc_lbl <- paste0("acc = ", as_pc(cur_acc, n_digits = lbl_digits), "%")  # acc label
+      acc_lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if (cur.acc > .75 | (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur.acc + v.shift,
-             labels = acc.lbl, col = col.acc, cex = cex_lbl_sm) # on right+
+      if (cur_acc > .75 | (prev < h.shift)) {
+        text(x = prev + h.shift, y = cur_acc + v_shift,
+             labels = acc_lbl, col = col_acc, cex = cex_lbl_sm) # on right+
       } else {
-        text(x = prev - h.shift, y = cur.acc - v.shift,
-             labels = acc.lbl, col = col.acc, cex = cex_lbl_sm) # on left-
+        text(x = prev - h.shift, y = cur_acc - v_shift,
+             labels = acc_lbl, col = col_acc, cex = cex_lbl_sm) # on left-
       }
 
     } # if (show_points)...
@@ -768,21 +775,19 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   ## (5) Title: ----------
 
   # Define parts:
-  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Probability curves by prevalence") #, "\n", cur.sens.spec.lbl)
+    type_lbl <- paste0("Probability curves by prevalence") #, "\n", cur.sens.spec_lbl)
   }
 
   # Compose label:
   cur_title_lbl <- paste0(title_lbl, type_lbl)
 
   # Plot title:
-  title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
+  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, raised by +1, normal font)
 
 
 
@@ -815,12 +820,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     } # if (show_freq)...
 
     ## A2. Condition / p(cond) label:
-    cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+    cur.cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
 
     ## Combine 2 labels:
-    cur.par.lbl <- paste0(freq_lbl, "\n", cur.cond.lbl)
+    cur.par_lbl <- paste0(freq_lbl, "\n", cur.cond_lbl)
 
-    mtext(cur.par.lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
+    mtext(cur.par_lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
 
     ##   (B) on rigth side (adj = 1): ----
@@ -841,11 +846,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (7) Legend: ----------
 
-  if (length(legend.lbls) > 0) { # there is a curve:
+  if (length(legend_lbls) > 0) { # there is a curve:
     # legend("bottom", legend = c("PPV", "NPV"),
-    #       col = c(col.ppv, col.npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
+    #       col = c(col_ppv, col_npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
     add_legend("topright",
-               legend = legend.lbls, lty = legend.ltys, lwd = 2, col = legend.cols,
+               legend = legend_lbls, lty = legend_ltys, lwd = 2, col = legend_cols,
                cex = cex_lbl, horiz = FALSE, bty = 'n')
   }
 
