@@ -559,6 +559,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## 4. Text labels: ----
 
+  # Plot title:
+  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+
   if ( is.null(cex_lbl) ) { cex_lbl <- .001 }  # sensible zero
   if ( is.na(cex_lbl) ) { cex_lbl <- .90 }  # default size of cex
   if ( cex_lbl == 0 )  { cex_lbl <- .001 }  # other sensible zero
@@ -623,10 +627,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
   ## (3) Define plot and margin areas: ----------
 
   ## Define margin areas:
-  n_lines_mar <- 3
-  n_lines_oma <- 0
-  par(mar = c(n_lines_mar, 1, 2, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
-  par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
+
+  par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
   ## Axis label locations:
   par(mgp = c(3, 1, 0)) # default: c(3, 1, 0)
@@ -1959,7 +1965,6 @@ plot_tab <- function(prev = num$prev,    # probabilities
        xpd = TRUE,    # NA...plotting clipped to device region; T...figure region; F...plot region
        pos = 2, col = col_pal["txt"], cex = cex_lbl)
 
-  # +++ here now +++
 
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
   # plot(box_else, col = "firebrick1", cex = 1/2, font = 2)     # plot box
@@ -1967,8 +1972,6 @@ plot_tab <- function(prev = num$prev,    # probabilities
   ## (5) Title: ------
 
   # Define parts:
-  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
