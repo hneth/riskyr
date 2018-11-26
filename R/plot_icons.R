@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 11 25
+## 2018 11 26
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -312,6 +312,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if ( arr_type == "top" ) { arr_type <- "filltop" }
   if ( arr_type == "equal" ) { arr_type <- "fillequal" }
 
+  # Plot title:
+  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
   ## Currently fixed parameters:
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed
@@ -887,19 +890,30 @@ plot_icons <- function(prev = num$prev,             # probabilities
   }  # end A3 and A4 (fixed positions).
 
 
-  ## B. Plotting ------
+  ## B. Plotting ----------
 
   ## TODO: Add text!
 
   if (any(!pch.vec %in% c(NA, 21:25))) {
-    # if any of the plotting characters is not in the ones with border,
+    # if any of the plotting characters is not in the set of symbols with border,
     # omit border and color accordingly.
 
     icon_brd_col <- col_vec
 
   }
 
-  ## 3) Plot:
+  ## Plot setup: ------
+
+  ## (A) Define margin areas:
+
+  if (nchar(title_lbl) > 0) { n_lines_top <- 3 } else { n_lines_top <- 1 }
+  if (mar_notes) { n_lines_bot <- 5 } else { n_lines_bot <- 2 }
+
+  par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
+
+  ## (B) Plot setup:
+
   plot(x = 1,
        xlim = xlim, ylim = ylim,
        type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n",
@@ -910,7 +924,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # cex <- 0.5
 
   if (!is.null(transparency)) {
-    col_vec <- adjustcolor(col_vec, alpha.f = 1 - transparency)
+    col_vec <- adjustcolor(col_vec, alpha.f = (1 - transparency))
   }
 
   ## Additional information:
@@ -938,8 +952,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
   ## Title: -----
 
   # Define parts:
-  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
