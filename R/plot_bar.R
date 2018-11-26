@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 11 09
+## 2018 11 26
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -343,17 +343,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (2) Text labels: ----------
 
-  # cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  # # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  # cur.par.lbl <- cur.cond.lbl
-  #
-  # type_label <- "freq type"  # to be derived below.
+  # Plot title:
+  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
   ## (3) Define plot and margin areas: ----------
 
   ## Define margin areas:
-  par(mar = c(2, 2, 3, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
-  par(oma = c(3, 1, 1, 1) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+  if (nchar(title_lbl) > 0) { n_lines_top <- 3 } else { n_lines_top <- 0 }
+  if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
+
+  par(mar = c(n_lines_bot, 2, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(3, 1, 1, 1) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
 
   ## Axis label locations:
@@ -1117,8 +1119,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## (7) Title: --------
 
   # Define parts:
-  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
@@ -1131,7 +1131,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   cur_title_lbl <- paste0(title_lbl, type_lbl)
 
   # Plot title:
-  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, raised by 1, normal font)
+  title(cur_title_lbl, adj = 0, line = +1, font.main = 1, cex.main = 1.2)  # (left, raised by +1, normal font)
 
 
   ## (8) Margins: ------
