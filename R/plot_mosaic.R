@@ -1,5 +1,5 @@
 ## plot_mosaic.R | riskyr
-## 2018 11 23
+## 2018 12 06
 ## -----------------------------------------------
 ## Plot mosaicplot that expresses freq as area
 ## (size and proportion)
@@ -300,5 +300,7 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 ## - add a simpler version that only shows cond.true vs. cond.false
 ## - adjust parameters (zero size and gap width)
 ## - add labels (frequencies) to plot?
+
+## - Retire function and replace by newer plot_area function!
 
 ## eof. ---------

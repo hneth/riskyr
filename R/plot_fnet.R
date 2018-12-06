@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 11 22
+## 2018 12 06
 ## Plot a network diagram of frequencies
 ## (as nodes) and probabilities (as edges)
 ## -----------------------------------------------
@@ -1825,8 +1825,9 @@ plot_fnet <- function(prev = num$prev,             # probabilities
 ## (+) ToDo: -----------
 
 ## - Add a 3rd perspective:
-##   "by correctness" or correspondence of condition and decision:
+##   "by accuracy" or correctness/correspondence of condition and decision:
 ##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
-## - Replace by newer and better "plot_prism" function!
+## - Retire function and re-direct to newer and more versatile
+##   "plot_prism" function!
 
 ## eof. -----------

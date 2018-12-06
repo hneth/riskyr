@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyr
-## 2018 09 06
+## 2018 12 06
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 3:
@@ -1026,5 +1026,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
 ##         b - freq rather than prev, sens, spec
 ## - 3. make text color adjustable (using col_txt)
 ## - 4. pimp plot (labels, colors, transparency)
+
+## - Retire function and re-direct to newer and more versatile
+##   "plot_prism" function!
 
 ## eof. ------------------------------------------
