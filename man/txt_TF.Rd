@@ -4,7 +4,7 @@
 \name{txt_TF}
 \alias{txt_TF}
 \title{Alternative text labels (TP, FN, FP, TN).}
-\format{An object of class \code{list} of length 20.}
+\format{An object of class \code{list} of length 21.}
 \usage{
 txt_TF
 }
@@ -20,7 +20,7 @@ Assign \code{txt <- txt_TF} to use as default text labels
 throughout the \code{riskyr} package.
 }
 \examples{
-txt_TF       # shows all text labels
+txt_TF        # shows all text labels
 txt_TF["hi"]  # shows the current color for hits ("TP")
 txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
 
@@ -33,8 +33,8 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_4c}}, \code{\link{pal_bw}},
   \code{\link{pal_gbs}}, \code{\link{pal_kn}},
-  \code{\link{pal_org}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt}}
+  \code{\link{pal_org}}, \code{\link{pal_vir}},
+  \code{\link{pal}}, \code{\link{prob}}, \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

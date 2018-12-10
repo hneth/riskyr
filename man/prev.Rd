@@ -25,7 +25,7 @@ Understanding or obtaining the prevalence value \code{prev}:
 \code{prev = p(condition = TRUE)}
 
 or the base rate (or baseline probability)
-  of the condition's occurrence.
+  of the condition's occurrence or truth.
 
 \item In terms of frequencies,
   \code{prev} is the ratio of
@@ -39,48 +39,50 @@ or the base rate (or baseline probability)
   \code{prev} classifies a population of \code{\link{N}} individuals
   by condition (\code{prev = cond.true/N}).
 
-\code{prev} is the "by condition" counterpart to \code{\link{ppod}}
-  (which adopts a "by decision" perspective).
+\code{prev} is the "by condition" counterpart
+  to \code{\link{ppod}} (when adopting a "by decision" perspective) and
+  to \code{\link{acc}}  (when adopting a "by accuracy" perspective).
 
 \item Alternative names:
   base rate of condition,
   proportion affected,
-  rate of condition \code{= TRUE} cases
+  rate of condition \code{= TRUE} cases.
 
 \code{prev} is often distinguished from the \emph{incidence rate}
   (i.e., the rate of new cases within a certain time period).
 
 \item Dependencies:
   \code{prev} is a feature of the population
-  and condition, but independent of the decision process
+  and of the condition, but independent of the decision process
   or diagnostic procedure.
 
-The value of \code{prev} does \emph{not} depend
-  on features of the decision process or diagnostic procedure.
-  However, \code{prev} must be taken into account when
+While the value of \code{prev} does \emph{not} depend
+  on features of the decision process or diagnostic procedure,
+  \code{prev} must be taken into account when
   computing the conditional probabilities
   \code{\link{sens}}, \code{\link{mirt}},
   \code{\link{spec}}, \code{\link{fart}},
   \code{\link{PPV}}, and \code{\link{NPV}}
-  (as they partly depend on \code{prev}).
+  (as they depend on \code{prev}).
 
 }
 }
 \examples{
-prev <- .10     # => sets a prevalence value of 10\%
-prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
-is_prob(prev)   # => TRUE (as prev is a probability)
+prev <- .10     # sets a prevalence value of 10\%
+prev <- 10/100  # (condition = TRUE) for 10 out of 100 individuals
+is_prob(prev)   # TRUE
 
 }
 \references{
 Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additional information.
 }
 \seealso{
+\code{\link{prob}} contains current probability information;
 \code{\link{num}} contains basic numeric variables;
 \code{\link{init_num}} initializes basic numeric variables;
 \code{\link{comp_prob}} computes derived probabilities;
 \code{\link{comp_freq}} computes natural frequencies from probabilities;
-\code{\link{is_prob}} verifies probability inputs.
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},

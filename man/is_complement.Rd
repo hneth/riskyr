@@ -24,7 +24,8 @@ otherwise \code{FALSE}.
 \description{
 \code{is_complement} is a function that
 takes 2 numeric arguments (typically probabilities) as inputs and
-verifies that they are \emph{complements} (i.e., add up to 1).
+verifies that they are \emph{complements} (i.e., add up to 1,
+within some tolerance range \code{tol}).
 }
 \details{
 Both \code{p1} and \code{p2} are necessary arguments.

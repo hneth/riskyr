@@ -97,7 +97,7 @@
 #'   }
 #'
 #' @param title_lbl  Main plot title.
-#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen.lbl}).
+#' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
 #'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -187,6 +187,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        ...                # other (graphical) parameters
 ) {
 
+  ## Prepare parameters: ----------
+
+  opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
+  on.exit(par(opar))  # par(opar)  # restore original settings
+
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
   if ( !is.null(what) && !is.na(what) ) {
@@ -226,8 +231,27 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (is_valid_prob_set(prev...
 
+
+  ## Text labels:
+
+  # Plot title:
+  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
+
   ## (+) Additional parameters (currently fixed):
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
+
+
+  ## (3) Define plot and margin areas: ----------
+
+  ## (A) Define margin areas:
+
+  if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
+  if (mar_notes) { n_lines_bot <- 4 } else { n_lines_bot <- 1 }
+
+  par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
+
 
   ## (1) Ranges on x- and y-axes: ----------
 
@@ -360,6 +384,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "acc")...
 
+
   ## (3) Define persp parameters: ----------
 
   x <- sens_range
@@ -416,8 +441,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ## (6) Title: ----------
 
   # Define parts:
-  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
@@ -448,12 +471,19 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (mar_notes)
 
+
   ## (8) Return what?: ----------
   # return(p.pv)    # returns plot
   # return()        # returns nothing
   # return("wow!")  # returns "..."
 
-}
+  ##  Finish: ---------
+
+  # on.exit(par(opar))  # par(opar)  # restore original settings
+  invisible() # restores par(opar)
+
+} # plot_plane end.
+
 
 ## Check: ----------
 

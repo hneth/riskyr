@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 11 07
+## 2018 11 26
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -134,7 +134,7 @@
 #' Default: \code{lty = 0} (i.e., no line).
 #'
 #' @param title_lbl  Text label for current plot title.
-#' Default: \code{title_lbl = txt$scen.lbl}.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
 #' @param lbl_txt  Current text information (for labels, titles, etc.).
 #' Default: \code{lbl_txt = \link{txt}} (see \code{\link{init_txt}}).
@@ -146,7 +146,7 @@
 #' Default: \code{mar_notes = TRUE}.
 #'
 #' @param ...  Other (graphical) parameters
-#' (e.g., \code{cex}, \code{lwd}, ...).
+#' (e.g., \code{cex}, \code{font}, \code{lty}, etc.).
 #'
 #'
 #' @examples
@@ -242,7 +242,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
                      # Text and color:
                      lbl_txt = txt,             # labels and text elements
-                     title_lbl = txt$scen.lbl,  # main plot title
+                     title_lbl = txt$scen_lbl,  # main plot title
                      col_pal = pal,             # color palette
 
                      # Generic options:
@@ -252,7 +252,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin
                      # w_acc = .50,        # weight w for wacc (from 0 to 1)
 
-                     ...  # other (graphical) parameters: lwd, cex, ...
+                     ...  # other (graphical) parameters: cex, font, lty, etc.
 ) {
 
   ## (0) Handle arguments and deprecated arguments: ----------
@@ -343,17 +343,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (2) Text labels: ----------
 
-  # cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  # # cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  # cur.par.lbl <- cur.cond.lbl
-  #
-  # type_label <- "freq type"  # to be derived below.
+  # Plot title:
+  if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
+  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
   ## (3) Define plot and margin areas: ----------
 
   ## Define margin areas:
-  par(mar = c(2, 2, 3, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
-  par(oma = c(3, 1, 1, 1) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
+
+  if (nchar(title_lbl) > 0) { n_lines_top <- 3 } else { n_lines_top <- 0 }
+  if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
+
+  par(mar = c(n_lines_bot, 2, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
+  par(oma = c(3, 1, 1, 1) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
 
   ## Axis label locations:
@@ -1117,8 +1119,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## (7) Title: --------
 
   # Define parts:
-  if (is.null(title_lbl)) { title_lbl <- "" }  # adjust NULL to "" (i.e., no title)
-  if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen.lbl }  # use scen.lbl as default plot title
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
   if (title_lbl == "") {  # if title has been set to "":
@@ -1131,7 +1131,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   cur_title_lbl <- paste0(title_lbl, type_lbl)
 
   # Plot title:
-  title(cur_title_lbl, adj = 0, line = 1, font.main = 1, cex.main = 1.2)  # (left, raised by 1, normal font)
+  title(cur_title_lbl, adj = 0, line = +1, font.main = 1, cex.main = 1.2)  # (left, raised by +1, normal font)
 
 
   ## (8) Margins: ------
@@ -1247,7 +1247,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ## (+) ToDo: ----------
 
 ## - Re-write with plot_fbox and plot_fbox_list (rather than plot_vbox).
-## - Use text labels defined in txt.def and init_txt (incl. accuracy).
+## - Use text labels defined in txt_def and init_txt (incl. accuracy).
 ## - Add probabilitiy links (arrows and labels).
 ## - Allow alternative arrangements: horizontal (flip coord?), dodged bars, ...
 ## - ...

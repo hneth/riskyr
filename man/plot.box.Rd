@@ -2,19 +2,22 @@
 % Please edit documentation in R/plot_util.R
 \name{plot.box}
 \alias{plot.box}
-\title{Plot information of a riskyr object.}
+\title{Plot a frequency box object.}
 \usage{
 \method{plot}{box}(x, cur_freq = freq, cur_txt = txt, cur_pal = pal,
   ...)
 }
 \arguments{
-\item{x}{The box (object of class "box") to be plotted.}
+\item{x}{The box (i.e., an object of class \code{box}) to be plotted.}
 
-\item{cur_freq}{The frequency information related to this box object.}
+\item{cur_freq}{Current frequency information
+(see \code{\link{freq}} for details).}
 
-\item{cur_txt}{The text information associate with this box object.}
+\item{cur_txt}{Current text information
+(see \code{\link{txt}} for details).}
 
-\item{cur_pal}{The color information related to this box object.}
+\item{cur_pal}{Current color palette
+(see \code{\link{pal}} for details).}
 
 \item{...}{Additional (graphical) parameters to be passed to the
 underlying plotting functions.}

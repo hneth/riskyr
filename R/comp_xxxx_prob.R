@@ -4,11 +4,10 @@
 ## to translate from prob (back) to freq and prob:
 ## -----------------------------------------------
 
-
 ## (A) Compute frequencies from (3 essential) probabilities: --------
 
 ## Note: comp_freq_prob is a WRAPPER function for the more basic
-##       comp_freq(...) defined before!
+##       comp_freq(prev, sens, spec) defined before (in init_freq_num.R).
 
 ## comp_freq_prob: Documentation ------
 
@@ -204,7 +203,6 @@
 #'    }
 #' }
 #'
-#'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
@@ -238,9 +236,7 @@
 #' @param round  A Boolean value that determines whether frequencies are
 #' rounded to the nearest integer. Default: \code{round = TRUE}.
 #'
-#'
 #' @return A list \code{\link{freq}} containing 11 frequency values.
-#'
 #'
 #' @examples
 #' # Basics:
@@ -316,19 +312,19 @@ comp_freq_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = tol)) {
 
-    ## (1) Compute the complete quintet of probabilities:
+    # (1) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
     sens <- prob_quintet[2] # gets sens (if not provided)
     mirt <- prob_quintet[3] # gets mirt (if not provided)
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (2) Pass on:
-    ## Wrapper function: Delegate to existing and more basic function:
+    # (2) Pass on:
+    # Wrapper function: Delegate to existing and more basic function:
     freq <- comp_freq(prev, sens, spec,  # 3 essential probabilities; currently NOT SUPPORTED: 2 optional (mirt, fart)
                       N, round)
 
-    ## Return entire list freq:
+    # (3) Return entire list freq:
     return(freq)
 
   }

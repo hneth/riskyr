@@ -7,11 +7,12 @@
 plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "sq", scale = "p", round = TRUE,
-  sum_w = 0.08, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
+  sum_w = 0.1, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = " = ",
   f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
   arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
-  brd_dis = 0.06, lbl_txt = txt, title_lbl = txt$scen.lbl,
-  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
+  brd_dis = 0.06, lbl_txt = txt, title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -84,7 +85,7 @@ are rounded to integers. Default: \code{round = TRUE}.}
 \item{sum_w}{Border width of 2 perspective summaries
 (on top and left borders) of main area as a proportion of area size
 (i.e., in range \code{0 <= sum_w <= 1}).
-Default: \code{sum_w = .08}.
+Default: \code{sum_w = .10}.
 Setting \code{sum_w = 0}, \code{NA}, or \code{NULL} removes summaries;
 setting \code{sum_w = 1} scales summaries to same size as main areas.}
 
@@ -157,7 +158,7 @@ Negative values show links outside of main area.}
 Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
+Default: \code{title_lbl = txt$scen_lbl}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -170,6 +171,8 @@ Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
 }
 \value{
 Nothing (NULL).
@@ -278,7 +281,7 @@ plot_area(f_lwd = .5)  # thinner lines
 plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 
 # sum_w:
-plot_area(sum_w = .08)  # default (showing top and left freq panels & labels)
+plot_area(sum_w = .10)  # default (showing top and left freq panels & labels)
 plot_area(sum_w =  0)   # remove top and left freq panels
 plot_area(sum_w =  1,   # top and left freq panels are scaled to size of main areas
           col_pal = pal_org)

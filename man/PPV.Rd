@@ -71,9 +71,9 @@ However, due to being a conditional probability,
 }
 }
 \examples{
-PPV <- .55     # => sets a positive predictive value of 55\%
-PPV <- 55/100  # => (condition = TRUE) for 55 out of 100 people with (decision = positive)
-is_prob(PPV)   # => TRUE (as PPV is a probability)
+PPV <- .55     # sets a positive predictive value of 55\%
+PPV <- 55/100  # (condition = TRUE) for 55 out of 100 people with (decision = positive)
+is_prob(PPV)   # TRUE
 
 }
 \references{
@@ -86,7 +86,7 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_prob}} verifies probability inputs.
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{NPV}}, \code{\link{acc}}, \code{\link{err}},

@@ -1,19 +1,18 @@
 ## data.R | riskyr
-## 2018 02 14
+## 2018 11 21
 ## -----------------------------------------------
 ## Document scenarios in ./data
 ## -----------------------------------------------
 
 #' A collection of riskyr scenarios from various sources.
 #'
-#' \code{df.scenarios} is an R data frame that
+#' \code{df_scenarios} is an R data frame that
 #' contains a collection of scenarios from the
 #' scientific literature and other sources.
 #'
 #' When loading \code{riskyr}, all scenarios contained in
-#' \code{df.scenarios} are also converted into a list of
+#' \code{df_scenarios} are also converted into a list of
 #' \code{riskyr} objects \code{\link{scenarios}}.
-#'
 #'
 #' @format A data frame with currently 26 rows (i.e., scenarios)
 #' and 21 columns (variables describing each scenario):
@@ -78,24 +77,24 @@
 #'
 #' \enumerate{
 #'
-#'   \item \code{scen.lbl} Text label for current scenario.
-#'   \item \code{scen.lng} Language of current scenario.
-#'   \item \code{scen.txt} Description text of current scenario.
+#'   \item \code{scen_lbl} Text label for current scenario.
+#'   \item \code{scen_lng} Language of current scenario.
+#'   \item \code{scen_txt} Description text of current scenario.
 #'
-#'   \item \code{popu.lbl} Text label for current population.
+#'   \item \code{popu_lbl} Text label for current population.
 #'
-#'   \item \code{cond.lbl} Text label for current condition.
-#'   \item \code{cond.true.lbl} Text label for \code{\link{cond.true}} cases.
-#'   \item \code{cond.false.lbl} Text label for \code{\link{cond.false}} cases.
+#'   \item \code{cond_lbl} Text label for current condition.
+#'   \item \code{cond.true_lbl} Text label for \code{\link{cond.true}} cases.
+#'   \item \code{cond.false_lbl} Text label for \code{\link{cond.false}} cases.
 #'
-#'   \item \code{dec.lbl} Text label for current decision.
-#'   \item \code{dec.pos.lbl} Text label for \code{\link{dec.pos}} cases.
-#'   \item \code{dec.neg.lbl} Text label for \code{\link{dec.neg}} cases.
+#'   \item \code{dec_lbl} Text label for current decision.
+#'   \item \code{dec.pos_lbl} Text label for \code{\link{dec.pos}} cases.
+#'   \item \code{dec.neg_lbl} Text label for \code{\link{dec.neg}} cases.
 #'
-#'   \item \code{hi.lbl} Text label for cases of hits \code{\link{hi}}.
-#'   \item \code{mi.lbl} Text label for cases of misses \code{\link{mi}}.
-#'   \item \code{fa.lbl} Text label for cases of false alarms \code{\link{fa}}.
-#'   \item \code{cr.lbl} Text label for cases of correct rejections \code{\link{cr}}.
+#'   \item \code{hi_lbl} Text label for cases of hits \code{\link{hi}}.
+#'   \item \code{mi_lbl} Text label for cases of misses \code{\link{mi}}.
+#'   \item \code{fa_lbl} Text label for cases of false alarms \code{\link{fa}}.
+#'   \item \code{cr_lbl} Text label for cases of correct rejections \code{\link{cr}}.
 #'
 #'   \item \code{prev} Value of current prevalence \code{\link{prev}}.
 #'   \item \code{sens} Value of current sensitivity \code{\link{sens}}.
@@ -104,8 +103,8 @@
 #'
 #'   \item \code{N} Current population size \code{\link{N}}.
 #'
-#'   \item \code{scen.src} Source information for current scenario.
-#'   \item \code{scen.apa} Source information in APA format.
+#'   \item \code{scen_src} Source information for current scenario.
+#'   \item \code{scen_apa} Source information in APA format.
 #'
 #' }
 #'
@@ -113,11 +112,10 @@
 #' correspond to \code{\link{init_txt}} (to initialize \code{\link{txt}})
 #' and \code{\link{init_num}} (to initialize \code{\link{num}}).
 #'
-#'
-#' @source See columns \code{scen.src} and \code{scen.apa}
+#' @source See columns \code{scen_src} and \code{scen_apa}
 #' for a scenario's source information.
 
-"df.scenarios"
+"df_scenarios"
 
 ## -----------------------------------------------
 ## eof.

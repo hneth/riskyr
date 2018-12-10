@@ -4,68 +4,73 @@
 \alias{init_txt}
 \title{Initialize basic text elements.}
 \usage{
-init_txt(scen.lbl = txt.def$scen.lbl, scen.txt = txt.def$scen.txt,
-  scen.src = txt.def$scen.src, scen.apa = txt.def$scen.apa,
-  scen.lng = txt.def$scen.lng, popu.lbl = txt.def$popu.lbl,
-  cond.lbl = txt.def$cond.lbl, cond.true.lbl = txt.def$cond.true.lbl,
-  cond.false.lbl = txt.def$cond.false.lbl, dec.lbl = txt.def$dec.lbl,
-  dec.pos.lbl = txt.def$dec.pos.lbl, dec.neg.lbl = txt.def$dec.neg.lbl,
-  acc.lbl = txt.def$acc.lbl, dec.cor.lbl = txt.def$dec.cor.lbl,
-  dec.err.lbl = txt.def$dec.err.lbl, sdt.lbl = txt.def$sdt.lbl,
-  hi.lbl = txt.def$hi.lbl, mi.lbl = txt.def$mi.lbl,
-  fa.lbl = txt.def$fa.lbl, cr.lbl = txt.def$cr.lbl)
+init_txt(scen_lbl = txt_lbl_def$scen_lbl,
+  scen_txt = txt_lbl_def$scen_txt, scen_src = txt_lbl_def$scen_src,
+  scen_apa = txt_lbl_def$scen_apa, scen_lng = txt_lbl_def$scen_lng,
+  popu_lbl = txt_lbl_def$popu_lbl, N_lbl = txt_lbl_def$N_lbl,
+  cond_lbl = txt_lbl_def$cond_lbl,
+  cond.true_lbl = txt_lbl_def$cond.true_lbl,
+  cond.false_lbl = txt_lbl_def$cond.false_lbl,
+  dec_lbl = txt_lbl_def$dec_lbl, dec.pos_lbl = txt_lbl_def$dec.pos_lbl,
+  dec.neg_lbl = txt_lbl_def$dec.neg_lbl, acc_lbl = txt_lbl_def$acc_lbl,
+  dec.cor_lbl = txt_lbl_def$dec.cor_lbl,
+  dec.err_lbl = txt_lbl_def$dec.err_lbl, sdt_lbl = txt_lbl_def$sdt_lbl,
+  hi_lbl = txt_lbl_def$hi_lbl, mi_lbl = txt_lbl_def$mi_lbl,
+  fa_lbl = txt_lbl_def$fa_lbl, cr_lbl = txt_lbl_def$cr_lbl)
 }
 \arguments{
-\item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
+\item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
 
-\item{scen.txt}{A longer text description of the current scenario
+\item{scen_txt}{A longer text description of the current scenario
 (which may extend over several lines).}
 
-\item{scen.src}{The source information for the current scenario.}
+\item{scen_src}{The source information for the current scenario.}
 
-\item{scen.apa}{Source information in APA format.}
+\item{scen_apa}{Source information in APA format.}
 
-\item{scen.lng}{Language of the current scenario (as character code).
+\item{scen_lng}{Language of the current scenario (as character code).
 Options: \code{"en"}...English, \code{"de"}...German.}
 
-\item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
+\item{popu_lbl}{A general name for \emph{population} dimension.}
 
-\item{cond.lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
+\item{N_lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
 
-\item{cond.true.lbl}{A label for the \emph{presence} of the current condition
+\item{cond_lbl}{A general name for the \emph{condition} (e.g., some disease) currently considered.}
+
+\item{cond.true_lbl}{A short label for the \emph{presence} of the current condition
 or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false.lbl}{A label for the \emph{absence} of the current condition
+\item{cond.false_lbl}{A short label for the \emph{absence} of the current condition
 or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
 
-\item{dec.lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
+\item{dec_lbl}{A general name for the \emph{decision} dimension (e.g., some diagnostic test) currently made.}
 
-\item{dec.pos.lbl}{A label for \emph{positive} decisions
+\item{dec.pos_lbl}{A short label for \emph{positive} decisions
 or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.neg.lbl}{A label for \emph{negative} decisions
+\item{dec.neg_lbl}{A short label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
-\item{acc.lbl}{A name for judgment \emph{accuracy} (e.g., correspondence of decision to condition).}
+\item{acc_lbl}{A general name for the \emph{accuracy} dimension (e.g., correspondence of decision to condition).}
 
-\item{dec.cor.lbl}{A label for \emph{correct} decisions
+\item{dec.cor_lbl}{A short label for \emph{correct} decisions
 or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).}
 
-\item{dec.err.lbl}{A label for \emph{erroneous} decisions
+\item{dec.err_lbl}{A short label for \emph{erroneous} decisions
 or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).}
 
-\item{sdt.lbl}{A name for the case/category/cell in the 2x2 contingency table (SDT: condition x decision).}
+\item{sdt_lbl}{A name for the case/category/cell dimension in the 2x2 contingency table (SDT: condition x decision).}
 
-\item{hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item{hi_lbl}{A short label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
 
-\item{mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item{mi_lbl}{A short label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
 
-\item{fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item{fa_lbl}{A short label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
 
-\item{cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item{cr_lbl}{A short label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).}
 }
 \description{
@@ -80,13 +85,13 @@ are stored as named elements (of type character) in a list \code{txt}.
 objects to existing names.
 }
 \examples{
-init_txt()          # => defines a list of (default) text elements
-length(init_txt())  # => 20
+init_txt()          # defines a list of (default) text elements
+length(init_txt())  # 21
 
 # Customizing current text elements:
-txt <- init_txt(scen.lbl = "My scenario",
-                scen.src = "My source",
-                popu.lbl = "Current population")
+txt <- init_txt(scen_lbl = "My scenario",
+                scen_src = "My source",
+                N_lbl = "My population")
 
 }
 \seealso{

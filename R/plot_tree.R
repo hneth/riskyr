@@ -1,5 +1,5 @@
 ## plot_tree.R | riskyr
-## 2018 09 06
+## 2018 12 06
 ## Plot a tree diagram of natural frequencies
 ## -----------------------------------------------
 ## Version 3:
@@ -7,8 +7,8 @@
 ## Options available in this version:
 ## - by    ... "cd", "dc".
 ## - area  ... "no", "sq", "hr", "vr".
-## - p.lbl ... "nam", "num", "mix", "min".
-## - show.accu ... show current accuracy metrics (with bacc/wacc).
+## - p_lbl ... "nam", "num", "mix", "min".
+## - show_accu ... show current accuracy metrics (with bacc/wacc).
 
 ## Dependencies:
 ## - library("diagram") # moved to "Imports:" in DESCRIPTION!
@@ -98,7 +98,7 @@
 #'   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 #'   }
 #'
-#' @param p.lbl A character code specifying the type of probability information (on edges) with 4 options:
+#' @param p_lbl A character code specifying the type of probability information (on edges) with 4 options:
 #'   \enumerate{
 #'   \item \code{"nam"} ... names of probabilities;
 #'   \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals);
@@ -106,48 +106,48 @@
 #'   \item \code{"min"} ... minimal labels: names of essential probabilities.
 #'   }
 #'
-#' @param show.accu Option for showing current
+#' @param show_accu Option for showing current
 #' accuracy metrics \code{\link{accu}} in the plot.
-#' Default: \code{show.accu = TRUE}.
+#' Default: \code{show_accu = TRUE}.
 #'
-#' @param w.acc Weigthing parameter \code{w} used to compute
-#' weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-#' Default: \code{w.acc = .50}.
+#' @param w_acc Weigthing parameter \code{w} used to compute
+#' weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+#' Default: \code{w_acc = .50}.
 #'
 #' Various other options allow the customization of text labels and colors:
 #'
-#' @param title.lbl Text label for current plot title.
-#' Default: \code{title.lbl = txt$scen.lbl}.
+#' @param title_lbl Text label for current plot title.
+#' Default: \code{title_lbl = txt$scen_lbl}.
 #'
-#' @param popu.lbl Text label for current population \code{\link{popu}}.
+#' @param popu_lbl Text label for current population \code{\link{popu}}.
 #'
-#' @param cond.true.lbl Text label for current cases of \code{\link{cond.true}}.
-#' @param cond.false.lbl Text label for current cases of \code{\link{cond.false}}.
+#' @param cond.true_lbl Text label for current cases of \code{\link{cond.true}}.
+#' @param cond.false_lbl Text label for current cases of \code{\link{cond.false}}.
 #'
-#' @param dec.pos.lbl Text label for current cases of \code{\link{dec.pos}}.
-#' @param dec.neg.lbl Text label for current cases of \code{\link{dec.neg}}.
+#' @param dec.pos_lbl Text label for current cases of \code{\link{dec.pos}}.
+#' @param dec.neg_lbl Text label for current cases of \code{\link{dec.neg}}.
 #'
-#' @param hi.lbl Text label for hits \code{\link{hi}}.
-#' @param mi.lbl Text label for misses \code{\link{mi}}.
-#' @param fa.lbl Text label for false alarms \code{\link{fa}}.
-#' @param cr.lbl Text label for correct rejections \code{\link{cr}}.
+#' @param hi_lbl Text label for hits \code{\link{hi}}.
+#' @param mi_lbl Text label for misses \code{\link{mi}}.
+#' @param fa_lbl Text label for false alarms \code{\link{fa}}.
+#' @param cr_lbl Text label for correct rejections \code{\link{cr}}.
 #'
-#' @param col.txt Color for text labels (in boxes).
-#' @param box.cex Scaling factor for text (in boxes).
-#' Default: \code{box.cex = .90}.
+#' @param col_txt Color for text labels (in boxes).
+#' @param box_cex Scaling factor for text (in boxes).
+#' Default: \code{box_cex = .90}.
 #'
-#' @param col.boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
+#' @param col_boxes Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 #' Default: Current color information contained in \code{\link{pal}}.
-#' @param col.border Color of borders.
-#' Default: \code{col.border = grey(.33, alpha = .99)}.
+#' @param col_border Color of borders.
+#' Default: \code{col_border = grey(.33, alpha = .99)}.
 #'
 #' @param lwd Width of arrows.
-#' @param box.lwd Width of boxes.
+#' @param box_lwd Width of boxes.
 #'
-#' @param col.shadow Color of box shadows.
-#' Default: \code{col.shadow = grey(.11, alpha = .99)}.
-#' @param cex.shadow Scaling factor of shadows (values > 0 showing shadows).
-#' Default: \code{cex.shadow = 0}.
+#' @param col_shadow Color of box shadows.
+#' Default: \code{col_shadow = grey(.11, alpha = .99)}.
+#' @param cex_shadow Scaling factor of shadows (values > 0 showing shadows).
+#' Default: \code{cex_shadow = 0}.
 #'
 #' @return Nothing (NULL).
 #'
@@ -156,8 +156,8 @@
 #' plot_tree()
 #' plot_tree(by = "dc")
 #' plot_tree(area = "sq")
-#' plot_tree(p.lbl = "num")
-#' plot_tree(title.lbl = "")
+#' plot_tree(p_lbl = "num")
+#' plot_tree(title_lbl = "")
 #' plot_tree(N = 33)
 #' plot_tree(N = NA)
 #'
@@ -178,22 +178,22 @@
 #' plot_tree(area = "vr", round = FALSE)
 #'
 #' # Accuracy:
-#' plot_tree(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-#' plot_tree(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
-#' plot_tree(show.accu = FALSE)              # => no accuracy info.
+#' plot_tree(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+#' plot_tree(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
+#' plot_tree(show_accu = FALSE)              # => no accuracy info.
 #'
 #' # Perspectives, areas, and label options:
-#' plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
-#' plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
-#' plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + names and numbers
-#' plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
+#' plot_tree(by = "cd", area = "sq", p_lbl = "nam")  # => by cond + sq + prob names
+#' plot_tree(by = "cd", area = "hr", p_lbl = "num")  # => by cond + hr + prob numbers
+#' plot_tree(by = "dc", area = "sq", p_lbl = "num")  # => by dec  + sq + names and numbers
+#' plot_tree(by = "dc", area = "vr", p_lbl = "mix")  # => by dec  + vr + min. labels
 #'
 #' # Custom colors and shadows:
 #' plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-#' plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
-#'           col.shadow = "steelblue4", cex.shadow = .008)
-#' plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
-#'           col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+#' plot_tree(area = "sq", col_boxes = "gold", col_border = "steelblue4",
+#'           col_shadow = "steelblue4", cex_shadow = .008)
+#' plot_tree(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow",
+#'           col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
 #'
 #' @family visualization functions
 #'
@@ -224,35 +224,35 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       round = TRUE,  # Boolean: round freq (if computed), default: round = TRUE.
                       by = "cd",     # 4 perspectives: "cd" by condition, "dc" by decision.
                       area = "no",   # 4 area types: "no" none (default), "sq" square, "hr" horizontal rectangles, "vr" vertical rectangles.
-                      p.lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
+                      p_lbl = "mix", # 4 probability (edge) label types: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
                       ## Compute and show accuracy info:
-                      show.accu = TRUE,  # compute and show accuracy metrics
-                      w.acc = .50,       # weight w for wacc (from 0 to 1)
+                      show_accu = TRUE,  # compute and show accuracy metrics
+                      w_acc = .50,       # weight w for wacc (from 0 to 1)
                       ## Labels:
-                      title.lbl = txt$scen.lbl,     # custom text labels
-                      popu.lbl = txt$popu.lbl,
+                      title_lbl = txt$scen_lbl,     # custom text labels
+                      popu_lbl = txt$popu_lbl,
                       ## Condition labels:
-                      cond.true.lbl = txt$cond.true.lbl,
-                      cond.false.lbl = txt$cond.false.lbl,
+                      cond.true_lbl = txt$cond.true_lbl,
+                      cond.false_lbl = txt$cond.false_lbl,
                       ## Decision labels:
-                      dec.pos.lbl = txt$dec.pos.lbl,
-                      dec.neg.lbl = txt$dec.neg.lbl,
+                      dec.pos_lbl = txt$dec.pos_lbl,
+                      dec.neg_lbl = txt$dec.neg_lbl,
                       ## SDT combinations:
-                      hi.lbl = txt$hi.lbl,
-                      mi.lbl = txt$mi.lbl,
-                      fa.lbl = txt$fa.lbl,
-                      cr.lbl = txt$cr.lbl,
+                      hi_lbl = txt$hi_lbl,
+                      mi_lbl = txt$mi_lbl,
+                      fa_lbl = txt$fa_lbl,
+                      cr_lbl = txt$cr_lbl,
                       ## Box settings:
-                      col.txt = grey(.01, alpha = .99),  # black
-                      box.cex = .90,                     # relative text size
-                      col.boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
-                      col.border = grey(.33, alpha = .99),  # mid grey
+                      col_txt = grey(.01, alpha = .99),  # black
+                      box_cex = .90,                     # relative text size
+                      col_boxes = pal, # pal[c(1:9)],    # box colors (9 frequencies/boxes/colors)
+                      col_border = grey(.33, alpha = .99),  # mid grey
                       ## Widths of arrows and box borders:
                       lwd = 1.6,      # width of arrows
-                      box.lwd = 1.8,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
+                      box_lwd = 1.8,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
-                      col.shadow = grey(.11, alpha = .99),  # dark grey
-                      cex.shadow = 0  # [values > 0 show shadows]
+                      col_shadow = grey(.11, alpha = .99),  # dark grey
+                      cex_shadow = 0  # [values > 0 show shadows]
 ){
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
@@ -272,12 +272,12 @@ plot_tree <- function(prev = num$prev,             # probabilities
   if (area == "square" || area == "def" || area == "default" ) { area <- "sq" }  # default
   if (area == "rect")   { area <- "hr" }
 
-  if ( !is.null(p.lbl) && !is.na(p.lbl) ) {
-    p.lbl <- tolower(p.lbl)  # express p.lbl in lowercase
+  if ( !is.null(p_lbl) && !is.na(p_lbl) ) {
+    p_lbl <- tolower(p_lbl)  # express p_lbl in lowercase
   }
-  if (p.lbl == "def" || p.lbl == "default" || is.null(p.lbl) || is.na(p.lbl) ) { p.lbl <- "mix" }  # default/null
-  if (p.lbl == "namnum" || p.lbl == "namval") { p.lbl <- "mix" }
-  if (p.lbl == "val") { p.lbl <- "num" }
+  if (p_lbl == "def" || p_lbl == "default" || is.null(p_lbl) || is.na(p_lbl) ) { p_lbl <- "mix" }  # default/null
+  if (p_lbl == "namnum" || p_lbl == "namval") { p_lbl <- "mix" }
+  if (p_lbl == "val") { p_lbl <- "num" }
 
 
   ## (0) Compute or collect all current frequencies: ------
@@ -297,66 +297,66 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     ## Assign elements of cur.freq:
     N <- cur.freq$N
-    n.true  <- cur.freq$cond.true
-    n.false <- cur.freq$cond.false
-    n.pos <- cur.freq$dec.pos
-    n.neg <- cur.freq$dec.neg
-    n.hi <- cur.freq$hi
-    n.mi <- cur.freq$mi
-    n.fa <- cur.freq$fa
-    n.cr <- cur.freq$cr
+    n_true  <- cur.freq$cond.true
+    n_false <- cur.freq$cond.false
+    n_pos <- cur.freq$dec.pos
+    n_neg <- cur.freq$dec.neg
+    n_hi <- cur.freq$hi
+    n_mi <- cur.freq$mi
+    n_fa <- cur.freq$fa
+    n_cr <- cur.freq$cr
 
   } else { # (B) NO valid set of probabilities was provided:
 
     ## Use the current values of freq:
     N <- freq$N
-    n.true  <- freq$cond.true
-    n.false <- freq$cond.false
-    n.pos <- freq$dec.pos
-    n.neg <- freq$dec.neg
-    n.hi <- freq$hi
-    n.mi <- freq$mi
-    n.fa <- freq$fa
-    n.cr <- freq$cr
+    n_true  <- freq$cond.true
+    n_false <- freq$cond.false
+    n_pos <- freq$dec.pos
+    n_neg <- freq$dec.neg
+    n_hi <- freq$hi
+    n_mi <- freq$mi
+    n_fa <- freq$fa
+    n_cr <- freq$cr
 
   }
 
   if (by != "cd") {  # in ANY case NOT solely by condition:
 
     # Compute current PVs from current frequencies:
-    ppod <- n.pos/N
-    PPV  <- n.hi/n.pos
-    NPV  <- n.cr/n.neg
+    ppod <- n_pos/N
+    PPV  <- n_hi/n_pos
+    NPV  <- n_cr/n_neg
 
   }
 
 
   ## (1) Color of boxes: ------
 
-  if ((length(col.boxes) == length(pal))    # length of col.boxes corresponds to pal
-      # && isTRUE(all.equal(col.boxes, pal))  # values of col.boxes correspond to pal
-      && isTRUE(all.equal(names(col.boxes), names(pal)))  # names of col.boxes correspond to pal
-  ) {  # use named colors of col.boxes:
+  if ((length(col_boxes) == length(pal))    # length of col_boxes corresponds to pal
+      # && isTRUE(all.equal(col_boxes, pal))  # values of col_boxes correspond to pal
+      && isTRUE(all.equal(names(col_boxes), names(pal)))  # names of col_boxes correspond to pal
+  ) {  # use named colors of col_boxes:
 
     ## Use current color information of pal:
 
     if (by == "cd") {  # (a) by condition:
 
       ## 7 boxes (including cond.true and cond.false):
-      # col.boxes <- col.boxes[c(1:3, 6:9)]  # select 7 of 9 colors
-      col.boxes <- c(col.boxes["N"], col.boxes["true"], col.boxes["false"],
-                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
+      # col_boxes <- col_boxes[c(1:3, 6:9)]  # select 7 of 9 colors
+      col_boxes <- c(col_boxes["N"], col_boxes["true"], col_boxes["false"],
+                     col_boxes["hi"], col_boxes["mi"], col_boxes["fa"], col_boxes["cr"])
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## 7 boxes (including dec.pos and dec.neg):
-      # col.boxes <- col.boxes[c(1, 4:9)  ]  # select 7 of 9 colors
-      col.boxes <- c(col.boxes["N"], col.boxes["pos"], col.boxes["neg"],
-                     col.boxes["hi"], col.boxes["mi"], col.boxes["fa"], col.boxes["cr"])
+      # col_boxes <- col_boxes[c(1, 4:9)  ]  # select 7 of 9 colors
+      col_boxes <- c(col_boxes["N"], col_boxes["pos"], col_boxes["neg"],
+                     col_boxes["hi"], col_boxes["mi"], col_boxes["fa"], col_boxes["cr"])
 
     } # if (by...)
 
-  } # if (all.equal(col.boxes, pal))...
+  } # if (all.equal(col_boxes, pal))...
 
 
 
@@ -366,25 +366,25 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     if (area == "no") {  # default box labels:
 
-      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
-                 paste0(cond.true.lbl, ":\n",  round(n.true, 2)),
-                 paste0(cond.false.lbl, ":\n", round(n.false, 2)),
-                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr.lbl, ":\n", round(n.cr, 2))
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
+                 paste0(cond.true_lbl, ":\n",  round(n_true, 2)),
+                 paste0(cond.false_lbl, ":\n", round(n_false, 2)),
+                 paste0(hi_lbl, ":\n", round(n_hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n_mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n_fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n_cr, 2))
       )
 
     }  else {  # shorter box labels:
 
       ## Reduced names (as areas get quite small):
-      names <- c(paste0("N = ", N),  # popu.lbl
-                 paste0("true:\n",  round(n.true, 2)),
-                 paste0("false:\n", round(n.false, 2)),
-                 paste0("hi:\n", round(n.hi, 2)),
-                 paste0("mi:\n", round(n.mi, 2)),
-                 paste0("fa:\n", round(n.fa, 2)),
-                 paste0("cr:\n", round(n.cr, 2))
+      names <- c(paste0("N = ", N),  # popu_lbl
+                 paste0("true:\n",  round(n_true, 2)),
+                 paste0("false:\n", round(n_false, 2)),
+                 paste0("hi:\n", round(n_hi, 2)),
+                 paste0("mi:\n", round(n_mi, 2)),
+                 paste0("fa:\n", round(n_fa, 2)),
+                 paste0("cr:\n", round(n_cr, 2))
       )
 
     }  # if (area...)
@@ -393,25 +393,25 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     if (area == "no") {  # default box labels:
 
-      names <- c(paste0("Population", ":\n", "N = ", N),  # popu.lbl (NOT used yet)
-                 paste0(dec.pos.lbl, ":\n",  round(n.pos, 2)),
-                 paste0(dec.neg.lbl, ":\n", round(n.neg, 2)),
-                 paste0(hi.lbl, ":\n", round(n.hi, 2)),
-                 paste0(mi.lbl, ":\n", round(n.mi, 2)),
-                 paste0(fa.lbl, ":\n", round(n.fa, 2)),
-                 paste0(cr.lbl, ":\n", round(n.cr, 2))
+      names <- c(paste0("Population", ":\n", "N = ", N),  # popu_lbl (NOT used yet)
+                 paste0(dec.pos_lbl, ":\n",  round(n_pos, 2)),
+                 paste0(dec.neg_lbl, ":\n", round(n_neg, 2)),
+                 paste0(hi_lbl, ":\n", round(n_hi, 2)),
+                 paste0(mi_lbl, ":\n", round(n_mi, 2)),
+                 paste0(fa_lbl, ":\n", round(n_fa, 2)),
+                 paste0(cr_lbl, ":\n", round(n_cr, 2))
       )
 
     }  else {  # shorter box labels:
 
       ## Reduced names (as areas get quite small):
-      names <- c(paste0("N = ", N),  # popu.lbl
-                 paste0("positive:\n",  round(n.pos, 2)),
-                 paste0("negative:\n", round(n.neg, 2)),
-                 paste0("hi:\n", round(n.hi, 2)),
-                 paste0("mi:\n", round(n.mi, 2)),
-                 paste0("fa:\n", round(n.fa, 2)),
-                 paste0("cr:\n", round(n.cr, 2))
+      names <- c(paste0("N = ", N),  # popu_lbl
+                 paste0("positive:\n",  round(n_pos, 2)),
+                 paste0("negative:\n", round(n_neg, 2)),
+                 paste0("hi:\n", round(n_hi, 2)),
+                 paste0("mi:\n", round(n_mi, 2)),
+                 paste0("fa:\n", round(n_fa, 2)),
+                 paste0("cr:\n", round(n_cr, 2))
       )
 
     }  # if (area...)
@@ -427,22 +427,22 @@ plot_tree <- function(prev = num$prev,             # probabilities
   ## (4) Arrow/edge labels: ------
 
   ## ToDo: Use more informative arrow/edge labels:
-  # prev.lbl <- paste0("prev = ", as_pc(prev), "%")
-  # prev.lbl <- paste0("prev = ", prev) # ERROR: WHY does prev.lbl not work with spaces???
+  # prev_lbl <- paste0("prev = ", as_pc(prev), "%")
+  # prev_lbl <- paste0("prev = ", prev) # ERROR: WHY does prev_lbl not work with spaces???
 
   if (by == "cd") {  # by condition:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
-    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+    if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
       M[2, 1] <- "prev"         # "prevalence"
-      M[3, 1] <- "(1 - prev)"   # "(N - n.true)"
+      M[3, 1] <- "(1 - prev)"   # "(N - n_true)"
       M[4, 2] <- "sens"         # "sensitivity"
       M[5, 2] <- "mirt"         # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
       M[6, 3] <- "fart"         # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
       M[7, 3] <- "spec"         # "specificity"
 
-    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+    } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
       M[2, 1] <- round(prev, 3)
       M[3, 1] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
@@ -451,7 +451,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
       M[6, 3] <- round((1 - spec), 3)  # fart = (1 - spec) = "n(false - cr)"
       M[7, 3] <- round(spec, 3)
 
-    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+    } else if (p_lbl == "mix") {  # mixed labels: essential names + numeric complements:
 
       M[2, 1] <- "prev"                # "prevalence"
       M[3, 1] <- round((1 - prev), 3)  # (1 - prev) "n(N - true)"
@@ -463,28 +463,28 @@ plot_tree <- function(prev = num$prev,             # probabilities
     } else {  # "min" minimal labels:
 
       M[2, 1] <- "prev"         # "prevalence"
-      M[3, 1] <- ""             # "(N - n.true)"
+      M[3, 1] <- ""             # "(N - n_true)"
       M[4, 2] <- "sens"         # "sensitivity"
       M[5, 2] <- ""             # "(miss_rate)" = "n(true - hi)" =  mirt = miss rate
       M[6, 3] <- ""             # "(false_alarm_rate)" = "n(false - cr)" = fart = false alarm rate
       M[7, 3] <- "spec"         # "specificity"
 
-    } # (p.lbl ==...
+    } # (p_lbl ==...
 
   }  else if (by == "dc") {  # by decision:
 
     # 4 types of edge labels: "nam" names, "num" numeric, "mix" essential names + complement values (default), "min" minimal.
 
-    if (p.lbl == "nam") {  # default labels: names of essential probabilities + their complements:
+    if (p_lbl == "nam") {  # default labels: names of essential probabilities + their complements:
 
-      M[2, 1] <- "ppod"         # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"         # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <-  "(1 - ppod)"  # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"          # PPV
       M[6, 2] <- "FDR"          # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 3] <- "FOR"          # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 3] <- "NPV"          # NPV
 
-    } else if (p.lbl == "num") {  # numeric values (rounded to 3 decimals):
+    } else if (p_lbl == "num") {  # numeric values (rounded to 3 decimals):
 
       M[2, 1] <- round(ppod, 3)        # ppod
       M[3, 1] <- round((1 - ppod), 3)  # "n(N - dec.pos)"
@@ -493,9 +493,9 @@ plot_tree <- function(prev = num$prev,             # probabilities
       M[5, 3] <- round((1 - NPV), 3)   # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 3] <- round(NPV, 3)         # NPV
 
-    } else if (p.lbl == "mix") {  # mixed labels: essential names + numeric complements:
+    } else if (p_lbl == "mix") {  # mixed labels: essential names + numeric complements:
 
-      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"                # ppod  ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <- round((1 - ppod), 3)  # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"                 # PPV
       M[6, 2] <- round((1 - PPV), 3)   # FDR = (1 - PPV) = "n(pos - hi)"
@@ -504,14 +504,14 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     } else {  # "min" minimal labels:
 
-      M[2, 1] <- "ppod"         # ppod   ERROR: WHY does prev.lbl not work with spaces???
+      M[2, 1] <- "ppod"         # ppod   ERROR: WHY does prev_lbl not work with spaces???
       M[3, 1] <-  ""            # (1 - ppod) = "n(N - dec.pos)"
       M[4, 2] <- "PPV"          # PPV
       M[6, 2] <- ""             # FDR = (1 - PPV) = "n(pos - hi)"
       M[5, 3] <- ""             # FOR = (1 - NPV) = "n(neg - cr)"
       M[7, 3] <- "NPV"          # NPV
 
-    } # (p.lbl ==...
+    } # (p_lbl ==...
 
   } # if (by...)
 
@@ -522,12 +522,12 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   if (area == "no") {
 
-    x.pop <- .11   # basic width of population box
-    x.y.pop <- 2/3 # basic proportion is rectangular (width > height)
+    x_pop <- .11   # basic width of population box
+    x_y_pop <- 2/3 # basic proportion is rectangular (width > height)
 
     ## Collect all sizes and proportions:
-    x.boxes <- rep(x.pop, 7)    # all boxes have the same width
-    x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion
+    x_boxes <- rep(x_pop, 7)    # all boxes have the same width
+    x_y_prop <- rep(x_y_pop, 7) # all boxes have the same proportion
   }
 
 
@@ -537,8 +537,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     ## Level 1: Population square
 
-    x.pop <- .10    # basic width of population box: Area N = x.pop^2
-    x.y.pop <- 1/1  # square
+    x_pop <- .10    # basic width of population box: Area N = x_pop^2
+    x_y_pop <- 1/1  # square
 
     ## Determine other box widths by relative proportions in freq:
 
@@ -546,10 +546,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
       ## Level 2: cond is true vs. false
 
-      x.true  <- sqrt(n.true/N  * x.pop^2)  # cond.true cases
-      x.false <- sqrt(n.false/N * x.pop^2)  # cond.false cases
+      x_true  <- sqrt(n_true/N  * x_pop^2)  # cond.true cases
+      x_false <- sqrt(n_false/N * x_pop^2)  # cond.false cases
 
-      if (!all.equal(x.pop^2, sum(c(x.true^2, x.false^2), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c(x_true^2, x_false^2), na.rm = TRUE))) {
         warning("sumtree 1a: Sum of cond.true and cond.false area differs from population area.")
       }
 
@@ -557,10 +557,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
       ## Level 2: dec is pos vs. neg
 
-      x.pos  <- sqrt(n.pos/N * x.pop^2)  # dec.pos cases
-      x.neg <- sqrt(n.neg/N * x.pop^2)  # dec.neg cases
+      x_pos  <- sqrt(n_pos/N * x_pop^2)  # dec.pos cases
+      x_neg <- sqrt(n_neg/N * x_pop^2)  # dec.neg cases
 
-      if (!all.equal(x.pop^2, sum(c(x.pos^2, x.neg^2), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c(x_pos^2, x_neg^2), na.rm = TRUE))) {
         warning("sumtree 1b: Sum of dec.pos and dec.neg area differs from population area.")
       }
 
@@ -568,36 +568,36 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     ## Level 3: 4 SDT squares (irrespective of current by option!)
 
-    x.hi <- sqrt(n.hi/N * x.pop^2)
-    x.mi <- sqrt(n.mi/N * x.pop^2)
-    x.fa <- sqrt(n.fa/N * x.pop^2)
-    x.cr <- sqrt(n.cr/N * x.pop^2)
+    x_hi <- sqrt(n_hi/N * x_pop^2)
+    x_mi <- sqrt(n_mi/N * x_pop^2)
+    x_fa <- sqrt(n_fa/N * x_pop^2)
+    x_cr <- sqrt(n_cr/N * x_pop^2)
 
     ## Checks by condition/decision:
     if (by == "cd") {  # (a) by condition:
 
-      if (!all.equal(x.true^2, sum(c(x.hi^2, x.mi^2), na.rm = TRUE))) {
+      if (!all.equal(x_true^2, sum(c(x_hi^2, x_mi^2), na.rm = TRUE))) {
         warning("sumtree 2a: Sum of HI and MI area differs from cond.TRUE area.")
       }
 
-      if (!all.equal(x.false^2, sum(c(x.fa^2, x.cr^2), na.rm = TRUE))) {
+      if (!all.equal(x_false^2, sum(c(x_fa^2, x_cr^2), na.rm = TRUE))) {
         warning("sumtree 3a: Sum of FA and CR area differs from cond.FALSE area.")
       }
 
     } else if (by == "dc") {  # (b) by decision:
 
-      if (!all.equal(x.pos^2, sum(c(x.hi^2, x.fa^2), na.rm = TRUE))) {
+      if (!all.equal(x_pos^2, sum(c(x_hi^2, x_fa^2), na.rm = TRUE))) {
         warning("sumtree 2b: Sum of HI and FA area differs from dec.POS area.")
       }
 
-      if (!all.equal(x.neg^2, sum(c(x.mi^2, x.cr^2), na.rm = TRUE))) {
+      if (!all.equal(x_neg^2, sum(c(x_mi^2, x_cr^2), na.rm = TRUE))) {
         warning("sumtree 3b: Sum of MI and CR area differs from dec.NEG area.")
       }
 
     } # (if by...)
 
     ## Check (irrespective of current by option):
-    if (!all.equal(x.pop^2, sum(c(x.hi^2, x.mi^2, x.fa^2, x.cr^2), na.rm = TRUE))) {
+    if (!all.equal(x_pop^2, sum(c(x_hi^2, x_mi^2, x_fa^2, x_cr^2), na.rm = TRUE))) {
       warning("sumtree 4: Population area differs from the area sum of all 4 SDT cases.")
     }
 
@@ -605,13 +605,13 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     if (by == "cd") {  # (a) by condition:
 
-      x.boxes <- c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)
-      x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion (squares)
+      x_boxes <- c(x_pop,  x_true, x_false,  x_hi, x_mi, x_fa, x_cr)
+      x_y_prop <- rep(x_y_pop, 7) # all boxes have the same proportion (squares)
 
     } else if (by == "dc") {  # (b) by decision:
 
-      x.boxes <- c(x.pop,  x.pos, x.neg,  x.hi, x.mi, x.fa, x.cr)
-      x.y.prop <- rep(x.y.pop, 7) # all boxes have the same proportion (squares)
+      x_boxes <- c(x_pop,  x_pos, x_neg,  x_hi, x_mi, x_fa, x_cr)
+      x_y_prop <- rep(x_y_pop, 7) # all boxes have the same proportion (squares)
 
     } # (if by...)
 
@@ -624,8 +624,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
     ## Level 1: Population square
 
-    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
-    x.y.pop <- 1/1 # square
+    x_pop <- .10   # basic width x of population box: Area N = x_pop^2
+    x_y_pop <- 1/1 # square
 
 
     ## Determine other box widths by relative proportions in freq:
@@ -634,13 +634,13 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
       ## Level 2: 2 vertical rectangles
 
-      x.true <- (n.true/N) * x.pop # scale x.pop by proportion of cond.true cases
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop # scale x_pop by proportion of cond.true cases
+      x_y_true <- x_pop/x_true
 
-      x.false <- n.false/N * x.pop # scale x.pop by proportion of cond.false cases
-      x.y.false <- x.pop/x.false
+      x_false <- n_false/N * x_pop # scale x_pop by proportion of cond.false cases
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1a: Sum of cond.true + cond.false areas differs from population area.")
       }
 
@@ -649,51 +649,51 @@ plot_tree <- function(prev = num$prev,             # probabilities
       ## (and their widths summing up to the height of the Level 2 rectangles)
 
       ## Box cond.true = hi + mi:
-      x.hi <- (n.hi/n.true) * x.pop  # hi: scale x.pop by sens = n.hi/n.true
-      x.y.hi <- x.true/x.hi
+      x_hi <- (n_hi/n_true) * x_pop  # hi: scale x_pop by sens = n_hi/n_true
+      x_y_hi <- x_true/x_hi
 
-      x.mi <-  (1 - (n.hi/n.true)) * x.pop  # mi: scale x.pop by mirt = (1 - sens)
-      x.y.mi <- x.true/x.mi
+      x_mi <-  (1 - (n_hi/n_true)) * x_pop  # mi: scale x_pop by mirt = (1 - sens)
+      x_y_mi <- x_true/x_mi
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * x.true), (x.mi * x.true)), na.rm = TRUE))) {
+      if (!all.equal((x_true * x_pop),
+                     sum(c((x_hi * x_true), (x_mi * x_true)), na.rm = TRUE))) {
         warning("hrectree 2a: Sum of HI + MI area differs from cond.TRUE area.")
       }
 
       ## Box cond.false = fa + cr:
-      x.cr <- (n.cr/n.false) * x.pop  # cr: scale x.pop by spec = n.cr/n.false
-      x.y.cr <- x.false/x.cr
+      x_cr <- (n_cr/n_false) * x_pop  # cr: scale x_pop by spec = n_cr/n_false
+      x_y_cr <- x_false/x_cr
 
-      x.fa <- (1 - (n.cr/n.false)) * x.pop  # fa: scale x.pop by (1 - spec)
-      x.y.fa <- x.false/x.fa
+      x_fa <- (1 - (n_cr/n_false)) * x_pop  # fa: scale x_pop by (1 - spec)
+      x_y_fa <- x_false/x_fa
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
+      if (!all.equal((x_false * x_pop),
+                     sum(c((x_fa * x_false), (x_cr * x_false)), na.rm = TRUE))) {
         warning("hrectree 3a: Sum of FA + CR area differs from cond.FALSE area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.true), (x.mi * x.true), (x.fa * x.false), (x.cr * x.false)), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * x_true), (x_mi * x_true), (x_fa * x_false), (x_cr * x_false)), na.rm = TRUE))) {
         warning("hrectree 4a: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect box sizes and proportions:
 
-      x.boxes <-  c(x.pop,  x.true, x.false,  x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
+      x_boxes <-  c(x_pop,  x_true, x_false,  x_hi, x_mi, x_fa, x_cr)  # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_true, x_y_false,  x_y_hi, x_y_mi, x_y_fa, x_y_cr)  # specific proportions
 
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## Level 2: 2 vertical rectangles
 
-      x.pos <- (n.pos/N) * x.pop # scale x.pop by proportion of dec.pos cases
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop # scale x_pop by proportion of dec.pos cases
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- n.neg/N * x.pop # scale x.pop by proportion of dec.neg cases
-      x.y.neg <- x.pop/x.neg
+      x_neg <- n_neg/N * x_pop # scale x_pop by proportion of dec.neg cases
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("hrectree 1b: Sum of dec.pos + dec.neg areas differs from population area.")
       }
 
@@ -703,44 +703,44 @@ plot_tree <- function(prev = num$prev,             # probabilities
       ## (and their widths summing up to the height of the Level 2 rectangles)
 
       ## Box dec.pos = hi + FA:
-      x.hi <- (n.hi/n.pos) * x.pop  # hi: scale x.pop by PPV = n.hi/dec.pos
-      x.y.hi <- x.pos/x.hi
+      x_hi <- (n_hi/n_pos) * x_pop  # hi: scale x_pop by PPV = n_hi/dec.pos
+      x_y_hi <- x_pos/x_hi
 
       # FA (now belongs to dec.pos):
-      x.fa <-  (1 - (n.hi/n.pos)) * x.pop  # FA: scale x.pop by (1 - PPV)
-      x.y.fa <- x.pos/x.fa
+      x_fa <-  (1 - (n_hi/n_pos)) * x_pop  # FA: scale x_pop by (1 - PPV)
+      x_y_fa <- x_pos/x_fa
 
-      if (!all.equal((x.pos * x.pop),
-                     sum(c((x.hi * x.pos), (x.fa * x.pos)), na.rm = TRUE))) {
+      if (!all.equal((x_pos * x_pop),
+                     sum(c((x_hi * x_pos), (x_fa * x_pos)), na.rm = TRUE))) {
         warning("hrectree 2b: Sum of HI + FA area differs from dec.POS area.")
       }
 
       ## Box dec.neg = cr + MI:
-      x.cr <- (n.cr/n.neg) * x.pop  # cr: scale x.pop by NPV = n.cr/dec.false
-      x.y.cr <- x.neg/x.cr
+      x_cr <- (n_cr/n_neg) * x_pop  # cr: scale x_pop by NPV = n_cr/dec.false
+      x_y_cr <- x_neg/x_cr
 
       # MI (now belongs to dec.neg):
-      x.mi <- (1 - (n.cr/n.neg)) * x.pop  # MI: scale x.pop by (1 - NPV)
-      x.y.mi <- x.neg/x.mi
+      x_mi <- (1 - (n_cr/n_neg)) * x_pop  # MI: scale x_pop by (1 - NPV)
+      x_y_mi <- x_neg/x_mi
 
-      if (!all.equal((x.neg * x.pop),
-                     sum(c((x.mi * x.neg), (x.cr * x.neg)), na.rm = TRUE))) {
+      if (!all.equal((x_neg * x_pop),
+                     sum(c((x_mi * x_neg), (x_cr * x_neg)), na.rm = TRUE))) {
         warning("hrectree 3b: Sum of MI + CR area differs from dec.NEG area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * x.pos),
-                           (x.fa * x.pos),
-                           (x.mi * x.neg),
-                           (x.cr * x.neg)), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * x_pos),
+                           (x_fa * x_pos),
+                           (x_mi * x_neg),
+                           (x_cr * x_neg)), na.rm = TRUE))) {
         warning("hrectree 4b: Population area differs from the area sum of all 4 SDT cases.")
       }
 
 
       ## Collect box sizes and proportions:
 
-      x.boxes <-  c(x.pop,  x.pos, x.neg,  x.hi, x.mi, x.fa, x.cr)  # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.pos, x.y.neg,  x.y.hi, x.y.mi, x.y.fa, x.y.cr)  # specific proportions
+      x_boxes <-  c(x_pop,  x_pos, x_neg,  x_hi, x_mi, x_fa, x_cr)  # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_pos, x_y_neg,  x_y_hi, x_y_mi, x_y_fa, x_y_cr)  # specific proportions
 
 
     } # (if by...)
@@ -753,8 +753,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
   if (area == "vr") {
 
     ## Level 1: Population square
-    x.pop <- .10   # basic width x of population box: Area N = x.pop^2
-    x.y.pop <- 1/1 # square
+    x_pop <- .10   # basic width x of population box: Area N = x_pop^2
+    x_y_pop <- 1/1 # square
 
     ## Determine other box widths by relative proportions in freq:
 
@@ -763,13 +763,13 @@ plot_tree <- function(prev = num$prev,             # probabilities
       ## Level 2:
       ## 2 vertical rectangles for cond.true vs.cond.false:
 
-      x.true <- (n.true/N) * x.pop # scale x.pop by proportion true
-      x.y.true <- x.pop/x.true
+      x_true <- (n_true/N) * x_pop # scale x_pop by proportion true
+      x_y_true <- x_pop/x_true
 
-      x.false <- (n.false/N) * x.pop # scale x.pop by proportion false
-      x.y.false <- x.pop/x.false
+      x_false <- (n_false/N) * x_pop # scale x_pop by proportion false
+      x_y_false <- x_pop/x_false
 
-      if (!all.equal(x.pop^2, sum(c((x.true * x.pop), (x.false * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_true * x_pop), (x_false * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1a: Sum of cond.TRUE + cond.FALSE areas differs from Population area.")
       }
 
@@ -777,54 +777,54 @@ plot_tree <- function(prev = num$prev,             # probabilities
       ## 4 rectangles with widths matching the widths of the Level 2 rectangles
       ## (and their heights summing up to the height of the Level 2 rectangles)
 
-      x.hi <- x.true # keep constant
-      x.y.hi <- x.y.true * (n.hi/n.true) # scale previous prop by prop hi
+      x_hi <- x_true # keep constant
+      x_y_hi <- x_y_true * (n_hi/n_true) # scale previous prop by prop hi
 
-      x.mi <- x.true # keep constant
-      x.y.mi <- x.y.true * (n.mi/n.true) # scale previous prop by prop mi
+      x_mi <- x_true # keep constant
+      x_y_mi <- x_y_true * (n_mi/n_true) # scale previous prop by prop mi
 
-      if (!all.equal((x.true * x.pop),
-                     sum(c((x.hi * (x.hi * x.y.hi)), (x.mi * (x.mi * x.y.mi))), na.rm = TRUE))) {
+      if (!all.equal((x_true * x_pop),
+                     sum(c((x_hi * (x_hi * x_y_hi)), (x_mi * (x_mi * x_y_mi))), na.rm = TRUE))) {
         warning("vrectree 2a: Sum of HI + MI area differs from Cond TRUE area.")
       }
 
-      x.fa <- x.false # keep constant
-      x.y.fa <- x.y.false * (n.fa/n.false) # scale previous prop by prop fa
+      x_fa <- x_false # keep constant
+      x_y_fa <- x_y_false * (n_fa/n_false) # scale previous prop by prop fa
 
-      x.cr <- x.false # keep constant
-      x.y.cr <- x.y.false * (n.cr/n.false) # scale previous prop by prop cr
+      x_cr <- x_false # keep constant
+      x_y_cr <- x_y_false * (n_cr/n_false) # scale previous prop by prop cr
 
-      if (!all.equal((x.false * x.pop),
-                     sum(c((x.fa * (x.fa * x.y.fa)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_false * x_pop),
+                     sum(c((x_fa * (x_fa * x_y_fa)), (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 3a: Sum of FA + CR area differs from Cond FALSE area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * (x.hi * x.y.hi)),
-                           (x.mi * (x.mi * x.y.mi)),
-                           (x.fa * (x.fa * x.y.fa)),
-                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * (x_hi * x_y_hi)),
+                           (x_mi * (x_mi * x_y_mi)),
+                           (x_fa * (x_fa * x_y_fa)),
+                           (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 4a: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect box sizes and proportions:
-      x.boxes <- c(x.pop,  x.true, x.false,
-                   x.hi, x.mi, x.fa, x.cr) # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.true, x.y.false,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
+      x_boxes <- c(x_pop,  x_true, x_false,
+                   x_hi, x_mi, x_fa, x_cr) # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_true, x_y_false,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr) # specific proportions
 
     } else if (by == "dc") {  # (b) by decision:
 
       ## Level 2:
       ## 2 vertical rectangles for dec.pos vs. dec.neg:
 
-      x.pos <- (n.pos/N) * x.pop  # scale x.pop by proportion of dec.pos
-      x.y.pos <- x.pop/x.pos
+      x_pos <- (n_pos/N) * x_pop  # scale x_pop by proportion of dec.pos
+      x_y_pos <- x_pop/x_pos
 
-      x.neg <- (n.neg/N) * x.pop  # scale x.pop by proportion of dec.neg
-      x.y.neg <- x.pop/x.neg
+      x_neg <- (n_neg/N) * x_pop  # scale x_pop by proportion of dec.neg
+      x_y_neg <- x_pop/x_neg
 
-      if (!all.equal(x.pop^2, sum(c((x.pos * x.pop), (x.neg * x.pop)), na.rm = TRUE))) {
+      if (!all.equal(x_pop^2, sum(c((x_pos * x_pop), (x_neg * x_pop)), na.rm = TRUE))) {
         warning("vrectree 1b: Sum of dec.POS + dec.FALSE areas differs from Population area.")
       }
 
@@ -832,43 +832,43 @@ plot_tree <- function(prev = num$prev,             # probabilities
       ## 4 rectangles with widths matching the widths of the Level 2 rectangles
       ## (and their heights summing up to the height of the Level 2 rectangles)
 
-      x.hi <- x.pos  # keep constant to Level 2
-      x.y.hi <- x.y.pos * (n.hi/n.pos)  # scale previous prop by prop n.hi/n.pos = PPV
+      x_hi <- x_pos  # keep constant to Level 2
+      x_y_hi <- x_y_pos * (n_hi/n_pos)  # scale previous prop by prop n_hi/n_pos = PPV
 
       # FA (now belongs to dec.pos):
-      x.fa <- x.pos  # keep constant to Level 2
-      x.y.fa <- x.y.pos * (n.fa/n.pos)  # scale previous prop by prop n.fa/n.pos = (1 - PPV)
+      x_fa <- x_pos  # keep constant to Level 2
+      x_y_fa <- x_y_pos * (n_fa/n_pos)  # scale previous prop by prop n_fa/n_pos = (1 - PPV)
 
-      if (!all.equal((x.pos * x.pop),
-                     sum(c((x.hi * (x.hi * x.y.hi)), (x.fa * (x.fa * x.y.fa))), na.rm = TRUE))) {
+      if (!all.equal((x_pos * x_pop),
+                     sum(c((x_hi * (x_hi * x_y_hi)), (x_fa * (x_fa * x_y_fa))), na.rm = TRUE))) {
         warning("vrectree 2b: Sum of HI + FA area differs from dec.POS area.")
       }
 
-      x.cr <- x.neg  # keep constant to Level 2
-      x.y.cr <- x.y.neg * (n.cr/n.neg)  # scale previous prop by prop n.cr/n.neg = NPV
+      x_cr <- x_neg  # keep constant to Level 2
+      x_y_cr <- x_y_neg * (n_cr/n_neg)  # scale previous prop by prop n_cr/n_neg = NPV
 
       # MI (now belongs to dec.neg):
-      x.mi <- x.neg  # keep constant to Level 2
-      x.y.mi <- x.y.neg * (n.mi/n.neg)  # scale previous prop by prop n.mi/n.neg = (1 - NPV)
+      x_mi <- x_neg  # keep constant to Level 2
+      x_y_mi <- x_y_neg * (n_mi/n_neg)  # scale previous prop by prop n_mi/n_neg = (1 - NPV)
 
-      if (!all.equal((x.neg * x.pop),
-                     sum(c((x.mi * (x.mi * x.y.mi)), (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_neg * x_pop),
+                     sum(c((x_mi * (x_mi * x_y_mi)), (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 3b: Sum of MI + CR area differs from dec.NEG area.")
       }
 
-      if (!all.equal((x.pop^2),
-                     sum(c((x.hi * (x.hi * x.y.hi)),
-                           (x.mi * (x.mi * x.y.mi)),
-                           (x.fa * (x.fa * x.y.fa)),
-                           (x.cr * (x.cr * x.y.cr))), na.rm = TRUE))) {
+      if (!all.equal((x_pop^2),
+                     sum(c((x_hi * (x_hi * x_y_hi)),
+                           (x_mi * (x_mi * x_y_mi)),
+                           (x_fa * (x_fa * x_y_fa)),
+                           (x_cr * (x_cr * x_y_cr))), na.rm = TRUE))) {
         warning("vrectree 4b: Population area differs from the area sum of all 4 SDT cases.")
       }
 
       ## Collect box sizes and proportions:
-      x.boxes <- c(x.pop,  x.pos, x.neg,
-                   x.hi, x.mi, x.fa, x.cr) # specific widths
-      x.y.prop <- c(x.y.pop,  x.y.pos, x.y.neg,
-                    x.y.hi, x.y.mi, x.y.fa, x.y.cr) # specific proportions
+      x_boxes <- c(x_pop,  x_pos, x_neg,
+                   x_hi, x_mi, x_fa, x_cr) # specific widths
+      x_y_prop <- c(x_y_pop,  x_y_pos, x_y_neg,
+                    x_y_hi, x_y_mi, x_y_fa, x_y_cr) # specific proportions
 
     } # (if by...)
 
@@ -884,17 +884,17 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          relsize	= .98, # a scaling factor for the size of the graph
                          lwd = lwd,  # width of arrows
                          ## Boxes:
-                         box.size = x.boxes,   # widths of boxes
-                         box.prop = x.y.prop,  # proportionality (length/width) ratio of boxes
+                         box.size = x_boxes,   # widths of boxes
+                         box.prop = x_y_prop,  # proportionality (length/width) ratio of boxes
                          box.type = "rect",    # "ellipse", "diamond", "circle", "hexa", "multi", "none"
-                         box.col = col.boxes,  # scalar or vector (of length 7 or 10?).
+                         box.col = col_boxes,  # scalar or vector (of length 7 or 10?).
                          # c(col.N, col.true, col.false, col.hi, col.mi, col.fa, col.cr), # WAS: "lightyellow"
-                         box.lcol = col.border,
-                         box.lwd = box.lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
-                         lcol = col.border,  # default color for box and arrow lines
+                         box.lcol = col_border,
+                         box.lwd = box_lwd,  # set to 0.001 to show boxes without borders (but =0 yields error)
+                         lcol = col_border,  # default color for box and arrow lines
                          ## Text in Boxes:
-                         txt.col = col.txt,
-                         box.cex = box.cex,  # relative size of text in boxes
+                         txt.col = col_txt,
+                         box.cex = box_cex,  # relative size of text in boxes
                          txt.font = 1,       # 1 = plain, 2 = bold, ...
                          ## Arrows:
                          cex.txt = .80,  # relative size of arrow text
@@ -902,77 +902,77 @@ plot_tree <- function(prev = num$prev,             # probabilities
                          arr.type = "triangle", # one of "curved", "triangle", "circle", "ellipse", "T", "simple"
                          arr.length = .20,
                          arr.width = .15,
-                         arr.col = col.border,
-                         shadow.size = cex.shadow, # .005
-                         shadow.col = col.shadow  #,
-                         # main = paste0(title.lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
+                         arr.col = col_border,
+                         shadow.size = cex_shadow, # .005
+                         shadow.col = col_shadow  #,
+                         # main = paste0(title_lbl, ":\n", "Sum tree of natural frequencies (N = ", N, ")")
   )
 
   ## (7) Title: ------
 
-  if (area == "no") {type.lbl <- "Tree"}
-  if (area == "sq") {type.lbl <- "Area (square) tree"}
-  if (area == "hr") {type.lbl <- "Area (horizontal rectangle) tree"}
-  if (area == "vr") {type.lbl <- "Area (vertical rectangle) tree"}
-  if (nchar(title.lbl) > 0) { title.lbl <- paste0(title.lbl, ":\n") }  # put on top (in separate line)
+  if (area == "no") {type_lbl <- "Tree"}
+  if (area == "sq") {type_lbl <- "Area (square) tree"}
+  if (area == "hr") {type_lbl <- "Area (horizontal rectangle) tree"}
+  if (area == "vr") {type_lbl <- "Area (vertical rectangle) tree"}
+  if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
 
-  if (by == "cd") { by.lbl <- "(by condition)"}
-  else if (by == "dc") { by.lbl <- "(by decision)"}
+  if (by == "cd") { by_lbl <- "(by condition)"}
+  else if (by == "dc") { by_lbl <- "(by decision)"}
 
-  cur.title.lbl <- paste0(title.lbl, type.lbl, " of frequencies and probabilities ", by.lbl)  # , "(N = ", N, ")")
-  title(cur.title.lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
+  cur.title_lbl <- paste0(title_lbl, type_lbl, " of frequencies and probabilities ", by_lbl)  # , "(N = ", N, ")")
+  title(cur.title_lbl, adj = 0.5, line = 1.0, font.main = 1)  # (centered, raised, normal font)
 
-  if (area == "no") {area.lbl <- ""}
-  else if (area == "sq") {area.lbl <- "Areas represent relative frequencies"}
-  else if (area == "hr") {area.lbl <- "Areas represent relative frequencies"}
-  else if (area == "vr") {area.lbl <- "Areas represent relative frequencies"}
-  else {area.lbl <- ""}  # to prevent errors for other entries
+  if (area == "no") {area_lbl <- ""}
+  else if (area == "sq") {area_lbl <- "Areas represent relative frequencies"}
+  else if (area == "hr") {area_lbl <- "Areas represent relative frequencies"}
+  else if (area == "vr") {area_lbl <- "Areas represent relative frequencies"}
+  else {area_lbl <- ""}  # to prevent errors for other entries
 
 
   ## (8) Margin text: ------
 
   ## (a) by condition: 3 basic probabilities
-  cur.cond.lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  mtext(cur.cond.lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+  cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+  mtext(cur_cond_lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
   # (b) by decision:
   if (by != "cd") {
 
-    cur.dec.lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-    mtext(cur.dec.lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
+    cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
+    mtext(cur_dec_lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
 
   }
 
   ## (c) Accuracy: Compute and show accuracy metrics
 
-  if (show.accu) {
+  if (show_accu) {
 
     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-    cur.accu <- comp_accu_freq(hi = n.hi, mi = n.mi, fa = n.fa, cr = n.cr, w = w.acc)
+    cur_accu <- comp_accu_freq(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr, w = w_acc)
 
     # Note: If freq are NOT rounded, then
-    #       cur.accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w.acc)
+    #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
     #       would yield the same results.
 
     # (2) Make label:
-    cur.accu.lbl <- make_accu_lbl(acc = cur.accu$acc, w = w.acc, wacc = cur.accu$wacc, mcc = cur.accu$mcc)  # use utility function
+    cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
 
     # (3) Mark IF accu was based on rounded freq:
     if (round) {  # freq were rounded:
-      cur.accu.lbl <- paste0("*", cur.accu.lbl, " (rounded)")
+      cur_accu_lbl <- paste0("*", cur_accu_lbl, " (rounded)")
     }
 
     # (4) Plot label:
-    mtext(cur.accu.lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    mtext(cur_accu_lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
 
-  } # if (show.accu)...
+  } # if (show_accu)...
 
 
   ## (d) Note that areas represent frequencies:
   if (area != "no") {
 
-    cur.area.lbl <- paste0("(", area.lbl, ")")
-    mtext(cur.area.lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
+    cur.area_lbl <- paste0("(", area_lbl, ")")
+    mtext(cur.area_lbl, side = 1, line = 3, adj = 1, col = grey(.33, .99), cex = .85)  # print label
   }
 
 
@@ -986,10 +986,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
 ## Check: ----------
 # plot_tree()
-# plot_tree(title.lbl = "")
+# plot_tree(title_lbl = "")
 # plot_tree(N = 33)
 # plot_tree(N = NA)              # => compute suitable population size (+ warning)
-# plot_tree(prev = 1/3, p.lbl = "num")
+# plot_tree(prev = 1/3, p_lbl = "num")
 # plot_tree(prev = 1/3, N = 55)
 # plot_tree(prev = 1/3, N = NA)  # => compute suitable population size (+ warning)
 # plot_tree(prev = 1/3, round = FALSE)
@@ -1004,10 +1004,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 # plot_tree(area = "vr", round = FALSE)
 #
 # plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-# plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
-#           col.shadow = "steelblue4", cex.shadow = .008)
-# plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow", col.border = grey(.3, .7),
-#           cex.shadow = .008, col.shadow = grey(.1, .9))
+# plot_tree(area = "sq", col_boxes = "gold", col_border = "steelblue4",
+#           col_shadow = "steelblue4", cex_shadow = .008)
+# plot_tree(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow", col_border = grey(.3, .7),
+#           cex_shadow = .008, col_shadow = grey(.1, .9))
 
 
 ## (*) Done: ---------
@@ -1024,7 +1024,10 @@ plot_tree <- function(prev = num$prev,             # probabilities
 ## - 2. Make version with options for
 ##         a - providing fart rather than spec
 ##         b - freq rather than prev, sens, spec
-## - 3. make text color adjustable (using col.txt)
+## - 3. make text color adjustable (using col_txt)
 ## - 4. pimp plot (labels, colors, transparency)
+
+## - Retire function and re-direct to newer and more versatile
+##   "plot_prism" function!
 
 ## eof. ------------------------------------------

@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 10 27
+## 2018 11 23
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
@@ -39,7 +39,7 @@
 # p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
 # p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
 
-# Other measures of accuracy (in accu):
+## Other measures of accuracy (in accu):
 # wacc = weighted accuracy
 # mcc  = Matthews correlation coefficient
 # f1s  = harmonic mean of PPV and sens
@@ -63,7 +63,7 @@
 
 ## A: Define probabilities by condition: ---------
 
-## ***: 3 essential probabilities: prev; sens, spec
+## ***: 3 essential probabilities: prev; sens, spec/fart.
 
 ## (0) prev*** = base rate of condition: ---------
 
@@ -83,8 +83,7 @@
 #'   \code{prev = p(condition = TRUE)}
 #'
 #'   or the base rate (or baseline probability)
-#'   of the condition's occurrence.
-#'
+#'   of the condition's occurrence or truth.
 #'
 #'   \item In terms of frequencies,
 #'   \code{prev} is the ratio of
@@ -94,37 +93,35 @@
 #'
 #'   \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
-#'
 #'   \item Perspective:
 #'   \code{prev} classifies a population of \code{\link{N}} individuals
 #'   by condition (\code{prev = cond.true/N}).
 #'
-#'   \code{prev} is the "by condition" counterpart to \code{\link{ppod}}
-#'   (which adopts a "by decision" perspective).
-#'
+#'   \code{prev} is the "by condition" counterpart
+#'   to \code{\link{ppod}} (when adopting a "by decision" perspective) and
+#'   to \code{\link{acc}}  (when adopting a "by accuracy" perspective).
 #'
 #'   \item Alternative names:
 #'   base rate of condition,
 #'   proportion affected,
-#'   rate of condition \code{= TRUE} cases
+#'   rate of condition \code{= TRUE} cases.
 #'
 #'   \code{prev} is often distinguished from the \emph{incidence rate}
 #'   (i.e., the rate of new cases within a certain time period).
 #'
-#'
 #'   \item Dependencies:
 #'   \code{prev} is a feature of the population
-#'   and condition, but independent of the decision process
+#'   and of the condition, but independent of the decision process
 #'   or diagnostic procedure.
 #'
-#'   The value of \code{prev} does \emph{not} depend
-#'   on features of the decision process or diagnostic procedure.
-#'   However, \code{prev} must be taken into account when
+#'   While the value of \code{prev} does \emph{not} depend
+#'   on features of the decision process or diagnostic procedure,
+#'   \code{prev} must be taken into account when
 #'   computing the conditional probabilities
 #'   \code{\link{sens}}, \code{\link{mirt}},
 #'   \code{\link{spec}}, \code{\link{fart}},
 #'   \code{\link{PPV}}, and \code{\link{NPV}}
-#'   (as they partly depend on \code{prev}).
+#'   (as they depend on \code{prev}).
 #'
 #' }
 #'
@@ -132,19 +129,20 @@
 #' baserate_cond.true
 #'
 #' @examples
-#' prev <- .10     # => sets a prevalence value of 10%
-#' prev <- 10/100  # => (condition = TRUE) for 10 out of 100 individuals
-#' is_prob(prev)   # => TRUE (as prev is a probability)
+#' prev <- .10     # sets a prevalence value of 10%
+#' prev <- 10/100  # (condition = TRUE) for 10 out of 100 individuals
+#' is_prob(prev)   # TRUE
 #'
 #' @family probabilities
 #' @family essential parameters
 #'
 #' @seealso
+#' \code{\link{prob}} contains current probability information;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
 #' \code{\link{comp_prob}} computes derived probabilities;
 #' \code{\link{comp_freq}} computes natural frequencies from probabilities;
-#' \code{\link{is_prob}} verifies probability inputs.
+#' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additional information.
@@ -187,7 +185,6 @@ prev <- 1/2  # default prevalence
 #'   probability of detection,
 #'   \code{power = 1 - beta},
 #'   \code{recall}
-
 #'
 #'   \item Relationships:
 #'
@@ -202,7 +199,6 @@ prev <- 1/2  # default prevalence
 #'   of the positive predictive value \code{\link{PPV}}:
 #'
 #'   \code{PPV = p(condition = TRUE | decision = positive)}
-
 #'
 #'   \item In terms of frequencies,
 #'   \code{sens} is the ratio of
@@ -240,12 +236,12 @@ prev <- 1/2  # default prevalence
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
+#' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @examples
-#' sens <- .85     # => sets a sensitivity value of 85%
-#' sens <- 85/100  # => (decision = positive) for 85 out of 100 people with (condition = TRUE)
-#' is_prob(sens)   # => TRUE (as sens is a probability)
+#' sens <- .85     # sets a sensitivity value of 85%
+#' sens <- 85/100  # (decision = positive) for 85 out of 100 people with (condition = TRUE)
+#' is_prob(sens)   # TRUE
 
 sens <- 1/2  # default sensitivity
 
@@ -271,7 +267,6 @@ sens <- 1/2  # default sensitivity
 #'   or the probability of failing to detect true cases
 #'   (\code{condition = TRUE}).
 #'
-
 #'   \item Perspective:
 #'   \code{mirt} further classifies
 #'   the subset of \code{\link{cond.true}} individuals
@@ -282,7 +277,6 @@ sens <- 1/2  # default sensitivity
 #'   false negative rate (\code{FNR}),
 #'   rate of type-II errors (\code{beta})
 #'
-
 #'   \item Relationships:
 #'
 #'   a. \code{mirt} is the complement of the
@@ -296,7 +290,6 @@ sens <- 1/2  # default sensitivity
 #'
 #'   \code{FOR = p(condition = TRUE | decision = negative)}
 #'
-
 #'   \item In terms of frequencies,
 #'   \code{mirt} is the ratio of
 #'   \code{\link{mi}} divided by \code{\link{cond.true}}
@@ -332,14 +325,14 @@ sens <- 1/2  # default sensitivity
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
+#' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @examples
 #' mirt <- .15     # => sets a miss rate of 15%
 #' mirt <- 15/100  # => (decision = negative) for 15 out of 100 people with (condition = TRUE)
-#' is_prob(mirt)   # => TRUE (as mirt is a probability)
 
 mirt <- 1 - sens  # default miss rate
+
 
 ## (3) spec*** = TNR: ----------------------------
 
@@ -413,9 +406,9 @@ mirt <- 1 - sens  # default miss rate
 #' TNR
 #'
 #' @examples
-#' spec <- .75     # => sets a specificity value of 75%
-#' spec <- 75/100  # => (decision = negative) for 75 out of 100 people with (condition = FALSE)
-#' is_prob(spec)   # => TRUE (as spec is a probability)
+#' spec <- .75     # sets a specificity value of 75%
+#' spec <- 75/100  # (decision = negative) for 75 out of 100 people with (condition = FALSE)
+#' is_prob(spec)   # TRUE
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -430,8 +423,7 @@ mirt <- 1 - sens  # default miss rate
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
-#'
+#' \code{\link{is_prob}} verifies probabilities.
 
 spec <- 1/2 # default specificity
 
@@ -512,9 +504,9 @@ spec <- 1/2 # default specificity
 #' fallout
 #'
 #' @examples
-#' fart <- .25     # => sets a false alarm rate of 25%
-#' fart <- 25/100  # => (decision = positive) for 25 out of 100 people with (condition = FALSE)
-#' is_prob(fart)   # => TRUE (as fart is a probability)
+#' fart <- .25     # sets a false alarm rate of 25%
+#' fart <- 25/100  # (decision = positive) for 25 out of 100 people with (condition = FALSE)
+#' is_prob(fart)   # TRUE
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikipedia} for additional information.
@@ -528,8 +520,7 @@ spec <- 1/2 # default specificity
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
-#'
+#' \code{\link{is_prob}} verifies probabilities.
 
 fart <- 1 - spec   # default false alarm rate
 
@@ -593,9 +584,9 @@ fart <- 1 - spec   # default false alarm rate
 #' baserate_dec.pos PR
 #'
 #' @examples
-#' ppod <- .50     # => sets a rate of positive decisions of 50%
-#' ppod <- 50/100  # => (decision = TRUE) for 50 out of 100 individuals
-#' is_prob(ppod)   # => TRUE (as ppod is a probability)
+#' ppod <- .50     # sets a rate of positive decisions of 50%
+#' ppod <- 50/100  # (decision = TRUE) for 50 out of 100 individuals
+#' is_prob(ppod)   # TRUE
 #'
 #' @family probabilities
 #'
@@ -606,11 +597,10 @@ fart <- 1 - spec   # default false alarm rate
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
+#' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
-#'
 
 ppod <- 1/2  # default rate of positive decisions
 
@@ -691,9 +681,9 @@ ppod <- 1/2  # default rate of positive decisions
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 #'
 #' @examples
-#' PPV <- .55     # => sets a positive predictive value of 55%
-#' PPV <- 55/100  # => (condition = TRUE) for 55 out of 100 people with (decision = positive)
-#' is_prob(PPV)   # => TRUE (as PPV is a probability)
+#' PPV <- .55     # sets a positive predictive value of 55%
+#' PPV <- 55/100  # (condition = TRUE) for 55 out of 100 people with (decision = positive)
+#' is_prob(PPV)   # TRUE
 #'
 #' @family probabilities
 #'
@@ -704,8 +694,7 @@ ppod <- 1/2  # default rate of positive decisions
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
-#'
+#' \code{\link{is_prob}} verifies probabilities.
 
 PPV <- 1/2  # default of positive predictive value (PPV)
 
@@ -776,9 +765,9 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #' }
 #'
 #' @examples
-#' FDR <- .45     # => sets a false detection rate (FDR) of 45%
-#' FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
-#' is_prob(FDR)   # => TRUE (as FDR is a probability)
+#' FDR <- .45     # sets a false detection rate (FDR) of 45%
+#' FDR <- 45/100  # (condition = FALSE) for 45 out of 100 people with (decision = positive)
+#' is_prob(FDR)   # TRUE
 #'
 #' @family probabilities
 #'
@@ -789,11 +778,10 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
+#' \code{\link{is_prob}} verifies probabilities.
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
-#'
 
 FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 
@@ -864,9 +852,9 @@ FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 #' }
 #'
 #' @examples
-#' NPV <- .95     # => sets a negative predictive value of 95%
-#' NPV <- 95/100  # => (condition = FALSE) for 95 out of 100 people with (decision = negative)
-#' is_prob(NPV)   # => TRUE (as NPV is a probability)
+#' NPV <- .95     # sets a negative predictive value of 95%
+#' NPV <- 95/100  # (condition = FALSE) for 95 out of 100 people with (decision = negative)
+#' is_prob(NPV)   # TRUE
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
@@ -880,8 +868,7 @@ FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
-#'
+#' \code{\link{is_prob}} verifies probabilities.
 
 NPV <- 1/2  # default of negative predictive value (NPV)
 
@@ -947,9 +934,9 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #' }
 #'
 #' @examples
-#' FOR <- .05     # => sets a false omission rate of 5%
-#' FOR <- 5/100   # => (condition = TRUE) for 5 out of 100 people with (decision = negative)
-#' is_prob(FOR)   # => TRUE (as FOR is a probability)
+#' FOR <- .05     # sets a false omission rate of 5%
+#' FOR <- 5/100   # (condition = TRUE) for 5 out of 100 people with (decision = negative)
+#' is_prob(FOR)   # TRUE
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
@@ -963,13 +950,9 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{comp_freq}} computes current frequency information;
-#' \code{\link{is_prob}} verifies probability inputs.
-#'
+#' \code{\link{is_prob}} verifies probabilities.
 
 FOR <- 1 - NPV  # default of false omission rate (FOR)
-
-
-
 
 
 ## C: Define probabilities by accuracy: ----------
@@ -1046,9 +1029,9 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #' accurate correct
 #'
 #' @examples
-#' acc <- .50     # => sets a rate of correct decisions of 50%
-#' acc <- 50/100  # => (dec.cor) for 50 out of 100 individuals
-#' is_prob(acc)   # => TRUE (as acc is a probability)
+#' acc <- .50     # sets a rate of correct decisions of 50%
+#' acc <- 50/100  # (dec.cor) for 50 out of 100 individuals
+#' is_prob(acc)   # TRUE
 #'
 #' @family probabilities
 #' @family metrics
@@ -1068,7 +1051,6 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia:Accuracy_and_precision} for additional information.
-#'
 
 acc <- 1/2  # initialize to random accuracy
 
@@ -1098,9 +1080,9 @@ acc <- 1/2  # initialize to random accuracy
 #' and several possible interpretations of accuracy.
 #'
 #' @examples
-#' err <- .50     # => sets a rate of incorrect decisions of 50%
-#' err <- 50/100  # => (dec.err) for 50 out of 100 individuals
-#' is_prob(err)   # => TRUE (as err is a probability)
+#' err <- .50     # sets a rate of incorrect decisions of 50%
+#' err <- 50/100  # (dec.err) for 50 out of 100 individuals
+#' is_prob(err)   # TRUE
 #'
 #' @family probabilities
 #' @family metrics
@@ -1118,7 +1100,6 @@ acc <- 1/2  # initialize to random accuracy
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{prob}} contains current probability information;
 #' \code{\link{is_prob}} verifies probabilities.
-#'
 
 err <- (1 - acc)  # initialize err to complement of accuracy
 

@@ -1,27 +1,28 @@
 ## comp_util.R | riskyr
-## 2018 10 26
+## 2018 11 25
 ## Generic utility functions:
 ## -----------------------------------------------
 
 ## (A) Verification functions
 ## (B) Beware of extreme cases
 ## (C) Conversion functions
-## (D) Plotting functions (moved to plot_util.R)
+## (D) Color and plotting functions (mostly moved to plot_util.R)
+## (E) Text functions
 
-## (A) Verification functions: -------------------
+## (A) Verification functions: ----------
 
-## 1. is_prob
-## 2. is_perc
-## 3. is_freq
-## 4. is_suff_prob_set
+## 1. is_prob               (exported)
+## 2. is_perc               (exported)
+## 3. is_freq               (exported)
+## 4. is_suff_prob_set      (exported)
 ## +. is_suff_freq_set
-## 5. is_complement
-## 6. is_extreme_prob_set
-## 7. is_valid_prob_pair
-## 8. is_valid_prob_set
-## 9. is_valid_prob_triple [deprecated]
+## 5. is_complement         (exported)
+## 6. is_extreme_prob_set   (exported)
+## 7. is_valid_prob_pair    (exported)
+## 8. is_valid_prob_set     (exported)
+## 9. is_valid_prob_triple  [exported, but deprecated]
 
-## is_prob: Verify that input is a probability ------------------
+## is_prob: Verify that input is a probability ----------
 
 #' Verify that input is a probability (numeric value from 0 to 1).
 #'
@@ -175,7 +176,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 #'
 #' @export
 
@@ -254,7 +255,7 @@ is_perc <- function(perc) {
 #' \code{\link{comp_freq}} computes current frequency information;
 #' \code{\link{is_valid_prob_set}} verifies the validity of probability inputs;
 #' \code{\link{as_pc}} displays a probability as a percentage;
-#' \code{\link{as_pb}} displays a percentage as probability
+#' \code{\link{as_pb}} displays a percentage as probability.
 #'
 #' @export
 
@@ -322,14 +323,14 @@ is_freq <- function(freq) {
 #' specification of the essential probability \code{\link{prev}}
 #' is always necessary.
 #'
-#' However, for two other essential probabilities there is a choice:
+#' However, for 2 other essential probabilities there is a choice:
 #'
 #' \enumerate{
 #'
-#' \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
+#' \item either \code{\link{sens}} or \code{\link{mirt}} is necessary
 #' (as both are complements).
 #'
-#' \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+#' \item either \code{\link{spec}} or \code{\link{fart}} is necessary
 #' (as both are complements).
 #'
 #' }
@@ -455,13 +456,16 @@ is_suff_prob_set <- function(prev,
 ## Analog function: is_suff_freq_set
 ## that verifies an input for sufficient number of frequencies
 
+
+
 ## is_complement: Verify that 2 numbers are complements -----------------
 
 #' Verify that two numbers are complements.
 #'
 #' \code{is_complement} is a function that
 #' takes 2 numeric arguments (typically probabilities) as inputs and
-#' verifies that they are \emph{complements} (i.e., add up to 1).
+#' verifies that they are \emph{complements} (i.e., add up to 1,
+#' within some tolerance range \code{tol}).
 #'
 #' Both \code{p1} and \code{p2} are necessary arguments.
 #' If one or both arguments are \code{NA}, \code{is_complement}
@@ -578,6 +582,7 @@ is_complement <- function(p1, p2, tol = .01) {
 # # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
 # # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
 # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
+
 
 
 
@@ -798,10 +803,10 @@ is_extreme_prob_set <- function(prev,
   ## (4) Return value:
   return(val)
 
-}
+} # is_extreme_prob_set end.
 
 ## Check:
-
+#
 # # Identify 6 extreme cases (+ 4 variants):
 # is_extreme_prob_set(1, 1, NA, 1, NA)       # => TRUE + warning: N true positives
 # plot_tree(1, 1, NA, 1, NA, N = 100)        # => illustrates this case
@@ -924,7 +929,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 
   return(val)
 
-}
+} # is_valid_prob_pair end.
 
 ## Check:
 # # ways to succeed:
@@ -1035,9 +1040,10 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 #'
 #' @seealso
 #' \code{\link{is_valid_prob_pair}} verifies that probability pairs are complements;
+#' \code{\link{is_prob}} verifies probabilities;
+#' \code{\link{prob}} contains current probability information;
 #' \code{\link{num}} contains basic numeric variables;
 #' \code{\link{init_num}} initializes basic numeric variables;
-#' \code{\link{prob}} contains current probability information;
 #' \code{\link{comp_prob}} computes current probability information;
 #' \code{\link{freq}} contains current frequency information;
 #' \code{\link{comp_freq}} computes current frequency information;
@@ -1061,9 +1067,10 @@ is_valid_prob_set <- function(prev,
 
   return(val)
 
-}
+} # is_valid_prob_set end.
 
 ## Check:
+#
 # # ways to succeed:
 # is_valid_prob_set(1, 1, 0, 1, 0)                 # => TRUE
 # is_valid_prob_set(.3, .9, .1, .8, .2)            # => TRUE
@@ -1087,6 +1094,7 @@ is_valid_prob_set <- function(prev,
 # is_valid_prob_set(1, .8, .3, .7, .3)  # => FALSE + warning (beyond complement range)
 # is_valid_prob_set(1, 1, 1, 1, 1)      # => FALSE + warning (beyond complement range)
 # is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement range)
+
 
 ## is_valid_prob_triple: Verify a triple of essential probability inputs ---------------
 
@@ -1175,6 +1183,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 
 
 
+
 ## (C) Conversion functions: ------------------------
 
 ## Toggle between showing probabilities and percentages:
@@ -1255,15 +1264,13 @@ as_pc <- function(prob, n_digits = 2) {
 }
 
 ## Check:
-{
-  # as_pc(1/2)                # =>  50
-  # as_pc(1/3)                # =>  33.33
-  # as_pc(1/3, n_digits = 0)  # =>  33
-  # as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
-  # as_pc(as_pb(12.3))        # =>  12.3
-  # as_pc(NA)
-  # as_pc(0/0)
-}
+# as_pc(1/2)                # =>  50
+# as_pc(1/3)                # =>  33.33
+# as_pc(1/3, n_digits = 0)  # =>  33
+# as_pc(pi)                 # => 314.16 + Warning that prob is not in range.
+# as_pc(as_pb(12.3))        # =>  12.3
+# as_pc(NA)
+# as_pc(0/0)
 
 
 ## Percentage as probability (4 decimals):
@@ -1334,30 +1341,29 @@ as_pb <- function(perc, n_digits = 4) {
 }
 
 ## Check:
-{
-  # as_pb(1/3)          # => 0.0033
-  # as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
-  #
-  # prob.seq <- seq(0, 1, by = 1/10)
-  # perc.seq <- seq(0, 100, by = 10)
-  #
-  # as_pc(prob.seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
-  # as_pb(perc.seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-  #
-  # perc.seq == as_pc(as_pb(perc.seq)) # all TRUE
-  # prob.seq == as_pb(as_pc(prob.seq)) # some FALSE due to rounding errors!
-  # round(prob.seq, 4) == as_pb(as_pc(prob.seq)) # all TRUE (as both rounded to 4 decimals)
-}
+# as_pb(1/3)          # => 0.0033
+# as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
+#
+# prob.seq <- seq(0, 1, by = 1/10)
+# perc.seq <- seq(0, 100, by = 10)
+#
+# as_pc(prob.seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
+# as_pb(perc.seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+#
+# perc.seq == as_pc(as_pb(perc.seq)) # all TRUE
+# prob.seq == as_pb(as_pc(prob.seq)) # some FALSE due to rounding errors!
+# round(prob.seq, 4) == as_pb(as_pc(prob.seq)) # all TRUE (as both rounded to 4 decimals)
 
 
 
-## (D) Plotting functions: ------------------------
+
+## (D) Color and plotting functions: ----------
 
 ## Note: Moved plotting help functions to file "plot_util.R".
 
-## makeTransparent: Make color transparent ------
+## make_transparent: Make colors transparent ------
 
-makeTransparent = function(..., alpha = .50) {
+make_transparent <- function(..., alpha = .50) {
 
   if (alpha < 0 | alpha > 1) {
     stop("alpha value must be in range from 0 to 1")
@@ -1366,24 +1372,44 @@ makeTransparent = function(..., alpha = .50) {
   alpha <- floor(255 * alpha)
   newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
 
-  .makeTransparent <- function(col, alpha) {
+  .make_transparent <- function(col, alpha) {
     rgb(red = col[1], green = col[2], blue = col[3],
         alpha = alpha, maxColorValue = 255)
   }
 
-  newColor <- apply(newColor, 2, .makeTransparent, alpha = alpha)
+  newColor <- apply(newColor, 2, .make_transparent, alpha = alpha)
 
   return(newColor)
 
 }
 
-## Note also: adjustcolor(col = "green", alpha.f = .50)
+## Check:
+# make_transparent("black")
+
+## See also:
+# adjustcolor(col = "green", alpha.f = .50)
+
+## (E) Text functions: ----------
+
+capitalise_1st <- function(string) {
+  String <- ""
+  String <- paste0(toupper(substr(string, 1, 1)), substr(string, 2, nchar(string)))
+  return(String)
+}
+
+## Check:
+# capitalise_1st("the end.") # "The end."
+# capitalise_1st("")         # ""
+# capitalise_1st(123)        # "123"
 
 
 ## (*) Done: ----------
 
-## - Clean up code.  [2018 09 22]
-## - Moved graphical help functions to file "plot_util.R".  [2018 08 27]
+## - Moved graphical help functions to file "plot_util.R" [2018 08 27].
+## - Clean up code                                        [2018 09 22].
+## - Export utility functions again,
+##   as they are used in some examples                    [2018 11 08].
+
 
 ## (+) ToDo: ----------
 
@@ -1393,5 +1419,7 @@ makeTransparent = function(..., alpha = .50) {
 ##
 ## - prev = 0, spec = 0: only fa cases
 ## - prev = 0, spec = 1: only cr cases
+## - Also: Deal with 0/0 in probability computations
+##   (especially from rounded freq with low N).
 
 ## eof. ------------------------------------------

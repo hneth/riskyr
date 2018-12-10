@@ -4,19 +4,20 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----plot_fnet, fig.width = 7.2, fig.height = 7.5, fig.show = 'asis', fig.cap = "A network diagram that shows frequencies as nodes and probabilities as edges between nodes."----
+## ----prism_plot_1, message = FALSE, fig.width = 7, fig.height = 5.5, fig.show = 'asis', fig.cap = "A prism plot showing frequencies as nodes and probabilities as edges linking nodes."----
 library("riskyr") # load the "riskyr" package
 
-plot_fnet(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
-          N = 1000,       # 1 frequency
-          area = "no",    # all boxes have the same size
-          p.lbl = "nam",  # show probability names on edges
-          title.lbl = "Mammography screening")
+plot_prism(prev = .01, sens = .80, spec = NA, fart = .096,  # 3 essential probabilities
+           N = 1000,       # 1 frequency
+           area = "no",    # same size for all boxes
+           p_lbl = "abb",  # show abbreviated names of probabilities on edges
+           title_lbl = "Example")
 
-## ----plot_fnet_example, fig.width = 7.2, fig.height = 7.2, fig.show = 'asis', fig.cap = "An example network diagram that shows how probabilities can be computed as ratios of frequencies."----
-plot_fnet(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
-          N = 10,         # 1 frequency
-          area = "no",    # all boxes have the same size
-          p.lbl = "num",  # show numeric probability values on edges
-          title.lbl = "A simple example")
+## ----prism_plot_2, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "A prism plot showing how probabilities can be computed as ratios of frequencies."----
+plot_prism(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
+           N = 10,         # population frequency
+           scale = "f",    # scale by frequency, rather than probability ("p") 
+           area = "sq",    # boxes as squares, with sizes scaled by current scale  
+           p_lbl = "num",  # show numeric probability values on edges
+           title_lbl = "Probabilities as ratios of frequencies")
 

@@ -31,9 +31,9 @@ for computation and
 and several possible interpretations of accuracy.
 }
 \examples{
-err <- .50     # => sets a rate of incorrect decisions of 50\%
-err <- 50/100  # => (dec.err) for 50 out of 100 individuals
-is_prob(err)   # => TRUE (as err is a probability)
+err <- .50     # sets a rate of incorrect decisions of 50\%
+err <- 50/100  # (dec.err) for 50 out of 100 individuals
+is_prob(err)   # TRUE
 
 }
 \seealso{

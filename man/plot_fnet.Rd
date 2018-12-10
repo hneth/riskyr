@@ -6,16 +6,16 @@
 \usage{
 plot_fnet(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, round = TRUE,
-  by = "cddc", area = "sq", p.lbl = "num", show.accu = TRUE,
-  w.acc = 0.5, title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
-  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
-  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
-  col.txt = grey(0.01, alpha = 0.99), cex.lbl = 0.85, box.cex,
-  col.boxes = pal, col.border = grey(0.33, alpha = 0.99), lwd = 1.5,
-  box.lwd = 1.5, col.shadow = grey(0.11, alpha = 0.99),
-  cex.shadow = 0)
+  by = "cddc", area = "sq", p_lbl = "num", show_accu = TRUE,
+  w_acc = 0.5, title_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
+  cond.true_lbl = txt$cond.true_lbl,
+  cond.false_lbl = txt$cond.false_lbl, dec.pos_lbl = txt$dec.pos_lbl,
+  dec.neg_lbl = txt$dec.neg_lbl, hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
+  col_txt = grey(0.01, alpha = 0.99), cex_lbl = 0.85, box_cex,
+  col_boxes = pal, col_border = grey(0.33, alpha = 0.99), lwd = 1.5,
+  box_lwd = 1.5, col_shadow = grey(0.11, alpha = 0.99),
+  cex_shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -64,7 +64,7 @@ are rounded to integers. Default: \code{round = TRUE}.}
   \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
   }}
 
-\item{p.lbl}{A character code specifying the type of probability information (on edges) with
+\item{p_lbl}{A character code specifying the type of probability information (on edges) with
 4 options:
   \enumerate{
   \item \code{"nam"} ... names of probabilities;
@@ -73,59 +73,59 @@ are rounded to integers. Default: \code{round = TRUE}.}
   \item \code{"min"} ... minimal labels: names of essential probabilities.
   }}
 
-\item{show.accu}{Option for showing current
+\item{show_accu}{Option for showing current
 accuracy metrics \code{\link{accu}} on the margin of the plot.
-Default: \code{show.accu = TRUE}.}
+Default: \code{show_accu = TRUE}.}
 
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w.acc = .50}.
+\item{w_acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+Default: \code{w_acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
 
-\item{title.lbl}{Text label for current plot title.
-Default: \code{title.lbl = txt$scen.lbl}.}
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen_lbl}.}
 
-\item{popu.lbl}{Text label for current population \code{\link{popu}}.}
+\item{popu_lbl}{Text label for current population \code{\link{popu}}.}
 
-\item{cond.true.lbl}{Text label for current cases of \code{\link{cond.true}}.}
+\item{cond.true_lbl}{Text label for current cases of \code{\link{cond.true}}.}
 
-\item{cond.false.lbl}{Text label for current cases of \code{\link{cond.false}}.}
+\item{cond.false_lbl}{Text label for current cases of \code{\link{cond.false}}.}
 
-\item{dec.pos.lbl}{Text label for current cases of \code{\link{dec.pos}}.}
+\item{dec.pos_lbl}{Text label for current cases of \code{\link{dec.pos}}.}
 
-\item{dec.neg.lbl}{Text label for current cases of \code{\link{dec.neg}}.}
+\item{dec.neg_lbl}{Text label for current cases of \code{\link{dec.neg}}.}
 
-\item{hi.lbl}{Text label for hits \code{\link{hi}}.}
+\item{hi_lbl}{Text label for hits \code{\link{hi}}.}
 
-\item{mi.lbl}{Text label for misses \code{\link{mi}}.}
+\item{mi_lbl}{Text label for misses \code{\link{mi}}.}
 
-\item{fa.lbl}{Text label for false alarms \code{\link{fa}}.}
+\item{fa_lbl}{Text label for false alarms \code{\link{fa}}.}
 
-\item{cr.lbl}{Text label for correct rejections \code{\link{cr}}.}
+\item{cr_lbl}{Text label for correct rejections \code{\link{cr}}.}
 
-\item{col.txt}{Color for text labels (in boxes).}
+\item{col_txt}{Color for text labels (in boxes).}
 
-\item{cex.lbl}{Scaling factor for text labels (in boxes and on arrows).
-Default: \code{cex.lbl = .90}.}
+\item{cex_lbl}{Scaling factor for text labels (in boxes and on arrows).
+Default: \code{cex_lbl = .90}.}
 
-\item{box.cex}{Deprecated argument: Please use \code{cex.lbl} instead.}
+\item{box_cex}{Deprecated argument: Please use \code{cex_lbl} instead.}
 
-\item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
+\item{col_boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
 
-\item{col.border}{Color of borders.
-Default: \code{col.border = grey(.33, alpha = .99)}.}
+\item{col_border}{Color of borders.
+Default: \code{col_border = grey(.33, alpha = .99)}.}
 
 \item{lwd}{Width of arrows.}
 
-\item{box.lwd}{Width of boxes.}
+\item{box_lwd}{Width of boxes.}
 
-\item{col.shadow}{Color of box shadows.
-Default: \code{col.shadow = grey(.11, alpha = .99)}.}
+\item{col_shadow}{Color of box shadows.
+Default: \code{col_shadow = grey(.11, alpha = .99)}.}
 
-\item{cex.shadow}{Scaling factor of shadows (values > 0 showing shadows).
-Default: \code{cex.shadow = 0}.}
+\item{cex_shadow}{Scaling factor of shadows (values > 0 showing shadows).
+Default: \code{cex_shadow = 0}.}
 }
 \value{
 Nothing (NULL).
@@ -181,8 +181,8 @@ to avoid decimal values in \code{\link{freq}}.
 plot_fnet()  # => plot current freq with default options
 plot_fnet(by = "dccd")
 plot_fnet(area = "no")
-plot_fnet(p.lbl = "num")
-plot_fnet(title.lbl = "")
+plot_fnet(p_lbl = "num")
+plot_fnet(title_lbl = "")
 plot_fnet(N = 33)
 plot_fnet(N = NA)
 
@@ -210,28 +210,28 @@ plot_fnet(area = "hr")
 plot_fnet(area = "vr", round = FALSE)
 
 # Accuracy:
-plot_fnet(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-plot_fnet(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
-plot_fnet(show.accu = FALSE)              # => no accuracy info.
+plot_fnet(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+plot_fnet(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
+plot_fnet(show_accu = FALSE)              # => no accuracy info.
 
 # Rounding:
 plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
-          p.lbl = "num", round = TRUE)    # => mi = 0
+          p_lbl = "num", round = TRUE)    # => mi = 0
 plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
-          p.lbl = "num", round = FALSE)   # => mi = 0.3
+          p_lbl = "num", round = FALSE)   # => mi = 0.3
 
 # Combining perspectives, areas, and label options:
-plot_fnet(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
-plot_fnet(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
-plot_fnet(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + mix names and numbers
-plot_fnet(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
+plot_fnet(by = "cd", area = "sq", p_lbl = "nam")  # => by cond + sq + prob names
+plot_fnet(by = "cd", area = "hr", p_lbl = "num")  # => by cond + hr + prob numbers
+plot_fnet(by = "dc", area = "sq", p_lbl = "num")  # => by dec  + sq + mix names and numbers
+plot_fnet(by = "dc", area = "vr", p_lbl = "mix")  # => by dec  + vr + min. labels
 
 # Custom colors and shadows:
 plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-plot_fnet(area = "sq", col.boxes = "gold", col.border = "steelblue4",
-          col.shadow = "steelblue4", cex.shadow = .008)
-plot_fnet(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
-          col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+plot_fnet(area = "sq", col_boxes = "gold", col_border = "steelblue4",
+          col_shadow = "steelblue4", cex_shadow = .008)
+plot_fnet(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow",
+          col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
 
 
 }

@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 09 22
+## 2018 11 22
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -69,6 +69,7 @@
 
 
 
+
 ## (1) Initialize all frequencies as a list (of NA values) freq: ---------
 ##     Currently 11 frequencies (4 essential ones):
 
@@ -114,6 +115,7 @@ init_freq <- function() {
 ## Check: ------
 # init_freq()          # initializes empty freq
 # length(init_freq())  # =>  11 frequencies
+
 
 
 
@@ -491,6 +493,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
 
 
+
 ## (3) Apply to initialize freq: -----------------
 
 ## freq: Documentation --------
@@ -610,6 +613,7 @@ freq <- comp_freq()  # => initialize freq to default parameters
 # names(freq)        # => show names of known frequencies
 
 
+
 ## comp_freq_type: Determine the type of a named frequency (freq):  ----------
 
 comp_freq_type <- function(fname, cur_txt = txt) {
@@ -622,11 +626,11 @@ comp_freq_type <- function(fname, cur_txt = txt) {
   # freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
 
   # (b) Using labels defined in cur_txt:
-  freq_types <- c(cur_txt$popu.lbl,
-                  rep(cur_txt$cond.lbl, 2),
-                  rep(cur_txt$dec.lbl, 2),
-                  rep(cur_txt$acc.lbl, 2),
-                  rep(cur_txt$sdt.lbl, 4))
+  freq_types <- c(cur_txt$popu_lbl,
+                  rep(cur_txt$cond_lbl, 2),
+                  rep(cur_txt$dec_lbl, 2),
+                  rep(cur_txt$acc_lbl, 2),
+                  rep(cur_txt$sdt_lbl, 4))
   # freq_types
 
   # (2) Map freq to name in freq_types:
@@ -654,6 +658,7 @@ comp_freq_type <- function(fname, cur_txt = txt) {
 ## Note:
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
 # comp_freq_type("false")  # => typeless (as full name is required)
+
 
 
 
@@ -725,14 +730,14 @@ comp_freq_col <- function(fname,
 ## Check: --------
 
 # comp_freq_col("N")
-# comp_freq_col("N", col = "gold")
-# comp_freq_col("nn", col = "gold")
 # comp_freq_col("hi")
-# comp_freq_col("dec.err")
+# comp_freq_col("cond.true")
+# comp_freq_col("dec.pos")
 # comp_freq_col("dec.cor")
 #
-# comp_freq_col("default")  # default color
-
+# comp_freq_col("default")          # use default color
+# comp_freq_col("N", col = "gold")  # "gold"
+# comp_freq_col("nn", col = "gold") # "gold"
 
 
 

@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 07
+## 2018 11 25
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -75,20 +75,23 @@ print.box <- function(obj) {
 
 ## Note: Export the plot.box() method (to allow using method in riskyr namespace)!
 
-#' Plot information of a riskyr object.
+#' Plot a frequency box object.
 #'
 #' \code{plot.box} is a utility method that allows to plot low level boxes for \code{riskyr} plots.
 #'
 #' \code{plot.riskyr} also uses the text settings
 #' specified in the "riskyr" object.
 #'
-#' @param x The box (object of class "box") to be plotted.
+#' @param x The box (i.e., an object of class \code{box}) to be plotted.
 #'
-#' @param cur_freq The frequency information related to this box object.
+#' @param cur_freq Current frequency information
+#' (see \code{\link{freq}} for details).
 #'
-#' @param cur_txt The text information associate with this box object.
+#' @param cur_txt Current text information
+#' (see \code{\link{txt}} for details).
 #'
-#' @param cur_pal The color information related to this box object.
+#' @param cur_pal Current color palette
+#' (see \code{\link{pal}} for details).
 #'
 #' @param ... Additional (graphical) parameters to be passed to the
 #' underlying plotting functions.
@@ -214,22 +217,23 @@ label_freq <- function(fname,
 
     ## (b) Name AND value of cur_freq:
 
-    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use population label as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu_lbl }  # use general population label as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- cur_txt$N_lbl }       # use new N_lbl as f_lbl
 
-    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi.lbl }
-    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi.lbl }
-    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa.lbl }
-    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr.lbl }
+    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi_lbl }
+    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi_lbl }
+    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa_lbl }
+    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr_lbl }
 
-    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true.lbl }
-    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false.lbl }
+    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true_lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false_lbl }
 
-    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos.lbl }
-    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg.lbl }
+    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos_lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg_lbl }
 
-    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor.lbl }
-    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err.lbl }
+    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor_lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err_lbl }
 
     # Combine f_lbl with f_val (from above):
     f_lbl <- paste0(f_lbl, lbl_sep, as.character(f_val))
@@ -238,22 +242,23 @@ label_freq <- function(fname,
 
     ## (c) ONLY the name of cur_freq:
 
-    # if (tolower(fname) == "n") { f_lbl <- "N" }         # use "N" as f_lbl
-    if (tolower(fname) == "n") { f_lbl <- cur_txt$popu.lbl }  # use population label as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- "N" }               # always use "N" as f_lbl
+    # if (tolower(fname) == "n") { f_lbl <- cur_txt$popu_lbl }  # use general population label as f_lbl
+    if (tolower(fname) == "n") { f_lbl <- cur_txt$N_lbl }       # use new N_lbl as f_lbl
 
-    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi.lbl }
-    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi.lbl }
-    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa.lbl }
-    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr.lbl }
+    if (tolower(fname) == "hi") { f_lbl <- cur_txt$hi_lbl }
+    if (tolower(fname) == "mi") { f_lbl <- cur_txt$mi_lbl }
+    if (tolower(fname) == "fa") { f_lbl <- cur_txt$fa_lbl }
+    if (tolower(fname) == "cr") { f_lbl <- cur_txt$cr_lbl }
 
-    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true.lbl }
-    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false.lbl }
+    if (tolower(fname) == "cond.true")  { f_lbl <- cur_txt$cond.true_lbl }
+    if (tolower(fname) == "cond.false") { f_lbl <- cur_txt$cond.false_lbl }
 
-    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos.lbl }
-    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg.lbl }
+    if (tolower(fname) == "dec.pos") { f_lbl <- cur_txt$dec.pos_lbl }
+    if (tolower(fname) == "dec.neg") { f_lbl <- cur_txt$dec.neg_lbl }
 
-    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor.lbl }
-    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err.lbl }
+    if (tolower(fname) == "dec.cor") { f_lbl <- cur_txt$dec.cor_lbl }
+    if (tolower(fname) == "dec.err") { f_lbl <- cur_txt$dec.err_lbl }
 
   } else {  ## "any"/"default":
 
@@ -427,6 +432,8 @@ label_prob <- function(pname,
 
   } else if (lbl_type == "namnum"){
 
+    ## ToDo: Use prob_lbl_def (or txt) to use pre-defined set of probability names.
+
     ## (b) Name AND value of prob:
     if (pname == "prev") { p_lbl <- "Prevalence" }
     if (pname == "cprev") { p_lbl <- "1 - prevalence" }
@@ -466,6 +473,8 @@ label_prob <- function(pname,
   } else if (lbl_type == "nam") {
 
     ## (c) ONLY the name of prob:
+
+    ## ToDo: Use prob_lbl (or txt) to look up current set of probability names.
 
     if (pname == "prev") { p_lbl <- "Prevalence" }
     if (pname == "cprev") { p_lbl <- "1 - prevalence" }
@@ -683,12 +692,15 @@ name_prob <- function(freq1, freq2) {
 
 
 
-## plot_ftype_label: Label the freq type corresponding to fname at (x, y): ----------
+## plot_ftype_label: Label the freq type OR dimension corresponding to fname at (x, y): ----------
+
 plot_ftype_label <- function(fname,               # name of a known freq
                              x, y,                # coordinates
-                             ## Text information:
+
+                             # Current information:
                              cur_txt = txt,       # current txt
-                             ## Optional arguments:
+
+                             # Optional arguments:
                              suffix = "",         # suffix
                              # pos = NULL,        # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                              # offset = 0.5,      # offset, etc.
@@ -701,6 +713,8 @@ plot_ftype_label <- function(fname,               # name of a known freq
 
   ## Determine ftype_lbl (freq_type corresponding to fname in cur_txt):
   ftype_lbl <- paste0(comp_freq_type(fname = fname, cur_txt = cur_txt), suffix)
+
+  ftype_lbl <- capitalise_1st(ftype_lbl)  # capitalize 1st letter
 
   ## Plot ftype_lbl:
   text(x, y,
@@ -734,12 +748,15 @@ plot_ftype_label <- function(fname,               # name of a known freq
 ## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
 plot_freq_label <- function(fname,                # name of a known freq
                             x, y,                 # coordinates
-                            ## Optional arguments:
+
+                            # Current information:
+                            cur_freq = freq,      # current freq
+                            cur_txt = txt,        # current txt
+
+                            # Optional arguments:
                             lbl_type = "nam",     # lbl_type (of label_freq)
                             lbl_sep = " = ",      # lbl_sep  (of label_freq)
                             suffix = "",          # suffix
-                            cur_freq = freq,      # current freq
-                            cur_txt = txt,        # current txt
                             # pos = NULL,         # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                             # offset = 0.5,       # offset, etc.
                             # col = pal["txt"],   # default color
@@ -753,6 +770,8 @@ plot_freq_label <- function(fname,                # name of a known freq
   f_lbl <- label_freq(fname, lbl_type = lbl_type, lbl_sep = lbl_sep,
                       cur_freq = cur_freq, cur_txt = cur_txt)  # create label corresponding to fname
   f_lbl <- paste0(f_lbl, suffix)  # add suffix
+
+  f_lbl <- capitalise_1st(f_lbl)  # capitalize 1st letter
 
   ## Plot text label:
   text(x, y,
@@ -793,13 +812,15 @@ plot_freq_label <- function(fname,                # name of a known freq
 
 plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
                       box_lx, box_ly,   # lengths of box (width and height)
-                      ## Text labels:
+
+                      # Text labels:
                       ftype = NA,        # type of freq/box (to be shown as title below box)
                       show_freq = TRUE,  # option to show/hide frequency labels in boxes
                       lbl_type = "default", # label type of label_freq: "default" (fname = fnum) or "nam"/"abb"/"num"/"namnum"
                       fname = NA,        # frequency name (corresponding to a color in pal, as character)
                       fnum,              # frequency (as number).  ToDo: Derive fnum from ftype and/OR name!
-                      ## Text and color:
+
+                      # Text and color:
                       cur_txt = txt,     # current txt
                       cur_pal = pal,     # current color palette
                       ...  # other (graphical) parameters: lwd, lty, cex, density, etc.
@@ -819,9 +840,9 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
   ## Text parameters:
 
-  # col.lbl <- pal["txt"]  # defined in pal
-  # cex.lbl <- .90   # scaling factor for text labels
-  # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
+  # col_lbl <- pal["txt"]  # defined in pal
+  # cex_lbl <- .90   # scaling factor for text labels
+  # cex_lbl.sm <- if (cex_lbl > .50) {cex_lbl - .10} else {cex_lbl}  # slightly smaller than cex_lbl
   # h.shift <- .05   # horizontal shifting of labels
   # v.shift <- .05   # vertical shifting of labels
 
@@ -841,7 +862,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
          pos = 1,       # NULL: center (default), 1: below, 3: above
          # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
-         # cex = cex.lbl.sm,
+         # cex = cex_lbl.sm,
          ...)
 
   }
@@ -914,7 +935,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
          # pos = NULL,  # NULL: center (default), 1: below, 3: above
          # xpd = TRUE,  # NA: plotting clipped to device region; T: figure region; F: plot region
          col = col_txt,
-         # cex = cex.lbl.sm,
+         # cex = cex_lbl.sm,
          ...)
 
   } # if (show_freq)
@@ -945,22 +966,26 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 
 plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
                       lx, ly,   # lengths of box (width and height)
-                      ## Text labels:
+
+                      # Text labels:
                       lbl     = NA,       # main label (in middle)
                       lbl_top = NA,       # title (at top)
                       lbl_bot = NA,       # caption (at bottom)
-                      ## Color options:
+
+                      # Color options:
                       col_fill = grey(.95, .50),  # default fill color
                       col_brd = pal["brd"],       # default border color
                       col_txt = pal["txt"],       # default label color
-                      ## Shading options:
+
+                      # Shading options:
                       density = NULL,  # density of shading lines (per in)
                       angle = 45,      # angle of shading lines
                       ## Inputs: freq, text and color:
                       # cur_freq = freq,   # current freq
                       # cur_txt = txt,     # current txt
                       # cur_pal = pal,     # current color palette
-                      ## Other graphical parameters:
+
+                      # Other graphical parameters:
                       lty = 1,
                       lwd = 1,
                       cex = 1,
@@ -1069,6 +1094,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
                       lwd = 1,
                       cex = 1,
                       font = 1
+                      # ...
 ) {
 
   # Initialize:
@@ -1121,12 +1147,13 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             col_fill = f_col,
             # col_brd = cur_pal["brd"],       # default border color
             # col_txt = cur_pal["txt"],       # default label color
-            # Graphical parameters:
+            ## Graphical parameters:
             lty = lty,
             lwd = lwd,
             cex = cex,
             font = font
-            )
+            # ...
+  )
 
 }
 
@@ -1171,8 +1198,8 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # plot_fbox(fname = "hi", 9, 6, 2, 1, cur_pal = pal_bw) # alternative color palette
 #
 # # Local txt object:
-# t2 <- init_txt(hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
-# t2$hi.lbl  # => "TP"
+# t2 <- init_txt(hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
+# t2$hi_lbl  # => "TP"
 # plot_fbox(fname = "hi", 2, 1, 2, 1, cur_txt = t2, lbl_type = "namnum", cur_pal = "gold") # alternative txt and color
 #
 # # Arbitrary boxes (with unknown freq): ###
@@ -1404,7 +1431,7 @@ plot_fbox_list <- function(fboxes,
 # plot_fbox_list(boxes, cur_pal = p2, cur_freq = f2)
 #
 # # Local txt object:
-# t2 <- init_txt(hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
+# t2 <- init_txt(hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 # plot(0:10, type = "n")
 # plot_fbox_list(boxes, cur_txt = t2, lbl_type = "namnum", cur_pal = p2, cur_freq = f2)
 # plot_fbox_list(boxes, cur_freq = f2, cur_txt = t2, cur_pal = p2, lbl_type = "namnum")
@@ -1591,28 +1618,28 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       arr_code = 0,         # 0: none, 1-3: single/double V, 4-6: single/double T, -1 to -3: single/double points.
                       ## Optional text label:
                       lbl = NA,             # string for text label
-                      lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-                      lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                      lbl.pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
-                      lbl.off = .75,        # offset of text label
+                      lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
+                      lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
+                      lbl_pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
+                      lbl_off = .75,        # offset of text label
                       ## Colors:
-                      col.fill = pal["brd"], # if missing, color of fname freq is derived below
-                      col.brd =  pal["brd"],
-                      col.txt =  pal["txt"],
+                      col_fill = pal["brd"], # if missing, color of fname freq is derived below
+                      col_brd =  pal["brd"],
+                      col_txt =  pal["txt"],
                       # lbl.cex = 1,        # size of text label
                       ...                   # other graphical parameters: lwd, cex, pos, etc.
 ) {
 
   ## (0) Preparations:
 
-  # ## Determine col.fill:
-  # if (missing(col.fill)) {  # no color was specified:
-  #   col.fill <- pal["brd"] # default fill color
+  # ## Determine col_fill:
+  # if (missing(col_fill)) {  # no color was specified:
+  #   col_fill <- pal["brd"] # default fill color
   # } else {
-  #   col.fill <- col  # use the color specified in function call
+  #   col_fill <- col  # use the color specified in function call
   # }
   #
-  # print(col.fill)
+  # print(col_fill)
 
   arrow <- TRUE # FALSE # initialize
 
@@ -1625,7 +1652,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
       arrows(x0, y0, x1, y1,
              length = .10, angle = 45/2, code = arr_code,    # V shape (small)
              # length = .08, angle = 90, code = arr_code,  # T shape
-             col = col.fill,
+             col = col_fill,
              ...)  # lty, lwd, etc.
     }
     else  if (arr_code > 3) {
@@ -1633,7 +1660,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
       arrows(x0, y0, x1, y1,
              # length = .10, angle = 45/2, code = arr_code,    # V shape (small)
              length = .08, angle = 90, code = (arr_code - 3),  # T shape
-             col = col.fill,
+             col = col_fill,
              ...)  # lty, lwd, etc.
     }
 
@@ -1643,19 +1670,19 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
     ## Draw a line with 2 points at line ends:
     arrows(x0, y0, x1, y1,
            length = 0, angle = 0, code = 0,       # no arrows
-           col = col.fill,
+           col = col_fill,
            ...)  # lty, lwd, etc.
 
     if (arr_code < 0) {  # draw points:
 
       if (arr_code == -1 || arr_code == -3) {
         points(x0, y0, pch = pt_pch, cex = pt_cex,    # 1st point
-               lwd = pt_lwd, col = col.brd, bg = col.fill)
+               lwd = pt_lwd, col = col_brd, bg = col_fill)
       }
 
       if (arr_code == -2 || arr_code == -3) {
         points(x1, y1, pch = pt_pch, cex = pt_cex,    # 2nd point
-               lwd = pt_lwd, col = col.brd, bg = col.fill)
+               lwd = pt_lwd, col = col_brd, bg = col_fill)
       }
 
     }
@@ -1664,14 +1691,14 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
   ## (2) Optional text label: ------
 
-  if (!is.na(lbl.x)) { # if lbl.x exists:
+  if (!is.na(lbl_x)) { # if lbl_x exists:
 
     ## Text label:
-    text(lbl.x, lbl.y,
+    text(lbl_x, lbl_y,
          labels = lbl,
-         col = col.txt,  # text color
-         pos = lbl.pos,
-         offset = lbl.off,
+         col = col_txt,  # text color
+         pos = lbl_pos,
+         offset = lbl_off,
          ...)  # cex, etc.
   }
 
@@ -1696,36 +1723,36 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 # plot_line(0, 3, 9, 3, arr_code = 3,
 #           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
 # plot_line(0, 2, 9, 2, lbl = "Label 2", arr_code = -3,
-#           lbl.pos = 4, lbl.off = 1,
-#           col.fill = "firebrick", col.txt = "forestgreen",
+#           lbl_pos = 4, lbl_off = 1,
+#           col_fill = "firebrick", col_txt = "forestgreen",
 #           font = 2, cex = .8)  # basic with raised text label
 # plot_line(0, 1, 9, 9,  arr_code = -3,
 #           pt_pch = 22, pt_cex = 2, pt_lwd = 2,  # point paramters
 #           # Text label (with options):
-#           lbl.x = 10, lbl.y = 9,
+#           lbl_x = 10, lbl_y = 9,
 #           lbl = "Some label\nthat takes\nmultiple (3) lines",
-#           lbl.pos = NULL, lbl.off = 0,
+#           lbl_pos = NULL, lbl_off = 0,
 #           # Colors:
-#           col = "gold", col.brd = "steelblue", col.txt = "steelblue",
+#           col = "gold", col_brd = "steelblue", col_txt = "steelblue",
 #           cex = .7, lty = 2, lwd = 2) # grapical parameters
 # # (3) probability lines:
 # plot_line(1, 9, 9, 9, arr_code = -3, lbl = label_prob("prev"),
-#           col.fill = comp_freq_col("cond.true"), col.txt = NA,
-#           lbl.pos = 3, cex = .8)  # horizontal
+#           col_fill = comp_freq_col("cond.true"), col_txt = NA,
+#           lbl_pos = 3, cex = .8)  # horizontal
 # # vertical labels:
 # plot_line(2, 0, 2, 10, arr_code = -3, lbl = label_prob("PPV"),
-#           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = .5, cex = .8)  # vertical (long line)
+#           col_fill = pal["ppv"], col_txt = pal["ppv"],
+#           srt = 90, lbl_pos = 2, lbl_off = .5, adj = .5, cex = .8)  # vertical (long line)
 # plot_line(3, 4, 3, 5, arr_code = -3, lbl = label_prob("PPV"),
-#           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # short (label too low!)
+#           col_fill = pal["ppv"], col_txt = pal["ppv"],
+#           srt = 90, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # short (label too low!)
 # plot_line(4, 4, 4, 5, arr_code = -3, lbl = label_prob("PPV"),
-#           col.fill = pal["ppv"], col.txt = pal["ppv"],
-#           srt = 90, lbl.pos = 3, lbl.off = .5, adj = 0, cex = .8)  # short (better, but not perfect)
+#           col_fill = pal["ppv"], col_txt = pal["ppv"],
+#           srt = 90, lbl_pos = 3, lbl_off = .5, adj = 0, cex = .8)  # short (better, but not perfect)
 # # diagonal:
 # plot_line(4, 1, 8, 10, arr_code = -3, lbl = label_prob("NPV", lbl_type = "namnum"),
-#           col.fill = pal["npv"], col.txt = pal["npv"],
-#           srt = 0, lbl.pos = 2, lbl.off = .5, adj = 0, cex = .8)  # diagonal
+#           col_fill = pal["npv"], col_txt = pal["npv"],
+#           srt = 0, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # diagonal
 
 ## plot_arrs: Plot multiple (n_arr) arrows along a line: --------
 ##      Note: Obsolete, as plot_line (defined above) is more flexible.
@@ -1736,8 +1763,8 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       a_arr = 45/2,         # angle of arrows to draw
                       ## Optional label:
                       lbl = NA,         # string for text label
-                      lbl.x = (x0 + x1)/2,  # x-coord of label (default in middle)
-                      lbl.y = (y0 + y1)/2,  # y-coord of label (default in middle)
+                      lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
+                      lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
                       pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
                       offset = 1,           # offset, etc.
                       ...                   # other graphical parameters
@@ -1764,13 +1791,13 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 
   ## (3) Optional text label: ------
 
-  if (!is.na(lbl.x)) { # if lbl.x exists:
+  if (!is.na(lbl_x)) { # if lbl_x exists:
 
     # Parameters:
     # lbl.cex = 1          # size of text label
 
     ## Text label:
-    text(lbl.x, lbl.y,
+    text(lbl_x, lbl_y,
          labels = lbl,
          # col = col,
          # cex = lbl.cex,
@@ -1803,7 +1830,7 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
                       cur_prob = prob,           # current prob
                       ...                        # Other graphical parameters
-                      ) {
+) {
 
   # (1) Determine link coordinates:
 
@@ -1905,24 +1932,24 @@ plot_link <- function(box1, box2,                # 2 boxes
 #
 # ## Link options:
 # ## (a) Global prob: Link 2 freq boxes with a known prob:
-# plot_link(box_N, box_ct, 4, 3, lbl.pos = 3, cex = .8, arr_code = -2)
-# plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl.pos = 1, cex = .8)
-# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col.fill = pal["hi"],
-#           lbl_type = "namnum", lbl.pos = 2, col.txt = pal["hi"], cex = .8)
+# plot_link(box_N, box_ct, 4, 3, lbl_pos = 3, cex = .8, arr_code = -2)
+# plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl_pos = 1, cex = .8)
+# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"],
+#           lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8)
 #
 # ## (b) Local prob:
 # p2 <- comp_prob_prob(prev = .50, sens = .88, spec = .64)
-# plot_link(box_N, box_ct, 4, 2, cur_prob = p2, lbl.pos = NULL, cex = .8,
-#           arr_code = -3, col.fill = "firebrick", col.txt = "firebrick")
-# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3, col.fill = "steelblue",
-#           lbl_type = "namnum", lbl.pos = 4, col.txt = "steelblue", cex = .8)
+# plot_link(box_N, box_ct, 4, 2, cur_prob = p2, lbl_pos = NULL, cex = .8,
+#           arr_code = -3, col_fill = "firebrick", col_txt = "firebrick")
+# plot_link(box_ct, box_hi, 1, 4, cur_prob = p2, arr_code = -3, col_fill = "steelblue",
+#           lbl_type = "namnum", lbl_pos = 4, col_txt = "steelblue", cex = .8)
 #
 # ## (c) Link 2 boxes with NO known prob:
 # plot_link(box_b2, box_ct, 4, 2)  # no label
 # plot_link(box_N, box_hi, 1, 2, arr_code = -3,
 #           lbl = "given label in color",
-#           lbl.pos = 2, cex = .8,
-#           col.txt = "steelblue", col.fill = "sienna2", lwd = 3)
+#           lbl_pos = 2, cex = .8,
+#           col_txt = "steelblue", col_fill = "sienna2", lwd = 3)
 
 ## Note:
 ## Functionality included in plot_link: plot_plink/plot_prob:
@@ -1941,7 +1968,9 @@ plot_link <- function(box1, box2,                # 2 boxes
 
 ## (a) make_freq_lbl: Label current frequency values ------
 
-make_freq_lbl <- function(hi, mi, fa, cr) {
+make_freq_lbl <- function(hi, mi, fa, cr,
+                          cur_txt = txt   # current txt
+) {
 
   lbl <- ""  # initialize
 
@@ -1950,19 +1979,20 @@ make_freq_lbl <- function(hi, mi, fa, cr) {
   lbl <- paste0(#"Frequency ",      # Dimension
     "Freq ",            # Abbreviation
     #"Population of ",  # Description
-    "(N = ", N, "):  ", # "(N = x):  "
-    "hi = ", hi, ", ",
-    "mi = ", mi, ", ",
-    "fa = ", fa, ", ",
-    "cr = ", cr, " "
+    "(" , cur_txt$N_lbl, " = ", N, "):  ", # "(N = x):  "
+    cur_txt$hi_lbl, " = ", hi, ", ",
+    cur_txt$mi_lbl, " = ", mi, ", ",
+    cur_txt$fa_lbl, " = ", fa, ", ",
+    cur_txt$cr_lbl, " = ", cr, ""
   )
 
   return(lbl)
 
-}
+} # make_freq_lbl end.
 
 ## Check:
 # make_freq_lbl(11, 22, 33, 44)
+# make_freq_lbl(11, 22, 33, 44, cur_txt = txt_TF)
 
 ## (b) make_cond_lbl: Label current key parameters/probabilities by condition ------
 
@@ -1980,7 +2010,7 @@ make_cond_lbl <- function(prev, sens, spec) {
 
   return(lbl)
 
-}
+} # make_cond_lbl end.
 
 ## Check:
 # make_cond_lbl(.001, 6/7, 2/3)
@@ -2001,7 +2031,7 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
 
   return(lbl)
 
-}
+} # make_dec_lbl end.
 
 ## Check:
 # make_dec_lbl(ppod = 1/3, PPV = 2/3, NPV = 1/7)
@@ -2018,13 +2048,13 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
     # (a) Complete accu label:
 
-    wacc.lbl <- ""  # initialize
+    wacc_lbl <- ""  # initialize
 
-    # Sub-label for wacc.lbl:
+    # Sub-label for wacc_lbl:
     if (w == .50) {  # wacc is bacc:
-      wacc.lbl <- paste0("bacc = ", as_pc(wacc, n_digits = 1), "%, ")
+      wacc_lbl <- paste0("bacc = ", as_pc(wacc, n_digits = 1), "%, ")
     } else {  # show wacc with w:
-      wacc.lbl <- paste0("wacc = ", as_pc(wacc, n_digits = 1), "% ",
+      wacc_lbl <- paste0("wacc = ", as_pc(wacc, n_digits = 1), "% ",
                          "(w = ", round(w, 2), "), ")
     }
 
@@ -2033,7 +2063,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
       # "p(dec.cor): ",            # acc value is a probability
       "Accu:  ",                   # Abbreviation:
       "acc = ", as_pc(acc, n_digits = 1), "%, ",
-      wacc.lbl,
+      wacc_lbl,
       "mcc = ", round(mcc, 2),
       " "  # add space at end
     )
@@ -2045,7 +2075,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
       # "p(dec.cor):  ",            # acc value is a probability
       "Accu:  ",                    # Abbreviation:
       "acc = ", as_pc(acc, n_digits = 1), "%",
-      # wacc.lbl,
+      # wacc_lbl,
       # "mcc = ", round(mcc, 2),
       ""  # add NO space at end
     )
@@ -2054,7 +2084,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
   return(lbl)
 
-}
+} # make_accu_lbl end.
 
 ## Check:
 # make_accu_lbl(acc = 1/3)
@@ -2101,7 +2131,7 @@ label_note <- function(area = NULL, scale = "f") {
 
   return(note_lbl)
 
-}
+} # label_note end.
 
 ## Check:
 # label_note("hr", "f")
@@ -2157,7 +2187,7 @@ plot_mar <- function(show_freq = TRUE,
 
   ## A1. freq label:
   if (show_freq) {
-    freq_lbl <- make_freq_lbl(hi = cur_freq$hi, mi = cur_freq$mi, fa = cur_freq$fa, cr = cur_freq$cr) # frequency values in cur_freq
+    freq_lbl <- make_freq_lbl(hi = cur_freq$hi, mi = cur_freq$mi, fa = cur_freq$fa, cr = cur_freq$cr, cur_txt = cur_txt) # frequency values in cur_freq
     mtext(freq_lbl, side = 1, line = 0, adj = 0, col = m_col, cex = m_cex)  # print freq label
   }
 
@@ -2233,7 +2263,8 @@ plot_mar <- function(show_freq = TRUE,
   ## (4) Finish: ----
 
   invisible()  # restores par(opar)
-}
+
+} # plot_mar end.
 
 ## Check:
 # plot_mar(note = "Some comment here.")  # plots on existing plot, OR starts new plot (+ warning)
@@ -2313,7 +2344,7 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
                      padding = c(0.5, 0.5), cex = 1, font = graphics::par('font')){
 
   ## The Character expansion factro to be used:
-  theCex <- graphics::par('cex')*cex
+  theCex <- graphics::par('cex') * cex
 
   ## Is y provided:
   if (missing(y)) y <- x
@@ -2329,11 +2360,11 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
     }
   }
 
-  ## Width and height of text
+  ## Width and height of text:
   textHeight <- graphics::strheight(labels, cex = theCex, font = font)
-  textWidth <- graphics::strwidth(labels, cex = theCex, font = font)
+  textWidth  <- graphics::strwidth(labels, cex = theCex, font = font)
 
-  ## Width of one character:
+  ## Width of 1 character:
   charWidth <- graphics::strwidth("e", cex = theCex, font = font)
 
   ## Is 'adj' of length 1 or 2?
@@ -2399,16 +2430,15 @@ box_text <- function(x, y, labels = NA, col.text = NULL, col.bg = NA,
 }
 
 ## Check:
-
 # ## Create a noisy background:
-# plot(x = runif(1000), y = runif(1000), type = "p", pch = 16, col = "#40404060")
+# plot(x = runif(500), y = runif(500), type = "p", pch = 16, cex = 3, col = "#40404060")
 #
 # ## Vector of labels, using argument 'pos' to position right of coordinates:
-# box_text(x = c(0.1, 0.8), y = c(0.1, 0.7), labels = c("some Text", "something else"),
+# box_text(x = c(.1, .6), y = c(.1, .6), labels = c("Some highlighted text here.", "Something else here."),
 #         col.bg = "gold", pos = 4, padding = 0.2)
 #
-# ## Tweak cex, font and adj:
-# box_text(x = 0.2, y = 0.4, labels = "some big and bold text",
+# ## Adjust cex, font and adj:
+# box_text(x = .1, y = .9, labels = "Some messy data plot",
 #         col.bg = "skyblue", adj = c(0, 0.6), font = 2, cex = 1.8)
 
 

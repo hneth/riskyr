@@ -3,60 +3,63 @@
 \name{riskyr}
 \alias{riskyr}
 \title{Create riskyr scenarios.}
-\format{An object of class "riskyr"
-with 21 entries on textual and numeric information on
-a riskyr scenario.}
+\format{An object of class "riskyr" with textual and numeric information
+describing a risk-related scenario.}
 \usage{
-riskyr(scen.lbl = "", scen.lng = txt$scen.lng,
-  scen.txt = txt$scen.txt, popu.lbl = txt$popu.lbl,
-  cond.lbl = txt$cond.lbl, cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.lbl = txt$dec.lbl,
-  dec.pos.lbl = txt$dec.pos.lbl, dec.neg.lbl = txt$dec.neg.lbl,
-  hi.lbl = txt$hi.lbl, mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl,
-  cr.lbl = txt$cr.lbl, prev = NA, sens = NA, spec = NA,
+riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
+  cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl,
+  cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
+  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+  acc_lbl = txt$acc_lbl, dec.cor_lbl = txt$dec.cor_lbl,
+  dec.err_lbl = txt$dec.err_lbl, sdt_lbl = txt$sdt_lbl,
+  hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
+  cr_lbl = txt$cr_lbl, prev = NA, sens = NA, spec = NA,
   fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
-  scen.src = txt$scen.src, scen.apa = txt$scen.apa)
+  scen_lng = txt$scen_lng, scen_txt = txt$scen_txt,
+  scen_src = txt$scen_src, scen_apa = txt$scen_apa)
 }
 \arguments{
-\item{scen.lbl}{The current scenario title (sometimes in Title Caps).}
+\item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
 
-\item{scen.lng}{Language of the current scenario (as character code).
-Options: \code{"en"} for English, \code{"de"} for  German.}
+\item{popu_lbl}{A brief description of the current target population or sample.}
 
-\item{scen.txt}{A longer text description of the current scenario
-(which may extend over several lines).}
+\item{cond_lbl}{A label for the \emph{condition} or feature (e.g., some disease) currently considered.}
 
-\item{popu.lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
-
-\item{cond.lbl}{A name for the \emph{condition} or feature (e.g., some disease) currently considered.}
-
-\item{cond.true.lbl}{A label for the \emph{presence} of the current condition
+\item{cond.true_lbl}{A label for the \emph{presence} of the current condition
 or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false.lbl}{A label for the \emph{absence} of the current condition
+\item{cond.false_lbl}{A label for the \emph{absence} of the current condition
 or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
 
-\item{dec.lbl}{A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
+\item{dec_lbl}{A label for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
 
-\item{dec.pos.lbl}{A label for \emph{positive} decisions
+\item{dec.pos_lbl}{A label for \emph{positive} decisions
 or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.neg.lbl}{A label for \emph{negative} decisions
+\item{dec.neg_lbl}{A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
 
-\item{hi.lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item{acc_lbl}{A label for \emph{accuracy} (i.e., correspondence between condition and decision or judgment).}
+
+\item{dec.cor_lbl}{A label for \emph{correct} (or accurate) decisions or judgments.}
+
+\item{dec.err_lbl}{A label for \emph{incorrect} (or erroneous) decisions or judgments.}
+
+\item{sdt_lbl}{A label for the combination of \emph{condition} and \emph{decision} currently made.}
+
+\item{hi_lbl}{A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).}
 
-\item{mi.lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item{mi_lbl}{A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).}
 
-\item{fa.lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item{fa_lbl}{A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).}
 
-\item{cr.lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item{cr_lbl}{A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 
-Numeric elements:}
+Essential probabilities:}
 
 \item{prev}{The condition's prevalence \code{\link{prev}}
 (i.e., the probability of condition being \code{TRUE}).}
@@ -74,7 +77,9 @@ of a negative decision provided that the condition is \code{FALSE}).
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
 of a positive decision provided that the condition is \code{FALSE}).
-\code{fart} is optional when its complement \code{spec} is provided.}
+\code{fart} is optional when its complement \code{spec} is provided.
+
+Essential frequencies:}
 
 \item{N}{The number of individuals in the scenario's population.
 A suitable value of \code{\link{N}} is computed, if not provided.}
@@ -87,18 +92,23 @@ A suitable value of \code{\link{N}} is computed, if not provided.}
 
 \item{cr}{The number of correct rejections \code{\link{cr}} (or true negatives).
 
-Source information:}
+Details and source information:}
 
-\item{scen.src}{Source information for the current scenario.}
+\item{scen_lng}{Language of the current scenario (as character code).
+Options: \code{"en"} for English, \code{"de"} for German.}
 
-\item{scen.apa}{Source information for the current scenario
-in the style of the American Psychological Association (APA style).}
+\item{scen_txt}{A longer text description of the current scenario
+(which may extend over several lines).}
+
+\item{scen_src}{Source information for the current scenario.}
+
+\item{scen_apa}{Source information for the current scenario
+according to the American Psychological Association (APA style).}
 }
 \value{
-A list \code{object} of class "riskyr"
-containing information on a risky scenario.
+An object of class "riskyr" describing a risk-related scenario.
 
-Text elements (all elements of \code{\link{txt}}:
+Titles and text labels (see \code{\link{txt}}:
 }
 \description{
 The instantiation function \code{riskyr} is used to create
@@ -113,33 +123,42 @@ only the population size \code{\link{N}} and the essential probabilities
 are used and returned.
 }
 \examples{
-# Defining a scenario:
-scen.reoffend <- riskyr(scen.lbl = "Identify reoffenders",
-                        cond.lbl = "being a reoffender",
-                        popu.lbl = "Prisoners",
-                        cond.true.lbl = "has reoffended",
-                        cond.false.lbl = "has not reoffended",
-                        dec.lbl = "test result",
-                        dec.pos.lbl = "will reoffend",
-                        dec.neg.lbl = "will not reoffend",
-                        hi.lbl = "reoffender found", mi.lbl = "reoffender missed",
-                        fa.lbl = "false accusation", cr.lbl = "correct release",
+# Defining scenarios: -----
+# (a) minimal information:
+hustosis <- riskyr(scen_lbl = "Screening for hustosis",
+                   N = 1000, prev = .04, sens = .80, spec = .95)
+
+# (2) detailed information:
+scen_reoffend <- riskyr(scen_lbl = "Identify reoffenders",
+                        cond_lbl = "being a reoffender",
+                        popu_lbl = "Prisoners",
+                        cond.true_lbl = "has reoffended",
+                        cond.false_lbl = "has not reoffended",
+                        dec_lbl = "test result",
+                        dec.pos_lbl = "will reoffend",
+                        dec.neg_lbl = "will not reoffend",
+                        sdt_lbl = "combination",
+                        hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
+                        fa_lbl = "false accusation", cr_lbl = "correct release",
                         prev = .45,  # prevalence of being a reoffender.
                         sens = .98,
                         spec = .46, fart = NA,  # (provide 1 of 2)
                         N = 753,
-                        scen.src = "Example scenario")
+                        scen_src = "Example scenario")
 
-# Using a scenario:
-summary(scen.reoffend)
-plot(scen.reoffend)
+# Using scenarios: -----
+summary(hustosis)
+plot(hustosis)
 
-# 2 ways of defining the same scenario:
+summary(scen_reoffend)
+plot(scen_reoffend)
+
+# 2 ways of defining the same scenario: -----
 s1 <- riskyr(prev = .5, sens = .5, spec = .5, N = 100)  # s1: define by 3 prob & N
 s2 <- riskyr(hi = 25, mi = 25, fa = 25, cr = 25)        # s2: same scenario by 4 freq
 all.equal(s1, s2)  # should be TRUE
 
-# Ways to work:
+# Ways to work: -----
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # works (consistent)
 riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # works (ignores freq)
 
@@ -148,3 +167,8 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 
 }
+\seealso{
+Other riskyr scenario functions: \code{\link{plot.riskyr}},
+  \code{\link{read_popu}}, \code{\link{summary.riskyr}}
+}
+\concept{riskyr scenario functions}

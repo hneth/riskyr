@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette: 
     fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{Confusion Matrix and Metrics}
+  %\VignetteIndexEntry{Contingency Matrix}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -37,8 +37,6 @@ The following "contingency matrix"" is a generalization of the "confusion matrix
 | (a) by condition  | `pc_r1c1` = `r1c1`/`c1` `pc_r2c1` = `r2`/`c1`   | `pc_r1c2` = `r1c2`/`c2`   `pc_r2c2` = `r2c2`/`c2` | `p_r1` = `n_r1`/`N` |  `rc12` = `diag`/`N` = (`r1c1`+`r2c2`)/`N`|
 
 
-
-
 ## OLDER MATERIALS
 
 
@@ -53,14 +51,11 @@ The following "contingency matrix"" is a generalization of the "confusion matrix
 | (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | `ppod` = `dec.pos`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
 
 
-
 ## References
 
 Links to related Wikipedia articles:
 
 - [Confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) (URL: https://en.wikipedia.org/wiki/Confusion_matrix)
-
-
 
 ## Contact
 

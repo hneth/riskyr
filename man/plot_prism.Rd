@@ -6,10 +6,10 @@
 \usage{
 plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  area = "no", scale = "p", round = TRUE, f_lbl = "def",
+  area = "no", scale = "p", round = TRUE, f_lbl = "num",
   f_lbl_sep = " = ", f_lwd = 0, p_lbl = "mix", arr_c = NA,
-  lbl_txt = txt, title_lbl = txt$scen.lbl, cex_lbl = 0.9,
-  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE)
+  lbl_txt = txt, title_lbl = txt$scen_lbl, cex_lbl = 0.9,
+  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -41,7 +41,16 @@ Note: \code{\link{N}} is not represented in the plot,
 but used for computing frequency information \code{\link{freq}}
 from current probabilities \code{\link{prob}}.}
 
-\item{by}{A character code specifying 2 perspectives that split the population into subsets,
+\item{by}{A character code specifying 1 or 2 perspectives
+that split the population into 2 subsets.
+Specifying 1 perspective plots a frequency tree (single tree)
+with 3 options:
+  \enumerate{
+  \item \code{"cd"}: by condition only;
+  \item \code{"dc"}: by decision only;
+  \item \code{"ac"}: by accuracy only.
+  }
+Specifying 2 perspectives plots a frequency prism (network, double tree)
 with 6 options:
   \enumerate{
   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
@@ -120,7 +129,7 @@ Default: \code{arr_c = NA}, but adjusted by \code{area}.}
 Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen.lbl}.}
+Default: \code{title_lbl = txt$scen_lbl}.}
 
 \item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
 Default: \code{cex_lbl = .90}.}
@@ -133,13 +142,14 @@ Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
 Default: \code{mar_notes = TRUE}.}
+
+\item{...}{Other (graphical) parameters.}
 }
 \value{
 Nothing (NULL).
 }
 \description{
 \code{plot_prism} plots a network diagram of
-frequencies (as nodes) and probabilities (as edges)
 from a sufficient and valid set of 3 essential probabilities
 (\code{\link{prev}}, and
 \code{\link{sens}} or its complement \code{\link{mirt}}, and
@@ -157,30 +167,25 @@ and providing many additional options.
 # Global freq and prob objects:
 plot_prism()  # default, same as:
 plot_prism(by = "cddc", area = "no", scale = "p",
-           f_lbl = "default", f_lwd = 0, cex_lbl = .90,
+           f_lbl = "num", f_lwd = 0, cex_lbl = .90,
            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 
-# Locally computed values:
+# Computed values:
 plot_prism(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
-## Custom text and color settings:
-plot_prism(col = "gold")  # overwrite other colors
-my_txt <- init_txt(scen.lbl = "",
-                   cond.lbl = "Truth", cond.true.lbl = "true", cond.false.lbl = "false",
-                   dec.lbl = "Test", dec.pos.lbl = "pos", dec.neg.lbl = "neg",
-                   acc.lbl = "Accu", dec.cor.lbl = "correct", dec.err.lbl = "incorrect",
-                   hi.lbl = "TP", mi.lbl = "FN", fa.lbl = "FP", cr.lbl = "TN")
-my_pal <- init_pal(col.N = rgb(0, 169, 224, max = 255), # seeblau.4 (non-transparent)
-                   col.true = "grey", col.false = "darkgrey",
-                   col.pos =  "grey", col.neg = "darkgrey",
-                   col.hi = "gold1", col.mi = "firebrick1",
-                   col.fa = "firebrick2", col.cr = "orange1")
-plot_prism(lbl_txt = my_txt, f_lbl = "namnum", f_lbl_sep = ":\\n",
-           col_pal = my_pal)  # custom text & colors
+## Custom color and text settings:
+plot_prism(col = "snow", f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
+           font = 3, cex_p_lbl = .75)                   # and text labels
 
-## Local values and custom color and text settings:
+my_txt <- init_txt(cond_lbl = "The Truth", cond.true_lbl = "so true", cond.false_lbl = "so false",
+                   hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
+my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
+                   hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
+plot_prism(f_lbl = "nam", lbl_txt = my_txt, col_pal = my_col)
+
+## Local values and custom color/txt settings:
 plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
            col_pal = pal_4c)  # custom colors
@@ -193,7 +198,14 @@ plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             #
            col_pal = pal_kn, f_lwd = .5)                                       # custom colors
 
 ## Plot versions:
-# by (3 x 2) = 6 versions (+ 3 redundant ones):
+# (A) tree/single tree (nchar(by) == 2):
+#     3 versions:
+plot_prism(by = "cd", f_lbl = "def")  # by condition (freq boxes: hi mi fa cr)
+plot_prism(by = "dc", f_lbl = "def")  # by decision  (freq boxes: hi fa mi cr)
+plot_prism(by = "ac", f_lbl = "def")  # by decision  (freq boxes: hi cr mi fa)
+
+# (B) prism/double tree (nchar(by) == 4):
+#     6 (3 x 2) versions (+ 3 redundant ones):
 plot_prism(by = "cddc")  # v01 (default)
 plot_prism(by = "cdac")  # v02
 plot_prism(by = "cdcd")  # (+) Warning
@@ -206,7 +218,8 @@ plot_prism(by = "accd")  # v05
 plot_prism(by = "acdc")  # v06
 plot_prism(by = "acac")  # (+) Warning
 
-## Plot options:
+## Other options:
+
 # area:
 plot_prism(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)
 plot_prism(area = "hr")  # horizontal rectangles (widths on each level sum to N)
@@ -222,16 +235,15 @@ plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
 plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
            area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 
-## Freq (as boxes):
+## Frequency boxes:
 # f_lbl:
-plot_prism(f_lbl = "default") # default: short name and numeric value (abb = num)
 plot_prism(f_lbl = "abb")     # abbreviated freq names (variable names)
 plot_prism(f_lbl = "nam")     # only freq names
-plot_prism(f_lbl = "num")     # only numeric freq values
+plot_prism(f_lbl = "num")     # only numeric freq values (default)
 plot_prism(f_lbl = "namnum")  # names and numeric freq values
 plot_prism(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
 plot_prism(f_lbl = NA)        # no freq labels
-plot_prism(f_lbl = "any")     # short name and value (abb = num)
+plot_prism(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
 
 # f_lwd:
 plot_prism(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
@@ -239,7 +251,7 @@ plot_prism(f_lwd =  1)  # basic lines
 plot_prism(f_lwd =  3)  # thicker lines
 plot_prism(f_lwd = .5)  # thinner lines
 
-## Prob (as links):
+## Probability links:
 # p_lbl:
 plot_prism(p_lbl = "mix")     # abbreviated names with numeric values (abb = num)
 plot_prism(p_lbl = NA)        # no prob labels (NA/NULL/"none")
@@ -263,28 +275,27 @@ plot_prism(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
 plot_prism(arr_c = +3)  # V-shape arrows at both ends
 plot_prism(arr_c = +6)  # arr_c = 4-6: T-shape arrows
 
-
 ## Plain plot versions:
 plot_prism(area = "no", f_lbl = "def", p_lbl = NA, col = "white", f_lwd = 1)
 plot_prism(area = "no", f_lbl = "nam", p_lbl = NA, col_pal = pal_4c)
 plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 
-plot_prism(area = "hr", f_lbl = "abb", p_lbl = NA, arr_c = 0, col_pal = pal_4c)
-plot_prism(area = "hr", f_lbl = "num", p_lbl = NA, arr_c = 0)
-plot_prism(area = "hr", f_lbl = "abb", p_lbl = "num", arr_c = 0)
+plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0, lwd = .5)
+plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
+plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = "num")
 
 plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_4c)
-plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw)
-plot_prism(area = "sq", f_lbl = "def", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
+plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw, lwd = .5)
+plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:
 plot_prism(f_lbl = "def", p_lbl = "mix")
 plot_prism(f_lbl = "namnum", p_lbl = "mix", cex_lbl = .80, cex_p_lbl = .75)
 
-plot_prism(area = "hr", f_lbl = "nam", p_lbl = NA, arr_c = 0, lbl_txt = txt_TF)
+plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", lbl_txt = txt_TF)
 plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_bw)
-plot_prism(area = "hr", f_lbl = "num", p_lbl = "num", col_pal = pal_4c)
+plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 
 plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_4c)

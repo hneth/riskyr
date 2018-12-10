@@ -4,10 +4,14 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 
+<!-- Status badges: -->
+
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
 [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
 [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
+
+
 
 
 ```{r knitr_opts_chunk, echo = FALSE}
@@ -32,7 +36,6 @@ knitr::opts_chunk$set(
 
 Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
 
-
 ## Motivation 
 
 > Solving a problem simply means representing it <br>
@@ -42,34 +45,34 @@ Risk-related information — like the prevalence of conditions and the sensitivi
 
 <!-- Risk perception as representational effects: -->
 
-The issues addressed by `riskyr` are less of a _computational_ and more of a _representational_ nature (i.e., concerning the expression in and translation between different formats of information). Whereas people tend to find it difficult to understand and compute information expressed in terms of probabilities, the same information is often easy to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates their relationships in a variety of transparent and interactive ways.
+The goals of `riskyr` are less of a _computational_ and more of a _representational_ nature, by addressing the expression in and translation between different formats of information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing risk-related information in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. We hope that interacting with and switching between different representations will boost the transparency and human understanding of risk-related information.[^2]
 
-<!-- Defining "risk": -->
+<!-- Defining "risk" (in footnote): -->
 
-It is important to clarify our notion of "risk" in this context: In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.[^2] 
-For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).
-
-[^2]: This notion of _risk_ is typically contrasted with the much wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.) 
+[^2]: To clarify our notion of "risk" in this context, we need to distinguish it from its everyday usage as anything implying a chance of danger or harm.  
+In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term _risk_ typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.  
+For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).  
+This notion of _risk_ is typically contrasted with the much wider notion of _uncertainty_ in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.) 
 
 <!-- On "riskyr": -->
 
-Basic assumptions and goals driving the current development of `riskyr` include the following:
+Basic assumptions and goals driving the current development of `riskyr` include:
 
-1. Effective training in risk literacy requires simple tools and transparent representations. 
+1. Effective training in risk literacy requires transparent representations, smart strategies, and simple tools. 
 
-2. More specifically, it would be desirable to have a set of (computational and representational) tools that allow various calculations, translations (between formats), and a range of alternative views on the interplay between probabilities and frequencies. 
+2. More specifically, we aim for a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies. 
 
-3. Seeing a variety of visualizations that illustrate how parameters and metrics interact and influence each other facilitates active and explorative learning.  It is particularly helpful to view the same or similar relationships from alternative representations or to inspect the change of one parameter as a function of changes in other parameters. 
+3. We hypothesize that a variety of visualizations, which illustrate how parameters and metrics interact and influence each other, will facilitate active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative perspectives and to observe the change of one parameter as a function of others. 
 
-To deliver on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal goals and needs. 
+Based on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.  
 
 ## Installation
 
 The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at  <https://CRAN.R-project.org/package=riskyr>: 
 
 ```{r install_CRAN, echo = TRUE, eval = FALSE}
-install.packages("riskyr"")  # install riskyr from CRAN client
-library("riskyr"")           # load to use the package
+install.packages("riskyr")  # install riskyr from CRAN client
+library("riskyr")           # load to use the package
 ```
 
 The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
@@ -79,8 +82,7 @@ The most recent development version can be installed from its [GitHub](https://g
 devtools::install_github("hneth/riskyr")
 ```
 
-
-## Quick Start Guide
+## Quick start guide
 
 <!-- 1: Defining a scenario -->
 
@@ -118,14 +120,12 @@ The problem description provides three essential probabilities:
 3. The device's or diagnostic decision's _false alarm rate_ is 5%: `fart = .05`, 
 implying a _specificity_ of (100% $-$ 5%) = 95%: `spec = .95`.  
 
-
 #### Understanding the questions asked
 
 The second challenge here lies in understanding the questions that are being asked — and in realizing that their answers are _not_ simply the decision's sensitivity or specificity values. Instead, we are asked to provide two _conditional_ probabilities:
 
 - The conditional probability of suffering from the condition given a positive test result, <br>aka. the _positive predictive value_ (`PPV`). 
 - The conditional probability of being free of the condition given a negative test result, <br>aka. the _negative predictive value_ (`NPV`). 
-
 
 #### Translating into frequencies
 
@@ -146,28 +146,27 @@ Here is how `riskyr` allows you to view and solve such problems:
 library(riskyr)  # loads the package
 ```
 
-
 #### Creating a scenario from probabilities
 
 Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
 ```{r ex1_definition, eval = TRUE}
-hustosis <- riskyr(scen.lbl = "Example", 
-                   cond.lbl = "hustosis",
-                   dec.lbl = "screening test",
-                   popu.lbl = "representative sample", 
-                   N = 1000, 
-                   prev = .04, sens = .80, spec = (1 - .05)
+hustosis <- riskyr(scen_lbl = "Example", 
+                   cond_lbl = "Hustosis",
+                   dec_lbl = "Screening test",
+                   popu_lbl = "Sample", 
+                   N = 1000,  # population size
+                   prev = .04, sens = .80, spec = (1 - .05)  # 3 probabilities
                    )
 ```
 
-By providing the argument `N = 1000` we defined the scenario for a target population of 1000 people. If we left this parameter unspecified (or `NA`), `riskyr` will automatically pick a suitable value of `N` to compute frequency information. 
+By providing the argument `N = 1000` we define the scenario for a target population of 1000 people. If we leave this parameter unspecified (or `NA`), `riskyr` will automatically pick a suitable value of `N`. 
 
 #### Summary
 
 To obtain a quick overview of key parameter values, we ask for the `summary` of our `hustosis` scenario:
 
-```{r ex1_summary, eval = TRUE}
+```{r ex1_summary, echo = TRUE, eval = FALSE}
 summary(hustosis)  # summarizes key parameter values: 
 ```
 
@@ -177,25 +176,25 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 
 - The conditional probability that Ms. Smith is actually free of hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
 
-In case you are surprised by these answers, you are a good candidate for additional instruction in risk literacy. One of the strengths of `riskyr` is to analyze and view the scenario from a variety of different perspectives. To get you started immediately, we provide a few introductory examples that illustrate different types of visualizations. 
-
+If find these answers surprising, you are an ideal candidate for additional insights into the realm of risk literacy. 
+A key component of `riskyr` is to analyze and view a scenario from a variety of different perspectives. To get you started immediately, we only illustrate some introductory commands here and focus on different types of visualizations. (Call   `riskyr.guide()` for various vignettes that provide more detailed information.)
 
 #### Creating a scenario from frequencies
 
-If we had been provided with 4 essential frequencies (of `hi`, `mi`, `fa`, and `cr`) instead of 3 essential probabilities (`prev`, `sens`, and `spec` or `fart`), the same scenario can be defined as follows:
+Rather than defining our `hustosis` scenario by providing 3 essential probabilities (`prev`, `sens`, and `spec`), we could define the same scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and `cr`) as follows:
 
-```{r ex1_definition_freq}
-hustosis_2 <- riskyr(scen.lbl = "Example", 
-                    cond.lbl = "hustosis",
-                    dec.lbl = "screening test",
-                    popu.lbl = "representative sample", 
-                    hi = 32, mi = 8, fa = 48, cr = 912
-                    )
+```{r ex1_definition_freq, echo = TRUE, eval = TRUE}
+hustosis_2 <- riskyr(scen_lbl = "Example", 
+                     cond_lbl = "Hustosis",
+                     dec_lbl = "Screening test",
+                     popu_lbl = "Sample", 
+                     hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
+                     )
 ```
 
 As we took the values of these frequencies from the `summary` of `hustosis`, the `hustosis_2` scenario should contain exactly the same information as `hustosis`:
 
-```{r ex1_all_equal}
+```{r ex1_all_equal, eval = TRUE}
 all.equal(hustosis, hustosis_2)  # do both contain the same information? 
 ```
 
@@ -203,15 +202,34 @@ all.equal(hustosis, hustosis_2)  # do both contain the same information?
 
 Various visualizations of `riskyr` scenarios can be created by a range of plotting functions. 
 
-#### Tree diagram 
+#### Prism plot
 
-A tree diagram is obtained by plotting a scenario with the `plot.type = "tree"` option: 
+The default type of plot used in `riskyr` is a _prism plot_ (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:
 
-```{r ex1_tree, eval = FALSE, fig.width = 7.2, fig.height = 5.8}
-plot(hustosis, plot.type = "tree", by = "dc")  # plot a tree diagram (by decision):
+```{r ex1_prism, eval = FALSE, fig.width = 7.2, fig.height = 5.5, fig.show = 'hold'}
+plot(hustosis)  # default plot
+
+# => internally calls plot_prism(...) with many additional arguments:
+# plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
 ```
 
-![](inst/pix/README-ex1_tree-1.png)
+![Prism plot](inst/pix/README-ex1_prism-1.png)
+
+#### Tree diagram 
+
+A _tree diagram_ is the upper half of a prism plot, which can be obtained by plotting a scenario with 1 of 3 perspectives:
+
+1. by condition (`by = "cd"`), to split the population into _TRUE_ vs. _FALSE_ (`cond.true` vs. `cond.false`) cases; 
+2. by decision (`by = "dc"`), to split the population into _negative_ vs. _positive_ (`dec.neg` vs. `dec.pos`) decisions; 
+3. by accuracy (`by = "ac"`), to split the population into _correct_ vs. _incorrect_ (`dec.cor` vs. `dec.err`) decisions. 
+
+For instance, the following command plots a frequency tree by decisions:
+
+```{r ex1_tree, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
+plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
+```
+
+![Tree diagram](inst/pix/README-ex1_tree-1.png)
 
 This particular tree splits the population of `N = 1000` individuals into two subgroups _by decision_ (`by = "dc"`) and contains the answer to the second (frequency) version of our questions:
 
@@ -220,115 +238,175 @@ This particular tree splits the population of `N = 1000` individuals into two su
 
 Of course, the frequencies of these ratios were already contained in the `hustosis` summary above. But the representation in the form of a tree diagram makes it easier to understand the decomposition of the population into subgroups and to see which frequencies are required to answer a particular question.
 
-
 #### Icon array 
 
 An icon array shows the classification result for each of `N = 1000` individuals in our population: 
 
 ```{r ex1_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
-plot(hustosis, plot.type = "icons")   # plot an icon array: 
+plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
-![](inst/pix/README-ex1_icons-1.png)
+![Icon array](inst/pix/README-ex1_icons-1.png)
 
-While this particular icon array is highly regular (as both the icons and classification types are ordered), `riskyr` provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density.
+While this particular icon array is highly regular (as both the icons and classification types are ordered), `riskyr` provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see `?plot_icons` for details and examples). 
 
-#### Mosaic plot
+#### Area plot
 
-The mosaic plot offers a way of expressing classification results as the relationship between areas. Here, the entire population is represented as a square and the probability of its subgroups as the size of rectangles:
+An area plot (or mosaic plot) offers a way of expressing classification results as the relationship between areas. Here, the entire population is represented as a square and the probability of its subgroups as the size of rectangles (see `?plot_area` for details and examples):  
 
-```{r ex1_mosaic, eval = FALSE, fig.width = 4.5, fig.height = 4.5}
-plot(hustosis, plot.type = "mosaic")  # plot a mosaic plot: 
+```{r ex1_area, eval = FALSE, fig.width = 7.2, fig.height = 5}
+plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
-![](inst/pix/README-ex1_mosaic-1.png)
+![Area/mosaic plot](inst/pix/README-ex1_area-1.png)
+
+#### Table plot
+
+When not scaling the size of rectangles by their relative frequencies or probabilities, we can plot basic scenario information as a 2-by-2 confusion (or contingency) table (see `?plot_tab` for details and examples):  
+
+```{r ex1_tab, eval = FALSE, fig.width = 7.2, fig.height = 5}
+plot(hustosis, type = "tab")  # plot 2x2 confusion table (by = "cddc") 
+```
+
+![Table plot](inst/pix/README-ex1_tab-1.png)
+
+#### Bar plot
+
+A _bar plot_ allows comparing relative frequencies as the heights of bars (see `?plot_bar` for details and examples):  
+
+```{r ex1_bar, eval = FALSE, fig.width = 7.2, fig.height = 5}
+plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
+```
+
+![Bar plot](inst/pix/README-ex1_bar-1.png)
 
 #### Curves
 
-By adopting a functional perspective, we can ask how the values of some parameters (e.g., `PPV` or `NPV`) change as a function of another (e.g., `prev`):
+By adopting a functional perspective, we can ask how the values of some probabilities (e.g., the predictive values `PPV` and `NPV`) change as a function of another (e.g., the condition's prevalence `prev`, see `?plot_curve` for details and examples):
 
 ```{r ex1_curve, eval = FALSE, fig.width = 7.2, fig.height = 5}
-plot(hustosis, plot.type = "curve")   # plot curves (as a function of prevalence):
+plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 ```
 
-![](inst/pix/README-ex1_curve-1.png)
+![Probability curves](inst/pix/README-ex1_curve-1.png)
 
 #### Planes 
 
-When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`) of our test for a given prevalence (`prev`): 
+When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`) of our test for a given prevalence (`prev`, see `?plot_plane` for details and examples):
 
-```{r ex1_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
-plot(hustosis, plot.type = "plane", theta = -60)  # plot plane (as a function of sens x spec):
+```{r ex1_plane, eval = FALSE, fig.width = 6, fig.height = 4.5}
+plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
-![](inst/pix/README-ex1_plane-1.png)
+![Probability plane](inst/pix/README-ex1_plane-1.png)
 
-The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. While our current value of 95% (`spec = .95`) may sound pretty good, it still is not high enough to yield a `PPV` beyond 40%. 
+The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the `PPV` remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high `PPV`, the key requirement for our test is an extremely high specificity. Although our current specificity value of 95% (`spec = .95`) may sound pretty good, it is still not high enough to yield a `PPV` beyond 40%. 
 
+<!--
+
+#### Plots currently under development
+
+The current development version of `riskyr` (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
+
+```{r preview_current_dev, echo = TRUE, eval = FALSE}
+## Install current development version: 
+# install.packages("devtools")
+devtools::install_github("hneth/riskyr")
+
+## Preview latest functions (riskyr > v0.0.1.930):
+plot(hustosis, type = "prism", by = "cddc")  
+plot(hustosis, type = "tree",  by = "ac") 
+plot(hustosis, type = "area",  by = "cddc")
+plot(hustosis, type = "tab",   by = "cddc")
+plot(hustosis, type = "bar",   dir = 2)
+```
+
+-->
 
 <!-- 2: Loading and using pre-defined scenarios -->
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of — currently `r length(scenarios) - 1` — pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them. 
+As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), `riskyr` provides a set of — currently `r length(scenarios) - 1` — pre-defined scenarios (stored in a list `scenarios`). 
+Here, we provide an example that shows how you can select and explore them. 
 
 #### Selecting a scenario
 
 Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
 
-```{r ex2_select, eval = TRUE, fig.width = 7.2, fig.height = 6}
-s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
+```{r ex2_select, eval = TRUE}
+s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21
 ```
 
-#### Summary 
+#### Scenario summary 
 
-The following commands provide a quick overview of the scenario content in text form:
+Our selected scenario object `s21` is a list with `r length(s21)` elements, which describe it in both text and numeric variables. The following commands provide an overview of `s21` in text form:
 
 ```{r ex2_basic_info, eval = TRUE}
-s21$scen.lbl  # shows descriptive label:
-s21$cond.lbl  # shows current condition:
-s21$dec.lbl   # shows current decision:
-s21$popu.lbl  # shows current population:
-s21$scen.apa  # shows current source: 
+s21$scen_lbl   # a descriptive label
+s21$cond_lbl   # the current condition
+s21$dec_lbl    # the current decision
+s21$popu_lbl   # the current population
+s21$scen_apa   # scenario source (APA) 
 
-summary(s21)  # shows key scenario information:
+# summary(s21) # summarises a scenario
 ```
 
-Generating the following plots will allow you a quick visual exploration of the scenario. (We only show selected plots here, and trust that you can try out the others for yourself.)   
+Generating some `riskyr` plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.
 
-#### Network diagram 
+#### Prism plots
 
-A network diagram is a generalization of a tree diagram that simultaneously provides two perspectives on a population (see Wassner et al., 2004). `riskyr` provides several variants of network diagrams. In the following version, all frequencies are represented as colored squares and the relative sizes of their areas represent the number of people in the corresponding subgroups: 
+A tree diagram is a prism plot that views the population from only one perspective, but provides a quick overview. In the following plot, the boxes are depicted as squares with area sizes that are scaled by relative frequencies (using the `area = "sq"` argument): 
 
-```{r ex2_fnet, eval = FALSE, fig.width = 7.2, fig.height = 6.5}
-plot(s21) # plots a network diagram (by default):
+```{r ex2_tree, eval = FALSE, fig.width = 7.2, fig.height = 5}
+plot(s21, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
+     f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
 
-![](inst/pix/README-ex2_fnet-1.png)
+![Prism/tree plot (with scaled squares)](inst/pix/README-ex2_tree-1.png)
 
+The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). `riskyr` provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup: 
 
+```{r ex2_prism_hr, eval = FALSE, fig.width = 7.2, fig.height = 5}
+plot(s21, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
+     p_lbl = "num")                                  # numeric probability labels
+```
+
+![Prism plot (with scaled horizontal rectangles)](inst/pix/README-ex2_prism_hr-1.png)
 
 #### Icon array
 
 ```{r ex2_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.2}
-plot(s21, plot.type = "icons")   # plot an icon array: 
+plot(s21, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
 ```
 
-#### Mosaic plot
+<!-- ![](inst/pix/README-ex2_icons-1.png) --> 
 
-```{r ex2_mosaic, eval = FALSE, fig.width = 5, fig.height = 5}
-plot(s21, plot.type = "mosaic")   # plot a mosaic plot: 
+#### Area plot
+
+```{r ex2_area, eval = FALSE, fig.width = 7.2, fig.height = 5}
+plot(s21, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
 ```
+
+<!-- ![](inst/pix/README-ex2_area-1.png) -->
+
+#### Table plot
+
+```{r ex2_tab, eval = FALSE, fig.width = 6, fig.height = 5}
+plot(s21, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
+```
+
+<!-- ![](inst/pix/README-ex2_tab-1.png) -->
 
 #### Curves 
 
-The following curves show values of conditional probabilities as a function of prevalence: 
+The following curves show the values of several conditional probabilities as a function of prevalence: 
 
-```{r ex2_curve, eval = FALSE, fig.width = 7.2, fig.height = 6}
-plot(s21, plot.type = "curve", what = "all")  # plot all curves (as a function of prevalence):
+```{r ex2_curve, eval = FALSE, fig.width = 7, fig.height = 6}
+plot(s21, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 ```
 
-![](inst/pix/README-ex2_curve-1.png)
+![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png) 
 
 Adding the argument `what = "all"` also shows the proportion of positive decisions (`ppod`) and the decision's overall accuracy (`accu`) as a function of the prevalence (`prev`). Would you have predicted their shape without seeing this graph?
 
@@ -336,13 +414,13 @@ Adding the argument `what = "all"` also shows the proportion of positive decisio
 
 The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence): 
 
-```{r ex2_plane, eval = FALSE, fig.width = 5, fig.height = 4.5}
-plot(s21, plot.type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+```{r ex2_plane, eval = FALSE, fig.width = 6, fig.height = 4.5}
+plot(s21, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
+![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png) 
 
 Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information. 
-
 
 ## About
 
@@ -369,7 +447,6 @@ The `riskyr` package is open source software written in [R](https://www.r-projec
 
 Please email at <contact.riskyr@gmail.com>  in case you want to use, adapt, or share this software.
 
-
 ### Contact
 
 We appreciate your feedback, comments, or questions. 
@@ -377,7 +454,6 @@ We appreciate your feedback, comments, or questions.
 - Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
 
 - For general inquiries, please email us at <contact.riskyr@gmail.com>. 
-
 
 ### Reference
 
@@ -410,7 +486,6 @@ A BibTeX entry for LaTeX users is:
       }    
     
 Calling `citation("riskyr")` in the package also displays this information.
-
 
 ### References
 

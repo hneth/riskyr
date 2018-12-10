@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_gitless$
+^_R_retired$
 ^cran-comments.md$
 ^data-raw$
 ^CODE_OF_CONDUCT\.md$

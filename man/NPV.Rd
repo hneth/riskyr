@@ -70,9 +70,9 @@ However, due to being a conditional probability,
 }
 }
 \examples{
-NPV <- .95     # => sets a negative predictive value of 95\%
-NPV <- 95/100  # => (condition = FALSE) for 95 out of 100 people with (decision = negative)
-is_prob(NPV)   # => TRUE (as NPV is a probability)
+NPV <- .95     # sets a negative predictive value of 95\%
+NPV <- 95/100  # (condition = FALSE) for 95 out of 100 people with (decision = negative)
+is_prob(NPV)   # TRUE
 
 }
 \references{
@@ -85,7 +85,7 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_prob}} verifies probability inputs.
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
   \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},

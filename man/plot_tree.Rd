@@ -6,15 +6,15 @@
 \usage{
 plot_tree(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, round = TRUE,
-  by = "cd", area = "no", p.lbl = "mix", show.accu = TRUE,
-  w.acc = 0.5, title.lbl = txt$scen.lbl, popu.lbl = txt$popu.lbl,
-  cond.true.lbl = txt$cond.true.lbl,
-  cond.false.lbl = txt$cond.false.lbl, dec.pos.lbl = txt$dec.pos.lbl,
-  dec.neg.lbl = txt$dec.neg.lbl, hi.lbl = txt$hi.lbl,
-  mi.lbl = txt$mi.lbl, fa.lbl = txt$fa.lbl, cr.lbl = txt$cr.lbl,
-  col.txt = grey(0.01, alpha = 0.99), box.cex = 0.9, col.boxes = pal,
-  col.border = grey(0.33, alpha = 0.99), lwd = 1.6, box.lwd = 1.8,
-  col.shadow = grey(0.11, alpha = 0.99), cex.shadow = 0)
+  by = "cd", area = "no", p_lbl = "mix", show_accu = TRUE,
+  w_acc = 0.5, title_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
+  cond.true_lbl = txt$cond.true_lbl,
+  cond.false_lbl = txt$cond.false_lbl, dec.pos_lbl = txt$dec.pos_lbl,
+  dec.neg_lbl = txt$dec.neg_lbl, hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
+  col_txt = grey(0.01, alpha = 0.99), box_cex = 0.9, col_boxes = pal,
+  col_border = grey(0.33, alpha = 0.99), lwd = 1.6, box_lwd = 1.8,
+  col_shadow = grey(0.11, alpha = 0.99), cex_shadow = 0)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -59,7 +59,7 @@ A suitable value of \code{\link{N}} is computed, if not provided.}
 \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
 }}
 
-\item{p.lbl}{A character code specifying the type of probability information (on edges) with 4 options:
+\item{p_lbl}{A character code specifying the type of probability information (on edges) with 4 options:
 \enumerate{
 \item \code{"nam"} ... names of probabilities;
 \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals);
@@ -67,57 +67,57 @@ A suitable value of \code{\link{N}} is computed, if not provided.}
 \item \code{"min"} ... minimal labels: names of essential probabilities.
 }}
 
-\item{show.accu}{Option for showing current
+\item{show_accu}{Option for showing current
 accuracy metrics \code{\link{accu}} in the plot.
-Default: \code{show.accu = TRUE}.}
+Default: \code{show_accu = TRUE}.}
 
-\item{w.acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w.acc = .50}.
+\item{w_acc}{Weigthing parameter \code{w} used to compute
+weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+Default: \code{w_acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
 
-\item{title.lbl}{Text label for current plot title.
-Default: \code{title.lbl = txt$scen.lbl}.}
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen_lbl}.}
 
-\item{popu.lbl}{Text label for current population \code{\link{popu}}.}
+\item{popu_lbl}{Text label for current population \code{\link{popu}}.}
 
-\item{cond.true.lbl}{Text label for current cases of \code{\link{cond.true}}.}
+\item{cond.true_lbl}{Text label for current cases of \code{\link{cond.true}}.}
 
-\item{cond.false.lbl}{Text label for current cases of \code{\link{cond.false}}.}
+\item{cond.false_lbl}{Text label for current cases of \code{\link{cond.false}}.}
 
-\item{dec.pos.lbl}{Text label for current cases of \code{\link{dec.pos}}.}
+\item{dec.pos_lbl}{Text label for current cases of \code{\link{dec.pos}}.}
 
-\item{dec.neg.lbl}{Text label for current cases of \code{\link{dec.neg}}.}
+\item{dec.neg_lbl}{Text label for current cases of \code{\link{dec.neg}}.}
 
-\item{hi.lbl}{Text label for hits \code{\link{hi}}.}
+\item{hi_lbl}{Text label for hits \code{\link{hi}}.}
 
-\item{mi.lbl}{Text label for misses \code{\link{mi}}.}
+\item{mi_lbl}{Text label for misses \code{\link{mi}}.}
 
-\item{fa.lbl}{Text label for false alarms \code{\link{fa}}.}
+\item{fa_lbl}{Text label for false alarms \code{\link{fa}}.}
 
-\item{cr.lbl}{Text label for correct rejections \code{\link{cr}}.}
+\item{cr_lbl}{Text label for correct rejections \code{\link{cr}}.}
 
-\item{col.txt}{Color for text labels (in boxes).}
+\item{col_txt}{Color for text labels (in boxes).}
 
-\item{box.cex}{Scaling factor for text (in boxes).
-Default: \code{box.cex = .90}.}
+\item{box_cex}{Scaling factor for text (in boxes).
+Default: \code{box_cex = .90}.}
 
-\item{col.boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
+\item{col_boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
 
-\item{col.border}{Color of borders.
-Default: \code{col.border = grey(.33, alpha = .99)}.}
+\item{col_border}{Color of borders.
+Default: \code{col_border = grey(.33, alpha = .99)}.}
 
 \item{lwd}{Width of arrows.}
 
-\item{box.lwd}{Width of boxes.}
+\item{box_lwd}{Width of boxes.}
 
-\item{col.shadow}{Color of box shadows.
-Default: \code{col.shadow = grey(.11, alpha = .99)}.}
+\item{col_shadow}{Color of box shadows.
+Default: \code{col_shadow = grey(.11, alpha = .99)}.}
 
-\item{cex.shadow}{Scaling factor of shadows (values > 0 showing shadows).
-Default: \code{cex.shadow = 0}.}
+\item{cex_shadow}{Scaling factor of shadows (values > 0 showing shadows).
+Default: \code{cex_shadow = 0}.}
 }
 \value{
 Nothing (NULL).
@@ -158,8 +158,8 @@ to avoid decimal values in \code{\link{freq}}.
 plot_tree()
 plot_tree(by = "dc")
 plot_tree(area = "sq")
-plot_tree(p.lbl = "num")
-plot_tree(title.lbl = "")
+plot_tree(p_lbl = "num")
+plot_tree(title_lbl = "")
 plot_tree(N = 33)
 plot_tree(N = NA)
 
@@ -180,22 +180,22 @@ plot_tree(area = "hr")
 plot_tree(area = "vr", round = FALSE)
 
 # Accuracy:
-plot_tree(show.accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-plot_tree(show.accu = TRUE, w.acc = 1/3)  # => (weighted accuracy "wacc")
-plot_tree(show.accu = FALSE)              # => no accuracy info.
+plot_tree(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
+plot_tree(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
+plot_tree(show_accu = FALSE)              # => no accuracy info.
 
 # Perspectives, areas, and label options:
-plot_tree(by = "cd", area = "sq", p.lbl = "nam")  # => by cond + sq + prob names
-plot_tree(by = "cd", area = "hr", p.lbl = "num")  # => by cond + hr + prob numbers
-plot_tree(by = "dc", area = "sq", p.lbl = "num")  # => by dec  + sq + names and numbers
-plot_tree(by = "dc", area = "vr", p.lbl = "mix")  # => by dec  + vr + min. labels
+plot_tree(by = "cd", area = "sq", p_lbl = "nam")  # => by cond + sq + prob names
+plot_tree(by = "cd", area = "hr", p_lbl = "num")  # => by cond + hr + prob numbers
+plot_tree(by = "dc", area = "sq", p_lbl = "num")  # => by dec  + sq + names and numbers
+plot_tree(by = "dc", area = "vr", p_lbl = "mix")  # => by dec  + vr + min. labels
 
 # Custom colors and shadows:
 plot_tree(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-plot_tree(area = "sq", col.boxes = "gold", col.border = "steelblue4",
-          col.shadow = "steelblue4", cex.shadow = .008)
-plot_tree(N = NA, area = "vr", col.txt = "steelblue4", col.boxes = "lightyellow",
-          col.border = grey(.3, .7), cex.shadow = .008, col.shadow = grey(.1, .9))
+plot_tree(area = "sq", col_boxes = "gold", col_border = "steelblue4",
+          col_shadow = "steelblue4", cex_shadow = .008)
+plot_tree(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow",
+          col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
 
 }
 \seealso{

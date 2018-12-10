@@ -4,43 +4,61 @@
 \alias{plot.riskyr}
 \title{Plot information of a riskyr object.}
 \usage{
-\method{plot}{riskyr}(x = NULL, plot.type = "network", ...)
+\method{plot}{riskyr}(x = NULL, type = "prism", ...)
 }
 \arguments{
 \item{x}{An object of class "riskyr", usually a result of a call to \code{\link{riskyr}}.
 Pre-defined \code{\link{scenarios}} are also of type "riskyr".}
 
-\item{plot.type}{The type of plot to be generated.
+\item{type}{The type of plot to be generated.
 
 \enumerate{
 
-  \item \code{plot.type = "fnet"} or \code{plot.type = "network"}:
+  \item \code{type = "prism"} or \code{type = "net"} or \code{type = "tree"}:
   Risk information is plotted in a network diagram of frequencies and probabilities (default).
-  See \code{\link{plot_fnet}} for further options.
+  See \code{\link{plot_prism}} for further options.
 
-  \item \code{plot.type = "ftree"} or \code{plot.type = "ftree"}:
-  Risk information is plotted in a frequency tree.
-  See \code{\link{plot_tree}} for further options.
+  \item \code{type = "area"} or \code{type = "mosaic"}:
+  Risk information is plotted as a mosaic plot (scaled area).
+  See \code{\link{plot_area}} for further options.
 
-  \item \code{plot.type = "icons"} or \code{plot.type = "iconarray"}:
-  The underlying population is plotted as icons.
+  \item \code{type = "tab"} or \code{type = "ftab"}:
+  Risk information is plotted as a 2-by-2 frequency or contingency table.
+  See \code{\link{plot_tab}} for further options.
+
+  \item \code{type = "bar"} or \code{type = "fbar"}:
+  Risk information is plotted as a bar chart.
+  See \code{\link{plot_bar}} for further options.
+
+  \item \code{type = "icons"} or \code{type = "iconarray"}:
+  The underlying population is plotted as an array of icons.
   See \code{\link{plot_icons}} for further options.
 
-  \item \code{plot.type = "mosaic"} or \code{plot.type = "mosaicplot"}:
-  Risk information is plotted as a mosaicplot.
-  See \code{\link{plot_mosaic}} for further options.
-
-  \item \code{plot.type = "curve"} or \code{plot.type = "curves"}:
+  \item \code{type = "curve"} or \code{type = "curves"}:
   Draws curves of selected values (including \code{\link{PPV}}, \code{\link{NPV}})
   See \code{\link{plot_curve}} for further options.
 
-  \item \code{plot.type = "plane"} or \code{plot.type = "planes"}:
+  \item \code{type = "plane"} or \code{type = "planes"}:
   Draws a 3D-plane of selected values (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}})
   See \code{\link{plot_plane}} for further options.
+
+  Older plot types (replaced by the above, to be retired):
+
+  \item \code{type = "onet"} or \code{type = "ofnet"}:
+  Risk information is plotted in a network diagram of frequencies and probabilities (default).
+  Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_fnet}} for further options.
+
+  \item \code{type = "otree"} or \code{type = "oftree"}:
+  Risk information is plotted in a frequency tree.
+  Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_tree}} for further options.
+
+  \item \code{type = "omosaic"} or \code{type = "omosaicplot"}:
+  Risk information is plotted as a mosaicplot.
+  Replaced by \code{\link{plot_area}}, but see \code{\link{plot_mosaic}} for further options.
+
 }}
 
-\item{...}{Additional parameters to be passed to the
-underlying plotting functions.}
+\item{...}{Additional parameters to be passed to the underlying plotting functions.}
 }
 \description{
 \code{plot.riskyr} is a method that allows to generate
@@ -53,17 +71,23 @@ specified in the "riskyr" object.
 \examples{
 # Select a scenario from list of scenarios:
 s25 <- scenarios$n25  # select scenario 25 from scenarios
+plot(s25)  # default plot (type = "prism")
 
-# Plot different types:
-plot(s25)  # => default plot (fnet)
-plot(s25, plot.type = "fnet")  # => network diagram (same as default)
-plot(s25, plot.type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-plot(s25, plot.type = "icons", type = "mosaic")
-plot(s25, plot.type = "curve", what = "all")
-plot(s25, plot.type = "plane", what = "NPV")
+# Plot types currently available:
+plot(s25, type = "prism")                # prism/network diagram (default)
+plot(s25, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+plot(s25, type = "area")                 # area/mosaic plot
+plot(s25, type = "tab")                  # 2x2 frequency/contingency table
+plot(s25, type = "bar", dir = 2)         # bar plot
+plot(s25, type = "icons")                # icon array
+plot(s25, type = "curve", what = "all")  # curves as fn. of prev
+plot(s25, type = "plane", what = "NPV")  # plane as function of sens & spec
+plot(s25, type = "default")              # unknown type: use default plot
 
-plot(s25, plot.type = "area", by = "cddc")
-plot(s25, plot.type = "tab", by = "cddc", f_lwd = 3)
+# Older plot types (obsolete):
+plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
+plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
+plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
 
 }
 \seealso{
@@ -73,5 +97,9 @@ Other visualization functions: \code{\link{plot_area}},
   \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
   \code{\link{plot_prism}}, \code{\link{plot_tab}},
   \code{\link{plot_tree}}
+
+Other riskyr scenario functions: \code{\link{read_popu}},
+  \code{\link{riskyr}}, \code{\link{summary.riskyr}}
 }
+\concept{riskyr scenario functions}
 \concept{visualization functions}

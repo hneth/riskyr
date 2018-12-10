@@ -4,7 +4,7 @@
 \name{txt}
 \alias{txt}
 \title{List current values of basic text elements.}
-\format{An object of class \code{list} of length 20.}
+\format{An object of class \code{list} of length 21.}
 \usage{
 txt
 }
@@ -22,56 +22,56 @@ To change an element, assign a new character object to an existing name.
 
 \enumerate{
 
-\item \code{scen.lbl} The current scenario title (sometimes in Title Caps).
+\item \code{scen_lbl} The current scenario title (sometimes in Title Caps).
 
-\item \code{scen.txt} A longer text description of the current scenario
+\item \code{scen_txt} A longer text description of the current scenario
 (which may extend over several lines).
 
-\item \code{scen.src} The source information for the current scenario.
+\item \code{scen_src} The source information for the current scenario.
 
-\item \code{scen.apa} The source information in APA format.
+\item \code{scen_apa} The source information in APA format.
 
-\item \code{scen.lng} The language of the current scenario (as character code).
+\item \code{scen_lng} The language of the current scenario (as character code).
 Options: \code{"en"}...English, \code{"de"}... German.
 
-\item \code{popu.lbl} A brief description of the current target population \code{\link{popu}} or sample.
+\item \code{popu_lbl} A brief description of the current target population \code{\link{popu}} or sample.
 
-\item \code{cond.lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+\item \code{cond_lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
 
-\item \code{cond.true.lbl} A label for the \emph{presence} of the current condition
+\item \code{cond.true_lbl} A label for the \emph{presence} of the current condition
 or \code{\link{cond.true}} cases (the condition's true state of TRUE).
 
-\item \code{cond.false.lbl} A label for the \emph{absence} of the current condition
+\item \code{cond.false_lbl} A label for the \emph{absence} of the current condition
 or \code{\link{cond.false}} cases (the condition's true state of FALSE).
 
-\item \code{dec.lbl} A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+\item \code{dec_lbl} A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
 
-\item \code{dec.pos.lbl} A label for \emph{positive} decisions
+\item \code{dec.pos_lbl} A label for \emph{positive} decisions
 or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 
-\item \code{dec.neg.lbl} A label for \emph{negative} decisions
+\item \code{dec.neg_lbl} A label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 
-\item \code{sdt.lbl} A name for the \emph{case/category/cell} in the 2x2 contingency table (condition x decision, SDT).
+\item \code{sdt_lbl} A name for the \emph{case/category/cell} in the 2x2 contingency table (condition x decision, SDT).
 
-\item \code{hi.lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item \code{hi_lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 
-\item \code{mi.lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item \code{mi_lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
 
-\item \code{fa.lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item \code{fa_lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
 
-\item \code{cr.lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item \code{cr_lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 
 }
 }
 \examples{
-txt           # => show  all current names and elements
-txt$scen.lbl  # => show the current scenario label (e.g., used in plot titles)
-txt$scen.lbl <- "My favorite example"  # => set a new scenario title
+txt           # Show  all current names and elements
+txt$scen_lbl  # Show the current scenario label (e.g., used in plot titles)
+txt$scen_lbl <- "My example"  # Set a new scenario title
 
 
 }
@@ -90,8 +90,9 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
   \code{\link{pal_4c}}, \code{\link{pal_bw}},
   \code{\link{pal_gbs}}, \code{\link{pal_kn}},
-  \code{\link{pal_org}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt_TF}}
+  \code{\link{pal_org}}, \code{\link{pal_vir}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

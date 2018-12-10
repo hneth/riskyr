@@ -68,9 +68,9 @@ However, due to being a conditional probability,
 }
 }
 \examples{
-FDR <- .45     # => sets a false detection rate (FDR) of 45\%
-FDR <- 45/100  # => (condition = FALSE) for 45 out of 100 people with (decision = positive)
-is_prob(FDR)   # => TRUE (as FDR is a probability)
+FDR <- .45     # sets a false detection rate (FDR) of 45\%
+FDR <- 45/100  # (condition = FALSE) for 45 out of 100 people with (decision = positive)
+is_prob(FDR)   # TRUE
 
 }
 \references{
@@ -83,7 +83,7 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{freq}} contains current frequency information;
 \code{\link{comp_freq}} computes current frequency information;
-\code{\link{is_prob}} verifies probability inputs.
+\code{\link{is_prob}} verifies probabilities.
 
 Other probabilities: \code{\link{FOR}}, \code{\link{NPV}},
   \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},
