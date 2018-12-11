@@ -32,8 +32,6 @@ summary(scenarios$n4)
 
 }
 \seealso{
-Other summary functions: \code{\link{as.table.riskyr}}
-
 Other riskyr scenario functions: \code{\link{plot.riskyr}},
   \code{\link{read_popu}}, \code{\link{riskyr}}
 }
