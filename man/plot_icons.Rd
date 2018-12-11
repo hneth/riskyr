@@ -6,13 +6,13 @@
 \usage{
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, arr_type = "array",
-  ident_order = c("hi", "mi", "fa", "cr"), icon_types = 22,
-  icon_size = NULL, icon_brd_lwd = 1.5, block_d = NULL,
-  border_d = 0.1, block_size_row = 10, block_size_col = 10,
-  nblocks_row = NULL, nblocks_col = NULL, fill_array = "left",
-  fill_blocks = "rowwise", lbl_txt = txt, title_lbl = txt$scen_lbl,
-  cex_lbl = 0.9, col_pal = pal, transparency = 0.5,
-  mar_notes = TRUE, ...)
+  by = "all", ident_order = c("hi", "mi", "fa", "cr"),
+  icon_types = 22, icon_size = NULL, icon_brd_lwd = 1.5,
+  block_d = NULL, border_d = 0.1, block_size_row = 10,
+  block_size_col = 10, nblocks_row = NULL, nblocks_col = NULL,
+  fill_array = "left", fill_blocks = "rowwise", lbl_txt = txt,
+  title_lbl = txt$scen_lbl, cex_lbl = 0.9, col_pal = pal,
+  transparency = 0.5, mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -73,6 +73,26 @@ resulting in different types of displays:
   \item \code{arr_type = "scatter"}: Icons are randomly scattered into the plot.
 
 }}
+
+\item{by}{A character code specifying a perspective to split the population into subsets,
+with 4 options:
+  \enumerate{
+  \item \code{"all"}: by condition (cd) and by decision (dc):
+
+        \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}} cases (default);
+
+  \item \code{"cd"}: by condition (cd) only:
+
+        \code{\link{cond.true}} vs. \code{\link{cond.false}} cases;
+
+  \item \code{"dc"}: by decision (dc) only:
+
+        \code{\link{dec.pos}} vs. \code{\link{dec.neg}} cases;
+
+  \item \code{"ac"}: by accuracy (ac) only:
+
+        \code{\link{dec.cor}} vs. \code{\link{dec.err}} cases.
+  }}
 
 \item{ident_order}{The order in which icon identities
 (i.e., hi, mi, fa, and cr) are plotted.
@@ -156,18 +176,25 @@ to avoid decimal values in \code{\link{freq}}.
 plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
 plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
 
+# array types:
 plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot
 plot_icons(arr_type = "fillequal", N = 1000)  # areas of equal size (probability as density)
 plot_icons(arr_type = "fillleft",  N = 1000)  # icons filled from left to right (in columns)
 plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
 plot_icons(arr_type = "scatter",   N = 1000)  # icons randomly scattered
 
-# Icon symbols:
+# by argument:
+plot_icons(N = 1000, by = "all")  # hi, mi, fa, cr (TP, FN, FP, TN) cases
+plot_icons(N = 1000, by = "cd")   # (hi + mi) vs. (fa + cr) (TP + FN vs. FP + TN) cases
+plot_icons(N = 1000, by = "dc")   # (hi + fa) vs. (mi + cr) (TP + FP vs. FN + TN) cases
+plot_icons(N = 1000, by = "ac")   # (hi + cr) vs. (fa + mi) (TP + TN vs. FP + FN) cases
+
+# icon symbols:
 plot_icons(N = 100, icon_types = c(21, 23, 24, 23),
                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
                block_d = 0.5, border_d = 0.9)
 
-# Variants:
+# variants:
 plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
            block_d = 0.5, border_d = 0.5)
 

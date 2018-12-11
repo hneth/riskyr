@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 11 26
+## 2018 12 11
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -110,6 +110,26 @@
 #'
 #' }
 #'
+#' @param by  A character code specifying a perspective to split the population into subsets,
+#' with 4 options:
+#'   \enumerate{
+#'   \item \code{"all"}: by condition (cd) and by decision (dc):
+#'
+#'         \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}} cases (default);
+#'
+#'   \item \code{"cd"}: by condition (cd) only:
+#'
+#'         \code{\link{cond.true}} vs. \code{\link{cond.false}} cases;
+#'
+#'   \item \code{"dc"}: by decision (dc) only:
+#'
+#'         \code{\link{dec.pos}} vs. \code{\link{dec.neg}} cases;
+#'
+#'   \item \code{"ac"}: by accuracy (ac) only:
+#'
+#'         \code{\link{dec.cor}} vs. \code{\link{dec.err}} cases.
+#'   }
+#'
 #' @param ident_order  The order in which icon identities
 #' (i.e., hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
@@ -166,7 +186,6 @@
 #'
 #' @param ...  Other (graphical) parameters.
 #'
-#'
 #' @return Nothing (NULL).
 #'
 #' @examples
@@ -174,18 +193,25 @@
 #' plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
 #' plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
 #'
+#' # array types:
 #' plot_icons(arr_type = "mosaic",    N = 1000)  # areas as in mosaic plot
 #' plot_icons(arr_type = "fillequal", N = 1000)  # areas of equal size (probability as density)
 #' plot_icons(arr_type = "fillleft",  N = 1000)  # icons filled from left to right (in columns)
 #' plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
 #' plot_icons(arr_type = "scatter",   N = 1000)  # icons randomly scattered
 #'
-#' # Icon symbols:
+#' # by argument:
+#' plot_icons(N = 1000, by = "all")  # hi, mi, fa, cr (TP, FN, FP, TN) cases
+#' plot_icons(N = 1000, by = "cd")   # (hi + mi) vs. (fa + cr) (TP + FN vs. FP + TN) cases
+#' plot_icons(N = 1000, by = "dc")   # (hi + fa) vs. (mi + cr) (TP + FP vs. FN + TN) cases
+#' plot_icons(N = 1000, by = "ac")   # (hi + cr) vs. (fa + mi) (TP + TN vs. FP + FN) cases
+#'
+#' # icon symbols:
 #' plot_icons(N = 100, icon_types = c(21, 23, 24, 23),
 #'                block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
 #'                block_d = 0.5, border_d = 0.9)
 #'
-#' # Variants:
+#' # variants:
 #' plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
 #'            block_d = 0.5, border_d = 0.5)
 #'
@@ -297,21 +323,33 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # (a) Get current SDT case labels from lbl_txt:
   type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")]  # 4 SDT cases/combinations
 
-  # (b) Get current colors from col_pal:
+  # Increase robustness: by
+  if (!(by %in% c("all", "cd", "dc", "ac"))) {
+    by <- "all"  # default
+  }
+
+  # (b) Get current colors from col_pal: ----
   if (by == "all") {
+
     icon_col <- col_pal[ident_order]  # use one color for each usual arr_type.
+
   } else if (by == "dc") {
+
     ident_order <- c("hi", "fa", "mi", "cr")  # order by (positive) decision.
     icon_col <- c(col_pal["hi"], col_pal["hi"],
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
+
   } else if (by == "cd") {
+
     ident_order <- c("hi", "mi", "cr", "fa")  # order by (positive) condition.
     icon_col <- c(col_pal["hi"], col_pal["hi"],
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
+
   } else if (by == "ac") {
-    ident_order <- c("hi", "cr", "mi", "fa")  # order by correctness.
+
+    ident_order <- c("hi", "cr", "mi", "fa")  # order by accuracy/correctness.
     icon_col <- c(col_pal["hi"], col_pal["hi"],
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
