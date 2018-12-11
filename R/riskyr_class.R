@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 11 24
+## 2018 12 11
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -1099,7 +1099,6 @@ print.summary.riskyr <- function(x = NULL, ...) {
     names(x$freqs$cond.freqs) <- c("cond.true", "cond.false")  # more explicit
     print(x$freqs$cond.freqs)
 
-
     cat("\n by decision:\n")
     names(x$freqs$dec.freqs) <- c("Positive", "Negative")  # explicit
     names(x$freqs$dec.freqs) <- c("dec.pos", "dec.neg")  # more explicit
@@ -1134,6 +1133,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 
 ## Check: ------
+# scenario2 <- df_scenarios[2, ]  # get scenario 2 of df_scenarios
 # summary(scenario2)  # => all summaries
 # summary(scenario2, summarize = "freq")
 # summary(scenario2, summarize = "prob")
