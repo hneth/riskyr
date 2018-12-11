@@ -19,7 +19,4 @@
 summary(scenarios$n4)
 
 }
-\seealso{
-Other print functions: \code{\link{print.table.riskyr}}
-}
 \concept{print functions}
