@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 11 24
+## 2018 12 11
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
