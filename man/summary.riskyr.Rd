@@ -36,5 +36,4 @@ Other riskyr scenario functions: \code{\link{plot.riskyr}},
   \code{\link{read_popu}}, \code{\link{riskyr}}
 }
 \concept{riskyr scenario functions}
->>>>>>> upstream/master
 \concept{summary functions}

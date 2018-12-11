@@ -6,13 +6,13 @@
 \usage{
 plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, arr_type = "array",
-  ident_order = c("hi", "mi", "fa", "cr"), icon_types = 22,
-  icon_size = NULL, icon_brd_lwd = 1.5, block_d = NULL,
-  border_d = 0.1, block_size_row = 10, block_size_col = 10,
-  nblocks_row = NULL, nblocks_col = NULL, fill_array = "left",
-  fill_blocks = "rowwise", lbl_txt = txt, title_lbl = txt$scen_lbl,
-  cex_lbl = 0.9, col_pal = pal, transparency = 0.5,
-  mar_notes = TRUE, ...)
+  by = "all", ident_order = c("hi", "mi", "fa", "cr"),
+  icon_types = 22, icon_size = NULL, icon_brd_lwd = 1.5,
+  block_d = NULL, border_d = 0.1, block_size_row = 10,
+  block_size_col = 10, nblocks_row = NULL, nblocks_col = NULL,
+  fill_array = "left", fill_blocks = "rowwise", lbl_txt = txt,
+  title_lbl = txt$scen_lbl, cex_lbl = 0.9, col_pal = pal,
+  transparency = 0.5, mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -73,6 +73,17 @@ resulting in different types of displays:
   \item \code{arr_type = "scatter"}: Icons are randomly scattered into the plot.
 
 }}
+
+\item{by}{A character code specifying the perspective
+(or the dimension by which the population is split into 2 subsets)
+with the following options:
+  \enumerate{
+  \item \code{by = "cd"}: by condition (plot icons for condition true and false);
+  \item \code{by = "dc"}: by decision (plot icons for decision positive and negative);
+  \item \code{by = "ac"}: by accuracy (plot icons for decision correct and incorrect);
+  \item \code{by = "all"} combines perspectives (plot icons for hits, misses, correct rejections,
+  and false alarms, default).
+  }}
 
 \item{ident_order}{The order in which icon identities
 (i.e., hi, mi, fa, and cr) are plotted.

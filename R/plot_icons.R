@@ -110,6 +110,17 @@
 #'
 #' }
 #'
+#' @param by A character code specifying the perspective
+#' (or the dimension by which the population is split into 2 subsets)
+#' with the following options:
+#'   \enumerate{
+#'   \item \code{by = "cd"}: by condition (plot icons for condition true and false);
+#'   \item \code{by = "dc"}: by decision (plot icons for decision positive and negative);
+#'   \item \code{by = "ac"}: by accuracy (plot icons for decision correct and incorrect);
+#'   \item \code{by = "all"} combines perspectives (plot icons for hits, misses, correct rejections,
+#'   and false alarms, default).
+#'   }
+#'
 #' @param ident_order  The order in which icon identities
 #' (i.e., hi, mi, fa, and cr) are plotted.
 #' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
