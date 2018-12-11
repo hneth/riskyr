@@ -1304,7 +1304,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 
 ## Check: ------
-scenario2 <- df_scenarios[2, ]  # get scenario 2 of df_scenarios
+# scenario2 <- df_scenarios[2, ]  # get scenario 2 of df_scenarios
 # summary(scenario2)  # => all summaries
 # summary(scenario2, summarize = "freq")
 # summary(scenario2, summarize = "prob")
