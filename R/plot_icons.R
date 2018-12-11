@@ -241,6 +241,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        arr_type = "array",  # needs to be specified if random position but nonrandom ident.
                        # valid types include: array, shuffled array, mosaic, equal, fillleft, filltop, scatter.
 
+                       by = "all",
+
                        # Icon settings:
                        ident_order = c("hi", "mi", "fa", "cr"),
                        icon_types = 22,    # plotting symbols; default: square with border
@@ -296,7 +298,25 @@ plot_icons <- function(prev = num$prev,             # probabilities
   type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")]  # 4 SDT cases/combinations
 
   # (b) Get current colors from col_pal:
-  icon_col     <- col_pal[ident_order]  # use one color for each usual arr_type.
+  if (by == "all") {
+    icon_col <- col_pal[ident_order]  # use one color for each usual arr_type.
+  } else if (by == "dc") {
+    ident_order <- c("hi", "fa", "mi", "cr")  # order by (positive) decision.
+    icon_col <- c(col_pal["hi"], col_pal["hi"],
+                  col_pal["mi"], col_pal["mi"])
+    names(icon_col) <- ident_order
+  } else if (by == "cd") {
+    ident_order <- c("hi", "mi", "cr", "fa")  # order by (positive) condition.
+    icon_col <- c(col_pal["hi"], col_pal["hi"],
+                  col_pal["mi"], col_pal["mi"])
+    names(icon_col) <- ident_order
+  } else if (by == "ac") {
+    ident_order <- c("hi", "cr", "mi", "fa")  # order by correctness.
+    icon_col <- c(col_pal["hi"], col_pal["hi"],
+                  col_pal["mi"], col_pal["mi"])
+    names(icon_col) <- ident_order
+  }
+
   icon_brd_col <- col_pal["brd"]        # border color of icons [was: grey(.10, .50)]
   icon_brd_col <- make_transparent(icon_brd_col, alpha = (1 - transparency))  # OR: alpha = 2/3
 
@@ -941,10 +961,31 @@ plot_icons <- function(prev = num$prev,             # probabilities
     type_lbls <- type_lbls[ident_order]
   }
 
+  if(by == "all") {
+    legend_col <- icon_col
+    legend_ico <- icon_types
+    legend_lbls <- type_lbls
+  } else {
+    legend_col <- icon_col[c(1, 3)]
+    legend_ico <- icon_types[c(1, 3)]
+
+    if (by == "dc") {
+      legend_lbls <- c(txt$dec.pos_lbl, txt$dec.neg_lbl)
+    }
+
+    if (by == "cd") {
+      legend_lbls <- c(txt$cond.true_lbl, txt$cond.false_lbl)
+    }
+
+    if (by == "ac") {
+      legend_lbls <- c(txt$dec.cor_lbl, txt$dec.err_lbl)
+    }
+  }
+
   legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
-         legend = type_lbls,
+         legend = legend_lbls,
          horiz = TRUE, bty = "n",
-         pt.bg = icon_col, pch = icon_types,
+         pt.bg = legend_col, pch = legend_ico,
          cex = cex_lbl, xjust = 0.5, xpd = TRUE)
   ## TODO: fixed order of legend?
 
