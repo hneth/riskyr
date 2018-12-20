@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: Rendering risk literacy more transparent 
-Version: 0.1.0.945
+Version: 0.1.0.946
 Date: 2018-12-20
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"), 
@@ -17,9 +17,6 @@ Description: Risk-related information (like the prevalence of conditions and the
 Depends:
     R (>= 3.4.0)
 Imports:
-    diagram (>= 1.6.4),
-    grid (>= 3.4.0),
-    vcd (>= 1.4),
     utils (>= 3.4.0)
 Suggests:
     devtools,
@@ -62,4 +59,3 @@ License: GPL-2 | GPL-3
 BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
-
