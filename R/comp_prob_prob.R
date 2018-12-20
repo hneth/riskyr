@@ -1,77 +1,13 @@
 ## comp_prob_prob.R | riskyr
-## 2018 09 20
+## 2018 12 20
 ## Compute probabilities from probabilities:
 ## -----------------------------------------------
 
 ## Note: For computing ALL prob from 3 basic probabilities
 ##       see comp_prob in file "init_num_prob.R".
 
-## Table of current terminology: -----------------
 
-# Probabilities (11+):              Frequencies (11):
-# -------------------               ------------------
-# (A) by condition:
-
-# non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
-
-# conditional:
-# sens* = hit rate = TPR                hi* = TP
-# mirt  = miss rate = FNR               mi* = FN
-# fart  = false alarm rate = FPR        fa* = FP
-# spec* = true negative rate = TNR      cr* = TN
-
-# [Note: *...is essential]
-
-
-# (B) by decision:                 Combined frequencies:
-
-# non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
-
-# conditional:
-# PPV = precision
-# FDR = false detection rate
-# FOR = false omission rate
-# NPV = neg. pred. value
-
-# (C) by accuracy/correspondence of decision to condition (see accu):
-
-# acc  = overall accuracy (proportion correct)
-# p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-# p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
-
-# Other measures of accuracy (in accu):
-# wacc = weighted accuracy
-# mcc  = Matthews correlation coefficient
-# f1s  = harmonic mean of PPV and sens
-
-
-## Data flow: Two basic directions: --------------
-
-## (1) Probabilities ==> frequencies:
-##     Bayesian: based on 3 essential probabilities:
-##   - given:   prev;  sens, spec
-##   - derived: all other values
-
-## (2) Frequencies ==> probabilities:
-##     Frequentist: based on 4 essential natural frequencies:
-##   - given:   N = hi, mi, fa, cr
-##   - derived: all other values
-
-
-## 2 functions convert between formats: ----------
-
-## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
-## b. comp_prob_freq: Computes prob from freq
-
-
-## ad (1):  Bayesian computations with probabilities: ----------
-
-
-
-
+## Computing probabilities from probabilities (Bayes etc.): ----------
 
 ## (1) by condition: Compute basic probabilities of conditions/cases from probabilities: ----------
 
@@ -522,6 +458,7 @@ comp_complete_prob_set <- function(prev,
 
 
 ## Compute derived probabilities: ----------------
+
 
 
 
@@ -1042,6 +979,7 @@ comp_FOR_NPV <- function(NPV) {
 
 
 
+
 ## (3) by accuracy: Compute probability of correct decisions from probabilities: ----------
 
 
@@ -1345,6 +1283,7 @@ comp_err <- function(prev, sens, spec) {
 # comp_err(0, 0, 0)  #  => 1
 
 
+
 ## (4) Compute prob of freq/prob by name (fname/pname) from prob: ----------
 
 ## comp_prob_fname: Compute exact p value of a freq "fname" from prob: ------
@@ -1489,6 +1428,7 @@ comp_prob_pname <- function(pname, cur_prob = prob) {
 # # if computed from scratch:
 # all.equal(sum(comp_prob_pname(c("acc-hi", "acc-cr"))), 1)
 # all.equal(sum(comp_prob_pname(c("err-mi", "err-fa"))), 1)
+
 
 
 
@@ -1704,6 +1644,7 @@ comp_prob_matrix <- function(prev, sens, spec,
 #
 # comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "acc")
 # comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
+
 
 
 

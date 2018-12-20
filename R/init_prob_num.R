@@ -1,5 +1,5 @@
 ## init_prob_num.R | riskyr
-## 2018 10 20
+## 2018 12 20
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
 ## -----------------------------------------------
@@ -149,38 +149,14 @@ init_prob <- function() {
 #' \code{comp_prob} is the probability counterpart to the
 #' frequency function \code{\link{comp_freq}}.
 #'
-#' Functions translating between representational formats:
 #'
-#' \enumerate{
-#'
-#'    \item \code{\link{comp_prob_prob}} is
-#'    a wrapper function for \code{comp_prob} (defined here) and
-#'    an analog to 3 other format conversion functions:
-#'
-#'    \item \code{\link{comp_prob_freq}} computes
-#'    current \emph{probability} information contained in \code{\link{prob}}
-#'    from 4 essential frequencies
-#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-#'
-#'    \item \code{\link{comp_freq_prob}} computes
-#'    current \emph{frequency} information contained in \code{\link{freq}}
-#'    from 3 essential probabilities
-#'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
-#'
-#'    \item \code{\link{comp_freq_freq}} computes
-#'    current \emph{frequency} information contained in \code{\link{freq}}
-#'    from 4 essential frequencies
-#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-#'
-#'  }
-#'
-#' Key relationships:
+#' Key relationships between probabilities and frequencies:
 #'
 #' \itemize{
 #'
 #' \item Three perspectives on a population:
 #'
-#' A population of \code{\link{N}} individuals can be split into 2 subsets
+#' A population of \code{\link{N}} individuals can be split into 2 subsets of frequencies
 #' in 3 different ways:
 #'
 #'    \enumerate{
@@ -213,6 +189,7 @@ init_prob <- function() {
 #' essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+#'
 #'
 #' \item Defining probabilities in terms of frequencies:
 #'
@@ -281,6 +258,13 @@ init_prob <- function() {
 #'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 #'
 #' }
+#'
+#'
+#' Functions translating between representational formats:
+#' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
+#' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
+#' (see documentation of \code{\link{comp_prob_prob}} for details).
+#'
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of the condition being \code{TRUE}).
@@ -551,6 +535,34 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #' may yield unexpected values (e.g., an \code{\link{NPV}}
 #' value of NaN when \code{\link{is_extreme_prob_set}}
 #' evaluates to \code{TRUE}).
+#'
+#'
+#' Key relationships between frequencies and probabilities
+#' (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
+#'
+#' \itemize{
+#'
+#'   \item Three perspectives on a population:
+#'
+#'   by condition / by decision / by accuracy.
+#'
+#'   \item Defining probabilities in terms of frequencies:
+#'
+#'   Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+#'
+#' }
+#'
+#'
+#' Functions translating between representational formats:
+#' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
+#' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
+#' (see documentation of \code{\link{comp_prob_prob}} for details).
+#'
+#'
+#' Visualizations of current probability information
+#' are provided by \code{\link{plot_area}},
+#' \code{\link{plot_prism}}, and \code{\link{plot_curve}}.
+#'
 #'
 #' @examples
 #' prob <- comp_prob()  # => initialize prob to default parameters

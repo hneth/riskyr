@@ -72,7 +72,7 @@ num.def <- list("prev" = round(runif(1, .01, .99), 2),  # .5   # prevalence in t
                 "spec" = round(runif(1, .01, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
                 "fart" = NA,                            # NA   # false alarm rate = 1 - spec        [optional, complement of spec]
                 "N"    = round(runif(1, 5, 15), 0)      # 100  # population size N                                 [optional freq]
-                )
+)
 
 
 ## Define some fixed stimuli (for MSc Joachim): ----------
@@ -204,7 +204,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
 
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
 
-      }
+    }
 
     ## (5) Initialize num with current arguments:
     num$prev <- prev
@@ -221,26 +221,25 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
 }
 
 ## Check:
-{
-  # # ways to succeed:
-  # init_num(1, 1, 1, 0, 100)  # => succeeds
-  # init_num(1, 1, 0, 1, 100)  # => succeeds
-  #
-  # # watch out for:
-  # init_num(1, 1, 0, 1)           # => succeeds (with N computed)
-  # init_num(1, 1, NA, 1, 100)     # => succeeds (with spec computed)
-  # init_num(1, 1, 0, NA, 100)     # => succeeds (with fart computed)
-  # init_num(1, 1, NA, 1)          # => succeeds (with spec and N computed)
-  # init_num(1, 1, 0, NA)          # => succeeds (with fart and N computed)
-  # init_num(1, 1, .51, .50, 100)  # => succeeds (as spec and fart are within tolarated range)
-  #
-  # # ways to fail:
-  # init_num(prev = NA)                                  # => NAs + warning (NA)
-  # init_num(prev = 88)                                  # => NAs + warning (beyond range)
-  # init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
-  # init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
-  # init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
-}
+# # ways to succeed:
+# init_num(1, 1, 1, 0, 100)  # => succeeds
+# init_num(1, 1, 0, 1, 100)  # => succeeds
+#
+# # watch out for:
+# init_num(1, 1, 0, 1)           # => succeeds (with N computed)
+# init_num(1, 1, NA, 1, 100)     # => succeeds (with spec computed)
+# init_num(1, 1, 0, NA, 100)     # => succeeds (with fart computed)
+# init_num(1, 1, NA, 1)          # => succeeds (with spec and N computed)
+# init_num(1, 1, 0, NA)          # => succeeds (with fart and N computed)
+# init_num(1, 1, .51, .50, 100)  # => succeeds (as spec and fart are within tolarated range)
+#
+# # ways to fail:
+# init_num(prev = NA)                                  # => NAs + warning (NA)
+# init_num(prev = 88)                                  # => NAs + warning (beyond range)
+# init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
+# init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
+# init_num(1, 1, .52, .50, 100)                        # => NAs + warning (complements beyond tolerated range)
+
 
 
 ## (4) Apply to initialize num: ------------------

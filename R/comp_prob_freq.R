@@ -1,5 +1,5 @@
 ## comp_prob_freq.R | riskyr
-## 2018 09 30
+## 2018 12 20
 ## Compute probabilities (prob) from frequencies (freq):
 ## -----------------------------------------------
 
@@ -16,38 +16,34 @@
 #' for a population of \code{\link{N}} individuals
 #' as its output.
 #'
-#' Key relationships between frequencies and probabilities:
-#' See documentation of \code{\link{comp_freq_prob}}.
+#'
+#' Key relationships between frequencies and probabilities
+#' (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
+#'
+#' \itemize{
+#'
+#'   \item Three perspectives on a population:
+#'
+#'   by condition / by decision / by accuracy.
+#'
+#'   \item Defining probabilities in terms of frequencies:
+#'
+#'   Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+#'
+#' }
+#'
 #'
 #' Functions translating between representational formats:
+#' \code{\link{comp_prob_prob}}, \code{comp_prob_freq},
+#' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
+#' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
-#' \enumerate{
-#'
-#'    \item \code{comp_prob_freq} (defined here) is
-#'    an analog to 3 other format conversion functions:
-#'
-#'    \item \code{\link{comp_prob_prob}} is
-#'    a wrapper function for \code{\link{comp_prob}} and
-#'    computes current \emph{probability} information contained in \code{\link{prob}}
-#'    from 3 essential probabilities
-#'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
-#'
-#'    \item \code{\link{comp_freq_prob}} computes
-#'    current \emph{frequency} information contained in \code{\link{freq}}
-#'    from 3 essential probabilities
-#'    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
-#'
-#'    \item \code{\link{comp_freq_freq}} computes
-#'    current \emph{frequency} information contained in \code{\link{freq}}
-#'    from 4 essential frequencies
-#'    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-#'
-#'  }
 #'
 #' @param hi  The number of hits \code{\link{hi}} (or true positives).
 #' @param mi  The number of misses \code{\link{mi}} (or false negatives).
 #' @param fa  The number of false alarms \code{\link{fa}} (or false positives).
 #' @param cr  The number of correct rejections \code{\link{cr}} (or true negatives).
+#'
 #'
 #' @examples
 #' ## Basics:

@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 11 23
+## 2018 12 20
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 

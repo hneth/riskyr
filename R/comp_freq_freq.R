@@ -1,5 +1,5 @@
 ## comp_freq_freq.R | riskyr
-## 2018 02 09
+## 2018 12 20
 ## Compute ALL current frequencies (freq)
 ## from 4 essential frequencies:
 ## -----------------------------------------------
@@ -17,8 +17,26 @@
 #' for a population of \code{\link{N}} individuals
 #' as its output.
 #'
-#' Key relationships between frequencies and probabilities:
-#' See documentation of \code{\link{comp_freq_prob}}.
+#' Key relationships between frequencies and probabilities
+#' (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
+#'
+#' \itemize{
+#'
+#'   \item Three perspectives on a population:
+#'
+#'   by condition / by decision / by accuracy.
+#'
+#'   \item Defining probabilities in terms of frequencies:
+#'
+#'   Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+#'
+#' }
+#'
+#'
+#' Functions translating between representational formats:
+#' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
+#' \code{\link{comp_freq_prob}}, \code{comp_freq_freq}
+#' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
 #'
 #' @param hi  The number of hits \code{\link{hi}} (or true positives).
