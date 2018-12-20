@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 11 22
+## 2018 12 20
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -129,7 +129,7 @@ init_freq <- function() {
 #' \code{comp_freq} computes frequencies (typically
 #' as rounded integers) given 3 basic probabilities --
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} --
-#' -- for a population of \code{\link{N}} individuals.
+#' for a population of \code{\link{N}} individuals.
 #' It returns a list of 11 frequencies \code{\link{freq}}
 #' as its output.
 #'

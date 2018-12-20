@@ -37,7 +37,7 @@ A list \code{\link{freq}} containing 11 frequency values.
 \code{comp_freq} computes frequencies (typically
 as rounded integers) given 3 basic probabilities --
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} --
--- for a population of \code{\link{N}} individuals.
+for a population of \code{\link{N}} individuals.
 It returns a list of 11 frequencies \code{\link{freq}}
 as its output.
 }
