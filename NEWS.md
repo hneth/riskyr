@@ -1,7 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.945) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.1.0.946) is available at <https://github.com/hneth/riskyr/>. 
 
 # Changes
 
@@ -9,28 +9,32 @@ Log of changes since last release:
 
 ## Major changes
 
-- `plot_icons` function [2018-12]: 
+- Retiring obsolete functions [2018-12]:
+The functions `plot_fnet` and `plot_tree` are replaced by `plot_prism`;  
+and `plot_mosaic` is replaced by `plot_area`.  
+
+- Updating `plot_icons` function [2018-12]: 
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions. 
 
-- `plot_prism` function [2018-11]: 
+- New `plot_prism` function [2018-11]: 
 Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older `plot_fnet` and `plot_tree` functions (and removes dependency on the `diagram` package).
 
-- `plot_tab` function [2018-10]: 
+- New `plot_tab` function [2018-10]: 
 Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); 
 a variant of `plot_area` that does not scale area sizes. 
 
-- `plot_area` function [2018-10]: 
+- New `plot_area` function [2018-10]: 
 Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); 
 replaces the older `plot_mosaic` function (and removes dependencies on the `grid` and `vcd` packages).
 
-- `plot_bar` function [2018-08]: 
+- New `plot_bar` function [2018-08]: 
 Show scenario frequencies as vertical bars (in various configurations). 
 
-- `plot_util.R` collection of graphical utility functions [2018-08-15]: 
+- New `plot_util.R` collection of graphical utility functions [2018-08-15]: 
 Define a new `box` object type and various functions for plotting, labeling, and linking them 
 (to remove dependencies on and limitations by other packages).
 
-- `riskyr` function [2018-03]: 
+- Updating `riskyr` function [2018-03]: 
 Define a scenario from 4 essential frequencies (and checking for consistency with probabilities). 
 
 
