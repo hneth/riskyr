@@ -112,6 +112,7 @@
 #'
 #' @param by  A character code specifying a perspective to split the population into subsets,
 #' with 4 options:
+#'
 #'   \enumerate{
 #'   \item \code{"all"}: by condition (cd) and by decision (dc):
 #'
