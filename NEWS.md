@@ -1,7 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.942) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.1.0.945) is available at <https://github.com/hneth/riskyr/>. 
 
 # Changes
 
@@ -9,8 +9,11 @@ Log of changes since last release:
 
 ## Major changes
 
+- `plot_icons` function [2018-12]: 
+Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions. 
+
 - `plot_prism` function [2018-11]: 
-Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older `plot_fnet` and `plot_tree` functions (and removes dependencies on the `diagram` package).
+Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older `plot_fnet` and `plot_tree` functions (and removes dependency on the `diagram` package).
 
 - `plot_tab` function [2018-10]: 
 Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); 
