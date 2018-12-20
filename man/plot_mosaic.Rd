@@ -5,114 +5,55 @@
 \title{Plot a mosaic plot of population frequencies.}
 \usage{
 plot_mosaic(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cd", vsplit,
+  spec = num$spec, fart = NA, N = num$N, by = "cddc",
   show_accu = TRUE, w_acc = 0.5, title_lbl = txt$scen_lbl,
   col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
 }
 \arguments{
-\item{prev}{The condition's prevalence \code{\link{prev}}
-(i.e., the probability of condition being \code{TRUE}).}
+\item{prev}{The condition's prevalence \code{\link{prev}}.}
 
-\item{sens}{The decision's sensitivity \code{\link{sens}}
-(i.e., the conditional probability of a positive decision
-provided that the condition is \code{TRUE}).
-\code{sens} is optional when its complement \code{mirt} is provided.}
+\item{sens}{The decision's sensitivity \code{\link{sens}}.}
 
-\item{mirt}{The decision's miss rate \code{\link{mirt}}
-(i.e., the conditional probability of a negative decision
-provided that the condition is \code{TRUE}).
-\code{mirt} is optional when its complement \code{sens} is provided.}
+\item{mirt}{The decision's miss rate \code{\link{mirt}}.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when its complement \code{fart} is provided.}
+\item{spec}{The decision's specificity value \code{\link{spec}}.}
 
-\item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
-\code{fart} is optional when its complement \code{spec} is provided.}
+\item{fart}{The decision's false alarm rate \code{\link{fart}}.}
 
-\item{N}{The number of individuals in the population.
-(This value is not represented in the plot,
-but used when new frequency information \code{\link{freq}}
-and a new population table \code{\link{popu}}
-are computed from scratch from current probabilities.)}
+\item{N}{The number of individuals in the population.}
 
-\item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 2 options:
+\item{by}{A character code specifying the perspective (or categories by which the population is split into subsets) with 3 options:
 \enumerate{
-\item \code{"cd"} ... by condition (vertical split first);
-\item \code{"dc"} ... by decision (horizontal split first).
+\item \code{"cddc"} ... by condition x decision;
+\item \code{"dccd"} ... by decision x condition;
+\item \code{"cdac"} ... by condition x accuracy.
 }}
 
-\item{vsplit}{Deprecated option for toggling between
-vertical and horizontal split. Please use \code{by} instead.}
-
 \item{show_accu}{Option for showing current and exact
-accuracy metrics \code{\link{accu}} in the plot
-(computed by \code{\link{comp_accu_prob}}).
-Default: \code{show_accu = TRUE}.}
+accuracy metrics \code{\link{accu}} in the plot.}
 
 \item{w_acc}{Weigthing parameter \code{w} used to compute
-weighted accuracy \code{w_acc} in \code{\link{comp_accu_prob}}.
-Default: \code{w_acc = .50}.}
+weighted accuracy.}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen_lbl}.}
+\item{title_lbl}{Text label for current plot title.}
 
 \item{col_sdt}{Colors for cases of 4 essential frequencies.
 Default: \code{col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])}.}
 }
 \description{
-\code{plot_mosaic} draws a mosaic plot that
+\code{plot_mosaic} drew a mosaic plot that
 represents the proportions of frequencies in the current
-population \code{\link{popu}} as relatives sizes of
-rectangular areas.
+population as relatives sizes of rectangular areas.
 }
 \details{
-If a sufficient and valid set of 3 essential probabilities
-(\code{\link{prev}}, and
-\code{\link{sens}} or its complement \code{\link{mirt}}, and
-\code{\link{spec}} or its complement \code{\link{fart}})
-is provided, new frequency information \code{\link{freq}}
-and a new population table \code{\link{popu}}
-are computed from scratch.  Otherwise, the existing
-population \code{\link{popu}} is shown.
-
-Rectangles corresponding to the areas of the mosaic plot
-can be visualized byopting for vertical rectangles (by selecting
-the option \code{box = "vr"}) in \code{\link{plot_tree}}
-and \code{\link{plot_fnet}}.
-
-Note that exact accuracy information is computed based on probabilities
-(by \code{\link{comp_accu_prob}}), not approximations based on
-rounded frequencies (by \code{\link{comp_accu_freq}}).
-
-\code{plot_mosaic} requires and uses the R packages "vcd" and
-"grid" (\code{library("vcd", "grid")}).
+\code{plot_mosaic} is deprecated -- please use \code{\link{plot_area}} instead.
 }
 \examples{
-# Basics:
-plot_mosaic()                # => default options
-plot_mosaic(title_lbl = "")  # => no title
-plot_mosaic(by = "dc")       # => by decision (horizontal split 1st)
-plot_mosaic(title_lbl = "My favorite scenario", col_sdt = "goldenrod")
-
-# Accuracy:
-plot_mosaic(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-plot_mosaic(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
-plot_mosaic(show_accu = FALSE)              # => no accuracy info.
-
+plot_mosaic()  # plot with default options
 
 }
 \seealso{
-\code{\link{comp_popu}} computes the current population;
-\code{\link{popu}} contains the current population;
-\code{\link{comp_freq}} computes current frequency information;
-\code{\link{freq}} contains current frequency information;
-\code{\link{num}} for basic numeric parameters;
-\code{\link{txt}} for current text settings;
-\code{\link{pal}} for current color settings
+\code{\link{plot_area}} is the new version of this function.
 
 Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_area}}, \code{\link{plot_bar}},

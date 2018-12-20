@@ -6,62 +6,46 @@
 \usage{
 plot_fnet(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, round = TRUE,
-  by = "cddc", area = "sq", p_lbl = "num", show_accu = TRUE,
+  by = "cddc", area = "no", p_lbl = "num", show_accu = TRUE,
   w_acc = 0.5, title_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
   cond.true_lbl = txt$cond.true_lbl,
   cond.false_lbl = txt$cond.false_lbl, dec.pos_lbl = txt$dec.pos_lbl,
   dec.neg_lbl = txt$dec.neg_lbl, hi_lbl = txt$hi_lbl,
   mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
-  col_txt = grey(0.01, alpha = 0.99), cex_lbl = 0.85, box_cex,
+  col_txt = grey(0.01, alpha = 0.99), cex_lbl = 0.85,
   col_boxes = pal, col_border = grey(0.33, alpha = 0.99), lwd = 1.5,
   box_lwd = 1.5, col_shadow = grey(0.11, alpha = 0.99),
   cex_shadow = 0)
 }
 \arguments{
-\item{prev}{The condition's prevalence \code{\link{prev}}
-(i.e., the probability of condition being \code{TRUE}).}
+\item{prev}{The condition's prevalence \code{\link{prev}}.}
 
-\item{sens}{The decision's sensitivity \code{\link{sens}}
-(i.e., the conditional probability of a positive decision
-provided that the condition is \code{TRUE}).
-\code{sens} is optional when its complement \code{mirt} is provided.}
+\item{sens}{The decision's sensitivity \code{\link{sens}}.}
 
-\item{mirt}{The decision's miss rate \code{\link{mirt}}
-(i.e., the conditional probability of a negative decision
-provided that the condition is \code{TRUE}).
-\code{mirt} is optional when its complement \code{sens} is provided.}
+\item{mirt}{The decision's miss rate \code{\link{mirt}}.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}
-(i.e., the conditional probability
-of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when its complement \code{fart} is provided.}
+\item{spec}{The decision's specificity value \code{\link{spec}}.}
 
-\item{fart}{The decision's false alarm rate \code{\link{fart}}
-(i.e., the conditional probability
-of a positive decision provided that the condition is \code{FALSE}).
-\code{fart} is optional when its complement \code{spec} is provided.}
+\item{fart}{The decision's false alarm rate \code{\link{fart}}.}
 
-\item{N}{The number of individuals in the population.
-A suitable value of \code{\link{N}} is computed, if not provided.}
+\item{N}{The number of individuals in the population.}
 
 \item{round}{A Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
 
-\item{by}{A character code specifying the perspective (or 1st category by which the population is split into subsets) with 4 options:
+\item{by}{A character code specifying the perspective (or categories by which the population is split into subsets) with 3 options:
 \enumerate{
-\item \code{"cd"} ... by condition;
-\item \code{"dc"} ... by decision;
 \item \code{"cddc"} ... 1st by condition, 2nd by decision;
-\item \code{"dccd"} ... 1st by decision, 2nd by condition.
+\item \code{"dccd"} ... 1st by decision, 2nd by condition;
+\item \code{"cdac"} ... 1st by condition, 2nd by accuracy.
 }}
 
 \item{area}{A character code specifying the area of the boxes (or their relative sizes) with
-4 options:
+3 options:
   \enumerate{
   \item \code{"no"} ... all boxes are shown with the same size;
   \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
-  \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies;
-  \item \code{"vr"} ... boxes are vertical rectangles with area sizes scaled proportional to frequencies.
+  \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies.
   }}
 
 \item{p_lbl}{A character code specifying the type of probability information (on edges) with
@@ -74,17 +58,14 @@ are rounded to integers. Default: \code{round = TRUE}.}
   }}
 
 \item{show_accu}{Option for showing current
-accuracy metrics \code{\link{accu}} on the margin of the plot.
-Default: \code{show_accu = TRUE}.}
+accuracy metrics \code{\link{accu}} on the margin of the plot.}
 
 \item{w_acc}{Weigthing parameter \code{w} used to compute
 weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
-Default: \code{w_acc = .50}.
 
 Various other options allow the customization of text labels and colors:}
 
-\item{title_lbl}{Text label for current plot title.
-Default: \code{title_lbl = txt$scen_lbl}.}
+\item{title_lbl}{Text label for current plot title.}
 
 \item{popu_lbl}{Text label for current population \code{\link{popu}}.}
 
@@ -106,10 +87,7 @@ Default: \code{title_lbl = txt$scen_lbl}.}
 
 \item{col_txt}{Color for text labels (in boxes).}
 
-\item{cex_lbl}{Scaling factor for text labels (in boxes and on arrows).
-Default: \code{cex_lbl = .90}.}
-
-\item{box_cex}{Deprecated argument: Please use \code{cex_lbl} instead.}
+\item{cex_lbl}{Scaling factor for text labels (in boxes and on arrows).}
 
 \item{col_boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
 Default: Current color information contained in \code{\link{pal}}.}
@@ -131,120 +109,18 @@ Default: \code{cex_shadow = 0}.}
 Nothing (NULL).
 }
 \description{
-\code{plot_fnet} draws a network diagram of
-frequencies (as nodes) and probabilities (as edges)
-from a sufficient and valid set of 3 essential probabilities
-(\code{\link{prev}}, and
-\code{\link{sens}} or its complement \code{\link{mirt}}, and
-\code{\link{spec}} or its complement \code{\link{fart}})
-or existing frequency information \code{\link{freq}}
-and a population size of \code{\link{N}} individuals.
+\code{plot_fnet} drew a network diagram of
+frequencies (as nodes) and probabilities (as edges).
 }
 \details{
-\code{plot_fnet} is a generalization of \code{\link{plot_tree}}
-and offers the additional option of plotting the interplay
-between 9 frequencies of \code{\link{freq}} and
-and 10 probabilities of \code{\link{prob}}
-in a single network diagram.
-
-The option \code{by} (as 2 or 4 characters) allows specifying
-4 different ways of arranging frequencies:
-\enumerate{
- \item \code{"cd"} plots a tree diagram in which the population is split by condition;
- \item \code{"dc"} plots a tree diagram in which the population is split by decision;
- \item \code{"cddc"} plots a network diagram in which the population is split 1st by condition, 2nd by decision (default);
- \item \code{"dccd"} is yet to be implemented.
-}
-
-The option \code{area} (as 2 characters) allows specifying
-4 different box shapes and sizes:
-\enumerate{
- \item \code{"no"} shows all boxes in the same size (default);
- \item \code{"sq"} shows boxes as squares with area sizes proportional to frequencies;
- \item \code{"hr"} shows boxes as horizontal rectangles of area sizes proportional to frequencies;
- \item \code{"vr"} shows boxes as vertical rectangles of area sizes proportional to frequencies.
-The resulting shapes and their relative proportions correspond to the areas in \code{\link{plot_mosaic}}.
-}
-
-If a prevalence value \code{\link{prev}} is provided, a new list of
-natural frequencies \code{\link{freq}} is computed by \code{\link{comp_freq}}.
-By contrast, if no prevalence value \code{\link{prev}} is provided,
-the values currently contained in \code{\link{freq}} are used.
-By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
-to avoid decimal values in \code{\link{freq}}.
-
-\code{plot_fnet} requires and uses the R package "diagram"
-(\code{library("diagram")}).
+\code{plot_fnet} is deprecated -- please use \code{\link{plot_prism}} instead.
 }
 \examples{
-# Plotting existing freq:
 plot_fnet()  # => plot current freq with default options
-plot_fnet(by = "dccd")
-plot_fnet(area = "no")
-plot_fnet(p_lbl = "num")
-plot_fnet(title_lbl = "")
-plot_fnet(N = 33)
-plot_fnet(N = NA)
-
-# Computing and plotting new frequencies from probabilities:
-plot_fnet(prev = 1/3)  # => changes prev, but uses current defaults of sens and spec
-plot_fnet(prev = 1/3, N = 55)
-plot_fnet(prev = 1/3, N = NA)
-plot_fnet(prev = 1/3, round = FALSE)
-plot_fnet(prev = .10, sens = .90, spec = 1/3, N = 100)
-plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = 33)
-plot_fnet(prev = .10, sens = .90, spec = 1/3, fart = NA, N = NA)
-plot_fnet(prev = .10, sens = .90, spec = NA, fart = 1/3, N = NA)
-
-# Perspective options:
-plot_fnet(by = "cd")    # => 1. Tree diagram (by condition)
-plot_fnet(by = "dc")    # => 2. Tree diagram (by decision)
-plot_fnet(by = "cddc")  # => 3. Network diagram (1st by cond, 2nd by dec) (default)
-plot_fnet(by = "dccd")  # => 4. Network diagram (1st by dec, 2nd by cond)
-
-# Area options:
-plot_fnet(area = "sq")  # => (default)
-plot_fnet(area = "no")
-plot_fnet(area = "sq", round = FALSE)
-plot_fnet(area = "hr")
-plot_fnet(area = "vr", round = FALSE)
-
-# Accuracy:
-plot_fnet(show_accu = TRUE)               # => default w = .5 (balanced accuracy "bacc")
-plot_fnet(show_accu = TRUE, w_acc = 1/3)  # => (weighted accuracy "wacc")
-plot_fnet(show_accu = FALSE)              # => no accuracy info.
-
-# Rounding:
-plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
-          p_lbl = "num", round = TRUE)    # => mi = 0
-plot_fnet(prev = .1, sens = .7, spec = .9, N = 10, by = "cddc", area = "sq",
-          p_lbl = "num", round = FALSE)   # => mi = 0.3
-
-# Combining perspectives, areas, and label options:
-plot_fnet(by = "cd", area = "sq", p_lbl = "nam")  # => by cond + sq + prob names
-plot_fnet(by = "cd", area = "hr", p_lbl = "num")  # => by cond + hr + prob numbers
-plot_fnet(by = "dc", area = "sq", p_lbl = "num")  # => by dec  + sq + mix names and numbers
-plot_fnet(by = "dc", area = "vr", p_lbl = "mix")  # => by dec  + vr + min. labels
-
-# Custom colors and shadows:
-plot_fnet(prev = .08, sens = .92, spec = .95, N = 10000, area = "hr")
-plot_fnet(area = "sq", col_boxes = "gold", col_border = "steelblue4",
-          col_shadow = "steelblue4", cex_shadow = .008)
-plot_fnet(N = NA, area = "vr", col_txt = "steelblue4", col_boxes = "lightyellow",
-          col_border = grey(.3, .7), cex_shadow = .008, col_shadow = grey(.1, .9))
-
 
 }
 \seealso{
-\code{\link{num}} contains basic numeric parameters;
-\code{\link{init_num}} initializes basic numeric parameters;
-\code{\link{freq}} contains current frequency information;
-\code{\link{comp_freq}} computes current frequency information;
-\code{\link{prob}} contains current probability information;
-\code{\link{comp_prob}} computes current probability information;
-\code{\link{pal}} contains current color settings;
-\code{\link{txt}} contains current text settings;
-\code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
+\code{\link{plot_prism}} is the new version of this function.
 
 Other visualization functions: \code{\link{plot.riskyr}},
   \code{\link{plot_area}}, \code{\link{plot_bar}},
