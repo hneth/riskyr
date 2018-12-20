@@ -1,8 +1,8 @@
 Package: riskyr
 Type: Package
 Title: Rendering risk literacy more transparent 
-Version: 0.1.0.944
-Date: 2018-12-10
+Version: 0.1.0.945
+Date: 2018-12-20
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"), 
              person("Felix", "Gaisbauer", role = "aut"), 
