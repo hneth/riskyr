@@ -64,13 +64,14 @@ When frequencies are rounded, probabilities computed from
 \code{\link{freq}} may differ from exact probabilities.
 Using the option \code{round = FALSE} turns off rounding.
 
-Key relationships between frequencies and probabilities:
+Key relationships between probabilities and frequencies:
 
 \itemize{
 
-\item Three \emph{perspectives} on a population:
+\item Three perspectives on a population:
 
-A population of \code{\link{N}} individuals can be split into 2 subsets in 3 different ways:
+A population of \code{\link{N}} individuals can be split into 2 subsets of frequencies
+in 3 different ways:
 
 \enumerate{
 
@@ -98,17 +99,14 @@ The frequency \code{\link{dec.pos}} depends on the proportion of positive decisi
 
 Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).
 
-When providing probabilities, the population size \code{\link{N}}
-is a free parameter (independent of the essential probabilities
-\code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
+When providing probabilities, the population size \code{\link{N}} is a free parameter (independent of the
+essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}}).
 
-If \code{\link{N}} is unknown (\code{NA}),
-a suitable minimum value can be computed by \code{\link{comp_min_N}}.
+If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
 \item Defining probabilities in terms of frequencies:
 
-Probabilities \emph{are} -- determine, describe, or are defined as --
-the relationships between frequencies.
+Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
 Thus, they can be computed as ratios between frequencies:
 
 \enumerate{
@@ -153,34 +151,21 @@ Thus, they can be computed as ratios between frequencies:
 
 \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
+\item accuracy \code{\link{acc}}:
+
+\code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+
 }
+
+Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
+   probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
 
 Functions translating between representational formats:
-
-\enumerate{
-
-\item \code{\link{comp_freq_prob}} is
-   a wrapper function for \code{comp_freq} and
-   an analog to 3 other format conversion functions:
-
-\item \code{\link{comp_freq_freq}} computes
-   current \emph{frequency} information contained in \code{\link{freq}}
-   from 4 essential frequencies
-   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-
-\item \code{\link{comp_prob_freq}} computes
-   current \emph{probability} information contained in \code{\link{prob}}
-   from 4 essential frequencies
-   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-
-\item \code{\link{comp_prob_prob}} computes
-   current \emph{probability} information contained in \code{\link{prob}}
-   from 3 essential probabilities
-   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
-
-}
+\code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
+\code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
+(see documentation of \code{\link{comp_prob_prob}} for details).
 }
 \examples{
 comp_freq()                  # => ok, using current defaults

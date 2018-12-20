@@ -56,8 +56,20 @@ probabilities of 0 or 1) may yield unexpected values
 turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
-Key relationships between frequencies and probabilities:
-See documentation of \code{\link{comp_freq_prob}}.
+Key relationships between frequencies and probabilities
+(see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
+
+\itemize{
+
+\item Three perspectives on a population:
+
+by condition / by decision / by accuracy.
+
+\item Defining probabilities in terms of frequencies:
+
+Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+
+}
 
 Functions translating between representational formats:
 

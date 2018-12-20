@@ -71,38 +71,13 @@ evaluates to \code{TRUE}).
 \code{comp_prob} is the probability counterpart to the
 frequency function \code{\link{comp_freq}}.
 
-Functions translating between representational formats:
-
-\enumerate{
-
-\item \code{\link{comp_prob_prob}} is
-   a wrapper function for \code{comp_prob} (defined here) and
-   an analog to 3 other format conversion functions:
-
-\item \code{\link{comp_prob_freq}} computes
-   current \emph{probability} information contained in \code{\link{prob}}
-   from 4 essential frequencies
-   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-
-\item \code{\link{comp_freq_prob}} computes
-   current \emph{frequency} information contained in \code{\link{freq}}
-   from 3 essential probabilities
-   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
-
-\item \code{\link{comp_freq_freq}} computes
-   current \emph{frequency} information contained in \code{\link{freq}}
-   from 4 essential frequencies
-   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
-
-}
-
-Key relationships:
+Key relationships between probabilities and frequencies:
 
 \itemize{
 
 \item Three perspectives on a population:
 
-A population of \code{\link{N}} individuals can be split into 2 subsets
+A population of \code{\link{N}} individuals can be split into 2 subsets of frequencies
 in 3 different ways:
 
 \enumerate{
@@ -193,6 +168,11 @@ Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_f
    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
+
+Functions translating between representational formats:
+\code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
+\code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
+(see documentation of \code{\link{comp_prob_prob}} for details).
 }
 \examples{
 # Basics:

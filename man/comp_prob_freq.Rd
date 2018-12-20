@@ -25,33 +25,25 @@ for a population of \code{\link{N}} individuals
 as its output.
 }
 \details{
-Key relationships between frequencies and probabilities:
-See documentation of \code{\link{comp_freq_prob}}.
+Key relationships between frequencies and probabilities
+(see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
 
-Functions translating between representational formats:
+\itemize{
 
-\enumerate{
+\item Three perspectives on a population:
 
-\item \code{comp_prob_freq} (defined here) is
-   an analog to 3 other format conversion functions:
+by condition / by decision / by accuracy.
 
-\item \code{\link{comp_prob_prob}} is
-   a wrapper function for \code{\link{comp_prob}} and
-   computes current \emph{probability} information contained in \code{\link{prob}}
-   from 3 essential probabilities
-   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
+\item Defining probabilities in terms of frequencies:
 
-\item \code{\link{comp_freq_prob}} computes
-   current \emph{frequency} information contained in \code{\link{freq}}
-   from 3 essential probabilities
-   (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
-
-\item \code{\link{comp_freq_freq}} computes
-   current \emph{frequency} information contained in \code{\link{freq}}
-   from 4 essential frequencies
-   (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
+Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
+
+Functions translating between representational formats:
+\code{\link{comp_prob_prob}}, \code{comp_prob_freq},
+\code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
+(see documentation of \code{\link{comp_prob_prob}} for details).
 }
 \examples{
 ## Basics:
