@@ -69,25 +69,20 @@ different plot types from a \code{"riskyr"} object.
 specified in the "riskyr" object.
 }
 \examples{
-# Select a scenario from list of scenarios:
-s25 <- scenarios$n25  # select scenario 25 from scenarios
-plot(s25)  # default plot (type = "prism")
+# Select a scenario (from list of scenarios):
+s1 <- scenarios$n1  # select scenario 1 from scenarios
+plot(s1)  # default plot (type = "prism")
 
 # Plot types currently available:
-plot(s25, type = "prism")                # prism/network diagram (default)
-plot(s25, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
-plot(s25, type = "area")                 # area/mosaic plot
-plot(s25, type = "tab")                  # 2x2 frequency/contingency table
-plot(s25, type = "bar", dir = 2)         # bar plot
-plot(s25, type = "icons")                # icon array
-plot(s25, type = "curve", what = "all")  # curves as fn. of prev
-plot(s25, type = "plane", what = "NPV")  # plane as function of sens & spec
-plot(s25, type = "default")              # unknown type: use default plot
-
-# Older plot types (obsolete):
-plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
-plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
-plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
+plot(s1, type = "prism")                # prism/network diagram (default)
+plot(s1, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+plot(s1, type = "area")                 # area/mosaic plot
+plot(s1, type = "tab")                  # 2x2 frequency/contingency table
+plot(s1, type = "bar", dir = 2)         # bar plot
+plot(s1, type = "icons")                # icon array
+plot(s1, type = "curve", what = "all")  # curves as fn. of prev
+plot(s1, type = "plane", what = "NPV")  # plane as function of sens & spec
+plot(s1, type = "default")              # unknown type: use default plot
 
 }
 \seealso{

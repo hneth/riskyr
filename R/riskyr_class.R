@@ -387,62 +387,54 @@ scenarios <- NULL # initialize
 
 #' A collection of riskyr scenarios from various sources.
 #'
-#' \code{scenarios} is a list  that
-#' contains a collection of scenarios of class "riskyr" from the
-#' scientific literature and other sources that can be used directly
-#' in the visualization and summary functions.
+#' \code{scenarios} is a list of scenarios of class "riskyr"
+#' collected from the scientific literature and other sources
+#' and to be used by visualization and summary functions.
 #'
-#' \code{scenarios} currently contains the following scenarios:
+#' \code{scenarios} currently contains the following scenarios
+#' (n1 to n12 in English language, n13 to n25 in German language):
 #'
 #' \enumerate{
 #'
-#'   \item Mammografie 1
+#' In English language:
 #'
-#'   \item Nackenfaltentest (NFT)
-#'
-#'   \item HIV 1 (f)
-#'   \item HIV 2 (f)
-#'
-#'   \item Mammography 2
-#'
+#'   \item Bowel cancer screening
+#'   \item Cab problem
+#'   \item Hemoccult test
+#'   \item Mammography screening
+#'   \item Mammography (freq)
+#'   \item Mammography (prob)
+#'   \item Mushrooms
+#'   \item Musical town
+#'   \item PSA test (baseline)
+#'   \item PSA test (patients)
+#'   \item Psylicraptis screening
 #'   \item Sepsis
 #'
-#'   \item Cab problem
+#' In German language:
 #'
-#'   \item Sigmoidoskopie 1
-#'   \item Sigmoidoskopie 2
-#'
-#'   \item Brustkrebs 1
-#'   \item Brustkrebs 2 (BRCA1)
-#'   \item Brustkrebs 3 (BRCA1 + pos. Mam.)
-#'   \item HIV 3 (m)
-#'   \item HIV 4 (m)
-#'   \item Nackenfaltentest 2 (NFT)
-#'   \item Amniozentese (pos. NFT)
-#'
-#'   \item Musical town
-#'   \item Mushrooms
-#'
-#'   \item Bowel cancer (FOB screening)
-#'
-#'   \item PSA test 1 (high prev)
-#'   \item PSA test 2 (low prev)
-#'
-#'   \item Colorectal cancer
-#'
-#'   \item Psylicraptis screening
-#'
-#'   \item Mammography 6 (prob)
-#'   \item Mammography 6 (freq)
+#'    \item Amniozentese
+#'    \item HIV-Test 1
+#'    \item HIV-Test 2
+#'    \item HIV-Test 3
+#'    \item HIV-Test 4
+#'    \item Mammografie 1
+#'    \item Mammografie 2
+#'    \item Mammografie 3
+#'    \item Mammografie 4
+#'    \item Nackenfaltentest (NFT) 1
+#'    \item Nackenfaltentest (NFT) 2
+#'    \item Sigmoidoskopie 1
+#'    \item Sigmoidoskopie 2
 #'
 #' }
 #'
-#' Variables describing each scenario:
+#' Variables describing a scenario:
 #'
 #' \enumerate{
 #'
 #'   \item \code{scen_lbl} Text label for current scenario.
-#'   \item \code{scen_lng} Language of current scenario.
+#'   \item \code{scen_lng} Language of current scenario (en/de).
 #'   \item \code{scen_txt} Description text of current scenario.
 #'
 #'   \item \code{popu_lbl} Text label for current population.
@@ -483,7 +475,7 @@ scenarios <- NULL # initialize
 #' R data frame \code{\link{df_scenarios}} (and generated from
 #' the corresponding \code{.rda} file in \code{/data/}).
 #'
-#' @format A list with currently 26 objects of class "riskyr" (i.e., scenarios)
+#' @format A list with currently 25 objects of class "riskyr" (i.e., scenarios)
 #' which are each described by 21 variables:
 #'
 #' @export
@@ -598,25 +590,20 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #' @param ... Additional parameters to be passed to the underlying plotting functions.
 #'
 #' @examples
-#' # Select a scenario from list of scenarios:
-#' s25 <- scenarios$n25  # select scenario 25 from scenarios
-#' plot(s25)  # default plot (type = "prism")
+#' # Select a scenario (from list of scenarios):
+#' s1 <- scenarios$n1  # select scenario 1 from scenarios
+#' plot(s1)  # default plot (type = "prism")
 #'
 #' # Plot types currently available:
-#' plot(s25, type = "prism")                # prism/network diagram (default)
-#' plot(s25, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
-#' plot(s25, type = "area")                 # area/mosaic plot
-#' plot(s25, type = "tab")                  # 2x2 frequency/contingency table
-#' plot(s25, type = "bar", dir = 2)         # bar plot
-#' plot(s25, type = "icons")                # icon array
-#' plot(s25, type = "curve", what = "all")  # curves as fn. of prev
-#' plot(s25, type = "plane", what = "NPV")  # plane as function of sens & spec
-#' plot(s25, type = "default")              # unknown type: use default plot
-#'
-#' # Older plot types (obsolete):
-#' plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
-#' plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
-#' plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
+#' plot(s1, type = "prism")                # prism/network diagram (default)
+#' plot(s1, type = "tree", by = "cd")      # tree diagram (only 1 perspective)
+#' plot(s1, type = "area")                 # area/mosaic plot
+#' plot(s1, type = "tab")                  # 2x2 frequency/contingency table
+#' plot(s1, type = "bar", dir = 2)         # bar plot
+#' plot(s1, type = "icons")                # icon array
+#' plot(s1, type = "curve", what = "all")  # curves as fn. of prev
+#' plot(s1, type = "plane", what = "NPV")  # plane as function of sens & spec
+#' plot(s1, type = "default")              # unknown type: use default plot
 #'
 #' @family visualization functions
 #' @family riskyr scenario functions
