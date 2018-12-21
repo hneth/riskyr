@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 12 11
+## 2018 12 21
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 ## Note:
@@ -643,11 +643,8 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
   if (!type %in% c(#
     # plot_prism:
     "prism", "fprism", "tree", "ftree", "net", "fnet", "network",
-    "onet", "ofnet",    # old: plot_fnet
-    "otree", "oftree",  # old: plot_tree
     # plot_area:
-    "area", "farea", "mosaic", # call: plot_area
-    "omosaic", "omosaicplot",  # old: plot_mosaic
+    "area", "farea", "mosaic",
     # plot_tab:
     "tab", "table", "ftab", "ctab",
     # plot_icons:
@@ -676,7 +673,6 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
   #     }
   #   }
   # }
-
 
   ## (2) Use lbl info of scenario x for current txt information: ----------
 
@@ -810,62 +806,6 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
     )
   } # if (type == "plane")
 
-  ## OLDER plotting functions: -----
-
-  ## 8. old frequency network/net/fnet:
-  if (((substr(type, 1, 4)) == "onet") || (substr(type, 1, 5) == "ofnet")) {
-
-    plot_fnet(prev = x$prev,
-              sens = x$sens, mirt = NA,
-              spec = x$spec, fart = NA,
-              N = x$N,
-              ## Options:
-              title_lbl = x$scen_lbl,
-              popu_lbl = x$popu_lbl,
-              cond.true_lbl = x$cond.true_lbl,
-              cond.false_lbl = x$cond.false_lbl,
-              dec.pos_lbl = x$dec.pos_lbl,
-              dec.neg_lbl = x$dec.neg_lbl,
-              hi_lbl = x$hi_lbl, mi_lbl = x$mi_lbl,
-              fa_lbl = x$fa_lbl, cr_lbl = x$cr_lbl,
-              ...
-    )
-
-  } # if (type == "old network")
-
-  ## 9. old frequency tree:
-  if ((type == "otree") || (type == "oftree")) {
-
-    plot_tree(prev = x$prev,             # probabilities
-              sens = x$sens, mirt = NA,
-              spec = x$spec, fart = NA,  # was: num$fart,
-              N = x$N,    # ONLY freq used (so far)
-              ## Options:
-              title_lbl = x$scen_lbl,     # custom text labels
-              popu_lbl = x$popu_lbl,
-              cond.true_lbl = x$cond.true_lbl,
-              cond.false_lbl = x$cond.false_lbl,
-              dec.pos_lbl = x$dec.pos_lbl,
-              dec.neg_lbl = x$dec.neg_lbl,
-              hi_lbl = x$hi_lbl, mi_lbl = x$mi_lbl,
-              fa_lbl = x$fa_lbl, cr_lbl = x$cr_lbl,
-              ...
-    )
-
-  } #  if (type == "otree")
-
-  ## 10. old mosaic plot:
-  if (substr(type, 1, 7) == "omosaic") {
-    plot_mosaic(prev = x$prev,
-                sens = x$sens, mirt = NA,
-                spec = x$spec, fart = NA,
-                N = x$N,
-                ## Options:
-                title_lbl = x$scen_lbl,
-                ...)
-
-  } # if (type == "omosaic")
-
 } # plot.riskyr end.
 
 ## Check: ------
@@ -903,7 +843,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 # plot(s25, type = "curve", what = "all")  # curves as fn. of prev
 # plot(s25, type = "plane", what = "NPV")  # plane as function of sens & spec
 #
-# # Older plot types (obsolete):
+# # Older plot types (obsolete and RETIRED):
 # plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
 # plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
 # plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
@@ -1339,10 +1279,10 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 # scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 # plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
 
-
 ## (*) Done: ----------
 
 ## - Clean up code.  [2018 08 22].
+## - Remove retired functions (otree, fnet/ofnet, omosaic). [2018 12 21].
 
 ## (+) ToDo: ----------
 
