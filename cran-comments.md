@@ -7,6 +7,7 @@ This is the 1st submission of riskyr 0.2.0.
 * local OS X install, R 3.5.1
 * win-builder (devel and release)
 * Travis (x86_64-pc-linux-gnu, Ubuntu 14.04.5 LTS)
+* Rhub (Windows Server 2008 R2 SP1, R-devel, 32/64 bit)
 
 ## R CMD check results
 
