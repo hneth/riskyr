@@ -431,6 +431,8 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 -   Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. *Psychological Science*, *23*, 547–553.
 
+-   Garcia-Retamero, R., & Cokely, E. T. (2017). Designing visual aids that promote risk literacy: A systematic review of health research and evidence-based design heuristics. *Human Factors*, *59*, 582–627.
+
 -   Gigerenzer, G. (2002). *Reckoning with risk: Learning to live with uncertainty*. London, UK: Penguin.
 
 -   Gigerenzer, G. (2014). *Risk savvy: How to make good decisions*. New York, NY: Penguin.
