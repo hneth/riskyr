@@ -1,7 +1,7 @@
 ---
 title: "Adopting Functional Perspectives"
 author: "Hansjörg Neth"
-date: "2018 02 01"
+date: "2018 02 10"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -70,35 +70,36 @@ $$y \ = \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\text
 
 As an example, reconsider our original scenario (on mammography screening, see [user guide](A_user_guide.html)). Earlier, we computed a positive predictive value (PPV) of 7.8%. But rather than just computing a single value, we could ask: How do values of PPV develop as a function of prevalence? The `plot_curve` function illustrates this relationship: 
 
-```{r plot_curve_1, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of an prevalence (for given values of sensitivity and specificity) in the original mammography screening scenario."}
+```{r plot_curve_1, fig.width = 7.0, fig.height = 5, fig.show = 'asis', fig.cap = "Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario."}
 plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV"), 
-           title.lbl = "Mammography screening", cex.lbl = .8)
+           title_lbl = "Mammography screening", cex.lbl = .8)
 ```
 
 The curves illustrate that values of `PPV` and `NPV` crucially depend on the value of prevalence `prev` in the current population. In fact, they actually vary across their entire range (i.e., from 0 to 1), rendering any communication of their value utterly meaningless without specifying the current population's prevalence value `prev`. 
 
-The dependency of `PPV` and `NPV` on `prev` can be illustrated by assuming a higher prevalence rate. For instance, if we knew that some woman was genetically tested and known to exhibit the notorious BRCA1 mutation, the prevalence value of her corresponding population (given a positive mammography result in a routine screening) is increased to about 60%: 
+The dependency of `PPV` and `NPV` on `prev` can be illustrated by assuming a higher prevalence rate. For instance, if we knew that some woman was genetically tested and known to exhibit the notorious BRCA1 mutation, the prevalence value of her corresponding population (given a positive mammography result in a routine screening) is increased to about 60% (graph not shown here to save space, but try running the following code for yourself): 
 
-```{r plot_curve_2, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60%."}
+```{r plot_curve_2, eval = FALSE, fig.width = 7.0, fig.height = 5, fig.show = 'asis', fig.cap = "Showing PPV and NPV as a function of prevalence (for an increased prevalence of 60% and given values of sensitivity and specificity)."}
 high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
 plot_curve(prev = high.prev, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV"), 
-           title.lbl = "Mammography screening (BRCA1 mutation)", cex.lbl = .8)
+           title_lbl = "Mammography screening (BRCA1 mutation)", cex.lbl = .80)
 ```
 
 This shows that --- given an increased prevalence value `prev` of 60% --- the positive predictive value `PPV` of a positive test result increases from 7.8% (in the standard population) to around 93% (given the BRCA1 mutation). 
 
-Other curves (or rather lines) drawn by `plot_curve` include the proportion of positive decisions `ppod` and overall accuracy `acc`, 
-each as a function of prevalence `prev`:
+In addition, the actual values of population and test parameters are often unclear. The `plot_curve` function reflects this by providing an uncertainty parameter `uc` that is expressed as a percentage of the specified value. For instance, the following assumes that our parameter values may deviate up to 5% from the specified values and marks the corresponding ranges of uncertainty as shaded areas around the curves that assume exact parameter values. 
 
-```{r plot_curve_3, fig.width = 7.2, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV and NPV as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60%."}
+Both the notions of expressing probabilities as a function of prevalence and of uncertainty ranges for imprecise parameter estimates can be extended to other probabilities. The following curves show the full set of curves currently drawn by `plot_curve`. In addition to the predictive values `PPV` and `NPV`, we see that the proportion of positive decisions `ppod` and the overall accuracy `acc` also vary as a function of prevalence `prev`:
+
+```{r plot_curve_3, fig.width = 7.0, fig.height = 5, fig.show = 'asis', fig.cap = "Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%."}
 high.prev <- .60   # assume increased prevalence due to BRCA1 mutation
 
 plot_curve(prev = high.prev, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV", "ppod", "acc"), 
-           title.lbl = "Mammography screening (BRCA1 mutation)", cex.lbl = .8)
+           title_lbl = "Mammography screening (BRCA1 mutation)", uc = .05, cex.lbl = .80)
 ```
 
 
@@ -109,14 +110,27 @@ The function `plot_plane` draws a plane for a selected parameter as a function o
 
 $$y \ = \ f(\texttt{sens} \times\ \texttt{spec} \textrm{, both from 0 to 1, for given value of } \texttt{prev}) \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \ \ (2)$$
 
-Some examples:
+Some examples (not shown here, but please try evaluating the following function calls):
 
-```{r plot_plane, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "Planes that show PPV, NPV, the proportion of positive predictions (ppod) and overall accuracy (acc) as a function of sensitivity and specificity (for given prevalence)."}
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "PPV",  title.lbl = "A. Mammography (BRCA1)", cex.lbl = .8)
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "NPV",  title.lbl = "B. Mammography (BRCA1)", cex.lbl = .8)
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "ppod", title.lbl = "C. Mammography (BRCA1)", phi = 45, cex.lbl = .8)
-plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "acc",  title.lbl = "D. Mammography (BRCA1)", cex.lbl = .8)
+```{r plot_plane_PPV, eval = TRUE, fig.width = 5, fig.height = 4, fig.show = 'asis', fig.cap = "Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence."}
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "PPV",  
+           title_lbl = "A. Mammography (BRCA1)", cex.lbl = .8)
 ```
+
+Related plots (showing different probabilities) include:
+
+```{r plot_planes_else, eval = FALSE, fig.width = 6, fig.height = 4.5, fig.show = 'asis', fig.cap = "Planes showing NPV, the proportion of positive predictions (ppod), and overall accuracy (acc), as a function of sensitivity and specificity for a given prevalence."}
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "NPV",  
+           title_lbl = "B. Mammography (BRCA1)", cex.lbl = .8)
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "ppod", what_col = "firebrick", 
+           title_lbl = "C. Mammography (BRCA1)", phi = 45, cex.lbl = .8)
+plot_plane(prev = high.prev, sens = .80, spec = (1 - .096), what = "acc",  what_col = "forestgreen", 
+           title_lbl = "D. Mammography (BRCA1)", cex.lbl = .8)
+```
+
+
+Overall, viewing conditional probabilities (like `PPV`/`NPV`, but also `ppod` and `acc`) as a function of other probabilities (e.g., `prev`, `sens`, `spec` or `fart`) often provides unexpected relationships and new insights.
+
 
 ## Contact
 

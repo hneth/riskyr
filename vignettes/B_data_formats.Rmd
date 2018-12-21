@@ -1,7 +1,7 @@
 ---
 title: "Data Formats"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 05"
+date: "2018 02 10"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -160,9 +160,10 @@ These numbers are defined to reflect particular quantities and can be expressed 
 
 Note that the prism diagram (`plot_prism`) shows a total of 18 probabilities: 3 perspectives (`by = "cd"`, `by = "dc"`, and `by = "ac"`) and 6 links denoting probabilities per perspective. However, as some probabilities are the complements of others, we currently do not identify all possible probabilities.
 
+
 ### Non-conditional vs. conditional probabilities
 
-Note that there are several _non-conditional_ probabilities:
+Note that a typical `riskyr` scenario contains several _non-conditional_ probabilities:
 
 - The prevalence `prev` (1.) only depends on features of the _condition_.
 - The proportion of positive decisions `ppod` (6.) only depends on features of the _decision_. 
@@ -170,9 +171,9 @@ Note that there are several _non-conditional_ probabilities:
 
 The other probabilities are _conditional_ probabilities based on 3 perspectives:
 
-- by condition: conditional probabilities (2. to 5.) depend on the _condition_'s `prev` and features of the _decision_.
-- by decision: conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.
-- by accuracy: conditional probabilities based on _accuracy_ `acc` are currently not computed or defined. 
+1. by condition: conditional probabilities (2. to 5.) depend on the _condition_'s `prev` and features of the _decision_.  
+2. by decision: conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.  
+3. by accuracy: conditional probabilities based on _accuracy_ `acc` are currently not computed or defined.   
 
 ### Relationships among probabilities
 
@@ -212,7 +213,7 @@ Although this is how the functions `comp_PPV` and `comp_NPV` compute the desired
 
 ## Probabilities as ratios of frequencies
 
-The easiest way to think about, define, and compute the probabilities (contained in `prob`) are in terms of frequencies (contained in `freq`): 
+The easiest way to think about, define, and compute the probabilities (contained in `prob`) is in terms of frequencies (contained in `freq`): 
 
 
 | Nr.| Variable | Name          | Definition                          | as Frequencies |

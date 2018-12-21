@@ -1,7 +1,7 @@
 ---
 title: "Confusion Matrix and Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2018 02 08"
+date: "2018 02 12"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -117,7 +117,7 @@ plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def", title_lbl = "Scenario 1")
 
 ## Plot an existing riskyr scenario: ----- 
-# s <- scenarios$n21
+# s <- scenarios$n1
 # plot(s, type = "tab", p_lbl = "def")
 ```
 
@@ -138,7 +138,7 @@ plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
 
 ### Accuracy as a 3rd perspective
 
-A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are _correct_ decisions and which are _erroneous_ decisions? Crucially, this question about decision _accuracy_ can neither be answered by only considering each individual's condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual's decision (i.e., the rows of the matrix). Instead, answering the question about accuracy requires that the other dimensions have been determined and then considering the _correspondence_ between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains _two_ types of correct decisions and _two_ types of errors:
+A 3rd way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are _correct_ decisions and which are _erroneous_ decisions? Crucially, this question about decision _accuracy_ can neither be answered by only considering each individual's condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual's decision (i.e., the rows of the matrix). Instead, answering the question about accuracy requires that the other dimensions have been determined and then considering the _correspondence_ between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains _two_ types of correct decisions and _two_ types of errors:
 
 - A decision is _correct_, when it corresponds to the condition. This is the case for two cells in (or the "\" diagonal of) the confusion matrix:
 
