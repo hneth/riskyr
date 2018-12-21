@@ -285,33 +285,33 @@ plot(hustosis, type = "bar",   dir = 2)
 <!-- 2: Loading and using pre-defined scenarios -->
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), `riskyr` provides a set of — currently 25 — pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them.
+As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), `riskyr` provides a set of — currently 24 — pre-defined scenarios (stored in a list `scenarios`). Here, we provide an example that shows how you can select and explore them.
 
 #### Selecting a scenario
 
-Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 21 to `s21`:
+Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 10 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 to `s10`:
 
 ``` r
-s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21
+s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 ```
 
 #### Scenario summary
 
-Our selected scenario object `s21` is a list with 29 elements, which describe it in both text and numeric variables. The following commands provide an overview of `s21` in text form:
+Our selected scenario object `s10` is a list with 29 elements, which describe it in both text and numeric variables. The following commands provide an overview of `s10` in text form:
 
 ``` r
-s21$scen_lbl   # a descriptive label
-#> [1] "PSA test 1 (high prev)"
-s21$cond_lbl   # the current condition
-#> [1] "prostate cancer"
-s21$dec_lbl    # the current decision
-#> [1] "PSA test"
-s21$popu_lbl   # the current population
-#> [1] "Patients with symptoms"
-s21$scen_apa   # scenario source (APA) 
+s10$scen_lbl   # a descriptive label
+#> [1] "PSA test (patients)"
+s10$cond_lbl   # the current condition
+#> [1] "Prostate cancer"
+s10$dec_lbl    # the current decision
+#> [1] "PSA-Test"
+s10$popu_lbl   # the current population
+#> [1] "Male patients with symptoms"
+s10$scen_apa   # scenario source (APA) 
 #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
-# summary(s21) # summarises a scenario
+# summary(s10) # summarises a scenario
 ```
 
 Generating some `riskyr` plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.
@@ -321,7 +321,7 @@ Generating some `riskyr` plots allows a quick visual exploration of the scenario
 A tree diagram is a prism plot that views the population from only one perspective, but provides a quick overview. In the following plot, the boxes are depicted as squares with area sizes that are scaled by relative frequencies (using the `area = "sq"` argument):
 
 ``` r
-plot(s21, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
+plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
      f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
 
@@ -330,7 +330,7 @@ plot(s21, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
 The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). `riskyr` provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup:
 
 ``` r
-plot(s21, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
+plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
      p_lbl = "num")                                  # numeric probability labels
 ```
 
@@ -339,21 +339,21 @@ plot(s21, type = "prism", by = "acdc", area = "hr",  # prism plot with horizonta
 #### Icon array
 
 ``` r
-plot(s21, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
+plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
 ```
 
 <!-- ![](inst/pix/README-ex2_icons-1.png) -->
 #### Area plot
 
 ``` r
-plot(s21, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
+plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
 ```
 
 <!-- ![](inst/pix/README-ex2_area-1.png) -->
 #### Table plot
 
 ``` r
-plot(s21, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
+plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
 ```
 
 <!-- ![](inst/pix/README-ex2_tab-1.png) -->
@@ -362,7 +362,7 @@ plot(s21, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with 
 The following curves show the values of several conditional probabilities as a function of prevalence:
 
 ``` r
-plot(s21, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
+plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 ```
 
 <!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png) -->
@@ -373,7 +373,7 @@ Adding the argument `what = "all"` also shows the proportion of positive decisio
 The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence):
 
 ``` r
-plot(s21, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
 <!-- ![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png) -->
