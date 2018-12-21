@@ -1,5 +1,5 @@
 ## read_data.R | riskyr
-## 2018 11 24
+## 2018 12 21
 ## Read data file for scenario information:
 ## -----------------------------------------------
 
@@ -12,7 +12,7 @@
 
 ## Working (except for German Umlauts):
 # df_scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0 [2018 02]
-# df_scenarios <- read.csv2("./data-raw/scenarios_8.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0.935 [2018 11]
+# df_scenarios <- read.csv2("./data-raw/scenarios_10.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0.935 [2018 12]
 
 ### Not working any better:
 ## df_scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
@@ -20,9 +20,9 @@
 ## df_scenarios <- read.table("./data_sources/scenarios_6_tab.txt", sep = "\t", stringsAsFactors = FALSE, fileEncoding = "UTF-16")
 
 ## (2) Check:
-# dim(df_scenarios)     # 26 rows x 21 variables
+# dim(df_scenarios)     # 25 rows x 21 variables
 # names(df_scenarios)
-## View(df_scenarios)
+# View(df_scenarios)
 
 ## Note that German Umlauts are corrupted.
 
@@ -47,7 +47,7 @@ df_scenarios <- NULL  # re-initialize scenarios_df
 load("./data/df_scenarios.rda")  # load scenarios_df from .rda file (as data frame)
 
 ## Check:
-# dim(df_scenarios)     # 26 rows x 21 variables
+# dim(df_scenarios)     # 25 rows x 21 variables
 # names(df_scenarios)
 ## View(df_scenarios)
 

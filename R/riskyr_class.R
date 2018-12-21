@@ -2,19 +2,18 @@
 ## 2018 12 21
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
-## Note:
+
 ## - Re-define df_scenarios as a list of riskyr objects.
 
 ## (A) Create riskyr objects: ---------------
 
 ## Get some exemplary scenarios with "riskyr" class attribute -----
 
+# scenario1 <- df_scenarios[1, ]  # get scenario 3 of df_scenarios
+# class(scenario1) <- "riskyr"
+
 # scenario2 <- df_scenarios[2, ]  # get scenario 2 of df_scenarios
 # class(scenario2) <- "riskyr"
-
-# scenario3 <- df_scenarios[3, ]  # get scenario 3 of df_scenarios
-# class(scenario3) <- "riskyr"
-
 
 ## (1) Function to create diagnostic riskyr scenarios: ------
 
@@ -500,7 +499,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
   s <- df_scenarios[i, ]
 
   ## (2) pass scenario s to riskyr function:
-  cur.scen <- riskyr(scen_lbl = s$scen_lbl, scen_lng = s$scen_lng, scen_txt = s$scen_txt,
+  cur_scen <- riskyr(scen_lbl = s$scen_lbl, scen_lng = s$scen_lng, scen_txt = s$scen_txt,
                      popu_lbl = s$popu_lbl,                                                                     # population dimension
                      # ToDo: N_lbl = txt$N_lbl,
                      cond_lbl = s$cond_lbl, cond.true_lbl = s$cond.true_lbl, cond.false_lbl = s$cond.false_lbl, # by condition
@@ -512,8 +511,8 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
                      N = s$N,
                      scen_src = s$scen_src, scen_apa = s$scen_apa)  # use initialization function.
 
-  # (3) Add cur.scen (riskyr object) as i-th element of scenarios
-  scenarios[[i]] <- cur.scen
+  # (3) Add cur_scen (riskyr object) as i-th element of scenarios
+  scenarios[[i]] <- cur_scen
 
 } # end for ...
 
@@ -1082,68 +1081,65 @@ print.summary.riskyr <- function(x = NULL, ...) {
 
 ## (C) Demo: Typical user interaction / session: ----------
 
-## 1. Defining and viewing your own scenario: -----------
+## 1. Defining and viewing a scenario: -----------
 ## see Vignette of riskyr primer
 
-## 2. Exporing pre-defined scenarios: -----------
+## 2. Exploring pre-defined scenarios: -----------
 
-## Example 1: Mammography screening (standard example) -----
-## Source: Hoffrage et al. (2015), p. 3
-
-# ## (a) Choosing a scenario
-# s25 <- scenarios[[25]] # select by number: [[dd]]
-# s25 <- scenarios$n25   # select by name:   $ndd
-
-# ## (b) Summary info:
-# summary(s25)
-
-# ## (c) Visualization:
-# plot(s25)  # => default plot (fnet)
-# plot(s25, type = "icons")
-# plot(s25, type = "curve")
-
-
-## Example 2: PSA screening ------
-## Source: Arkes & Gaissmaier (2012), p. 550
-
-## Overview:
-# summary(scenarios$n21)
-
-## Visualization:
-# plot(scenarios$n21, type = "tree", area = "sq")
-# plot(scenarios$n21, type = "icons")
-# plot(scenarios$n21, type = "curves", what = "all")
-# plot(scenarios$n21, type = "planes", what = "PPV")
-
-## Contrast with lower prevalence version:
-
-## Overview:
-# summary(scenarios$n22)
-
-## Visualization:
-# plot(scenarios$n22, type = "tree", area = "sq")
-# plot(scenarios$n22, type = "icons")
-# plot(scenarios$n22, type = "curves", what = "all")
-# plot(scenarios$n22, type = "planes", what = "PPV")
-
-
-## Example 3: Bowel cancer (FOB screening): ------
+## Example 1: Bowel cancer (FOB screening): ------
 ## Source: https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values#Worked_example
 
-# s20 <- scenarios$n20   # select by name:   $ndd
+## Select scenario 1:
+# s1 <- scenarios$n1   # select by name:   $ndd
 
-## Overview:
-# summary(s20)
-# summary(s20, summarize = "freq")
+# summary(s1)
+# summary(s1, summarize = "freq")
 
-## Visualization:
-# plot(s20, type = "tree", area = "vr") # => tree diagram (with vertical rectangles)
-# plot(s20, type = "curve", what = "all")
-# plot(s20, type = "icons")
-# plot(s20, type = "icons", type = "mosaic")  # passing on additional parameters.
-# plot(s20, type = "mosaic")
-# plot(s20, type = "plane", what = "NPV")
-## plot(s20, type = "wetwork")
+# plot(s1, type = "tree", area = "hr") # => tree diagram (with vertical rectangles)
+# plot(s1, type = "curve", what = "all", uc = .05)
+# plot(s1, type = "icons")
+# plot(s1, type = "icons", arr_type = "mosaic")  # passing on additional parameters.
+# plot(s1, type = "mosaic")
+# plot(s1, type = "plane", what = "NPV")
+# plot(s1, type = "wetwork")
+
+
+## Example 2: Mammography screening (standard example) -----
+## Source: Hoffrage et al. (2015), p. 3
+
+## (a) Select scenario 6:
+# s6 <- scenarios[[6]] # select by number: [[dd]]
+# s6 <- scenarios$n6   # select by name:   $ndd
+
+## (b) Summary:
+# summary(s6)
+
+## (c) Visualization:
+# plot(s6)  # => default plot (fnet)
+# plot(s6, type = "icons")
+# plot(s6, type = "curve")
+
+
+## Example 3: PSA screening ------
+## Source: Arkes & Gaissmaier (2012), p. 550
+
+## A. Low prevalence version (Scenario 9: prev = 6.3%):
+
+# summary(scenarios$n9)
+
+# plot(scenarios$n9, type = "tree", area = "sq")
+# plot(scenarios$n9, type = "icons")
+# plot(scenarios$n9, type = "curves", what = "all")
+# plot(scenarios$n9, type = "planes", what = "PPV")
+
+## B. Contrast with high prevalence version (Scenario 10: prev = 50%):
+
+# summary(scenarios$n10)
+
+# plot(scenarios$n10, type = "tree", area = "sq")
+# plot(scenarios$n10, type = "icons")
+# plot(scenarios$n10, type = "curves", what = "all")
+# plot(scenarios$n10, type = "planes", what = "PPV")
 
 
 ## (3) Read riskyr scenario from a population (popu, given as data frame) ----------
@@ -1282,7 +1278,8 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 ## (*) Done: ----------
 
 ## - Clean up code.  [2018 08 22].
-## - Remove retired functions (otree, fnet/ofnet, omosaic). [2018 12 21].
+## - Remove retired functions (otree, fnet/ofnet, omosaic). [2018 12 21]
+## - Update scenario data (and order). [2018 12 21]
 
 ## (+) ToDo: ----------
 
