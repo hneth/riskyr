@@ -12,7 +12,7 @@
 
 ## Working (except for German Umlauts):
 # df_scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0 [2018 02]
-# df_scenarios <- read.csv2("./data-raw/scenarios_12.csv", stringsAsFactors = FALSE) # riskyr 0.1.0.948 [2018 12 21]
+# df_scenarios <- read.csv2("./data-raw/scenarios_12.csv", stringsAsFactors = FALSE) # riskyr 0.2.0 [2018 12]
 
 ### Not working any better:
 ## df_scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
@@ -44,23 +44,20 @@
 
 df_scenarios <- NULL  # re-initialize scenarios_df
 
-load("./data/df_scenarios.rda")  # load scenarios_df from .rda file (as data frame)
+load("./data/df_scenarios.rda")  # load df_scenarios from .rda file (as data frame)
 
 ## Check:
 # dim(df_scenarios)     # 25 rows x 21 variables
 # names(df_scenarios)
 ## View(df_scenarios)
 
-
 ## Older ways to load data:
 # df_scenarios <- read.csv2("./data/scenarios.csv", stringsAsFactors = FALSE) # from .csv file
 # load("./data/scenarios.RData") # from .RData file
 
-
-## ToDo: HACK: to be removed later: -----------
+## Check/HACK: -----------
 
 # scenarios_df <- df_scenarios # use OBSOLETE name for defining objects (in riskyr_class.R)
-
 
 ## (+) ToDo: -------------------------------------
 
