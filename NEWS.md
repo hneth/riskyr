@@ -1,27 +1,18 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.946) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.2.0.901) is available at <https://github.com/hneth/riskyr/>. 
 
-# Changes
+# riskyr 0.2.0
+
+riskyr 0.2.0 was released on December 20, 2018.
 
 Log of changes since last release: 
 
 ## Major changes
 
-- Retiring obsolete functions [2018-12]:
-The functions `plot_fnet` and `plot_tree` are replaced by `plot_prism`;  
-and `plot_mosaic` is replaced by `plot_area`.  
-
-- Updating `plot_icons` function [2018-12]: 
-Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions. 
-
 - New `plot_prism` function [2018-11]: 
 Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older `plot_fnet` and `plot_tree` functions (and removes dependency on the `diagram` package).
-
-- New `plot_tab` function [2018-10]: 
-Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); 
-a variant of `plot_area` that does not scale area sizes. 
 
 - New `plot_area` function [2018-10]: 
 Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); 
@@ -30,13 +21,23 @@ replaces the older `plot_mosaic` function (and removes dependencies on the `grid
 - New `plot_bar` function [2018-08]: 
 Show scenario frequencies as vertical bars (in various configurations). 
 
+- New `plot_tab` function [2018-10]: 
+Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); 
+a variant of `plot_area` that does not scale area sizes. 
+
+- Improved `plot_icons` function [2018-12]: 
+Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions.
+
+- Retiring obsolete functions [2018-12]:
+The functions `plot_fnet` and `plot_tree` are replaced by `plot_prism`;  
+and `plot_mosaic` is replaced by `plot_area`.  
+
 - New `plot_util.R` collection of graphical utility functions [2018-08-15]: 
 Define a new `box` object type and various functions for plotting, labeling, and linking them 
 (to remove dependencies on and limitations by other packages).
 
-- Updating `riskyr` function [2018-03]: 
+- Updated `riskyr` function [2018-03]: 
 Define a scenario from 4 essential frequencies (and checking for consistency with probabilities). 
-
 
 ## Minor changes
 
@@ -82,7 +83,7 @@ Simplify some default text labels (e.g., for current population, condition, and 
 Bug fix to also swap symbols in legend when the symbol order is changed manually.
 
 - `.onAttach` [2018-02]: 
-Cast dice to display a risk-related start-up message. 
+Cast dice to display probabilistic (i.e., risk-related) start-up messages. 
 
 - Many additions and corrections in documentation, examples, and vignettes. 
 
