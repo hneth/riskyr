@@ -410,7 +410,7 @@ To cite `riskyr` in derivations and publications please use:
 -   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).
     `riskyr`: A toolbox for rendering risk literacy more transparent.
     Social Psychology and Decision Sciences, University of Konstanz, Germany.
-    Computer software (R package version 0.2.0, Dec., 2018).
+    Computer software (R package version 0.2.0, Dec. 20, 2018).
     Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
@@ -421,7 +421,7 @@ A BibTeX entry for LaTeX users is:
       year = {2018},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.2.0, Dec., 2018)},
+      note = {R package (version 0.2.0, Dec. 20, 2018)},
       url = {https://CRAN.R-project.org/package=riskyr},
       }    
 
