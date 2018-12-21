@@ -31,8 +31,8 @@
 # save(df_scenarios, file = "./data/df_scenarios.RData")      # 2. as .RData file
 
 ### OLD: Using devtools:
-## devtools::use_data(df_scenarios, overwrite = TRUE) # deprecated
-## devtools::use_data_raw() # deprecated
+# devtools::use_data(df_scenarios, overwrite = TRUE) # deprecated
+# devtools::use_data_raw() # deprecated
 
 ## NEW: Using usethis:
 # usethis::use_data(df_scenarios, overwrite = TRUE)
