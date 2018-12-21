@@ -289,7 +289,7 @@ As defining your own scenarios can be cumbersome and the literature is full of r
 
 #### Selecting a scenario
 
-Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 10 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 to `s10`:
+Let us assume you want to learn more about the controversy surrounding screening procedures of prostate-cancer (known as PSA screening). Scenario 10 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 to `s10`:
 
 ``` r
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10

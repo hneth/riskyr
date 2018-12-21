@@ -125,7 +125,7 @@ all.equal(my_scenario, my_scenario_2)
 
 To make various outputs more recognizable, many aspects of a `riskyr` scenario can be described by setting optional `arguments`: 
 
-* `scen_lbl` specifies a label by which you can reckognize the scenario (e.g., "Identifying reoffenders").  
+* `scen_lbl` specifies a label by which you can recognize the scenario (e.g., "Identifying reoffenders").  
 * `popu_lbl` specifies the population of interest (e.g., "inmates").  
 
 * `cond_lbl` specifies the condition of interest (i.e., "reoffending").
@@ -209,7 +209,7 @@ plot(my_scenario, type = "icons")
 
 From the icon array, we can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark blue). The majority of the reoffenders are classified correctly (shown in dark green rather than dark blue). 
 
-But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will _either_ be classified as a "reoffender found" (if he actually reoffends: dark green icons) _or_ as a "false accusation" (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards "reoffenders found"), it appears that his chances of actually reoffending are only slighly higher than chance.
+But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will _either_ be classified as a "reoffender found" (if he actually reoffends: dark green icons) _or_ as a "false accusation" (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards "reoffenders found"), it appears that his chances of actually reoffending are only slightly higher than chance.
 
 To dig deeper into the dirty details of `my_scenario`, let us look at its `summary`:
 
@@ -250,7 +250,7 @@ Having illustrated how we can create a scenario from scratch and begin to inspec
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios)`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios avaliable, including their relevant condition, their population size `N`, and basic probability information: 
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios)`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios available, including their relevant condition, their population size `N`, and basic probability information: 
 
 ```{r scenario_table, echo = FALSE, results = "asis"}
 library(knitr)
@@ -266,7 +266,7 @@ In the following, we show you can select and explore these scenarios.
 
 #### 1. Selecting a scenario
 
-Let us assume you want to learn more about the controversy surrounding screening prodecures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 (i.e.,  `scenarios$n10`) to an object `s10`:
+Let us assume you want to learn more about the controversy surrounding screening procedures of prostate-cancer (known as PSA screening). Scenario 21 in our collection of `scenarios` is from an article on this topic (Arkes & Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 (i.e.,  `scenarios$n10`) to an object `s10`:
 
 ```{r s10_select}
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10.
@@ -391,7 +391,7 @@ s9$popu_lbl  # shows current population:
 ```
 
 Now re-do the plots (for `s10` above) -- and note the changes between `s9` and `s10`. 
-Importantly, the properties of the test are identical for both scenarios -- only the population (i.e., its prevalance for the condition) has changed. 
+Importantly, the properties of the test are identical for both scenarios -- only the population (i.e., its prevalence for the condition) has changed. 
 
 
 ### Conclusion

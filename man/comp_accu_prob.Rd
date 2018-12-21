@@ -129,7 +129,7 @@ See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for addit
 Note that some accuracy metrics can be interpreted
 as probabilities (e.g., \code{acc}) and some as correlations (e.g., \code{mcc}).
 
-Also, accuracy can be viewd as a probability (e.g., the ratio of or link between
+Also, accuracy can be viewed as a probability (e.g., the ratio of or link between
 \code{\link{dec.cor}} and \code{\link{N}}) or as a frequency type
 (containing \code{\link{dec.cor}} and \code{\link{dec.err}}).
 

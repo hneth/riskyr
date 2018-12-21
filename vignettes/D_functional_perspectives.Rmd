@@ -62,8 +62,7 @@ $$
 
 ## Curves as a function of prevalence
 
-The function `plot_curve` draws the curves (or lines) of selected parameters 
-as a function of the prevalene (with `prev` ranging from 0 to 1) 
+The function `plot_curve` draws the curves (or lines) of selected parameters as a function of the prevalence (with `prev` ranging from 0 to 1) 
 for a given decision process or diagnostic test (i.e., given values of `sens` and `spec`): 
 
 $$y \ = \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \   (1)$$

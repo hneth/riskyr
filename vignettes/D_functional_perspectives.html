@@ -97,7 +97,7 @@ $$
 </div>
 <div id="curves-as-a-function-of-prevalence" class="section level2">
 <h2>Curves as a function of prevalence</h2>
-<p>The function <code>plot_curve</code> draws the curves (or lines) of selected parameters as a function of the prevalene (with <code>prev</code> ranging from 0 to 1) for a given decision process or diagnostic test (i.e., given values of <code>sens</code> and <code>spec</code>):</p>
+<p>The function <code>plot_curve</code> draws the curves (or lines) of selected parameters as a function of the prevalence (with <code>prev</code> ranging from 0 to 1) for a given decision process or diagnostic test (i.e., given values of <code>sens</code> and <code>spec</code>):</p>
 <p><span class="math display">\[y \ = \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \   (1)\]</span></p>
 <p>As an example, reconsider our original scenario (on mammography screening, see <a href="A_user_guide.html">user guide</a>). Earlier, we computed a positive predictive value (PPV) of 7.8%. But rather than just computing a single value, we could ask: How do values of PPV develop as a function of prevalence? The <code>plot_curve</code> function illustrates this relationship:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_curve</span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>), 

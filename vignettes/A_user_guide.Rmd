@@ -193,10 +193,10 @@ For our present purposes, the notion of risk-related information refers to any s
 ### Promoting risk perception and communication
 
 `riskyr` facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:^[The `riskyr` logo (showing 3 different dice facets) also represents its functionality in several ways:  
-1. First, each facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilisitc properties from physical devices.)  
+1. First, each facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilistic properties from physical devices.)  
 2. The 3 facets indicate the 3 perspectives that classify a population of $N$ individuals into 3 binary categories of medical diagnostics: (1) by _condition_ (true vs. false), (2) by _decision_ (positive vs. negative), and (3) by _accuracy_/_correspondence_ (correct vs. incorrect).  
 3. Any individual facet is informative by itself --- and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. `riskyr` provides alternative perspectives that --- when viewed together --- render issues of risk literacy more transparent.  
-4. The 3 facets also hint at `riskyr`'s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualising relationships between variables.  ] 
+4. The 3 facets also hint at `riskyr`'s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualizing relationships between variables.  ] 
 
 - by organizing _data structures_ and _computational functions_ in useful ways;  
 
@@ -216,7 +216,7 @@ library("riskyr")  # loads the package
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 ```
 
-It's good to know that `riskyr` can apply Bayes' formula, but so can any other decent calculator --- including my brain on a good day and some environmental support in the form of paper and pencil. The R in `riskyr` only begins to make sense when considering functions like the following: `comp_prob_prob` computes probabilities from probabilities (hence its name). More precisely, `comp_prob_prob` takes 3 essential probabilities as inputs and returns a list of 10 probabilites as its output: 
+It's good to know that `riskyr` can apply Bayes' formula, but so can any other decent calculator --- including my brain on a good day and some environmental support in the form of paper and pencil. The R in `riskyr` only begins to make sense when considering functions like the following: `comp_prob_prob` computes probabilities from probabilities (hence its name). More precisely, `comp_prob_prob` takes 3 essential probabilities as inputs and returns a list of 13 probabilities as its output: 
 
 ```{r comp_prob_prob_1}
 # Compute probabilities from 3 essential probabilities:                 # Input arguments:
@@ -353,7 +353,7 @@ To obtain the same results when translating back and forth between probabilities
 
 #### All at once: Defining a `riskyr` scenario
 
-In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key varialbes of a risk-related situation, you can always define a `riskyr` scenario:
+In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key variables of a risk-related situation, you can always define a `riskyr` scenario:
 
 ```{r riskyr_scenario_def}
 s <- riskyr(scen_lbl = "Mammography screening", 
@@ -409,7 +409,7 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            by = "cd", title_lbl = "Mammography screening")
 ```
 
-Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalance (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases).
+Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalence (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases).
 
 #### Area plot
 
