@@ -27,9 +27,9 @@ Basic assumptions and goals driving the current development of `riskyr` include:
 
 1.  Effective training in risk literacy requires transparent representations, smart strategies, and simple tools.
 
-2.  More specifically, we aim for a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies.
+2.  We aim for a set of (computational and representational) tools that facilitate various calculations, translations between formats, and a range of alternative views on the interplay between probabilities and frequencies.
 
-3.  We hypothesize that a variety of visualizations, which illustrate how parameters and metrics interact and influence each other, will facilitate active and explorative learning. It is particularly helpful to view the same or similar relationships from alternative perspectives and to observe the change of one parameter as a function of others.
+3.  A variety of visualizations that illustrate the interplay of parameters and metrics facilitate active and explorative learning. It is particularly helpful to view relationships from alternative perspectives and to observe the change of one parameter as a function of others.
 
 Based on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.
 
@@ -107,7 +107,7 @@ library(riskyr)  # loads the package
 
 #### Creating a scenario from probabilities
 
-Let us define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
+We define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
 
 ``` r
 hustosis <- riskyr(scen_lbl = "Example", 
@@ -123,7 +123,7 @@ By providing the argument `N = 1000` we define the scenario for a target populat
 
 #### Summary
 
-To obtain a quick overview of key parameter values, we ask for the `summary` of our `hustosis` scenario:
+To obtain a quick overview of key parameter values, we ask for the `summary` of `hustosis`:
 
 ``` r
 summary(hustosis)  # summarizes key parameter values: 
@@ -365,8 +365,7 @@ The following curves show the values of several conditional probabilities as a f
 plot(s21, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 ```
 
-![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png)
-
+<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png) -->
 Adding the argument `what = "all"` also shows the proportion of positive decisions (`ppod`) and the decision's overall accuracy (`accu`) as a function of the prevalence (`prev`). Would you have predicted their shape without seeing this graph?
 
 #### Planes
@@ -377,8 +376,7 @@ The following surface shows the negative predictive value (NPV) as a function of
 plot(s21, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
-![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png)
-
+<!-- ![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png) -->
 Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call `riskyr.guide()` for viewing the package vignettes and obtaining additional information.
 
 About
@@ -412,7 +410,7 @@ To cite `riskyr` in derivations and publications please use:
 -   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).
     `riskyr`: A toolbox for rendering risk literacy more transparent.
     Social Psychology and Decision Sciences, University of Konstanz, Germany.
-    Computer software (R package version 0.1.0, Feb. 19, 2018).
+    Computer software (R package version 0.2.0, Dec., 2018).
     Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
@@ -423,7 +421,7 @@ A BibTeX entry for LaTeX users is:
       year = {2018},
       organization = {Social Psychology and Decision Sciences, University of Konstanz},
       address = {Konstanz, Germany},
-      note = {R package (version 0.1.0, Feb. 19, 2018)},
+      note = {R package (version 0.2.0, Dec., 2018)},
       url = {https://CRAN.R-project.org/package=riskyr},
       }    
 
