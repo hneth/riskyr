@@ -5,7 +5,6 @@
 ^cran-comments.md$
 ^data-raw$
 ^CODE_OF_CONDUCT\.md$
-^NEWS\.md$
 ^README\.Rmd$
 ^README-.*\.png$
 ^\.travis\.yml$
