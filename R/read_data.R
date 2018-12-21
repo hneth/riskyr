@@ -12,7 +12,7 @@
 
 ## Working (except for German Umlauts):
 # df_scenarios <- read.csv2("./data-raw/scenarios_7.csv", stringsAsFactors = FALSE)  # riskyr 0.1.0 [2018 02]
-# df_scenarios <- read.csv2("./data-raw/scenarios_11.csv", stringsAsFactors = FALSE) # riskyr 0.1.0.946 [2018 12]
+# df_scenarios <- read.csv2("./data-raw/scenarios_12.csv", stringsAsFactors = FALSE) # riskyr 0.1.0.948 [2018 12 21]
 
 ### Not working any better:
 ## df_scenarios <- read.csv2("./data_sources/scenarios_6_win.csv", stringsAsFactors = FALSE)
