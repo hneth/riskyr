@@ -5,7 +5,6 @@
 .Ruserdata
 .DS_Store
 _gitless
-_R_retired
 data-raw
 test_loadingPackage.R
 test_cex_private
