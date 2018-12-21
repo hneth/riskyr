@@ -47,8 +47,9 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
 ## ----plot_default, include = TRUE, fig.width = 7, fig.height = 5.5-------
 plot(my_scenario)
 
-## ----plot_area_sq, include = TRUE, fig.width = 7, fig.height = 5.5-------
-plot(my_scenario, area = "sq", f_lbl = "nam")
+## ----plot_area_sq, eval = FALSE, fig.width = 7, fig.height = 5.5---------
+#  plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
+#  plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 
 ## ----prism_practice, echo = FALSE, eval = FALSE--------------------------
 #  plot(my_scenario, area = "hr")
@@ -72,58 +73,64 @@ plot(my_scenario, type = "curve", uc = .05)
 
 ## ----scenario_table, echo = FALSE, results = "asis"----------------------
 library(knitr)
-scen_table <- df_scenarios[-1,
+scen_table <- df_scenarios[,
                            c("scen_lbl", "cond_lbl", "N", "prev",
                              "sens", "spec", "fart")]
 scen_table[, -c(1:2)] <- round(scen_table[, -c(1:2)], 3)
 names(scen_table) <- c("Scenario", "Condition", "N", "prev", "sens", "spec", "fart")
-kable(scen_table)
+knitr::kable(scen_table)
 
-## ----s21_select----------------------------------------------------------
-s21 <- scenarios$n21  # assign pre-defined Scenario 21 to s21.
+## ----s10_select----------------------------------------------------------
+s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10.
 
-## ----s21_info------------------------------------------------------------
+## ----s10_info------------------------------------------------------------
 # Show basic scenario information: 
-s21$scen_lbl  # shows descriptive label:
-s21$cond_lbl  # shows current condition:
-s21$dec_lbl   # shows current decision:
-s21$popu_lbl  # shows current population:
-s21$scen_apa  # shows current source: 
+s10$scen_lbl  # shows descriptive label:
+s10$cond_lbl  # shows current condition:
+s10$dec_lbl   # shows current decision:
+s10$popu_lbl  # shows current population:
+s10$scen_apa  # shows current source: 
 
-## ----s21_summary---------------------------------------------------------
-summary(s21) # summarizes key scenario information:
+## ----s10_summary---------------------------------------------------------
+summary(s10) # summarizes key scenario information:
 
-## ----s21_icons, fig.width = 7.2, fig.height = 4.5------------------------
-plot(s21, type = "icons", cex_lbl = 0.75)  # plot default icon array: 
+## ----s10_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5----------
+#  plot(s10, type = "tab")                   # plot 2x2 table
+#  plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array
+#  plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
+#  plot(s10, type = "area")                  # plot an area plot
+#  plot(s10, type = "bar", dir = 2)          # plot a bar chart
 
-## ----s21_prism_1, fig.width = 7.2, fig.height = 5.5----------------------
-plot(s21, 
+## ----s10_prism_1, fig.width = 7.2, fig.height = 5.5----------------------
+plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
      p_lbl = "num")    # probability labels: numeric only
 
-## ----s21_prism_2, eval = FALSE-------------------------------------------
-#  plot(s21, by = "cdac", area = "sq")
-#  plot(s21, by = "ac", area = "hr")
+## ----s10_prism_2, eval = FALSE-------------------------------------------
+#  plot(s10, by = "cdac", area = "sq")
+#  plot(s10, by = "ac", area = "hr")
 
-## ----s21_curve, fig.width = 7.2, fig.height = 6.2------------------------
-plot(s21, type = "curve", 
-     what = "all",  # plot "all" available curves 
-     uc = .05)      # with a 5%-uncertainty range 
+## ----s10_curve, eval = FALSE, fig.width = 7.2, fig.height = 6.2----------
+#  plot(s10, type = "curve",
+#       what = "all",  # plot "all" available curves
+#       uc = .05)      # with a 5%-uncertainty range
 
-## ----s21_planes, results = "hold", fig.width = 7.9, fig.height = 4.2-----
+## ----s10_planes, results = "hold", fig.width = 7.9, fig.height = 4.2-----
 op <- par(no.readonly = TRUE)  # save plot settings.
 par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s21, type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
-plot(s21, type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
+plot(s10, type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
+plot(s10, type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
+
 par(op)  # reset plot settings.
 
-## ----s22_summary---------------------------------------------------------
-s22 <- scenarios$n22  # assign pre-defined Scenario 22 to s22. 
+## ----s9_summary----------------------------------------------------------
+# Select Scenario 9: 
+s9 <- scenarios$n9  # assign pre-defined Scenario 9 to s9. 
 
-# Show basic scenario information: 
-s22$scen_lbl  # shows descriptive label:
-s22$popu_lbl  # shows current population:
+# Basic scenario information: 
+s9$scen_lbl  # shows descriptive label:
+s9$popu_lbl  # shows current population:
 

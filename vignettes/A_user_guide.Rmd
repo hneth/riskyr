@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 What is the probability of a disease or clinical condition given a positive test result? 
 This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer. 
 
-Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities (e.g., see Mandel & Navarrete, 2015, and Trevethan, 2017, for overviews), but find it easier to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015; for overviews). 
+Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities (e.g., see Mandel & Navarrete, 2015, and Trevethan, 2017, for overviews), but find it easier to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015). 
 
 <!-- On riskyr: -->
 
@@ -43,9 +43,9 @@ Decades of research on probabilistic reasoning and risk literacy have shown that
 
 This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:
 
-1. We will first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' formula) remains opaque and is rightfully perceived as difficult.
+1. We first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes' formula) remains opaque and is rightfully perceived as difficult.
 
-2. We will then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.
+2. We then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.
 
 3. Finally, we show how `riskyr` renders the problem more transparent by providing three sets of tools:
 
@@ -72,7 +72,6 @@ A basic motivation for developing `riskyr` was to facilitate our understanding o
 > What is the probability that she actually has breast cancer?    
 > 
 > (Hoffrage et al., 2015, p. 3)  
-
 
 ### Information provided and asked
 
@@ -289,10 +288,9 @@ f1
 
 In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](B_data_formats.html) for details on all frequencies.)
 
-
 #### Computing probabilities from frequencies
 
-A translator between two representational formats should work in both directions. 
+A translator between 2 representational formats should work in both directions. 
 Consequently, `riskyr` also allows to compute probabilities by providing frequencies: 
 
 ```{r comp_prob_freq}
@@ -306,7 +304,6 @@ Fortunately, the `comp_prob_freq` does not require all 11 frequencies that were 
 # Check equality of outputs:
 all.equal(p5, p4)
 ```
-
 
 #### Switching back and forth
 
@@ -393,7 +390,6 @@ Inspecting the lists of probabilities and frequencies shows that the two problem
 
 Here are some examples that depict particular aspects of the scenario described above: 
 
-
 #### Icon array
 
 A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:
@@ -404,7 +400,6 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            title_lbl = "Mammography screening")
 ```
 
-
 #### Tree diagram
 
 Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
@@ -414,7 +409,7 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            by = "cd", title_lbl = "Mammography screening")
 ```
 
-Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalance (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases). (For details and additional options of the `plot_prism` function, see the documentation of `?plot_prism`.)
+Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalance (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases).
 
 #### Area plot
 
@@ -427,25 +422,49 @@ plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 The vertical split dissects the population into two subgroups that correspond to the frequency of `cond.true` and `cond.false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left. (For details and additional options of the `plot_area` function, see the documentation of `?plot_area`.)
 
+#### Bar plot 
+
+The tree diagrams from above can also be depicted as vertical bar plots:
+
+```{r plot_bar, eval = FALSE, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A bar plot."}
+plot_bar(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+         by = "all", dir = 2, title_lbl = "Mammography screening")
+```
+
+However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here). 
+
+#### Prism plot
+
+The prism plot (called network diagram in version 0.1.0 of `riskyr`) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts 12 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, `riskyr` visualizes the interplay of frequencies and probabilities in a variety of ways:  
+
+```{r plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates both tree diagrams and represents relative frequency by area size."}
+plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
+           by = "cddc", area = "sq", title_lbl = "Mammography screening")
+```
+
+Changing the `by` and `area` options provides a variety of perspectives on a scenario. Additionally, all plotting functions provide summary information on scenario parameters and current accuracy metrics on the lower margin. Setting `mar_notes = FALSE` gets rid of this display. Similarly, setting `scen_lbl = ""` removes the title and sub-title above the diagrams.
+
 #### Alternative perspectives
 
-Both the tree diagram and the mosaic plot shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec.pos` and `dec.neg` cases: 
+The variety of different graphical options may be overwhelming at first. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself. 
 
-```{r plot_tree_dc, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by decision."}
+Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec.pos` and `dec.neg` cases: 
+
+```{r plot_tree_dc, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by decision."}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
            by = "dc", title_lbl = "Mammography screening")
 ```
 
 Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (`dec.cor` and `dec.err`) decisions:
 
-```{r plot_tree_ac, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by accuracy"}
+```{r plot_tree_ac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by accuracy"}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
            by = "ac", title_lbl = "Mammography screening")
 ```
 
-Similarly, the population area of the mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options `by = "cddc"` and `p_split = "h"`:
+The same perspectives can also be applied to other plots. For instance, the population of the area/mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options `by = "cddc"` and `p_split = "h"`:
 
-```{r plot_mosaic_dc, fig.align = "center", fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+```{r plot_mosaic_dc, eval = FALSE, fig.align = "center", fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           by = "cddc",    # show by condition x decision
           p_split = "h",  # horizontal perspective is primary 
@@ -454,14 +473,14 @@ plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 `riskyr` uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option `area = "hr"` further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:
 
-```{r plot_tree_dc_vr, fig.width = 7, fig.height = 4.5, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles."}
+```{r plot_tree_dc_vr, eval = FALSE, fig.width = 7, fig.height = 4.5, fig.show = 'asis', fig.cap = "A prism diagram that represents relative frequencies as the width of horizontal rectangles."}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
            by = "dc", area = "hr", title_lbl = "Mammography screening")
 ```
 
 Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. Even when relaxing the positional constraint of icons in the icon array, the similarity is still visible:
 
-```{r plot_icons_mosaic, warning = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for 1000 mosaic puzzle parts."}
+```{r plot_icons_mosaic, eval = FALSE, warning = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for 1000 mosaic puzzle parts."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 3,  
            title_lbl = "Mammography screening")
@@ -469,16 +488,7 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 
 Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.) 
 
-#### Prism plot
-
-The following prism plot (aka. network diagram) is a generalization of the tree diagram (Wassner et al., 2004). It plots 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts 12 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network diagram integrates both perspectives of the above tree diagrams:
-
-```{r plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates both tree diagrams and represents relative frequency by area size."}
-plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
-           by = "cddc", area = "sq", title_lbl = "Mammography screening")
-```
-
-In addition to showing the interplay between all key frequencies and probabilities, the network diagram notes accuracy metrics that are based on the confusion matrix depicted as the middle row 4 central nodes (`hi`, `mi`, `fa`, and `cr`). (For more detailed documentation of the graphical options, see the documentation of the `plot_area`, `plot_icon`, and `plot_prism` functions.) 
+For more details, see the documentation and examples of the visualization functions (e.g., `plot_area`, `plot_icon`, and `plot_prism`).
 
 
 ## References
@@ -534,6 +544,11 @@ _Medical Teacher_, _24_, 516--521.
 - Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008). 
 Transparency in risk communication. 
 _Annals of the New York Academy of Sciences_, _1128_, 18--28.
+
+- Mandel, D. R. & Navarrete, G. (2015). 
+Editorial: Improving Bayesian reasoning: What works and why? 
+_Frontiers in Psychology_, _6_, 1872. 
+ doi: [10.3389/fpsyg.2015.01872](https://doi.org/10.3389/fpsyg.2015.01872)
 
 - Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). 
 Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. 
