@@ -32,7 +32,7 @@ plot_mosaic(prev = num$prev, sens = num$sens, mirt = NA,
 \item{show_accu}{Option for showing current and exact
 accuracy metrics \code{\link{accu}} in the plot.}
 
-\item{w_acc}{Weigthing parameter \code{w} used to compute
+\item{w_acc}{Weighting parameter \code{w} used to compute
 weighted accuracy.}
 
 \item{title_lbl}{Text label for current plot title.}

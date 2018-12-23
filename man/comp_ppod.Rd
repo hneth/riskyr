@@ -41,7 +41,7 @@ Values range from 0 (only negative decisions)
 to 1 (only positive decisions).
 
 Importantly, positive decisions \code{\link{dec.pos}}
-are not necessariliy correct decisions \code{\link{dec.cor}}.
+are not necessarily correct decisions \code{\link{dec.cor}}.
 }
 \examples{
 # (1) ways to work:
