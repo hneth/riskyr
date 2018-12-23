@@ -54,7 +54,7 @@
 #' @param show_accu Option for showing current
 #' accuracy metrics \code{\link{accu}} on the margin of the plot.
 #'
-#' @param w_acc Weigthing parameter \code{w} used to compute
+#' @param w_acc Weighting parameter \code{w} used to compute
 #' weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
 #'
 #' Various other options allow the customization of text labels and colors:

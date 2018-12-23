@@ -488,7 +488,7 @@ comp_complete_prob_set <- function(prev,
 #' to 1 (only positive decisions).
 #'
 #' Importantly, positive decisions \code{\link{dec.pos}}
-#' are not necessariliy correct decisions \code{\link{dec.cor}}.
+#' are not necessarily correct decisions \code{\link{dec.cor}}.
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).

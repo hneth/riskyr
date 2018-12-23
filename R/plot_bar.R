@@ -1229,7 +1229,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # accuracy metrics \code{\link{accu}} on the margin of the plot.
 # Default: \code{show_accu = TRUE}.
 #
-# @param w_acc  Weigthing parameter \code{w} used to compute
+# @param w_acc  Weighting parameter \code{w} used to compute
 # weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 # Default: \code{w_acc = .50}.
 

@@ -35,7 +35,7 @@
 #' @param show_accu Option for showing current and exact
 #' accuracy metrics \code{\link{accu}} in the plot.
 #'
-#' @param w_acc Weigthing parameter \code{w} used to compute
+#' @param w_acc Weighting parameter \code{w} used to compute
 #' weighted accuracy.
 #'
 #' @param title_lbl Text label for current plot title.
