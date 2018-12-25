@@ -572,7 +572,8 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   # No probability labels: Detect special strings:
   if (!is.null(p_lbl)) {
-    if (is.na(p_lbl) || p_lbl == "" || tolower(p_lbl) == "null" | tolower(p_lbl) == "na") {
+    if (is.na(p_lbl) ||
+        p_lbl == "" || tolower(p_lbl) == "null" | tolower(p_lbl) == "na") {
       p_lbl <- NA  # set to NA or NULL
     }
   }

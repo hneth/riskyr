@@ -452,6 +452,14 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## 3. Prob links:
 
+  # No probability labels: Detect special strings:
+  if (!is.null(p_lbl)) {
+    if (is.na(p_lbl) ||
+        p_lbl == "" || tolower(p_lbl) == "null" | tolower(p_lbl) == "na") {
+      p_lbl <- NA  # set to NA or NULL
+    }
+  }
+
   # arr_c:
   if ( is.null(arr_c) ) { arr_c <- 0 }  # sensible zero
 
