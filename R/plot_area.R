@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 11 10
+## 2018 12 20
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -569,6 +569,13 @@ plot_area <- function(prev = num$prev,    # probabilities
   }
 
   ## 3. Prob links: ----
+
+  # No probability labels: Detect special strings:
+  if (!is.null(p_lbl)) {
+    if (is.na(p_lbl) || p_lbl == "" || tolower(p_lbl) == "null" | tolower(p_lbl) == "na") {
+      p_lbl <- NA  # set to NA or NULL
+    }
+  }
 
   # p_lwd <- 1  # lwd of p-links
   # p_lty <- 1  # lty of p-links
