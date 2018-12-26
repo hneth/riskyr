@@ -66,12 +66,12 @@
 ## The minimal set of numeric input parameters num
 ## consists of 3 probabilities (+ 1 complement):
 
-## Define defaults for num:  # random:                  # fix: # Description:                                                              # Type of input:
-num.def <- list("prev" = round(runif(1, .01, .50), 2),  # .5   # prevalence in target population = p(condition TRUE)     [basic p]
-                "sens" = round(runif(1, .50, .99), 2),  # .5   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
-                "spec" = round(runif(1, .50, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
-                "fart" = NA,                            # NA   # false alarm rate = 1 - spec        [optional, complement of spec]
-                "N"    = round(runif(1, 10, 99), 0)     # 100  # population size N                                 [optional freq]
+## Define defaults for num:   # random:                  # fix: # Description:                                                              # Type of input:
+num.def <- list("prev" = .5,  # round(runif(1, .01, .50), 2),  # .5   # prevalence in target population = p(condition TRUE)     [basic p]
+                "sens" = .5,  # round(runif(1, .50, .99), 2),  # .5   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
+                "spec" = .5,  # round(runif(1, .50, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
+                "fart" = NA,  # NA  # false alarm rate = 1 - spec        [optional, complement of spec]
+                "N"    = 1000 # round(runif(1, 10, 99), 0)    # 100  # population size N                                 [optional freq]
 )
 
 
