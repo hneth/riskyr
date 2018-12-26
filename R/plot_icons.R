@@ -1,35 +1,34 @@
 ## plot_icons.R | riskyr
-## 2018 12 11
+## 2018 12 20
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
 # Preparation:------------------------------------
 
-# Note: The final function only needs:
+# Note: The final function needs:
 # - A vector of identities (colors.)
 #   This can be obtained in different ways (e.g., calculation by respective function)
-# - A vector of positions (to be generated according to version.)
-# - A number of blocks.
-# - A size for the icons (cex)
+# - the vector of positions (to be generated according to version.)
+# - the number of blocks.
+# - the size for the icons (cex)
 # - etc.?
 
 # Plotting symbols: -----
 
-# Important insight: an icon array is equivalent to an ordered (position constrained) scatterplot.
-# All variants of it display the population concerning some property.
+# Note: An icon array is equivalent to an ordered (position constrained) scatterplot.
+# All variants display the population concerning some property.
 
-# (A) Four types:
+# (A) Distinguish 4 types:
 #  1. Random position, random colors (typical scatterplot)
 #  2. Random position, clustered colors (clustered scatterplot?)
 #  3. Fixed positions (sample of positions constrained), random colors (random icon array)
 #  4. Fixed positions, clustered colors (typical icon array)
 
-# (B) Two dimensions:
+# (B) 2 dimensions:
 #  1. Position
 #  2. Identity
 
 # (C) Translating these dimensions into code:
-
 
 ## plot_icons Documentation: ----------
 
@@ -400,7 +399,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
     random.identities <- TRUE
   }
 
-
   ## A0.1: Check entered parameters for plausibility ------
 
   # Check whether random.position and random.identities are logical:
@@ -436,7 +434,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   } # if (is_valid_prob_set(etc.
 
-  # Check size of N.Ist it needed?  Scale down if not needed and greater 100.000:
+  # Check size of N. Is scaling needed?  Scale down if greater than 100.000:
 
   ## Specify N:
   N <- cur_freq$N
@@ -447,12 +445,12 @@ plot_icons <- function(prev = num$prev,             # probabilities
     # get the minimal N:
     min_N <- riskyr::comp_min_N(prev = prev, sens = sens, spec = spec)
 
-    if (min_N <= 10000) {  # only, if 10000 icons are sufficient:
+    if (min_N <= 10000) {  # only, if 10.000 icons are sufficient:
 
       exponent <- ((N %/% 100000) %/% 10) + 1  # get exponent dependent on size.
       ind_per_icon <- 10 ^ exponent  # individuals per icon.
       # ind_lbl <- paste0("Icons have been scaled: Each icon represents ", ind_per_icon, " individuals.")
-      ind_lbl <- paste0("(Each icon represents ", ind_per_icon, " individuals.)")
+      ind_lbl <- paste0("Each icon represents ", ind_per_icon, " individuals.")
 
       N <- N / (10^exponent)
       cur_freq <- lapply(cur_freq,  function(x) {x / (10^exponent)})  # adjust cur_freq and N.
@@ -1049,58 +1047,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## Margins: ------
 
-  ## OLD code:
-  # if (mar_notes) {
-  #
-  #   ## (a) by condition: 3 basic probabilities
-  #   cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
-  #   mtext(cur_cond_lbl, side = 1, line = 2, adj = 0, col = grey(.33, .99), cex = .85)  # print label
-  #
-  #   # (b) by decision:
-  #   ppod <- comp_ppod(prev, sens, spec)  # compute ppod etc.
-  #   PPV <- comp_PPV(prev, sens, spec)
-  #   NPV <- comp_NPV(prev, sens, spec)
-  #
-  #   cur_dec_lbl <- make_dec_lbl(ppod, PPV, NPV)  # use utility function to format label
-  #   mtext(cur_dec_lbl, side = 1, line = 3, adj = 0, col = grey(.33, .99), cex = .85)  # print label
-  #
-  #   ## (c) Accuracy: Compute and show accuracy metrics
-  #
-  #   if (show_accu) {
-  #
-  #     # (0) Get 4 essential freq from cur_freq (computed above with round = TRUE):
-  #     n_hi <- cur_freq$hi
-  #     n_mi <- cur_freq$mi
-  #     n_fa <- cur_freq$fa
-  #     n_cr <- cur_freq$cr
-  #
-  #     # (1) Compute accuracy info based on current freq (which may be rounded OR not rounded):
-  #     cur_accu <- comp_accu_freq(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr, w = w_acc)
-  #
-  #     # Note: If freq are NOT rounded, then
-  #     #       cur_accu <- comp_accu_prob(prev = prev, sens = sens, spec = spec, w = w_acc)
-  #     #       would yield the same results.
-  #
-  #     # (2) Make label:
-  #     cur_accu_lbl <- make_accu_lbl(acc = cur_accu$acc, w = w_acc, wacc = cur_accu$wacc, mcc = cur_accu$mcc)  # use utility function
-  #
-  #     # (3) Mark IF accu was based on rounded freq:
-  #     # if (round) {  # freq were rounded to compute cur_freq above:
-  #     cur_accu_lbl <- paste0("*", cur_accu_lbl, " (rounded)")
-  #     # }
-  #
-  #     # (4) Plot label:
-  #     mtext(cur_accu_lbl, side = 1, line = 2, adj = 1, col = grey(.33, .99), cex = .85)  # print label
-  #
-  #   } # if (show_accu)...
-  #
-  #
-  #   ## (d) Note scaling:
-  #   mtext(ind_lbl, side = 1, line = 3, adj = 1, col = grey(.11, .99), cex = .85)  # print label
-  #
-  # } # if (mar_notes) etc.
-
-  ## NEW code:
   if (mar_notes) {
 
     # Determine current probabilities cur_prob:
@@ -1108,9 +1054,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
     # Note:
     note_lbl <- ""  # initialize
-    # if ( (area != "no") && (scale == "f") ) { # Note area type and scaling by f:
-    #   note_lbl <- label_note(area = area, scale = scale)
-    # }
+
+    if (ind_lbl != "") {
+      note_lbl <- ind_lbl
+    }
 
     plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
              show_accu = TRUE, accu_from_freq = FALSE, # TRUE,
