@@ -36,19 +36,21 @@ Based on these assumptions and goals, we provide a range of computational and re
 Installation
 ------------
 
-The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
+-   The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ``` r
 install.packages("riskyr")  # install riskyr from CRAN client
 library("riskyr")           # load to use the package
 ```
 
-The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
+-   The most recent development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("hneth/riskyr")
 ```
+
+-   An interactive online version is available at [riskyr.org](http://riskyr.org).
 
 Quick start guide
 -----------------
@@ -386,11 +388,10 @@ About
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 <a href="https://www.spds.uni-konstanz.de/"> <img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" align = "right" width = "300" style = "width: 300px; float: right; border:20;"/> <!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --> </a>
 
-`riskyr` originated out of a series of lectures and workshops on risk literacy in spring/summer 2017. The current version (`riskyr` 0.1.0, as of Feb. 19, 2018) is still under development. Its primary developers and designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and [Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
+`riskyr` originated out of a series of lectures and workshops on risk literacy.
+The current version (`riskyr` 0.2.0, as of Dec. 20, 2018) is still under development. Its primary designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and [Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses.
-
-Please email at <contact.riskyr@gmail.com> in case you want to use, adapt, or share this software.
 
 ### Contact
 
@@ -398,7 +399,9 @@ We appreciate your feedback, comments, or questions.
 
 -   Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
 
--   For general inquiries, please email us at <contact.riskyr@gmail.com>.
+-   Email us at <contact.riskyr@gmail.com> if you want to modify or share this software.
+
+-   See <http://riskyr.org> for an interactive online version.
 
 ### Reference
 
