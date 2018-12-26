@@ -361,15 +361,12 @@ init_pal <- function(N_col = pal_def["N"],          # population N
 #'
 #' }
 #'
-#'
 #' @examples
 #' pal        # shows all current color names and values
 #' pal["hi"]  # shows the current color for hits (true positives)
 #' pal["hi"] <- "gold"  # defines a new color for hits (true positives, TP)
 #'
-#'
 #' @family lists containing current scenario information
-#'
 #'
 #' @seealso
 #' \code{\link{init_pal}} initializes color information;
@@ -421,7 +418,6 @@ pal <- init_pal()  ## apply
 #' @export
 
 pal_org <- pal
-
 
 ## pal_bw: Define a black-and-white (b/w) palette: --------
 
@@ -571,7 +567,8 @@ pal_gbs <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 # pal_gbs["hi"]  # => "#B8D989"
 
 ## Use gbs color scheme (as default):
-pal <- pal_gbs
+# pal <- pal_gbs
+
 
 ## pal_kn: Define a uni.kn palette: --------
 
@@ -690,6 +687,12 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 
 ## Use viridis color scheme (as default):
 # pal <- pal_vir
+
+## Default color: -------
+
+## Use gbs color scheme (as default):
+pal <- pal_gbs
+
 
 ## (*) Done: ----------
 

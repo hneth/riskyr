@@ -65,7 +65,6 @@ pal        # shows all current color names and values
 pal["hi"]  # shows the current color for hits (true positives)
 pal["hi"] <- "gold"  # defines a new color for hits (true positives, TP)
 
-
 }
 \seealso{
 \code{\link{init_pal}} initializes color information;
