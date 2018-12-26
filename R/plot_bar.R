@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 11 26
+## 2018 12 26
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -13,8 +13,6 @@
 ##     OR on exact probabilities (based on scale setting).
 ## (2) plot_bar computes freq from prob,
 ##     but does NOT update global freq and prob objects.
-##     It is NOT "smart" by NOT automatically deriving
-##     freq and prob labels from global objects!
 
 #' Plot bar charts of population frequencies.
 #'
@@ -55,7 +53,6 @@
 #' and various \code{box}) options in
 #' \code{\link{plot_tree}} and \code{\link{plot_fnet}}
 #' for related functions.
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -147,7 +144,6 @@
 #'
 #' @param ...  Other (graphical) parameters
 #' (e.g., \code{cex}, \code{font}, \code{lty}, etc.).
-#'
 #'
 #' @examples
 #' # Basics:
@@ -352,7 +348,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## Define margin areas:
 
   if (nchar(title_lbl) > 0) { n_lines_top <- 3 } else { n_lines_top <- 0 }
-  if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 0 }
+  if (mar_notes) { n_lines_bot <- 3 } else { n_lines_bot <- 1 }
 
   par(mar = c(n_lines_bot, 2, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(3, 1, 1, 1) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
