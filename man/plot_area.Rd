@@ -212,7 +212,7 @@ plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
           by = "cddc", p_split = "v", scale = "p",
           title_lbl = "Text and color:",
           lbl_txt = txt_TF, f_lbl = "namnum",
-          f_lwd = 2, col_pal = pal_4c)
+          f_lwd = 2, col_pal = pal_rgb)
 plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
           by = "cdac", p_split = "h", scale = "f",
           title_lbl = "Text and color:",

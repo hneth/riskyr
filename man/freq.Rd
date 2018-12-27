@@ -88,9 +88,9 @@ names(freq)          # => show names of known frequencies
 \code{\link{init_pal}} initializes color information.
 
 Other lists containing current scenario information: \code{\link{accu}},
-  \code{\link{num}}, \code{\link{pal_4c}},
-  \code{\link{pal_bw}}, \code{\link{pal_kn}},
-  \code{\link{pal_mod}}, \code{\link{pal_org}},
+  \code{\link{num}}, \code{\link{pal_bw}},
+  \code{\link{pal_kn}}, \code{\link{pal_mod}},
+  \code{\link{pal_org}}, \code{\link{pal_rgb}},
   \code{\link{pal_vir}}, \code{\link{pal}},
   \code{\link{prob}}, \code{\link{txt_TF}},
   \code{\link{txt_org}}, \code{\link{txt}}

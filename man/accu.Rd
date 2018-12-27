@@ -120,9 +120,9 @@ The corresponding generating function \code{\link{comp_accu_prob}} computes exac
 \code{\link{txt}} for current text settings.
 
 Other lists containing current scenario information: \code{\link{freq}},
-  \code{\link{num}}, \code{\link{pal_4c}},
-  \code{\link{pal_bw}}, \code{\link{pal_kn}},
-  \code{\link{pal_mod}}, \code{\link{pal_org}},
+  \code{\link{num}}, \code{\link{pal_bw}},
+  \code{\link{pal_kn}}, \code{\link{pal_mod}},
+  \code{\link{pal_org}}, \code{\link{pal_rgb}},
   \code{\link{pal_vir}}, \code{\link{pal}},
   \code{\link{prob}}, \code{\link{txt_TF}},
   \code{\link{txt_org}}, \code{\link{txt}}

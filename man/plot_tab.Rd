@@ -239,10 +239,10 @@ plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps
 
 # Showing prob as lines:
 plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
-         by = "cddc", p_split = "v", col_pal = pal_4c,
+         by = "cddc", p_split = "v", col_pal = pal_rgb,
          p_lbl = "def", brd_dis = .25, arr_c = -3)
 plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
-         by = "cddc", p_split = "h", col_pal = pal_4c,
+         by = "cddc", p_split = "h", col_pal = pal_rgb,
          p_lbl = "namnum", brd_dis = .15, arr_c = +3)
 
 ## Custom text labels and colors:

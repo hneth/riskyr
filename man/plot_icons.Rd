@@ -221,7 +221,7 @@ plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray"
            title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = FALSE)
 
 plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
-           title_lbl = "Green vs. red", col_pal = pal_4c, transparency = .5)
+           title_lbl = "Green vs. red", col_pal = pal_rgb, transparency = .5)
 
 plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
            title_lbl = "Shades of blue", col_pal = pal_kn, transparency = .3)
