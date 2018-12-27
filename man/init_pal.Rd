@@ -67,7 +67,6 @@ length(init_pal())  # => 15 named colors
 pal <- init_pal(N_col = "steelblue4")  # => change a color (stored in pal)
 pal <- init_pal(brd_col = NA)          # => remove a color
 
-
 }
 \seealso{
 \code{\link{num}} contains basic numeric parameters;

@@ -143,7 +143,7 @@ plot_curve(title_lbl = "Testing tiny text labels", cex_lbl = .60)
 plot_curve(title_lbl = "Testing specific colors", uc = .05,
            what = "all", what_col = c("grey", "red3", "green3", "blue3", "gold"))
 plot_curve(title_lbl = "Testing color palette", uc = .05,
-           what = "all", col_pal = pal_gbs)
+           what = "all", col_pal = pal_org)
 
 }
 \seealso{
