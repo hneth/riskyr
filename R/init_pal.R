@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 12 11
+## 2018 12 20
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -391,7 +391,7 @@ pal <- init_pal()  ## apply
 # pal[2] == pal["true"]
 
 
-## pal_org: Keep a copy of pal in pal_org: --------
+## pal_org: A copy of pal: --------
 
 #' Original color palette.
 #'
@@ -419,7 +419,7 @@ pal <- init_pal()  ## apply
 
 pal_org <- pal
 
-## pal_bw: Define a black-and-white (b/w) palette: --------
+## pal_bw:  Black-and-white (b/w) color palette: --------
 
 #' Alternative color palette for black-and-white graphs.
 #'
@@ -468,7 +468,7 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Use bw color scheme (as default):
 # pal <- pal_bw
 
-## pal_4c: Define a reduced color palette: --------
+## pal_4c:  Reduced 4 color palette: --------
 
 #' Alternative color palette for graphs with only 4 colors.
 #'
@@ -520,7 +520,7 @@ pal_4c <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Note: Check http://colorbrewer2.org for alternatives:
 ## http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=4
 
-## pal_gbs: Define a gbs (green/blue/sand) color palette: --------
+## pal_gbs: A gbs (green/blue/sand) color palette: --------
 
 #' Alternative color palette with gbs (green/blue/sand) colors.
 #'
@@ -570,7 +570,7 @@ pal_gbs <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 # pal <- pal_gbs
 
 
-## pal_kn: Define a uni.kn palette: --------
+## pal_kn:  A uni.kn palette: --------
 
 #' Alternative color palette for uni.kn.
 #'
@@ -620,7 +620,7 @@ pal_kn <- init_pal(N_col = grey(.95, .99),     # nearly white
 # pal <- pal_kn
 
 
-## pal_vir: Define a viridis color scale: ----------
+## pal_vir: A viridis color palette: ----------
 
 ## Using viridisLite (version 0.3.0):
 ## URL: https://github.com/sjmgarnier/viridisLite
@@ -688,11 +688,10 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 ## Use viridis color scheme (as default):
 # pal <- pal_vir
 
-## Default color: -------
+## Set default color: -------
 
-## Use gbs color scheme (as default):
+## Use gbs color palette by default:
 pal <- pal_gbs
-
 
 ## (*) Done: ----------
 
