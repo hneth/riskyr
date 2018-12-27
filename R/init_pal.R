@@ -152,7 +152,7 @@ pal_def <- setNames(object = pal_def,
                            names(sdt.colors),
                            "ppv", "npv",
                            "txt", "brd")
-                    )
+)
 
 n_colors <- length(pal_def)  # number of colors for which defaults are currently defined
 # n_colors
@@ -464,22 +464,23 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Use bw color scheme (as default):
 # pal <- pal_bw
 
-## pal_4c:  Reduced 4 color palette: --------
+## pal_rgb: Reduced RGB color palette: --------
 
-#' Alternative color palette for graphs with only 4 colors.
+#' Alternative color palette for graphs (with RGB colors).
 #'
-#' \code{pal_4c} is initialized to a vector of named elements (colors)
-#' to define an alternative (reduced) scenario color scheme.
+#' \code{pal_rgb} is initialized to a vector of named elements (colors)
+#' to define an alternative (reduced) scenario color scheme
+#' (using red, green, and blue colors).
 #'
 #' See \code{\link{pal}} for default color information.
 #'
-#' Assign \code{pal <- pal_4c} to use as default color scheme
+#' Assign \code{pal <- pal_rgb} to use as default color scheme
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_4c        # shows all current color names and values
-#' pal_4c["hi"]  # shows the current color for hits (true positives)
-#' pal_4c["hi"] <- "gold" # defines a new color for hits (true positives, TP)
+#' pal_rgb        # shows all current color names and values
+#' pal_rgb["hi"]  # shows the current color for hits (true positives)
+#' pal_rgb["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
 #'
@@ -489,29 +490,29 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 #'
 #' @export
 
-pal_4c <- init_pal(N_col = grey(.95, .99),     # nearly white
-                   cond.true_col =  grey(.90, .99), # darker white
-                   cond.false_col = grey(.75, .99), # lighter white
-                   dec.pos_col = grey(.85, .99),   # lighter grey
-                   dec.neg_col = grey(.70, .99),   # darker grey
-                   dec.cor_col = grey(.75, .99),   # lighter grey
-                   dec.err_col = grey(.60, .99),   # darker grey
-                   # hi_col = pal["hi"],         # from pal
-                   # mi_col = pal["mi"],         # from pal
-                   # fa_col = pal["fa"],         # from pal
-                   # cr_col = pal["cr"],         # from pal
-                   # PPV_col = grey(.60, .99),   # medium grey
-                   # NPV_col = grey(.45, .99),   # darker grey
-                   txt_col = grey(0, .99),     # black
-                   brd_col = grey(.10, .99)    # almost black
+pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
+                    cond.true_col =  grey(.90, .99), # darker white
+                    cond.false_col = grey(.75, .99), # lighter white
+                    dec.pos_col = grey(.85, .99),   # lighter grey
+                    dec.neg_col = grey(.70, .99),   # darker grey
+                    dec.cor_col = grey(.75, .99),   # lighter grey
+                    dec.err_col = grey(.60, .99),   # darker grey
+                    # hi_col = pal["hi"],         # from pal
+                    # mi_col = pal["mi"],         # from pal
+                    # fa_col = pal["fa"],         # from pal
+                    # cr_col = pal["cr"],         # from pal
+                    # PPV_col = grey(.60, .99),   # medium grey
+                    # NPV_col = grey(.45, .99),   # darker grey
+                    txt_col = grey(0, .99),     # black
+                    brd_col = grey(.10, .99)    # almost black
 )
 
 ## Check:
-# pal_4c
-# pal_4c["N"]  # => "#D9D9D9FC"
+# pal_rgb
+# pal_rgb["N"]  # => "#D9D9D9FC"
 
-## Use reduced color scheme (as default):
-# pal <- pal_4c
+## Use reduced RGB color scheme (as default):
+# pal <- pal_rgb
 
 ## Note: Check http://colorbrewer2.org for alternatives:
 ## http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=4

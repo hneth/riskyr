@@ -188,7 +188,7 @@
 #' ## Local values and custom color/txt settings:
 #' plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
 #'            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
-#'            col_pal = pal_4c)  # custom colors
+#'            col_pal = pal_rgb)  # custom colors
 #'
 #' plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #'            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
@@ -277,7 +277,7 @@
 #'
 #' ## Plain plot versions:
 #' plot_prism(area = "no", f_lbl = "def", p_lbl = NA, col = "white", f_lwd = 1)
-#' plot_prism(area = "no", f_lbl = "nam", p_lbl = NA, col_pal = pal_4c)
+#' plot_prism(area = "no", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 #' plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 #' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #'
@@ -285,7 +285,7 @@
 #' plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
 #' plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = "num")
 #'
-#' plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_4c)
+#' plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_rgb)
 #' plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw, lwd = .5)
 #' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
@@ -298,7 +298,7 @@
 #' plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 #'
 #' plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
-#' plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_4c)
+#' plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 #' plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
 #'
 #' @importFrom graphics par
@@ -1397,7 +1397,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # ## Local values and custom color and text settings:
 # plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
 #            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
-#            col_pal = pal_4c)  # custom colors
+#            col_pal = pal_rgb)  # custom colors
 #
 # plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
@@ -1485,15 +1485,15 @@ plot_prism <- function(prev = num$prev,    # probabilities
 #
 # ## Plain plot versions:
 #
-# plot_prism(area = "no", f_lbl = "nam", p_lbl = NA, col_pal = pal_4c)
+# plot_prism(area = "no", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 # plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 # plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #
-# plot_prism(area = "hr", f_lbl = "abb", p_lbl = NA, arr_c = 0, col_pal = pal_4c)
+# plot_prism(area = "hr", f_lbl = "abb", p_lbl = NA, arr_c = 0, col_pal = pal_rgb)
 # plot_prism(area = "hr", f_lbl = "num", p_lbl = NA, arr_c = 0)
 # plot_prism(area = "hr", f_lbl = "abb", p_lbl = "num", arr_c = 0)
 #
-# plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_4c)
+# plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_rgb)
 # plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw)
 # plot_prism(area = "sq", f_lbl = "def", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #
@@ -1504,10 +1504,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
 #
 # plot_prism(area = "hr", f_lbl = "nam", p_lbl = NA, arr_c = 0, lbl_txt = txt_TF)
 # plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_bw)
-# plot_prism(area = "hr", f_lbl = "num", p_lbl = "num", col_pal = pal_4c)
+# plot_prism(area = "hr", f_lbl = "num", p_lbl = "num", col_pal = pal_rgb)
 #
 # plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
-# plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_4c)
+# plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 # plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
 
 read_by <- function(by){
