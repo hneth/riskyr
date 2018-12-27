@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 11 25
+## 2018 12 10
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1144,10 +1144,11 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
             ly = ly,
             lbl = f_lbl,  # lbl = paste0(fname, " = ", f_val),
             lbl_bot = bot_lbl,
-            col_fill = f_col,
-            # col_brd = cur_pal["brd"],       # default border color
-            # col_txt = cur_pal["txt"],       # default label color
-            ## Graphical parameters:
+            # Color info:
+            col_fill = f_col,          # current fill color
+            col_brd = cur_pal["brd"],  # current border color
+            col_txt = cur_pal["txt"],  # current label color
+            # Graphical parameters:
             lty = lty,
             lwd = lwd,
             cex = cex,
@@ -1438,9 +1439,6 @@ plot_fbox_list <- function(fboxes,
 # Note: lbl_type "def" or "abb" STILL uses hi/mi/fa/cr variable names:
 # plot_fbox_list(boxes, cur_txt = t2, lbl_type = "def", cur_pal = p2, cur_freq = f2)
 
-# +++ here now +++
-
-#
 # # with both (local freq and local col):
 # plot_fbox_list(boxes, cur_freq = f2, cur_pal = my_pal)
 #
@@ -1829,6 +1827,7 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl_type = "default",      # lbl_type ("default", "nam", "num", "namnum")
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
                       cur_prob = prob,           # current prob
+                      cur_pal = pal,             # current color palette
                       ...                        # Other graphical parameters
 ) {
 
@@ -1876,12 +1875,17 @@ plot_link <- function(box1, box2,                # 2 boxes
     y2 <- box2$y  # y in center of box1
   }
 
+  # (2) Interpret current color info:
+  col_brd <- cur_pal["brd"]  # current border color
+  col_txt <- cur_pal["txt"]  # current label color
+
   # (2) Check if no lbl exists and link is a known prob.
   #     If so, label it accordingly:
   if (!is.na(lbl)) {  # lbl is specified:
 
     # (a) plot line with the current lbl:
-    plot_line(x1, y1, x2, y2, lbl = lbl, ...)
+    plot_line(x1, y1, x2, y2, lbl = lbl,
+              col_fill = col_brd, col_txt = col_txt, ...)
 
   } else {  # lbl is NA: Check whether link is between 2 freq boxes with a known prob:
 
@@ -1893,12 +1897,14 @@ plot_link <- function(box1, box2,                # 2 boxes
                           lbl_type = lbl_type, lbl_sep = lbl_sep)  # generate p_lbl
 
       # (b) plot line with this p_lbl:
-      plot_line(x1, y1, x2, y2, lbl = p_lbl, ...)
+      plot_line(x1, y1, x2, y2, lbl = p_lbl,
+                col_fill = col_brd, col_txt = col_txt, ...)
 
     } else {  # NO pname was found by name_prob:
 
       # (c) plot line as is:
-      plot_line(x1, y1, x2, y2, ...)
+      plot_line(x1, y1, x2, y2,
+                col_fill = col_brd, col_txt = col_txt, ...)
 
     }
 
@@ -1922,20 +1928,20 @@ plot_link <- function(box1, box2,                # 2 boxes
 # plot(box_N)
 # plot(box_ct)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-#
-# ## Link positions:
-# # plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
-# # plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
-# # plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
-# # plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
-# # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
-#
-# ## Link options:
-# ## (a) Global prob: Link 2 freq boxes with a known prob:
+
+## Link positions:
+# plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
+# plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
+# plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
+# plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
+# plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
+
+## Link options:
+## (a) Global prob: Link 2 freq boxes with a known prob:
 # plot_link(box_N, box_ct, 4, 3, lbl_pos = 3, cex = .8, arr_code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl_pos = 1, cex = .8)
 # plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"],
-#           lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8)
+#          lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8)
 #
 # ## (b) Local prob:
 # p2 <- comp_prob_prob(prev = .50, sens = .88, spec = .64)
