@@ -1,12 +1,12 @@
 ## init_txt.R | riskyr
-## 2018 11 23
+## 2018 12 20
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
 
-## (A) Set defaults for all titles and labels (txt & prob) ----------
+## (A) Set defaults for all titles and labels (txt & prob): ----------
 
-## txt_lbl_def: Define a list of all scenario and freq labels ----------
+## txt_lbl_def: Define a list of all scenario and freq labels: ----------
 
 txt_lbl_def <- list(
 
@@ -57,7 +57,7 @@ txt_lbl_def <- list(
 # txt_lbl_def$cond.true_lbl
 
 
-## prob_lbl_def: Define a list of all probability labels ----------
+## prob_lbl_def: Define a list of all probability labels: ----------
 
 ## ToDo: Integrate prob_lbl_def into txt (to consult current set of probability names)
 ##       and use in label_prob (to determine probability labels in plot_util.R).
@@ -95,7 +95,7 @@ prob_lbl_def <- list(
 # prob_lbl_def$PPV
 
 
-## (B) Initialization of all text elements (titles and labels) ----------
+## (B) Initialization of all text elements (titles and labels): ----------
 
 #' Initialize basic text elements.
 #'
@@ -250,12 +250,12 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
 
 
 
-## (C) Initialize a list txt to contain all current text elements ---------
+## (C) Initialize txt lists to contain current text elements: ---------
 
 #' List current values of basic text elements.
 #'
 #' \code{txt} is initialized to a list of named elements
-#' to define all titles and labels corresponding to the current scenario
+#' to define all scenario titles and labels
 #' and used throughout the \code{riskyr} package.
 #'
 #' All textual elements that specify titles and details of the current scenario
@@ -317,9 +317,7 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
 #' txt$scen_lbl  # Show the current scenario label (e.g., used in plot titles)
 #' txt$scen_lbl <- "My example"  # Set a new scenario title
 #'
-#'
 #' @family lists containing current scenario information
-#'
 #'
 #' @seealso
 #' \code{\link{init_txt}} initializes text information;
@@ -342,8 +340,36 @@ txt <- init_txt()
 # txt$scen_lbl # displays the current scenario label (e.g., used in plot titles)
 # txt$scen_lbl <- "My favorite example" # sets a new scenario title
 
+## txt_org: A copy of original text labels: --------
 
-## txt_TF: Define an alternative set of text labels: --------
+#' List of original values of text elements.
+#'
+#' \code{txt_org} is a copy of the initial list of text elements
+#' to define all scenario titles and labels.
+#'
+#' See \code{\link{txt}} for details and default text information.
+#'
+#' Assign \code{txt <- txt_org} to re-set default text labels.
+#'
+#' @examples
+#' txt_org        # shows original text labels
+#' txt_org["hi"]  # shows the original label for hits ("hi")
+#' txt_org["hi"] <- "TP" # defines a new label for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+txt_org <- txt  # copy txt
+
+
+## txt_TF:  An alternative set of text labels: --------
 
 #' Alternative text labels (TP, FN, FP, TN).
 #'
@@ -351,21 +377,22 @@ txt <- init_txt()
 #' to define a frequency naming scheme in which
 #' (hi, mi, fa, cr) are called (TP, FN, FP, TN).
 #'
-#' See \code{\link{txt}} for default text information.
+#' See \code{\link{txt}} for details and default text information.
 #'
-#' Assign \code{txt <- txt_TF} to use as default text labels
-#' throughout the \code{riskyr} package.
+#' Assign \code{txt <- txt_TF} to use as default text labels.
 #'
 #' @examples
-#' txt_TF        # shows all text labels
-#' txt_TF["hi"]  # shows the current color for hits ("TP")
+#' txt_TF        # shows text labels of txt_TF
+#' txt_TF["hi"]  # shows the current label for hits ("TP")
 #' txt_TF["hi"] <- "hit" # defines a new label for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
 #'
 #' @seealso
-#' \code{\link{txt}} contains current color information;
-#' \code{\link{init_txt}} initializes color information.
+#' \code{\link{txt}} contains current text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
 #'
 #' @export
 
@@ -380,8 +407,10 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 # txt_TF$sdt_lbl # unchanged from txt_lbl_def
 # txt_TF$hi      # "TP", rather than "hi"
 
-## Use as default:
-# txt <- txt_TF
+## Set default text information: --------
+
+## Use txt_TF by default:
+txt <- txt_TF
 
 ## (*) Done: -------------------------------------
 
