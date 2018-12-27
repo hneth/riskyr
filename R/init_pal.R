@@ -131,12 +131,11 @@ txt_col <- grey(.01, .99)  # near "black" text labels, NA removes text?
 brd_col <- grey(.20, .99)  # greyish borders, NA removes borders
 
 ## Probability lines (within Mosaic/area plots):
+# prev.li <- "gold"       # "aliceblue"
+# sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
+# spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
 
-prev.li <- "gold"       # "aliceblue"
-sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
-spec.li <- "whitesmoke" # "lemonchiffon" "antiquewhite"
-
-col_p <- c(prev.li, sens.li, spec.li)  # 3 bright colors (visible on SDT rectangles)
+# col_p <- c(prev.li, sens.li, spec.li)  # 3 bright colors (visible on SDT rectangles)
 
 
 ## (3) Define corresponding default palette: ----------
@@ -201,16 +200,13 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 #' @param txt_col Color used for text labels.
 #' @param brd_col Color used for borders (e.g., around bars or boxes).
 #'
-#'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
 #' length(init_pal())  # => 15 named colors
 #' pal <- init_pal(N_col = "steelblue4")  # => change a color (stored in pal)
 #' pal <- init_pal(brd_col = NA)          # => remove a color
 #'
-#'
 #' @family functions initializing scenario information
-#'
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric parameters;
@@ -504,8 +500,8 @@ pal_4c <- init_pal(N_col = grey(.95, .99),     # nearly white
                    # mi_col = pal["mi"],         # from pal
                    # fa_col = pal["fa"],         # from pal
                    # cr_col = pal["cr"],         # from pal
-                   PPV_col = grey(.60, .99),   # medium grey
-                   NPV_col = grey(.45, .99),   # darker grey
+                   # PPV_col = grey(.60, .99),   # medium grey
+                   # NPV_col = grey(.45, .99),   # darker grey
                    txt_col = grey(0, .99),     # black
                    brd_col = grey(.10, .99)    # almost black
 )
@@ -520,22 +516,22 @@ pal_4c <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Note: Check http://colorbrewer2.org for alternatives:
 ## http://colorbrewer2.org/?type=qualitative&scheme=Paired&n=4
 
-## pal_gbs: A gbs (green/blue/sand) color palette: --------
+## pal_mod: A modern (green/blue/orange) color palette: --------
 
-#' Alternative color palette with gbs (green/blue/sand) colors.
+#' Modern color palette (in green/blue/orange).
 #'
-#' \code{pal_gbs} is initialized to a vector of named elements (colors)
-#' to define an alternative gbs (green/blue/sand) scenario color scheme.
+#' \code{pal_mod} is initialized to a vector of named colors
+#' to define a modern scenario color scheme (in green/blue/orange).
 #'
 #' See \code{\link{pal}} for default color information.
 #'
-#' Assign \code{pal <- pal_gbs} to use as default color scheme
+#' Assign \code{pal <- pal_mod} to use as default color scheme
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_gbs        # shows all current color names and values
-#' pal_gbs["hi"]  # shows the current color for hits (true positives)
-#' pal_gbs["hi"] <- "gold" # defines a new color for hits (true positives, TP)
+#' pal_mod        # shows all current color names and values
+#' pal_mod["hi"]  # shows the current color for hits (true positives)
+#' pal_mod["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
 #'
@@ -545,7 +541,7 @@ pal_4c <- init_pal(N_col = grey(.95, .99),     # nearly white
 #'
 #' @export
 
-pal_gbs <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
+pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
                     cond.true_col =  grey(.80, .99), # col_sand_light, # "wheat3", #
                     cond.false_col = grey(.70, .99), # col_sand_mid, # "wheat4"
                     dec.pos_col = grey(.85, .99), # col_grey_1,
@@ -563,11 +559,11 @@ pal_gbs <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 )
 
 ## Check:
-# pal_gbs
-# pal_gbs["hi"]  # => "#B8D989"
+# pal_mod
+# pal_mod["hi"]  # => "#B8D989"
 
-## Use gbs color scheme (as default):
-# pal <- pal_gbs
+## Use gbo color scheme (as default):
+# pal <- pal_mod
 
 
 ## pal_kn:  A uni.kn palette: --------
@@ -690,13 +686,12 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 
 ## Set default color: -------
 
-## Use gbs color palette by default:
-pal <- pal_gbs
+## Use pal_mod by default:
+pal <- pal_mod
 
 ## (*) Done: ----------
 
 ## - Clean up code.  [2018 09 01]
-## - Colors are user-customizable
 ## - Add some pre-defined color palettes.
 
 ## (+) ToDo: ----------
