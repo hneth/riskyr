@@ -203,7 +203,7 @@
 #'           by = "cddc", p_split = "v", scale = "p",
 #'           title_lbl = "Text and color:",
 #'           lbl_txt = txt_TF, f_lbl = "namnum",
-#'           f_lwd = 2, col_pal = pal_gbs)
+#'           f_lwd = 2, col_pal = pal_4c)
 #' plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #'           by = "cdac", p_split = "h", scale = "f",
 #'           title_lbl = "Text and color:",
@@ -1954,7 +1954,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 #           by = "cddc", p_split = "v", scale = "p",
 #           title_lbl = "Custom text and color:",
 #           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
-#           f_lwd = 2, col_pal = pal_gbs)  # custom color
+#           f_lwd = 2, col_pal = pal_4c)  # custom color
 # plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #           by = "cdac", p_split = "h", scale = "p",
 #           title_lbl = "Custom text and color:",

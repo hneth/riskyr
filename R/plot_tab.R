@@ -242,7 +242,7 @@
 #'          by = "cddc", p_split = "v", area = "sq",
 #'          lbl_txt = txt_TF,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
-#'          col_pal = pal_gbs, f_lwd = 3)  # custom colors
+#'          col_pal = pal_mod, f_lwd = 3)  # custom colors
 #'
 #' plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 #'          by = "cddc", p_split = "h", area = "sq",
@@ -2081,7 +2081,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 #          by = "cddc", p_split = "v", area = "sq",
 #          lbl_txt = txt_TF,  # custom text
 #          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
-#          col_pal = pal_gbs, f_lwd = 1)  # custom colors
+#          col_pal = pal_org, f_lwd = 1)  # custom colors
 #
 # plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 #          by = "cddc", p_split = "h", area = "sq",

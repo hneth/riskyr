@@ -139,7 +139,7 @@
 #' plot_curve(title_lbl = "Testing specific colors", uc = .05,
 #'            what = "all", what_col = c("grey", "red3", "green3", "blue3", "gold"))
 #' plot_curve(title_lbl = "Testing color palette", uc = .05,
-#'            what = "all", col_pal = pal_gbs)
+#'            what = "all", col_pal = pal_org)
 #'
 #' @family visualization functions
 #'
@@ -904,7 +904,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 # plot_curve(title_lbl = "Testing specific colors", uc = .05,
 #            what = "all", what_col = c("grey", "red3", "green3", "blue3", "gold"))
 # plot_curve(title_lbl = "Testing color palette", uc = .05,
-#            what = "all", col_pal = pal_gbs)
+#            what = "all", col_pal = pal_org)
 
 
 ## Check~1: How do PPV/NPV depend on sens and spec? ------
