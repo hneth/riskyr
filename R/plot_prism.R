@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 11 26
+## 2018 12 10
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges)
 ## -----------------------------------------------
@@ -1188,9 +1188,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ##   row 1 to 2: ----
 
   plot_link(box_1, box_2_1, 1, 3, cur_prob = prob, arr_code = arr_c,
-            lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
+            lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl,
+            cur_pal = col_pal, ...)  # Allow ...!
   plot_link(box_1, box_2_2, 1, 3, cur_prob = prob, arr_code = arr_c,
-            lbl_type = p_lbl, lbl_pos = 4, lbl_off = 1, cex = cex_p_lbl, lbl_sep = "\n    = ", ...)  # Allow ...!  # link label in 2 lines
+            lbl_type = p_lbl, lbl_pos = 4, lbl_off = 1, cex = cex_p_lbl, lbl_sep = "\n    = ",
+            cur_pal = col_pal, ...)  # Allow ...!  # link label in 2 lines
 
   ##   row 2 to 3: ----
 
@@ -1199,34 +1201,34 @@ plot_prism <- function(prev = num$prev,    # probabilities
   if (by_top == "cd") {  # row 2: by condition (cond.true vs. cond.false)
 
     ## (a) by condition:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - hi
-    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - cr
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.true  - hi
+    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.true  - mi
+    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.false - fa
+    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.false - cr
 
   } else if (by_top == "dc") {  # row 2: by decision (dec.pos vs. dec.neg)
 
     ## (b) by decision:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
-    plot_link(box_2_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
-    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi
+    plot_link(box_2_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa !
+    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.neg - mi !
+    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.neg - cr
 
   } else if (by_top == "ac") {  # row 2: by accuracy (dec.cor vs. dec.err)
 
     ## (c) by accuracy:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - hi: acc-hi
-    plot_link(box_2_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - cr: acc-cr
-    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi: err-mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa: err-fa
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.cor - hi: acc-hi
+    plot_link(box_2_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.cor - cr: acc-cr
+    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.err - mi: err-mi
+    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.err - fa: err-fa
 
   } else {  # default on top: same as (by_top == "cd")
 
     ## (+) by condition:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - hi
-    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - cr
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.true  - hi
+    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.true  - mi
+    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.false - fa
+    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.false - cr
 
   }
 
@@ -1241,48 +1243,48 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (by_bot == "cd") {  # row 4: by condition (cond.true vs. cond.false)
 
       ## (a) by condition:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - hi
-      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # cond.true  - mi
-      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - fa
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # cond.false - cr
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.true  - hi
+      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.true  - mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.false - fa
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # cond.false - cr
 
     } else if (by_bot == "dc") {  # row 4: by decision (dec.pos vs. dec.neg)
 
       ## (b) by decision:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
-      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi
+      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa !
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.neg - mi !
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.neg - cr
 
     } else if (by_bot == "ac") {  # row 4: by accuracy (dec.cor vs. dec.err)
 
       ## (c) by accuracy:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - hi: acc-hi
-      plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.cor - cr: acc-cr
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi: err-mi
-      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa: err-fa
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.cor - hi: acc-hi
+      plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.cor - cr: acc-cr
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.err - mi: err-mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.err - fa: err-fa
 
     } else {  # default on bot: same as (by_bot == "dc")
 
       ## (+) by decision:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi
-      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa !
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - mi !
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!  # dec.neg - cr
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi
+      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa !
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.neg - mi !
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.neg - cr
 
       ## OLDER default: show 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
 
       # # 2 default boxes:
-      # plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - hi / PPV
-      # plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.pos - fa
-      # plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 3, cex = cex_p_lbl, ...)     # Allow ...!     # dec.neg - mi
-      # plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, ...)     # Allow ...!     # dec.neg - cr / NPV
+      # plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi / PPV
+      # plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa
+      # plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 3, cex = cex_p_lbl, cur_pal = col_pal, ...)     # Allow ...!     # dec.neg - mi
+      # plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, cur_pal = col_pal, ...)     # Allow ...!     # dec.neg - cr / NPV
       #
       # # 2 additional boxes:
-      # plot_link(box_4_3, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, ...)     # Allow ...!     # dec.cor - hi
-      # plot_link(box_4_3, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, ...)     # Allow ...!     # dec.cor - cr
-      # plot_link(box_4_4, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - mi
-      # plot_link(box_4_4, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, ...)  # Allow ...!  # dec.err - fa
+      # plot_link(box_4_3, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)     # Allow ...!     # dec.cor - hi
+      # plot_link(box_4_3, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)     # Allow ...!     # dec.cor - cr
+      # plot_link(box_4_4, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.err - mi
+      # plot_link(box_4_4, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!  # dec.err - fa
 
     }
 
@@ -1291,18 +1293,18 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (by_bot == "cd" || by_bot == "dc" || by_bot == "ac" ) {
 
       # link to 2 default boxes:
-      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
-      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!
+      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!
 
     } else {  # link to 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
 
       # link to 2 default boxes:
-      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, ...)  # Allow ...!
-      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!
+      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!
 
       ## OLDER: link to 2 additional boxes:
-      # plot_link(box_5, box_4_3,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, ...)  # Allow ...!
-      # plot_link(box_5, box_4_4,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, ...)  # Allow ...!
+      # plot_link(box_5, box_4_3,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!
+      # plot_link(box_5, box_4_4,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, cur_pal = col_pal, ...)  # Allow ...!
 
     }
 
