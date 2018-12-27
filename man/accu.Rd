@@ -125,7 +125,7 @@ Other lists containing current scenario information: \code{\link{freq}},
   \code{\link{pal_kn}}, \code{\link{pal_org}},
   \code{\link{pal_vir}}, \code{\link{pal}},
   \code{\link{prob}}, \code{\link{txt_TF}},
-  \code{\link{txt}}
+  \code{\link{txt_org}}, \code{\link{txt}}
 
 Other metrics: \code{\link{acc}},
   \code{\link{comp_accu_freq}},

@@ -10,7 +10,7 @@ txt
 }
 \description{
 \code{txt} is initialized to a list of named elements
-to define all titles and labels corresponding to the current scenario
+to define all scenario titles and labels
 and used throughout the \code{riskyr} package.
 }
 \details{
@@ -73,7 +73,6 @@ txt           # Show  all current names and elements
 txt$scen_lbl  # Show the current scenario label (e.g., used in plot titles)
 txt$scen_lbl <- "My example"  # Set a new scenario title
 
-
 }
 \seealso{
 \code{\link{init_txt}} initializes text information;
@@ -92,7 +91,7 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{pal_gbs}}, \code{\link{pal_kn}},
   \code{\link{pal_org}}, \code{\link{pal_vir}},
   \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt_TF}}
+  \code{\link{txt_TF}}, \code{\link{txt_org}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

@@ -35,7 +35,7 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{pal_gbs}}, \code{\link{pal_kn}},
   \code{\link{pal_vir}}, \code{\link{pal}},
   \code{\link{prob}}, \code{\link{txt_TF}},
-  \code{\link{txt}}
+  \code{\link{txt_org}}, \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}
