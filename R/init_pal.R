@@ -387,7 +387,7 @@ pal <- init_pal()  ## apply
 # pal[2] == pal["true"]
 
 
-## pal_org: A copy of pal: --------
+## pal_org: A copy of original color palette: --------
 
 #' Original color palette.
 #'
@@ -415,7 +415,7 @@ pal <- init_pal()  ## apply
 
 pal_org <- pal
 
-## pal_bw:  Black-and-white (b/w) color palette: --------
+## pal_bw:  A black-and-white (b/w) color palette: --------
 
 #' Alternative color palette for black-and-white graphs.
 #'
@@ -464,7 +464,7 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Use bw color scheme (as default):
 # pal <- pal_bw
 
-## pal_rgb: Reduced RGB color palette: --------
+## pal_rgb: A reduced RGB color palette: --------
 
 #' Alternative color palette for graphs (with RGB colors).
 #'
@@ -685,7 +685,7 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 ## Use viridis color scheme (as default):
 # pal <- pal_vir
 
-## Set default color: -------
+## Default color palette: -------
 
 ## Use pal_mod by default:
 pal <- pal_mod

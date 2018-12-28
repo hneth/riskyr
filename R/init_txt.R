@@ -407,7 +407,7 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 # txt_TF$sdt_lbl # unchanged from txt_lbl_def
 # txt_TF$hi      # "TP", rather than "hi"
 
-## Set default text information: --------
+## Default text information: --------
 
 ## Use txt_TF by default:
 txt <- txt_TF
