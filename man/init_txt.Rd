@@ -29,13 +29,13 @@ init_txt(scen_lbl = txt_lbl_def$scen_lbl,
 \item{scen_apa}{Source information in APA format.}
 
 \item{scen_lng}{Language of the current scenario (as character code).
-Options: \code{"en"}...English, \code{"de"}...German.}
+Options: \code{"en"}: English, \code{"de"}: German.}
 
 \item{popu_lbl}{A general name for \emph{population} dimension.}
 
-\item{N_lbl}{A brief description of the current target population \code{\link{popu}} or sample.}
+\item{N_lbl}{A brief label for the current population \code{\link{popu}} or sample.}
 
-\item{cond_lbl}{A general name for the \emph{condition} (e.g., some disease) currently considered.}
+\item{cond_lbl}{A general name for the \emph{condition} dimension currently considered (e.g., some clinical condition).}
 
 \item{cond.true_lbl}{A short label for the \emph{presence} of the current condition
 or \code{\link{cond.true}} cases (the condition's true state of TRUE).}

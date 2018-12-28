@@ -32,9 +32,9 @@ To change an element, assign a new character object to an existing name.
 \item \code{scen_apa} The source information in APA format.
 
 \item \code{scen_lng} The language of the current scenario (as character code).
-Options: \code{"en"}...English, \code{"de"}... German.
+Options: \code{"en"}: English, \code{"de"}: German.
 
-\item \code{popu_lbl} A brief description of the current target population \code{\link{popu}} or sample.
+\item \code{popu_lbl} A brief label for the current target population \code{\link{popu}} or sample.
 
 \item \code{cond_lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
 

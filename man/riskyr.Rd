@@ -7,7 +7,8 @@
 describing a risk-related scenario.}
 \usage{
 riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
-  cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl,
+  N_lbl = txt$N_lbl, cond_lbl = txt$cond_lbl,
+  cond.true_lbl = txt$cond.true_lbl,
   cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
   dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
   acc_lbl = txt$acc_lbl, dec.cor_lbl = txt$dec.cor_lbl,
@@ -22,6 +23,8 @@ riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
 \item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
 
 \item{popu_lbl}{A brief description of the current target population or sample.}
+
+\item{N_lbl}{A brief label for the current population \code{\link{popu}} or sample.}
 
 \item{cond_lbl}{A label for the \emph{condition} or feature (e.g., some disease) currently considered.}
 
@@ -111,9 +114,8 @@ An object of class "riskyr" describing a risk-related scenario.
 Titles and text labels (see \code{\link{txt}}:
 }
 \description{
-The instantiation function \code{riskyr} is used to create
-scenarios of class "riskyr",
-which can then be visualized by the \code{plot} method \code{\link{plot.riskyr}}
+\code{riskyr} creates scenarios of class "riskyr",
+which can be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 }
 \details{
