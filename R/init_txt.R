@@ -114,7 +114,7 @@ prob_lbl_def <- list(
 #' @param scen_src The source information for the current scenario.
 #' @param scen_apa Source information in APA format.
 #' @param scen_lng Language of the current scenario (as character code).
-#' Options: \code{"en"}...English, \code{"de"}...German.
+#' Options: \code{"en"}: English, \code{"de"}: German.
 #'
 #' @param popu_lbl A general name for \emph{population} dimension.
 #' @param N_lbl A brief label for the current population \code{\link{popu}} or sample.
