@@ -22,9 +22,9 @@ riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
 \arguments{
 \item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
 
-\item{popu_lbl}{A brief description of the current target population or sample.}
+\item{popu_lbl}{A brief description of the current population or sample.}
 
-\item{N_lbl}{A brief label for the current population \code{\link{popu}} or sample.}
+\item{N_lbl}{A label for the current population \code{\link{popu}} or sample.}
 
 \item{cond_lbl}{A label for the \emph{condition} or feature (e.g., some disease) currently considered.}
 

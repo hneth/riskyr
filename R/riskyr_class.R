@@ -39,8 +39,8 @@
 #'
 #' @param scen_lbl The current scenario title (sometimes in Title Caps).
 #'
-#' @param popu_lbl A brief description of the current target population or sample.
-#' @param N_lbl A brief label for the current population \code{\link{popu}} or sample.
+#' @param popu_lbl A brief description of the current population or sample.
+#' @param N_lbl A label for the current population \code{\link{popu}} or sample.
 #'
 #' @param cond_lbl A label for the \emph{condition} or feature (e.g., some disease) currently considered.
 #' @param cond.true_lbl A label for the \emph{presence} of the current condition
