@@ -18,11 +18,11 @@ txt_lbl_def <- list(
   scen_lng = "en/de", # language
 
   # (2) Population:
-  ## Distinguish between 2 different population labels:
-  ## 1. Dimension: general ftype_label ("Population") vs.
+  ##   Distinguish between 2 different population labels:
+  # 1. Dimension: general ftype_label ("Population") vs.
   popu_lbl = "Population",  # Dimension: current population label: "Population", "Sample", "N", etc.
-  ## 2. Frequency box: current label for fbox of ftype N ("Current sample"/"N").
-  N_lbl = "N",  # Label for fbox of ftype N.
+  # 2. Frequency box: current label for fbox of ftype N ("Current sample"/"N").
+  N_lbl = "N",              # Label for fbox of ftype N.
   ## Note: Consider a 3rd population label that provides a longer description of the current population
   # popu.txt  # Longer description of the current population (as in s21: PSA test example)
 
@@ -117,9 +117,9 @@ prob_lbl_def <- list(
 #' Options: \code{"en"}...English, \code{"de"}...German.
 #'
 #' @param popu_lbl A general name for \emph{population} dimension.
-#' @param N_lbl A brief description of the current target population \code{\link{popu}} or sample.
+#' @param N_lbl A brief label for the current population \code{\link{popu}} or sample.
 #'
-#' @param cond_lbl A general name for the \emph{condition} (e.g., some disease) currently considered.
+#' @param cond_lbl A general name for the \emph{condition} dimension currently considered (e.g., some clinical condition).
 #' @param cond.true_lbl A short label for the \emph{presence} of the current condition
 #' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
 #' @param cond.false_lbl A short label for the \emph{absence} of the current condition
@@ -276,9 +276,9 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
 #' \item \code{scen_apa} The source information in APA format.
 #'
 #' \item \code{scen_lng} The language of the current scenario (as character code).
-#' Options: \code{"en"}...English, \code{"de"}... German.
+#' Options: \code{"en"}: English, \code{"de"}: German.
 #'
-#' \item \code{popu_lbl} A brief description of the current target population \code{\link{popu}} or sample.
+#' \item \code{popu_lbl} A brief label for the current target population \code{\link{popu}} or sample.
 #'
 #' \item \code{cond_lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
 #'
@@ -397,9 +397,9 @@ txt_org <- txt  # copy txt
 #' @export
 
 txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
-                   cond_lbl = "Truth", cond.true_lbl = "True", cond.false_lbl = "False",
-                   dec_lbl = "Test", dec.pos_lbl = "Positive", dec.neg_lbl = "Negative",
-                   acc_lbl = "Accuracy", dec.cor_lbl = "Correct", dec.err_lbl = "Incorrect",
+                   cond_lbl = "Truth",   cond.true_lbl = "True",   cond.false_lbl = "False",
+                   dec_lbl = "Test",     dec.pos_lbl = "Positive", dec.neg_lbl = "Negative",
+                   acc_lbl = "Accuracy", dec.cor_lbl = "Correct",  dec.err_lbl = "Incorrect",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 
 ## Check:
