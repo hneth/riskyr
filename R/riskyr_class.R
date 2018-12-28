@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 12 21
+## 2018 12 20
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 
@@ -21,9 +21,8 @@
 
 #' Create riskyr scenarios.
 #'
-#' The instantiation function \code{riskyr} is used to create
-#' scenarios of class "riskyr",
-#' which can then be visualized by the \code{plot} method \code{\link{plot.riskyr}}
+#' \code{riskyr} creates scenarios of class "riskyr",
+#' which can be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 #' and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 #'
 #' Beyond basic scenario information
@@ -39,7 +38,9 @@
 #' Titles and text labels (see \code{\link{txt}}:
 #'
 #' @param scen_lbl The current scenario title (sometimes in Title Caps).
+#'
 #' @param popu_lbl A brief description of the current target population or sample.
+#' @param N_lbl A brief label for the current population \code{\link{popu}} or sample.
 #'
 #' @param cond_lbl A label for the \emph{condition} or feature (e.g., some disease) currently considered.
 #' @param cond.true_lbl A label for the \emph{presence} of the current condition
@@ -71,14 +72,17 @@
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#'
 #' @param sens The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
 #' provided that the condition is \code{TRUE}).
 #' \code{sens} is optional when its complement \code{mirt} is provided.
+#'
 #' @param spec The decision's specificity value \code{\link{spec}}
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is \code{FALSE}).
 #' \code{spec} is optional when its complement \code{fart} is provided.
+#'
 #' @param fart The decision's false alarm rate \code{\link{fart}}
 #' (i.e., the conditional probability
 #' of a positive decision provided that the condition is \code{FALSE}).
@@ -88,9 +92,13 @@
 #'
 #' @param N The number of individuals in the scenario's population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
+#'
 #' @param hi The number of hits \code{\link{hi}} (or true positives).
+#'
 #' @param mi The number of misses \code{\link{mi}} (or false negatives).
+#'
 #' @param fa The number of false alarms \code{\link{fa}} (or false positives).
+#'
 #' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #' Details and source information:
@@ -156,17 +164,20 @@
 
 ## riskyr Definition: ------
 
-riskyr <- function(# (1) Scenario information:
+riskyr <- function(#
+  # (1) Scenario label:
   scen_lbl = txt$scen_lbl,    # OR: ""
+  # Population:
   popu_lbl = txt$popu_lbl,
+  N_lbl    = txt$N_lbl,
   # (2) Three perspectives:
-  # (A) by condition:
+  # a. by condition:
   cond_lbl = txt$cond_lbl,
   cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
-  # (B) by decision:
+  # b. by decision:
   dec_lbl = txt$dec_lbl,
   dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
-  # (C) by accuracy:
+  # c. by accuracy:
   acc_lbl = txt$acc_lbl,
   dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
   # (3) 4 SDT cases:
@@ -295,8 +306,6 @@ riskyr <- function(# (1) Scenario information:
 
   ## Case_4: Something is missing: ------
 
-  ## +++ here now +++
-
   # if (is.na(freqs)) {
   #   warning("Frequencies were not provided or could not be computed.")
   # }
@@ -309,31 +318,36 @@ riskyr <- function(# (1) Scenario information:
 
   ## Define object (scenario) as a list: ------
 
-  object <- list(scen_lbl = scen_lbl,
-                 popu_lbl = popu_lbl,
-                 # by condition:
-                 cond_lbl = cond_lbl,
-                 cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
-                 # by decision:
-                 dec_lbl = dec_lbl,
-                 dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
-                 # by accuracy:
-                 acc_lbl = acc_lbl,
-                 dec.cor_lbl = dec.cor_lbl, dec.err_lbl = dec.err_lbl,
-                 # SDT cases:
-                 sdt_lbl = sdt_lbl,
-                 hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
-                 # Probabilities:
-                 prev = probs[1],
-                 sens = probs[2],
-                 spec = probs[4], fart = probs[5],
-                 # Frequencies:
-                 N = N,
-                 hi = freqs$hi, mi = freqs$mi,
-                 fa = freqs$fa, cr = freqs$cr,
-                 # Details:
-                 scen_lng = scen_lng, scen_txt = scen_txt,
-                 scen_src = scen_src, scen_apa = scen_apa)
+  object <- list(#
+    # Scenario label:
+    scen_lbl = scen_lbl,
+    # Population:
+    popu_lbl = popu_lbl,
+    N_lbl = N_lbl,
+    # a. by condition:
+    cond_lbl = cond_lbl,
+    cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
+    # b. by decision:
+    dec_lbl = dec_lbl,
+    dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+    # c. by accuracy:
+    acc_lbl = acc_lbl,
+    dec.cor_lbl = dec.cor_lbl, dec.err_lbl = dec.err_lbl,
+    # 4 SDT cases:
+    sdt_lbl = sdt_lbl,
+    hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
+    # Probabilities:
+    prev = probs[1],
+    sens = probs[2],
+    spec = probs[4], fart = probs[5],
+    # Frequencies:
+    N = N,
+    hi = freqs$hi, mi = freqs$mi,
+    fa = freqs$fa, cr = freqs$cr,
+    # Scenario details:
+    scen_lng = scen_lng, scen_txt = scen_txt,
+    scen_src = scen_src, scen_apa = scen_apa
+  )
 
   ## Add class riskyr:
   class(object) <- "riskyr"
@@ -491,17 +505,34 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
   s <- df_scenarios[i, ]
 
   ## (2) pass scenario s to riskyr function:
-  cur_scen <- riskyr(scen_lbl = s$scen_lbl, scen_lng = s$scen_lng, scen_txt = s$scen_txt,
-                     popu_lbl = s$popu_lbl,                                                                     # population dimension
-                     # ToDo: N_lbl = txt$N_lbl,
-                     cond_lbl = s$cond_lbl, cond.true_lbl = s$cond.true_lbl, cond.false_lbl = s$cond.false_lbl, # by condition
-                     dec_lbl = s$dec_lbl, dec.pos_lbl = s$dec.pos_lbl, dec.neg_lbl = s$dec.neg_lbl,             # by decision
-                     hi_lbl = s$hi_lbl, mi_lbl = s$mi_lbl, fa_lbl = s$fa_lbl, cr_lbl = s$cr_lbl,                # 4 cases
-                     prev = s$prev,
-                     sens = s$sens,
-                     spec = s$spec, fart = s$fart,
-                     N = s$N,
-                     scen_src = s$scen_src, scen_apa = s$scen_apa)  # use initialization function.
+  cur_scen <- riskyr(#
+    # Scenario label:
+    scen_lbl = s$scen_lbl,
+    # Population:
+    popu_lbl = s$popu_lbl,
+    N_lbl    = txt$N_lbl,  # use txt default (as currently not set in data)
+    # a. by condition:
+    cond_lbl = s$cond_lbl,
+    cond.true_lbl = s$cond.true_lbl, cond.false_lbl = s$cond.false_lbl,
+    # b. by decision:
+    dec_lbl = s$dec_lbl,
+    dec.pos_lbl = s$dec.pos_lbl, dec.neg_lbl = s$dec.neg_lbl,
+    # c. by accuracy:
+    acc_lbl = txt$acc_lbl,  # use txt default (as currently not set in data)
+    dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
+    # 4 SDT cases:
+    sdt_lbl = txt$sdt_lbl,  # use txt default (as currently not set in data)
+    hi_lbl = s$hi_lbl, mi_lbl = s$mi_lbl, fa_lbl = s$fa_lbl, cr_lbl = s$cr_lbl,
+    # Probabilities:
+    prev = s$prev,
+    sens = s$sens,
+    spec = s$spec, fart = s$fart,
+    # Frequencies:
+    N = s$N,
+    # Scenario details:
+    scen_lng = s$scen_lng, scen_txt = s$scen_txt,
+    scen_src = s$scen_src, scen_apa = s$scen_apa
+  )
 
   # (3) Add cur_scen (riskyr object) as i-th element of scenarios
   scenarios[[i]] <- cur_scen
@@ -1266,7 +1297,7 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 
 ## - Clean up code.  [2018 08 22].
 ## - Remove retired functions (otree, fnet/ofnet, omosaic). [2018 12 21]
-## - Update scenario data (and order). [2018 12 21]
+## - Update scenario data (and order). [2018 12 20]
 
 ## (+) ToDo: ----------
 
