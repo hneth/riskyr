@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 <!-- riskyr logo: -->
 
-# riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+# riskyr <img src = "logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->  
 <!-- 

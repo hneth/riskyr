@@ -1,8 +1,6 @@
-figures:
-  dev: grDevices::png
-  dpi: 96
-  dev.args: []
-  fig.ext: png
-  fig.width: 9
-  fig.height: 6
-  fig.retina: 2
+title: riskyr
+
+url: https://hneth.github.io/riskyr/
+
+development:
+  mode: auto
