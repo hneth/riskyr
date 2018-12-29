@@ -3,13 +3,20 @@
 <!-- Status badges: -->
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
-riskyr
-======
+<!-- riskyr logo: -->
+riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+=======================================================================================
 
 <!-- riskyr logo: -->
-<a href = "https://github.com/hneth/riskyr"> <img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/> </a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
-
-**A toolbox for rendering risk literacy more transparent**
+<!-- 
+<a href = "https://github.com/hneth/riskyr">
+<img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
+</a> 
+-->
+<!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->
+<!-- ![riskyr](./inst/pix/riskyr_cube_s.png) -->
+<!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
+### A toolbox for rendering risk literacy more transparent
 
 Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
 
@@ -299,7 +306,7 @@ s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
 
 #### Scenario summary
 
-Our selected scenario object `s10` is a list with 29 elements, which describe it in both text and numeric variables. The following commands provide an overview of `s10` in text form:
+Our selected scenario object `s10` is a list with 30 elements, which describe it in both text and numeric variables. The following commands provide an overview of `s10` in text form:
 
 ``` r
 s10$scen_lbl   # a descriptive label
