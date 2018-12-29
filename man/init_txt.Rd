@@ -97,9 +97,9 @@ txt <- init_txt(scen_lbl = "My scenario",
 \seealso{
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings;
-\code{\link{num}} for basic numeric parameters
+\code{\link{num}} for basic numeric parameters.
 
 Other functions initializing scenario information: \code{\link{init_num}},
-  \code{\link{init_pal}}
+  \code{\link{init_pal}}, \code{\link{riskyr}}
 }
 \concept{functions initializing scenario information}

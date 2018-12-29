@@ -161,7 +161,7 @@ prob_lbl_def <- list(
 #' @seealso
 #' \code{\link{txt}} for current text settings;
 #' \code{\link{pal}} for current color settings;
-#' \code{\link{num}} for basic numeric parameters
+#' \code{\link{num}} for basic numeric parameters.
 #'
 #' @export
 

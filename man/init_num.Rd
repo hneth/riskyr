@@ -80,6 +80,6 @@ init_num(1, 1, .52, .50, 100)   # => NAs + warning (complements beyond range)
 \code{\link{comp_min_N}} computes a suitable minimum population size \code{\link{N}}.
 
 Other functions initializing scenario information: \code{\link{init_pal}},
-  \code{\link{init_txt}}
+  \code{\link{init_txt}}, \code{\link{riskyr}}
 }
 \concept{functions initializing scenario information}

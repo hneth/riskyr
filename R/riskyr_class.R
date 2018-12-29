@@ -19,9 +19,9 @@
 
 ## riskyr Documentation: ------
 
-#' Create riskyr scenarios.
+#' Create a riskyr scenario.
 #'
-#' \code{riskyr} creates scenarios of class "riskyr",
+#' \code{riskyr} creates a scenario of class "riskyr",
 #' which can be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 #' and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 #'
@@ -29,6 +29,12 @@
 #' only the population size \code{\link{N}} and the essential probabilities
 #' \code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}, and \code{\link{fart}}
 #' are used and returned.
+#'
+#' Note that numeric information (see \code{\link{num}} and \code{\link{init_num}})
+#' and text information (see \code{\link{txt}} and \code{\link{init_txt}})
+#' are integral parts of a "riskyr" scenario.
+#' By contrast, basic color information (see \code{\link{pal}} and \code{\link{init_pal}})
+#' is not an integral part, but independently defined.
 #'
 #' @format An object of class "riskyr" with textual and numeric information
 #' describing a risk-related scenario.
@@ -159,6 +165,12 @@
 #' # riskyr(prev = .4, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25, cr = 25)  # warns, uses freq
 #'
 #' @family riskyr scenario functions
+#' @family functions initializing scenario information
+#'
+#' @seealso
+#' \code{\link{init_num}} and \code{\link{num}} for basic numeric parameters;
+#' \code{\link{init_txt}} and \code{\link{txt}} for current text settings;
+#' \code{\link{init_pal}} and \code{\link{pal}} for current color settings.
 #'
 #' @export
 
@@ -716,7 +728,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
              sens = x$sens, mirt = NA,
              spec = x$spec, fart = NA,
              N = x$N,
-             ## Options:
+             # Options:
              lbl_txt = x_txt,
              title_lbl = x$scen_lbl,
              ...
@@ -732,7 +744,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
               sens = x$sens, mirt = NA,
               spec = x$spec, fart = NA,
               N = x$N,
-              ## Options:
+              # Options:
               lbl_txt = x_txt,
               title_lbl = x$scen_lbl,
               ...
@@ -740,14 +752,14 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 
   } # if (type == "area")
 
-  ## 3. Icon array
+  ## 3. Icon array:
   if (substr(type, 1, 4) == "icon") {
 
     plot_icons(prev = x$prev,             # probabilities
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,  # was: num$fart,
                N = x$N,    # ONLY freq used (so far)
-               ## Options:
+               # Options:
                title_lbl = x$scen_lbl,
                type_lbls = x[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")],
                ...
@@ -764,7 +776,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
                N = x$N,
-               ## Options:
+               # Options:
                lbl_txt = x_txt,
                title_lbl = x$scen_lbl,
                ...
@@ -779,7 +791,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
              sens = x$sens, mirt = NA,
              spec = x$spec, fart = NA,
              N = x$N,
-             ## Options:
+             # Options:
              lbl_txt = x_txt,
              title_lbl = x$scen_lbl,
              ...
@@ -793,7 +805,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
     plot_curve(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
-               ## Options:
+               # Options:
                title_lbl = x$scen_lbl,
                ...
     )
@@ -805,13 +817,14 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
     plot_plane(prev = x$prev,             # probabilities (3 essential, 2 optional)
                sens = x$sens, mirt = NA,
                spec = x$spec, fart = NA,
-               ## Options:
+               # Options:
                title_lbl = x$scen_lbl, # plot title label
                ...
     )
   } # if (type == "plane")
 
 } # plot.riskyr end.
+
 
 ## Check: ------
 ## (A) with example scenarios (defined above):

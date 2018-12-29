@@ -2,7 +2,7 @@
 % Please edit documentation in R/riskyr_class.R
 \name{riskyr}
 \alias{riskyr}
-\title{Create riskyr scenarios.}
+\title{Create a riskyr scenario.}
 \format{An object of class "riskyr" with textual and numeric information
 describing a risk-related scenario.}
 \usage{
@@ -114,7 +114,7 @@ An object of class "riskyr" describing a risk-related scenario.
 Titles and text labels (see \code{\link{txt}}:
 }
 \description{
-\code{riskyr} creates scenarios of class "riskyr",
+\code{riskyr} creates a scenario of class "riskyr",
 which can be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 }
@@ -123,6 +123,12 @@ Beyond basic scenario information
 only the population size \code{\link{N}} and the essential probabilities
 \code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}, and \code{\link{fart}}
 are used and returned.
+
+Note that numeric information (see \code{\link{num}} and \code{\link{init_num}})
+and text information (see \code{\link{txt}} and \code{\link{init_txt}})
+are integral parts of a "riskyr" scenario.
+By contrast, basic color information (see \code{\link{pal}} and \code{\link{init_pal}})
+is not an integral part, but independently defined.
 }
 \examples{
 # Defining scenarios: -----
@@ -170,7 +176,15 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 
 }
 \seealso{
+\code{\link{init_num}} and \code{\link{num}} for basic numeric parameters;
+\code{\link{init_txt}} and \code{\link{txt}} for current text settings;
+\code{\link{init_pal}} and \code{\link{pal}} for current color settings.
+
 Other riskyr scenario functions: \code{\link{plot.riskyr}},
   \code{\link{read_popu}}, \code{\link{summary.riskyr}}
+
+Other functions initializing scenario information: \code{\link{init_num}},
+  \code{\link{init_pal}}, \code{\link{init_txt}}
 }
+\concept{functions initializing scenario information}
 \concept{riskyr scenario functions}
