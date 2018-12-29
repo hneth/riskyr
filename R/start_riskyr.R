@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 11 08
+## 2018 12 10
 ## Final functions and start-up settings:
 ## -----------------------------------------------
 
