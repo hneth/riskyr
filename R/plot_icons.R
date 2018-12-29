@@ -1062,7 +1062,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
     plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
              show_accu = TRUE, accu_from_freq = FALSE, # TRUE,
              note = note_lbl,
-             cur_freq = cur_freq, cur_prob = cur_prob, cur_txt = lbl_txt)
+             cur_freq = cur_freq, cur_prob = cur_prob, lbl_txt = lbl_txt)
 
   } # if (mar_notes)
 

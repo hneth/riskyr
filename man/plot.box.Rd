@@ -4,7 +4,7 @@
 \alias{plot.box}
 \title{Plot a frequency box object.}
 \usage{
-\method{plot}{box}(x, cur_freq = freq, cur_txt = txt, cur_pal = pal,
+\method{plot}{box}(x, cur_freq = freq, lbl_txt = txt, col_pal = pal,
   ...)
 }
 \arguments{
@@ -13,10 +13,10 @@
 \item{cur_freq}{Current frequency information
 (see \code{\link{freq}} for details).}
 
-\item{cur_txt}{Current text information
+\item{lbl_txt}{Current text information
 (see \code{\link{txt}} for details).}
 
-\item{cur_pal}{Current color palette
+\item{col_pal}{Current color palette
 (see \code{\link{pal}} for details).}
 
 \item{...}{Additional (graphical) parameters to be passed to the

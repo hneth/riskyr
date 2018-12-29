@@ -582,7 +582,7 @@ freq <- comp_freq()  # => initialize freq to default parameters
 
 ## comp_freq_type: Determine the type of a named frequency (freq):  ----------
 
-comp_freq_type <- function(fname, cur_txt = txt) {
+comp_freq_type <- function(fname, lbl_txt = txt) {
 
   f_type <- "typeless"  # initialize
 
@@ -591,12 +591,12 @@ comp_freq_type <- function(fname, cur_txt = txt) {
   # (a) Using basic names:
   # freq_types <- c("popu", rep("cond", 2), rep("dec", 2), rep("accu", 2), rep("cell", 4))
 
-  # (b) Using labels defined in cur_txt:
-  freq_types <- c(cur_txt$popu_lbl,
-                  rep(cur_txt$cond_lbl, 2),
-                  rep(cur_txt$dec_lbl, 2),
-                  rep(cur_txt$acc_lbl, 2),
-                  rep(cur_txt$sdt_lbl, 4))
+  # (b) Using labels defined in lbl_txt:
+  freq_types <- c(lbl_txt$popu_lbl,
+                  rep(lbl_txt$cond_lbl, 2),
+                  rep(lbl_txt$dec_lbl, 2),
+                  rep(lbl_txt$acc_lbl, 2),
+                  rep(lbl_txt$sdt_lbl, 4))
   # freq_types
 
   # (2) Map freq to name in freq_types:
@@ -618,8 +618,8 @@ comp_freq_type <- function(fname, cur_txt = txt) {
 # comp_freq_type("cr")
 
 ## Using alternative text labels:
-# comp_freq_type("cond.true", cur_txt = txt_TF) # => "Truth"
-# comp_freq_type("dec.pos", cur_txt = txt_TF)   # => "Test"
+# comp_freq_type("cond.true", lbl_txt = txt_TF) # => "Truth"
+# comp_freq_type("dec.pos", lbl_txt = txt_TF)   # => "Test"
 
 ## Note:
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
@@ -628,10 +628,10 @@ comp_freq_type <- function(fname, cur_txt = txt) {
 
 
 
-## comp_freq_col: Determine the color of a named frequency (freq) in current color palette (cur_pal):  ----------
+## comp_freq_col: Determine the color of a named frequency (freq) in current color palette (col_pal):  ----------
 
 comp_freq_col <- function(fname,
-                          cur_pal = pal,
+                          col_pal = pal,
                           col = NA  # primary color
 ) {
 
@@ -643,7 +643,7 @@ comp_freq_col <- function(fname,
 
     f_col <- col  # use it!
 
-  } else {  # figure out f_col from fname and cur_pal:
+  } else {  # figure out f_col from fname and col_pal:
 
     # (A) if freq corresponds to named frequency in freq:
     if (fname %in% names(freq)) {
@@ -679,9 +679,9 @@ comp_freq_col <- function(fname,
 
     }
 
-    # (B) Find color value of col_name in current color cur_pal:
-    if (col_name %in% names(cur_pal)) { # if col_name corresponds to a color name in cur_pal
-      f_col <- cur_pal[col_name]        # use this color to fill box
+    # (B) Find color value of col_name in current color col_pal:
+    if (col_name %in% names(col_pal)) { # if col_name corresponds to a color name in col_pal
+      f_col <- col_pal[col_name]        # use this color to fill box
     } else {
       f_col <- grey(.95, .50)  # use some default color (e.g., "white")
     }

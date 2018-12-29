@@ -473,7 +473,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
             box_y  = n.y,
             box_lx = b.lx,
             box_ly = n.ly,
-            cur_txt = lbl_txt, cur_pal = col_pal,
+            lbl_txt = lbl_txt, col_pal = col_pal,
             lbl_type = f_lbl, lwd = f_lwd, lty = lty,
             ...)
 
@@ -555,7 +555,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -564,7 +564,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -573,7 +573,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -582,7 +582,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -618,7 +618,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.true.y,
               box_lx = b.lx,
               box_ly = cond.true.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -627,7 +627,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.false.y,
               box_lx = b.lx,
               box_ly = cond.false.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -669,7 +669,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.pos.y,
               box_lx = b.lx,
               box_ly = dec.pos.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -678,7 +678,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.neg.y,
               box_lx = b.lx,
               box_ly = dec.neg.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -720,7 +720,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.cor.y,
               box_lx = b.lx,
               box_ly = dec.cor.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -729,7 +729,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.err.y,
               box_lx = b.lx,
               box_ly = dec.err.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -770,7 +770,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -779,7 +779,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -788,7 +788,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -797,7 +797,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -834,7 +834,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.true.y,
               box_lx = b.lx,
               box_ly = cond.true.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -843,7 +843,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cond.false.y,
               box_lx = b.lx,
               box_ly = cond.false.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -885,7 +885,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -894,7 +894,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -903,7 +903,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -912,7 +912,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -948,7 +948,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.pos.y,
               box_lx = b.lx,
               box_ly = dec.pos.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -957,7 +957,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.neg.y,
               box_lx = b.lx,
               box_ly = dec.neg.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1000,7 +1000,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = hi.y,
               box_lx = b.lx,
               box_ly = hi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1009,7 +1009,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = mi.y,
               box_lx = b.lx,
               box_ly = mi.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1018,7 +1018,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = fa.y,
               box_lx = b.lx,
               box_ly = fa.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1027,7 +1027,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = cr.y,
               box_lx = b.lx,
               box_ly = cr.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1063,7 +1063,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.cor.y,
               box_lx = b.lx,
               box_ly = dec.cor.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1072,7 +1072,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               box_y  = dec.err.y,
               box_lx = b.lx,
               box_ly = dec.err.ly,
-              cur_txt = lbl_txt, cur_pal = col_pal,
+              lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
@@ -1149,7 +1149,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
              show_accu = TRUE, accu_from_freq = FALSE,
              note = note_lbl,
-             cur_freq = freq, cur_prob = prob, cur_txt = lbl_txt)
+             cur_freq = freq, cur_prob = prob, lbl_txt = lbl_txt)
 
   } # if (mar_notes) etc.
 
