@@ -1,13 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
-<!-- Status badges: 
+<!-- Status badges: -->
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
-[![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
-[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
-
--->
 <!-- riskyr logo: -->
 riskyr <img src = "logo.png" align = "right" alt = "riskyr" width = "160" />
 ============================================================================
@@ -45,8 +40,8 @@ Basic assumptions and goals driving the current development of `riskyr` include:
 
 Based on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.
 
-Installation
-------------
+Installation and version information
+------------------------------------
 
 -   The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
@@ -62,7 +57,9 @@ library("riskyr")           # load to use the package
 devtools::install_github("hneth/riskyr")
 ```
 
--   An interactive online version is available at [riskyr.org](http://riskyr.org).
+-   An interactive online version is available at <http://riskyr.org>.
+
+-   The package documentation is available at <https://hneth.github.io/riskyr/>.
 
 Quick start guide
 -----------------
