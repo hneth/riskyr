@@ -9,4 +9,6 @@
 ^CODE_OF_CONDUCT\.md$
 ^README\.Rmd$
 ^README-.*\.png$
+^logo.png$
+^pkgdown$
 ^\.travis\.yml$
