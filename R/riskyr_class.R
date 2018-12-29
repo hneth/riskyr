@@ -572,19 +572,21 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #'
 #' @param type The type of plot to be generated.
 #'
+#' The following plot types are currently available:
+#'
 #' \enumerate{
 #'
 #'   \item \code{type = "prism"} or \code{type = "net"} or \code{type = "tree"}:
 #'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
 #'   See \code{\link{plot_prism}} for further options.
 #'
-#'   \item \code{type = "area"} or \code{type = "mosaic"}:
-#'   Risk information is plotted as a mosaic plot (scaled area).
-#'   See \code{\link{plot_area}} for further options.
-#'
 #'   \item \code{type = "tab"} or \code{type = "ftab"}:
 #'   Risk information is plotted as a 2-by-2 frequency or contingency table.
 #'   See \code{\link{plot_tab}} for further options.
+#'
+#'   \item \code{type = "area"} or \code{type = "mosaic"}:
+#'   Risk information is plotted as a mosaic plot (scaled area).
+#'   See \code{\link{plot_area}} for further options.
 #'
 #'   \item \code{type = "bar"} or \code{type = "fbar"}:
 #'   Risk information is plotted as a bar chart.
@@ -601,20 +603,6 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #'   \item \code{type = "plane"} or \code{type = "planes"}:
 #'   Draws a 3D-plane of selected values (e.g., predictive values \code{\link{PPV}} or \code{\link{NPV}})
 #'   See \code{\link{plot_plane}} for further options.
-#'
-#'   Older plot types (replaced by the above, to be retired):
-#'
-#'   \item \code{type = "onet"} or \code{type = "ofnet"}:
-#'   Risk information is plotted in a network diagram of frequencies and probabilities (default).
-#'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_fnet}} for further options.
-#'
-#'   \item \code{type = "otree"} or \code{type = "oftree"}:
-#'   Risk information is plotted in a frequency tree.
-#'   Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_tree}} for further options.
-#'
-#'   \item \code{type = "omosaic"} or \code{type = "omosaicplot"}:
-#'   Risk information is plotted as a mosaicplot.
-#'   Replaced by \code{\link{plot_area}}, but see \code{\link{plot_mosaic}} for further options.
 #'
 #' }
 #'
@@ -645,7 +633,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 
 plot.riskyr <- function(x = NULL,        # require riskyr scenario
                         type = "prism",  # default type
-                        # by = "cddc",     # default perspectives
+                        # by = "cddc",   # default perspective
                         ...              # other type and display parameters in plot_xxx functions
 ) {
 
@@ -864,6 +852,25 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 # plot(s25, type = "onet")     # plot_fnet (replaced by plot_prism)
 # plot(s25, type = "otree")    # plot_tree (replaced by plot_prism)
 # plot(s25, type = "omosaic")  # plot_mosaic (replaced by plot_area)
+
+
+
+## Legacy code snippets: ------
+
+## From documentation of older plot.riskyr:
+# Older plot types (replaced by the above, retired since version 0.1.0.950):
+#
+# \item \code{type = "onet"} or \code{type = "ofnet"}:
+# Risk information is plotted in a network diagram of frequencies and probabilities (default).
+# Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_fnet}} for further options.
+#
+# \item \code{type = "otree"} or \code{type = "oftree"}:
+# Risk information is plotted in a frequency tree.
+# Replaced by \code{\link{plot_prism}}, but see \code{\link{plot_tree}} for further options.
+#
+# \item \code{type = "omosaic"} or \code{type = "omosaicplot"}:
+# Risk information is plotted as a mosaicplot.
+# Replaced by \code{\link{plot_area}}, but see \code{\link{plot_mosaic}} for further options.
 
 
 ## 2. summary.riskyr function: ------------------
