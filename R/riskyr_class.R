@@ -178,7 +178,7 @@
 
 riskyr <- function(#
   # (1) Scenario label:
-  scen_lbl = txt$scen_lbl,    # OR: ""
+  scen_lbl = txt$scen_lbl,  # OR: "" (to hide header/plot titles)
   # Population:
   popu_lbl = txt$popu_lbl,
   N_lbl    = txt$N_lbl,
@@ -244,7 +244,7 @@ riskyr <- function(#
     ## (b) Calculate the probabilities: -----
 
     probs_calc <- comp_prob_freq(hi, mi, fa, cr)
-    probs <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
+    probs      <- c(probs_calc$prev, probs_calc$sens, probs_calc$mirt, probs_calc$spec, probs_calc$fart)
     need_probs <- FALSE  # set flag that probs are no longer needed
 
     ## (c) Calculate ALL frequencies from 4 essential frequencies:
@@ -302,7 +302,6 @@ riskyr <- function(#
                               spec = probs[4], probs[5], N = N)
 
     }
-
   } # if (is_valid_prob_set(...
 
   else { # no valid set of probabilities was provided:
@@ -313,7 +312,6 @@ riskyr <- function(#
       warning("Neither a full set of frequencies nor a valid set of probabilities was provided.")
 
     }
-
   }
 
   ## Case_4: Something is missing: ------
@@ -331,9 +329,10 @@ riskyr <- function(#
   ## Define object (scenario) as a list: ------
 
   object <- list(#
-    # Scenario label:
+    # (1) Scenario text:
+    # Title label:
     scen_lbl = scen_lbl,
-    # Population:
+    # population:
     popu_lbl = popu_lbl,
     N_lbl = N_lbl,
     # a. by condition:
@@ -348,6 +347,7 @@ riskyr <- function(#
     # 4 SDT cases:
     sdt_lbl = sdt_lbl,
     hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
+    # (2) Numeric info:
     # Probabilities:
     prev = probs[1],
     sens = probs[2],
@@ -356,7 +356,7 @@ riskyr <- function(#
     N = N,
     hi = freqs$hi, mi = freqs$mi,
     fa = freqs$fa, cr = freqs$cr,
-    # Scenario details:
+    # (+) Scenario details:
     scen_lng = scen_lng, scen_txt = scen_txt,
     scen_src = scen_src, scen_apa = scen_apa
   )
@@ -691,15 +691,12 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
   #   }
   # }
 
-  ## (2) Use lbl info of scenario x for current txt information: ----------
+  ## (2) Use text info of scenario x for current txt information: ----------
 
   x_txt <- init_txt(scen_lbl = x$scen_lbl,
-                    scen_txt = x$scen_txt,
-                    scen_src = x$scen_src,
-                    scen_apa = x$scen_apa,
-                    scen_lng = x$scen_lng,
 
                     popu_lbl = x$popu_lbl,
+                    N_lbl = x$N_lbl,
 
                     cond_lbl = x$cond_lbl,
                     cond.true_lbl = x$cond.true_lbl,
@@ -717,7 +714,13 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
                     hi_lbl = x$hi_lbl,
                     mi_lbl = x$mi_lbl,
                     fa_lbl = x$fa_lbl,
-                    cr_lbl = x$cr_lbl)
+                    cr_lbl = x$cr_lbl,
+
+                    scen_txt = x$scen_txt,
+                    scen_src = x$scen_src,
+                    scen_apa = x$scen_apa,
+                    scen_lng = x$scen_lng
+                    )
 
   ## (3) Call plotting functions: ----------
 
