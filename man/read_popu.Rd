@@ -46,7 +46,7 @@ Note that \code{df} needs to be structured according to
 the \code{\link{popu}} created by \code{\link{comp_popu}}.
 }
 \examples{
-## Generating and interpreting different scenario types:
+# Generating and interpreting different scenario types:
 
 # (A) Diagnostic/screening scenario (using default labels): ------
 popu_diag <- comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)
@@ -60,8 +60,8 @@ popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
 # popu_treat
 scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
-plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
-plot(scen_treat, type = "icon")
+plot(scen_treat, type = "prism", area = "sq", f_lbl = "namnum", p_lbl = "num")
+plot(scen_treat, type = "icon", lbl_txt = txt_org, col_pal = pal_org)
 
 # (C) Prevention scenario (e.g., vaccination): ------
 popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
