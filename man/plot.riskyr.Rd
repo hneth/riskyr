@@ -74,6 +74,8 @@ plot(s1, type = "default")              # unknown type: use default plot
 
 }
 \seealso{
+\code{\link{riskyr}} initializes a \code{riskyr} scenario.
+
 Other visualization functions: \code{\link{plot_area}},
   \code{\link{plot_bar}}, \code{\link{plot_curve}},
   \code{\link{plot_fnet}}, \code{\link{plot_icons}},

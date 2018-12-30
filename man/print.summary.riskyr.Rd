@@ -19,4 +19,7 @@
 summary(scenarios$n4)
 
 }
+\seealso{
+\code{\link{riskyr}} initializes a \code{riskyr} scenario.
+}
 \concept{print functions}

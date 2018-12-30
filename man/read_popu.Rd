@@ -75,7 +75,7 @@ plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw,
 \seealso{
 the corresponding data frame \code{\link{popu}};
 the corresponding generating function \code{\link{comp_popu}};
-main \code{\link{riskyr}} function.
+\code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
 Other riskyr scenario functions: \code{\link{plot.riskyr}},
   \code{\link{riskyr}}, \code{\link{summary.riskyr}}
