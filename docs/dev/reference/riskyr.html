@@ -74,7 +74,7 @@ and summarized by the summary method summary.riskyr." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9620</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
       </span>
     </div>
 
@@ -321,19 +321,27 @@ describing a risk-related scenario.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class "riskyr" describing a risk-related scenario.</p>
-<p>Titles and text labels (see <code><a href='txt.html'>txt</a></code>:</p>
+<p>Scenario-specific titles and text labels (see <code><a href='txt.html'>txt</a></code>:</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Beyond basic scenario information
+    <p>Beyond basic scenario information (i.e., text elements describing a scenario)
 only the population size <code><a href='N.html'>N</a></code> and the essential probabilities
 <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, <code><a href='spec.html'>spec</a></code>, and <code><a href='fart.html'>fart</a></code>
 are used and returned.</p>
-<p>Note that numeric information (see <code><a href='num.html'>num</a></code> and <code><a href='init_num.html'>init_num</a></code>)
-and text information (see <code><a href='txt.html'>txt</a></code> and <code><a href='init_txt.html'>init_txt</a></code>)
-are integral parts of a "riskyr" scenario.
-By contrast, basic color information (see <code><a href='pal.html'>pal</a></code> and <code><a href='init_pal.html'>init_pal</a></code>)
-is not an integral part, but independently defined.</p>
+<p>Note:</p>
+<ul>
+<li><p>Basic text information and some numeric parameters
+  (see <code><a href='num.html'>num</a></code> and <code><a href='init_num.html'>init_num</a></code>)
+  are integral parts of a <code>riskyr</code> scenario.</p></li>
+<li><p>By contrast, basic <em>color</em> information
+  (see <code><a href='pal.html'>pal</a></code> and <code><a href='init_pal.html'>init_pal</a></code>)
+  is not an integral part, but independently defined.</p></li>
+<li><p>The names of <em>probabilities</em>
+  (see <code><a href='prob.html'>prob</a></code>) are currently
+  not an integral part of <code>txt</code> and <code>riskyr</code> scenarios
+  (but defined in <code>prob_lbl_def</code> and <code>label_prob</code>).</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -410,7 +418,7 @@ is not an integral part, but independently defined.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='730' height='518' /></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='output co'>#&gt; Scenario:  Identify reoffenders 
 #&gt; 
 #&gt; Condition:  being a reoffender 
@@ -450,7 +458,7 @@ is not an integral part, but independently defined.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='730' height='518' /></div><div class='input'>
 <span class='co'># 2 ways of defining the same scenario: -----</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>)  <span class='co'># s1: define by 3 prob &amp; N</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>25</span>)        <span class='co'># s2: same scenario by 4 freq</span>
@@ -666,7 +674,7 @@ is not an integral part, but independently defined.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
