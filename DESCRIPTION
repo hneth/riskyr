@@ -22,7 +22,8 @@ Suggests:
     devtools,
     rmarkdown,
     knitr,
-    roxygen2
+    roxygen2,
+    pkgdown
 Collate: 'comp_util.R'
          'init_txt.R'
          'init_pal.R'

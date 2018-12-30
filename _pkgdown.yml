@@ -3,4 +3,4 @@ title: riskyr
 url: https://hneth.github.io/riskyr/
 
 development:
-  mode: auto
+  mode: development
