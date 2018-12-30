@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 11 26
+## 2018 12 10
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -372,18 +372,18 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   }
 
   ## y-axis:
-  y.seq <- seq(0, 1, by = .10)        # linear steps of 10%
-  y_lbl <- paste0(as_pc(y.seq), "%")  # linear percentages
-  y.ax_lbl <- "Probability"           # y-axis label
+  y_seq <- seq(0, 1, by = .10)        # linear steps of 10%
+  y_lbl <- paste0(as_pc(y_seq), "%")  # linear percentages
+  y_ax_lbl <- "Probability"           # y-axis label
 
   ## (b) Initialize plot:
   if (log_scale) {
     plot(0, xlim = c(x_min, 1), ylim = c(0, 1), axes = FALSE,
          log = "x",
-         ylab = y.ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
+         ylab = y_ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
   } else {
     plot(0, xlim = c(x_min, 1), ylim = c(0, 1), axes = FALSE,
-         ylab = y.ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
+         ylab = y_ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
   }
 
   ## (c) Axes (on 4 sides):
@@ -391,9 +391,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
        las = 1, pos = 0, tck = -.02, col.axis = col_axes, col.ticks = col_axes)       # x at bottom
   axis(side = 1, at = x_seq, labels = FALSE, cex.axis = cex_lbl, cex.lab = (cex_lbl),
        las = 1, pos = 1, tck = -.01, col.axis = col_axes, col.ticks = col_axes)       # x at top
-  axis(side = 2, at = y.seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
+  axis(side = 2, at = y_seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
        las = 1, pos = x_min, tck = -.02, col.axis = col_axes, col.ticks = col_axes)   # y at left
-  axis(side = 4, at = y.seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
+  axis(side = 4, at = y_seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
        las = 1, pos = 1, tck = -.02, col.axis = col_axes, col.ticks = col_axes)       # y at right
 
   ## (d) Grid:
@@ -780,7 +780,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Probability curves by prevalence") #, "\n", cur.sens.spec_lbl)
+    type_lbl <- paste0("Probability curves by prevalence") #, "\n", cur_sens.spec_lbl)
   }
 
   # Compose label:
@@ -820,12 +820,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     } # if (show_freq)...
 
     ## A2. Condition / p(cond) label:
-    cur.cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
+    cur_cond_lbl <- make_cond_lbl(prev, sens, spec)  # use utility function to format label
 
     ## Combine 2 labels:
-    cur.par_lbl <- paste0(freq_lbl, "\n", cur.cond_lbl)
+    cur_par_lbl <- paste0(freq_lbl, "\n", cur_cond_lbl)
 
-    mtext(cur.par_lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
+    mtext(cur_par_lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
 
     ##   (B) on rigth side (adj = 1): ----

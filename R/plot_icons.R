@@ -119,15 +119,15 @@
 #'
 #'   \item \code{"cd"}: by condition (cd) only:
 #'
-#'         \code{\link{cond.true}} vs. \code{\link{cond.false}} cases;
+#'         \code{\link{cond_true}} vs. \code{\link{cond_false}} cases;
 #'
 #'   \item \code{"dc"}: by decision (dc) only:
 #'
-#'         \code{\link{dec.pos}} vs. \code{\link{dec.neg}} cases;
+#'         \code{\link{dec_pos}} vs. \code{\link{dec_neg}} cases;
 #'
 #'   \item \code{"ac"}: by accuracy (ac) only:
 #'
-#'         \code{\link{dec.cor}} vs. \code{\link{dec.err}} cases.
+#'         \code{\link{dec_cor}} vs. \code{\link{dec_err}} cases.
 #'   }
 #'
 #' @param ident_order  The order in which icon identities
@@ -1007,15 +1007,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
     legend_ico <- icon_types[c(1, 3)]
 
     if (by == "dc") {
-      legend_lbls <- c(txt$dec.pos_lbl, txt$dec.neg_lbl)
+      legend_lbls <- c(txt$dec_pos_lbl, txt$dec_neg_lbl)
     }
 
     if (by == "cd") {
-      legend_lbls <- c(txt$cond.true_lbl, txt$cond.false_lbl)
+      legend_lbls <- c(txt$cond_true_lbl, txt$cond_false_lbl)
     }
 
     if (by == "ac") {
-      legend_lbls <- c(txt$dec.cor_lbl, txt$dec.err_lbl)
+      legend_lbls <- c(txt$dec_cor_lbl, txt$dec_err_lbl)
     }
   }
 

@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 12 26
+## 2018 12 20
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -364,33 +364,33 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## (4) Graphical parameters: ----
 
   ## Color info (NOW defined in init_pal):
-  # col.prev <- col_p[1]  # prev.li  # prev help line
-  # col.sens <- col_p[2]  # sens.li  # sens help line
-  # col.spec <- col_p[3]  # spec.li  # spec help line
-  # col.bord <- grey(.20, .99) # NA # grey(.11, .99)  # borders and labels (NA removes borders)
+  # col_prev <- col_p[1]  # prev.li  # prev help line
+  # col_sens <- col_p[2]  # sens.li  # sens help line
+  # col_spec <- col_p[3]  # spec.li  # spec help line
+  # col_bord <- grey(.20, .99) # NA # grey(.11, .99)  # borders and labels (NA removes borders)
 
   ## Currently fixed parameters:
   # gap <- 2.0/100  # width of gap between 2 main subgroups (direction set via "by" argument)
-  # show.prob.comp <- TRUE  # show help_line for complements of prob (e.g, prev, sens, spec)?
+  # show_prob_comp <- TRUE  # show help_line for complements of prob (e.g, prev, sens, spec)?
 
   ## Box appearance:
-  # box.lwd <- 1  # line width of border around rect box (default = 1)
+  # box_lwd <- 1  # line width of border around rect box (default = 1)
 
   ## Point appearance:
-  # pt.pch <- 21    # pch symbol of points
-  # pt.cex <- 1.4   # cex scaling of points
-  # pt.lwd <- 1.6   # lwd of point borders
+  # pt_pch <- 21    # pch symbol of points
+  # pt_cex <- 1.4   # cex scaling of points
+  # pt_lwd <- 1.6   # lwd of point borders
 
   ## Text label appearance:
-  # col.lbl <- pal["txt"]  # defined in pal
-  # cex.lbl <- .90   # scaling factor for text labels
-  # cex.lbl.sm <- if (cex.lbl > .50) {cex.lbl - .10} else {cex.lbl}  # slightly smaller than cex.lbl
-  # h.shift <- .05   # horizontal shifting of labels
-  # v.shift <- .05   # vertical shifting of labels
+  # col_lbl <- pal["txt"]  # defined in pal
+  # cex_lbl <- .90   # scaling factor for text labels
+  # cex_lbl_sm <- if (cex_lbl > .50) {cex_lbl - .10} else {cex_lbl}  # slightly smaller than cex_lbl
+  # h_shift <- .05   # horizontal shifting of labels
+  # v_shift <- .05   # vertical shifting of labels
 
   ## help line properties (main metrics):
-  # lty.help <- 1    # line type
-  # lwd.help <- 2.5  # line width
+  # lty_help <- 1    # line type
+  # lwd_help <- 2.5  # line width
 
 
   ## (5) Define plot area: ----------
@@ -443,7 +443,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } else {
     nr.col <- 3       # 3 (vertical) columns
   }
-  col.x  <- 1/nr.col  # corresponding column width (x)
+  col_x  <- 1/nr.col  # corresponding column width (x)
 
   # Length/height (y) of bars:
   lbase <- N               # length of base side (vertical: y)
@@ -451,76 +451,76 @@ plot_bar <- function(prev = num$prev,             # probabilities
   sf <- 1.0                # scaling factor (0-1)
 
   # Basic height (ly) and width (lx):
-  b.ly <- lbase * sf  # basic height (scaled constant)
-  b.lx <- lelse * sf  # basic width (scaled constant)
+  b_ly <- lbase * sf  # basic height (scaled constant)
+  b_lx <- lelse * sf  # basic width (scaled constant)
 
 
   ##     (b) Define and plot N column: ----
 
   # Dimensions and coordinates:
-  n.ly <- b.ly    # height (y)
-  col.nr <- 1     # column number (out of nr.col)
-  n.x  <- (x_base + (col.nr * col.x) - (col.x/2))  # x-coordinate: mid point of column col.nr
-  n.y  <- y_base  # y-coordinate
+  n_ly <- b_ly    # height (y)
+  col_nr <- 1     # column number (out of nr.col)
+  n_x  <- (x_base + (col_nr * col_x) - (col_x/2))  # x-coordinate: mid point of column col_nr
+  n_y  <- y_base  # y-coordinate
   if (dir == 2) {
     ## center N bar around 0:
-    n.y  <- y_base - N/2
+    n_y  <- y_base - N/2
   }
 
   # Plot 1 box:
   plot_vbox(ftype = NA, fname = "N", fnum = N,
-            box_x  = n.x,
-            box_y  = n.y,
-            box_lx = b.lx,
-            box_ly = n.ly,
+            box_x  = n_x,
+            box_y  = n_y,
+            box_lx = b_lx,
+            box_ly = n_ly,
             lbl_txt = lbl_txt, col_pal = col_pal,
             lbl_type = f_lbl, lwd = f_lwd, lty = lty,
             ...)
 
   # Label N column:
-  plot_ftype_label("N", n.x, y_min, pos = 1,
+  plot_ftype_label("N", n_x, y_min, pos = 1,
                    col = pal["txt"], # col = comp_freq_col("N"),
                    ...)
 
   ##     (c) Define 4 SDT cases/cells: ----
 
   # x-coordinates:
-  col.nr <- 3
-  hi.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-  mi.x <- hi.x
-  fa.x <- hi.x
-  cr.x <- hi.x
+  col_nr <- 3
+  hi_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+  mi_x <- hi_x
+  fa_x <- hi_x
+  cr_x <- hi_x
 
   # heights (ly):
   # 2 ways of computing bar heights:
   if (scale == "p") {
 
     # (1) Compute heights (ly) from current probabilities (without any rounding):
-    hi.ly <- (n.ly * prev) * sens              # re-computes hi (without rounding)
-    mi.ly <- (n.ly * prev) * (1 - sens)        # re-computes mi (without rounding)
-    cr.ly <- (n.ly * (1 - prev)) * spec        # re-computes cr (without rounding)
-    fa.ly <- (n.ly * (1 - prev)) * (1 - spec)  # re-computes fa (without rounding)
+    hi_ly <- (n_ly * prev) * sens              # re-computes hi (without rounding)
+    mi_ly <- (n_ly * prev) * (1 - sens)        # re-computes mi (without rounding)
+    cr_ly <- (n_ly * (1 - prev)) * spec        # re-computes cr (without rounding)
+    fa_ly <- (n_ly * (1 - prev)) * (1 - spec)  # re-computes fa (without rounding)
 
   } else if (scale == "f") {
 
     # (2) Take heights (ly) from current frequencies (with or without rounding, based on round option):
-    hi.ly <- hi   # freq of hi (with/without rounding)
-    mi.ly <- mi   # freq of mi (with/without rounding)
-    cr.ly <- cr   # freq of cr (with/without rounding)
-    fa.ly <- fa   # freq of fa (with/without rounding)
+    hi_ly <- hi   # freq of hi (with/without rounding)
+    mi_ly <- mi   # freq of mi (with/without rounding)
+    cr_ly <- cr   # freq of cr (with/without rounding)
+    fa_ly <- fa   # freq of fa (with/without rounding)
 
   } else { # any other setting:
 
     # as in (2) Take heights (ly) from current frequencies (with or without rounding, based on round option):
-    hi.ly <- hi   # freq of hi (with/without rounding)
-    mi.ly <- mi   # freq of mi (with/without rounding)
-    cr.ly <- cr   # freq of cr (with/without rounding)
-    fa.ly <- fa   # freq of fa (with/without rounding)
+    hi_ly <- hi   # freq of hi (with/without rounding)
+    mi_ly <- mi   # freq of mi (with/without rounding)
+    cr_ly <- cr   # freq of cr (with/without rounding)
+    fa_ly <- fa   # freq of fa (with/without rounding)
 
   } # (scale == ...)
 
   # Label SDT column:
-  plot_ftype_label("hi", hi.x, y_min, pos = 1,
+  plot_ftype_label("hi", hi_x, y_min, pos = 1,
                    col = pal["txt"],
                    # col = comp_freq_col("hi"),
                    ...)
@@ -533,55 +533,55 @@ plot_bar <- function(prev = num$prev,             # probabilities
     # Reverse some directions:
     if (dir == 2) {
       ## reverse height (ly) of 2 bars:
-      fa.ly <- -1 * fa.ly
-      cr.ly <- -1 * cr.ly
+      fa_ly <- -1 * fa_ly
+      cr_ly <- -1 * cr_ly
     }
 
     # y-coordinates (given heights):
-    hi.y <- y_base
-    mi.y <- hi.y + hi.ly
-    fa.y <- mi.y + mi.ly
-    cr.y <- fa.y + fa.ly
+    hi_y <- y_base
+    mi_y <- hi_y + hi_ly
+    fa_y <- mi_y + mi_ly
+    cr_y <- fa_y + fa_ly
 
     if (dir == 2) {
       ## reverse y-coordinates (y) of 2 bars:
-      cr.y <- y_base
-      fa.y <- cr.y + cr.ly
+      cr_y <- y_base
+      fa_y <- cr_y + cr_ly
     }
 
     # Plot 4 boxes:
     plot_vbox(ftype = NA, fname = "hi", fnum = hi,
-              box_x  = hi.x,
-              box_y  = hi.y,
-              box_lx = b.lx,
-              box_ly = hi.ly,
+              box_x  = hi_x,
+              box_y  = hi_y,
+              box_lx = b_lx,
+              box_ly = hi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
-              box_x  = mi.x,
-              box_y  = mi.y,
-              box_lx = b.lx,
-              box_ly = mi.ly,
+              box_x  = mi_x,
+              box_y  = mi_y,
+              box_lx = b_lx,
+              box_ly = mi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
-              box_x  = fa.x,
-              box_y  = fa.y,
-              box_lx = b.lx,
-              box_ly = fa.ly,
+              box_x  = fa_x,
+              box_y  = fa_y,
+              box_lx = b_lx,
+              box_ly = fa_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
-              box_x  = cr.x,
-              box_y  = cr.y,
-              box_lx = b.lx,
-              box_ly = cr.ly,
+              box_x  = cr_x,
+              box_y  = cr_y,
+              box_lx = b_lx,
+              box_ly = cr_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
@@ -589,154 +589,154 @@ plot_bar <- function(prev = num$prev,             # probabilities
     ## (b) Condition column: ----
 
     # x-coordinates:
-    col.nr <- 2
-    cond.true.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    cond.false.x <- cond.true.x
+    col_nr <- 2
+    cond_true_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+    cond_false_x <- cond_true_x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
-    cond.true.ly  <- abs(hi.ly) + abs(mi.ly)
-    cond.false.ly <- abs(fa.ly) + abs(cr.ly)
+    cond_true_ly  <- abs(hi_ly) + abs(mi_ly)
+    cond_false_ly <- abs(fa_ly) + abs(cr_ly)
 
     # Reverse some directions:
     if (dir == 2) {
       ## reverse height (ly) of 1 bar:
-      cond.false.ly <- -1 * cond.false.ly
+      cond_false_ly <- -1 * cond_false_ly
     }
 
     # y-coordinates (given heights):
-    cond.true.y <- y_base
-    cond.false.y <- cond.true.y + cond.true.ly
+    cond_true_y <- y_base
+    cond_false_y <- cond_true_y + cond_true_ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      cond.false.y <- y_base
+      cond_false_y <- y_base
     }
 
     # Plot 2 boxes:
-    plot_vbox(ftype = NA, fname = "cond.true", fnum = (hi + mi),
-              box_x  = cond.true.x,
-              box_y  = cond.true.y,
-              box_lx = b.lx,
-              box_ly = cond.true.ly,
+    plot_vbox(ftype = NA, fname = "cond_true", fnum = (hi + mi),
+              box_x  = cond_true_x,
+              box_y  = cond_true_y,
+              box_lx = b_lx,
+              box_ly = cond_true_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
-              box_x  = cond.false.x,
-              box_y  = cond.false.y,
-              box_lx = b.lx,
-              box_ly = cond.false.ly,
+    plot_vbox(ftype = NA, fname = "cond_false", fnum = (fa + cr),
+              box_x  = cond_false_x,
+              box_y  = cond_false_y,
+              box_lx = b_lx,
+              box_ly = cond_false_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label cond column:
-    plot_ftype_label("cond.true", cond.true.x, y_min, pos = 1,
+    plot_ftype_label("cond_true", cond_true_x, y_min, pos = 1,
                      col = pal["txt"],
-                     # col = comp_freq_col("cond.true"),
+                     # col = comp_freq_col("cond_true"),
                      ...)
 
     ## (c) Decision column: ----
 
     # x-coordinates:
-    col.nr <- 4
-    dec.pos.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    dec.neg.x <- dec.pos.x
+    col_nr <- 4
+    dec_pos_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+    dec_neg_x <- dec_pos_x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
-    dec.pos.ly <- abs(hi.ly) + abs(fa.ly)
-    dec.neg.ly <- abs(mi.ly) + abs(cr.ly)
+    dec_pos_ly <- abs(hi_ly) + abs(fa_ly)
+    dec_neg_ly <- abs(mi_ly) + abs(cr_ly)
 
     # Reverse some directions:
     if (dir == 2) {
       ## reverse height (ly) of 1 bar:
-      dec.neg.ly <- -1 * dec.neg.ly
+      dec_neg_ly <- -1 * dec_neg_ly
     }
 
     # y-coordinates (given heights):
-    dec.pos.y <- y_base
-    dec.neg.y <- dec.pos.y + dec.pos.ly
+    dec_pos_y <- y_base
+    dec_neg_y <- dec_pos_y + dec_pos_ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      dec.neg.y <- y_base
+      dec_neg_y <- y_base
     }
 
     # Plot 2 boxes:
-    plot_vbox(ftype = NA, fname = "dec.pos", fnum = (hi + fa),
-              box_x  = dec.pos.x,
-              box_y  = dec.pos.y,
-              box_lx = b.lx,
-              box_ly = dec.pos.ly,
+    plot_vbox(ftype = NA, fname = "dec_pos", fnum = (hi + fa),
+              box_x  = dec_pos_x,
+              box_y  = dec_pos_y,
+              box_lx = b_lx,
+              box_ly = dec_pos_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
-              box_x  = dec.neg.x,
-              box_y  = dec.neg.y,
-              box_lx = b.lx,
-              box_ly = dec.neg.ly,
+    plot_vbox(ftype = NA, fname = "dec_neg", fnum = (mi + cr),
+              box_x  = dec_neg_x,
+              box_y  = dec_neg_y,
+              box_lx = b_lx,
+              box_ly = dec_neg_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label dec column:
-    plot_ftype_label("dec.pos", dec.pos.x, y_min, pos = 1,
+    plot_ftype_label("dec_pos", dec_pos_x, y_min, pos = 1,
                      col = pal["txt"],
-                     # col = comp_freq_col("dec.pos"),
+                     # col = comp_freq_col("dec_pos"),
                      ...)
 
     ## (d) Accuracy column: ----
 
     # x-coordinates:
-    col.nr <- 5
-    dec.cor.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    dec.err.x <- dec.cor.x
+    col_nr <- 5
+    dec_cor_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+    dec_err_x <- dec_cor_x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
-    dec.cor.ly <- abs(hi.ly) + abs(cr.ly)
-    dec.err.ly <- abs(mi.ly) + abs(fa.ly)
+    dec_cor_ly <- abs(hi_ly) + abs(cr_ly)
+    dec_err_ly <- abs(mi_ly) + abs(fa_ly)
 
     # Reverse some directions:
     if (dir == 2) {
       ## reverse height (ly) of 1 bar:
-      dec.err.ly <- -1 * dec.err.ly
+      dec_err_ly <- -1 * dec_err_ly
     }
 
     # y-coordinates (given heights):
-    dec.cor.y <- y_base
-    dec.err.y <- dec.cor.y + dec.cor.ly
+    dec_cor_y <- y_base
+    dec_err_y <- dec_cor_y + dec_cor_ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 1 bar:
-      dec.err.y <- y_base
+      dec_err_y <- y_base
     }
 
     # Plot 2 boxes:
-    plot_vbox(ftype = NA, fname = "dec.cor", fnum = (hi + cr),
-              box_x  = dec.cor.x,
-              box_y  = dec.cor.y,
-              box_lx = b.lx,
-              box_ly = dec.cor.ly,
+    plot_vbox(ftype = NA, fname = "dec_cor", fnum = (hi + cr),
+              box_x  = dec_cor_x,
+              box_y  = dec_cor_y,
+              box_lx = b_lx,
+              box_ly = dec_cor_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
-              box_x  = dec.err.x,
-              box_y  = dec.err.y,
-              box_lx = b.lx,
-              box_ly = dec.err.ly,
+    plot_vbox(ftype = NA, fname = "dec_err", fnum = (mi + fa),
+              box_x  = dec_err_x,
+              box_y  = dec_err_y,
+              box_lx = b_lx,
+              box_ly = dec_err_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label acc column:
-    plot_ftype_label("dec.cor", dec.cor.x, y_min, pos = 1,
+    plot_ftype_label("dec_cor", dec_cor_x, y_min, pos = 1,
                      col = pal["txt"],
-                     # col = comp_freq_col("dec.cor"),
+                     # col = comp_freq_col("dec_cor"),
                      ...)
 
   } else if (by == "cd") {
@@ -748,55 +748,55 @@ plot_bar <- function(prev = num$prev,             # probabilities
     # Reverse some directions:
     if (dir == 2) {
       ## reverse height (ly) of 2 bars:
-      fa.ly <- -1 * fa.ly
-      cr.ly <- -1 * cr.ly
+      fa_ly <- -1 * fa_ly
+      cr_ly <- -1 * cr_ly
     }
 
     # y-coordinates (given heights):
-    hi.y <- y_base
-    mi.y <- hi.y + hi.ly
-    fa.y <- mi.y + mi.ly
-    cr.y <- fa.y + fa.ly
+    hi_y <- y_base
+    mi_y <- hi_y + hi_ly
+    fa_y <- mi_y + mi_ly
+    cr_y <- fa_y + fa_ly
 
     if (dir == 2) {
       ## reverse y-coordinate (y) of 2 bars:
-      cr.y <- y_base
-      fa.y <- cr.y + cr.ly
+      cr_y <- y_base
+      fa_y <- cr_y + cr_ly
     }
 
     # Plot 4 boxes:
     plot_vbox(ftype = NA, fname = "hi", fnum = hi,
-              box_x  = hi.x,
-              box_y  = hi.y,
-              box_lx = b.lx,
-              box_ly = hi.ly,
+              box_x  = hi_x,
+              box_y  = hi_y,
+              box_lx = b_lx,
+              box_ly = hi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
-              box_x  = mi.x,
-              box_y  = mi.y,
-              box_lx = b.lx,
-              box_ly = mi.ly,
+              box_x  = mi_x,
+              box_y  = mi_y,
+              box_lx = b_lx,
+              box_ly = mi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
-              box_x  = fa.x,
-              box_y  = fa.y,
-              box_lx = b.lx,
-              box_ly = fa.ly,
+              box_x  = fa_x,
+              box_y  = fa_y,
+              box_lx = b_lx,
+              box_ly = fa_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
-              box_x  = cr.x,
-              box_y  = cr.y,
-              box_lx = b.lx,
-              box_ly = cr.ly,
+              box_x  = cr_x,
+              box_y  = cr_y,
+              box_lx = b_lx,
+              box_ly = cr_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
@@ -805,52 +805,52 @@ plot_bar <- function(prev = num$prev,             # probabilities
     ## (b) Condition column: ----
 
     # x-coordinates:
-    col.nr <- 2
-    cond.true.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    cond.false.x <- cond.true.x
+    col_nr <- 2
+    cond_true_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+    cond_false_x <- cond_true_x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
-    cond.true.ly  <- abs(hi.ly) + abs(mi.ly)
-    cond.false.ly <- abs(fa.ly) + abs(cr.ly)
+    cond_true_ly  <- abs(hi_ly) + abs(mi_ly)
+    cond_false_ly <- abs(fa_ly) + abs(cr_ly)
 
     # Reverse some directions:
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      cond.false.ly <- -1 * cond.false.ly
+      cond_false_ly <- -1 * cond_false_ly
     }
 
     # y-coordinates (given heights):
-    cond.true.y <- y_base
-    cond.false.y <- cond.true.y + cond.true.ly
+    cond_true_y <- y_base
+    cond_false_y <- cond_true_y + cond_true_ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      cond.false.y <- y_base
+      cond_false_y <- y_base
     }
 
     # Plot 2 boxes:
-    plot_vbox(ftype = NA, fname = "cond.true", fnum = (hi + mi),
-              box_x  = cond.true.x,
-              box_y  = cond.true.y,
-              box_lx = b.lx,
-              box_ly = cond.true.ly,
+    plot_vbox(ftype = NA, fname = "cond_true", fnum = (hi + mi),
+              box_x  = cond_true_x,
+              box_y  = cond_true_y,
+              box_lx = b_lx,
+              box_ly = cond_true_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    plot_vbox(ftype = NA, fname = "cond.false", fnum = (fa + cr),
-              box_x  = cond.false.x,
-              box_y  = cond.false.y,
-              box_lx = b.lx,
-              box_ly = cond.false.ly,
+    plot_vbox(ftype = NA, fname = "cond_false", fnum = (fa + cr),
+              box_x  = cond_false_x,
+              box_y  = cond_false_y,
+              box_lx = b_lx,
+              box_ly = cond_false_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label cond column:
-    plot_ftype_label("cond.true", cond.true.x, y_min, pos = 1,
+    plot_ftype_label("cond_true", cond_true_x, y_min, pos = 1,
                      col = pal["txt"],
-                     # col = comp_freq_col("cond.true"),
+                     # col = comp_freq_col("cond_true"),
                      ...)
 
 
@@ -863,55 +863,55 @@ plot_bar <- function(prev = num$prev,             # probabilities
     # Reverse some directions:
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      mi.ly <- -1 * mi.ly
-      cr.ly <- -1 * cr.ly
+      mi_ly <- -1 * mi_ly
+      cr_ly <- -1 * cr_ly
     }
 
     # y-coordinates (given heights):
-    hi.y <- y_base
-    fa.y <- hi.y + hi.ly
-    cr.y <- fa.y + fa.ly
-    mi.y <- cr.y + cr.ly
+    hi_y <- y_base
+    fa_y <- hi_y + hi_ly
+    cr_y <- fa_y + fa_ly
+    mi_y <- cr_y + cr_ly
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      cr.y <- y_base
-      mi.y <- cr.y + cr.ly
+      cr_y <- y_base
+      mi_y <- cr_y + cr_ly
     }
 
     # Plot 4 boxes:
     plot_vbox(ftype = NA, fname = "hi", fnum = hi,
-              box_x  = hi.x,
-              box_y  = hi.y,
-              box_lx = b.lx,
-              box_ly = hi.ly,
+              box_x  = hi_x,
+              box_y  = hi_y,
+              box_lx = b_lx,
+              box_ly = hi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
-              box_x  = mi.x,
-              box_y  = mi.y,
-              box_lx = b.lx,
-              box_ly = mi.ly,
+              box_x  = mi_x,
+              box_y  = mi_y,
+              box_lx = b_lx,
+              box_ly = mi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
-              box_x  = fa.x,
-              box_y  = fa.y,
-              box_lx = b.lx,
-              box_ly = fa.ly,
+              box_x  = fa_x,
+              box_y  = fa_y,
+              box_lx = b_lx,
+              box_ly = fa_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
-              box_x  = cr.x,
-              box_y  = cr.y,
-              box_lx = b.lx,
-              box_ly = cr.ly,
+              box_x  = cr_x,
+              box_y  = cr_y,
+              box_lx = b_lx,
+              box_ly = cr_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
@@ -919,52 +919,52 @@ plot_bar <- function(prev = num$prev,             # probabilities
     ## (b) Decision column: ----
 
     # x-coordinates:
-    col.nr <- 2
-    dec.pos.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    dec.neg.x <- dec.pos.x
+    col_nr <- 2
+    dec_pos_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+    dec_neg_x <- dec_pos_x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
-    dec.pos.ly <- abs(hi.ly) + abs(fa.ly)
-    dec.neg.ly <- abs(mi.ly) + abs(cr.ly)
+    dec_pos_ly <- abs(hi_ly) + abs(fa_ly)
+    dec_neg_ly <- abs(mi_ly) + abs(cr_ly)
 
     # Reverse some directions:
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.neg.ly <- -1 * dec.neg.ly
+      dec_neg_ly <- -1 * dec_neg_ly
     }
 
     # y-coordinates (given heights):
-    dec.pos.y <- y_base
-    dec.neg.y <- dec.pos.y + dec.pos.ly
+    dec_pos_y <- y_base
+    dec_neg_y <- dec_pos_y + dec_pos_ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.neg.y <- y_base
+      dec_neg_y <- y_base
     }
 
     # Plot 2 boxes:
-    plot_vbox(ftype = NA, fname = "dec.pos", fnum = (hi + fa),
-              box_x  = dec.pos.x,
-              box_y  = dec.pos.y,
-              box_lx = b.lx,
-              box_ly = dec.pos.ly,
+    plot_vbox(ftype = NA, fname = "dec_pos", fnum = (hi + fa),
+              box_x  = dec_pos_x,
+              box_y  = dec_pos_y,
+              box_lx = b_lx,
+              box_ly = dec_pos_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    plot_vbox(ftype = NA, fname = "dec.neg", fnum = (mi + cr),
-              box_x  = dec.neg.x,
-              box_y  = dec.neg.y,
-              box_lx = b.lx,
-              box_ly = dec.neg.ly,
+    plot_vbox(ftype = NA, fname = "dec_neg", fnum = (mi + cr),
+              box_x  = dec_neg_x,
+              box_y  = dec_neg_y,
+              box_lx = b_lx,
+              box_ly = dec_neg_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label dec column:
-    plot_ftype_label("dec.pos", dec.pos.x, y_min, pos = 1,
+    plot_ftype_label("dec_pos", dec_pos_x, y_min, pos = 1,
                      col = pal["txt"],
-                     # col = comp_freq_col("dec.pos"),
+                     # col = comp_freq_col("dec_pos"),
                      ...)
 
   } # if (by == "dc")
@@ -978,55 +978,55 @@ plot_bar <- function(prev = num$prev,             # probabilities
     # Reverse some directions:
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      mi.ly <- -1 * mi.ly
-      fa.ly <- -1 * fa.ly
+      mi_ly <- -1 * mi_ly
+      fa_ly <- -1 * fa_ly
     }
 
     # y-coordinates (given heights):
-    hi.y <- y_base
-    cr.y <- hi.y + hi.ly
-    mi.y <- cr.y + cr.ly
-    fa.y <- mi.y + mi.ly
+    hi_y <- y_base
+    cr_y <- hi_y + hi_ly
+    mi_y <- cr_y + cr_ly
+    fa_y <- mi_y + mi_ly
 
     if (dir == 2) {
       ## reverse direction of 2 bars:
-      mi.y <- y_base
-      fa.y <- mi.y + mi.ly
+      mi_y <- y_base
+      fa_y <- mi_y + mi_ly
     }
 
     # Plot 4 boxes:
     plot_vbox(ftype = NA, fname = "hi", fnum = hi,
-              box_x  = hi.x,
-              box_y  = hi.y,
-              box_lx = b.lx,
-              box_ly = hi.ly,
+              box_x  = hi_x,
+              box_y  = hi_y,
+              box_lx = b_lx,
+              box_ly = hi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "mi", fnum = mi,
-              box_x  = mi.x,
-              box_y  = mi.y,
-              box_lx = b.lx,
-              box_ly = mi.ly,
+              box_x  = mi_x,
+              box_y  = mi_y,
+              box_lx = b_lx,
+              box_ly = mi_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "fa", fnum = fa,
-              box_x  = fa.x,
-              box_y  = fa.y,
-              box_lx = b.lx,
-              box_ly = fa.ly,
+              box_x  = fa_x,
+              box_y  = fa_y,
+              box_lx = b_lx,
+              box_ly = fa_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     plot_vbox(ftype = NA, fname = "cr", fnum = cr,
-              box_x  = cr.x,
-              box_y  = cr.y,
-              box_lx = b.lx,
-              box_ly = cr.ly,
+              box_x  = cr_x,
+              box_y  = cr_y,
+              box_lx = b_lx,
+              box_ly = cr_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
@@ -1034,52 +1034,52 @@ plot_bar <- function(prev = num$prev,             # probabilities
     ## (b) Accuracy column: ----
 
     # x-coordinates:
-    col.nr <- 2
-    dec.cor.x <- (x_base + (col.nr * col.x) - (col.x/2))  # mid point of column col.nr
-    dec.err.x <- dec.cor.x
+    col_nr <- 2
+    dec_cor_x <- (x_base + (col_nr * col_x) - (col_x/2))  # mid point of column col_nr
+    dec_err_x <- dec_cor_x
 
     # heights (ly) as sum of previous heights (4 cases/cells):
-    dec.cor.ly <- abs(hi.ly) + abs(cr.ly)
-    dec.err.ly <- abs(mi.ly) + abs(fa.ly)
+    dec_cor_ly <- abs(hi_ly) + abs(cr_ly)
+    dec_err_ly <- abs(mi_ly) + abs(fa_ly)
 
     # Reverse some directions:
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.err.ly <- -1 * dec.err.ly
+      dec_err_ly <- -1 * dec_err_ly
     }
 
     # y-coordinates (given heights):
-    dec.cor.y <- y_base
-    dec.err.y <- dec.cor.y + dec.cor.ly
+    dec_cor_y <- y_base
+    dec_err_y <- dec_cor_y + dec_cor_ly
 
     if (dir == 2) {
       ## reverse direction of 1 bar:
-      dec.err.y <- y_base
+      dec_err_y <- y_base
     }
 
     # Plot 2 boxes:
-    plot_vbox(ftype = NA, fname = "dec.cor", fnum = (hi + cr),
-              box_x  = dec.cor.x,
-              box_y  = dec.cor.y,
-              box_lx = b.lx,
-              box_ly = dec.cor.ly,
+    plot_vbox(ftype = NA, fname = "dec_cor", fnum = (hi + cr),
+              box_x  = dec_cor_x,
+              box_y  = dec_cor_y,
+              box_lx = b_lx,
+              box_ly = dec_cor_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    plot_vbox(ftype = NA, fname = "dec.err", fnum = (mi + fa),
-              box_x  = dec.err.x,
-              box_y  = dec.err.y,
-              box_lx = b.lx,
-              box_ly = dec.err.ly,
+    plot_vbox(ftype = NA, fname = "dec_err", fnum = (mi + fa),
+              box_x  = dec_err_x,
+              box_y  = dec_err_y,
+              box_lx = b_lx,
+              box_ly = dec_err_ly,
               lbl_txt = lbl_txt, col_pal = col_pal,
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
     # Label acc column:
-    plot_ftype_label("dec.cor", dec.cor.x, y_min, pos = 1,
+    plot_ftype_label("dec_cor", dec_cor_x, y_min, pos = 1,
                      col = pal["txt"],
-                     # col = comp_freq_col("dec.cor"),
+                     # col = comp_freq_col("dec_cor"),
                      ...)
 
   } else if (by == "xxx") {

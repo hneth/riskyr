@@ -97,20 +97,20 @@ comp_freq_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 
   ## Initialize:
   N <- NA
-  cond.true  <- NA
-  cond.false <- NA
-  dec.pos    <- NA
-  dec.neg    <- NA
+  cond_true  <- NA
+  cond_false <- NA
+  dec_pos    <- NA
+  dec_neg    <- NA
 
-  new.freq <- init_freq()  # initialize new.freq (containing only NA values). BEWARE: Must NOT be "freq"!!!
+  new_freq <- init_freq()  # initialize new_freq (containing only NA values). BEWARE: Must NOT be "freq"!!!
 
 
   ## Compute 5 other freq from 4 essential freq:
   N  <- sum(c(hi, mi, fa, cr), na.rm = TRUE)   # N
-  cond.true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond.true cases
-  cond.false <- sum(c(fa, cr), na.rm = TRUE)   # freq of cond.false cases
-  dec.pos  <-   sum(c(hi, fa), na.rm = TRUE)   # freq of dec.pos cases
-  dec.neg  <-   sum(c(mi, cr), na.rm = TRUE)   # freq of dec.neg cases
+  cond_true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond_true cases
+  cond_false <- sum(c(fa, cr), na.rm = TRUE)   # freq of cond_false cases
+  dec_pos  <-   sum(c(hi, fa), na.rm = TRUE)   # freq of dec_pos cases
+  dec_neg  <-   sum(c(mi, cr), na.rm = TRUE)   # freq of dec_neg cases
 
   ## Check for existence:
   if (is.na(N)) {
@@ -121,32 +121,32 @@ comp_freq_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 
     ## Check for consistency:
     if ( (N != (hi + mi + fa + cr))      ||
-         (N != (cond.true + cond.false)) ||
-         (N != (dec.pos + dec.neg))      ||
-         (cond.true != (hi + mi) )       ||
-         (cond.false != (fa + cr) )      ||
-         (dec.pos != (hi + fa) )         ||
-         (dec.neg != (mi + cr) )   ){
+         (N != (cond_true + cond_false)) ||
+         (N != (dec_pos + dec_neg))      ||
+         (cond_true != (hi + mi) )       ||
+         (cond_false != (fa + cr) )      ||
+         (dec_pos != (hi + fa) )         ||
+         (dec_neg != (mi + cr) )   ){
 
       warning("Current frequencies fail to add up.")
 
     }
   }
 
-  ## Insert 9 new frequencies into empty slots of new.freq:
-  new.freq$N <- N
-  new.freq$cond.true  <- cond.true
-  new.freq$cond.false <- cond.false
-  new.freq$dec.pos <- dec.pos
-  new.freq$dec.neg <- dec.neg
-  new.freq$hi <- hi
-  new.freq$mi <- mi
-  new.freq$fa <- fa
-  new.freq$cr <- cr
+  ## Insert 9 new frequencies into empty slots of new_freq:
+  new_freq$N <- N
+  new_freq$cond_true  <- cond_true
+  new_freq$cond_false <- cond_false
+  new_freq$dec_pos <- dec_pos
+  new_freq$dec_neg <- dec_neg
+  new_freq$hi <- hi
+  new_freq$mi <- mi
+  new_freq$fa <- fa
+  new_freq$cr <- cr
 
 
-  ## Return entire list new.freq:
-  return(new.freq)
+  ## Return entire list new_freq:
+  return(new_freq)
 
   # ## ALTERNATIVE or ADDITIVE (to compute freq and prob at once):
   #
@@ -154,17 +154,17 @@ comp_freq_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
   # prob <- init_prob()  # initialize prob (containing only NA values)
   #
   # ## Compute all 10 probabilities in prob from frequencies:
-  # prob$prev <- cond.true/N
-  # prob$sens <- hi/cond.true
-  # prob$mirt <- mi/cond.true
-  # prob$spec <- cr/cond.false
-  # prob$fart <- fa/cond.false
+  # prob$prev <- cond_true/N
+  # prob$sens <- hi/cond_true
+  # prob$mirt <- mi/cond_true
+  # prob$spec <- cr/cond_false
+  # prob$fart <- fa/cond_false
   #
-  # prob$ppod <- dec.pos/N
-  # prob$PPV  <- hi/dec.pos
-  # prob$NPV  <- cr/dec.neg
-  # prob$FDR  <- fa/dec.pos
-  # prob$FOR  <- mi/dec.neg
+  # prob$ppod <- dec_pos/N
+  # prob$PPV  <- hi/dec_pos
+  # prob$NPV  <- cr/dec_neg
+  # prob$FDR  <- fa/dec_pos
+  # prob$FOR  <- mi/dec_neg
   #
   # ## Return entire list prob:
   # return(prob)

@@ -522,8 +522,8 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (c) by accuracy:
     acc <- prob_from_freq$acc
-    p_acc_hi <- freq$hi/freq$dec.cor  # p(hi | acc)
-    p_err_fa <- freq$fa/freq$dec.err  # p(fa | err)
+    p_acc_hi <- freq$hi/freq$dec_cor  # p(hi | acc)
+    p_err_fa <- freq$fa/freq$dec_err  # p(fa | err)
 
     ## Note: (A) only re-computes probabilities used for scaling,
     ##       but does not change prob values (used for labels).
@@ -1280,16 +1280,16 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (a) by condition (at top):
     # cond_y <- 1 + (.65 * sum_w)  # constant
-    cond.true_x  <- prev/2
-    cond.false_x <- prev + (1 - prev)/2 + v_gap
+    cond_true_x  <- prev/2
+    cond_false_x <- prev + (1 - prev)/2 + v_gap
 
     if (sum_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
-      box_cond.true  <- make_box("cond.true",  (cond.true_x * scale_x),  tbar_y, (prev * scale_x), bar_lx)        # cond.true
-      box_cond.false <- make_box("cond.false", (cond.false_x * scale_x), tbar_y, ((1 - prev) * scale_x), bar_lx)  # cond.false
+      box_cond_true  <- make_box("cond_true",  (cond_true_x * scale_x),  tbar_y, (prev * scale_x), bar_lx)        # cond_true
+      box_cond_false <- make_box("cond_false", (cond_false_x * scale_x), tbar_y, ((1 - prev) * scale_x), bar_lx)  # cond_false
 
-      fbox_top <- list(box_cond.true, box_cond.false)  # as list of boxes
+      fbox_top <- list(box_cond_true, box_cond_false)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1301,16 +1301,16 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (b) by decision (at top):
     # dec_y <- 1 + (.65 * sum_w)  # constant
-    dec.pos_x <- ppod/2
-    dec.neg_x <- ppod + (1 - ppod)/2 + v_gap
+    dec_pos_x <- ppod/2
+    dec_neg_x <- ppod + (1 - ppod)/2 + v_gap
 
     if (sum_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
-      box_dec.pos <- make_box("dec.pos", (dec.pos_x * scale_x), tbar_y, (ppod * scale_x), bar_lx)        # dec.pos
-      box_dec.neg <- make_box("dec.neg", (dec.neg_x * scale_x), tbar_y, ((1 - ppod) * scale_x), bar_lx)  # dec.neg
+      box_dec_pos <- make_box("dec_pos", (dec_pos_x * scale_x), tbar_y, (ppod * scale_x), bar_lx)        # dec_pos
+      box_dec_neg <- make_box("dec_neg", (dec_neg_x * scale_x), tbar_y, ((1 - ppod) * scale_x), bar_lx)  # dec_neg
 
-      fbox_top <- list(box_dec.pos, box_dec.neg)  # as list of boxes
+      fbox_top <- list(box_dec_pos, box_dec_neg)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1321,16 +1321,16 @@ plot_area <- function(prev = num$prev,    # probabilities
   } else if (by_top == "ac") {
 
     # (c) by accuracy (at top):
-    dec.cor_x <- acc/2
-    dec.err_x <- acc + (1 - acc)/2 + v_gap
+    dec_cor_x <- acc/2
+    dec_err_x <- acc + (1 - acc)/2 + v_gap
 
     if (sum_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
-      box_dec.cor <- make_box("dec.cor", (dec.cor_x * scale_x), tbar_y, (acc * scale_x), bar_lx)        # dec.cor
-      box_dec.err <- make_box("dec.err", (dec.err_x * scale_x), tbar_y, ((1 - acc) * scale_x), bar_lx)  # dec.err
+      box_dec_cor <- make_box("dec_cor", (dec_cor_x * scale_x), tbar_y, (acc * scale_x), bar_lx)        # dec_cor
+      box_dec_err <- make_box("dec_err", (dec_err_x * scale_x), tbar_y, ((1 - acc) * scale_x), bar_lx)  # dec_err
 
-      fbox_top <- list(box_dec.cor, box_dec.err)  # as list of boxes
+      fbox_top <- list(box_dec_cor, box_dec_err)  # as list of boxes
       plot_fbox_list(fbox_top,  # plot list of boxes (on top):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1351,16 +1351,16 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (a) by condition (on left):
     # cond_x <- 0 - (.60 * sum_w) # constant
-    cond.false_y  <- (1 - prev)/2
-    cond.true_y <- (1 - prev) + prev/2 + h_gap
+    cond_false_y  <- (1 - prev)/2
+    cond_true_y <- (1 - prev) + prev/2 + h_gap
 
     if (sum_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
-      box_cond.true  <- make_box("cond.true",  (lbar_x * scale_x), cond.true_y,  (bar_lx * scale_x), prev)        # cond.true
-      box_cond.false <- make_box("cond.false", (lbar_x * scale_x), cond.false_y, (bar_lx * scale_x), (1 - prev))  # cond.false
+      box_cond_true  <- make_box("cond_true",  (lbar_x * scale_x), cond_true_y,  (bar_lx * scale_x), prev)        # cond_true
+      box_cond_false <- make_box("cond_false", (lbar_x * scale_x), cond_false_y, (bar_lx * scale_x), (1 - prev))  # cond_false
 
-      fbox_left <- list(box_cond.true, box_cond.false)  # as list of boxes
+      fbox_left <- list(box_cond_true, box_cond_false)  # as list of boxes
       plot_fbox_list(fbox_left,
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1372,16 +1372,16 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (b) by decision (on left):
     # dec_x <- 0 - (.60 * sum_w) # constant
-    dec.neg_y <- (1 - ppod)/2
-    dec.pos_y <- (1 - ppod) + ppod/2  + h_gap
+    dec_neg_y <- (1 - ppod)/2
+    dec_pos_y <- (1 - ppod) + ppod/2  + h_gap
 
     if (sum_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
-      box_dec.pos <- make_box("dec.pos", (lbar_x * scale_x), dec.pos_y, (bar_lx * scale_x), ppod)        # dec.pos
-      box_dec.neg <- make_box("dec.neg", (lbar_x * scale_x), dec.neg_y, (bar_lx * scale_x), (1 - ppod))  # dec.neg
+      box_dec_pos <- make_box("dec_pos", (lbar_x * scale_x), dec_pos_y, (bar_lx * scale_x), ppod)        # dec_pos
+      box_dec_neg <- make_box("dec_neg", (lbar_x * scale_x), dec_neg_y, (bar_lx * scale_x), (1 - ppod))  # dec_neg
 
-      fbox_left <- list(box_dec.pos, box_dec.neg)  # as list of boxes
+      fbox_left <- list(box_dec_pos, box_dec_neg)  # as list of boxes
       plot_fbox_list(fbox_left,  # plot list of boxes (on left):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1394,16 +1394,16 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     # (c) by accuracy (on left):
     # acc_x <- 0 - (.60 * sum_w) # constant
-    dec.err_y <- (1 - acc)/2                # OR (rounded freq)
-    dec.cor_y <- (1 - acc) + acc/2 + h_gap  # OR (rounded freq): (freq$dec.cor/freq$N * 1/2)
+    dec_err_y <- (1 - acc)/2                # OR (rounded freq)
+    dec_cor_y <- (1 - acc) + acc/2 + h_gap  # OR (rounded freq): (freq$dec_cor/freq$N * 1/2)
 
     if (sum_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
-      box_dec.cor <- make_box("dec.cor", (lbar_x * scale_x), dec.cor_y, (bar_lx * scale_x), acc)        # dec.cor
-      box_dec.err <- make_box("dec.err", (lbar_x * scale_x), dec.err_y, (bar_lx * scale_x), (1 - acc))  # dec.err
+      box_dec_cor <- make_box("dec_cor", (lbar_x * scale_x), dec_cor_y, (bar_lx * scale_x), acc)        # dec_cor
+      box_dec_err <- make_box("dec_err", (lbar_x * scale_x), dec_err_y, (bar_lx * scale_x), (1 - acc))  # dec_err
 
-      fbox_left <- list(box_dec.cor, box_dec.err)  # as list of boxes
+      fbox_left <- list(box_dec_cor, box_dec_err)  # as list of boxes
       plot_fbox_list(fbox_left,  # plot list of boxes (on left):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1741,17 +1741,17 @@ plot_area <- function(prev = num$prev,    # probabilities
     #if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
     # ftype label: Condition (center, horizontal)
-    plot_ftype_label("cond.true", (1/2 * scale_x), y_max,
+    plot_ftype_label("cond_true", (1/2 * scale_x), y_max,
                      lbl_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     #} # if (sum_w etc.)
 
     # 2 sub-group labels:
-    plot_freq_label("cond.true", (cond.true_x * scale_x), (1 + h_gap + h_shift),
+    plot_freq_label("cond_true", (cond_true_x * scale_x), (1 + h_gap + h_shift),
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("cond.false", (cond.false_x * scale_x), (1 + h_gap + h_shift),
+    plot_freq_label("cond_false", (cond_false_x * scale_x), (1 + h_gap + h_shift),
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
@@ -1763,17 +1763,17 @@ plot_area <- function(prev = num$prev,    # probabilities
     #if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
     # ftype label: Decision (center, horizontal)
-    plot_ftype_label("dec.pos", (1/2 * scale_x), y_max,
+    plot_ftype_label("dec_pos", (1/2 * scale_x), y_max,
                      lbl_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     #} # if (sum_w etc.)
 
     # 2 sub-group labels:
-    plot_freq_label("dec.pos", (dec.pos_x * scale_x), (1 + h_gap + h_shift),
+    plot_freq_label("dec_pos", (dec_pos_x * scale_x), (1 + h_gap + h_shift),
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.neg", (dec.neg_x * scale_x), (1 + h_gap + h_shift),
+    plot_freq_label("dec_neg", (dec_neg_x * scale_x), (1 + h_gap + h_shift),
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
@@ -1786,17 +1786,17 @@ plot_area <- function(prev = num$prev,    # probabilities
     # if ( !is.null(sum_w) && !is.na(sum_w) ) {
 
     # ftype label: Accuracy (center, horizontal)
-    plot_ftype_label("dec.cor", (1/2 * scale_x), y_max,
+    plot_ftype_label("dec_cor", (1/2 * scale_x), y_max,
                      lbl_txt = lbl_txt, suffix = ":", pos = NULL, col = col_pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     #} # if (sum_w etc.)
 
     # 2 sub-group labels:
-    plot_freq_label("dec.cor", (dec.cor_x * scale_x), (1 + h_gap + h_shift),
+    plot_freq_label("dec_cor", (dec_cor_x * scale_x), (1 + h_gap + h_shift),
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.err", (dec.err_x * scale_x), (1 + h_gap + h_shift),
+    plot_freq_label("dec_err", (dec_err_x * scale_x), (1 + h_gap + h_shift),
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", pos = 3, col = col_pal["txt"], cex = cex_lbl)
@@ -1818,18 +1818,18 @@ plot_area <- function(prev = num$prev,    # probabilities
     # if (sum_w > 0) {
 
     ## ftype label: # Condition (left, vertical up)
-    plot_ftype_label("cond.true", (x_min * scale_x), .5,
+    plot_ftype_label("cond_true", (x_min * scale_x), .5,
                      lbl_txt = lbl_txt, suffix = ":",
                      srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     #} # if (sum_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("cond.true",  ((0 - v_shift) * scale_x), cond.true_y,
+    plot_freq_label("cond_true",  ((0 - v_shift) * scale_x), cond_true_y,
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("cond.false", ((0 - v_shift) * scale_x), cond.false_y,
+    plot_freq_label("cond_false", ((0 - v_shift) * scale_x), cond_false_y,
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
@@ -1842,17 +1842,17 @@ plot_area <- function(prev = num$prev,    # probabilities
     # if (sum_w > 0) {
 
     ## ftype label: Decision (left, vertical up)
-    plot_ftype_label("dec.pos", (x_min * scale_x), .5, lbl_txt = lbl_txt, suffix = ":",
+    plot_ftype_label("dec_pos", (x_min * scale_x), .5, lbl_txt = lbl_txt, suffix = ":",
                      srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     #} # if (sum_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("dec.pos", ((0 - v_shift) * scale_x), dec.pos_y,
+    plot_freq_label("dec_pos", ((0 - v_shift) * scale_x), dec_pos_y,
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.neg", ((0 - v_shift) * scale_x), dec.neg_y,
+    plot_freq_label("dec_neg", ((0 - v_shift) * scale_x), dec_neg_y,
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
@@ -1865,18 +1865,18 @@ plot_area <- function(prev = num$prev,    # probabilities
     # if (sum_w > 0) {
 
     ## ftype label: Accuracy (left, vertical up)
-    plot_ftype_label("dec.cor", (x_min * scale_x), .5,
+    plot_ftype_label("dec_cor", (x_min * scale_x), .5,
                      lbl_txt = lbl_txt, suffix = ":",
                      srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     #} # if (sum_w > 0) etc.
 
     # 2 sub-group labels:
-    plot_freq_label("dec.cor", ((0 - v_shift) * scale_x), dec.cor_y,
+    plot_freq_label("dec_cor", ((0 - v_shift) * scale_x), dec_cor_y,
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)
-    plot_freq_label("dec.err", ((0 - v_shift) * scale_x), dec.err_y,
+    plot_freq_label("dec_err", ((0 - v_shift) * scale_x), dec_err_y,
                     lbl_type = f_lbl_hd, lbl_sep = f_lbl_sep,
                     cur_freq = freq, lbl_txt = lbl_txt,
                     suffix = ":", srt = 90, pos = 3, col = col_pal["txt"], cex = cex_lbl)

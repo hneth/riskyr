@@ -1,5 +1,5 @@
 ## read_data.R | riskyr
-## 2018 12 21
+## 2018 12 20
 ## Read data file for scenario information:
 ## -----------------------------------------------
 

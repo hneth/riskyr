@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 11 25
+## 2018 12 10
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -663,17 +663,17 @@ is_complement <- function(p1, p2, tol = .01) {
 #' plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
 #'
 #' prev <- .50
-#' is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+#' is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec_pos cases)
 #' plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
 #' # # Variant:
-#' is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+#' is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec_pos cases)
 #' plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
 #'
 #' prev <- .50
-#' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+#' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec_neg cases)
 #' plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
 #' # # Variant:
-#' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+#' is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec_neg cases)
 #' plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 #'
 #' @family verification functions
@@ -733,50 +733,50 @@ is_extreme_prob_set <- function(prev,
 
   if ((prev == 1) & (sens == 1)) {        # 1. prev and sens are both perfect:
 
-    warning("Extreme case (prev = 1 & sens = 1):\n  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 1 & sens = 1):\n  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.")
     val <- TRUE
 
   }
 
   else if ((prev == 1) & (sens == 0)) {   # 2. prev perfect and sens zero:
 
-    warning("Extreme case (prev = 1 & sens = 0):\n  N mi (FN) cases; 0 cond.false or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 1 & sens = 0):\n  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.")
     val <- TRUE
 
   }
 
   else if ((prev == 0) & (spec == 0)) {   # 3a. prev and spec are both zero:
 
-    warning("Extreme case (prev = 0 & spec = 0):\n  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & spec = 0):\n  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 1)) {  # 3b. prev zero and fart perfect (i.e., spec zero):
 
-    warning("Extreme case (prev = 0 & fart = 1):\n  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 1):\n  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.")
     val <- TRUE
 
   }
 
   else if ((prev == 0) & (spec == 1)) {   # 4a. prev zero and spec perfect:
 
-    warning("Extreme case (prev = 0 & spec = 1):\n  N cr (TN) cases; 0 cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & spec = 1):\n  N cr (TN) cases; 0 cond_true or dec_false cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((prev == 0) & (fart == 0)) {  # 4b. prev zero and fart zero (i.e., spec perfect):
 
-    warning("Extreme case (prev = 0 & fart = 0):\n  N cr (TN) cases; 0 cond.true or dec.false cases; NPV = NaN.")
+    warning("Extreme case (prev = 0 & fart = 0):\n  N cr (TN) cases; 0 cond_true or dec_false cases; NPV = NaN.")
     val <- TRUE
 
   }
 
   else if ((sens == 0) & (spec == 1)) {   # 5a. sens zero and spec perfect (i.e., fart zero):
 
-    warning("Extreme case (sens = 0 & spec = 1):\n  0 hi (TP) and 0 fa (FP) cases; 0 dec.pos cases; PPV = NaN.")
+    warning("Extreme case (sens = 0 & spec = 1):\n  0 hi (TP) and 0 fa (FP) cases; 0 dec_pos cases; PPV = NaN.")
     val <- TRUE
 
   } else if ((sens == 0) & (fart == 0)) {  # 5b. sens zero and fart zero (i.e., spec perfect):
 
-    warning("Extreme case (sens = 0 & fart = 0):\n  0 hi (TP) and 0 fa (FP) cases; 0 dec.pos cases; PPV = NaN.")
+    warning("Extreme case (sens = 0 & fart = 0):\n  0 hi (TP) and 0 fa (FP) cases; 0 dec_pos cases; PPV = NaN.")
     val <- TRUE
 
   }
@@ -784,12 +784,12 @@ is_extreme_prob_set <- function(prev,
 
   else if ((sens == 1) & (spec == 0)) {   # 6a. sens perfect and spec zero (i.e., fart perfect):
 
-    warning("Extreme case (sens = 1 & spec = 0):\n  0 mi (FN) and 0 cr (TN) cases; 0 dec.neg cases; NPV = NaN.")
+    warning("Extreme case (sens = 1 & spec = 0):\n  0 mi (FN) and 0 cr (TN) cases; 0 dec_neg cases; NPV = NaN.")
     val <- TRUE
 
   } else if ((sens == 1) & (fart == 1)) {  # 6b. sens perfect and fart perfect (i.e., spec zero):
 
-    warning("Extreme case (sens = 1 & fart = 1):\n  0 mi (FN) and 0 cr (TN) cases; 0 dec.neg cases; NPV = NaN.")
+    warning("Extreme case (sens = 1 & fart = 1):\n  0 mi (FN) and 0 cr (TN) cases; 0 dec_neg cases; NPV = NaN.")
     val <- TRUE
 
   }
@@ -829,17 +829,17 @@ is_extreme_prob_set <- function(prev,
 # plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
 #
 # prev <- .50
-# is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+# is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec_pos cases)
 # plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
 # # # Variant:
-# is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+# is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec_pos cases)
 # plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
 #
 # prev <- .50
-# is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+# is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec_neg cases)
 # plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
 # # # Variant:
-# is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+# is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec_neg cases)
 # plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 
 

@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 11 17
+## 2018 12 10
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
@@ -36,9 +36,9 @@
 #' \enumerate{
 #'
 #'    \item \code{acc}: Overall accuracy as the proportion (or probability)
-#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
+#'    of correctly classifying cases or of \code{\link{dec_cor}} cases:
 #'
-#'    \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'    Values range from 0 (no correct prediction) to 1 (perfect prediction).
 #'
@@ -85,10 +85,10 @@
 #'    \enumerate{
 #'
 #'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
-#'      or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'      or the ratio \code{\link{dec_cor}}/\code{\link{N}}),
 #'
 #'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
-#'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+#'      individuals into cases of \code{\link{dec_cor}} vs. \code{\link{dec_err}}),
 #'
 #'      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 #'
@@ -193,40 +193,40 @@ comp_accu_freq <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencie
   # (3) Compute combined frequencies from 4 essential frequencies:
 
   # (a) by condition (columns of confusion matrix):
-  cond.true  <- (hi + mi)
-  cond.false <- (fa + cr)
-  N.cond     <- (cond.true + cond.false)
+  cond_true  <- (hi + mi)
+  cond_false <- (fa + cr)
+  N_cond     <- (cond_true + cond_false)
 
   # (b) by decision (rows of confusion matrix):
-  dec.pos <- (hi + fa)  # positive decisions
-  dec.neg <- (mi + cr)
-  N.dec   <- (dec.pos + dec.neg)
+  dec_pos <- (hi + fa)  # positive decisions
+  dec_neg <- (mi + cr)
+  N_dec   <- (dec_pos + dec_neg)
 
   # (c) by truth/correctness of decision (diagonals of confusion matrix):
-  dec.cor <- (hi + cr)  # correct decisions
-  dec.err <- (mi + fa)  # erroneous decisions
-  N.truth <- (dec.cor + dec.err)
+  dec_cor <- (hi + cr)  # correct decisions
+  dec_err <- (mi + fa)  # erroneous decisions
+  N_truth <- (dec_cor + dec_err)
 
   # Check:
-  if ((N.cond != N.dec) || (N.cond != N.truth))  {
-    warning("A violation of commutativity occurred: 4 basic frequencies do not add up to N.")
+  if ((N_cond != N_dec) || (N_cond != N_truth))  {
+    warning("A violation of commutativity occurred: 4 basic frequencies do not add up to N_")
   } else {
-    N <- N.cond
+    N <- N_cond
   }
 
   # (4) Compute auxiliary values (used below):
 
-  sens <- hi/cond.true  # conditional probabilities 1
-  spec <- cr/cond.false
+  sens <- hi/cond_true  # conditional probabilities 1
+  spec <- cr/cond_false
 
-  PPV <- hi/dec.pos    # conditional probabilities 2
-  # NPV <- cr/dec.neg  # (not needed here)
+  PPV <- hi/dec_pos    # conditional probabilities 2
+  # NPV <- cr/dec_neg  # (not needed here)
 
 
   # (5) Compute current accuracy metrics:
 
   # 1. Overall accuracy (acc) / proportion correct:
-  accu$acc  <- dec.cor/N
+  accu$acc  <- dec_cor/N
 
   # 2. Weighted/balanced accuracy (wacc/bacc):
   accu$wacc <- (w * sens) + ((1 - w) * spec)
@@ -311,11 +311,11 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' \enumerate{
 #'
 #'    \item \code{acc}: Overall accuracy as the proportion (or probability)
-#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
+#'    of correctly classifying cases or of \code{\link{dec_cor}} cases:
 #'
 #'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
-#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    (b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 #'
@@ -357,8 +357,8 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #' as probabilities (e.g., \code{acc}) and some as correlations (e.g., \code{mcc}).
 #'
 #' Also, accuracy can be viewed as a probability (e.g., the ratio of or link between
-#' \code{\link{dec.cor}} and \code{\link{N}}) or as a frequency type
-#' (containing \code{\link{dec.cor}} and \code{\link{dec.err}}).
+#' \code{\link{dec_cor}} and \code{\link{N}}) or as a frequency type
+#' (containing \code{\link{dec_cor}} and \code{\link{dec_err}}).
 #'
 #' \code{comp_accu_prob} computes exact accuracy metrics from probabilities.
 #' When input frequencies were rounded (see the default of \code{round = TRUE}
@@ -408,10 +408,10 @@ comp_accu <- function(hi = freq$hi, mi = freq$mi,  # 4 essential frequencies
 #'    \enumerate{
 #'
 #'      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
-#'      or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'      or the ratio \code{\link{dec_cor}}/\code{\link{N}}),
 #'
 #'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
-#'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+#'      individuals into cases of \code{\link{dec_cor}} vs. \code{\link{dec_err}}),
 #'
 #'      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 #'
@@ -527,14 +527,14 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
     # (c) Compute some auxiliary values (used below):
 
-    dec.cor <- (hi + cr)  # correct decisions
-    dec.pos <- (hi + fa)  # positive decisions
-    PPV <- hi/dec.pos     # conditional probabilities 2
+    dec_cor <- (hi + cr)  # correct decisions
+    dec_pos <- (hi + fa)  # positive decisions
+    PPV <- hi/dec_pos     # conditional probabilities 2
 
     # (d) Compute current accuracy metrics:
 
     # 1. Overall accuracy (acc) / proportion correct:
-    accu$acc  <- dec.cor/N
+    accu$acc  <- dec_cor/N
 
     # 2. Weighted/balanced accuracy (wacc/bacc):
     accu$wacc <- (w * sens) + ((1 - w) * spec)
@@ -631,7 +631,7 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #' \enumerate{
 #'
 #'    \item \code{\link{acc}}: Overall accuracy as the probability (or proportion)
-#'    of correctly classifying cases or of \code{\link{dec.cor}} cases:
+#'    of correctly classifying cases or of \code{\link{dec_cor}} cases:
 #'
 #'    See \code{\link{acc}} for definition and explanations.
 #'
@@ -681,10 +681,10 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 #'    \enumerate{
 #'
 #'      \item as \emph{probabilities} (i.e., \code{\link{acc}} being the probability or proportion
-#'      of correct classifications, or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+#'      of correct classifications, or the ratio \code{\link{dec_cor}}/\code{\link{N}}),
 #'
 #'      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
-#'      individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+#'      individuals into cases of \code{\link{dec_cor}} vs. \code{\link{dec_err}}),
 #'
 #'      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 #'

@@ -1,11 +1,11 @@
 ## comp_min_N.R | riskyr
-## 2018 12 06
+## 2018 12 10
 ## Compute minimum population size N (given prob)
 ## -----------------------------------------------
 
 ## Compute suitable minimum population size value N: --------
 
-## Criterion: All 4 SDT cells should have a minimal frequency of min.freq:
+## Criterion: All 4 SDT cells should have a minimal frequency of min_freq:
 
 ## comp_min_N: Documentation ------
 
@@ -14,7 +14,7 @@
 #' \code{comp_min_N} computes a population size value \code{\link{N}} (an integer
 #' as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
 #' (i.e., the cells of the confusion table, or center row of boxes in the frequency prism)
-#' reach or exceed a minimum value \code{min.freq} given the basic parameters
+#' reach or exceed a minimum value \code{min_freq} given the basic parameters
 #' \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} (\code{spec = 1 - \link{fart}}).
 #'
 #' Using this function helps avoiding excessively small decimal values in categories
@@ -22,7 +22,7 @@
 #' when expressing combinations of conditions and decisions as natural frequencies.
 #' As values of zero (0) are tolerable, the function only increases \code{\link{N}}
 #' (in powers of 10) while the current value of any frequency (cell in confusion table or
-#' leaf of a frequency tree) is positive but below \code{min.freq}.
+#' leaf of a frequency tree) is positive but below \code{min_freq}.
 #'
 #' By default, \code{\link{comp_freq_prob}} and \code{\link{comp_freq}}
 #' round frequencies to nearest integers to avoid decimal values in
@@ -40,9 +40,9 @@
 #' (i.e., the conditional probability
 #' of a negative decision provided that the condition is FALSE).
 #'
-#' @param min.freq The minimum frequency of each combination of
+#' @param min_freq The minimum frequency of each combination of
 #' a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
-#' Default: \code{min.freq = 1}.
+#' Default: \code{min_freq = 1}.
 #'
 #' @return An integer value \code{\link{N}} (as a power of 10).
 #'
@@ -50,8 +50,8 @@
 #' comp_min_N(0, 0, 0)  # => 1
 #' comp_min_N(1, 1, 1)  # => 1
 #'
-#' comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
-#' comp_min_N(1, 1, 1, min.freq = 99)  # => 100
+#' comp_min_N(1, 1, 1, min_freq = 10)  # =>  10
+#' comp_min_N(1, 1, 1, min_freq = 99)  # => 100
 #'
 #' comp_min_N(.1, .1, .1)        # =>       100 = 10^2
 #' comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
@@ -77,7 +77,7 @@
 ## comp_min_N: Definition ------
 
 comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
-                       min.freq = 1) {
+                       min_freq = 1) {
 
   ## (1) initialize:
   N <- 10^0
@@ -89,25 +89,25 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
     is_extreme_prob_set(prev = prev, sens = sens, spec = spec)  # prints a warning if TRUE
 
     ## (4) Compute frequency of 4 SDT cases (without rounding):
-    n.hi <- N * prev * sens
-    n.mi <- N * prev * (1 - sens)
-    n.cr <- N * (1 - prev) * spec
-    n.fa <- N * (1 - prev) * (1 - spec)
+    n_hi <- N * prev * sens
+    n_mi <- N * prev * (1 - sens)
+    n_cr <- N * (1 - prev) * spec
+    n_fa <- N * (1 - prev) * (1 - spec)
 
-    ## (5) While freq of 4 SDT cases < min.freq:
-    while ((n.hi > 0  &&  n.hi < min.freq) |
-           (n.mi > 0  &&  n.mi < min.freq) |
-           (n.cr > 0  &&  n.cr < min.freq) |
-           (n.fa > 0  &&  n.fa < min.freq)) {
+    ## (5) While freq of 4 SDT cases < min_freq:
+    while ((n_hi > 0  &&  n_hi < min_freq) |
+           (n_mi > 0  &&  n_mi < min_freq) |
+           (n_cr > 0  &&  n_cr < min_freq) |
+           (n_fa > 0  &&  n_fa < min_freq)) {
 
       ## (a) Multiply N by 10:
       N <- (N * 10)
 
       ## (b) Update frequency of 4 SDT cases for current N (in next loop):
-      n.hi <- N * prev * sens
-      n.mi <- N * prev * (1 - sens)
-      n.cr <- N * (1 - prev) * spec
-      n.fa <- N * (1 - prev) * (1 - spec)
+      n_hi <- N * prev * sens
+      n_mi <- N * prev * (1 - sens)
+      n_cr <- N * (1 - prev) * spec
+      n_fa <- N * (1 - prev) * (1 - spec)
 
     }
   }
@@ -120,8 +120,8 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
 ## Check: -----
 # comp_min_N(0, 0, 0)  # => 1
 # comp_min_N(1, 1, 1)  # => 1
-# comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
-# comp_min_N(1, 1, 1, min.freq = 99)  # => 100
+# comp_min_N(1, 1, 1, min_freq = 10)  # =>  10
+# comp_min_N(1, 1, 1, min_freq = 99)  # => 100
 # comp_min_N(.1, .1, .1)        # =>       100 = 10^2
 # comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4
 # comp_min_N(.001, .001, .1)    # => 1 000 000 = 10^6

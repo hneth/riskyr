@@ -102,12 +102,12 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 
   ## Initialize compound freq:
   N <- NA
-  cond.true  <- NA
-  cond.false <- NA
-  dec.pos    <- NA
-  dec.neg    <- NA
-  dec.cor    <- NA
-  dec.err    <- NA
+  cond_true  <- NA
+  cond_false <- NA
+  dec_pos    <- NA
+  dec_neg    <- NA
+  dec_cor    <- NA
+  dec_err    <- NA
 
   prob <- init_prob()  # initialize prob (containing only NA values)
 
@@ -117,26 +117,26 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   ## (a) Using sum:
   N  <- sum(c(hi, mi, fa, cr), na.rm = TRUE)   # N
 
-  cond.true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond.true cases
-  cond.false <- sum(c(fa, cr), na.rm = TRUE)   # freq of cond.false cases
+  cond_true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond_true cases
+  cond_false <- sum(c(fa, cr), na.rm = TRUE)   # freq of cond_false cases
 
-  dec.pos  <-   sum(c(hi, fa), na.rm = TRUE)   # freq of dec.pos cases
-  dec.neg  <-   sum(c(mi, cr), na.rm = TRUE)   # freq of dec.neg cases
+  dec_pos  <-   sum(c(hi, fa), na.rm = TRUE)   # freq of dec_pos cases
+  dec_neg  <-   sum(c(mi, cr), na.rm = TRUE)   # freq of dec_neg cases
 
-  dec.cor  <-   sum(c(hi, cr), na.rm = TRUE)   # freq of dec.cor cases
-  dec.err  <-   sum(c(mi, fa), na.rm = TRUE)   # freq of dec.err cases
+  dec_cor  <-   sum(c(hi, cr), na.rm = TRUE)   # freq of dec_cor cases
+  dec_err  <-   sum(c(mi, fa), na.rm = TRUE)   # freq of dec_err cases
 
   # ## (b) Using +:
   # N <- (hi + mi + fa + cr) # N
   #
-  # cond.true  <- (hi + mi)  # freq of cond.true cases
-  # cond.false <- (fa + cr)  # freq of cond.false cases
+  # cond_true  <- (hi + mi)  # freq of cond_true cases
+  # cond_false <- (fa + cr)  # freq of cond_false cases
   #
-  # dec.pos  <-   (hi + fa)  # freq of dec.pos cases
-  # dec.neg  <-   (mi + cr)  # freq of dec.neg cases
+  # dec_pos  <-   (hi + fa)  # freq of dec_pos cases
+  # dec_neg  <-   (mi + cr)  # freq of dec_neg cases
   #
-  # dec.cor  <-   (hi + cr)  # freq of dec.cor cases
-  # dec.err  <-   (mi + fa)  # freq of dec.err cases
+  # dec_cor  <-   (hi + cr)  # freq of dec_cor cases
+  # dec_err  <-   (mi + fa)  # freq of dec_err cases
 
   ## Check for existence:
   if (is.na(N)) {
@@ -150,15 +150,15 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 
     if (#isTRUE(all.equal(N, (hi + mi + fa + cr), tolerance = tol)) &&
       (abs(N - (hi + mi + fa + cr)) > tol) ||
-      (abs(cond.true - (hi + mi)) > tol)             ||
-      (abs(cond.false - (fa + cr)) > tol)            ||
-      (abs(dec.pos - (hi + fa)) > tol)               ||
-      (abs(dec.neg - (mi + cr)) > tol)               ||
-      (abs(dec.cor - (hi + cr)) > tol)               ||
-      (abs(dec.err - (mi + fa)) > tol)               ||
-      (abs(N - (cond.true + cond.false)) > tol)      ||
-      (abs(N - (dec.pos + dec.neg)) > tol)           ||
-      (abs(N - (dec.cor + dec.err)) > tol)
+      (abs(cond_true - (hi + mi)) > tol)             ||
+      (abs(cond_false - (fa + cr)) > tol)            ||
+      (abs(dec_pos - (hi + fa)) > tol)               ||
+      (abs(dec_neg - (mi + cr)) > tol)               ||
+      (abs(dec_cor - (hi + cr)) > tol)               ||
+      (abs(dec_err - (mi + fa)) > tol)               ||
+      (abs(N - (cond_true + cond_false)) > tol)      ||
+      (abs(N - (dec_pos + dec_neg)) > tol)           ||
+      (abs(N - (dec_cor + dec_err)) > tol)
     ) {
 
       warning("Current frequencies do NOT add up to N.")
@@ -167,22 +167,22 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   }
 
   ## Compute all (currently 13) probabilities in prob from frequencies:
-  prob$prev <- cond.true/N
-  prob$sens <- hi/cond.true
-  prob$mirt <- mi/cond.true
-  prob$spec <- cr/cond.false
-  prob$fart <- fa/cond.false
+  prob$prev <- cond_true/N
+  prob$sens <- hi/cond_true
+  prob$mirt <- mi/cond_true
+  prob$spec <- cr/cond_false
+  prob$fart <- fa/cond_false
 
-  prob$ppod <- dec.pos/N
-  prob$PPV  <- hi/dec.pos
-  prob$NPV  <- cr/dec.neg
-  prob$FDR  <- fa/dec.pos
-  prob$FOR  <- mi/dec.neg
+  prob$ppod <- dec_pos/N
+  prob$PPV  <- hi/dec_pos
+  prob$NPV  <- cr/dec_neg
+  prob$FDR  <- fa/dec_pos
+  prob$FOR  <- mi/dec_neg
 
-  prob$acc  <- dec.cor/N
+  prob$acc  <- dec_cor/N
   ## NOW also computed/stored in prob [2018 09 30]:
-  prob$p_acc_hi <- hi/dec.cor  # p(hi | acc)
-  prob$p_err_fa <- fa/dec.err  # p(fa | err)
+  prob$p_acc_hi <- hi/dec_cor  # p(hi | acc)
+  prob$p_err_fa <- fa/dec_err  # p(fa | err)
 
   ## Return entire list prob:
   return(prob)
@@ -240,11 +240,11 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 #'
 #' The probability \code{\link{prev}} can be computed from frequencies
 #' as the the ratio of
-#' \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+#' \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}})
 #' divided by
 #' \code{\link{N}} (i.e., \code{\link{hi} + \link{mi} + \link{fa} + \link{cr}}):
 #'
-#' \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+#' \code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
 #' @param hi  The number of hits \code{\link{hi}} (or true positives).
 #' @param mi  The number of misses \code{\link{mi}} (or false negatives).
@@ -273,27 +273,27 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
   prob <- init_prob()  # initialize prob (containing only NA values)
 
   ## Compute 5 other freq from 4 essential freq:
-  cond.true  <- sum(hi, mi, na.rm = TRUE)   # freq of cond.true cases
-  cond.false <- sum(fa, cr, na.rm = TRUE)   # freq of cond.false cases
-  dec.pos <- sum(hi, fa, na.rm = TRUE)      # freq of dec.pos cases
-  dec.neg <- sum(mi, cr, na.rm = TRUE)      # freq of dec.neg cases
-  N <- sum(cond.true, cond.false)           # N
+  cond_true  <- sum(hi, mi, na.rm = TRUE)   # freq of cond_true cases
+  cond_false <- sum(fa, cr, na.rm = TRUE)   # freq of cond_false cases
+  dec_pos <- sum(hi, fa, na.rm = TRUE)      # freq of dec_pos cases
+  dec_neg <- sum(mi, cr, na.rm = TRUE)      # freq of dec_neg cases
+  N <- sum(cond_true, cond_false)           # N
 
   ## Check for consistency:
   if ( (N != hi + mi + fa + cr)      ||
-       (N != cond.true + cond.false) ||
-       (N != dec.pos + dec.neg)      ||
-       (cond.true != hi + mi)        ||
-       (cond.false != fa + cr)       ||
-       (dec.pos != hi + fa)          ||
-       (dec.neg != mi + cr)           )
+       (N != cond_true + cond_false) ||
+       (N != dec_pos + dec_neg)      ||
+       (cond_true != hi + mi)        ||
+       (cond_false != fa + cr)       ||
+       (dec_pos != hi + fa)          ||
+       (dec_neg != mi + cr)           )
   {
 
     warning("Current frequencies do NOT add up.")
   }
 
   ## Compute all probabilities in prob:
-  prob$prev <- cond.true/N
+  prob$prev <- cond_true/N
 
   ## Return:
   return(prob$prev)
@@ -395,7 +395,7 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 ##   from MIX of existing probabilities and frequencies!
 ##
 ## - Compute alternative prob from freq with
-##   a. N of dec.pos (rather than N of fa) and
-##   b. N of dec.neg (rather than N of mi) provided.
+##   a. N of dec_pos (rather than N of fa) and
+##   b. N of dec_neg (rather than N of mi) provided.
 
 ## eof. ------------------------------------------

@@ -10,7 +10,7 @@
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
+# prev*                           cond_true | cond_false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -24,8 +24,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
+# ppod = proportion of dec_pos     dec_pos | dec_neg (rows)
+#                                  dec_cor | dec_err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -36,8 +36,8 @@
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
 # acc  = overall accuracy (probability/proportion correct decision)
-# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec_cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec_err)"
 
 ## Other measures of accuracy (in accu):
 # wacc = weighted accuracy
@@ -87,15 +87,15 @@
 #'
 #'   \item In terms of frequencies,
 #'   \code{prev} is the ratio of
-#'   \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+#'   \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}})
 #'   divided by \code{\link{N}} (i.e.,
 #'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 #'
-#'   \code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+#'   \code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
 #'
 #'   \item Perspective:
 #'   \code{prev} classifies a population of \code{\link{N}} individuals
-#'   by condition (\code{prev = cond.true/N}).
+#'   by condition (\code{prev = cond_true/N}).
 #'
 #'   \code{prev} is the "by condition" counterpart
 #'   to \code{\link{ppod}} (when adopting a "by decision" perspective) and
@@ -126,7 +126,7 @@
 #' }
 #'
 #' @aliases
-#' baserate_cond.true
+#' baserate_cond_true
 #'
 #' @examples
 #' prev <- .10     # sets a prevalence value of 10%
@@ -175,8 +175,8 @@ prev <- 1/2  # default prevalence
 #'
 #'   \item Perspective:
 #'   \code{sens} further classifies
-#'   the subset of \code{\link{cond.true}} individuals
-#'   by decision (\code{sens = hi/cond.true}).
+#'   the subset of \code{\link{cond_true}} individuals
+#'   by decision (\code{sens = hi/cond_true}).
 #'
 #'
 #'   \item Alternative names:
@@ -203,9 +203,9 @@ prev <- 1/2  # default prevalence
 #'   \item In terms of frequencies,
 #'   \code{sens} is the ratio of
 #'   \code{\link{hi}} divided by
-#'   \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}}):
+#'   \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}}):
 #'
-#'   \code{sens = hi/cond.true = hi/(hi + mi)}
+#'   \code{sens = hi/cond_true = hi/(hi + mi)}
 #'
 #'
 #'   \item Dependencies:
@@ -269,8 +269,8 @@ sens <- 1/2  # default sensitivity
 #'
 #'   \item Perspective:
 #'   \code{mirt} further classifies
-#'   the subset of \code{\link{cond.true}} individuals
-#'   by decision (\code{mirt = mi/cond.true}).
+#'   the subset of \code{\link{cond_true}} individuals
+#'   by decision (\code{mirt = mi/cond_true}).
 #'
 #'
 #'   \item Alternative names:
@@ -292,10 +292,10 @@ sens <- 1/2  # default sensitivity
 #'
 #'   \item In terms of frequencies,
 #'   \code{mirt} is the ratio of
-#'   \code{\link{mi}} divided by \code{\link{cond.true}}
+#'   \code{\link{mi}} divided by \code{\link{cond_true}}
 #'   (i.e., \code{\link{hi} + \link{mi}}):
 #'
-#'   \code{mirt = mi/cond.true = mi/(hi + mi)}
+#'   \code{mirt = mi/cond_true = mi/(hi + mi)}
 #'
 #'
 #'   \item Dependencies:
@@ -358,8 +358,8 @@ mirt <- 1 - sens  # default miss rate
 #'
 #'   \item Perspective:
 #'   \code{spec} further classifies
-#'   the subset of \code{\link{cond.false}} individuals
-#'   by decision (\code{spec = cr/cond.false}).
+#'   the subset of \code{\link{cond_false}} individuals
+#'   by decision (\code{spec = cr/cond_false}).
 #'
 #'
 #'   \item Alternative names:
@@ -384,10 +384,10 @@ mirt <- 1 - sens  # default miss rate
 #'
 #'   \item In terms of frequencies,
 #'   \code{spec} is the ratio of
-#'   \code{\link{cr}} divided by \code{\link{cond.false}}
+#'   \code{\link{cr}} divided by \code{\link{cond_false}}
 #'   (i.e., \code{\link{fa} + \link{cr}}):
 #'
-#'   \code{spec = cr/cond.false = cr/(fa + cr)}
+#'   \code{spec = cr/cond_false = cr/(fa + cr)}
 #'
 #'
 #'   \item Dependencies:
@@ -452,8 +452,8 @@ spec <- 1/2 # default specificity
 #'
 #'   \item Perspective:
 #'   \code{fart} further classifies
-#'   the subset of \code{\link{cond.false}} individuals
-#'   by decision (\code{fart = fa/cond.false}).
+#'   the subset of \code{\link{cond_false}} individuals
+#'   by decision (\code{fart = fa/cond_false}).
 #'
 #'
 #'   \item Alternative names:
@@ -480,10 +480,10 @@ spec <- 1/2 # default specificity
 #'
 #'   \item In terms of frequencies,
 #'   \code{fart} is the ratio of
-#'   \code{\link{fa}} divided by \code{\link{cond.false}}
+#'   \code{\link{fa}} divided by \code{\link{cond_false}}
 #'   (i.e., \code{\link{fa} + \link{cr}}):
 #'
-#'   \code{fart = fa/cond.false = fa/(fa + cr)}
+#'   \code{fart = fa/cond_false = fa/(fa + cr)}
 #'
 #'
 #'   \item Dependencies:
@@ -550,7 +550,7 @@ fart <- 1 - spec   # default false alarm rate
 #'
 #'   \item Perspective:
 #'   \code{ppod} classifies a population of \code{\link{N}} individuals
-#'   by decision (\code{ppod = dec.pos/N}).
+#'   by decision (\code{ppod = dec_pos/N}).
 #'
 #'   \code{ppod} is the "by decision" counterpart to \code{\link{prev}}
 #'   (which adopts a "by condition" perspective).
@@ -562,11 +562,11 @@ fart <- 1 - spec   # default false alarm rate
 #'
 #'   \item In terms of frequencies,
 #'   \code{ppod} is the ratio of
-#'   \code{\link{dec.pos}} (i.e., \code{\link{hi} + \link{fa}})
+#'   \code{\link{dec_pos}} (i.e., \code{\link{hi} + \link{fa}})
 #'   divided by \code{\link{N}} (i.e.,
 #'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 #'
-#'   \code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
+#'   \code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 #'
 #'   \item Dependencies:
 #'   \code{ppod} is a feature of the decision process
@@ -581,7 +581,7 @@ fart <- 1 - spec   # default false alarm rate
 #' }
 #'
 #' @aliases
-#' baserate_dec.pos PR
+#' baserate_dec_pos PR
 #'
 #' @examples
 #' ppod <- .50     # sets a rate of positive decisions of 50%
@@ -631,8 +631,8 @@ ppod <- 1/2  # default rate of positive decisions
 #'
 #'   \item Perspective:
 #'   \code{PPV} further classifies
-#'   the subset of \code{\link{dec.pos}} individuals
-#'   by condition (\code{PPV = hi/dec.pos = hi/(hi + fa)}).
+#'   the subset of \code{\link{dec_pos}} individuals
+#'   by condition (\code{PPV = hi/dec_pos = hi/(hi + fa)}).
 #'
 #'
 #'   \item Alternative names:
@@ -654,10 +654,10 @@ ppod <- 1/2  # default rate of positive decisions
 #'
 #'   \item In terms of frequencies,
 #'   \code{PPV} is the ratio of
-#'   \code{\link{hi}} divided by \code{\link{dec.pos}}
+#'   \code{\link{hi}} divided by \code{\link{dec_pos}}
 #'   (i.e., \code{\link{hi} + \link{fa}}):
 #'
-#'   \code{PPV = hi/dec.pos = hi/(hi + fa)}
+#'   \code{PPV = hi/dec_pos = hi/(hi + fa)}
 #'
 #'
 #'   \item Dependencies:
@@ -722,8 +722,8 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #'
 #'   \item Perspective:
 #'   \code{FDR} further classifies
-#'   the subset of \code{\link{dec.pos}} individuals
-#'   by condition (\code{FDR = fa/dec.pos = fa/(hi + fa)}).
+#'   the subset of \code{\link{dec_pos}} individuals
+#'   by condition (\code{FDR = fa/dec_pos = fa/(hi + fa)}).
 #'
 #'
 #'   \item Alternative names:
@@ -745,10 +745,10 @@ PPV <- 1/2  # default of positive predictive value (PPV)
 #'
 #'   \item In terms of frequencies,
 #'   \code{FDR} is the ratio of
-#'   \code{\link{fa}} divided by \code{\link{dec.pos}}
+#'   \code{\link{fa}} divided by \code{\link{dec_pos}}
 #'   (i.e., \code{\link{hi} + \link{fa}}):
 #'
-#'   \code{FDR = fa/dec.pos = fa/(hi + fa)}
+#'   \code{FDR = fa/dec_pos = fa/(hi + fa)}
 #'
 #'
 #'   \item Dependencies:
@@ -809,8 +809,8 @@ FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 #'
 #'   \item Perspective:
 #'   \code{NPV} further classifies
-#'   the subset of \code{\link{dec.neg}} individuals
-#'   by condition (\code{NPV = cr/dec.neg = cr/(mi + cr)}).
+#'   the subset of \code{\link{dec_neg}} individuals
+#'   by condition (\code{NPV = cr/dec_neg = cr/(mi + cr)}).
 #'
 #'   \item Alternative names:
 #'   true omission rate
@@ -831,10 +831,10 @@ FDR <- (1 - PPV)  # default of false discorvery rate (FDR)
 #'
 #'   \item In terms of frequencies,
 #'   \code{NPV} is the ratio of
-#'   \code{\link{cr}} divided by \code{\link{dec.neg}}
+#'   \code{\link{cr}} divided by \code{\link{dec_neg}}
 #'   (i.e., \code{\link{cr} + \link{mi}}):
 #'
-#'   \code{NPV = cr/dec.neg = cr/(cr + mi)}
+#'   \code{NPV = cr/dec_neg = cr/(cr + mi)}
 #'
 #'
 #'   \item Dependencies:
@@ -894,8 +894,8 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #'
 #'   \item Perspective:
 #'   \code{FOR} further classifies
-#'   the subset of \code{\link{dec.neg}} individuals
-#'   by condition (\code{FOR = mi/dec.neg = mi/(mi + cr)}).
+#'   the subset of \code{\link{dec_neg}} individuals
+#'   by condition (\code{FOR = mi/dec_neg = mi/(mi + cr)}).
 #'
 #'   \item Alternative names:
 #'   none?
@@ -916,10 +916,10 @@ NPV <- 1/2  # default of negative predictive value (NPV)
 #'
 #'   \item In terms of frequencies,
 #'   \code{FOR} is the ratio of
-#'   \code{\link{mi}} divided by \code{\link{dec.neg}}
+#'   \code{\link{mi}} divided by \code{\link{dec_neg}}
 #'   (i.e., \code{\link{mi} + \link{cr}}):
 #'
-#'   \code{NPV = mi/dec.neg = mi/(mi + cr)}
+#'   \code{NPV = mi/dec_neg = mi/(mi + cr)}
 #'
 #'   \item Dependencies:
 #'   \code{FOR} is a feature of a decision process
@@ -964,10 +964,10 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #' \code{acc} defines overall accuracy
 #' as the probability of correspondence between a positive decision
 #' and true condition (i.e., the proportion of correct classification
-#' decisions or of \code{\link{dec.cor}} cases).
+#' decisions or of \code{\link{dec_cor}} cases).
 #'
-#' Importantly, correct decisions \code{\link{dec.cor}}
-#' are not necessarily positive decisions \code{\link{dec.pos}}.
+#' Importantly, correct decisions \code{\link{dec_cor}}
+#' are not necessarily positive decisions \code{\link{dec_pos}}.
 #'
 #' Understanding or obtaining the accuracy metric \code{acc}:
 #'
@@ -976,7 +976,7 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'   \item Definition:
 #'   \code{acc} is the (non-conditional) probability:
 #'
-#'   \code{acc = p(dec.cor) = dec.cor/N}
+#'   \code{acc = p(dec_cor) = dec_cor/N}
 #'
 #'   or the base rate (or baseline probability)
 #'   of a decision being correct, but not necessarily positive.
@@ -989,7 +989,7 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'
 #'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
-#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    (b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'    (c) as complement of the error rate \code{\link{err}}: \code{acc = 1 - err}
 #'
@@ -997,7 +997,7 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'
 #'   \item Perspective:
 #'   \code{acc} classifies a population of \code{\link{N}} individuals
-#'   by accuracy/correspondence (\code{acc = dec.cor/N}).
+#'   by accuracy/correspondence (\code{acc = dec_cor/N}).
 #'
 #'   \code{acc} is the "by accuracy" or "by correspondence" counterpart
 #'   to \code{\link{prev}} (which adopts a "by condition" perspective) and
@@ -1009,11 +1009,11 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'
 #'   \item In terms of frequencies,
 #'   \code{acc} is the ratio of
-#'   \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+#'   \code{\link{dec_cor}} (i.e., \code{\link{hi} + \link{cr}})
 #'   divided by \code{\link{N}} (i.e.,
 #'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 #'
-#'   \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'   \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'   \item Dependencies:
 #'   \code{acc} is a feature of both the environment (true condition) and
@@ -1030,7 +1030,7 @@ FOR <- 1 - NPV  # default of false omission rate (FOR)
 #'
 #' @examples
 #' acc <- .50     # sets a rate of correct decisions of 50%
-#' acc <- 50/100  # (dec.cor) for 50 out of 100 individuals
+#' acc <- 50/100  # (dec_cor) for 50 out of 100 individuals
 #' is_prob(acc)   # TRUE
 #'
 #' @family probabilities
@@ -1069,7 +1069,7 @@ acc <- 1/2  # initialize to random accuracy
 #'
 #' When \code{\link{freq}} are not rounded (\code{round = FALSE}) then
 #'
-#' \code{err = \link{dec.err}/\link{N} = (\link{mi} + \link{fa})/\link{N}}
+#' \code{err = \link{dec_err}/\link{N} = (\link{mi} + \link{fa})/\link{N}}
 #'
 #' \code{err} is currently not included in \code{\link{prob}},
 #' but shown in plots.
@@ -1081,7 +1081,7 @@ acc <- 1/2  # initialize to random accuracy
 #'
 #' @examples
 #' err <- .50     # sets a rate of incorrect decisions of 50%
-#' err <- 50/100  # (dec.err) for 50 out of 100 individuals
+#' err <- 50/100  # (dec_err) for 50 out of 100 individuals
 #' is_prob(err)   # TRUE
 #'
 #' @family probabilities

@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 11 07
+## 2018 12 10
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).

@@ -179,7 +179,7 @@
 #' plot_prism(col_pal = pal_bw, f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
 #'            font = 3, cex_p_lbl = .75)                       # and text labels
 #'
-#' my_txt <- init_txt(cond_lbl = "The Truth", cond.true_lbl = "so true", cond.false_lbl = "so false",
+#' my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
 #'                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 #' my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
 #'                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
@@ -868,8 +868,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (area == "hr") {
 
       # scale dimensions (as sums of SDT dimensions):
-      box_2_1_lx <- (hi_lx + mi_lx)  # lx of cond.true
-      box_2_2_lx <- (fa_lx + cr_lx)  # lx of cond.true
+      box_2_1_lx <- (hi_lx + mi_lx)  # lx of cond_true
+      box_2_2_lx <- (fa_lx + cr_lx)  # lx of cond_true
 
       # adjust x-coordinates to scaled dimensions:
       box_2_1_x <- (x_min + 1) + box_2_1_lx/2
@@ -878,8 +878,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     } else if (area == "sq") { # Scale area as square:
 
       # Compute ly for current scale:
-      box_2_1_ly <- comp_ly_fsqr("cond.true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.true
-      box_2_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
+      box_2_1_ly <- comp_ly_fsqr("cond_true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond_true
+      box_2_2_ly <- comp_ly_fsqr("cond_false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond_false
 
       # Compute lx corresponding to ly:
       box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -888,11 +888,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
     } # if (area == etc.)
 
     # define boxes:
-    box_2_1 <- make_box("cond.true",  box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
-    box_2_2 <- make_box("cond.false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
+    box_2_1 <- make_box("cond_true",  box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
+    box_2_2 <- make_box("cond_false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("cond_true", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   } else if (by_top == "dc") {
 
@@ -901,8 +901,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (area == "hr") {
 
       # scale dimensions (as sums of SDT dimensions):
-      box_2_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
-      box_2_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
+      box_2_1_lx <- (hi_lx + fa_lx)  # lx of dec_pos
+      box_2_2_lx <- (mi_lx + cr_lx)  # lx of dec_neg
 
       # adjust x-coordinates to scaled dimensions:
       box_2_1_x <- (x_min + 1) + box_2_1_lx/2
@@ -911,8 +911,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     } else if (area == "sq") { # Scale area as square:
 
       # Compute ly for current scale:
-      box_2_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
-      box_2_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
+      box_2_1_ly <- comp_ly_fsqr("dec_pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_pos
+      box_2_2_ly <- comp_ly_fsqr("dec_neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_neg
 
       # Compute lx corresponding to ly:
       box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -921,11 +921,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
     }  # if (area == etc.)
 
     # define boxes:
-    box_2_1 <- make_box("dec.pos", box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
-    box_2_2 <- make_box("dec.neg", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
+    box_2_1 <- make_box("dec_pos", box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
+    box_2_2 <- make_box("dec_neg", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.pos", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("dec_pos", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   } else if (by_top == "ac") {
 
@@ -934,8 +934,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (area == "hr") {
 
       # scale dimensions (as sums of SDT dimensions):
-      box_2_1_lx <- (hi_lx + cr_lx)  # lx of dec.cor
-      box_2_2_lx <- (mi_lx + fa_lx)  # lx of dec.err
+      box_2_1_lx <- (hi_lx + cr_lx)  # lx of dec_cor
+      box_2_2_lx <- (mi_lx + fa_lx)  # lx of dec_err
 
       # adjust x-coordinates to scaled dimensions:
       box_2_1_x <- (x_min + 1) + box_2_1_lx/2
@@ -944,8 +944,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     } else if (area == "sq") { # Scale area as square:
 
       # Compute ly for current scale:
-      box_2_1_ly <- comp_ly_fsqr("dec.cor", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.cor
-      box_2_2_ly <- comp_ly_fsqr("dec.err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.err
+      box_2_1_ly <- comp_ly_fsqr("dec_cor", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_cor
+      box_2_2_ly <- comp_ly_fsqr("dec_err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_err
 
       # Compute lx corresponding to ly:
       box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -954,11 +954,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
     }  # if (area == etc.)
 
     # define boxes:
-    box_2_1 <- make_box("dec.cor", box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
-    box_2_2 <- make_box("dec.err", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
+    box_2_1 <- make_box("dec_cor", box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
+    box_2_2 <- make_box("dec_err", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("dec.cor", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("dec_cor", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   } else {  # default on top: same as (by_top == "cd")
 
@@ -967,8 +967,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (area == "hr") {
 
       # scale dimensions (as sums of SDT dimensions):
-      box_2_1_lx <- (hi_lx + mi_lx)  # lx of cond.true
-      box_2_2_lx <- (fa_lx + cr_lx)  # lx of cond.true
+      box_2_1_lx <- (hi_lx + mi_lx)  # lx of cond_true
+      box_2_2_lx <- (fa_lx + cr_lx)  # lx of cond_true
 
       # adjust x-coordinates to scaled dimensions:
       box_2_1_x <- (x_min + 1) + box_2_1_lx/2
@@ -977,8 +977,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     } else if (area == "sq") { # Scale area as square:
 
       # Compute ly for current scale:
-      box_2_1_ly <- comp_ly_fsqr("cond.true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.true
-      box_2_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
+      box_2_1_ly <- comp_ly_fsqr("cond_true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond_true
+      box_2_2_ly <- comp_ly_fsqr("cond_false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond_false
 
       # Compute lx corresponding to ly:
       box_2_1_lx <- comp_lx(box_2_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -987,11 +987,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
     } # if (area == etc.)
 
     # define boxes:
-    box_2_1 <- make_box("cond.true",  box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
-    box_2_2 <- make_box("cond.false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
+    box_2_1 <- make_box("cond_true",  box_2_1_x,  box_2_1_y, box_2_1_lx, box_2_1_ly)
+    box_2_2 <- make_box("cond_false", box_2_2_x,  box_2_2_y, box_2_2_lx, box_2_2_ly)
 
     # plot label:
-    plot_ftype_label("cond.true", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+    plot_ftype_label("cond_true", ftype_x, box_2_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
   }
 
@@ -1033,8 +1033,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       if (area == "hr") {
 
         # scale dimensions (as sums of SDT dimensions):
-        box_4_1_lx <- (hi_lx + mi_lx)  # lx of cond.true
-        box_4_2_lx <- (fa_lx + cr_lx)  # lx of cond.true
+        box_4_1_lx <- (hi_lx + mi_lx)  # lx of cond_true
+        box_4_2_lx <- (fa_lx + cr_lx)  # lx of cond_true
 
         # adjust x-coordinates to scaled dimensions:
         box_4_1_x <- (x_min + 1) + box_4_1_lx/2
@@ -1043,8 +1043,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } else if (area == "sq") { # Scale area as square:
 
         # Compute ly for current scale:
-        box_4_1_ly <- comp_ly_fsqr("cond.true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.true
-        box_4_2_ly <- comp_ly_fsqr("cond.false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond.false
+        box_4_1_ly <- comp_ly_fsqr("cond_true",  area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond_true
+        box_4_2_ly <- comp_ly_fsqr("cond_false", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # cond_false
 
         # Compute lx corresponding to ly:
         box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -1053,11 +1053,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } # if (area == etc.)
 
       # define boxes:
-      box_4_1 <- make_box("cond.true",  box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-      box_4_2 <- make_box("cond.false", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      box_4_1 <- make_box("cond_true",  box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("cond_false", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
       # plot label:
-      plot_ftype_label("cond.true", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      plot_ftype_label("cond_true", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     } else if (by_bot == "dc") {
 
@@ -1066,8 +1066,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       if (area == "hr") {
 
         # scale dimensions (as sums of SDT dimensions):
-        box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
-        box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
+        box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec_pos
+        box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec_neg
 
         # adjust x-coordinates to scaled dimensions:
         box_4_1_x <- (x_min + 1) + box_4_1_lx/2
@@ -1076,8 +1076,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } else if (area == "sq") { # Scale area as square:
 
         # Compute ly for current scale:
-        box_4_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
-        box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
+        box_4_1_ly <- comp_ly_fsqr("dec_pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_pos
+        box_4_2_ly <- comp_ly_fsqr("dec_neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_neg
 
         # Compute lx corresponding to ly:
         box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -1086,11 +1086,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } # if (area == etc.)
 
       # define boxes:
-      box_4_1 <- make_box("dec.pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-      box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      box_4_1 <- make_box("dec_pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("dec_neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
       # plot label:
-      plot_ftype_label("dec.pos", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      plot_ftype_label("dec_pos", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     } else if (by_bot == "ac") {
 
@@ -1099,8 +1099,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       if (area == "hr") {
 
         # scale dimensions (as sums of SDT dimensions):
-        box_4_1_lx <- (hi_lx + cr_lx)  # lx of dec.cor
-        box_4_2_lx <- (mi_lx + fa_lx)  # lx of dec.err
+        box_4_1_lx <- (hi_lx + cr_lx)  # lx of dec_cor
+        box_4_2_lx <- (mi_lx + fa_lx)  # lx of dec_err
 
         # adjust x-coordinates to scaled dimensions:
         box_4_1_x <- (x_min + 1) + box_4_1_lx/2
@@ -1109,8 +1109,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } else if (area == "sq") { # Scale area as square:
 
         # Compute ly for current scale:
-        box_4_1_ly <- comp_ly_fsqr("dec.cor", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.cor
-        box_4_2_ly <- comp_ly_fsqr("dec.err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.err
+        box_4_1_ly <- comp_ly_fsqr("dec_cor", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_cor
+        box_4_2_ly <- comp_ly_fsqr("dec_err", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_err
 
         # Compute lx corresponding to ly:
         box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -1119,11 +1119,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } # if (area == etc.)
 
       # define boxes:
-      box_4_1 <- make_box("dec.cor", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-      box_4_2 <- make_box("dec.err", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      box_4_1 <- make_box("dec_cor", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("dec_err", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
       # plot label:
-      plot_ftype_label("dec.cor", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      plot_ftype_label("dec_cor", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     } else {  # default on bot: same as (by_bot == "dc")
 
@@ -1132,8 +1132,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       if (area == "hr") {
 
         # scale dimensions (as sums of SDT dimensions):
-        box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec.pos
-        box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec.neg
+        box_4_1_lx <- (hi_lx + fa_lx)  # lx of dec_pos
+        box_4_2_lx <- (mi_lx + cr_lx)  # lx of dec_neg
 
         # adjust x-coordinates to scaled dimensions:
         box_4_1_x <- (x_min + 1) + box_4_1_lx/2
@@ -1142,8 +1142,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
       } else if (area == "sq") { # Scale area as square:
 
         # Compute ly for current scale:
-        box_4_1_ly <- comp_ly_fsqr("dec.pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.pos
-        box_4_2_ly <- comp_ly_fsqr("dec.neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec.neg
+        box_4_1_ly <- comp_ly_fsqr("dec_pos", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_pos
+        box_4_2_ly <- comp_ly_fsqr("dec_neg", area_N = N_area, cur_freq = freq, cur_prob = prob, scale = scale)  # dec_neg
 
         # Compute lx corresponding to ly:
         box_4_1_lx <- comp_lx(box_4_1_ly, mf = corr_3, corf = scale_x)  # same, but corrected for aspect ratio
@@ -1152,11 +1152,11 @@ plot_prism <- function(prev = num$prev,    # probabilities
       }  # if (area == etc.)
 
       # define boxes:
-      box_4_1 <- make_box("dec.pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
-      box_4_2 <- make_box("dec.neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
+      box_4_1 <- make_box("dec_pos", box_4_1_x,  box_4_1_y, box_4_1_lx, box_4_1_ly)
+      box_4_2 <- make_box("dec_neg", box_4_2_x,  box_4_2_y, box_4_2_lx, box_4_2_ly)
 
       # plot label:
-      plot_ftype_label("dec.pos", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+      plot_ftype_label("dec_pos", ftype_x, box_4_1_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
     }
 
@@ -1201,37 +1201,37 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   # Links depend on perspectives/box types:
 
-  if (by_top == "cd") {  # row 2: by condition (cond.true vs. cond.false)
+  if (by_top == "cd") {  # row 2: by condition (cond_true vs. cond_false)
 
     ## (a) by condition:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.true  - hi
-    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.true  - mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.false - fa
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.false - cr
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_true  - hi
+    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_true  - mi
+    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_false - fa
+    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_false - cr
 
-  } else if (by_top == "dc") {  # row 2: by decision (dec.pos vs. dec.neg)
+  } else if (by_top == "dc") {  # row 2: by decision (dec_pos vs. dec_neg)
 
     ## (b) by decision:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi
-    plot_link(box_2_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa !
-    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.neg - mi !
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.neg - cr
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - hi
+    plot_link(box_2_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - fa !
+    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_neg - mi !
+    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_neg - cr
 
-  } else if (by_top == "ac") {  # row 2: by accuracy (dec.cor vs. dec.err)
+  } else if (by_top == "ac") {  # row 2: by accuracy (dec_cor vs. dec_err)
 
     ## (c) by accuracy:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.cor - hi: acc-hi
-    plot_link(box_2_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.cor - cr: acc-cr
-    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.err - mi: err-mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.err - fa: err-fa
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_cor - hi: acc-hi
+    plot_link(box_2_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_cor - cr: acc-cr
+    plot_link(box_2_2, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_err - mi: err-mi
+    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_err - fa: err-fa
 
   } else {  # default on top: same as (by_top == "cd")
 
     ## (+) by condition:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.true  - hi
-    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.true  - mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.false - fa
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.false - cr
+    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_true  - hi
+    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_true  - mi
+    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_false - fa
+    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_false - cr
 
   }
 
@@ -1243,51 +1243,51 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
     # Links depend on perspectives/box types:
 
-    if (by_bot == "cd") {  # row 4: by condition (cond.true vs. cond.false)
+    if (by_bot == "cd") {  # row 4: by condition (cond_true vs. cond_false)
 
       ## (a) by condition:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.true  - hi
-      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.true  - mi
-      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.false - fa
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond.false - cr
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_true  - hi
+      plot_link(box_4_1, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_true  - mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_false - fa
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # cond_false - cr
 
-    } else if (by_bot == "dc") {  # row 4: by decision (dec.pos vs. dec.neg)
+    } else if (by_bot == "dc") {  # row 4: by decision (dec_pos vs. dec_neg)
 
       ## (b) by decision:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi
-      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa !
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.neg - mi !
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.neg - cr
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - hi
+      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - fa !
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_neg - mi !
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_neg - cr
 
-    } else if (by_bot == "ac") {  # row 4: by accuracy (dec.cor vs. dec.err)
+    } else if (by_bot == "ac") {  # row 4: by accuracy (dec_cor vs. dec_err)
 
       ## (c) by accuracy:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.cor - hi: acc-hi
-      plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.cor - cr: acc-cr
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.err - mi: err-mi
-      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.err - fa: err-fa
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_cor - hi: acc-hi
+      plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_cor - cr: acc-cr
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_err - mi: err-mi
+      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_err - fa: err-fa
 
     } else {  # default on bot: same as (by_bot == "dc")
 
       ## (+) by decision:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi
-      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa !
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.neg - mi !
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.neg - cr
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - hi
+      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - fa !
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_neg - mi !
+      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_neg - cr
 
-      ## OLDER default: show 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
+      ## OLDER default: show 4 boxes (dec_pos / dec_neg) vs. (dec_cor / dec_err):
 
       # # 2 default boxes:
-      # plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - hi / PPV
-      # plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.pos - fa
-      # plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec.neg - mi
-      # plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec.neg - cr / NPV
+      # plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - hi / PPV
+      # plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_pos - fa
+      # plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec_neg - mi
+      # plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec_neg - cr / NPV
       #
       # # 2 additional boxes:
-      # plot_link(box_4_3, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec.cor - hi
-      # plot_link(box_4_3, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec.cor - cr
-      # plot_link(box_4_4, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.err - mi
-      # plot_link(box_4_4, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec.err - fa
+      # plot_link(box_4_3, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec_cor - hi
+      # plot_link(box_4_3, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, ...)     # Allow ...!     # dec_cor - cr
+      # plot_link(box_4_4, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_err - mi
+      # plot_link(box_4_4, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = "num", lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!  # dec_err - fa
 
     }
 
@@ -1299,7 +1299,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
       plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!
       plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, lbl_off = 4/4, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!
 
-    } else {  # link to 4 boxes (dec.pos / dec.neg) vs. (dec.cor / dec.err):
+    } else {  # link to 4 boxes (dec_pos / dec_neg) vs. (dec_cor / dec_err):
 
       # link to 2 default boxes:
       plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, ...)  # Allow ...!
@@ -1321,7 +1321,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## ftype labels:
   # plot_ftype_label("N", ftype_x, 4, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
-  # plot_ftype_label("cond.true", ftype_x, 2, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
+  # plot_ftype_label("cond_true", ftype_x, 2, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
   # plot_ftype_label("hi", ftype_x, 0, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
   # plot_ftype_label("N", ftype_x, -4, pos = ftype_pos, lbl_txt = lbl_txt, suffix = ":", col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
 
@@ -1391,7 +1391,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #
 # ## Custom text and color settings:
-# my_txt <- init_txt(cond_lbl = "The Truth", cond.true_lbl = "so true", cond.false_lbl = "so false",
+# my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
 #                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 # my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
 #                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")

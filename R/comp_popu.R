@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 11 23
+## 2018 12 10
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]
@@ -41,12 +41,12 @@
 #' @param cr The number of correct rejections \code{\link{cr}} (or true negatives).
 #'
 #' @param cond_lbl Text label for condition dimension ("by cd" perspective).
-#' @param cond.true_lbl Text label for \code{\link{cond.true}} cases.
-#' @param cond.false_lbl Text label for \code{\link{cond.false}} cases.
+#' @param cond_true_lbl Text label for \code{\link{cond_true}} cases.
+#' @param cond_false_lbl Text label for \code{\link{cond_false}} cases.
 #'
 #' @param dec_lbl Text label for decision dimension ("by dc" perspective).
-#' @param dec.pos_lbl Text label for \code{\link{dec.pos}} cases.
-#' @param dec.neg_lbl Text label for \code{\link{dec.neg}} cases.
+#' @param dec_pos_lbl Text label for \code{\link{dec_pos}} cases.
+#' @param dec_neg_lbl Text label for \code{\link{dec_neg}} cases.
 #'
 #' @param sdt_lbl Text label for 4 cases/combinations (SDT classifications).
 #' @param hi_lbl Text label for \code{\link{hi}} cases.
@@ -64,13 +64,13 @@
 #'
 #' # (B) Intervention/treatment scenario:
 #' comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
-#'           cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
-#'           dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#'           cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
+#'           dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 #'
 #' # (C) Prevention scenario (e.g., vaccination):
 #' comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
-#'           cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
-#'           dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+#'           cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
+#'           dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 #'
 #' @family functions computing frequencies
 #'
@@ -91,22 +91,22 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                       fa = freq$fa,
                       cr = freq$cr,
                       ## text labels (from txt):
-                      cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
-                      dec_lbl = txt$dec_lbl, dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+                      cond_lbl = txt$cond_lbl, cond_true_lbl = txt$cond_true_lbl, cond_false_lbl = txt$cond_false_lbl,
+                      dec_lbl = txt$dec_lbl, dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
                       sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl) {
 
   ## (1) Compute combined frequencies from 4 essential frequencies:
-  # cond.true  <- (hi + fa)
-  # cond.false <- (mi + cr)
+  # cond_true  <- (hi + fa)
+  # cond_false <- (mi + cr)
 
-  # dec.pos <- (hi + mi)
-  # dec.neg <- (mi + cr)
+  # dec_pos <- (hi + mi)
+  # dec_neg <- (mi + cr)
 
   ## (2) Define and initialize 3 vectors of length N:
   ## (a) Truth (= true condition or state):
-  # truth <- c(rep(TRUE, cond.true), rep(FALSE, cond.false))  # a. using combined freq
+  # truth <- c(rep(TRUE, cond_true), rep(FALSE, cond_false))  # a. using combined freq
   truth <- c(rep(TRUE, hi), rep(TRUE, mi),   # = cond true  # b. using 4 essential freq
-             rep(FALSE, fa), rep(FALSE, cr)) # = cond.false
+             rep(FALSE, fa), rep(FALSE, cr)) # = cond_false
 
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- c(rep(TRUE, hi), rep(FALSE, mi),
@@ -120,13 +120,13 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   ## (a) Condition (truth):
   truth <- factor(truth,
                   levels = c(TRUE, FALSE),                   # as Booleans
-                  labels = c(cond.true_lbl, cond.false_lbl), # explicit labels: "true" vs. "false"
+                  labels = c(cond_true_lbl, cond_false_lbl), # explicit labels: "true" vs. "false"
                   ordered = TRUE)
 
   ## (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
                      levels = c(TRUE, FALSE),              # also as Booleans, NOT: (-1, +1) or (0, 1)
-                     labels = c(dec.pos_lbl, dec.neg_lbl), # explicit labels: "pos" vs. "neg"
+                     labels = c(dec_pos_lbl, dec_neg_lbl), # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
   ## (c) SDT (status decision/truth):
@@ -160,13 +160,13 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #
 # # (B) Intervention/treatment scenario:
 # comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
-#           cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
-#           dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#           cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
+#           dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 #
 # # (C) Prevention scenario (e.g., vaccination):
 # comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
-#           cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
-#           dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+#           cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
+#           dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 
 
 ## (2) Apply to initialize popu (as data frame): ----------

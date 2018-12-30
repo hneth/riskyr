@@ -85,26 +85,26 @@ N_col <- grey(.90, .99)  # "white", col_grey_1
 
 ## (b) by condition: Define 2 colors for condition cases:
 
-cond.true_col  <- my_yellow        # "lightgoldenrod1" "gold1", col_orange_1, "yellow2"
-cond.false_col <- "lightskyblue2"  #, my_blue, "deepskyblue1" # "lightskyblue2" # col_blue_1
+cond_true_col  <- my_yellow        # "lightgoldenrod1" "gold1", col_orange_1, "yellow2"
+cond_false_col <- "lightskyblue2"  #, my_blue, "deepskyblue1" # "lightskyblue2" # col_blue_1
 ## Combine in a named vector:
-cond.colors <- setNames(c(cond.true_col, cond.false_col),
+cond_colors <- setNames(c(cond_true_col, cond_false_col),
                         c("true", "false"))
 
 ## (c) by decision: Define 3 colors for decision cases:
 
-dec.pos_col <- "rosybrown3" # "khaki", my_whitish
-dec.neg_col <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my_bluish, "chartreuse4"
+dec_pos_col <- "rosybrown3" # "khaki", my_whitish
+dec_neg_col <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my_bluish, "chartreuse4"
 ## Combine in a named vector:
-dec.colors <- setNames(c(dec.pos_col, dec.neg_col),
+dec_colors <- setNames(c(dec_pos_col, dec_neg_col),
                        c("pos", "neg"))
 
 ## (d) Accuracy colors:
 
-dec.cor_col <- "palegreen3" # "forestgreen" # correct/accurate decisions
-dec.err_col <- "firebrick3" # erroneous/inaccurate decisions
+dec_cor_col <- "palegreen3" # "forestgreen" # correct/accurate decisions
+dec_err_col <- "firebrick3" # erroneous/inaccurate decisions
 
-acc.colors <- setNames(c(dec.cor_col, dec.err_col),
+acc.colors <- setNames(c(dec_cor_col, dec_err_col),
                        c("cor", "err"))
 
 ## (e) by condition x decision: Define 4 colors for SDT cases:
@@ -141,14 +141,14 @@ brd_col <- grey(.20, .99)  # greyish borders, NA removes borders
 ## (3) Define corresponding default palette: ----------
 
 pal_def <- c(N_col,
-             cond.colors, dec.colors, acc.colors,
+             cond_colors, dec_colors, acc.colors,
              sdt.colors,
              PPV_col, NPV_col,
              txt_col, brd_col)  # vector of colors
 
 pal_def <- setNames(object = pal_def,
                     nm = c("N",
-                           names(cond.colors), names(dec.colors), names(acc.colors),
+                           names(cond_colors), names(dec_colors), names(acc.colors),
                            names(sdt.colors),
                            "ppv", "npv",
                            "txt", "brd")
@@ -174,14 +174,14 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 #'
 #' @param N_col Color representing the \emph{population} of \code{\link{N}} cases or individuals.
 #'
-#' @param cond.true_col Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.
-#' @param cond.false_col Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.
+#' @param cond_true_col Color representing cases of \code{\link{cond_true}}, for which the current condition is \code{TRUE}.
+#' @param cond_false_col Color representing cases of in \code{\link{cond_false}}, for which the current condition is \code{FALSE}.
 #'
-#' @param dec.pos_col Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
-#' @param dec.neg_col Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#' @param dec_pos_col Color representing cases of \code{\link{dec_pos}}, for which the current decision is \code{positive}.
+#' @param dec_neg_col Color representing cases in \code{\link{dec_neg}}, for which the current decision is \code{negative}.
 #'
-#' @param dec.cor_col Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.
-#' @param dec.err_col Color representing cases in erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.
+#' @param dec_cor_col Color representing cases of correct decisions \code{\link{dec_cor}}, for which the current decision is \code{accurate}.
+#' @param dec_err_col Color representing cases in erroneous decisions \code{\link{dec_err}}, for which the current decision is \code{inaccurate}.
 #'
 #' @param hi_col Color representing \emph{hits} or true positives in \code{\link{hi}}
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
@@ -233,14 +233,14 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 
 init_pal <- function(N_col = pal_def["N"],          # population N
                      ## by condition:
-                     cond.true_col  = pal_def["true"],   # condition true
-                     cond.false_col = pal_def["false"],  # condition false
+                     cond_true_col  = pal_def["true"],   # condition true
+                     cond_false_col = pal_def["false"],  # condition false
                      ## by decision:
-                     dec.pos_col  = pal_def["pos"],     # decision positive
-                     dec.neg_col = pal_def["neg"],      # decision negative
+                     dec_pos_col  = pal_def["pos"],     # decision positive
+                     dec_neg_col = pal_def["neg"],      # decision negative
                      ## by accuracy:
-                     dec.cor_col  = pal_def["cor"],     # decision correct / accurate
-                     dec.err_col = pal_def["err"],      # decision erroneous / inaccurate
+                     dec_cor_col  = pal_def["cor"],     # decision correct / accurate
+                     dec_err_col = pal_def["err"],      # decision erroneous / inaccurate
                      ## Combinations:
                      hi_col = pal_def["hi"],        # hits / true positives
                      mi_col = pal_def["mi"],        # misses / false negatives
@@ -260,14 +260,14 @@ init_pal <- function(N_col = pal_def["N"],          # population N
   ## 2. Pass arguments to VECTOR:
   pal <- c(N_col,      # population N
            ## by condition:
-           cond.true_col,   # condition true
-           cond.false_col,  # condition false
+           cond_true_col,   # condition true
+           cond_false_col,  # condition false
            ## by decision:
-           dec.pos_col,    # decision positive
-           dec.neg_col,    # decision negative
+           dec_pos_col,    # decision positive
+           dec_neg_col,    # decision negative
            ## by accuracy:
-           dec.cor_col,    # decision correct / accurate
-           dec.err_col,    # decision erroneous / inaccurate
+           dec_cor_col,    # decision correct / accurate
+           dec_err_col,    # decision erroneous / inaccurate
            ## Combinations:
            hi_col,     # hits / true positives
            mi_col,     # misses / false negatives
@@ -284,7 +284,7 @@ init_pal <- function(N_col = pal_def["N"],          # population N
   ## 3. Name vector elements:
   pal <- setNames(object = pal,
                   nm = c("N",
-                         names(cond.colors), names(dec.colors), names(acc.colors),
+                         names(cond_colors), names(dec_colors), names(acc.colors),
                          names(sdt.colors),
                          "ppv", "npv", "txt", "brd")
   )
@@ -321,17 +321,17 @@ init_pal <- function(N_col = pal_def["N"],          # population N
 #'
 #' \item \code{N} Color representing the \emph{population} of \code{\link{N}} cases or individuals.
 #'
-#' \item \code{true} Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.
+#' \item \code{true} Color representing cases of \code{\link{cond_true}}, for which the current condition is \code{TRUE}.
 #'
-#' \item \code{false} Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.
+#' \item \code{false} Color representing cases of in \code{\link{cond_false}}, for which the current condition is \code{FALSE}.
 #'
-#' \item \code{pos} Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.
+#' \item \code{pos} Color representing cases of \code{\link{dec_pos}}, for which the current decision is \code{positive}.
 #'
-#' \item \code{neg} Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.
+#' \item \code{neg} Color representing cases in \code{\link{dec_neg}}, for which the current decision is \code{negative}.
 #'
-#' \item \code{cor} Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.
+#' \item \code{cor} Color representing cases of correct decisions \code{\link{dec_cor}}, for which the current decision is \code{accurate}.
 #'
-#' \item \code{err} Color representing cases of erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.
+#' \item \code{err} Color representing cases of erroneous decisions \code{\link{dec_err}}, for which the current decision is \code{inaccurate}.
 #'
 #' \item \code{hi} Color representing \emph{hits} or true positives in \code{\link{hi}}
 #' (i.e., correct cases for which the current condition is TRUE and the decision is positive).
@@ -441,12 +441,12 @@ pal_org <- pal
 #' @export
 
 pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
-                   cond.true_col =  grey(.90, .99), # darker white
-                   cond.false_col = grey(.80, .99), # darker white
-                   dec.pos_col = grey(.85, .99),   # darker white
-                   dec.neg_col = grey(.70, .99),   # darker white
-                   dec.cor_col = grey(.75, .99),   # darker white
-                   dec.err_col = grey(.60, .99),   # darker white
+                   cond_true_col =  grey(.90, .99), # darker white
+                   cond_false_col = grey(.80, .99), # darker white
+                   dec_pos_col = grey(.85, .99),   # darker white
+                   dec_neg_col = grey(.70, .99),   # darker white
+                   dec_cor_col = grey(.75, .99),   # darker white
+                   dec_err_col = grey(.60, .99),   # darker white
                    hi_col = grey(.80, .99),    # brighter 1
                    mi_col = grey(.60, .99),    # darker 1
                    fa_col = grey(.50, .99),    # darker 2
@@ -491,12 +491,12 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' @export
 
 pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
-                    cond.true_col =  grey(.90, .99), # darker white
-                    cond.false_col = grey(.75, .99), # lighter white
-                    dec.pos_col = grey(.85, .99),   # lighter grey
-                    dec.neg_col = grey(.70, .99),   # darker grey
-                    dec.cor_col = grey(.75, .99),   # lighter grey
-                    dec.err_col = grey(.60, .99),   # darker grey
+                    cond_true_col =  grey(.90, .99), # darker white
+                    cond_false_col = grey(.75, .99), # lighter white
+                    dec_pos_col = grey(.85, .99),   # lighter grey
+                    dec_neg_col = grey(.70, .99),   # darker grey
+                    dec_cor_col = grey(.75, .99),   # lighter grey
+                    dec_err_col = grey(.60, .99),   # darker grey
                     # hi_col = pal["hi"],         # from pal
                     # mi_col = pal["mi"],         # from pal
                     # fa_col = pal["fa"],         # from pal
@@ -543,12 +543,12 @@ pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' @export
 
 pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
-                    cond.true_col =  grey(.80, .99), # col_sand_light, # "wheat3", #
-                    cond.false_col = grey(.70, .99), # col_sand_mid, # "wheat4"
-                    dec.pos_col = grey(.85, .99), # col_grey_1,
-                    dec.neg_col = grey(.65, .99), # col_grey_2,
-                    dec.cor_col = my_green,
-                    dec.err_col = my_blue,
+                    cond_true_col =  grey(.80, .99), # col_sand_light, # "wheat3", #
+                    cond_false_col = grey(.70, .99), # col_sand_mid, # "wheat4"
+                    dec_pos_col = grey(.85, .99), # col_grey_1,
+                    dec_neg_col = grey(.65, .99), # col_grey_2,
+                    dec_cor_col = my_green,
+                    dec_err_col = my_blue,
                     hi_col = col_green_1,
                     mi_col = col_blue_1,
                     fa_col = col_blue_3,
@@ -593,12 +593,12 @@ pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 #' @export
 
 pal_kn <- init_pal(N_col = grey(.95, .99),     # nearly white
-                   cond.true_col =  grey(.70, .99), # darker white
-                   cond.false_col = grey(.85, .99), # darker white
-                   dec.pos_col = grey(.60, .99),   # darker white
-                   dec.neg_col = grey(.75, .99),   # darker white
-                   dec.cor_col = grey(.50, .99),   # grey
-                   dec.err_col = grey(.65, .99),   # darker white
+                   cond_true_col =  grey(.70, .99), # darker white
+                   cond_false_col = grey(.85, .99), # darker white
+                   dec_pos_col = grey(.60, .99),   # darker white
+                   dec_neg_col = grey(.75, .99),   # darker white
+                   dec_cor_col = grey(.50, .99),   # grey
+                   dec_err_col = grey(.65, .99),   # darker white
                    hi_col = pal_uni_kn$seeblau4,
                    mi_col = pal_uni_kn$seeblau2,
                    fa_col = pal_uni_kn$seeblau1,
@@ -662,12 +662,12 @@ vir_12 <- c("#440154FF", "#482173FF", "#433E85FF", "#38598CFF",
 #' @export
 
 pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
-                    cond.true_col =  grey(.85, .99), # brighter by 15
-                    cond.false_col = grey(.55, .99), # darker
-                    dec.pos_col = grey(.80, .99),   # brighter by 10
-                    dec.neg_col = grey(.60, .99),   # darker
-                    dec.cor_col = grey(.90, .99),   # brighter by 20
-                    dec.err_col = grey(.50, .99),   # darker
+                    cond_true_col =  grey(.85, .99), # brighter by 15
+                    cond_false_col = grey(.55, .99), # darker
+                    dec_pos_col = grey(.80, .99),   # brighter by 10
+                    dec_neg_col = grey(.60, .99),   # darker
+                    dec_cor_col = grey(.90, .99),   # brighter by 20
+                    dec_err_col = grey(.50, .99),   # darker
                     hi_col = vir_12[10],        # hi: bright green
                     mi_col = vir_12[12],        # mi: yellow
                     fa_col = vir_12[5],         # fa: bluish

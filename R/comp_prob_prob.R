@@ -482,13 +482,13 @@ comp_complete_prob_set <- function(prev,
 #' Definition: \code{ppod} is
 #' proportion (or probability) of positive decisions:
 #'
-#' \code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
+#' \code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 #'
 #' Values range from 0 (only negative decisions)
 #' to 1 (only positive decisions).
 #'
-#' Importantly, positive decisions \code{\link{dec.pos}}
-#' are not necessarily correct decisions \code{\link{dec.cor}}.
+#' Importantly, positive decisions \code{\link{dec_pos}}
+#' are not necessarily correct decisions \code{\link{dec_cor}}.
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -547,7 +547,7 @@ comp_ppod <- function(prev, sens, spec) {
   ## ToDo: Add condition
   ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## Definition: ppod = dec.pos / N  =  (hi + fa) / (hi + mi + fa + cr)
+  ## Definition: ppod = dec_pos / N  =  (hi + fa) / (hi + mi + fa + cr)
 
   ## Computation:
   hi <- prev * sens
@@ -654,7 +654,7 @@ comp_PPV <- function(prev, sens, spec) {
 
   ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## Definition: PPV = hi / dec.pos  =  hi / (hi + fa)
+  ## Definition: PPV = hi / dec_pos  =  hi / (hi + fa)
 
   ## Computation:
   hi <- prev * sens
@@ -752,7 +752,7 @@ comp_FDR <- function(prev, sens, spec) {
 
   ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## Definition: FDR = fa / dec.pos  =  fa / (hi + fa)
+  ## Definition: FDR = fa / dec_pos  =  fa / (hi + fa)
 
   ## Computation:
   hi <- prev * sens
@@ -821,7 +821,7 @@ comp_FDR_PPV <- function(PPV) {
 #' # (3) Watch out for extreme values:
 #' comp_NPV(1, 1, 1)   # => NaN, as cr = 0 and mi = 0: 0/0
 #' comp_NPV(1, 1, 0)   # => NaN, as cr = 0 and mi = 0: 0/0
-#' comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+#' comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec_neg cases:  NPV = 0/0 = NaN
 #' is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
 #'
 #' @family functions computing probabilities
@@ -843,7 +843,7 @@ comp_NPV <- function(prev, sens, spec) {
 
   ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## Definition: NPV = cr / dec.neg  =  cr / (mi + cr)
+  ## Definition: NPV = cr / dec_neg  =  cr / (mi + cr)
 
   ## Computation:
   mi <- prev * (1 - sens)
@@ -873,7 +873,7 @@ comp_NPV <- function(prev, sens, spec) {
 ## (3) Watch out for extreme values:
 # comp_NPV(1, 1, 1)    # => NaN, as cr = 0 and mi = 0: 0/0
 # comp_NPV(1, 1, 0)    # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec_neg cases:  NPV = 0/0 = NaN
 # is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
 
 ## \code{\link{is_extreme_prob_set}} verifies extreme cases
@@ -932,7 +932,7 @@ comp_FOR <- function(prev, sens, spec) {
 
   ## ToDo: Verify (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## Definition: FOR =  mi / dec.neg  =  mi / (cr + mi)
+  ## Definition: FOR =  mi / dec_neg  =  mi / (cr + mi)
 
   ## Computation:
   mi <- prev * (1 - sens)
@@ -958,7 +958,7 @@ comp_FOR <- function(prev, sens, spec) {
 ## for extreme values:
 # comp_FOR(1, 1, 1)  # => NaN, as cr = 0 and mi = 0: 0/0
 # comp_FOR(1, 1, 0)  # => NaN, as cr = 0 and mi = 0: 0/0
-# comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+# comp_FOR(.5, sens = 1, spec = 0)  # => NaN, no dec_neg cases:  NPV = 0/0 = NaN
 # is_extreme_prob_set(prev = .5, sens = 1, spec = 0)  # => verifies extreme cases
 
 
@@ -1002,7 +1002,7 @@ comp_FOR_NPV <- function(NPV) {
 #'   \item Definition:
 #'   \code{\link{acc}} is the (non-conditional) probability:
 #'
-#'   \code{acc = p(dec.cor) = dec.cor/N}
+#'   \code{acc = p(dec_cor) = dec_cor/N}
 #'
 #'   or the base rate (or baseline probability)
 #'   of a decision being correct, but not necessarily positive.
@@ -1015,13 +1015,13 @@ comp_FOR_NPV <- function(NPV) {
 #'
 #'    (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 #'
-#'    (b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'    (b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'    When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 #'
 #'   \item Perspective:
 #'   \code{\link{acc}} classifies a population of \code{\link{N}} individuals
-#'   by accuracy/correspondence (\code{acc = dec.cor/N}).
+#'   by accuracy/correspondence (\code{acc = dec_cor/N}).
 #'
 #'   \code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
 #'   to \code{\link{prev}} (which adopts a "by condition" perspective) and
@@ -1033,11 +1033,11 @@ comp_FOR_NPV <- function(NPV) {
 #'
 #'   \item In terms of frequencies,
 #'   \code{\link{acc}} is the ratio of
-#'   \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+#'   \code{\link{dec_cor}} (i.e., \code{\link{hi} + \link{cr}})
 #'   divided by \code{\link{N}} (i.e.,
 #'   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 #'
-#'   \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+#'   \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 #'
 #'   \item Dependencies:
 #'   \code{\link{acc}} is a feature of both the environment (true condition) and
@@ -1117,7 +1117,7 @@ comp_acc <- function(prev, sens, spec) {
   ## ToDo: Add condition
   ## if (is_valid_prob_set(prev, sens, mirt, spec, fart)) { ... }
 
-  ## Definition: acc = dec.cor / N  =  (hi + cr) / (hi + mi + fa + cr)
+  ## Definition: acc = dec_cor / N  =  (hi + cr) / (hi + mi + fa + cr)
   ##             but from exact (not rounded) frequencies!
 
   ## Computation of 4 freq (from prob, without rounding):
@@ -1301,14 +1301,14 @@ comp_prob_fname <- function(fname, cur_prob = prob) {
     # Consider fname for all frequencies in freq:
     if (tolower(fname[i]) == "n") { p[i] <- 1 }
 
-    if (tolower(fname[i]) == "cond.true")  { p[i] <- cur_prob$prev }
-    if (tolower(fname[i]) == "cond.false") { p[i] <- (1 - cur_prob$prev) }
+    if (tolower(fname[i]) == "cond_true")  { p[i] <- cur_prob$prev }
+    if (tolower(fname[i]) == "cond_false") { p[i] <- (1 - cur_prob$prev) }
 
-    if (tolower(fname[i]) == "dec.pos") { p[i] <- cur_prob$ppod }
-    if (tolower(fname[i]) == "dec.neg") { p[i] <- (1 - cur_prob$ppod) }
+    if (tolower(fname[i]) == "dec_pos") { p[i] <- cur_prob$ppod }
+    if (tolower(fname[i]) == "dec_neg") { p[i] <- (1 - cur_prob$ppod) }
 
-    if (tolower(fname[i]) == "dec.cor") { p[i] <- cur_prob$acc }
-    if (tolower(fname[i]) == "dec.err") { p[i] <- (1 - cur_prob$acc) }
+    if (tolower(fname[i]) == "dec_cor") { p[i] <- cur_prob$acc }
+    if (tolower(fname[i]) == "dec_err") { p[i] <- (1 - cur_prob$acc) }
 
     if (tolower(fname[i]) == "hi")  { p[i] <- cur_prob$prev * cur_prob$sens }
     if (tolower(fname[i]) == "mi")  { p[i] <- cur_prob$prev * (1 - cur_prob$sens) }
@@ -1326,12 +1326,12 @@ comp_prob_fname <- function(fname, cur_prob = prob) {
 #
 ## Multiple freq names (fname as vector):
 # comp_prob_fname(c("hi", "mi", "fa", "cr"))
-# comp_prob_fname(c("hi", "mi", "cond.true"))
+# comp_prob_fname(c("hi", "mi", "cond_true"))
 #
 ## Verify that (sum == 1) are TRUE:
-# sum(comp_prob_fname(c("cond.true", "cond.false"))) == 1
-# sum(comp_prob_fname(c("dec.pos", "dec.neg"))) == 1
-# sum(comp_prob_fname(c("dec.cor", "dec.err"))) == 1
+# sum(comp_prob_fname(c("cond_true", "cond_false"))) == 1
+# sum(comp_prob_fname(c("dec_pos", "dec_neg"))) == 1
+# sum(comp_prob_fname(c("dec_cor", "dec_err"))) == 1
 # sum(comp_prob_fname(c("hi", "mi", "fa", "cr"))) == 1
 
 
@@ -1383,13 +1383,13 @@ comp_prob_pname <- function(pname, cur_prob = prob) {
       if (tolower(pname[i]) == "err") { p[i] <- (1 - cur_prob$acc) }  # OR: (1 - accu$acc)
 
       # 4 conditional probabilities:
-      if (tolower(pname[i]) == "acc-hi") { p[i] <- (cur_prob$prev * cur_prob$sens)/(cur_prob$acc) }          # prob of hi/dec.cor
-      # if (tolower(pname[i]) == "acc-cr") { p[i] <- ((1 - cur_prob$prev) * cur_prob$spec)/(cur_prob$acc) }  # prob of cr/dec.cor computed from scratch OR:
-      if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (cur_prob$prev * cur_prob$sens)/(cur_prob$acc)) }    # prob of cr/dec.cor as complement of hi/dec.cor
+      if (tolower(pname[i]) == "acc-hi") { p[i] <- (cur_prob$prev * cur_prob$sens)/(cur_prob$acc) }          # prob of hi/dec_cor
+      # if (tolower(pname[i]) == "acc-cr") { p[i] <- ((1 - cur_prob$prev) * cur_prob$spec)/(cur_prob$acc) }  # prob of cr/dec_cor computed from scratch OR:
+      if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (cur_prob$prev * cur_prob$sens)/(cur_prob$acc)) }    # prob of cr/dec_cor as complement of hi/dec_cor
 
-      if (tolower(pname[i]) == "err-mi") { p[i] <- (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc) }          # prob of mi/dec.err
-      # if (tolower(pname[i]) == "err-fa") { p[i] <- ((1 - cur_prob$prev) * (1 - cur_prob$spec))/(1 - cur_prob$acc) }  # prob of fa/dec.err computed from scratch OR:
-      if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc)) }    # prob of fa/dec.err computed as complement of mi/dec.err
+      if (tolower(pname[i]) == "err-mi") { p[i] <- (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc) }          # prob of mi/dec_err
+      # if (tolower(pname[i]) == "err-fa") { p[i] <- ((1 - cur_prob$prev) * (1 - cur_prob$spec))/(1 - cur_prob$acc) }  # prob of fa/dec_err computed from scratch OR:
+      if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc)) }    # prob of fa/dec_err computed as complement of mi/dec_err
 
     } # if (is.na(pname[i]))...
 
@@ -1667,8 +1667,8 @@ comp_prob_matrix <- function(prev, sens, spec,
 ## - Add alternative ways to compute probabilities
 ##   from frequencies (based on various elements of freq)!
 ##   - Compute alternative prob from freq with
-##     a. N of dec.pos (rather than N of fa) and
-##     b. N of dec.neg (rather than N of mi) provided.
+##     a. N of dec_pos (rather than N of fa) and
+##     b. N of dec_neg (rather than N of mi) provided.
 
 ## - Compute basic parameters (probabilities and frequencies)
 ##   from MIX of existing probabilities and frequencies!

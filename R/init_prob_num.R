@@ -4,61 +4,6 @@
 ## by using basic parameter values of num:
 ## -----------------------------------------------
 
-## Table of current terminology: -----------------
-
-# Probabilities (13+):              Frequencies (11):
-# -------------------               ------------------
-# (A) by condition:
-
-# non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
-
-# conditional:
-# sens* = hit rate = TPR                hi* = TP
-# mirt  = miss rate = FNR               mi* = FN
-# fart  = false alarm rate = FPR        fa* = FP
-# spec* = true negative rate = TNR      cr* = TN
-
-# [Note: *...is essential]
-
-
-# (B) by decision:                 Combined frequencies:
-
-# non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
-
-# conditional:
-# PPV = precision
-# FDR = false detection rate
-# FOR = false omission rate
-# NPV = neg. pred. value
-
-# (C) by accuracy/correspondence of decision to condition (see accu):
-
-# acc  = overall accuracy (probability/proportion correct decision)
-# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
-
-# Other measures of accuracy (in accu):
-# wacc = weighted accuracy
-# mcc  = Matthews correlation coefficient
-# f1s  = harmonic mean of PPV and sens
-
-
-## Data flow: Two basic directions: --------------
-
-## (1) Probabilities ==> frequencies:
-##     Bayesian: based on 3 essential probabilities:
-##   - given:   prev;  sens, spec
-##   - derived: all other values
-
-## (2) Frequencies ==> probabilities:
-##     Frequentist: based on 4 essential natural frequencies:
-##   - given:   N = hi, mi, fa, cr
-##   - derived: all other values
-
-
 ## (1) Initialize prob as a list (NA) of 11 probabilities (3 essential ones): ----------
 
 ## init_prob: Initialize prob list ------
@@ -70,7 +15,7 @@ init_prob <- function() {
 
     ## (a) by condition: 3 essential + 2 optional probabilities:
 
-    "prev" = NA,  # simple p of cond.true
+    "prev" = NA,  # simple p of cond_true
 
     "sens" = NA,  # conditional p
     "mirt" = NA,  # conditional p: 1 - sens
@@ -79,7 +24,7 @@ init_prob <- function() {
 
     ## (b) by decision: 5 derived probabilities and predictive values (PVs):
 
-    "ppod" = NA,  # simple p of dec.pos
+    "ppod" = NA,  # simple p of dec_pos
 
     "PPV" = NA,   # conditional p: reversal of sens
     "FDR" = NA,   # conditional p: 1 - PPV
@@ -89,8 +34,8 @@ init_prob <- function() {
     ## (c) by accuracy/correspondence of decision to condition:
 
     "acc" = NA,      # accuracy as probability of a correct decision/prediction
-    "p_acc_hi" = NA, # p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-    "p_err_fa" = NA  # p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+    "p_acc_hi" = NA, # p(hi|acc)  # aka. acc-hi  "p(hi | dec_cor)"
+    "p_err_fa" = NA  # p(fa|err)  # aka. err-fa  "p(fa | dec_err)"
 
   )
 
@@ -163,23 +108,23 @@ init_prob <- function() {
 #'
 #'    \item by condition:
 #'
-#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'    \code{\link{N} = \link{cond_true} + \link{cond_false}}
 #'
-#'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'    The frequency \code{\link{cond_true}} depends on the prevalence \code{\link{prev}}
 #'    and
-#'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'    the frequency \code{\link{cond_false}} depends on the prevalence's complement \code{1 - \link{prev}}.
 #'
 #'    \item by decision:
 #'
-#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'    \code{\link{N} = \link{dec_pos} + \link{dec_neg}}
 #'
-#'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'    The frequency \code{\link{dec_pos}} depends on the proportion of positive decisions \code{\link{ppod}}
 #'    and
-#'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'    the frequency \code{\link{dec_neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
 #'    \item by accuracy (i.e., correspondence of decision to condition):
 #'
-#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
+#'    \code{\link{N} = \link{dec_cor} + \link{dec_err}}
 #'
 #'    }
 #'
@@ -200,57 +145,57 @@ init_prob <- function() {
 #'
 #'   \item prevalence \code{\link{prev}}:
 #'
-#'   \code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'   \code{\link{prev} = \link{cond_true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'
 #'   \item sensitivity \code{\link{sens}}:
 #'
-#'   \code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
+#'   \code{\link{sens} = \link{hi}/\link{cond_true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
 #'
 #'
 #'   \item miss rate \code{\link{mirt}}:
 #'
-#'   \code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
+#'   \code{\link{mirt} = \link{mi}/\link{cond_true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
 #'
 #'
 #'   \item specificity \code{\link{spec}}:
 #'
-#'   \code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
+#'   \code{\link{spec} = \link{cr}/\link{cond_false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
 #'
 #'
 #'   \item false alarm rate \code{\link{fart}}:
 #'
-#'   \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
+#'   \code{\link{fart} = \link{fa}/\link{cond_false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 #'
 #'
 #'   \item proportion of positive decisions \code{\link{ppod}}:
 #'
-#'   \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'   \code{\link{ppod} = \link{dec_pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'
 #'   \item positive predictive value \code{\link{PPV}}:
 #'
-#'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
+#'   \code{\link{PPV} = \link{hi}/\link{dec_pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 #'
 #'
 #'   \item negative predictive value \code{\link{NPV}}:
 #'
-#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+#'   \code{\link{NPV} = \link{cr}/\link{dec_neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
 #'
 #'
 #'   \item false detection rate \code{\link{FDR}}:
 #'
-#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+#'   \code{\link{FDR} = \link{fa}/\link{dec_pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 #'
 #'
 #'   \item false omission rate \code{\link{FOR}}:
 #'
-#'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
+#'   \code{\link{FOR} = \link{mi}/\link{dec_neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
 #'
 #'   \item accuracy \code{\link{acc}}:
 #'
-#'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'   \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'    }
 #'
@@ -468,7 +413,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #'  \item the condition's prevalence \code{\link{prev}}
 #'  (i.e., the probability of the condition being \code{TRUE}):
-#'  \code{prev = \link{cond.true}/\link{N}}.
+#'  \code{prev = \link{cond_true}/\link{N}}.
 #'
 #'  \item the decision's sensitivity \code{\link{sens}}
 #'  (i.e., the conditional probability of a positive decision
@@ -490,7 +435,7 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'  \item the proportion (baseline probability or rate)
 #'  of the decision being positive \code{\link{ppod}}
 #'  (but not necessarily true):
-#'  \code{ppod = \link{dec.pos}/\link{N}}.
+#'  \code{ppod = \link{dec_pos}/\link{N}}.
 #'
 #'  \item the decision's positive predictive value \code{\link{PPV}}
 #'  (i.e., the conditional probability of the condition being \code{TRUE}
@@ -510,16 +455,16 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #'
 #'  \item the accuracy \code{\link{acc}}
-#'  (i.e., probability of correct decisions \code{\link{dec.cor}} or
+#'  (i.e., probability of correct decisions \code{\link{dec_cor}} or
 #'  correspondence of decisions to conditions).
 #'
 #'  \item the conditional probability \code{p_acc_hi}
 #'  (i.e., the probability of \code{\link{hi}} given that
-#'  the decision is correct \code{\link{dec.cor}}).
+#'  the decision is correct \code{\link{dec_cor}}).
 #'
 #'  \item the conditional probability \code{p_err_fa}
 #'  (i.e., the probability of \code{\link{fa}} given that
-#'  the decision is erroneous \code{\link{dec.err}}).
+#'  the decision is erroneous \code{\link{dec_err}}).
 #'
 #'
 #' }
@@ -609,8 +554,8 @@ prob <- comp_prob()  # => initialize prob to default parameters
 ##   from frequencies (based on various elements of freq)!
 ##
 ## - Compute alternative prob from freq with
-##   a. N of dec.pos (rather than N of fa) and
-##   b. N of dec.neg (rather than N of mi) provided.
+##   a. N of dec_pos (rather than N of fa) and
+##   b. N of dec_neg (rather than N of mi) provided.
 ##
 ## - Compute basic parameters (probabilities and frequencies)
 ##   from MIX of existing probabilities and frequencies!

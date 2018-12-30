@@ -47,8 +47,8 @@ reference:
   contents:
   - freq
   - N
-  - starts_with("cond.")
-  - starts_with("dec.")
+  - starts_with("cond_")
+  - starts_with("dec_")
   - hi
   - mi
   - fa
@@ -69,6 +69,6 @@ figures:
   dpi: 96
   dev.args: []
   fig.ext: png
-  fig.width: 7.6
-  fig.height: 5.4
+  fig.width: 7.2
+  fig.height: 4.8
   fig.retina: 2

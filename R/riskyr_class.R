@@ -61,20 +61,20 @@
 #' @param N_lbl A label for the current population \code{\link{popu}} or sample.
 #'
 #' @param cond_lbl A label for the \emph{condition} or feature (e.g., some disease) currently considered.
-#' @param cond.true_lbl A label for the \emph{presence} of the current condition
-#' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
-#' @param cond.false_lbl A label for the \emph{absence} of the current condition
-#' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
+#' @param cond_true_lbl A label for the \emph{presence} of the current condition
+#' or \code{\link{cond_true}} cases (the condition's true state of TRUE).
+#' @param cond_false_lbl A label for the \emph{absence} of the current condition
+#' or \code{\link{cond_false}} cases (the condition's true state of FALSE).
 #'
 #' @param dec_lbl A label for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
-#' @param dec.pos_lbl A label for \emph{positive} decisions
-#' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
-#' @param dec.neg_lbl A label for \emph{negative} decisions
-#' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
+#' @param dec_pos_lbl A label for \emph{positive} decisions
+#' or \code{\link{dec_pos}} cases (e.g., predicting the presence of the condition).
+#' @param dec_neg_lbl A label for \emph{negative} decisions
+#' or \code{\link{dec_neg}} cases (e.g., predicting the absence of the condition).
 #'
 #' @param acc_lbl A label for \emph{accuracy} (i.e., correspondence between condition and decision or judgment).
-#' @param dec.cor_lbl A label for \emph{correct} (or accurate) decisions or judgments.
-#' @param dec.err_lbl A label for \emph{incorrect} (or erroneous) decisions or judgments.
+#' @param dec_cor_lbl A label for \emph{correct} (or accurate) decisions or judgments.
+#' @param dec_err_lbl A label for \emph{incorrect} (or erroneous) decisions or judgments.
 #'
 #' @param sdt_lbl A label for the combination of \emph{condition} and \emph{decision} currently made.
 #' @param hi_lbl A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
@@ -142,11 +142,11 @@
 #' scen_reoffend <- riskyr(scen_lbl = "Identify reoffenders",
 #'                         cond_lbl = "being a reoffender",
 #'                         popu_lbl = "Prisoners",
-#'                         cond.true_lbl = "has reoffended",
-#'                         cond.false_lbl = "has not reoffended",
+#'                         cond_true_lbl = "has reoffended",
+#'                         cond_false_lbl = "has not reoffended",
 #'                         dec_lbl = "test result",
-#'                         dec.pos_lbl = "will reoffend",
-#'                         dec.neg_lbl = "will not reoffend",
+#'                         dec_pos_lbl = "will reoffend",
+#'                         dec_neg_lbl = "will not reoffend",
 #'                         sdt_lbl = "combination",
 #'                         hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
 #'                         fa_lbl = "false accusation", cr_lbl = "correct release",
@@ -197,13 +197,13 @@ riskyr <- function(#
   # (2) Three perspectives:
   # a. by condition:
   cond_lbl = txt$cond_lbl,
-  cond.true_lbl = txt$cond.true_lbl, cond.false_lbl = txt$cond.false_lbl,
+  cond_true_lbl = txt$cond_true_lbl, cond_false_lbl = txt$cond_false_lbl,
   # b. by decision:
   dec_lbl = txt$dec_lbl,
-  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+  dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
   # c. by accuracy:
   acc_lbl = txt$acc_lbl,
-  dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
+  dec_cor_lbl = txt$dec_cor_lbl, dec_err_lbl = txt$dec_err_lbl,
   # (3) 4 SDT cases:
   sdt_lbl = txt$sdt_lbl,
   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
@@ -306,7 +306,7 @@ riskyr <- function(#
       if (is.na(N)) {
 
         N <- comp_min_N(prev = probs[1], sens = probs[2], spec = probs[4],
-                        min.freq = 1)  # calculate a suitable N.
+                        min_freq = 1)  # calculate a suitable N.
       }
 
       ## (e) Calculate the frequencies from probabilities:
@@ -349,13 +349,13 @@ riskyr <- function(#
     N_lbl = N_lbl,
     # a. by condition:
     cond_lbl = cond_lbl,
-    cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
+    cond_true_lbl = cond_true_lbl, cond_false_lbl = cond_false_lbl,
     # b. by decision:
     dec_lbl = dec_lbl,
-    dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+    dec_pos_lbl = dec_pos_lbl, dec_neg_lbl = dec_neg_lbl,
     # c. by accuracy:
     acc_lbl = acc_lbl,
-    dec.cor_lbl = dec.cor_lbl, dec.err_lbl = dec.err_lbl,
+    dec_cor_lbl = dec_cor_lbl, dec_err_lbl = dec_err_lbl,
     # 4 SDT cases:
     sdt_lbl = sdt_lbl,
     hi_lbl = hi_lbl, mi_lbl = mi_lbl, fa_lbl = fa_lbl, cr_lbl = cr_lbl,
@@ -478,12 +478,12 @@ scenarios <- NULL # initialize
 #'   \item \code{popu_lbl} Text label for current population.
 #'
 #'   \item \code{cond_lbl} Text label for current condition.
-#'   \item \code{cond.true_lbl} Text label for \code{\link{cond.true}} cases.
-#'   \item \code{cond.false_lbl} Text label for \code{\link{cond.false}} cases.
+#'   \item \code{cond_true_lbl} Text label for \code{\link{cond_true}} cases.
+#'   \item \code{cond_false_lbl} Text label for \code{\link{cond_false}} cases.
 #'
 #'   \item \code{dec_lbl} Text label for current decision.
-#'   \item \code{dec.pos_lbl} Text label for \code{\link{dec.pos}} cases.
-#'   \item \code{dec.neg_lbl} Text label for \code{\link{dec.neg}} cases.
+#'   \item \code{dec_pos_lbl} Text label for \code{\link{dec_pos}} cases.
+#'   \item \code{dec_neg_lbl} Text label for \code{\link{dec_neg}} cases.
 #'
 #'   \item \code{hi_lbl} Text label for cases of hits \code{\link{hi}}.
 #'   \item \code{mi_lbl} Text label for cases of misses \code{\link{mi}}.
@@ -537,13 +537,13 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
     N_lbl    = txt$N_lbl,  # use txt default (as currently not set in data)
     # a. by condition:
     cond_lbl = s$cond_lbl,
-    cond.true_lbl = s$cond.true_lbl, cond.false_lbl = s$cond.false_lbl,
+    cond_true_lbl = s$cond_true_lbl, cond_false_lbl = s$cond_false_lbl,
     # b. by decision:
     dec_lbl = s$dec_lbl,
-    dec.pos_lbl = s$dec.pos_lbl, dec.neg_lbl = s$dec.neg_lbl,
+    dec_pos_lbl = s$dec_pos_lbl, dec_neg_lbl = s$dec_neg_lbl,
     # c. by accuracy:
     acc_lbl = txt$acc_lbl,  # use txt default (as currently not set in data)
-    dec.cor_lbl = txt$dec.cor_lbl, dec.err_lbl = txt$dec.err_lbl,
+    dec_cor_lbl = txt$dec_cor_lbl, dec_err_lbl = txt$dec_err_lbl,
     # 4 SDT cases:
     sdt_lbl = txt$sdt_lbl,  # use txt default (as currently not set in data)
     hi_lbl = s$hi_lbl, mi_lbl = s$mi_lbl, fa_lbl = s$fa_lbl, cr_lbl = s$cr_lbl,
@@ -711,16 +711,16 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
                     N_lbl = x$N_lbl,
 
                     cond_lbl = x$cond_lbl,
-                    cond.true_lbl = x$cond.true_lbl,
-                    cond.false_lbl = x$cond.false_lbl,
+                    cond_true_lbl = x$cond_true_lbl,
+                    cond_false_lbl = x$cond_false_lbl,
 
                     dec_lbl  = x$dec_lbl,
-                    dec.pos_lbl = x$dec.pos_lbl,
-                    dec.neg_lbl = x$dec.neg_lbl,
+                    dec_pos_lbl = x$dec_pos_lbl,
+                    dec_neg_lbl = x$dec_neg_lbl,
 
                     acc_lbl = x$acc_lbl,
-                    dec.cor_lbl = x$dec.cor_lbl,
-                    dec.err_lbl = x$dec.err_lbl,
+                    dec_cor_lbl = x$dec_cor_lbl,
+                    dec_err_lbl = x$dec_err_lbl,
 
                     sdt_lbl = x$sdt_lbl,
                     hi_lbl = x$hi_lbl,
@@ -980,20 +980,20 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
                        N = object$N)
 
     ## (a) Frequencies by condition:
-    cond.freqs <- unlist(freqs[c("cond.true", "cond.false")])
+    cond_freqs <- unlist(freqs[c("cond_true", "cond_false")])
 
     ## (b) Frequencies by decision:
-    dec.freqs <- unlist(freqs[c("dec.pos", "dec.neg")])
+    dec_freqs <- unlist(freqs[c("dec_pos", "dec_neg")])
 
     ## (c) Frequencies by accuracy (i.e., correspondence of decision to condition):
-    acc.freqs <- unlist(freqs[c("dec.cor", "dec.err")])
+    acc.freqs <- unlist(freqs[c("dec_cor", "dec_err")])
 
     ## (d) SDT frequencies:
     sdt.freqs <- unlist(freqs[c("hi", "mi", "fa", "cr")])  # == "essential" frequencies.
 
     ## (+) Add to summary object:
-    obj.sum$freqs <- list(cond.freqs = cond.freqs,
-                          dec.freqs = dec.freqs,
+    obj.sum$freqs <- list(cond_freqs = cond_freqs,
+                          dec_freqs = dec_freqs,
                           acc.freqs = acc.freqs,
                           sdt.freqs = sdt.freqs)
 
@@ -1087,18 +1087,18 @@ print.summary.riskyr <- function(x = NULL, ...) {
     cat("\nFrequencies:\n")
 
     cat("\n by conditions:\n")
-    # names(x$freqs$cond.freqs) <- c("True", "False")  # explicit
-    names(x$freqs$cond.freqs) <- c("cond.true", "cond.false")  # more explicit
-    print(x$freqs$cond.freqs)
+    # names(x$freqs$cond_freqs) <- c("True", "False")  # explicit
+    names(x$freqs$cond_freqs) <- c("cond_true", "cond_false")  # more explicit
+    print(x$freqs$cond_freqs)
 
     cat("\n by decision:\n")
-    names(x$freqs$dec.freqs) <- c("Positive", "Negative")  # explicit
-    names(x$freqs$dec.freqs) <- c("dec.pos", "dec.neg")  # more explicit
-    print(x$freqs$dec.freqs)
+    names(x$freqs$dec_freqs) <- c("Positive", "Negative")  # explicit
+    names(x$freqs$dec_freqs) <- c("dec_pos", "dec_neg")  # more explicit
+    print(x$freqs$dec_freqs)
 
     cat("\n by correspondence (of decision to condition):\n")
     # names(x$freqs$acc.freqs) <- c("Correct cases", "Incorrect cases")  # explicit
-    names(x$freqs$acc.freqs) <- c("dec.cor", "dec.err")  # implicit
+    names(x$freqs$acc.freqs) <- c("dec_cor", "dec_err")  # implicit
     print(x$freqs$acc.freqs)
 
     cat("\n 4 essential (SDT) frequencies:\n")
@@ -1240,8 +1240,8 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #'
 #' # (B) Intervention/treatment scenario: ------
 #' popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
-#'                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
-#'                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#'                         cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
+#'                         dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 #' # popu_treat
 #' scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
 #' plot(scen_treat, type = "prism", area = "sq", f_lbl = "namnum", p_lbl = "num")
@@ -1249,8 +1249,8 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #'
 #' # (C) Prevention scenario (e.g., vaccination): ------
 #' popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
-#'                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
-#'                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+#'                        cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
+#'                        dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 #' # popu_vacc
 #' scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 #' plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")
@@ -1281,19 +1281,19 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 
   # Labels:
   cond_lbl <- names(df)[ix_by_top]
-  cond.true_lbl  <- levels(df[ , ix_by_top])[1]
-  cond.false_lbl <- levels(df[ , ix_by_top])[2]
+  cond_true_lbl  <- levels(df[ , ix_by_top])[1]
+  cond_false_lbl <- levels(df[ , ix_by_top])[2]
 
   dec_lbl <- names(df)[ix_by_bot]
-  dec.pos_lbl <- levels(df[ , ix_by_bot])[1]
-  dec.neg_lbl <- levels(df[ , ix_by_bot])[2]
+  dec_pos_lbl <- levels(df[ , ix_by_bot])[1]
+  dec_neg_lbl <- levels(df[ , ix_by_bot])[2]
 
   sdt_lbl <- names(df)[ix_sdt]
 
   # Create riskyr scenario:
   scen <- riskyr(hi = n_hi, mi = n_mi, fa = n_fa, cr = n_cr,
-                 cond_lbl = cond_lbl, cond.true_lbl = cond.true_lbl, cond.false_lbl = cond.false_lbl,
-                 dec_lbl = dec_lbl, dec.pos_lbl = dec.pos_lbl, dec.neg_lbl = dec.neg_lbl,
+                 cond_lbl = cond_lbl, cond_true_lbl = cond_true_lbl, cond_false_lbl = cond_false_lbl,
+                 dec_lbl = dec_lbl, dec_pos_lbl = dec_pos_lbl, dec_neg_lbl = dec_neg_lbl,
                  sdt_lbl = sdt_lbl,
                  ...)
 
@@ -1313,8 +1313,8 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 #
 # # (B) Intervention/treatment scenario: ------
 # popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
-#                         cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
-#                         dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+#                         cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
+#                         dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 # # popu_treat
 # scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
 # plot(scen_treat, type = "prism", area = "hr", f_lbl = "namnum", col_pal = "whitesmoke", f_lwd = 1)
@@ -1322,8 +1322,8 @@ read_popu <- function(df = popu,  # df (as population with 3+ columns, see comp_
 #
 # # (C) Prevention scenario (e.g., vaccination): ------
 # popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
-#                        cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
-#                        dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+#                        cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
+#                        dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 # # popu_vacc
 # scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 # plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")

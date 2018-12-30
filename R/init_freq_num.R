@@ -11,7 +11,7 @@
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
+# prev*                           cond_true | cond_false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -25,8 +25,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
+# ppod = proportion of dec_pos     dec_pos | dec_neg (rows)
+#                                  dec_cor | dec_err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -37,8 +37,8 @@
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
 # acc  = overall accuracy (probability/proportion correct decision)
-# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec_cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec_err)"
 
 # Other measures of accuracy (in accu):
 # wacc = weighted accuracy
@@ -86,18 +86,18 @@ init_freq <- function() {
     ## (2) Splits into 2 subgroups:
     ## (a) Number of true cases by condition
     ##     (= columns of confusion matrix):
-    "cond.true"  = NA, # N of cond TRUE
-    "cond.false" = NA, # N of cond FALSE
+    "cond_true"  = NA, # N of cond TRUE
+    "cond_false" = NA, # N of cond FALSE
 
     ## (b) Number of decisions
     ##     (= rows of confusion matrix):
-    "dec.pos" = NA, # N of dec POS [was: dec.true]
-    "dec.neg" = NA, # N of dec NEG [was: dec.false]
+    "dec_pos" = NA, # N of dec POS [was: dec_true]
+    "dec_neg" = NA, # N of dec NEG [was: dec_false]
 
     ## (c) Correspondence of decision to condition
     ##     (= diagonals of confusion matrix):
-    "dec.cor" = NA, # N of correct decisions
-    "dec.err" = NA, # N of erroneous decisions
+    "dec_cor" = NA, # N of correct decisions
+    "dec_err" = NA, # N of erroneous decisions
 
     ## (3) Splits into 4 subgroups
     ##     (= 4 cells or SDT combinations of confusion matrix):
@@ -169,23 +169,23 @@ init_freq <- function() {
 #'
 #'    \item by condition:
 #'
-#'    \code{\link{N} = \link{cond.true} + \link{cond.false}}
+#'    \code{\link{N} = \link{cond_true} + \link{cond_false}}
 #'
-#'    The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+#'    The frequency \code{\link{cond_true}} depends on the prevalence \code{\link{prev}}
 #'    and
-#'    the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+#'    the frequency \code{\link{cond_false}} depends on the prevalence's complement \code{1 - \link{prev}}.
 #'
 #'    \item by decision:
 #'
-#'    \code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+#'    \code{\link{N} = \link{dec_pos} + \link{dec_neg}}
 #'
-#'    The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+#'    The frequency \code{\link{dec_pos}} depends on the proportion of positive decisions \code{\link{ppod}}
 #'    and
-#'    the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+#'    the frequency \code{\link{dec_neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 #'
 #'    \item by accuracy (i.e., correspondence of decision to condition):
 #'
-#'    \code{\link{N} = \link{dec.cor} + \link{dec.err}}
+#'    \code{\link{N} = \link{dec_cor} + \link{dec_err}}
 #'
 #'    }
 #'
@@ -206,57 +206,57 @@ init_freq <- function() {
 #'
 #'   \item prevalence \code{\link{prev}}:
 #'
-#'   \code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'   \code{\link{prev} = \link{cond_true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'
 #'   \item sensitivity \code{\link{sens}}:
 #'
-#'   \code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
+#'   \code{\link{sens} = \link{hi}/\link{cond_true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
 #'
 #'
 #'   \item miss rate \code{\link{mirt}}:
 #'
-#'   \code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
+#'   \code{\link{mirt} = \link{mi}/\link{cond_true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
 #'
 #'
 #'   \item specificity \code{\link{spec}}:
 #'
-#'   \code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
+#'   \code{\link{spec} = \link{cr}/\link{cond_false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
 #'
 #'
 #'   \item false alarm rate \code{\link{fart}}:
 #'
-#'   \code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
+#'   \code{\link{fart} = \link{fa}/\link{cond_false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 #'
 #'
 #'   \item proportion of positive decisions \code{\link{ppod}}:
 #'
-#'   \code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'   \code{\link{ppod} = \link{dec_pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'
 #'   \item positive predictive value \code{\link{PPV}}:
 #'
-#'   \code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
+#'   \code{\link{PPV} = \link{hi}/\link{dec_pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 #'
 #'
 #'   \item negative predictive value \code{\link{NPV}}:
 #'
-#'   \code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+#'   \code{\link{NPV} = \link{cr}/\link{dec_neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
 #'
 #'
 #'   \item false detection rate \code{\link{FDR}}:
 #'
-#'   \code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+#'   \code{\link{FDR} = \link{fa}/\link{dec_pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 #'
 #'
 #'   \item false omission rate \code{\link{FOR}}:
 #'
-#'   \code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
+#'   \code{\link{FOR} = \link{mi}/\link{dec_neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 #'
 #'
 #'   \item accuracy \code{\link{acc}}:
 #'
-#'   \code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'   \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
 #'    }
 #'
@@ -371,7 +371,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     ## (4) Compute missing population size value N (if applicable):
     if (is.na(N)) {
 
-      N <- comp_min_N(prev = prev, sens = sens, spec = spec, min.freq = 1)
+      N <- comp_min_N(prev = prev, sens = sens, spec = spec, min_freq = 1)
 
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
     }
@@ -379,51 +379,51 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     ## (5) Set or compute all values of freq:
     freq$N <- N # copy N from argument OR num (input)
 
-    ## (a) Number of cond.true vs. cond.false cases (by condition):
+    ## (a) Number of cond_true vs. cond_false cases (by condition):
     if (round) {
-      freq$cond.true <- round((N * prev), 0)  # 1a. cond.true  = N x prev [rounded to nearest integer]
+      freq$cond_true <- round((N * prev), 0)  # 1a. cond_true  = N x prev [rounded to nearest integer]
     } else {
-      freq$cond.true <- (N * prev)            # 1b. cond.true  = N x prev [not rounded]
+      freq$cond_true <- (N * prev)            # 1b. cond_true  = N x prev [not rounded]
     }
-    freq$cond.false <- (N - freq$cond.true)   # 2. cond.false = complement of cond.true (to N)
+    freq$cond_false <- (N - freq$cond_true)   # 2. cond_false = complement of cond_true (to N)
 
     ## (b) Number of 4 SDT combinations:
     if (round) {
-      freq$hi <- round((sens * freq$cond.true), 0)   # a1. N of hi [rounded to nearest integer]
+      freq$hi <- round((sens * freq$cond_true), 0)   # a1. N of hi [rounded to nearest integer]
     } else {
-      freq$hi <- (sens * freq$cond.true)             # a2. N of hi [not rounded]
+      freq$hi <- (sens * freq$cond_true)             # a2. N of hi [not rounded]
     }
-    freq$mi <- (freq$cond.true - freq$hi)            # b.  N of mi = complement of hi (to cond.true)
+    freq$mi <- (freq$cond_true - freq$hi)            # b.  N of mi = complement of hi (to cond_true)
 
     if (round) {
-      freq$cr <- round((spec * freq$cond.false), 0)  # c1. N of cr [rounded to nearest integer]
+      freq$cr <- round((spec * freq$cond_false), 0)  # c1. N of cr [rounded to nearest integer]
     } else {
-      freq$cr <- (spec * freq$cond.false)            # c2. N of cr [not rounded]
+      freq$cr <- (spec * freq$cond_false)            # c2. N of cr [not rounded]
     }
-    freq$fa <- (freq$cond.false - freq$cr)           # d.  N of fa - complement of cr (to cond.false)
+    freq$fa <- (freq$cond_false - freq$cr)           # d.  N of fa - complement of cr (to cond_false)
 
     ## (c) Number of positive vs. negative decisions (by decision):
-    freq$dec.pos <- freq$hi + freq$fa  # 1. positive decisions (true & false positives)
-    freq$dec.neg <- freq$mi + freq$cr  # 2. negative decisions (false & true negatives)
+    freq$dec_pos <- freq$hi + freq$fa  # 1. positive decisions (true & false positives)
+    freq$dec_neg <- freq$mi + freq$cr  # 2. negative decisions (false & true negatives)
 
     ## (d) Accuracy/Correspondence of decision to condition (by correspondence):
-    freq$dec.cor <- freq$hi + freq$cr  # N of correct decisions
-    freq$dec.err <- freq$mi + freq$fa  # N of erroneous decisions
+    freq$dec_cor <- freq$hi + freq$cr  # N of correct decisions
+    freq$dec_err <- freq$mi + freq$fa  # N of erroneous decisions
 
     ## (6) Check current frequencies for consistency:
     tol <- .0001  # tolerance threshold for mismatch of sums
 
     if (#isTRUE(all.equal(freq$N, (freq$hi + freq$mi + freq$fa + freq$cr), tolerance = tol)) &&
         (abs(freq$N - (freq$hi + freq$mi + freq$fa + freq$cr)) > tol) ||
-        (abs(freq$cond.true - (freq$hi + freq$mi)) > tol)             ||
-        (abs(freq$cond.false - (freq$fa + freq$cr)) > tol)            ||
-        # (abs(dec.pos - (hi + fa)) > tol)               ||  # (computed as such above)
-        # (abs(dec.neg - (mi + cr)) > tol)               ||  # (computed as such above)
-        # (abs(dec.cor - (hi + cr)) > tol)               ||  # (computed as such above)
-        # (abs(dec.err - (mi + fa)) > tol)               ||  # (computed as such above)
-        (abs(freq$N - (freq$cond.true + freq$cond.false)) > tol)      ||
-        (abs(freq$N - (freq$dec.pos + freq$dec.neg)) > tol)           ||
-        (abs(freq$N - (freq$dec.cor + freq$dec.err)) > tol)           ) {
+        (abs(freq$cond_true - (freq$hi + freq$mi)) > tol)             ||
+        (abs(freq$cond_false - (freq$fa + freq$cr)) > tol)            ||
+        # (abs(dec_pos - (hi + fa)) > tol)               ||  # (computed as such above)
+        # (abs(dec_neg - (mi + cr)) > tol)               ||  # (computed as such above)
+        # (abs(dec_cor - (hi + cr)) > tol)               ||  # (computed as such above)
+        # (abs(dec_err - (mi + fa)) > tol)               ||  # (computed as such above)
+        (abs(freq$N - (freq$cond_true + freq$cond_false)) > tol)      ||
+        (abs(freq$N - (freq$dec_pos + freq$dec_neg)) > tol)           ||
+        (abs(freq$N - (freq$dec_cor + freq$dec_err)) > tol)           ) {
 
       warning("Current frequencies do NOT add up to N.")
     }
@@ -493,14 +493,14 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'
 #'  \item the population size \code{\link{N}}
 #'
-#'  \item the number of cases for which \code{\link{cond.true}}
-#'  \item the number of cases for which \code{\link{cond.false}}
+#'  \item the number of cases for which \code{\link{cond_true}}
+#'  \item the number of cases for which \code{\link{cond_false}}
 #'
-#'  \item the number of cases for which \code{\link{dec.pos}}
-#'  \item the number of cases for which \code{\link{dec.neg}}
+#'  \item the number of cases for which \code{\link{dec_pos}}
+#'  \item the number of cases for which \code{\link{dec_neg}}
 #'
-#'  \item the number of cases for which \code{\link{dec.cor}}
-#'  \item the number of cases for which \code{\link{dec.err}}
+#'  \item the number of cases for which \code{\link{dec_cor}}
+#'  \item the number of cases for which \code{\link{dec_err}}
 #'
 #'  \item the number of true positives, or hits \code{\link{hi}}
 #'  \item the number of false negatives, or misses \code{\link{mi}}
@@ -612,14 +612,14 @@ comp_freq_type <- function(fname, lbl_txt = txt) {
 
 ## Check: --------
 # comp_freq_type("N")
-# comp_freq_type("cond.false")
-# comp_freq_type("dec.neg")
-# comp_freq_type("dec.err")
+# comp_freq_type("cond_false")
+# comp_freq_type("dec_neg")
+# comp_freq_type("dec_err")
 # comp_freq_type("cr")
 
 ## Using alternative text labels:
-# comp_freq_type("cond.true", lbl_txt = txt_TF) # => "Truth"
-# comp_freq_type("dec.pos", lbl_txt = txt_TF)   # => "Test"
+# comp_freq_type("cond_true", lbl_txt = txt_TF) # => "Truth"
+# comp_freq_type("dec_pos", lbl_txt = txt_TF)   # => "Test"
 
 ## Note:
 # comp_freq_type(N)        # => typeless (as function requires name, NOT a value)
@@ -697,9 +697,9 @@ comp_freq_col <- function(fname,
 
 # comp_freq_col("N")
 # comp_freq_col("hi")
-# comp_freq_col("cond.true")
-# comp_freq_col("dec.pos")
-# comp_freq_col("dec.cor")
+# comp_freq_col("cond_true")
+# comp_freq_col("dec_pos")
+# comp_freq_col("dec_cor")
 #
 # comp_freq_col("default")          # use default color
 # comp_freq_col("N", col = "gold")  # "gold"
@@ -717,7 +717,7 @@ comp_freq_col <- function(fname,
 
 ## - Added 2 more frequencies for accuracy, i.e.,
 ##   "decision correctness" or correspondence of decision to condition:
-##   "dec.cor" vs. "dec.err" (i.e., diagonal of confusion matrix)
+##   "dec_cor" vs. "dec_err" (i.e., diagonal of confusion matrix)
 
 ## (+) ToDo: -----------
 

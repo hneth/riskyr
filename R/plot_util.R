@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 12 14
+## 2018 12 16
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -226,14 +226,14 @@ label_freq <- function(fname,
     if (tolower(fname) == "fa") { f_lbl <- lbl_txt$fa_lbl }
     if (tolower(fname) == "cr") { f_lbl <- lbl_txt$cr_lbl }
 
-    if (tolower(fname) == "cond.true")  { f_lbl <- lbl_txt$cond.true_lbl }
-    if (tolower(fname) == "cond.false") { f_lbl <- lbl_txt$cond.false_lbl }
+    if (tolower(fname) == "cond_true")  { f_lbl <- lbl_txt$cond_true_lbl }
+    if (tolower(fname) == "cond_false") { f_lbl <- lbl_txt$cond_false_lbl }
 
-    if (tolower(fname) == "dec.pos") { f_lbl <- lbl_txt$dec.pos_lbl }
-    if (tolower(fname) == "dec.neg") { f_lbl <- lbl_txt$dec.neg_lbl }
+    if (tolower(fname) == "dec_pos") { f_lbl <- lbl_txt$dec_pos_lbl }
+    if (tolower(fname) == "dec_neg") { f_lbl <- lbl_txt$dec_neg_lbl }
 
-    if (tolower(fname) == "dec.cor") { f_lbl <- lbl_txt$dec.cor_lbl }
-    if (tolower(fname) == "dec.err") { f_lbl <- lbl_txt$dec.err_lbl }
+    if (tolower(fname) == "dec_cor") { f_lbl <- lbl_txt$dec_cor_lbl }
+    if (tolower(fname) == "dec_err") { f_lbl <- lbl_txt$dec_err_lbl }
 
     # Combine f_lbl with f_val (from above):
     f_lbl <- paste0(f_lbl, lbl_sep, as.character(f_val))
@@ -251,14 +251,14 @@ label_freq <- function(fname,
     if (tolower(fname) == "fa") { f_lbl <- lbl_txt$fa_lbl }
     if (tolower(fname) == "cr") { f_lbl <- lbl_txt$cr_lbl }
 
-    if (tolower(fname) == "cond.true")  { f_lbl <- lbl_txt$cond.true_lbl }
-    if (tolower(fname) == "cond.false") { f_lbl <- lbl_txt$cond.false_lbl }
+    if (tolower(fname) == "cond_true")  { f_lbl <- lbl_txt$cond_true_lbl }
+    if (tolower(fname) == "cond_false") { f_lbl <- lbl_txt$cond_false_lbl }
 
-    if (tolower(fname) == "dec.pos") { f_lbl <- lbl_txt$dec.pos_lbl }
-    if (tolower(fname) == "dec.neg") { f_lbl <- lbl_txt$dec.neg_lbl }
+    if (tolower(fname) == "dec_pos") { f_lbl <- lbl_txt$dec_pos_lbl }
+    if (tolower(fname) == "dec_neg") { f_lbl <- lbl_txt$dec_neg_lbl }
 
-    if (tolower(fname) == "dec.cor") { f_lbl <- lbl_txt$dec.cor_lbl }
-    if (tolower(fname) == "dec.err") { f_lbl <- lbl_txt$dec.err_lbl }
+    if (tolower(fname) == "dec_cor") { f_lbl <- lbl_txt$dec_cor_lbl }
+    if (tolower(fname) == "dec_err") { f_lbl <- lbl_txt$dec_err_lbl }
 
   } else {  ## "any"/"default":
 
@@ -312,10 +312,10 @@ label_freq <- function(fname,
 # label_freq("cr", lbl_type = "nam")
 # label_freq("cr", lbl_type = "namnum")
 # label_freq("cr", lbl_type = "nix")  # default lbl_type
-# label_freq("dec.err", lbl_type = "all")
+# label_freq("dec_err", lbl_type = "all")
 #
 ## Special cases:
-# label_freq("dec.err")              # no lbl_type specified: use default
+# label_freq("dec_err")              # no lbl_type specified: use default
 # label_freq("hi", lbl_type = NULL)  # => NA
 # label_freq("unknown fname")        # unknown freq: return fname
 
@@ -457,10 +457,10 @@ label_prob <- function(pname,
     if (pname == "cor") { p_lbl <- "Rate correct" }
     if (pname == "err") { p_lbl <- "Rate incorrect" }
 
-    if (pname == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor)
-    if (pname == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
-    if (pname == "err-mi") { p_lbl <- "p(mi | dec.err)" }
-    if (pname == "err-fa") { p_lbl <- "p(fa | dec.err)" }
+    if (pname == "acc-hi") { p_lbl <- "p(hi | dec_cor)" }  # "Proportion positive correct" (ppcor)
+    if (pname == "acc-cr") { p_lbl <- "p(cr | dec_cor)" }  # "Proportion negative correct" (pncor)
+    if (pname == "err-mi") { p_lbl <- "p(mi | dec_err)" }
+    if (pname == "err-fa") { p_lbl <- "p(fa | dec_err)" }
 
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
@@ -498,10 +498,10 @@ label_prob <- function(pname,
     if (pname == "cor") { p_lbl <- "Rate correct" }
     if (pname == "err") { p_lbl <- "Rate incorrect" }
 
-    if (pname == "acc-hi") { p_lbl <- "p(hi | dec.cor)" }  # "Proportion positive correct" (ppcor) / key prob
-    if (pname == "acc-cr") { p_lbl <- "p(cr | dec.cor)" }  # "Proportion negative correct" (pncor)
-    if (pname == "err-mi") { p_lbl <- "p(mi | dec.err)" }
-    if (pname == "err-fa") { p_lbl <- "p(fa | dec.err)" }  # key prob
+    if (pname == "acc-hi") { p_lbl <- "p(hi | dec_cor)" }  # "Proportion positive correct" (ppcor) / key prob
+    if (pname == "acc-cr") { p_lbl <- "p(cr | dec_cor)" }  # "Proportion negative correct" (pncor)
+    if (pname == "err-mi") { p_lbl <- "p(mi | dec_err)" }
+    if (pname == "err-fa") { p_lbl <- "p(fa | dec_err)" }  # key prob
 
   } else {  ## "any"/"default":
 
@@ -611,61 +611,61 @@ name_prob <- function(freq1, freq2) {
   # (1) by condition (bc):
 
   # 2 unconditional probabilities:
-  if ( (freq1 == "n" & freq2 == "cond.true") ||
-       (freq2 == "n" & freq1 == "cond.true") ) { pname <- "prev" }
-  if ( (freq1 == "n" & freq2 == "cond.false") ||
-       (freq2 == "n" & freq1 == "cond.false") ) { pname <- "cprev" }
+  if ( (freq1 == "n" & freq2 == "cond_true") ||
+       (freq2 == "n" & freq1 == "cond_true") ) { pname <- "prev" }
+  if ( (freq1 == "n" & freq2 == "cond_false") ||
+       (freq2 == "n" & freq1 == "cond_false") ) { pname <- "cprev" }
 
   # 4 conditional probabilities:
-  if ( (freq1 == "hi" & freq2 == "cond.true") ||
-       (freq2 == "hi" & freq1 == "cond.true") ) { pname <- "sens" }
-  if ( (freq1 == "mi" & freq2 == "cond.true") ||
-       (freq2 == "mi" & freq1 == "cond.true") ) { pname <- "mirt" }
+  if ( (freq1 == "hi" & freq2 == "cond_true") ||
+       (freq2 == "hi" & freq1 == "cond_true") ) { pname <- "sens" }
+  if ( (freq1 == "mi" & freq2 == "cond_true") ||
+       (freq2 == "mi" & freq1 == "cond_true") ) { pname <- "mirt" }
 
-  if ( (freq1 == "cr" & freq2 == "cond.false") ||
-       (freq2 == "cr" & freq1 == "cond.false") ) { pname <- "spec" }
-  if ( (freq1 == "fa" & freq2 == "cond.false") ||
-       (freq2 == "fa" & freq1 == "cond.false") ) { pname <- "fart" }
+  if ( (freq1 == "cr" & freq2 == "cond_false") ||
+       (freq2 == "cr" & freq1 == "cond_false") ) { pname <- "spec" }
+  if ( (freq1 == "fa" & freq2 == "cond_false") ||
+       (freq2 == "fa" & freq1 == "cond_false") ) { pname <- "fart" }
 
   # (2) by decision (dc):
 
   # 2 unconditional probabilities:
-  if ( (freq1 == "n" & freq2 == "dec.pos") ||
-       (freq2 == "n" & freq1 == "dec.pos") ) { pname <- "ppod" }
-  if ( (freq1 == "n" & freq2 == "dec.neg") ||
-       (freq2 == "n" & freq1 == "dec.neg") ) { pname <- "cppod" } # aka. "pned"
+  if ( (freq1 == "n" & freq2 == "dec_pos") ||
+       (freq2 == "n" & freq1 == "dec_pos") ) { pname <- "ppod" }
+  if ( (freq1 == "n" & freq2 == "dec_neg") ||
+       (freq2 == "n" & freq1 == "dec_neg") ) { pname <- "cppod" } # aka. "pned"
 
   # 4 conditional probabilities:
-  if ( (freq1 == "hi" & freq2 == "dec.pos") ||
-       (freq2 == "hi" & freq1 == "dec.pos") ) { pname <- "PPV" }
-  if ( (freq1 == "fa" & freq2 == "dec.pos") ||
-       (freq2 == "fa" & freq1 == "dec.pos") ) { pname <- "FDR" }
+  if ( (freq1 == "hi" & freq2 == "dec_pos") ||
+       (freq2 == "hi" & freq1 == "dec_pos") ) { pname <- "PPV" }
+  if ( (freq1 == "fa" & freq2 == "dec_pos") ||
+       (freq2 == "fa" & freq1 == "dec_pos") ) { pname <- "FDR" }
 
-  if ( (freq1 == "cr" & freq2 == "dec.neg") ||
-       (freq2 == "cr" & freq1 == "dec.neg") ) { pname <- "NPV" }
-  if ( (freq1 == "mi" & freq2 == "dec.neg") ||
-       (freq2 == "mi" & freq1 == "dec.neg") ) { pname <- "FOR" }
+  if ( (freq1 == "cr" & freq2 == "dec_neg") ||
+       (freq2 == "cr" & freq1 == "dec_neg") ) { pname <- "NPV" }
+  if ( (freq1 == "mi" & freq2 == "dec_neg") ||
+       (freq2 == "mi" & freq1 == "dec_neg") ) { pname <- "FOR" }
 
   # (3) by accuracy/correspondence (ac):
 
   # 2 unconditional probabilities:
-  if ( (freq1 == "n" & freq2 == "dec.cor") ||
-       (freq2 == "n" & freq1 == "dec.cor") ) { pname <- "acc" } # aka. "cor"
-  if ( (freq1 == "n" & freq2 == "dec.err") ||
-       (freq2 == "n" & freq1 == "dec.err") ) { pname <- "err" } # error rate
+  if ( (freq1 == "n" & freq2 == "dec_cor") ||
+       (freq2 == "n" & freq1 == "dec_cor") ) { pname <- "acc" } # aka. "cor"
+  if ( (freq1 == "n" & freq2 == "dec_err") ||
+       (freq2 == "n" & freq1 == "dec_err") ) { pname <- "err" } # error rate
 
   # 4 conditional probabilities:
-  if ( (freq1 == "dec.cor" & freq2 == "hi") ||
-       (freq2 == "dec.cor" & freq1 == "hi") ) { pname <- "acc-hi" } # in lack of a better name
-  if ( (freq1 == "dec.cor" & freq2 == "cr") ||
-       (freq2 == "dec.cor" & freq1 == "cr") ) { pname <- "acc-cr" } # in lack of a better name
+  if ( (freq1 == "dec_cor" & freq2 == "hi") ||
+       (freq2 == "dec_cor" & freq1 == "hi") ) { pname <- "acc-hi" } # in lack of a better name
+  if ( (freq1 == "dec_cor" & freq2 == "cr") ||
+       (freq2 == "dec_cor" & freq1 == "cr") ) { pname <- "acc-cr" } # in lack of a better name
 
-  if ( (freq1 == "dec.err" & freq2 == "mi") ||
-       (freq2 == "dec.err" & freq1 == "mi") ) { pname <- "err-mi" } # in lack of a better name
-  if ( (freq1 == "dec.err" & freq2 == "fa") ||
-       (freq2 == "dec.err" & freq1 == "fa") ) { pname <- "err-fa" } # in lack of a better name
+  if ( (freq1 == "dec_err" & freq2 == "mi") ||
+       (freq2 == "dec_err" & freq1 == "mi") ) { pname <- "err-mi" } # in lack of a better name
+  if ( (freq1 == "dec_err" & freq2 == "fa") ||
+       (freq2 == "dec_err" & freq1 == "fa") ) { pname <- "err-fa" } # in lack of a better name
 
-  # Note: No prob for links between dec.cor OR dec.err and
+  # Note: No prob for links between dec_cor OR dec_err and
   #       4 SDT cases (hi, mi, fa, cr).
 
   # (4) Return:
@@ -675,20 +675,20 @@ name_prob <- function(freq1, freq2) {
 
 ## Check:
 # name_prob("no", "nix")       # => NA
-# name_prob("N", "cond.true")  # => "prev"
-# name_prob("cond.false", "N") # => "cprev"
+# name_prob("N", "cond_true")  # => "prev"
+# name_prob("cond_false", "N") # => "cprev"
 #
-# name_prob("N", "dec.neg")
-# name_prob("dec.pos", "hi")
-# name_prob("dec.neg", "cr")
-# name_prob("dec.neg", "mi")
+# name_prob("N", "dec_neg")
+# name_prob("dec_pos", "hi")
+# name_prob("dec_neg", "cr")
+# name_prob("dec_neg", "mi")
 #
-# name_prob("dec.cor", "N")
-# name_prob("dec.err", "N")
+# name_prob("dec_cor", "N")
+# name_prob("dec_err", "N")
 #
-# label_prob(pname = name_prob("fa", "cond.false"), lbl_type = "default")
-# label_prob(pname = name_prob("hi", "dec.pos"), lbl_type = "namnum")
-# label_prob(pname = name_prob("N", "dec.err"), lbl_type = "namnum")
+# label_prob(pname = name_prob("fa", "cond_false"), lbl_type = "default")
+# label_prob(pname = name_prob("hi", "dec_pos"), lbl_type = "namnum")
+# label_prob(pname = name_prob("N", "dec_err"), lbl_type = "namnum")
 
 
 
@@ -731,9 +731,9 @@ plot_ftype_label <- function(fname,               # name of a known freq
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_ftype_label("N", .1, .9)
-# plot_ftype_label("cond.false", .2, .8, suffix = ":", cex = .8)
-# plot_ftype_label("dec.pos", .3, .7, col = "red3")
-# plot_ftype_label("dec.cor", .7, .7, col = "gold")
+# plot_ftype_label("cond_false", .2, .8, suffix = ":", cex = .8)
+# plot_ftype_label("dec_pos", .3, .7, col = "red3")
+# plot_ftype_label("dec_cor", .7, .7, col = "gold")
 # plot_ftype_label("hi", .5, .5, col = "green3")
 # plot_ftype_label("hi", .5, .5, col = "steelblue1", pos = 1)
 # plot_ftype_label("mi", .5, .5, col = "steelblue2", pos = 2)
@@ -741,9 +741,9 @@ plot_ftype_label <- function(fname,               # name of a known freq
 # plot_ftype_label("cr", .5, .5, col = "steelblue4", pos = 4)
 #
 ## Using custom txt (lbl_txt):
-# plot_ftype_label("cond.false", .2, .7, suffix = "!", lbl_txt = txt_TF)
-# plot_ftype_label("dec.pos", .3, .6, col = "red3", lbl_txt = txt_TF)
-# plot_ftype_label("dec.cor", .7, .6, col = "gold", lbl_txt = txt_TF)
+# plot_ftype_label("cond_false", .2, .7, suffix = "!", lbl_txt = txt_TF)
+# plot_ftype_label("dec_pos", .3, .6, col = "red3", lbl_txt = txt_TF)
+# plot_ftype_label("dec_cor", .7, .6, col = "gold", lbl_txt = txt_TF)
 
 ## plot_freq_label: Label the freq corresponding to fname at (x, y): ----------
 plot_freq_label <- function(fname,                # name of a known freq
@@ -790,16 +790,16 @@ plot_freq_label <- function(fname,                # name of a known freq
 ## Check:
 # plot(0:1, 0:1, type = "n")  # empty canvas
 # plot_freq_label("N", .1, .9)
-# plot_freq_label("cond.false", suffix = ": etc.", .2, .8, cex = .8)
-# plot_freq_label("dec.cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
-# plot_freq_label("dec.pos", .4, .6, lbl_type = "nam", col = pal["pos"])
+# plot_freq_label("cond_false", suffix = ": etc.", .2, .8, cex = .8)
+# plot_freq_label("dec_cor", .3, .7, lbl_type = "namnum", col = pal["cor"])
+# plot_freq_label("dec_pos", .4, .6, lbl_type = "nam", col = pal["pos"])
 #
 # # Local freq object:
 # f2 <- comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100)
 # plot_freq_label("N", .5, .5, lbl_type = "namnum", cur_freq = f2)
-# plot_freq_label("cond.true", .5, .4, lbl_type = "namnum", cur_freq = f2)
+# plot_freq_label("cond_true", .5, .4, lbl_type = "namnum", cur_freq = f2)
 # plot_freq_label("hi", .5, .3, lbl_type = "namnum", cur_freq = f2)
-# plot_freq_label("dec.cor", .5, .2, lbl_type = "namnum", cur_freq = f2)
+# plot_freq_label("dec_cor", .5, .2, lbl_type = "namnum", cur_freq = f2)
 
 ## (B) Boxes: ------
 ## (a) Plotting boxes: ------
@@ -951,7 +951,7 @@ plot_vbox <- function(box_x,  box_y,    # coordinates x (center) and y (bottom)
 # plot_vbox(50, 60, 20, 20, fname = "N", fnum = 222, lbl_type = "nam")  # name only
 # plot_vbox(50, 40, 20, 20, fname = "N", fnum = 222, lbl_type = "abb")  # abbreviated name only
 # plot_vbox(50, 20, 20, 20, fname = "N", fnum = 222, lbl_type = NA)  # hide label (NA/NULL/"no")
-# plot_vbox(80, 80, 20, 20, fname = "cond.true", fnum = 333, ftype = comp_freq_type("cond.true"))
+# plot_vbox(80, 80, 20, 20, fname = "cond_true", fnum = 333, ftype = comp_freq_type("cond_true"))
 # plot_vbox(10, 50, 30, 20, ftype = "type as box title", fname = "hi", fnum = 444)
 # plot_vbox(40, 50, 20, 20, fname = "mi", fnum = 555, lwd = 3, cex = .7, ftype = comp_freq_type("mi"))
 # # Other fname and fnum values:
@@ -1173,29 +1173,29 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 # # Plot freq boxes (global freq and pal):
 # plot_fbox(fname = "N", 5, 5, 1, 2/3)
 # plot_fbox(fname = "N", 5, 5, 3/2, 2/3, lbl_type = "namnum", lbl_sep = ":\nN = ")
-# plot_fbox(fname = "cond.true", 3, 4, 2, 2/3, show_type = TRUE)
-# plot_fbox(fname = "cond.false", 7, 4, 2, 2/3, lbl_type = "nam", show_type = FALSE)
+# plot_fbox(fname = "cond_true", 3, 4, 2, 2/3, show_type = TRUE)
+# plot_fbox(fname = "cond_false", 7, 4, 2, 2/3, lbl_type = "nam", show_type = FALSE)
 # plot_fbox(fname = "hi", 2, 3, 1, 2/3, lbl_type = "nam", show_type = TRUE)
 # plot_fbox(fname = "mi", 4, 3, 1, 2/3, lbl_type = "num")
 # plot_fbox(fname = "fa", 6, 3, 1, 2/3, lbl_type = "namnum", show_type = FALSE)
 # plot_fbox(fname = "cr", 8, 3, 1, 2/3)
-# plot_fbox(fname = "dec.pos", 3, 2, 2, 2/3, lbl_type = "namnum")
-# plot_fbox(fname = "dec.neg", 7, 2, 2, 2/3)
-# plot_fbox(fname = "dec.cor", 3, 1, 2, 2/3)
-# plot_fbox(fname = "dec.err", 7, 1, 2, 2/3, lbl_type = "namnum")
+# plot_fbox(fname = "dec_pos", 3, 2, 2, 2/3, lbl_type = "namnum")
+# plot_fbox(fname = "dec_neg", 7, 2, 2, 2/3)
+# plot_fbox(fname = "dec_cor", 3, 1, 2, 2/3)
+# plot_fbox(fname = "dec_err", 7, 1, 2, 2/3, lbl_type = "namnum")
 # plot_fbox(fname = "N", 5, 1, 1, 2/3, col = "yellow", col_brd = "red3", cex = .6, lwd = 3)
 #
 # # Local freq object:
 # f2 <- comp_freq_prob(prev = .5, sens = .5, spec = .5, N = 100) # create f2
 # plot_fbox(fname = "N", 5, 8, 1, 1, lbl_type = "def", cur_freq = f2)
-# plot_fbox(fname = "cond.true", 3, 7, 1, 1, lbl_type = "def", cur_freq = f2)
+# plot_fbox(fname = "cond_true", 3, 7, 1, 1, lbl_type = "def", cur_freq = f2)
 # plot_fbox(fname = "hi", 2, 6, 1, 1, lbl_type = "def", cur_freq = f2)
 # plot_fbox(fname = "mi", 4, 6, 1, 1, lbl_type = "def", cur_freq = f2)
-# plot_fbox(fname = "dec.cor", 3, 5, 1, 1, lbl_type = "def", cur_freq = f2)
+# plot_fbox(fname = "dec_cor", 3, 5, 1, 1, lbl_type = "def", cur_freq = f2)
 #
 # # Local col object:
 # plot_fbox(fname = "N", 9, 8, 2, 1, col_pal = "skyblue") # only 1 color
-# plot_fbox(fname = "cond.true", 9, 7, 2, 1, col_pal = pal_bw) # alternative color palette
+# plot_fbox(fname = "cond_true", 9, 7, 2, 1, col_pal = pal_bw) # alternative color palette
 # plot_fbox(fname = "hi", 9, 6, 2, 1, col_pal = pal_bw) # alternative color palette
 #
 # # Local txt object:
@@ -1520,7 +1520,7 @@ comp_lx_fbox <- function(fname, len_N,
 
 ## Check:
 # comp_lx_fbox("N",  len_N = 100)  # => 100 = lN
-# comp_lx_fbox("cond.true", len_N = 100)
+# comp_lx_fbox("cond_true", len_N = 100)
 # comp_lx_fbox("hi", len_N = 100)  # => hi/lN
 #
 # comp_lx_fbox("hi", len_N = 100, scale = "f")  # => freq of hi/lN
@@ -1586,7 +1586,7 @@ comp_ly_fsqr <- function(fname, area_N,
 
 ## Check:
 # comp_ly_fsqr("N", area_N = 100)  # => 10
-# comp_ly_fsqr("cond.true", area_N = 100)
+# comp_ly_fsqr("cond_true", area_N = 100)
 #
 # a_N <- rnorm(1, 100, 10)  # random area a_N
 #
@@ -1735,7 +1735,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           cex = .7, lty = 2, lwd = 2) # grapical parameters
 # # (3) probability lines:
 # plot_line(1, 9, 9, 9, arr_code = -3, lbl = label_prob("prev"),
-#           col_fill = comp_freq_col("cond.true"), col_txt = NA,
+#           col_fill = comp_freq_col("cond_true"), col_txt = NA,
 #           lbl_pos = 3, cex = .8)  # horizontal
 # # vertical labels:
 # plot_line(2, 0, 2, 10, arr_code = -3, lbl = label_prob("PPV"),
@@ -1917,7 +1917,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 # box_b1 <- make_box("1st_box", 1, 9, 2, 2)   # 1st box with an arbitrary label
 # box_b2 <- make_box("2nd_box", 2, 3, 2, 3)   # 2nd box
 # box_N  <- make_box("N", 4, 9, 2, 2)         # box with known freq label and type
-# box_ct <- make_box("cond.true", 8, 7, 3, 2) #
+# box_ct <- make_box("cond_true", 8, 7, 3, 2) #
 # box_hi <- make_box("hi", 7, 2, 2, 2)        #
 #
 # ## Prepare canvas:
@@ -2066,7 +2066,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
     # Complete accu label (INcluding wacc and mcc):
     lbl <- paste0(#"Accuracy:  ",  # Dimension:
-      # "p(dec.cor): ",            # acc value is a probability
+      # "p(dec_cor): ",            # acc value is a probability
       "Accu:  ",                   # Abbreviation:
       "acc = ", as_pc(acc, n_digits = 1), "%, ",
       wacc_lbl,
@@ -2078,7 +2078,7 @@ make_accu_lbl <- function(acc, w = NA, wacc = NA, mcc = NA) {
 
     # (b) Reduced accu label (EXcluding wacc and mcc):
     lbl <- paste0(# "Accuracy:  ",  # Dimension:
-      # "p(dec.cor):  ",            # acc value is a probability
+      # "p(dec_cor):  ",            # acc value is a probability
       "Accu:  ",                    # Abbreviation:
       "acc = ", as_pc(acc, n_digits = 1), "%",
       # wacc_lbl,

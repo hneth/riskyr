@@ -11,7 +11,7 @@
 # (A) by condition:
 
 # non-conditional:                          N
-# prev*                           cond.true | cond.false (columns)
+# prev*                           cond_true | cond_false (columns)
 
 # conditional:
 # sens* = hit rate = TPR                hi* = TP
@@ -25,8 +25,8 @@
 # (B) by decision:                 Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec.pos     dec.pos | dec.neg (rows)
-#                                  dec.cor | dec.err (diagonal)
+# ppod = proportion of dec_pos     dec_pos | dec_neg (rows)
+#                                  dec_cor | dec_err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -37,8 +37,8 @@
 # (C) by accuracy/correspondence of decision to condition (see accu):
 
 # acc  = overall accuracy (probability/proportion correct decision)
-# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec.cor)"
-# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec.err)"
+# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec_cor)"
+# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec_err)"
 
 # Other measures of accuracy (in accu):
 # wacc = weighted accuracy
@@ -200,7 +200,7 @@ init_num <- function(prev = num.def$prev, sens = num.def$sens, # no mirt (yet)
     ## (4) Compute a missing value for N (5th argument) value (if applicable):
     if (is.na(N)) {
 
-      N <- comp_min_N(prev = prev, sens = sens, spec = spec, min.freq = 1)
+      N <- comp_min_N(prev = prev, sens = sens, spec = spec, min_freq = 1)
 
       warning(paste0("Unknown population size N. A suitable minimum value of N = ", N, " was computed."))
 

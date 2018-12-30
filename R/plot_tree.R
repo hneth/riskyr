@@ -63,11 +63,11 @@
 #'
 #' @param popu_lbl Text label for current population \code{\link{popu}}.
 #'
-#' @param cond.true_lbl Text label for current cases of \code{\link{cond.true}}.
-#' @param cond.false_lbl Text label for current cases of \code{\link{cond.false}}.
+#' @param cond_true_lbl Text label for current cases of \code{\link{cond_true}}.
+#' @param cond_false_lbl Text label for current cases of \code{\link{cond_false}}.
 #'
-#' @param dec.pos_lbl Text label for current cases of \code{\link{dec.pos}}.
-#' @param dec.neg_lbl Text label for current cases of \code{\link{dec.neg}}.
+#' @param dec_pos_lbl Text label for current cases of \code{\link{dec_pos}}.
+#' @param dec_neg_lbl Text label for current cases of \code{\link{dec_neg}}.
 #'
 #' @param hi_lbl Text label for hits \code{\link{hi}}.
 #' @param mi_lbl Text label for misses \code{\link{mi}}.
@@ -124,11 +124,11 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       title_lbl = txt$scen_lbl,
                       popu_lbl = txt$popu_lbl,
                       ## Condition labels:
-                      cond.true_lbl = txt$cond.true_lbl,
-                      cond.false_lbl = txt$cond.false_lbl,
+                      cond_true_lbl = txt$cond_true_lbl,
+                      cond_false_lbl = txt$cond_false_lbl,
                       ## Decision labels:
-                      dec.pos_lbl = txt$dec.pos_lbl,
-                      dec.neg_lbl = txt$dec.neg_lbl,
+                      dec_pos_lbl = txt$dec_pos_lbl,
+                      dec_neg_lbl = txt$dec_neg_lbl,
                       ## SDT combinations:
                       hi_lbl = txt$hi_lbl,
                       mi_lbl = txt$mi_lbl,
