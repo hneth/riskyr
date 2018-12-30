@@ -227,9 +227,9 @@ plot(hustosis)  # default plot
 
 A _tree diagram_ is the upper half of a prism plot, which can be obtained by plotting a scenario with 1 of 3 perspectives:
 
-1. by condition (`by = "cd"`), to split the population into _TRUE_ vs. _FALSE_ (`cond.true` vs. `cond.false`) cases; 
-2. by decision (`by = "dc"`), to split the population into _negative_ vs. _positive_ (`dec.neg` vs. `dec.pos`) decisions; 
-3. by accuracy (`by = "ac"`), to split the population into _correct_ vs. _incorrect_ (`dec.cor` vs. `dec.err`) decisions. 
+1. by condition (`by = "cd"`), to split the population into _TRUE_ vs. _FALSE_ (`cond_true` vs. `cond_false`) cases; 
+2. by decision (`by = "dc"`), to split the population into _negative_ vs. _positive_ (`dec_neg` vs. `dec_pos`) decisions; 
+3. by accuracy (`by = "ac"`), to split the population into _correct_ vs. _incorrect_ (`dec_cor` vs. `dec_err`) decisions. 
 
 For instance, the following command plots a frequency tree by decisions:
 
