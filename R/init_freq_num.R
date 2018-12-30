@@ -659,7 +659,7 @@ comp_freq_col <- function(fname,
 
       # (c) Color of frequency:
 
-      # Note that names(freq) are sometimes longer than names(pal):
+      # Note that names(freq) were sometimes longer than names(pal):
       # If fname contains a dot (.):  Use only the name part after the dot:
       if (any(grep(pattern = "\\.", x = fname))) {
 
@@ -672,7 +672,7 @@ comp_freq_col <- function(fname,
         # if (col_name == "true") { col_name <- "cor" }
 
       } else {
-        col_name <- fname
+        col_name <- fname  # col_name corresponds to fname (for frequencies)
       }
 
       # print(col_name)

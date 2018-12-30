@@ -89,7 +89,7 @@ cond_true_col  <- my_yellow        # "lightgoldenrod1" "gold1", col_orange_1, "y
 cond_false_col <- "lightskyblue2"  #, my_blue, "deepskyblue1" # "lightskyblue2" # col_blue_1
 ## Combine in a named vector:
 cond_colors <- setNames(c(cond_true_col, cond_false_col),
-                        c("true", "false"))
+                        c("cond_true", "cond_false"))
 
 ## (c) by decision: Define 3 colors for decision cases:
 
@@ -97,15 +97,15 @@ dec_pos_col <- "rosybrown3" # "khaki", my_whitish
 dec_neg_col <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my_bluish, "chartreuse4"
 ## Combine in a named vector:
 dec_colors <- setNames(c(dec_pos_col, dec_neg_col),
-                       c("pos", "neg"))
+                       c("dec_pos", "dec_neg"))
 
 ## (d) Accuracy colors:
 
 dec_cor_col <- "palegreen3" # "forestgreen" # correct/accurate decisions
 dec_err_col <- "firebrick3" # erroneous/inaccurate decisions
 
-acc.colors <- setNames(c(dec_cor_col, dec_err_col),
-                       c("cor", "err"))
+acc_colors <- setNames(c(dec_cor_col, dec_err_col),
+                       c("dec_cor", "dec_err"))
 
 ## (e) by condition x decision: Define 4 colors for SDT cases:
 
@@ -141,14 +141,14 @@ brd_col <- grey(.20, .99)  # greyish borders, NA removes borders
 ## (3) Define corresponding default palette: ----------
 
 pal_def <- c(N_col,
-             cond_colors, dec_colors, acc.colors,
+             cond_colors, dec_colors, acc_colors,
              sdt.colors,
              PPV_col, NPV_col,
              txt_col, brd_col)  # vector of colors
 
 pal_def <- setNames(object = pal_def,
                     nm = c("N",
-                           names(cond_colors), names(dec_colors), names(acc.colors),
+                           names(cond_colors), names(dec_colors), names(acc_colors),
                            names(sdt.colors),
                            "ppv", "npv",
                            "txt", "brd")
@@ -284,7 +284,7 @@ init_pal <- function(N_col = pal_def["N"],          # population N
   ## 3. Name vector elements:
   pal <- setNames(object = pal,
                   nm = c("N",
-                         names(cond_colors), names(dec_colors), names(acc.colors),
+                         names(cond_colors), names(dec_colors), names(acc_colors),
                          names(sdt.colors),
                          "ppv", "npv", "txt", "brd")
   )
