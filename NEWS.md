@@ -5,7 +5,7 @@ The most recent development version (riskyr 0.1.0.950) is available at <https://
 
 # riskyr 0.2.0
 
-riskyr 0.2.0 was ready to be released on December 21, 2018. 
+riskyr 0.2.0 was ready to be released on December 20, 2018. 
 It will be submitted to CRAN in January 2019.
 
 Log of changes since last release: 
@@ -39,6 +39,9 @@ Define a new `box` object type and various functions for plotting, labeling, and
 - Updated `riskyr` function [2018-03]: 
 As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities). 
 
+- Using `pkgdown` [2018-12]:
+Provide online documentation at <https://hneth.github.io/riskyr> (release version) and <https://hneth.github.io/riskyr/dev/> (development version).
+
 
 ## Minor changes
 
@@ -48,11 +51,10 @@ As an alternative to providing 3 essential frequencies, it is now possible to de
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same `by` argument as the other plotting functions.
 
 - `plot_curve` and `plot_plane` functions [2018-11]:
-Update variable names (to `snake_case`) and add arguments (e.g., `col_pal`, `lbl_txt` `mar_notes`, etc.) for consistency with newer plotting functions. 
+Update variable names (to snake_case) and add arguments (e.g., `col_pal`, `lbl_txt` `mar_notes`, etc.) for consistency with newer plotting functions. 
 
 - `scale` argument [2018-10]: 
 The new plotting functions feature a `scale` argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using `scale = "f"`, the probabilities shown are also re-computed from (possibly rounded) frequencies. 
-
 - `plot_fnet` [2018-02]: 
 Change argument `box.cex` to `cex.lbl` to ensure consistency with `plot_curves` and `plot_plane` (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.
 
