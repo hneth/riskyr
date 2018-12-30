@@ -18,29 +18,62 @@ development:
   mode: devel
 
 reference:
-- title: Initialization
-  desc:  Initialize basic scenario elements.
+- title: Initialization and lists
+  desc: Basic scenario definitions and corresponding collections.
   contents:
   - starts_with("init_")
-  - data
-  - read_data
-  - riskyr_class
-  - start_riskyr
-- title: Computation
-  desc: Compute parameters and translate between representational formats.
+  - starts_with("pal")
+  - starts_with("txt")
+  - matches("riskyr")
+  - matches("scenarios")
+  - popu
+  - accu
+- title: Probabilities
+  desc: Variables representing probability information.
+  contents:
+  - prob
+  - prev
+  - sens
+  - mirt
+  - spec
+  - fart
+  - PPV
+  - NPV
+  - FDR
+  - FOR
+  - acc
+- title: Frequencies
+  desc: Variables representing subsets of the population.
+  contents:
+  - freq
+  - N
+  - cond.true
+  - cond.false
+  - dec.pos
+  - dec.neg
+  - dec.cor
+  - dec.err
+  - hi
+  - mi
+  - fa
+  - cr
+- title: Computation and validation
+  desc: Computing parameters and verifying and translating between representational formats.
   contents:
   - starts_with("comp_")
+  - starts_with("is_")
+  - starts_with("as_")
 - title: Visualization
   desc: Create graphical representations of scenario information.
   contents:
-  - starts_with("plot_")
+  - starts_with("plot")
 
 figures:
   dev: grDevices::png
   dpi: 96
   dev.args: []
   fig.ext: png
-  fig.width: 7.3
+  fig.width: 7.2
   fig.height: ~
   fig.retina: 2
   fig.asp: 1.5
