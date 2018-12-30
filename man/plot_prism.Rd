@@ -277,7 +277,7 @@ plot_prism(arr_c = +3)  # V-shape arrows at both ends
 plot_prism(arr_c = +6)  # arr_c = 4-6: T-shape arrows
 
 ## Plain plot versions:
-plot_prism(area = "no", f_lbl = "def", p_lbl = NA, col = "white", f_lwd = 1)
+plot_prism(area = "no", f_lbl = "def", p_lbl = NA, col = "grey66", f_lwd = .5)
 plot_prism(area = "no", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
