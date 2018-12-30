@@ -4,8 +4,8 @@
 \name{scenarios}
 \alias{scenarios}
 \title{A collection of riskyr scenarios from various sources.}
-\format{A list with currently 25 objects of class "riskyr" (i.e., scenarios)
-which are each described by 21 variables:}
+\format{A list with currently 25 scenarios of class \code{riskyr}
+which are each described by 21 variables.}
 \usage{
 scenarios
 }
@@ -89,14 +89,17 @@ Variables describing a scenario:
 }
 
 Note that names of variables (columns)
-correspond to \code{\link{init_txt}} (to initialize \code{\link{txt}})
+correspond to a subset of \code{\link{init_txt}} (to initialize \code{\link{txt}})
 and \code{\link{init_num}} (to initialize \code{\link{num}}).
 
-See columns \code{scen_src} and \code{scen_apa}
+See the columns \code{scen_src} and \code{scen_apa}
 for a scenario's source information.
 
 The information of \code{scenarios} is also contained in an
 R data frame \code{\link{df_scenarios}} (and generated from
 the corresponding \code{.rda} file in \code{/data/}).
+}
+\seealso{
+\code{\link{riskyr}} initializes a \code{riskyr} scenario.
 }
 \keyword{datasets}
