@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 12 12
+## 2018 12 14
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges)
 ## -----------------------------------------------
@@ -183,12 +183,13 @@
 #'                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 #' my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
 #'                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
-#' plot_prism(f_lbl = "nam", lbl_txt = my_txt, col_pal = my_col)
+#' plot_prism(f_lbl = "nam", lbl_txt = my_txt,
+#'            col_pal = my_col, f_lwd = .5)
 #'
 #' ## Local values and custom color/txt settings:
 #' plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
 #'            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
-#'            col_pal = pal_rgb)  # custom colors
+#'            f_lwd = 1, col_pal = pal_rgb)  # custom colors
 #'
 #' plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #'            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
@@ -588,22 +589,24 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## Box areas with fixed size:
 
-  ## (a) rectangular box (default):
+  ## (a) rectangular box (area == "no", i.e., default):
   if ( !is.na(by_bot) ) {
 
     b_h_scale <- 5/4        # optional scaling factor (for larger box heights)
     b_h <- (1 * b_h_scale)  # basic box height
 
     # gold_ratio  <- 1.618  # (golden ratio = x 1.6180339887)
-    wide_screen <- 16/9     # 1.778
+    # wide_screen <- 16/9     # 1.778
+    compromise <- 1.70
 
-    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # wider + corrected for aspect ratio
-    b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)  # wider + corrected for aspect ratio
+    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)   # wider + corrected for aspect ratio
+    # b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)  # wider + corrected for aspect ratio
+    b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)
 
   } else {
 
     b_h <- 1
-    wider <- 2.5
+    wider <- 2.2
 
     b_w <- comp_lx(b_h, mf = wider, corf = scale_x)  # wider + corrected for aspect ratio
 

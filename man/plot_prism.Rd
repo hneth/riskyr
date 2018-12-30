@@ -183,12 +183,13 @@ my_txt <- init_txt(cond_lbl = "The Truth", cond.true_lbl = "so true", cond.false
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
-plot_prism(f_lbl = "nam", lbl_txt = my_txt, col_pal = my_col)
+plot_prism(f_lbl = "nam", lbl_txt = my_txt,
+           col_pal = my_col, f_lwd = .5)
 
 ## Local values and custom color/txt settings:
 plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
-           col_pal = pal_rgb)  # custom colors
+           f_lwd = 1, col_pal = pal_rgb)  # custom colors
 
 plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
