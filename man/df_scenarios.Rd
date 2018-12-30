@@ -14,8 +14,6 @@ Scenarios:
 
 \enumerate{
 
-In English language:
-
   \item Bowel cancer screening
   \item Cab problem
   \item Hemoccult test
@@ -29,21 +27,19 @@ In English language:
   \item Psylicraptis screening
   \item Sepsis
 
-In German language:
-
-   \item Amniozentese
-   \item HIV-Test 1
-   \item HIV-Test 2
-   \item HIV-Test 3
-   \item HIV-Test 4
-   \item Mammografie 1
-   \item Mammografie 2
-   \item Mammografie 3
-   \item Mammografie 4
-   \item Nackenfaltentest (NFT) 1
-   \item Nackenfaltentest (NFT) 2
-   \item Sigmoidoskopie 1
-   \item Sigmoidoskopie 2
+  \item Amniozentese (in German)
+  \item HIV-Test 1
+  \item HIV-Test 2
+  \item HIV-Test 3
+  \item HIV-Test 4
+  \item Mammografie 1
+  \item Mammografie 2
+  \item Mammografie 3
+  \item Mammografie 4
+  \item Nackenfaltentest (NFT) 1
+  \item Nackenfaltentest (NFT) 2
+  \item Sigmoidoskopie 1
+  \item Sigmoidoskopie 2
 
 }
 
@@ -51,17 +47,17 @@ Variables describing a scenario:
 
 \enumerate{
 
-  \item \code{scen_lbl} Text label for current scenario.
-  \item \code{scen_lng} Language of current scenario (en/de).
-  \item \code{scen_txt} Description text of current scenario.
+  \item \code{scen_lbl} Text label for the current scenario.
+  \item \code{scen_lng} Language of the current scenario (en/de).
+  \item \code{scen_txt} Description text of the current scenario.
 
-  \item \code{popu_lbl} Text label for current population.
+  \item \code{popu_lbl} Text label for the current population.
 
-  \item \code{cond_lbl} Text label for current condition.
+  \item \code{cond_lbl} Text label for the current condition.
   \item \code{cond_true_lbl}  Text label for \code{\link{cond_true}} cases.
   \item \code{cond_false_lbl} Text label for \code{\link{cond_false}} cases.
 
-  \item \code{dec_lbl} Text label for current decision.
+  \item \code{dec_lbl} Text label for the current decision.
   \item \code{dec_pos_lbl} Text label for \code{\link{dec_pos}} cases.
   \item \code{dec_neg_lbl} Text label for \code{\link{dec_neg}} cases.
 
@@ -70,14 +66,14 @@ Variables describing a scenario:
   \item \code{fa_lbl} Text label for cases of false alarms \code{\link{fa}}.
   \item \code{cr_lbl} Text label for cases of correct rejections \code{\link{cr}}.
 
-  \item \code{prev} Value of current prevalence \code{\link{prev}}.
-  \item \code{sens} Value of current sensitivity \code{\link{sens}}.
-  \item \code{spec} Value of current specificity \code{\link{spec}}.
-  \item \code{fart} Value of current false alarm rate \code{\link{fart}}.
+  \item \code{prev} Value of the current prevalence \code{\link{prev}}.
+  \item \code{sens} Value of the current sensitivity \code{\link{sens}}.
+  \item \code{spec} Value of the current specificity \code{\link{spec}}.
+  \item \code{fart} Value of the current false alarm rate \code{\link{fart}}.
 
   \item \code{N} Current population size \code{\link{N}}.
 
-  \item \code{scen_src} Source information for current scenario.
+  \item \code{scen_src} Source information for the current scenario.
   \item \code{scen_apa} Source information in APA format.
 
 }

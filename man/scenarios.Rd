@@ -10,7 +10,7 @@ which are each described by 21 variables.}
 scenarios
 }
 \description{
-\code{scenarios} is a list of scenarios of class "riskyr"
+\code{scenarios} is a list of scenarios of class \code{riskyr}
 collected from the scientific literature and other sources
 and to be used by visualization and summary functions.
 }

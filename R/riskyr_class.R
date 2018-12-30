@@ -425,7 +425,7 @@ scenarios <- NULL # initialize
 
 #' A collection of riskyr scenarios from various sources.
 #'
-#' \code{scenarios} is a list of scenarios of class "riskyr"
+#' \code{scenarios} is a list of scenarios of class \code{riskyr}
 #' collected from the scientific literature and other sources
 #' and to be used by visualization and summary functions.
 #'
@@ -540,25 +540,34 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
     N_lbl    = txt$N_lbl,  # use txt default (as currently not set in data)
     # a. by condition:
     cond_lbl = s$cond_lbl,
-    cond_true_lbl = s$cond_true_lbl, cond_false_lbl = s$cond_false_lbl,
+    cond_true_lbl = s$cond_true_lbl,
+    cond_false_lbl = s$cond_false_lbl,
     # b. by decision:
     dec_lbl = s$dec_lbl,
-    dec_pos_lbl = s$dec_pos_lbl, dec_neg_lbl = s$dec_neg_lbl,
+    dec_pos_lbl = s$dec_pos_lbl,
+    dec_neg_lbl = s$dec_neg_lbl,
     # c. by accuracy:
     acc_lbl = txt$acc_lbl,  # use txt default (as currently not set in data)
-    dec_cor_lbl = txt$dec_cor_lbl, dec_err_lbl = txt$dec_err_lbl,
+    dec_cor_lbl = txt$dec_cor_lbl,
+    dec_err_lbl = txt$dec_err_lbl,
     # 4 SDT cases:
     sdt_lbl = txt$sdt_lbl,  # use txt default (as currently not set in data)
-    hi_lbl = s$hi_lbl, mi_lbl = s$mi_lbl, fa_lbl = s$fa_lbl, cr_lbl = s$cr_lbl,
+    hi_lbl = s$hi_lbl,
+    mi_lbl = s$mi_lbl,
+    fa_lbl = s$fa_lbl,
+    cr_lbl = s$cr_lbl,
     # Probabilities:
     prev = s$prev,
     sens = s$sens,
-    spec = s$spec, fart = s$fart,
+    spec = s$spec,
+    fart = s$fart,
     # Frequencies:
     N = s$N,
     # Scenario details:
-    scen_lng = s$scen_lng, scen_txt = s$scen_txt,
-    scen_src = s$scen_src, scen_apa = s$scen_apa
+    scen_lng = s$scen_lng,
+    scen_txt = s$scen_txt,
+    scen_src = s$scen_src,
+    scen_apa = s$scen_apa
   )
 
   # (3) Add cur_scen (riskyr object) as i-th element of scenarios
@@ -738,7 +747,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
                     scen_src = x$scen_src,
                     scen_apa = x$scen_apa,
                     scen_lng = x$scen_lng
-                    )
+  )
 
   ## (3) Call plotting functions: ----------
 
