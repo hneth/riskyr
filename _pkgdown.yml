@@ -18,7 +18,7 @@ development:
   mode: devel
 
 reference:
-- title: Initialization and lists
+- title: Initialization of riskyr scenarios
   desc: Basic scenario definitions and corresponding collections.
   contents:
   - starts_with("init_")
@@ -47,24 +47,20 @@ reference:
   contents:
   - freq
   - N
-  - cond.true
-  - cond.false
-  - dec.pos
-  - dec.neg
-  - dec.cor
-  - dec.err
+  - starts_with("cond.")
+  - starts_with("dec.")
   - hi
   - mi
   - fa
   - cr
-- title: Computation and validation
+- title: Computation, translation, and validation
   desc: Computing parameters and verifying and translating between representational formats.
   contents:
   - starts_with("comp_")
   - starts_with("is_")
   - starts_with("as_")
 - title: Visualization
-  desc: Create graphical representations of scenario information.
+  desc: Create graphical representations of riskyr scenarios.
   contents:
   - starts_with("plot")
 
@@ -73,7 +69,6 @@ figures:
   dpi: 96
   dev.args: []
   fig.ext: png
-  fig.width: 7.2
-  fig.height: ~
+  fig.width: 7.6
+  fig.height: 5.4
   fig.retina: 2
-  fig.asp: 1.5
