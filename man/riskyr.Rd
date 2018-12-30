@@ -111,7 +111,7 @@ according to the American Psychological Association (APA style).}
 \value{
 An object of class "riskyr" describing a risk-related scenario.
 
-Titles and text labels (see \code{\link{txt}}:
+Scenario-specific titles and text labels (see \code{\link{txt}}:
 }
 \description{
 \code{riskyr} creates a scenario of class "riskyr",
@@ -119,16 +119,28 @@ which can be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 }
 \details{
-Beyond basic scenario information
+Beyond basic scenario information (i.e., text elements describing a scenario)
 only the population size \code{\link{N}} and the essential probabilities
 \code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}, and \code{\link{fart}}
 are used and returned.
 
-Note that numeric information (see \code{\link{num}} and \code{\link{init_num}})
-and text information (see \code{\link{txt}} and \code{\link{init_txt}})
-are integral parts of a "riskyr" scenario.
-By contrast, basic color information (see \code{\link{pal}} and \code{\link{init_pal}})
-is not an integral part, but independently defined.
+Note:
+
+\itemize{
+
+\item Basic text information and some numeric parameters
+  (see \code{\link{num}} and \code{\link{init_num}})
+  are integral parts of a \code{riskyr} scenario.
+
+\item By contrast, basic \emph{color} information
+  (see \code{\link{pal}} and \code{\link{init_pal}})
+  is not an integral part, but independently defined.
+
+\item The names of \emph{probabilities}
+  (see \code{\link{prob}}) are currently
+  not an integral part of \code{txt} and \code{riskyr} scenarios
+  (but defined in \code{prob_lbl_def} and \code{label_prob}).
+}
 }
 \examples{
 # Defining scenarios: -----

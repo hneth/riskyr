@@ -3,24 +3,47 @@
 \docType{data}
 \name{txt}
 \alias{txt}
-\title{List current values of basic text elements.}
+\title{Basic text elements.}
 \format{An object of class \code{list} of length 21.}
 \usage{
 txt
 }
 \description{
 \code{txt} is initialized to a list of named elements
-to define all scenario titles and labels
-and used throughout the \code{riskyr} package.
+to define basic scenario titles and labels.
 }
 \details{
-All textual elements that specify titles and details of the current scenario
+All textual elements that specify generic labels and titles of \code{riskyr} scenarios
 are stored as named elements (of type character) in a list \code{txt}.
 To change an element, assign a new character object to an existing name.
+
+The list \code{txt} is used throughout the \code{riskyr} package
+unless a scenario defines scenario-specific text labels
+(when using the \code{\link{riskyr}} function).
+
+Note:
+
+\itemize{
+
+\item Basic text information and some numeric parameters
+  (see \code{\link{num}} and \code{\link{init_num}})
+  are integral parts of a \code{riskyr} scenario.
+
+\item By contrast, basic \emph{color} information
+  (see \code{\link{pal}} and \code{\link{init_pal}})
+  is not an integral part, but independently defined.
+
+\item The names of \emph{probabilities}
+  (see \code{\link{prob}}) are currently
+  not an integral part of \code{txt} and \code{riskyr} scenarios
+  (but defined in \code{prob_lbl_def} and \code{label_prob}).
+}
 
 \code{txt} currently contains the following text labels:
 
 \enumerate{
+
+Scenario information:
 
 \item \code{scen_lbl} The current scenario title (sometimes in Title Caps).
 
@@ -34,36 +57,61 @@ To change an element, assign a new character object to an existing name.
 \item \code{scen_lng} The language of the current scenario (as character code).
 Options: \code{"en"}: English, \code{"de"}: German.
 
-\item \code{popu_lbl} A brief label for the current target population \code{\link{popu}} or sample.
+Population:
 
-\item \code{cond_lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+\item \code{popu_lbl} A general name describing the current \emph{population}.
 
-\item \code{cond.true_lbl} A label for the \emph{presence} of the current condition
-or \code{\link{cond.true}} cases (the condition's true state of TRUE).
+\item \code{N_lbl} A short label for the current population \code{\link{popu}} or sample.
 
-\item \code{cond.false_lbl} A label for the \emph{absence} of the current condition
-or \code{\link{cond.false}} cases (the condition's true state of FALSE).
+Condition:
 
-\item \code{dec_lbl} A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+\item \code{cond_lbl} A general name for the \emph{condition} dimension,
+or the feature (e.g., some disease) currently considered.
 
-\item \code{dec.pos_lbl} A label for \emph{positive} decisions
+\item \code{cond.true_lbl} A short label for the \emph{presence} of the current condition
+or \code{\link{cond.true}} cases (the condition's true state of being TRUE).
+
+\item \code{cond.false_lbl} A short label for the \emph{absence} of the current condition
+or \code{\link{cond.false}} cases (the condition's true state of being FALSE).
+
+Decision:
+
+\item \code{dec_lbl} A general name for the \emph{decision} dimension,
+or the judgment (e.g., some diagnostic test) currently made.
+
+\item \code{dec.pos_lbl} A short label for \emph{positive} decisions
 or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 
-\item \code{dec.neg_lbl} A label for \emph{negative} decisions
+\item \code{dec.neg_lbl} A short label for \emph{negative} decisions
 or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 
-\item \code{sdt_lbl} A name for the \emph{case/category/cell} in the 2x2 contingency table (condition x decision, SDT).
+Accuracy:
 
-\item \code{hi_lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+\item \code{acc_lbl} A general name for the \emph{accuracy} dimension,
+or the correspondence between the condition currently considered
+and the decision judgment currently made.
+
+\item \code{dec.cor_lbl} A short label for \emph{correct} and \emph{accurate} decisions
+or \code{\link{dec.cor}} cases (accurate predictions).
+
+\item \code{dec.err_lbl} A short label for \emph{incorrect} decisions
+or \code{\link{dec.err}} cases (erroneous predictions).
+
+Cases:
+
+\item \code{sdt_lbl} A general name for all 4 \emph{cases/categories/cells}
+of the 2x2 contingency table (e.g., condition x decision, using SDT).
+
+\item \code{hi_lbl} A short label for \emph{hits} or \emph{true positives} \code{\link{hi}}/TP cases
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 
-\item \code{mi_lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+\item \code{mi_lbl} A short label for \emph{misses} or \emph{false negatives} \code{\link{mi}}/FN cases
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
 
-\item \code{fa_lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+\item \code{fa_lbl} A short label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}/FP cases
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
 
-\item \code{cr_lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+\item \code{cr_lbl} A short label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}/TN cases
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 
 }
@@ -76,6 +124,7 @@ txt$scen_lbl <- "My example"  # Set a new scenario title
 }
 \seealso{
 \code{\link{init_txt}} initializes text information;
+\code{\link{riskyr}} initializes a \code{riskyr} scenario;
 \code{\link{num}} contains basic numeric parameters;
 \code{\link{init_num}} initializes basic numeric parameters;
 \code{\link{pal}} contains current color information;

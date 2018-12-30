@@ -31,7 +31,7 @@ init_txt(scen_lbl = txt_lbl_def$scen_lbl,
 \item{scen_lng}{Language of the current scenario (as character code).
 Options: \code{"en"}: English, \code{"de"}: German.}
 
-\item{popu_lbl}{A general name for \emph{population} dimension.}
+\item{popu_lbl}{A general name describing the current \emph{population}.}
 
 \item{N_lbl}{A brief label for the current population \code{\link{popu}} or sample.}
 
@@ -74,15 +74,18 @@ or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).}
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).}
 }
 \description{
-\code{init_txt} initializes basic text elements
-(i.e., all titles and labels corresponding to the current scenario
-and used throughout the \code{riskyr} package).
+\code{init_txt} initializes basic text elements \code{\link{txt}}
+(i.e., all titles and labels corresponding to the current scenario)
+that are used throughout the \code{riskyr} package.
 }
 \details{
 All textual elements that specify titles and details of the current scenario
-are stored as named elements (of type character) in a list \code{txt}.
+are stored as named elements (of type character) in a list \code{\link{txt}}.
 \code{\link{init_txt}} allows changing elements by assigning new character
 objects to existing names.
+
+However, you can directly specify scenario-specific text elements
+when defining a scenario with the \code{\link{riskyr}} function.
 }
 \examples{
 init_txt()          # defines a list of (default) text elements

@@ -25,23 +25,35 @@
 #' which can be visualized by the \code{plot} method \code{\link{plot.riskyr}}
 #' and summarized by the \code{summary} method \code{\link{summary.riskyr}}.
 #'
-#' Beyond basic scenario information
+#' Beyond basic scenario information (i.e., text elements describing a scenario)
 #' only the population size \code{\link{N}} and the essential probabilities
 #' \code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}, and \code{\link{fart}}
 #' are used and returned.
 #'
-#' Note that numeric information (see \code{\link{num}} and \code{\link{init_num}})
-#' and text information (see \code{\link{txt}} and \code{\link{init_txt}})
-#' are integral parts of a "riskyr" scenario.
-#' By contrast, basic color information (see \code{\link{pal}} and \code{\link{init_pal}})
-#' is not an integral part, but independently defined.
+#' Note:
+#'
+#' \itemize{
+#'
+#'   \item Basic text information and some numeric parameters
+#'   (see \code{\link{num}} and \code{\link{init_num}})
+#'   are integral parts of a \code{riskyr} scenario.
+#'
+#'   \item By contrast, basic \emph{color} information
+#'   (see \code{\link{pal}} and \code{\link{init_pal}})
+#'   is not an integral part, but independently defined.
+#'
+#'   \item The names of \emph{probabilities}
+#'   (see \code{\link{prob}}) are currently
+#'   not an integral part of \code{txt} and \code{riskyr} scenarios
+#'   (but defined in \code{prob_lbl_def} and \code{label_prob}).
+#' }
 #'
 #' @format An object of class "riskyr" with textual and numeric information
 #' describing a risk-related scenario.
 #'
 #' @return An object of class "riskyr" describing a risk-related scenario.
 #'
-#' Titles and text labels (see \code{\link{txt}}:
+#' Scenario-specific titles and text labels (see \code{\link{txt}}:
 #'
 #' @param scen_lbl The current scenario title (sometimes in Title Caps).
 #'
@@ -558,16 +570,16 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 
 ## (B) Handle riskyr objects: ------------------
 
-## 1. plot.riskyr function: -----
+## 1. plot.riskyr function: -------
 
 ## Testing dots:
 # test_fun <- function(...) {
 #   plot_icons(...)
 # }
 #
-# test_fun(N = 100, blubb = 5, prev = 0.7)
+# test_fun(N = 100, blubb = 5, prev = .7)
 #
-## ok...
+## ok.
 
 ## plot.riskyr Documentation: ------
 

@@ -99,14 +99,17 @@ prob_lbl_def <- list(
 
 #' Initialize basic text elements.
 #'
-#' \code{init_txt} initializes basic text elements
-#' (i.e., all titles and labels corresponding to the current scenario
-#' and used throughout the \code{riskyr} package).
+#' \code{init_txt} initializes basic text elements \code{\link{txt}}
+#' (i.e., all titles and labels corresponding to the current scenario)
+#' that are used throughout the \code{riskyr} package.
 #'
 #' All textual elements that specify titles and details of the current scenario
-#' are stored as named elements (of type character) in a list \code{txt}.
+#' are stored as named elements (of type character) in a list \code{\link{txt}}.
 #' \code{\link{init_txt}} allows changing elements by assigning new character
 #' objects to existing names.
+#'
+#' However, you can directly specify scenario-specific text elements
+#' when defining a scenario with the \code{\link{riskyr}} function.
 #'
 #' @param scen_lbl The current scenario title (sometimes in Title Caps).
 #' @param scen_txt A longer text description of the current scenario
@@ -116,7 +119,7 @@ prob_lbl_def <- list(
 #' @param scen_lng Language of the current scenario (as character code).
 #' Options: \code{"en"}: English, \code{"de"}: German.
 #'
-#' @param popu_lbl A general name for \emph{population} dimension.
+#' @param popu_lbl A general name describing the current \emph{population}.
 #' @param N_lbl A brief label for the current population \code{\link{popu}} or sample.
 #'
 #' @param cond_lbl A general name for the \emph{condition} dimension currently considered (e.g., some clinical condition).
@@ -165,32 +168,34 @@ prob_lbl_def <- list(
 #'
 #' @export
 
-init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
-                     scen_txt = txt_lbl_def$scen_txt,  # text with scenario description
-                     scen_src = txt_lbl_def$scen_src,  # scenario source
-                     scen_apa = txt_lbl_def$scen_apa,  # scenario source in APA format
-                     scen_lng = txt_lbl_def$scen_lng,  # language
-                     ## (+) Population:
-                     popu_lbl = txt_lbl_def$popu_lbl,  # Population dimension label
-                     N_lbl = txt_lbl_def$N_lbl,        # Current target population label
-                     ## (a) Condition:
-                     cond_lbl = txt_lbl_def$cond_lbl,              # Condition dimension label
-                     cond.true_lbl  = txt_lbl_def$cond.true_lbl,   # Condition true
-                     cond.false_lbl = txt_lbl_def$cond.false_lbl,  # Condition false
-                     ## (b) Decision/prediction/predicted condition:
-                     dec_lbl = txt_lbl_def$dec_lbl,                # Decision dimension label
-                     dec.pos_lbl  = txt_lbl_def$dec.pos_lbl,       # "Decision positive"
-                     dec.neg_lbl = txt_lbl_def$dec.neg_lbl,        # "Decision negative"
-                     ## (c) Accuracy/correspondence of decision to condition:
-                     acc_lbl = txt_lbl_def$acc_lbl,                # Accuracy dimension label
-                     dec.cor_lbl = txt_lbl_def$dec.cor_lbl,        # "Decision accurate"
-                     dec.err_lbl = txt_lbl_def$dec.err_lbl,        # "Decision inaccurate"
-                     ## (d) Labels for the 4 SDT cases (combinations):
-                     sdt_lbl = txt_lbl_def$sdt_lbl,  # case/category/cell/SDT
-                     hi_lbl = txt_lbl_def$hi_lbl,    # hits               = "True positive"
-                     mi_lbl = txt_lbl_def$mi_lbl,    # misses             = "False negative"
-                     fa_lbl = txt_lbl_def$fa_lbl,    # false alarms       = "False positive"
-                     cr_lbl = txt_lbl_def$cr_lbl     # correct rejections = "True negative"
+init_txt <- function(#
+  # 1. Scenario:
+  scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
+  scen_txt = txt_lbl_def$scen_txt,  # text with scenario description
+  scen_src = txt_lbl_def$scen_src,  # scenario source
+  scen_apa = txt_lbl_def$scen_apa,  # scenario source in APA format
+  scen_lng = txt_lbl_def$scen_lng,  # language
+  # 2. Population:
+  popu_lbl = txt_lbl_def$popu_lbl,  # Population dimension label
+  N_lbl = txt_lbl_def$N_lbl,        # Current target population label
+  # 3a. Condition:
+  cond_lbl = txt_lbl_def$cond_lbl,              # Condition dimension label
+  cond.true_lbl  = txt_lbl_def$cond.true_lbl,   # Condition true
+  cond.false_lbl = txt_lbl_def$cond.false_lbl,  # Condition false
+  # 3b. Decision/prediction/predicted condition:
+  dec_lbl = txt_lbl_def$dec_lbl,                # Decision dimension label
+  dec.pos_lbl  = txt_lbl_def$dec.pos_lbl,       # "Decision positive"
+  dec.neg_lbl = txt_lbl_def$dec.neg_lbl,        # "Decision negative"
+  # 3c. Accuracy/correspondence of decision to condition:
+  acc_lbl = txt_lbl_def$acc_lbl,                # Accuracy dimension label
+  dec.cor_lbl = txt_lbl_def$dec.cor_lbl,        # "Decision accurate"
+  dec.err_lbl = txt_lbl_def$dec.err_lbl,        # "Decision inaccurate"
+  # 4. 4 SDT cases (combinations):
+  sdt_lbl = txt_lbl_def$sdt_lbl,  # case/category/cell/SDT
+  hi_lbl = txt_lbl_def$hi_lbl,    # hits               = "True positive"
+  mi_lbl = txt_lbl_def$mi_lbl,    # misses             = "False negative"
+  fa_lbl = txt_lbl_def$fa_lbl,    # false alarms       = "False positive"
+  cr_lbl = txt_lbl_def$cr_lbl     # correct rejections = "True negative"
 ) {
 
   ## 1. Initialize txt:
@@ -199,33 +204,33 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
   ## 2. Pass arguments to list:
   txt <- list(
 
-    # Scenario:
+    # 1. Scenario:
     scen_lbl = scen_lbl,
     scen_txt = scen_txt,
     scen_src = scen_src,
     scen_apa = scen_apa,
     scen_lng = scen_lng,
 
-    # (+) Population:
+    # 2. Population:
     popu_lbl = popu_lbl,
     N_lbl = N_lbl,
 
-    # (a) Condition:
+    # 3a. Condition:
     cond_lbl = cond_lbl,
     cond.true_lbl  = cond.true_lbl,
     cond.false_lbl = cond.false_lbl,
 
-    # (b) Decision/prediction/predicted condition:
+    # 3b. Decision/prediction/predicted condition:
     dec_lbl = dec_lbl,
     dec.pos_lbl = dec.pos_lbl,
     dec.neg_lbl = dec.neg_lbl,
 
-    # (c) Accuracy:
+    # 3c. Accuracy:
     acc_lbl = acc_lbl,
     dec.cor_lbl = dec.cor_lbl,
     dec.err_lbl = dec.err_lbl,
 
-    # (d) Labels for the 4 SDT cases/cells (combinations):
+    # 4. Labels for the 4 SDT cases/cells (combinations):
     sdt_lbl = sdt_lbl,
     hi_lbl = hi_lbl,
     mi_lbl = mi_lbl,
@@ -252,19 +257,42 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
 
 ## (C) Initialize txt lists to contain current text elements: ---------
 
-#' List current values of basic text elements.
+#' Basic text elements.
 #'
 #' \code{txt} is initialized to a list of named elements
-#' to define all scenario titles and labels
-#' and used throughout the \code{riskyr} package.
+#' to define basic scenario titles and labels.
 #'
-#' All textual elements that specify titles and details of the current scenario
+#' All textual elements that specify generic labels and titles of \code{riskyr} scenarios
 #' are stored as named elements (of type character) in a list \code{txt}.
 #' To change an element, assign a new character object to an existing name.
+#'
+#' The list \code{txt} is used throughout the \code{riskyr} package
+#' unless a scenario defines scenario-specific text labels
+#' (when using the \code{\link{riskyr}} function).
+#'
+#' Note:
+#'
+#' \itemize{
+#'
+#'   \item Basic text information and some numeric parameters
+#'   (see \code{\link{num}} and \code{\link{init_num}})
+#'   are integral parts of a \code{riskyr} scenario.
+#'
+#'   \item By contrast, basic \emph{color} information
+#'   (see \code{\link{pal}} and \code{\link{init_pal}})
+#'   is not an integral part, but independently defined.
+#'
+#'   \item The names of \emph{probabilities}
+#'   (see \code{\link{prob}}) are currently
+#'   not an integral part of \code{txt} and \code{riskyr} scenarios
+#'   (but defined in \code{prob_lbl_def} and \code{label_prob}).
+#' }
 #'
 #' \code{txt} currently contains the following text labels:
 #'
 #' \enumerate{
+#'
+#' Scenario information:
 #'
 #' \item \code{scen_lbl} The current scenario title (sometimes in Title Caps).
 #'
@@ -278,36 +306,61 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
 #' \item \code{scen_lng} The language of the current scenario (as character code).
 #' Options: \code{"en"}: English, \code{"de"}: German.
 #'
-#' \item \code{popu_lbl} A brief label for the current target population \code{\link{popu}} or sample.
+#' Population:
 #'
-#' \item \code{cond_lbl} A name for the \emph{condition} or feature (e.g., some disease) currently considered.
+#' \item \code{popu_lbl} A general name describing the current \emph{population}.
 #'
-#' \item \code{cond.true_lbl} A label for the \emph{presence} of the current condition
-#' or \code{\link{cond.true}} cases (the condition's true state of TRUE).
+#' \item \code{N_lbl} A short label for the current population \code{\link{popu}} or sample.
 #'
-#' \item \code{cond.false_lbl} A label for the \emph{absence} of the current condition
-#' or \code{\link{cond.false}} cases (the condition's true state of FALSE).
+#' Condition:
 #'
-#' \item \code{dec_lbl} A name for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.
+#' \item \code{cond_lbl} A general name for the \emph{condition} dimension,
+#' or the feature (e.g., some disease) currently considered.
 #'
-#' \item \code{dec.pos_lbl} A label for \emph{positive} decisions
+#' \item \code{cond.true_lbl} A short label for the \emph{presence} of the current condition
+#' or \code{\link{cond.true}} cases (the condition's true state of being TRUE).
+#'
+#' \item \code{cond.false_lbl} A short label for the \emph{absence} of the current condition
+#' or \code{\link{cond.false}} cases (the condition's true state of being FALSE).
+#'
+#' Decision:
+#'
+#' \item \code{dec_lbl} A general name for the \emph{decision} dimension,
+#' or the judgment (e.g., some diagnostic test) currently made.
+#'
+#' \item \code{dec.pos_lbl} A short label for \emph{positive} decisions
 #' or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
 #'
-#' \item \code{dec.neg_lbl} A label for \emph{negative} decisions
+#' \item \code{dec.neg_lbl} A short label for \emph{negative} decisions
 #' or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' \item \code{sdt_lbl} A name for the \emph{case/category/cell} in the 2x2 contingency table (condition x decision, SDT).
+#' Accuracy:
 #'
-#' \item \code{hi_lbl} A label for \emph{hits} or \emph{true positives} \code{\link{hi}}
+#' \item \code{acc_lbl} A general name for the \emph{accuracy} dimension,
+#' or the correspondence between the condition currently considered
+#' and the decision judgment currently made.
+#'
+#' \item \code{dec.cor_lbl} A short label for \emph{correct} and \emph{accurate} decisions
+#' or \code{\link{dec.cor}} cases (accurate predictions).
+#'
+#' \item \code{dec.err_lbl} A short label for \emph{incorrect} decisions
+#' or \code{\link{dec.err}} cases (erroneous predictions).
+#'
+#' Cases:
+#'
+#' \item \code{sdt_lbl} A general name for all 4 \emph{cases/categories/cells}
+#' of the 2x2 contingency table (e.g., condition x decision, using SDT).
+#'
+#' \item \code{hi_lbl} A short label for \emph{hits} or \emph{true positives} \code{\link{hi}}/TP cases
 #' (i.e., correct decisions of the presence of the condition, when the condition is actually present).
 #'
-#' \item \code{mi_lbl} A label for \emph{misses} or \emph{false negatives} \code{\link{mi}}
+#' \item \code{mi_lbl} A short label for \emph{misses} or \emph{false negatives} \code{\link{mi}}/FN cases
 #' (i.e., incorrect decisions of the absence of the condition when the condition is actually present).
 #'
-#' \item \code{fa_lbl} A label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}
+#' \item \code{fa_lbl} A short label for \emph{false alarms} or \emph{false positives} \code{\link{fa}}/FP cases
 #' (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).
 #'
-#' \item \code{cr_lbl} A label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}
+#' \item \code{cr_lbl} A short label for \emph{correct rejections} or \emph{true negatives} \code{\link{cr}}/TN cases
 #' (i.e., a correct decision of the absence of the condition, when the condition is actually absent).
 #'
 #' }
@@ -321,6 +374,7 @@ init_txt <- function(scen_lbl = txt_lbl_def$scen_lbl,  # Scenario title
 #'
 #' @seealso
 #' \code{\link{init_txt}} initializes text information;
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario;
 #' \code{\link{num}} contains basic numeric parameters;
 #' \code{\link{init_num}} initializes basic numeric parameters;
 #' \code{\link{pal}} contains current color information;
@@ -397,10 +451,10 @@ txt_org <- txt  # copy txt
 #' @export
 
 txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
-                   cond_lbl = "Truth",   cond.true_lbl = "True",   cond.false_lbl = "False",
-                   dec_lbl = "Test",     dec.pos_lbl = "Positive", dec.neg_lbl = "Negative",
-                   acc_lbl = "Accuracy", dec.cor_lbl = "Correct",  dec.err_lbl = "Incorrect",
-                   hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
+  cond_lbl = "Truth",   cond.true_lbl = "True",   cond.false_lbl = "False",
+  dec_lbl = "Test",     dec.pos_lbl = "Positive", dec.neg_lbl = "Negative",
+  acc_lbl = "Accuracy", dec.cor_lbl = "Correct",  dec.err_lbl = "Incorrect",
+  hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 
 ## Check:
 # length(txt_TF) # 21
