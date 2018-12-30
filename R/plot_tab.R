@@ -1283,10 +1283,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
     if (brd_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
-      box_cond.true  <- make_box("cond_true",  (cond_true_x * scale_x),  tbar_y, (sdt_lx * scale_x), bar_lx)  # cond_true
-      box_cond.false <- make_box("cond_false", (cond_false_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # cond_false
+      box_cond_true  <- make_box("cond_true",  (cond_true_x * scale_x),  tbar_y, (sdt_lx * scale_x), bar_lx)  # cond_true
+      box_cond_false <- make_box("cond_false", (cond_false_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # cond_false
 
-      fbox_r3 <- list(box_cond.true, box_cond.false)  # as list of boxes
+      fbox_r3 <- list(box_cond_true, box_cond_false)  # as list of boxes
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1304,10 +1304,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
     if (brd_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
-      box_dec.pos <- make_box("dec_pos", (dec_pos_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_pos
-      box_dec.neg <- make_box("dec_neg", (dec_neg_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_neg
+      box_dec_pos <- make_box("dec_pos", (dec_pos_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_pos
+      box_dec_neg <- make_box("dec_neg", (dec_neg_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_neg
 
-      fbox_r3 <- list(box_dec.pos, box_dec.neg)  # as list of boxes
+      fbox_r3 <- list(box_dec_pos, box_dec_neg)  # as list of boxes
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1324,10 +1324,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
     if (brd_w > 0) {
 
       # Define 2 horizontal boxes (with optional scale_x):
-      box_dec.cor <- make_box("dec_cor", (dec_cor_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_cor
-      box_dec.err <- make_box("dec_err", (dec_err_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_err
+      box_dec_cor <- make_box("dec_cor", (dec_cor_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_cor
+      box_dec_err <- make_box("dec_err", (dec_err_x * scale_x), tbar_y, (sdt_lx * scale_x), bar_lx)  # dec_err
 
-      fbox_r3 <- list(box_dec.cor, box_dec.err)  # as list of boxes
+      fbox_r3 <- list(box_dec_cor, box_dec_err)  # as list of boxes
       plot_fbox_list(fbox_r3, # plot list of boxes (in row 3):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1354,10 +1354,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
     if (brd_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
-      box_cond.true  <- make_box("cond_true",  (lbar_x * scale_x), cond_true_y,  (bar_lx * scale_x), sdt_ly)  # cond_true
-      box_cond.false <- make_box("cond_false", (lbar_x * scale_x), cond_false_y, (bar_lx * scale_x), sdt_ly)  # cond_false
+      box_cond_true  <- make_box("cond_true",  (lbar_x * scale_x), cond_true_y,  (bar_lx * scale_x), sdt_ly)  # cond_true
+      box_cond_false <- make_box("cond_false", (lbar_x * scale_x), cond_false_y, (bar_lx * scale_x), sdt_ly)  # cond_false
 
-      fbox_c3 <- list(box_cond.true, box_cond.false)  # as list of boxes
+      fbox_c3 <- list(box_cond_true, box_cond_false)  # as list of boxes
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1376,10 +1376,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
     if (brd_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
-      box_dec.pos <- make_box("dec_pos", (lbar_x * scale_x), dec_pos_y, (bar_lx * scale_x), sdt_ly)  # dec_pos
-      box_dec.neg <- make_box("dec_neg", (lbar_x * scale_x), dec_neg_y, (bar_lx * scale_x), sdt_ly)  # dec_neg
+      box_dec_pos <- make_box("dec_pos", (lbar_x * scale_x), dec_pos_y, (bar_lx * scale_x), sdt_ly)  # dec_pos
+      box_dec_neg <- make_box("dec_neg", (lbar_x * scale_x), dec_neg_y, (bar_lx * scale_x), sdt_ly)  # dec_neg
 
-      fbox_c3 <- list(box_dec.pos, box_dec.neg)  # as list of boxes
+      fbox_c3 <- list(box_dec_pos, box_dec_neg)  # as list of boxes
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,
@@ -1397,10 +1397,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
     if (brd_w > 0) {
 
       # Define 2 vertical boxes (withOUT scale_x):
-      box_dec.cor <- make_box("dec_cor", (lbar_x * scale_x), dec_cor_y, (bar_lx * scale_x), sdt_ly)  # dec_cor
-      box_dec.err <- make_box("dec_err", (lbar_x * scale_x), dec_err_y, (bar_lx * scale_x), sdt_ly)  # dec_err
+      box_dec_cor <- make_box("dec_cor", (lbar_x * scale_x), dec_cor_y, (bar_lx * scale_x), sdt_ly)  # dec_cor
+      box_dec_err <- make_box("dec_err", (lbar_x * scale_x), dec_err_y, (bar_lx * scale_x), sdt_ly)  # dec_err
 
-      fbox_c3 <- list(box_dec.cor, box_dec.err)  # as list of boxes
+      fbox_c3 <- list(box_dec_cor, box_dec_err)  # as list of boxes
       plot_fbox_list(fbox_c3, # plot list of boxes (in col 3):
                      cur_freq = freq, lbl_txt = lbl_txt, col_pal = col_pal,  # PASS current freq/txt/pal arguments!
                      lbl_type = f_lbl_sum, lbl_sep = f_lbl_sep,

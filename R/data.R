@@ -1,7 +1,7 @@
 ## data.R | riskyr
-## 2018 12 10
+## 2018 12 14
 ## -----------------------------------------------
-## Document scenarios in ./data
+## Document the scenarios of ./data
 ## -----------------------------------------------
 
 #' A collection of riskyr scenarios from various sources.
@@ -14,62 +14,46 @@
 #' \code{df_scenarios} are also converted into a list of
 #' \code{riskyr} objects \code{\link{scenarios}}.
 #'
-#' @format A data frame with currently 26 rows (i.e., scenarios)
+#' @format A data frame with currently 25 rows (i.e., scenarios)
 #' and 21 columns (variables describing each scenario):
 #'
 #' Scenarios:
 #'
+#' \code{df_scenarios} currently contains the following scenarios
+#' (n1 to n12 in English language, n13 to n25 in German language):
+#'
 #' \enumerate{
 #'
-#'   \item Mammografie 1
+#' In English language:
 #'
-#'   \item Nackenfaltentest (NFT)
-#'
-#'   \item HIV 1 (f)
-#'
-#'   \item HIV 2 (f)
-#'
-#'   \item Mammography 2
-#'
+#'   \item Bowel cancer screening
+#'   \item Cab problem
+#'   \item Hemoccult test
+#'   \item Mammography screening
+#'   \item Mammography (freq)
+#'   \item Mammography (prob)
+#'   \item Mushrooms
+#'   \item Musical town
+#'   \item PSA test (baseline)
+#'   \item PSA test (patients)
+#'   \item Psylicraptis screening
 #'   \item Sepsis
 #'
-#'   \item Cab problem
+#' In German language:
 #'
-#'   \item Sigmoidoskopie 1
-#'
-#'   \item Sigmoidoskopie 1
-#'
-#'   \item Brustkrebs 1
-#'
-#'   \item Brustkrebs 2 (BRCA1)
-#'
-#'   \item Brustkrebs 3 (BRCA1+pos. Mam.)
-#'
-#'   \item HIV 3 (m)
-#'
-#'   \item HIV 4 (m)
-#'
-#'   \item Nackenfaltentest 2 (NFT)
-#'
-#'   \item Amniozentese (pos. NFT)
-#'
-#'   \item Musical town
-#'
-#'   \item Mushrooms
-#'
-#'   \item Bowel cancer (FOB screening)
-#'
-#'   \item PSA test 1 (high prev)
-#'
-#'   \item PSA test 2 (low prev)
-#'
-#'   \item Colorectal cancer
-#'
-#'   \item Psylicraptis screening
-#'
-#'   \item Mammography 6 (prob)
-#'
-#'   \item Mammography 6 (freq)
+#'    \item Amniozentese
+#'    \item HIV-Test 1
+#'    \item HIV-Test 2
+#'    \item HIV-Test 3
+#'    \item HIV-Test 4
+#'    \item Mammografie 1
+#'    \item Mammografie 2
+#'    \item Mammografie 3
+#'    \item Mammografie 4
+#'    \item Nackenfaltentest (NFT) 1
+#'    \item Nackenfaltentest (NFT) 2
+#'    \item Sigmoidoskopie 1
+#'    \item Sigmoidoskopie 2
 #'
 #' }
 #'
@@ -78,13 +62,13 @@
 #' \enumerate{
 #'
 #'   \item \code{scen_lbl} Text label for current scenario.
-#'   \item \code{scen_lng} Language of current scenario.
+#'   \item \code{scen_lng} Language of current scenario (en/de).
 #'   \item \code{scen_txt} Description text of current scenario.
 #'
 #'   \item \code{popu_lbl} Text label for current population.
 #'
 #'   \item \code{cond_lbl} Text label for current condition.
-#'   \item \code{cond_true_lbl} Text label for \code{\link{cond_true}} cases.
+#'   \item \code{cond_true_lbl}  Text label for \code{\link{cond_true}} cases.
 #'   \item \code{cond_false_lbl} Text label for \code{\link{cond_false}} cases.
 #'
 #'   \item \code{dec_lbl} Text label for current decision.
@@ -109,10 +93,10 @@
 #' }
 #'
 #' Note that names of variables (columns)
-#' correspond to \code{\link{init_txt}} (to initialize \code{\link{txt}})
+#' correspond to a subset of \code{\link{init_txt}} (to initialize \code{\link{txt}})
 #' and \code{\link{init_num}} (to initialize \code{\link{num}}).
 #'
-#' @source See columns \code{scen_src} and \code{scen_apa}
+#' See the columns \code{scen_src} and \code{scen_apa}
 #' for a scenario's source information.
 #'
 #' @seealso
