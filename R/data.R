@@ -1,5 +1,5 @@
 ## data.R | riskyr
-## 2018 11 21
+## 2018 12 10
 ## -----------------------------------------------
 ## Document scenarios in ./data
 ## -----------------------------------------------
@@ -73,7 +73,7 @@
 #'
 #' }
 #'
-#' Describing variables:
+#' Variables describing a scenario:
 #'
 #' \enumerate{
 #'
@@ -84,12 +84,12 @@
 #'   \item \code{popu_lbl} Text label for current population.
 #'
 #'   \item \code{cond_lbl} Text label for current condition.
-#'   \item \code{cond.true_lbl} Text label for \code{\link{cond.true}} cases.
-#'   \item \code{cond.false_lbl} Text label for \code{\link{cond.false}} cases.
+#'   \item \code{cond_true_lbl} Text label for \code{\link{cond_true}} cases.
+#'   \item \code{cond_false_lbl} Text label for \code{\link{cond_false}} cases.
 #'
 #'   \item \code{dec_lbl} Text label for current decision.
-#'   \item \code{dec.pos_lbl} Text label for \code{\link{dec.pos}} cases.
-#'   \item \code{dec.neg_lbl} Text label for \code{\link{dec.neg}} cases.
+#'   \item \code{dec_pos_lbl} Text label for \code{\link{dec_pos}} cases.
+#'   \item \code{dec_neg_lbl} Text label for \code{\link{dec_neg}} cases.
 #'
 #'   \item \code{hi_lbl} Text label for cases of hits \code{\link{hi}}.
 #'   \item \code{mi_lbl} Text label for cases of misses \code{\link{mi}}.
@@ -114,6 +114,15 @@
 #'
 #' @source See columns \code{scen_src} and \code{scen_apa}
 #' for a scenario's source information.
+#'
+#' @seealso
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario;
+#' \code{\link{txt}} contains basic text information;
+#' \code{\link{init_txt}} initializes text information;
+#' \code{\link{num}} contains basic numeric parameters;
+#' \code{\link{init_num}} initializes basic numeric parameters;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
 
 "df_scenarios"
 
