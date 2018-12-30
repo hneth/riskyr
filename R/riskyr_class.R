@@ -651,6 +651,9 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 #' @family visualization functions
 #' @family riskyr scenario functions
 #'
+#' @seealso
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
+#'
 #' @export
 
 ## plot.riskyr Definition: ------
@@ -934,6 +937,9 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 #' @family summary functions
 #' @family riskyr scenario functions
 #'
+#' @seealso
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
+#'
 #' @export
 
 ## summary.riskyr Definition: ------
@@ -1043,6 +1049,9 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 #' summary(scenarios$n4)
 #'
 #' @family print functions
+#'
+#' @seealso
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 #'
 #' @export
 
@@ -1260,7 +1269,7 @@ print.summary.riskyr <- function(x = NULL, ...) {
 #' @seealso
 #' the corresponding data frame \code{\link{popu}};
 #' the corresponding generating function \code{\link{comp_popu}};
-#' main \code{\link{riskyr}} function.
+#' \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 #'
 #' @export
 
