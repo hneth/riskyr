@@ -8,7 +8,7 @@ Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
              person("Felix", "Gaisbauer", role = "aut"), 
              person("Nico", "Gradwohl", role = "aut"),  
              person("Wolfgang", "Gaissmaier", role = "aut")) 
-Author: Hansjoerg Neth [aut, cre],
+Author: Hansjörg Neth [aut, cre],
         Felix Gaisbauer [aut],
         Nico Gradwohl [aut], 
         Wolfgang Gaissmaier [aut]
