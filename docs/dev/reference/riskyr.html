@@ -74,7 +74,7 @@ and summarized by the summary method summary.riskyr." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -152,11 +152,11 @@ and summarized by the <code>summary</code> method <code><a href='summary.riskyr.
 
     <pre class="usage"><span class='fu'>riskyr</span>(<span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>popu_lbl</span>,
   <span class='kw'>N_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>N_lbl</span>, <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_lbl</span>,
-  <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.true_lbl</span>,
-  <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.false_lbl</span>, <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_lbl</span>,
-  <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.pos_lbl</span>, <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.neg_lbl</span>,
-  <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>acc_lbl</span>, <span class='kw'>dec.cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.cor_lbl</span>,
-  <span class='kw'>dec.err_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>sdt_lbl</span>,
+  <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_true_lbl</span>,
+  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_false_lbl</span>, <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_lbl</span>,
+  <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_pos_lbl</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_neg_lbl</span>,
+  <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>acc_lbl</span>, <span class='kw'>dec_cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_cor_lbl</span>,
+  <span class='kw'>dec_err_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>sdt_lbl</span>,
   <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>,
   <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
@@ -183,39 +183,39 @@ and summarized by the <code>summary</code> method <code><a href='summary.riskyr.
       <td><p>A label for the <em>condition</em> or feature (e.g., some disease) currently considered.</p></td>
     </tr>
     <tr>
-      <th>cond.true_lbl</th>
+      <th>cond_true_lbl</th>
       <td><p>A label for the <em>presence</em> of the current condition
-or <code><a href='cond.true.html'>cond.true</a></code> cases (the condition's true state of TRUE).</p></td>
+or <code><a href='cond_true.html'>cond_true</a></code> cases (the condition's true state of TRUE).</p></td>
     </tr>
     <tr>
-      <th>cond.false_lbl</th>
+      <th>cond_false_lbl</th>
       <td><p>A label for the <em>absence</em> of the current condition
-or <code><a href='cond.false.html'>cond.false</a></code> cases (the condition's true state of FALSE).</p></td>
+or <code><a href='cond_false.html'>cond_false</a></code> cases (the condition's true state of FALSE).</p></td>
     </tr>
     <tr>
       <th>dec_lbl</th>
       <td><p>A label for the <em>decision</em> or judgment (e.g., some diagnostic test) currently made.</p></td>
     </tr>
     <tr>
-      <th>dec.pos_lbl</th>
+      <th>dec_pos_lbl</th>
       <td><p>A label for <em>positive</em> decisions
-or <code><a href='dec.pos.html'>dec.pos</a></code> cases (e.g., predicting the presence of the condition).</p></td>
+or <code><a href='dec_pos.html'>dec_pos</a></code> cases (e.g., predicting the presence of the condition).</p></td>
     </tr>
     <tr>
-      <th>dec.neg_lbl</th>
+      <th>dec_neg_lbl</th>
       <td><p>A label for <em>negative</em> decisions
-or <code><a href='dec.neg.html'>dec.neg</a></code> cases (e.g., predicting the absence of the condition).</p></td>
+or <code><a href='dec_neg.html'>dec_neg</a></code> cases (e.g., predicting the absence of the condition).</p></td>
     </tr>
     <tr>
       <th>acc_lbl</th>
       <td><p>A label for <em>accuracy</em> (i.e., correspondence between condition and decision or judgment).</p></td>
     </tr>
     <tr>
-      <th>dec.cor_lbl</th>
+      <th>dec_cor_lbl</th>
       <td><p>A label for <em>correct</em> (or accurate) decisions or judgments.</p></td>
     </tr>
     <tr>
-      <th>dec.err_lbl</th>
+      <th>dec_err_lbl</th>
       <td><p>A label for <em>incorrect</em> (or erroneous) decisions or judgments.</p></td>
     </tr>
     <tr>
@@ -364,11 +364,11 @@ are used and returned.</p>
 <span class='no'>scen_reoffend</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Identify reoffenders"</span>,
                         <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"being a reoffender"</span>,
                         <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Prisoners"</span>,
-                        <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='st'>"has reoffended"</span>,
-                        <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='st'>"has not reoffended"</span>,
+                        <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"has reoffended"</span>,
+                        <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"has not reoffended"</span>,
                         <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"test result"</span>,
-                        <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='st'>"will reoffend"</span>,
-                        <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='st'>"will not reoffend"</span>,
+                        <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"will reoffend"</span>,
+                        <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"will not reoffend"</span>,
                         <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='st'>"combination"</span>,
                         <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='st'>"reoffender found"</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='st'>"reoffender missed"</span>,
                         <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='st'>"false accusation"</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='st'>"correct release"</span>,
@@ -400,15 +400,15 @@ are used and returned.</p>
 #&gt; Frequencies:
 #&gt; 
 #&gt;  by conditions:
-#&gt;  cond.true cond.false 
+#&gt;  cond_true cond_false 
 #&gt;         40        960 
 #&gt; 
 #&gt;  by decision:
-#&gt; dec.pos dec.neg 
+#&gt; dec_pos dec_neg 
 #&gt;      80     920 
 #&gt; 
 #&gt;  by correspondence (of decision to condition):
-#&gt; dec.cor dec.err 
+#&gt; dec_cor dec_err 
 #&gt;     944      56 
 #&gt; 
 #&gt;  4 essential (SDT) frequencies:
@@ -418,7 +418,7 @@ are used and returned.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='730' height='518' /></div><div class='input'>
+#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='output co'>#&gt; Scenario:  Identify reoffenders 
 #&gt; 
 #&gt; Condition:  being a reoffender 
@@ -440,15 +440,15 @@ are used and returned.</p>
 #&gt; Frequencies:
 #&gt; 
 #&gt;  by conditions:
-#&gt;  cond.true cond.false 
+#&gt;  cond_true cond_false 
 #&gt;        339        414 
 #&gt; 
 #&gt;  by decision:
-#&gt; dec.pos dec.neg 
+#&gt; dec_pos dec_neg 
 #&gt;     556     197 
 #&gt; 
 #&gt;  by correspondence (of decision to condition):
-#&gt; dec.cor dec.err 
+#&gt; dec_cor dec_err 
 #&gt;     522     231 
 #&gt; 
 #&gt;  4 essential (SDT) frequencies:
@@ -458,7 +458,7 @@ are used and returned.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='730' height='518' /></div><div class='input'>
+#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='co'># 2 ways of defining the same scenario: -----</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>)  <span class='co'># s1: define by 3 prob &amp; N</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>25</span>)        <span class='co'># s2: same scenario by 4 freq</span>
@@ -476,28 +476,28 @@ are used and returned.</p>
 #&gt; $cond_lbl
 #&gt; [1] "Truth"
 #&gt; 
-#&gt; $cond.true_lbl
+#&gt; $cond_true_lbl
 #&gt; [1] "True"
 #&gt; 
-#&gt; $cond.false_lbl
+#&gt; $cond_false_lbl
 #&gt; [1] "False"
 #&gt; 
 #&gt; $dec_lbl
 #&gt; [1] "Test"
 #&gt; 
-#&gt; $dec.pos_lbl
+#&gt; $dec_pos_lbl
 #&gt; [1] "Positive"
 #&gt; 
-#&gt; $dec.neg_lbl
+#&gt; $dec_neg_lbl
 #&gt; [1] "Negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
-#&gt; $dec.cor_lbl
+#&gt; $dec_cor_lbl
 #&gt; [1] "Correct"
 #&gt; 
-#&gt; $dec.err_lbl
+#&gt; $dec_err_lbl
 #&gt; [1] "Incorrect"
 #&gt; 
 #&gt; $sdt_lbl
@@ -567,28 +567,28 @@ are used and returned.</p>
 #&gt; $cond_lbl
 #&gt; [1] "Truth"
 #&gt; 
-#&gt; $cond.true_lbl
+#&gt; $cond_true_lbl
 #&gt; [1] "True"
 #&gt; 
-#&gt; $cond.false_lbl
+#&gt; $cond_false_lbl
 #&gt; [1] "False"
 #&gt; 
 #&gt; $dec_lbl
 #&gt; [1] "Test"
 #&gt; 
-#&gt; $dec.pos_lbl
+#&gt; $dec_pos_lbl
 #&gt; [1] "Positive"
 #&gt; 
-#&gt; $dec.neg_lbl
+#&gt; $dec_neg_lbl
 #&gt; [1] "Negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
-#&gt; $dec.cor_lbl
+#&gt; $dec_cor_lbl
 #&gt; [1] "Correct"
 #&gt; 
-#&gt; $dec.err_lbl
+#&gt; $dec_err_lbl
 #&gt; [1] "Incorrect"
 #&gt; 
 #&gt; $sdt_lbl

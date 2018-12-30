@@ -76,7 +76,7 @@ are contained in freq." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -193,8 +193,8 @@ Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code
     <p>Currently computed accuracy metrics include:</p>
 <ol>
 <li><p><code>acc</code>: Overall accuracy as the proportion (or probability)
-   of correctly classifying cases or of <code><a href='dec.cor.html'>dec.cor</a></code> cases:</p>
-<p><code>acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
+   of correctly classifying cases or of <code><a href='dec_cor.html'>dec_cor</a></code> cases:</p>
+<p><code>acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
 <p>Values range from 0 (no correct prediction) to 1 (perfect prediction).</p></li>
 <li><p><code>wacc</code>: Weighted accuracy, as a weighted average of the
    sensitivity <code><a href='sens.html'>sens</a></code> (aka. hit rate <code><a href='sens.html'>HR</a></code>, <code><a href='sens.html'>TPR</a></code>,
@@ -223,9 +223,9 @@ Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code
 <p>There are several possible interpretations of accuracy:</p>
 <ol>
 <li><p>as <em>probabilities</em> (i.e., <code>acc</code> being the proportion of correct classifications,
-     or the ratio <code><a href='dec.cor.html'>dec.cor</a></code>/<code><a href='N.html'>N</a></code>),</p></li>
+     or the ratio <code><a href='dec_cor.html'>dec_cor</a></code>/<code><a href='N.html'>N</a></code>),</p></li>
 <li><p>as <em>frequencies</em> (e.g., as classifying a population of <code><a href='N.html'>N</a></code>
-     individuals into cases of <code><a href='dec.cor.html'>dec.cor</a></code> vs. <code><a href='dec.err.html'>dec.err</a></code>),</p></li>
+     individuals into cases of <code><a href='dec_cor.html'>dec_cor</a></code> vs. <code><a href='dec_err.html'>dec_err</a></code>),</p></li>
 <li><p>as <em>correlations</em> (e.g., see <code>mcc</code> in <code><a href='accu.html'>accu</a></code>).</p></li>
 </ol></li>
 <li><p>Computing exact accuracy values based on probabilities (by <code><a href='comp_accu_prob.html'>comp_accu_prob</a></code>) may differ from

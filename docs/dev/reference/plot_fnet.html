@@ -73,7 +73,7 @@ frequencies (as nodes) and probabilities (as edges)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -152,9 +152,9 @@ frequencies (as nodes) and probabilities (as edges).</p>
   <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>N</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>show_accu</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>w_acc</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>popu_lbl</span>,
-  <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.true_lbl</span>,
-  <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.false_lbl</span>, <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.pos_lbl</span>,
-  <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.neg_lbl</span>, <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>,
+  <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_true_lbl</span>,
+  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_false_lbl</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_pos_lbl</span>,
+  <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_neg_lbl</span>, <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>,
   <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>,
   <span class='kw'>col_txt</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray'>grey</a></span>(<span class='fl'>0.01</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.99</span>), <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.85</span>,
   <span class='kw'>col_boxes</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>col_border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray'>grey</a></span>(<span class='fl'>0.33</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.99</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
@@ -240,20 +240,20 @@ weighted accuracy <code>w_acc</code> in <code><a href='comp_accu_freq.html'>comp
       <td><p>Text label for current population <code><a href='popu.html'>popu</a></code>.</p></td>
     </tr>
     <tr>
-      <th>cond.true_lbl</th>
-      <td><p>Text label for current cases of <code><a href='cond.true.html'>cond.true</a></code>.</p></td>
+      <th>cond_true_lbl</th>
+      <td><p>Text label for current cases of <code><a href='cond_true.html'>cond_true</a></code>.</p></td>
     </tr>
     <tr>
-      <th>cond.false_lbl</th>
-      <td><p>Text label for current cases of <code><a href='cond.false.html'>cond.false</a></code>.</p></td>
+      <th>cond_false_lbl</th>
+      <td><p>Text label for current cases of <code><a href='cond_false.html'>cond_false</a></code>.</p></td>
     </tr>
     <tr>
-      <th>dec.pos_lbl</th>
-      <td><p>Text label for current cases of <code><a href='dec.pos.html'>dec.pos</a></code>.</p></td>
+      <th>dec_pos_lbl</th>
+      <td><p>Text label for current cases of <code><a href='dec_pos.html'>dec_pos</a></code>.</p></td>
     </tr>
     <tr>
-      <th>dec.neg_lbl</th>
-      <td><p>Text label for current cases of <code><a href='dec.neg.html'>dec.neg</a></code>.</p></td>
+      <th>dec_neg_lbl</th>
+      <td><p>Text label for current cases of <code><a href='dec_neg.html'>dec_neg</a></code>.</p></td>
     </tr>
     <tr>
       <th>hi_lbl</th>
@@ -329,7 +329,7 @@ Default: <code>cex_shadow = 0</code>.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plot_fnet</span>()  <span class='co'># =&gt; plot current freq with default options</span></div><div class='output co'>#&gt; <span class='message'>Function 'plot_fnet' is deprecated; using 'plot_prism' instead.</span></div><div class='img'><img src='plot_fnet-1.png' alt='' width='730' height='518' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>plot_fnet</span>()  <span class='co'># =&gt; plot current freq with default options</span></div><div class='output co'>#&gt; <span class='message'>Function 'plot_fnet' is deprecated; using 'plot_prism' instead.</span></div><div class='img'><img src='plot_fnet-1.png' alt='' width='672' height='480' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

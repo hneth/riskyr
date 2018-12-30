@@ -73,7 +73,7 @@ to define an alternative (uni.kn) scenario color scheme." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -174,9 +174,9 @@ throughout the <code>riskyr</code> package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal_kn</span>      <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;           N        true       false         pos         neg         cor 
+    <pre class="examples"><div class='input'><span class='no'>pal_kn</span>      <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;           N   cond_true  cond_false     dec_pos     dec_neg     dec_cor 
 #&gt; "#F2F2F2FC" "#B3B3B3FC" "#D9D9D9FC" "#999999FC" "#BFBFBFFC" "#808080FC" 
-#&gt;         err          hi          mi          fa          cr         ppv 
+#&gt;     dec_err          hi          mi          fa          cr         ppv 
 #&gt; "#A6A6A6FC"   "#00A9E0"   "#A6E1F4"   "#CCEEF9"   "#59C7EB"   "#F26418" 
 #&gt;         npv         txt         brd 
 #&gt;   "#00A9E0" "#000000FC" "#1A1A1AFC" </div><div class='input'><span class='no'>pal_kn</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;        hi 

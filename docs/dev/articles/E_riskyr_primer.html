@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -191,13 +191,13 @@ my_scenario_<span class="dv">2</span> &lt;-<span class="st"> </span><span class=
 <li>
 <code>cond_lbl</code> specifies the condition of interest (i.e., “reoffending”).</li>
 <li>
-<code>cond.true_lbl</code> specifies a label for the condition being true (“offends again”).</li>
-<li><p><code>cond.false_lbl</code> specifies a label for the condition being false (“does not offend again”).</p></li>
+<code>cond_true_lbl</code> specifies a label for the condition being true (“offends again”).</li>
+<li><p><code>cond_false_lbl</code> specifies a label for the condition being false (“does not offend again”).</p></li>
 <li>
 <code>dec_lbl</code> specifies the nature of the decision, prediction, or test (“test result”).</li>
 <li>
-<code>dec.pos_lbl</code> specifies a positive decision regarding the condition (“predict to reoffend”).</li>
-<li><p><code>dec.neg_lbl</code> specifies a negative decision regarding the condition (“predict to not reoffend”).</p></li>
+<code>dec_pos_lbl</code> specifies a positive decision regarding the condition (“predict to reoffend”).</li>
+<li><p><code>dec_neg_lbl</code> specifies a negative decision regarding the condition (“predict to not reoffend”).</p></li>
 <li>
 <code>hi_lbl</code>, <code>mi_lbl</code>, <code>fa_lbl</code>, and <code>cr_lbl</code> specify the four possible combinations of conditions and decisions:
 <ol style="list-style-type: decimal">
@@ -216,9 +216,9 @@ my_scenario_<span class="dv">2</span> &lt;-<span class="st"> </span><span class=
 my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference/riskyr.html">riskyr</a></span>(<span class="dt">scen_lbl =</span> <span class="st">"Identifying reoffenders"</span>, 
                       <span class="dt">popu_lbl =</span> <span class="st">"prison inmates"</span>, 
                       <span class="dt">cond_lbl =</span> <span class="st">"reoffending"</span>,
-                      <span class="dt">cond.true_lbl =</span> <span class="st">"reoffends"</span>, <span class="dt">cond.false_lbl =</span> <span class="st">"does not reoffend"</span>,
+                      <span class="dt">cond_true_lbl =</span> <span class="st">"reoffends"</span>, <span class="dt">cond_false_lbl =</span> <span class="st">"does not reoffend"</span>,
                       <span class="dt">dec_lbl =</span> <span class="st">"test result"</span>,
-                      <span class="dt">dec.pos_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">reoffend"</span>, <span class="dt">dec.neg_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">not reoffend"</span>,
+                      <span class="dt">dec_pos_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">reoffend"</span>, <span class="dt">dec_neg_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">not reoffend"</span>,
                       <span class="dt">hi_lbl =</span> <span class="st">"reoffender found"</span>, <span class="dt">mi_lbl =</span> <span class="st">"reoffender missed"</span>,
                       <span class="dt">fa_lbl =</span> <span class="st">"false accusation"</span>, <span class="dt">cr_lbl =</span> <span class="st">"correct release"</span>,
                       <span class="dt">prev =</span> .<span class="dv">45</span>,  <span class="co"># prevalence of being a reoffender. </span>
@@ -287,15 +287,15 @@ my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <span class="co">#&gt; Frequencies:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by conditions:</span>
-<span class="co">#&gt;  cond.true cond.false </span>
+<span class="co">#&gt;  cond_true cond_false </span>
 <span class="co">#&gt;        339        414 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by decision:</span>
-<span class="co">#&gt; dec.pos dec.neg </span>
+<span class="co">#&gt; dec_pos dec_neg </span>
 <span class="co">#&gt;     556     197 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by correspondence (of decision to condition):</span>
-<span class="co">#&gt; dec.cor dec.err </span>
+<span class="co">#&gt; dec_cor dec_err </span>
 <span class="co">#&gt;     522     231 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  4 essential (SDT) frequencies:</span>
@@ -316,8 +316,8 @@ my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <p>An alternative way to view the our scenario is a <em>frequency tree</em> that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in the <code>summary</code> above):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scenario, <span class="dt">type =</span> <span class="st">"tree"</span>, <span class="dt">by =</span> <span class="st">"dc"</span>)  <span class="co"># plot tree diagram (splitting N by decision)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/tree-1.png" width="691.2"></p>
-<p>The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or <code>PPV = hi/dec.pos</code>). Numerically, we see that <code>PPV = 332/556</code>, which amounts to about 60% (or <code>1 - 0.403</code>).</p>
-<p>The tree also depicts additional information that corresponds to our <code>summary</code> from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be <code>NPV = 190/197</code> or about 96.4% (as <code>NPV = cr/dec.neg</code>). Again, this closely corresponds to our <code>summary</code> information of <code>NPV = 0.966</code>.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<p>The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or <code>PPV = hi/dec_pos</code>). Numerically, we see that <code>PPV = 332/556</code>, which amounts to about 60% (or <code>1 - 0.403</code>).</p>
+<p>The tree also depicts additional information that corresponds to our <code>summary</code> from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be <code>NPV = 190/197</code> or about 96.4% (as <code>NPV = cr/dec_neg</code>). Again, this closely corresponds to our <code>summary</code> information of <code>NPV = 0.966</code>.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <p>A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition’s prevalence)? To answer this, the following code allows to show conditional probabilities (here <code>PPV</code> and <code>NPV</code>) as a function of <code>prev</code> (and additionally assumes a 5%-uncertainty concerning the exact parameter values):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scenario, <span class="dt">type =</span> <span class="st">"curve"</span>, <span class="dt">uc =</span> .<span class="dv">05</span>)</code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/plotting_curve-1.png" width="691.2"></p>
@@ -614,15 +614,15 @@ s10<span class="op">$</span>scen_apa  <span class="co"># shows current source: <
 <span class="co">#&gt; Frequencies:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by conditions:</span>
-<span class="co">#&gt;  cond.true cond.false </span>
+<span class="co">#&gt;  cond_true cond_false </span>
 <span class="co">#&gt;        500        500 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by decision:</span>
-<span class="co">#&gt; dec.pos dec.neg </span>
+<span class="co">#&gt; dec_pos dec_neg </span>
 <span class="co">#&gt;     135     865 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by correspondence (of decision to condition):</span>
-<span class="co">#&gt; dec.cor dec.err </span>
+<span class="co">#&gt; dec_cor dec_err </span>
 <span class="co">#&gt;     575     425 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  4 essential (SDT) frequencies:</span>
@@ -652,7 +652,7 @@ s10<span class="op">$</span>scen_apa  <span class="co"># shows current source: <
      <span class="dt">p_lbl =</span> <span class="st">"num"</span>)    <span class="co"># probability labels: numeric only</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/s10_prism_1-1.png" width="691.2"></p>
 <p>This variant of the prism plot shows how the probability values of key condition and decision parameters split the assumed population of <code>N = 1000</code> patients into subgroups that correspond to 9 frequencies (also listed in the summary). Calling the same command with the optional argument <code>p_lbl = "nam"</code> would print the probability names, rather than their values (see also the options <code>p_lbl = "min"</code> and <code>"mix"</code>.) The middle row of boxes shows the four essential frequencies (of hits <code>hi</code>, misses <code>mi</code>, false alarms <code>fa</code>, and correct rejections <code>cr</code>) in colors corresponding to the icon array above. Setting <code>area = "hr"</code> in our <code>plot</code> command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence <code>hr</code>) and the box widths are scaled to add up to the population width <code>N</code> on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases.</p>
-<p>A fact that was not so obvious in the icon array – but shown in the lower half of the prism plot – is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%). Of those negative decisions, 470 (or 54.34%) are correct (see <code>cr</code> shown in light green) and 395 (or 45.66%) are incorrect (see <code>mi</code> shown in dark red). The ratio <code>cr/dec.neg = 470/865 = 54.34</code>% indicates the negative predictive value (<code>NPV</code>) of the test.</p>
+<p>A fact that was not so obvious in the icon array – but shown in the lower half of the prism plot – is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%). Of those negative decisions, 470 (or 54.34%) are correct (see <code>cr</code> shown in light green) and 395 (or 45.66%) are incorrect (see <code>mi</code> shown in dark red). The ratio <code>cr/dec_neg = 470/865 = 54.34</code>% indicates the negative predictive value (<code>NPV</code>) of the test.</p>
 <div id="practice-1" class="section level5">
 <h5 class="hasAnchor">
 <a href="#practice-1" class="anchor"></a>Practice</h5>

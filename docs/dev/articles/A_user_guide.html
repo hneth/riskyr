@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -289,11 +289,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;       N</span>
-<span class="co">#&gt;     /  \</span>
-<span class="co">#&gt;   T      F</span>
-<span class="co">#&gt;  / \    / \</span>
-<span class="co">#&gt; hi  mi fa  cr</span>
+<span class="co">#&gt; Running riskyr (v0.1.0.9650)...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -382,10 +378,10 @@ f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 
 <span class="co"># Check equality of outputs:</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(f3, f4)  <span class="co"># =&gt; shows slight differences in some frequencies:</span>
-<span class="co">#&gt; [1] "Component \"dec.pos\": Mean relative difference: 0.0003881988"</span>
-<span class="co">#&gt; [2] "Component \"dec.neg\": Mean relative difference: 4.459508e-05"</span>
-<span class="co">#&gt; [3] "Component \"dec.cor\": Mean relative difference: 4.429875e-05"</span>
-<span class="co">#&gt; [4] "Component \"dec.err\": Mean relative difference: 0.0004122012"</span>
+<span class="co">#&gt; [1] "Component \"dec_pos\": Mean relative difference: 0.0003881988"</span>
+<span class="co">#&gt; [2] "Component \"dec_neg\": Mean relative difference: 4.459508e-05"</span>
+<span class="co">#&gt; [3] "Component \"dec_cor\": Mean relative difference: 4.429875e-05"</span>
+<span class="co">#&gt; [4] "Component \"dec_err\": Mean relative difference: 0.0004122012"</span>
 <span class="co">#&gt; [5] "Component \"fa\": Mean relative difference: 0.0004208754"     </span>
 <span class="co">#&gt; [6] "Component \"cr\": Mean relative difference: 4.469473e-05"</span></code></pre></div>
 <p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
@@ -393,22 +389,22 @@ f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 <span class="co">#&gt; $N</span>
 <span class="co">#&gt; [1] 1000</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $cond.true</span>
+<span class="co">#&gt; $cond_true</span>
 <span class="co">#&gt; [1] 10</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $cond.false</span>
+<span class="co">#&gt; $cond_false</span>
 <span class="co">#&gt; [1] 990</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $dec.pos</span>
+<span class="co">#&gt; $dec_pos</span>
 <span class="co">#&gt; [1] 103</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $dec.neg</span>
+<span class="co">#&gt; $dec_neg</span>
 <span class="co">#&gt; [1] 897</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $dec.cor</span>
+<span class="co">#&gt; $dec_cor</span>
 <span class="co">#&gt; [1] 903</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $dec.err</span>
+<span class="co">#&gt; $dec_err</span>
 <span class="co">#&gt; [1] 97</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $hi</span>
@@ -422,7 +418,7 @@ f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cr</span>
 <span class="co">#&gt; [1] 895</span></code></pre></div>
-<p>In this list, the sample of <code>N</code> = <span class="math inline">\(1000\)</span> women is split into 3 different subgroups. For instance, the <span class="math inline">\(10\)</span> women with cancer appear as <code>cond.true</code> cases, whereas the <code>990</code> without cancer are listed as <code>cond.false</code> cases. The <span class="math inline">\(8\)</span> women with cancer and a positive test result appear as <em>hits</em> <code>hi</code> and the 95 women who receive a positive test result without having cancer are listed as <em>false alarms</em> <code>fa</code>. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on all frequencies.)</p>
+<p>In this list, the sample of <code>N</code> = <span class="math inline">\(1000\)</span> women is split into 3 different subgroups. For instance, the <span class="math inline">\(10\)</span> women with cancer appear as <code>cond_true</code> cases, whereas the <code>990</code> without cancer are listed as <code>cond_false</code> cases. The <span class="math inline">\(8\)</span> women with cancer and a positive test result appear as <em>hits</em> <code>hi</code> and the 95 women who receive a positive test result without having cancer are listed as <em>false alarms</em> <code>fa</code>. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on all frequencies.)</p>
 </div>
 <div id="computing-probabilities-from-frequencies" class="section level4">
 <h4 class="hasAnchor">
@@ -442,7 +438,7 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_pro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
 rand.p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
-<span class="co">#&gt; [1] 0.08639772 0.98153214 0.32596580</span>
+<span class="co">#&gt; [1] 0.6435400 0.7889218 0.9990607</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities:</span>
 freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
@@ -461,7 +457,7 @@ prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_p
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
 rand.f &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
 rand.f  
-<span class="co">#&gt; [1] 161 771 431 776</span>
+<span class="co">#&gt; [1] 884 579 778 552</span>
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
@@ -489,9 +485,9 @@ freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_f
 <p>In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key variables of a risk-related situation, you can always define a <code>riskyr</code> scenario:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/riskyr.html">riskyr</a></span>(<span class="dt">scen_lbl =</span> <span class="st">"Mammography screening"</span>, 
             <span class="dt">cond_lbl =</span> <span class="st">"breast cancer"</span>,
-            <span class="dt">cond.true_lbl =</span> <span class="st">"cancer"</span>, <span class="dt">cond.false_lbl =</span> <span class="st">"no cancer"</span>,
+            <span class="dt">cond_true_lbl =</span> <span class="st">"cancer"</span>, <span class="dt">cond_false_lbl =</span> <span class="st">"no cancer"</span>,
             <span class="dt">dec_lbl =</span> <span class="st">"screening test"</span>,
-            <span class="dt">dec.pos_lbl =</span> <span class="st">"predict cancer"</span>, <span class="dt">dec.neg_lbl =</span> <span class="st">"predict no cancer"</span>,
+            <span class="dt">dec_pos_lbl =</span> <span class="st">"predict cancer"</span>, <span class="dt">dec_neg_lbl =</span> <span class="st">"predict no cancer"</span>,
             <span class="dt">prev =</span> .<span class="dv">01</span>, 
             <span class="dt">sens =</span> .<span class="dv">80</span>, 
             <span class="dt">spec =</span> <span class="ot">NA</span>, 
@@ -519,15 +515,15 @@ freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_f
 <span class="co">#&gt; Frequencies:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by conditions:</span>
-<span class="co">#&gt;  cond.true cond.false </span>
+<span class="co">#&gt;  cond_true cond_false </span>
 <span class="co">#&gt;         10        990 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by decision:</span>
-<span class="co">#&gt; dec.pos dec.neg </span>
+<span class="co">#&gt; dec_pos dec_neg </span>
 <span class="co">#&gt;     103     897 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by correspondence (of decision to condition):</span>
-<span class="co">#&gt; dec.cor dec.err </span>
+<span class="co">#&gt; dec_cor dec_err </span>
 <span class="co">#&gt;     903      97 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  4 essential (SDT) frequencies:</span>
@@ -574,7 +570,7 @@ An icon array showing the mammography scenario for a population of 1000 individu
 A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals.
 </p>
 </div>
-<p>Importantly, the <code>plot_prism</code> function plot a simple frequency tree when providing a single perspective argument <code>by = "cd"</code> (as opposed to its default <code>by = "cddc"</code>). Here, it is called with the same 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code>) and 1 frequency (the number of individuals <code>N</code> of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (<code>hi</code>) depends on both the condition’s prevalence (<code>prev</code>) and the decision’s sensitivity (<code>sens</code>), or that the decision’s specificity <code>spec</code> can be expressed and computed as the ratio of the number of true negatives (<code>cr</code>) divided by the number of unaffected individuals (<code>cond.false</code> cases).</p>
+<p>Importantly, the <code>plot_prism</code> function plot a simple frequency tree when providing a single perspective argument <code>by = "cd"</code> (as opposed to its default <code>by = "cddc"</code>). Here, it is called with the same 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code>) and 1 frequency (the number of individuals <code>N</code> of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (<code>hi</code>) depends on both the condition’s prevalence (<code>prev</code>) and the decision’s sensitivity (<code>sens</code>), or that the decision’s specificity <code>spec</code> can be expressed and computed as the ratio of the number of true negatives (<code>cr</code>) divided by the number of unaffected individuals (<code>cond_false</code> cases).</p>
 </div>
 <div id="area-plot" class="section level4">
 <h4 class="hasAnchor">
@@ -587,7 +583,7 @@ A tree diagram that applies the provided probabilities and frequencies to a popu
 A mosaic plot in which area sizes represent the relative frequencies of subgroups.
 </p>
 </div>
-<p>The vertical split dissects the population into two subgroups that correspond to the frequency of <code>cond.true</code> and <code>cond.false</code> cases in the tree diagram above. The <code>prev</code> value of 1% yields a slim vertical rectangle on the left. (For details and additional options of the <code>plot_area</code> function, see the documentation of <code><a href="../reference/plot_area.html">?plot_area</a></code>.)</p>
+<p>The vertical split dissects the population into two subgroups that correspond to the frequency of <code>cond_true</code> and <code>cond_false</code> cases in the tree diagram above. The <code>prev</code> value of 1% yields a slim vertical rectangle on the left. (For details and additional options of the <code>plot_area</code> function, see the documentation of <code><a href="../reference/plot_area.html">?plot_area</a></code>.)</p>
 </div>
 <div id="bar-plot" class="section level4">
 <h4 class="hasAnchor">
@@ -614,10 +610,10 @@ A prism plot that integrates both tree diagrams and represents relative frequenc
 <h4 class="hasAnchor">
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
 <p>The variety of different graphical options may be overwhelming at first. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
-<p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond.true</code> and <code>cond.false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec.pos</code> and <code>dec.neg</code> cases:</p>
+<p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond_true</code> and <code>cond_false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec_pos</code> and <code>dec_neg</code> cases:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
-<p>Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (<code>dec.cor</code> and <code>dec.err</code>) decisions:</p>
+<p>Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (<code>dec_cor</code> and <code>dec_err</code>) decisions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"ac"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <p>The same perspectives can also be applied to other plots. For instance, the population of the area/mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options <code>by = "cddc"</code> and <code>p_split = "h"</code>:</p>

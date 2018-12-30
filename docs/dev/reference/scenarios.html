@@ -74,7 +74,7 @@ and to be used by visualization and summary functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -154,8 +154,8 @@ and to be used by visualization and summary functions.</p>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A list with currently 25 objects of class "riskyr" (i.e., scenarios)
-which are each described by 21 variables:</p>
+    <p>A list with currently 25 scenarios of class <code>riskyr</code>
+which are each described by 21 variables.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -196,11 +196,11 @@ which are each described by 21 variables:</p>
 <li><p><code>scen_txt</code> Description text of current scenario.</p></li>
 <li><p><code>popu_lbl</code> Text label for current population.</p></li>
 <li><p><code>cond_lbl</code> Text label for current condition.</p></li>
-<li><p><code>cond.true_lbl</code> Text label for <code><a href='cond.true.html'>cond.true</a></code> cases.</p></li>
-<li><p><code>cond.false_lbl</code> Text label for <code><a href='cond.false.html'>cond.false</a></code> cases.</p></li>
+<li><p><code>cond_true_lbl</code> Text label for <code><a href='cond_true.html'>cond_true</a></code> cases.</p></li>
+<li><p><code>cond_false_lbl</code> Text label for <code><a href='cond_false.html'>cond_false</a></code> cases.</p></li>
 <li><p><code>dec_lbl</code> Text label for current decision.</p></li>
-<li><p><code>dec.pos_lbl</code> Text label for <code><a href='dec.pos.html'>dec.pos</a></code> cases.</p></li>
-<li><p><code>dec.neg_lbl</code> Text label for <code><a href='dec.neg.html'>dec.neg</a></code> cases.</p></li>
+<li><p><code>dec_pos_lbl</code> Text label for <code><a href='dec_pos.html'>dec_pos</a></code> cases.</p></li>
+<li><p><code>dec_neg_lbl</code> Text label for <code><a href='dec_neg.html'>dec_neg</a></code> cases.</p></li>
 <li><p><code>hi_lbl</code> Text label for cases of hits <code><a href='hi.html'>hi</a></code>.</p></li>
 <li><p><code>mi_lbl</code> Text label for cases of misses <code><a href='mi.html'>mi</a></code>.</p></li>
 <li><p><code>fa_lbl</code> Text label for cases of false alarms <code><a href='fa.html'>fa</a></code>.</p></li>
@@ -214,13 +214,17 @@ which are each described by 21 variables:</p>
 <li><p><code>scen_apa</code> Source information in APA format.</p></li>
 </ol>
     <p>Note that names of variables (columns)
-correspond to <code><a href='init_txt.html'>init_txt</a></code> (to initialize <code><a href='txt.html'>txt</a></code>)
+correspond to a subset of <code><a href='init_txt.html'>init_txt</a></code> (to initialize <code><a href='txt.html'>txt</a></code>)
 and <code><a href='init_num.html'>init_num</a></code> (to initialize <code><a href='num.html'>num</a></code>).</p>
-<p>See columns <code>scen_src</code> and <code>scen_apa</code>
+<p>See the columns <code>scen_src</code> and <code>scen_apa</code>
 for a scenario's source information.</p>
 <p>The information of <code>scenarios</code> is also contained in an
 R data frame <code><a href='df_scenarios.html'>df_scenarios</a></code> (and generated from
 the corresponding <code>.rda</code> file in <code>/data/</code>).</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='riskyr.html'>riskyr</a></code> initializes a <code>riskyr</code> scenario.</p></div>
     
 
   </div>
@@ -231,6 +235,8 @@ the corresponding <code>.rda</code> file in <code>/data/</code>).</p>
       <li><a href="#format">Format</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

@@ -42,7 +42,7 @@
 <meta property="og:description" content="acc defines overall accuracy
 as the probability of correspondence between a positive decision
 and true condition (i.e., the proportion of correct classification
-decisions or of dec.cor cases)." />
+decisions or of dec_cor cases)." />
 
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -75,7 +75,7 @@ decisions or of dec.cor cases)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@ decisions or of dec.cor cases)." />
     <p><code>acc</code> defines overall accuracy
 as the probability of correspondence between a positive decision
 and true condition (i.e., the proportion of correct classification
-decisions or of <code><a href='dec.cor.html'>dec.cor</a></code> cases).</p>
+decisions or of <code><a href='dec_cor.html'>dec_cor</a></code> cases).</p>
     
     </div>
 
@@ -160,13 +160,13 @@ decisions or of <code><a href='dec.cor.html'>dec.cor</a></code> cases).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Importantly, correct decisions <code><a href='dec.cor.html'>dec.cor</a></code>
-are not necessarily positive decisions <code><a href='dec.pos.html'>dec.pos</a></code>.</p>
+    <p>Importantly, correct decisions <code><a href='dec_cor.html'>dec_cor</a></code>
+are not necessarily positive decisions <code><a href='dec_pos.html'>dec_pos</a></code>.</p>
 <p>Understanding or obtaining the accuracy metric <code>acc</code>:</p>
 <ul>
 <li><p>Definition:
   <code>acc</code> is the (non-conditional) probability:</p>
-<p><code>acc = p(dec.cor) = dec.cor/N</code></p>
+<p><code>acc = p(dec_cor) = dec_cor/N</code></p>
 <p>or the base rate (or baseline probability)
   of a decision being correct, but not necessarily positive.</p>
 <p><code>acc</code> values range
@@ -174,12 +174,12 @@ are not necessarily positive decisions <code><a href='dec.pos.html'>dec.pos</a><
   to 1 (perfect decision/prediction).</p></li>
 <li><p>Computation: <code>acc</code> can be computed in several ways:</p>
 <p>(a) from <code><a href='prob.html'>prob</a></code>: <code>acc = (prev x sens) + [(1 - prev) x spec]</code></p>
-<p>(b) from <code><a href='freq.html'>freq</a></code>: <code>acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
+<p>(b) from <code><a href='freq.html'>freq</a></code>: <code>acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
 <p>(c) as complement of the error rate <code><a href='err.html'>err</a></code>: <code>acc = 1 - err</code></p>
 <p>When frequencies in <code><a href='freq.html'>freq</a></code> are not rounded, (b) coincides with (a) and (c).</p></li>
 <li><p>Perspective:
   <code>acc</code> classifies a population of <code><a href='N.html'>N</a></code> individuals
-  by accuracy/correspondence (<code>acc = dec.cor/N</code>).</p>
+  by accuracy/correspondence (<code>acc = dec_cor/N</code>).</p>
 <p><code>acc</code> is the "by accuracy" or "by correspondence" counterpart
   to <code><a href='prev.html'>prev</a></code> (which adopts a "by condition" perspective) and
   to <code><a href='ppod.html'>ppod</a></code> (which adopts a "by decision" perspective).</p></li>
@@ -188,10 +188,10 @@ are not necessarily positive decisions <code><a href='dec.pos.html'>dec.pos</a><
   non-erroneous cases</p></li>
 <li><p>In terms of frequencies,
   <code>acc</code> is the ratio of
-  <code><a href='dec.cor.html'>dec.cor</a></code> (i.e., <code><a href='hi.html'>hi</a> + <a href='cr.html'>cr</a></code>)
+  <code><a href='dec_cor.html'>dec_cor</a></code> (i.e., <code><a href='hi.html'>hi</a> + <a href='cr.html'>cr</a></code>)
   divided by <code><a href='N.html'>N</a></code> (i.e.,
   <code><a href='hi.html'>hi</a> + <a href='mi.html'>mi</a></code> + <code><a href='fa.html'>fa</a> + <a href='cr.html'>cr</a></code>):</p>
-<p><code>acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p></li>
+<p><code>acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p></li>
 <li><p>Dependencies:
   <code>acc</code> is a feature of both the environment (true condition) and
   of the decision process or diagnostic procedure. It reflects the
@@ -230,7 +230,7 @@ and several possible interpretations of accuracy.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>acc</span> <span class='kw'>&lt;-</span> <span class='fl'>.50</span>     <span class='co'># sets a rate of correct decisions of 50%</span>
-<span class='no'>acc</span> <span class='kw'>&lt;-</span> <span class='fl'>50</span>/<span class='fl'>100</span>  <span class='co'># (dec.cor) for 50 out of 100 individuals</span>
+<span class='no'>acc</span> <span class='kw'>&lt;-</span> <span class='fl'>50</span>/<span class='fl'>100</span>  <span class='co'># (dec_cor) for 50 out of 100 individuals</span>
 <span class='fu'><a href='is_prob.html'>is_prob</a></span>(<span class='no'>acc</span>)   <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -140,42 +140,42 @@
 <td align="right">positive (<code>TRUE</code>):</td>
 <td align="center"><code>hi</code></td>
 <td align="center"><code>fa</code></td>
-<td align="center"><code>dec.pos</code></td>
+<td align="center"><code>dec_pos</code></td>
 <td align="center">
-<code>PPV</code> = <code>hi</code>/<code>dec.pos</code>
+<code>PPV</code> = <code>hi</code>/<code>dec_pos</code>
 </td>
 </tr>
 <tr class="odd">
 <td align="right">negative (<code>FALSE</code>):</td>
 <td align="center"><code>mi</code></td>
 <td align="center"><code>cr</code></td>
-<td align="center"><code>dec.neg</code></td>
+<td align="center"><code>dec_neg</code></td>
 <td align="center">
-<code>NPV</code> = <code>cr</code>/<code>dec.neg</code>
+<code>NPV</code> = <code>cr</code>/<code>dec_neg</code>
 </td>
 </tr>
 <tr class="even">
 <td align="right">Sum:</td>
-<td align="center"><code>cond.true</code></td>
-<td align="center"><code>cond.false</code></td>
+<td align="center"><code>cond_true</code></td>
+<td align="center"><code>cond_false</code></td>
 <td align="center"><code>N</code></td>
 <td align="center">
-<code>prev</code> = <code>cond.true</code>/<code>N</code>
+<code>prev</code> = <code>cond_true</code>/<code>N</code>
 </td>
 </tr>
 <tr class="odd">
 <td align="right">(a) by condition</td>
 <td align="center">
-<code>sens</code> = <code>hi</code>/<code>cond.true</code>
+<code>sens</code> = <code>hi</code>/<code>cond_true</code>
 </td>
 <td align="center">
-<code>spec</code> = <code>cr</code>/<code>cond.false</code>
+<code>spec</code> = <code>cr</code>/<code>cond_false</code>
 </td>
 <td align="center">
-<code>ppod</code> = <code>dec.pos</code>/<code>N</code>
+<code>ppod</code> = <code>dec_pos</code>/<code>N</code>
 </td>
 <td align="center">
-<code>acc</code> = <code>dec.cor</code>/<code>N</code> = (<code>hi</code>+<code>cr</code>)/<code>N</code>
+<code>acc</code> = <code>dec_cor</code>/<code>N</code> = (<code>hi</code>+<code>cr</code>)/<code>N</code>
 </td>
 </tr>
 </tbody>
@@ -190,9 +190,9 @@
 | ----------:  |:--------:|:--------:|:--------:|:--------:|              
 | `rows` | left (`TRUE`):      | right (`FALSE`):     |     Sum:  |  (b) by decision: |  
 | top (`TRUE`):   | `tl`         | `tr`         | `t` | `ptl` = `tl`/`t`  `ptr` = `tr`/`t` |
-| bottom (`FALSE`):  | `bl`       | `br`      | `b` | `NPV` = `cr`/`dec.neg` |
+| bottom (`FALSE`):  | `bl`       | `br`      | `b` | `NPV` = `cr`/`dec_neg` |
 |      Sum:    | `l`  | `r` |       `N` |         `pl` =  `nl`/`N`     |
-| (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond.false` | `pt` = `nt`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
+| (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond_false` | `pt` = `nt`/`N` |  `acc` = `dec_cor`/`N` = (`hi`+`cr`)/`N` |
 
 -->
 <div id="basics" class="section level2">
@@ -250,7 +250,7 @@
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{cond.true} &amp; +\ \ \ \ \ &amp;\texttt{cond.false}   &amp; \textrm{(a)}      \\
+\texttt{N} \ &amp;= \ \texttt{cond_true} &amp; +\ \ \ \ \ &amp;\texttt{cond_false}   &amp; \textrm{(a)}      \\
            \ &amp;= \ (\texttt{hi} + \texttt{mi}) &amp; +\ \ \ \ \ &amp;(\texttt{fa} + \texttt{cr}) \\
 \end{aligned}
 \]</span></p>
@@ -259,7 +259,7 @@
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \ \ \ \ \textrm{(b)}      \\
+\texttt{N} \ &amp;= \ \texttt{dec_pos} &amp; +\ \ \ \ \ &amp;\texttt{dec_neg}   &amp; \ \ \ \ \textrm{(b)}      \\
            \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr})         \\
 \end{aligned}
 \]</span></p>
@@ -284,20 +284,20 @@
 <td align="right">positive (<code>TRUE</code>):</td>
 <td align="center"><code>hi</code></td>
 <td align="center"><code>fa</code></td>
-<td align="center"><code>dec.pos</code></td>
+<td align="center"><code>dec_pos</code></td>
 <td align="center"></td>
 </tr>
 <tr class="odd">
 <td align="right">negative (<code>FALSE</code>):</td>
 <td align="center"><code>mi</code></td>
 <td align="center"><code>cr</code></td>
-<td align="center"><code>dec.neg</code></td>
+<td align="center"><code>dec_neg</code></td>
 <td align="center"></td>
 </tr>
 <tr class="even">
 <td align="right">Sum:</td>
-<td align="center"><code>cond.true</code></td>
-<td align="center"><code>cond.false</code></td>
+<td align="center"><code>cond_true</code></td>
+<td align="center"><code>cond_false</code></td>
 <td align="center"><code>N</code></td>
 <td align="center"></td>
 </tr>
@@ -365,7 +365,7 @@ Example of a 2x2 confusion table in <code>riskyr</code>.
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \ \ \textrm{(c)}  \\
+\texttt{N} \ &amp;= \ \texttt{dec_cor} &amp; +\ \ \ \ \ &amp;\texttt{dec_err}   &amp; \ \ \textrm{(c)}  \\
            \ &amp;= \ (\texttt{hi} + \texttt{cr}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 \]</span></p>
@@ -390,15 +390,15 @@ Arranging a 2x2 confusion table by condition and by accuracy.
 <li>
 <p>Beware of alternative terms for <code>mi</code> and <code>cr</code>:</p>
 <ul>
-<li><p>Misses <code>mi</code> are often called “false negatives” (FN), but are nevertheless cases for which the condition is <code>TRUE</code> (i.e., in the <code>cond.true</code> column of the confusion table).</p></li>
-<li><p>Correct rejections <code>cr</code> are often called “true negatives” (TN), but are nevertheless cases for which the condition is <code>FALSE</code> (i.e., in the <code>cond.false</code> column of the confusion table).</p></li>
+<li><p>Misses <code>mi</code> are often called “false negatives” (FN), but are nevertheless cases for which the condition is <code>TRUE</code> (i.e., in the <code>cond_true</code> column of the confusion table).</p></li>
+<li><p>Correct rejections <code>cr</code> are often called “true negatives” (TN), but are nevertheless cases for which the condition is <code>FALSE</code> (i.e., in the <code>cond_false</code> column of the confusion table).</p></li>
 </ul>
 </li>
 </ol>
 <p>Thus, the terms “true” and “false” are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing <code>mi</code> as “false negatives” and <code>cr</code> as “true negatives”) the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms <code>mi</code> and <code>cr</code>, rather than “false negatives” and “true negatives”.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Beware of alternative terms for <code>dec.cor</code> and <code>dec.err</code>:<br>
-Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would also invite conceptual confusion, as “true decisions” would include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” would include <code>cond.true</code> cases (<code>mi</code>). Again, we prefer the less ambiguous terms “correct decisions” vs. “erroneous decisions”.</li>
+<li>Beware of alternative terms for <code>dec_cor</code> and <code>dec_err</code>:<br>
+Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and <code>dec_err</code> as “true decisions” and “false decisions”. However, this would also invite conceptual confusion, as “true decisions” would include <code>cond_false</code> cases (<code>cr</code>) and “false decisions” would include <code>cond_true</code> cases (<code>mi</code>). Again, we prefer the less ambiguous terms “correct decisions” vs. “erroneous decisions”.</li>
 </ol>
 </div>
 </div>
@@ -411,26 +411,26 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <div id="a--specific-metrics-conditional-probabilities" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--specific-metrics-conditional-probabilities" class="anchor"></a>A. Specific metrics: Conditional probabilities</h3>
-<p>The goal of a specific accuracy metric is to quantify some particular aspect of decision performance. For instance, how accurate is our decision or diagnostic test in correctly detecting <code>cond.true</code> cases? How accurate is it in detecting <code>cond.false</code> cases?</p>
+<p>The goal of a specific accuracy metric is to quantify some particular aspect of decision performance. For instance, how accurate is our decision or diagnostic test in correctly detecting <code>cond_true</code> cases? How accurate is it in detecting <code>cond_false</code> cases?</p>
 <p>As we are dealing with two types of correct decisions (<code>hi</code> and <code>cr</code>) and two perspectives (by columns vs. by rows), we can provide 4 answers to these questions. To obtain a numeric quantity, we divide the frequency of correct cases (either <code>hi</code> or <code>cr</code>) by</p>
 <ol style="list-style-type: lower-alpha">
-<li>column sums (<code>cond.true</code> vs. <code>cond.false</code>): This yields the decision’s <em>sensitivity</em> (<code>sens</code>) and <em>specificity</em> (<code>spec</code>):</li>
+<li>column sums (<code>cond_true</code> vs. <code>cond_false</code>): This yields the decision’s <em>sensitivity</em> (<code>sens</code>) and <em>specificity</em> (<code>spec</code>):</li>
 </ol>
 <p><span class="math display">\[
 \begin{aligned}
-\texttt{sens} \ &amp;= \frac{\texttt{hi}}{\texttt{cond.true}} &amp; \ \ \textrm{(a1)}   \\
+\texttt{sens} \ &amp;= \frac{\texttt{hi}}{\texttt{cond_true}} &amp; \ \ \textrm{(a1)}   \\
 \ \\ 
-\texttt{spec} \ &amp;= \frac{\texttt{cr}}{\texttt{cond.false}} &amp; \ \ \textrm{(a2)}  \\
+\texttt{spec} \ &amp;= \frac{\texttt{cr}}{\texttt{cond_false}} &amp; \ \ \textrm{(a2)}  \\
 \end{aligned}
 \]</span></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>row sums (<code>dec.pos</code> vs. <code>dec.neg</code>): This yields the decision’s <em>positive predictive value</em> (<code>PPV</code>) and <em>negative predictive value</em> (<code>NPV</code>):</li>
+<li>row sums (<code>dec_pos</code> vs. <code>dec_neg</code>): This yields the decision’s <em>positive predictive value</em> (<code>PPV</code>) and <em>negative predictive value</em> (<code>NPV</code>):</li>
 </ol>
 <p><span class="math display">\[
 \begin{aligned}
-\texttt{PPV} \ &amp;= \frac{\texttt{hi}}{\texttt{dec.pos}} &amp; \ \ \ \textrm{(b1)}   \\
+\texttt{PPV} \ &amp;= \frac{\texttt{hi}}{\texttt{dec_pos}} &amp; \ \ \ \textrm{(b1)}   \\
 \ \\ 
-\texttt{NPV} \ &amp;= \frac{\texttt{cr}}{\texttt{dec.neg}} &amp; \ \ \ \textrm{(b2)}   \\
+\texttt{NPV} \ &amp;= \frac{\texttt{cr}}{\texttt{dec_neg}} &amp; \ \ \ \textrm{(b2)}   \\
 \end{aligned}
 \]</span></p>
 </div>
@@ -442,7 +442,7 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <h4 class="hasAnchor">
 <a href="#overall-accuracy-acc" class="anchor"></a>1. Overall accuracy <code>acc</code>
 </h4>
-<p>Overall accuracy (<code>acc</code>) divides the number of correct decisions (i.e., all <code>dec.cor</code> cases or the “" diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
+<p>Overall accuracy (<code>acc</code>) divides the number of correct decisions (i.e., all <code>dec_cor</code> cases or the “" diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
 <blockquote>
 <p>Accuracy <code>acc</code> := Proportion or percentage of cases correctly classified.</p>
 </blockquote>
@@ -450,7 +450,7 @@ Similarly, it may be tempting to refer to instances of <code>dec.cor</code> and 
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{acc} &amp;= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
-             = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
+             = \frac{\texttt{dec_cor}}{\texttt{dec_cor} + \texttt{dec_err}} = \frac{\texttt{dec_cor}}{\texttt{N}}  
 \end{aligned}
 \]</span></p>
 </div>

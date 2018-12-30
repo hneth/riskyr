@@ -74,7 +74,7 @@ pal is changed)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -176,14 +176,12 @@ throughout the <code>riskyr</code> package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal_org</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;                 N              true             false               pos 
-#&gt;       "#E6E6E6FC" "lightgoldenrod1"   "lightskyblue2"      "rosybrown3" 
-#&gt;               neg               cor               err                hi 
-#&gt; "lightsteelblue3"      "palegreen3"      "firebrick3"      "olivedrab4" 
-#&gt;                mi                fa                cr               ppv 
-#&gt;         "tomato3"    "lightsalmon2"      "olivedrab3"         "sienna1" 
-#&gt;               npv               txt               brd 
-#&gt;      "steelblue3"       "#030303FC"       "#333333FC" </div><div class='input'><span class='no'>pal_org</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;           hi 
+    <pre class="examples"><div class='input'><span class='no'>pal_org</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;              N      cond_true     cond_false        dec_pos        dec_neg 
+#&gt;    "#E6E6E6FC"             NA             NA             NA             NA 
+#&gt;        dec_cor        dec_err             hi             mi             fa 
+#&gt;             NA             NA   "olivedrab4"      "tomato3" "lightsalmon2" 
+#&gt;             cr            ppv            npv            txt            brd 
+#&gt;   "olivedrab3"      "sienna1"   "steelblue3"    "#030303FC"    "#333333FC" </div><div class='input'><span class='no'>pal_org</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;           hi 
 #&gt; "olivedrab4" </div><div class='input'><span class='no'>pal_org</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"gold"</span> <span class='co'># defines a new color for hits (true positives, TP)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

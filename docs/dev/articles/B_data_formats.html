@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -117,11 +117,11 @@
 <p>The quest for certainty is the biggest obstacle to becoming risk savvy. (Gerd Gigerenzer)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
 <!-- Introduction: Uncertainty: Risks as probabilities vs. frequencies -->
-<p>A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of <em>risk</em> can be expressed in terms of probabilities and thus be measured and calculated — or “reckoned” — with (Gigerenzer, 2002). Nevertheless, information expressed in probabilities is often difficult to understand, even for statistical experts. A smart and effective way to communicate probabilities is by expressing them in terms of frequencies.</p>
+<p>A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of <em>risk</em> can be expressed in terms of probabilities and thus be measured and calculated or “reckoned” with (Gigerenzer, 2002). Nevertheless, probabilistic information is often difficult to understand, even for experts in risk management and statistics. A smart and effective way to communicate probabilities is by expressing them in terms of frequencies.</p>
 <div id="two-representational-formats" class="section level2">
 <h2 class="hasAnchor">
 <a href="#two-representational-formats" class="anchor"></a>Two representational formats</h2>
-<p>The problems addressed by <code>riskyr</code> and the scientific discussion surrounding them can be framed in terms of two representational formats: <em>frequencies</em> are distinguished from <em>probabilities</em>. (See the <a href="user_guide.html">user guide</a> for background and references.)</p>
+<p>The problems addressed by <code>riskyr</code> and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, information expressed in <em>frequencies</em> is distinguished from information expressed in <em>probabilities</em> (see the <a href="A_user_guide.html">user guide</a> for background and references.)</p>
 <p><code>riskyr</code> reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called <code>freq</code>) and objects that contain probabilities (a list called <code>prob</code>). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined.</p>
 <p>In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following prism (or network) plot shows frequencies as its nodes and probabilities as the edges that link the nodes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>) <span class="co"># load the "riskyr" package</span>
@@ -164,32 +164,32 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </tr>
 <tr class="even">
 <td align="right">2.</td>
-<td align="left"><code>cond.true</code></td>
+<td align="left"><code>cond_true</code></td>
 <td align="left">The number of cases for which the condition is present (<code>TRUE</code>).</td>
 </tr>
 <tr class="odd">
 <td align="right">3.</td>
-<td align="left"><code>cond.false</code></td>
+<td align="left"><code>cond_false</code></td>
 <td align="left">The number of cases for which the condition is absent (<code>FALSE</code>).</td>
 </tr>
 <tr class="even">
 <td align="right">4.</td>
-<td align="left"><code>dec.pos</code></td>
+<td align="left"><code>dec_pos</code></td>
 <td align="left">The number of cases for which the decision is positive (<code>TRUE</code>).</td>
 </tr>
 <tr class="odd">
 <td align="right">5.</td>
-<td align="left"><code>dec.neg</code></td>
+<td align="left"><code>dec_neg</code></td>
 <td align="left">The number of cases for which the decision is negative (<code>FALSE</code>).</td>
 </tr>
 <tr class="even">
 <td align="right">6.</td>
-<td align="left"><code>dec.cor</code></td>
+<td align="left"><code>dec_cor</code></td>
 <td align="left">The number of cases for which the decision is correct (correspondence of decision to condition).</td>
 </tr>
 <tr class="odd">
 <td align="right">7.</td>
-<td align="left"><code>dec.err</code></td>
+<td align="left"><code>dec_err</code></td>
 <td align="left">The number of cases for which the decision is erroneous (difference between decision and condition).</td>
 </tr>
 <tr class="even">
@@ -220,7 +220,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <a href="#perspectives-basic-vs-combined-frequencies" class="anchor"></a>Perspectives: Basic vs. combined frequencies</h3>
 <p>The frequencies contained in <code>freq</code> can be viewed from two perspectives:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Top-down: </strong> From the entire population to different parts or subgroups:<br> Whereas <code>N</code> specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency <code>dec.pos</code> denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to <code>N</code>.</p></li>
+<li><p><strong>Top-down: </strong> From the entire population to different parts or subgroups:<br> Whereas <code>N</code> specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency <code>dec_pos</code> denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to <code>N</code>.</p></li>
 <li><p><strong>Bottom-up: </strong> From the 4 essential subgroups to various combinations of them:<br> As the 4 frequencies <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> are not further split into subgroups, we can think of them as atomic elements or four <em>essential</em> frequencies. All other frequencies in <code>freq</code> are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.</p></li>
 </ol>
 </div>
@@ -242,9 +242,9 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <p>Depending on the criterion used, the following relationships hold:</p>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} &amp;= \texttt{cond.true} + \texttt{cond.false} &amp; \textrm{(a)}\\
-           &amp;= \texttt{dec.pos} + \texttt{dec.neg}      &amp; \textrm{(b)}\\
-           &amp;= \texttt{dec.cor} + \texttt{dec.err}      &amp; \textrm{(c)}\\
+\texttt{N} &amp;= \texttt{cond_true} + \texttt{cond_false} &amp; \textrm{(a)}\\
+           &amp;= \texttt{dec_pos} + \texttt{dec_neg}      &amp; \textrm{(b)}\\
+           &amp;= \texttt{dec_cor} + \texttt{dec_err}      &amp; \textrm{(c)}\\
            &amp;= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} &amp; \textrm{(d)}\\
 \end{aligned}
 \]</span></p>
@@ -254,7 +254,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{cond.true} &amp; +\ \ \ \ \ &amp;\texttt{cond.false}   &amp; \textrm{(a)} \\
+\texttt{N} \ &amp;= \ \texttt{cond_true} &amp; +\ \ \ \ \ &amp;\texttt{cond_false}   &amp; \textrm{(a)} \\
            \ &amp;= \ (\texttt{hi} + \texttt{mi}) &amp; +\ \ \ \ \ &amp;(\texttt{fa} + \texttt{cr}) \\
 \end{aligned}
 \]</span></p>
@@ -263,7 +263,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.pos} &amp; +\ \ \ \ \ &amp;\texttt{dec.neg}   &amp; \ \ \ \ \ \textrm{(b)}  \\
+\texttt{N} \ &amp;= \ \texttt{dec_pos} &amp; +\ \ \ \ \ &amp;\texttt{dec_neg}   &amp; \ \ \ \ \ \textrm{(b)}  \\
            \ &amp;= \ (\texttt{hi} + \texttt{fa}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{cr})   \\
 \end{aligned}
 \]</span></p>
@@ -272,11 +272,11 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </ol>
 <p><span class="math display">\[ 
 \begin{aligned}
-\texttt{N} \ &amp;= \ \texttt{dec.cor} &amp; +\ \ \ \ \ &amp;\texttt{dec.err}   &amp; \ \ \ \ \textrm{(c)}  \\
+\texttt{N} \ &amp;= \ \texttt{dec_cor} &amp; +\ \ \ \ \ &amp;\texttt{dec_err}   &amp; \ \ \ \ \textrm{(c)}  \\
            \ &amp;= \ (\texttt{hi} + \texttt{cr}) &amp; +\ \ \ \ \ &amp;(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 \]</span></p>
-<p>It may be tempting to refer to instances of <code>dec.cor</code> and <code>dec.err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond.false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond.true</code> cases (<code>mi</code>).</p>
+<p>It may be tempting to refer to instances of <code>dec_cor</code> and <code>dec_err</code> as “true decisions” and “false decisions”. However, this would invite conceptual confusion, as “true decisions” actually include <code>cond_false</code> cases (<code>cr</code>) and “false decisions” actually include <code>cond_true</code> cases (<code>mi</code>).</p>
 </div>
 </div>
 <div id="probabilities" class="section level2">
@@ -390,7 +390,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <ul>
 <li>The prevalence <code>prev</code> (1.) only depends on features of the <em>condition</em>.</li>
 <li>The proportion of positive decisions <code>ppod</code> (6.) only depends on features of the <em>decision</em>.</li>
-<li>The accuracy <code>acc</code> (11.) depends on <code>prev</code> and <code>ppod</code>, but unconditionally dissects a population into 2 groups (<code>dec.cor</code> vs. <code>dec.err</code>).</li>
+<li>The accuracy <code>acc</code> (11.) depends on <code>prev</code> and <code>ppod</code>, but unconditionally dissects a population into 2 groups (<code>dec_cor</code> vs. <code>dec_err</code>).</li>
 </ul>
 <p>The other probabilities are <em>conditional</em> probabilities based on 3 perspectives:</p>
 <ol style="list-style-type: decimal">
@@ -456,7 +456,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">prevalence</td>
 <td align="left">The probability of the <em>condition</em> being <code>TRUE</code>.</td>
 <td align="left">
-<code>prev</code> = <code>cond.true</code>/<code>N</code>
+<code>prev</code> = <code>cond_true</code>/<code>N</code>
 </td>
 </tr>
 <tr class="even">
@@ -465,7 +465,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">sensitivity</td>
 <td align="left">The conditional probability of a <em>positive decision</em> provided that the <em>condition</em> is <code>TRUE</code>.</td>
 <td align="left">
-<code>sens</code> = <code>hi</code>/<code>cond.true</code>
+<code>sens</code> = <code>hi</code>/<code>cond_true</code>
 </td>
 </tr>
 <tr class="odd">
@@ -474,7 +474,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">miss rate</td>
 <td align="left">The conditional probability of a <em>negative decision</em> provided that the <em>condition</em> is <code>TRUE</code>.</td>
 <td align="left">
-<code>mirt</code> = <code>mi</code>/<code>cond.true</code>
+<code>mirt</code> = <code>mi</code>/<code>cond_true</code>
 </td>
 </tr>
 <tr class="even">
@@ -483,7 +483,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">specificity</td>
 <td align="left">The conditional probability of a <em>negative decision</em> provided that the <em>condition</em> is <code>FALSE</code>.</td>
 <td align="left">
-<code>spec</code> = <code>cr</code>/<code>cond.false</code>
+<code>spec</code> = <code>cr</code>/<code>cond_false</code>
 </td>
 </tr>
 <tr class="odd">
@@ -492,7 +492,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">false alarm rate</td>
 <td align="left">The conditional probability of a <em>positive decision</em> provided that the <em>condition</em> is <code>FALSE</code>.</td>
 <td align="left">
-<code>fart</code> = <code>fa</code>/<code>cond.false</code>
+<code>fart</code> = <code>fa</code>/<code>cond_false</code>
 </td>
 </tr>
 <tr class="even">
@@ -501,7 +501,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">proportion of positive decisions</td>
 <td align="left">The proportion (baseline probability or rate) of the <em>decision</em> being <em>positive</em> (but <em>not</em> necessarily <code>TRUE</code>).</td>
 <td align="left">
-<code>ppod</code> = <code>dec.pos</code>/<code>N</code>
+<code>ppod</code> = <code>dec_pos</code>/<code>N</code>
 </td>
 </tr>
 <tr class="odd">
@@ -510,7 +510,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">positive predictive value</td>
 <td align="left">The conditional probability of the <em>condition</em> being <code>TRUE</code> provided that the <em>decision</em> is <em>positive</em>.</td>
 <td align="left">
-<code>PPV</code> = <code>hi</code>/<code>dec.pos</code>
+<code>PPV</code> = <code>hi</code>/<code>dec_pos</code>
 </td>
 </tr>
 <tr class="even">
@@ -519,7 +519,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">false detection rate</td>
 <td align="left">The conditional probability of the <em>condition</em> being <code>FALSE</code> provided that the <em>decision</em> is <em>positive</em>.</td>
 <td align="left">
-<code>FDR</code> = <code>fa</code>/<code>dec.pos</code>
+<code>FDR</code> = <code>fa</code>/<code>dec_pos</code>
 </td>
 </tr>
 <tr class="odd">
@@ -528,7 +528,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">negative predictive value</td>
 <td align="left">The conditional probability of the <em>condition</em> being <code>FALSE</code> provided that the <em>decision</em> is <em>negative</em>.</td>
 <td align="left">
-<code>NPV</code> = <code>cr</code>/<code>dec.neg</code>
+<code>NPV</code> = <code>cr</code>/<code>dec_neg</code>
 </td>
 </tr>
 <tr class="even">
@@ -537,7 +537,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">false omission rate</td>
 <td align="left">The conditional probability of the <em>condition</em> being <code>TRUE</code> provided that the <em>decision</em> is <em>negative</em>.</td>
 <td align="left">
-<code>FOR</code> = <code>mi</code>/<code>dec.neg</code>
+<code>FOR</code> = <code>mi</code>/<code>dec_neg</code>
 </td>
 </tr>
 <tr class="odd">
@@ -546,7 +546,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">accuracy</td>
 <td align="left">The probability of a <em>correct decision</em> (i.e., correspondence of decisions to conditions).</td>
 <td align="left">
-<code>acc</code> = <code>dec.cor</code>/<code>N</code>
+<code>acc</code> = <code>dec_cor</code>/<code>N</code>
 </td>
 </tr>
 <tr class="even">
@@ -555,7 +555,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">–</td>
 <td align="left">The conditional probability of the <em>condition</em> being <code>TRUE</code> provided that a decision or prediction is <em>accurate</em>.</td>
 <td align="left">
-<code>p_acc_hi</code> = <code>hi</code>/<code>dec.cor</code>
+<code>p_acc_hi</code> = <code>hi</code>/<code>dec_cor</code>
 </td>
 </tr>
 <tr class="odd">
@@ -564,7 +564,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <td align="left">–</td>
 <td align="left">The conditional probability of the <em>condition</em> being <code>FALSE</code> provided that a decision or prediction is <em>inaccurate</em> or <em>erroneous</em>.</td>
 <td align="left">
-<code>p_err_fa</code> = <code>fa</code>/<code>dec.err</code>
+<code>p_err_fa</code> = <code>fa</code>/<code>dec_err</code>
 </td>
 </tr>
 </tbody>
@@ -575,13 +575,13 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 </ol>
 <ul>
 <li>
-<code>prev</code> = <code>cond.true</code>/<code>N</code>
+<code>prev</code> = <code>cond_true</code>/<code>N</code>
 </li>
 <li>
-<code>ppod</code> = <code>dec.pos</code>/<code>N</code>
+<code>ppod</code> = <code>dec_pos</code>/<code>N</code>
 </li>
 <li>
-<code>acc</code> = <code>dec.cor</code>/<code>N</code>
+<code>acc</code> = <code>dec_cor</code>/<code>N</code>
 </li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
@@ -624,7 +624,7 @@ A prism plot showing how probabilities can be computed as ratios of frequencies.
 <a href="#your-tasks" class="anchor"></a>Your tasks</h3>
 <ol style="list-style-type: decimal">
 <li><p>Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?</p></li>
-<li><p>What is the frequency of <code>dec.cor</code> and <code>dec.err</code> cases? Where do these cases appear in the diagram?</p></li>
+<li><p>What is the frequency of <code>dec_cor</code> and <code>dec_err</code> cases? Where do these cases appear in the diagram?</p></li>
 <li><p>The parameter values in the example do not require any rounding of frequencies. Change them (e.g., to <code>N = 5</code>) and explore what happens when alternating between <code>scale = "f"</code> and <code>scale = "p"</code>.</p></li>
 </ol>
 </div>

@@ -21,13 +21,15 @@ reference:
 - title: Initialization of riskyr scenarios
   desc: Basic scenario definitions and corresponding collections.
   contents:
+  - num
   - starts_with("init_")
   - starts_with("pal")
   - starts_with("txt")
   - matches("riskyr")
   - matches("scenarios")
-  - popu
   - accu
+  - popu
+  - read_popu
 - title: Probabilities
   desc: Variables representing probability information.
   contents:
@@ -37,38 +39,44 @@ reference:
   - mirt
   - spec
   - fart
+  - ppod
   - PPV
   - NPV
   - FDR
   - FOR
   - acc
+  - err
 - title: Frequencies
   desc: Variables representing subsets of the population.
   contents:
   - freq
-  - N
-  - starts_with("cond_")
+  - "`N`"
+  - "`cond_false`"
+  - "`cond_true`"
   - starts_with("dec_")
   - hi
   - mi
   - fa
   - cr
-- title: Computation, translation, and validation
-  desc: Computing parameters and verifying and translating between representational formats.
+- title: Computation
+  desc: Computing parameters and changing representational formats.
   contents:
   - starts_with("comp_")
-  - starts_with("is_")
-  - starts_with("as_")
 - title: Visualization
   desc: Create graphical representations of riskyr scenarios.
   contents:
   - starts_with("plot")
+- title: Translation and validation
+  desc: Verifying and translating between representational formats.
+  contents:
+  - starts_with("is_")
+  - starts_with("as_")
 
 figures:
   dev: grDevices::png
   dpi: 96
   dev.args: []
   fig.ext: png
-  fig.width: 7.2
-  fig.height: 4.8
+  fig.width: 7
+  fig.height: 5
   fig.retina: 2

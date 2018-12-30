@@ -75,7 +75,7 @@ from the current frequency information
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -153,9 +153,9 @@ from the current frequency information
     </div>
 
     <pre class="usage"><span class='fu'>comp_popu</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>hi</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>mi</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>fa</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>cr</span>,
-  <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_lbl</span>, <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.true_lbl</span>,
-  <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.false_lbl</span>, <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_lbl</span>,
-  <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.pos_lbl</span>, <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.neg_lbl</span>,
+  <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_lbl</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_true_lbl</span>,
+  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_false_lbl</span>, <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_lbl</span>,
+  <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_pos_lbl</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_neg_lbl</span>,
   <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>sdt_lbl</span>, <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>,
   <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>)</pre>
     
@@ -183,24 +183,24 @@ from the current frequency information
       <td><p>Text label for condition dimension ("by cd" perspective).</p></td>
     </tr>
     <tr>
-      <th>cond.true_lbl</th>
-      <td><p>Text label for <code><a href='cond.true.html'>cond.true</a></code> cases.</p></td>
+      <th>cond_true_lbl</th>
+      <td><p>Text label for <code><a href='cond_true.html'>cond_true</a></code> cases.</p></td>
     </tr>
     <tr>
-      <th>cond.false_lbl</th>
-      <td><p>Text label for <code><a href='cond.false.html'>cond.false</a></code> cases.</p></td>
+      <th>cond_false_lbl</th>
+      <td><p>Text label for <code><a href='cond_false.html'>cond_false</a></code> cases.</p></td>
     </tr>
     <tr>
       <th>dec_lbl</th>
       <td><p>Text label for decision dimension ("by dc" perspective).</p></td>
     </tr>
     <tr>
-      <th>dec.pos_lbl</th>
-      <td><p>Text label for <code><a href='dec.pos.html'>dec.pos</a></code> cases.</p></td>
+      <th>dec_pos_lbl</th>
+      <td><p>Text label for <code><a href='dec_pos.html'>dec_pos</a></code> cases.</p></td>
     </tr>
     <tr>
-      <th>dec.neg_lbl</th>
-      <td><p>Text label for <code><a href='dec.neg.html'>dec.neg</a></code> cases.</p></td>
+      <th>dec_neg_lbl</th>
+      <td><p>Text label for <code><a href='dec_neg.html'>dec_neg</a></code> cases.</p></td>
     </tr>
     <tr>
       <th>sdt_lbl</th>
@@ -282,8 +282,8 @@ is provided by <code>plot_icon</code>.</p>
 #&gt; 10 False Negative    TN</div><div class='input'>
 <span class='co'># (B) Intervention/treatment scenario:</span>
 <span class='fu'>comp_popu</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-          <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Treatment"</span>, <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='st'>"pill"</span>, <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='st'>"placebo"</span>,
-          <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Health status"</span>, <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='st'>"healthy"</span>, <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='st'>"sick"</span>)</div><div class='output co'>#&gt;    Treatment Health status Cases
+          <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Treatment"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"pill"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"placebo"</span>,
+          <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Health status"</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"healthy"</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"sick"</span>)</div><div class='output co'>#&gt;    Treatment Health status Cases
 #&gt; 1       pill       healthy    TP
 #&gt; 2       pill       healthy    TP
 #&gt; 3       pill       healthy    TP
@@ -296,8 +296,8 @@ is provided by <code>plot_icon</code>.</p>
 #&gt; 10   placebo          sick    TN</div><div class='input'>
 <span class='co'># (C) Prevention scenario (e.g., vaccination):</span>
 <span class='fu'>comp_popu</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-          <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Vaccination"</span>, <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='st'>"no"</span>,
-          <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Disease"</span>, <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='st'>"no flu"</span>, <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='st'>"flu"</span>)</div><div class='output co'>#&gt;    Vaccination Disease Cases
+          <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Vaccination"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"no"</span>,
+          <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Disease"</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"no flu"</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"flu"</span>)</div><div class='output co'>#&gt;    Vaccination Disease Cases
 #&gt; 1          yes  no flu    TP
 #&gt; 2          yes  no flu    TP
 #&gt; 3          yes  no flu    TP

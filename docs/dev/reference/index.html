@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -152,6 +152,12 @@
         </th>
       </tr>
       <tr>
+        
+        <td>
+          <p><code><a href="num.html">num</a></code> </p>
+        </td>
+        <td><p>List current values of basic numeric variables.</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="init_num.html">init_num()</a></code> </p>
@@ -274,15 +280,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="accu.html">accu</a></code> </p>
+        </td>
+        <td><p>A list containing current accuracy information.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="popu.html">popu</a></code> </p>
         </td>
         <td><p>A population table based on current frequencies.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="accu.html">accu</a></code> </p>
+          <p><code><a href="read_popu.html">read_popu()</a></code> </p>
         </td>
-        <td><p>A list containing current accuracy information.</p></td>
+        <td><p>Read a population (given as data frame) into a riskyr scenario.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -330,6 +342,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="ppod.html">ppod</a></code> </p>
+        </td>
+        <td><p>The proportion (or baseline) of a positive decision.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="PPV.html">PPV</a></code> </p>
         </td>
         <td><p>The positive predictive value of a decision process or diagnostic procedure.</p></td>
@@ -357,6 +375,12 @@
           <p><code><a href="acc.html">acc</a></code> </p>
         </td>
         <td><p>Accuracy (acc) is the probability of a correct decision.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="err.html">err</a></code> </p>
+        </td>
+        <td><p>Error rate (err) as the probability of an incorrect decision.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -374,37 +398,43 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="cond.false.html">cond.false</a></code> </p>
+          <p><code><a href="N.html">N</a></code> </p>
+        </td>
+        <td><p>Number of individuals in the population.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cond_false.html">cond_false</a></code> </p>
         </td>
         <td><p>Number of individuals for which the condition is false.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="cond.true.html">cond.true</a></code> </p>
+          <p><code><a href="cond_true.html">cond_true</a></code> </p>
         </td>
         <td><p>Number of individuals for which the condition is true.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="dec.cor.html">dec.cor</a></code> </p>
+          <p><code><a href="dec_cor.html">dec_cor</a></code> </p>
         </td>
         <td><p>Number of individuals for which the decision is correct.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="dec.err.html">dec.err</a></code> </p>
+          <p><code><a href="dec_err.html">dec_err</a></code> </p>
         </td>
         <td><p>Number of individuals for which the decision is erroneous.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="dec.neg.html">dec.neg</a></code> </p>
+          <p><code><a href="dec_neg.html">dec_neg</a></code> </p>
         </td>
         <td><p>Number of individuals for which the decision is negative.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="dec.pos.html">dec.pos</a></code> </p>
+          <p><code><a href="dec_pos.html">dec_pos</a></code> </p>
         </td>
         <td><p>Number of individuals for which the decision is positive.</p></td>
       </tr><tr>
@@ -435,8 +465,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-computation-translation-and-validation" class="hasAnchor"><a href="#section-computation-translation-and-validation" class="anchor"></a>Computation, translation, and validation</h2>
-          <p class="section-desc"><p>Computing parameters and verifying and translating between representational formats.</p></p>
+          <h2 id="section-computation" class="hasAnchor"><a href="#section-computation" class="anchor"></a>Computation</h2>
+          <p class="section-desc"><p>Computing parameters and changing representational formats.</p></p>
         </th>
       </tr>
       <tr>
@@ -589,73 +619,6 @@
           <p><code><a href="comp_spec.html">comp_spec()</a></code> </p>
         </td>
         <td><p>Compute a decision's specificity from its false alarm rate.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_complement.html">is_complement()</a></code> </p>
-        </td>
-        <td><p>Verify that two numbers are complements.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_extreme_prob_set.html">is_extreme_prob_set()</a></code> </p>
-        </td>
-        <td><p>Verify that a set of probabilities describes an extreme case.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_freq.html">is_freq()</a></code> </p>
-        </td>
-        <td><p>Verify that input is a frequency (positive integer value).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_perc.html">is_perc()</a></code> </p>
-        </td>
-        <td><p>Verify that input is a percentage (numeric value from 0 to 100).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_prob.html">is_prob()</a></code> </p>
-        </td>
-        <td><p>Verify that input is a probability (numeric value from 0 to 1).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_suff_prob_set.html">is_suff_prob_set()</a></code> </p>
-        </td>
-        <td><p>Verify a sufficient set of probability inputs.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_valid_prob_pair.html">is_valid_prob_pair()</a></code> </p>
-        </td>
-        <td><p>Verify that a pair of probability inputs
-can be a pair of complementary probabilities.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_valid_prob_set.html">is_valid_prob_set()</a></code> </p>
-        </td>
-        <td><p>Verify that a set of probability inputs is valid.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_valid_prob_triple.html">is_valid_prob_triple()</a></code> </p>
-        </td>
-        <td><p>Verify that a triple of essential probability inputs is valid.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_pb.html">as_pb()</a></code> </p>
-        </td>
-        <td><p>Display a percentage as a (numeric and rounded) probability.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_pc.html">as_pc()</a></code> </p>
-        </td>
-        <td><p>Display a probability as a (numeric and rounded) percentage.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -739,6 +702,81 @@ as a function of sensitivity and specificity.</p></td>
         </td>
         <td><p>Plot a tree diagram of frequencies and probabilities.</p></td>
       </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-translation-and-validation" class="hasAnchor"><a href="#section-translation-and-validation" class="anchor"></a>Translation and validation</h2>
+          <p class="section-desc"><p>Verifying and translating between representational formats.</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="is_complement.html">is_complement()</a></code> </p>
+        </td>
+        <td><p>Verify that two numbers are complements.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_extreme_prob_set.html">is_extreme_prob_set()</a></code> </p>
+        </td>
+        <td><p>Verify that a set of probabilities describes an extreme case.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_freq.html">is_freq()</a></code> </p>
+        </td>
+        <td><p>Verify that input is a frequency (positive integer value).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_perc.html">is_perc()</a></code> </p>
+        </td>
+        <td><p>Verify that input is a percentage (numeric value from 0 to 100).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_prob.html">is_prob()</a></code> </p>
+        </td>
+        <td><p>Verify that input is a probability (numeric value from 0 to 1).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_suff_prob_set.html">is_suff_prob_set()</a></code> </p>
+        </td>
+        <td><p>Verify a sufficient set of probability inputs.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_valid_prob_pair.html">is_valid_prob_pair()</a></code> </p>
+        </td>
+        <td><p>Verify that a pair of probability inputs
+can be a pair of complementary probabilities.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_valid_prob_set.html">is_valid_prob_set()</a></code> </p>
+        </td>
+        <td><p>Verify that a set of probability inputs is valid.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_valid_prob_triple.html">is_valid_prob_triple()</a></code> </p>
+        </td>
+        <td><p>Verify that a triple of essential probability inputs is valid.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_pb.html">as_pb()</a></code> </p>
+        </td>
+        <td><p>Display a percentage as a (numeric and rounded) probability.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_pc.html">as_pc()</a></code> </p>
+        </td>
+        <td><p>Display a probability as a (numeric and rounded) percentage.</p></td>
+      </tr>
     </tbody>
     </table>
   </div>
@@ -749,8 +787,9 @@ as a function of sensitivity and specificity.</p></td>
       <li><a href="#section-initialization-of-riskyr-scenarios">Initialization of riskyr scenarios</a></li>
       <li><a href="#section-probabilities">Probabilities</a></li>
       <li><a href="#section-frequencies">Frequencies</a></li>
-      <li><a href="#section-computation-translation-and-validation">Computation, translation, and validation</a></li>
+      <li><a href="#section-computation">Computation</a></li>
       <li><a href="#section-visualization">Visualization</a></li>
+      <li><a href="#section-translation-and-validation">Translation and validation</a></li>
     </ul>
   </div>
 </div>

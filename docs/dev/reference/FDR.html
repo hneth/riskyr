@@ -74,7 +74,7 @@ being FALSE provided that the decision is positive." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -168,8 +168,8 @@ or false discovery rate (<code>FDR</code>):</p>
 <p><code>FDR = p(condition = FALSE | decision = positive)</code></p></li>
 <li><p>Perspective:
   <code>FDR</code> further classifies
-  the subset of <code><a href='dec.pos.html'>dec.pos</a></code> individuals
-  by condition (<code>FDR = fa/dec.pos = fa/(hi + fa)</code>).</p></li>
+  the subset of <code><a href='dec_pos.html'>dec_pos</a></code> individuals
+  by condition (<code>FDR = fa/dec_pos = fa/(hi + fa)</code>).</p></li>
 <li><p>Alternative names:
   false discovery rate</p></li>
 <li><p>Relationships:</p>
@@ -182,9 +182,9 @@ or false discovery rate (<code>FDR</code>):</p>
 <p><code>fart = p(decision = positive | condition = FALSE)</code></p></li>
 <li><p>In terms of frequencies,
   <code>FDR</code> is the ratio of
-  <code><a href='fa.html'>fa</a></code> divided by <code><a href='dec.pos.html'>dec.pos</a></code>
+  <code><a href='fa.html'>fa</a></code> divided by <code><a href='dec_pos.html'>dec_pos</a></code>
   (i.e., <code><a href='hi.html'>hi</a> + <a href='fa.html'>fa</a></code>):</p>
-<p><code>FDR = fa/dec.pos = fa/(hi + fa)</code></p></li>
+<p><code>FDR = fa/dec_pos = fa/(hi + fa)</code></p></li>
 <li><p>Dependencies:
   <code>FDR</code> is a feature of a decision process
   or diagnostic procedure and

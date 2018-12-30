@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -282,9 +282,9 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <a href="#tree-diagram" class="anchor"></a>Tree diagram</h4>
 <p>A <em>tree diagram</em> is the upper half of a prism plot, which can be obtained by plotting a scenario with 1 of 3 perspectives:</p>
 <ol style="list-style-type: decimal">
-<li>by condition (<code>by = "cd"</code>), to split the population into <em>TRUE</em> vs. <em>FALSE</em> (<code>cond.true</code> vs. <code>cond.false</code>) cases;</li>
-<li>by decision (<code>by = "dc"</code>), to split the population into <em>negative</em> vs. <em>positive</em> (<code>dec.neg</code> vs. <code>dec.pos</code>) decisions;</li>
-<li>by accuracy (<code>by = "ac"</code>), to split the population into <em>correct</em> vs. <em>incorrect</em> (<code>dec.cor</code> vs. <code>dec.err</code>) decisions.</li>
+<li>by condition (<code>by = "cd"</code>), to split the population into <em>TRUE</em> vs. <em>FALSE</em> (<code>cond_true</code> vs. <code>cond_false</code>) cases;</li>
+<li>by decision (<code>by = "dc"</code>), to split the population into <em>negative</em> vs. <em>positive</em> (<code>dec_neg</code> vs. <code>dec_pos</code>) decisions;</li>
+<li>by accuracy (<code>by = "ac"</code>), to split the population into <em>correct</em> vs. <em>incorrect</em> (<code>dec_cor</code> vs. <code>dec_err</code>) decisions.</li>
 </ol>
 <p>For instance, the following command plots a frequency tree by decisions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(hustosis, <span class="dt">by =</span> <span class="st">"dc"</span>)  <span class="co"># plot a tree diagram (by decision)</span></code></pre></div>

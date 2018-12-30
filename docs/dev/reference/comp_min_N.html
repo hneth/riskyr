@@ -42,7 +42,7 @@
 <meta property="og:description" content="comp_min_N computes a population size value N (an integer
 as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
 (i.e., the cells of the confusion table, or center row of boxes in the frequency prism)
-reach or exceed a minimum value min.freq given the basic parameters
+reach or exceed a minimum value min_freq given the basic parameters
 prev, sens, and spec (spec = 1 - fart)." />
 
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
@@ -76,7 +76,7 @@ prev, sens, and spec (spec = 1 - fart)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -149,12 +149,12 @@ prev, sens, and spec (spec = 1 - fart)." />
     <p><code>comp_min_N</code> computes a population size value <code><a href='N.html'>N</a></code> (an integer
 as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
 (i.e., the cells of the confusion table, or center row of boxes in the frequency prism)
-reach or exceed a minimum value <code>min.freq</code> given the basic parameters
+reach or exceed a minimum value <code>min_freq</code> given the basic parameters
 <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, and <code><a href='spec.html'>spec</a></code> (<code>spec = 1 - <a href='fart.html'>fart</a></code>).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>comp_min_N</span>(<span class='no'>prev</span>, <span class='no'>sens</span>, <span class='no'>spec</span>, <span class='kw'>min.freq</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>comp_min_N</span>(<span class='no'>prev</span>, <span class='no'>sens</span>, <span class='no'>spec</span>, <span class='kw'>min_freq</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,10 +177,10 @@ of a positive decision provided that the condition is TRUE).</p></td>
 of a negative decision provided that the condition is FALSE).</p></td>
     </tr>
     <tr>
-      <th>min.freq</th>
+      <th>min_freq</th>
       <td><p>The minimum frequency of each combination of
 a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
-Default: <code>min.freq = 1</code>.</p></td>
+Default: <code>min_freq = 1</code>.</p></td>
     </tr>
     </table>
     
@@ -195,7 +195,7 @@ Default: <code>min.freq = 1</code>.</p></td>
 when expressing combinations of conditions and decisions as natural frequencies.
 As values of zero (0) are tolerable, the function only increases <code><a href='N.html'>N</a></code>
 (in powers of 10) while the current value of any frequency (cell in confusion table or
-leaf of a frequency tree) is positive but below <code>min.freq</code>.</p>
+leaf of a frequency tree) is positive but below <code>min_freq</code>.</p>
 <p>By default, <code><a href='comp_freq_prob.html'>comp_freq_prob</a></code> and <code><a href='comp_freq.html'>comp_freq</a></code>
 round frequencies to nearest integers to avoid decimal values in
 <code><a href='freq.html'>freq</a></code> (i.e., <code>round = TRUE</code> by default).
@@ -220,11 +220,11 @@ Using the option <code>round = FALSE</code> turns off rounding.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)  <span class='co'># =&gt; 1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)  <span class='co'># =&gt; 1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'>
-<span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>min.freq</span> <span class='kw'>=</span> <span class='fl'>10</span>)  <span class='co'># =&gt;  10</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>min.freq</span> <span class='kw'>=</span> <span class='fl'>99</span>)  <span class='co'># =&gt; 100</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'>
+#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)  <span class='co'># =&gt; 1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'>
+<span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>min_freq</span> <span class='kw'>=</span> <span class='fl'>10</span>)  <span class='co'># =&gt;  10</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>min_freq</span> <span class='kw'>=</span> <span class='fl'>99</span>)  <span class='co'># =&gt; 100</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'>
 <span class='fu'>comp_min_N</span>(<span class='fl'>.1</span>, <span class='fl'>.1</span>, <span class='fl'>.1</span>)        <span class='co'># =&gt;       100 = 10^2</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>.001</span>, <span class='fl'>.1</span>, <span class='fl'>.1</span>)      <span class='co'># =&gt;    10 000 = 10^4</span></div><div class='output co'>#&gt; [1] 10000</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>.001</span>, <span class='fl'>.001</span>, <span class='fl'>.1</span>)    <span class='co'># =&gt; 1 000 000 = 10^6</span></div><div class='output co'>#&gt; [1] 1e+06</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>.001</span>, <span class='fl'>.001</span>, <span class='fl'>.001</span>)  <span class='co'># =&gt; 1 000 000 = 10^6</span></div><div class='output co'>#&gt; [1] 1e+06</div><div class='input'>
 </div></pre>
   </div>

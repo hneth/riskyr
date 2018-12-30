@@ -74,7 +74,7 @@ the current scenario and used throughout the riskyr package)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9630</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
       </span>
     </div>
 
@@ -150,10 +150,10 @@ the current scenario and used throughout the <code>riskyr</code> package).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>init_pal</span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"N"</span>], <span class='kw'>cond.true_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"true"</span>],
-  <span class='kw'>cond.false_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"false"</span>], <span class='kw'>dec.pos_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"pos"</span>],
-  <span class='kw'>dec.neg_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"neg"</span>], <span class='kw'>dec.cor_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cor"</span>],
-  <span class='kw'>dec.err_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"err"</span>], <span class='kw'>hi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"hi"</span>],
+    <pre class="usage"><span class='fu'>init_pal</span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"N"</span>], <span class='kw'>cond_true_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"true"</span>],
+  <span class='kw'>cond_false_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"false"</span>], <span class='kw'>dec_pos_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"pos"</span>],
+  <span class='kw'>dec_neg_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"neg"</span>], <span class='kw'>dec_cor_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cor"</span>],
+  <span class='kw'>dec_err_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"err"</span>], <span class='kw'>hi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"hi"</span>],
   <span class='kw'>mi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"mi"</span>], <span class='kw'>fa_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"fa"</span>],
   <span class='kw'>cr_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cr"</span>], <span class='kw'>PPV_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"ppv"</span>],
   <span class='kw'>NPV_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"npv"</span>], <span class='kw'>txt_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"txt"</span>],
@@ -167,28 +167,28 @@ the current scenario and used throughout the <code>riskyr</code> package).</p>
       <td><p>Color representing the <em>population</em> of <code><a href='N.html'>N</a></code> cases or individuals.</p></td>
     </tr>
     <tr>
-      <th>cond.true_col</th>
-      <td><p>Color representing cases of <code><a href='cond.true.html'>cond.true</a></code>, for which the current condition is <code>TRUE</code>.</p></td>
+      <th>cond_true_col</th>
+      <td><p>Color representing cases of <code><a href='cond_true.html'>cond_true</a></code>, for which the current condition is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
-      <th>cond.false_col</th>
-      <td><p>Color representing cases of in <code><a href='cond.false.html'>cond.false</a></code>, for which the current condition is <code>FALSE</code>.</p></td>
+      <th>cond_false_col</th>
+      <td><p>Color representing cases of in <code><a href='cond_false.html'>cond_false</a></code>, for which the current condition is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.pos_col</th>
-      <td><p>Color representing cases of <code><a href='dec.pos.html'>dec.pos</a></code>, for which the current decision is <code>positive</code>.</p></td>
+      <th>dec_pos_col</th>
+      <td><p>Color representing cases of <code><a href='dec_pos.html'>dec_pos</a></code>, for which the current decision is <code>positive</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.neg_col</th>
-      <td><p>Color representing cases in <code><a href='dec.neg.html'>dec.neg</a></code>, for which the current decision is <code>negative</code>.</p></td>
+      <th>dec_neg_col</th>
+      <td><p>Color representing cases in <code><a href='dec_neg.html'>dec_neg</a></code>, for which the current decision is <code>negative</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.cor_col</th>
-      <td><p>Color representing cases of correct decisions <code><a href='dec.cor.html'>dec.cor</a></code>, for which the current decision is <code>accurate</code>.</p></td>
+      <th>dec_cor_col</th>
+      <td><p>Color representing cases of correct decisions <code><a href='dec_cor.html'>dec_cor</a></code>, for which the current decision is <code>accurate</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.err_col</th>
-      <td><p>Color representing cases in erroneous decisions <code><a href='dec.err.html'>dec.err</a></code>, for which the current decision is <code>inaccurate</code>.</p></td>
+      <th>dec_err_col</th>
+      <td><p>Color representing cases in erroneous decisions <code><a href='dec_err.html'>dec_err</a></code>, for which the current decision is <code>inaccurate</code>.</p></td>
     </tr>
     <tr>
       <th>hi_col</th>
@@ -254,14 +254,12 @@ new colors to existing names.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>init_pal</span>()          <span class='co'># =&gt; define and return a vector of current (default) colors</span></div><div class='output co'>#&gt;                 N              true             false               pos 
-#&gt;       "#E6E6E6FC" "lightgoldenrod1"   "lightskyblue2"      "rosybrown3" 
-#&gt;               neg               cor               err                hi 
-#&gt; "lightsteelblue3"      "palegreen3"      "firebrick3"      "olivedrab4" 
-#&gt;                mi                fa                cr               ppv 
-#&gt;         "tomato3"    "lightsalmon2"      "olivedrab3"         "sienna1" 
-#&gt;               npv               txt               brd 
-#&gt;      "steelblue3"       "#030303FC"       "#333333FC" </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='fu'>init_pal</span>())  <span class='co'># =&gt; 15 named colors</span></div><div class='output co'>#&gt; [1] 15</div><div class='input'><span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'>init_pal</span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='st'>"steelblue4"</span>)  <span class='co'># =&gt; change a color (stored in pal)</span>
+    <pre class="examples"><div class='input'><span class='fu'>init_pal</span>()          <span class='co'># =&gt; define and return a vector of current (default) colors</span></div><div class='output co'>#&gt;              N      cond_true     cond_false        dec_pos        dec_neg 
+#&gt;    "#E6E6E6FC"             NA             NA             NA             NA 
+#&gt;        dec_cor        dec_err             hi             mi             fa 
+#&gt;             NA             NA   "olivedrab4"      "tomato3" "lightsalmon2" 
+#&gt;             cr            ppv            npv            txt            brd 
+#&gt;   "olivedrab3"      "sienna1"   "steelblue3"    "#030303FC"    "#333333FC" </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='fu'>init_pal</span>())  <span class='co'># =&gt; 15 named colors</span></div><div class='output co'>#&gt; [1] 15</div><div class='input'><span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'>init_pal</span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='st'>"steelblue4"</span>)  <span class='co'># =&gt; change a color (stored in pal)</span>
 <span class='no'>pal</span> <span class='kw'>&lt;-</span> <span class='fu'>init_pal</span>(<span class='kw'>brd_col</span> <span class='kw'>=</span> <span class='fl'>NA</span>)          <span class='co'># =&gt; remove a color</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
