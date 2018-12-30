@@ -35,13 +35,13 @@ without rounding.
 Definition: \code{ppod} is
 proportion (or probability) of positive decisions:
 
-\code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
+\code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 
 Values range from 0 (only negative decisions)
 to 1 (only positive decisions).
 
-Importantly, positive decisions \code{\link{dec.pos}}
-are not necessarily correct decisions \code{\link{dec.cor}}.
+Importantly, positive decisions \code{\link{dec_pos}}
+are not necessarily correct decisions \code{\link{dec_cor}}.
 }
 \examples{
 # (1) ways to work:

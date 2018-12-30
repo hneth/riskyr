@@ -3,7 +3,7 @@
 \docType{data}
 \name{ppod}
 \alias{ppod}
-\alias{baserate_dec.pos}
+\alias{baserate_dec_pos}
 \alias{PR}
 \title{The proportion (or baseline) of a positive decision.}
 \format{An object of class \code{numeric} of length 1.}
@@ -29,7 +29,7 @@ or the base rate (or baseline probability)
 
 \item Perspective:
   \code{ppod} classifies a population of \code{\link{N}} individuals
-  by decision (\code{ppod = dec.pos/N}).
+  by decision (\code{ppod = dec_pos/N}).
 
 \code{ppod} is the "by decision" counterpart to \code{\link{prev}}
   (which adopts a "by condition" perspective).
@@ -41,11 +41,11 @@ or the base rate (or baseline probability)
 
 \item In terms of frequencies,
   \code{ppod} is the ratio of
-  \code{\link{dec.pos}} (i.e., \code{\link{hi} + \link{fa}})
+  \code{\link{dec_pos}} (i.e., \code{\link{hi} + \link{fa}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{ppod = dec.pos/N = (hi + fa)/(hi + mi + fa + cr)}
+\code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 
 \item Dependencies:
   \code{ppod} is a feature of the decision process

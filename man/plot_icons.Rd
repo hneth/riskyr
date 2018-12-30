@@ -84,15 +84,15 @@ with 4 options:
 
   \item \code{"cd"}: by condition (cd) only:
 
-        \code{\link{cond.true}} vs. \code{\link{cond.false}} cases;
+        \code{\link{cond_true}} vs. \code{\link{cond_false}} cases;
 
   \item \code{"dc"}: by decision (dc) only:
 
-        \code{\link{dec.pos}} vs. \code{\link{dec.neg}} cases;
+        \code{\link{dec_pos}} vs. \code{\link{dec_neg}} cases;
 
   \item \code{"ac"}: by accuracy (ac) only:
 
-        \code{\link{dec.cor}} vs. \code{\link{dec.err}} cases.
+        \code{\link{dec_cor}} vs. \code{\link{dec_err}} cases.
   }}
 
 \item{ident_order}{The order in which icon identities

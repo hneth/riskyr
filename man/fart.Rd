@@ -32,8 +32,8 @@ or the probability of a false alarm.
 
 \item Perspective:
   \code{fart} further classifies
-  the subset of \code{\link{cond.false}} individuals
-  by decision (\code{fart = fa/cond.false}).
+  the subset of \code{\link{cond_false}} individuals
+  by decision (\code{fart = fa/cond_false}).
 
 \item Alternative names:
   false positive rate (\code{FPR}),
@@ -57,10 +57,10 @@ b. \code{fart} is the opposite conditional probability
 
 \item In terms of frequencies,
   \code{fart} is the ratio of
-  \code{\link{fa}} divided by \code{\link{cond.false}}
+  \code{\link{fa}} divided by \code{\link{cond_false}}
   (i.e., \code{\link{fa} + \link{cr}}):
 
-\code{fart = fa/cond.false = fa/(fa + cr)}
+\code{fart = fa/cond_false = fa/(fa + cr)}
 
 \item Dependencies:
   \code{fart} is a feature of a decision process

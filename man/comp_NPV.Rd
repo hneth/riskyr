@@ -44,7 +44,7 @@ comp_NPV(prev,  1,  0)  # => with NaN values
 # (3) Watch out for extreme values:
 comp_NPV(1, 1, 1)   # => NaN, as cr = 0 and mi = 0: 0/0
 comp_NPV(1, 1, 0)   # => NaN, as cr = 0 and mi = 0: 0/0
-comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec.neg cases:  NPV = 0/0 = NaN
+comp_NPV(.5, sens = 1, spec = 0)  # => NaN, no dec_neg cases:  NPV = 0/0 = NaN
 is_extreme_prob_set(.5, sens = 1, spec = 0)  # => verifies extreme cases
 
 }

@@ -19,7 +19,7 @@ Current metrics include:
 \enumerate{
 
 \item \code{\link{acc}}: Overall accuracy as the probability (or proportion)
-   of correctly classifying cases or of \code{\link{dec.cor}} cases:
+   of correctly classifying cases or of \code{\link{dec_cor}} cases:
 
 See \code{\link{acc}} for definition and explanations.
 
@@ -68,10 +68,10 @@ There are several possible interpretations of accuracy:
 \enumerate{
 
 \item as \emph{probabilities} (i.e., \code{\link{acc}} being the probability or proportion
-     of correct classifications, or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+     of correct classifications, or the ratio \code{\link{dec_cor}}/\code{\link{N}}),
 
 \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
-     individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+     individuals into cases of \code{\link{dec_cor}} vs. \code{\link{dec_err}}),
 
 \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 

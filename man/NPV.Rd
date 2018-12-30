@@ -29,8 +29,8 @@ or the probability of a negative decision being correct.
 
 \item Perspective:
   \code{NPV} further classifies
-  the subset of \code{\link{dec.neg}} individuals
-  by condition (\code{NPV = cr/dec.neg = cr/(mi + cr)}).
+  the subset of \code{\link{dec_neg}} individuals
+  by condition (\code{NPV = cr/dec_neg = cr/(mi + cr)}).
 
 \item Alternative names:
   true omission rate
@@ -50,10 +50,10 @@ b. \code{NPV} is the opposite conditional probability
 
 \item In terms of frequencies,
   \code{NPV} is the ratio of
-  \code{\link{cr}} divided by \code{\link{dec.neg}}
+  \code{\link{cr}} divided by \code{\link{dec_neg}}
   (i.e., \code{\link{cr} + \link{mi}}):
 
-\code{NPV = cr/dec.neg = cr/(cr + mi)}
+\code{NPV = cr/dec_neg = cr/(cr + mi)}
 
 \item Dependencies:
   \code{NPV} is a feature of a decision process

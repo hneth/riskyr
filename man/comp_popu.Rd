@@ -8,9 +8,9 @@ with \code{\link{N}} rows
 and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
 comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
-  cond_lbl = txt$cond_lbl, cond.true_lbl = txt$cond.true_lbl,
-  cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
-  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
+  cond_lbl = txt$cond_lbl, cond_true_lbl = txt$cond_true_lbl,
+  cond_false_lbl = txt$cond_false_lbl, dec_lbl = txt$dec_lbl,
+  dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
   sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
   fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl)
 }
@@ -25,15 +25,15 @@ comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
 
 \item{cond_lbl}{Text label for condition dimension ("by cd" perspective).}
 
-\item{cond.true_lbl}{Text label for \code{\link{cond.true}} cases.}
+\item{cond_true_lbl}{Text label for \code{\link{cond_true}} cases.}
 
-\item{cond.false_lbl}{Text label for \code{\link{cond.false}} cases.}
+\item{cond_false_lbl}{Text label for \code{\link{cond_false}} cases.}
 
 \item{dec_lbl}{Text label for decision dimension ("by dc" perspective).}
 
-\item{dec.pos_lbl}{Text label for \code{\link{dec.pos}} cases.}
+\item{dec_pos_lbl}{Text label for \code{\link{dec_pos}} cases.}
 
-\item{dec.neg_lbl}{Text label for \code{\link{dec.neg}} cases.}
+\item{dec_neg_lbl}{Text label for \code{\link{dec_neg}} cases.}
 
 \item{sdt_lbl}{Text label for 4 cases/combinations (SDT classifications).}
 
@@ -76,13 +76,13 @@ comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases
 
 # (B) Intervention/treatment scenario:
 comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
-          cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
-          dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+          cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
+          dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 
 # (C) Prevention scenario (e.g., vaccination):
 comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
-          cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
-          dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+          cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
+          dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 
 }
 \seealso{

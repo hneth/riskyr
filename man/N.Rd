@@ -50,10 +50,10 @@ Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia: S
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other frequencies: \code{\link{cond.false}},
-  \code{\link{cond.true}}, \code{\link{cr}},
-  \code{\link{dec.cor}}, \code{\link{dec.err}},
-  \code{\link{dec.neg}}, \code{\link{dec.pos}},
+Other frequencies: \code{\link{cond_false}},
+  \code{\link{cond_true}}, \code{\link{cr}},
+  \code{\link{dec_cor}}, \code{\link{dec_err}},
+  \code{\link{dec_neg}}, \code{\link{dec_pos}},
   \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
 }
 \concept{frequencies}

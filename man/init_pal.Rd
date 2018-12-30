@@ -4,10 +4,10 @@
 \alias{init_pal}
 \title{Initialize basic color information.}
 \usage{
-init_pal(N_col = pal_def["N"], cond.true_col = pal_def["true"],
-  cond.false_col = pal_def["false"], dec.pos_col = pal_def["pos"],
-  dec.neg_col = pal_def["neg"], dec.cor_col = pal_def["cor"],
-  dec.err_col = pal_def["err"], hi_col = pal_def["hi"],
+init_pal(N_col = pal_def["N"], cond_true_col = pal_def["true"],
+  cond_false_col = pal_def["false"], dec_pos_col = pal_def["pos"],
+  dec_neg_col = pal_def["neg"], dec_cor_col = pal_def["cor"],
+  dec_err_col = pal_def["err"], hi_col = pal_def["hi"],
   mi_col = pal_def["mi"], fa_col = pal_def["fa"],
   cr_col = pal_def["cr"], PPV_col = pal_def["ppv"],
   NPV_col = pal_def["npv"], txt_col = pal_def["txt"],
@@ -16,17 +16,17 @@ init_pal(N_col = pal_def["N"], cond.true_col = pal_def["true"],
 \arguments{
 \item{N_col}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}
 
-\item{cond.true_col}{Color representing cases of \code{\link{cond.true}}, for which the current condition is \code{TRUE}.}
+\item{cond_true_col}{Color representing cases of \code{\link{cond_true}}, for which the current condition is \code{TRUE}.}
 
-\item{cond.false_col}{Color representing cases of in \code{\link{cond.false}}, for which the current condition is \code{FALSE}.}
+\item{cond_false_col}{Color representing cases of in \code{\link{cond_false}}, for which the current condition is \code{FALSE}.}
 
-\item{dec.pos_col}{Color representing cases of \code{\link{dec.pos}}, for which the current decision is \code{positive}.}
+\item{dec_pos_col}{Color representing cases of \code{\link{dec_pos}}, for which the current decision is \code{positive}.}
 
-\item{dec.neg_col}{Color representing cases in \code{\link{dec.neg}}, for which the current decision is \code{negative}.}
+\item{dec_neg_col}{Color representing cases in \code{\link{dec_neg}}, for which the current decision is \code{negative}.}
 
-\item{dec.cor_col}{Color representing cases of correct decisions \code{\link{dec.cor}}, for which the current decision is \code{accurate}.}
+\item{dec_cor_col}{Color representing cases of correct decisions \code{\link{dec_cor}}, for which the current decision is \code{accurate}.}
 
-\item{dec.err_col}{Color representing cases in erroneous decisions \code{\link{dec.err}}, for which the current decision is \code{inaccurate}.}
+\item{dec_err_col}{Color representing cases in erroneous decisions \code{\link{dec_err}}, for which the current decision is \code{inaccurate}.}
 
 \item{hi_col}{Color representing \emph{hits} or true positives in \code{\link{hi}}
 (i.e., correct cases for which the current condition is TRUE and the decision is positive).}

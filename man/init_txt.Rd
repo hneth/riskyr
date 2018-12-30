@@ -9,12 +9,12 @@ init_txt(scen_lbl = txt_lbl_def$scen_lbl,
   scen_apa = txt_lbl_def$scen_apa, scen_lng = txt_lbl_def$scen_lng,
   popu_lbl = txt_lbl_def$popu_lbl, N_lbl = txt_lbl_def$N_lbl,
   cond_lbl = txt_lbl_def$cond_lbl,
-  cond.true_lbl = txt_lbl_def$cond.true_lbl,
-  cond.false_lbl = txt_lbl_def$cond.false_lbl,
-  dec_lbl = txt_lbl_def$dec_lbl, dec.pos_lbl = txt_lbl_def$dec.pos_lbl,
-  dec.neg_lbl = txt_lbl_def$dec.neg_lbl, acc_lbl = txt_lbl_def$acc_lbl,
-  dec.cor_lbl = txt_lbl_def$dec.cor_lbl,
-  dec.err_lbl = txt_lbl_def$dec.err_lbl, sdt_lbl = txt_lbl_def$sdt_lbl,
+  cond_true_lbl = txt_lbl_def$cond_true_lbl,
+  cond_false_lbl = txt_lbl_def$cond_false_lbl,
+  dec_lbl = txt_lbl_def$dec_lbl, dec_pos_lbl = txt_lbl_def$dec_pos_lbl,
+  dec_neg_lbl = txt_lbl_def$dec_neg_lbl, acc_lbl = txt_lbl_def$acc_lbl,
+  dec_cor_lbl = txt_lbl_def$dec_cor_lbl,
+  dec_err_lbl = txt_lbl_def$dec_err_lbl, sdt_lbl = txt_lbl_def$sdt_lbl,
   hi_lbl = txt_lbl_def$hi_lbl, mi_lbl = txt_lbl_def$mi_lbl,
   fa_lbl = txt_lbl_def$fa_lbl, cr_lbl = txt_lbl_def$cr_lbl)
 }
@@ -37,27 +37,27 @@ Options: \code{"en"}: English, \code{"de"}: German.}
 
 \item{cond_lbl}{A general name for the \emph{condition} dimension currently considered (e.g., some clinical condition).}
 
-\item{cond.true_lbl}{A short label for the \emph{presence} of the current condition
-or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
+\item{cond_true_lbl}{A short label for the \emph{presence} of the current condition
+or \code{\link{cond_true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false_lbl}{A short label for the \emph{absence} of the current condition
-or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
+\item{cond_false_lbl}{A short label for the \emph{absence} of the current condition
+or \code{\link{cond_false}} cases (the condition's true state of FALSE).}
 
 \item{dec_lbl}{A general name for the \emph{decision} dimension (e.g., some diagnostic test) currently made.}
 
-\item{dec.pos_lbl}{A short label for \emph{positive} decisions
-or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
+\item{dec_pos_lbl}{A short label for \emph{positive} decisions
+or \code{\link{dec_pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.neg_lbl}{A short label for \emph{negative} decisions
-or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
+\item{dec_neg_lbl}{A short label for \emph{negative} decisions
+or \code{\link{dec_neg}} cases (e.g., predicting the absence of the condition).}
 
 \item{acc_lbl}{A general name for the \emph{accuracy} dimension (e.g., correspondence of decision to condition).}
 
-\item{dec.cor_lbl}{A short label for \emph{correct} decisions
-or \code{\link{dec.cor}} cases (e.g., accurately predicting the condition).}
+\item{dec_cor_lbl}{A short label for \emph{correct} decisions
+or \code{\link{dec_cor}} cases (e.g., accurately predicting the condition).}
 
-\item{dec.err_lbl}{A short label for \emph{erroneous} decisions
-or \code{\link{dec.err}} cases (e.g., inaccurately predicting the condition).}
+\item{dec_err_lbl}{A short label for \emph{erroneous} decisions
+or \code{\link{dec_err}} cases (e.g., inaccurately predicting the condition).}
 
 \item{sdt_lbl}{A name for the case/category/cell dimension in the 2x2 contingency table (SDT: condition x decision).}
 

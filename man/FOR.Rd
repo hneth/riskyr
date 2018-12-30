@@ -27,8 +27,8 @@ Understanding or obtaining the false omission rate \code{FOR}:
 
 \item Perspective:
   \code{FOR} further classifies
-  the subset of \code{\link{dec.neg}} individuals
-  by condition (\code{FOR = mi/dec.neg = mi/(mi + cr)}).
+  the subset of \code{\link{dec_neg}} individuals
+  by condition (\code{FOR = mi/dec_neg = mi/(mi + cr)}).
 
 \item Alternative names:
   none?
@@ -49,10 +49,10 @@ b. \code{FOR} is the opposite conditional probability
 
 \item In terms of frequencies,
   \code{FOR} is the ratio of
-  \code{\link{mi}} divided by \code{\link{dec.neg}}
+  \code{\link{mi}} divided by \code{\link{dec_neg}}
   (i.e., \code{\link{mi} + \link{cr}}):
 
-\code{NPV = mi/dec.neg = mi/(mi + cr)}
+\code{NPV = mi/dec_neg = mi/(mi + cr)}
 
 \item Dependencies:
   \code{FOR} is a feature of a decision process

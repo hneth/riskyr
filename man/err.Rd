@@ -20,7 +20,7 @@ Definition:
 
 When \code{\link{freq}} are not rounded (\code{round = FALSE}) then
 
-\code{err = \link{dec.err}/\link{N} = (\link{mi} + \link{fa})/\link{N}}
+\code{err = \link{dec_err}/\link{N} = (\link{mi} + \link{fa})/\link{N}}
 
 \code{err} is currently not included in \code{\link{prob}},
 but shown in plots.
@@ -32,7 +32,7 @@ and several possible interpretations of accuracy.
 }
 \examples{
 err <- .50     # sets a rate of incorrect decisions of 50\%
-err <- 50/100  # (dec.err) for 50 out of 100 individuals
+err <- 50/100  # (dec_err) for 50 out of 100 individuals
 is_prob(err)   # TRUE
 
 }

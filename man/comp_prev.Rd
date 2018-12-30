@@ -26,11 +26,11 @@ the probability of the condition being \code{TRUE}.
 
 The probability \code{\link{prev}} can be computed from frequencies
 as the the ratio of
-\code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+\code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}})
 divided by
 \code{\link{N}} (i.e., \code{\link{hi} + \link{mi} + \link{fa} + \link{cr}}):
 
-\code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+\code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
 }
 \seealso{
 \code{\link{num}} contains basic numeric parameters;

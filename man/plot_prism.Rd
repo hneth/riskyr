@@ -179,7 +179,7 @@ plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = 
 plot_prism(col_pal = pal_bw, f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
            font = 3, cex_p_lbl = .75)                       # and text labels
 
-my_txt <- init_txt(cond_lbl = "The Truth", cond.true_lbl = "so true", cond.false_lbl = "so false",
+my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")

@@ -34,8 +34,8 @@ or the probability of correctly detecting true cases
 
 \item Perspective:
   \code{sens} further classifies
-  the subset of \code{\link{cond.true}} individuals
-  by decision (\code{sens = hi/cond.true}).
+  the subset of \code{\link{cond_true}} individuals
+  by decision (\code{sens = hi/cond_true}).
 
 \item Alternative names:
   true positive rate (\code{TPR}),
@@ -61,9 +61,9 @@ b. \code{sens} is the opposite conditional probability
 \item In terms of frequencies,
   \code{sens} is the ratio of
   \code{\link{hi}} divided by
-  \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}}):
+  \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}}):
 
-\code{sens = hi/cond.true = hi/(hi + mi)}
+\code{sens = hi/cond_true = hi/(hi + mi)}
 
 \item Dependencies:
   \code{sens} is a feature of a decision process

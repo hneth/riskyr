@@ -56,8 +56,8 @@ plot(scen_diag, type = "prism", area = "no", f_lbl = "namnum")
 
 # (B) Intervention/treatment scenario: ------
 popu_treat <- comp_popu(hi = 80, mi = 20, fa = 45, cr = 55,
-                        cond_lbl = "Treatment", cond.true_lbl = "pill", cond.false_lbl = "placebo",
-                        dec_lbl = "Health status", dec.pos_lbl = "healthy", dec.neg_lbl = "sick")
+                        cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
+                        dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 # popu_treat
 scen_treat <- read_popu(popu_treat, scen_lbl = "Treatment", popu_lbl = "Population treated")
 plot(scen_treat, type = "prism", area = "sq", f_lbl = "namnum", p_lbl = "num")
@@ -65,8 +65,8 @@ plot(scen_treat, type = "icon", lbl_txt = txt_org, col_pal = pal_org)
 
 # (C) Prevention scenario (e.g., vaccination): ------
 popu_vacc <- comp_popu(hi = 960, mi = 40, fa = 880, cr = 120,
-                       cond_lbl = "Vaccination", cond.true_lbl = "yes", cond.false_lbl = "no",
-                       dec_lbl = "Disease", dec.pos_lbl = "no flu", dec.neg_lbl = "flu")
+                       cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
+                       dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
 # popu_vacc
 scen_vacc <- read_popu(popu_vacc, scen_lbl = "Prevention", popu_lbl = "Population vaccinated")
 plot(scen_vacc, type = "prism", area = "sq", f_lbl = "namnum", col_pal = pal_bw, p_lbl = "num")

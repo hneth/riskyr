@@ -79,17 +79,17 @@ is_extreme_prob_set(0, sens, NA, NA, 0)    # => TRUE + warning: N true negatives
 plot_tree(0, sens, NA, NA, 0, N = 450)     # => illustrates this case
 
 prev <- .50
-is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+is_extreme_prob_set(prev, 0, NA, 1, NA)    # => TRUE + warning: 0 hi and 0 fa (0 dec_pos cases)
 plot_tree(prev, 0, NA, 1, NA, N = 500)     # => illustrates this case
 # # Variant:
-is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec.pos cases)
+is_extreme_prob_set(prev, 0, 0, NA, 0)     # => TRUE + warning: 0 hi and 0 fa (0 dec_pos cases)
 plot_tree(prev, 0, NA, 1, NA, N = 550)     # => illustrates this case
 
 prev <- .50
-is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec_neg cases)
 plot_tree(prev, 1, NA, 0, NA, N = 600)     # => illustrates this case
 # # Variant:
-is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec.neg cases)
+is_extreme_prob_set(prev, 1, NA, 0, NA)    # => TRUE + warning: 0 mi and 0 cr (0 dec_neg cases)
 plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 
 }

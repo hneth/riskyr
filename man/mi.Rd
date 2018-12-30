@@ -36,11 +36,11 @@ the following relationships hold:
 
 \itemize{
 
-\item \code{\link{N} = \link{cond.true} + \link{cond.false}} (by condition)
+\item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 
-\item \code{\link{N} = \link{dec.pos} + \link{dec.neg}} (by decision)
+\item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 
-\item \code{\link{N} = \link{dec.cor} + \link{dec.err}} (by correspondence of decision to condition)
+\item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 
 \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
    }
@@ -61,10 +61,10 @@ Other essential parameters: \code{\link{cr}},
   \code{\link{sens}}, \code{\link{spec}}
 
 Other frequencies: \code{\link{N}},
-  \code{\link{cond.false}}, \code{\link{cond.true}},
-  \code{\link{cr}}, \code{\link{dec.cor}},
-  \code{\link{dec.err}}, \code{\link{dec.neg}},
-  \code{\link{dec.pos}}, \code{\link{fa}}, \code{\link{hi}}
+  \code{\link{cond_false}}, \code{\link{cond_true}},
+  \code{\link{cr}}, \code{\link{dec_cor}},
+  \code{\link{dec_err}}, \code{\link{dec_neg}},
+  \code{\link{dec_pos}}, \code{\link{fa}}, \code{\link{hi}}
 }
 \concept{essential parameters}
 \concept{frequencies}

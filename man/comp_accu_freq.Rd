@@ -36,9 +36,9 @@ Currently computed accuracy metrics include:
 \enumerate{
 
 \item \code{acc}: Overall accuracy as the proportion (or probability)
-   of correctly classifying cases or of \code{\link{dec.cor}} cases:
+   of correctly classifying cases or of \code{\link{dec_cor}} cases:
 
-\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+\code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
 Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
@@ -85,10 +85,10 @@ There are several possible interpretations of accuracy:
 \enumerate{
 
 \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
-     or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+     or the ratio \code{\link{dec_cor}}/\code{\link{N}}),
 
 \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
-     individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+     individuals into cases of \code{\link{dec_cor}} vs. \code{\link{dec_err}}),
 
 \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 

@@ -8,11 +8,11 @@ describing a risk-related scenario.}
 \usage{
 riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
   N_lbl = txt$N_lbl, cond_lbl = txt$cond_lbl,
-  cond.true_lbl = txt$cond.true_lbl,
-  cond.false_lbl = txt$cond.false_lbl, dec_lbl = txt$dec_lbl,
-  dec.pos_lbl = txt$dec.pos_lbl, dec.neg_lbl = txt$dec.neg_lbl,
-  acc_lbl = txt$acc_lbl, dec.cor_lbl = txt$dec.cor_lbl,
-  dec.err_lbl = txt$dec.err_lbl, sdt_lbl = txt$sdt_lbl,
+  cond_true_lbl = txt$cond_true_lbl,
+  cond_false_lbl = txt$cond_false_lbl, dec_lbl = txt$dec_lbl,
+  dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
+  acc_lbl = txt$acc_lbl, dec_cor_lbl = txt$dec_cor_lbl,
+  dec_err_lbl = txt$dec_err_lbl, sdt_lbl = txt$sdt_lbl,
   hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
   cr_lbl = txt$cr_lbl, prev = NA, sens = NA, spec = NA,
   fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
@@ -28,25 +28,25 @@ riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
 
 \item{cond_lbl}{A label for the \emph{condition} or feature (e.g., some disease) currently considered.}
 
-\item{cond.true_lbl}{A label for the \emph{presence} of the current condition
-or \code{\link{cond.true}} cases (the condition's true state of TRUE).}
+\item{cond_true_lbl}{A label for the \emph{presence} of the current condition
+or \code{\link{cond_true}} cases (the condition's true state of TRUE).}
 
-\item{cond.false_lbl}{A label for the \emph{absence} of the current condition
-or \code{\link{cond.false}} cases (the condition's true state of FALSE).}
+\item{cond_false_lbl}{A label for the \emph{absence} of the current condition
+or \code{\link{cond_false}} cases (the condition's true state of FALSE).}
 
 \item{dec_lbl}{A label for the \emph{decision} or judgment (e.g., some diagnostic test) currently made.}
 
-\item{dec.pos_lbl}{A label for \emph{positive} decisions
-or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).}
+\item{dec_pos_lbl}{A label for \emph{positive} decisions
+or \code{\link{dec_pos}} cases (e.g., predicting the presence of the condition).}
 
-\item{dec.neg_lbl}{A label for \emph{negative} decisions
-or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).}
+\item{dec_neg_lbl}{A label for \emph{negative} decisions
+or \code{\link{dec_neg}} cases (e.g., predicting the absence of the condition).}
 
 \item{acc_lbl}{A label for \emph{accuracy} (i.e., correspondence between condition and decision or judgment).}
 
-\item{dec.cor_lbl}{A label for \emph{correct} (or accurate) decisions or judgments.}
+\item{dec_cor_lbl}{A label for \emph{correct} (or accurate) decisions or judgments.}
 
-\item{dec.err_lbl}{A label for \emph{incorrect} (or erroneous) decisions or judgments.}
+\item{dec_err_lbl}{A label for \emph{incorrect} (or erroneous) decisions or judgments.}
 
 \item{sdt_lbl}{A label for the combination of \emph{condition} and \emph{decision} currently made.}
 
@@ -152,11 +152,11 @@ hustosis <- riskyr(scen_lbl = "Screening for hustosis",
 scen_reoffend <- riskyr(scen_lbl = "Identify reoffenders",
                         cond_lbl = "being a reoffender",
                         popu_lbl = "Prisoners",
-                        cond.true_lbl = "has reoffended",
-                        cond.false_lbl = "has not reoffended",
+                        cond_true_lbl = "has reoffended",
+                        cond_false_lbl = "has not reoffended",
                         dec_lbl = "test result",
-                        dec.pos_lbl = "will reoffend",
-                        dec.neg_lbl = "will not reoffend",
+                        dec_pos_lbl = "will reoffend",
+                        dec_neg_lbl = "will not reoffend",
                         sdt_lbl = "combination",
                         hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
                         fa_lbl = "false accusation", cr_lbl = "correct release",

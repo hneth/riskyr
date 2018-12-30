@@ -22,7 +22,7 @@ as well as 6 conditional) probabilities:
 
 \item the condition's prevalence \code{\link{prev}}
  (i.e., the probability of the condition being \code{TRUE}):
- \code{prev = \link{cond.true}/\link{N}}.
+ \code{prev = \link{cond_true}/\link{N}}.
 
 \item the decision's sensitivity \code{\link{sens}}
  (i.e., the conditional probability of a positive decision
@@ -43,7 +43,7 @@ as well as 6 conditional) probabilities:
 \item the proportion (baseline probability or rate)
  of the decision being positive \code{\link{ppod}}
  (but not necessarily true):
- \code{ppod = \link{dec.pos}/\link{N}}.
+ \code{ppod = \link{dec_pos}/\link{N}}.
 
 \item the decision's positive predictive value \code{\link{PPV}}
  (i.e., the conditional probability of the condition being \code{TRUE}
@@ -62,16 +62,16 @@ as well as 6 conditional) probabilities:
  provided that the decision is negative).
 
 \item the accuracy \code{\link{acc}}
- (i.e., probability of correct decisions \code{\link{dec.cor}} or
+ (i.e., probability of correct decisions \code{\link{dec_cor}} or
  correspondence of decisions to conditions).
 
 \item the conditional probability \code{p_acc_hi}
  (i.e., the probability of \code{\link{hi}} given that
- the decision is correct \code{\link{dec.cor}}).
+ the decision is correct \code{\link{dec_cor}}).
 
 \item the conditional probability \code{p_err_fa}
  (i.e., the probability of \code{\link{fa}} given that
- the decision is erroneous \code{\link{dec.err}}).
+ the decision is erroneous \code{\link{dec_err}}).
 
 }
 

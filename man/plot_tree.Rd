@@ -8,9 +8,9 @@ plot_tree(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = freq$N, round = TRUE,
   by = "cd", area = "no", p_lbl = "num", show_accu = TRUE,
   w_acc = 0.5, title_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
-  cond.true_lbl = txt$cond.true_lbl,
-  cond.false_lbl = txt$cond.false_lbl, dec.pos_lbl = txt$dec.pos_lbl,
-  dec.neg_lbl = txt$dec.neg_lbl, hi_lbl = txt$hi_lbl,
+  cond_true_lbl = txt$cond_true_lbl,
+  cond_false_lbl = txt$cond_false_lbl, dec_pos_lbl = txt$dec_pos_lbl,
+  dec_neg_lbl = txt$dec_neg_lbl, hi_lbl = txt$hi_lbl,
   mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
   col_txt = grey(0.01, alpha = 0.99), cex_lbl = 0.85,
   col_boxes = pal, col_border = grey(0.33, alpha = 0.99), lwd = 1.5,
@@ -69,13 +69,13 @@ Various other options allow the customization of text labels and colors:}
 
 \item{popu_lbl}{Text label for current population \code{\link{popu}}.}
 
-\item{cond.true_lbl}{Text label for current cases of \code{\link{cond.true}}.}
+\item{cond_true_lbl}{Text label for current cases of \code{\link{cond_true}}.}
 
-\item{cond.false_lbl}{Text label for current cases of \code{\link{cond.false}}.}
+\item{cond_false_lbl}{Text label for current cases of \code{\link{cond_false}}.}
 
-\item{dec.pos_lbl}{Text label for current cases of \code{\link{dec.pos}}.}
+\item{dec_pos_lbl}{Text label for current cases of \code{\link{dec_pos}}.}
 
-\item{dec.neg_lbl}{Text label for current cases of \code{\link{dec.neg}}.}
+\item{dec_neg_lbl}{Text label for current cases of \code{\link{dec_neg}}.}
 
 \item{hi_lbl}{Text label for hits \code{\link{hi}}.}
 

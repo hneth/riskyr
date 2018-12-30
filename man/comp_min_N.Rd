@@ -4,7 +4,7 @@
 \alias{comp_min_N}
 \title{Compute a suitable minimum population size value N.}
 \usage{
-comp_min_N(prev, sens, spec, min.freq = 1)
+comp_min_N(prev, sens, spec, min_freq = 1)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -18,9 +18,9 @@ of a positive decision provided that the condition is TRUE).}
 (i.e., the conditional probability
 of a negative decision provided that the condition is FALSE).}
 
-\item{min.freq}{The minimum frequency of each combination of
+\item{min_freq}{The minimum frequency of each combination of
 a condition and a decision (i.e., hits, misses, false alarms, and correct rejections).
-Default: \code{min.freq = 1}.}
+Default: \code{min_freq = 1}.}
 }
 \value{
 An integer value \code{\link{N}} (as a power of 10).
@@ -29,7 +29,7 @@ An integer value \code{\link{N}} (as a power of 10).
 \code{comp_min_N} computes a population size value \code{\link{N}} (an integer
 as a power of 10) so that the frequencies of the 4 combinations of conditions and decisions
 (i.e., the cells of the confusion table, or center row of boxes in the frequency prism)
-reach or exceed a minimum value \code{min.freq} given the basic parameters
+reach or exceed a minimum value \code{min_freq} given the basic parameters
 \code{\link{prev}}, \code{\link{sens}}, and \code{\link{spec}} (\code{spec = 1 - \link{fart}}).
 }
 \details{
@@ -38,7 +38,7 @@ Using this function helps avoiding excessively small decimal values in categorie
 when expressing combinations of conditions and decisions as natural frequencies.
 As values of zero (0) are tolerable, the function only increases \code{\link{N}}
 (in powers of 10) while the current value of any frequency (cell in confusion table or
-leaf of a frequency tree) is positive but below \code{min.freq}.
+leaf of a frequency tree) is positive but below \code{min_freq}.
 
 By default, \code{\link{comp_freq_prob}} and \code{\link{comp_freq}}
 round frequencies to nearest integers to avoid decimal values in
@@ -49,8 +49,8 @@ Using the option \code{round = FALSE} turns off rounding.
 comp_min_N(0, 0, 0)  # => 1
 comp_min_N(1, 1, 1)  # => 1
 
-comp_min_N(1, 1, 1, min.freq = 10)  # =>  10
-comp_min_N(1, 1, 1, min.freq = 99)  # => 100
+comp_min_N(1, 1, 1, min_freq = 10)  # =>  10
+comp_min_N(1, 1, 1, min_freq = 99)  # => 100
 
 comp_min_N(.1, .1, .1)        # =>       100 = 10^2
 comp_min_N(.001, .1, .1)      # =>    10 000 = 10^4

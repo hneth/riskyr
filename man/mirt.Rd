@@ -31,8 +31,8 @@ or the probability of failing to detect true cases
 
 \item Perspective:
   \code{mirt} further classifies
-  the subset of \code{\link{cond.true}} individuals
-  by decision (\code{mirt = mi/cond.true}).
+  the subset of \code{\link{cond_true}} individuals
+  by decision (\code{mirt = mi/cond_true}).
 
 \item Alternative names:
   false negative rate (\code{FNR}),
@@ -53,10 +53,10 @@ b. \code{mirt} is the _opposite_ conditional probability
 
 \item In terms of frequencies,
   \code{mirt} is the ratio of
-  \code{\link{mi}} divided by \code{\link{cond.true}}
+  \code{\link{mi}} divided by \code{\link{cond_true}}
   (i.e., \code{\link{hi} + \link{mi}}):
 
-\code{mirt = mi/cond.true = mi/(hi + mi)}
+\code{mirt = mi/cond_true = mi/(hi + mi)}
 
 \item Dependencies:
   \code{mirt} is a feature of a decision process

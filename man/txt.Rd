@@ -68,22 +68,22 @@ Condition:
 \item \code{cond_lbl} A general name for the \emph{condition} dimension,
 or the feature (e.g., some disease) currently considered.
 
-\item \code{cond.true_lbl} A short label for the \emph{presence} of the current condition
-or \code{\link{cond.true}} cases (the condition's true state of being TRUE).
+\item \code{cond_true_lbl} A short label for the \emph{presence} of the current condition
+or \code{\link{cond_true}} cases (the condition's true state of being TRUE).
 
-\item \code{cond.false_lbl} A short label for the \emph{absence} of the current condition
-or \code{\link{cond.false}} cases (the condition's true state of being FALSE).
+\item \code{cond_false_lbl} A short label for the \emph{absence} of the current condition
+or \code{\link{cond_false}} cases (the condition's true state of being FALSE).
 
 Decision:
 
 \item \code{dec_lbl} A general name for the \emph{decision} dimension,
 or the judgment (e.g., some diagnostic test) currently made.
 
-\item \code{dec.pos_lbl} A short label for \emph{positive} decisions
-or \code{\link{dec.pos}} cases (e.g., predicting the presence of the condition).
+\item \code{dec_pos_lbl} A short label for \emph{positive} decisions
+or \code{\link{dec_pos}} cases (e.g., predicting the presence of the condition).
 
-\item \code{dec.neg_lbl} A short label for \emph{negative} decisions
-or \code{\link{dec.neg}} cases (e.g., predicting the absence of the condition).
+\item \code{dec_neg_lbl} A short label for \emph{negative} decisions
+or \code{\link{dec_neg}} cases (e.g., predicting the absence of the condition).
 
 Accuracy:
 
@@ -91,11 +91,11 @@ Accuracy:
 or the correspondence between the condition currently considered
 and the decision judgment currently made.
 
-\item \code{dec.cor_lbl} A short label for \emph{correct} and \emph{accurate} decisions
-or \code{\link{dec.cor}} cases (accurate predictions).
+\item \code{dec_cor_lbl} A short label for \emph{correct} and \emph{accurate} decisions
+or \code{\link{dec_cor}} cases (accurate predictions).
 
-\item \code{dec.err_lbl} A short label for \emph{incorrect} decisions
-or \code{\link{dec.err}} cases (erroneous predictions).
+\item \code{dec_err_lbl} A short label for \emph{incorrect} decisions
+or \code{\link{dec_err}} cases (erroneous predictions).
 
 Cases:
 

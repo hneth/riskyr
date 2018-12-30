@@ -49,10 +49,10 @@ Notes:
    \enumerate{
 
      \item as \emph{probabilities} (i.e., \code{acc} being the proportion of correct classifications,
-     or the ratio \code{\link{dec.cor}}/\code{\link{N}}),
+     or the ratio \code{\link{dec_cor}}/\code{\link{N}}),
 
      \item as \emph{frequencies} (e.g., as classifying a population of \code{\link{N}}
-     individuals into cases of \code{\link{dec.cor}} vs. \code{\link{dec.err}}),
+     individuals into cases of \code{\link{dec_cor}} vs. \code{\link{dec_err}}),
 
      \item as \emph{correlations} (e.g., see \code{mcc} in \code{\link{accu}}).
 
@@ -84,11 +84,11 @@ Currently computed accuracy metrics include:
 \enumerate{
 
 \item \code{acc}: Overall accuracy as the proportion (or probability)
-   of correctly classifying cases or of \code{\link{dec.cor}} cases:
+   of correctly classifying cases or of \code{\link{dec_cor}} cases:
 
 (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
-(b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+(b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
 When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 
@@ -130,8 +130,8 @@ Note that some accuracy metrics can be interpreted
 as probabilities (e.g., \code{acc}) and some as correlations (e.g., \code{mcc}).
 
 Also, accuracy can be viewed as a probability (e.g., the ratio of or link between
-\code{\link{dec.cor}} and \code{\link{N}}) or as a frequency type
-(containing \code{\link{dec.cor}} and \code{\link{dec.err}}).
+\code{\link{dec_cor}} and \code{\link{N}}) or as a frequency type
+(containing \code{\link{dec_cor}} and \code{\link{dec_err}}).
 
 \code{comp_accu_prob} computes exact accuracy metrics from probabilities.
 When input frequencies were rounded (see the default of \code{round = TRUE}

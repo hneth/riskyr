@@ -17,14 +17,14 @@ containing 11 frequencies:
 
 \item the population size \code{\link{N}}
 
-\item the number of cases for which \code{\link{cond.true}}
- \item the number of cases for which \code{\link{cond.false}}
+\item the number of cases for which \code{\link{cond_true}}
+ \item the number of cases for which \code{\link{cond_false}}
 
-\item the number of cases for which \code{\link{dec.pos}}
- \item the number of cases for which \code{\link{dec.neg}}
+\item the number of cases for which \code{\link{dec_pos}}
+ \item the number of cases for which \code{\link{dec_neg}}
 
-\item the number of cases for which \code{\link{dec.cor}}
- \item the number of cases for which \code{\link{dec.err}}
+\item the number of cases for which \code{\link{dec_cor}}
+ \item the number of cases for which \code{\link{dec_err}}
 
 \item the number of true positives, or hits \code{\link{hi}}
  \item the number of false negatives, or misses \code{\link{mi}}

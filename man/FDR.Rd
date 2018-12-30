@@ -28,8 +28,8 @@ or false discovery rate (\code{FDR}):
 
 \item Perspective:
   \code{FDR} further classifies
-  the subset of \code{\link{dec.pos}} individuals
-  by condition (\code{FDR = fa/dec.pos = fa/(hi + fa)}).
+  the subset of \code{\link{dec_pos}} individuals
+  by condition (\code{FDR = fa/dec_pos = fa/(hi + fa)}).
 
 \item Alternative names:
   false discovery rate
@@ -49,10 +49,10 @@ b. \code{FDR} is the opposite conditional probability
 
 \item In terms of frequencies,
   \code{FDR} is the ratio of
-  \code{\link{fa}} divided by \code{\link{dec.pos}}
+  \code{\link{fa}} divided by \code{\link{dec_pos}}
   (i.e., \code{\link{hi} + \link{fa}}):
 
-\code{FDR = fa/dec.pos = fa/(hi + fa)}
+\code{FDR = fa/dec_pos = fa/(hi + fa)}
 
 \item Dependencies:
   \code{FDR} is a feature of a decision process

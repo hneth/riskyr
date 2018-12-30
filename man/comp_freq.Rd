@@ -77,23 +77,23 @@ in 3 different ways:
 
 \item by condition:
 
-\code{\link{N} = \link{cond.true} + \link{cond.false}}
+\code{\link{N} = \link{cond_true} + \link{cond_false}}
 
-The frequency \code{\link{cond.true}} depends on the prevalence \code{\link{prev}}
+The frequency \code{\link{cond_true}} depends on the prevalence \code{\link{prev}}
    and
-   the frequency \code{\link{cond.false}} depends on the prevalence's complement \code{1 - \link{prev}}.
+   the frequency \code{\link{cond_false}} depends on the prevalence's complement \code{1 - \link{prev}}.
 
 \item by decision:
 
-\code{\link{N} = \link{dec.pos} + \link{dec.neg}}
+\code{\link{N} = \link{dec_pos} + \link{dec_neg}}
 
-The frequency \code{\link{dec.pos}} depends on the proportion of positive decisions \code{\link{ppod}}
+The frequency \code{\link{dec_pos}} depends on the proportion of positive decisions \code{\link{ppod}}
    and
-   the frequency \code{\link{dec.neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
+   the frequency \code{\link{dec_neg}} depends on the proportion of negative decisions \code{1 - \link{ppod}}.
 
 \item by accuracy (i.e., correspondence of decision to condition):
 
-\code{\link{N} = \link{dec.cor} + \link{dec.err}}
+\code{\link{N} = \link{dec_cor} + \link{dec_err}}
 
 }
 
@@ -113,47 +113,47 @@ Thus, they can be computed as ratios between frequencies:
 
 \item prevalence \code{\link{prev}}:
 
-\code{\link{prev} = \link{cond.true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+\code{\link{prev} = \link{cond_true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
 \item sensitivity \code{\link{sens}}:
 
-\code{\link{sens} = \link{hi}/\link{cond.true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
+\code{\link{sens} = \link{hi}/\link{cond_true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
 
 \item miss rate \code{\link{mirt}}:
 
-\code{\link{mirt} = \link{mi}/\link{cond.true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
+\code{\link{mirt} = \link{mi}/\link{cond_true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
 
 \item specificity \code{\link{spec}}:
 
-\code{\link{spec} = \link{cr}/\link{cond.false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
+\code{\link{spec} = \link{cr}/\link{cond_false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
 
 \item false alarm rate \code{\link{fart}}:
 
-\code{\link{fart} = \link{fa}/\link{cond.false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
+\code{\link{fart} = \link{fa}/\link{cond_false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 
 \item proportion of positive decisions \code{\link{ppod}}:
 
-\code{\link{ppod} = \link{dec.pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+\code{\link{ppod} = \link{dec_pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
 \item positive predictive value \code{\link{PPV}}:
 
-\code{\link{PPV} = \link{hi}/\link{dec.pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
+\code{\link{PPV} = \link{hi}/\link{dec_pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 
 \item negative predictive value \code{\link{NPV}}:
 
-\code{\link{NPV} = \link{cr}/\link{dec.neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
+\code{\link{NPV} = \link{cr}/\link{dec_neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
 
 \item false detection rate \code{\link{FDR}}:
 
-\code{\link{FDR} = \link{fa}/\link{dec.pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
+\code{\link{FDR} = \link{fa}/\link{dec_pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 
 \item false omission rate \code{\link{FOR}}:
 
-\code{\link{FOR} = \link{mi}/\link{dec.neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
+\code{\link{FOR} = \link{mi}/\link{dec_neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
 
 \item accuracy \code{\link{acc}}:
 
-\code{\link{acc} = \link{dec.cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+\code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
 }
 

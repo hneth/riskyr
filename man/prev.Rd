@@ -3,7 +3,7 @@
 \docType{data}
 \name{prev}
 \alias{prev}
-\alias{baserate_cond.true}
+\alias{baserate_cond_true}
 \title{The prevalence (baseline probability) of a condition.}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -29,15 +29,15 @@ or the base rate (or baseline probability)
 
 \item In terms of frequencies,
   \code{prev} is the ratio of
-  \code{\link{cond.true}} (i.e., \code{\link{hi} + \link{mi}})
+  \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{prev = cond.true/N = (hi + mi)/(hi + mi + fa + cr)}
+\code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
 
 \item Perspective:
   \code{prev} classifies a population of \code{\link{N}} individuals
-  by condition (\code{prev = cond.true/N}).
+  by condition (\code{prev = cond_true/N}).
 
 \code{prev} is the "by condition" counterpart
   to \code{\link{ppod}} (when adopting a "by decision" perspective) and

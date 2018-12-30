@@ -31,8 +31,8 @@ or the probability of correctly detecting false cases
 
 \item Perspective:
   \code{spec} further classifies
-  the subset of \code{\link{cond.false}} individuals
-  by decision (\code{spec = cr/cond.false}).
+  the subset of \code{\link{cond_false}} individuals
+  by decision (\code{spec = cr/cond_false}).
 
 \item Alternative names:
   true negative rate (\code{TNR}),
@@ -54,10 +54,10 @@ b. \code{spec} is the opposite conditional probability
 
 \item In terms of frequencies,
   \code{spec} is the ratio of
-  \code{\link{cr}} divided by \code{\link{cond.false}}
+  \code{\link{cr}} divided by \code{\link{cond_false}}
   (i.e., \code{\link{fa} + \link{cr}}):
 
-\code{spec = cr/cond.false = cr/(fa + cr)}
+\code{spec = cr/cond_false = cr/(fa + cr)}
 
 \item Dependencies:
   \code{spec} is a feature of a decision process

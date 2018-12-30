@@ -30,8 +30,8 @@ or the probability of a positive decision being correct.
 
 \item Perspective:
   \code{PPV} further classifies
-  the subset of \code{\link{dec.pos}} individuals
-  by condition (\code{PPV = hi/dec.pos = hi/(hi + fa)}).
+  the subset of \code{\link{dec_pos}} individuals
+  by condition (\code{PPV = hi/dec_pos = hi/(hi + fa)}).
 
 \item Alternative names:
   \code{precision}
@@ -51,10 +51,10 @@ b. \code{PPV} is the opposite conditional probability
 
 \item In terms of frequencies,
   \code{PPV} is the ratio of
-  \code{\link{hi}} divided by \code{\link{dec.pos}}
+  \code{\link{hi}} divided by \code{\link{dec_pos}}
   (i.e., \code{\link{hi} + \link{fa}}):
 
-\code{PPV = hi/dec.pos = hi/(hi + fa)}
+\code{PPV = hi/dec_pos = hi/(hi + fa)}
 
 \item Dependencies:
   \code{PPV} is a feature of a decision process

@@ -14,11 +14,11 @@ acc
 \code{acc} defines overall accuracy
 as the probability of correspondence between a positive decision
 and true condition (i.e., the proportion of correct classification
-decisions or of \code{\link{dec.cor}} cases).
+decisions or of \code{\link{dec_cor}} cases).
 }
 \details{
-Importantly, correct decisions \code{\link{dec.cor}}
-are not necessarily positive decisions \code{\link{dec.pos}}.
+Importantly, correct decisions \code{\link{dec_cor}}
+are not necessarily positive decisions \code{\link{dec_pos}}.
 
 Understanding or obtaining the accuracy metric \code{acc}:
 
@@ -27,7 +27,7 @@ Understanding or obtaining the accuracy metric \code{acc}:
 \item Definition:
   \code{acc} is the (non-conditional) probability:
 
-\code{acc = p(dec.cor) = dec.cor/N}
+\code{acc = p(dec_cor) = dec_cor/N}
 
 or the base rate (or baseline probability)
   of a decision being correct, but not necessarily positive.
@@ -40,7 +40,7 @@ or the base rate (or baseline probability)
 
 (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
-(b) from \code{\link{freq}}: \code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+(b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
 (c) as complement of the error rate \code{\link{err}}: \code{acc = 1 - err}
 
@@ -48,7 +48,7 @@ When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a) a
 
 \item Perspective:
   \code{acc} classifies a population of \code{\link{N}} individuals
-  by accuracy/correspondence (\code{acc = dec.cor/N}).
+  by accuracy/correspondence (\code{acc = dec_cor/N}).
 
 \code{acc} is the "by accuracy" or "by correspondence" counterpart
   to \code{\link{prev}} (which adopts a "by condition" perspective) and
@@ -60,11 +60,11 @@ When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a) a
 
 \item In terms of frequencies,
   \code{acc} is the ratio of
-  \code{\link{dec.cor}} (i.e., \code{\link{hi} + \link{cr}})
+  \code{\link{dec_cor}} (i.e., \code{\link{hi} + \link{cr}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)}
+\code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
 \item Dependencies:
   \code{acc} is a feature of both the environment (true condition) and
@@ -78,7 +78,7 @@ and several possible interpretations of accuracy.
 }
 \examples{
 acc <- .50     # sets a rate of correct decisions of 50\%
-acc <- 50/100  # (dec.cor) for 50 out of 100 individuals
+acc <- 50/100  # (dec_cor) for 50 out of 100 individuals
 is_prob(acc)   # TRUE
 
 }
