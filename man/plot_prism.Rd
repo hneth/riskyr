@@ -176,8 +176,8 @@ plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
 ## Custom color and text settings:
-plot_prism(col = "snow", f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
-           font = 3, cex_p_lbl = .75)                   # and text labels
+plot_prism(col_pal = pal_bw, f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
+           font = 3, cex_p_lbl = .75)                       # and text labels
 
 my_txt <- init_txt(cond_lbl = "The Truth", cond.true_lbl = "so true", cond.false_lbl = "so false",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
