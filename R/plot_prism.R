@@ -597,12 +597,12 @@ plot_prism <- function(prev = num$prev,    # probabilities
     b_h <- (1 * b_h_scale)  # basic box height
 
     # gold_ratio  <- 1.618  # a. golden ratio (= approx. 1.6180339887)
-    wide_screen   <- 16/9   # b. 1.778
-    # compromise  <- 1.70   # c. 1.70
+    # wide_screen   <- 16/9   # b. 1.778
+    compromise  <- 1.70   # c. 1.70
 
     # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # a. wider + corrected for aspect ratio
-    b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)   # b. wider + corrected
-    # b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)  # c. wider + corrected
+    # b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)   # b. wider + corrected
+    b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)  # c. wider + corrected
 
   } else {
 
