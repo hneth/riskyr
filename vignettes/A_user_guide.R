@@ -94,9 +94,9 @@ all.equal(freq$cr, rand.f[4])
 ## ----riskyr_scenario_def-------------------------------------------------
 s <- riskyr(scen_lbl = "Mammography screening", 
             cond_lbl = "breast cancer",
-            cond.true_lbl = "cancer", cond.false_lbl = "no cancer",
+            cond_true_lbl = "cancer", cond_false_lbl = "no cancer",
             dec_lbl = "screening test",
-            dec.pos_lbl = "predict cancer", dec.neg_lbl = "predict no cancer",
+            dec_pos_lbl = "predict cancer", dec_neg_lbl = "predict no cancer",
             prev = .01, 
             sens = .80, 
             spec = NA, 

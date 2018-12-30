@@ -26,10 +26,10 @@ Behold the aptly named "confusion matrix":
 |              | Condition |          |       |          |            
 | ----------:  |:--------:|:--------:|:--------:|:--------:|              
 | **Decision** | present (`TRUE`):      | absent (`FALSE`):     |     Sum:  |  (b) by decision: |  
-| positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | `PPV` = `hi`/`dec.pos` |
-| negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | `NPV` = `cr`/`dec.neg` |
-|      Sum:    | `cond.true`  | `cond.false` |       `N` |         `prev` =  `cond.true`/`N`     |
-| (a) by condition  | `sens` = `hi`/`cond.true` | `spec` = `cr`/`cond.false` | `ppod` = `dec.pos`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
+| positive (`TRUE`):   | `hi`         | `fa`         | `dec_pos` | `PPV` = `hi`/`dec_pos` |
+| negative (`FALSE`):  | `mi`         | `cr`         | `dec_neg` | `NPV` = `cr`/`dec_neg` |
+|      Sum:    | `cond_true`  | `cond_false` |       `N` |         `prev` =  `cond_true`/`N`     |
+| (a) by condition  | `sens` = `hi`/`cond_true` | `spec` = `cr`/`cond_false` | `ppod` = `dec_pos`/`N` |  `acc` = `dec_cor`/`N` = (`hi`+`cr`)/`N` |
 
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
@@ -44,9 +44,9 @@ Fortunately, the basic matrix is also known as 2-by-2 contingency table, actuall
 | ----------:  |:--------:|:--------:|:--------:|:--------:|              
 | `rows` | left (`TRUE`):      | right (`FALSE`):     |     Sum:  |  (b) by decision: |  
 | top (`TRUE`):   | `tl`         | `tr`         | `t` | `ptl` = `tl`/`t`  `ptr` = `tr`/`t` |
-| bottom (`FALSE`):  | `bl`       | `br`      | `b` | `NPV` = `cr`/`dec.neg` |
+| bottom (`FALSE`):  | `bl`       | `br`      | `b` | `NPV` = `cr`/`dec_neg` |
 |      Sum:    | `l`  | `r` |       `N` |         `pl` =  `nl`/`N`     |
-| (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond.false` | `pt` = `nt`/`N` |  `acc` = `dec.cor`/`N` = (`hi`+`cr`)/`N` |
+| (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond_false` | `pt` = `nt`/`N` |  `acc` = `dec_cor`/`N` = (`hi`+`cr`)/`N` |
 
 -->
 
@@ -83,7 +83,7 @@ Importantly, all frequencies required to understand and compute various metrics 
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{cond.true} & +\ \ \ \ \ &\texttt{cond.false}   & \textrm{(a)}      \\
+\texttt{N} \ &= \ \texttt{cond_true} & +\ \ \ \ \ &\texttt{cond_false}   & \textrm{(a)}      \\
            \ &= \ (\texttt{hi} + \texttt{mi}) & +\ \ \ \ \ &(\texttt{fa} + \texttt{cr}) \\
 \end{aligned}
 $$ 
@@ -92,7 +92,7 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \ \ \ \ \textrm{(b)}      \\
+\texttt{N} \ &= \ \texttt{dec_pos} & +\ \ \ \ \ &\texttt{dec_neg}   & \ \ \ \ \textrm{(b)}      \\
            \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr})         \\
 \end{aligned}
 $$ 
@@ -102,9 +102,9 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 |              | Condition |          |      |     
 | ------:      |:----:|:----:|:------:|:----:|              
 | **Decision** | present (`TRUE`): | absent (`FALSE`): |   Sum:  |   
-| positive (`TRUE`):   | `hi`         | `fa`         | `dec.pos` | 
-| negative (`FALSE`):  | `mi`         | `cr`         | `dec.neg` | 
-|      Sum:            | `cond.true`  | `cond.false` |       `N` |
+| positive (`TRUE`):   | `hi`         | `fa`         | `dec_pos` | 
+| negative (`FALSE`):  | `mi`         | `cr`         | `dec_neg` | 
+|      Sum:            | `cond_true`  | `cond_false` |       `N` |
 
 
 #### Example
@@ -156,7 +156,7 @@ Splitting all `N` individuals into two subgroups of those with correct vs. those
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \ \ \textrm{(c)}  \\
+\texttt{N} \ &= \ \texttt{dec_cor} & +\ \ \ \ \ &\texttt{dec_err}   & \ \ \textrm{(c)}  \\
            \ &= \ (\texttt{hi} + \texttt{cr}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 $$ 
@@ -178,15 +178,15 @@ It may be instructive to point out two possible sources of confusion, so that th
 1. Beware of alternative terms for `mi` and `cr`:  
 
     - Misses `mi` are often called "false negatives" (FN), but are nevertheless cases for which the condition is `TRUE` 
-    (i.e., in the `cond.true` column of the confusion table).
+    (i.e., in the `cond_true` column of the confusion table).
 
     - Correct rejections `cr` are often called "true negatives" (TN), but are nevertheless cases for which the condition is `FALSE` 
-    (i.e., in the `cond.false` column of the confusion table).
+    (i.e., in the `cond_false` column of the confusion table).
 
 Thus, the terms "true" and "false" are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr`, rather than "false negatives" and "true negatives".
 
-2. Beware of alternative terms for `dec.cor` and `dec.err`:  
-Similarly, it may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond.false` cases (`cr`) and "false decisions" would include `cond.true` cases (`mi`). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions".
+2. Beware of alternative terms for `dec_cor` and `dec_err`:  
+Similarly, it may be tempting to refer to instances of `dec_cor` and `dec_err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond_false` cases (`cr`) and "false decisions" would include `cond_true` cases (`mi`). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions".
 
 
 ## Accuracy metrics
@@ -197,27 +197,27 @@ While all accuracy metrics quantify the relationship between correct and erroneo
 
 ### A. Specific metrics: Conditional probabilities
 
-The goal of a specific accuracy metric is to quantify some particular aspect of decision performance. For instance, how accurate is our decision or diagnostic test in correctly detecting `cond.true` cases?  How accurate is it in detecting `cond.false` cases? 
+The goal of a specific accuracy metric is to quantify some particular aspect of decision performance. For instance, how accurate is our decision or diagnostic test in correctly detecting `cond_true` cases?  How accurate is it in detecting `cond_false` cases? 
 
 As we are dealing with two types of correct decisions (`hi` and `cr`) and two perspectives (by columns vs. by rows), we can provide 4 answers to these questions. To obtain a numeric quantity, we divide the frequency of correct cases (either `hi` or `cr`) by
 
-(a) column sums (`cond.true` vs. `cond.false`): This yields the decision's _sensitivity_ (`sens`) and _specificity_ (`spec`):
+(a) column sums (`cond_true` vs. `cond_false`): This yields the decision's _sensitivity_ (`sens`) and _specificity_ (`spec`):
 
 $$
 \begin{aligned}
-\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond.true}} & \ \ \textrm{(a1)}   \\
+\texttt{sens} \ &= \frac{\texttt{hi}}{\texttt{cond_true}} & \ \ \textrm{(a1)}   \\
 \ \\ 
-\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond.false}} & \ \ \textrm{(a2)}  \\
+\texttt{spec} \ &= \frac{\texttt{cr}}{\texttt{cond_false}} & \ \ \textrm{(a2)}  \\
 \end{aligned}
 $$
 
-(b) row sums (`dec.pos` vs. `dec.neg`): This yields the decision's _positive predictive value_ (`PPV`) and _negative predictive value_ (`NPV`): 
+(b) row sums (`dec_pos` vs. `dec_neg`): This yields the decision's _positive predictive value_ (`PPV`) and _negative predictive value_ (`NPV`): 
 
 $$
 \begin{aligned}
-\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec.pos}} & \ \ \ \textrm{(b1)}   \\
+\texttt{PPV} \ &= \frac{\texttt{hi}}{\texttt{dec_pos}} & \ \ \ \textrm{(b1)}   \\
 \ \\ 
-\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec.neg}} & \ \ \ \textrm{(b2)}   \\
+\texttt{NPV} \ &= \frac{\texttt{cr}}{\texttt{dec_neg}} & \ \ \ \textrm{(b2)}   \\
 \end{aligned}
 $$
 
@@ -228,7 +228,7 @@ In contrast to these specific metrics, general metrics of accuracy aim to captur
 
 #### 1. Overall accuracy `acc` 
 
-Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec.cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
+Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec_cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
 
 > Accuracy `acc` := Proportion or percentage of cases correctly classified.
 
@@ -237,7 +237,7 @@ Numerically, overall accuracy `acc` is computed as:
 $$
 \begin{aligned}
 \texttt{acc} &= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
-             = \frac{\texttt{dec.cor}}{\texttt{dec.cor} + \texttt{dec.err}} = \frac{\texttt{dec.cor}}{\texttt{N}}  
+             = \frac{\texttt{dec_cor}}{\texttt{dec_cor} + \texttt{dec_err}} = \frac{\texttt{dec_cor}}{\texttt{N}}  
 \end{aligned}
 $$
 

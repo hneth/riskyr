@@ -286,7 +286,7 @@ As before, the function `comp_freq_prob` does not compute only one frequency, bu
 f1
 ```
 
-In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond.true` cases, whereas the `990` without cancer are listed as `cond.false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](B_data_formats.html) for details on all frequencies.)
+In this list, the sample of `N` = $1000$ women is split into 3 different subgroups. For instance, the $10$ women with cancer appear as `cond_true` cases, whereas the `990` without cancer are listed as `cond_false` cases. The $8$ women with cancer and a positive test result appear as _hits_ `hi` and the 95 women who receive a positive test result without having cancer are listed as _false alarms_ `fa`. (See the vignette on [data formats](B_data_formats.html) for details on all frequencies.)
 
 #### Computing probabilities from frequencies
 
@@ -358,9 +358,9 @@ In the likely case that you are less interested in specific metrics or formats a
 ```{r riskyr_scenario_def}
 s <- riskyr(scen_lbl = "Mammography screening", 
             cond_lbl = "breast cancer",
-            cond.true_lbl = "cancer", cond.false_lbl = "no cancer",
+            cond_true_lbl = "cancer", cond_false_lbl = "no cancer",
             dec_lbl = "screening test",
-            dec.pos_lbl = "predict cancer", dec.neg_lbl = "predict no cancer",
+            dec_pos_lbl = "predict cancer", dec_neg_lbl = "predict no cancer",
             prev = .01, 
             sens = .80, 
             spec = NA, 
@@ -409,7 +409,7 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
            by = "cd", title_lbl = "Mammography screening")
 ```
 
-Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalence (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond.false` cases).
+Importantly, the `plot_prism` function plot a simple frequency tree when providing a single perspective argument `by = "cd"` (as opposed to its default `by = "cddc"`). Here, it is called with the same 3 essential probabilities (`prev`, `sens`, and `spec`) and 1 frequency (the number of individuals `N` of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (`hi`) depends on both the condition's prevalence (`prev`) and the decision's sensitivity (`sens`), or that the decision's specificity `spec` can be expressed and computed as the ratio of the number of true negatives (`cr`) divided by the number of unaffected individuals (`cond_false` cases).
 
 #### Area plot
 
@@ -420,7 +420,7 @@ plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 ```
 
-The vertical split dissects the population into two subgroups that correspond to the frequency of `cond.true` and `cond.false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left. (For details and additional options of the `plot_area` function, see the documentation of `?plot_area`.)
+The vertical split dissects the population into two subgroups that correspond to the frequency of `cond_true` and `cond_false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left. (For details and additional options of the `plot_area` function, see the documentation of `?plot_area`.)
 
 #### Bar plot 
 
@@ -448,14 +448,14 @@ Changing the `by` and `area` options provides a variety of perspectives on a sce
 
 The variety of different graphical options may be overwhelming at first. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself. 
 
-Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond.true` and `cond.false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec.pos` and `dec.neg` cases: 
+Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond_true` and `cond_false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec_pos` and `dec_neg` cases: 
 
 ```{r plot_tree_dc, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by decision."}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
            by = "dc", title_lbl = "Mammography screening")
 ```
 
-Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (`dec.cor` and `dec.err`) decisions:
+Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (`dec_cor` and `dec_err`) decisions:
 
 ```{r plot_tree_ac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by accuracy"}
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 

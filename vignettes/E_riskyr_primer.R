@@ -32,9 +32,9 @@ all.equal(my_scenario, my_scenario_2)
 my_scenario <- riskyr(scen_lbl = "Identifying reoffenders", 
                       popu_lbl = "prison inmates", 
                       cond_lbl = "reoffending",
-                      cond.true_lbl = "reoffends", cond.false_lbl = "does not reoffend",
+                      cond_true_lbl = "reoffends", cond_false_lbl = "does not reoffend",
                       dec_lbl = "test result",
-                      dec.pos_lbl = "predict to\nreoffend", dec.neg_lbl = "predict to\nnot reoffend",
+                      dec_pos_lbl = "predict to\nreoffend", dec_neg_lbl = "predict to\nnot reoffend",
                       hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
                       fa_lbl = "false accusation", cr_lbl = "correct release",
                       prev = .45,  # prevalence of being a reoffender. 

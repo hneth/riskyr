@@ -129,12 +129,12 @@ To make various outputs more recognizable, many aspects of a `riskyr` scenario c
 * `popu_lbl` specifies the population of interest (e.g., "inmates").  
 
 * `cond_lbl` specifies the condition of interest (i.e., "reoffending").
-* `cond.true_lbl` specifies a label for the condition being true ("offends again").
-* `cond.false_lbl` specifies a label for the condition being false ("does not offend again").
+* `cond_true_lbl` specifies a label for the condition being true ("offends again").
+* `cond_false_lbl` specifies a label for the condition being false ("does not offend again").
 
 * `dec_lbl` specifies the nature of the decision, prediction, or test ("test result").
-* `dec.pos_lbl` specifies a positive decision regarding the condition ("predict to reoffend").
-* `dec.neg_lbl` specifies a negative decision regarding the condition ("predict to not reoffend").
+* `dec_pos_lbl` specifies a positive decision regarding the condition ("predict to reoffend").
+* `dec_neg_lbl` specifies a negative decision regarding the condition ("predict to not reoffend").
 
 * `hi_lbl`, `mi_lbl`, `fa_lbl`, and `cr_lbl` specify the four possible combinations of conditions and decisions: 
     1. hit: The test predicts that the inmate reoffends and s/he does ("reoffender found");   
@@ -149,9 +149,9 @@ Whereas specifying three essential probabilities is necessary to define a valid 
 my_scenario <- riskyr(scen_lbl = "Identifying reoffenders", 
                       popu_lbl = "prison inmates", 
                       cond_lbl = "reoffending",
-                      cond.true_lbl = "reoffends", cond.false_lbl = "does not reoffend",
+                      cond_true_lbl = "reoffends", cond_false_lbl = "does not reoffend",
                       dec_lbl = "test result",
-                      dec.pos_lbl = "predict to\nreoffend", dec.neg_lbl = "predict to\nnot reoffend",
+                      dec_pos_lbl = "predict to\nreoffend", dec_neg_lbl = "predict to\nnot reoffend",
                       hi_lbl = "reoffender found", mi_lbl = "reoffender missed",
                       fa_lbl = "false accusation", cr_lbl = "correct release",
                       prev = .45,  # prevalence of being a reoffender. 
@@ -234,9 +234,9 @@ plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by
 ```
 
 The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from 
-frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or `PPV = hi/dec.pos`). Numerically, we see that `PPV = 332/556`, which amounts to about 60\% (or `1 - 0.403`). 
+frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or `PPV = hi/dec_pos`). Numerically, we see that `PPV = 332/556`, which amounts to about 60\% (or `1 - 0.403`). 
 
-The tree also depicts additional information that corresponds to our `summary` from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be `NPV = 190/197` or about 96.4\% (as `NPV = cr/dec.neg`). Again, this closely corresponds to our `summary` information of `NPV = 0.966`.^[The difference between `NPV = 190/197 = 0.964467` (when computing the ratio of frequencies) and `NPV = 0.966` (in the `summary`) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument `round = FALSE`. ]  
+The tree also depicts additional information that corresponds to our `summary` from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be `NPV = 190/197` or about 96.4\% (as `NPV = cr/dec_neg`). Again, this closely corresponds to our `summary` information of `NPV = 0.966`.^[The difference between `NPV = 190/197 = 0.964467` (when computing the ratio of frequencies) and `NPV = 0.966` (in the `summary`) is due to rounding tree frequencies to integer values. If absolute precision is required, we can plot the frequency tree without rounding by adding an argument `round = FALSE`. ]  
 
 A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev` (and additionally assumes a 5%-uncertainty concerning the exact parameter values): 
 
@@ -323,7 +323,7 @@ plot(s10,
 
 This variant of the prism plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (also listed in the summary). Calling the same command with the optional argument `p_lbl = "nam"` would print the probability names, rather than their values (see also the options `p_lbl = "min"` and `"mix"`.) The middle row of boxes shows the four essential frequencies (of hits `hi`, misses `mi`, false alarms `fa`, and correct rejections `cr`) in colors corresponding to the icon array above. Setting `area = "hr"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence `hr`) and the box widths are scaled to add up to the population width `N` on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
 
-A fact that was not so obvious in the icon array -- but shown in the lower half of the prism plot -- is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%).  Of those negative decisions, 470 (or 54.34%) are correct (see `cr` shown in light green) and 395 (or 45.66%) are incorrect (see `mi` shown in dark red). The ratio `cr/dec.neg = 470/865 = 54.34`% indicates the negative predictive value (`NPV`) of the test. 
+A fact that was not so obvious in the icon array -- but shown in the lower half of the prism plot -- is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%).  Of those negative decisions, 470 (or 54.34%) are correct (see `cr` shown in light green) and 395 (or 45.66%) are incorrect (see `mi` shown in dark red). The ratio `cr/dec_neg = 470/865 = 54.34`% indicates the negative predictive value (`NPV`) of the test. 
 
 ##### Practice
 

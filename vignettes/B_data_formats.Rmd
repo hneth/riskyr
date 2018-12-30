@@ -25,12 +25,12 @@ knitr::opts_chunk$set(
 
 <!-- Introduction: Uncertainty: Risks as probabilities vs. frequencies --> 
 
-A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be measured and calculated --- or "reckoned" --- with (Gigerenzer, 2002). Nevertheless, information expressed in probabilities is often difficult to understand, even for statistical experts. 
+A major challenge in mastering risk literacy is coping with inevitable uncertainty. Fortunately, uncertainty in the form of _risk_ can be expressed in terms of probabilities and thus be measured and calculated or "reckoned" with (Gigerenzer, 2002). Nevertheless, probabilistic information is often difficult to understand, even for experts in risk management and statistics. 
 A smart and effective way to communicate probabilities is by expressing them in terms of frequencies. 
 
 ## Two representational formats
 
-The problems addressed by `riskyr` and the scientific discussion surrounding them can be framed in terms of two representational formats: _frequencies_ are distinguished from _probabilities_. (See the [user guide](user_guide.html) for background and references.)
+The problems addressed by `riskyr` and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, information expressed in _frequencies_ is distinguished from information expressed in _probabilities_ (see the [user guide](A_user_guide.html) for background and references.)
 
 `riskyr` reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called `freq`) and objects that contain probabilities (a list called `prob`). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined. 
 
@@ -57,12 +57,12 @@ The following 11 frequencies are distinguished by `riskyr` and contained in `fre
 |Nr.| Variable | Definition |
 |--:|:----     |:------------------------------------------------------|
 |  1.  | `N`          | The number of cases (or individuals) in the population. |
-|  2.  | `cond.true`  | The number of cases for which the condition is present (`TRUE`).  |
-|  3.  | `cond.false` | The number of cases for which the condition is absent (`FALSE`).  |
-|  4.  | `dec.pos`    | The number of cases for which the decision is positive (`TRUE`).  |
-|  5.  | `dec.neg`    | The number of cases for which the decision is negative (`FALSE`). |
-|  6.  | `dec.cor`    | The number of cases for which the decision is correct (correspondence of decision to condition). |
-|  7.  | `dec.err`    | The number of cases for which the decision is erroneous (difference between decision and condition). |
+|  2.  | `cond_true`  | The number of cases for which the condition is present (`TRUE`).  |
+|  3.  | `cond_false` | The number of cases for which the condition is absent (`FALSE`).  |
+|  4.  | `dec_pos`    | The number of cases for which the decision is positive (`TRUE`).  |
+|  5.  | `dec_neg`    | The number of cases for which the decision is negative (`FALSE`). |
+|  6.  | `dec_cor`    | The number of cases for which the decision is correct (correspondence of decision to condition). |
+|  7.  | `dec_err`    | The number of cases for which the decision is erroneous (difference between decision and condition). |
 |  8.  | `hi` | The number of hits or true positives: condition present (`TRUE`) & decision positive (`TRUE`). |
 |  9.  | `mi` | The number of misses or false negatives: condition present (`TRUE`) & decision negative (`FALSE`). |
 |  10. | `fa` | The number of false alarms or false positives: condition absent (`FALSE`) & decision positive (`TRUE`). |
@@ -74,7 +74,7 @@ The following 11 frequencies are distinguished by `riskyr` and contained in `fre
 The frequencies contained in `freq` can be viewed from two perspectives:
 
 1. **Top-down: ** From the entire population to different parts or subgroups:<br> 
-Whereas `N` specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency `dec.pos` denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to `N`.
+Whereas `N` specifies the size of the entire population, the other 10 frequencies denote the number of individuals or cases in some subset. For instance, the frequency `dec_pos` denotes individuals for which the decision or diagnosis is positive. As this frequency is contained within the population, its numeric value must range from 0 to `N`.
 
 2. **Bottom-up: ** From the 4 essential subgroups to various combinations of them:<br> 
 As the 4 frequencies `hi`, `mi`, `fa`, and `cr` are not further split into subgroups, we can think of them as atomic elements or four _essential_ frequencies. All other frequencies in `freq` are sums of various combinations of these four essential frequencies. This implies that the entire network of frequencies and probabilities (shown in the network diagram above) can be reconstructed from these four essential frequencies.
@@ -94,9 +94,9 @@ Depending on the criterion used, the following relationships hold:
 
 $$ 
 \begin{aligned}
-\texttt{N} &= \texttt{cond.true} + \texttt{cond.false} & \textrm{(a)}\\
-           &= \texttt{dec.pos} + \texttt{dec.neg}      & \textrm{(b)}\\
-           &= \texttt{dec.cor} + \texttt{dec.err}      & \textrm{(c)}\\
+\texttt{N} &= \texttt{cond_true} + \texttt{cond_false} & \textrm{(a)}\\
+           &= \texttt{dec_pos} + \texttt{dec_neg}      & \textrm{(b)}\\
+           &= \texttt{dec_cor} + \texttt{dec_err}      & \textrm{(c)}\\
            &= \texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr} & \textrm{(d)}\\
 \end{aligned}
 $$ 
@@ -107,7 +107,7 @@ Similarly, each of the subsets resulting from using the splits by condition, by 
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{cond.true} & +\ \ \ \ \ &\texttt{cond.false}   & \textrm{(a)} \\
+\texttt{N} \ &= \ \texttt{cond_true} & +\ \ \ \ \ &\texttt{cond_false}   & \textrm{(a)} \\
            \ &= \ (\texttt{hi} + \texttt{mi}) & +\ \ \ \ \ &(\texttt{fa} + \texttt{cr}) \\
 \end{aligned}
 $$
@@ -116,7 +116,7 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.pos} & +\ \ \ \ \ &\texttt{dec.neg}   & \ \ \ \ \ \textrm{(b)}  \\
+\texttt{N} \ &= \ \texttt{dec_pos} & +\ \ \ \ \ &\texttt{dec_neg}   & \ \ \ \ \ \textrm{(b)}  \\
            \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr})   \\
 \end{aligned}
 $$ 
@@ -125,13 +125,13 @@ $$
 
 $$ 
 \begin{aligned}
-\texttt{N} \ &= \ \texttt{dec.cor} & +\ \ \ \ \ &\texttt{dec.err}   & \ \ \ \ \textrm{(c)}  \\
+\texttt{N} \ &= \ \texttt{dec_cor} & +\ \ \ \ \ &\texttt{dec_err}   & \ \ \ \ \textrm{(c)}  \\
            \ &= \ (\texttt{hi} + \texttt{cr}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{fa}) \\
 \end{aligned}
 $$
 
-It may be tempting to refer to instances of `dec.cor` and `dec.err` as "true decisions" and "false decisions". 
-However, this would invite conceptual confusion, as "true decisions" actually include `cond.false` cases (`cr`) and "false decisions" actually include `cond.true` cases (`mi`).
+It may be tempting to refer to instances of `dec_cor` and `dec_err` as "true decisions" and "false decisions". 
+However, this would invite conceptual confusion, as "true decisions" actually include `cond_false` cases (`cr`) and "false decisions" actually include `cond_true` cases (`mi`).
 
 ## Probabilities
 
@@ -167,7 +167,7 @@ Note that a typical `riskyr` scenario contains several _non-conditional_ probabi
 
 - The prevalence `prev` (1.) only depends on features of the _condition_.
 - The proportion of positive decisions `ppod` (6.) only depends on features of the _decision_. 
-- The accuracy `acc` (11.) depends on `prev` and `ppod`, but unconditionally dissects a population into 2 groups (`dec.cor` vs. `dec.err`). 
+- The accuracy `acc` (11.) depends on `prev` and `ppod`, but unconditionally dissects a population into 2 groups (`dec_cor` vs. `dec_err`). 
 
 The other probabilities are _conditional_ probabilities based on 3 perspectives:
 
@@ -218,27 +218,27 @@ The easiest way to think about, define, and compute the probabilities (contained
 
 | Nr.| Variable | Name          | Definition                          | as Frequencies |
 |--: |:---      |:------------  |:----------------------------------- |:------------ |
-|  1. | `prev` | prevalence  | The probability of the _condition_ being `TRUE`. | `prev` = `cond.true`/`N` | 
-|  2. | `sens` | sensitivity | The conditional probability of a _positive decision_ provided that the _condition_ is `TRUE`. | `sens` = `hi`/`cond.true` |
-|  3. | `mirt` | miss rate | The conditional probability of a _negative decision_ provided that the _condition_ is `TRUE`.  | `mirt` = `mi`/`cond.true` |
-|  4. | `spec` | specificity | The conditional probability of a _negative decision_ provided that the _condition_ is `FALSE`. | `spec` = `cr`/`cond.false` |
-|  5. | `fart` | false alarm rate | The conditional probability of a _positive decision_ provided that the _condition_ is `FALSE`. | `fart` = `fa`/`cond.false` |
-|  6. | `ppod` | proportion of positive decisions | The proportion (baseline probability or rate) of the _decision_ being _positive_ (but _not_ necessarily `TRUE`). | `ppod` = `dec.pos`/`N` |
-|  7. | `PPV` | positive predictive value | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _positive_. | `PPV` = `hi`/`dec.pos` |
-|  8. | `FDR` | false detection rate | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _positive_. | `FDR` = `fa`/`dec.pos` |
-|  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. | `NPV` = `cr`/`dec.neg` |
-| 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | `FOR` = `mi`/`dec.neg` |
-| 11. | `acc` | accuracy | The probability of a _correct decision_ (i.e., correspondence of decisions to conditions). | `acc` = `dec.cor`/`N` |
-| 12. | `p_acc_hi` | -- | The conditional probability of the _condition_ being `TRUE` provided that a decision or prediction is _accurate_. | `p_acc_hi` = `hi`/`dec.cor` | 
-| 13. | `p_err_fa` | -- | The conditional probability of the _condition_ being `FALSE` provided that a decision or prediction is _inaccurate_ or _erroneous_. | `p_err_fa` = `fa`/`dec.err` | 
+|  1. | `prev` | prevalence  | The probability of the _condition_ being `TRUE`. | `prev` = `cond_true`/`N` | 
+|  2. | `sens` | sensitivity | The conditional probability of a _positive decision_ provided that the _condition_ is `TRUE`. | `sens` = `hi`/`cond_true` |
+|  3. | `mirt` | miss rate | The conditional probability of a _negative decision_ provided that the _condition_ is `TRUE`.  | `mirt` = `mi`/`cond_true` |
+|  4. | `spec` | specificity | The conditional probability of a _negative decision_ provided that the _condition_ is `FALSE`. | `spec` = `cr`/`cond_false` |
+|  5. | `fart` | false alarm rate | The conditional probability of a _positive decision_ provided that the _condition_ is `FALSE`. | `fart` = `fa`/`cond_false` |
+|  6. | `ppod` | proportion of positive decisions | The proportion (baseline probability or rate) of the _decision_ being _positive_ (but _not_ necessarily `TRUE`). | `ppod` = `dec_pos`/`N` |
+|  7. | `PPV` | positive predictive value | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _positive_. | `PPV` = `hi`/`dec_pos` |
+|  8. | `FDR` | false detection rate | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _positive_. | `FDR` = `fa`/`dec_pos` |
+|  9. | `NPV` | negative predictive value | The conditional probability of the _condition_ being `FALSE` provided that the _decision_ is _negative_. | `NPV` = `cr`/`dec_neg` |
+| 10. | `FOR` | false omission rate | The conditional probability of the _condition_ being `TRUE` provided that the _decision_ is _negative_. | `FOR` = `mi`/`dec_neg` |
+| 11. | `acc` | accuracy | The probability of a _correct decision_ (i.e., correspondence of decisions to conditions). | `acc` = `dec_cor`/`N` |
+| 12. | `p_acc_hi` | -- | The conditional probability of the _condition_ being `TRUE` provided that a decision or prediction is _accurate_. | `p_acc_hi` = `hi`/`dec_cor` | 
+| 13. | `p_err_fa` | -- | The conditional probability of the _condition_ being `FALSE` provided that a decision or prediction is _inaccurate_ or _erroneous_. | `p_err_fa` = `fa`/`dec_err` | 
 
 Note that the ratios of frequencies are straightforward consequences of the probabilities' definitions:
 
 1. The unconditional probabilities (1., 6. and 11.) are proportions of the entire population:
 
-   - `prev` = `cond.true`/`N`
-   - `ppod` = `dec.pos`/`N`
-   - `acc` = `dec.cor`/`N`
+   - `prev` = `cond_true`/`N`
+   - `ppod` = `dec_pos`/`N`
+   - `acc` = `dec_cor`/`N`
 
 2. The conditional probabilities (2.--5., 7.--10., and 11.--12.) can be computed as a proportion of the reference group on which they are conditional. More specifically, if we schematically read each definition as "The conditional probability of $X$ provided that $Y$", then the ratio of the corresponding frequencies is `X & Y`/`Y`. More explicitly, 
 
@@ -273,7 +273,7 @@ plot_prism(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
 
 1. Verify that the probabilities (shown as numeric values on the edges) match the ratios of the corresponding frequencies (shown in the boxes). What are the names of these probabilities?
 
-2. What is the frequency of `dec.cor` and `dec.err` cases? Where do these cases appear in the diagram?
+2. What is the frequency of `dec_cor` and `dec_err` cases? Where do these cases appear in the diagram?
 
 3. The parameter values in the example do not require any rounding of frequencies. Change them (e.g., to `N = 5`) and explore what happens when alternating between `scale = "f"` and `scale = "p"`.
 
