@@ -2,5 +2,45 @@ title: riskyr
 
 url: https://hneth.github.io/riskyr/
 
+authors:
+  Hansjörg Neth:
+    href: http://neth.de
+  Felix Gaisbauer:
+    href: https://www.spds.uni-konstanz.de/felix-gaisbauer
+  Nico Gradwohl:
+    href: https://www.spds.uni-konstanz.de/nico-gradwohl
+  Wolfgang Gaissmaier:
+    href: https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier
+  SPDS:
+    href: https://www.spds.uni-konstanz.de/
+
 development:
-  mode: development
+  mode: devel
+
+reference:
+- title: Initialization
+  desc:  Initialize basic scenario elements.
+  contents:
+  - starts_with("init_")
+  - data
+  - read_data
+  - riskyr_class
+  - start_riskyr
+- title: Computation
+  desc: Compute parameters and translate between representational formats.
+  contents:
+  - starts_with("comp_")
+- title: Visualization
+  desc: Create graphical representations of scenario information.
+  contents:
+  - starts_with("plot_")
+
+figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.3
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.5
