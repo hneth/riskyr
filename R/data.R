@@ -1,5 +1,5 @@
 ## data.R | riskyr
-## 2018 12 14
+## 2018 12 16
 ## -----------------------------------------------
 ## Document the scenarios of ./data
 ## -----------------------------------------------
@@ -11,7 +11,7 @@
 #' scientific literature and other sources.
 #'
 #' When loading \code{riskyr}, all scenarios contained in
-#' \code{df_scenarios} are also converted into a list of
+#' \code{df_scenarios} are converted into a list of
 #' \code{riskyr} objects \code{\link{scenarios}}.
 #'
 #' @format A data frame with currently 25 rows (i.e., scenarios)
@@ -21,6 +21,8 @@
 #'
 #' \code{df_scenarios} currently contains the following scenarios
 #' (n1 to n12 in English language, n13 to n25 in German language):
+#'
+#' In English language:
 #'
 #' \enumerate{
 #'
@@ -36,6 +38,8 @@
 #'   \item PSA test (patients)
 #'   \item Psylicraptis screening
 #'   \item Sepsis
+#'
+#' In German language:
 #'
 #'   \item Amniozentese (in German)
 #'   \item HIV-Test 1
@@ -57,34 +61,34 @@
 #'
 #' \enumerate{
 #'
-#'   \item \code{scen_lbl} Text label for the current scenario.
-#'   \item \code{scen_lng} Language of the current scenario (en/de).
-#'   \item \code{scen_txt} Description text of the current scenario.
+#'   \item \code{scen_lbl}: Text label for the current scenario.
+#'   \item \code{scen_lng}: Language of the current scenario (en/de).
+#'   \item \code{scen_txt}: Description text of the current scenario.
 #'
-#'   \item \code{popu_lbl} Text label for the current population.
+#'   \item \code{popu_lbl}: Text label for the current population.
 #'
-#'   \item \code{cond_lbl} Text label for the current condition.
-#'   \item \code{cond_true_lbl}  Text label for \code{\link{cond_true}} cases.
-#'   \item \code{cond_false_lbl} Text label for \code{\link{cond_false}} cases.
+#'   \item \code{cond_lbl}: Text label for the current condition.
+#'   \item \code{cond_true_lbl}:  Text label for \code{\link{cond_true}} cases.
+#'   \item \code{cond_false_lbl}: Text label for \code{\link{cond_false}} cases.
 #'
-#'   \item \code{dec_lbl} Text label for the current decision.
-#'   \item \code{dec_pos_lbl} Text label for \code{\link{dec_pos}} cases.
-#'   \item \code{dec_neg_lbl} Text label for \code{\link{dec_neg}} cases.
+#'   \item \code{dec_lbl}: Text label for the current decision.
+#'   \item \code{dec_pos_lbl}: Text label for \code{\link{dec_pos}} cases.
+#'   \item \code{dec_neg_lbl}: Text label for \code{\link{dec_neg}} cases.
 #'
-#'   \item \code{hi_lbl} Text label for cases of hits \code{\link{hi}}.
-#'   \item \code{mi_lbl} Text label for cases of misses \code{\link{mi}}.
-#'   \item \code{fa_lbl} Text label for cases of false alarms \code{\link{fa}}.
-#'   \item \code{cr_lbl} Text label for cases of correct rejections \code{\link{cr}}.
+#'   \item \code{hi_lbl}: Text label for cases of hits \code{\link{hi}}.
+#'   \item \code{mi_lbl}: Text label for cases of misses \code{\link{mi}}.
+#'   \item \code{fa_lbl}: Text label for cases of false alarms \code{\link{fa}}.
+#'   \item \code{cr_lbl}: Text label for cases of correct rejections \code{\link{cr}}.
 #'
-#'   \item \code{prev} Value of the current prevalence \code{\link{prev}}.
-#'   \item \code{sens} Value of the current sensitivity \code{\link{sens}}.
-#'   \item \code{spec} Value of the current specificity \code{\link{spec}}.
-#'   \item \code{fart} Value of the current false alarm rate \code{\link{fart}}.
+#'   \item \code{prev}: Value of the current prevalence \code{\link{prev}}.
+#'   \item \code{sens}: Value of the current sensitivity \code{\link{sens}}.
+#'   \item \code{spec}: Value of the current specificity \code{\link{spec}}.
+#'   \item \code{fart}: Value of the current false alarm rate \code{\link{fart}}.
 #'
-#'   \item \code{N} Current population size \code{\link{N}}.
+#'   \item \code{N}: Current population size \code{\link{N}}.
 #'
-#'   \item \code{scen_src} Source information for the current scenario.
-#'   \item \code{scen_apa} Source information in APA format.
+#'   \item \code{scen_src}: Source information for the current scenario.
+#'   \item \code{scen_apa}: Source information in APA format.
 #'
 #' }
 #'
