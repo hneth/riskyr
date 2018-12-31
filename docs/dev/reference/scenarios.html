@@ -74,7 +74,7 @@ and to be used by visualization and summary functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9700</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9750</span>
       </span>
     </div>
 
@@ -160,7 +160,8 @@ which are each described by 21 variables.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>scenarios</code> currently contains the following scenarios
-(n1 to n12 in English language, n13 to n25 in German language):</p>
+(n1 to n12 in English language, n13 to n25 in German language).</p>
+<p>In English language:</p>
 <ol>
 <li><p>Bowel cancer screening</p></li>
 <li><p>Cab problem</p></li>
@@ -191,27 +192,27 @@ which are each described by 21 variables.</p>
 </ol>
     <p>Variables describing a scenario:</p>
 <ol>
-<li><p><code>scen_lbl</code> Text label for current scenario.</p></li>
-<li><p><code>scen_lng</code> Language of current scenario (en/de).</p></li>
-<li><p><code>scen_txt</code> Description text of current scenario.</p></li>
-<li><p><code>popu_lbl</code> Text label for current population.</p></li>
-<li><p><code>cond_lbl</code> Text label for current condition.</p></li>
-<li><p><code>cond_true_lbl</code> Text label for <code><a href='cond_true.html'>cond_true</a></code> cases.</p></li>
-<li><p><code>cond_false_lbl</code> Text label for <code><a href='cond_false.html'>cond_false</a></code> cases.</p></li>
-<li><p><code>dec_lbl</code> Text label for current decision.</p></li>
-<li><p><code>dec_pos_lbl</code> Text label for <code><a href='dec_pos.html'>dec_pos</a></code> cases.</p></li>
-<li><p><code>dec_neg_lbl</code> Text label for <code><a href='dec_neg.html'>dec_neg</a></code> cases.</p></li>
-<li><p><code>hi_lbl</code> Text label for cases of hits <code><a href='hi.html'>hi</a></code>.</p></li>
-<li><p><code>mi_lbl</code> Text label for cases of misses <code><a href='mi.html'>mi</a></code>.</p></li>
-<li><p><code>fa_lbl</code> Text label for cases of false alarms <code><a href='fa.html'>fa</a></code>.</p></li>
-<li><p><code>cr_lbl</code> Text label for cases of correct rejections <code><a href='cr.html'>cr</a></code>.</p></li>
-<li><p><code>prev</code> Value of current prevalence <code><a href='prev.html'>prev</a></code>.</p></li>
-<li><p><code>sens</code> Value of current sensitivity <code><a href='sens.html'>sens</a></code>.</p></li>
-<li><p><code>spec</code> Value of current specificity <code><a href='spec.html'>spec</a></code>.</p></li>
-<li><p><code>fart</code> Value of current false alarm rate <code><a href='fart.html'>fart</a></code>.</p></li>
-<li><p><code>N</code> Current population size <code><a href='N.html'>N</a></code>.</p></li>
-<li><p><code>scen_src</code> Source information for current scenario.</p></li>
-<li><p><code>scen_apa</code> Source information in APA format.</p></li>
+<li><p><code>scen_lbl</code>: Text label for current scenario.</p></li>
+<li><p><code>scen_lng</code>: Language of current scenario (en/de).</p></li>
+<li><p><code>scen_txt</code>: Description text of current scenario.</p></li>
+<li><p><code>popu_lbl</code>: Text label for current population.</p></li>
+<li><p><code>cond_lbl</code>: Text label for current condition.</p></li>
+<li><p><code>cond_true_lbl</code>: Text label for <code><a href='cond_true.html'>cond_true</a></code> cases.</p></li>
+<li><p><code>cond_false_lbl</code>: Text label for <code><a href='cond_false.html'>cond_false</a></code> cases.</p></li>
+<li><p><code>dec_lbl</code>: Text label for current decision.</p></li>
+<li><p><code>dec_pos_lbl</code>: Text label for <code><a href='dec_pos.html'>dec_pos</a></code> cases.</p></li>
+<li><p><code>dec_neg_lbl</code>: Text label for <code><a href='dec_neg.html'>dec_neg</a></code> cases.</p></li>
+<li><p><code>hi_lbl</code>: Text label for cases of hits <code><a href='hi.html'>hi</a></code>.</p></li>
+<li><p><code>mi_lbl</code>: Text label for cases of misses <code><a href='mi.html'>mi</a></code>.</p></li>
+<li><p><code>fa_lbl</code>: Text label for cases of false alarms <code><a href='fa.html'>fa</a></code>.</p></li>
+<li><p><code>cr_lbl</code>: Text label for cases of correct rejections <code><a href='cr.html'>cr</a></code>.</p></li>
+<li><p><code>prev</code>: Value of current prevalence <code><a href='prev.html'>prev</a></code>.</p></li>
+<li><p><code>sens</code>: Value of current sensitivity <code><a href='sens.html'>sens</a></code>.</p></li>
+<li><p><code>spec</code>: Value of current specificity <code><a href='spec.html'>spec</a></code>.</p></li>
+<li><p><code>fart</code>: Value of current false alarm rate <code><a href='fart.html'>fart</a></code>.</p></li>
+<li><p><code>N</code>: Current population size <code><a href='N.html'>N</a></code>.</p></li>
+<li><p><code>scen_src</code>: Source information for current scenario.</p></li>
+<li><p><code>scen_apa</code>: Source information in APA format.</p></li>
 </ol>
     <p>Note that names of variables (columns)
 correspond to a subset of <code><a href='init_txt.html'>init_txt</a></code> (to initialize <code><a href='txt.html'>txt</a></code>)
