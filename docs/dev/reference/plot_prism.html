@@ -78,7 +78,7 @@ and a population size of N individuals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@ and a population size of <code><a href='N.html'>N</a></code> individuals.</p>
     <pre class="usage"><span class='fu'>plot_prism</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>,
   <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>,
-  <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>" = "</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>arr_c</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>arr_c</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
   <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
@@ -267,9 +267,9 @@ with 6 options:</p><ol>
     <tr>
       <th>f_lbl_sep</th>
       <td><p>Label separator for main frequencies
-(when <code>f_lbl = "def" OR "namnum"</code>).
-Use <code>f_lbl_sep = ":\n"</code> to add extra line between name and numeric value.
-Default: <code>f_lbl_sep = " = "</code>.</p></td>
+(used for <code>f_lbl = "def" OR "namnum"</code>).
+Use <code>f_lbl_sep = ":\n"</code> to add a line break between name and numeric value.
+Default: <code>f_lbl_sep = NA</code> (set to <code>" = "</code> or <code>":\n"</code> based on <code>f_lbl</code>).</p></td>
     </tr>
     <tr>
       <th>f_lwd</th>
@@ -382,13 +382,13 @@ and providing many additional options.</p>
            <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>my_col</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_prism-6.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='co'>## Local values and custom color/txt settings:</span>
 <span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-           <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_TF</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>,
+           <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>,
            <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)  <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-7.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,  <span class='co'># note scale!</span>
            <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-8.png' alt='' width='672' height='480' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,             <span class='co'># note scale!</span>
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_TF</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='co'># custom text</span>
-           <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)                                       <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-9.png' alt='' width='672' height='480' /></div><div class='input'>
+<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,              <span class='co'># note scale!</span>
+           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='co'># custom text</span>
+           <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)                                        <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-9.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='co'>## Plot versions:</span>
 <span class='co'># (A) tree/single tree (nchar(by) == 2):</span>
 <span class='co'>#     3 versions:</span>

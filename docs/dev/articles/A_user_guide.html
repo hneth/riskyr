@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9650</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -258,8 +258,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 </div>
 <div id="using-riskyr" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-riskyr" class="anchor"></a>Using <code>riskyr</code>
-</h2>
+<a href="#using-riskyr" class="anchor"></a>Using riskyr</h2>
 <p>Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer &amp; Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to <em>cope</em> with tricky problems, it would be even more desirable to <em>actually understand</em> the interplay between probabilities and frequencies in risk-related tasks and domains. This is where <code>riskyr</code> comes into play.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
@@ -289,7 +288,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Running riskyr (v0.1.0.9650)...</span>
+<span class="co">#&gt; Running riskyr (v0.1.0.9700)...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -438,7 +437,7 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_pro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
 rand.p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
-<span class="co">#&gt; [1] 0.6435400 0.7889218 0.9990607</span>
+<span class="co">#&gt; [1] 0.8916996 0.9302837 0.9213713</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities:</span>
 freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
@@ -457,7 +456,7 @@ prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_p
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
 rand.f &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
 rand.f  
-<span class="co">#&gt; [1] 884 579 778 552</span>
+<span class="co">#&gt; [1] 261 727 568 215</span>
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
@@ -674,7 +673,7 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#all-riskyr-vignettes" class="anchor"></a>All <code>riskyr</code> Vignettes</h2>
+<a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr Vignettes</h2>
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"></a></p>
 <!-- Index of vignettes: -->
@@ -719,7 +718,7 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 <ol>
 <li id="fn1"><p>Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>The actual sample size <code>N</code> chosen is irrelevant, but the numbers are easier to calculate when <code>N</code> is a round number and at least as large as the frequencies mentioned in the problem.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Full disclosure: As former students of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. <code>riskyr</code> extends beyond mere translations between representational formats by showing the interplay between frequencies and probabilities in a variety of ways.<a href="#fnref3">↩</a></p></li>
+<li id="fn3"><p>Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. <code>riskyr</code> extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>See Gigerenzer and Gaissmaier (2011) and Neth and Gigerenzer (2015) for discussions on different type of decision strategies that correspond to the distinction between risk and uncertainty.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>The <code>riskyr</code> logo (showing 3 different dice facets) also represents its functionality in several ways:<br>
 1. First, each facet provides a <em>frequency</em> (e.g., the number <span class="math inline">\(3\)</span>). Nevertheless, the dice is a paradigmatic example of a device that generates <em>probabilities</em>. (See Strevens, 2013, for inferring probabilistic properties from physical devices.)<br>
@@ -738,10 +737,10 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#motivation-a-problem-of-probabilities">Motivation: A Problem of Probabilities</a></li>
       <li><a href="#using-natural-frequencies">Using Natural Frequencies</a></li>
-      <li><a href="#using-riskyr">Using <code>riskyr</code></a></li>
+      <li><a href="#using-riskyr">Using riskyr</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#all-riskyr-vignettes">All <code>riskyr</code> Vignettes</a></li>
+      <li><a href="#all-riskyr-vignettes">All riskyr Vignettes</a></li>
       </ul>
 </div>
       </div>
