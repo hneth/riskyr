@@ -169,9 +169,9 @@ In this new sample, the frequency of women with cancer and with a positive test 
 Incidentally, the reformulation in terms of frequencies protected us from erroneously taking the sensitivity (of `sens` = $\frac{8}{10} = 80\%$) as an estimate of the desired frequency. Whereas it is easy to confuse the term $p( \mathrm{positive\ test}\ |\ \mathrm{cancer} )$ with $p( \mathrm{cancer}\ |\ \mathrm{positive\ test} )$ when the task is expressed in terms of probabilities, it is clearly unreasonable to assume that about 800 of 1000 women (i.e., 80%) actually have cancer (since the prevalence in the population was specified to be 10 in 1000, i.e., 10\%). Thus, reframing the problem in terms of frequencies made us immune against a typical mistake.
 
 
-## Using `riskyr`
+## Using riskyr
 
-Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer & Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to _cope_ with tricky problems, it would be even more desirable to _actually understand_ the interplay between probabilities and frequencies in risk-related tasks and domains. This is where `riskyr` comes into play.^[Full disclosure: As former students of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. `riskyr` extends beyond mere translations between representational formats by showing the interplay between frequencies and probabilities in a variety of ways.] 
+Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer & Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to _cope_ with tricky problems, it would be even more desirable to _actually understand_ the interplay between probabilities and frequencies in risk-related tasks and domains. This is where `riskyr` comes into play.^[Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. `riskyr` extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.] 
 
 <!-- riskyr logo: -->  
 <a href="https://github.com/hneth/riskyr">
@@ -592,7 +592,7 @@ We appreciate your feedback, comments, or questions.
 - For general inquiries, please email us at <contact.riskyr@gmail.com>. 
 
 
-## All `riskyr` Vignettes
+## All riskyr Vignettes
 
 <!-- riskyr logo: -->
 <a href="https://github.com/hneth/riskyr">

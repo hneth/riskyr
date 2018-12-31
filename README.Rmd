@@ -146,7 +146,7 @@ One of the best tricks in risk literacy education is to translate probabilistic 
 [^4]: See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of _natural frequencies_. 
 
 
-#### Using `riskyr`
+#### Using riskyr
 
 Here is how `riskyr` allows you to view and solve such problems:
 
