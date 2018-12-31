@@ -8,6 +8,13 @@
 
 <title>Compute frequencies from (3 essential) probabilities. — comp_freq_prob • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -39,6 +46,8 @@ sens or its complement mirt, and
 spec or its complement fart).
 It returns a list of 11 frequencies (freq)
 as its output." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +78,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -289,22 +298,22 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>)  <span class='co'># =&gt; ok: hi = 9, ... cr = 72.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 90
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 27
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 73
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 81
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 19
 #&gt; 
 #&gt; $hi
@@ -322,22 +331,22 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>)  <span class='co'># =&gt; same result</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 90
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 27
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 73
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 81
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 19
 #&gt; 
 #&gt; $hi
@@ -355,22 +364,22 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 <span class='fu'>comp_freq_prob</span>()                   <span class='co'># =&gt; ok, using probability info currently contained in prob</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 500
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 500
 #&gt; 
 #&gt; $hi
@@ -388,25 +397,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 
 <span class='co'># Ways to work:</span>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>101</span>)  <span class='co'># =&gt; ok + warning: N hits (TP)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 101
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 101
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 101
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 101
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -423,25 +432,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; </div><div class='input'>
 <span class='co'># Same case with complements (using NAs to prevent defaults):</span>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>101</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 101
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 101
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 101
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 101
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -457,25 +466,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; [1] 0
 #&gt; </div><div class='input'>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>102</span>)  <span class='co'># =&gt; ok + warning: N hits (TP)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 102
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 102
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 102
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 102
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -490,25 +499,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>103</span>)  <span class='co'># =&gt; ok + warning: N misses (FN)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
-#&gt; <span class='warning'>  N mi (FN) cases; 0 cond.false or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 103
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 103
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 103
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 103
 #&gt; 
 #&gt; $hi
@@ -523,25 +532,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>104</span>)  <span class='co'># =&gt; ok + warning: N misses (FN)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
-#&gt; <span class='warning'>  N mi (FN) cases; 0 cond.false or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 104
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 104
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 104
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 104
 #&gt; 
 #&gt; $hi
@@ -556,25 +565,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>105</span>)  <span class='co'># =&gt; ok + warning: N correct rejections (TN)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 1):</span>
-#&gt; <span class='warning'>  N cr (TN) cases; 0 cond.true or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N cr (TN) cases; 0 cond_true or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 105
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 105
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 105
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 105
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -590,25 +599,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; [1] 105
 #&gt; </div><div class='input'>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>106</span>)  <span class='co'># =&gt; ok + warning: N false alarms (FP)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 106
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 106
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 106
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 106
 #&gt; 
 #&gt; $hi
@@ -626,25 +635,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 <span class='co'># Same case with complements (using NAs to prevent defaults):</span>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>0</span>,
                <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>106</span>)  <span class='co'># =&gt; ok + warning: N false alarms (FP)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 106
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 106
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 106
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 106
 #&gt; 
 #&gt; $hi
@@ -661,26 +670,26 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; </div><div class='input'>
 <span class='co'># Watch out for:</span>
 <span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>NA</span>)  <span class='co'># =&gt; ok + warning: N = 1 computed</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown population size N. A suitable minimum value of N = 1 was computed.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown population size N. A suitable minimum value of N = 1 was computed.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 1
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 1
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -695,25 +704,25 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># =&gt; ok, but all 0 + warning (NPV = NaN)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -730,22 +739,22 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)  <span class='co'># =&gt; ok, but all rounded</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 5
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 4
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 6
 #&gt; 
 #&gt; $hi
@@ -762,22 +771,22 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq_prob</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'># =&gt; ok, but not rounded</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 5
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 5
 #&gt; 
 #&gt; $hi
@@ -815,7 +824,7 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

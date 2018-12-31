@@ -8,6 +8,13 @@
 
 <title>Compute accuracy metrics of current classification results. — comp_accu_freq • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -37,6 +44,8 @@ from the 4 essential frequencies (hi,
 mi, fa, cr)
 that constitute the current confusion matrix and
 are contained in freq." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -67,7 +76,7 @@ are contained in freq." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -184,8 +193,8 @@ Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code
     <p>Currently computed accuracy metrics include:</p>
 <ol>
 <li><p><code>acc</code>: Overall accuracy as the proportion (or probability)
-   of correctly classifying cases or of <code><a href='dec.cor.html'>dec.cor</a></code> cases:</p>
-<p><code>acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
+   of correctly classifying cases or of <code><a href='dec_cor.html'>dec_cor</a></code> cases:</p>
+<p><code>acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
 <p>Values range from 0 (no correct prediction) to 1 (perfect prediction).</p></li>
 <li><p><code>wacc</code>: Weighted accuracy, as a weighted average of the
    sensitivity <code><a href='sens.html'>sens</a></code> (aka. hit rate <code><a href='sens.html'>HR</a></code>, <code><a href='sens.html'>TPR</a></code>,
@@ -214,9 +223,9 @@ Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code
 <p>There are several possible interpretations of accuracy:</p>
 <ol>
 <li><p>as <em>probabilities</em> (i.e., <code>acc</code> being the proportion of correct classifications,
-     or the ratio <code><a href='dec.cor.html'>dec.cor</a></code>/<code><a href='N.html'>N</a></code>),</p></li>
+     or the ratio <code><a href='dec_cor.html'>dec_cor</a></code>/<code><a href='N.html'>N</a></code>),</p></li>
 <li><p>as <em>frequencies</em> (e.g., as classifying a population of <code><a href='N.html'>N</a></code>
-     individuals into cases of <code><a href='dec.cor.html'>dec.cor</a></code> vs. <code><a href='dec.err.html'>dec.err</a></code>),</p></li>
+     individuals into cases of <code><a href='dec_cor.html'>dec_cor</a></code> vs. <code><a href='dec_err.html'>dec_err</a></code>),</p></li>
 <li><p>as <em>correlations</em> (e.g., see <code>mcc</code> in <code><a href='accu.html'>accu</a></code>).</p></li>
 </ol></li>
 <li><p>Computing exact accuracy values based on probabilities (by <code><a href='comp_accu_prob.html'>comp_accu_prob</a></code>) may differ from
@@ -444,7 +453,7 @@ for additional information.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -8,6 +8,13 @@
 
 <title>List current probability information. — prob • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -37,6 +44,8 @@ containing 3 essential (1 non-conditional prev and
 2 conditional sens and spec) probabilities
 and 8 derived (ppod and acc,
 as well as 6 conditional) probabilities:" />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -67,7 +76,7 @@ as well as 6 conditional) probabilities:" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -157,7 +166,7 @@ as well as 6 conditional) probabilities:</p>
 <ol>
 <li><p>the condition's prevalence <code><a href='prev.html'>prev</a></code>
  (i.e., the probability of the condition being <code>TRUE</code>):
- <code>prev = <a href='cond.true.html'>cond.true</a>/<a href='N.html'>N</a></code>.</p></li>
+ <code>prev = <a href='cond_true.html'>cond_true</a>/<a href='N.html'>N</a></code>.</p></li>
 <li><p>the decision's sensitivity <code><a href='sens.html'>sens</a></code>
  (i.e., the conditional probability of a positive decision
  provided that the condition is <code>TRUE</code>).</p></li>
@@ -173,7 +182,7 @@ as well as 6 conditional) probabilities:</p>
 <li><p>the proportion (baseline probability or rate)
  of the decision being positive <code><a href='ppod.html'>ppod</a></code>
  (but not necessarily true):
- <code>ppod = <a href='dec.pos.html'>dec.pos</a>/<a href='N.html'>N</a></code>.</p></li>
+ <code>ppod = <a href='dec_pos.html'>dec_pos</a>/<a href='N.html'>N</a></code>.</p></li>
 <li><p>the decision's positive predictive value <code><a href='PPV.html'>PPV</a></code>
  (i.e., the conditional probability of the condition being <code>TRUE</code>
  provided that the decision is positive).</p></li>
@@ -187,14 +196,14 @@ as well as 6 conditional) probabilities:</p>
  (i.e., the conditional probability of the condition being <code>TRUE</code>
  provided that the decision is negative).</p></li>
 <li><p>the accuracy <code><a href='acc.html'>acc</a></code>
- (i.e., probability of correct decisions <code><a href='dec.cor.html'>dec.cor</a></code> or
+ (i.e., probability of correct decisions <code><a href='dec_cor.html'>dec_cor</a></code> or
  correspondence of decisions to conditions).</p></li>
 <li><p>the conditional probability <code>p_acc_hi</code>
  (i.e., the probability of <code><a href='hi.html'>hi</a></code> given that
- the decision is correct <code><a href='dec.cor.html'>dec.cor</a></code>).</p></li>
+ the decision is correct <code><a href='dec_cor.html'>dec_cor</a></code>).</p></li>
 <li><p>the conditional probability <code>p_err_fa</code>
  (i.e., the probability of <code><a href='fa.html'>fa</a></code> given that
- the decision is erroneous <code><a href='dec.err.html'>dec.err</a></code>).</p></li>
+ the decision is erroneous <code><a href='dec_err.html'>dec_err</a></code>).</p></li>
 </ol>
     <p>These probabilities are computed from basic probabilities
 (contained in <code><a href='num.html'>num</a></code>) and computed by using
@@ -304,7 +313,7 @@ are provided by <code><a href='plot_area.html'>plot_area</a></code>,
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

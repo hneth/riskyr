@@ -8,6 +8,13 @@
 
 <title>Alternative color palette for graphs (with RGB colors). — pal_rgb • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="pal_rgb is initialized to a vector of named elements (colors)
 to define an alternative (reduced) scenario color scheme
 (using red, green, and blue colors)." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ to define an alternative (reduced) scenario color scheme
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -167,9 +176,9 @@ throughout the <code>riskyr</code> package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal_rgb</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;              N           true          false            pos            neg 
+    <pre class="examples"><div class='input'><span class='no'>pal_rgb</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;              N      cond_true     cond_false        dec_pos        dec_neg 
 #&gt;    "#F2F2F2FC"    "#E6E6E6FC"    "#BFBFBFFC"    "#D9D9D9FC"    "#B3B3B3FC" 
-#&gt;            cor            err             hi             mi             fa 
+#&gt;        dec_cor        dec_err             hi             mi             fa 
 #&gt;    "#BFBFBFFC"    "#999999FC"   "olivedrab4"      "tomato3" "lightsalmon2" 
 #&gt;             cr            ppv            npv            txt            brd 
 #&gt;   "olivedrab3"      "sienna1"   "steelblue3"    "#000000FC"    "#1A1A1AFC" </div><div class='input'><span class='no'>pal_rgb</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;           hi 
@@ -193,7 +202,7 @@ throughout the <code>riskyr</code> package.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

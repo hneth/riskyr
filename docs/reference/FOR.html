@@ -8,6 +8,13 @@
 
 <title>The false omission rate (FOR) of a decision process or diagnostic procedure. — FOR • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="FOR defines a decision's false omission rate (FOR):
 The conditional probability of the condition being TRUE
 provided that the decision is negative." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ provided that the decision is negative." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -158,8 +167,8 @@ provided that the decision is negative.</p>
 <p><code>FOR = p(condition = TRUE | decision = negative)</code></p></li>
 <li><p>Perspective:
   <code>FOR</code> further classifies
-  the subset of <code><a href='dec.neg.html'>dec.neg</a></code> individuals
-  by condition (<code>FOR = mi/dec.neg = mi/(mi + cr)</code>).</p></li>
+  the subset of <code><a href='dec_neg.html'>dec_neg</a></code> individuals
+  by condition (<code>FOR = mi/dec_neg = mi/(mi + cr)</code>).</p></li>
 <li><p>Alternative names:
   none?</p></li>
 <li><p>Relationships:</p>
@@ -173,9 +182,9 @@ provided that the decision is negative.</p>
 <p><code>mirt = p(decision = negative | condition = TRUE)</code></p></li>
 <li><p>In terms of frequencies,
   <code>FOR</code> is the ratio of
-  <code><a href='mi.html'>mi</a></code> divided by <code><a href='dec.neg.html'>dec.neg</a></code>
+  <code><a href='mi.html'>mi</a></code> divided by <code><a href='dec_neg.html'>dec_neg</a></code>
   (i.e., <code><a href='mi.html'>mi</a> + <a href='cr.html'>cr</a></code>):</p>
-<p><code>NPV = mi/dec.neg = mi/(mi + cr)</code></p></li>
+<p><code>NPV = mi/dec_neg = mi/(mi + cr)</code></p></li>
 <li><p>Dependencies:
   <code>FOR</code> is a feature of a decision process
   or diagnostic procedure and a measure of incorrect
@@ -232,7 +241,7 @@ provided that the decision is negative.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

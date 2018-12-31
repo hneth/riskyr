@@ -8,6 +8,13 @@
 
 <title>Compute a decision's negative predictive value (NPV) from probabilities. — comp_NPV • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="comp_NPV computes the negative predictive value NPV
 from 3 essential probabilities
 prev, sens, and spec." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ prev, sens, and spec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -204,8 +213,8 @@ and does not round results.</p>
 <span class='no'>prev</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>.1</span>)
 <span class='fu'>comp_NPV</span>(<span class='no'>prev</span>, <span class='fl'>.5</span>, <span class='fl'>.5</span>)  <span class='co'># =&gt; without NaN values</span></div><div class='output co'>#&gt;  [1] 1.0 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2 0.1 0.0</div><div class='input'><span class='fu'>comp_NPV</span>(<span class='no'>prev</span>,  <span class='fl'>1</span>,  <span class='fl'>0</span>)  <span class='co'># =&gt; with NaN values</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt;  [1] NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN</div><div class='input'>
 <span class='co'># (3) Watch out for extreme values:</span>
-<span class='fu'>comp_NPV</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)   <span class='co'># =&gt; NaN, as cr = 0 and mi = 0: 0/0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; [1] NaN</div><div class='input'><span class='fu'>comp_NPV</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)   <span class='co'># =&gt; NaN, as cr = 0 and mi = 0: 0/0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; [1] NaN</div><div class='input'><span class='fu'>comp_NPV</span>(<span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># =&gt; NaN, no dec.neg cases:  NPV = 0/0 = NaN</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; [1] NaN</div><div class='input'><span class='fu'><a href='is_extreme_prob_set.html'>is_extreme_prob_set</a></span>(<span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># =&gt; verifies extreme cases</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (sens = 1 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  0 mi (FN) and 0 cr (TN) cases; 0 dec.neg cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'>comp_NPV</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)   <span class='co'># =&gt; NaN, as cr = 0 and mi = 0: 0/0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; [1] NaN</div><div class='input'><span class='fu'>comp_NPV</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>)   <span class='co'># =&gt; NaN, as cr = 0 and mi = 0: 0/0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; [1] NaN</div><div class='input'><span class='fu'>comp_NPV</span>(<span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># =&gt; NaN, no dec_neg cases:  NPV = 0/0 = NaN</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NPV is NaN.</span></div><div class='output co'>#&gt; [1] NaN</div><div class='input'><span class='fu'><a href='is_extreme_prob_set.html'>is_extreme_prob_set</a></span>(<span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># =&gt; verifies extreme cases</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (sens = 1 &amp; spec = 0):</span>
+#&gt; <span class='warning'>  0 mi (FN) and 0 cr (TN) cases; 0 dec_neg cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -227,7 +236,7 @@ and does not round results.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

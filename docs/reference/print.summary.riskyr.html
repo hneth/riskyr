@@ -8,6 +8,13 @@
 
 <title>Printing summarized risk information. — print.summary.riskyr • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -33,6 +40,8 @@
 <meta property="og:title" content="Printing summarized risk information. — print.summary.riskyr" />
 
 <meta property="og:description" content="print.summary.riskyr provides a print method for objects of class &quot;summary.riskyr&quot;." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -157,6 +166,10 @@
 
     <p>Printed output of a "summary.riskyr" object.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='riskyr.html'>riskyr</a></code> initializes a <code>riskyr</code> scenario.</p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>scenarios</span>$<span class='no'>n4</span>)</div><div class='output co'>#&gt; Scenario:  Mammography 
@@ -180,15 +193,15 @@
 #&gt; Frequencies:
 #&gt; 
 #&gt;  by conditions:
-#&gt;  cond.true cond.false 
+#&gt;  cond_true cond_false 
 #&gt;         10        990 
 #&gt; 
 #&gt;  by decision:
-#&gt; dec.pos dec.neg 
+#&gt; dec_pos dec_neg 
 #&gt;     107     893 
 #&gt; 
 #&gt;  by correspondence (of decision to condition):
-#&gt; dec.cor dec.err 
+#&gt; dec_cor dec_err 
 #&gt;     899     101 
 #&gt; 
 #&gt;  4 essential (SDT) frequencies:
@@ -207,6 +220,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#format">Format</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
@@ -216,7 +231,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

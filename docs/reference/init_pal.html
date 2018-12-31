@@ -8,6 +8,13 @@
 
 <title>Initialize basic color information. — init_pal • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="init_pal initializes basic color information
 (i.e., all colors corresponding to functional roles in
 the current scenario and used throughout the riskyr package)." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ the current scenario and used throughout the riskyr package)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -141,14 +150,14 @@ the current scenario and used throughout the <code>riskyr</code> package).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>init_pal</span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"N"</span>], <span class='kw'>cond.true_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"true"</span>],
-  <span class='kw'>cond.false_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"false"</span>], <span class='kw'>dec.pos_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"pos"</span>],
-  <span class='kw'>dec.neg_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"neg"</span>], <span class='kw'>dec.cor_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cor"</span>],
-  <span class='kw'>dec.err_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"err"</span>], <span class='kw'>hi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"hi"</span>],
-  <span class='kw'>mi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"mi"</span>], <span class='kw'>fa_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"fa"</span>],
-  <span class='kw'>cr_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cr"</span>], <span class='kw'>PPV_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"ppv"</span>],
-  <span class='kw'>NPV_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"npv"</span>], <span class='kw'>txt_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"txt"</span>],
-  <span class='kw'>brd_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"brd"</span>])</pre>
+    <pre class="usage"><span class='fu'>init_pal</span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"N"</span>], <span class='kw'>cond_true_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cond_true"</span>],
+  <span class='kw'>cond_false_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cond_false"</span>],
+  <span class='kw'>dec_pos_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"dec_pos"</span>], <span class='kw'>dec_neg_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"dec_neg"</span>],
+  <span class='kw'>dec_cor_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"dec_cor"</span>], <span class='kw'>dec_err_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"dec_err"</span>],
+  <span class='kw'>hi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"hi"</span>], <span class='kw'>mi_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"mi"</span>],
+  <span class='kw'>fa_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"fa"</span>], <span class='kw'>cr_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"cr"</span>],
+  <span class='kw'>PPV_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"ppv"</span>], <span class='kw'>NPV_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"npv"</span>],
+  <span class='kw'>txt_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"txt"</span>], <span class='kw'>brd_col</span> <span class='kw'>=</span> <span class='no'>pal_def</span>[<span class='st'>"brd"</span>])</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,28 +167,28 @@ the current scenario and used throughout the <code>riskyr</code> package).</p>
       <td><p>Color representing the <em>population</em> of <code><a href='N.html'>N</a></code> cases or individuals.</p></td>
     </tr>
     <tr>
-      <th>cond.true_col</th>
-      <td><p>Color representing cases of <code><a href='cond.true.html'>cond.true</a></code>, for which the current condition is <code>TRUE</code>.</p></td>
+      <th>cond_true_col</th>
+      <td><p>Color representing cases of <code><a href='cond_true.html'>cond_true</a></code>, for which the current condition is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
-      <th>cond.false_col</th>
-      <td><p>Color representing cases of in <code><a href='cond.false.html'>cond.false</a></code>, for which the current condition is <code>FALSE</code>.</p></td>
+      <th>cond_false_col</th>
+      <td><p>Color representing cases of in <code><a href='cond_false.html'>cond_false</a></code>, for which the current condition is <code>FALSE</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.pos_col</th>
-      <td><p>Color representing cases of <code><a href='dec.pos.html'>dec.pos</a></code>, for which the current decision is <code>positive</code>.</p></td>
+      <th>dec_pos_col</th>
+      <td><p>Color representing cases of <code><a href='dec_pos.html'>dec_pos</a></code>, for which the current decision is <code>positive</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.neg_col</th>
-      <td><p>Color representing cases in <code><a href='dec.neg.html'>dec.neg</a></code>, for which the current decision is <code>negative</code>.</p></td>
+      <th>dec_neg_col</th>
+      <td><p>Color representing cases in <code><a href='dec_neg.html'>dec_neg</a></code>, for which the current decision is <code>negative</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.cor_col</th>
-      <td><p>Color representing cases of correct decisions <code><a href='dec.cor.html'>dec.cor</a></code>, for which the current decision is <code>accurate</code>.</p></td>
+      <th>dec_cor_col</th>
+      <td><p>Color representing cases of correct decisions <code><a href='dec_cor.html'>dec_cor</a></code>, for which the current decision is <code>accurate</code>.</p></td>
     </tr>
     <tr>
-      <th>dec.err_col</th>
-      <td><p>Color representing cases in erroneous decisions <code><a href='dec.err.html'>dec.err</a></code>, for which the current decision is <code>inaccurate</code>.</p></td>
+      <th>dec_err_col</th>
+      <td><p>Color representing cases in erroneous decisions <code><a href='dec_err.html'>dec_err</a></code>, for which the current decision is <code>inaccurate</code>.</p></td>
     </tr>
     <tr>
       <th>hi_col</th>
@@ -245,9 +254,9 @@ new colors to existing names.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>init_pal</span>()          <span class='co'># =&gt; define and return a vector of current (default) colors</span></div><div class='output co'>#&gt;                 N              true             false               pos 
+    <pre class="examples"><div class='input'><span class='fu'>init_pal</span>()          <span class='co'># =&gt; define and return a vector of current (default) colors</span></div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
 #&gt;       "#E6E6E6FC" "lightgoldenrod1"   "lightskyblue2"      "rosybrown3" 
-#&gt;               neg               cor               err                hi 
+#&gt;           dec_neg           dec_cor           dec_err                hi 
 #&gt; "lightsteelblue3"      "palegreen3"      "firebrick3"      "olivedrab4" 
 #&gt;                mi                fa                cr               ppv 
 #&gt;         "tomato3"    "lightsalmon2"      "olivedrab3"         "sienna1" 
@@ -272,7 +281,7 @@ new colors to existing names.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

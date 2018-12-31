@@ -8,6 +8,13 @@
 
 <title>Compute frequencies from (3 essential) probabilities. — comp_freq • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -38,6 +45,8 @@ prev, sens, and spec --
 for a population of N individuals.
 It returns a list of 11 frequencies freq
 as its output." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -68,7 +77,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -218,17 +227,17 @@ Using the option <code>round = FALSE</code> turns off rounding.</p>
 in 3 different ways:</p>
 <ol>
 <li><p>by condition:</p>
-<p><code><a href='N.html'>N</a> = <a href='cond.true.html'>cond.true</a> + <a href='cond.false.html'>cond.false</a></code></p>
-<p>The frequency <code><a href='cond.true.html'>cond.true</a></code> depends on the prevalence <code><a href='prev.html'>prev</a></code>
+<p><code><a href='N.html'>N</a> = <a href='cond_true.html'>cond_true</a> + <a href='cond_false.html'>cond_false</a></code></p>
+<p>The frequency <code><a href='cond_true.html'>cond_true</a></code> depends on the prevalence <code><a href='prev.html'>prev</a></code>
    and
-   the frequency <code><a href='cond.false.html'>cond.false</a></code> depends on the prevalence's complement <code>1 - <a href='prev.html'>prev</a></code>.</p></li>
+   the frequency <code><a href='cond_false.html'>cond_false</a></code> depends on the prevalence's complement <code>1 - <a href='prev.html'>prev</a></code>.</p></li>
 <li><p>by decision:</p>
-<p><code><a href='N.html'>N</a> = <a href='dec.pos.html'>dec.pos</a> + <a href='dec.neg.html'>dec.neg</a></code></p>
-<p>The frequency <code><a href='dec.pos.html'>dec.pos</a></code> depends on the proportion of positive decisions <code><a href='ppod.html'>ppod</a></code>
+<p><code><a href='N.html'>N</a> = <a href='dec_pos.html'>dec_pos</a> + <a href='dec_neg.html'>dec_neg</a></code></p>
+<p>The frequency <code><a href='dec_pos.html'>dec_pos</a></code> depends on the proportion of positive decisions <code><a href='ppod.html'>ppod</a></code>
    and
-   the frequency <code><a href='dec.neg.html'>dec.neg</a></code> depends on the proportion of negative decisions <code>1 - <a href='ppod.html'>ppod</a></code>.</p></li>
+   the frequency <code><a href='dec_neg.html'>dec_neg</a></code> depends on the proportion of negative decisions <code>1 - <a href='ppod.html'>ppod</a></code>.</p></li>
 <li><p>by accuracy (i.e., correspondence of decision to condition):</p>
-<p><code><a href='N.html'>N</a> = <a href='dec.cor.html'>dec.cor</a> + <a href='dec.err.html'>dec.err</a></code></p></li>
+<p><code><a href='N.html'>N</a> = <a href='dec_cor.html'>dec_cor</a> + <a href='dec_err.html'>dec_err</a></code></p></li>
 </ol>
     <p>Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).</p>
 <p>When providing probabilities, the population size <code><a href='N.html'>N</a></code> is a free parameter (independent of the
@@ -239,27 +248,27 @@ essential probabilities <code><a href='prev.html'>prev</a></code>, <code><a href
 Thus, they can be computed as ratios between frequencies:</p>
 <ol>
 <li><p>prevalence <code><a href='prev.html'>prev</a></code>:</p>
-<p><code><a href='prev.html'>prev</a> = <a href='cond.true.html'>cond.true</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
+<p><code><a href='prev.html'>prev</a> = <a href='cond_true.html'>cond_true</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
 <li><p>sensitivity <code><a href='sens.html'>sens</a></code>:</p>
-<p><code><a href='sens.html'>sens</a> = <a href='hi.html'>hi</a>/<a href='cond.true.html'>cond.true</a>  =  <a href='hi.html'>hi</a> / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>)  =  (1 - <a href='mirt.html'>mirt</a>)</code></p></li>
+<p><code><a href='sens.html'>sens</a> = <a href='hi.html'>hi</a>/<a href='cond_true.html'>cond_true</a>  =  <a href='hi.html'>hi</a> / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>)  =  (1 - <a href='mirt.html'>mirt</a>)</code></p></li>
 <li><p>miss rate <code><a href='mirt.html'>mirt</a></code>:</p>
-<p><code><a href='mirt.html'>mirt</a> = <a href='mi.html'>mi</a>/<a href='cond.true.html'>cond.true</a>  =  <a href='mi.html'>mi</a> / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>)  =  (1 - <a href='sens.html'>sens</a>)</code></p></li>
+<p><code><a href='mirt.html'>mirt</a> = <a href='mi.html'>mi</a>/<a href='cond_true.html'>cond_true</a>  =  <a href='mi.html'>mi</a> / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>)  =  (1 - <a href='sens.html'>sens</a>)</code></p></li>
 <li><p>specificity <code><a href='spec.html'>spec</a></code>:</p>
-<p><code><a href='spec.html'>spec</a> = <a href='cr.html'>cr</a>/<a href='cond.false.html'>cond.false</a>  =  <a href='cr.html'>cr</a> / (<a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='fart.html'>fart</a>)</code></p></li>
+<p><code><a href='spec.html'>spec</a> = <a href='cr.html'>cr</a>/<a href='cond_false.html'>cond_false</a>  =  <a href='cr.html'>cr</a> / (<a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='fart.html'>fart</a>)</code></p></li>
 <li><p>false alarm rate <code><a href='fart.html'>fart</a></code>:</p>
-<p><code><a href='fart.html'>fart</a> = <a href='fa.html'>fa</a>/<a href='cond.false.html'>cond.false</a>  =  <a href='fa.html'>fa</a> / (<a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='spec.html'>spec</a>)</code></p></li>
+<p><code><a href='fart.html'>fart</a> = <a href='fa.html'>fa</a>/<a href='cond_false.html'>cond_false</a>  =  <a href='fa.html'>fa</a> / (<a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='spec.html'>spec</a>)</code></p></li>
 <li><p>proportion of positive decisions <code><a href='ppod.html'>ppod</a></code>:</p>
-<p><code><a href='ppod.html'>ppod</a> = <a href='dec.pos.html'>dec.pos</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='fa.html'>fa</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
+<p><code><a href='ppod.html'>ppod</a> = <a href='dec_pos.html'>dec_pos</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='fa.html'>fa</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
 <li><p>positive predictive value <code><a href='PPV.html'>PPV</a></code>:</p>
-<p><code><a href='PPV.html'>PPV</a> = <a href='hi.html'>hi</a>/<a href='dec.pos.html'>dec.pos</a>  =  <a href='hi.html'>hi</a> / (<a href='hi.html'>hi</a> + <a href='fa.html'>fa</a>)  =  (1 - <a href='FDR.html'>FDR</a>)</code></p></li>
+<p><code><a href='PPV.html'>PPV</a> = <a href='hi.html'>hi</a>/<a href='dec_pos.html'>dec_pos</a>  =  <a href='hi.html'>hi</a> / (<a href='hi.html'>hi</a> + <a href='fa.html'>fa</a>)  =  (1 - <a href='FDR.html'>FDR</a>)</code></p></li>
 <li><p>negative predictive value <code><a href='NPV.html'>NPV</a></code>:</p>
-<p><code><a href='NPV.html'>NPV</a> = <a href='cr.html'>cr</a>/<a href='dec.neg.html'>dec.neg</a>  =  <a href='cr.html'>cr</a> / (<a href='mi.html'>mi</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='FOR.html'>FOR</a>)</code></p></li>
+<p><code><a href='NPV.html'>NPV</a> = <a href='cr.html'>cr</a>/<a href='dec_neg.html'>dec_neg</a>  =  <a href='cr.html'>cr</a> / (<a href='mi.html'>mi</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='FOR.html'>FOR</a>)</code></p></li>
 <li><p>false detection rate <code><a href='FDR.html'>FDR</a></code>:</p>
-<p><code><a href='FDR.html'>FDR</a> = <a href='fa.html'>fa</a>/<a href='dec.pos.html'>dec.pos</a>  =  <a href='fa.html'>fa</a> / (<a href='hi.html'>hi</a> + <a href='fa.html'>fa</a>)  =  (1 - <a href='PPV.html'>PPV</a>)</code></p></li>
+<p><code><a href='FDR.html'>FDR</a> = <a href='fa.html'>fa</a>/<a href='dec_pos.html'>dec_pos</a>  =  <a href='fa.html'>fa</a> / (<a href='hi.html'>hi</a> + <a href='fa.html'>fa</a>)  =  (1 - <a href='PPV.html'>PPV</a>)</code></p></li>
 <li><p>false omission rate <code><a href='FOR.html'>FOR</a></code>:</p>
-<p><code><a href='FOR.html'>FOR</a> = <a href='mi.html'>mi</a>/<a href='dec.neg.html'>dec.neg</a>  =  <a href='mi.html'>mi</a> / (<a href='mi.html'>mi</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='NPV.html'>NPV</a>)</code></p></li>
+<p><code><a href='FOR.html'>FOR</a> = <a href='mi.html'>mi</a>/<a href='dec_neg.html'>dec_neg</a>  =  <a href='mi.html'>mi</a> / (<a href='mi.html'>mi</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='NPV.html'>NPV</a>)</code></p></li>
 <li><p>accuracy <code><a href='acc.html'>acc</a></code>:</p>
-<p><code><a href='acc.html'>acc</a> = <a href='dec.cor.html'>dec.cor</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='cr.html'>cr</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
+<p><code><a href='acc.html'>acc</a> = <a href='dec_cor.html'>dec_cor</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='cr.html'>cr</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
 </ol>
     <p>Note: When frequencies are rounded (by <code>round = TRUE</code> in <code>comp_freq</code>),
    probabilities computed from <code><a href='freq.html'>freq</a></code> may differ from exact probabilities.</p></li>
@@ -290,22 +299,22 @@ Thus, they can be computed as ratios between frequencies:</p>
     <pre class="examples"><div class='input'><span class='fu'>comp_freq</span>()                  <span class='co'># =&gt; ok, using current defaults</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 500
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 500
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 500
 #&gt; 
 #&gt; $hi
@@ -324,22 +333,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 <span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1</span>)   <span class='co'># =&gt; yields fa = 1 (see ?round for reason)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 1
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 1
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 1
 #&gt; 
 #&gt; $hi
@@ -356,22 +365,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>)  <span class='co'># =&gt; 1 hit (TP, rounded)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 9
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 3
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 7
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 8
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 2
 #&gt; 
 #&gt; $hi
@@ -388,22 +397,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)    <span class='co'># =&gt; hi = .9</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 9
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 2.7
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 7.3
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 8.1
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 1.9
 #&gt; 
 #&gt; $hi
@@ -420,22 +429,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>6</span>/<span class='fl'>7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)  <span class='co'># =&gt; hi = 0.2857143</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0.3333333
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0.6666667
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0.5079365
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0.4920635
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0.7301587
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0.2698413
 #&gt; 
 #&gt; $hi
@@ -452,25 +461,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'>
 <span class='co'># Extreme cases:</span>
 <span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; ok, N hits (TP)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -485,25 +494,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; ok, N hits</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -518,25 +527,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; ok, N misses (FN)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
-#&gt; <span class='warning'>  N mi (FN) cases; 0 cond.false or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 100
 #&gt; 
 #&gt; $hi
@@ -551,25 +560,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; ok, N misses</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 0):</span>
-#&gt; <span class='warning'>  N mi (FN) cases; 0 cond.false or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N mi (FN) cases; 0 cond_false or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 100
 #&gt; 
 #&gt; $hi
@@ -584,25 +593,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; ok, N correct rejections (TN)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 1):</span>
-#&gt; <span class='warning'>  N cr (TN) cases; 0 cond.true or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N cr (TN) cases; 0 cond_true or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -617,25 +626,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 100
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; ok, N false alarms (FP)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  N fa (FP) cases; 0 cond.true or dec.true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 100
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 100
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 100
 #&gt; 
 #&gt; $hi
@@ -652,26 +661,26 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'>
 <span class='co'># Watch out for:</span>
 <span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>NA</span>)  <span class='co'># =&gt; ok, but warning that N = 1 was computed</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown population size N. A suitable minimum value of N = 1 was computed.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown population size N. A suitable minimum value of N = 1 was computed.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 1
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 1
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 1
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -686,25 +695,25 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $cr
 #&gt; [1] 0
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>N</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># =&gt; ok, but all 0 + warning (extreme case: N hits)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 0
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 0
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 0
 #&gt; 
 #&gt; $hi
@@ -721,22 +730,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)   <span class='co'># =&gt; ok, rounded (see mi and fa)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 5
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 4
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 6
 #&gt; 
 #&gt; $hi
@@ -753,22 +762,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)  <span class='co'># =&gt; ok, not rounded</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 10
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] 5
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] 5
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] 5
 #&gt; 
 #&gt; $hi
@@ -787,22 +796,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 <span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>NA</span>,  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span>)   <span class='co'># =&gt; NAs + warning (prev NA)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] NA
 #&gt; 
 #&gt; $hi
@@ -819,22 +828,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span>)   <span class='co'># =&gt; NAs + warning (sens NA)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] NA
 #&gt; 
 #&gt; $hi
@@ -851,22 +860,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='fl'>100</span>)   <span class='co'># =&gt; NAs + warning (spec NA)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] NA
 #&gt; 
 #&gt; $hi
@@ -883,22 +892,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>8</span>,  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span>)   <span class='co'># =&gt; NAs + warning (prev beyond range)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] NA
 #&gt; 
 #&gt; $hi
@@ -915,22 +924,22 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>8</span>,  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>1</span>,  <span class='fl'>100</span>)   <span class='co'># =&gt; NAs + warning (sens beyond range)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.true
+#&gt; $cond_true
 #&gt; [1] NA
 #&gt; 
-#&gt; $cond.false
+#&gt; $cond_false
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.pos
+#&gt; $dec_pos
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.neg
+#&gt; $dec_neg
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.cor
+#&gt; $dec_cor
 #&gt; [1] NA
 #&gt; 
-#&gt; $dec.err
+#&gt; $dec_err
 #&gt; [1] NA
 #&gt; 
 #&gt; $hi
@@ -966,7 +975,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -6,11 +6,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quick Start Primer • riskyr</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Quick Start Primer">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -30,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -183,13 +190,13 @@ my_scenario_<span class="dv">2</span> &lt;-<span class="st"> </span><span class=
 <li>
 <code>cond_lbl</code> specifies the condition of interest (i.e., “reoffending”).</li>
 <li>
-<code>cond.true_lbl</code> specifies a label for the condition being true (“offends again”).</li>
-<li><p><code>cond.false_lbl</code> specifies a label for the condition being false (“does not offend again”).</p></li>
+<code>cond_true_lbl</code> specifies a label for the condition being true (“offends again”).</li>
+<li><p><code>cond_false_lbl</code> specifies a label for the condition being false (“does not offend again”).</p></li>
 <li>
 <code>dec_lbl</code> specifies the nature of the decision, prediction, or test (“test result”).</li>
 <li>
-<code>dec.pos_lbl</code> specifies a positive decision regarding the condition (“predict to reoffend”).</li>
-<li><p><code>dec.neg_lbl</code> specifies a negative decision regarding the condition (“predict to not reoffend”).</p></li>
+<code>dec_pos_lbl</code> specifies a positive decision regarding the condition (“predict to reoffend”).</li>
+<li><p><code>dec_neg_lbl</code> specifies a negative decision regarding the condition (“predict to not reoffend”).</p></li>
 <li>
 <code>hi_lbl</code>, <code>mi_lbl</code>, <code>fa_lbl</code>, and <code>cr_lbl</code> specify the four possible combinations of conditions and decisions:
 <ol style="list-style-type: decimal">
@@ -208,9 +215,9 @@ my_scenario_<span class="dv">2</span> &lt;-<span class="st"> </span><span class=
 my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference/riskyr.html">riskyr</a></span>(<span class="dt">scen_lbl =</span> <span class="st">"Identifying reoffenders"</span>, 
                       <span class="dt">popu_lbl =</span> <span class="st">"prison inmates"</span>, 
                       <span class="dt">cond_lbl =</span> <span class="st">"reoffending"</span>,
-                      <span class="dt">cond.true_lbl =</span> <span class="st">"reoffends"</span>, <span class="dt">cond.false_lbl =</span> <span class="st">"does not reoffend"</span>,
+                      <span class="dt">cond_true_lbl =</span> <span class="st">"reoffends"</span>, <span class="dt">cond_false_lbl =</span> <span class="st">"does not reoffend"</span>,
                       <span class="dt">dec_lbl =</span> <span class="st">"test result"</span>,
-                      <span class="dt">dec.pos_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">reoffend"</span>, <span class="dt">dec.neg_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">not reoffend"</span>,
+                      <span class="dt">dec_pos_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">reoffend"</span>, <span class="dt">dec_neg_lbl =</span> <span class="st">"predict to</span><span class="ch">\n</span><span class="st">not reoffend"</span>,
                       <span class="dt">hi_lbl =</span> <span class="st">"reoffender found"</span>, <span class="dt">mi_lbl =</span> <span class="st">"reoffender missed"</span>,
                       <span class="dt">fa_lbl =</span> <span class="st">"false accusation"</span>, <span class="dt">cr_lbl =</span> <span class="st">"correct release"</span>,
                       <span class="dt">prev =</span> .<span class="dv">45</span>,  <span class="co"># prevalence of being a reoffender. </span>
@@ -279,15 +286,15 @@ my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <span class="co">#&gt; Frequencies:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by conditions:</span>
-<span class="co">#&gt;  cond.true cond.false </span>
+<span class="co">#&gt;  cond_true cond_false </span>
 <span class="co">#&gt;        339        414 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by decision:</span>
-<span class="co">#&gt; dec.pos dec.neg </span>
+<span class="co">#&gt; dec_pos dec_neg </span>
 <span class="co">#&gt;     556     197 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by correspondence (of decision to condition):</span>
-<span class="co">#&gt; dec.cor dec.err </span>
+<span class="co">#&gt; dec_cor dec_err </span>
 <span class="co">#&gt;     522     231 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  4 essential (SDT) frequencies:</span>
@@ -308,8 +315,8 @@ my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <p>An alternative way to view the our scenario is a <em>frequency tree</em> that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in the <code>summary</code> above):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scenario, <span class="dt">type =</span> <span class="st">"tree"</span>, <span class="dt">by =</span> <span class="st">"dc"</span>)  <span class="co"># plot tree diagram (splitting N by decision)</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/tree-1.png" width="691.2"></p>
-<p>The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or <code>PPV = hi/dec.pos</code>). Numerically, we see that <code>PPV = 332/556</code>, which amounts to about 60% (or <code>1 - 0.403</code>).</p>
-<p>The tree also depicts additional information that corresponds to our <code>summary</code> from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be <code>NPV = 190/197</code> or about 96.4% (as <code>NPV = cr/dec.neg</code>). Again, this closely corresponds to our <code>summary</code> information of <code>NPV = 0.966</code>.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<p>The frequency tree also shows us how the PPV (shown on the arrow on the lower left) can be computed from frequencies (shown in the boxes): PPV = (number of offenders found)/(number of people predicted to reoffend) (or <code>PPV = hi/dec_pos</code>). Numerically, we see that <code>PPV = 332/556</code>, which amounts to about 60% (or <code>1 - 0.403</code>).</p>
+<p>The tree also depicts additional information that corresponds to our <code>summary</code> from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be <code>NPV = 190/197</code> or about 96.4% (as <code>NPV = cr/dec_neg</code>). Again, this closely corresponds to our <code>summary</code> information of <code>NPV = 0.966</code>.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <p>A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition’s prevalence)? To answer this, the following code allows to show conditional probabilities (here <code>PPV</code> and <code>NPV</code>) as a function of <code>prev</code> (and additionally assumes a 5%-uncertainty concerning the exact parameter values):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scenario, <span class="dt">type =</span> <span class="st">"curve"</span>, <span class="dt">uc =</span> .<span class="dv">05</span>)</code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/plotting_curve-1.png" width="691.2"></p>
@@ -606,15 +613,15 @@ s10<span class="op">$</span>scen_apa  <span class="co"># shows current source: <
 <span class="co">#&gt; Frequencies:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by conditions:</span>
-<span class="co">#&gt;  cond.true cond.false </span>
+<span class="co">#&gt;  cond_true cond_false </span>
 <span class="co">#&gt;        500        500 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by decision:</span>
-<span class="co">#&gt; dec.pos dec.neg </span>
+<span class="co">#&gt; dec_pos dec_neg </span>
 <span class="co">#&gt;     135     865 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  by correspondence (of decision to condition):</span>
-<span class="co">#&gt; dec.cor dec.err </span>
+<span class="co">#&gt; dec_cor dec_err </span>
 <span class="co">#&gt;     575     425 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  4 essential (SDT) frequencies:</span>
@@ -644,7 +651,7 @@ s10<span class="op">$</span>scen_apa  <span class="co"># shows current source: <
      <span class="dt">p_lbl =</span> <span class="st">"num"</span>)    <span class="co"># probability labels: numeric only</span></code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/s10_prism_1-1.png" width="691.2"></p>
 <p>This variant of the prism plot shows how the probability values of key condition and decision parameters split the assumed population of <code>N = 1000</code> patients into subgroups that correspond to 9 frequencies (also listed in the summary). Calling the same command with the optional argument <code>p_lbl = "nam"</code> would print the probability names, rather than their values (see also the options <code>p_lbl = "min"</code> and <code>"mix"</code>.) The middle row of boxes shows the four essential frequencies (of hits <code>hi</code>, misses <code>mi</code>, false alarms <code>fa</code>, and correct rejections <code>cr</code>) in colors corresponding to the icon array above. Setting <code>area = "hr"</code> in our <code>plot</code> command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence <code>hr</code>) and the box widths are scaled to add up to the population width <code>N</code> on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases.</p>
-<p>A fact that was not so obvious in the icon array – but shown in the lower half of the prism plot – is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%). Of those negative decisions, 470 (or 54.34%) are correct (see <code>cr</code> shown in light green) and 395 (or 45.66%) are incorrect (see <code>mi</code> shown in dark red). The ratio <code>cr/dec.neg = 470/865 = 54.34</code>% indicates the negative predictive value (<code>NPV</code>) of the test.</p>
+<p>A fact that was not so obvious in the icon array – but shown in the lower half of the prism plot – is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%). Of those negative decisions, 470 (or 54.34%) are correct (see <code>cr</code> shown in light green) and 395 (or 45.66%) are incorrect (see <code>mi</code> shown in dark red). The ratio <code>cr/dec_neg = 470/865 = 54.34</code>% indicates the negative predictive value (<code>NPV</code>) of the test.</p>
 <div id="practice-1" class="section level5">
 <h5 class="hasAnchor">
 <a href="#practice-1" class="anchor"></a>Practice</h5>
@@ -732,7 +739,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#all-riskyr-vignettes" class="anchor"></a>All <code>riskyr</code> Vignettes</h2>
+<a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr Vignettes</h2>
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"></a></p>
 <!-- Index of vignettes: -->
@@ -792,7 +799,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 <li><a href="#getting-started">Getting started</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#all-riskyr-vignettes">All <code>riskyr</code> Vignettes</a></li>
+      <li><a href="#all-riskyr-vignettes">All riskyr Vignettes</a></li>
       </ul>
 </div>
       </div>
@@ -801,7 +808,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 
 
       <footer><div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href="http://neth.de">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

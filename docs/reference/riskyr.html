@@ -8,6 +8,13 @@
 
 <title>Create a riskyr scenario. — riskyr • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="riskyr creates a scenario of class &quot;riskyr&quot;,
 which can be visualized by the plot method plot.riskyr
 and summarized by the summary method summary.riskyr." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ and summarized by the summary method summary.riskyr." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -143,11 +152,11 @@ and summarized by the <code>summary</code> method <code><a href='summary.riskyr.
 
     <pre class="usage"><span class='fu'>riskyr</span>(<span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>popu_lbl</span>,
   <span class='kw'>N_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>N_lbl</span>, <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_lbl</span>,
-  <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.true_lbl</span>,
-  <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond.false_lbl</span>, <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_lbl</span>,
-  <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.pos_lbl</span>, <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.neg_lbl</span>,
-  <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>acc_lbl</span>, <span class='kw'>dec.cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.cor_lbl</span>,
-  <span class='kw'>dec.err_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec.err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>sdt_lbl</span>,
+  <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_true_lbl</span>,
+  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_false_lbl</span>, <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_lbl</span>,
+  <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_pos_lbl</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_neg_lbl</span>,
+  <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>acc_lbl</span>, <span class='kw'>dec_cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_cor_lbl</span>,
+  <span class='kw'>dec_err_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>sdt_lbl</span>,
   <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>,
   <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
@@ -174,39 +183,39 @@ and summarized by the <code>summary</code> method <code><a href='summary.riskyr.
       <td><p>A label for the <em>condition</em> or feature (e.g., some disease) currently considered.</p></td>
     </tr>
     <tr>
-      <th>cond.true_lbl</th>
+      <th>cond_true_lbl</th>
       <td><p>A label for the <em>presence</em> of the current condition
-or <code><a href='cond.true.html'>cond.true</a></code> cases (the condition's true state of TRUE).</p></td>
+or <code><a href='cond_true.html'>cond_true</a></code> cases (the condition's true state of TRUE).</p></td>
     </tr>
     <tr>
-      <th>cond.false_lbl</th>
+      <th>cond_false_lbl</th>
       <td><p>A label for the <em>absence</em> of the current condition
-or <code><a href='cond.false.html'>cond.false</a></code> cases (the condition's true state of FALSE).</p></td>
+or <code><a href='cond_false.html'>cond_false</a></code> cases (the condition's true state of FALSE).</p></td>
     </tr>
     <tr>
       <th>dec_lbl</th>
       <td><p>A label for the <em>decision</em> or judgment (e.g., some diagnostic test) currently made.</p></td>
     </tr>
     <tr>
-      <th>dec.pos_lbl</th>
+      <th>dec_pos_lbl</th>
       <td><p>A label for <em>positive</em> decisions
-or <code><a href='dec.pos.html'>dec.pos</a></code> cases (e.g., predicting the presence of the condition).</p></td>
+or <code><a href='dec_pos.html'>dec_pos</a></code> cases (e.g., predicting the presence of the condition).</p></td>
     </tr>
     <tr>
-      <th>dec.neg_lbl</th>
+      <th>dec_neg_lbl</th>
       <td><p>A label for <em>negative</em> decisions
-or <code><a href='dec.neg.html'>dec.neg</a></code> cases (e.g., predicting the absence of the condition).</p></td>
+or <code><a href='dec_neg.html'>dec_neg</a></code> cases (e.g., predicting the absence of the condition).</p></td>
     </tr>
     <tr>
       <th>acc_lbl</th>
       <td><p>A label for <em>accuracy</em> (i.e., correspondence between condition and decision or judgment).</p></td>
     </tr>
     <tr>
-      <th>dec.cor_lbl</th>
+      <th>dec_cor_lbl</th>
       <td><p>A label for <em>correct</em> (or accurate) decisions or judgments.</p></td>
     </tr>
     <tr>
-      <th>dec.err_lbl</th>
+      <th>dec_err_lbl</th>
       <td><p>A label for <em>incorrect</em> (or erroneous) decisions or judgments.</p></td>
     </tr>
     <tr>
@@ -312,19 +321,27 @@ describing a risk-related scenario.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class "riskyr" describing a risk-related scenario.</p>
-<p>Titles and text labels (see <code><a href='txt.html'>txt</a></code>:</p>
+<p>Scenario-specific titles and text labels (see <code><a href='txt.html'>txt</a></code>:</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Beyond basic scenario information
+    <p>Beyond basic scenario information (i.e., text elements describing a scenario)
 only the population size <code><a href='N.html'>N</a></code> and the essential probabilities
 <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, <code><a href='spec.html'>spec</a></code>, and <code><a href='fart.html'>fart</a></code>
 are used and returned.</p>
-<p>Note that numeric information (see <code><a href='num.html'>num</a></code> and <code><a href='init_num.html'>init_num</a></code>)
-and text information (see <code><a href='txt.html'>txt</a></code> and <code><a href='init_txt.html'>init_txt</a></code>)
-are integral parts of a "riskyr" scenario.
-By contrast, basic color information (see <code><a href='pal.html'>pal</a></code> and <code><a href='init_pal.html'>init_pal</a></code>)
-is not an integral part, but independently defined.</p>
+<p>Note:</p>
+<ul>
+<li><p>Basic text information and some numeric parameters
+  (see <code><a href='num.html'>num</a></code> and <code><a href='init_num.html'>init_num</a></code>)
+  are integral parts of a <code>riskyr</code> scenario.</p></li>
+<li><p>By contrast, basic <em>color</em> information
+  (see <code><a href='pal.html'>pal</a></code> and <code><a href='init_pal.html'>init_pal</a></code>)
+  is not an integral part, but independently defined.</p></li>
+<li><p>The names of <em>probabilities</em>
+  (see <code><a href='prob.html'>prob</a></code>) are currently
+  not an integral part of <code>txt</code> and <code>riskyr</code> scenarios
+  (but defined in <code>prob_lbl_def</code> and <code>label_prob</code>).</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -347,11 +364,11 @@ is not an integral part, but independently defined.</p>
 <span class='no'>scen_reoffend</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Identify reoffenders"</span>,
                         <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"being a reoffender"</span>,
                         <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Prisoners"</span>,
-                        <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='st'>"has reoffended"</span>,
-                        <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='st'>"has not reoffended"</span>,
+                        <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"has reoffended"</span>,
+                        <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"has not reoffended"</span>,
                         <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"test result"</span>,
-                        <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='st'>"will reoffend"</span>,
-                        <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='st'>"will not reoffend"</span>,
+                        <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"will reoffend"</span>,
+                        <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"will not reoffend"</span>,
                         <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='st'>"combination"</span>,
                         <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='st'>"reoffender found"</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='st'>"reoffender missed"</span>,
                         <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='st'>"false accusation"</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='st'>"correct release"</span>,
@@ -383,15 +400,15 @@ is not an integral part, but independently defined.</p>
 #&gt; Frequencies:
 #&gt; 
 #&gt;  by conditions:
-#&gt;  cond.true cond.false 
+#&gt;  cond_true cond_false 
 #&gt;         40        960 
 #&gt; 
 #&gt;  by decision:
-#&gt; dec.pos dec.neg 
+#&gt; dec_pos dec_neg 
 #&gt;      80     920 
 #&gt; 
 #&gt;  by correspondence (of decision to condition):
-#&gt; dec.cor dec.err 
+#&gt; dec_cor dec_err 
 #&gt;     944      56 
 #&gt; 
 #&gt;  4 essential (SDT) frequencies:
@@ -401,7 +418,7 @@ is not an integral part, but independently defined.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='768' height='576' /></div><div class='input'>
+#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='output co'>#&gt; Scenario:  Identify reoffenders 
 #&gt; 
 #&gt; Condition:  being a reoffender 
@@ -423,15 +440,15 @@ is not an integral part, but independently defined.</p>
 #&gt; Frequencies:
 #&gt; 
 #&gt;  by conditions:
-#&gt;  cond.true cond.false 
+#&gt;  cond_true cond_false 
 #&gt;        339        414 
 #&gt; 
 #&gt;  by decision:
-#&gt; dec.pos dec.neg 
+#&gt; dec_pos dec_neg 
 #&gt;     556     197 
 #&gt; 
 #&gt;  by correspondence (of decision to condition):
-#&gt; dec.cor dec.err 
+#&gt; dec_cor dec_err 
 #&gt;     522     231 
 #&gt; 
 #&gt;  4 essential (SDT) frequencies:
@@ -441,7 +458,7 @@ is not an integral part, but independently defined.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='768' height='576' /></div><div class='input'>
+#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='672' height='480' /></div><div class='input'>
 <span class='co'># 2 ways of defining the same scenario: -----</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>)  <span class='co'># s1: define by 3 prob &amp; N</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>25</span>)        <span class='co'># s2: same scenario by 4 freq</span>
@@ -459,28 +476,28 @@ is not an integral part, but independently defined.</p>
 #&gt; $cond_lbl
 #&gt; [1] "Truth"
 #&gt; 
-#&gt; $cond.true_lbl
+#&gt; $cond_true_lbl
 #&gt; [1] "True"
 #&gt; 
-#&gt; $cond.false_lbl
+#&gt; $cond_false_lbl
 #&gt; [1] "False"
 #&gt; 
 #&gt; $dec_lbl
 #&gt; [1] "Test"
 #&gt; 
-#&gt; $dec.pos_lbl
+#&gt; $dec_pos_lbl
 #&gt; [1] "Positive"
 #&gt; 
-#&gt; $dec.neg_lbl
+#&gt; $dec_neg_lbl
 #&gt; [1] "Negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
-#&gt; $dec.cor_lbl
+#&gt; $dec_cor_lbl
 #&gt; [1] "Correct"
 #&gt; 
-#&gt; $dec.err_lbl
+#&gt; $dec_err_lbl
 #&gt; [1] "Incorrect"
 #&gt; 
 #&gt; $sdt_lbl
@@ -550,28 +567,28 @@ is not an integral part, but independently defined.</p>
 #&gt; $cond_lbl
 #&gt; [1] "Truth"
 #&gt; 
-#&gt; $cond.true_lbl
+#&gt; $cond_true_lbl
 #&gt; [1] "True"
 #&gt; 
-#&gt; $cond.false_lbl
+#&gt; $cond_false_lbl
 #&gt; [1] "False"
 #&gt; 
 #&gt; $dec_lbl
 #&gt; [1] "Test"
 #&gt; 
-#&gt; $dec.pos_lbl
+#&gt; $dec_pos_lbl
 #&gt; [1] "Positive"
 #&gt; 
-#&gt; $dec.neg_lbl
+#&gt; $dec_neg_lbl
 #&gt; [1] "Negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
-#&gt; $dec.cor_lbl
+#&gt; $dec_cor_lbl
 #&gt; [1] "Correct"
 #&gt; 
-#&gt; $dec.err_lbl
+#&gt; $dec_err_lbl
 #&gt; [1] "Incorrect"
 #&gt; 
 #&gt; $sdt_lbl
@@ -657,7 +674,7 @@ is not an integral part, but independently defined.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

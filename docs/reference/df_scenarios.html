@@ -8,6 +8,13 @@
 
 <title>A collection of riskyr scenarios from various sources. — df_scenarios • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="df_scenarios is an R data frame that
 contains a collection of scenarios from the
 scientific literature and other sources." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ scientific literature and other sources." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -145,67 +154,66 @@ scientific literature and other sources.</p>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with currently 26 rows (i.e., scenarios)
+    <p>A data frame with currently 25 rows (i.e., scenarios)
 and 21 columns (variables describing each scenario):</p>
 <p>Scenarios:</p>
+<p><code>df_scenarios</code> currently contains the following scenarios
+(n1 to n12 in English language, n13 to n25 in German language):</p>
 <ol>
-<li><p>Mammografie 1</p></li>
-<li><p>Nackenfaltentest (NFT)</p></li>
-<li><p>HIV 1 (f)</p></li>
-<li><p>HIV 2 (f)</p></li>
-<li><p>Mammography 2</p></li>
-<li><p>Sepsis</p></li>
+<li><p>Bowel cancer screening</p></li>
 <li><p>Cab problem</p></li>
-<li><p>Sigmoidoskopie 1</p></li>
-<li><p>Sigmoidoskopie 1</p></li>
-<li><p>Brustkrebs 1</p></li>
-<li><p>Brustkrebs 2 (BRCA1)</p></li>
-<li><p>Brustkrebs 3 (BRCA1+pos. Mam.)</p></li>
-<li><p>HIV 3 (m)</p></li>
-<li><p>HIV 4 (m)</p></li>
-<li><p>Nackenfaltentest 2 (NFT)</p></li>
-<li><p>Amniozentese (pos. NFT)</p></li>
-<li><p>Musical town</p></li>
+<li><p>Hemoccult test</p></li>
+<li><p>Mammography screening</p></li>
+<li><p>Mammography (freq)</p></li>
+<li><p>Mammography (prob)</p></li>
 <li><p>Mushrooms</p></li>
-<li><p>Bowel cancer (FOB screening)</p></li>
-<li><p>PSA test 1 (high prev)</p></li>
-<li><p>PSA test 2 (low prev)</p></li>
-<li><p>Colorectal cancer</p></li>
+<li><p>Musical town</p></li>
+<li><p>PSA test (baseline)</p></li>
+<li><p>PSA test (patients)</p></li>
 <li><p>Psylicraptis screening</p></li>
-<li><p>Mammography 6 (prob)</p></li>
-<li><p>Mammography 6 (freq)</p></li>
+<li><p>Sepsis</p></li>
+<li><p>Amniozentese (in German)</p></li>
+<li><p>HIV-Test 1</p></li>
+<li><p>HIV-Test 2</p></li>
+<li><p>HIV-Test 3</p></li>
+<li><p>HIV-Test 4</p></li>
+<li><p>Mammografie 1</p></li>
+<li><p>Mammografie 2</p></li>
+<li><p>Mammografie 3</p></li>
+<li><p>Mammografie 4</p></li>
+<li><p>Nackenfaltentest (NFT) 1</p></li>
+<li><p>Nackenfaltentest (NFT) 2</p></li>
+<li><p>Sigmoidoskopie 1</p></li>
+<li><p>Sigmoidoskopie 2</p></li>
 </ol>
-    <p>Describing variables:</p>
+    <p>Variables describing a scenario:</p>
 <ol>
-<li><p><code>scen_lbl</code> Text label for current scenario.</p></li>
-<li><p><code>scen_lng</code> Language of current scenario.</p></li>
-<li><p><code>scen_txt</code> Description text of current scenario.</p></li>
-<li><p><code>popu_lbl</code> Text label for current population.</p></li>
-<li><p><code>cond_lbl</code> Text label for current condition.</p></li>
-<li><p><code>cond.true_lbl</code> Text label for <code><a href='cond.true.html'>cond.true</a></code> cases.</p></li>
-<li><p><code>cond.false_lbl</code> Text label for <code><a href='cond.false.html'>cond.false</a></code> cases.</p></li>
-<li><p><code>dec_lbl</code> Text label for current decision.</p></li>
-<li><p><code>dec.pos_lbl</code> Text label for <code><a href='dec.pos.html'>dec.pos</a></code> cases.</p></li>
-<li><p><code>dec.neg_lbl</code> Text label for <code><a href='dec.neg.html'>dec.neg</a></code> cases.</p></li>
+<li><p><code>scen_lbl</code> Text label for the current scenario.</p></li>
+<li><p><code>scen_lng</code> Language of the current scenario (en/de).</p></li>
+<li><p><code>scen_txt</code> Description text of the current scenario.</p></li>
+<li><p><code>popu_lbl</code> Text label for the current population.</p></li>
+<li><p><code>cond_lbl</code> Text label for the current condition.</p></li>
+<li><p><code>cond_true_lbl</code>  Text label for <code><a href='cond_true.html'>cond_true</a></code> cases.</p></li>
+<li><p><code>cond_false_lbl</code> Text label for <code><a href='cond_false.html'>cond_false</a></code> cases.</p></li>
+<li><p><code>dec_lbl</code> Text label for the current decision.</p></li>
+<li><p><code>dec_pos_lbl</code> Text label for <code><a href='dec_pos.html'>dec_pos</a></code> cases.</p></li>
+<li><p><code>dec_neg_lbl</code> Text label for <code><a href='dec_neg.html'>dec_neg</a></code> cases.</p></li>
 <li><p><code>hi_lbl</code> Text label for cases of hits <code><a href='hi.html'>hi</a></code>.</p></li>
 <li><p><code>mi_lbl</code> Text label for cases of misses <code><a href='mi.html'>mi</a></code>.</p></li>
 <li><p><code>fa_lbl</code> Text label for cases of false alarms <code><a href='fa.html'>fa</a></code>.</p></li>
 <li><p><code>cr_lbl</code> Text label for cases of correct rejections <code><a href='cr.html'>cr</a></code>.</p></li>
-<li><p><code>prev</code> Value of current prevalence <code><a href='prev.html'>prev</a></code>.</p></li>
-<li><p><code>sens</code> Value of current sensitivity <code><a href='sens.html'>sens</a></code>.</p></li>
-<li><p><code>spec</code> Value of current specificity <code><a href='spec.html'>spec</a></code>.</p></li>
-<li><p><code>fart</code> Value of current false alarm rate <code><a href='fart.html'>fart</a></code>.</p></li>
+<li><p><code>prev</code> Value of the current prevalence <code><a href='prev.html'>prev</a></code>.</p></li>
+<li><p><code>sens</code> Value of the current sensitivity <code><a href='sens.html'>sens</a></code>.</p></li>
+<li><p><code>spec</code> Value of the current specificity <code><a href='spec.html'>spec</a></code>.</p></li>
+<li><p><code>fart</code> Value of the current false alarm rate <code><a href='fart.html'>fart</a></code>.</p></li>
 <li><p><code>N</code> Current population size <code><a href='N.html'>N</a></code>.</p></li>
-<li><p><code>scen_src</code> Source information for current scenario.</p></li>
+<li><p><code>scen_src</code> Source information for the current scenario.</p></li>
 <li><p><code>scen_apa</code> Source information in APA format.</p></li>
 </ol>
     <p>Note that names of variables (columns)
-correspond to <code><a href='init_txt.html'>init_txt</a></code> (to initialize <code><a href='txt.html'>txt</a></code>)
+correspond to a subset of <code><a href='init_txt.html'>init_txt</a></code> (to initialize <code><a href='txt.html'>txt</a></code>)
 and <code><a href='init_num.html'>init_num</a></code> (to initialize <code><a href='num.html'>num</a></code>).</p>
-    
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p>See columns <code>scen_src</code> and <code>scen_apa</code>
+<p>See the columns <code>scen_src</code> and <code>scen_apa</code>
 for a scenario's source information.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -213,6 +221,16 @@ for a scenario's source information.</p>
     <p>When loading <code>riskyr</code>, all scenarios contained in
 <code>df_scenarios</code> are also converted into a list of
 <code>riskyr</code> objects <code><a href='scenarios.html'>scenarios</a></code>.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='riskyr.html'>riskyr</a></code> initializes a <code>riskyr</code> scenario;
+<code><a href='txt.html'>txt</a></code> contains basic text information;
+<code><a href='init_txt.html'>init_txt</a></code> initializes text information;
+<code><a href='num.html'>num</a></code> contains basic numeric parameters;
+<code><a href='init_num.html'>init_num</a></code> initializes basic numeric parameters;
+<code><a href='pal.html'>pal</a></code> contains current color information;
+<code><a href='init_pal.html'>init_pal</a></code> initializes color information.</p></div>
     
 
   </div>
@@ -222,9 +240,9 @@ for a scenario's source information.</p>
       
       <li><a href="#format">Format</a></li>
 
-      <li><a href="#source">Source</a></li>
-
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>
@@ -232,7 +250,7 @@ for a scenario's source information.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

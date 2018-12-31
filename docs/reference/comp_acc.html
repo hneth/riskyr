@@ -8,6 +8,13 @@
 
 <title>Compute overall accuracy (acc) from probabilities. — comp_acc • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="comp_acc computes overall accuracy acc
 from 3 essential probabilities
 prev, sens, and spec." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ prev, sens, and spec." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -183,7 +192,7 @@ without rounding.</p>
 <ul>
 <li><p>Definition:
   <code><a href='acc.html'>acc</a></code> is the (non-conditional) probability:</p>
-<p><code>acc = p(dec.cor) = dec.cor/N</code></p>
+<p><code>acc = p(dec_cor) = dec_cor/N</code></p>
 <p>or the base rate (or baseline probability)
   of a decision being correct, but not necessarily positive.</p>
 <p><code><a href='acc.html'>acc</a></code> values range
@@ -191,11 +200,11 @@ without rounding.</p>
   to 1 (perfect decision/prediction).</p></li>
 <li><p>Computation: <code><a href='acc.html'>acc</a></code> can be computed in 2 ways:</p>
 <p>(a) from <code><a href='prob.html'>prob</a></code>: <code>acc = (prev x sens) + [(1 - prev) x spec]</code></p>
-<p>(b) from <code><a href='freq.html'>freq</a></code>: <code>acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
+<p>(b) from <code><a href='freq.html'>freq</a></code>: <code>acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p>
 <p>When frequencies in <code><a href='freq.html'>freq</a></code> are not rounded, (b) coincides with (a).</p></li>
 <li><p>Perspective:
   <code><a href='acc.html'>acc</a></code> classifies a population of <code><a href='N.html'>N</a></code> individuals
-  by accuracy/correspondence (<code>acc = dec.cor/N</code>).</p>
+  by accuracy/correspondence (<code>acc = dec_cor/N</code>).</p>
 <p><code><a href='acc.html'>acc</a></code> is the "by accuracy" or "by correspondence" counterpart
   to <code><a href='prev.html'>prev</a></code> (which adopts a "by condition" perspective) and
   to <code><a href='ppod.html'>ppod</a></code> (which adopts a "by decision" perspective).</p></li>
@@ -204,10 +213,10 @@ without rounding.</p>
   non-erroneous cases</p></li>
 <li><p>In terms of frequencies,
   <code><a href='acc.html'>acc</a></code> is the ratio of
-  <code><a href='dec.cor.html'>dec.cor</a></code> (i.e., <code><a href='hi.html'>hi</a> + <a href='cr.html'>cr</a></code>)
+  <code><a href='dec_cor.html'>dec_cor</a></code> (i.e., <code><a href='hi.html'>hi</a> + <a href='cr.html'>cr</a></code>)
   divided by <code><a href='N.html'>N</a></code> (i.e.,
   <code><a href='hi.html'>hi</a> + <a href='mi.html'>mi</a></code> + <code><a href='fa.html'>fa</a> + <a href='cr.html'>cr</a></code>):</p>
-<p><code>acc = dec.cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p></li>
+<p><code>acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)</code></p></li>
 <li><p>Dependencies:
   <code><a href='acc.html'>acc</a></code> is a feature of both the environment (true condition) and
   of the decision process or diagnostic procedure. It reflects the
@@ -278,7 +287,7 @@ and several possible interpretations of accuracy.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

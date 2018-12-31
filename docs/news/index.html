@@ -8,6 +8,13 @@
 
 <title>Changelog • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -31,6 +38,9 @@
 
 
 <meta property="og:title" content="Changelog" />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -60,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -131,7 +141,7 @@
 <h1 class="page-header">
 <a href="#riskyr-0-2-0" class="anchor"></a>riskyr 0.2.0<small> Unreleased </small>
 </h1>
-<p>riskyr 0.2.0 was ready to be released on December 21, 2018. It will be submitted to CRAN in January 2019.</p>
+<p>riskyr 0.2.0 was ready to be released on December 20, 2018. It will be submitted to CRAN in January 2019.</p>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -153,6 +163,7 @@
 <ul>
 <li><p>New <code>plot_util.R</code> collection of graphical utility functions [2018-08]: Define a new <code>box</code> object type and various functions for plotting, labeling, and linking them (to remove dependencies on and limitations by other packages).</p></li>
 <li><p>Updated <code>riskyr</code> function [2018-03]: As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities).</p></li>
+<li><p>Using <code>pkgdown</code> [2018-12]: Provide online documentation at <a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a> (release version) and <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a> (development version).</p></li>
 </ul>
 </div>
 </div>
@@ -164,8 +175,9 @@
 <a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
 <li><p>Improved <code>plot_icons</code> function [2018-12]: Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same <code>by</code> argument as the other plotting functions.</p></li>
-<li><p><code>plot_curve</code> and <code>plot_plane</code> functions [2018-11]: Update variable names (to <code>snake_case</code>) and add arguments (e.g., <code>col_pal</code>, <code>lbl_txt</code> <code>mar_notes</code>, etc.) for consistency with newer plotting functions.</p></li>
-<li><p><code>scale</code> argument [2018-10]: The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</p></li>
+<li><p><code>plot_curve</code> and <code>plot_plane</code> functions [2018-11]: Update variable names (to snake_case) and add arguments (e.g., <code>col_pal</code>, <code>lbl_txt</code> <code>mar_notes</code>, etc.) for consistency with newer plotting functions.</p></li>
+<li>
+<code>scale</code> argument [2018-10]: The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</li>
 <li><p><code>plot_fnet</code> [2018-02]: Change argument <code>box.cex</code> to <code>cex.lbl</code> to ensure consistency with <code>plot_curves</code> and <code>plot_plane</code> (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.</p></li>
 <li><p><code>plot_mosaic</code> [2018-02]: Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
 <li><p><code>mar_notes</code> and <code>plot_mar</code> [2018-09]: Use consistent plot margins and options for showing margin notes for all plots.</p></li>
@@ -235,7 +247,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

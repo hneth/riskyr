@@ -288,7 +288,9 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Running riskyr (v0.1.0.9700)...</span>
+<span class="co">#&gt;  hi fa</span>
+<span class="co">#&gt;    +</span>
+<span class="co">#&gt;  mi cr</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -437,7 +439,7 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_pro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
 rand.p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
-<span class="co">#&gt; [1] 0.8916996 0.9302837 0.9213713</span>
+<span class="co">#&gt; [1] 0.3644339 0.6916419 0.6906987</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities:</span>
 freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
@@ -456,7 +458,7 @@ prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_p
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
 rand.f &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
 rand.f  
-<span class="co">#&gt; [1] 261 727 568 215</span>
+<span class="co">#&gt; [1]  42 139 136 903</span>
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>

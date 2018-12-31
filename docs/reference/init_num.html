@@ -8,6 +8,13 @@
 
 <title>Initialize basic numeric variables. — init_num • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -36,6 +43,8 @@
 as a list of named elements containing four basic probabilities
 (prev, sens, spec, and fart)
 and one frequency parameter (the population size N)." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +75,7 @@ and one frequency parameter (the population size N)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -213,7 +222,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># ways to succeed:</span>
 <span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; succeeds</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -228,7 +237,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; $N
 #&gt; [1] 100
 #&gt; </div><div class='input'><span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; succeeds</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -245,7 +254,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; </div><div class='input'>
 <span class='co'># watch out for:</span>
 <span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>)           <span class='co'># =&gt; succeeds (with N computed)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -260,7 +269,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; $N
 #&gt; [1] 1000
 #&gt; </div><div class='input'><span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>NA</span>, <span class='fl'>1</span>, <span class='fl'>100</span>)     <span class='co'># =&gt; succeeds (with spec computed)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -275,7 +284,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; $N
 #&gt; [1] 100
 #&gt; </div><div class='input'><span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>NA</span>, <span class='fl'>100</span>)     <span class='co'># =&gt; succeeds (with fart computed)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -290,7 +299,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; $N
 #&gt; [1] 100
 #&gt; </div><div class='input'><span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>NA</span>, <span class='fl'>1</span>)          <span class='co'># =&gt; succeeds (with spec and N computed)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -305,7 +314,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; $N
 #&gt; [1] 1000
 #&gt; </div><div class='input'><span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>NA</span>)          <span class='co'># =&gt; succeeds (with fart and N computed)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -320,7 +329,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 #&gt; $N
 #&gt; [1] 1000
 #&gt; </div><div class='input'><span class='fu'>init_num</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>.51</span>, <span class='fl'>.50</span>, <span class='fl'>100</span>)  <span class='co'># =&gt; succeeds (as spec and fart are within tolarated range)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond.false or dec.false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; $prev
 #&gt; [1] 1
 #&gt; 
 #&gt; $sens
@@ -429,7 +438,7 @@ computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

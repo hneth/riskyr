@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List current values of basic text elements. — txt • riskyr</title>
+<title>Basic text elements. — txt • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -30,11 +37,12 @@
 
 
 
-<meta property="og:title" content="List current values of basic text elements. — txt" />
+<meta property="og:title" content="Basic text elements. — txt" />
 
 <meta property="og:description" content="txt is initialized to a list of named elements
-to define all scenario titles and labels
-and used throughout the riskyr package." />
+to define basic scenario titles and labels." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +73,7 @@ and used throughout the riskyr package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -128,7 +136,7 @@ and used throughout the riskyr package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List current values of basic text elements.</h1>
+    <h1>Basic text elements.</h1>
     <small class="dont-index">Source: <a href='https://github.com/hneth/riskyr/blob/master/R/init_txt.R'><code>R/init_txt.R</code></a></small>
     <div class="hidden name"><code>txt.Rd</code></div>
     </div>
@@ -136,8 +144,7 @@ and used throughout the riskyr package." />
     <div class="ref-description">
     
     <p><code>txt</code> is initialized to a list of named elements
-to define all scenario titles and labels
-and used throughout the <code>riskyr</code> package.</p>
+to define basic scenario titles and labels.</p>
     
     </div>
 
@@ -149,10 +156,26 @@ and used throughout the <code>riskyr</code> package.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>All textual elements that specify titles and details of the current scenario
+    <p>All textual elements that specify generic labels and titles of <code>riskyr</code> scenarios
 are stored as named elements (of type character) in a list <code>txt</code>.
 To change an element, assign a new character object to an existing name.</p>
-<p><code>txt</code> currently contains the following text labels:</p>
+<p>The list <code>txt</code> is used throughout the <code>riskyr</code> package
+unless a scenario defines scenario-specific text labels
+(when using the <code><a href='riskyr.html'>riskyr</a></code> function).</p>
+<p>Note:</p>
+<ul>
+<li><p>Basic text information and some numeric parameters
+  (see <code><a href='num.html'>num</a></code> and <code><a href='init_num.html'>init_num</a></code>)
+  are integral parts of a <code>riskyr</code> scenario.</p></li>
+<li><p>By contrast, basic <em>color</em> information
+  (see <code><a href='pal.html'>pal</a></code> and <code><a href='init_pal.html'>init_pal</a></code>)
+  is not an integral part, but independently defined.</p></li>
+<li><p>The names of <em>probabilities</em>
+  (see <code><a href='prob.html'>prob</a></code>) are currently
+  not an integral part of <code>txt</code> and <code>riskyr</code> scenarios
+  (but defined in <code>prob_lbl_def</code> and <code>label_prob</code>).</p></li>
+</ul>
+    <p><code>txt</code> currently contains the following text labels:</p>
 <ol>
 <li><p><code>scen_lbl</code> The current scenario title (sometimes in Title Caps).</p></li>
 <li><p><code>scen_txt</code> A longer text description of the current scenario
@@ -160,32 +183,49 @@ To change an element, assign a new character object to an existing name.</p>
 <li><p><code>scen_src</code> The source information for the current scenario.</p></li>
 <li><p><code>scen_apa</code> The source information in APA format.</p></li>
 <li><p><code>scen_lng</code> The language of the current scenario (as character code).
-Options: <code>"en"</code>: English, <code>"de"</code>: German.</p></li>
-<li><p><code>popu_lbl</code> A brief label for the current target population <code><a href='popu.html'>popu</a></code> or sample.</p></li>
-<li><p><code>cond_lbl</code> A name for the <em>condition</em> or feature (e.g., some disease) currently considered.</p></li>
-<li><p><code>cond.true_lbl</code> A label for the <em>presence</em> of the current condition
-or <code><a href='cond.true.html'>cond.true</a></code> cases (the condition's true state of TRUE).</p></li>
-<li><p><code>cond.false_lbl</code> A label for the <em>absence</em> of the current condition
-or <code><a href='cond.false.html'>cond.false</a></code> cases (the condition's true state of FALSE).</p></li>
-<li><p><code>dec_lbl</code> A name for the <em>decision</em> or judgment (e.g., some diagnostic test) currently made.</p></li>
-<li><p><code>dec.pos_lbl</code> A label for <em>positive</em> decisions
-or <code><a href='dec.pos.html'>dec.pos</a></code> cases (e.g., predicting the presence of the condition).</p></li>
-<li><p><code>dec.neg_lbl</code> A label for <em>negative</em> decisions
-or <code><a href='dec.neg.html'>dec.neg</a></code> cases (e.g., predicting the absence of the condition).</p></li>
-<li><p><code>sdt_lbl</code> A name for the <em>case/category/cell</em> in the 2x2 contingency table (condition x decision, SDT).</p></li>
-<li><p><code>hi_lbl</code> A label for <em>hits</em> or <em>true positives</em> <code><a href='hi.html'>hi</a></code>
+Options: <code>"en"</code>: English, <code>"de"</code>: German.</p>
+<p>Population:</p></li>
+<li><p><code>popu_lbl</code> A general name describing the current <em>population</em>.</p></li>
+<li><p><code>N_lbl</code> A short label for the current population <code><a href='popu.html'>popu</a></code> or sample.</p>
+<p>Condition:</p></li>
+<li><p><code>cond_lbl</code> A general name for the <em>condition</em> dimension,
+or the feature (e.g., some disease) currently considered.</p></li>
+<li><p><code>cond_true_lbl</code> A short label for the <em>presence</em> of the current condition
+or <code><a href='cond_true.html'>cond_true</a></code> cases (the condition's true state of being TRUE).</p></li>
+<li><p><code>cond_false_lbl</code> A short label for the <em>absence</em> of the current condition
+or <code><a href='cond_false.html'>cond_false</a></code> cases (the condition's true state of being FALSE).</p>
+<p>Decision:</p></li>
+<li><p><code>dec_lbl</code> A general name for the <em>decision</em> dimension,
+or the judgment (e.g., some diagnostic test) currently made.</p></li>
+<li><p><code>dec_pos_lbl</code> A short label for <em>positive</em> decisions
+or <code><a href='dec_pos.html'>dec_pos</a></code> cases (e.g., predicting the presence of the condition).</p></li>
+<li><p><code>dec_neg_lbl</code> A short label for <em>negative</em> decisions
+or <code><a href='dec_neg.html'>dec_neg</a></code> cases (e.g., predicting the absence of the condition).</p>
+<p>Accuracy:</p></li>
+<li><p><code>acc_lbl</code> A general name for the <em>accuracy</em> dimension,
+or the correspondence between the condition currently considered
+and the decision judgment currently made.</p></li>
+<li><p><code>dec_cor_lbl</code> A short label for <em>correct</em> and <em>accurate</em> decisions
+or <code><a href='dec_cor.html'>dec_cor</a></code> cases (accurate predictions).</p></li>
+<li><p><code>dec_err_lbl</code> A short label for <em>incorrect</em> decisions
+or <code><a href='dec_err.html'>dec_err</a></code> cases (erroneous predictions).</p>
+<p>Cases:</p></li>
+<li><p><code>sdt_lbl</code> A general name for all 4 <em>cases/categories/cells</em>
+of the 2x2 contingency table (e.g., condition x decision, using SDT).</p></li>
+<li><p><code>hi_lbl</code> A short label for <em>hits</em> or <em>true positives</em> <code><a href='hi.html'>hi</a></code>/TP cases
 (i.e., correct decisions of the presence of the condition, when the condition is actually present).</p></li>
-<li><p><code>mi_lbl</code> A label for <em>misses</em> or <em>false negatives</em> <code><a href='mi.html'>mi</a></code>
+<li><p><code>mi_lbl</code> A short label for <em>misses</em> or <em>false negatives</em> <code><a href='mi.html'>mi</a></code>/FN cases
 (i.e., incorrect decisions of the absence of the condition when the condition is actually present).</p></li>
-<li><p><code>fa_lbl</code> A label for <em>false alarms</em> or <em>false positives</em> <code><a href='fa.html'>fa</a></code>
+<li><p><code>fa_lbl</code> A short label for <em>false alarms</em> or <em>false positives</em> <code><a href='fa.html'>fa</a></code>/FP cases
 (i.e., incorrect decisions of the presence of the condition when the condition is actually absent).</p></li>
-<li><p><code>cr_lbl</code> A label for <em>correct rejections</em> or <em>true negatives</em> <code><a href='cr.html'>cr</a></code>
+<li><p><code>cr_lbl</code> A short label for <em>correct rejections</em> or <em>true negatives</em> <code><a href='cr.html'>cr</a></code>/TN cases
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).</p></li>
 </ol>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='init_txt.html'>init_txt</a></code> initializes text information;
+<code><a href='riskyr.html'>riskyr</a></code> initializes a <code>riskyr</code> scenario;
 <code><a href='num.html'>num</a></code> contains basic numeric parameters;
 <code><a href='init_num.html'>init_num</a></code> initializes basic numeric parameters;
 <code><a href='pal.html'>pal</a></code> contains current color information;
@@ -228,28 +268,28 @@ or <code><a href='dec.neg.html'>dec.neg</a></code> cases (e.g., predicting the a
 #&gt; $cond_lbl
 #&gt; [1] "Truth"
 #&gt; 
-#&gt; $cond.true_lbl
+#&gt; $cond_true_lbl
 #&gt; [1] "True"
 #&gt; 
-#&gt; $cond.false_lbl
+#&gt; $cond_false_lbl
 #&gt; [1] "False"
 #&gt; 
 #&gt; $dec_lbl
 #&gt; [1] "Test"
 #&gt; 
-#&gt; $dec.pos_lbl
+#&gt; $dec_pos_lbl
 #&gt; [1] "Positive"
 #&gt; 
-#&gt; $dec.neg_lbl
+#&gt; $dec_neg_lbl
 #&gt; [1] "Negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
-#&gt; $dec.cor_lbl
+#&gt; $dec_cor_lbl
 #&gt; [1] "Correct"
 #&gt; 
-#&gt; $dec.err_lbl
+#&gt; $dec_err_lbl
 #&gt; [1] "Incorrect"
 #&gt; 
 #&gt; $sdt_lbl
@@ -286,7 +326,7 @@ or <code><a href='dec.neg.html'>dec.neg</a></code> cases (e.g., predicting the a
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

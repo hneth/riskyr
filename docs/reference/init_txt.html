@@ -8,6 +8,13 @@
 
 <title>Initialize basic text elements. — init_txt • riskyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -32,9 +39,11 @@
 
 <meta property="og:title" content="Initialize basic text elements. — init_txt" />
 
-<meta property="og:description" content="init_txt initializes basic text elements
-(i.e., all titles and labels corresponding to the current scenario
-and used throughout the riskyr package)." />
+<meta property="og:description" content="init_txt initializes basic text elements txt
+(i.e., all titles and labels corresponding to the current scenario)
+that are used throughout the riskyr package." />
+
+<meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -65,7 +74,7 @@ and used throughout the riskyr package)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9620</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
       </span>
     </div>
 
@@ -135,9 +144,9 @@ and used throughout the riskyr package)." />
 
     <div class="ref-description">
     
-    <p><code>init_txt</code> initializes basic text elements
-(i.e., all titles and labels corresponding to the current scenario
-and used throughout the <code>riskyr</code> package).</p>
+    <p><code>init_txt</code> initializes basic text elements <code><a href='txt.html'>txt</a></code>
+(i.e., all titles and labels corresponding to the current scenario)
+that are used throughout the <code>riskyr</code> package.</p>
     
     </div>
 
@@ -146,12 +155,12 @@ and used throughout the <code>riskyr</code> package).</p>
   <span class='kw'>scen_apa</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_apa</span>, <span class='kw'>scen_lng</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_lng</span>,
   <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>popu_lbl</span>, <span class='kw'>N_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>N_lbl</span>,
   <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond_lbl</span>,
-  <span class='kw'>cond.true_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond.true_lbl</span>,
-  <span class='kw'>cond.false_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond.false_lbl</span>,
-  <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_lbl</span>, <span class='kw'>dec.pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec.pos_lbl</span>,
-  <span class='kw'>dec.neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec.neg_lbl</span>, <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>acc_lbl</span>,
-  <span class='kw'>dec.cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec.cor_lbl</span>,
-  <span class='kw'>dec.err_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec.err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>sdt_lbl</span>,
+  <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond_true_lbl</span>,
+  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond_false_lbl</span>,
+  <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_lbl</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_pos_lbl</span>,
+  <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_neg_lbl</span>, <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>acc_lbl</span>,
+  <span class='kw'>dec_cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_cor_lbl</span>,
+  <span class='kw'>dec_err_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>sdt_lbl</span>,
   <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>hi_lbl</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>mi_lbl</span>,
   <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>fa_lbl</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cr_lbl</span>)</pre>
     
@@ -182,7 +191,7 @@ Options: <code>"en"</code>: English, <code>"de"</code>: German.</p></td>
     </tr>
     <tr>
       <th>popu_lbl</th>
-      <td><p>A general name for <em>population</em> dimension.</p></td>
+      <td><p>A general name describing the current <em>population</em>.</p></td>
     </tr>
     <tr>
       <th>N_lbl</th>
@@ -193,42 +202,42 @@ Options: <code>"en"</code>: English, <code>"de"</code>: German.</p></td>
       <td><p>A general name for the <em>condition</em> dimension currently considered (e.g., some clinical condition).</p></td>
     </tr>
     <tr>
-      <th>cond.true_lbl</th>
+      <th>cond_true_lbl</th>
       <td><p>A short label for the <em>presence</em> of the current condition
-or <code><a href='cond.true.html'>cond.true</a></code> cases (the condition's true state of TRUE).</p></td>
+or <code><a href='cond_true.html'>cond_true</a></code> cases (the condition's true state of TRUE).</p></td>
     </tr>
     <tr>
-      <th>cond.false_lbl</th>
+      <th>cond_false_lbl</th>
       <td><p>A short label for the <em>absence</em> of the current condition
-or <code><a href='cond.false.html'>cond.false</a></code> cases (the condition's true state of FALSE).</p></td>
+or <code><a href='cond_false.html'>cond_false</a></code> cases (the condition's true state of FALSE).</p></td>
     </tr>
     <tr>
       <th>dec_lbl</th>
       <td><p>A general name for the <em>decision</em> dimension (e.g., some diagnostic test) currently made.</p></td>
     </tr>
     <tr>
-      <th>dec.pos_lbl</th>
+      <th>dec_pos_lbl</th>
       <td><p>A short label for <em>positive</em> decisions
-or <code><a href='dec.pos.html'>dec.pos</a></code> cases (e.g., predicting the presence of the condition).</p></td>
+or <code><a href='dec_pos.html'>dec_pos</a></code> cases (e.g., predicting the presence of the condition).</p></td>
     </tr>
     <tr>
-      <th>dec.neg_lbl</th>
+      <th>dec_neg_lbl</th>
       <td><p>A short label for <em>negative</em> decisions
-or <code><a href='dec.neg.html'>dec.neg</a></code> cases (e.g., predicting the absence of the condition).</p></td>
+or <code><a href='dec_neg.html'>dec_neg</a></code> cases (e.g., predicting the absence of the condition).</p></td>
     </tr>
     <tr>
       <th>acc_lbl</th>
       <td><p>A general name for the <em>accuracy</em> dimension (e.g., correspondence of decision to condition).</p></td>
     </tr>
     <tr>
-      <th>dec.cor_lbl</th>
+      <th>dec_cor_lbl</th>
       <td><p>A short label for <em>correct</em> decisions
-or <code><a href='dec.cor.html'>dec.cor</a></code> cases (e.g., accurately predicting the condition).</p></td>
+or <code><a href='dec_cor.html'>dec_cor</a></code> cases (e.g., accurately predicting the condition).</p></td>
     </tr>
     <tr>
-      <th>dec.err_lbl</th>
+      <th>dec_err_lbl</th>
       <td><p>A short label for <em>erroneous</em> decisions
-or <code><a href='dec.err.html'>dec.err</a></code> cases (e.g., inaccurately predicting the condition).</p></td>
+or <code><a href='dec_err.html'>dec_err</a></code> cases (e.g., inaccurately predicting the condition).</p></td>
     </tr>
     <tr>
       <th>sdt_lbl</th>
@@ -259,9 +268,11 @@ or <code><a href='dec.err.html'>dec.err</a></code> cases (e.g., inaccurately pre
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>All textual elements that specify titles and details of the current scenario
-are stored as named elements (of type character) in a list <code>txt</code>.
+are stored as named elements (of type character) in a list <code><a href='txt.html'>txt</a></code>.
 <code>init_txt</code> allows changing elements by assigning new character
 objects to existing names.</p>
+<p>However, you can directly specify scenario-specific text elements
+when defining a scenario with the <code><a href='riskyr.html'>riskyr</a></code> function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -297,28 +308,28 @@ objects to existing names.</p>
 #&gt; $cond_lbl
 #&gt; [1] "Condition"
 #&gt; 
-#&gt; $cond.true_lbl
+#&gt; $cond_true_lbl
 #&gt; [1] "True"
 #&gt; 
-#&gt; $cond.false_lbl
+#&gt; $cond_false_lbl
 #&gt; [1] "False"
 #&gt; 
 #&gt; $dec_lbl
 #&gt; [1] "Decision"
 #&gt; 
-#&gt; $dec.pos_lbl
+#&gt; $dec_pos_lbl
 #&gt; [1] "Positive"
 #&gt; 
-#&gt; $dec.neg_lbl
+#&gt; $dec_neg_lbl
 #&gt; [1] "Negative"
 #&gt; 
 #&gt; $acc_lbl
 #&gt; [1] "Accuracy"
 #&gt; 
-#&gt; $dec.cor_lbl
+#&gt; $dec_cor_lbl
 #&gt; [1] "Correct"
 #&gt; 
-#&gt; $dec.err_lbl
+#&gt; $dec_err_lbl
 #&gt; [1] "Erroneous"
 #&gt; 
 #&gt; $sdt_lbl
@@ -358,7 +369,7 @@ objects to existing names.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Hansjoerg Neth, Felix Gaisbauer, Nico Gradwohl, Wolfgang Gaissmaier.</p>
+  <p>Developed by <a href='http://neth.de'>Hansjörg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
