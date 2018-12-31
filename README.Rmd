@@ -91,8 +91,8 @@ devtools::install_github("hneth/riskyr")
 - An **interactive online version** is available at <http://riskyr.org>. 
 
 - The **package documentation** is available online:  
-    - release: <https://hneth.github.io/riskyr/> 
-    - development: <https://hneth.github.io/riskyr/dev>
+    - current release version: <https://hneth.github.io/riskyr/> 
+    - current development version: <https://hneth.github.io/riskyr/dev>
 
 ## Quick start guide 
 
