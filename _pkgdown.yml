@@ -30,6 +30,10 @@ reference:
   - accu
   - popu
   - read_popu
+- title: Visualization
+  desc: Creating graphical representations of riskyr scenarios.
+  contents:
+  - starts_with("plot")
 - title: Probabilities
   desc: Variables representing probability information.
   contents:
@@ -58,15 +62,11 @@ reference:
   - mi
   - fa
   - cr
-- title: Computation
-  desc: Computing parameters and changing representational formats.
+- title: Computation and translation
+  desc: Computing parameters and translating representational formats.
   contents:
   - starts_with("comp_")
-- title: Visualization
-  desc: Create graphical representations of riskyr scenarios.
-  contents:
-  - starts_with("plot")
-- title: Translation and validation
+- title: Validation and formatting
   desc: Verifying and translating between representational formats.
   contents:
   - starts_with("is_")
