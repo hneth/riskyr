@@ -4,14 +4,14 @@
 \alias{init_pal}
 \title{Initialize basic color information.}
 \usage{
-init_pal(N_col = pal_def["N"], cond_true_col = pal_def["true"],
-  cond_false_col = pal_def["false"], dec_pos_col = pal_def["pos"],
-  dec_neg_col = pal_def["neg"], dec_cor_col = pal_def["cor"],
-  dec_err_col = pal_def["err"], hi_col = pal_def["hi"],
-  mi_col = pal_def["mi"], fa_col = pal_def["fa"],
-  cr_col = pal_def["cr"], PPV_col = pal_def["ppv"],
-  NPV_col = pal_def["npv"], txt_col = pal_def["txt"],
-  brd_col = pal_def["brd"])
+init_pal(N_col = pal_def["N"], cond_true_col = pal_def["cond_true"],
+  cond_false_col = pal_def["cond_false"],
+  dec_pos_col = pal_def["dec_pos"], dec_neg_col = pal_def["dec_neg"],
+  dec_cor_col = pal_def["dec_cor"], dec_err_col = pal_def["dec_err"],
+  hi_col = pal_def["hi"], mi_col = pal_def["mi"],
+  fa_col = pal_def["fa"], cr_col = pal_def["cr"],
+  PPV_col = pal_def["ppv"], NPV_col = pal_def["npv"],
+  txt_col = pal_def["txt"], brd_col = pal_def["brd"])
 }
 \arguments{
 \item{N_col}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}

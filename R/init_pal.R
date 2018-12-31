@@ -233,14 +233,14 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 
 init_pal <- function(N_col = pal_def["N"],          # population N
                      ## by condition:
-                     cond_true_col  = pal_def["true"],   # condition true
-                     cond_false_col = pal_def["false"],  # condition false
+                     cond_true_col  = pal_def["cond_true"],   # condition true
+                     cond_false_col = pal_def["cond_false"],  # condition false
                      ## by decision:
-                     dec_pos_col  = pal_def["pos"],     # decision positive
-                     dec_neg_col = pal_def["neg"],      # decision negative
+                     dec_pos_col  = pal_def["dec_pos"],  # decision positive
+                     dec_neg_col = pal_def["dec_neg"],   # decision negative
                      ## by accuracy:
-                     dec_cor_col  = pal_def["cor"],     # decision correct / accurate
-                     dec_err_col = pal_def["err"],      # decision erroneous / inaccurate
+                     dec_cor_col  = pal_def["dec_cor"],  # decision correct / accurate
+                     dec_err_col = pal_def["dec_err"],   # decision erroneous / inaccurate
                      ## Combinations:
                      hi_col = pal_def["hi"],        # hits / true positives
                      mi_col = pal_def["mi"],        # misses / false negatives
