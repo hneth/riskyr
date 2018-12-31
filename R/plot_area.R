@@ -186,9 +186,7 @@
 #'
 #' @param ...  Other (graphical) parameters.
 #'
-#'
 #' @return Nothing (NULL).
-#'
 #'
 #' @examples
 #' ## Basics:
@@ -568,12 +566,14 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   }
 
-  # f_lbl_sep:
-  if (is.na(f_lbl_sep)) {
-    if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
-      f_lbl_sep <- ":\n"  # add an extra line break
-    } else {
-      f_lbl_sep <- " = "  # use default
+  # f_lbl_sep: Set smart default:
+  if ( !is.null(f_lbl) && !is.na(f_lbl) ) {
+    if (is.na(f_lbl_sep)) {
+      if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
+        f_lbl_sep <- ":\n"  # add an extra line break
+      } else {
+        f_lbl_sep <- " = "  # use default
+      }
     }
   }
 

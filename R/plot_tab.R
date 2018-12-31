@@ -451,11 +451,11 @@ plot_tab <- function(prev = num$prev,    # probabilities
   h_gap <- gaps[2]  # default: h_gap = NA
 
   if (is.na(v_gap) || v_gap < 0 ) { # use default:
-      v_gap <- v_gap_def
+    v_gap <- v_gap_def
   }
 
   if (is.na(h_gap) || h_gap < 0 ) { # use default:
-      h_gap <- h_gap_def
+    h_gap <- h_gap_def
   }
 
   if ( h_gap > .20 ) {
@@ -539,12 +539,14 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   }
 
-  # f_lbl_sep:
-  if (is.na(f_lbl_sep)) {
-    if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
-      f_lbl_sep <- ":\n"  # add an extra line break
-    } else {
-      f_lbl_sep <- " = "  # use default
+  # f_lbl_sep: Set smart default:
+  if ( !is.null(f_lbl) && !is.na(f_lbl) ) {
+    if (is.na(f_lbl_sep)) {
+      if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
+        f_lbl_sep <- ":\n"  # add an extra line break
+      } else {
+        f_lbl_sep <- " = "  # use default
+      }
     }
   }
 
@@ -2013,7 +2015,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
     if (scale == "f") {
       if (round == TRUE) {
-      note_lbl <- "Probabilities are based on rounded frequencies."
+        note_lbl <- "Probabilities are based on rounded frequencies."
       } else {
         note_lbl <- "Probabilities are based on exact frequencies."
       }

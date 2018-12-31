@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 12 18
+## 2018 12 20
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -510,6 +510,7 @@ label_prob <- function(pname,
 
   } else {  ## "any"/"def"/"default":
 
+
     ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
     ## Special cases: CHANGE pname to some other default value:
@@ -517,12 +518,14 @@ label_prob <- function(pname,
     # Capitalize some abbreviated names:
     if (pname == "ppv") { pname <- "PPV" }
     if (pname == "npv") { pname <- "NPV" }
+    if (pname == "fdr") { pname <- "FDR" }
+    if (pname == "for") { pname <- "FOR" }
 
     if (pname == "cprev") {  # if complement of prevalence:
-      pname <- "(1 - prev)"           # custom basic name
+      pname <- "(1 - prev)"  # custom basic name
     }
     if (pname == "cppod" || pname == "pned") {  # if complement of ppod:
-      pname <- "(1 - ppod)"           # custom basic name
+      pname <- "(1 - ppod)"                     # custom basic name
     }
 
     # Accuracy (as probability):
