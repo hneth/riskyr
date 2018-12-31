@@ -1383,13 +1383,13 @@ comp_prob_pname <- function(pname, cur_prob = prob) {
       if (tolower(pname[i]) == "err") { p[i] <- (1 - cur_prob$acc) }  # OR: (1 - accu$acc)
 
       # 4 conditional probabilities:
-      if (tolower(pname[i]) == "acc-hi") { p[i] <- (cur_prob$prev * cur_prob$sens)/(cur_prob$acc) }          # prob of hi/dec_cor
-      # if (tolower(pname[i]) == "acc-cr") { p[i] <- ((1 - cur_prob$prev) * cur_prob$spec)/(cur_prob$acc) }  # prob of cr/dec_cor computed from scratch OR:
-      if (tolower(pname[i]) == "acc-cr") { p[i] <- (1 - (cur_prob$prev * cur_prob$sens)/(cur_prob$acc)) }    # prob of cr/dec_cor as complement of hi/dec_cor
+      if (tolower(pname[i]) == "acc_hi") { p[i] <- (cur_prob$prev * cur_prob$sens)/(cur_prob$acc) }          # prob of hi/dec_cor
+      # if (tolower(pname[i]) == "acc_cr") { p[i] <- ((1 - cur_prob$prev) * cur_prob$spec)/(cur_prob$acc) }  # prob of cr/dec_cor computed from scratch OR:
+      if (tolower(pname[i]) == "acc_cr") { p[i] <- (1 - (cur_prob$prev * cur_prob$sens)/(cur_prob$acc)) }    # prob of cr/dec_cor as complement of hi/dec_cor
 
-      if (tolower(pname[i]) == "err-mi") { p[i] <- (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc) }          # prob of mi/dec_err
-      # if (tolower(pname[i]) == "err-fa") { p[i] <- ((1 - cur_prob$prev) * (1 - cur_prob$spec))/(1 - cur_prob$acc) }  # prob of fa/dec_err computed from scratch OR:
-      if (tolower(pname[i]) == "err-fa") { p[i] <- (1 - (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc)) }    # prob of fa/dec_err computed as complement of mi/dec_err
+      if (tolower(pname[i]) == "err_mi") { p[i] <- (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc) }          # prob of mi/dec_err
+      # if (tolower(pname[i]) == "err_fa") { p[i] <- ((1 - cur_prob$prev) * (1 - cur_prob$spec))/(1 - cur_prob$acc) }  # prob of fa/dec_err computed from scratch OR:
+      if (tolower(pname[i]) == "err_fa") { p[i] <- (1 - (cur_prob$prev * (1 - cur_prob$sens))/(1 - cur_prob$acc)) }    # prob of fa/dec_err computed as complement of mi/dec_err
 
     } # if (is.na(pname[i]))...
 
@@ -1423,11 +1423,11 @@ comp_prob_pname <- function(pname, cur_prob = prob) {
 #
 # sum(comp_prob_pname(c("acc", "err"))) == 1
 # # if computed as complements:
-# sum(comp_prob_pname(c("acc-hi", "acc-cr"))) == 1
-# sum(comp_prob_pname(c("err-mi", "err-fa"))) == 1
+# sum(comp_prob_pname(c("acc_hi", "acc_cr"))) == 1
+# sum(comp_prob_pname(c("err_mi", "err_fa"))) == 1
 # # if computed from scratch:
-# all.equal(sum(comp_prob_pname(c("acc-hi", "acc-cr"))), 1)
-# all.equal(sum(comp_prob_pname(c("err-mi", "err-fa"))), 1)
+# all.equal(sum(comp_prob_pname(c("acc_hi", "acc_cr"))), 1)
+# all.equal(sum(comp_prob_pname(c("err_mi", "err_fa"))), 1)
 
 
 

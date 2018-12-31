@@ -523,10 +523,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
     # (c) by accuracy:
     acc <- prob$acc
-    p_acc_hi <- prob$p_acc_hi  # comp_prob_pname("acc-hi")  # p(hi | acc)
-    p_err_fa <- prob$p_err_fa  # comp_prob_pname("err-fa")  # p(fa | err)
-    # sum(comp_prob_pname(c("acc-hi", "acc-cr"))) == 1
-    # sum(comp_prob_pname(c("err-mi", "err-fa"))) == 1
+    p_acc_hi <- prob$p_acc_hi  # comp_prob_pname("acc_hi")  # p(hi | acc)
+    p_err_fa <- prob$p_err_fa  # comp_prob_pname("err_fa")  # p(fa | err)
+    # sum(comp_prob_pname(c("acc_hi", "acc_cr"))) == 1
+    # sum(comp_prob_pname(c("err_mi", "err_fa"))) == 1
 
   } # if (scale == etc.)
 
@@ -1545,7 +1545,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
           plot_line(#0, acc_hi_y, (p_acc_hi * scale_x), acc_hi_y,
             ((c1_x) * scale_x), (r1_y - brd_dis), ((c3_x) * scale_x), (r1_y - brd_dis),
             arr_code = arr_c,
-            lbl = label_prob("acc-hi", cur_prob = prob, lbl_type = p_lbl),
+            lbl = label_prob("acc_hi", cur_prob = prob, lbl_type = p_lbl),
             col_fill = p_col_2, col_txt = p_col_2,
             lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
@@ -1553,7 +1553,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
           plot_line(#((1 - p_err_fa + v_gap) * scale_x), err_fa_y, ((1 + v_gap) * scale_x), err_fa_y,
             ((c2_x) * scale_x), (r2_y - brd_dis), ((c3_x) * scale_x), (r2_y - brd_dis),
             arr_code = arr_c,
-            lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
+            lbl = label_prob("err_fa", cur_prob = prob, lbl_type = p_lbl),
             col_fill = p_col_3, col_txt = p_col_3,
             lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
@@ -1663,7 +1663,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
           plot_line(#0, acc_hi_y, (p_acc_hi * scale_x), acc_hi_y,
             ((c1_x) * scale_x), (r1_y - brd_dis), ((c3_x) * scale_x), (r1_y - brd_dis),
             arr_code = arr_c,
-            lbl = label_prob("acc-hi", cur_prob = prob, lbl_type = p_lbl),
+            lbl = label_prob("acc_hi", cur_prob = prob, lbl_type = p_lbl),
             col_fill = p_col_2, col_txt = p_col_2,
             lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
@@ -1671,7 +1671,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
           plot_line(#0, err_fa_y, (p_err_fa * scale_x), err_fa_y,
             ((c1_x) * scale_x), (r2_y - brd_dis), ((c3_x) * scale_x), (r2_y - brd_dis),
             arr_code = arr_c,
-            lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
+            lbl = label_prob("err_fa", cur_prob = prob, lbl_type = p_lbl),
             col_fill = p_col_3, col_txt = p_col_3,
             lbl_pos = 3, lbl_off = .33, cex = cex_p_lbl, ...)  # Allow ...!
 
@@ -1703,7 +1703,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
         plot_line(#acc_hi_x, (1 - p_acc_hi + h_gap), acc_hi_x, (1 + h_gap),
           ((c1_x - brd_dis) * scale_x), (r1_y),  ((c1_x - brd_dis) * scale_x), (r3_y),
           arr_code = arr_c,
-          lbl = label_prob("acc-hi", cur_prob = prob, lbl_type = p_lbl),
+          lbl = label_prob("acc_hi", cur_prob = prob, lbl_type = p_lbl),
           col_fill = p_col_2, col_txt = p_col_2,
           srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
@@ -1713,7 +1713,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
           plot_line(#err_fa_x, 0, err_fa_x, p_err_fa,
             ((c2_x - brd_dis) * scale_x), (r2_y),  ((c2_x - brd_dis) * scale_x), (r3_y),
             arr_code = arr_c,
-            lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
+            lbl = label_prob("err_fa", cur_prob = prob, lbl_type = p_lbl),
             col_fill = p_col_3, col_txt = p_col_3,
             srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
@@ -1723,7 +1723,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
           plot_line(# err_fa_x, (1 - p_err_fa + h_gap), err_fa_x, (1 + h_gap),
             ((c2_x - brd_dis) * scale_x), (r1_y),  ((c2_x - brd_dis) * scale_x), (r3_y),
             arr_code = arr_c,
-            lbl = label_prob("err-fa", cur_prob = prob, lbl_type = p_lbl),
+            lbl = label_prob("err_fa", cur_prob = prob, lbl_type = p_lbl),
             col_fill = p_col_3, col_txt = p_col_3,
             srt = 90, lbl_pos = 3, lbl_off = 0, cex = cex_p_lbl, ...)  # Allow ...!
 
