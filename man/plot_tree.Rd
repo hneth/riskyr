@@ -122,6 +122,8 @@ plot_tree()  # frequency tree with current default options (by = "cd")
 plot_tree(by = "dc")  # tree by decision
 plot_tree(by = "ac")  # tree by accuracy
 
+# See plot_prism for details and additional options.
+
 }
 \seealso{
 \code{\link{plot_prism}} is the new version of this function.

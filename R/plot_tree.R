@@ -103,6 +103,8 @@
 #' plot_tree(by = "dc")  # tree by decision
 #' plot_tree(by = "ac")  # tree by accuracy
 #'
+#' # See plot_prism for details and additional options.
+#'
 #' @family visualization functions
 #'
 #' @seealso

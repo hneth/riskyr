@@ -116,7 +116,13 @@ frequencies (as nodes) and probabilities (as edges).
 \code{plot_fnet} is deprecated -- please use \code{\link{plot_prism}} instead.
 }
 \examples{
-plot_fnet()  # => plot current freq with default options
+plot_fnet()  # frequency network with default options (by = "cddc")
+
+# alternative perspectives:
+plot_tree(by = "cdac")  # frequency network by condition and accuracy
+plot_fnet(by = "dccd")  # frequency network by decision and condition
+
+# See plot_prism for details and additional options.
 
 }
 \seealso{
