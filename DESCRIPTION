@@ -23,7 +23,8 @@ Suggests:
     rmarkdown,
     knitr,
     roxygen2,
-    pkgdown
+    pkgdown,
+    spelling
 Collate: 'comp_util.R'
          'init_txt.R'
          'init_pal.R'
@@ -61,3 +62,4 @@ URL: http://riskyr.org, https://github.com/hneth/riskyr
 BugReports: https://github.com/hneth/riskyr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
+Language: en-US

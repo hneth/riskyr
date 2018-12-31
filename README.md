@@ -40,8 +40,10 @@ Basic assumptions and goals driving the current development of `riskyr` include:
 
 Based on these assumptions and goals, we provide a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can also be used separately and explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that suit their personal needs and goals.
 
-Installation and version information
-------------------------------------
+Getting riskyr
+--------------
+
+### Installation
 
 -   The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
@@ -57,9 +59,13 @@ library("riskyr")           # load to use the package
 devtools::install_github("hneth/riskyr")
 ```
 
--   An interactive online version is available at <http://riskyr.org>.
+### Available resources
 
--   The package documentation is available at <https://hneth.github.io/riskyr/>.
+-   An **interactive online version** is available at <http://riskyr.org>.
+
+-   The **package documentation** is available online:
+    -   release: <https://hneth.github.io/riskyr/>
+    -   development: <https://hneth.github.io/riskyr/dev>
 
 Quick start guide
 -----------------
@@ -108,7 +114,7 @@ One of the best tricks in risk literacy education is to translate probabilistic 
 > - What proportion of individuals with a positive test result actually suffer from hustosis?
 > - What proportion of individuals with a negative test result are actually free of hustosis?
 
-#### Using `riskyr`
+#### Using riskyr
 
 Here is how `riskyr` allows you to view and solve such problems:
 
