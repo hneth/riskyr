@@ -59,8 +59,7 @@ txt_lbl_def <- list(
 
 ## prob_lbl_def: Define a list of all probability labels: ----------
 
-## ToDo: Integrate prob_lbl_def into txt (to consult current set of probability names)
-##       and use in label_prob (to determine probability labels in plot_util.R).
+## ToDo: Integrate prob_lbl_def into txt (to make current set of probability names adjustable).
 
 prob_lbl_def <- list(
 
@@ -74,7 +73,7 @@ prob_lbl_def <- list(
 
   # (b) by decision:
   ppod = "Proportion positive",
-  ppod_c = "Proportion negative",
+  ppod_c = "Proportion negative",  # OR "1 - ppod"
   PPV = "Positive predictive value (PPV)",  # aka. precision
   FDR = "False detection rate",             # aka. false discovery rate
   NPV = "Negative predictive value (NPV)",  # aka. true omission rate

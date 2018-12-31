@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 12 16
+## 2018 12 18
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -300,7 +300,7 @@ label_freq <- function(fname,
 #
 ## Abbreviated names:
 # label_freq("prev", lbl_type = "abb")
-# label_freq("err-fa", lbl_type = "abb")
+# label_freq("err_fa", lbl_type = "abb")
 # label_freq("stuff", lbl_type = "abb")
 #
 ## Standard cases:
@@ -364,7 +364,7 @@ label_prob <- function(pname,
 
     # Define lists of key probability names:
     key_prob_1 <- c("prev", "ppod", "acc")  # key unconditional prob (3 perspectives)
-    key_prob_2 <- c("sens", "spec",  "PPV", "NPV",  "acc-hi", "err-fa")  # key conditional prob (2 per perspective)
+    key_prob_2 <- c("sens", "spec",  "PPV", "NPV",  "acc_hi", "err_fa")  # key conditional prob (2 per perspective)
 
     if (pname %in% tolower(c(key_prob_1, key_prob_2))) { # pname is a key probability:
 
@@ -384,7 +384,7 @@ label_prob <- function(pname,
 
     # Define lists of key probability names:
     key_prob_1 <- c("prev", "ppod", "acc")  # key unconditional prob (1 for each of 3 perspectives)
-    key_prob_2 <- c("sens", "spec",  "PPV", "NPV",  "acc-hi", "err-fa")  # key conditional prob (2 per perspective)
+    key_prob_2 <- c("sens", "spec",  "PPV", "NPV",  "acc_hi", "err_fa")  # key conditional prob (2 per perspective)
 
     if (pname %in% tolower(c(key_prob_1, key_prob_2))) { # pname is a key probability:
 
@@ -402,9 +402,15 @@ label_prob <- function(pname,
   ## (2) Abbreviated name (i.e., variable name of pname): ----
   if (lbl_type == "abb") {
 
+    # Special cases:
+    if (pname == "cprev") { pname <- "1 - prev" }  # complement to prev
+    if (pname == "cppod") { pname <- "1 - ppod" }  # complement to ppod
+
     # Capitalize some abbreviated names:
     if (pname == "ppv") { pname <- "PPV" }
     if (pname == "npv") { pname <- "NPV" }
+    if (pname == "fdr") { pname <- "FDR" }
+    if (pname == "for") { pname <- "FOR" }
 
     p_lbl <- as.character(pname)
 
@@ -432,35 +438,35 @@ label_prob <- function(pname,
 
   } else if (lbl_type == "namnum"){
 
-    ## ToDo: Use prob_lbl_def (or txt) to use pre-defined set of probability names.
-
     ## (b) Name AND value of prob:
-    if (pname == "prev") { p_lbl <- "Prevalence" }
-    if (pname == "cprev") { p_lbl <- "1 - prevalence" }
 
-    if (pname == "sens") { p_lbl <- "Sensitivity" }
-    if (pname == "spec") { p_lbl <- "Specificity" }
-    if (pname == "mirt") { p_lbl <- "Miss rate" }
-    if (pname == "fart") { p_lbl <- "False alarm rate" }
+    # Look up probability name:
+    if (pname == "prev")  { p_lbl <- prob_lbl_def$prev }    # "Prevalence"
+    if (pname == "cprev") { p_lbl <- prob_lbl_def$prev_c }  # "1 - prevalence"
 
-    if (pname == "ppod") { p_lbl <- "Proportion positive" }
-    if (pname == "cppod"){ p_lbl <- "Proportion negative" }
-    if (pname == "pned") { p_lbl <- "Proportion negative" }
+    if (pname == "sens") { p_lbl <- prob_lbl_def$sens }  # "Sensitivity"
+    if (pname == "spec") { p_lbl <- prob_lbl_def$spec }  # "Specificity"
+    if (pname == "mirt") { p_lbl <- prob_lbl_def$mirt }  # "Miss rate"
+    if (pname == "fart") { p_lbl <- prob_lbl_def$fart }  # "False alarm rate"
 
-    if (pname == "ppv") { p_lbl <- "Positive predictive value (PPV)" }
-    if (pname == "npv") { p_lbl <- "Negative predictive value (NPV)" }
-    if (pname == "fdr") { p_lbl <- "False detection rate" }
-    if (pname == "for") { p_lbl <- "False omission rate" }
+    if (pname == "ppod") { p_lbl <- prob_lbl_def$ppod }    # "Proportion positive"
+    if (pname == "cppod"){ p_lbl <- prob_lbl_def$ppod_c }  # "Proportion negative"
+    if (pname == "pned") { p_lbl <- prob_lbl_def$ppod_c }  # "Proportion negative"
+
+    if (pname == "ppv") { p_lbl <- prob_lbl_def$PPV }  # "Positive predictive value (PPV)"
+    if (pname == "npv") { p_lbl <- prob_lbl_def$NPV }  # "Negative predictive value (NPV)"
+    if (pname == "fdr") { p_lbl <- prob_lbl_def$FDR }  # "False detection rate"
+    if (pname == "for") { p_lbl <- prob_lbl_def$FOR }  # "False omission rate"
 
     # Accuracy (as probability):
-    if (pname == "acc") { p_lbl <- "Rate correct" }
-    if (pname == "cor") { p_lbl <- "Rate correct" }
-    if (pname == "err") { p_lbl <- "Rate incorrect" }
+    if (pname == "acc") { p_lbl <- prob_lbl_def$acc } # "Rate correct"
+    if (pname == "cor") { p_lbl <- prob_lbl_def$acc } # "Rate correct"
+    if (pname == "err") { p_lbl <- prob_lbl_def$err } # "Rate incorrect"
 
-    if (pname == "acc-hi") { p_lbl <- "p(hi | dec_cor)" }  # "Proportion positive correct" (ppcor)
-    if (pname == "acc-cr") { p_lbl <- "p(cr | dec_cor)" }  # "Proportion negative correct" (pncor)
-    if (pname == "err-mi") { p_lbl <- "p(mi | dec_err)" }
-    if (pname == "err-fa") { p_lbl <- "p(fa | dec_err)" }
+    if (pname == "acc_hi") { p_lbl <- prob_lbl_def$acc_hi }  # "p(hi | dec_cor)" # "Proportion positive correct" (ppcor)
+    if (pname == "acc_cr") { p_lbl <- prob_lbl_def$acc_cr }  # "p(cr | dec_cor)" # "Proportion negative correct" (pncor)
+    if (pname == "err_mi") { p_lbl <- prob_lbl_def$err_mi }  # "p(mi | dec_err)"
+    if (pname == "err_fa") { p_lbl <- prob_lbl_def$err_fa }  # "p(fa | dec_err)"
 
     # Combine p_lbl (NOT pname) with p_val (from above):
     if (is_prob(p_val)) {
@@ -474,36 +480,35 @@ label_prob <- function(pname,
 
     ## (c) ONLY the name of prob:
 
-    ## ToDo: Use prob_lbl (or txt) to look up current set of probability names.
+    # Look up probability name:
+    if (pname == "prev")  { p_lbl <- prob_lbl_def$prev }    # "Prevalence"
+    if (pname == "cprev") { p_lbl <- prob_lbl_def$prev_c }  # "1 - prevalence"
 
-    if (pname == "prev") { p_lbl <- "Prevalence" }
-    if (pname == "cprev") { p_lbl <- "1 - prevalence" }
+    if (pname == "sens") { p_lbl <- prob_lbl_def$sens }  # "Sensitivity"
+    if (pname == "spec") { p_lbl <- prob_lbl_def$spec }  # "Specificity"
+    if (pname == "mirt") { p_lbl <- prob_lbl_def$mirt }  # "Miss rate"
+    if (pname == "fart") { p_lbl <- prob_lbl_def$fart }  # "False alarm rate"
 
-    if (pname == "sens") { p_lbl <- "Sensitivity" }
-    if (pname == "spec") { p_lbl <- "Specificity" }
-    if (pname == "mirt") { p_lbl <- "Miss rate" }
-    if (pname == "fart") { p_lbl <- "False alarm rate" }
+    if (pname == "ppod") { p_lbl <- prob_lbl_def$ppod }    # "Proportion positive"
+    if (pname == "cppod"){ p_lbl <- prob_lbl_def$ppod_c }  # "Proportion negative"
+    if (pname == "pned") { p_lbl <- prob_lbl_def$ppod_c }  # "Proportion negative"
 
-    if (pname == "ppod") { p_lbl <- "Proportion positive" }
-    if (pname == "cppod"){ p_lbl <- "Proportion negative" }
-    if (pname == "pned") { p_lbl <- "Proportion negative" }
-
-    if (pname == "ppv") { p_lbl <- "Positive predictive value (PPV)" }
-    if (pname == "npv") { p_lbl <- "Negative predictive value (NPV)" }
-    if (pname == "fdr") { p_lbl <- "False detection rate" }
-    if (pname == "for") { p_lbl <- "False omission rate" }
+    if (pname == "ppv") { p_lbl <- prob_lbl_def$PPV }  # "Positive predictive value (PPV)"
+    if (pname == "npv") { p_lbl <- prob_lbl_def$NPV }  # "Negative predictive value (NPV)"
+    if (pname == "fdr") { p_lbl <- prob_lbl_def$FDR }  # "False detection rate"
+    if (pname == "for") { p_lbl <- prob_lbl_def$FOR }  # "False omission rate"
 
     # Accuracy (as probability):
-    if (pname == "acc") { p_lbl <- "Rate correct" }
-    if (pname == "cor") { p_lbl <- "Rate correct" }
-    if (pname == "err") { p_lbl <- "Rate incorrect" }
+    if (pname == "acc") { p_lbl <- prob_lbl_def$acc } # "Rate correct"
+    if (pname == "cor") { p_lbl <- prob_lbl_def$acc } # "Rate correct"
+    if (pname == "err") { p_lbl <- prob_lbl_def$err } # "Rate incorrect"
 
-    if (pname == "acc-hi") { p_lbl <- "p(hi | dec_cor)" }  # "Proportion positive correct" (ppcor) / key prob
-    if (pname == "acc-cr") { p_lbl <- "p(cr | dec_cor)" }  # "Proportion negative correct" (pncor)
-    if (pname == "err-mi") { p_lbl <- "p(mi | dec_err)" }
-    if (pname == "err-fa") { p_lbl <- "p(fa | dec_err)" }  # key prob
+    if (pname == "acc_hi") { p_lbl <- prob_lbl_def$acc_hi }  # "p(hi | dec_cor)" # "Proportion positive correct" (ppcor)
+    if (pname == "acc_cr") { p_lbl <- prob_lbl_def$acc_cr }  # "p(cr | dec_cor)" # "Proportion negative correct" (pncor)
+    if (pname == "err_mi") { p_lbl <- prob_lbl_def$err_mi }  # "p(mi | dec_err)"
+    if (pname == "err_fa") { p_lbl <- prob_lbl_def$err_fa }  # "p(fa | dec_err)"
 
-  } else {  ## "any"/"default":
+  } else {  ## "any"/"def"/"default":
 
     ## (d) Any other lbl_type: Use basic pname + p_val as default:
 
@@ -525,10 +530,10 @@ label_prob <- function(pname,
     if (pname == "cor") { pname <- "acc" }
     if (pname == "err") { pname <- "err" }
 
-    if (pname == "acc-hi") { pname <- "p(hi|acc)" }  # ppcor / key prob
-    if (pname == "acc-cr") { pname <- "p(cr|acc)" }  # pncor
-    if (pname == "err-mi") { pname <- "p(mi|err)" }
-    if (pname == "err-fa") { pname <- "p(fa|err)" }  # key prob
+    if (pname == "acc_hi") { pname <- "p(hi|acc)" }  # ppcor / key prob
+    if (pname == "acc_cr") { pname <- "p(cr|acc)" }  # pncor
+    if (pname == "err_mi") { pname <- "p(mi|err)" }
+    if (pname == "err_fa") { pname <- "p(fa|err)" }  # key prob
 
     # print(p_val)
     # is.numeric(p_val)
@@ -592,7 +597,7 @@ label_prob <- function(pname,
 # label_prob("fart", lbl_type = "mix")
 ## Abbreviated names:
 # label_prob("spec", lbl_type = "abb")
-# label_prob("err-fa", lbl_type = "abb")
+# label_prob("err_fa", lbl_type = "abb")
 
 
 ## name_prob: Determine the (name of the) prob that links 2 freq ---------
@@ -656,14 +661,14 @@ name_prob <- function(freq1, freq2) {
 
   # 4 conditional probabilities:
   if ( (freq1 == "dec_cor" & freq2 == "hi") ||
-       (freq2 == "dec_cor" & freq1 == "hi") ) { pname <- "acc-hi" } # in lack of a better name
+       (freq2 == "dec_cor" & freq1 == "hi") ) { pname <- "acc_hi" } # in lack of a better name
   if ( (freq1 == "dec_cor" & freq2 == "cr") ||
-       (freq2 == "dec_cor" & freq1 == "cr") ) { pname <- "acc-cr" } # in lack of a better name
+       (freq2 == "dec_cor" & freq1 == "cr") ) { pname <- "acc_cr" } # in lack of a better name
 
   if ( (freq1 == "dec_err" & freq2 == "mi") ||
-       (freq2 == "dec_err" & freq1 == "mi") ) { pname <- "err-mi" } # in lack of a better name
+       (freq2 == "dec_err" & freq1 == "mi") ) { pname <- "err_mi" } # in lack of a better name
   if ( (freq1 == "dec_err" & freq2 == "fa") ||
-       (freq2 == "dec_err" & freq1 == "fa") ) { pname <- "err-fa" } # in lack of a better name
+       (freq2 == "dec_err" & freq1 == "fa") ) { pname <- "err_fa" } # in lack of a better name
 
   # Note: No prob for links between dec_cor OR dec_err and
   #       4 SDT cases (hi, mi, fa, cr).
