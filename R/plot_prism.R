@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 12 16
+## 2018 12 18
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges)
 ## -----------------------------------------------
@@ -107,9 +107,9 @@
 #'   }
 #'
 #' @param f_lbl_sep  Label separator for main frequencies
-#' (when \code{f_lbl = "def" OR "namnum"}).
-#' Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
-#' Default: \code{f_lbl_sep = " = "}.
+#' (used for \code{f_lbl = "def" OR "namnum"}).
+#' Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
+#' Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).
 #'
 #' @param f_lwd  Line width of areas.
 #' Default: \code{f_lwd = 0}.
@@ -158,9 +158,7 @@
 #'
 #' @param ...  Other (graphical) parameters.
 #'
-#'
 #' @return Nothing (NULL).
-#'
 #'
 #' @examples
 #' ## Basics:
@@ -188,15 +186,15 @@
 #'
 #' ## Local values and custom color/txt settings:
 #' plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-#'            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
+#'            by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
 #'            f_lwd = 1, col_pal = pal_rgb)  # custom colors
 #'
 #' plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #'            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 #'
-#' plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             # note scale!
-#'            area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
-#'            col_pal = pal_kn, f_lwd = .5)                                       # custom colors
+#' plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # note scale!
+#'            area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
+#'            col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 #'
 #' ## Plot versions:
 #' # (A) tree/single tree (nchar(by) == 2):
@@ -338,19 +336,19 @@ plot_prism <- function(prev = num$prev,    # probabilities
                        spec = num$spec, fart = NA,
                        N = num$N,          # population size N
 
-                       ## Plot options:
+                       # Plot options:
                        by = "cddc",        # 2 perspectives (rows 2 and 4): each by = "cd"/"dc"/"ac"  (default: "cddc")
                        area = "no",        # "no" (default = NA, NULL, "fix") vs: "hr", "sq"
                        scale = "p",        # "f" vs. "p" (default)
                        round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
 
-                       ## Freq boxes:
+                       # Freq boxes:
                        f_lbl = "num",      # freq labels: "def", "nam"/"num"/"namnum", "abb", or NA/NULL/"no" to hide freq labels.
-                       f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
+                       f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
                        f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                        # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
 
-                       ## Prob links:
+                       # Prob links:
                        p_lbl = "mix",      # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels.
                        # p_lwd,            # lwd of prob links: set to default = 1 (currently not used)
                        # p_lty,            # lty of prob links: set to default = 1 (currently not used)
@@ -450,6 +448,15 @@ plot_prism <- function(prev = num$prev,    # probabilities
     f_lwd <- tiny_lwd  # to avoid error (for lwd = 0)
     lty <- 0           # "blank" (no lines) [only when f_lty and p_lty are NOT used]
 
+  }
+
+  # f_lbl_sep:
+  if (is.na(f_lbl_sep)) {
+    if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
+      f_lbl_sep <- ":\n"  # add an extra line break
+    } else {
+      f_lbl_sep <- " = "  # use default
+    }
   }
 
   ## 3. Prob links:
@@ -593,23 +600,25 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## (a) rectangular box (area == "no", i.e., default):
   if ( !is.na(by_bot) ) {
 
-    b_h_scale <- 5/4        # optional scaling factor (for larger box heights)
+    b_h_scale <- 1.15       # optional scaling factor (for larger box heights)
     b_h <- (1 * b_h_scale)  # basic box height
 
     # gold_ratio  <- 1.618  # a. golden ratio (= approx. 1.6180339887)
-    # wide_screen   <- 16/9   # b. 1.778
-    compromise  <- 1.70   # c. 1.70
+    wide_screen <- 16/9     # b. 1.778
+    # compromise  <- 1.70   # c. 1.70
+    # wider       <- 1.88   # d. 1.88 (wider than wide_screen)
 
-    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # a. wider + corrected for aspect ratio
-    # b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)   # b. wider + corrected
-    b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)  # c. wider + corrected
+    # b_w <- comp_lx(b_h, mf = gold_ratio, corf = scale_x)  # a. gold_ratio + corrected for aspect ratio
+    b_w <- comp_lx(b_h, mf = wide_screen, corf = scale_x)   # b. wide_screen + corrected
+    # b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)  # c. compromise + corrected
+    # b_w <- comp_lx(b_h, mf = wider, corf = scale_x)       # d. wider + corrected
 
   } else {
 
     b_h <- 1
-    wider <- 2.2
+    two_to_one <- 2.0
 
-    b_w <- comp_lx(b_h, mf = wider, corf = scale_x)  # wider + corrected for aspect ratio
+    b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # two_to_one + corrected for aspect ratio
 
   } # if ( !is.na(by_bot) ) etc.
 
@@ -1400,15 +1409,15 @@ plot_prism <- function(prev = num$prev,    # probabilities
 #
 # ## Local values and custom color and text settings:
 # plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-#            by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
+#            by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
 #            col_pal = pal_rgb)  # custom colors
 #
 # plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
 #            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 #
-# plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             # note scale!
-#            area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
-#            col_pal = pal_kn, f_lwd = .5)                                       # custom colors
+# plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # note scale!
+#            area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
+#            col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 #
 # ## Plot versions:
 # # (a) single tree (nchar(by) == 2):

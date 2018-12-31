@@ -117,9 +117,9 @@
 #'   }
 #'
 #' @param f_lbl_sep  Label separator for main frequencies
-#' (when \code{f_lbl = "def" OR "namnum"}).
-#' Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
-#' Default: \code{f_lbl_sep = " = "}.
+#' (used for \code{f_lbl = "def" OR "namnum"}).
+#' Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
+#' Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).
 #'
 #' @param f_lbl_sum  Type of label for showing frequency values in summary cells,
 #' with same 6 options as \code{f_lbl} (above).
@@ -240,13 +240,13 @@
 #' ## Custom text labels and colors:
 #' plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
 #'          by = "cddc", p_split = "v", area = "sq",
-#'          lbl_txt = txt_TF,  # custom text
+#'          lbl_txt = txt_org,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #'          col_pal = pal_mod, f_lwd = 3)  # custom colors
 #'
 #' plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 #'          by = "cddc", p_split = "h", area = "sq",
-#'          lbl_txt = txt_TF,  # custom text
+#'          lbl_txt = txt_org,  # custom text
 #'          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #'          col_pal = pal_kn, f_lwd = 1)  # custom colors
 #'
@@ -302,16 +302,16 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      spec = num$spec, fart = NA,
                      N = num$N,          # population size N
 
-                     ## Plot options:
+                     # Plot options:
                      by = "cddc",        # 2 perspectives (top + left): by = "cd" "dc" "ac"  (default: "cddc")
                      p_split = "v",      # primary/perspective split: "v": vertical vs. "h": horizontal
                      area = "no",        # sq" (default: correcting x-values for aspect ratio of current plot) vs. "no" (NA, NULL, "fix", "hr")
                      scale = "p",        # in plot_area: "p": scale boxes by exact probabilities (default) vs. "f": scale boxes by (rounded or non-rounded) freq.
 
-                     ## Freq boxes:
+                     # Freq boxes:
                      round = TRUE,       # round freq to integers? (default: round = TRUE), when not rounded: n_digits = 2 (currently fixed).
                      f_lbl = "num",      # freq label of 4 SDT & N cells: "default" vs. "abb", "nam", "num", "namnum". (Set to NA/NULL to hide freq labels).
-                     f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
+                     f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
                      f_lbl_sum = f_lbl,  # freq label of summary cells (bottom row and right column)
                      f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
                      f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
@@ -320,7 +320,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
                      brd_w = .10,        # border width: (default: brd_w = .25), setting brd_w = NULL/NA/<=0  hides top and left panels.
 
-                     ## Prob links:
+                     # Prob links:
                      p_lbl = NA,         # prob label: "default" vs. "no" vs. "abb"/"nam"/"num"/"namnum". (Set to NA/NULL to hide prob lines).
                      # p_lwd,            # lwd of prob links: set to default = 1 (currently not used)
                      # p_lty,            # lty of prob links: set to default = 1 (currently not used)
@@ -537,6 +537,15 @@ plot_tab <- function(prev = num$prev,    # probabilities
     f_lwd <- tiny_lwd  # to avoid error (for lwd = 0)
     lty <- 0           # "blank" (no lines) [only when f_lty and p_lty are NOT used]
 
+  }
+
+  # f_lbl_sep:
+  if (is.na(f_lbl_sep)) {
+    if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
+      f_lbl_sep <- ":\n"  # add an extra line break
+    } else {
+      f_lbl_sep <- " = "  # use default
+    }
   }
 
   ## 3. Prob links: ----
@@ -2079,13 +2088,13 @@ plot_tab <- function(prev = num$prev,    # probabilities
 # ## Custom text labels and colors:
 # plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
 #          by = "cddc", p_split = "v", area = "sq",
-#          lbl_txt = txt_TF,  # custom text
+#          lbl_txt = txt_org,  # custom text
 #          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #          col_pal = pal_org, f_lwd = 1)  # custom colors
 #
 # plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
 #          by = "cddc", p_split = "h", area = "sq",
-#          lbl_txt = txt_TF,  # custom text
+#          lbl_txt = txt_org,  # custom text
 #          f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
 #          col_pal = pal_kn, f_lwd = 1)  # custom colors
 #

@@ -7,7 +7,7 @@
 plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   area = "no", scale = "p", round = TRUE, f_lbl = "num",
-  f_lbl_sep = " = ", f_lwd = 0, p_lbl = "mix", arr_c = NA,
+  f_lbl_sep = NA, f_lwd = 0, p_lbl = "mix", arr_c = NA,
   lbl_txt = txt, title_lbl = txt$scen_lbl, cex_lbl = 0.9,
   cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE, ...)
 }
@@ -94,9 +94,9 @@ with 6 options:
   }}
 
 \item{f_lbl_sep}{Label separator for main frequencies
-(when \code{f_lbl = "def" OR "namnum"}).
-Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
-Default: \code{f_lbl_sep = " = "}.}
+(used for \code{f_lbl = "def" OR "namnum"}).
+Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
+Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).}
 
 \item{f_lwd}{Line width of areas.
 Default: \code{f_lwd = 0}.}
@@ -188,15 +188,15 @@ plot_prism(f_lbl = "nam", lbl_txt = my_txt,
 
 ## Local values and custom color/txt settings:
 plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-           by = "cdac", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n",
+           by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\\n",
            f_lwd = 1, col_pal = pal_rgb)  # custom colors
 
 plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 
-plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",             # note scale!
-           area = "sq", lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\\n", # custom text
-           col_pal = pal_kn, f_lwd = .5)                                       # custom colors
+plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # note scale!
+           area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\\n", # custom text
+           col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 
 ## Plot versions:
 # (A) tree/single tree (nchar(by) == 2):

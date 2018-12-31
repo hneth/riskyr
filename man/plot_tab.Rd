@@ -7,7 +7,7 @@
 plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "no", scale = "p", round = TRUE,
-  f_lbl = "num", f_lbl_sep = " = ", f_lbl_sum = f_lbl,
+  f_lbl = "num", f_lbl_sep = NA, f_lbl_sum = f_lbl,
   f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
   p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
   "yellow"), brd_dis = 0.3, lbl_txt = txt, title_lbl = txt$scen_lbl,
@@ -97,9 +97,9 @@ with 6 options:
   }}
 
 \item{f_lbl_sep}{Label separator for main frequencies
-(when \code{f_lbl = "def" OR "namnum"}).
-Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
-Default: \code{f_lbl_sep = " = "}.}
+(used for \code{f_lbl = "def" OR "namnum"}).
+Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
+Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).}
 
 \item{f_lbl_sum}{Type of label for showing frequency values in summary cells,
 with same 6 options as \code{f_lbl} (above).
@@ -248,13 +248,13 @@ plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
 ## Custom text labels and colors:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
          by = "cddc", p_split = "v", area = "sq",
-         lbl_txt = txt_TF,  # custom text
+         lbl_txt = txt_org,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_mod, f_lwd = 3)  # custom colors
 
 plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
          by = "cddc", p_split = "h", area = "sq",
-         lbl_txt = txt_TF,  # custom text
+         lbl_txt = txt_org,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_kn, f_lwd = 1)  # custom colors
 

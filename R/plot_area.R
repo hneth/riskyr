@@ -118,9 +118,9 @@
 #'   }
 #'
 #' @param f_lbl_sep  Label separator for main frequencies
-#' (when \code{f_lbl = "def" OR "namnum"}).
-#' Use \code{f_lbl_sep = ":\n"} to add extra line between name and numeric value.
-#' Default: \code{f_lbl_sep = " = "}.
+#' (used for \code{f_lbl = "def" OR "namnum"}).
+#' Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
+#' Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).
 #'
 #' @param f_lbl_sum  Type of label for showing frequency values in summary cells,
 #' with same 6 options as \code{f_lbl} (above).
@@ -201,13 +201,13 @@
 #' # Customizing text and color:
 #' plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #'           by = "cddc", p_split = "v", scale = "p",
-#'           title_lbl = "Text and color:",
-#'           lbl_txt = txt_TF, f_lbl = "namnum",
+#'           title_lbl = "Custom text and color:",
+#'           lbl_txt = txt_org, f_lbl = "namnum",
 #'           f_lwd = 2, col_pal = pal_rgb)
 #' plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #'           by = "cdac", p_split = "h", scale = "f",
-#'           title_lbl = "Text and color:",
-#'           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
+#'           title_lbl = "Custom text and color:",
+#'           lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
 #'           f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Versions:
@@ -248,7 +248,7 @@
 #' plot_area(gaps = c(.05, .01))  # v_gap > h_gap
 #'
 #' # freq labels:
-#' plot_area(f_lbl = "default", f_lbl_sep = " = ")  # default
+#' plot_area(f_lbl = "def", f_lbl_sep = " = ")  # default
 #' plot_area(f_lbl = NA)      # NA/NULL: no freq labels (in main area & top/left boxes)
 #' plot_area(f_lbl = "abb")   # abbreviated name (i.e., variable name)
 #' plot_area(f_lbl = "nam")   # only freq name
@@ -329,7 +329,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       gaps = c(NA, NA),   # c(v_gap, h_gap). Note: c(NA, NA) is changed to defaults: c(.02, 0) if p_split = "v"; c(0, .02) if p_split = "h".
 
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
-                      f_lbl_sep = " = ",  # freq label separator (use ":\n" to add line break)
+                      f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
                       f_lbl_sum = "num",  # freq label of summary cells (bottom row and right column)
                       f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
                       f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
@@ -566,6 +566,15 @@ plot_area <- function(prev = num$prev,    # probabilities
     f_lwd <- tiny_lwd  # to avoid error (for lwd = 0)
     lty <- 0           # "blank" (no lines) [only when f_lty and p_lty are NOT used]
 
+  }
+
+  # f_lbl_sep:
+  if (is.na(f_lbl_sep)) {
+    if (f_lbl == "def" || f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum" || f_lbl == "abbval") {
+      f_lbl_sep <- ":\n"  # add an extra line break
+    } else {
+      f_lbl_sep <- " = "  # use default
+    }
   }
 
   ## 3. Prob links: ----
@@ -1953,12 +1962,12 @@ plot_area <- function(prev = num$prev,    # probabilities
 # plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 #           by = "cddc", p_split = "v", scale = "p",
 #           title_lbl = "Custom text and color:",
-#           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",
+#           lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
 #           f_lwd = 2, col_pal = pal_rgb)  # custom color
 # plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
 #           by = "cdac", p_split = "h", scale = "p",
 #           title_lbl = "Custom text and color:",
-#           lbl_txt = txt_TF, f_lbl = "namnum", f_lbl_sep = ":\n",  # custom text
+#           lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",  # custom text
 #           f_lwd = 1, col_pal = pal_kn)  # custom color
 #
 # ## Versions:
