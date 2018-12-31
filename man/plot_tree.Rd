@@ -116,7 +116,11 @@ frequencies (as nodes) and probabilities (as edges).
 \code{plot_tree} is deprecated -- please use \code{\link{plot_prism}} instead.
 }
 \examples{
-plot_fnet()  # => plot current freq with default options
+plot_tree()  # frequency tree with current default options (by = "cd")
+
+# alternative perspectives:
+plot_tree(by = "dc")  # tree by decision
+plot_tree(by = "ac")  # tree by accuracy
 
 }
 \seealso{

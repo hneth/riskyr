@@ -97,7 +97,11 @@
 #' @return Nothing (NULL).
 #'
 #' @examples
-#' plot_fnet()  # => plot current freq with default options
+#' plot_tree()  # frequency tree with current default options (by = "cd")
+#'
+#' # alternative perspectives:
+#' plot_tree(by = "dc")  # tree by decision
+#' plot_tree(by = "ac")  # tree by accuracy
 #'
 #' @family visualization functions
 #'
