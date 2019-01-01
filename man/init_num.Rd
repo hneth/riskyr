@@ -65,7 +65,6 @@ init_num(prev =  1, sens = NA)                       # => NAs + warning (NA)
 init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
 init_num(1, 1, .52, .50, 100)   # => NAs + warning (complements beyond range)
 
-
 }
 \seealso{
 \code{\link{num}} contains basic numeric parameters;

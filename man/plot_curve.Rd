@@ -108,16 +108,15 @@ that allows for additional dependent values.
 # Basics:
 plot_curve()                     # default plot: what = ("prev", "PPV", "NPV")
 plot_curve(show_points = FALSE)  # default plot without points
-plot_curve(prev = .2, sens = .8, spec = .7, uc = .1)  # 10\% uncertainty range
+plot_curve(prev = .1, sens = .9, spec = .8, uc = .10)  # 10\% uncertainty range
 
-# All curves:
-plot_curve(what = "all") # all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-plot_curve(what = "all", show_points = FALSE)  # all curves, no points
+# All curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
+plot_curve(prev = .1, sens = .9, spec = .8, what = "all", col_pal = pal_org) # all curves.
 
 # Selected curves:
 plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
 plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # prev, PPV, NPV, and acc
-plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and acc
+plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod
 
 # Visualizing uncertainty (uc as percentage range):
 plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
