@@ -1,13 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
-<!-- Status badges: 
+<!-- Status badges: -->
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
-[![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
-[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
-
--->
 <!-- riskyr logo: -->
 riskyr <img src = "logo.png" align = "right" alt = "riskyr" width = "160" />
 ============================================================================
@@ -413,13 +408,56 @@ The current version (0.2.0, as of Dec. 20, 2018) is still under development. Its
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses.
 
-### Additional resources
+### Resources
 
--   An **interactive online version** of `riskyr` is available at <http://riskyr.org>.
+The following resources and versions are currently available:
 
--   The **package documentation** is available online:
-    -   current release version: <https://hneth.github.io/riskyr/>
-    -   current development version: <https://hneth.github.io/riskyr/dev>
+<table style="width:96%;">
+<colgroup>
+<col width="29%" />
+<col width="29%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Type:</th>
+<th align="left">Version:</th>
+<th align="left">URL:</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a>:</td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a>:</td>
+<td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
+</tr>
+<tr class="odd">
+<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left"><a href="http://riskyr.org">Online version</a>:</td>
+<td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a>:</td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
+</tr>
+<tr class="odd">
+<td align="left">C. Online documentation:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a>:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a>:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
+</tr>
+</tbody>
+</table>
 
 ### Contact
 
