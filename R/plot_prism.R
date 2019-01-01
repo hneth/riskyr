@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2018 12 18
+## 2018 12 20
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges)
 ## -----------------------------------------------
@@ -162,13 +162,14 @@
 #'
 #' @examples
 #' ## Basics:
-#' # Global freq and prob objects:
-#' plot_prism()  # default, same as:
-#' plot_prism(by = "cddc", area = "no", scale = "p",
-#'            f_lbl = "num", f_lwd = 0, cex_lbl = .90,
-#'            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
+#' # (1) Using global prob and freq values:
+#' plot_prism()  # default prism plot,
+#' # same as:
+#' # plot_prism(by = "cddc", area = "no", scale = "p",
+#' #            f_lbl = "num", f_lwd = 0, cex_lbl = .90,
+#' #            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 #'
-#' # Computed values:
+#' # (2) Providing values:
 #' plot_prism(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 #' plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 #' plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
@@ -199,9 +200,9 @@
 #' ## Plot versions:
 #' # (A) tree/single tree (nchar(by) == 2):
 #' #     3 versions:
-#' plot_prism(by = "cd", f_lbl = "def")  # by condition (freq boxes: hi mi fa cr)
-#' plot_prism(by = "dc", f_lbl = "def")  # by decision  (freq boxes: hi fa mi cr)
-#' plot_prism(by = "ac", f_lbl = "def")  # by decision  (freq boxes: hi cr mi fa)
+#' plot_prism(by = "cd", f_lbl = "def", col_pal = pal_mod) # by condition (freq boxes: hi mi fa cr)
+#' plot_prism(by = "dc", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi fa mi cr)
+#' plot_prism(by = "ac", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi cr mi fa)
 #'
 #' # (B) prism/double tree (nchar(by) == 4):
 #' #     6 (3 x 2) versions (+ 3 redundant ones):
@@ -281,25 +282,26 @@
 #' plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 #' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #'
-#' plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0, lwd = .5)
-#' plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
-#' plot_prism(area = "hr", f_lbl = "abb", f_lwd = .5, p_lbl = "num")
+#' plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
+#'            col_pal = pal_mod, lwd = .5)
+#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
+#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 #'
-#' plot_prism(area = "sq", f_lbl = "abb", p_lbl = NA, col_pal = pal_rgb)
+#' plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 #' plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw, lwd = .5)
 #' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Suggested combinations:
-#' plot_prism(f_lbl = "def", p_lbl = "mix")
+#' plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)
 #' plot_prism(f_lbl = "namnum", p_lbl = "mix", cex_lbl = .80, cex_p_lbl = .75)
 #'
-#' plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", lbl_txt = txt_TF)
+#' plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", col_pal = pal_mod)
 #' plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_bw)
 #' plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 #'
 #' plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 #' plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
-#' plot_prism(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
+#' plot_prism(area = "sq", f_lbl = "namnum", p_lbl = "mix", f_lwd = .5, col_pal = pal_kn)
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot

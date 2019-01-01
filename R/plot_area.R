@@ -190,8 +190,9 @@
 #'
 #' @examples
 #' ## Basics:
-#' plot_area()  # default area plot, same as:
-#' plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")
+#' plot_area()  # default area plot,
+#' # same as:
+#' # plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")
 #'
 #' # Local freq and prob values:
 #' plot_area(prev = .5, sens = 4/5, spec = 3/5, N = 10)
@@ -272,14 +273,14 @@
 #' # sum_w:
 #' plot_area(sum_w = .10)  # default (showing top and left freq panels & labels)
 #' plot_area(sum_w =  0)   # remove top and left freq panels
-#' plot_area(sum_w =  1,   # top and left freq panels are scaled to size of main areas
-#'           col_pal = pal_org)
+#' plot_area(sum_w =  1,         # top and left freq panels scaled to size of main areas
+#'           col_pal = pal_org)  # custom colors
 #'
-#' ## Plain plot versions:
+#' ## Plain and suggested plot versions:
 #' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
 #' plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num") # no gaps, numeric labels
-#' plot_area(f_lbl = "abb", p_lbl = NA) # plot with abbreviated labels
-#' plot_area(f_lbl = "num", p_lbl = NA) # no borders around boxes
+#' plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod) # plot with freq labels
+#' plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb) # no borders around boxes
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
