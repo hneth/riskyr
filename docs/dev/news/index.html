@@ -141,29 +141,45 @@
 <h1 class="page-header">
 <a href="#riskyr-0-2-0" class="anchor"></a>riskyr 0.2.0<small> Unreleased </small>
 </h1>
-<p>riskyr 0.2.0 was ready to be released on December 20, 2018. It will be submitted to CRAN in January 2019.</p>
+<p>riskyr 0.2.0 was ready to be released on December 20, 2018, and submitted to CRAN in January 2019.</p>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
-<div id="new-visualization-functions" class="section level3">
+<div id="additional-resources" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-visualization-functions" class="anchor"></a>New visualization functions</h3>
+<a href="#additional-resources" class="anchor"></a>Additional resources</h3>
 <ul>
-<li><p>Retiring obsolete functions [2018-12]: The functions <code>plot_fnet</code> and <code>plot_tree</code> are replaced by <code>plot_prism</code>, and <code>plot_mosaic</code> is replaced by <code>plot_area</code>. This improves functionality (e.g., by providing more consistent options across different plotting functions) and removes dependencies on external packages.</p></li>
-<li><p>New <code>plot_prism</code> function [2018-11]: Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older <code>plot_fnet</code> and <code>plot_tree</code> functions (and removes dependency on the <code>diagram</code> package).</p></li>
-<li><p>New <code>plot_area</code> function [2018-10]: Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); replaces the older <code>plot_mosaic</code> function (and removes dependencies on the <code>grid</code> and <code>vcd</code> packages).</p></li>
-<li><p>New <code>plot_tab</code> function [2018-10]: Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); a variant of <code>plot_area</code> that does not scale area sizes.</p></li>
-<li><p>New <code>plot_bar</code> function [2018-08]: Show scenario frequencies as vertical bars (in various configurations).</p></li>
+<li><p>New <code>riskyrApp</code> version [2018-12]:<br>
+To use and showcase selected <code>riskyr</code> functions without the need for coding a new version of <code>riskyrApp</code> is available at <a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a> (R Shiny code) and at <a href="http://riskyr.org" class="uri">http://riskyr.org</a> (interactive online version).</p></li>
+<li><p>Using <code>pkgdown</code> [2018-12]:<br>
+Provide package documentation online at <a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a> (latest release version) and <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a> (current development version).</p></li>
 </ul>
 </div>
-<div id="major-changes-under-the-hood" class="section level3">
+<div id="visualization-functions" class="section level3">
 <h3 class="hasAnchor">
-<a href="#major-changes-under-the-hood" class="anchor"></a>Major changes under the hood</h3>
+<a href="#visualization-functions" class="anchor"></a>Visualization functions</h3>
 <ul>
-<li><p>Using <code>pkgdown</code> [2018-12]: Provide package documentation online at <a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a> (release version) and <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a> (development version).</p></li>
-<li><p>New <code>plot_util.R</code> collection of graphical utility functions [2018-08]: Define a new <code>box</code> object type and various functions for plotting, labeling, and linking them (to remove dependencies on and limitations by other packages).</p></li>
-<li><p>Updated <code>riskyr</code> function [2018-03]: As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities).</p></li>
+<li><p>Retiring obsolete functions [2018-12]:<br>
+The functions <code>plot_fnet</code> and <code>plot_tree</code> are replaced by <code>plot_prism</code>, and <code>plot_mosaic</code> is replaced by <code>plot_area</code>. This improves functionality (e.g., by providing more consistent options across different plotting functions) and removes dependencies on external packages.</p></li>
+<li><p>New <code>plot_prism</code> function [2018-11]:<br>
+Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older <code>plot_fnet</code> and <code>plot_tree</code> functions (and removes dependency on the <code>diagram</code> package).</p></li>
+<li><p>New <code>plot_area</code> function [2018-10]:<br>
+Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); replaces the older <code>plot_mosaic</code> function (and removes dependencies on the <code>grid</code> and <code>vcd</code> packages).</p></li>
+<li><p>New <code>plot_tab</code> function [2018-10]:<br>
+Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); a variant of <code>plot_area</code> that does not scale area sizes.</p></li>
+<li><p>New <code>plot_bar</code> function [2018-08]:<br>
+Show scenario frequencies as vertical bars (in various configurations).</p></li>
+</ul>
+</div>
+<div id="under-the-hood" class="section level3">
+<h3 class="hasAnchor">
+<a href="#under-the-hood" class="anchor"></a>Under the hood</h3>
+<ul>
+<li><p>Create <code>plot_util.R</code> collection of graphical utility functions [2018-08]:<br>
+Define a new <code>box</code> object type and various functions for plotting, labeling, and linking them in graphs (to remove dependencies on and limitations imposed by other packages).</p></li>
+<li><p>Updated <code>riskyr</code> function [2018-03]:<br>
+As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities).</p></li>
 </ul>
 </div>
 </div>
@@ -174,31 +190,43 @@
 <h3 class="hasAnchor">
 <a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
-<li><p>Improved <code>plot_icons</code> function [2018-12]: Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same <code>by</code> argument as the other plotting functions.</p></li>
-<li><p><code>plot_curve</code> and <code>plot_plane</code> functions [2018-11]: Update variable names (to snake_case) and add arguments (e.g., <code>col_pal</code>, <code>lbl_txt</code> <code>mar_notes</code>, etc.) for consistency with newer plotting functions.</p></li>
+<li><p>Improved <code>plot_icons</code> function [2018-12]:<br>
+Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same <code>by</code> argument as the other plotting functions.</p></li>
+<li><p><code>plot_curve</code> and <code>plot_plane</code> functions [2018-11]:<br>
+Update variable names (to snake_case) and add arguments (e.g., <code>col_pal</code>, <code>lbl_txt</code> <code>mar_notes</code>, etc.) for consistency with newer plotting functions.</p></li>
 <li>
-<code>scale</code> argument [2018-10]: The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</li>
-<li><p><code>plot_fnet</code> [2018-02]: Change argument <code>box.cex</code> to <code>cex.lbl</code> to ensure consistency with <code>plot_curves</code> and <code>plot_plane</code> (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.</p></li>
-<li><p><code>plot_mosaic</code> [2018-02]: Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
-<li><p><code>mar_notes</code> and <code>plot_mar</code> [2018-09]: Use consistent plot margins and options for showing margin notes for all plots.</p></li>
+<code>scale</code> argument [2018-10]:<br>
+The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</li>
+<li><p><code>plot_fnet</code> [2018-02]:<br>
+Change argument <code>box.cex</code> to <code>cex.lbl</code> to ensure consistency with <code>plot_curves</code> and <code>plot_plane</code> (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.</p></li>
+<li><p><code>plot_mosaic</code> [2018-02]:<br>
+Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
+<li><p><code>mar_notes</code> and <code>plot_mar</code> [2018-09]:<br>
+Use consistent plot margins and options for showing margin notes for all plots.</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h3>
 <ul>
-<li><p><code>read_popu</code> [2018-11]: Read a data frame <code>popu</code> and interpret is as a <code>riskyr</code> scenario, allows creating scenarios from raw data.</p></li>
-<li><p><code>comp_accu.R</code> [2018-08]: Compute exact accuracy values (not approximations, when using <code>comp_accu_freq</code> on rounded <code>freq</code> values) by using the new function <code>comp_accu_prob</code> to compute the list <code>accu</code> from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when <code>show.accu == TRUE</code> and <code>round == TRUE</code>).</p></li>
+<li><p><code>read_popu</code> [2018-11]:<br>
+Read a data frame <code>popu</code> and interpret is as a <code>riskyr</code> scenario, allows creating scenarios from raw data.</p></li>
+<li><p><code>comp_accu.R</code> [2018-08]:<br>
+Compute exact accuracy values (not approximations, when using <code>comp_accu_freq</code> on rounded <code>freq</code> values) by using the new function <code>comp_accu_prob</code> to compute the list <code>accu</code> from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when <code>show.accu == TRUE</code> and <code>round == TRUE</code>).</p></li>
 </ul>
 </div>
 <div id="default-objects-lists-and-vectors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#default-objects-lists-and-vectors" class="anchor"></a>Default objects (lists and vectors)</h3>
 <ul>
-<li><p><code>pal</code> and <code>freq</code> [2018-12]: Use more consistent color and frequency names (e.g., <code>cond_true</code>, <code>dec_pos</code>, and <code>dec_cor</code> are now names of frequencies and the colors corresponding to these frequencies).</p></li>
-<li><p><code>freq</code> [2018-07]: Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of <code>dec.cor</code> and <code>dec.err</code> (i.e., <code>hi + cr</code> vs. <code>mi + fa</code> as the diagonal of 4 SDT cases). This increases the number of frequencies in <code>freq</code> from 9 to 11. Also added corresponding labels in <code>init_txt.R</code> and colors in <code>init_pal.R</code>.</p></li>
-<li><p><code>prob</code> [2018-09]: Include accuracy metrics in probabilities (in <code>prob</code> and summary functions).</p></li>
-<li><p><code>pal</code> and <code>txt</code> [2018-10]: Add multiple color palettes and text labeling schemes (see <code><a href="../reference/pal.html">?pal</a></code> and <code><a href="../reference/txt.html">?txt</a></code> for details).</p></li>
+<li><p><code>pal</code> and <code>freq</code> [2018-12]:<br>
+Use more consistent color and frequency names (e.g., <code>cond_true</code>, <code>dec_pos</code>, and <code>dec_cor</code> are now names of frequencies and the colors corresponding to these frequencies).</p></li>
+<li><p><code>freq</code> [2018-07]:<br>
+Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of <code>dec.cor</code> and <code>dec.err</code> (i.e., <code>hi + cr</code> vs. <code>mi + fa</code> as the diagonal of 4 SDT cases). This increases the number of frequencies in <code>freq</code> from 9 to 11. Also added corresponding labels in <code>init_txt.R</code> and colors in <code>init_pal.R</code>.</p></li>
+<li><p><code>prob</code> [2018-09]:<br>
+Include accuracy metrics in probabilities (in <code>prob</code> and summary functions).</p></li>
+<li><p><code>pal</code> and <code>txt</code> [2018-10]:<br>
+Add multiple color palettes and text labeling schemes (see <code><a href="../reference/pal.html">?pal</a></code> and <code><a href="../reference/txt.html">?txt</a></code> for details).</p></li>
 </ul>
 </div>
 </div>
@@ -217,9 +245,12 @@
 <h3 class="hasAnchor">
 <a href="#details" class="anchor"></a>Details</h3>
 <ul>
-<li><p><code>plot_icons</code> [2018-03]: Bug fix to also swap symbols in legend when the symbol order is changed manually.</p></li>
-<li><p><code>txt_def</code> [2018-02]: Simplify some default text labels (e.g., for current population, condition, and decision).</p></li>
-<li><p><code>.onAttach</code> [2018-02]: Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></li>
+<li><p><code>plot_icons</code> [2018-03]:<br>
+Bug fix to also swap symbols in legend when the symbol order is changed manually.</p></li>
+<li><p><code>txt_def</code> [2018-02]:<br>
+Simplify some default text labels (e.g., for current population, condition, and decision).</p></li>
+<li><p><code>.onAttach</code> [2018-02]:<br>
+Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></li>
 </ul>
 </div>
 </div>
