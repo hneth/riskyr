@@ -428,32 +428,32 @@ The following resources and versions are currently available:
 <tbody>
 <tr class="odd">
 <td align="left">A. <code>riskyr</code> (R package):</td>
-<td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a>:</td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
 <tr class="even">
 <td align="left"></td>
-<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a>:</td>
+<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a></td>
 <td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
 </tr>
 <tr class="odd">
 <td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
-<td align="left"><a href="http://riskyr.org">Online version</a>:</td>
+<td align="left"><a href="http://riskyr.org">Online version</a></td>
 <td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
 </tr>
 <tr class="even">
 <td align="left"></td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a>:</td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a></td>
 <td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
 </tr>
 <tr class="odd">
 <td align="left">C. Online documentation:</td>
-<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a>:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a></td>
 <td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
 </tr>
 <tr class="even">
 <td align="left"></td>
-<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a>:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a></td>
 <td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
 </tr>
 </tbody>
