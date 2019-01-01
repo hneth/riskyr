@@ -1,7 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.9850) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.1.0.9900) is available at <https://github.com/hneth/riskyr/>. 
 
 # riskyr 0.2.0
 
