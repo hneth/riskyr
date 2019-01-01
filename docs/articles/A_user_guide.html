@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9800</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@
 </ol>
 <div id="motivation-a-problem-of-probabilities" class="section level2">
 <h2 class="hasAnchor">
-<a href="#motivation-a-problem-of-probabilities" class="anchor"></a>Motivation: A Problem of Probabilities</h2>
+<a href="#motivation-a-problem-of-probabilities" class="anchor"></a>Motivation: A problem of probabilities</h2>
 <!-- Motivation: -->
 <p>A basic motivation for developing <code>riskyr</code> was to facilitate our understanding of problems like the following:</p>
 <blockquote>
@@ -208,7 +208,7 @@ What is the probability that she actually has breast cancer?</p>
 </div>
 <div id="using-natural-frequencies" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-natural-frequencies" class="anchor"></a>Using Natural Frequencies</h2>
+<a href="#using-natural-frequencies" class="anchor"></a>Using natural frequencies</h2>
 <p>If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent.</p>
 <p>Consider the following problem description:</p>
 <blockquote>
@@ -287,11 +287,11 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;       N</span>
-<span class="co">#&gt;     /  \</span>
-<span class="co">#&gt;   T      F</span>
-<span class="co">#&gt;  / \    / \</span>
-<span class="co">#&gt; hi  mi fa  cr</span>
+<span class="co">#&gt;    _____</span>
+<span class="co">#&gt;   /\ r  \</span>
+<span class="co">#&gt;  /y \__i_\</span>
+<span class="co">#&gt;  \ r/s   /</span>
+<span class="co">#&gt;   \/___k/</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -440,7 +440,7 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_pro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
 rand.p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
-<span class="co">#&gt; [1] 0.9028139 0.7350006 0.5332534</span>
+<span class="co">#&gt; [1] 0.5855607 0.7420582 0.3930301</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities:</span>
 freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
@@ -459,7 +459,7 @@ prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_p
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
 rand.f &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
 rand.f  
-<span class="co">#&gt; [1] 737 479 515 390</span>
+<span class="co">#&gt; [1] 708 803 375 488</span>
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
@@ -676,7 +676,7 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr Vignettes</h2>
+<a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr vignettes</h2>
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"></a></p>
 <!-- Index of vignettes: -->
@@ -738,12 +738,25 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#motivation-a-problem-of-probabilities">Motivation: A Problem of Probabilities</a></li>
-      <li><a href="#using-natural-frequencies">Using Natural Frequencies</a></li>
-      <li><a href="#using-riskyr">Using riskyr</a></li>
+<li>
+<a href="#motivation-a-problem-of-probabilities">Motivation: A problem of probabilities</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#information-provided-and-asked">Information provided and asked</a></li>
+      <li><a href="#using-bayes-formula">Using Bayes’ formula</a></li>
+      </ul>
+</li>
+      <li><a href="#using-natural-frequencies">Using natural frequencies</a></li>
+      <li>
+<a href="#using-riskyr">Using riskyr</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#risk-vs-uncertainty">Risk vs. uncertainty</a></li>
+      <li><a href="#promoting-risk-perception-and-communication">Promoting risk perception and communication</a></li>
+      <li><a href="#a--a-fancy-calculator">A. A fancy calculator</a></li>
+      <li><a href="#b--translating-between-formats">B. Translating between formats</a></li>
+      <li><a href="#c--visualizing-relationships-between-formats-and-variables">C. Visualizing relationships between formats and variables</a></li>
+      </ul>
+</li>
       <li><a href="#references">References</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#all-riskyr-vignettes">All riskyr Vignettes</a></li>
+      <li><a href="#all-riskyr-vignettes">All riskyr vignettes</a></li>
       </ul>
 </div>
       </div>

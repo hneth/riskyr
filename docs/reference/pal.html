@@ -74,7 +74,7 @@ used throughout the riskyr package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9700</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9800</span>
       </span>
     </div>
 
@@ -164,12 +164,12 @@ To change a color, assign a new color to an existing element name.</p>
 <p><code>pal</code> currently contains colors with the following names:</p>
 <ol>
 <li><p><code>N</code> Color representing the <em>population</em> of <code><a href='N.html'>N</a></code> cases or individuals.</p></li>
-<li><p><code>true</code> Color representing cases of <code><a href='cond_true.html'>cond_true</a></code>, for which the current condition is <code>TRUE</code>.</p></li>
-<li><p><code>false</code> Color representing cases of in <code><a href='cond_false.html'>cond_false</a></code>, for which the current condition is <code>FALSE</code>.</p></li>
-<li><p><code>pos</code> Color representing cases of <code><a href='dec_pos.html'>dec_pos</a></code>, for which the current decision is <code>positive</code>.</p></li>
-<li><p><code>neg</code> Color representing cases in <code><a href='dec_neg.html'>dec_neg</a></code>, for which the current decision is <code>negative</code>.</p></li>
-<li><p><code>cor</code> Color representing cases of correct decisions <code><a href='dec_cor.html'>dec_cor</a></code>, for which the current decision is <code>accurate</code>.</p></li>
-<li><p><code>err</code> Color representing cases of erroneous decisions <code><a href='dec_err.html'>dec_err</a></code>, for which the current decision is <code>inaccurate</code>.</p></li>
+<li><p><code>cond_true</code> Color representing cases of <code><a href='cond_true.html'>cond_true</a></code>, for which the current condition is <code>TRUE</code>.</p></li>
+<li><p><code>cond_false</code> Color representing cases of in <code><a href='cond_false.html'>cond_false</a></code>, for which the current condition is <code>FALSE</code>.</p></li>
+<li><p><code>dec_pos</code> Color representing cases of <code><a href='dec_pos.html'>dec_pos</a></code>, for which the current decision is <code>positive</code>.</p></li>
+<li><p><code>dec_neg</code> Color representing cases in <code><a href='dec_neg.html'>dec_neg</a></code>, for which the current decision is <code>negative</code>.</p></li>
+<li><p><code>dec_cor</code> Color representing cases of correct decisions <code><a href='dec_cor.html'>dec_cor</a></code>, for which the current decision is <code>accurate</code>.</p></li>
+<li><p><code>dec_err</code> Color representing cases of erroneous decisions <code><a href='dec_err.html'>dec_err</a></code>, for which the current decision is <code>inaccurate</code>.</p></li>
 <li><p><code>hi</code> Color representing <em>hits</em> or true positives in <code><a href='hi.html'>hi</a></code>
 (i.e., correct cases for which the current condition is TRUE and the decision is positive).</p></li>
 <li><p><code>mi</code> Color representing <em>misses</em> or false negatives in <code><a href='mi.html'>mi</a></code>
@@ -185,6 +185,9 @@ the condition is FALSE, provided that the decision is negative).</p></li>
 <li><p><code>txt</code> Color used for text labels.</p></li>
 <li><p><code>brd</code> Color used for borders.</p></li>
 </ol>
+    <p>Note that color names for frequencies correspond to frequency names,
+but are different for probabilities (which are written in lowercase
+and only <code><a href='PPV.html'>PPV</a></code> and <code><a href='NPV.html'>NPV</a></code> have assigned colors).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

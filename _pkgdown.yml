@@ -15,7 +15,7 @@ authors:
     href: https://www.spds.uni-konstanz.de/
 
 development:
-  mode: devel
+  mode: release
 
 reference:
 - title: Initialization of riskyr scenarios
@@ -71,6 +71,9 @@ reference:
   contents:
   - starts_with("is_")
   - starts_with("as_")
+
+toc:
+  depth: 3
 
 figures:
   dev: grDevices::png
