@@ -197,11 +197,12 @@ but does not scale the dimensions of table cells.
 }
 \examples{
 ## Basics:
+# (1) Plotting global freq and prob values:
 plot_tab()
-plot_tab(area = "sq", f_lwd = 3)
-plot_tab(f_lbl = "namnum", f_lbl_sep = ":\\n", brd_w = .10, f_lwd = .5)
+plot_tab(area = "sq", f_lwd = 3, col_pal = pal_rgb)
+plot_tab(f_lbl = "namnum", f_lbl_sep = " = ", brd_w = .10, f_lwd = .5)
 
-## Computing local freq and prob values:
+# (2) Computing local freq and prob values:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10, f_lwd = 1)
 
 ## Plot versions:
@@ -220,7 +221,6 @@ plot_tab(by = "accd", p_split = "v", p_lbl = "def")  # v09 (is v04 rotated)
 plot_tab(by = "acdc", p_split = "v", p_lbl = "def")  # v10 (is v08 rotated)
 plot_tab(by = "accd", p_split = "h", p_lbl = "def")  # v11 (is v02 rotated)
 plot_tab(by = "acdc", p_split = "h", p_lbl = "def")  # v12 (is v06 rotated)
-
 
 ## Explore labels and links:
 plot_tab(f_lbl = "abb", p_lbl = NA)  # abbreviated labels, no probability links
@@ -242,7 +242,7 @@ plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
          by = "cddc", p_split = "v", col_pal = pal_rgb,
          p_lbl = "def", brd_dis = .25, arr_c = -3)
 plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
-         by = "cddc", p_split = "h", col_pal = pal_rgb,
+         by = "cddc", p_split = "h", col_pal = pal_mod,
          p_lbl = "namnum", brd_dis = .15, arr_c = +3)
 
 ## Custom text labels and colors:
@@ -251,7 +251,6 @@ plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
          lbl_txt = txt_org,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_mod, f_lwd = 3)  # custom colors
-
 plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
          by = "cddc", p_split = "h", area = "sq",
          lbl_txt = txt_org,  # custom text
@@ -274,7 +273,6 @@ plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
          by = "cddc", scale = "f", p_lbl = "def", round = TRUE)  # (b) prob from rounded freq!
 plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
          by = "cddc", scale = "f", p_lbl = "def", round = FALSE) # (c) same values as (a)
-
 
 }
 \seealso{
