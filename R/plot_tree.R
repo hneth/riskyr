@@ -150,7 +150,8 @@ plot_tree <- function(prev = num$prev,             # probabilities
                       box_lwd = 1.5,  # set to 0.001 to show boxes without borders (but =0 yields ERROR)
                       ## Shadows:
                       col_shadow = grey(.11, alpha = .99),  # dark grey
-                      cex_shadow = 0  # [values > 0 show shadows]
+                      cex_shadow = 0 # ,  # [values > 0 show shadows]
+                      # ...  # additional paramters
 ){
 
   ## (1) Handle deprecated function: ------
@@ -161,7 +162,9 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   plot_prism(prev = prev, sens = sens, spec = spec, mirt = mirt, fart = fart,
              N = N, round = round, by = by, area = area, p_lbl = p_lbl,
-             title_lbl = title_lbl, cex_lbl = cex_lbl)
+             title_lbl = title_lbl, cex_lbl = cex_lbl, col_pal = pal_mod #,
+             # ...  # additional paramters
+  )
 
 } # plot_tree(...) end.
 

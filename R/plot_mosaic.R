@@ -46,6 +46,8 @@
 #' @examples
 #' plot_mosaic()  # plot with default options
 #'
+#' plot_mosaic(sum_w = 1)
+#'
 #' @family visualization functions
 #'
 #' @seealso
@@ -65,7 +67,8 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
                         w_acc = .50,      # weight w for wacc (from 0 to 1)
                         ## Text and color options: ##
                         title_lbl = txt$scen_lbl,
-                        col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+                        col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])#,
+                        # ...  # additional parameters
 ) {
 
   ## (1) Handle deprecated function: ------
@@ -76,7 +79,10 @@ plot_mosaic <- function(prev = num$prev,             # probabilities
 
   plot_area(prev = prev, sens = sens, spec = spec, mirt = mirt, fart = fart,
             N = N, by = by,
-            title_lbl = title_lbl)
+            title_lbl = title_lbl,
+            col_pal = pal_mod # ,
+            # ...  # additional paramters
+  )
 
 } # plot_mosaic(...) end.
 
