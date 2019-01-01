@@ -460,19 +460,17 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 # txt_TF$sdt_lbl # unchanged from txt_lbl_def
 # txt_TF$hi      # "TP", rather than "hi"
 
-## Default text information: --------
+## Set default text information: --------
 
 ## Use txt_TF by default:
 txt <- txt_TF
 
 ## (*) Done: -------------------------------------
 
-## - name_prob: Add function to look up the prob that corresponds
-##   to 2 freq    [2018 08 20].
-## - label_freq + label_prob: Added functions to obtain labels
-##   of freq and prob (from fname or pname).
-## - Rename acc.cor and acc.err to dec_cor and dec_err
-##   (to remain consistent with freq names).
+## - name_prob: Look up the prob corresponding to 2 freq [2018 08 20].
+## - label_freq + label_prob:
+##   Add functions to obtain freq and prob labels (from fname or pname).
+## - Rename acc.cor and acc.err to dec_cor and dec_err (consistent with freq names).
 ## - Add text labels for accuracy/correspondence of decision to condition
 ##   (acc_lbl, dec_cor_lbl, dec_err_lbl) and for sdt_lbl.
 ## - Clean up code [2018 08 20].
@@ -482,7 +480,7 @@ txt <- txt_TF
 ## - Integrate prob_lbl_def into txt (to also include prob labels).
 ## - Add shorter, abbreviated versions of text elements (to use as labels)?
 ##   (e.g., hi/TP, mi/FN, fa/FN, cr/TN)
-## - Add pre-defined naming schemes (like txt_TF, to accommodate
-##   different scenario types).
+## - Add more pre-defined naming schemes (like txt_TF),
+##   to accommodate additional scenario types.
 
 ## eof. ------------------------------------------

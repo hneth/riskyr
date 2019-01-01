@@ -85,5 +85,5 @@ figures:
   dev.args: []
   fig.ext: png
   fig.width: 7.2
-  fig.height: 5.1
+  fig.height: 5.5
   fig.retina: 2
