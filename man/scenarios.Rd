@@ -3,7 +3,7 @@
 \docType{data}
 \name{scenarios}
 \alias{scenarios}
-\title{A collection of riskyr scenarios from various sources.}
+\title{A collection of riskyr scenarios from various sources (as list).}
 \format{A list with currently 25 scenarios of class \code{riskyr}
 which are each described by 21 variables.}
 \usage{

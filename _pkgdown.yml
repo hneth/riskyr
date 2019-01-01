@@ -1,3 +1,7 @@
+# _pkgdown.yml
+# hn | spds, uni.kn | 2019 01 01
+# ------------------------------
+
 title: riskyr
 
 url: https://hneth.github.io/riskyr/
@@ -23,23 +27,22 @@ development:
 
 reference:
 - title: Initialization
-  desc: Definition of riskyr scenarios and corresponding collections of parameters.
+  desc: Creating riskyr scenarios and corresponding collections of parameters.
   contents:
   - matches("riskyr")
   - matches("scenarios")
   - starts_with("init_")
   - num
-  - starts_with("pal")
-  - starts_with("txt")
-  - accu
   - popu
   - read_popu
+  - starts_with("pal")
+  - starts_with("txt")
 - title: Visualization
-  desc: Creating graphical representations of riskyr scenarios.
+  desc: Functions for creating graphical representations of riskyr scenarios.
   contents:
   - starts_with("plot")
 - title: Probabilities
-  desc: Variables representing probability information.
+  desc: Lists and objects representing probability information.
   contents:
   - prob
   - prev
@@ -53,9 +56,10 @@ reference:
   - FDR
   - FOR
   - acc
+  - accu
   - err
 - title: Frequencies
-  desc: Variables representing subsets of the population.
+  desc: Lists and objects representing frequencies (i.e., various subsets of a population).
   contents:
   - freq
   - "`N`"
@@ -67,11 +71,11 @@ reference:
   - fa
   - cr
 - title: Computation and translation
-  desc: Computing parameters and translating representational formats.
+  desc: Computing parameters and translating between representational formats.
   contents:
   - starts_with("comp_")
 - title: Validation and formatting
-  desc: Verifying and translating between representational formats.
+  desc: Verifying and displaying representational formats.
   contents:
   - starts_with("is_")
   - starts_with("as_")
@@ -85,5 +89,7 @@ figures:
   dev.args: []
   fig.ext: png
   fig.width: 7.2
-  fig.height: 5.5
+  fig.height: 5.6
   fig.retina: 2
+
+# eof. ------

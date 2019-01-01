@@ -3,7 +3,7 @@
 \docType{data}
 \name{df_scenarios}
 \alias{df_scenarios}
-\title{A collection of riskyr scenarios from various sources.}
+\title{A collection of riskyr scenarios from various sources (as df).}
 \format{A data frame with currently 25 rows (i.e., scenarios)
 and 21 columns (variables describing each scenario):
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/riskyr_class.R
 \name{summary.riskyr}
 \alias{summary.riskyr}
-\title{Summarizing a riskyr scenario.}
+\title{Summarize a riskyr scenario.}
 \format{An object of class \code{summary.riskyr} with up to 9 entries.}
 \usage{
 \method{summary}{riskyr}(object = NULL, summarize = "all", ...)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/riskyr_class.R
 \name{plot.riskyr}
 \alias{plot.riskyr}
-\title{Plot information of a riskyr object.}
+\title{Plot a riskyr scenario.}
 \usage{
 \method{plot}{riskyr}(x = NULL, type = "prism", ...)
 }
