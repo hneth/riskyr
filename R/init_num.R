@@ -67,30 +67,12 @@
 ## consists of 3 probabilities (+ 1 complement):
 
 ## Define defaults for num:   # random:                  # fix: # Description:                                                              # Type of input:
-num.def <- list("prev" = .5,  # round(runif(1, .01, .50), 2),  # .5   # prevalence in target population = p(condition TRUE)     [basic p]
-                "sens" = .5,  # round(runif(1, .50, .99), 2),  # .5   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
-                "spec" = .5,  # round(runif(1, .50, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
+num.def <- list("prev" = .25, # round(runif(1, .01, .50), 2),  # .5   # prevalence in target population = p(condition TRUE)     [basic p]
+                "sens" = .85, # round(runif(1, .50, .99), 2),  # .5   # sensitivity = p(decision POS | condition TRUE)    [conditional p]
+                "spec" = .75, # round(runif(1, .50, .99), 2),  # .5   # specificity = p(decision NEG | condition FALSE)   [conditional p]
                 "fart" = NA,  # NA  # false alarm rate = 1 - spec        [optional, complement of spec]
                 "N"    = 1000 # round(runif(1, 10, 99), 0)    # 100  # population size N                                 [optional freq]
 )
-
-
-## Define some fixed stimuli (for MSc Joachim): ----------
-
-# scen <- tribble(
-#   ~name,           ~N,	  ~prev,	  ~sens,	 ~spec,
-#   "Beschr",		     1000,	  .01,	    .80,	   .904,
-#   "Task1 Part2",   1000,	  .09,	    .49,     .95,
-#   "Task2 Part2",	 1000,	  .90,	    .95,	   .50,
-#   "Task3 Part2",	 1000,	  .80,	    .85,     .75,
-#   "Taskx Part3",   1000,	  .02,	    .70,	   .90,
-#   "Task1 Part3",	 1000,	  .11,	    .51,	   .939,
-#   "Task2 Part3",	 1000,	  .95,	    .90,	   .50,
-#   "Task3 Part3",	 1000,    .75,	    .70,	   .85)
-
-# num.def <- list("prev" = .01, "sens" = .80, "spec" = .904, "fart" = NA, "N" = 1000)  # Scenario 1: "Beschr"
-
-
 
 ## init_num: ----------
 
@@ -125,12 +107,10 @@ num.def <- list("prev" = .5,  # round(runif(1, .01, .50), 2),  # .5   # prevalen
 #'
 #' @param N The population size \code{\link{N}}.
 #'
-#'
 #' @return A list containing a valid quadruple of probabilities
 #' (\code{\link{prev}}, \code{\link{sens}},
 #' \code{\link{spec}}, and \code{\link{fart}})
 #' and one frequency (population size \code{\link{N}}).
-#'
 #'
 #' @examples
 #' # ways to succeed:
@@ -152,9 +132,7 @@ num.def <- list("prev" = .5,  # round(runif(1, .01, .50), 2),  # .5   # prevalen
 #' init_num(prev =  1, sens = 1, spec = NA, fart = NA)  # => NAs + warning (NAs)
 #' init_num(1, 1, .52, .50, 100)   # => NAs + warning (complements beyond range)
 #'
-#'
 #' @family functions initializing scenario information
-#'
 #'
 #' @seealso
 #' \code{\link{num}} contains basic numeric parameters;
