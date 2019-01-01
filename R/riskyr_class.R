@@ -423,7 +423,7 @@ scenarios <- NULL # initialize
 
 ## scenarios: Documentation ------
 
-#' A collection of riskyr scenarios from various sources.
+#' A collection of riskyr scenarios from various sources (as list).
 #'
 #' \code{scenarios} is a list of scenarios of class \code{riskyr}
 #' collected from the scientific literature and other sources
@@ -591,7 +591,7 @@ for (i in 1:nrow(df_scenarios)) {  # for each scenario i in df_scenarios:
 
 ## plot.riskyr Documentation: ------
 
-#' Plot information of a riskyr object.
+#' Plot a riskyr scenario.
 #'
 #' \code{plot.riskyr} is a method that allows to generate
 #' different plot types from a \code{"riskyr"} object.
@@ -918,7 +918,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 
 ## summary.riskyr Documentation: ------
 
-#' Summarizing a riskyr scenario.
+#' Summarize a riskyr scenario.
 #'
 #' \code{summary.riskyr} provides a \code{summary} method for objects of class "riskyr".
 #'
@@ -1043,7 +1043,7 @@ summary.riskyr <- function(object = NULL, summarize = "all", ...) {
 
 ## print.summary.riskyr Documentation: ------
 
-#' Printing summarized risk information.
+#' Print summary information of a riskyr scenario.
 #'
 #' \code{print.summary.riskyr} provides a \code{print} method for objects of class "summary.riskyr".
 #'

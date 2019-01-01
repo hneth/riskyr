@@ -3,7 +3,7 @@
 ## Document the scenarios of ./data
 ## -----------------------------------------------
 
-#' A collection of riskyr scenarios from various sources.
+#' A collection of riskyr scenarios from various sources (as df).
 #'
 #' \code{df_scenarios} is an R data frame that
 #' contains a collection of scenarios from the
