@@ -16,9 +16,7 @@ and to be used by visualization and summary functions.
 }
 \details{
 \code{scenarios} currently contains the following scenarios
-(n1 to n12 in English language, n13 to n25 in German language).
-
-In English language:
+(n1 to n12 in English language, n13 to n25 in German language):
 
 \enumerate{
 
@@ -35,9 +33,7 @@ In English language:
   \item Psylicraptis screening
   \item Sepsis
 
-In German language:
-
-\item Amniozentese
+\item Amniozentese (in German language)
    \item HIV-Test 1
    \item HIV-Test 2
    \item HIV-Test 3
@@ -92,8 +88,8 @@ Note that names of variables (columns)
 correspond to a subset of \code{\link{init_txt}} (to initialize \code{\link{txt}})
 and \code{\link{init_num}} (to initialize \code{\link{num}}).
 
-See the columns \code{scen_src} and \code{scen_apa}
-for a scenario's source information.
+The variables \code{scen_src} and \code{scen_apa}
+provide a scenario's source information.
 
 The information of \code{scenarios} is also contained in an
 R data frame \code{\link{df_scenarios}} (and generated from
