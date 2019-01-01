@@ -78,7 +78,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9750</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9850</span>
       </span>
     </div>
 
@@ -397,43 +397,43 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; $p_err_fa
 #&gt; [1] 0.9394218
 #&gt; </div><div class='input'><span class='fu'>comp_prob</span>()          <span class='co'># =&gt; ok, using current defaults</span></div><div class='output co'>#&gt; $prev
-#&gt; [1] 0.5
+#&gt; [1] 0.25
 #&gt; 
 #&gt; $sens
-#&gt; [1] 0.5
+#&gt; [1] 0.85
 #&gt; 
 #&gt; $mirt
-#&gt; [1] 0.5
+#&gt; [1] 0.15
 #&gt; 
 #&gt; $spec
-#&gt; [1] 0.5
+#&gt; [1] 0.75
 #&gt; 
 #&gt; $fart
-#&gt; [1] 0.5
+#&gt; [1] 0.25
 #&gt; 
 #&gt; $ppod
-#&gt; [1] 0.5
+#&gt; [1] 0.4
 #&gt; 
 #&gt; $PPV
-#&gt; [1] 0.5
+#&gt; [1] 0.53125
 #&gt; 
 #&gt; $FDR
-#&gt; [1] 0.5
+#&gt; [1] 0.46875
 #&gt; 
 #&gt; $NPV
-#&gt; [1] 0.5
+#&gt; [1] 0.9375
 #&gt; 
 #&gt; $FOR
-#&gt; [1] 0.5
+#&gt; [1] 0.0625
 #&gt; 
 #&gt; $acc
-#&gt; [1] 0.5
+#&gt; [1] 0.775
 #&gt; 
 #&gt; $p_acc_hi
-#&gt; [1] 0.5
+#&gt; [1] 0.2741935
 #&gt; 
 #&gt; $p_err_fa
-#&gt; [1] 0.5
+#&gt; [1] 0.8333333
 #&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='fu'>comp_prob</span>())  <span class='co'># =&gt; 13 probabilities</span></div><div class='output co'>#&gt; [1] 13</div><div class='input'>
 <span class='co'># Ways to work:</span>
 <span class='fu'>comp_prob</span>(<span class='fl'>.99</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.99</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.99</span>)              <span class='co'># =&gt; ok: PPV = 0.999898</span></div><div class='output co'>#&gt; $prev

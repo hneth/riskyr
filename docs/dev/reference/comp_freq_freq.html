@@ -77,7 +77,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9750</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9850</span>
       </span>
     </div>
 
@@ -222,16 +222,16 @@ as its output.</p>
 #&gt; [1] 1000
 #&gt; 
 #&gt; $cond_true
-#&gt; [1] 500
+#&gt; [1] 250
 #&gt; 
 #&gt; $cond_false
-#&gt; [1] 500
+#&gt; [1] 750
 #&gt; 
 #&gt; $dec_pos
-#&gt; [1] 500
+#&gt; [1] 400
 #&gt; 
 #&gt; $dec_neg
-#&gt; [1] 500
+#&gt; [1] 600
 #&gt; 
 #&gt; $dec_cor
 #&gt; [1] NA
@@ -240,16 +240,16 @@ as its output.</p>
 #&gt; [1] NA
 #&gt; 
 #&gt; $hi
-#&gt; [1] 250
+#&gt; [1] 212
 #&gt; 
 #&gt; $mi
-#&gt; [1] 250
+#&gt; [1] 38
 #&gt; 
 #&gt; $fa
-#&gt; [1] 250
+#&gt; [1] 188
 #&gt; 
 #&gt; $cr
-#&gt; [1] 250
+#&gt; [1] 562
 #&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>freq</span>, <span class='fu'>comp_freq_freq</span>())  <span class='co'># =&gt; should be TRUE</span></div><div class='output co'>#&gt; [1] "Component “dec_cor”: Modes: numeric, logical"              
 #&gt; [2] "Component “dec_cor”: target is numeric, current is logical"
 #&gt; [3] "Component “dec_err”: Modes: numeric, logical"              
@@ -257,16 +257,16 @@ as its output.</p>
 <span class='co'>## Circular chain:</span>
 <span class='co'># 1. Current numeric parameters:</span>
 <span class='no'>num</span></div><div class='output co'>#&gt; $prev
-#&gt; [1] 0.5
+#&gt; [1] 0.25
 #&gt; 
 #&gt; $sens
-#&gt; [1] 0.5
+#&gt; [1] 0.85
 #&gt; 
 #&gt; $spec
-#&gt; [1] 0.5
+#&gt; [1] 0.75
 #&gt; 
 #&gt; $fart
-#&gt; [1] 0.5
+#&gt; [1] 0.25
 #&gt; 
 #&gt; $N
 #&gt; [1] 1000
@@ -274,43 +274,43 @@ as its output.</p>
 <span class='co'># 2. Compute all 10 probabilities in prob (from essential probabilities):</span>
 <span class='no'>prob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_prob.html'>comp_prob</a></span>()
 <span class='no'>prob</span></div><div class='output co'>#&gt; $prev
-#&gt; [1] 0.5
+#&gt; [1] 0.25
 #&gt; 
 #&gt; $sens
-#&gt; [1] 0.5
+#&gt; [1] 0.85
 #&gt; 
 #&gt; $mirt
-#&gt; [1] 0.5
+#&gt; [1] 0.15
 #&gt; 
 #&gt; $spec
-#&gt; [1] 0.5
+#&gt; [1] 0.75
 #&gt; 
 #&gt; $fart
-#&gt; [1] 0.5
+#&gt; [1] 0.25
 #&gt; 
 #&gt; $ppod
-#&gt; [1] 0.5
+#&gt; [1] 0.4
 #&gt; 
 #&gt; $PPV
-#&gt; [1] 0.5
+#&gt; [1] 0.53125
 #&gt; 
 #&gt; $FDR
-#&gt; [1] 0.5
+#&gt; [1] 0.46875
 #&gt; 
 #&gt; $NPV
-#&gt; [1] 0.5
+#&gt; [1] 0.9375
 #&gt; 
 #&gt; $FOR
-#&gt; [1] 0.5
+#&gt; [1] 0.0625
 #&gt; 
 #&gt; $acc
-#&gt; [1] 0.5
+#&gt; [1] 0.775
 #&gt; 
 #&gt; $p_acc_hi
-#&gt; [1] 0.5
+#&gt; [1] 0.2741935
 #&gt; 
 #&gt; $p_err_fa
-#&gt; [1] 0.5
+#&gt; [1] 0.8333333
 #&gt; </div><div class='input'>
 <span class='co'># 3. Compute 9 frequencies in freq from probabilities:</span>
 <span class='no'>freq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span>(<span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># no rounding (to obtain same probabilities later)</span>
@@ -318,34 +318,34 @@ as its output.</p>
 #&gt; [1] 1000
 #&gt; 
 #&gt; $cond_true
-#&gt; [1] 500
+#&gt; [1] 250
 #&gt; 
 #&gt; $cond_false
-#&gt; [1] 500
+#&gt; [1] 750
 #&gt; 
 #&gt; $dec_pos
-#&gt; [1] 500
+#&gt; [1] 400
 #&gt; 
 #&gt; $dec_neg
-#&gt; [1] 500
+#&gt; [1] 600
 #&gt; 
 #&gt; $dec_cor
-#&gt; [1] 500
+#&gt; [1] 775
 #&gt; 
 #&gt; $dec_err
-#&gt; [1] 500
+#&gt; [1] 225
 #&gt; 
 #&gt; $hi
-#&gt; [1] 250
+#&gt; [1] 212.5
 #&gt; 
 #&gt; $mi
-#&gt; [1] 250
+#&gt; [1] 37.5
 #&gt; 
 #&gt; $fa
-#&gt; [1] 250
+#&gt; [1] 187.5
 #&gt; 
 #&gt; $cr
-#&gt; [1] 250
+#&gt; [1] 562.5
 #&gt; </div><div class='input'>
 <span class='co'># 4. Compute 9 frequencies AGAIN (but now from frequencies):</span>
 <span class='no'>freq_freq</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_freq_freq</span>()
@@ -354,7 +354,11 @@ as its output.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>freq</span>, <span class='no'>freq_freq</span>)  <span class='co'># =&gt; should be TRUE!</span></div><div class='output co'>#&gt; [1] "Component “dec_cor”: Modes: numeric, logical"              
 #&gt; [2] "Component “dec_cor”: target is numeric, current is logical"
 #&gt; [3] "Component “dec_err”: Modes: numeric, logical"              
-#&gt; [4] "Component “dec_err”: target is numeric, current is logical"</div><div class='input'>
+#&gt; [4] "Component “dec_err”: target is numeric, current is logical"
+#&gt; [5] "Component “hi”: Mean relative difference: 0.002352941"     
+#&gt; [6] "Component “mi”: Mean relative difference: 0.01333333"      
+#&gt; [7] "Component “fa”: Mean relative difference: 0.002666667"     
+#&gt; [8] "Component “cr”: Mean relative difference: 0.0008888889"    </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

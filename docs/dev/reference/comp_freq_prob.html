@@ -78,7 +78,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9750</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9850</span>
       </span>
     </div>
 
@@ -365,34 +365,34 @@ and <code><a href='spec.html'>spec</a></code>) as inputs.</p>
 #&gt; [1] 1000
 #&gt; 
 #&gt; $cond_true
-#&gt; [1] 500
+#&gt; [1] 250
 #&gt; 
 #&gt; $cond_false
-#&gt; [1] 500
+#&gt; [1] 750
 #&gt; 
 #&gt; $dec_pos
-#&gt; [1] 500
+#&gt; [1] 400
 #&gt; 
 #&gt; $dec_neg
-#&gt; [1] 500
+#&gt; [1] 600
 #&gt; 
 #&gt; $dec_cor
-#&gt; [1] 500
+#&gt; [1] 774
 #&gt; 
 #&gt; $dec_err
-#&gt; [1] 500
+#&gt; [1] 226
 #&gt; 
 #&gt; $hi
-#&gt; [1] 250
+#&gt; [1] 212
 #&gt; 
 #&gt; $mi
-#&gt; [1] 250
+#&gt; [1] 38
 #&gt; 
 #&gt; $fa
-#&gt; [1] 250
+#&gt; [1] 188
 #&gt; 
 #&gt; $cr
-#&gt; [1] 250
+#&gt; [1] 562
 #&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='fu'>comp_freq_prob</span>())           <span class='co'># =&gt; a list containing 9 frequencies</span></div><div class='output co'>#&gt; [1] 11</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>freq</span>, <span class='fu'>comp_freq_prob</span>())  <span class='co'># =&gt; TRUE, unless prob has been changed after computing freq</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>freq</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_freq_prob</span>()           <span class='co'># =&gt; computes frequencies and stores them in freq</span>
 
 <span class='co'># Ways to work:</span>

@@ -15,7 +15,7 @@ authors:
     href: https://www.spds.uni-konstanz.de/
 
 development:
-  mode: release
+  mode: devel # devel | release
 
 reference:
 - title: Initialization
