@@ -18,15 +18,15 @@ development:
   mode: release
 
 reference:
-- title: Initialization of riskyr scenarios
-  desc: Basic scenario definitions and corresponding collections.
+- title: Initialization
+  desc: Definition of riskyr scenarios and corresponding collections of parameters.
   contents:
-  - num
-  - starts_with("init_")
-  - starts_with("pal")
-  - starts_with("txt")
   - matches("riskyr")
   - matches("scenarios")
+  - starts_with("init_")
+  - num
+  - starts_with("pal")
+  - starts_with("txt")
   - accu
   - popu
   - read_popu
@@ -80,6 +80,6 @@ figures:
   dpi: 96
   dev.args: []
   fig.ext: png
-  fig.width: 7
-  fig.height: 5
+  fig.width: 7.2
+  fig.height: 5.1
   fig.retina: 2
