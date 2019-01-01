@@ -1,7 +1,7 @@
 
 # Current version
 
-The most recent development version (riskyr 0.1.0.950) is available at <https://github.com/hneth/riskyr/>. 
+The most recent development version (riskyr 0.1.0.9850) is available at <https://github.com/hneth/riskyr/>. 
 
 # riskyr 0.2.0
 
@@ -10,9 +10,13 @@ It will be submitted to CRAN in January 2019.
 
 Log of changes since last release: 
 
+
 ## Major changes
 
 ### New visualization functions
+
+- Retiring obsolete functions [2018-12]:
+The functions `plot_fnet` and `plot_tree` are replaced by `plot_prism`, and `plot_mosaic` is replaced by `plot_area`. This improves functionality (e.g., by providing more consistent options across different plotting functions) and removes dependencies on external packages. 
 
 - New `plot_prism` function [2018-11]: 
 Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency tree (in 3 perspectives) with many additional options; replaces the older `plot_fnet` and `plot_tree` functions (and removes dependency on the `diagram` package).
@@ -20,17 +24,18 @@ Show a scenario as double frequency tree (by 3 x 2 perspectives) or a frequency 
 - New `plot_area` function [2018-10]: 
 Show a scenario as a mosaic plot of relative proportions (in 3 x 2 x 2 possible versions, with many additional options); replaces the older `plot_mosaic` function (and removes dependencies on the `grid` and `vcd` packages).
 
-- New `plot_bar` function [2018-08]: 
-Show scenario frequencies as vertical bars (in various configurations). 
-
 - New `plot_tab` function [2018-10]: 
 Show a scenario as contingency table of frequencies (with row and column sums, and options for showing probabilities); 
 a variant of `plot_area` that does not scale area sizes. 
 
-- Retiring obsolete functions [2018-12]:
-The functions `plot_fnet` and `plot_tree` are replaced by `plot_prism`, and `plot_mosaic` is replaced by `plot_area`  (and removing dependencies on external packages). 
+- New `plot_bar` function [2018-08]: 
+Show scenario frequencies as vertical bars (in various configurations). 
+
 
 ### Major changes under the hood
+
+- Using `pkgdown` [2018-12]: 
+Provide package documentation online at <https://hneth.github.io/riskyr> (release version) and <https://hneth.github.io/riskyr/dev/> (development version).
 
 - New `plot_util.R` collection of graphical utility functions [2018-08]: 
 Define a new `box` object type and various functions for plotting, labeling, and linking them 
@@ -38,9 +43,6 @@ Define a new `box` object type and various functions for plotting, labeling, and
 
 - Updated `riskyr` function [2018-03]: 
 As an alternative to providing 3 essential frequencies, it is now possible to define a scenario from 4 essential frequencies (and check for consistency with given probabilities). 
-
-- Using `pkgdown` [2018-12]:
-Provide online documentation at <https://hneth.github.io/riskyr> (release version) and <https://hneth.github.io/riskyr/dev/> (development version).
 
 
 ## Minor changes
@@ -74,6 +76,9 @@ Compute exact accuracy values (not approximations, when using `comp_accu_freq` o
 
 ### Default objects (lists and vectors)
 
+- `pal` and `freq` [2018-12]: 
+Use more consistent color and frequency names (e.g., `cond_true`, `dec_pos`, and `dec_cor` are now names of frequencies and the colors corresponding to these frequencies). 
+
 - `freq` [2018-07]: 
 Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of `dec.cor` and `dec.err` (i.e., `hi + cr` vs. `mi + fa` as the diagonal of 4 SDT cases). This increases the number of frequencies in `freq` from 9 to 11. Also added corresponding labels in `init_txt.R` and colors in `init_pal.R`. 
 
@@ -81,7 +86,7 @@ Add a 3rd perspective (by accuracy or by correspondence of decision to condition
 Include accuracy metrics in probabilities (in `prob` and summary functions). 
 
 - `pal` and `txt` [2018-10]: 
-Added multiple color palettes and text labeling schemes (see `?pal` and `?txt` for details). 
+Add multiple color palettes and text labeling schemes (see `?pal` and `?txt` for details). 
 
 
 ## Micro changes
