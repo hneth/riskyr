@@ -86,7 +86,8 @@ N_col <- grey(.90, .99)  # "white", col_grey_1
 ## (b) by condition: Define 2 colors for condition cases:
 
 cond_true_col  <- my_yellow        # "lightgoldenrod1" "gold1", col_orange_1, "yellow2"
-cond_false_col <- "lightskyblue2"  #, my_blue, "deepskyblue1" # "lightskyblue2" # col_blue_1
+cond_false_col <- "lightskyblue2"  #, my_blue, "deepskyblue1", "lightskyblue2", col_blue_1
+
 ## Combine in a named vector:
 cond_colors <- setNames(c(cond_true_col, cond_false_col),
                         c("cond_true", "cond_false"))
@@ -95,6 +96,7 @@ cond_colors <- setNames(c(cond_true_col, cond_false_col),
 
 dec_pos_col <- "rosybrown3" # "khaki", my_whitish
 dec_neg_col <- "lightsteelblue3" # "lightsteelblue2", "wheat", "lightsteelblue1", my_bluish, "chartreuse4"
+
 ## Combine in a named vector:
 dec_colors <- setNames(c(dec_pos_col, dec_neg_col),
                        c("dec_pos", "dec_neg"))
@@ -111,8 +113,9 @@ acc_colors <- setNames(c(dec_cor_col, dec_err_col),
 
 hi_col <- my_green        # "olivedrab4", "palegreen4", col_green_2, "chartreuse4"
 mi_col <- my_red          # "tomato3", "orangered3", "firebrick3", col_red_2
-fa_col <- "lightsalmon2"  # lightcoral" # "tomato1" # "orangered1" # "firebrick1", col_red_1
-cr_col <- "olivedrab3"    # "springgreen2" # "palegreen3" # col_green_1
+fa_col <- "lightsalmon2"  # lightcoral", "tomato1", "orangered1", "firebrick1", col_red_1
+cr_col <- "olivedrab3"    # "springgreen2", "palegreen3", col_green_1
+
 ## Combine in a named vector:
 sdt.colors <- setNames(c(hi_col, mi_col, fa_col, cr_col),
                        c("hi", "mi", "fa", "cr")
@@ -547,9 +550,9 @@ pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' @export
 
 pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
-                    cond_true_col =  grey(.80, .99), # col_sand_light, # "wheat3", #
-                    cond_false_col = grey(.70, .99), # col_sand_mid, # "wheat4"
-                    dec_pos_col = grey(.85, .99), # col_grey_1,
+                    cond_true_col = my_yellow, # col_sand_mid, # grey(.80, .99), # "wheat3", #
+                    cond_false_col = grey(.75, .99), # col_sand_mid, # "wheat4"
+                    dec_pos_col = col_orange_1, # my_orange, # col_red_1, # grey(.85, .99), # col_grey_1,
                     dec_neg_col = grey(.65, .99), # col_grey_2,
                     dec_cor_col = my_green,
                     dec_err_col = my_blue,
@@ -567,8 +570,62 @@ pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 # pal_mod
 # pal_mod["hi"]  # => "#B8D989"
 
-## Use gbo color scheme (as default):
+## Use pal_mod color scheme (as default):
 # pal <- pal_mod
+
+## pal_mbw: A reduced modern (green/blue/bw) color palette: --------
+
+#' Modern and reduced color palette (in green/blue/bw).
+#'
+#' \code{pal_mod} is initialized to a vector of named colors
+#' to define a reduced modern scenario color scheme (in green/blue/bw).
+#'
+#' See \code{\link{pal_org}} for original color information;
+#' \code{\link{pal_mod}} for a richer modern color palette; and
+#' \code{\link{pal_bw}} for a more reduced black-and-white color palette.
+#'
+#' Assign \code{pal <- pal_mbw} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_mbw        # shows all current color names and values
+#' pal_mbw["hi"]  # shows the current color for hits (true positives)
+#' pal_mbw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information;
+#' \code{\link{pal_org}} for original color palette;
+#' \code{\link{pal_mod}} for a richer modern color palette;
+#' \code{\link{pal_bw}} for a more reduced black-and-white color palette.
+#'
+#' @export
+
+pal_mbw <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
+                    cond_true_col =  grey(.80, .99), # my_yellow, # col_sand_mid, # # "wheat3", #
+                    cond_false_col = grey(.75, .99), # col_sand_mid, # "wheat4"
+                    dec_pos_col =    grey(.85, .99), # col_orange_1, # my_orange, # col_red_1, # col_grey_1,
+                    dec_neg_col =    grey(.65, .99), # col_grey_2,
+                    dec_cor_col = my_green,
+                    dec_err_col = my_blue,
+                    hi_col = col_green_1,
+                    mi_col = col_blue_1,
+                    fa_col = col_blue_3,
+                    cr_col = col_green_2,
+                    PPV_col = col_orange_2,
+                    NPV_col = col_blue_3,
+                    txt_col = grey(0, .99),  # black
+                    brd_col = col_sand_dark
+)
+
+## Check:
+# pal_mbw
+# pal_mbw["cond_true"]  # => "#CCCCCCFC"
+
+## Use pal_mbw color scheme (as default):
+# pal <- pal_mbw
 
 
 ## pal_kn:  A uni.kn palette: --------
@@ -689,10 +746,13 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 ## Use viridis color scheme (as default):
 # pal <- pal_vir
 
-## Default color palette: -------
+## Set default color palette: -------
 
 ## Use pal_mod by default:
-pal <- pal_mod
+# pal <- pal_mod
+
+## Use pal_mbw by default:
+pal <- pal_mbw
 
 ## (*) Done: ----------
 
