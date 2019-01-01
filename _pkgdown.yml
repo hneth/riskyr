@@ -17,6 +17,10 @@ authors:
 development:
   mode: devel # devel | release
 
+# template:
+#  params:
+#    bootswatch: sandstone
+
 reference:
 - title: Initialization
   desc: Definition of riskyr scenarios and corresponding collections of parameters.
