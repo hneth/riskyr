@@ -305,20 +305,27 @@ Sensitivity, specificity, and predictive values: Foundations, pliabilities, and 
 _Frontiers in Public Health_, _5_, 307.  
 doi: [10.3389/fpubh.2017.00307](https://doi.org/10.3389/fpubh.2017.00307) 
 
+
+## Additional resources
+
+- An **interactive online version** of `riskyr` is available at <http://riskyr.org>. 
+
+- The **package documentation** is available online:  
+    - current release version: <https://hneth.github.io/riskyr/> 
+    - current development version: <https://hneth.github.io/riskyr/dev>
+
 ## Contact
 
 <!-- uni.kn logo and link to SPDS: -->  
-<!-- ![](./inst/pix/uniKn_logo.png) --> 
 <a href="https://www.spds.uni-konstanz.de/">
 <img src = "../inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 280px; float: right; border:10;"/> 
-<!--<img src = "../inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:10;"/> --> 
 </a>
 
 We appreciate your feedback, comments, or questions. 
 
-- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
+- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
 
-- For general inquiries, please email us at <contact.riskyr@gmail.com>. 
+- Email us at <contact.riskyr@gmail.com> if you want to modify or share this software. 
 
 
 ## All riskyr vignettes

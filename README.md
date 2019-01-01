@@ -1,8 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
-<!-- Status badges: -->
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
+<!-- Status badges: 
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
+[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
+[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
+
+-->
 <!-- riskyr logo: -->
 riskyr <img src = "logo.png" align = "right" alt = "riskyr" width = "160" />
 ============================================================================
@@ -18,7 +23,7 @@ riskyr <img src = "logo.png" align = "right" alt = "riskyr" width = "160" />
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 ### A toolbox for rendering risk literacy more transparent
 
-Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
+Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.
 
 Motivation
 ----------
@@ -26,7 +31,7 @@ Motivation
 > Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)[1]
 
 <!-- Risk perception as representational effects: -->
-The goals of `riskyr` are less of a *computational* and more of a *representational* nature, by addressing the expression in and translation between different formats of risk-related information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing probabilities in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.[2]
+The goals of `riskyr` are less of a *computational* and more of a *representational* nature: We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.[2]
 
 <!-- Defining "risk" (in footnote): -->
 <!-- On "riskyr": -->
@@ -404,9 +409,17 @@ About
 <a href="https://www.spds.uni-konstanz.de/"> <img src = "./inst/pix/uniKn_logo.png" alt = "spds.uni.kn" align = "right" width = "300" style = "width: 300px; float: right; border:20;"/> <!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --> </a>
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy.
-The current version (`riskyr` 0.2.0, as of Dec. 20, 2018) is still under development. Its primary designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and [Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
+The current version (0.2.0, as of Dec. 20, 2018) is still under development. Its primary designers are [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), [Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and [Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier), who are researchers at the department of [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the [University of Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses.
+
+### Additional resources
+
+-   An **interactive online version** of `riskyr` is available at <http://riskyr.org>.
+
+-   The **package documentation** is available online:
+    -   current release version: <https://hneth.github.io/riskyr/>
+    -   current development version: <https://hneth.github.io/riskyr/dev>
 
 ### Contact
 
@@ -415,8 +428,6 @@ We appreciate your feedback, comments, or questions.
 -   Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
 
 -   Email us at <contact.riskyr@gmail.com> if you want to modify or share this software.
-
--   See <http://riskyr.org> for an interactive online version.
 
 ### Reference
 
