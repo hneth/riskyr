@@ -165,12 +165,16 @@ plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
 plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
          title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
 
+# Customize colors and text:
+plot_bar(dir = 1, f_lbl = "num", col_pal = pal_org)
+plot_bar(dir = 2, f_lbl = "nam", col_pal = pal_mod)
+
 # Frequency labels (f_lbl):
-plot_bar(f_lbl = "default")  # default labels: name = num
-plot_bar(f_lbl = "nam")      # name only
-plot_bar(f_lbl = "num")      # numeric value only
-plot_bar(f_lbl = "abb")      # abbreviated name
-plot_bar(f_lbl = NA)         # no labels (NA/NULL/"no")
+plot_bar(f_lbl = "def")  # default labels: name = num
+plot_bar(f_lbl = "nam")  # name only
+plot_bar(f_lbl = "num")  # numeric value only
+plot_bar(f_lbl = "abb")  # abbreviated name
+plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 
 # Scaling and rounding effects:
 plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,

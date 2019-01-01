@@ -114,7 +114,9 @@ that allows for additional dependent values.
 \examples{
 # Basics:
 plot_plane()              # => default plot (what = "PPV")
-plot_plane(what = "PPV")  # => plane of PPV
+# same as:
+# plot_plane(what = "PPV")  # => plane of PPV
+
 plot_plane(what = "NPV")  # => plane of NPV
 plot_plane(what = "ppod") # => plane of ppod
 plot_plane(what = "acc")  # => plane of acc
