@@ -51,8 +51,6 @@ population as relatives sizes of rectangular areas.
 \examples{
 plot_mosaic()  # plot with default options
 
-plot_mosaic(sum_w = 1)
-
 }
 \seealso{
 \code{\link{plot_area}} is the new version of this function.

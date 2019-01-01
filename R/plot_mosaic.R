@@ -46,8 +46,6 @@
 #' @examples
 #' plot_mosaic()  # plot with default options
 #'
-#' plot_mosaic(sum_w = 1)
-#'
 #' @family visualization functions
 #'
 #' @seealso
