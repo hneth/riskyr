@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 12 10
+## 2018 12 20
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]

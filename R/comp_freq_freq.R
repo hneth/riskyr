@@ -171,7 +171,6 @@ comp_freq_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq
 
 }
 
-
 ## Check: --------
 
 # ## Basics:

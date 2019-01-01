@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 12 14
+## 2018 12 20
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -102,12 +102,19 @@
 #'
 #' @examples
 #' # Basics:
-#' plot_curve()                     # default plot: what = ("prev", "PPV", "NPV")
-#' plot_curve(show_points = FALSE)  # default plot without points
-#' plot_curve(prev = .1, sens = .9, spec = .8, uc = .10)  # 10% uncertainty range
+#' # (1) Plot current freq and prob values:
+#' plot_curve()  # default curve plot,
+#' # same as:
+#' # plot_curve(what = c("prev", "PPV", "NPV"))
+#'
+#' # hide points and show uncertainty:
+#' plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10% uncertainty range
+#'
+#' # (2) Provide local parameters and select curves:
+#' plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
 #'
 #' # All curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-#' plot_curve(prev = .1, sens = .9, spec = .8, what = "all", col_pal = pal_org) # all curves.
+#' plot_curve(prev = .3, sens = .9, spec = .8, what = "all", col_pal = pal_org) # all curves.
 #'
 #' # Selected curves:
 #' plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV

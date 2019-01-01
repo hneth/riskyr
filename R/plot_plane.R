@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 12 12
+## 2018 12 20
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -75,7 +75,6 @@
 #' (in range \code{.01 <= step_size <= 1}).
 #' Default: \code{step_size = .05}.
 #'
-#'
 #' @param theta Horizontal rotation angle (used by \code{\link{persp}}).
 #' Default: \code{theta = -45}.
 #'
@@ -111,11 +110,12 @@
 #'
 #' @param ... Other (graphical) parameters.
 #'
-#'
 #' @examples
 #' # Basics:
 #' plot_plane()              # => default plot (what = "PPV")
-#' plot_plane(what = "PPV")  # => plane of PPV
+#' # same as:
+#' # plot_plane(what = "PPV")  # => plane of PPV
+#'
 #' plot_plane(what = "NPV")  # => plane of NPV
 #' plot_plane(what = "ppod") # => plane of ppod
 #' plot_plane(what = "acc")  # => plane of acc

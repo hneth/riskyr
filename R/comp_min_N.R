@@ -1,5 +1,5 @@
 ## comp_min_N.R | riskyr
-## 2018 12 10
+## 2018 12 20
 ## Compute minimum population size N (given prob)
 ## -----------------------------------------------
 

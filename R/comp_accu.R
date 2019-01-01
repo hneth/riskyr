@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 12 10
+## 2018 12 20
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
@@ -738,9 +738,8 @@ comp_accu_prob <- function(prev = prob$prev,  # 3 essential probabilities (remov
 
 accu <- comp_accu_prob()
 
-## Check: --------
+## Check: ----
 # accu
-
 
 ## (*) Done: ----------
 

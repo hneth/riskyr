@@ -168,12 +168,16 @@
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
 #'          title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
 #'
+#' # Customize colors and text:
+#' plot_bar(dir = 1, f_lbl = "num", col_pal = pal_org)
+#' plot_bar(dir = 2, f_lbl = "nam", col_pal = pal_mod)
+#'
 #' # Frequency labels (f_lbl):
-#' plot_bar(f_lbl = "default")  # default labels: name = num
-#' plot_bar(f_lbl = "nam")      # name only
-#' plot_bar(f_lbl = "num")      # numeric value only
-#' plot_bar(f_lbl = "abb")      # abbreviated name
-#' plot_bar(f_lbl = NA)         # no labels (NA/NULL/"no")
+#' plot_bar(f_lbl = "def")  # default labels: name = num
+#' plot_bar(f_lbl = "nam")  # name only
+#' plot_bar(f_lbl = "num")  # numeric value only
+#' plot_bar(f_lbl = "abb")  # abbreviated name
+#' plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 #'
 #' # Scaling and rounding effects:
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
@@ -1210,7 +1214,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
 ## Retired parameters: ----------
 
-
 # @param show_freq  Boolean option for showing essential frequencies
 # (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
 # \code{\link{cr}}) on the margin of the plot.
@@ -1238,7 +1241,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ##                   dir (1 vs. 2).           [2018 08 15]
 ## - Add various f_lbl options.               [2018 09 21]
 ## - Modify defaults and increase robustness. [2018 09 25]
-
 
 ## (+) ToDo: ----------
 
