@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 12 10
+## 2018 12 14
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -104,16 +104,15 @@
 #' # Basics:
 #' plot_curve()                     # default plot: what = ("prev", "PPV", "NPV")
 #' plot_curve(show_points = FALSE)  # default plot without points
-#' plot_curve(prev = .2, sens = .8, spec = .7, uc = .1)  # 10% uncertainty range
+#' plot_curve(prev = .1, sens = .9, spec = .8, uc = .10)  # 10% uncertainty range
 #'
-#' # All curves:
-#' plot_curve(what = "all") # all curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-#' plot_curve(what = "all", show_points = FALSE)  # all curves, no points
+#' # All curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
+#' plot_curve(prev = .1, sens = .9, spec = .8, what = "all", col_pal = pal_org) # all curves.
 #'
 #' # Selected curves:
 #' plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
 #' plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # prev, PPV, NPV, and acc
-#' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and acc
+#' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod
 #'
 #' # Visualizing uncertainty (uc as percentage range):
 #' plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
@@ -644,7 +643,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       pos_ppod <- which(what == "ppod")  # find position of "ppod" in what
       col_ppod <- what_col[pos_ppod]     # use color specified for ppod
     } else {
-      col_ppod <- col_pal["pos"]  # use default color for ppod (using "pos")
+      col_ppod <- col_pal["dec_pos"]  # use default color for ppod (using "pos")
     }
 
     legend_lbls <- c(legend_lbls, "ppod")    # add NPV label
@@ -715,7 +714,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       pos_acc <- which(what == "acc")  # find position of "acc" in what
       col_acc <- what_col[pos_acc]     # use color specified for acc (using "hi")
     } else {
-      col_acc <- col_pal["cor"]  # use default color for acc (using "cor")
+      col_acc <- col_pal["dec_cor"]  # use default color for acc (using "cor")
     }
 
     legend_lbls <- c(legend_lbls, "acc")    # add acc label

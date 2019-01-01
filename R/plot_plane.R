@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 12 10
+## 2018 12 12
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -345,7 +345,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     cur_lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
     type_lbl <- "Probability plane of the proportion of positive predictions (ppod)"
-    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["pos"] }  # cur_col for ppod (using "pos")
+    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["dec_pos"] }  # cur_col for ppod (using "pos")
     z_lbl <- "ppod"   # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
@@ -370,7 +370,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     cur_lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
     type_lbl <- "Probability plane of accuracy values (acc)"
-    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["hi"] }  # cur_col for acc (using "hi")
+    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["dec_cor"] }  # cur_col for acc (using "dec_cor")
     z_lbl <- "acc"    # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
