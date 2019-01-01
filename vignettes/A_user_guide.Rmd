@@ -56,7 +56,7 @@ This guide first illustrates a typical problem and then helps you solving it by 
     C. A variety of visualizations that illustrate relationships between frequencies and probabilities.
 
 
-## Motivation: A Problem of Probabilities
+## Motivation: A problem of probabilities
 
 <!-- Motivation: --> 
 
@@ -126,7 +126,7 @@ $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test})
 Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the `PPV` of this mammography screening test) is slightly below 8\%. 
 
 
-## Using Natural Frequencies
+## Using natural frequencies
 
 If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent. 
 
@@ -592,7 +592,7 @@ We appreciate your feedback, comments, or questions.
 - For general inquiries, please email us at <contact.riskyr@gmail.com>. 
 
 
-## All riskyr Vignettes
+## All riskyr vignettes
 
 <!-- riskyr logo: -->
 <a href="https://github.com/hneth/riskyr">

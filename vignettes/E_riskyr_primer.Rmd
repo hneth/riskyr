@@ -425,7 +425,7 @@ We appreciate your feedback, comments, or questions.
 
 - For general inquiries, please email us at <contact.riskyr@gmail.com>. 
 
-## All riskyr Vignettes
+## All riskyr vignettes
 
 <!-- riskyr logo: -->
 <a href="https://github.com/hneth/riskyr">
