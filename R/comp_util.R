@@ -45,16 +45,16 @@
 #' p.seq <- seq(0, 1, by = .1)   # Vector of probabilities
 #' is_prob(p.seq)                # => TRUE (for vector)
 #'
-#' # watch out for:
-#' is_prob(NA)                   # => FALSE + NO warning!
-#  is_prob(NA, NA_warn = TRUE)   # => FALSE + warning (NA values)
-#' is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
-#' is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
+#' ## watch out for:
+#' # is_prob(NA)                   # => FALSE + NO warning!
+#  # is_prob(NA, NA_warn = TRUE)   # => FALSE + warning (NA values)
+#' # is_prob(0/0)                  # => FALSE + NO warning (NA + NaN values)
+#' # is_prob(0/0, NA_warn = TRUE)  # => FALSE + warning (NA values)
 #'
-#' # ways to fail:
-#' is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
-#' is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
-#' is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
+#' ## ways to fail:
+#' # is_prob(8, NA_warn = TRUE)         # => FALSE + warning (outside range element)
+#' # is_prob(c(.5, 8), NA_warn = TRUE)  # => FALSE + warning (outside range vector element)
+#' # is_prob("Laplace", NA_warn = TRUE) # => FALSE + warning (non-numeric values)
 #'
 #' @family verification functions
 #'
@@ -154,16 +154,18 @@ is_prob <- function(prob, NA_warn = FALSE) {
 #'
 #' @examples
 #' # ways to succeed:
-#' is_perc(2)           # => TRUE, but does NOT return the percentage 2.
-#' is_perc(1/2)         # => TRUE, but does NOT return the percentage 0.5.
-#' pc.sq <- seq(0, 100, by = 10)
-#' is_perc(pc.sq)       # => TRUE (for vector)
+#' is_perc(2)    # => TRUE, but does NOT return the percentage 2.
+#' is_perc(1/2)  # => TRUE, but does NOT return the percentage 0.5.
 #'
-#' # ways to fail:
-#' is_perc(NA)          # => FALSE + warning (NA values)
-#' is_perc(NaN)         # => FALSE + warning (NaN values)
-#' is_perc("Bernoulli") # => FALSE + warning (non-numeric values)
-#' is_perc(101)         # => FALSE + warning (beyond range)
+#' ## note:
+#' # pc_sq <- seq(0, 100, by = 10)
+#' # is_perc(pc_sq)       # => TRUE (for vector)
+#'
+#' ## ways to fail:
+#' # is_perc(NA)          # => FALSE + warning (NA values)
+#' # is_perc(NaN)         # => FALSE + warning (NaN values)
+#' # is_perc("Bernoulli") # => FALSE + warning (non-numeric values)
+#' # is_perc(101)         # => FALSE + warning (beyond range)
 #'
 #' @family verification functions
 #'
@@ -233,16 +235,16 @@ is_perc <- function(perc) {
 #'
 #' @examples
 #' # ways to succeed:
-#' is_freq(2)             # => TRUE, but does NOT return the frequency 2.
-#' is_freq(1:3)           # => TRUE (for vector)
+#' is_freq(2)    # => TRUE, but does NOT return the frequency 2.
+#' is_freq(0:3)  # => TRUE (for vector)
 #'
-#' # ways to fail:
-#' is_freq(-1)            # => FALSE + warning (negative values)
-#' is_freq(1:-1)          # => FALSE (for vector) + warning (negative values)
-#' is_freq(c(1, 1.5, 2))  # => FALSE (for vector) + warning (non-integer values)
+#' ## ways to fail:
+#' # is_freq(-1)            # => FALSE + warning (negative values)
+#' # is_freq(1:-1)          # => FALSE (for vector) + warning (negative values)
+#' # is_freq(c(1, 1.5, 2))  # => FALSE (for vector) + warning (non-integer values)
 #'
-#' ## Note that:
-#' is.integer(2)          # => FALSE!
+#' ## note:
+#' # is.integer(2)          # => FALSE!
 #'
 #' @family verification functions
 #'
@@ -566,6 +568,9 @@ is_complement <- function(p1, p2, tol = .01) {
 }
 
 ## Checks:
+
+## Removed from documentation (to avoid ERRORS):
+
 # # ways to succeed:
 # is_complement(0, 1)           # => TRUE
 # is_complement(1/3, 2/3)       # => TRUE
@@ -1206,24 +1211,10 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 #' @return A percentage (as a numeric value).
 #'
 #' @examples
-#' as_pc(.50)                # =>  50
-#' as_pc(1/3)                # =>  33.33
-#' as_pc(1/3, n_digits = 0)  # =>  33
-#' as_pc(as_pb(12.3))        # =>  12.3
-#'
-#' ## ways to fail:
-#' # as_pc(pi)               # => 314.16 + WARNING that prob is no probability
-#'
-#' ## Check (not run):
-#' # prob_seq <- seq(0, 1, by = 1/10)
-#' # perc_seq <- seq(0, 100, by = 10)
-#'
-#' # as_pc(prob_seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
-#' # as_pb(perc_seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-#'
-#' # perc_seq == as_pc(as_pb(perc_seq))            # => all TRUE
-#' # prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
-#' # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
+#' as_pc(.50)                # 50
+#' as_pc(1/3)                # 33.33
+#' as_pc(1/3, n_digits = 0)  # 33
+#' as_pc(as_pb(12.3))        # 12.3
 #'
 #' @family utility functions
 #' @family display functions
@@ -1275,6 +1266,22 @@ as_pc <- function(prob, n_digits = 2) {
 # as_pc(NA)
 # as_pc(0/0)
 
+## Removed from documentation (to avoid ERRORS):
+#
+# ## ways to fail:
+# # as_pc(pi)               # => 314.16 + WARNING that prob is no probability
+#
+# ## Check (not run):
+# # prob_seq <- seq(0, 1, by = 1/10)
+# # perc_seq <- seq(0, 100, by = 10)
+#
+# # as_pc(prob_seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
+# # as_pb(perc_seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+#
+# # perc_seq == as_pc(as_pb(perc_seq))            # => all TRUE
+# # prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
+# # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
+
 
 ## Percentage as probability (4 decimals):
 
@@ -1298,17 +1305,6 @@ as_pc <- function(prob, n_digits = 2) {
 #' @examples
 #' as_pb(1/3)          # => 0.0033
 #' as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
-#'
-#' ## Check (not run):
-#' # prob_seq <- seq(0, 1, by = 1/10)
-#' # perc_seq <- seq(0, 100, by = 10)
-#'
-#' # as_pc(prob_seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
-#' # as_pb(perc_seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-#'
-#' # perc_seq == as_pc(as_pb(perc_seq))            # => all TRUE
-#' # prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
-#' # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
 #'
 #' @family utility functions
 #' @family display functions
@@ -1358,6 +1354,18 @@ as_pb <- function(perc, n_digits = 4) {
 # prob_seq == as_pb(as_pc(prob_seq)) # some FALSE due to rounding errors!
 # round(prob_seq, 4) == as_pb(as_pc(prob_seq)) # all TRUE (as both rounded to 4 decimals)
 
+## Removed from documentation (to avoid ERRORS):
+#
+# ## Check (not run):
+# # prob_seq <- seq(0, 1, by = 1/10)
+# # perc_seq <- seq(0, 100, by = 10)
+#
+# # as_pc(prob_seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
+# # as_pb(perc_seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+#
+# # perc_seq == as_pc(as_pb(perc_seq))            # => all TRUE
+# # prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
+# # round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
 
 
 
