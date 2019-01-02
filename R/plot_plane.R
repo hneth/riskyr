@@ -471,7 +471,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ##  Finish: ---------
 
-  # on.exit(par(opar))  # par(opar)  # restore original settings
+  ## on.exit(par(opar))  # par(opar)  # restore original settings
   invisible() # restores par(opar)
 
 } # plot_plane end.
