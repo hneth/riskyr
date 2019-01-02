@@ -44,19 +44,19 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
                       N = 753,     # population size
                       scen_src = "(a ficticious example)")
 
-## ----plot_default, include = TRUE, fig.width = 7, fig.height = 6---------
+## ----plot_default, include = TRUE, fig.align = "center", fig.width = 7.2, fig.height = 6.0----
 plot(my_scenario)
 
-## ----plot_area_sq, eval = FALSE, fig.width = 7, fig.height = 5.8---------
+## ----plot_area_sq, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 5.8----
 #  plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 #  plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 
-## ----prism_practice, echo = FALSE, eval = FALSE--------------------------
+## ----prism_practice, echo = FALSE, eval = FALSE, fig.align = "center"----
 #  plot(my_scenario, area = "hr")
 #  plot(my_scenario, area = "no", by = "cdac")
 #  plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
 
-## ----icons, fig.width = 7.2, fig.height = 5------------------------------
+## ----icons, fig.align = "center", fig.width = 7.2, fig.height = 5.2------
 plot(my_scenario, type = "icons")
 
 ## ----full_summary--------------------------------------------------------
@@ -65,10 +65,10 @@ summary(my_scenario)
 ## ----summary_prob, include = FALSE---------------------------------------
 summary(my_scenario, summarize = "prob")
 
-## ----tree, fig.width = 7.2, fig.height = 5-------------------------------
+## ----tree, fig.align = "center", fig.width = 7.2, fig.height = 5.0-------
 plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 
-## ----plotting_curve, fig.width = 7, fig.height = 5.4---------------------
+## ----plotting_curve, fig.align = "center", fig.width = 7.0, fig.height = 5.6----
 plot(my_scenario, type = "curve", uc = .05)
 
 ## ----scenario_table, echo = FALSE, results = "asis"----------------------
@@ -101,7 +101,7 @@ summary(s10) # summarizes key scenario information:
 #  plot(s10, type = "area")                  # plot an area plot
 #  plot(s10, type = "bar", dir = 2)          # plot a bar chart
 
-## ----s10_prism_1, fig.align = "center", fig.width = 7.0, fig.height = 5.6----
+## ----s10_prism_1, fig.align = "center", fig.width = 7.2, fig.height = 5.8----
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -111,7 +111,7 @@ plot(s10,
 #  plot(s10, by = "cdac", area = "sq")
 #  plot(s10, by = "ac", area = "hr")
 
-## ----s10_curve, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 6.0----
+## ----s10_curve, eval = FALSE, fig.align = "center", fig.width = 7.2, fig.height = 6.0----
 #  plot(s10, type = "curve",
 #       what = "all",  # plot "all" available curves
 #       uc = .05)      # with a 5%-uncertainty range
@@ -120,7 +120,7 @@ plot(s10,
 # opar <- par(no.readonly = TRUE)  # save plot settings.
 # par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
-## ----s10_planes, fig.align = "center", fig.show = "hold", fig.width = 5.5, fig.height = 3.8----
+## ----s10_planes, fig.align = "center", fig.show = "hold", fig.width = 5.8, fig.height = 4.0----
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
 plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
 plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
