@@ -322,8 +322,8 @@ p5 &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span cl
 rand.p &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
 
-<span class="co"># Translation 1: Compute frequencies from probabilities:</span>
-freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
+<span class="co"># Translation 1: Compute frequencies from probabilities (without rounding):</span>
+freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)
 
 <span class="co"># Translation 2: Compute probabilities from frequencies:</span>
 prob &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span class="dt">hi =</span> freq<span class="op">$</span>hi, <span class="dt">mi =</span> freq<span class="op">$</span>mi, <span class="dt">fa =</span> freq<span class="op">$</span>fa, <span class="dt">cr =</span> freq<span class="op">$</span>cr)
@@ -342,8 +342,9 @@ rand.f
 prob &lt;-<span class="st"> </span><span class="kw">comp_prob_freq</span>(<span class="dt">hi =</span> rand.f[<span class="dv">1</span>], <span class="dt">mi =</span> rand.f[<span class="dv">2</span>], <span class="dt">fa =</span> rand.f[<span class="dv">3</span>], <span class="dt">cr =</span> rand.f[<span class="dv">4</span>])
 <span class="co"># prob</span>
 
-<span class="co"># Translation 2: Compute frequencies from probabilities (for the original population size N):</span>
-freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span class="dt">prev =</span> prob<span class="op">$</span>prev, <span class="dt">sens =</span> prob<span class="op">$</span>sens, <span class="dt">spec =</span> prob<span class="op">$</span>spec, <span class="dt">N =</span> <span class="kw">sum</span>(rand.f), <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
+<span class="co"># Translation 2: Compute frequencies from probabilities (for original N, without rounding):</span>
+freq &lt;-<span class="st"> </span><span class="kw">comp_freq_prob</span>(<span class="dt">prev =</span> prob<span class="op">$</span>prev, <span class="dt">sens =</span> prob<span class="op">$</span>sens, <span class="dt">spec =</span> prob<span class="op">$</span>spec, 
+                       <span class="dt">N =</span> <span class="kw">sum</span>(rand.f), <span class="dt">round =</span> <span class="ot">FALSE</span>)
 <span class="co"># freq</span>
 
 <span class="co"># Verify that results match original frequencies: </span>

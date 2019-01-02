@@ -60,8 +60,8 @@ p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essentia
 #  rand.p <- runif(n = 3, min = 0, max = 1)
 #  rand.p
 #  
-#  # Translation 1: Compute frequencies from probabilities:
-#  freq <- comp_freq_prob(prev = rand.p[1], sens = rand.p[2], spec = rand.p[3], round = FALSE)  # without rounding!
+#  # Translation 1: Compute frequencies from probabilities (without rounding):
+#  freq <- comp_freq_prob(prev = rand.p[1], sens = rand.p[2], spec = rand.p[3], round = FALSE)
 #  
 #  # Translation 2: Compute probabilities from frequencies:
 #  prob <- comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
@@ -81,8 +81,9 @@ p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essentia
 #  prob <- comp_prob_freq(hi = rand.f[1], mi = rand.f[2], fa = rand.f[3], cr = rand.f[4])
 #  # prob
 #  
-#  # Translation 2: Compute frequencies from probabilities (for the original population size N):
-#  freq <- comp_freq_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, N = sum(rand.f), round = FALSE)  # without rounding!
+#  # Translation 2: Compute frequencies from probabilities (for original N, without rounding):
+#  freq <- comp_freq_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec,
+#                         N = sum(rand.f), round = FALSE)
 #  # freq
 #  
 #  # Verify that results match original frequencies:
