@@ -2,8 +2,8 @@
 
 This is a resubmission. In this revised version of riskyr 0.2.0:
 
-* An ERROR in Debian check (in function 'as_pb') has been fixed. 
-* A WARNING in Debian check (in vignette 'A_user_guide.Rmd') has been fixed. 
+* An ERROR in Debian check (in function 'is_perc') has been fixed. 
+* A WARNING in Debian check (in vignette 'C_confusion_matrix.Rmd') has been fixed. 
 
 ## Test environments
 
