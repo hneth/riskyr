@@ -74,7 +74,7 @@ and summarized by the summary method summary.riskyr." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9800</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -418,7 +418,7 @@ are used and returned.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='691' height='490' /></div><div class='input'>
+#&gt; 0.944</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>hustosis</span>)</div><div class='img'><img src='riskyr-1.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='output co'>#&gt; Scenario:  Identify reoffenders 
 #&gt; 
 #&gt; Condition:  being a reoffender 
@@ -458,7 +458,7 @@ are used and returned.</p>
 #&gt; Accuracy:
 #&gt; 
 #&gt;  acc:
-#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='691' height='490' /></div><div class='input'>
+#&gt; 0.694</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_reoffend</span>)</div><div class='img'><img src='riskyr-2.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># 2 ways of defining the same scenario: -----</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>100</span>)  <span class='co'># s1: define by 3 prob &amp; N</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>riskyr</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>25</span>)        <span class='co'># s2: same scenario by 4 freq</span>

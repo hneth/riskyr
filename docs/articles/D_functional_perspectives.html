@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9800</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -190,17 +190,65 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 <span class="kw"><a href="../reference/plot_plane.html">plot_plane</a></span>(<span class="dt">prev =</span> high.prev, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>), <span class="dt">what =</span> <span class="st">"acc"</span>,  <span class="dt">what_col =</span> <span class="st">"forestgreen"</span>, 
            <span class="dt">title_lbl =</span> <span class="st">"D. Mammography (BRCA1)"</span>, <span class="dt">cex.lbl =</span> .<span class="dv">8</span>)</code></pre></div>
 <p>Overall, viewing conditional probabilities (like <code>PPV</code>/<code>NPV</code>, but also <code>ppod</code> and <code>acc</code>) as a function of other probabilities (e.g., <code>prev</code>, <code>sens</code>, <code>spec</code> or <code>fart</code>) often provides unexpected relationships and new insights.</p>
+<div id="resources" class="section level3">
+<h3 class="hasAnchor">
+<a href="#resources" class="anchor"></a>Resources</h3>
+<p>The following resources and versions are currently available:</p>
+<table class="table">
+<colgroup>
+<col width="32%">
+<col width="26%">
+<col width="41%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Type:</th>
+<th align="left">Version:</th>
+<th align="left">URL:</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
+</tr>
+<tr class="odd">
+<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left"><a href="http://riskyr.org">Online version</a></td>
+<td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
+</tr>
+<tr class="odd">
+<td align="left">C. Online documentation:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="contact" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contact" class="anchor"></a>Contact</h2>
 <!-- uni.kn logo and link to SPDS: -->
-<!-- ![](./inst/pix/uniKn_logo.png) -->
-<p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:10;"><!--<img src = "../inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:10;"/> --></a></p>
+<p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:10;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
 <li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
-<li><p>For general inquiries, please email us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a>.</p></li>
+<li><p>Email us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> if you want to modify or share this software.</p></li>
 </ul>
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
@@ -260,7 +308,11 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#functions">Functions</a></li>
       <li><a href="#curves-as-a-function-of-prevalence">Curves as a function of prevalence</a></li>
-      <li><a href="#planes-as-a-function-of-sensitivity-and-specificity-for-given-prevalence">Planes as a function of sensitivity and specificity (for given prevalence)</a></li>
+      <li>
+<a href="#planes-as-a-function-of-sensitivity-and-specificity-for-given-prevalence">Planes as a function of sensitivity and specificity (for given prevalence)</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#resources">Resources</a></li>
+      </ul>
+</li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#all-riskyr-vignettes">All riskyr vignettes</a></li>
       </ul>

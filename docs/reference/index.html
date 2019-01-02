@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9800</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-initialization" class="hasAnchor"><a href="#section-initialization" class="anchor"></a>Initialization</h2>
-          <p class="section-desc"><p>Definition of riskyr scenarios and corresponding collections of parameters.</p></p>
+          <p class="section-desc"><p>Creating riskyr scenarios and corresponding collections of parameters.</p></p>
         </th>
       </tr>
       <tr>
@@ -156,13 +156,13 @@
         <td>
           <p><code><a href="plot.riskyr.html">plot(<i>&lt;riskyr&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Plot information of a riskyr object.</p></td>
+        <td><p>Plot a riskyr scenario.</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="print.summary.riskyr.html">print(<i>&lt;summary.riskyr&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Printing summarized risk information.</p></td>
+        <td><p>Print summary information of a riskyr scenario.</p></td>
       </tr><tr>
         
         <td>
@@ -180,19 +180,19 @@
         <td>
           <p><code><a href="summary.riskyr.html">summary(<i>&lt;riskyr&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Summarizing a riskyr scenario.</p></td>
+        <td><p>Summarize a riskyr scenario.</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="df_scenarios.html">df_scenarios</a></code> </p>
         </td>
-        <td><p>A collection of riskyr scenarios from various sources.</p></td>
+        <td><p>A collection of riskyr scenarios from various sources (as df).</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="scenarios.html">scenarios</a></code> </p>
         </td>
-        <td><p>A collection of riskyr scenarios from various sources.</p></td>
+        <td><p>A collection of riskyr scenarios from various sources (as list).</p></td>
       </tr><tr>
         
         <td>
@@ -220,6 +220,18 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="popu.html">popu</a></code> </p>
+        </td>
+        <td><p>A population table based on current frequencies.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_popu.html">read_popu()</a></code> </p>
+        </td>
+        <td><p>Read a population (given as data frame) into a riskyr scenario.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="pal.html">pal</a></code> </p>
         </td>
         <td><p>List current values of scenario color palette.</p></td>
@@ -235,6 +247,12 @@
           <p><code><a href="pal_kn.html">pal_kn</a></code> </p>
         </td>
         <td><p>Alternative color palette for uni.kn.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pal_mbw.html">pal_mbw</a></code> </p>
+        </td>
+        <td><p>Modern and reduced color palette (in green/blue/bw).</p></td>
       </tr><tr>
         
         <td>
@@ -277,30 +295,12 @@
           <p><code><a href="txt_org.html">txt_org</a></code> </p>
         </td>
         <td><p>List of original values of text elements.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="accu.html">accu</a></code> </p>
-        </td>
-        <td><p>A list containing current accuracy information.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="popu.html">popu</a></code> </p>
-        </td>
-        <td><p>A population table based on current frequencies.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_popu.html">read_popu()</a></code> </p>
-        </td>
-        <td><p>Read a population (given as data frame) into a riskyr scenario.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-visualization" class="hasAnchor"><a href="#section-visualization" class="anchor"></a>Visualization</h2>
-          <p class="section-desc"><p>Creating graphical representations of riskyr scenarios.</p></p>
+          <p class="section-desc"><p>Functions for creating graphical representations of riskyr scenarios.</p></p>
         </th>
       </tr>
       <tr>
@@ -314,7 +314,7 @@
         <td>
           <p><code><a href="plot.riskyr.html">plot(<i>&lt;riskyr&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Plot information of a riskyr object.</p></td>
+        <td><p>Plot a riskyr scenario.</p></td>
       </tr><tr>
         
         <td>
@@ -382,7 +382,7 @@ as a function of sensitivity and specificity.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-probabilities" class="hasAnchor"><a href="#section-probabilities" class="anchor"></a>Probabilities</h2>
-          <p class="section-desc"><p>Variables representing probability information.</p></p>
+          <p class="section-desc"><p>Lists and objects representing probability information.</p></p>
         </th>
       </tr>
       <tr>
@@ -460,6 +460,12 @@ as a function of sensitivity and specificity.</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="accu.html">accu</a></code> </p>
+        </td>
+        <td><p>A list containing current accuracy information.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="err.html">err</a></code> </p>
         </td>
         <td><p>Error rate (err) as the probability of an incorrect decision.</p></td>
@@ -468,7 +474,7 @@ as a function of sensitivity and specificity.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-frequencies" class="hasAnchor"><a href="#section-frequencies" class="anchor"></a>Frequencies</h2>
-          <p class="section-desc"><p>Variables representing subsets of the population.</p></p>
+          <p class="section-desc"><p>Lists and objects representing frequencies (i.e., various subsets of a population).</p></p>
         </th>
       </tr>
       <tr>
@@ -548,7 +554,7 @@ as a function of sensitivity and specificity.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-computation-and-translation" class="hasAnchor"><a href="#section-computation-and-translation" class="anchor"></a>Computation and translation</h2>
-          <p class="section-desc"><p>Computing parameters and translating representational formats.</p></p>
+          <p class="section-desc"><p>Computing parameters and translating between representational formats.</p></p>
         </th>
       </tr>
       <tr>
@@ -706,7 +712,7 @@ as a function of sensitivity and specificity.</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-validation-and-formatting" class="hasAnchor"><a href="#section-validation-and-formatting" class="anchor"></a>Validation and formatting</h2>
-          <p class="section-desc"><p>Verifying and translating between representational formats.</p></p>
+          <p class="section-desc"><p>Verifying and displaying representational formats.</p></p>
         </th>
       </tr>
       <tr>

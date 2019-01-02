@@ -16,7 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Rendering Risk Literacy more Transparent">
-<meta property="og:description" content="Risk-related information (like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, 'riskyr' computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. ">
+<meta property="og:description" content="Risk-related information (like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions) can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, 'riskyr' computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. ">
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9800</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@
 <div id="a-toolbox-for-rendering-risk-literacy-more-transparent" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-toolbox-for-rendering-risk-literacy-more-transparent" class="anchor"></a>A toolbox for rendering risk literacy more transparent</h3>
-<p>Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, <code>riskyr</code> computes, translates, and displays risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.</p>
+<p>Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, <code>riskyr</code> computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.</p>
 </div>
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
@@ -131,7 +131,7 @@
 <p>Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
 <!-- Risk perception as representational effects: -->
-<p>The goals of <code>riskyr</code> are less of a <em>computational</em> and more of a <em>representational</em> nature, by addressing the expression in and translation between different formats of risk-related information. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies. But rather than just expressing probabilities in terms of frequencies, <code>riskyr</code> allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>The goals of <code>riskyr</code> are less of a <em>computational</em> and more of a <em>representational</em> nature: We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer &amp; Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, <code>riskyr</code> allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <!-- Defining "risk" (in footnote): -->
 <!-- On "riskyr": -->
 <p>Basic assumptions and goals driving the current development of <code>riskyr</code> include:</p>
@@ -478,8 +478,57 @@ s10<span class="op">$</span>scen_apa   <span class="co"># scenario source (APA) 
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="inst/pix/uniKn_logo.png" alt="spds.uni.kn" align="right" width="300" style="width: 300px; float: right; border:20;"><!-- <img src = "/Users/hneth/Desktop/stuff/Dropbox/GitHub/riskyr/inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --></a></p>
 <p><code>riskyr</code> originated out of a series of lectures and workshops on risk literacy.<br>
-The current version (<code>riskyr</code> 0.2.0, as of Dec. 20, 2018) is still under development. Its primary designers are <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, and <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>, who are researchers at the department of <a href="https://www.spds.uni-konstanz.de">Social Psychology and Decision Sciences</a> at the <a href="https://www.uni-konstanz.de/en/">University of Konstanz</a>, Germany.</p>
+The current version (0.2.0, as of Dec. 20, 2018) is still under development. Its primary designers are <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, and <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>, who are researchers at the department of <a href="https://www.spds.uni-konstanz.de">Social Psychology and Decision Sciences</a> at the <a href="https://www.uni-konstanz.de/en/">University of Konstanz</a>, Germany.</p>
 <p>The <code>riskyr</code> package is open source software written in <a href="https://www.r-project.org/">R</a> and released under the <a href="https://tldrlegal.com/license/gnu-general-public-license-v2">GPL 2</a> | <a href="https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)">GPL 3</a> licenses.</p>
+<div id="resources" class="section level3">
+<h3 class="hasAnchor">
+<a href="#resources" class="anchor"></a>Resources</h3>
+<p>The following resources and versions are currently available:</p>
+<table class="table table">
+<colgroup>
+<col width="29%">
+<col width="29%">
+<col width="37%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Type:</th>
+<th align="left">Version:</th>
+<th align="left">URL:</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
+<td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
+</tr>
+<tr class="odd">
+<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left"><a href="http://riskyr.org">Online version</a></td>
+<td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
+</tr>
+<tr class="odd">
+<td align="left">C. Online documentation:</td>
+<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="contact" class="section level3">
 <h3 class="hasAnchor">
 <a href="#contact" class="anchor"></a>Contact</h3>
@@ -487,7 +536,6 @@ The current version (<code>riskyr</code> 0.2.0, as of Dec. 20, 2018) is still un
 <ul>
 <li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
 <li><p>Email us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> if you want to modify or share this software.</p></li>
-<li><p>See <a href="http://riskyr.org" class="uri">http://riskyr.org</a> for an interactive online version.</p></li>
 </ul>
 </div>
 <div id="reference" class="section level3">
