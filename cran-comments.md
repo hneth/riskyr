@@ -1,6 +1,9 @@
-## New version
+## Resubmission
 
-This is the 1st submission of riskyr 0.2.0.
+This is a resubmission. In this revised version of riskyr 0.2.0:
+
+* An ERROR in Debian check (in function 'as_pb') has been fixed. 
+* A WARNING in Debian check (in vignette 'A_user_guide.Rmd') has been fixed. 
 
 ## Test environments
 
