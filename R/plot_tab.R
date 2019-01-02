@@ -432,8 +432,10 @@ plot_tab <- function(prev = num$prev,    # probabilities
   }
 
   # gaps:
-  if ( is.null(gaps) ) { gaps <- c(0, 0) }  # sensible zero
-  if ( !is.na(gaps) && (length(gaps) != 2 || !is.numeric(gaps)) ) {
+  if ( any(is.null(gaps)) ) { gaps <- c(0, 0) }   # sensible zero
+  if ( any(is.na(gaps)) )   { gaps <- c(NA, NA) } # set to default
+
+  if ( any(!is.na(gaps)) && (length(gaps) != 2 || any(!is.numeric(gaps))) ) {
     message("gaps should have 2 numeric arguments. Using default gaps = c(NA, NA).")
     gaps <- c(NA, NA)  # use defaults
   }
@@ -442,7 +444,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   v_gap_def <- .05
   h_gap_def <- .06
 
-  # use gap input:
+  # use current gap input:
   v_gap <- gaps[1]  # default: v_gap = NA
   h_gap <- gaps[2]  # default: h_gap = NA
 
