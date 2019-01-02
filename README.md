@@ -4,8 +4,8 @@
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
 <!-- riskyr logo: -->
-riskyr <img src = "logo.png" align = "right" alt = "riskyr" width = "160" />
-============================================================================
+riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
+=======================================================================================
 
 <!-- riskyr logo: -->
 <!-- 
