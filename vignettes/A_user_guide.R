@@ -44,8 +44,8 @@ all.equal(f1, f2)
 #  ## Check equality of outputs:
 #  all.equal(f3, f4)  # => shows slight differences in some frequencies:
 
-## ----print_f1, eval = FALSE----------------------------------------------
-#  f1
+## ----print_f1------------------------------------------------------------
+f1
 
 ## ----comp_prob_freq------------------------------------------------------
 # Compute probabilities from frequencies:
@@ -118,9 +118,9 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cd", title_lbl = "Mammography screening")
 
-## ----plot_mosaic_cd, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."----
-#  plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
-#            title_lbl = "Mammography screening")
+## ----plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."----
+plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
+          title_lbl = "Mammography screening")
 
 ## ----plot_bar, eval = FALSE, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A bar plot."----
 #  plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,

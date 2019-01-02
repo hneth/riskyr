@@ -111,17 +111,17 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 
 To view a 2x2 confusion table in `riskyr`, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
 
-```{r plot_tab_demo, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
+```{r plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
 # Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def", title_lbl = "Scenario 1")
 
-# Plot an existing riskyr scenario: ----- 
-s <- scenarios$n1
-plot(s, type = "tab", p_lbl = "def")
+## Plot an existing riskyr scenario: ----- 
+# s <- scenarios$n1
+# plot(s, type = "tab", p_lbl = "def")
 ```
 
-(Note that the plots are not shown here, but please go ahead and generate them for yourself.)
+<!-- (The plots are not shown here, but please go ahead and generate them for yourself.) --> 
 
 <!-- 
 
@@ -167,13 +167,13 @@ $$
 
 Re-arranging the cells of the 2x2 confusion table allows illustrating accuracy as a 3rd perspective (e.g., by specifying the perspective `by = "cdac"`): 
 
-```{r plot_tab_cdac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
+```{r plot_tab_cdac, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          by = "cdac", p_split = "h", 
          p_lbl = "def", title_lbl = "Scenario 2")
 ```
 
-(Note that the plot is not shown here, but please go ahead and generate it for yourself.)
+<!-- (Note that the plot is not shown here, but please go ahead and generate it for yourself.) --> 
 
 #### Avoiding common sources of confusion
 
@@ -187,17 +187,17 @@ It may be instructive to point out two possible sources of confusion, so that th
     - Correct rejections `cr` are often called "true negatives" (TN), but are nevertheless cases for which the condition is `FALSE` 
     (i.e., in the `cond_false` column of the confusion table).
 
-Thus, the terms "true" and "false" are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr`, rather than "false negatives" and "true negatives".
+Thus, the terms "true" and "false" are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr` over "false negatives" (FN) and "true negatives" (TN), respectively, but offer both options as pre-defined lists of text labels (see `txt_org` and `txt_TF`).  
 
 2. Beware of alternative terms for `dec_cor` and `dec_err`:  
-Similarly, it may be tempting to refer to instances of `dec_cor` and `dec_err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond_false` cases (`cr`) and "false decisions" would include `cond_true` cases (`mi`). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions".
+Similarly, it may be tempting to refer to instances of `dec_cor` and `dec_err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond_false` cases (`cr` or TN cases) and "false decisions" would include `cond_true` cases (`mi` or FN cases). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions". 
 
 
 ## Accuracy metrics
 
-The perspective of accuracy raises an important question: How good is a given decision (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal --- measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
+The perspective of accuracy raises an important question: How good is some decision process (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal --- measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
 
-While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or have different purposes. We distinguish between specific and general metrics.
+While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or serve different purposes. We distinguish between specific and general metrics.
 
 ### A. Specific metrics: Conditional probabilities
 
@@ -245,7 +245,6 @@ $$
 \end{aligned}
 $$
 
-
 #### 2. Weighted accuracy `wacc`
 
 Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
@@ -266,7 +265,6 @@ Three cases can be distinguished, based on the value of the weighting parameter 
 
 3. If `.5 < w <= 1`, `sens` is more important than `spec` (i.e., instances of `mi` are considered more serious errors than instances of `fa`).
 
-
 #### 3. Matthews correlation coefficient `mcc`
 
 The Matthews correlation coefficient (with values ranging from $-1$ to $+1$) is computed as: 
@@ -280,7 +278,6 @@ $$
 The `mcc` is a correlation coefficient specifying the correspondence between the actual and the predicted binary categories. A value of $0$ represents chance performance, a value of $+1$ represents perfect performance, and a value of $−1$ indicates complete disagreement between truth and predictions. 
 
 See [Wikipedia: Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient) for details. 
-
 
 #### 4. F1 score
 
@@ -300,7 +297,7 @@ See [Wikipedia: F1 score](https://en.wikipedia.org/wiki/F1_score) for details.
 - Phillips, N. D., Neth, H., Woike, J. K., & Gaissmaier, W. (2017). 
 FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. 
 _Judgment and Decision Making_, _12_, 344--368. 
-[ [pdf](http://journal.sjdm.org/17/17217/jdm17217.pdf) | [html](http://journal.sjdm.org/17/17217/jdm17217.html) | [R package](https://CRAN.R-project.org/package=FFTrees) ]
+[Available online: [pdf](http://journal.sjdm.org/17/17217/jdm17217.pdf) | [html](http://journal.sjdm.org/17/17217/jdm17217.html) | [R package](https://CRAN.R-project.org/package=FFTrees) ]
 
 
 Links to related Wikipedia articles:

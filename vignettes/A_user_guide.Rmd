@@ -282,7 +282,7 @@ all.equal(f3, f4)  # => shows slight differences in some frequencies:
 
 As before, the function `comp_freq_prob` does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing `f1`:
 
-```{r print_f1, eval = FALSE}
+```{r print_f1}
 f1
 ```
 
@@ -416,12 +416,12 @@ Importantly, the `plot_prism` function plot a simple frequency tree when providi
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-```{r plot_mosaic_cd, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."}
+```{r plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."}
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 ```
 
-(The plot is not shown here, but please go ahead and create it for yourself.)
+<!-- (The plot is not shown here, but please go ahead and create it for yourself.) --> 
 
 The vertical split dissects the population into two subgroups that correspond to the frequency of `cond_true` and `cond_false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left. (For details and additional options of the `plot_area` function, see the documentation of `?plot_area`.)
 
