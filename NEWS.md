@@ -1,21 +1,21 @@
 
 # Current version
 
-The most recent development version is available at <https://github.com/hneth/riskyr/>. 
+The current development version is available at <https://github.com/hneth/riskyr/>. 
 
 # riskyr 0.2.0
 
-riskyr 0.2.0 was ready to be released on December 20, 2018, and submitted to CRAN in January 2019.
+riskyr 0.2.0 was ready to be released on December 20, 2018, and submitted to CRAN on January 02, 2019.
 
-Log of changes since last release: 
+Log of changes since last release:
 
 ## Major changes
 
 ### Additional resources 
 
 - New `riskyrApp` version [2018-12]:   
-To use and showcase selected `riskyr` functions without the need for coding 
-a new version of `riskyrApp` is available 
+To use selected `riskyr` functions without the need for coding 
+an updated version of `riskyrApp` is available 
 at <https://github.com/hneth/riskyrApp> (R Shiny code) and 
 at <http://riskyr.org> (interactive online version). 
 
