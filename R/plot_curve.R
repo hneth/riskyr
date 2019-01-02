@@ -202,12 +202,6 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  # what:
-  what <- tolower(what)  # express what in lowercase
-  if ( all(is.na(what)) ) { what <- NA }  # NA case: NA/"no"/"nil"/"nada" yield same result.
-  if ( !all(is.na(what)) && ((what == "def")   || (what == "default") )) { what <- c("prev", "ppv", "npv") }  # default case.
-  if ( !all(is.na(what)) && (("any" %in% what) || ("else" %in% what)  )) { what <- "all" }
-
   # uc:
   if ( is.null(uc) || is.na(uc) ) { uc <- 0 }  # NA/NULL, to avoid error in (uc > 0) below
 
@@ -405,15 +399,25 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   ## (d) Grid:
   grid(col = grey(.80, .80))
 
+
   ## (3) Interpret what argument: ----------
 
-  ## (a) shortcut to get all what options:
-  if ("all" %in% tolower(what)) {
+  ## (a) handle NA and NULL cases (not needed to handle NA):
+  # if ( is.null(what) || all(is.na(what)) ) { what <- NA }    # NA case: NA/"no"/"nil"/"nada" yield same result.
+
+  # (b) express what in lowercase:
+  what <- tolower(what)
+
+  # (c) shortcuts for default what options:
+  if ("def" %in% what || "default" %in% what ) {
+    what <- c("prev", "ppv", "npv")  # default case (dropping non-default parts).
+  }
+
+  # (d) shortcuts for all/any what options:
+  if ("all" %in% what || "any" %in% what || "else" %in% what )  {
     what <- c("prev", "ppv", "npv", "ppod", "acc")
   }
 
-  ## (b) express all options in lower case:
-  what <- tolower(what)
 
   ## (4) Plot elements of what: ----------
 

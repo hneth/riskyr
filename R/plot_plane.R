@@ -237,15 +237,26 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (2) Interpret what argument: ----------
 
-  ## (a) basics:
-  what <- tolower(what)  # express what in lowercase
-  # if ( any(is.null(what)) || any(is.na(what)) ) { what <- NA } # NA/NULL case. Note: "no"/"nil" yields same result.
-  if ( !all(is.na(what)) && ((what == "def") || (what == "default")) ) { what <- c("ppv") }  # default case.
+  ## (a) handle NULL case (not needed to handle NA):
+  if ( is.null(what) ) { what <- NA }  # NULL case: NA/"no"/"nil"/"nada" yield same result.
 
-  ## (b) check all what options:
+  # (b) express what in lowercase:
+  what <- tolower(what)
+
+  # (c) shortcuts for default what options:
+  if ("def" %in% what || "default" %in% what ) {
+    what <- c("ppv")  # default case (dropping non-default parts).
+  }
+
+  ## (d) shortcuts for all/any what options:
+  # if ("all" %in% what || "any" %in% what || "else" %in% what )  {
+  #   what <- c("ppv")
+  # }
+
+  ## (e) change invalid what options:
   if ((what %in%  c("ppv", "npv", "acc", "ppod")) == FALSE) {
-    message("Invalid what argument: Using PPV instead...")
-    what <- tolower("PPV")
+    message("Invalid what argument: Plotting PPV plane instead.")
+    what <- "ppv"
   }
 
   ## (3) Define plot and margin areas: ----------
@@ -274,7 +285,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   sens_range <- seq(0, 1, by = step_size) # range of sensitivity values (x)
   spec_range <- seq(0, 1, by = step_size) # range of specificity values (y)
 
-  ## (2) Determine current parameters and matrix for selected metric: ----------
+
+  ## (2) Determine current parameters and matrix for selected what metric: ----------
 
   ## (a) PPV:
   if (what == "ppv") {
@@ -389,7 +401,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ltheta = 200
   shade = .300  # default was .25, NULL implies no shade
 
-  line_wd = .6  # lwd parameter (for axes and lines between surface facets); default = 1.
+  line_wd = .60  # lwd parameter (for axes and lines between surface facets); default = 1.
 
   ## (4) Draw 3D plane (of z) with persp: ----------
 
