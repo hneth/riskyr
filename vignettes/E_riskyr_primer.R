@@ -44,10 +44,10 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
                       N = 753,     # population size
                       scen_src = "(a ficticious example)")
 
-## ----plot_default, include = TRUE, fig.width = 7, fig.height = 5.5-------
+## ----plot_default, include = TRUE, fig.width = 7, fig.height = 6---------
 plot(my_scenario)
 
-## ----plot_area_sq, eval = FALSE, fig.width = 7, fig.height = 5.5---------
+## ----plot_area_sq, eval = FALSE, fig.width = 7, fig.height = 5.8---------
 #  plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 #  plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 
@@ -56,7 +56,7 @@ plot(my_scenario)
 #  plot(my_scenario, area = "no", by = "cdac")
 #  plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
 
-## ----icons, fig.width = 7.2, fig.height = 4.8----------------------------
+## ----icons, fig.width = 7.2, fig.height = 5------------------------------
 plot(my_scenario, type = "icons")
 
 ## ----full_summary--------------------------------------------------------
@@ -68,7 +68,7 @@ summary(my_scenario, summarize = "prob")
 ## ----tree, fig.width = 7.2, fig.height = 5-------------------------------
 plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 
-## ----plotting_curve, fig.width = 7.2, fig.height = 5---------------------
+## ----plotting_curve, fig.width = 7, fig.height = 5.4---------------------
 plot(my_scenario, type = "curve", uc = .05)
 
 ## ----scenario_table, echo = FALSE, results = "asis"----------------------
@@ -94,14 +94,14 @@ s10$scen_apa  # shows current source:
 ## ----s10_summary---------------------------------------------------------
 summary(s10) # summarizes key scenario information:
 
-## ----s10_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5----------
+## ----s10_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.8----------
 #  plot(s10, type = "tab")                   # plot 2x2 table
 #  plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array
 #  plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
 #  plot(s10, type = "area")                  # plot an area plot
 #  plot(s10, type = "bar", dir = 2)          # plot a bar chart
 
-## ----s10_prism_1, fig.width = 7.2, fig.height = 5.5----------------------
+## ----s10_prism_1, fig.align = "center", fig.width = 7.0, fig.height = 5.6----
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -111,20 +111,22 @@ plot(s10,
 #  plot(s10, by = "cdac", area = "sq")
 #  plot(s10, by = "ac", area = "hr")
 
-## ----s10_curve, eval = FALSE, fig.width = 7.2, fig.height = 6.2----------
+## ----s10_curve, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 6.0----
 #  plot(s10, type = "curve",
 #       what = "all",  # plot "all" available curves
 #       uc = .05)      # with a 5%-uncertainty range
 
-## ----s10_planes, results = "hold", fig.width = 7.9, fig.height = 4.2-----
-op <- par(no.readonly = TRUE)  # save plot settings.
-par(mfrow = c(1, 2))           # 1 row with 2 plots:
+## ----opar_set, echo = FALSE----------------------------------------------
+# opar <- par(no.readonly = TRUE)  # save plot settings.
+# par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
+## ----s10_planes, fig.align = "center", fig.show = "hold", fig.width = 5.5, fig.height = 3.8----
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s10, type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
-plot(s10, type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
+plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
+plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
 
-par(op)  # reset plot settings.
+## ----opar_reset, echo = FALSE--------------------------------------------
+# par(op)  # reset plot settings.
 
 ## ----s9_summary----------------------------------------------------------
 # Select Scenario 9: 

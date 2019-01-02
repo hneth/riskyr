@@ -174,13 +174,13 @@ We always _can_ inspect the details of `my_scenario` by computing additional met
 
 ##### Prism plot
 
-```{r plot_default, include = TRUE, fig.width = 7, fig.height = 5.5}
+```{r plot_default, include = TRUE, fig.width = 7, fig.height = 6}
 plot(my_scenario)
 ```
 
 A _prism plot_ (or network diagram) shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the boxes is fixed. However, we can visualize the relative size of frequencies by using the `area` argument and show the names of the frequencies (as provided by our text labels) by adding the `f_lbl = "nam"` argument. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r plot_area_sq, eval = FALSE, fig.width = 7, fig.height = 5.5}
+```{r plot_area_sq, eval = FALSE, fig.width = 7, fig.height = 5.8}
 plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 ```
@@ -203,7 +203,7 @@ plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd 
 
 An _icon array_ displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `type = "icons"`:
 
-```{r icons, fig.width = 7.2, fig.height = 4.8}
+```{r icons, fig.width = 7.2, fig.height = 5}
 plot(my_scenario, type = "icons")
 ```
 
@@ -240,7 +240,7 @@ The tree also depicts additional information that corresponds to our `summary` f
 
 A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev` (and additionally assumes a 5%-uncertainty concerning the exact parameter values): 
 
-```{r plotting_curve, fig.width = 7.2, fig.height = 5}
+```{r plotting_curve, fig.width = 7, fig.height = 5.4}
 plot(my_scenario, type = "curve", uc = .05)
 ```
 
@@ -302,7 +302,7 @@ Note that -- in this particular population -- the prevalence for the condition (
 
 To eyeball basic scenario information, we can visualize it in many different ways. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r s10_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5}
+```{r s10_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.8}
 plot(s10, type = "tab")                   # plot 2x2 table 
 plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array 
 plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
@@ -314,7 +314,7 @@ These initial inspections reveal that the overall accuracy of the decision consi
 
 Next, we could another prism diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
-```{r s10_prism_1, fig.width = 7.2, fig.height = 5.5}
+```{r s10_prism_1, fig.align = "center", fig.width = 7.0, fig.height = 5.6}
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -340,7 +340,7 @@ plot(s10, by = "ac", area = "hr")
 
 One way to further understand the relations between basic probabilities -- like the prevalence `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s10$cond_lbl`") -- and probabilities conditional on both the condition and on features of the decision (like `PPV` and `NPV`) is to plot the latter as a function of the former. Calling `type = "curve"` does this for us. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r s10_curve, eval = FALSE, fig.width = 7.2, fig.height = 6.2}
+```{r s10_curve, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 6.0}
 plot(s10, type = "curve", 
      what = "all",  # plot "all" available curves 
      uc = .05)      # with a 5%-uncertainty range 
@@ -356,15 +356,19 @@ While the curves shown for `PPV` and `NPV` so far illustrate their dependence on
 How do these conditional probabilities vary as a function of the decisions sensitivity (`sens`) and specificity (`spec`)? 
 To provide a visual answer to this question, we plot them as 3D planes (i.e., as functions of both `sens` and `spec`, for a given value of `prev`) with the following commands:^[The `par()` commands before and after the calls to `plot` in this example are not needed if you re-create the plots for yourself. They only set and reset the R plotting space to allow plotting both planes next to each other.]
 
-```{r s10_planes, results = "hold", fig.width = 7.9, fig.height = 4.2}
-op <- par(no.readonly = TRUE)  # save plot settings.
-par(mfrow = c(1, 2))           # 1 row with 2 plots:
+```{r opar_set, echo = FALSE}
+# opar <- par(no.readonly = TRUE)  # save plot settings.
+# par(mfrow = c(1, 2))           # 1 row with 2 plots:
+```
 
+```{r s10_planes, fig.align = "center", fig.show = "hold", fig.width = 5.5, fig.height = 3.8}
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
-plot(s10, type = "plane", what = "PPV", cex_lbl = 0.7)  # PPV by sens x spec (fixed prev)
-plot(s10, type = "plane", what = "NPV", cex_lbl = 0.7)  # NPV by sens x spec (fixed prev)
+plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
+plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
+```
 
-par(op)  # reset plot settings.
+```{r opar_reset, echo = FALSE}
+# par(op)  # reset plot settings.
 ```
 
 This comparison shows that the curves of `PPV` and `NPV` (created by `type = "curve"` above) were only two out of an infinite number of possible intersections of two planes (created by `type = "plane"` here). Consequently, the current values of `PPV` and `NPV` (shown as yellow points on the planes) crucially depend on the condition's prevalence (`prev`), the decision's sensitivity (`sens`), and the decision's specificity (`spec`). 

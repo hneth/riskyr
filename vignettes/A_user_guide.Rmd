@@ -395,7 +395,7 @@ Here are some examples that depict particular aspects of the scenario described 
 
 A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:
 
-```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
+```{r plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.5, fig.show = 'hold', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."}
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            icon_types = c(21, 21, 22, 22),
            title_lbl = "Mammography screening")
@@ -405,7 +405,7 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 
 Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:
 
-```{r plot_tree_cd, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
+```{r plot_tree_cd, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals."}
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cd", title_lbl = "Mammography screening")
 ```
@@ -416,7 +416,7 @@ Importantly, the `plot_prism` function plot a simple frequency tree when providi
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-```{r plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."}
+```{r plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 7, fig.height = 6, fig.show = 'hold', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."}
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 ```
@@ -429,7 +429,7 @@ The vertical split dissects the population into two subgroups that correspond to
 
 The tree diagrams from above can also be depicted as a vertical bar plot:
 
-```{r plot_bar, eval = FALSE, fig.width = 7, fig.height = 5.6, fig.show = 'asis', fig.cap = "A bar plot."}
+```{r plot_bar, eval = FALSE, fig.width = 7, fig.height = 5.6, fig.show = 'hold', fig.cap = "A bar plot."}
 plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
          by = "all", dir = 2, title_lbl = "Mammography screening")
 ```
@@ -442,7 +442,7 @@ However, due to a number of categories with a very low number of members, many b
 
 The prism plot (called network diagram in version 0.1.0 of `riskyr`) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts 12 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, `riskyr` visualizes the interplay of frequencies and probabilities in a variety of ways:  
 
-```{r plot_fnet, fig.width = 7, fig.height = 6.4, fig.show = 'asis', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."}
+```{r plot_fnet, fig.width = 7, fig.height = 6.4, fig.show = 'hold', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."}
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cddc", area = "sq", title_lbl = "Mammography screening")
 ```
@@ -455,7 +455,7 @@ The variety of different graphical options provided by `riskyr` can be overwhelm
 
 Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond_true` and `cond_false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec_pos` and `dec_neg` cases: 
 
-```{r plot_tree_dc, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by decision."}
+```{r plot_tree_dc, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Alternative tree diagram that splits the population by decision."}
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "dc", title_lbl = "Mammography screening", col_pal = pal_mod)
 ```
@@ -464,14 +464,14 @@ plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 
 Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (`dec_cor` and `dec_err`) decisions:
 
-```{r plot_tree_ac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by accuracy"}
+```{r plot_tree_ac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Alternative tree diagram that splits the population by accuracy"}
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "ac", title_lbl = "Mammography screening")
 ```
 
 The same perspectives can also be applied to other plots. For instance, the population of the area/mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options `by = "cddc"` and `p_split = "h"`:
 
-```{r plot_mosaic_dc, eval = FALSE, fig.align = "center", fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
+```{r plot_mosaic_dc, eval = FALSE, fig.align = "center", fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Alternative mosaic plot that first splits the population (horizontally) by decision."}
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           by = "cddc",    # show by condition x decision
           p_split = "h",  # horizontal perspective is primary 
