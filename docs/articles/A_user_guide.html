@@ -287,11 +287,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    _____</span>
-<span class="co">#&gt;   /\ r  \</span>
-<span class="co">#&gt;  /y \__i_\</span>
-<span class="co">#&gt;  \ r/s   /</span>
-<span class="co">#&gt;   \/___k/</span>
+<span class="co">#&gt; Ready to roll riskyr...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -381,7 +377,39 @@ f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 ## Check equality of outputs:
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(f3, f4)  <span class="co"># =&gt; shows slight differences in some frequencies:</span></code></pre></div>
 <p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1
+<span class="co">#&gt; $N</span>
+<span class="co">#&gt; [1] 1000</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $cond_true</span>
+<span class="co">#&gt; [1] 10</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $cond_false</span>
+<span class="co">#&gt; [1] 990</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dec_pos</span>
+<span class="co">#&gt; [1] 103</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dec_neg</span>
+<span class="co">#&gt; [1] 897</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dec_cor</span>
+<span class="co">#&gt; [1] 903</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dec_err</span>
+<span class="co">#&gt; [1] 97</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $hi</span>
+<span class="co">#&gt; [1] 8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $mi</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $fa</span>
+<span class="co">#&gt; [1] 95</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $cr</span>
+<span class="co">#&gt; [1] 895</span></code></pre></div>
 <p>In this list, the sample of <code>N</code> = <span class="math inline">\(1000\)</span> women is split into 3 different subgroups. For instance, the <span class="math inline">\(10\)</span> women with cancer appear as <code>cond_true</code> cases, whereas the <code>990</code> without cancer are listed as <code>cond_false</code> cases. The <span class="math inline">\(8\)</span> women with cancer and a positive test result appear as <em>hits</em> <code>hi</code> and the 95 women who receive a positive test result without having cancer are listed as <em>false alarms</em> <code>fa</code>. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on all frequencies.)</p>
 </div>
 <div id="computing-probabilities-from-frequencies" class="section level4">
@@ -533,7 +561,12 @@ A tree diagram that applies the provided probabilities and frequencies to a popu
 <p>An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population. In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
           <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
-<p>(Note that the plot is not shown here, but please go ahead and try creating it for yourself.)</p>
+<div class="figure" style="text-align: center">
+<img src="A_user_guide_files/figure-html/plot_mosaic_cd-1.png" alt="An area plot in which area sizes represent the probabilities/relative frequencies of subgroups." width="672"><p class="caption">
+An area plot in which area sizes represent the probabilities/relative frequencies of subgroups.
+</p>
+</div>
+<!-- (The plot is not shown here, but please go ahead and create it for yourself.) -->
 <p>The vertical split dissects the population into two subgroups that correspond to the frequency of <code>cond_true</code> and <code>cond_false</code> cases in the tree diagram above. The <code>prev</code> value of 1% yields a slim vertical rectangle on the left. (For details and additional options of the <code>plot_area</code> function, see the documentation of <code><a href="../reference/plot_area.html">?plot_area</a></code>.)</p>
 </div>
 <div id="bar-plot" class="section level4">
@@ -542,6 +575,7 @@ A tree diagram that applies the provided probabilities and frequencies to a popu
 <p>The tree diagrams from above can also be depicted as a vertical bar plot:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_bar.html">plot_bar</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
          <span class="dt">by =</span> <span class="st">"all"</span>, <span class="dt">dir =</span> <span class="dv">2</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<p>(The plot is not shown here, but please go ahead and create it for yourself.)</p>
 <p>However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here).</p>
 </div>
 <div id="prism-plot" class="section level4">
@@ -560,7 +594,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <div id="alternative-perspectives" class="section level4">
 <h4 class="hasAnchor">
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
-<p>The variety of different graphical options may be overwhelming at first. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
+<p>The variety of different graphical options provided by <code>riskyr</code> can be overwhelming at first – but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
 <p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond_true</code> and <code>cond_false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec_pos</code> and <code>dec_neg</code> cases:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>, <span class="dt">col_pal =</span> pal_mod)</code></pre></div>

@@ -192,21 +192,7 @@ toggling the display of numeric values between percentages and probabilities.</p
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>.50</span>)                <span class='co'># =&gt;  50</span></div><div class='output co'>#&gt; [1] 50</div><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>1</span>/<span class='fl'>3</span>)                <span class='co'># =&gt;  33.33</span></div><div class='output co'>#&gt; [1] 33.33</div><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>n_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># =&gt;  33</span></div><div class='output co'>#&gt; [1] 33</div><div class='input'><span class='fu'>as_pc</span>(<span class='fu'><a href='as_pb.html'>as_pb</a></span>(<span class='fl'>12.3</span>))        <span class='co'># =&gt;  12.3</span></div><div class='output co'>#&gt; [1] 12.3</div><div class='input'>
-## ways to fail:
-# as_pc(pi)               # => 314.16 + WARNING that prob is no probability
-
-## Check (not run):
-# prob_seq <- seq(0, 1, by = 1/10)
-# perc_seq <- seq(0, 100, by = 10)
-
-# as_pc(prob_seq)  # =>   0  10  20  30  40  50  60  70  80  90 100
-# as_pb(perc_seq)  # => 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-
-# perc_seq == as_pc(as_pb(perc_seq))            # => all TRUE
-# prob_seq == as_pb(as_pc(prob_seq))            # => some FALSE due to rounding errors!
-# round(prob_seq, 4) == as_pb(as_pc(prob_seq))  # => all TRUE (both rounded to 4 decimals)
-
+    <pre class="examples"><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>.50</span>)                <span class='co'># 50</span></div><div class='output co'>#&gt; [1] 50</div><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>1</span>/<span class='fl'>3</span>)                <span class='co'># 33.33</span></div><div class='output co'>#&gt; [1] 33.33</div><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>n_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># 33</span></div><div class='output co'>#&gt; [1] 33</div><div class='input'><span class='fu'>as_pc</span>(<span class='fu'><a href='as_pb.html'>as_pb</a></span>(<span class='fl'>12.3</span>))        <span class='co'># 12.3</span></div><div class='output co'>#&gt; [1] 12.3</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
