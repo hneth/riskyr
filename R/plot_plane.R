@@ -194,13 +194,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  # what:
-  if ( all(!is.null(what)) && all(!is.na(what)) ) { what <- tolower(what) }  # express what in lowercase
-  if ( any(is.null(what)) || any(is.na(what)) ) { what <- NA } # NA/NULL Note: "no"/"nil"/"else" yields same result.
-
-  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("ppv") }  # default/na/null case.
-  # if ( "any" %in% what ) { what <- "all" }
-
   ## (0) Collect or compute current probabilities: ----------
 
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -232,7 +225,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   } # if (is_valid_prob_set(prev...
 
 
-  ## Text labels:
+  ## (1) Text labels:
 
   # Plot title:
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
@@ -241,6 +234,19 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ## (+) Additional parameters (currently fixed):
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
 
+
+  ## (2) Interpret what argument: ----------
+
+  ## (a) basics:
+  what <- tolower(what)  # express what in lowercase
+  # if ( any(is.null(what)) || any(is.na(what)) ) { what <- NA } # NA/NULL case. Note: "no"/"nil" yields same result.
+  if ( !all(is.na(what)) && ((what == "def") || (what == "default")) ) { what <- c("ppv") }  # default case.
+
+  ## (b) check all what options:
+  if ((what %in%  c("ppv", "npv", "acc", "ppod")) == FALSE) {
+    message("Invalid what argument: Using PPV instead...")
+    what <- tolower("PPV")
+  }
 
   ## (3) Define plot and margin areas: ----------
 
@@ -252,8 +258,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
-
-  ## (1) Ranges on x- and y-axes: ----------
+  ## (B) Ranges on x- and y-axes: ----------
 
   ## Ensure that step_size is a reasonable value in [0, 1] range:
   step_size_min <- .01
@@ -268,19 +273,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   sens_range <- seq(0, 1, by = step_size) # range of sensitivity values (x)
   spec_range <- seq(0, 1, by = step_size) # range of specificity values (y)
-
-
-  ## (2) Interpret what argument: ----------
-
-  ## (a) express what in lower case:
-  what <- tolower(what)
-
-  ## (b) shortcut to get all what options:
-  if ((what %in%  c("ppv", "npv", "acc", "ppod")) == FALSE) {
-    message("Invalid what argument chosen: Using PPV instead...")
-    what <- tolower("PPV")
-  }
-
 
   ## (2) Determine current parameters and matrix for selected metric: ----------
 
@@ -305,7 +297,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
     spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
 
-    cur.mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "PPV", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "PPV", nan.adjust = FALSE)
 
   } # if (what == "ppv")...
 
@@ -330,7 +322,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
     spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
 
-    cur.mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "NPV", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "NPV", nan.adjust = FALSE)
 
   } # if (what == "npv")...
 
@@ -355,7 +347,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     # sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
     # spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
 
-    cur.mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "ppod", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "ppod", nan.adjust = FALSE)
 
   } # if (what == "ppod")...
 
@@ -380,7 +372,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     # sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
     # spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
 
-    cur.mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "acc", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "acc", nan.adjust = FALSE)
 
   } # if (what == "acc")...
 
@@ -389,7 +381,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   x <- sens_range
   y <- spec_range
-  z <- as.matrix(cur.mat)
+  z <- as.matrix(cur_mat)
 
   ## Additional persp() parameters (currently fixed):
   d = 1.5
@@ -397,7 +389,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ltheta = 200
   shade = .300  # default was .25, NULL implies no shade
 
-  line.wd = .6  # lwd parameter (for axes and lines between surface facets); default = 1.
+  line_wd = .6  # lwd parameter (for axes and lines between surface facets); default = 1.
 
   ## (4) Draw 3D plane (of z) with persp: ----------
 
@@ -417,7 +409,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                  cex.axis = cex_lbl,
                  cex.lab = cex_lbl,
                  # optional:
-                 lwd = line.wd  # width of border and axes lines
+                 lwd = line_wd  # width of border and axes lines
   )
 
   ## (5) Add cur_val as point to plot: ----------

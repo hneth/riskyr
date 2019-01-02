@@ -203,13 +203,13 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
   # what:
-  if ( all(!is.null(what)) && all(!is.na(what)) ) { what <- tolower(what) }  # express what in lowercase
-  if ( any(is.null(what)) || any(is.na(what)) ) { what <- NA } # NA/NULL Note: "no"/"nil"/"else" yields same result.
-  if ( what == "def" || what == "default" || is.na(what) || is.null(what) ) { what <- c("prev", "ppv", "npv") }  # default/na/null case.
-  if (("any" %in% what) || ("else" %in% what)) { what <- "all" }
+  what <- tolower(what)  # express what in lowercase
+  if ( all(is.na(what)) ) { what <- NA }  # NA case: NA/"no"/"nil"/"nada" yield same result.
+  if ( !all(is.na(what)) && ((what == "def")   || (what == "default") )) { what <- c("prev", "ppv", "npv") }  # default case.
+  if ( !all(is.na(what)) && (("any" %in% what) || ("else" %in% what)  )) { what <- "all" }
 
   # uc:
-  if ( is.null(uc) || is.na(uc) ) { uc <- 0 } # NA/NULL, to avoid error in (uc > 0) below
+  if ( is.null(uc) || is.na(uc) ) { uc <- 0 }  # NA/NULL, to avoid error in (uc > 0) below
 
   ## (0) Compute or collect current probabilities: ----------
 
