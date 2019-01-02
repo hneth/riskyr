@@ -1,5 +1,5 @@
 ---
-title: "`riskyr` User Guide"
+title: "riskyr User Guide"
 author: "Hansjörg Neth, SPDS, uni.kn"
 date: "2018 02 01"
 output: 
