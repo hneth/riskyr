@@ -1,8 +1,7 @@
 ## start_riskyr.R | riskyr
-## 2018 12 14
+## 2018 12 20
 ## Final functions and start-up settings:
 ## -----------------------------------------------
-
 
 ## (1) Open package guide: -----------------------
 
@@ -71,8 +70,6 @@ start_riskyr <- function(...) {
 ## (3) Initialize package: ------
 
 .onAttach <- function(libname, pkgname) {
-
-
 
   ## Welcome message: ------
 

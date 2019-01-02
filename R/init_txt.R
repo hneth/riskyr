@@ -291,8 +291,6 @@ init_txt <- function(#
 #'
 #' \enumerate{
 #'
-#' Scenario information:
-#'
 #' \item \code{scen_lbl} The current scenario title (sometimes in Title Caps).
 #'
 #' \item \code{scen_txt} A longer text description of the current scenario
@@ -305,13 +303,11 @@ init_txt <- function(#
 #' \item \code{scen_lng} The language of the current scenario (as character code).
 #' Options: \code{"en"}: English, \code{"de"}: German.
 #'
-#' Population:
 #'
 #' \item \code{popu_lbl} A general name describing the current \emph{population}.
 #'
 #' \item \code{N_lbl} A short label for the current population \code{\link{popu}} or sample.
 #'
-#' Condition:
 #'
 #' \item \code{cond_lbl} A general name for the \emph{condition} dimension,
 #' or the feature (e.g., some disease) currently considered.
@@ -322,7 +318,6 @@ init_txt <- function(#
 #' \item \code{cond_false_lbl} A short label for the \emph{absence} of the current condition
 #' or \code{\link{cond_false}} cases (the condition's true state of being FALSE).
 #'
-#' Decision:
 #'
 #' \item \code{dec_lbl} A general name for the \emph{decision} dimension,
 #' or the judgment (e.g., some diagnostic test) currently made.
@@ -333,7 +328,6 @@ init_txt <- function(#
 #' \item \code{dec_neg_lbl} A short label for \emph{negative} decisions
 #' or \code{\link{dec_neg}} cases (e.g., predicting the absence of the condition).
 #'
-#' Accuracy:
 #'
 #' \item \code{acc_lbl} A general name for the \emph{accuracy} dimension,
 #' or the correspondence between the condition currently considered
@@ -345,7 +339,6 @@ init_txt <- function(#
 #' \item \code{dec_err_lbl} A short label for \emph{incorrect} decisions
 #' or \code{\link{dec_err}} cases (erroneous predictions).
 #'
-#' Cases:
 #'
 #' \item \code{sdt_lbl} A general name for all 4 \emph{cases/categories/cells}
 #' of the 2x2 contingency table (e.g., condition x decision, using SDT).

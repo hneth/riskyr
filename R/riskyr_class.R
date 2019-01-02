@@ -447,20 +447,19 @@ scenarios <- NULL # initialize
 #'   \item Psylicraptis screening
 #'   \item Sepsis
 #'
-#'    \item Amniozentese (in German language)
-#'    \item HIV-Test 1
-#'    \item HIV-Test 2
-#'    \item HIV-Test 3
-#'    \item HIV-Test 4
-#'    \item Mammografie 1
-#'    \item Mammografie 2
-#'    \item Mammografie 3
-#'    \item Mammografie 4
-#'    \item Nackenfaltentest (NFT) 1
-#'    \item Nackenfaltentest (NFT) 2
-#'    \item Sigmoidoskopie 1
-#'    \item Sigmoidoskopie 2
-#'
+#'   \item Amniozentese (in German language)
+#'   \item HIV-Test 1
+#'   \item HIV-Test 2
+#'   \item HIV-Test 3
+#'   \item HIV-Test 4
+#'   \item Mammografie 1
+#'   \item Mammografie 2
+#'   \item Mammografie 3
+#'   \item Mammografie 4
+#'   \item Nackenfaltentest (NFT) 1
+#'   \item Nackenfaltentest (NFT) 2
+#'   \item Sigmoidoskopie 1
+#'   \item Sigmoidoskopie 2
 #' }
 #'
 #' Variables describing a scenario:
