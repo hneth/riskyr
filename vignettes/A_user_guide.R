@@ -36,60 +36,60 @@ f2 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 
 # Check equality of outputs:
 all.equal(f1, f2)
 
-## ----comp_freq_prob_2----------------------------------------------------
-# Compute frequencies from probabilities (without rounding):
-f3 <- comp_freq_prob(prev =     .01, sens =  .80, spec = NA, fart =   .096, N = 1000, round = FALSE)
-f4 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 1000, round = FALSE)
+## ----comp_freq_prob_2, eval = FALSE--------------------------------------
+#  # Compute frequencies from probabilities (without rounding):
+#  f3 <- comp_freq_prob(prev =     .01, sens =  .80, spec = NA, fart =   .096, N = 1000, round = FALSE)
+#  f4 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 1000, round = FALSE)
+#  
+#  ## Check equality of outputs:
+#  all.equal(f3, f4)  # => shows slight differences in some frequencies:
 
-# Check equality of outputs:
-all.equal(f3, f4)  # => shows slight differences in some frequencies:
-
-## ----print_f1------------------------------------------------------------
-f1
+## ----print_f1, eval = FALSE----------------------------------------------
+#  f1
 
 ## ----comp_prob_freq------------------------------------------------------
 # Compute probabilities from frequencies:
 p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essential frequencies
 
-## ------------------------------------------------------------------------
-# Check equality of outputs:
-all.equal(p5, p4)
+## ----equality_p4p5, eval = FALSE-----------------------------------------
+#  # Check equality of outputs:
+#  all.equal(p5, p4)
 
-## ----full_circle---------------------------------------------------------
-# Pick 3 random probability inputs:
-rand.p <- runif(n = 3, min = 0, max = 1)
-rand.p
+## ----full_circle, eval = FALSE-------------------------------------------
+#  # Pick 3 random probability inputs:
+#  rand.p <- runif(n = 3, min = 0, max = 1)
+#  rand.p
+#  
+#  # Translation 1: Compute frequencies from probabilities:
+#  freq <- comp_freq_prob(prev = rand.p[1], sens = rand.p[2], spec = rand.p[3], round = FALSE)  # without rounding!
+#  
+#  # Translation 2: Compute probabilities from frequencies:
+#  prob <- comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
+#  
+#  ## Verify that results match original probabilities:
+#  all.equal(prob$prev, rand.p[1])
+#  all.equal(prob$sens, rand.p[2])
+#  all.equal(prob$spec, rand.p[3])
 
-# Translation 1: Compute frequencies from probabilities:
-freq <- comp_freq_prob(prev = rand.p[1], sens = rand.p[2], spec = rand.p[3], round = FALSE)  # without rounding!
-
-# Translation 2: Compute probabilities from frequencies:
-prob <- comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
-
-# Verify that results match original probabilities: 
-all.equal(prob$prev, rand.p[1])
-all.equal(prob$sens, rand.p[2])
-all.equal(prob$spec, rand.p[3])
-
-## ----full_circle_2-------------------------------------------------------
-# Pick 4 random frequencies:
-rand.f <- round(runif(n = 4, min = 0, max = 10^3), 0)
-rand.f  
-# sum(rand.f)
-
-# Translation 1: Compute probabilities from frequencies:
-prob <- comp_prob_freq(hi = rand.f[1], mi = rand.f[2], fa = rand.f[3], cr = rand.f[4])
-# prob
-
-# Translation 2: Compute frequencies from probabilities (for the original population size N):
-freq <- comp_freq_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, N = sum(rand.f), round = FALSE)  # without rounding!
-# freq
-
-# Verify that results match original frequencies: 
-all.equal(freq$hi, rand.f[1])
-all.equal(freq$mi, rand.f[2])
-all.equal(freq$fa, rand.f[3])
-all.equal(freq$cr, rand.f[4])
+## ----full_circle_2, eval = FALSE-----------------------------------------
+#  # Pick 4 random frequencies:
+#  rand.f <- round(runif(n = 4, min = 0, max = 10^3), 0)
+#  rand.f
+#  # sum(rand.f)
+#  
+#  # Translation 1: Compute probabilities from frequencies:
+#  prob <- comp_prob_freq(hi = rand.f[1], mi = rand.f[2], fa = rand.f[3], cr = rand.f[4])
+#  # prob
+#  
+#  # Translation 2: Compute frequencies from probabilities (for the original population size N):
+#  freq <- comp_freq_prob(prev = prob$prev, sens = prob$sens, spec = prob$spec, N = sum(rand.f), round = FALSE)  # without rounding!
+#  # freq
+#  
+#  # Verify that results match original frequencies:
+#  all.equal(freq$hi, rand.f[1])
+#  all.equal(freq$mi, rand.f[2])
+#  all.equal(freq$fa, rand.f[3])
+#  all.equal(freq$cr, rand.f[4])
 
 ## ----riskyr_scenario_def-------------------------------------------------
 s <- riskyr(scen_lbl = "Mammography screening", 
@@ -108,7 +108,7 @@ summary(s)  # provides an overview over key scenario information:
 ## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 6---------------
 plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 
-## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.2, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
+## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
 plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            icon_types = c(21, 21, 22, 22),
            title_lbl = "Mammography screening")
@@ -117,7 +117,7 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cd", title_lbl = "Mammography screening")
 
-## ----plot_mosaic_cd, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A mosaic plot in which area sizes represent the relative frequencies of subgroups."----
+## ----plot_mosaic_cd, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."----
 plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 
@@ -125,13 +125,13 @@ plot_area(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 #  plot_bar(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 #           by = "all", dir = 2, title_lbl = "Mammography screening")
 
-## ----plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates both tree diagrams and represents relative frequency by area size."----
+## ----plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."----
 plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000, 
            by = "cddc", area = "sq", title_lbl = "Mammography screening")
 
 ## ----plot_tree_dc, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by decision."----
 #  plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
-#             by = "dc", title_lbl = "Mammography screening")
+#             by = "dc", title_lbl = "Mammography screening", col_pal = pal_mod)
 
 ## ----plot_tree_ac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "Alternative tree diagram that splits the population by accuracy"----
 #  plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
@@ -149,6 +149,6 @@ plot_prism(prev = .01, sens = .80, spec =   NA, fart = .096, N = 1000,
 
 ## ----plot_icons_mosaic, eval = FALSE, warning = FALSE, fig.width = 7, fig.height = 5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for 1000 mosaic puzzle parts."----
 #  plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
-#             arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 3,
+#             arr_type = "mosaic", icon_types = c(21, 21, 22, 22), icon_size = 2,
 #             title_lbl = "Mammography screening")
 
