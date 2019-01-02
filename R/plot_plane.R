@@ -194,11 +194,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
-  if ( !is.null(what) && !is.na(what) ) {
-    what <- tolower(what)  # express what in lowercase
-  }
+  # what:
+  if ( all(!is.null(what)) && all(!is.na(what)) ) { what <- tolower(what) }  # express what in lowercase
+  if ( any(is.null(what)) || any(is.na(what)) ) { what <- NA } # NA/NULL Note: "no"/"nil"/"else" yields same result.
 
-  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("ppv") }  # default/null
+  if ( what == "def" || what == "default" || is.null(what) || is.na(what) ) { what <- c("ppv") }  # default/na/null case.
   # if ( "any" %in% what ) { what <- "all" }
 
   ## (0) Collect or compute current probabilities: ----------
