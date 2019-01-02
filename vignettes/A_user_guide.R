@@ -106,7 +106,7 @@ s <- riskyr(scen_lbl = "Mammography screening",
 ## ----riskyr_scenario_summary---------------------------------------------
 summary(s)  # provides an overview over key scenario information:
 
-## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 6---------------
+## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 6.4-------------
 plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 
 ## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.5, fig.show = 'asis', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
@@ -118,15 +118,15 @@ plot_icons(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cd", title_lbl = "Mammography screening")
 
-## ----plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."----
+## ----plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."----
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 
-## ----plot_bar, eval = FALSE, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A bar plot."----
+## ----plot_bar, eval = FALSE, fig.width = 7, fig.height = 5.6, fig.show = 'asis', fig.cap = "A bar plot."----
 #  plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
 #           by = "all", dir = 2, title_lbl = "Mammography screening")
 
-## ----plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."----
+## ----plot_fnet, fig.width = 7, fig.height = 6.4, fig.show = 'asis', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."----
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cddc", area = "sq", title_lbl = "Mammography screening")
 

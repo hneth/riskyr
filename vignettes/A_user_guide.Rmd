@@ -376,7 +376,7 @@ summary(s)  # provides an overview over key scenario information:
 
 The fastest way to get an overview over a scenario `s` is by plotting it:
 
-```{r riskyr_scenario_plot, fig.width = 7.2, fig.height = 6}
+```{r riskyr_scenario_plot, fig.width = 7.2, fig.height = 6.4}
 plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 ```
 
@@ -416,7 +416,7 @@ Importantly, the `plot_prism` function plot a simple frequency tree when providi
 
 An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population.  In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups: 
 
-```{r plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."}
+```{r plot_mosaic_cd, eval = TRUE, fig.align = "center", fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "An area plot in which area sizes represent the probabilities/relative frequencies of subgroups."}
 plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 ```
@@ -429,10 +429,12 @@ The vertical split dissects the population into two subgroups that correspond to
 
 The tree diagrams from above can also be depicted as a vertical bar plot:
 
-```{r plot_bar, eval = FALSE, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A bar plot."}
+```{r plot_bar, eval = FALSE, fig.width = 7, fig.height = 5.6, fig.show = 'asis', fig.cap = "A bar plot."}
 plot_bar(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
          by = "all", dir = 2, title_lbl = "Mammography screening")
 ```
+
+(The plot is not shown here, but please go ahead and create it for yourself.)
 
 However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here). 
 
@@ -440,7 +442,7 @@ However, due to a number of categories with a very low number of members, many b
 
 The prism plot (called network diagram in version 0.1.0 of `riskyr`) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by `comp_freq_prop` and `comp_freq_freq` and contained in `freq`) as nodes of a single graph and depicts 12 probabilities (computed by `comp_prop_prop` and `comp_prop_freq` and contained in `prob`) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, `riskyr` visualizes the interplay of frequencies and probabilities in a variety of ways:  
 
-```{r plot_fnet, fig.width = 7, fig.height = 6, fig.show = 'asis', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."}
+```{r plot_fnet, fig.width = 7, fig.height = 6.4, fig.show = 'asis', fig.cap = "A prism plot that integrates 2 tree diagrams and represents relative frequency by area size."}
 plot_prism(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000, 
            by = "cddc", area = "sq", title_lbl = "Mammography screening")
 ```
@@ -449,7 +451,7 @@ Changing the `by` and `area` options provides a variety of perspectives on a sce
 
 #### Alternative perspectives
 
-The variety of different graphical options may be overwhelming at first. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself. 
+The variety of different graphical options provided by `riskyr` can be overwhelming at first -- but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself. 
 
 Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond_true` and `cond_false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec_pos` and `dec_neg` cases: 
 
