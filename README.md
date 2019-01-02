@@ -530,6 +530,9 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 -   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
+<!-- Update: -->
+\[Updated 2019-01-02 by [hn](http://neth.de).\]
+
 <!-- eof -->
 
 [1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).

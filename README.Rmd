@@ -589,4 +589,8 @@ _Journal of Experimental Psychology: General_, _130_, 380–400.
 Bayesianisches Denken in der Schule. 
 _Unterrichtswissenschaft_, _32_, 58–96.
 
+<!-- Update: -->
+
+[Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](http://neth.de).]  
+
 <!-- eof -->
