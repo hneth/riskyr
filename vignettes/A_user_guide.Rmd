@@ -421,7 +421,7 @@ plot_area(prev = .01, sens = .80, spec = NA, fart = .096, N = 1000,
           title_lbl = "Mammography screening")
 ```
 
-(Note that the plot is not shown here, but please go ahead and try creating it for yourself.)
+(The plot is not shown here, but please go ahead and create it for yourself.)
 
 The vertical split dissects the population into two subgroups that correspond to the frequency of `cond_true` and `cond_false` cases in the tree diagram above. The `prev` value of 1\% yields a slim vertical rectangle on the left. (For details and additional options of the `plot_area` function, see the documentation of `?plot_area`.)
 

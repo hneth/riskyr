@@ -23,9 +23,9 @@ library("riskyr")  # load the "riskyr" package
 
 Behold the aptly named "confusion matrix":
 
-|              | Condition |          |       |          |            
+|              | Condition |         |          |          |            
 | ----------:  |:--------:|:--------:|:--------:|:--------:|              
-| **Decision** | present (`TRUE`):      | absent (`FALSE`):     |     Sum:  |  (b) by decision: |  
+| **Decision** | present (`TRUE`):    | absent (`FALSE`):     |     Sum:  |  (b) by decision: |  
 | positive (`TRUE`):   | `hi`         | `fa`         | `dec_pos` | `PPV` = `hi`/`dec_pos` |
 | negative (`FALSE`):  | `mi`         | `cr`         | `dec_neg` | `NPV` = `cr`/`dec_neg` |
 |      Sum:    | `cond_true`  | `cond_false` |       `N` |         `prev` =  `cond_true`/`N`     |
@@ -111,15 +111,17 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 
 To view a 2x2 confusion table in `riskyr`, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
 
-```{r plot_tab_demo, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
-## Plot table from basic input parameters: ----- 
+```{r plot_tab_demo, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
+# Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def", title_lbl = "Scenario 1")
 
-## Plot an existing riskyr scenario: ----- 
-# s <- scenarios$n1
-# plot(s, type = "tab", p_lbl = "def")
+# Plot an existing riskyr scenario: ----- 
+s <- scenarios$n1
+plot(s, type = "tab", p_lbl = "def")
 ```
+
+(Note that the plots are not shown here, but please go ahead and generate them for yourself.)
 
 <!-- 
 
@@ -165,11 +167,13 @@ $$
 
 Re-arranging the cells of the 2x2 confusion table allows illustrating accuracy as a 3rd perspective (e.g., by specifying the perspective `by = "cdac"`): 
 
-```{r plot_tab_cdac, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
+```{r plot_tab_cdac, eval = FALSE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          by = "cdac", p_split = "h", 
          p_lbl = "def", title_lbl = "Scenario 2")
 ```
+
+(Note that the plot is not shown here, but please go ahead and generate it for yourself.)
 
 #### Avoiding common sources of confusion
 
