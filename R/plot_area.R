@@ -404,28 +404,28 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   # catch & correct invalid entries:
   if (by_top == by_bot) {
-    warning("Please specify 2 different perspectives.")
+    message("Please specify 2 different perspectives.")
   }
   # Invalid perspectives:
   if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
-    warning("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
+    message("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
     by_top <- "cd"  # default
   }
   if ((by_bot %in% c("cd", "dc", "ac")) == FALSE) {
-    warning("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
+    message("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
     by_bot <- "dc"  # default
   }
   # Valid 1st but invalid 2nd perspective:
   if ((by_top == "cd") && (by_bot != ("dc") & by_bot != ("ac"))) {
-    warning("If 1st perspective by = 'cd', 2nd perspective must be 'dc' or 'ac'.\nUsing by = 'cddc'.")
+    message("If 1st perspective by = 'cd', 2nd perspective must be 'dc' or 'ac'.\nUsing by = 'cddc'.")
     by_bot <- "dc"  # default
   }
   if ((by_top == "dc") && (by_bot != ("cd") & by_bot != ("ac"))) {
-    warning("If 1st perspective by = 'dc', 2nd perspective must be 'cd' or 'ac'.\nUsing by = 'dccd'.")
+    message("If 1st perspective by = 'dc', 2nd perspective must be 'cd' or 'ac'.\nUsing by = 'dccd'.")
     by_bot <- "cd"  # default
   }
   if ((by_top == "ac") && (by_bot != ("cd") & by_bot != ("dc"))) {
-    warning("If 1st perspective by = 'ac', 2nd perspective must be 'cd' or 'dc'.\nUsing by = 'accd'.")
+    message("If 1st perspective by = 'ac', 2nd perspective must be 'cd' or 'dc'.\nUsing by = 'accd'.")
     by_bot <- "cd"  # default
   }
 
@@ -454,7 +454,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # gaps:
   if ( is.null(gaps) ) { gaps <- c(0, 0) }  # sensible zero
   if ( !is.na(gaps) && (length(gaps) != 2 || !is.numeric(gaps)) ) {
-    warning("gaps should have 2 numeric arguments. Using default gaps = c(NA, NA).")
+    message("gaps should have 2 numeric arguments. Using default gaps = c(NA, NA).")
     gaps <- c(NA, NA)  # use defaults
   }
 
@@ -489,7 +489,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   }
 
   if ( h_gap > .10 ) {
-    warning("Horizontal gap (i.e., gaps[2]) should be in the range from 0 to .10.")
+    message("Horizontal gap (i.e., gaps[2]) should be in the range from 0 to .10.")
   }
 
   # scale:
@@ -592,7 +592,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # p_lty <- 1  # lty of p-links
 
   # colors:
-  # if (!all(col_p %in% colors())) { warning("col_p must contain (1 to 3) valid color names.") }
+  # if (!all(col_p %in% colors())) { message("col_p must contain (1 to 3) valid color names.") }
   if (length(col_p) == 1) { col_p <- rep(col_p, 3) }  # 1 color: use for all 3 p-links
   if (length(col_p) == 2) { col_p <- c(col_p[1], col_p[2], col_p[2]) } # 2 colors: use 2nd for 2 and 3
 
@@ -1162,7 +1162,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   } else {
 
-    warning("Defining 4 SDT cases/cells: Unknown by_top argument/perspective!")
+    message("Defining 4 SDT cases/cells: Unknown by_top argument/perspective!")
 
   } # if (by_top == etc.)
 
@@ -1350,7 +1350,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   } else {
 
-    warning("Plotting top fboxes: Unknown by_top argument/perspective!")
+    message("Plotting top fboxes: Unknown by_top argument/perspective!")
 
   } # if (by_top == etc.)
 
@@ -1423,7 +1423,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   } else {
 
-    warning("Plotting left fboxes: Unknown by_bot argument/perspective!")
+    message("Plotting left fboxes: Unknown by_bot argument/perspective!")
 
   } # if (by_bot == etc.)
 
@@ -1733,7 +1733,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
     } else {
 
-      warning("Plotting p-lines: Unknown by argument/perspective!")
+      message("Plotting p-lines: Unknown by argument/perspective!")
 
     } # if (by_top == etc.)
 
@@ -1814,7 +1814,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   } else {
 
-    warning("Plotting top labels: Unknown by_top argument/perspective!")
+    message("Plotting top labels: Unknown by_top argument/perspective!")
 
   } # if (by_top ==  etc.)
 
@@ -1894,7 +1894,7 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   } else {
 
-    warning("Plotting left labels: Unknown by_bot argument/perspective!")
+    message("Plotting left labels: Unknown by_bot argument/perspective!")
 
   } # if (by_bot == etc.)
 

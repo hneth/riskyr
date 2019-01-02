@@ -277,7 +277,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (b) shortcut to get all what options:
   if ((what %in%  c("ppv", "npv", "acc", "ppod")) == FALSE) {
-    warning("Invalid what argument chosen: Using PPV instead...")
+    message("Invalid what argument chosen: Using PPV instead...")
     what <- tolower("PPV")
   }
 

@@ -208,15 +208,15 @@
 #' #     6 (3 x 2) versions (+ 3 redundant ones):
 #' plot_prism(by = "cddc")  # v01 (default)
 #' plot_prism(by = "cdac")  # v02
-#' plot_prism(by = "cdcd")  # (+) Warning
+#' plot_prism(by = "cdcd")  # (+) Message
 #'
 #' plot_prism(by = "dccd")  # v03
 #' plot_prism(by = "dcac")  # v04
-#' plot_prism(by = "dcdc")  # (+) Warning
+#' plot_prism(by = "dcdc")  # (+) Message
 #'
 #' plot_prism(by = "accd")  # v05
 #' plot_prism(by = "acdc")  # v06
-#' plot_prism(by = "acac")  # (+) Warning
+#' plot_prism(by = "acac")  # (+) Message
 #'
 #' ## Other options:
 #'
@@ -1433,15 +1433,15 @@ plot_prism <- function(prev = num$prev,    # probabilities
 # #     (3 x 2) = 6 versions (+ 3 redundant ones):
 # plot_prism(by = "cddc")  # v01 (default)
 # plot_prism(by = "cdac")  # v02
-# plot_prism(by = "cdcd")  # (+) Warning
+# plot_prism(by = "cdcd")  # (+) Message
 #
 # plot_prism(by = "dccd")  # v03
 # plot_prism(by = "dcac")  # v04
-# plot_prism(by = "dcdc")  # (+) Warning
+# plot_prism(by = "dcdc")  # (+) Message
 #
 # plot_prism(by = "accd")  # v05
 # plot_prism(by = "acdc")  # v06
-# plot_prism(by = "acac")  # (+) Warning
+# plot_prism(by = "acac")  # (+) Message
 #
 # ## Plot options:
 #
@@ -1551,30 +1551,30 @@ read_by <- function(by){
 
     # Catch & correct invalid entries:
     if (by_top == by_bot) {
-      warning("Specified 2 identical perspectives.")
+      message("Specified 2 identical perspectives.")
     }
 
     # Invalid perspectives:
     if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
-      warning("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
+      message("Invalid 1st perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = 'cd..'.")
       by_top <- "cd"  # default
     }
     if ((by_bot %in% c("cd", "dc", "ac")) == FALSE) {
-      warning("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
+      message("Invalid 2nd perspective! Valid by = {'cddc', 'cdac', 'dccd', 'dcac', 'accd', 'acdc'}.\nUsing by = '..dc'.")
       by_bot <- "dc"  # default
     }
 
     # Valid 1st but invalid 2nd perspective:
     if ((by_top == "cd") && (by_bot != ("dc") & by_bot != ("ac") & by_bot != ("cd"))) {
-      warning("If 1st perspective by = 'cd', 2nd perspective should be 'dc' or 'ac'.\nUsing by = 'cddc'.")
+      message("If 1st perspective by = 'cd', 2nd perspective should be 'dc' or 'ac'.\nUsing by = 'cddc'.")
       by_bot <- "dc"  # default 1
     }
     if ((by_top == "dc") && (by_bot != ("cd") & by_bot != ("ac") & by_bot != ("dc"))) {
-      warning("If 1st perspective by = 'dc', 2nd perspective should be 'cd' or 'ac'.\nUsing by = 'dccd'.")
+      message("If 1st perspective by = 'dc', 2nd perspective should be 'cd' or 'ac'.\nUsing by = 'dccd'.")
       by_bot <- "cd"  # default 2
     }
     if ((by_top == "ac") && (by_bot != ("cd") & by_bot != ("dc") & by_bot != ("ac"))) {
-      warning("If 1st perspective by = 'ac', 2nd perspective should be 'cd' or 'dc'.\nUsing by = 'accd'.")
+      message("If 1st perspective by = 'ac', 2nd perspective should be 'cd' or 'dc'.\nUsing by = 'accd'.")
       by_bot <- "cd"  # default 3
     }
 
@@ -1586,7 +1586,7 @@ read_by <- function(by){
     by_top <- substr(by, 1, 2)  # top perspective (row 2): by = "cd" "dc" "ac"
 
     if ((by_top %in% c("cd", "dc", "ac")) == FALSE) {
-      warning("Invalid perspective! Valid by = {'cd', 'dc', 'ac'}.\nUsing by = 'cd'.")
+      message("Invalid perspective! Valid by = {'cd', 'dc', 'ac'}.\nUsing by = 'cd'.")
       by_top <- "cd"  # default
     }
 

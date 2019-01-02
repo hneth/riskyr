@@ -19,16 +19,16 @@ is a frequency (i.e., a positive numeric integer value).
 }
 \examples{
 # ways to succeed:
-is_freq(2)             # => TRUE, but does NOT return the frequency 2.
-is_freq(1:3)           # => TRUE (for vector)
+is_freq(2)    # => TRUE, but does NOT return the frequency 2.
+is_freq(0:3)  # => TRUE (for vector)
 
-# ways to fail:
-is_freq(-1)            # => FALSE + warning (negative values)
-is_freq(1:-1)          # => FALSE (for vector) + warning (negative values)
-is_freq(c(1, 1.5, 2))  # => FALSE (for vector) + warning (non-integer values)
+## ways to fail:
+# is_freq(-1)            # => FALSE + warning (negative values)
+# is_freq(1:-1)          # => FALSE (for vector) + warning (negative values)
+# is_freq(c(1, 1.5, 2))  # => FALSE (for vector) + warning (non-integer values)
 
-## Note that:
-is.integer(2)          # => FALSE!
+## note:
+# is.integer(2)          # => FALSE!
 
 }
 \seealso{

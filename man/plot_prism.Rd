@@ -210,15 +210,15 @@ plot_prism(by = "ac", f_lbl = "def", col_pal = pal_mod) # by decision  (freq box
 #     6 (3 x 2) versions (+ 3 redundant ones):
 plot_prism(by = "cddc")  # v01 (default)
 plot_prism(by = "cdac")  # v02
-plot_prism(by = "cdcd")  # (+) Warning
+plot_prism(by = "cdcd")  # (+) Message
 
 plot_prism(by = "dccd")  # v03
 plot_prism(by = "dcac")  # v04
-plot_prism(by = "dcdc")  # (+) Warning
+plot_prism(by = "dcdc")  # (+) Message
 
 plot_prism(by = "accd")  # v05
 plot_prism(by = "acdc")  # v06
-plot_prism(by = "acac")  # (+) Warning
+plot_prism(by = "acac")  # (+) Message
 
 ## Other options:
 

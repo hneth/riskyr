@@ -276,7 +276,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   # Invalid perspective:
   if ((by %in% c("cd", "dc", "ac", "all")) == FALSE) {
-    warning("Invalid perspective! Valid by = {'cd', 'dc', 'ac', 'all'}.\nUsing by = 'all'...")
+    message("Invalid perspective! Valid by = {'cd', 'dc', 'ac', 'all'}.\nUsing by = 'all'...")
     by <- "all"  # default
   }
 
