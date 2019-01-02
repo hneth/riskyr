@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 
 library("riskyr")  # load the "riskyr" package
 
-## ----plot_curve_1, fig.width = 7.0, fig.height = 5, fig.show = 'asis', fig.cap = "Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario."----
+## ----plot_curve_1, fig.width = 7.0, fig.height = 5.0, fig.show = 'asis', fig.cap = "Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario."----
 plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
            what = c("prev", "PPV", "NPV"), 
            title_lbl = "Mammography screening", cex.lbl = .8)
