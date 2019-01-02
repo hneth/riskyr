@@ -1,10 +1,11 @@
+
 ## Resubmission
 
 This is a resubmission. In this revised version of riskyr 0.2.0:
 
 * An ERROR in Debian check (in function 'plot_curve') has been fixed.  
 
-* An ERROR in Debian check (in vignette 'D_functional_perspectives.Rmd') has been fixed. 
+* A WARNING in Debian check (in vignette 'D_functional_perspectives.Rmd') has been fixed. 
 
 ## Test environments
 
