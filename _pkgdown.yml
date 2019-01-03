@@ -30,15 +30,15 @@ toc:
 
 navbar:
   title: "riskyr"
-  type: inverse # default inverse
+  type: default # inverse
   left:
     - text: "Home"
       icon: fa-home
       href: index.html
     - text: "User guide"
       href: articles/A_user_guide.html
-    - text: "Articles"
-      icon: fa-info
+    - text: "More articles"
+      # icon: fa-info
       menu:
         - text: "Data formats"
           href: articles/B_data_formats.html
@@ -49,7 +49,7 @@ navbar:
         - text: "Quick start primer"
           href: articles/E_riskyr_primer.html
     - text: "Reference"
-      icon: fa-gear
+      # icon: fa-gear
       href: reference/index.html
     - text: "News"
       href: news/index.html
