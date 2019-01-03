@@ -244,6 +244,7 @@
 #'            area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 #'
 #' ## Frequency boxes:
+#'
 #' # f_lbl:
 #' plot_prism(f_lbl = "abb")     # abbreviated freq names (variable names)
 #' plot_prism(f_lbl = "nam")     # only freq names
@@ -260,28 +261,36 @@
 #' plot_prism(f_lwd = .5)  # thinner lines
 #'
 #' ## Probability links:
+#'
+#' # Scale link widths (p_lwd & p_scale):
+#' plot_prism(p_lwd = 6, p_scale = TRUE)
+#' plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
+#' plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
+#'            col_pal = pal_mod, p_lwd = 6, p_scale = TRUE)
+#'
 #' # p_lbl:
 #' plot_prism(p_lbl = "mix")     # abbreviated names with numeric values (abb = num)
+#' plot_prism(p_lbl = "min")     # minimal names (of key probabilities)
 #' plot_prism(p_lbl = NA)        # no prob labels (NA/NULL/"none")
 #' plot_prism(p_lbl = "nam")     # only prob names
 #' plot_prism(p_lbl = "num")     # only numeric prob values
 #' plot_prism(p_lbl = "namnum")  # names and numeric prob values
-#' plot_prism(p_lbl = "namnum", cex_p_lbl = .70)  # smaller prob labels
-#' plot_prism(by = "cddc", p_lbl = "min")  # minimal labels
-#' plot_prism(by = "cdac", p_lbl = "min")
-#' plot_prism(by = "cddc", p_lbl = "mix")  # mix abbreviated names and numeric values
-#' plot_prism(by = "cdac", p_lbl = "mix")
-#' plot_prism(by = "cddc", p_lbl = "abb")  # abbreviated names
-#' plot_prism(by = "cdac", p_lbl = "abb")
-#' plot_prism(p_lbl = "any") # short name and value (abb = num)
+#' # plot_prism(p_lbl = "namnum", cex_p_lbl = .70)  # smaller prob labels
+#' # plot_prism(by = "cddc", p_lbl = "min")  # minimal labels
+#' # plot_prism(by = "cdac", p_lbl = "min")
+#' # plot_prism(by = "cddc", p_lbl = "mix")  # mix abbreviated names and numeric values
+#' # plot_prism(by = "cdac", p_lbl = "mix")
+#' # plot_prism(by = "cddc", p_lbl = "abb")  # abbreviated names
+#' # plot_prism(by = "cdac", p_lbl = "abb")
+#' # plot_prism(p_lbl = "any") # short name and value (abb = num)
 #'
 #' # arr_c:
 #' plot_prism(arr_c =  0)  # acc_c = 0: no arrows
 #' plot_prism(arr_c = -3)  # arr_c = -1 to -3: points at both ends
 #' plot_prism(arr_c = -2)  # point at far end
 #' plot_prism(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
-#' plot_prism(arr_c = +3)  # V-shape arrows at both ends
-#' plot_prism(arr_c = +6)  # arr_c = 4-6: T-shape arrows
+#' # plot_prism(arr_c = +3)  # V-shape arrows at both ends
+#' # plot_prism(arr_c = +6)  # arr_c = 4-6: T-shape arrows
 #'
 #' ## Plain plot versions:
 #' plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
@@ -290,22 +299,19 @@
 #' plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 #' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #'
-#' plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
-#'            col_pal = pal_mod, p_lwd = 6, p_scale = TRUE)
 #' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
 #' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 #'
 #' plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
-#' plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
 #' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Suggested combinations:
 #' plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)
 #' plot_prism(f_lbl = "namnum", p_lbl = "mix", cex_lbl = .80, cex_p_lbl = .75)
 #'
-#' plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", col_pal = pal_mod)
-#' plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_bw)
 #' plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
+#' plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", p_lwd = 6, p_scale = TRUE)
+#' plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_kn)
 #'
 #' plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 #' plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
