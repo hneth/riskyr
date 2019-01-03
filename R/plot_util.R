@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2018 12 20
+## 2019 01 03
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -421,7 +421,7 @@ label_prob <- function(pname,
   ## (3) Values: Determine the probability value p_val of prob corresponding to pname: ----
   if (lbl_type != "nam") {
 
-    p_val <- comp_prob_pname(pname, cur_prob = cur_prob)  # use new fn (defined in comp_prob_prob.R)
+    p_val <- comp_prob_pname(pname, cur_prob = cur_prob)  # get or compute the exact probability given cur_prob (see comp_prob_prob.R)
 
   }
 
@@ -1617,7 +1617,8 @@ comp_ly_fsqr <- function(fname, area_N,
 
 ## (3) Links: ------
 
-## plot_line: Plot an (arrow) line between 2 points (with optional text label): ------
+## plot_line: Plot a line (or arrow) between 2 points (with optional text label): ------
+
 plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       # lty = 1, lwd = 1,                   # line options
                       pt_pch = 21, pt_cex = 1, pt_lwd = 1,  # point options
@@ -1647,7 +1648,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
   #
   # print(col_fill)
 
-  arrow <- TRUE # FALSE # initialize
+  # arrow <- TRUE # FALSE # initialize
 
   ## (1) Draw an arrow between both points:
 
@@ -1656,7 +1657,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
     if (arr_code <= 3) {
       # Draw V-shape arrow between both points:
       arrows(x0, y0, x1, y1,
-             length = .10, angle = 45/2, code = arr_code,    # V shape (small)
+             length = .10, angle = 45/2, code = arr_code,  # V shape (small)
              # length = .08, angle = 90, code = arr_code,  # T shape
              col = col_fill,
              ...)  # lty, lwd, etc.
@@ -1760,8 +1761,8 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           col_fill = pal["npv"], col_txt = pal["npv"],
 #           srt = 0, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # diagonal
 
-## plot_arrs: Plot multiple (n_arr) arrows along a line: --------
-##      Note: Obsolete, as plot_line (defined above) is more flexible.
+## plot_arrs: Plot multiple (n_arr) arrows along a line (OBSOLETE): --------
+##      Note: Obsolete function, as plot_line (defined above) is more flexible.
 
 plot_arrs <- function(x0, y0, x1, y1,       # coordinates
                       n_arr = 2,            # number of arrows to draw
@@ -1824,6 +1825,37 @@ plot_arrs <- function(x0, y0, x1, y1,       # coordinates
 # plot_arrs(0, .4, 1, .9, col = "black", lbl = "Label 3\nis a longer\nand wider label\nin smaller font", pos = 3, offset = 2, cex = .8)
 
 
+## comp_p_lwd: Compute p_lwd as a fraction of p_val (corresponding to pname) of p_lwd_max ----------
+##             to scale lwd by current p_val (given cur_prob):
+
+comp_p_lwd <- function(pname, cur_prob = prob, p_lwd_max = 10) {
+
+  # determine p_val (see comp_prob_prob.R):
+  p_val <- comp_prob_pname(pname = pname, cur_prob = cur_prob)  # get or compute the exact probability given cur_prob
+
+  # scale line width:
+  p_lwd <- (p_val * p_lwd_max)
+
+  return(p_lwd)
+
+}
+
+## Check:
+
+## The following complementary probabilities should all evaluate to TRUE:
+# comp_p_lwd("prev", p_lwd_max = 1) + comp_p_lwd("cprev", p_lwd_max = 1) == 1
+# comp_p_lwd("sens", p_lwd_max = 2) +  comp_p_lwd("mirt", p_lwd_max = 2) == 2
+# comp_p_lwd("spec", p_lwd_max = 3) +  comp_p_lwd("fart", p_lwd_max = 3) == 3
+#
+# comp_p_lwd("ppod", p_lwd_max = 4) + comp_p_lwd("cppod", p_lwd_max = 4) == 4
+# comp_p_lwd("PPV",  p_lwd_max = 5) +  comp_p_lwd("FDR",  p_lwd_max = 5) == 5
+# comp_p_lwd("NPV",  p_lwd_max = 6) +  comp_p_lwd("FOR",  p_lwd_max = 6) == 6
+#
+# comp_p_lwd("acc",    p_lwd_max = 7) + comp_p_lwd("err",    p_lwd_max = 7) == 7
+# comp_p_lwd("acc_hi", p_lwd_max = 8) + comp_p_lwd("acc_cr", p_lwd_max = 8) == 8
+# comp_p_lwd("err_fa", p_lwd_max = 9) + comp_p_lwd("err_mi", p_lwd_max = 9) == 9
+
+
 ## plot_link: Plot link between 2 boxes (given 2 boxes and pos values, using plot_line) ----------
 
 ## Note: If boxes are 2 known freq and name_prob returns a known prob,
@@ -1836,6 +1868,7 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
                       cur_prob = prob,           # current prob
                       col_pal = pal,             # current color palette
+                      p_scale = FALSE,           # scale link lwd by current p_val?
                       ...                        # Other graphical parameters
 ) {
 
@@ -1901,12 +1934,25 @@ plot_link <- function(box1, box2,                # 2 boxes
 
     if (!is.na(pname)) {  # A pname is found (not NA)/prob is known:
 
+      # determine p_lbl:
       p_lbl <- label_prob(pname = pname, cur_prob = cur_prob,
                           lbl_type = lbl_type, lbl_sep = lbl_sep)  # generate p_lbl
 
-      # (b) plot line with this p_lbl:
+
+      # Scale line by current probability value p_val:
+      # +++ here now +++: #
+
+      if (p_scale) {
+        p_lwd <- comp_p_lwd(pname = pname, cur_prob = cur_prob, p_lwd_max = 8)  # scale lwd by p_val (using helper function above)
+      } else {
+        p_lwd <- par("lwd")  # get and set to default lwd
+      }
+
+      # (b) plot line with this p_lbl and p_lwd:
       plot_line(x1, y1, x2, y2, lbl = p_lbl,
-                col_fill = col_brd, col_txt = col_txt, ...)
+                col_fill = col_brd, col_txt = col_txt,
+                lwd = p_lwd,  # set lwd
+                ...)
 
     } else {  # NO pname was found by name_prob:
 
@@ -1974,7 +2020,6 @@ plot_link <- function(box1, box2,                # 2 boxes
 ## 2. Call pname <- name_prob(freq1, freq1) to get pname
 ## 3. Call p_lbl <- label_prob(pname) to get label
 ## 4. Call plot_link with p_lbl as lbl
-
 
 
 ## (4) Define and plot margin labels: ----------
