@@ -7,10 +7,10 @@
 plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   area = "no", scale = "p", round = TRUE, f_lbl = "num",
-  f_lbl_sep = NA, f_lwd = 0, p_lbl = "mix", arr_c = NA,
-  p_scale = FALSE, lbl_txt = txt, title_lbl = txt$scen_lbl,
-  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
-  ...)
+  f_lbl_sep = NA, f_lwd = 0, p_lwd = 1, p_scale = FALSE,
+  p_lbl = "mix", arr_c = NA, lbl_txt = txt,
+  title_lbl = txt$scen_lbl, cex_lbl = 0.9, cex_p_lbl = NA,
+  col_pal = pal, mar_notes = TRUE, ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -80,7 +80,7 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:
  Note: \code{scale} setting matters for the display of probability values and for
  area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.}
 
-\item{round}{A Boolean option specifying whether computed frequencies
+\item{round}{Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
 
 \item{f_lbl}{Type of label for showing frequency values in 4 main areas,
@@ -101,6 +101,13 @@ Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \co
 
 \item{f_lwd}{Line width of areas.
 Default: \code{f_lwd = 0}.}
+
+\item{p_lwd}{Line width of probability links.
+Default: \code{p_lwd = 1}, but consider increasing when setting \code{p_scale = TRUE}.}
+
+\item{p_scale}{Boolean option for scaling current widths of probability links
+(as set by \code{p_lwd}) by the current probability values.
+Default: \code{p_scale = FALSE}.}
 
 \item{p_lbl}{Type of label for showing 3 key probability links and values,
 with many options:
@@ -125,10 +132,6 @@ with the following options:
   \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
 }
 Default: \code{arr_c = NA}, but adjusted by \code{area}.}
-
-\item{p_scale}{Boolean value for scaling all widths of probability links
-by current probability values.
-Default: \code{p_scale = FALSE}.}
 
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
@@ -182,8 +185,8 @@ plot_prism(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 plot_prism(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
 ## Custom color and text settings:
-plot_prism(col_pal = pal_bw, f_lwd = .5, lwd = .5, lty = 2, # custom fbox color, prob links,
-           font = 3, cex_p_lbl = .75)                       # and text labels
+plot_prism(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
+           font = 3, cex_p_lbl = .75)                         # and text labels
 
 my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
@@ -290,12 +293,12 @@ plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 
 plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
-           col_pal = pal_mod, lwd = .5)
+           col_pal = pal_mod, p_lwd = 6, p_scale = TRUE)
 plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
 plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 
 plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
-plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, f_lwd = 1, col_pal = pal_bw, lwd = .5)
+plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
 plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:

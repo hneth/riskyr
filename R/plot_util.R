@@ -1868,6 +1868,7 @@ plot_link <- function(box1, box2,                # 2 boxes
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
                       cur_prob = prob,           # current prob
                       col_pal = pal,             # current color palette
+                      p_lwd = 1,                 # used as lw (if p_scale == FALSE) or p_lwd_max (if p_scale == TRUE)
                       p_scale = FALSE,           # scale link lwd by current p_val?
                       ...                        # Other graphical parameters
 ) {
@@ -1939,19 +1940,21 @@ plot_link <- function(box1, box2,                # 2 boxes
                           lbl_type = lbl_type, lbl_sep = lbl_sep)  # generate p_lbl
 
 
-      # Scale line by current probability value p_val:
+      # Scale line with p_lwd by current probability value p_val:
       # +++ here now +++: #
 
       if (p_scale) {
-        p_lwd <- comp_p_lwd(pname = pname, cur_prob = cur_prob, p_lwd_max = 8)  # scale lwd by p_val (using helper function above)
-      } else {
-        p_lwd <- par("lwd")  # get and set to default lwd
+        p_lwd <- comp_p_lwd(pname = pname, cur_prob = cur_prob, p_lwd_max = p_lwd)  # scale p_lwd by p_val (using helper function above)
       }
+      ## not needed:
+      # } else {
+      #  p_lwd <- par("lwd")  # get and set to default lwd
+      # }
 
       # (b) plot line with this p_lbl and p_lwd:
       plot_line(x1, y1, x2, y2, lbl = p_lbl,
                 col_fill = col_brd, col_txt = col_txt,
-                lwd = p_lwd,  # set lwd
+                lwd = p_lwd,  # set lwd to p_lwd
                 ...)
 
     } else {  # NO pname was found by name_prob:
