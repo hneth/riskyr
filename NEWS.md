@@ -3,6 +3,25 @@
 
 The current development version (0.2.0.9000+) is available at <https://github.com/hneth/riskyr/>. 
 
+
+# riskyr 0.2.0.9000+
+
+Log of changes since last release:
+
+## Major changes
+
+- none so far
+
+## Minor changes
+
+- none so far
+
+## Micro changes
+
+- Default color scheme [2019-01]:   
+Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme.
+
+
 # riskyr 0.2.0
 
 riskyr 0.2.0 was ready to be released on December 20, 2018, and published on CRAN on January 03, 2019.
