@@ -5,8 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-<code>riskyr</code> User Guide • riskyr</title>
+<title>riskyr User Guide • riskyr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -16,7 +15,7 @@
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="&lt;code&gt;riskyr&lt;/code&gt; User Guide">
+<script src="../pkgdown.js"></script><meta property="og:title" content="riskyr User Guide">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png">
 <meta name="twitter:card" content="summary">
@@ -39,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9950</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -62,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/A_user_guide.html">`riskyr` User Guide</a>
+      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
     </li>
     <li>
       <a href="../articles/B_data_formats.html">Data Formats</a>
@@ -101,8 +100,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>
-<code>riskyr</code> User Guide</h1>
+      <h1>riskyr User Guide</h1>
                         <h4 class="author">Hansjörg Neth, SPDS, uni.kn</h4>
             
             <h4 class="date">2018 02 01</h4>
@@ -288,9 +286,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;  hi fa</span>
-<span class="co">#&gt;    +</span>
-<span class="co">#&gt;  mi cr</span>
+<span class="co">#&gt; Ready to riskyr it...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -377,14 +373,8 @@ f2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 f3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span>     .<span class="dv">01</span>, <span class="dt">sens =</span>  .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span>   .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">round =</span> <span class="ot">FALSE</span>)
 f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> <span class="dv">10</span><span class="op">/</span><span class="dv">1000</span>, <span class="dt">sens =</span> <span class="dv">8</span><span class="op">/</span><span class="dv">10</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> <span class="dv">95</span><span class="op">/</span><span class="dv">990</span>, <span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">round =</span> <span class="ot">FALSE</span>)
 
-<span class="co"># Check equality of outputs:</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(f3, f4)  <span class="co"># =&gt; shows slight differences in some frequencies:</span>
-<span class="co">#&gt; [1] "Component \"dec_pos\": Mean relative difference: 0.0003881988"</span>
-<span class="co">#&gt; [2] "Component \"dec_neg\": Mean relative difference: 4.459508e-05"</span>
-<span class="co">#&gt; [3] "Component \"dec_cor\": Mean relative difference: 4.429875e-05"</span>
-<span class="co">#&gt; [4] "Component \"dec_err\": Mean relative difference: 0.0004122012"</span>
-<span class="co">#&gt; [5] "Component \"fa\": Mean relative difference: 0.0004208754"     </span>
-<span class="co">#&gt; [6] "Component \"cr\": Mean relative difference: 4.469473e-05"</span></code></pre></div>
+## Check equality of outputs:
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(f3, f4)  <span class="co"># =&gt; shows slight differences in some frequencies:</span></code></pre></div>
 <p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1
 <span class="co">#&gt; $N</span>
@@ -429,8 +419,7 @@ f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> <span class="dv">8</span>, <span class="dt">mi =</span> <span class="dv">2</span>, <span class="dt">fa =</span> <span class="dv">95</span>, <span class="dt">cr =</span> <span class="dv">895</span>)  <span class="co"># =&gt; provide 4 essential frequencies</span></code></pre></div>
 <p>Fortunately, the <code>comp_prob_freq</code> does not require all 11 frequencies that were returned by <code>comp_freq_prob</code> and contained in the list of frequencies <code>f1</code>. Instead, we must provide <code>comp_prob_freq</code> with the 4 essential frequencies that were listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in <code>f1</code>. The resulting probabilities (saved in <code>p5</code>) match our list of probabilities from above (saved in <code>p4</code>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Check equality of outputs:</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(p5, p4)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(p5, p4)</code></pre></div>
 </div>
 <div id="switching-back-and-forth" class="section level4">
 <h4 class="hasAnchor">
@@ -439,45 +428,37 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_pro
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
 rand.p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
 rand.p
-<span class="co">#&gt; [1] 0.2675890 0.8520377 0.3248797</span>
 
-<span class="co"># Translation 1: Compute frequencies from probabilities:</span>
-freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
+<span class="co"># Translation 1: Compute frequencies from probabilities (without rounding):</span>
+freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)
 
 <span class="co"># Translation 2: Compute probabilities from frequencies:</span>
 prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> freq<span class="op">$</span>hi, <span class="dt">mi =</span> freq<span class="op">$</span>mi, <span class="dt">fa =</span> freq<span class="op">$</span>fa, <span class="dt">cr =</span> freq<span class="op">$</span>cr)
 
-<span class="co"># Verify that results match original probabilities: </span>
+## Verify that results match original probabilities: 
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>prev, rand.p[<span class="dv">1</span>])
-<span class="co">#&gt; [1] TRUE</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>sens, rand.p[<span class="dv">2</span>])
-<span class="co">#&gt; [1] TRUE</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>spec, rand.p[<span class="dv">3</span>])
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>spec, rand.p[<span class="dv">3</span>])</code></pre></div>
 <p>Similarly, going full circle from frequencies to probabilities and back returns the original frequencies:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
 rand.f &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
 rand.f  
-<span class="co">#&gt; [1] 386 780 295 493</span>
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
 prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> rand.f[<span class="dv">1</span>], <span class="dt">mi =</span> rand.f[<span class="dv">2</span>], <span class="dt">fa =</span> rand.f[<span class="dv">3</span>], <span class="dt">cr =</span> rand.f[<span class="dv">4</span>])
 <span class="co"># prob</span>
 
-<span class="co"># Translation 2: Compute frequencies from probabilities (for the original population size N):</span>
-freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> prob<span class="op">$</span>prev, <span class="dt">sens =</span> prob<span class="op">$</span>sens, <span class="dt">spec =</span> prob<span class="op">$</span>spec, <span class="dt">N =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(rand.f), <span class="dt">round =</span> <span class="ot">FALSE</span>)  <span class="co"># without rounding!</span>
+<span class="co"># Translation 2: Compute frequencies from probabilities (for original N, without rounding):</span>
+freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> prob<span class="op">$</span>prev, <span class="dt">sens =</span> prob<span class="op">$</span>sens, <span class="dt">spec =</span> prob<span class="op">$</span>spec, 
+                       <span class="dt">N =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(rand.f), <span class="dt">round =</span> <span class="ot">FALSE</span>)
 <span class="co"># freq</span>
 
 <span class="co"># Verify that results match original frequencies: </span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>hi, rand.f[<span class="dv">1</span>])
-<span class="co">#&gt; [1] TRUE</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>mi, rand.f[<span class="dv">2</span>])
-<span class="co">#&gt; [1] TRUE</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>fa, rand.f[<span class="dv">3</span>])
-<span class="co">#&gt; [1] TRUE</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>cr, rand.f[<span class="dv">4</span>])
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>cr, rand.f[<span class="dv">4</span>])</code></pre></div>
 <p>To obtain the same results when translating back and forth between probabilities and frequencies, it is important to switch off rounding when computing frequencies from probabilities with <code>comp_freq_prob</code>. Similarly, we need to scale the computed frequencies to the original population size <code>N</code> to arrive at the original frequencies.</p>
 </div>
 <div id="all-at-once-defining-a-riskyr-scenario" class="section level4">
@@ -577,32 +558,34 @@ A tree diagram that applies the provided probabilities and frequencies to a popu
 <h4 class="hasAnchor">
 <a href="#area-plot" class="anchor"></a>Area plot</h4>
 <p>An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population. In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
           <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="A_user_guide_files/figure-html/plot_mosaic_cd-1.png" alt="A mosaic plot in which area sizes represent the relative frequencies of subgroups." width="576"><p class="caption">
-A mosaic plot in which area sizes represent the relative frequencies of subgroups.
+<img src="A_user_guide_files/figure-html/plot_mosaic_cd-1.png" alt="An area plot in which area sizes represent the probabilities/relative frequencies of subgroups." width="672"><p class="caption">
+An area plot in which area sizes represent the probabilities/relative frequencies of subgroups.
 </p>
 </div>
+<!-- (The plot is not shown here, but please go ahead and create it for yourself.) -->
 <p>The vertical split dissects the population into two subgroups that correspond to the frequency of <code>cond_true</code> and <code>cond_false</code> cases in the tree diagram above. The <code>prev</code> value of 1% yields a slim vertical rectangle on the left. (For details and additional options of the <code>plot_area</code> function, see the documentation of <code><a href="../reference/plot_area.html">?plot_area</a></code>.)</p>
 </div>
 <div id="bar-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#bar-plot" class="anchor"></a>Bar plot</h4>
-<p>The tree diagrams from above can also be depicted as vertical bar plots:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_bar.html">plot_bar</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
+<p>The tree diagrams from above can also be depicted as a vertical bar plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_bar.html">plot_bar</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
          <span class="dt">by =</span> <span class="st">"all"</span>, <span class="dt">dir =</span> <span class="dv">2</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<p>(The plot is not shown here, but please go ahead and create it for yourself.)</p>
 <p>However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here).</p>
 </div>
 <div id="prism-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h4>
 <p>The prism plot (called network diagram in version 0.1.0 of <code>riskyr</code>) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by <code>comp_freq_prop</code> and <code>comp_freq_freq</code> and contained in <code>freq</code>) as nodes of a single graph and depicts 12 probabilities (computed by <code>comp_prop_prop</code> and <code>comp_prop_freq</code> and contained in <code>prob</code>) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, <code>riskyr</code> visualizes the interplay of frequencies and probabilities in a variety of ways:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"cddc"</span>, <span class="dt">area =</span> <span class="st">"sq"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot_fnet-1.png" alt="A prism plot that integrates both tree diagrams and represents relative frequency by area size." width="672"><p class="caption">
-A prism plot that integrates both tree diagrams and represents relative frequency by area size.
+<img src="A_user_guide_files/figure-html/plot_fnet-1.png" alt="A prism plot that integrates 2 tree diagrams and represents relative frequency by area size." width="672"><p class="caption">
+A prism plot that integrates 2 tree diagrams and represents relative frequency by area size.
 </p>
 </div>
 <p>Changing the <code>by</code> and <code>area</code> options provides a variety of perspectives on a scenario. Additionally, all plotting functions provide summary information on scenario parameters and current accuracy metrics on the lower margin. Setting <code>mar_notes = FALSE</code> gets rid of this display. Similarly, setting <code>scen_lbl = ""</code> removes the title and sub-title above the diagrams.</p>
@@ -610,24 +593,25 @@ A prism plot that integrates both tree diagrams and represents relative frequenc
 <div id="alternative-perspectives" class="section level4">
 <h4 class="hasAnchor">
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
-<p>The variety of different graphical options may be overwhelming at first. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
+<p>The variety of different graphical options provided by <code>riskyr</code> can be overwhelming at first – but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
 <p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond_true</code> and <code>cond_false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec_pos</code> and <code>dec_neg</code> cases:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
+           <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>, <span class="dt">col_pal =</span> pal_mod)</code></pre></div>
+<p>(Note that using the <code>col_pal</code> argument changed the color scheme to the pre-defined <code>pal_mod</code> color palette.)</p>
 <p>Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (<code>dec_cor</code> and <code>dec_err</code>) decisions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"ac"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <p>The same perspectives can also be applied to other plots. For instance, the population of the area/mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options <code>by = "cddc"</code> and <code>p_split = "h"</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
           <span class="dt">by =</span> <span class="st">"cddc"</span>,    <span class="co"># show by condition x decision</span>
           <span class="dt">p_split =</span> <span class="st">"h"</span>,  <span class="co"># horizontal perspective is primary </span>
           <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <p><code>riskyr</code> uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option <code>area = "hr"</code> further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">area =</span> <span class="st">"hr"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <p>Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. Even when relaxing the positional constraint of icons in the icon array, the similarity is still visible:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_icons.html">plot_icons</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">arr_type =</span> <span class="st">"mosaic"</span>, <span class="dt">icon_types =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">22</span>), <span class="dt">icon_size =</span> <span class="dv">3</span>,  
+           <span class="dt">arr_type =</span> <span class="st">"mosaic"</span>, <span class="dt">icon_types =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">22</span>), <span class="dt">icon_size =</span> <span class="dv">2</span>,  
            <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <p>Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.)</p>
 <p>For more details, see the documentation and examples of the visualization functions (e.g., <code>plot_area</code>, <code>plot_icon</code>, and <code>plot_prism</code>).</p>
@@ -640,8 +624,8 @@ A prism plot that integrates both tree diagrams and represents relative frequenc
 <ul>
 <li><p>Gigerenzer, G. (2002). <em>Reckoning with risk: Learning to live with uncertainty</em>. London, UK: Penguin.</p></li>
 <li><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin.</p></li>
-<li><p>Gigerenzer, G., &amp; Gaissmaier, W. (2011). Heuristic decision making. <em>Annual Review of Psychology</em>, <em>62</em>, 451–482.</p></li>
-<li><p>Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &amp; Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. <em>Psychological Science in the Public Interest</em>, <em>8</em>, 53–96.</p></li>
+<li><p>Gigerenzer, G., &amp; Gaissmaier, W. (2011). Heuristic decision making. <em>Annual Review of Psychology</em>, <em>62</em>, 451–482. [<a href="https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346">Available online</a>]</p></li>
+<li><p>Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &amp; Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. <em>Psychological Science in the Public Interest</em>, <em>8</em>, 53–96. [<a href="https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x">Available online</a>]</p></li>
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: Frequency formats. <em>Psychological Review</em>, <em>102</em>, 684–704.</p></li>
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1999). Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). <em>Psychological Review</em>, <em>106</em>, 425–430.</p></li>
 <li><p>Hertwig, R., &amp; Grüne-Yanoff, T. (2017). Nudging and boosting: Steering or empowering good decisions. <em>Perspectives on Psychological Science</em>, <em>12</em>, 973–986.</p></li>
@@ -653,7 +637,7 @@ A prism plot that integrates both tree diagrams and represents relative frequenc
 <li><p>Kurz-Milcke, E., Gigerenzer, G., &amp; Martignon, L. (2008). Transparency in risk communication. <em>Annals of the New York Academy of Sciences</em>, <em>1128</em>, 18–28.</p></li>
 <li><p>Mandel, D. R. &amp; Navarrete, G. (2015). Editorial: Improving Bayesian reasoning: What works and why? <em>Frontiers in Psychology</em>, <em>6</em>, 1872. doi: <a href="https://doi.org/10.3389/fpsyg.2015.01872">10.3389/fpsyg.2015.01872</a></p></li>
 <li><p>Micallef, L., Dragicevic, P., &amp; Fekete, J.-D. (2012). Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. <em>IEEE Transactions on Visualization and Computer Graphics</em>, <em>18</em>, 2536–2545.</p></li>
-<li><p>Neth, H., &amp; Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott &amp; S. Kosslyn (Eds.), <em>Emerging trends in the social and behavioral sciences</em>. New York, NY: Wiley Online Library.</p></li>
+<li><p>Neth, H., &amp; Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott &amp; S. Kosslyn (Eds.), <em>Emerging trends in the social and behavioral sciences</em>. New York, NY: Wiley Online Library. [<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&amp;rep=rep1&amp;type=pdf">Available online</a>]</p></li>
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
 <li><p>Strevens, M. (2013). <em>Tychomancy: Inferring probability from causal structure</em>. Cambridge, MA: Harvard University Press.</p></li>
 <li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307.<br>
@@ -816,7 +800,7 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://neth.de">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

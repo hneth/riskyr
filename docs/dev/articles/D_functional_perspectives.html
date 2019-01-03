@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9950</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9000</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/A_user_guide.html">`riskyr` User Guide</a>
+      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
     </li>
     <li>
       <a href="../articles/B_data_formats.html">Data Formats</a>
@@ -144,8 +144,8 @@ $$
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>), 
            <span class="dt">what =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span>), 
            <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>, <span class="dt">cex.lbl =</span> .<span class="dv">8</span>)</code></pre></div>
-<div class="figure">
-<img src="D_functional_perspectives_files/figure-html/plot_curve_1-1.png" alt="Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario." width="672"><p class="caption">
+<div class="figure" style="text-align: center">
+<img src="D_functional_perspectives_files/figure-html/plot_curve_1-1.png" alt="Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario." width="624"><p class="caption">
 Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario.
 </p>
 </div>
@@ -164,8 +164,8 @@ Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and give
 <span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(<span class="dt">prev =</span> high.prev, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>), 
            <span class="dt">what =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span>, <span class="st">"ppod"</span>, <span class="st">"acc"</span>), 
            <span class="dt">title_lbl =</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, <span class="dt">uc =</span> .<span class="dv">05</span>, <span class="dt">cex.lbl =</span> .<span class="dv">80</span>)</code></pre></div>
-<div class="figure">
-<img src="D_functional_perspectives_files/figure-html/plot_curve_3-1.png" alt="Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%." width="672"><p class="caption">
+<div class="figure" style="text-align: center">
+<img src="D_functional_perspectives_files/figure-html/plot_curve_3-1.png" alt="Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%." width="624"><p class="caption">
 Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%.
 </p>
 </div>
@@ -178,8 +178,8 @@ Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for give
 <p>Some examples (not shown here, but please try evaluating the following function calls):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_plane.html">plot_plane</a></span>(<span class="dt">prev =</span> high.prev, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>), <span class="dt">what =</span> <span class="st">"PPV"</span>,  
            <span class="dt">title_lbl =</span> <span class="st">"A. Mammography (BRCA1)"</span>, <span class="dt">cex.lbl =</span> .<span class="dv">8</span>)</code></pre></div>
-<div class="figure">
-<img src="D_functional_perspectives_files/figure-html/plot_plane_PPV-1.png" alt="Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence." width="480"><p class="caption">
+<div class="figure" style="text-align: center">
+<img src="D_functional_perspectives_files/figure-html/plot_plane_PPV-1.png" alt="Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence." width="528"><p class="caption">
 Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence.
 </p>
 </div>
@@ -324,7 +324,7 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://neth.de">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
