@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2018 12 20
+## 2019 01 03
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -748,11 +748,12 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 
 ## Set default color palette: -------
 
-## Use pal_mod by default:
-# pal <- pal_mod
+## Use pal_mbw by default (riskyr 0.2.0):
+# pal <- pal_mbw
 
-## Use pal_mbw by default:
-pal <- pal_mbw
+## Use pal_mod by default (riskyr 0.2.0.9000+):
+pal <- pal_mod
+
 
 ## (*) Done: ----------
 
