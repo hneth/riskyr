@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9000+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9000+
+# riskyr 0.2.0.9001+
 
 Log of changes since last release:
 
@@ -14,7 +14,8 @@ Log of changes since last release:
 
 ## Minor changes
 
-- none so far
+- Add options to `plot_prism` [2019-01]:  
+Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths of probability links by current probability values.  
 
 ## Micro changes
 
