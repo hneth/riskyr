@@ -8,7 +8,7 @@ url: https://hneth.github.io/riskyr/
 
 authors:
   Hansjoerg Neth:
-    href: https://www.spds.uni-konstanz.de/hans-neth
+    href: http://neth.de
   Felix Gaisbauer:
     href: https://www.spds.uni-konstanz.de/felix-gaisbauer
   Nico Gradwohl:
@@ -24,6 +24,38 @@ development:
 # template:
 #  params:
 #    bootswatch: sandstone
+
+toc:
+  depth: 3
+
+navbar:
+  title: "riskyr"
+  type: inverse # default inverse
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "User guide"
+      href: articles/A_user_guide.html
+    - text: "Articles"
+      icon: fa-info
+      menu:
+        - text: "Data formats"
+          href: articles/B_data_formats.html
+        - text: "Confusion matrix"
+          href: articles/C_confusion_matrix.html
+        - text: "Functional perspectives"
+          href: articles/D_functional_perspectives.html
+        - text: "Quick start primer"
+          href: articles/E_riskyr_primer.html
+    - text: "Reference"
+      icon: fa-gear
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/rstudio/sparklyr
 
 reference:
 - title: Initialization
@@ -79,9 +111,6 @@ reference:
   contents:
   - starts_with("is_")
   - starts_with("as_")
-
-toc:
-  depth: 3
 
 figures:
   dev: grDevices::png
