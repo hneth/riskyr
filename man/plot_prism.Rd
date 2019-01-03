@@ -8,8 +8,9 @@ plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   area = "no", scale = "p", round = TRUE, f_lbl = "num",
   f_lbl_sep = NA, f_lwd = 0, p_lbl = "mix", arr_c = NA,
-  lbl_txt = txt, title_lbl = txt$scen_lbl, cex_lbl = 0.9,
-  cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE, ...)
+  p_scale = FALSE, lbl_txt = txt, title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -124,6 +125,10 @@ with the following options:
   \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
 }
 Default: \code{arr_c = NA}, but adjusted by \code{area}.}
+
+\item{p_scale}{Boolean value for scaling all widths of probability links
+by current probability values.
+Default: \code{p_scale = FALSE}.}
 
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
