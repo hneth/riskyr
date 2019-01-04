@@ -146,10 +146,10 @@ plot_curve(p_lbl = "namnum", what = "all")  # names and values
 
 # Text and color settings:
 plot_curve(title_lbl = "Testing tiny text labels", cex_lbl = .60)
-plot_curve(title_lbl = "Testing specific colors", uc = .05,
-           what = "all", what_col = c("grey", "red3", "green3", "blue3", "gold"))
-plot_curve(title_lbl = "Testing color palette", uc = .05,
-           what = "all", col_pal = pal_org)
+plot_curve(title_lbl = "Testing specific colors", what = "all",
+           uc = .1, what_col = c("grey", "red3", "green3", "blue3", "gold"))
+plot_curve(title_lbl = "Testing black-and-white palette",
+           what = "all", col_pal = pal_bwp)
 
 }
 \seealso{
