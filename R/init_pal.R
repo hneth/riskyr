@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2019 01 03
+## 2019 01 04
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -71,6 +71,10 @@ yellow_2 <- make_transparent(my_yellow, alpha = 1.0)
 
 orange_1 <- make_transparent(my_orange, alpha = .50)
 orange_2 <- make_transparent(my_orange, alpha = 1.0)
+
+my_white <- "white"
+my_grey  <- "grey75"
+my_black <- "black"
 
 my_whitish <- "antiquewhite" # "whitesmoke"
 my_bluish <- "aliceblue"
@@ -420,14 +424,21 @@ pal <- init_pal()  ## apply
 #'
 #' @export
 
-pal_org <- pal
+pal_org <- pal  # copy pal
 
-## pal_bw:  A black-and-white (b/w) color palette: --------
 
-#' Alternative color palette for black-and-white graphs.
+## pal_bw:  A black-and-white (b/w/grey) color palette: --------
+
+#' Alternative color palette for black-and-white (greyscale) graphs.
 #'
 #' \code{pal_bw} is initialized to a vector of named elements (colors)
 #' to define an alternative (black-and-white, b/w) scenario color scheme.
+#'
+#' Note that \code{pal_bw} uses various shades of grey for frequency boxes
+#' so that their bounds remain visible on a white background
+#' when \code{f_lwd = 0} (as per default for most graphs).
+#' See \code{\link{pal_bwp}} for a stricter version that enforces
+#' black text and lines on white boxes.
 #'
 #' See \code{\link{pal}} for default color information.
 #'
@@ -450,10 +461,10 @@ pal_org <- pal
 pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
                    cond_true_col =  grey(.90, .99), # darker white
                    cond_false_col = grey(.80, .99), # darker white
-                   dec_pos_col = grey(.85, .99),   # darker white
-                   dec_neg_col = grey(.70, .99),   # darker white
-                   dec_cor_col = grey(.75, .99),   # darker white
-                   dec_err_col = grey(.60, .99),   # darker white
+                   dec_pos_col = grey(.85, .99),  # darker white
+                   dec_neg_col = grey(.70, .99),  # darker white
+                   dec_cor_col = grey(.75, .99),  # darker white
+                   dec_err_col = grey(.60, .99),  # darker white
                    hi_col = grey(.80, .99),    # brighter 1
                    mi_col = grey(.60, .99),    # darker 1
                    fa_col = grey(.50, .99),    # darker 2
@@ -468,8 +479,70 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 # pal_bw
 # pal_bw["hi"]
 
-## Use bw color scheme (as default):
-# pal <- pal_bw
+
+## pal_bwp:  A strict black-and-white (b/w) color palette for printing purposes: --------
+
+#' Alternative color palette for black-and-white graphs (for printing purposes).
+#'
+#' \code{pal_bwp} is initialized to a vector of named elements (colors)
+#' to define a strict (black-and-white, b/w) scenario color scheme.
+#'
+#' \code{pal_bwp} is a strict version that enforces
+#' black text and lines on white boxes. Thus, the bounds of frequency boxes
+#' are invisible on white backgrounds unless the default of
+#' \code{f_lwd = 0} is changed (e.g., to \code{f_lwd = 1}).
+#'
+#' Some background colors (of frequencies) are also used as
+#' foreground colors (of probabilities, e.g.,
+#' in \plot{\link{plot_curve}} and \plot{\link{plot_plane}}).
+#' For this reason, the corresponding functions detect and
+#' adjust colors and/or line settings when \code{pal_bwp}
+#' is used.
+#'
+#' See \code{\link{pal_bw}} for a less strict version that
+#' uses various shades of grey for frequency boxes
+#' so that their bounds remain visible on a white background
+#' when \code{f_lwd = 0} (as per default for most graphs).
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_bwp} to use as default color scheme
+#' throughout the \code{riskyr} package.
+#'
+#' @examples
+#' pal_bwp        # shows all current color names and values
+#' pal_bwp["hi"]  # shows the current color for hits (true positives)
+#' pal_bwp["hi"] <- "gold" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_bwp <- init_pal(N_col = my_white,          # grey(.95, .99), # nearly white
+                    cond_true_col =  my_white,  # grey(.90, .99), # darker white
+                    cond_false_col = my_white,  # grey(.80, .99), # darker white
+                    dec_pos_col = my_white,  # grey(.85, .99),  # darker white
+                    dec_neg_col = my_white,  # grey(.70, .99),  # darker white
+                    dec_cor_col = my_white,  # grey(.75, .99),  # darker white
+                    dec_err_col = my_white,  # grey(.60, .99),  # darker white
+                    hi_col = my_white,  # grey(.80, .99),    # brighter 1
+                    mi_col = my_white,  # grey(.60, .99),    # darker 1
+                    fa_col = my_white,  # grey(.50, .99),    # darker 2
+                    cr_col = my_white,  # grey(.70, .99),    # brighter 2
+                    PPV_col = my_black,  # grey(.60, .99),   # medium grey
+                    NPV_col = my_black,  # grey(.45, .99),   # darker grey
+                    txt_col = my_black,  # grey(0, .99),     # black
+                    brd_col = my_black   # grey(.10, .99)    # almost black
+)
+
+## Check:
+# pal_bwp
+# pal_bwp["hi"]
+
 
 ## pal_rgb: A reduced RGB color palette: --------
 
@@ -754,6 +827,8 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 ## Use pal_mod by default (riskyr 0.2.0.9000+):
 pal <- pal_mod
 
+## Test:
+pal <- pal_bwp
 
 ## (*) Done: ----------
 
