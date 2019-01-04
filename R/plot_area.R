@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2018 12 20
+## 2019 01 04
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -561,9 +561,10 @@ plot_area <- function(prev = num$prev,    # probabilities
   } # if (scale == etc.)
 
   # f_lwd & lty:
+  tiny_lwd <- .001   # initialize tiny, invisible width
+
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {
 
-    tiny_lwd <- .001   # tiny, invisible width
     f_lwd <- tiny_lwd  # to avoid error (for lwd = 0)
     lty <- 0           # "blank" (no lines) [only when f_lty and p_lty are NOT used]
 
@@ -593,15 +594,6 @@ plot_area <- function(prev = num$prev,    # probabilities
   # p_lwd <- 1  # lwd of p-links
   # p_lty <- 1  # lty of p-links
 
-  # colors:
-  # if (!all(col_p %in% colors())) { message("col_p must contain (1 to 3) valid color names.") }
-  if (length(col_p) == 1) { col_p <- rep(col_p, 3) }  # 1 color: use for all 3 p-links
-  if (length(col_p) == 2) { col_p <- c(col_p[1], col_p[2], col_p[2]) } # 2 colors: use 2nd for 2 and 3
-
-  p_col_1 <- col_p[1]  # prob color 1 (must be visible on hi)
-  p_col_2 <- col_p[2]  # prob color 2 (must be visible on hi)
-  p_col_3 <- col_p[3]  # prob color 3 (must be visible on cr AND fa)
-
   # arr_c:
   if ( is.null(arr_c) || is.na(arr_c) ) { arr_c <- 0 }  # sensible zero
 
@@ -621,7 +613,31 @@ plot_area <- function(prev = num$prev,    # probabilities
   if ( cex_p_lbl == 0 )  { cex_p_lbl <- .001 } # other sensible zero
 
 
-  ## 5. Plot borders: ----
+  ## 5. Colors / color palettes: ----
+
+  # (a) Detect and handle special case of strict b+w color palette (pal_bwp):
+  if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
+    f_lwd <- 1
+    # lty <- 1
+  }
+
+  # (b) Probability link colors:
+  # if (!all(col_p %in% colors())) { message("col_p must contain (1 to 3) valid color names.") }
+  if (length(col_p) == 1) { col_p <- rep(col_p, 3) }  # 1 color: use for all 3 p-links
+  if (length(col_p) == 2) { col_p <- c(col_p[1], col_p[2], col_p[2]) } # 2 colors: use 2nd for 2 and 3
+
+  p_col_1 <- col_p[1]  # prob color 1 (must be visible on hi)
+  p_col_2 <- col_p[2]  # prob color 2 (must be visible on hi)
+  p_col_3 <- col_p[3]  # prob color 3 (must be visible on cr AND fa)
+
+  # Detect and handle special case of strict b+w color palette (pal_bwp):
+  if ( all(col_pal == pal_bwp) ) {
+    if (p_col_2 == "yellow") { p_col_2 <- grey(.22, .99) }  # change if still default color
+    if (p_col_3 == "yellow") { p_col_3 <- grey(.33, .99) }  # change if still default color
+  }
+
+
+  ## 6. Plot borders: ----
 
   # sum_w: Must be a value in range 0 to 1:
   if ( is.null(sum_w) || is.na(sum_w) ) { sum_w <- 0 }  # set to 0 (min)
@@ -631,7 +647,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   if ( sum_w < sum_w_min ) { sum_w <- sum_w_min }  # set to sum_w_min
 
 
-  ## 6. Additional parameters (currently fixed): ----
+  ## 7. Additional parameters (currently fixed): ----
 
   lty <- 1  # default
 
@@ -660,6 +676,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # } else {
   #   f_lbl_hd  <- "abb"  # use abbreviated names
   # }
+
 
   ## (2) Define plot and margin areas: ----------
 

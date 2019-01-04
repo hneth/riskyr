@@ -437,8 +437,9 @@ pal_org <- pal  # copy pal
 #' Note that \code{pal_bw} uses various shades of grey for frequency boxes
 #' so that their bounds remain visible on a white background
 #' when \code{f_lwd = 0} (as per default for most graphs).
+#'
 #' See \code{\link{pal_bwp}} for a stricter version that enforces
-#' black text and lines on white boxes.
+#' black text and lines on white boxes (e.g., for printing purposes).
 #'
 #' See \code{\link{pal}} for default color information.
 #'
@@ -485,22 +486,24 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' Alternative color palette for black-and-white graphs (for printing purposes).
 #'
 #' \code{pal_bwp} is initialized to a vector of named elements (colors)
-#' to define a strict (black-and-white, b/w) scenario color scheme.
+#' to define a strict (black-and-white, b/w) scenario color scheme
+#' that is suited for printing graphs in black-and-white.
 #'
-#' \code{pal_bwp} is a strict version that enforces
+#' \code{pal_bwp} is a stricter version of the greyscale
+#' palette \code{\link{pal_bw}} that enforces
 #' black text and lines on white boxes. Thus, the bounds of frequency boxes
 #' are invisible on white backgrounds unless the default of
 #' \code{f_lwd = 0} is changed (e.g., to \code{f_lwd = 1}).
 #'
 #' Some background colors (of frequencies) are also used as
 #' foreground colors (of probabilities, e.g.,
-#' in \plot{\link{plot_curve}} and \plot{\link{plot_plane}}).
-#' For this reason, the corresponding functions detect and
+#' in \code{\link{plot_curve}} and \code{\link{plot_plane}}).
+#' For this reason, the plotting functions detect and
 #' adjust colors and/or line settings when \code{pal_bwp}
 #' is used.
 #'
-#' See \code{\link{pal_bw}} for a less strict version that
-#' uses various shades of grey for frequency boxes
+#' See \code{\link{pal_bw}} for a more permissible black-and-white
+#' palette that uses various shades of grey for frequency boxes
 #' so that their bounds remain visible on a white background
 #' when \code{f_lwd = 0} (as per default for most graphs).
 #'

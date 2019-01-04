@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2018 12 20
+## 2019 01 04
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -225,7 +225,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   } # if (is_valid_prob_set(prev...
 
 
-  ## (1) Text labels:
+  ## (1) Text labels: --------
 
   # Plot title:
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
@@ -261,7 +261,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (3) Define plot and margin areas: ----------
 
-  ## (A) Define margin areas:
+  ## (A) Define margin areas: ------
 
   if (nchar(title_lbl) > 0) { n_lines_top <- 2 } else { n_lines_top <- 0 }
   if (mar_notes) { n_lines_bot <- 4 } else { n_lines_bot <- 1 }
@@ -269,7 +269,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   par(mar = c(n_lines_bot, 1, n_lines_top, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(0, 0, 0, 0) + 0.1)                      # outer margins; default: par("oma") = 0 0 0 0.
 
-  ## (B) Ranges on x- and y-axes: ----------
+  ## (B) Ranges on x- and y-axes: ------
 
   ## Ensure that step_size is a reasonable value in [0, 1] range:
   step_size_min <- .01
@@ -288,7 +288,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (2) Determine current parameters and matrix for selected what metric: ----------
 
-  ## (a) PPV:
+  ## (a) PPV: ------
+
   if (what == "ppv") {
 
     ## 1. Parameters:
@@ -299,7 +300,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     cur_lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
     type_lbl <- "Probability plane of positive predictive values (PPV)"
-    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["ppv"] }  # cur_col
+
+    # cur_col color:
+    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["ppv"] }  # cur_col for PPV
+
+    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
+    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
+      cur_col <- "grey33"  # unique PPV color
+    }
+
     z_lbl <- "PPV"    # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
@@ -313,7 +322,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "ppv")...
 
-  ## (b) NPV:
+
+  ## (b) NPV: ------
+
   if (what == "npv") {
 
     ## 1. Parameters:
@@ -324,7 +335,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     cur_lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
     type_lbl <- "Probability plane of negative predictive values (NPV)"
-    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["npv"] }  # cur_col
+
+    # cur_col color:
+    if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["npv"] }  # cur_col for NPV
+
+    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
+    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
+      cur_col <- "grey55"  # unique NPV color
+    }
+
     z_lbl <- "NPV"    # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
@@ -338,7 +357,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "npv")...
 
-  ## (c) ppod:
+
+  ## (c) ppod: ------
+
   if (what == "ppod") {
 
     ## 1. Parameters:
@@ -349,7 +370,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     cur_lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
     type_lbl <- "Probability plane of the proportion of positive predictions (ppod)"
+
+    # cur_col color:
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["dec_pos"] }  # cur_col for ppod (using "pos")
+
+    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
+    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
+      cur_col <- "grey44"  # unique ppod color
+    }
+
     z_lbl <- "ppod"   # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
@@ -363,7 +392,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "ppod")...
 
-  ## (d) acc:
+
+  ## (d) acc: ------
+
   if (what == "acc") {
 
     ## 1. Parameters:
@@ -374,7 +405,15 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     cur_lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
     type_lbl <- "Probability plane of accuracy values (acc)"
+
+    # cur_col color:
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["dec_cor"] }  # cur_col for acc (using "dec_cor")
+
+    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
+    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
+      cur_col <- "grey66"  # unique acc color
+        }
+
     z_lbl <- "acc"    # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
@@ -433,7 +472,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     pt_cex <- 1.5        # scale point size
     pt_lwd <- 1.0        # line width of point border
     pt_col <- point_col  # point color
-    bd_col <- grey(.01, alpha = .99) # border color
+    bd_col <- grey(.01, alpha = .99)  # point border color
+
+    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
+    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (point_col == "yellow") ) { # point_col still is default point_col:
+      pt_col <- "white"  # change point_col to white
+    }
 
     ## Add point to plot:
     proj_pt <- trans3d(sens, spec, cur_val, plane)

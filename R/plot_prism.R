@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2019 01 03
+## 2019 01 04
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -296,18 +296,19 @@
 #' plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
 #'            title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
 #' plot_prism(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
-#' plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 #' plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #'
-#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
+#' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
 #' plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 #'
 #' plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 #' plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Suggested combinations:
-#' plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)
-#' plot_prism(f_lbl = "namnum", p_lbl = "mix", cex_lbl = .80, cex_p_lbl = .75)
+#' plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)  # basic plot
+#' plot_prism(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
+#' plot_prism(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
+#'            f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
 #'
 #' plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 #' plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", p_lwd = 6, p_scale = TRUE)
@@ -419,7 +420,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## (2) Key options and parameters: ----------
 
-  ## 1. Perspective:
+  ## 1. by Perspective: ----
 
   # by:
   by_vec <- read_by(by = by) # helper function returns vector with 3 elements:
@@ -427,7 +428,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
   by_bot <- by_vec[2]
   by     <- by_vec[3]  # updates original by to (possibly changed) by_now
 
-  ## 2. Freq boxes
+
+  ## 2. Freq boxes: ----
 
   # area:
   if (is.null(area) || is.na(area) || tolower(area) == "none" || tolower(area) == "fix") { area <- "no" }
@@ -459,9 +461,10 @@ plot_prism <- function(prev = num$prev,    # probabilities
   }
 
   # f_lwd & lty:
+  tiny_lwd <- .001   # initialize tiny, invisible width
+
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {
 
-    tiny_lwd <- .001   # tiny, invisible width
     f_lwd <- tiny_lwd  # to avoid error (for lwd = 0)
     lty <- 0           # "blank" (no lines) [only when f_lty and p_lty are NOT used]
 
@@ -478,7 +481,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     }
   }
 
-  ## 3. Prob links:
+
+  ## 3. Prob links: ----
 
   # No probability labels: Detect special strings:
   if (!is.null(p_lbl)) {
@@ -503,7 +507,8 @@ plot_prism <- function(prev = num$prev,    # probabilities
     if (area == "sq") { arr_c <-  0 }  # no arrows
   }
 
-  ## 4. Text labels:
+
+  ## 4. Text labels: ----
 
   # Plot title:
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
@@ -518,10 +523,20 @@ plot_prism <- function(prev = num$prev,    # probabilities
   if ( cex_p_lbl == 0 )  { cex_p_lbl <- .001 } # other sensible zero
 
 
-  ## 5. Additional parameters (currently fixed):
+  ## 5. Colors / color palettes: ----
+
+  # Detect and handle special case of strict b+w color palette (pal_bwp):
+  if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
+    f_lwd <- 1
+    # lty <- 1
+    }
+
+  ## 6. Additional parameters (currently fixed): ----
+
   lty <- 1
   ftype_x <- -5.5    # x-value of ftype labels
   ftype_pos <- 4   # pos of ftype labels (NULL: centered, 2: right justified, or 4: left justified)
+
 
   ## (3) Define plot and margin areas: ----------
 

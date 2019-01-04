@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2018 12 20
+## 2010 01 04
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -516,6 +516,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_ppv <- col_pal["ppv"]  # use default color for PPV
     }
 
+    # Detect and handle special case of strict b+w color palette (pal_bwp):
+    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+      col_ppv <- "black"  # distinct PPV color
+      lty_ppv <- 1        # unique PPV line type
+    }
+
     legend_lbls <- c(legend_lbls, "PPV")    # add PPV label
     legend_cols <- c(legend_cols, col_ppv)  # add PPV color
     legend_ltys <- c(legend_ltys, lty_ppv)  # add PPV line type
@@ -583,6 +589,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_npv <- what_col[pos_npv]     # use color specified for NPV
     } else {
       col_npv <- col_pal["npv"]  # use default color for NPV
+    }
+
+    # Detect and handle special case of strict b+w color palette (pal_bwp):
+    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+      col_npv <- "grey35"  # distinct NPV color
+      lty_npv <- 5         # unique NPV line type (5 = long dashes)
     }
 
     legend_lbls <- c(legend_lbls, "NPV")    # add NPV label
@@ -657,6 +669,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_ppod <- col_pal["dec_pos"]  # use default color for ppod (using "pos")
     }
 
+    # Detect and handle special case of strict b+w color palette (pal_bwp):
+    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+      col_ppod <- "grey50"  # distinct ppod color
+      lty_ppod <- 4         # unique ppod line type
+    }
+
     legend_lbls <- c(legend_lbls, "ppod")    # add NPV label
     legend_cols <- c(legend_cols, col_ppod)  # add NPV color
     legend_ltys <- c(legend_ltys, lty_ppod)  # add NPV line type
@@ -712,7 +730,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   } # if ("ppod" %in% what)...
 
 
-  ## (e) Overall accuracy (acc):
+  ## (e) Overall accuracy (acc): ----------
+
   if ("acc" %in% what) {
 
     ## 0. parameters:
@@ -726,6 +745,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_acc <- what_col[pos_acc]     # use color specified for acc (using "hi")
     } else {
       col_acc <- col_pal["dec_cor"]  # use default color for acc (using "cor")
+    }
+
+    # Detect and handle special case of strict b+w color palette (pal_bwp):
+    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+      col_acc <- "grey20"  # distinct acc color
+      lty_acc <- 3         # unique acc line type
     }
 
     legend_lbls <- c(legend_lbls, "acc")    # add acc label

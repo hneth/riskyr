@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2018 12 20
+## 2019 01 04
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -296,11 +296,12 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (f_lbl == "namnum" || f_lbl == "namval" || f_lbl == "abbnum") (f_lbl <- "default")
 
   # f_lwd & lty:
+  tiny_lwd <- .001   # initialize tiny, invisible width
+
   if (is.null(lty) || is.na(lty) || (lty < 0)) { lty <- 0 }  # default/null
 
   if ( is.null(f_lwd) || is.na(f_lwd) || f_lwd <= 0 ) {
 
-    tiny_lwd <- .001   # tiny, invisible width
     f_lwd <- tiny_lwd  # to avoid error (for lwd = 0)
     lty <- 0           # "blank" (no lines) [only when f_lty and p_lty are NOT used]
 
@@ -347,7 +348,15 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
   if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
-  ## (3) Define plot and margin areas: ----------
+  ## (3) Colors / color palettes: ----
+
+  # Detect and handle special case of strict b+w color palette (pal_bwp):
+  if ( all(col_pal == pal_bwp) && ((f_lwd <= tiny_lwd) || (lty == 0)) ) {
+    f_lwd <- 1
+    lty <- 1
+  }
+
+  ## (4) Define plot and margin areas: ----------
 
   ## Define margin areas:
 
@@ -365,7 +374,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
 
 
-  ## (4) Graphical parameters: ----
+  ## (5) Graphical parameters: ----
 
   ## Color info (NOW defined in init_pal):
   # col_prev <- col_p[1]  # prev.li  # prev help line
@@ -397,7 +406,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # lwd_help <- 2.5  # line width
 
 
-  ## (5) Define plot area: ----------
+  ## (6) Define plot area: ----------
 
   ## Plot dimensions:
   xlim = c(0, 1)
@@ -435,7 +444,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## Horizontal base line (y = 0):
   lines(c(0, 1), c(0, 0), col = pal["brd"], lwd = par("lwd"))
 
-  ## (6) Custom bar plot: ----------
+  ## (7) Custom bar plot: ----------
 
   ##   (A) Define N and 4 SDT cases (for all perspectives): ------
 
@@ -1116,7 +1125,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (by == "xxx")
 
 
-  ## (7) Title: --------
+  ## (8) Title: --------
 
   # Define parts:
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
@@ -1134,7 +1143,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   title(cur_title_lbl, adj = 0, line = +1, font.main = 1, cex.main = 1.2)  # (left, raised by +1, normal font)
 
 
-  ## (8) Margins: ------
+  ## (9) Margins: ------
 
   if (mar_notes) {
 
@@ -1158,7 +1167,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (mar_notes) etc.
 
 
-  ## Finish: ---------
+  ## (+) Finish: ---------
 
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)

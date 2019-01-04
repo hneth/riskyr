@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2018 12 20
+## 2019 01 04
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -271,7 +271,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
                        # Icon settings:
                        ident_order = c("hi", "mi", "fa", "cr"),
-                       icon_types = 22,    # plotting symbols; default: square with border
+                       icon_types = 22,    # plotting symbols; default: 22 (i.e., square with border)
                        icon_size = NULL,   # size of icons
                        icon_brd_lwd = 1.5, # line width of icons
                        block_d = NULL,     # distance between blocks (where applicable).
@@ -323,7 +323,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   # (a) Get current SDT case labels from lbl_txt:
   type_lbls = lbl_txt[c("hi_lbl", "mi_lbl", "fa_lbl", "cr_lbl")]  # 4 SDT cases/combinations
 
-  # Increase robustness: by
+  # Set default of by perspective:
   if (!(by %in% c("all", "cd", "dc", "ac"))) {
     by <- "all"  # default
   }
@@ -340,6 +340,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
 
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }
+
   } else if (by == "cd") {
 
     ident_order <- c("hi", "mi", "cr", "fa")  # order by (positive) condition.
@@ -347,12 +349,16 @@ plot_icons <- function(prev = num$prev,             # probabilities
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
 
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }
+
   } else if (by == "ac") {
 
     ident_order <- c("hi", "cr", "mi", "fa")  # order by accuracy/correctness.
     icon_col <- c(col_pal["hi"], col_pal["hi"],
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
+
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }
   }
 
   icon_brd_col <- col_pal["brd"]        # border color of icons [was: grey(.10, .50)]
@@ -360,6 +366,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## Increase robustness by anticipating and correcting common entry errors: ------
 
+  ## 1. arr_type:
   if ( !is.null(arr_type) && !is.na(arr_type) ) {
     arr_type <- tolower(arr_type)  # express arr_type in lowercase
   }
@@ -370,11 +377,33 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if ( arr_type == "top" ) { arr_type <- "filltop" }
   if ( arr_type == "equal" ) { arr_type <- "fillequal" }
 
-  # Plot title:
+  ## 2. Colors / color palettes: ----
+
+  # Detect and handle special case of strict b+w color palette (pal_bwp):
+  if ((col_pal == pal_bwp) && (length(unique(icon_types)) < 4)) {
+
+    if (by == "all") {
+
+      icon_types <- c(22, 25, 23, 21)
+      icon_col <- c("white", "grey20", "black", "grey90")  # (white dark black bright)
+
+    } else {  # by cd/dc/ac:
+
+      icon_types <- c(22, 22, 25, 25)
+      icon_col <- c("white", "white", "black", "black")
+      names(icon_col) <- ident_order
+
+    } # by.
+
+    # icon_brd_col <- "black"
+
+  }
+
+  ## 3. Plot title: ----
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
   if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
-  ## Currently fixed parameters:
+  ## 4. Additional parameters (currently fixed): ----
   xlim = c(0, 1)  # xlim and ylim should currently remain fixed
   ylim = c(0, 1)
   cex = icon_size      # if NULL, cex will be calculated on demand
