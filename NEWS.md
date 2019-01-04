@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9002+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9001+
+# riskyr 0.2.0.9002+
 
 Log of changes since last release:
 
@@ -12,15 +12,30 @@ Log of changes since last release:
 
 - none so far
 
+
 ## Minor changes
+
+### Changes to existing visualization functions 
 
 - Add options to `plot_prism` [2019-01]:  
 Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths of probability links by current probability values.  
 
+### Other changes
+
+- none so far
+
+
 ## Micro changes
 
-- Default color scheme [2019-01]:   
-Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme.
+### General changes
+
+- Add color palettes [2019-01]:   
+Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme.
+
+### Details
+
+- Bug fix in `plot_icons` [2019-01]:   
+Enforce 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
 
 # riskyr 0.2.0
@@ -92,13 +107,6 @@ Change Boolean `vsplit` argument to `by = "cd"` vs. `by = "dc"` to ensure consis
 - `mar_notes` and `plot_mar` [2018-09]:   
 Use consistent plot margins and options for showing margin notes for all plots.
 
-### Other changes 
-
-- `read_popu` [2018-11]:   
-Read a data frame `popu` and interpret is as a `riskyr` scenario, allows creating scenarios from raw data. 
-
-- `comp_accu.R` [2018-08]:   
-Compute exact accuracy values (not approximations, when using `comp_accu_freq` on rounded `freq` values) by using the new function `comp_accu_prob` to compute the list `accu` from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when `show.accu == TRUE` and `round == TRUE`). 
 
 ### Default objects (lists and vectors)
 
@@ -113,6 +121,15 @@ Include accuracy metrics in probabilities (in `prob` and summary functions).
 
 - `pal` and `txt` [2018-10]:   
 Add multiple color palettes and text labeling schemes (see `?pal` and `?txt` for details). 
+
+
+### Other changes 
+
+- `read_popu` [2018-11]:   
+Read a data frame `popu` and interpret is as a `riskyr` scenario, allows creating scenarios from raw data. 
+
+- `comp_accu.R` [2018-08]:   
+Compute exact accuracy values (not approximations, when using `comp_accu_freq` on rounded `freq` values) by using the new function `comp_accu_prob` to compute the list `accu` from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when `show.accu == TRUE` and `round == TRUE`). 
 
 
 ## Micro changes
