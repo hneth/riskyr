@@ -190,22 +190,23 @@ plot_icons(N = 1000, by = "cd")   # (hi + mi) vs. (fa + cr) (TP + FN vs. FP + TN
 plot_icons(N = 1000, by = "dc")   # (hi + fa) vs. (mi + cr) (TP + FP vs. FN + TN) cases
 plot_icons(N = 1000, by = "ac")   # (hi + cr) vs. (fa + mi) (TP + TN vs. FP + FN) cases
 
-# icon symbols:
-plot_icons(N = 100, icon_types = c(21, 23, 24, 23),
-               block_size_row = 5, block_size_col = 5, #nblocks_row = 2, nblocks_col = 2,
-               block_d = 0.5, border_d = 0.9)
+# Icons types and colors:
+plot_icons(N = 600, by = "all", col_pal = pal_bwp) # by all: 4 symbol types
+plot_icons(N = 600, by = "ac", col_pal = pal_bwp)  # by accuracy: 2 symbol types
+plot_icons(N = 200, icon_types = c(21, 23, 24, 22), icon_size = 2,
+               block_size_row = 5, block_size_col = 5,
+               block_d = .5, border_d = .9, col_pal = pal_rgb)
+plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
+           icon_types = c(21, 23, 24, 23),
+           block_size_row = 10, block_size_col = 5,
+           nblocks_row = 5, nblocks_col = 5,
+           block_d = 0.8, border_d = 0.2,
+           fill_array = "top")
 
 # variants:
 plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
-           block_d = 0.5, border_d = 0.5)
+           block_d = 0.5, border_d = 0.5, col_pal = pal_vir)
 
-plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-               icon_types = c(21, 23, 24, 23),
-               block_size_row = 10, block_size_col = 5,
-               nblocks_row = 5, nblocks_col = 5,
-               block_d = 0.8,
-               border_d = 0.2,
-               fill_array = "top")
 
 plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
            block_d = 0.5, border_d = 0.5)
