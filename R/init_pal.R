@@ -831,7 +831,7 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 pal <- pal_mod
 
 ## Test:
-pal <- pal_bwp
+# pal <- pal_bwp
 
 ## (*) Done: ----------
 
@@ -840,9 +840,7 @@ pal <- pal_bwp
 
 ## (+) ToDo: ----------
 
-## - Add 2x2-dimensional (+/-, T/F) color palette.
+## - Add more 2x2-dimensional (+/-, T/F) color palette.
 ## - Add dark (inverted) color palette (bright text on dark boxes).
-## - Add RGB, true b+w, and corrected palettes (for color-blind persons).
-## - Add b/w-color high-lighting palettes (e.g., for 3 perspectives).
 
 ## eof. ------------------------------------------
