@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 03
+## 2019 01 04
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1762,57 +1762,59 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           srt = 0, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # diagonal
 
 ## plot_arrs: Plot multiple (n_arr) arrows along a line (OBSOLETE): --------
+
 ##      Note: Obsolete function, as plot_line (defined above) is more flexible.
+##      Commented out to test whether function really is obsolete! (2019 01 04)
 
-plot_arrs <- function(x0, y0, x1, y1,       # coordinates
-                      n_arr = 2,            # number of arrows to draw
-                      l_arr = .10,          # length of arrows to draw
-                      a_arr = 45/2,         # angle of arrows to draw
-                      ## Optional label:
-                      lbl = NA,         # string for text label
-                      lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
-                      lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
-                      pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
-                      offset = 1,           # offset, etc.
-                      ...                   # other graphical parameters
-)
-{
-  ## (0) Draw line from p1 to p2: ----
-
-  # lines(c(x0, x1), c(y0, y1), ...)
-
-
-  ## (1) Draw n_arr arrows: ----
-
-  # Split line into n_arr + 1 segments:
-  Ax = seq(x0, x1, length = n_arr + 1)
-  Ay = seq(y0, y1, length = n_arr + 1)
-
-  # Loop to draw all arrows:
-  for (i in 1:n_arr)
-  {
-    arrows(Ax[i], Ay[i], Ax[i + 1], Ay[i + 1],
-           length = l_arr, angle = a_arr, code = 2, # arrow type: V or T?
-           ...)
-  }
-
-  ## (3) Optional text label: ------
-
-  if (!is.na(lbl_x)) { # if lbl_x exists:
-
-    # Parameters:
-    # lbl.cex = 1          # size of text label
-
-    ## Text label:
-    text(lbl_x, lbl_y,
-         labels = lbl,
-         # col = col,
-         # cex = lbl.cex,
-         pos = pos, offset = offset,
-         ...)
-  }
-
-}
+# plot_arrs <- function(x0, y0, x1, y1,       # coordinates
+#                       n_arr = 2,            # number of arrows to draw
+#                       l_arr = .10,          # length of arrows to draw
+#                       a_arr = 45/2,         # angle of arrows to draw
+#                       ## Optional label:
+#                       lbl = NA,         # string for text label
+#                       lbl_x = (x0 + x1)/2,  # x-coord of label (default in middle)
+#                       lbl_y = (y0 + y1)/2,  # y-coord of label (default in middle)
+#                       pos = NULL,           # pos (NULL = default; 1 = bottom, 2 = left, 3 = top)
+#                       offset = 1,           # offset, etc.
+#                       ...                   # other graphical parameters
+# )
+# {
+#   ## (0) Draw line from p1 to p2: ----
+#
+#   # lines(c(x0, x1), c(y0, y1), ...)
+#
+#
+#   ## (1) Draw n_arr arrows: ----
+#
+#   # Split line into n_arr + 1 segments:
+#   Ax = seq(x0, x1, length = n_arr + 1)
+#   Ay = seq(y0, y1, length = n_arr + 1)
+#
+#   # Loop to draw all arrows:
+#   for (i in 1:n_arr)
+#   {
+#     arrows(Ax[i], Ay[i], Ax[i + 1], Ay[i + 1],
+#            length = l_arr, angle = a_arr, code = 2, # arrow type: V or T?
+#            ...)
+#   }
+#
+#   ## (3) Optional text label: ------
+#
+#   if (!is.na(lbl_x)) { # if lbl_x exists:
+#
+#     # Parameters:
+#     # lbl.cex = 1          # size of text label
+#
+#     ## Text label:
+#     text(lbl_x, lbl_y,
+#          labels = lbl,
+#          # col = col,
+#          # cex = lbl.cex,
+#          pos = pos, offset = offset,
+#          ...)
+#   }
+#
+# }
 
 ## Check:
 # plot(0:1, 0:1, type = "n") # 2 points
@@ -2537,6 +2539,8 @@ add_legend <- function(...) {
 ## - Started this collection [2018 08 16].
 
 ## (+) ToDo: ----------
+
+## - add plot_poly analog to plot_line (to link 2 fboxes with a probability polygon).
 
 ## - plot_boxes fn. that takes many boxes as input,
 ##   determines their current freq/prob values,
