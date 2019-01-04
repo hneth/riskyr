@@ -81,7 +81,7 @@ false alarm rate fart)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9002</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@ false alarm rate fart)." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rstudio/sparklyr">
+  <a href="https://hneth.github.io/riskyr/">
     <span class="fa fa-github"></span>
      
   </a>
@@ -335,9 +335,9 @@ that allows for additional dependent values.</p>
 <span class='co'># Probability labels:</span>
 <span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)     <span class='co'># abbreviated names</span></div><div class='img'><img src='plot_curve-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)     <span class='co'># names only</span></div><div class='img'><img src='plot_curve-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)     <span class='co'># numeric values only</span></div><div class='img'><img src='plot_curve-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)  <span class='co'># names and values</span></div><div class='img'><img src='plot_curve-17.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Text and color settings:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing tiny text labels"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.60</span>)</div><div class='img'><img src='plot_curve-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing specific colors"</span>, <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.05</span>,
-           <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"grey"</span>, <span class='st'>"red3"</span>, <span class='st'>"green3"</span>, <span class='st'>"blue3"</span>, <span class='st'>"gold"</span>))</div><div class='img'><img src='plot_curve-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing color palette"</span>, <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.05</span>,
-           <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>)</div><div class='img'><img src='plot_curve-20.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing tiny text labels"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.60</span>)</div><div class='img'><img src='plot_curve-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing specific colors"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+           <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"grey"</span>, <span class='st'>"red3"</span>, <span class='st'>"green3"</span>, <span class='st'>"blue3"</span>, <span class='st'>"gold"</span>))</div><div class='img'><img src='plot_curve-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing black-and-white palette"</span>,
+           <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bwp</span>)</div><div class='img'><img src='plot_curve-20.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

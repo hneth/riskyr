@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alternative color palette for black-and-white graphs. — pal_bw • riskyr</title>
+<title>Alternative color palette for black-and-white (greyscale) graphs. — pal_bw • riskyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,7 +37,7 @@
 
 
 
-<meta property="og:title" content="Alternative color palette for black-and-white graphs. — pal_bw" />
+<meta property="og:title" content="Alternative color palette for black-and-white (greyscale) graphs. — pal_bw" />
 
 <meta property="og:description" content="pal_bw is initialized to a vector of named elements (colors)
 to define an alternative (black-and-white, b/w) scenario color scheme." />
@@ -73,7 +73,7 @@ to define an alternative (black-and-white, b/w) scenario color scheme." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9002</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ to define an alternative (black-and-white, b/w) scenario color scheme." />
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rstudio/sparklyr">
+  <a href="https://hneth.github.io/riskyr/">
     <span class="fa fa-github"></span>
      
   </a>
@@ -140,7 +140,7 @@ to define an alternative (black-and-white, b/w) scenario color scheme." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Alternative color palette for black-and-white graphs.</h1>
+    <h1>Alternative color palette for black-and-white (greyscale) graphs.</h1>
     <small class="dont-index">Source: <a href='https://github.com/hneth/riskyr/blob/master/R/init_pal.R'><code>R/init_pal.R</code></a></small>
     <div class="hidden name"><code>pal_bw.Rd</code></div>
     </div>
@@ -160,7 +160,12 @@ to define an alternative (black-and-white, b/w) scenario color scheme.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>See <code><a href='pal.html'>pal</a></code> for default color information.</p>
+    <p>Note that <code>pal_bw</code> uses various shades of grey for frequency boxes
+so that their bounds remain visible on a white background
+when <code>f_lwd = 0</code> (as per default for most graphs).</p>
+<p>See <code><a href='pal_bwp.html'>pal_bwp</a></code> for a stricter version that enforces
+black text and lines on white boxes (e.g., for printing purposes).</p>
+<p>See <code><a href='pal.html'>pal</a></code> for default color information.</p>
 <p>Assign <code>pal &lt;- pal_bw</code> to use as default color scheme
 throughout the <code>riskyr</code> package.</p>
     
@@ -170,12 +175,12 @@ throughout the <code>riskyr</code> package.</p>
 <code><a href='init_pal.html'>init_pal</a></code> initializes color information.</p>
 <p>Other lists containing current scenario information: <code><a href='accu.html'>accu</a></code>,
   <code><a href='freq.html'>freq</a></code>, <code><a href='num.html'>num</a></code>,
-  <code><a href='pal_kn.html'>pal_kn</a></code>, <code><a href='pal_mbw.html'>pal_mbw</a></code>,
-  <code><a href='pal_mod.html'>pal_mod</a></code>, <code><a href='pal_org.html'>pal_org</a></code>,
-  <code><a href='pal_rgb.html'>pal_rgb</a></code>, <code><a href='pal_vir.html'>pal_vir</a></code>,
-  <code><a href='pal.html'>pal</a></code>, <code><a href='prob.html'>prob</a></code>,
-  <code><a href='txt_TF.html'>txt_TF</a></code>, <code><a href='txt_org.html'>txt_org</a></code>,
-  <code><a href='txt.html'>txt</a></code></p></div>
+  <code><a href='pal_bwp.html'>pal_bwp</a></code>, <code><a href='pal_kn.html'>pal_kn</a></code>,
+  <code><a href='pal_mbw.html'>pal_mbw</a></code>, <code><a href='pal_mod.html'>pal_mod</a></code>,
+  <code><a href='pal_org.html'>pal_org</a></code>, <code><a href='pal_rgb.html'>pal_rgb</a></code>,
+  <code><a href='pal_vir.html'>pal_vir</a></code>, <code><a href='pal.html'>pal</a></code>,
+  <code><a href='prob.html'>prob</a></code>, <code><a href='txt_TF.html'>txt_TF</a></code>,
+  <code><a href='txt_org.html'>txt_org</a></code>, <code><a href='txt.html'>txt</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

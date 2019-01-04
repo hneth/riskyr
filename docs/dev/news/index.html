@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9002</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/rstudio/sparklyr">
+  <a href="https://hneth.github.io/riskyr/">
     <span class="fa fa-github"></span>
      
   </a>
@@ -141,9 +141,9 @@
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="riskyr-0-2-0-9001" class="section level1">
+    <div id="riskyr-0-2-0-9002" class="section level1">
 <h1 class="page-header">
-<a href="#riskyr-0-2-0-9001" class="anchor"></a>riskyr 0.2.0.9001+<small> Unreleased </small>
+<a href="#riskyr-0-2-0-9002" class="anchor"></a>riskyr 0.2.0.9002+<small> Unreleased </small>
 </h1>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
@@ -156,18 +156,41 @@
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<div id="changes-to-existing-visualization-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
 <li>Add options to <code>plot_prism</code> [2019-01]:<br>
 Add <code>p_lwd</code> and <code>p_scale</code> arguments to <code>plot_prism</code> to allow scaling the widths of probability links by current probability values.</li>
 </ul>
 </div>
+<div id="other-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other changes</h3>
+<ul>
+<li>none so far</li>
+</ul>
+</div>
+</div>
 <div id="micro-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#micro-changes" class="anchor"></a>Micro changes</h2>
+<div id="general-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#general-changes" class="anchor"></a>General changes</h3>
 <ul>
-<li>Default color scheme [2019-01]:<br>
-Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as new default color scheme.</li>
+<li>Add color palettes [2019-01]:<br>
+Add <code>pal_bwp</code> (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as new default color scheme.</li>
 </ul>
+</div>
+<div id="details" class="section level3">
+<h3 class="hasAnchor">
+<a href="#details" class="anchor"></a>Details</h3>
+<ul>
+<li>Bug fix in <code>plot_icons</code> [2019-01]:<br>
+Enforce 2 different symbol types for icon arrays with a binary perspective (<code>by = cd</code> or <code>dc</code> or <code>ac</code>).</li>
+</ul>
+</div>
 </div>
 </div>
     <div id="riskyr-0-2-0" class="section level1">
@@ -219,9 +242,9 @@ As an alternative to providing 3 essential frequencies, it is now possible to de
 <div id="minor-changes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
-<div id="changes-to-existing-visualization-functions" class="section level3">
+<div id="changes-to-existing-visualization-functions-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
+<a href="#changes-to-existing-visualization-functions-1" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
 <li><p>Improved <code>plot_icons</code> function [2018-12]:<br>
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same <code>by</code> argument as the other plotting functions.</p></li>
@@ -238,16 +261,6 @@ Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>
 Use consistent plot margins and options for showing margin notes for all plots.</p></li>
 </ul>
 </div>
-<div id="other-changes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#other-changes" class="anchor"></a>Other changes</h3>
-<ul>
-<li><p><code>read_popu</code> [2018-11]:<br>
-Read a data frame <code>popu</code> and interpret is as a <code>riskyr</code> scenario, allows creating scenarios from raw data.</p></li>
-<li><p><code>comp_accu.R</code> [2018-08]:<br>
-Compute exact accuracy values (not approximations, when using <code>comp_accu_freq</code> on rounded <code>freq</code> values) by using the new function <code>comp_accu_prob</code> to compute the list <code>accu</code> from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when <code>show.accu == TRUE</code> and <code>round == TRUE</code>).</p></li>
-</ul>
-</div>
 <div id="default-objects-lists-and-vectors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#default-objects-lists-and-vectors" class="anchor"></a>Default objects (lists and vectors)</h3>
@@ -262,21 +275,31 @@ Include accuracy metrics in probabilities (in <code>prob</code> and summary func
 Add multiple color palettes and text labeling schemes (see <code><a href="../reference/pal.html">?pal</a></code> and <code><a href="../reference/txt.html">?txt</a></code> for details).</p></li>
 </ul>
 </div>
+<div id="other-changes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#other-changes-1" class="anchor"></a>Other changes</h3>
+<ul>
+<li><p><code>read_popu</code> [2018-11]:<br>
+Read a data frame <code>popu</code> and interpret is as a <code>riskyr</code> scenario, allows creating scenarios from raw data.</p></li>
+<li><p><code>comp_accu.R</code> [2018-08]:<br>
+Compute exact accuracy values (not approximations, when using <code>comp_accu_freq</code> on rounded <code>freq</code> values) by using the new function <code>comp_accu_prob</code> to compute the list <code>accu</code> from probabilities. Signal rounding when showing accuracy based on rounded frequencies in plots (when <code>show.accu == TRUE</code> and <code>round == TRUE</code>).</p></li>
+</ul>
+</div>
 </div>
 <div id="micro-changes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#micro-changes-1" class="anchor"></a>Micro changes</h2>
-<div id="general-changes" class="section level3">
+<div id="general-changes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#general-changes" class="anchor"></a>General changes</h3>
+<a href="#general-changes-1" class="anchor"></a>General changes</h3>
 <ul>
 <li><p>More consistent argument and variable names (using snake_case).</p></li>
 <li><p>Many additions and corrections in documentation, examples, and vignettes.</p></li>
 </ul>
 </div>
-<div id="details" class="section level3">
+<div id="details-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#details" class="anchor"></a>Details</h3>
+<a href="#details-1" class="anchor"></a>Details</h3>
 <ul>
 <li><p><code>plot_icons</code> [2018-03]:<br>
 Bug fix to also swap symbols in legend when the symbol order is changed manually.</p></li>
@@ -302,7 +325,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#riskyr-0-2-0-9001">0.2.0.9001</a></li>
+        <li><a href="#riskyr-0-2-0-9002">0.2.0.9002</a></li>
         <li><a href="#riskyr-0-2-0">0.2.0</a></li>
         <li><a href="#riskyr-0-1-0">0.1.0</a></li>
       </ul>
