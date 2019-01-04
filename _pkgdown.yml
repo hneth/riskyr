@@ -1,6 +1,8 @@
-# _pkgdown.yml
-# hn | spds, uni.kn | 2019 01 03
-# ------------------------------
+# riskyr _pkgdown.yml
+# spds, uni.kn | 2019 01 04
+# -------------------------
+
+## site info: ----------
 
 title: riskyr
 
@@ -8,7 +10,7 @@ url: https://hneth.github.io/riskyr/
 
 authors:
   Hansjoerg Neth:
-    href: http://neth.de
+    href: https://www.spds.uni-konstanz.de/hans-neth
   Felix Gaisbauer:
     href: https://www.spds.uni-konstanz.de/felix-gaisbauer
   Nico Gradwohl:
@@ -19,7 +21,7 @@ authors:
     href: https://www.spds.uni-konstanz.de/
 
 development:
-  mode: devel # devel | release
+  mode: devel # devel OR release
 
 # template:
 #  params:
@@ -28,6 +30,9 @@ development:
 toc:
   depth: 3
 
+
+## navigation menu: ----------
+
 navbar:
   title: "riskyr"
   type: default # inverse
@@ -35,11 +40,13 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "User guide"
-      href: articles/A_user_guide.html
-    - text: "More articles"
+    - text: "Getting started"
+      href: articles/E_riskyr_primer.html
+    - text: "All articles"
       # icon: fa-info
       menu:
+        - text: "User guide"
+          href: articles/A_user_guide.html
         - text: "Data formats"
           href: articles/B_data_formats.html
         - text: "Confusion matrix"
@@ -56,6 +63,9 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/rstudio/sparklyr
+
+
+## reference: ----------
 
 reference:
 - title: Initialization
@@ -112,6 +122,9 @@ reference:
   - starts_with("is_")
   - starts_with("as_")
 
+
+## figure settings: ----------
+
 figures:
   dev: grDevices::png
   dpi: 96
@@ -121,4 +134,4 @@ figures:
   fig.height: 5.6
   fig.retina: 2
 
-# eof. ------
+## eof. ----------
