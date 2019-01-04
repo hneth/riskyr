@@ -3,7 +3,7 @@
 \docType{data}
 \name{pal_bw}
 \alias{pal_bw}
-\title{Alternative color palette for black-and-white graphs.}
+\title{Alternative color palette for black-and-white (greyscale) graphs.}
 \format{An object of class \code{character} of length 15.}
 \usage{
 pal_bw
@@ -13,6 +13,13 @@ pal_bw
 to define an alternative (black-and-white, b/w) scenario color scheme.
 }
 \details{
+Note that \code{pal_bw} uses various shades of grey for frequency boxes
+so that their bounds remain visible on a white background
+when \code{f_lwd = 0} (as per default for most graphs).
+
+See \code{\link{pal_bwp}} for a stricter version that enforces
+black text and lines on white boxes (e.g., for printing purposes).
+
 See \code{\link{pal}} for default color information.
 
 Assign \code{pal <- pal_bw} to use as default color scheme
@@ -30,12 +37,12 @@ pal_bw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 
 Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{freq}}, \code{\link{num}},
-  \code{\link{pal_kn}}, \code{\link{pal_mbw}},
-  \code{\link{pal_mod}}, \code{\link{pal_org}},
-  \code{\link{pal_rgb}}, \code{\link{pal_vir}},
-  \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt_TF}}, \code{\link{txt_org}},
-  \code{\link{txt}}
+  \code{\link{pal_bwp}}, \code{\link{pal_kn}},
+  \code{\link{pal_mbw}}, \code{\link{pal_mod}},
+  \code{\link{pal_org}}, \code{\link{pal_rgb}},
+  \code{\link{pal_vir}}, \code{\link{pal}},
+  \code{\link{prob}}, \code{\link{txt_TF}},
+  \code{\link{txt_org}}, \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

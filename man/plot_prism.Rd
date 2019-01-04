@@ -298,18 +298,19 @@ plot_prism(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
 plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
            title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
 plot_prism(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
-plot_prism(area = "no", f_lbl = "abb", p_lbl = "abb", col_pal = pal_bw)
 plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 
-plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = NA, col_pal = pal_bw)
+plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
 plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 
 plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:
-plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)
-plot_prism(f_lbl = "namnum", p_lbl = "mix", cex_lbl = .80, cex_p_lbl = .75)
+plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)  # basic plot
+plot_prism(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
+plot_prism(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
+           f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
 
 plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", p_lwd = 6, p_scale = TRUE)
