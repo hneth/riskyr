@@ -526,7 +526,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## 5. Colors / color palettes: ----
 
   # Detect and handle special case of strict b+w color palette (pal_bwp):
-  if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
+  # WAS: if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
+  # NOW more general:
+  if (are_equal(col_pal[["hi"]], par("bg")) && (f_lwd <= tiny_lwd)) {
     f_lwd <- 1
     # lty <- 1
     }
