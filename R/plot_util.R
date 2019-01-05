@@ -2337,6 +2337,55 @@ plot_mar <- function(show_freq = TRUE,
 
 ## (5) Miscellaneous plotting functions: ----------
 
+## are_equal: Check if 2-4 colors are equal: --------
+
+## Note: Avoiding the tricky business of color similarity:
+
+are_equal <- function(c1, c2, c3 = NA, c4 = NA) {
+
+  result <- FALSE  # initialize
+
+  # Case 1:
+  if (is.na(c3) && is.na(c4)) {
+    if (isTRUE(all.equal(c1, c2))) {result <- TRUE}
+  }
+
+  # Case 2a:
+  if (!is.na(c3) && is.na(c4)) {
+    if (isTRUE(all.equal(c1, c2)) &&
+        isTRUE(all.equal(c1, c3))) {result <- TRUE}
+  }
+
+  # Case 2b:
+  if (is.na(c3) && !is.na(c4)) {
+    if (isTRUE(all.equal(c1, c2)) &&
+        isTRUE(all.equal(c1, c4))) {result <- TRUE}
+  }
+
+  # Case 3:
+  if (!is.na(c3) && !is.na(c4)) {
+    if (isTRUE(all.equal(c1, c2)) &&
+        isTRUE(all.equal(c1, c3)) &&
+        isTRUE(all.equal(c1, c4))) {result <- TRUE}
+  }
+
+  return(result)
+}
+
+## Check:
+# are_equal(1, 1, NA, NA)
+# are_equal(1, 0, NA, NA)
+# are_equal(1, 1, 1, NA)
+# are_equal(1, 1, 0, NA)
+# are_equal(1, 1, NA, 1)
+# are_equal(1, 1, NA, 0)
+# are_equal(1, 1, 1, 1)
+# are_equal(1, 1, 1, 0)
+# # use case:
+# are_equal(par("bg"), pal_bwp[["hi"]])
+# are_equal(pal_bwp[["dec_cor"]], par("bg"))
+# are_equal(pal_bwp[["dec_cor"]], par("fg"))
+
 ## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
 
 factors_min_diff <- function (n) {
