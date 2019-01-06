@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2019 01 04
+## 2019 01 06
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -380,8 +380,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## 2. Colors / color palettes: ----
 
-  # Detect and handle special case of strict b+w color palette (pal_bwp):
-  if ((col_pal == pal_bwp) && (length(unique(icon_types)) < 4)) {
+  # (+) Detect and handle special case of color equality (e.g., pal_bwp):
+  if (all_equal(c(par("bg"), col_pal[["hi"]])) && (length(unique(icon_types)) < 4)) {
 
     if (by == "all") {
 
@@ -405,9 +405,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
   ## 4. Additional parameters (currently fixed): ----
-  xlim = c(0, 1)  # xlim and ylim should currently remain fixed
+  xlim = c(0, 1)   # xlim and ylim should currently remain fixed
   ylim = c(0, 1)
-  cex = icon_size      # if NULL, cex will be calculated on demand
+  cex = icon_size  # if NULL, cex will be calculated on demand
 
   # #' @param cex Size of the icons (calculated by default).
 
@@ -415,12 +415,15 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (arr_type %in% c("mosaic", "fillequal", "fillleft", "filltop", "scatter")) {
 
     random.position <-  TRUE
+
   } else {
+
     if (arr_type %in% c("array", "shuffledarray")) {
       random.position <- FALSE
     } else {
       stop('Invalid "arr_type" argument in plot_icons. ')
     }
+
   }
 
   if (arr_type %in% c("mosaic", "fillequal", "fillleft", "filltop", "array")) {
@@ -571,13 +574,16 @@ plot_icons <- function(prev = num$prev,             # probabilities
       block_n <- length(unique(col_vec))  # number of blocks for x and y.
       # TODO: not final; they should be distributed.
 
+      ## message(paste0("Note: block_n = ", block_n))
+      ##
+      ## Note: Potential source of error for
+      ##       plot_icons(by = "cd", arr_type = "mosaic") ???
+
       # calculate number of observations in each block retaining original order:
       type_n <- sapply(unique(col_vec), function(x) sum(col_vec == x))
 
-
       # equal compartments:
       if (arr_type == "fillequal") {  # density varies, area is constant.
-
 
         if (is.null(block_d)) {
           block_d <- 0.05
