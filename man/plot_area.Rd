@@ -130,7 +130,7 @@ with 7 options:
   \item \code{"num"}: show links and numeric probability values;
   \item \code{"namnum"}: show links with names and numeric probability values;
   \item \code{"no"}: show links with no labels;
-  \item \code{NA}: no link (same for \code{p_lbl = NULL}, default).
+  \item \code{NA}: show no labels or links (same for \code{p_lbl = NULL}, default).
   }}
 
 \item{arr_c}{Arrow code for symbols at ends of probability links
@@ -266,7 +266,7 @@ plot_area(f_lbl = "num")   # only freq number
 plot_area(f_lbl = "namnum", f_lbl_sep = ":\\n", cex_lbl = .75)  # explicit & smaller
 
 # prob labels:
-plot_area(p_lbl = NA)      # no prob labels, no links
+plot_area(p_lbl = NA)      # default: no prob labels, no links
 plot_area(p_lbl = "no")    # show links, but no labels
 plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller labels
 

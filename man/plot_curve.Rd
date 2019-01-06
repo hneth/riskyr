@@ -7,9 +7,10 @@ as a function of prevalence.}
 \usage{
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = c("prev", "PPV", "NPV"),
-  what_col = pal, uc = 0, show_points = TRUE, log_scale = FALSE,
-  lbl_txt = txt, title_lbl = NA, p_lbl = "def", cex_lbl = 0.85,
-  col_pal = pal, mar_notes = TRUE, ...)
+  p_lbl = "def", p_lwd = 2, what_col = pal, uc = 0,
+  show_points = TRUE, log_scale = FALSE, lbl_txt = txt,
+  title_lbl = NA, cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -41,6 +42,20 @@ options are \code{c("prev", "PPV", "NPV", "ppod", "acc")}
 (shortcut: \code{what = "all"}).
 Default: \code{what = c("prev", "PPV", "NPV")}.}
 
+\item{p_lbl}{Type of label for shown probability values,
+with the following options:
+  \enumerate{
+  \item \code{"abb"}: show abbreviated probability names;
+  \item \code{"def"}: show abbreviated probability names and values (default);
+  \item \code{"nam"}: show only probability names (as specified in code);
+  \item \code{"num"}: show only numeric probability values;
+  \item \code{"namnum"}: show names and numeric probability values;
+  \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
+  }}
+
+\item{p_lwd}{Line widths of probability curves plotted.
+Default: \code{p_lwd = 2}.}
+
 \item{what_col}{Vector of colors corresponding to the elements
 specified in \code{what}.
 Default: \code{what_col = \link{pal}}.}
@@ -65,17 +80,6 @@ Default: \code{lbl_txt = \link{txt}}.}
 
 \item{title_lbl}{Main plot title.
 Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).}
-
-\item{p_lbl}{Type of label for shown probability values,
-with the following options:
-  \enumerate{
-  \item \code{"abb"}: show abbreviated probability names;
-  \item \code{"def"}: show abbreviated probability names and values (default);
-  \item \code{"nam"}: show only probability names (as specified in code);
-  \item \code{"num"}: show only numeric probability values;
-  \item \code{"namnum"}: show names and numeric probability values;
-  \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
-  }}
 
 \item{cex_lbl}{Scaling factor for the size of text labels
 (e.g., on axes, legend, margin text).
