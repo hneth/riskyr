@@ -432,7 +432,7 @@ The following resources and versions are currently available:
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
+<td align="left"> </td>
 <td align="left"><a href="https://github.com/hneth/riskyr">Development version</a></td>
 <td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
 </tr>
@@ -442,7 +442,7 @@ The following resources and versions are currently available:
 <td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
+<td align="left"> </td>
 <td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a></td>
 <td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
 </tr>
@@ -452,7 +452,7 @@ The following resources and versions are currently available:
 <td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
+<td align="left"> </td>
 <td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a></td>
 <td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
 </tr>
@@ -531,7 +531,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 -   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- Update: -->
-\[Updated 2019-01-02 by [hn](http://neth.de).\]
+\[Updated 2019-01-06 by [hn](http://neth.de).\]
 
 <!-- eof -->
 
