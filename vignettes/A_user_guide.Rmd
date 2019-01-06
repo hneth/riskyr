@@ -34,10 +34,10 @@ Decades of research on probabilistic reasoning and risk literacy have shown that
 
 <!-- riskyr logo: -->  
 <a href="https://github.com/hneth/riskyr">
-<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+<img src = "../inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 125px; float: right; border:20;"/>
 </a>
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
-<!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
+
 
 `riskyr` is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of `riskyr` is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig & Grüne-Yanoff, 2017).
 
@@ -175,7 +175,7 @@ Reframing the probabilistic problem in terms of frequencies made its solution ea
 
 <!-- riskyr logo: -->  
 <a href="https://github.com/hneth/riskyr">
-<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
+<img src = "../inst/pix//riskyr_cube.png" alt = "riskyr" style = "width: 125px; float: right; border:20;"/>
 </a>
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
 <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
@@ -604,7 +604,7 @@ C. Online documentation: | [Release version](https://hneth.github.io/riskyr)    
 
 <!-- uni.kn logo and link to SPDS: -->  
 <a href="https://www.spds.uni-konstanz.de/">
-<img src = "../inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 280px; float: right; border:10;"/> 
+<img src = "../inst/pix/uniKn_logo.png" alt = "spds.uni.kn" style = "width: 280px; float: right; border:15;"/> 
 </a>
 
 We appreciate your feedback, comments, or questions. 
@@ -618,7 +618,7 @@ We appreciate your feedback, comments, or questions.
 
 <!-- riskyr logo: -->
 <a href="https://github.com/hneth/riskyr">
-<img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"/>
+<img src = "../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
 </a>
 
 <!-- Index of vignettes: -->
