@@ -30,7 +30,11 @@ Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths 
 ### General changes
 
 - Add color palettes [2019-01]:   
-Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme.
+Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
+
+- Change default color palette [2019-01]:  
+Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
+
 
 ### Details
 
