@@ -304,9 +304,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     # cur_col color:
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["ppv"] }  # cur_col for PPV
 
-    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
-    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
-      cur_col <- "grey33"  # unique PPV color
+    # Detect and handle special case of color equality or similarity (e.g., pal_bwp OR pal_bw):
+    if ( (all_equal(c("black", col_pal[["ppv"]])) || all_equal(c("#999999FC", col_pal[["ppv"]])) ) &&
+         (length(what_col) != length(what)) ) {
+      cur_col <- "grey55"  # distinct PPV color
     }
 
     z_lbl <- "PPV"    # label of z-axis
@@ -339,9 +340,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     # cur_col color:
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["npv"] }  # cur_col for NPV
 
-    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
-    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
-      cur_col <- "grey55"  # unique NPV color
+    # Detect and handle special case of color equality or similarity (e.g., pal_bwp OR pal_bw):
+    if ( (all_equal(c("black", col_pal[["npv"]])) || all_equal(c("#737373FC", col_pal[["npv"]])) ) &&
+         (length(what_col) != length(what)) ) {
+      cur_col <- "grey33"  # distinct NPV color
     }
 
     z_lbl <- "NPV"    # label of z-axis
@@ -379,6 +381,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
       cur_col <- "grey44"  # unique ppod color
     }
 
+    # Detect and handle special case of color equality or similarity (e.g., pal_bwp OR pal_bw):
+    if ( (all_equal(c("white", col_pal[["dec_pos"]])) || all_equal(c("D9D9D9FC", col_pal[["dec_pos"]])) ) &&
+         (length(what_col) != length(what)) ) {
+      cur_col <- "grey44"  # distinct ppod color
+    }
+
     z_lbl <- "ppod"   # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
 
@@ -409,10 +417,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     # cur_col color:
     if (length(what_col) == 1) { cur_col <- what_col } else { cur_col <- col_pal["dec_cor"] }  # cur_col for acc (using "dec_cor")
 
-    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
-    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (length(what_col) != length(what)) ) {
-      cur_col <- "grey66"  # unique acc color
-        }
+    # Detect and handle special case of color equality or similarity (e.g., pal_bwp OR pal_bw):
+    if ( (all_equal(c("white", col_pal[["dec_cor"]])) || all_equal(c("BFBFBFFC", col_pal[["dec_cor"]])) ) &&
+         (length(what_col) != length(what)) ) {
+      cur_col <- "grey66"  # distinct acc color
+    }
 
     z_lbl <- "acc"    # label of z-axis
     z_lim <- c(0, 1)  # range of z-axis
@@ -474,8 +483,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     pt_col <- point_col  # point color
     bd_col <- grey(.01, alpha = .99)  # point border color
 
-    # Detect and handle special cases of lenient OR strict b+w color palettes (pal_bw OR pal_bwp):
-    if ( (all(col_pal == pal_bwp) || all(col_pal == pal_bw)) && (point_col == "yellow") ) { # point_col still is default point_col:
+
+    # Detect and handle special case of color equality or similarity (e.g., pal_bwp OR pal_bw):
+    if ( (all_equal(c("white", col_pal[["hi"]])) || all_equal(c("CCCCCCFC", col_pal[["hi"]])) ) &&
+         (point_col == "yellow")  # point_col still is default point_col:
+    ) {
       pt_col <- "white"  # change point_col to white
     }
 

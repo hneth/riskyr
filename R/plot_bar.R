@@ -350,8 +350,11 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## (3) Colors / color palettes: ----
 
-  # Detect and handle special case of strict b+w color palette (pal_bwp):
-  if ( all(col_pal == pal_bwp) && ((f_lwd <= tiny_lwd) || (lty == 0)) ) {
+  # (+) Detect and handle special case of color equality (e.g., pal_bwp):
+  # WAS: if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
+  # NOW more general: If color of hi is.equal to current background color:
+  if (all_equal(c(par("bg"), col_pal[["hi"]])) &&
+      ( (f_lwd <= tiny_lwd) || (lty == 0) ) ) {
     f_lwd <- 1
     lty <- 1
   }

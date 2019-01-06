@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 04
+## 2010 01 06
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -52,6 +52,20 @@
 #' (shortcut: \code{what = "all"}).
 #' Default: \code{what = c("prev", "PPV", "NPV")}.
 #'
+#' @param p_lbl  Type of label for shown probability values,
+#' with the following options:
+#'   \enumerate{
+#'   \item \code{"abb"}: show abbreviated probability names;
+#'   \item \code{"def"}: show abbreviated probability names and values (default);
+#'   \item \code{"nam"}: show only probability names (as specified in code);
+#'   \item \code{"num"}: show only numeric probability values;
+#'   \item \code{"namnum"}: show names and numeric probability values;
+#'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
+#'   }
+#'
+#' @param p_lwd  Line widths of probability curves plotted.
+#' Default: \code{p_lwd = 2}.
+#'
 #' @param what_col  Vector of colors corresponding to the elements
 #' specified in \code{what}.
 #' Default: \code{what_col = \link{pal}}.
@@ -77,16 +91,6 @@
 #' @param title_lbl  Main plot title.
 #' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
 #'
-#' @param p_lbl  Type of label for shown probability values,
-#' with the following options:
-#'   \enumerate{
-#'   \item \code{"abb"}: show abbreviated probability names;
-#'   \item \code{"def"}: show abbreviated probability names and values (default);
-#'   \item \code{"nam"}: show only probability names (as specified in code);
-#'   \item \code{"num"}: show only numeric probability values;
-#'   \item \code{"namnum"}: show names and numeric probability values;
-#'   \item \code{"no"}: hide labels (same for \code{p_lbl = NA} or \code{NULL}).
-#'   }
 #'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
@@ -183,6 +187,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
                        what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod", "all".
 
                        # Options:
+                       p_lbl = "def",       # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
+                       p_lwd = 2,           # line widths of what.
                        what_col = pal,      # colors for what.
                        uc = .00,            # Uncertainty range (as a percentage around current prev, sens, and spec values)
                        show_points = TRUE,  # show points at current prev?
@@ -191,7 +197,6 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
                        title_lbl = NA,     # plot title
-                       p_lbl = "def",      # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
                        cex_lbl = .85,      # scale size of text labels (e.g., on axes, legend, margin text)
                        col_pal = pal,      # color palette
 
@@ -462,8 +467,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     }
 
+    # Special case: If p_lwd > 1:  Make prev_lwd <- p_lwd/2, else: Use altered value p_lwd:
+    if (p_lwd > 1) { prev_lwd <- p_lwd/2 } else { prev_lwd <- p_lwd }
+
     ## 1. curve: prev as vline
-    abline(v = prev, lty = lty_prev, lwd = 1, col = col_prev)  # prev curve/line
+    abline(v = prev, lty = lty_prev, lwd = prev_lwd, col = col_prev)  # prev curve/line
 
     ## 2. point:
     if (show_points) {
@@ -506,7 +514,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if ("ppv" %in% what) {
 
     ## 0. parameters:
-    lty_ppv <- 1                            # PPV line type
+    lty_ppv <- 1  # PPV line type (= default)
 
     ## colors:
     if (length(what_col) == length(what)) { # a color vector was specified:
@@ -516,11 +524,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_ppv <- col_pal["ppv"]  # use default color for PPV
     }
 
-    # Detect and handle special case of strict b+w color palette (pal_bwp):
-    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
-      col_ppv <- "black"  # distinct PPV color
-      lty_ppv <- 1        # unique PPV line type
-    }
+    # # Detect and handle special case of color equality (e.g., pal_bwp):
+    # if ( all_equal(c("black", col_pal[["ppv"]])) && (length(what_col) != length(what)) ) {
+    #   col_ppv <- "black"  # distinct PPV color
+    #   lty_ppv <- 1        # unique PPV line type
+    # }
 
     legend_lbls <- c(legend_lbls, "PPV")    # add PPV label
     legend_cols <- c(legend_cols, col_ppv)  # add PPV color
@@ -552,7 +560,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. PPV curve:
-    curve(expr = comp_PPV(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_ppv, lwd = 2, col = col_ppv)  # PPV curve
+    curve(expr = comp_PPV(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_ppv, lwd = p_lwd, col = col_ppv)  # PPV curve
 
     ## 2. PPV point:
     if (show_points) {
@@ -591,10 +599,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_npv <- col_pal["npv"]  # use default color for NPV
     }
 
-    # Detect and handle special case of strict b+w color palette (pal_bwp):
-    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+    # Detect and handle special case of color equality (e.g., pal_bwp):
+    if ( all_equal(c(col_pal[["npv"]], col_pal[["ppv"]])) && (length(what_col) != length(what)) ) {
       col_npv <- "grey35"  # distinct NPV color
-      lty_npv <- 5         # unique NPV line type (5 = long dashes)
+      lty_npv <- 5         # unique NPV line type (5 = longer dashes)
     }
 
     legend_lbls <- c(legend_lbls, "NPV")    # add NPV label
@@ -628,7 +636,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. NPV curve:
-    curve(expr = comp_NPV(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_npv, lwd = 2, col = col_npv)  # NPV curve
+    curve(expr = comp_NPV(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_npv, lwd = p_lwd, col = col_npv)  # NPV curve
 
     ## 2. NPV point:
     if (show_points) {
@@ -669,10 +677,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_ppod <- col_pal["dec_pos"]  # use default color for ppod (using "pos")
     }
 
-    # Detect and handle special case of strict b+w color palette (pal_bwp):
-    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+    # Detect and handle special case of color equality (e.g., pal_bwp):
+    if ( all_equal(c(par("bg"), col_pal[["dec_pos"]])) && (length(what_col) != length(what)) ) {
       col_ppod <- "grey50"  # distinct ppod color
-      lty_ppod <- 4         # unique ppod line type
+      lty_ppod <- 4         # unique ppod line type (4 = dash-dot-dash)
     }
 
     legend_lbls <- c(legend_lbls, "ppod")    # add NPV label
@@ -706,7 +714,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. curve:
-    curve(expr = comp_ppod(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_ppod, lwd = 2, col = col_ppod)  # ppod curve
+    curve(expr = comp_ppod(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_ppod, lwd = p_lwd, col = col_ppod)  # ppod curve
 
     ## 2. point:
     if (show_points) {
@@ -747,10 +755,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       col_acc <- col_pal["dec_cor"]  # use default color for acc (using "cor")
     }
 
-    # Detect and handle special case of strict b+w color palette (pal_bwp):
-    if ( all(col_pal == pal_bwp) && (length(what_col) != length(what)) ) {
+    # Detect and handle special case of color equality (e.g., pal_bwp):
+    if ( all_equal(c(par("bg"), col_pal[["dec_cor"]])) && (length(what_col) != length(what)) ) {
       col_acc <- "grey20"  # distinct acc color
-      lty_acc <- 3         # unique acc line type
+      lty_acc <- 3         # unique acc line type (3 = dotted)
     }
 
     legend_lbls <- c(legend_lbls, "acc")    # add acc label
@@ -783,7 +791,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     ## 1. acc curve:
-    curve(expr = comp_acc(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_acc, lwd = 2, col = col_acc)  # acc curve
+    curve(expr = comp_acc(prev = x, sens, spec), from = x_min, to = x_max, add = TRUE, lty = lty_acc, lwd = p_lwd, col = col_acc)  # acc curve
 
     ## 2. acc point:
     if (show_points) {
@@ -883,9 +891,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   if (length(legend_lbls) > 0) { # there is a curve:
     # legend("bottom", legend = c("PPV", "NPV"),
-    #       col = c(col_ppv, col_npv), lty = 1, lwd = 2, cex = 1, bty = "o", bg = "white")
+    #       col = c(col_ppv, col_npv), lty = 1, lwd = p_lwd, cex = 1, bty = "o", bg = "white")
     add_legend("topright",
-               legend = legend_lbls, lty = legend_ltys, lwd = 2, col = legend_cols,
+               legend = legend_lbls, lty = legend_ltys, lwd = p_lwd, col = legend_cols,
                cex = cex_lbl, horiz = FALSE, bty = 'n')
   }
 

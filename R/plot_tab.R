@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2019 01 04
+## 2019 01 06
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -583,26 +583,33 @@ plot_tab <- function(prev = num$prev,    # probabilities
 
   ## 5. Colors / color palettes: ----
 
-  # (a) Detect and handle special case of strict b+w color palette (pal_bwp):
-  if ( all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd) ) {
+  # (a) Detect and handle special case of color equality (e.g., pal_bwp):
+  # WAS: if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
+  # NOW more general: If color of hi is.equal to current background color:
+  if (all_equal(c(par("bg"), col_pal[["hi"]])) && (f_lwd <= tiny_lwd)) {
     f_lwd <- 1
     # lty <- 1
   }
 
   # (b) Probability link colors:
-  # if (!all(col_p %in% colors())) { message("col_p must contain (1 to 3) valid color names.") }
-  if (length(col_p) == 1) { col_p <- rep(col_p, 3) }  # 1 color: use for all 3 p-links
-  if (length(col_p) == 2) { col_p <- c(col_p[1], col_p[2], col_p[2]) } # 2 colors: use 2nd for 2 and 3
+  if (!is.na(p_lbl)) {  # only when labels OR links are being shown:
 
-  p_col_1 <- col_p[1]  # prob color 1 (must be visible on hi)
-  p_col_2 <- col_p[2]  # prob color 2 (must be visible on hi)
-  p_col_3 <- col_p[3]  # prob color 3 (must be visible on cr AND fa)
+    # if (!all(col_p %in% colors())) { message("col_p must contain (1 to 3) valid color names.") }
+    if (length(col_p) == 1) { col_p <- rep(col_p, 3) }  # 1 color: use for all 3 p-links
+    if (length(col_p) == 2) { col_p <- c(col_p[1], col_p[2], col_p[2]) } # 2 colors: use 2nd for 2 and 3
 
-  # Detect and handle special case of strict b+w color palette (pal_bwp):
-  if ( all(col_pal == pal_bwp) ) {
-    if (p_col_2 == "yellow") { p_col_2 <- grey(.22, .99) }  # change if still default color
-    if (p_col_3 == "yellow") { p_col_3 <- grey(.33, .99) }  # change if still default color
-  }
+    p_col_1 <- col_p[1]  # prob color 1 (must be visible on hi)
+    p_col_2 <- col_p[2]  # prob color 2 (must be visible on hi)
+    p_col_3 <- col_p[3]  # prob color 3 (must be visible on cr AND fa)
+
+    # (+) Detect and handle special case (when color of hi is "white", so that defaults of "yellow" would not be visible):
+    if (all_equal(c("white", col_pal[["hi"]]))) {
+      if (p_col_1 == "yellow" || p_col_1 == "white") { p_col_1 <- grey(.01, .99) }  # change if set to "yellow"
+      if (p_col_2 == "yellow" || p_col_2 == "white") { p_col_2 <- grey(.11, .99) }  # change if still default color
+      if (p_col_3 == "yellow" || p_col_3 == "white") { p_col_3 <- grey(.22, .99) }  # change if still default color
+    }
+
+  }  # if if (!is.na(p_lbl)) end.
 
 
   ## 6. Plot borders: ----

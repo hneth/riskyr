@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2019 01 04
+## 2019 01 06
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -525,13 +525,14 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   ## 5. Colors / color palettes: ----
 
-  # Detect and handle special case of strict b+w color palette (pal_bwp):
+  # (+) Detect and handle special case of color equality (e.g., pal_bwp):
   # WAS: if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
   # NOW more general: If color of hi is.equal to current background color:
   if (all_equal(c(par("bg"), col_pal[["hi"]])) && (f_lwd <= tiny_lwd)) {
     f_lwd <- 1
     # lty <- 1
     }
+
 
   ## 6. Additional parameters (currently fixed): ----
 
