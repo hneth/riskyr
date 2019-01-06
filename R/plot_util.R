@@ -2345,37 +2345,59 @@ plot_mar <- function(show_freq = TRUE,
 # - accept a vector (with any number of 2+ arguments)
 # - exit with FALSE as soon as 1st difference detected
 
+# all_equal <- function(v) {
+#
+#   n <- length(v)
+#   result <- NA  # initialize
+#
+#   stopifnot(n > 0)  # require at least 1 element
+#
+#   for (i in 1:n) {
+#
+#     # print(i)  # for debugging purposes
+#
+#     if (!isTRUE(all.equal(v[1], v[i]))) {
+#       result <- FALSE
+#       return(result)
+#     }
+#
+#   } # for i.
+#
+#   # if loop has been passed:
+#   result <- TRUE
+#   return(result)
+#
+# }
+
+## Check:
+# all_equal(NULL) # returns an ERROR
+# all_equal(NA) # is TRUE
+# all_equal(c(1))  # is TRUE
+# all_equal(c(1, 1, 1, 1, 1))  # 5 steps and TRUE
+# all_equal(c(1, 0, 1, 1, 1))  # 2 steps and FALSE
+## Use case (with color comparisons):
+# all_equal(c("white", par("bg"), pal_bwp[["dec_cor"]]))
+# all_equal(c("black", par("fg"), pal_bwp[["ppv"]]))
+
+## Probably more efficient version:
+
 all_equal <- function(v) {
 
-  n <- length(v)
-  result <- NA  # initialize
+  # stopifnot(length(v) > 0)  # add to return ERROR when v is NA (which would otherwise return FALSE)
 
-  stopifnot(n > 1)  # require at least 2 elements
-
-  for (i in 1:n) {
-
-    # print(i)  # for debugging purposes
-
-    if (!isTRUE(all.equal(v[1], v[i]))) {
-      result <- FALSE
-      return(result)
-    }
-
-  } # for i.
-
-  # if loop has been passed:
-  result <- TRUE
-  return(result)
+  if (length(unique(v)) == 1) {return(TRUE)} else {return(FALSE)}
 
 }
 
 ## Check:
-# all_equal(c(1))  # returns an error
-# all_equal(c(1, 1, 1, 1, 1))  # 5 steps and TRUE
-# all_equal(c(1, 0, 1, 1, 1))  # 2 steps and FALSE
-## Use case:
-# all_equal(c("white", par("bg"), pal_bwp[["dec_cor"]]))
-# all_equal(c("black", par("fg"), pal_bwp[["ppv"]]))
+# all_equal(NULL)  # => FALSE / OR ERROR (when stopifnot is included)
+# all_equal(NA)    # => TRUE
+# all_equal(c(1))  # => TRUE
+# all_equal(c(1, 1, 1, 1, 1))  # => TRUE
+# all_equal(c(1, 0, 1, 1, 1))  # => FALSE
+## Use case (with color comparisons):
+# all_equal(c("white", par("bg"), pal_bwp[["dec_cor"]]))  # TRUE
+# all_equal(c("black", par("fg"), pal_bwp[["ppv"]]))      # TRUE
 
 
 ## factors_min_diff: Dynamic calculation of block size (in plot_iconarray.R) ------
