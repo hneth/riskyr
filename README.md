@@ -412,11 +412,11 @@ The `riskyr` package is open source software written in [R](https://www.r-projec
 
 The following resources and versions are currently available:
 
-<table style="width:96%;">
+<table style="width:100%;">
 <colgroup>
-<col width="29%" />
-<col width="29%" />
-<col width="37%" />
+<col width="32%" />
+<col width="26%" />
+<col width="41%" />
 </colgroup>
 <thead>
 <tr class="header">

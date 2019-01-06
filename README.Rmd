@@ -465,14 +465,15 @@ The `riskyr` package is open source software written in [R](https://www.r-projec
 
 The following resources and versions are currently available:
 
-Type:                | Version:           | URL:                     |        
-:------------------- |:-------------------|:-------------------------|
+Type:                    | Version:           | URL:                           |        
+:------------------------|:-------------------|:-------------------------------|
 A. `riskyr` (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
     &nbsp;               | [Development version](https://github.com/hneth/riskyr)       | <https://github.com/hneth/riskyr> | 
-B. `riskyrApp` (R Shiny code): | [Online version](http://riskyr.org)         | <http://riskyr.org> | 
-    &nbsp;       | [Development version](https://github.com/hneth/riskyrApp) | <https://github.com/hneth/riskyrApp> | 
-C. Online documentation: | [Release version](https://hneth.github.io/riskyr) | <https://hneth.github.io/riskyr> | 
-   &nbsp;        | [Development version](https://hneth.github.io/riskyr/dev) | <https://hneth.github.io/riskyr/dev> | 
+B. `riskyrApp` (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
+    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)    | <https://github.com/hneth/riskyrApp> | 
+C. Online documentation: | [Release version](https://hneth.github.io/riskyr)            | <https://hneth.github.io/riskyr> | 
+    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)    | <https://hneth.github.io/riskyr/dev> | 
+
 
 ### Contact
 
@@ -481,6 +482,7 @@ We appreciate your feedback, comments, or questions.
 - Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
 
 - Email us at <contact.riskyr@gmail.com> if you want to modify or share this software. 
+
 
 ### Reference
 
