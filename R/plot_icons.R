@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2019 01 06
+## 2019 01 07
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -341,7 +341,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
 
-    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
 
   } else if (by == "cd") {
 
@@ -350,7 +350,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
 
-    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
 
   } else if (by == "ac") {
 
@@ -359,7 +359,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
                   col_pal["mi"], col_pal["mi"])
     names(icon_col) <- ident_order
 
-    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
   }
 
   icon_brd_col <- col_pal["brd"]        # border color of icons [was: grey(.10, .50)]
@@ -381,7 +381,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   ## 2. Colors / color palettes: ----
 
   # (+) Detect and handle special case of color equality (e.g., pal_bwp):
-  if (all_equal(c(par("bg"), col_pal[["hi"]])) && (length(unique(icon_types)) < 4)) {
+  if (all_equal(c(col_pal[["hi"]], col_pal[["mi"]])) && (length(unique(icon_types)) < 4)) {
 
     if (by == "all") {
 
@@ -390,7 +390,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
     } else {  # by cd/dc/ac:
 
-      icon_types <- c(22, 22, 25, 25)
+      icon_types <- c(22, 22, 25, 25)  # square vs. downwards triangle
       icon_col <- c("white", "white", "black", "black")
       names(icon_col) <- ident_order
 

@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 04
+## 2019 01 06
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
