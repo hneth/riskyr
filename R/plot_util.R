@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 06
+## 2019 01 07
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1633,7 +1633,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
                       col_fill = pal["brd"], # if missing, color of fname freq is derived below
                       col_brd =  pal["brd"],
                       col_txt =  pal["txt"],
-                      # lbl.cex = 1,        # size of text label
+                      # lbl_cex = 1,        # size of text label
                       ...                   # other graphical parameters: lwd, cex, pos, etc.
 ) {
 
@@ -1711,7 +1711,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
 }
 
-### Check:
+# ## Check:
 # plot(0:10, 0:10, type = "n")  # empty canvas
 # # (1) line without labels:
 # plot_line(0, 10, 9, 10)  # basic line (without label)
@@ -1761,6 +1761,84 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           col_fill = pal["npv"], col_txt = pal["npv"],
 #           srt = 0, lbl_pos = 2, lbl_off = .5, adj = 0, cex = .8)  # diagonal
 
+
+## plot_poly: Plot a polygon between 2 edges (4 points) (with optional text label): ------
+
+plot_poly <- function(x1, y1, x2, y2,      # coordinates of edge 1 (p1 and p2)
+                      x3, y3, x4, y4,      # coordinates of edge 2 (p3 and p4)
+                      ## lty = 1, lwd = 1,                   # line options
+                      # pt_pch = 21, pt_cex = 1, pt_lwd = 1,  # point options
+                      # arr_code = 0,         # 0: none, 1-3: single/double V, 4-6: single/double T, -1 to -3: single/double points.
+                      ## Optional text label:
+                      lbl = NA,             # string for text label
+                      lbl_x = NA,           # x-coord of label (default in middle)
+                      lbl_y = NA,           # y-coord of label (default in middle)
+                      lbl_pos = NULL,       # pos (NULL = default, 1 = left, 2 = top, etc.)
+                      lbl_off = .75,        # offset of text label
+                      ## Colors:
+                      col_fill = NA,        # if NA, color of fname freq is derived below
+                      col_brd =  pal["brd"],
+                      col_txt =  pal["txt"],
+                      # lbl_cex = 1,        # size of text label
+                      ...                   # other graphical parameters: lwd, cex, pos, etc.
+) {
+
+  ## (0) Preparations: ------
+
+  ## constants:
+  # tiny_lwd <- .01
+
+  ## variables:
+  # col_fill <- "lightgrey"  # default color
+  # lwd_brd <- tiny_lwd
+
+
+  ## (1) Draw polygon: ------
+
+  polygon(x = c(x1, x2, x4, x3),
+          y = c(y1, y2, y4, y3),
+          col = col_fill,
+          # lwd = lwd_brd,
+          ...)
+
+  ## (2) Optional text label: ------
+
+  # lbl <- "Text"
+
+  if (!is.na(lbl)) { # if lbl exists:
+
+    ## label position:
+
+    ## (a) center of polygon:
+    lbl_x <- mean(c(mean(c(x1, x2)), mean(c(x3, x4))))  # mid x
+    lbl_y <- mean(c(mean(c(y1, y2)), mean(c(y3, y4))))  # mid y
+
+    ## (b) top of polygon:
+    # lbl_x <- mean(c(x1, x2))
+    # lbl_y <- mean(c(y1, y2))
+    # lbl_pos <- 1
+
+    ## Text label:
+    text(lbl_x, lbl_y,
+         labels = lbl,
+         col = col_txt,  # text color
+         pos = lbl_pos,
+         offset = lbl_off,
+         ...)  # cex, etc.
+  }
+
+}
+
+# ## Check:
+# plot(0:10, 0:10, type = "n")  # empty canvas
+# # (1) line without labels:
+# plot_poly(1, 10, 2, 10, 0, 8, 3, 8)  # basic poly (without label)
+# plot_poly(4, 10, 5, 10, 3, 8, 6, 8, col_fill = "grey", lwd = .5)  # color and lwd
+# plot_poly(7, 10, 8, 10, 6, 8, 9, 8, col_fill = "gold", lwd = .01, lbl = "Test 3")  # label
+# plot_poly(1,  7, 2,  7, 6, 4, 9, 4, col_fill = grey(0, .10), lwd = .01, lbl = "Test 4")  # transparent 1
+# plot_poly(6,  7, 9,  7, 2, 4, 4, 4, col_fill = make_transparent("gold", .05), lwd = .01, lbl = "Test 5")  # transparent 2
+
+
 ## plot_arrs: Plot multiple (n_arr) arrows along a line (OBSOLETE): --------
 
 ##      Note: Obsolete function, as plot_line (defined above) is more flexible.
@@ -1803,13 +1881,13 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #   if (!is.na(lbl_x)) { # if lbl_x exists:
 #
 #     # Parameters:
-#     # lbl.cex = 1          # size of text label
+#     # lbl_cex = 1          # size of text label
 #
 #     ## Text label:
 #     text(lbl_x, lbl_y,
 #          labels = lbl,
 #          # col = col,
-#          # cex = lbl.cex,
+#          # cex = lbl_cex,
 #          pos = pos, offset = offset,
 #          ...)
 #   }
@@ -1875,63 +1953,185 @@ plot_link <- function(box1, box2,                # 2 boxes
                       ...                        # Other graphical parameters
 ) {
 
-  # (1) Determine link coordinates:
+  use_poly <- FALSE  # default
+  ## use_poly <- TRUE  # +++ here now +++
 
-  # 1st point:
-  if (is.null(pos1) || pos1 == 0) {
-    x1 <- box1$x  # x in center of box1
-    y1 <- box1$y  # y in center of box1
-  } else if (pos1 == 1) {
-    x1 <- box1$x              # x in center of box1
-    y1 <- box1$y - box1$ly/2  # y at bottom of box1
-  } else if (pos1 == 2) {
-    x1 <- box1$x - box1$lx/2  # x at left of box1
-    y1 <- box1$y              # y in center of box1
-  } else if (pos1 == 3) {
-    x1 <- box1$x              # x in center of box1
-    y1 <- box1$y + box1$ly/2  # y at top of box1
-  } else if (pos1 == 4) {
-    x1 <- box1$x + box1$lx/2  # x at right of box1
-    y1 <- box1$y              # y in center of box1
-  } else { # default:
-    x1 <- box1$x  # x in center of box1
-    y1 <- box1$y  # y in center of box1
-  }
+  if (!use_poly) {  # link boxes by a line (via plot_line):
 
-  # 2nd point:
-  if (is.null(pos2) || pos2 == 0) {
-    x2 <- box2$x  # x in center of box2
-    y2 <- box2$y  # y in center of box2
-  } else if (pos2 == 1) {
-    x2 <- box2$x              # x in center of box2
-    y2 <- box2$y - box2$ly/2  # y at bottom of box2
-  } else if (pos2 == 2) {
-    x2 <- box2$x - box2$lx/2  # x at left of box2
-    y2 <- box2$y              # y in center of box2
-  } else if (pos2 == 3) {
-    x2 <- box2$x              # x in center of box2
-    y2 <- box2$y + box2$ly/2  # y at top of box2
-  } else if (pos2 == 4) {
-    x2 <- box2$x + box2$lx/2  # x at right of box2
-    y2 <- box2$y              # y in center of box2
-  } else { # default:
-    x2 <- box2$x  # x in center of box1
-    y2 <- box2$y  # y in center of box1
-  }
+    ## (A) Link 2 boxes by a line (via plot_line): ------
 
-  # (2) Interpret current color info:
-  col_brd <- col_pal["brd"]  # current border color
-  col_txt <- col_pal["txt"]  # current label color
+    ## (1) Determine link coordinates:
 
-  # (2) Check if no lbl exists and link is a known prob.
-  #     If so, label it accordingly:
-  if (!is.na(lbl)) {  # lbl is specified:
+    # 1st point:
+    if (is.null(pos1) || pos1 == 0) {
+      x1 <- box1$x  # x in center of box1
+      y1 <- box1$y  # y in center of box1
+    } else if (pos1 == 1) {
+      x1 <- box1$x              # x in center of box1
+      y1 <- box1$y - box1$ly/2  # y at bottom of box1
+    } else if (pos1 == 2) {
+      x1 <- box1$x - box1$lx/2  # x at left of box1
+      y1 <- box1$y              # y in center of box1
+    } else if (pos1 == 3) {
+      x1 <- box1$x              # x in center of box1
+      y1 <- box1$y + box1$ly/2  # y at top of box1
+    } else if (pos1 == 4) {
+      x1 <- box1$x + box1$lx/2  # x at right of box1
+      y1 <- box1$y              # y in center of box1
+    } else { # default:
+      x1 <- box1$x  # x in center of box1
+      y1 <- box1$y  # y in center of box1
+    }
 
-    # (a) plot line with the current lbl:
-    plot_line(x1, y1, x2, y2, lbl = lbl,
-              col_fill = col_brd, col_txt = col_txt, ...)
+    # 2nd point:
+    if (is.null(pos2) || pos2 == 0) {
+      x2 <- box2$x  # x in center of box2
+      y2 <- box2$y  # y in center of box2
+    } else if (pos2 == 1) {
+      x2 <- box2$x              # x in center of box2
+      y2 <- box2$y - box2$ly/2  # y at bottom of box2
+    } else if (pos2 == 2) {
+      x2 <- box2$x - box2$lx/2  # x at left of box2
+      y2 <- box2$y              # y in center of box2
+    } else if (pos2 == 3) {
+      x2 <- box2$x              # x in center of box2
+      y2 <- box2$y + box2$ly/2  # y at top of box2
+    } else if (pos2 == 4) {
+      x2 <- box2$x + box2$lx/2  # x at right of box2
+      y2 <- box2$y              # y in center of box2
+    } else { # default:
+      x2 <- box2$x  # x in center of box1
+      y2 <- box2$y  # y in center of box1
+    }
 
-  } else {  # lbl is NA: Check whether link is between 2 freq boxes with a known prob:
+    # (2) Interpret current color info:
+
+    col_brd <- col_pal["brd"]  # current border color
+    col_txt <- col_pal["txt"]  # current label color
+
+    # (3) Check if a lbl exists and link is a known prob.
+    #     If so, label it accordingly:
+
+    if (!is.na(lbl)) {  # lbl is specified:
+
+      # (a) plot line with the current lbl:
+      plot_line(x1, y1, x2, y2, lbl = lbl,
+                col_fill = col_brd, col_txt = col_txt, ...)
+
+    } else {  # lbl is NA: Check whether link is between 2 freq boxes with a known prob:
+
+      pname <- name_prob(box1$name, box2$name)  # try name_prob on box names (freq)!
+
+      if (!is.na(pname)) {  # A pname is found (not NA)/prob is known:
+
+        # determine p_lbl:
+        p_lbl <- label_prob(pname = pname, cur_prob = cur_prob,
+                            lbl_type = lbl_type, lbl_sep = lbl_sep)  # generate p_lbl
+
+
+        # Scale line with p_lwd by current probability value p_val:
+        if (p_scale) {
+          p_lwd <- comp_p_lwd(pname = pname, cur_prob = cur_prob, p_lwd_max = p_lwd)  # scale p_lwd by p_val (using helper function above)
+        }
+        ## not needed:
+        # } else {
+        #  p_lwd <- par("lwd")  # get and set to default lwd
+        # }
+
+        # (b) plot line with this p_lbl and p_lwd:
+        plot_line(x1, y1, x2, y2, lbl = p_lbl,
+                  col_fill = col_brd, col_txt = col_txt,
+                  lwd = p_lwd,  # set lwd to p_lwd
+                  ...)
+
+      } else {  # NO pname was found by name_prob:
+
+        # (c) plot line as is:
+        plot_line(x1, y1, x2, y2,
+                  col_fill = col_brd, col_txt = col_txt, ...)
+
+      } # if (!is.na(pname)) etc.
+
+    } # if (!is.na(lbl)) etc.
+
+  } else { # if (use_poly)  # link boxes by a polygon (via plot_poly):
+
+    ## (B) Link 2 boxes by a polygon (via plot_poly): ------
+
+    # (1) Determine polygon coordinates:
+
+    ## 1st edge (box1):
+
+    if (is.null(pos1) || pos1 == 0) { # center:
+
+      # ToDo
+
+    } else if (pos1 == 1) { # bottom:
+
+      # 1st edge: bottom of box1
+      x1 <- box1$x - box1$lx/2  # x1 at left of box1
+      y1 <- box1$y - box1$ly/2  # y1 at bottom of box1
+
+      x2 <- box1$x + box1$lx/2  # x2 at right of box1
+      y2 <- box1$y - box1$ly/2  # y2 at bottom of box1
+
+    } else if (pos1 == 2) { # left:
+
+      # ToDo
+
+    } else if (pos1 == 3) { # top:
+
+      # 1st edge: top of box1
+      x1 <- box1$x - box1$lx/2  # x1 at left of box1
+      y1 <- box1$y + box1$ly/2  # y1 at top of box1
+
+      x2 <- box1$x + box1$lx/2  # x2 at right of box1
+      y2 <- box1$y + box1$ly/2  # y2 at top of box1
+
+    } else if (pos1 == 4) { # right:
+
+      # ToDo
+
+    } # pos1 end.
+
+
+    ## 2nd edge (box2):
+    if (is.null(pos2) || pos1 == 0) { # center:
+
+      # ToDo
+
+    } else if (pos2 == 1) { # bottom:
+
+      # 2nd edge: bottom of box2
+      x3 <- box2$x - box2$lx/2  # x3 at left of box2
+      y3 <- box2$y - box2$ly/2  # y3 at bottom of box2
+
+      x4 <- box2$x + box2$lx/2  # x4 at right of box2
+      y4 <- box2$y - box2$ly/2  # y4 at bottom of box2
+
+    } else if (pos2 == 2) { # left:
+
+      # ToDo
+
+    } else if (pos2 == 3) { # top:
+
+      # 2nd edge: top of box2
+      x3 <- box2$x - box2$lx/2  # x3 at left of box2
+      y3 <- box2$y + box2$ly/2  # y3 at top of box2
+
+      x4 <- box2$x + box2$lx/2  # x4 at right of box2
+      y4 <- box2$y + box2$ly/2  # y4 at top of box2
+
+    } else if (pos2 == 4) { # right:
+
+      # ToDo
+
+    } # pos2 end.
+
+
+
+
+    ## (2) Determine link label:
 
     pname <- name_prob(box1$name, box2$name)  # try name_prob on box names (freq)!
 
@@ -1941,35 +2141,19 @@ plot_link <- function(box1, box2,                # 2 boxes
       p_lbl <- label_prob(pname = pname, cur_prob = cur_prob,
                           lbl_type = lbl_type, lbl_sep = lbl_sep)  # generate p_lbl
 
-
-      # Scale line with p_lwd by current probability value p_val:
-      # +++ here now +++: #
-
-      if (p_scale) {
-        p_lwd <- comp_p_lwd(pname = pname, cur_prob = cur_prob, p_lwd_max = p_lwd)  # scale p_lwd by p_val (using helper function above)
-      }
-      ## not needed:
-      # } else {
-      #  p_lwd <- par("lwd")  # get and set to default lwd
-      # }
-
-      # (b) plot line with this p_lbl and p_lwd:
-      plot_line(x1, y1, x2, y2, lbl = p_lbl,
-                col_fill = col_brd, col_txt = col_txt,
-                lwd = p_lwd,  # set lwd to p_lwd
-                ...)
-
-    } else {  # NO pname was found by name_prob:
-
-      # (c) plot line as is:
-      plot_line(x1, y1, x2, y2,
-                col_fill = col_brd, col_txt = col_txt, ...)
-
     }
 
-  }
 
-}
+    ## (3) Draw polygon:
+    col_poly <- make_transparent("grey", alpha = .25)
+
+    plot_poly(x1, y1, x2, y2, x3, y3, x4, y4, col_fill = col_poly, lwd = .01, lbl = p_lbl)
+
+    # +++ here now +++: #
+
+  } # if (!use_poly) etc.
+
+} # plot_link end.
 
 # ## Check:
 # ## Define some boxes:
