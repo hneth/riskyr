@@ -685,7 +685,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     # Detect and handle special case of color equality (e.g., pal_bwp):
-    if ( all_equal(c(par("bg"), col_pal[["dec_pos"]])) && (length(what_col) != length(what)) ) {
+    if ( all_equal(c("white", col_ppod)) && (length(what_col) != length(what)) ) {
       col_ppod <- "grey50"  # distinct ppod color
       lty_ppod <- 4         # unique ppod line type (4 = dash-dot-dash)
     }
@@ -764,7 +764,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     }
 
     # Detect and handle special case of color equality (e.g., pal_bwp):
-    if ( all_equal(c(par("bg"), col_pal[["dec_cor"]])) && (length(what_col) != length(what)) ) {
+    if ( all_equal(c("white", col_acc)) && (length(what_col) != length(what)) ) {
       col_acc <- "grey20"  # distinct acc color
       lty_acc <- 3         # unique acc line type (3 = dotted)
     }
