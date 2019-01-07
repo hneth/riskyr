@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 06
+## 2010 01 07
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -319,11 +319,17 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   } # if (uc > 0)...
 
-  ## Positional parameters (for raising and shifting labels):
-  if (log_scale) { h.shift <- prev * 2 } else { h.shift <- .075 }
+  ## Positional parameters (for raising and shifting p labels):
+  if (log_scale) { h_shift <- prev * 2 } else {
+    if (p_lbl == "def" || p_lbl == "namnum" || p_lbl == "nam") {
+      h_shift <- .110  # larger horizontal shift
+    } else {  # p_lbl == "abb" || p_lbl == "num":
+      h_shift <- .060  # smaller horizontal shift
+    }
+  }
   v_shift <- .025
-  low_PV  <- .15  # threshold value for judging PPV or NPV to be low
-  v_raise <- min(c(cur_PPV, cur_NPV)) + .15 # vertical raise of y-prev when PPV or NPV < low_PV
+  low_PV  <- .15  # threshold value for judging y-value (e.g., PPV or NPV) to be low
+  v_raise <- min(c(cur_PPV, cur_NPV)) + .15  # vertical raise of y-prev when y-value (e.g., PPV or NPV) < low_PV
 
   ## Point appearance:
   pt_pch <- 21    # pch symbol of points
@@ -487,20 +493,21 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       prev_lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
       if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y at v_raise:
-        if ((prev < .50) | !(prev > 1 - h.shift)) {
-          text(x = prev + h.shift, y = 0 + v_raise,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on right
+        if ( (prev < .50) || !(prev > 1 - h_shift) ) {
+          text(x = prev + h_shift, y = 0 + v_raise,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on right
         } else {
-          text(x = prev - h.shift, y = 0 + v_raise,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on left+
+          text(x = prev - h_shift, y = 0 + v_raise,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on left+
         }
       } else { # y at bottom (y = 0):
-        if ((prev < .50) | !(prev > 1 - h.shift)) {
-          text(x = prev + h.shift, y = 0 + v_shift,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on right
+        # if ( (prev < h_shift) || !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
+        if ( !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
+          text(x = prev + h_shift, y = 0 + v_shift,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on right
         } else {
-          text(x = prev - h.shift, y = 0 + v_shift,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm) # on left+
+          text(x = prev - h_shift, y = 0 + v_shift,
+               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on left+
         }
       }
 
@@ -571,12 +578,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       # PPV_lbl <- paste0("PPV = ", as_pc(cur_PPV, n_digits = lbl_digits), "%")  # PPV label
       PPV_lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if ((cur_PPV < .75 & !(prev > 1 - h.shift)) || (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur_PPV + v_shift,
-             labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm) # on right
+      if ( (cur_PPV < .75 & !(prev > 1 - h_shift)) || (prev < h_shift) ) {
+        text(x = prev + h_shift, y = cur_PPV + v_shift,
+             labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm)  # PPV on right
       } else {
-        text(x = prev - h.shift, y = cur_PPV + v_shift,
-             labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm) # on left+
+        text(x = prev - h_shift, y = cur_PPV + v_shift,
+             labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm)  # PPV on left+
       }
 
     } # if (show_points)...
@@ -647,12 +654,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       # NPV_lbl <- paste0("NPV = ", as_pc(cur_NPV, n_digits = lbl_digits), "%")  # NPV label
       NPV_lbl <- label_prob(pname = "NPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if (cur_NPV > .75 | (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur_NPV + v_shift,
-             labels = NPV_lbl, col = col_npv, cex = cex_lbl_sm) # on right+
+      if ( (cur_NPV > .75) || (prev < h_shift) ) {
+        text(x = prev + h_shift, y = cur_NPV + v_shift,
+             labels = NPV_lbl, col = col_npv, cex = cex_lbl_sm)  # NPV on right+
       } else {
-        text(x = prev - h.shift, y = cur_NPV - v_shift,
-             labels = NPV_lbl, col = col_npv, cex = cex_lbl_sm) # on left-
+        text(x = prev - h_shift, y = cur_NPV - v_shift,
+             labels = NPV_lbl, col = col_npv, cex = cex_lbl_sm)  # NPV on left-
       }
 
     } # if (show_points)...
@@ -725,12 +732,13 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       # ppod_lbl <- paste0("ppod = ", as_pc(cur_ppod, n_digits = lbl_digits), "%")  # ppod label
       ppod_lbl <- label_prob(pname = "ppod", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if (cur_ppod > .75 | (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur_ppod + v_shift,
-             labels = ppod_lbl, col = col_ppod, cex = cex_lbl_sm) # on right+
+      ## if ( (cur_ppod < .75) || (prev < h_shift) ) {
+      if ( (prev < h_shift) || !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
+        text(x = prev + h_shift, y = cur_ppod + v_shift,
+             labels = ppod_lbl, col = col_ppod, cex = cex_lbl_sm)  # ppod on right+
       } else {
-        text(x = prev - h.shift, y = cur_ppod - v_shift,
-             labels = ppod_lbl, col = col_ppod, cex = cex_lbl_sm) # on left-
+        text(x = prev - h_shift, y = cur_ppod - v_shift,
+             labels = ppod_lbl, col = col_ppod, cex = cex_lbl_sm)  # ppod on left-
       }
 
     } # if (show_points)...
@@ -802,12 +810,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       # acc_lbl <- paste0("acc = ", as_pc(cur_acc, n_digits = lbl_digits), "%")  # acc label
       acc_lbl <- label_prob(pname = "acc", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
 
-      if (cur_acc > .75 | (prev < h.shift)) {
-        text(x = prev + h.shift, y = cur_acc + v_shift,
-             labels = acc_lbl, col = col_acc, cex = cex_lbl_sm) # on right+
+      if ( (prev < h_shift) || !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
+        text(x = prev + h_shift, y = cur_acc + v_shift,
+             labels = acc_lbl, col = col_acc, cex = cex_lbl_sm)  # acc on right+
       } else {
-        text(x = prev - h.shift, y = cur_acc - v_shift,
-             labels = acc_lbl, col = col_acc, cex = cex_lbl_sm) # on left-
+        text(x = prev - h_shift, y = cur_acc - v_shift,
+             labels = acc_lbl, col = col_acc, cex = cex_lbl_sm)  # acc on left-
       }
 
     } # if (show_points)...
@@ -983,11 +991,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 ## (+) ToDo: ----------
 
-## - adjust title
-## - use label_prob for labels of probability points
-
 ## - Add option to sample multiple points from given _prob_ distributions.
-## - Add more options: ppod, accu, etc.
-## - fine-tune positions of labels and legend (on linear vs. log scale)
+
+## - Fine-tune positions of labels and legend (on linear vs. log scale)
+##   [e.g., for plot_curve(what = "all", log_scale = T, p_lbl = "def", prev = .5) ]
 
 ## eof. ------------------------------------------
