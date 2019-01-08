@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2019 01 06
+## 2019 01 08
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -127,7 +127,7 @@
 #'
 #' @param f_lbl_hd  Type of label for showing frequency values in header,
 #' with same 6 options as \code{f_lbl} (above).
-#' Default: \code{f_lbl_hd = "abb"}: abbreviated names only.
+#' Default: \code{f_lbl_hd = "nam"}: names only (as specified in \code{lbl_txt = txt}).
 #'
 #' @param f_lwd  Line width of areas.
 #' Default: \code{f_lwd = 1}.
@@ -183,9 +183,7 @@
 #'
 #' @param ...  Other (graphical) parameters.
 #'
-#'
 #' @return Nothing (NULL).
-#'
 #'
 #' @examples
 #' ## Basics:
@@ -217,9 +215,9 @@
 #' ## Explore labels and links:
 #' plot_tab(f_lbl = "abb", p_lbl = NA)  # abbreviated labels, no probability links
 #' plot_tab(f_lbl = "num", f_lbl_sum = "abb", p_lbl = "num", f_lbl_hd = "abb")
-#' plot_tab(f_lbl = "abb", f_lbl_sum = "abb", p_lbl = "nam", f_lbl_hd = "nam")
-#' plot_tab(f_lbl = "namnum", f_lbl_sep = ":\n",
-#'          f_lbl_sum = "namnum", f_lbl_hd = "nam", p_lbl = "namnum")
+#' plot_tab(f_lbl = "def", f_lbl_sum = "def", p_lbl = "def", f_lbl_hd = "nam")
+#' plot_tab(f_lbl = "namnum", f_lbl_sep = " = ",
+#'          f_lbl_sum = "namnum", f_lbl_hd = "num", p_lbl = "namnum")
 #'
 #' ## Misc. options:
 #' plot_tab(area = "sq")        # area: square
@@ -309,7 +307,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      f_lbl = "num",      # freq label of 4 SDT & N cells: "default" vs. "abb", "nam", "num", "namnum". (Set to NA/NULL to hide freq labels).
                      f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
                      f_lbl_sum = f_lbl,  # freq label of summary cells (bottom row and right column)
-                     f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
+                     f_lbl_hd  = "nam",  # freq labels of headers at top (for columns) and left (for rows)
                      f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                      # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
 

@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2019 01 06
+## 2019 01 08
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -128,7 +128,7 @@
 #'
 #' @param f_lbl_hd  Type of label for showing frequency values in header,
 #' with same 6 options as \code{f_lbl} (above).
-#' Default: \code{f_lbl_hd = "abb"}: abbreviated names only.
+#' Default: \code{f_lbl_hd = "nam"}: names only (as specified in \code{lbl_txt = txt}).
 #'
 #' @param f_lwd  Line width of areas.
 #' Default: \code{f_lwd = 0}.
@@ -331,7 +331,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       f_lbl = "num",      # freq label: "def" vs. "abb"/"nam"/"num"/"namnum". (Set to "no"/NA/NULL to hide freq labels).
                       f_lbl_sep = NA,     # freq label separator (default: " = ", use ":\n" to add an extra line break)
                       f_lbl_sum = "num",  # freq label of summary cells (bottom row and right column)
-                      f_lbl_hd  = "abb",  # freq labels of headers at top (for columns) and left (for rows)
+                      f_lbl_hd  = "nam",  # freq labels of headers at top (for columns) and left (for rows)
                       f_lwd = 0,          # lwd of freq boxes: 0 (set to tiny_lwd, lty = 0) vs. 1 (numeric), or NULL/NA (set to 0).
                       # f_lty = 0,        # lty of freq boxes: 1 ("solid") vs. 0 ("blank"), etc. (currently not used)
 
