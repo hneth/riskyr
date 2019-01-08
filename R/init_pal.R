@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2019 01 04
+## 2019 01 08
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -840,7 +840,22 @@ pal <- pal_mod
 
 ## (+) ToDo: ----------
 
-## - Add more 2x2-dimensional (+/-, T/F) color palette.
+## Note current limitations:
+## - Lack of an explicit background color (e.g., "white").
+##   Possible solution:
+#    col_bg <- "grey95" # globally or in palette
+#    par(bg = col_bg)   # in plot_function
+
+## - Lack of most probability colors:
+##   Only PPV and NPV are assigned dedicated colors.
+##   Plotting ppod and acc in plot_curve and plot_plane recruits frequency colors.
+##   This can lead to conflicts (e.g., with pal_bwp when par("bg") == "white").
+
+## - Lack of ability to invert boxes (e.g., text bright, fill color dark).
+
+## ToDos:
+
+## - Add more 2x2-dimensional (+/-, T/F) color palettes.
 ## - Add dark (inverted) color palette (bright text on dark boxes).
 
 ## eof. ------------------------------------------
