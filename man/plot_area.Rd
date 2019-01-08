@@ -8,7 +8,7 @@ plot_area(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "sq", scale = "p", round = TRUE,
   sum_w = 0.1, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = NA,
-  f_lbl_sum = "num", f_lbl_hd = "abb", f_lwd = 0, p_lbl = NA,
+  f_lbl_sum = "num", f_lbl_hd = "nam", f_lwd = 0, p_lbl = NA,
   arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
   brd_dis = 0.06, lbl_txt = txt, title_lbl = txt$scen_lbl,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
@@ -116,7 +116,7 @@ Default: \code{f_lbl_sum = "num"}: numeric values only.}
 
 \item{f_lbl_hd}{Type of label for showing frequency values in header,
 with same 6 options as \code{f_lbl} (above).
-Default: \code{f_lbl_hd = "abb"}: abbreviated names only.}
+Default: \code{f_lbl_hd = "nam"}: names only (as specified in \code{lbl_txt = txt}).}
 
 \item{f_lwd}{Line width of areas.
 Default: \code{f_lwd = 0}.}

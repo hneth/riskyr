@@ -8,7 +8,7 @@ plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, N = num$N, by = "cddc",
   p_split = "v", area = "no", scale = "p", round = TRUE,
   f_lbl = "num", f_lbl_sep = NA, f_lbl_sum = f_lbl,
-  f_lbl_hd = "abb", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
+  f_lbl_hd = "nam", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
   p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
   "yellow"), brd_dis = 0.3, lbl_txt = txt, title_lbl = txt$scen_lbl,
   cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
@@ -107,7 +107,7 @@ Default: \code{f_lbl_sum = "def"}: abbreviated names and numeric values.}
 
 \item{f_lbl_hd}{Type of label for showing frequency values in header,
 with same 6 options as \code{f_lbl} (above).
-Default: \code{f_lbl_hd = "abb"}: abbreviated names only.}
+Default: \code{f_lbl_hd = "nam"}: names only (as specified in \code{lbl_txt = txt}).}
 
 \item{f_lwd}{Line width of areas.
 Default: \code{f_lwd = 1}.}
@@ -225,9 +225,9 @@ plot_tab(by = "acdc", p_split = "h", p_lbl = "def")  # v12 (is v06 rotated)
 ## Explore labels and links:
 plot_tab(f_lbl = "abb", p_lbl = NA)  # abbreviated labels, no probability links
 plot_tab(f_lbl = "num", f_lbl_sum = "abb", p_lbl = "num", f_lbl_hd = "abb")
-plot_tab(f_lbl = "abb", f_lbl_sum = "abb", p_lbl = "nam", f_lbl_hd = "nam")
-plot_tab(f_lbl = "namnum", f_lbl_sep = ":\\n",
-         f_lbl_sum = "namnum", f_lbl_hd = "nam", p_lbl = "namnum")
+plot_tab(f_lbl = "def", f_lbl_sum = "def", p_lbl = "def", f_lbl_hd = "nam")
+plot_tab(f_lbl = "namnum", f_lbl_sep = " = ",
+         f_lbl_sum = "namnum", f_lbl_hd = "num", p_lbl = "namnum")
 
 ## Misc. options:
 plot_tab(area = "sq")        # area: square
