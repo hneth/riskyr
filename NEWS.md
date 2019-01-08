@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9002+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9003+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9002+
+# riskyr 0.2.0.9003+
 
 Log of changes since last release:
 
@@ -27,10 +27,16 @@ Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths 
 
 ## Micro changes
 
-### General changes
+### New functionality
 
 - Add color palettes [2019-01]:   
 Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
+
+
+### General changes
+
+- Change default arguments for `plot_area` and `plot_tab` [2019-01]:   
+Change default settings from  `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for riskyrApp).  
 
 - Change default color palette [2019-01]:  
 Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
