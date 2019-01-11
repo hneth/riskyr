@@ -234,7 +234,7 @@
 #' plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
 #'          by = "cddc", p_split = "h",
 #'          lwd = 2, p_lbl = "def", brd_dis = .20, arr_c = +3,
-#'          col_pal = pal_bwp)  # black-and-white printing
+#'          f_lwd = .5, col_pal = pal_bwp)  # bw-print version
 #'
 #' # Custom text labels and colors:
 #' plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
@@ -588,6 +588,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
   if (all_equal(c(par("bg"), col_pal[["hi"]])) && (f_lwd <= tiny_lwd)) {
     f_lwd <- 1
     if (lty == 0) {lty <- 1}  # prevent lty = 0
+    # message(paste0("f_lwd = ", f_lwd, "; col_pal[['brd']] = ",  col_pal[["brd"]], "; lty = ", lty)) # debugging
   }
 
   # (b) Probability link colors:

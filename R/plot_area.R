@@ -279,7 +279,7 @@
 #' ## Plain and suggested plot versions:
 #' plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
 #' plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num",  # no gaps, numeric labels
-#'           col_pal = pal_bwp, title_lbl = "Black-and-white color palette")  # strict b+w
+#'           f_lwd = .5, col_pal = pal_bwp, title_lbl = "Black-and-white")  # b+w print version
 #' plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod) # plot with freq labels
 #' plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb) # no borders around boxes
 #'
@@ -622,6 +622,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   if (all_equal(c(par("bg"), col_pal[["hi"]])) && (f_lwd <= tiny_lwd)) {
     f_lwd <- 1
     if (lty == 0) {lty <- 1}  # prevent lty = 0
+    # message(paste0("f_lwd = ", f_lwd, "; col_pal[['brd']] = ",  col_pal[["brd"]], "; lty = ", lty)) # debugging
   }
 
   # (b) Probability link colors:
