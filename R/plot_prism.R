@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2019 01 06
+## 2019 01 11
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -1404,9 +1404,9 @@ plot_prism <- function(prev = num$prev,    # probabilities
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
     if ( !is.na(by_bot) ) {
-      type_lbl <- paste0("Prism plot (by ", as.character(by), ")")  # plot name: prism/network/double tree.
+      type_lbl <- paste0(lbl["plot_prism_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
     } else {
-      type_lbl <- paste0("Tree plot (by ", as.character(by), ")")  # plot name: tree/double tree.
+      type_lbl <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
     } # if ( !is.na(by_bot) )
   }
 

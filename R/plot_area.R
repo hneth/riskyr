@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2019 01 08
+## 2019 01 11
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -621,7 +621,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   # NOW more general: If color of hi is.equal to current background color:
   if (all_equal(c(par("bg"), col_pal[["hi"]])) && (f_lwd <= tiny_lwd)) {
     f_lwd <- 1
-    # lty <- 1
+    if (lty == 0) {lty <- 1}  # prevent lty = 0
   }
 
   # (b) Probability link colors:
@@ -1939,7 +1939,7 @@ plot_area <- function(prev = num$prev,    # probabilities
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Area plot (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/etc.
+    type_lbl <- paste0(lbl["plot_area_lbl"], " (by ", as.character(by), ")")  # plot name: Area/Mosaic/Eikosogram/etc.
   }
 
   # Compose label:

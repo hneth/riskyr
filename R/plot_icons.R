@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2019 01 07
+## 2019 01 11
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -1071,7 +1071,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if (title_lbl == "") {  # if title has been set to "":
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
-    type_lbl <- paste0("Icon array") # , "(N = ", N, ")") # plot name: icon array.
+    type_lbl <- paste0(lbl["plot_icons_lbl"])  # , "(N = ", N, ")") # plot name: icon array.
   }
 
   # Compose label:
