@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9004</span>
       </span>
     </div>
 
@@ -141,9 +141,9 @@
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="riskyr-0-2-0-9002" class="section level1">
+    <div id="riskyr-0-2-0-9003" class="section level1">
 <h1 class="page-header">
-<a href="#riskyr-0-2-0-9002" class="anchor"></a>riskyr 0.2.0.9002+<small> Unreleased </small>
+<a href="#riskyr-0-2-0-9003" class="anchor"></a>riskyr 0.2.0.9003+<small> Unreleased </small>
 </h1>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
@@ -175,12 +175,20 @@ Add <code>p_lwd</code> and <code>p_scale</code> arguments to <code>plot_prism</c
 <div id="micro-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#micro-changes" class="anchor"></a>Micro changes</h2>
+<div id="new-functionality" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-functionality" class="anchor"></a>New functionality</h3>
+<ul>
+<li>Add color palettes [2019-01]:<br>
+Add <code>pal_bwp</code> (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions.</li>
+</ul>
+</div>
 <div id="general-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#general-changes" class="anchor"></a>General changes</h3>
 <ul>
-<li><p>Add color palettes [2019-01]:<br>
-Add <code>pal_bwp</code> (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions.</p></li>
+<li><p>Change default arguments for <code>plot_area</code> and <code>plot_tab</code> [2019-01]:<br>
+Change default settings from <code>f_lbl_hd = "abb"</code> to <code>f_lbl_hd = "nam"</code> (as this makes more sense for riskyrApp).</p></li>
 <li><p>Change default color palette [2019-01]:<br>
 Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as new default color scheme <code>pal</code> (to highlight <code>cond_true</code> and <code>dec_pos</code> cases in default plots).</p></li>
 </ul>
@@ -327,7 +335,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#riskyr-0-2-0-9002">0.2.0.9002</a></li>
+        <li><a href="#riskyr-0-2-0-9003">0.2.0.9003</a></li>
         <li><a href="#riskyr-0-2-0">0.2.0</a></li>
         <li><a href="#riskyr-0-1-0">0.1.0</a></li>
       </ul>
