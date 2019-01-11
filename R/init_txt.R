@@ -477,12 +477,28 @@ names(lbl_en) <- c("plot_area_lbl", "plot_icons_lbl", "plot_prism_lbl", "plot_ta
 
 ## de: German: ------
 
+## Escape sequences for Umlaute:
+#
+# stringi::stri_escape_unicode("ä")  # "\\u00e4"
+# stringi::stri_escape_unicode("ö")  # "\\u00f6"
+# stringi::stri_escape_unicode("ü")  # "\\u00fc"
+#
+# stringi::stri_escape_unicode("Ä")  # "\\u00c4"
+# stringi::stri_escape_unicode("Ö")  # "\\u00d6"
+# stringi::stri_escape_unicode("Ü")  # "\\u00dc"
+#
+# stringi::stri_escape_unicode("ß")  #  "\\u00df"
+#
+## Example (fake fact):
+# hn_fact <- "Hansj\u00f6rg Neth i\u00dft \u00fcber alle Ma\u00dfen."
+
 # (a) Define individual labels: ----
-plot_area_lbl  <- "Flächendiagram"     # Mosaik
-plot_icons_lbl <- "Häufigkeitsdiagram" # Gitter?
-plot_prism_lbl <- "Netzwerkdiagram"    # Prisma
-plot_tab_lbl   <- "Kontingenztabelle"  # Konfusion
-plot_tree_lbl  <- "Baumdiagram"        # Baum
+
+plot_area_lbl  <- "Fl\u00e4chendiagram"     # Mosaik
+plot_icons_lbl <- "H\u00e4ufigkeitsdiagram" # Gitter?
+plot_prism_lbl <- "Netzwerkdiagram"         # Prisma
+plot_tab_lbl   <- "Kontingenztabelle"       # Konfusion
+plot_tree_lbl  <- "Baumdiagram"             # Baum
 
 sum_lbl <- "Summen"
 
@@ -495,11 +511,11 @@ names(lbl_de) <- names(lbl_en)
 
 ## Set default text information: --------
 
-lbl <- lbl_en  # English
+lbl <- lbl_en    # English
 # lbl <- lbl_de  # German
 
 # txt <- txt_org  # original labels (hi, mi, fa, cr)
-txt <- txt_TF   # TF labels (TP, FN, FP, TN)
+txt <- txt_TF     # TF labels (TP, FN, FP, TN)
 
 
 ## (*) Done: -------------------------------------
