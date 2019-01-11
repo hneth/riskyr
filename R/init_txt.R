@@ -495,11 +495,11 @@ names(lbl_de) <- names(lbl_en)
 
 ## Set default text information: --------
 
-lbl <- lbl_en    # English
+lbl <- lbl_en  # English
 # lbl <- lbl_de  # German
 
 # txt <- txt_org  # original labels (hi, mi, fa, cr)
-txt <- txt_TF     # TF labels (TP, FN, FP, TN)
+txt <- txt_TF   # TF labels (TP, FN, FP, TN)
 
 
 ## (*) Done: -------------------------------------
