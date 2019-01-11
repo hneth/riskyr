@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2018 12 20
+## 2019 01 11
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -453,10 +453,54 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 # txt_TF$sdt_lbl # unchanged from txt_lbl_def
 # txt_TF$hi      # "TP", rather than "hi"
 
+
+## Language-specific settings for text labels: --------
+
+## en: English: ------
+
+# (a) Define individual labels: ----
+plot_area_lbl  <- "Area plot"        # Mosaic plot
+plot_icons_lbl <- "Icon array"       #
+plot_prism_lbl <- "Prism plot"       # Network plot
+plot_tab_lbl   <- "Confusion table"  # Contingency table
+plot_tree_lbl  <- "Tree plot"        # Tree diagram
+
+sum_lbl <- "Sums"
+
+
+# (b) Collect all labels in named vector: ----
+lbl_en <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tree_lbl,
+            sum_lbl)
+names(lbl_en) <- c("plot_area_lbl", "plot_icons_lbl", "plot_prism_lbl", "plot_tab_lbl", "plot_tree_lbl",
+                   "sum_lbl")
+
+
+## de: German: ------
+
+# (a) Define individual labels: ----
+plot_area_lbl  <- "Flächendiagram"     # Mosaik
+plot_icons_lbl <- "Häufigkeitsdiagram" # Gitter?
+plot_prism_lbl <- "Netzwerkdiagram"    # Prisma
+plot_tab_lbl   <- "Kontingenztabelle"  # Konfusion
+plot_tree_lbl  <- "Baumdiagram"        # Baum
+
+sum_lbl <- "Summen"
+
+
+# (b) Collect all labels in named vector: ----
+lbl_de <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tree_lbl,
+            sum_lbl)
+names(lbl_de) <- names(lbl_en)
+
+
 ## Set default text information: --------
 
-## Use txt_TF by default:
-txt <- txt_TF
+lbl <- lbl_en    # English
+# lbl <- lbl_de  # German
+
+# txt <- txt_org  # original labels (hi, mi, fa, cr)
+txt <- txt_TF     # TF labels (TP, FN, FP, TN)
+
 
 ## (*) Done: -------------------------------------
 
