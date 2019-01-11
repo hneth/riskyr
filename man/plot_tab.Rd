@@ -244,7 +244,7 @@ plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
 plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
          by = "cddc", p_split = "h",
          lwd = 2, p_lbl = "def", brd_dis = .20, arr_c = +3,
-         col_pal = pal_bwp)  # black-and-white printing
+         f_lwd = .5, col_pal = pal_bwp)  # bw-print version
 
 # Custom text labels and colors:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,

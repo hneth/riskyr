@@ -290,7 +290,7 @@ plot_area(sum_w =  1,         # top and left freq panels scaled to size of main 
 ## Plain and suggested plot versions:
 plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
 plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num",  # no gaps, numeric labels
-          col_pal = pal_bwp, title_lbl = "Black-and-white color palette")  # strict b+w
+          f_lwd = .5, col_pal = pal_bwp, title_lbl = "Black-and-white")  # b+w print version
 plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod) # plot with freq labels
 plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb) # no borders around boxes
 
