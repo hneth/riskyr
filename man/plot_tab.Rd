@@ -242,15 +242,16 @@ plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
          by = "cddc", p_split = "v", col_pal = pal_rgb,
          p_lbl = "def", brd_dis = .25, arr_c = -3)
 plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
-         by = "cddc", p_split = "h", col_pal = pal_mod,
-         p_lbl = "namnum", brd_dis = .15, arr_c = +3)
+         by = "cddc", p_split = "h",
+         lwd = 2, p_lbl = "def", brd_dis = .20, arr_c = +3,
+         col_pal = pal_bwp)  # black-and-white printing
 
-## Custom text labels and colors:
+# Custom text labels and colors:
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
-         by = "cddc", p_split = "v", area = "sq",
-         lbl_txt = txt_org,  # custom text
+         by = "cddc", p_split = "v", area = "no",
+         lbl_txt = txt_TF,  # custom text
          f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
-         col_pal = pal_mod, f_lwd = 3)  # custom colors
+         col_pal = pal_vir, f_lwd = 3)  # custom colors
 plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
          by = "cddc", p_split = "h", area = "sq",
          lbl_txt = txt_org,  # custom text
