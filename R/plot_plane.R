@@ -198,7 +198,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
 
-    ## (A) A provided set of probabilities is valid:
+    ## (1) A provided set of probabilities is valid:
 
     ## (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
@@ -211,11 +211,14 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     # freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
     prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
 
+    ## (2) ToDo: No sens + spec values provided, but prev is valid:
+
+
   } else {
 
-    ## (B) NO valid set of probabilities is provided:
+    ## (3) NO valid set of probabilities is provided:
 
-    message("No valid set of probabilities provided. Using global prob to plot plane.")
+    message("No valid set of probabilities provided: Using global prob to plot plane.")
 
     ## Use current values of prob:
     prev <- prob$prev
@@ -702,8 +705,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 ## (+) ToDo: ----------
 
-# Note: Curves/planes do not need a specific prevalence/sens+spec!
-# - Allow computing curves/plane without a specific prevalence
+# Note: Planes do not need specific sens+spec values!
+# - Allow computing planes without specific sens+spec values
 # - Allow supplying a vector of sens+spec values (and corresponding labels) to show multiple points on plane.
 
 ## - Add p_lbl option (as in plot_curve) to use label_prob for cur_lbl.
