@@ -116,19 +116,19 @@ $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test})
 {p(\mathrm{cancer})     \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) + 
  p(\mathrm{no\ cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{no\ cancer}) } $$
 
-By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., $p(\mathrm{no\ cancer}) = 1 - $`prev` = 99\%$) we obtain:
+By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., $p$(no cancer) = 1 -- `prev` = 99\%) we obtain:
 
 $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test}) 
 = \frac{1\% \cdot 80\% } 
 {  1\% \cdot 80\% + 
   99\% \cdot 9.6\% } \approx\ 7.8\%$$
 
-Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the `PPV` of this mammography screening test) is slightly below 8\%. 
+Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the `PPV` of this mammography screening test for this population of women) is slightly below 8\%. 
 
 
 ## Using natural frequencies
 
-If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent. 
+If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have discovered that a simple change in representation renders the same information much more transparent. 
 
 Consider the following problem description:
 
