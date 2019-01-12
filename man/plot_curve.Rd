@@ -14,7 +14,9 @@ plot_curve(prev = num$prev, sens = num$sens, mirt = NA,
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
-(i.e., the probability of condition being \code{TRUE}).}
+(i.e., the probability of condition being \code{TRUE}).
+If \code{prev = NA}, the curves in \code{what}
+are plotted without points (i.e., \code{show_points = FALSE}).}
 
 \item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
@@ -104,9 +106,18 @@ specificity \code{\link{spec}} (or
 false alarm rate \code{\link{fart}}).
 }
 \details{
+If no prevalence value is provided (i.e., \code{prev = NA}),
+the desired probability curves are plotted without showing
+specific points (i.e., \code{show_points = FALSE}).
+
+Note that a population size \code{\link{N}} is not needed for
+computing probability information \code{\link{prob}}.
+(An arbitrary value can be used when computing frequency information
+\code{\link{freq}} from current probabilities \code{\link{prob}}.)
+
 \code{plot_curve} is a generalization of
 \code{plot_PV} (see legacy code)
-that allows for additional dependent values.
+that allows plotting additional dependent values.
 }
 \examples{
 # Basics:
@@ -115,8 +126,9 @@ plot_curve()  # default curve plot,
 # same as:
 # plot_curve(what = c("prev", "PPV", "NPV"))
 
-# hide points and show uncertainty:
-plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10\% uncertainty range
+# Hiding prev/points and showing uncertainty:
+plot_curve(prev = NA)  # default curves, but no prev value (and points) shown.
+plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10\% uncertainty range.
 
 # (2) Provide local parameters and select curves:
 plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)

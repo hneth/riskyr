@@ -38,9 +38,10 @@ of a positive decision provided that the condition is \code{FALSE}).
 
 \item{N}{The number of individuals in the population.
 A suitable value of \code{\link{N}} is computed, if not provided.
-Note: \code{\link{N}} is not represented in the plot,
-but used for computing frequency information \code{\link{freq}}
-from current probabilities \code{\link{prob}}.}
+Note that a population size \code{\link{N}} is not needed
+for computing current probability information \code{\link{prob}},
+but is needed for computing frequency information
+\code{\link{freq}} from current probabilities \code{\link{prob}}.}
 
 \item{by}{A character code specifying 1 or 2 perspectives
 that split the population into 2 subsets.
