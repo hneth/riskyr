@@ -50,9 +50,10 @@
 #'
 #' @param N  The number of individuals in the population.
 #' A suitable value of \code{\link{N}} is computed, if not provided.
-#' Note: \code{\link{N}} is not represented in the plot,
-#' but used for computing frequency information \code{\link{freq}}
-#' from current probabilities \code{\link{prob}}.
+#' Note that a population size \code{\link{N}} is not needed
+#' for computing current probability information \code{\link{prob}},
+#' but is needed for computing frequency information
+#' \code{\link{freq}} from current probabilities \code{\link{prob}}.
 #'
 #' @param by  A character code specifying 1 or 2 perspectives
 #' that split the population into 2 subsets.
@@ -408,7 +409,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   } else {  # (B) NO valid set of probabilities was provided:
 
-    message("No valid set of probabilities provided. Using global freq & prob to plot prism.")
+    message("No valid set of probabilities provided: Using global freq & prob to plot prism.")
 
   } # if (is_valid_prob_set)
 
