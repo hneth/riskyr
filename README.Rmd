@@ -555,7 +555,8 @@ _Cognition_, _84_, 343–352.
 
 - Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). 
 Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. 
-_Frontiers in Psychology_, _6_, 1473.
+_Frontiers in Psychology_, _6_, 1473. 
+[[Available online]( https://doi.org/10.3389/fpsyg.2015.01473)]
 
 - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
 Communicating statistical information. 
