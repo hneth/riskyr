@@ -512,7 +512,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 
 -   Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). Representation facilitates reasoning: What natural frequencies are and what they are not. *Cognition*, *84*, 343–352.
 
--   Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. *Frontiers in Psychology*, *6*, 1473.
+-   Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. *Frontiers in Psychology*, *6*, 1473. \[[Available online](https://doi.org/10.3389/fpsyg.2015.01473)\]
 
 -   Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). Communicating statistical information. *Science*, *290*, 2261–2262.
 
@@ -531,7 +531,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 -   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- Update: -->
-\[Updated 2019-01-06 by [hn](http://neth.de).\]
+\[Updated 2019-01-12 by [hn](http://neth.de).\]
 
 <!-- eof -->
 
