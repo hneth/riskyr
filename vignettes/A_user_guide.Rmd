@@ -536,7 +536,8 @@ _Cognition_, _84_, 343--352.
 
 - Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). 
 Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. 
-_Frontiers in Psychology_, _6_, 1473.
+_Frontiers in Psychology_, _6_, 1473. 
+[[Available online]( https://doi.org/10.3389/fpsyg.2015.01473)] 
 
 - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
 Communicating statistical information. 
@@ -557,7 +558,7 @@ _Annals of the New York Academy of Sciences_, _1128_, 18--28.
 - Mandel, D. R. & Navarrete, G. (2015). 
 Editorial: Improving Bayesian reasoning: What works and why? 
 _Frontiers in Psychology_, _6_, 1872. 
- doi: [10.3389/fpsyg.2015.01872](https://doi.org/10.3389/fpsyg.2015.01872)
+[[Available online](https://doi.org/10.3389/fpsyg.2015.01872)]
 
 - Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). 
 Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. 
@@ -579,8 +580,8 @@ Cambridge, MA: Harvard University Press.
 
 - Trevethan, R. (2017). 
 Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. 
-_Frontiers in Public Health_, _5_, 307.  
-doi: [10.3389/fpubh.2017.00307](https://doi.org/10.3389/fpubh.2017.00307) 
+_Frontiers in Public Health_, _5_, 307. 
+[[Available online](https://doi.org/10.3389/fpubh.2017.00307)]  
 
 - Wassner, C., Martignon, L., & Biehler, R. (2004). 
 Bayesianisches Denken in der Schule. 

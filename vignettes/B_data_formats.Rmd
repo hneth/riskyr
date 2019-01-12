@@ -302,8 +302,8 @@ _Cognition_, _84_, 343--352.
 
 - Trevethan, R. (2017). 
 Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. 
-_Frontiers in Public Health_, _5_, 307.  
-doi: [10.3389/fpubh.2017.00307](https://doi.org/10.3389/fpubh.2017.00307) 
+_Frontiers in Public Health_, _5_, 307. 
+[[Available online](https://doi.org/10.3389/fpubh.2017.00307)]  
 
 
 ### Resources
