@@ -19,12 +19,24 @@
 #' specificity \code{\link{spec}} (or
 #' false alarm rate \code{\link{fart}}).
 #'
+#' If no prevalence value is provided (i.e., \code{prev = NA}),
+#' the desired probability curves are plotted without showing
+#' specific points (i.e., \code{show_points = FALSE}).
+#'
+#' Note that a population size \code{\link{N}} is not needed for
+#' computing probability information \code{\link{prob}}.
+#' (An arbitrary value can be used when computing frequency information
+#' \code{\link{freq}} from current probabilities \code{\link{prob}}.)
+#'
 #' \code{plot_curve} is a generalization of
 #' \code{plot_PV} (see legacy code)
-#' that allows for additional dependent values.
+#' that allows plotting additional dependent values.
+#'
 #'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
+#' If \code{prev = NA}, the curves in \code{what}
+#' are plotted without points (i.e., \code{show_points = FALSE}).
 #'
 #' @param sens  The decision's sensitivity \code{\link{sens}}
 #' (i.e., the conditional probability of a positive decision
@@ -91,7 +103,6 @@
 #' @param title_lbl  Main plot title.
 #' Default: \code{title_lbl = NA} (using \code{lbl_txt$scen_lbl}).
 #'
-#'
 #' @param cex_lbl  Scaling factor for the size of text labels
 #' (e.g., on axes, legend, margin text).
 #' Default: \code{cex_lbl = .85}.
@@ -111,8 +122,9 @@
 #' # same as:
 #' # plot_curve(what = c("prev", "PPV", "NPV"))
 #'
-#' # hide points and show uncertainty:
-#' plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10% uncertainty range
+#' # Hiding prev/points and showing uncertainty:
+#' plot_curve(prev = NA)  # default curves, but no prev value (and points) shown.
+#' plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10% uncertainty range.
 #'
 #' # (2) Provide local parameters and select curves:
 #' plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
@@ -241,7 +253,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     ## (2) No prev was provided, but 2 other probabilities are valid:
 
-    message("No prevalence value provided. Plotting curves without points.")
+    message("No prevalence value provided: Plotting curves without points.")
 
     show_points <- FALSE
 
@@ -252,7 +264,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     ## (3) NO valid set of probabilities is provided:
 
-    message("No valid set of probabilities provided. Using global prob to plot curves.")
+    message("No valid set of probabilities provided: Using global prob to plot curves.")
 
     ## Use current values of prob:
     prev <- prob$prev
@@ -881,12 +893,16 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     if (show_freq) {
 
-      N <- 1000  # HACK: compute freq values for some N:
-      freq <- comp_freq_prob(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
+      if (!is.na(prev)) {
 
-      # Create freq label:
-      freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr) # use current freq values
-      # mtext(freq_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print freq label
+        N <- 1000  # HACK: compute freq values for some N:
+        freq <- comp_freq_prob(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
+
+        # Create freq label:
+        freq_lbl <- make_freq_lbl(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr) # use current freq values
+        # mtext(freq_lbl, side = 1, line = 1, adj = 0, col = m_col, cex = m_cex)  # print freq label
+
+      }
 
     } else {
 
@@ -903,7 +919,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     mtext(cur_par_lbl, side = 1, line = 2, adj = 0, col = m_col, cex = m_cex)  # print label
 
 
-    ##   (B) on rigth side (adj = 1): ----
+    ##   (B) on right side (adj = 1): ----
 
     ## B1. Note uncertainty:
     if (uc > 0) {
@@ -938,7 +954,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   invisible()  # restores par(opar)
 
-} # plot_curve(...) end.
+} # plot_curve etc. end.
 
 ## Check: ----------
 
@@ -1015,9 +1031,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 ## (+) ToDo: ----------
 
-# Note: Curves/planes do not need a specific prevalence/sens+spec!
-# - Allow computing curves/plane without a specific prevalence
-# - Allow supplying a vector of prevalences (and corresponding labels) to show multiple points on curve(s).
+# Note: Curves do not need a specific prevalence value!
+# - Allow computing curves without a specific prevalence
+# - Allow supplying a vector of prevalences (and corresponding labels) to show
+#   multiple vertical lines and points on curve(s).
 
 ## - Add option to sample multiple points from given _prob_ distributions.
 
