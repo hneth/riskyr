@@ -235,9 +235,22 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     cur_PPV <- prob$PPV  # use PPV from prob
     cur_NPV <- prob$NPV  # use NPV from prob
 
+  } else if (is.na(prev) &&
+             is_valid_prob_pair(sens, mirt, tol = .01) &&
+             is_valid_prob_pair(spec, fart, tol = .01)) {
+
+    ## (2) No prev was provided, but 2 other probabilities are valid:
+
+    message("No prevalence value provided. Plotting curves without points.")
+
+    show_points <- FALSE
+
+    cur_PPV <- NA
+    cur_NPV <- NA
+
   } else {
 
-    ## (2) NO valid set of probabilities is provided:
+    ## (3) NO valid set of probabilities is provided:
 
     message("No valid set of probabilities provided. Using global prob to plot curves.")
 
@@ -265,18 +278,18 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   x_min <- (0 + eps)  # was: above
   x_max <- (1 - eps)  # was: 1
 
-  ## Set x-value (prev) range for plotting uncertainty polygons:
+  ## Set x-value (prevalence) range for plotting uncertainty polygons:
   if (uc > 0) {  # plot a polygon:
 
     uc_dens <- NULL # OR: 20 # density of polygon lines (default = NULL: no lines)
 
-    ## Select x-value (prev) ranges based on current type of scale (log or linear):
+    ## Select x-value (prevalence) ranges based on current type of scale (log or linear):
     if (log_scale) {
 
       x_min <- (0 + eps)  # avoid 0 (to avoid extreme values)
       x_max <- (1 - eps)  # avoid 1 (to avoid extreme values)
 
-      ## Ranges for x-values (prev) of polygon:
+      ## Ranges for x-values (prevalence) of polygon:
       x_lower <- c(10^-6, 10^-5, 10^-4, (1 * 10^-3), (2 * 10^-3), (5 * 10^-3),
                    .01, .02, .05, .10, .15, .25, .30, .50, .60, .90, x_max)  # FIXED log steps (left to right)
       x_upper <- rev(x_lower)                                                # same steps (from right to left)
@@ -300,7 +313,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       # x_2r <- 1 - x_2l
       # x_3r <- 1 - x_3l
       #
-      # # Ranges for x-values (prev) of polygon:
+      # # Ranges for x-values (prevalence) of polygon:
       # x_lower <- c(x_min, x_1l, x_2l, x_3l,  # 1 extreme + 3 points on left
       #              x_mid_range,              # main steps (in mid range)
       #              x_3r, x_2r, x_1r, x_max)  # 3 points on right + 1 extreme (left to right)
@@ -311,30 +324,41 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       x_right <- rev(1 - x_left)           # reverse complements (from right to left)
       x_range <- c(x_left, .500, x_right)  # combine and add mid point
 
-      # Ranges for x-values (prev) of polygon:
+      # Ranges for x-values (prevalence) of polygon:
       x_lower <- x_range       # use fixed steps defined in (b)
       x_upper <- rev(x_lower)  # same steps (from right to left)
 
-    } # if (log_scale)...
+    } # if (log_scale) etc.
 
-  } # if (uc > 0)...
+  } # if (uc > 0) etc.
 
-  ## Positional parameters (for raising and shifting p labels):
-  if (log_scale) { h_shift <- prev * 2 } else {
-    if (p_lbl == "def" || p_lbl == "namnum" || p_lbl == "nam") {
-      h_shift <- .110  # larger horizontal shift
-    } else {  # p_lbl == "abb" || p_lbl == "num":
-      h_shift <- .060  # smaller horizontal shift
+
+  if (show_points) {
+
+    ## Positional parameters (for raising and shifting p labels):
+    if (log_scale) {
+      if (!is.na(prev)) {
+        h_shift <- prev * 2
+      } else {
+        h_shift <- 0 # ToDo
+      }
+    } else { # linear scale:
+      if (p_lbl == "def" || p_lbl == "namnum" || p_lbl == "nam") {
+        h_shift <- .110  # larger horizontal shift
+      } else {  # p_lbl == "abb" || p_lbl == "num":
+        h_shift <- .060  # smaller horizontal shift
+      }
     }
-  }
-  v_shift <- .025
-  low_PV  <- .15  # threshold value for judging y-value (e.g., PPV or NPV) to be low
-  v_raise <- min(c(cur_PPV, cur_NPV)) + .15  # vertical raise of y-prev when y-value (e.g., PPV or NPV) < low_PV
+    v_shift <- .025
+    low_PV  <- .15  # threshold value for judging y-value (e.g., PPV or NPV) to be low
+    v_raise <- min(c(cur_PPV, cur_NPV)) + .15  # vertical raise of y-prev when y-value (e.g., PPV or NPV) < low_PV
 
-  ## Point appearance:
-  pt_pch <- 21    # pch symbol of points
-  pt_cex <- 1.6   # cex scaling of points
-  pt_lwd <- 1.6   # lwd of point borders
+    ## Point appearance:
+    pt_pch <- 21    # pch symbol of points
+    pt_cex <- 1.6   # cex scaling of points
+    pt_lwd <- 1.6   # lwd of point borders
+
+  } # if (show_points) etc.
 
   ## Colors:
   uc_alpha <- .20                     # transparency of uncertainty polygons
@@ -434,7 +458,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (a) prev: ----------
 
-  if ("prev" %in% what) {
+  if ( (!is.na(prev)) && ("prev" %in% what) ) {
 
     ## 0. parameters:
     lty_prev <- 2  # prev line type
@@ -511,9 +535,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
         }
       }
 
-    } # if (show_points)...
+    } # if (show_points) etc.
 
-  } # if ("prev" %in% what)...
+  } # if ("prev" %in% what) etc.
 
 
   ## (b) PPV: ----------
@@ -586,9 +610,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
              labels = PPV_lbl, col = col_ppv, cex = cex_lbl_sm)  # PPV on left+
       }
 
-    } # if (show_points)...
+    } # if (show_points) etc.
 
-  } # if ("ppv" %in% what)...
+  } # if ("ppv" %in% what) etc.
 
 
   ## (c) NPV: ----------
