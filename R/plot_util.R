@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 07
+## 2019 01 12
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -2224,9 +2224,9 @@ make_freq_lbl <- function(hi, mi, fa, cr,
 
   N <- (hi + mi + fa + cr)
 
-  lbl <- paste0(#"Frequency ",      # Dimension
-    "Freq ",            # Abbreviation
-    #"Population of ",  # Description
+  lbl <- paste0(#"Frequency ",  # Dimension
+    "Freq ",                    # Abbreviation
+    #"Population of ",          # Description
     "(" , lbl_txt$N_lbl, " = ", N, "):  ", # "(N = x):  "
     lbl_txt$hi_lbl, " = ", hi, ", ",
     lbl_txt$mi_lbl, " = ", mi, ", ",
@@ -2246,14 +2246,46 @@ make_freq_lbl <- function(hi, mi, fa, cr,
 
 make_cond_lbl <- function(prev, sens, spec) {
 
-  lbl <- ""  # initialize
+  # (1) Initialize labels:
+  lbl      <- ""
+  prev_lbl <- ""
+  sens_lbl <- ""
+  spec_lbl <- ""
 
+  # (2) Parts:
+
+  # (a) prev:
+  if (is.na(prev)) {
+    prev_lbl <- "prev = NA, "
+  } else {
+    prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = 1), "%, ")
+  } # (is.na(prev)) etc.
+
+  # (b) sens:
+  if (is.na(sens)) {
+    sens_lbl <- "sens = NA, "
+  } else {
+    sens_lbl <- paste0("sens = ", as_pc(sens, n_digits = 1), "%, ")
+  } # (is.na(sens)) etc.
+
+  # (c) spec:
+  if (is.na(spec)) {
+    spec_lbl <- "spec = NA, "
+  } else {
+    spec_lbl <- paste0("spec = ", as_pc(spec, n_digits = 1), "%")  # end of label.
+  } # (is.na(spec)) etc.
+
+
+  # (3) Combine into overall label:
   lbl <- paste0(#"Conditions:  ",  # Dimension:
     #"p(cond):  ",                 # values are probabilities
     "Cond:  ",                     # Abbreviation:
-    "prev = ", as_pc(prev, n_digits = 1), "%, ",
-    "sens = ", as_pc(sens, n_digits = 1), "%, ",
-    "spec = ", as_pc(spec, n_digits = 1), "%"
+    prev_lbl,
+    # "prev = ", as_pc(prev, n_digits = 1), "%, ",
+    sens_lbl,
+    # "sens = ", as_pc(sens, n_digits = 1), "%, ",
+    spec_lbl
+    # "spec = ", as_pc(spec, n_digits = 1), "%"
   )
 
   return(lbl)
@@ -2262,6 +2294,8 @@ make_cond_lbl <- function(prev, sens, spec) {
 
 ## Check:
 # make_cond_lbl(.001, 6/7, 2/3)
+# make_cond_lbl(NA, NA, 2/3)
+
 
 ## (c) make_dec_lbl:  Label current key parameters/probabilities by decision ------
 
@@ -2273,8 +2307,8 @@ make_dec_lbl <- function(ppod, PPV, NPV) {
     #"p(dec):  ",                 # values are probabilities
     "Dec:  ",                     # Abbreviation:
     "ppod = ", as_pc(ppod, n_digits = 1), "%, ",
-    "PPV = ", as_pc(PPV, n_digits = 1), "%, ",
-    "NPV = ", as_pc(NPV, n_digits = 1), "%"
+    "PPV = ",  as_pc(PPV, n_digits = 1),  "%, ",
+    "NPV = ",  as_pc(NPV, n_digits = 1),  "%"
   )
 
   return(lbl)
