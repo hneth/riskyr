@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2019 01 04
+## 2019 01 12
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -701,6 +701,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 
 ## (+) ToDo: ----------
+
+# Note: Curves/planes do not need a specific prevalence/sens+spec!
+# - Allow computing curves/plane without a specific prevalence
+# - Allow supplying a vector of sens+spec values (and corresponding labels) to show multiple points on plane.
 
 ## - Add p_lbl option (as in plot_curve) to use label_prob for cur_lbl.
 ## - Use ... instead re-naming arguments passed on to persp?

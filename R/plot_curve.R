@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 07
+## 2010 01 12
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -990,6 +990,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 ## - Add p_lbl argument (to use label_prob helper)
 
 ## (+) ToDo: ----------
+
+# Note: Curves/planes do not need a specific prevalence/sens+spec!
+# - Allow computing curves/plane without a specific prevalence
+# - Allow supplying a vector of prevalences (and corresponding labels) to show multiple points on curve(s).
 
 ## - Add option to sample multiple points from given _prob_ distributions.
 

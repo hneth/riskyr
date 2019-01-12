@@ -1714,11 +1714,17 @@ read_by <- function(by){
 ## (12) Re-shuffle x positions of 4 SDT boxes by 1st perspective (by_top)
 ##      so that prob-links from level 2 to 3 do not cross.
 
-## ToDo: [2019 01 03] ------
 
-## (1) Add option to scale width of links (by prob).
+## ToDo: [2019 01 12] ------
 
-## (2) Link boxes by polygons (to show nested set relations).
+## (1) Note: Prism may be confusing.
+##     Create a version of tree (by = "cd") that also shows PPV and NPV (as fractions).
+
+## (2) Add option to scale width of links (by prob).
+##     [done: see p_scale argument]
+
+## (3) Link boxes by polygons (to show nested set relations).
+##     [partly done: see plot_poly and plot_link in plot_util.R]
 
 ## eof. ----------
 
