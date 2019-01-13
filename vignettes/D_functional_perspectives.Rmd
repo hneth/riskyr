@@ -156,7 +156,7 @@ We appreciate your feedback, comments, or questions.
 
 - Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
 
-- Email us at <contact.riskyr@gmail.com> if you want to modify or share this software. 
+- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions. 
 
 
 ## All riskyr vignettes

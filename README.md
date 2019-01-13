@@ -465,7 +465,7 @@ We appreciate your feedback, comments, or questions.
 
 -   Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>.
 
--   Email us at <contact.riskyr@gmail.com> if you want to modify or share this software.
+-   Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions.
 
 ### Reference
 
@@ -531,7 +531,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 -   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- Update: -->
-\[Updated 2019-01-12 by [hn](http://neth.de).\]
+\[Updated 2019-01-13 by [hn](http://neth.de).\]
 
 <!-- eof -->
 
