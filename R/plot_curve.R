@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 12
+## 2010 01 13
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -31,7 +31,6 @@
 #' \code{plot_curve} is a generalization of
 #' \code{plot_PV} (see legacy code)
 #' that allows plotting additional dependent values.
-#'
 #'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -117,31 +116,29 @@
 #'
 #' @examples
 #' # Basics:
-#' # (1) Plot current freq and prob values:
-#' plot_curve()  # default curve plot,
-#' # same as:
+#' # (1) Plot current default values:
+#' plot_curve()  # default curve plot, same as:
 #' # plot_curve(what = c("prev", "PPV", "NPV"))
 #'
-#' # Hiding prev/points and showing uncertainty:
-#' plot_curve(prev = NA)  # default curves, but no prev value (and points) shown.
-#' plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10% uncertainty range.
+#' # (2) Showing no/multiple prev values/points and uncertainty ranges:
+#' plot_curve(prev = NA)  # default curves, but no prev value (and points) shown
+#' plot_curve(show_points = FALSE, uc = .10)  # curves w/o points, 10% uncertainty range
+#' plot_curve(prev = c(.10, .25, .75), uc = .10)  # 3 prev values, 10% uncertainty range
 #'
-#' # (2) Provide local parameters and select curves:
+#' # (3) Provide local parameters and select curves:
 #' plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
 #'
-#' # All curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-#' plot_curve(prev = .3, sens = .9, spec = .8, what = "all", col_pal = pal_org) # all curves.
-#'
-#' # Selected curves:
-#' plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
-#' plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # prev, PPV, NPV, and acc
-#' plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod
+#' # Selecting curves: what = ("prev", "PPV", "NPV", "ppod", "acc") = "all"
+#' plot_curve(prev = .3, sens = .9, spec = .8, what = "all")  # all curves
+#' # plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
+#' plot_curve(what = c("prev", "PPV", "NPV", "acc"))     # prev, PPV, NPV, and acc
+#' # plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod
 #'
 #' # Visualizing uncertainty (uc as percentage range):
-#' plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
-#'            uc = .05)  # => prev, PPV and NPV with a 5% uncertainty range
-#' plot_curve(prev = .2, sens = .8, spec = .7, what = "all",
-#'            uc = .10)  # => all with a 10% uncertainty range
+#' plot_curve(prev = .2, sens = .9, spec = .8, what = "all",
+#'            uc = .10)  # all with a 10% uncertainty range
+#' # plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
+#' #            uc = .05)  # prev, PPV and NPV with a 5% uncertainty range
 #'
 #' # X-axis as linear vs. log scale:
 #' plot_curve(prev = .01, sens = .9, spec = .8)                     # linear scale
@@ -149,6 +146,8 @@
 #'
 #' plot_curve(prev = .0001, sens = .7, spec = .6)                   # linear scale
 #' plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # log scale
+#' plot_curve(prev = c(.00001, .0001, .001, .01),  # multiple prev values (< 1%)
+#'            sens = .6, spec = .4, log_scale = TRUE)
 #'
 #' # Probability labels:
 #' plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
@@ -157,10 +156,10 @@
 #' plot_curve(p_lbl = "namnum", what = "all")  # names and values
 #'
 #' # Text and color settings:
-#' plot_curve(title_lbl = "Testing tiny text labels", cex_lbl = .60)
-#' plot_curve(title_lbl = "Testing specific colors", what = "all",
+#' plot_curve(title_lbl = "Tiny text labels", cex_lbl = .60)
+#' plot_curve(title_lbl = "Specific colors", what = "all",
 #'            uc = .1, what_col = c("grey", "red3", "green3", "blue3", "gold"))
-#' plot_curve(title_lbl = "Testing black-and-white palette",
+#' plot_curve(title_lbl = "Black-and-white print version",
 #'            what = "all", col_pal = pal_bwp)
 #'
 #' @family visualization functions
@@ -224,7 +223,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (0) Compute or collect current probabilities: ----------
 
-  if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
+  if ( (length(prev) == 1) &&  # Standard case: 1 prev value:
+       (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) ) {
 
     ## (1) A provided set of probabilities is valid:
 
@@ -247,16 +247,33 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     cur_PPV <- prob$PPV  # use PPV from prob
     cur_NPV <- prob$NPV  # use NPV from prob
 
-  } else if (is.na(prev) &&
-             is_valid_prob_pair(sens, mirt, tol = .01) &&
-             is_valid_prob_pair(spec, fart, tol = .01)) {
+  } else if ( (length(prev) == 1) &&
+              is.na(prev) &&
+              is_valid_prob_pair(sens, mirt, tol = .01) &&
+              is_valid_prob_pair(spec, fart, tol = .01) ) {
 
-    ## (2) No prev was provided, but 2 other probabilities are valid:
+    ## (2a) No prev value was provided, but 2 other probabilities are valid:
 
     message("No prevalence value provided: Plotting curves without points.")
 
     show_points <- FALSE
 
+    # point probabilities:
+    cur_PPV <- NA
+    cur_NPV <- NA
+
+  } else if ( (length(prev) > 1) &&
+              is_prob(prev) &&
+              is_valid_prob_pair(sens, mirt, tol = .01) &&
+              is_valid_prob_pair(spec, fart, tol = .01) ) {
+
+    ## (2b) Multiple prev values were provided, and 2 other probabilities are valid:
+
+    message("Multiple prevalence values provided: Plotting curves without points.")
+
+    show_points <- FALSE
+
+    # point probabilities:
     cur_PPV <- NA
     cur_NPV <- NA
 
@@ -344,12 +361,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   } # if (uc > 0) etc.
 
-
   if (show_points) {
 
     ## Positional parameters (for raising and shifting p labels):
     if (log_scale) {
-      if (!is.na(prev)) {
+      if ( (length(prev) == 1) && (!is.na(prev)) ) {
         h_shift <- prev * 2
       } else {
         h_shift <- 0 # ToDo
@@ -470,84 +486,177 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## (a) prev: ----------
 
-  if ( (!is.na(prev)) && ("prev" %in% what) ) {
+  if ("prev" %in% what)  { # prev desired:
 
-    ## 0. parameters:
-    lty_prev <- 2  # prev line type
+    if ( (length(prev) == 1) && (!is.na(prev)) ) {  # 1. Standard case: 1 prev value (not NA) provided:
 
-    ## color:
-    if (length(what_col) == length(what)) { # a color vector was specified:
-      pos_prev <- which(what == "prev")  # find position of "prev" in what
-      col_prev <- what_col[pos_prev]     # use color specified for prev
-    } else {
-      col_prev <- grey(.50, alpha = .99) # use default color for prev
-    }
+      ## 0. parameters:
+      lty_prev <- 2  # prev line type
 
-    legend_lbls <- c(legend_lbls, "prev")    # add prev label
-    legend_cols <- c(legend_cols, col_prev)  # add prev color
-    legend_ltys <- c(legend_ltys, lty_prev)  # add prev line type
-
-    ## 0. Mark uncertainty about prev (as polygon/here: rectangle):
-
-    if (uc > 0) {
-
-      ## Color of uncertainty polygon (here: rectangle):
-      uc_col  <- make_transparent(col_prev, alpha = uc_alpha)  # grey(.80, .33)
-
-      ## Ranges for x-values (prev) of polygon (here: rectangle):
-      x_lower_prev <- c(max(0, (prev - uc * prev)), min((prev + uc * prev), 1)) # only 2 points (left & right)
-      x_upper_prev <- rev(x_lower_prev)  # only 2 points (right & left)
-
-      ## Compute upper and lower y-values (0 and 1) corresponding to prev values:
-      y_lower_prev <- c(0, 0)  # both points on minimum y-value
-      y_upper_prev <- c(1, 1)  # both points on maximum y-value
-
-      ## Plot polygon (here: rectangle):
-      xx <- c(x_lower_prev, x_upper_prev)
-      yy <- c(y_lower_prev, y_upper_prev)
-      polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
-
-    }
-
-    # Special case: If p_lwd > 1:  Make prev_lwd <- p_lwd/2, else: Use altered value p_lwd:
-    if (p_lwd > 1) { prev_lwd <- p_lwd/2 } else { prev_lwd <- p_lwd }
-
-    ## 1. curve: prev as vline
-    abline(v = prev, lty = lty_prev, lwd = prev_lwd, col = col_prev)  # prev curve/line
-
-    ## 2. point:
-    if (show_points) {
-
-      if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y-pos at v_raise:
-        points(x = prev, y = 0 + v_raise, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_prev)  # prev point
-      } else { # y-pos at bottom (y = 0):
-        points(x = prev, y = 0,           pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_prev)  # prev point
+      ## color:
+      if (length(what_col) == length(what)) { # a color vector was specified:
+        pos_prev <- which(what == "prev")  # find position of "prev" in what
+        col_prev <- what_col[pos_prev]     # use color specified for prev
+      } else {
+        col_prev <- grey(.50, alpha = .99) # use default color for prev
       }
 
-      ## 3. label:
-      # prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
-      prev_lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+      ## legend:
+      legend_lbls <- c(legend_lbls, "prev")    # add prev label
+      legend_cols <- c(legend_cols, col_prev)  # add prev color
+      legend_ltys <- c(legend_ltys, lty_prev)  # add prev line type
 
-      if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y at v_raise:
-        if ( (prev < .50) || !(prev > 1 - h_shift) ) {
-          text(x = prev + h_shift, y = 0 + v_raise,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on right
-        } else {
-          text(x = prev - h_shift, y = 0 + v_raise,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on left+
-        }
-      } else { # y at bottom (y = 0):
-        # if ( (prev < h_shift) || !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
-        if ( !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
-          text(x = prev + h_shift, y = 0 + v_shift,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on right
-        } else {
-          text(x = prev - h_shift, y = 0 + v_shift,
-               labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on left+
-        }
+      ## 0. Mark uncertainty about prev (as polygon/here: rectangle):
+
+      if (uc > 0) {
+
+        ## Color of uncertainty polygon (here: rectangle):
+        uc_col  <- make_transparent(col_prev, alpha = uc_alpha)  # grey(.80, .33)
+
+        ## Ranges for x-values (prev) of polygon (here: rectangle):
+        x_lower_prev <- c(max(0, (prev - uc * prev)), min((prev + uc * prev), 1)) # only 2 points (left & right)
+        x_upper_prev <- rev(x_lower_prev)  # only 2 points (right & left)
+
+        ## Compute upper and lower y-values (0 and 1) corresponding to prev values:
+        y_lower_prev <- c(0, 0)  # both points on minimum y-value
+        y_upper_prev <- c(1, 1)  # both points on maximum y-value
+
+        ## Plot polygon (here: rectangle):
+        xx <- c(x_lower_prev, x_upper_prev)
+        yy <- c(y_lower_prev, y_upper_prev)
+        polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+
       }
 
-    } # if (show_points) etc.
+      # Special case: If p_lwd > 1:  Make prev_lwd <- p_lwd/2, else: Use altered value p_lwd:
+      if (p_lwd > 1) { prev_lwd <- p_lwd/2 } else { prev_lwd <- p_lwd }
+
+      ## 1. curve: prev as vline
+      abline(v = prev, lty = lty_prev, lwd = prev_lwd, col = col_prev)  # prev curve/line
+
+      ## 2. point:
+      if (show_points) {
+
+        if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y-pos at v_raise:
+          points(x = prev, y = 0 + v_raise, pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_prev)  # prev point
+        } else { # y-pos at bottom (y = 0):
+          points(x = prev, y = 0,           pch = pt_pch, cex = pt_cex, lwd = pt_lwd, col = col_bord, bg = col_prev)  # prev point
+        }
+
+        ## 3. label:
+        # prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = lbl_digits), "%")  # prev label
+        prev_lbl <- label_prob(pname = "prev", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
+
+        if ((cur_NPV < low_PV) | (cur_PPV < low_PV)) { # y at v_raise:
+          if ( (prev < .50) || !(prev > 1 - h_shift) ) {
+            text(x = prev + h_shift, y = 0 + v_raise,
+                 labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on right
+          } else {
+            text(x = prev - h_shift, y = 0 + v_raise,
+                 labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on left+
+          }
+        } else { # y at bottom (y = 0):
+          # if ( (prev < h_shift) || !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
+          if ( !(prev > (1 - h_shift - .05)) ) {  # only depending on prev & h_shift:
+            text(x = prev + h_shift, y = 0 + v_shift,
+                 labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on right
+          } else {
+            text(x = prev - h_shift, y = 0 + v_shift,
+                 labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)  # prev on left+
+          }
+        }
+
+      } # if (show_points) etc.
+
+    } else if ( (length(prev) == 1) && (is.na(prev)) ) {  # 2. Special case: prev = NA provided:
+
+      ## Do nothing:
+      # message("No prevalence value provided (prev = NA).")
+
+    } else if (length(prev) > 1) {  # 3. Special case: Multiple prev values provided:
+
+      # message("Plot multiple prev lines:")  # debugging
+
+      n_prev <- length(prev) # n of prev values
+
+      # color range:
+      min_grey_val <- .50   # grey value (for lowest prev value): middle grey
+      max_grey_val <- .00   # max. grey (for highest prev value): black
+      min_prev <- min(prev)
+      max_prev <- max(prev)
+      prev_range <- (max_prev - min_prev)  # range of current prev values
+
+      # lty range:
+      lty_n_prev <- rep(2:6, length = n_prev)
+
+      for (i in 1:n_prev) {  # loop through prev elements:
+
+        prev_i <- prev[i]  # i-th prev value
+
+        # print(paste0("i = ", i, ", p_i = ", prev_i, ": "))  # debugging
+
+        ## 0. parameters:
+        lty_prev <- lty_n_prev[i]  # prev line type
+
+        ## color:
+        # if (length(what_col) == length(what)) { # a color vector was specified:
+        #   pos_prev <- which(what == "prev")  # find position of "prev" in what
+        #   col_prev <- what_col[pos_prev]     # use color specified for prev
+        # } else {
+        #   col_prev <- grey(.50, alpha = .99) # use default color for prev
+        # }
+
+        ## color: Map current prevalence value to color range:
+        cur_prev_pos <- (prev_i - min_prev)/prev_range # standardized prev position (0 to 1)
+        cur_grey_val <- min_grey_val + (cur_prev_pos * (max_grey_val - min_grey_val))
+        col_prev <- grey(cur_grey_val, alpha = .99)  # use cur_grey_val
+
+        ## legend:
+        if (prev_i < .01) {
+          prev_i_lbl <- paste0("prev = ", as_pc(prev_i, n_digits = 4), "%")  # more specific prev = prev_i label
+        } else {
+          prev_i_lbl <- paste0("prev = ", as_pc(prev_i), "%")  # specific prev = prev_i label
+        }
+
+        legend_lbls <- c(legend_lbls, prev_i_lbl)   # add specific prev label
+        legend_cols <- c(legend_cols, col_prev)  # add prev color
+        legend_ltys <- c(legend_ltys, lty_prev)  # add prev line type
+
+        ## 0. Mark uncertainty about prev (as polygon/here: rectangle):
+
+        if (uc > 0) {
+
+          ## Color of uncertainty polygon (here: rectangle):
+          uc_col  <- make_transparent(col_prev, alpha = uc_alpha)  # grey(.80, .33)
+
+          ## Ranges for x-values (prev) of polygon (here: rectangle):
+          x_lower_prev <- c(max(0, (prev_i - uc * prev_i)), min((prev_i + uc * prev_i), 1)) # only 2 points (left & right)
+          x_upper_prev <- rev(x_lower_prev)  # only 2 points (right & left)
+
+          ## Compute upper and lower y-values (0 and 1) corresponding to prev values:
+          y_lower_prev <- c(0, 0)  # both points on minimum y-value
+          y_upper_prev <- c(1, 1)  # both points on maximum y-value
+
+          ## Plot polygon (here: rectangle):
+          xx <- c(x_lower_prev, x_upper_prev)
+          yy <- c(y_lower_prev, y_upper_prev)
+          polygon(xx, yy, col = uc_col, border = NA, density = uc_dens)
+
+        }
+
+        # Special case: If p_lwd > 1:  Make prev_lwd <- p_lwd/2, else: Use altered value p_lwd:
+        if (p_lwd > 1) { prev_lwd <- p_lwd/2 } else { prev_lwd <- p_lwd }
+
+        ## 1. curve: prev at prev_i as vline
+        abline(v = prev_i, lty = lty_prev, lwd = prev_lwd, col = col_prev)  # prev curve/line
+
+      } # for (i in 1:n_prev) loop.
+
+    } else {  # 4. Unknown case:
+
+      message("Unknown prevalence value (prev) provided.")
+
+    } # if (length(prev) == 1) etc.
 
   } # if ("prev" %in% what) etc.
 
@@ -893,7 +1002,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     if (show_freq) {
 
-      if (!is.na(prev)) {
+      if ( (length(prev) == 1) && !is.na(prev) ) {
 
         N <- 1000  # HACK: compute freq values for some N:
         freq <- comp_freq_prob(prev = prev, sens = sens, spec = spec, N = N, round = TRUE)
@@ -940,10 +1049,26 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   if (length(legend_lbls) > 0) { # there is a curve:
     # legend("bottom", legend = c("PPV", "NPV"),
     #       col = c(col_ppv, col_npv), lty = 1, lwd = p_lwd, cex = 1, bty = "o", bg = "white")
-    add_legend("topright",
-               legend = legend_lbls, lty = legend_ltys, lwd = p_lwd, col = legend_cols,
-               cex = cex_lbl, horiz = FALSE, bty = 'n')
-  }
+
+    if (length(prev) == 1) {  # Standard case: prev is NA or 1 value:
+
+      add_legend("topright",
+                 legend = legend_lbls, lty = legend_ltys, lwd = p_lwd, col = legend_cols,
+                 cex = cex_lbl, horiz = FALSE, bty = 'n')
+
+    } else {  # Special case: multiple prev values provided:
+
+      # reduce size:
+      p_lwd <- 1
+      if (cex_lbl >= .60) (cex_lbl <- (cex_lbl - .10))
+
+      add_legend("topright",
+                 legend = legend_lbls, lty = legend_ltys, lwd = p_lwd, col = legend_cols,
+                 cex = cex_lbl, horiz = FALSE, bty = 'n')
+
+    } # if (length(prev) == 1) etc.
+
+  } # if (length(legend_lbls) > 0) etc.
 
   ## (8) Return what?: ----------
   # return(pp)     # returns plot
