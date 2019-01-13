@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9003+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9004+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9003+
+# riskyr 0.2.0.9004+
 
 Log of changes since last release:
 
@@ -17,12 +17,16 @@ Log of changes since last release:
 
 ### Changes to existing visualization functions 
 
-- Add options to `plot_prism` [2019-01]:  
+- New options for `plot_curve` [2019-01]:  
+As probability curves (as a function of prevalence) do not require any specific prevalence value, setting the `prev` argument to either `NA` or to a vector of multiple probabilities are now supported as special cases.  
+
+- New options for `plot_prism` [2019-01]:  
 Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths of probability links by current probability values.  
 
 ### Other changes
 
-- none so far
+- `make_cond_lbl` [2019-01]:  
+The condition label now allows for `prev = NA` and for multiple `prev` values. 
 
 
 ## Micro changes
@@ -47,6 +51,7 @@ Adopt `pal_mod` -- rather than `pal_mbw` -- as new default color scheme `pal` (t
 - Bug fix in `plot_icons` [2019-01]:   
 Enforce 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
+---------- 
 
 # riskyr 0.2.0
 
@@ -161,6 +166,7 @@ Simplify some default text labels (e.g., for current population, condition, and 
 - `.onAttach` [2018-02]:   
 Cast dice to display probabilistic (i.e., risk-related) start-up messages. 
 
+---------- 
 
 # riskyr 0.1.0
 
