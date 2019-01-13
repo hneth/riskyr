@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 12
+## 2019 01 13
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -2129,8 +2129,6 @@ plot_link <- function(box1, box2,                # 2 boxes
     } # pos2 end.
 
 
-
-
     ## (2) Determine link label:
 
     pname <- name_prob(box1$name, box2$name)  # try name_prob on box names (freq)!
@@ -2255,11 +2253,35 @@ make_cond_lbl <- function(prev, sens, spec) {
   # (2) Parts:
 
   # (a) prev:
-  if (is.na(prev)) {
+  if ( (length(prev) == 1) && is.na(prev) ) {  # prev is 1 NA value:
+
     prev_lbl <- "prev = NA, "
-  } else {
-    prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = 1), "%, ")
-  } # (is.na(prev)) etc.
+
+  } else if ( (length(prev) == 1) && !is.na(prev) ) {  # prev is 1 value, but not NA:
+
+    if (prev < .01) {
+      prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = 4), "%, ")  # exact prev value
+    } else {
+      prev_lbl <- paste0("prev = ", as_pc(prev, n_digits = 1), "%, ")  # round prev value
+    }
+
+  } else if ( (length(prev) > 1) ) {  # prev contains multiple values:
+
+    if (min(prev) < .01) {
+      # prev_pcs <- paste0(as_pc(prev), "%", collapse = "/")  # percentages (with %)
+      prev_pcs <- paste0(as_pc(prev, n_digits = 4), collapse = "/")  # exact percentages (without %)
+    } else {
+      prev_pcs <- paste0(as_pc(prev, n_digits = 1), collapse = "/")  # rounded percentages (without %)
+    }
+
+    prev_lbl <- paste0("prev = ", prev_pcs, "%, ")
+
+  } else {  # prev is something else:
+
+    prev_lbl <- paste0("prev = ?, ")
+
+  } # ( (length(prev) == 1) && is.na(prev) ) etc.
+
 
   # (b) sens:
   if (is.na(sens)) {
@@ -2267,6 +2289,7 @@ make_cond_lbl <- function(prev, sens, spec) {
   } else {
     sens_lbl <- paste0("sens = ", as_pc(sens, n_digits = 1), "%, ")
   } # (is.na(sens)) etc.
+
 
   # (c) spec:
   if (is.na(spec)) {
