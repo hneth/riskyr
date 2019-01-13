@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 01 12
+## 2018 01 13
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -27,7 +27,8 @@
 #' Verify that input is a probability (numeric value from 0 to 1).
 #'
 #' \code{is_prob} is a function that checks whether its argument \code{prob}
-#' is a probability (i.e., a numeric value in the range from 0 to 1).
+#' (a scalar or a vector) is a probability
+#' (i.e., a numeric value in the range from 0 to 1).
 #'
 #' @param prob A numeric argument (scalar or vector) that is to be checked.
 #'
@@ -40,10 +41,13 @@
 #' otherwise \code{FALSE}.
 #'
 #' @examples
-#' # ways to succeed:
-#' is_prob(1/2)                  # => TRUE
-#' p.seq <- seq(0, 1, by = .1)   # Vector of probabilities
-#' is_prob(p.seq)                # => TRUE (for vector)
+#' is_prob(1/2)                  # TRUE
+#' is_prob(2)                    # FALSE
+#'
+#' # vectors:
+#' p_seq <- seq(0, 1, by = .1)   # Vector of probabilities
+#' is_prob(p_seq)                # TRUE (as scalar, not: TRUE TRUE etc.)
+#' is_prob(c(.1, 2, .9))         # FALSE (as scalar, not: TRUE FALSE etc.)
 #'
 #' ## watch out for:
 #' # is_prob(NA)                   # => FALSE + NO warning!
