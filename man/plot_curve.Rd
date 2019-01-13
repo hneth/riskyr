@@ -121,31 +121,29 @@ that allows plotting additional dependent values.
 }
 \examples{
 # Basics:
-# (1) Plot current freq and prob values:
-plot_curve()  # default curve plot,
-# same as:
+# (1) Plot current default values:
+plot_curve()  # default curve plot, same as:
 # plot_curve(what = c("prev", "PPV", "NPV"))
 
-# Hiding prev/points and showing uncertainty:
-plot_curve(prev = NA)  # default curves, but no prev value (and points) shown.
-plot_curve(show_points = FALSE, uc = .10) # default w/o points, 10\% uncertainty range.
+# (2) Showing no/multiple prev values/points and uncertainty ranges:
+plot_curve(prev = NA)  # default curves, but no prev value (and points) shown
+plot_curve(show_points = FALSE, uc = .10)  # curves w/o points, 10\% uncertainty range
+plot_curve(prev = c(.10, .25, .75), uc = .10)  # 3 prev values, 10\% uncertainty range
 
-# (2) Provide local parameters and select curves:
+# (3) Provide local parameters and select curves:
 plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
 
-# All curves: what = ("prev", "PPV", "NPV", "ppod", "acc")
-plot_curve(prev = .3, sens = .9, spec = .8, what = "all", col_pal = pal_org) # all curves.
-
-# Selected curves:
-plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
-plot_curve(what = c("prev", "PPV", "NPV", "acc"))   # prev, PPV, NPV, and acc
-plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod
+# Selecting curves: what = ("prev", "PPV", "NPV", "ppod", "acc") = "all"
+plot_curve(prev = .3, sens = .9, spec = .8, what = "all")  # all curves
+# plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV
+plot_curve(what = c("prev", "PPV", "NPV", "acc"))     # prev, PPV, NPV, and acc
+# plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod
 
 # Visualizing uncertainty (uc as percentage range):
-plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
-           uc = .05)  # => prev, PPV and NPV with a 5\% uncertainty range
-plot_curve(prev = .2, sens = .8, spec = .7, what = "all",
-           uc = .10)  # => all with a 10\% uncertainty range
+plot_curve(prev = .2, sens = .9, spec = .8, what = "all",
+           uc = .10)  # all with a 10\% uncertainty range
+# plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),
+#            uc = .05)  # prev, PPV and NPV with a 5\% uncertainty range
 
 # X-axis as linear vs. log scale:
 plot_curve(prev = .01, sens = .9, spec = .8)                     # linear scale
@@ -153,6 +151,8 @@ plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)   # log scale
 
 plot_curve(prev = .0001, sens = .7, spec = .6)                   # linear scale
 plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # log scale
+plot_curve(prev = c(.00001, .0001, .001, .01),  # multiple prev values (< 1\%)
+           sens = .6, spec = .4, log_scale = TRUE)
 
 # Probability labels:
 plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
@@ -161,10 +161,10 @@ plot_curve(p_lbl = "num", what = "all")     # numeric values only
 plot_curve(p_lbl = "namnum", what = "all")  # names and values
 
 # Text and color settings:
-plot_curve(title_lbl = "Testing tiny text labels", cex_lbl = .60)
-plot_curve(title_lbl = "Testing specific colors", what = "all",
+plot_curve(title_lbl = "Tiny text labels", cex_lbl = .60)
+plot_curve(title_lbl = "Specific colors", what = "all",
            uc = .1, what_col = c("grey", "red3", "green3", "blue3", "gold"))
-plot_curve(title_lbl = "Testing black-and-white palette",
+plot_curve(title_lbl = "Black-and-white print version",
            what = "all", col_pal = pal_bwp)
 
 }
