@@ -1406,6 +1406,7 @@ comp_prob_pname <- function(pname, cur_prob = prob) {
 #
 ## Multiple prob names (pname as vector):
 # comp_prob_pname(c("prev", "sens", "spec"))
+# comp_prob_pname(c("prev", "prev", "prev"))
 #
 ## Missing values:
 # comp_prob_pname(NA)
