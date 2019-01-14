@@ -141,9 +141,9 @@
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="riskyr-0-2-0-9003" class="section level1">
+    <div id="riskyr-0-2-0-9004" class="section level1">
 <h1 class="page-header">
-<a href="#riskyr-0-2-0-9003" class="anchor"></a>riskyr 0.2.0.9003+<small> Unreleased </small>
+<a href="#riskyr-0-2-0-9004" class="anchor"></a>riskyr 0.2.0.9004+<small> Unreleased </small>
 </h1>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
@@ -160,15 +160,19 @@
 <h3 class="hasAnchor">
 <a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
-<li>Add options to <code>plot_prism</code> [2019-01]:<br>
-Add <code>p_lwd</code> and <code>p_scale</code> arguments to <code>plot_prism</code> to allow scaling the widths of probability links by current probability values.</li>
+<li><p>New options for <code>plot_curve</code> [2019-01]:<br>
+As probability curves (as a function of prevalence) do not require any specific prevalence value, setting the <code>prev</code> argument to either <code>NA</code> or to a vector of multiple probabilities are now supported as special cases.</p></li>
+<li><p>New options for <code>plot_prism</code> [2019-01]:<br>
+Add <code>p_lwd</code> and <code>p_scale</code> arguments to <code>plot_prism</code> to allow scaling the widths of probability links by current probability values.</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h3>
 <ul>
-<li>none so far</li>
+<li>
+<code>make_cond_lbl</code> [2019-01]:<br>
+The condition label now allows for <code>prev = NA</code> and for multiple <code>prev</code> values.</li>
 </ul>
 </div>
 </div>
@@ -200,6 +204,7 @@ Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as new defau
 <li>Bug fix in <code>plot_icons</code> [2019-01]:<br>
 Enforce 2 different symbol types for icon arrays with a binary perspective (<code>by = cd</code> or <code>dc</code> or <code>ac</code>).</li>
 </ul>
+<hr>
 </div>
 </div>
 </div>
@@ -318,6 +323,7 @@ Simplify some default text labels (e.g., for current population, condition, and 
 <li><p><code>.onAttach</code> [2018-02]:<br>
 Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></li>
 </ul>
+<hr>
 </div>
 </div>
 </div>
@@ -335,7 +341,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#riskyr-0-2-0-9003">0.2.0.9003</a></li>
+        <li><a href="#riskyr-0-2-0-9004">0.2.0.9004</a></li>
         <li><a href="#riskyr-0-2-0">0.2.0</a></li>
         <li><a href="#riskyr-0-1-0">0.1.0</a></li>
       </ul>

@@ -201,18 +201,18 @@ What is the probability that she actually has breast cancer?</p>
 = \frac{p(\mathrm{cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) } 
 {p(\mathrm{cancer})     \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) + 
  p(\mathrm{no\ cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{no\ cancer}) } \]</span></p>
-<p>By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., $p() = 1 - <span class="math inline">\(`prev` = 99\%\)</span>) we obtain:</p>
+<p>By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., <span class="math inline">\(p\)</span>(no cancer) = 1 – <code>prev</code> = 99%) we obtain:</p>
 <p><span class="math display">\[ p(\mathrm{cancer}\ |\ \mathrm{positive\ test}) 
 = \frac{1\% \cdot 80\% } 
 {  1\% \cdot 80\% + 
   99\% \cdot 9.6\% } \approx\ 7.8\%\]</span></p>
-<p>Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the <code>PPV</code> of this mammography screening test) is slightly below 8%.</p>
+<p>Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the <code>PPV</code> of this mammography screening test for this population of women) is slightly below 8%.</p>
 </div>
 </div>
 <div id="using-natural-frequencies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-natural-frequencies" class="anchor"></a>Using natural frequencies</h2>
-<p>If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent.</p>
+<p>If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have discovered that a simple change in representation renders the same information much more transparent.</p>
 <p>Consider the following problem description:</p>
 <blockquote>
 <p><strong>Mammography screening</strong> (<code>freq</code>)</p>
@@ -290,11 +290,7 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    _____</span>
-<span class="co">#&gt;   /\ r  \</span>
-<span class="co">#&gt;  /y \__i_\</span>
-<span class="co">#&gt;  \ r/s   /</span>
-<span class="co">#&gt;   \/___k/</span>
+<span class="co">#&gt; Ready to riskyr it...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
@@ -638,18 +634,17 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1999). Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). <em>Psychological Review</em>, <em>106</em>, 425–430.</p></li>
 <li><p>Hertwig, R., &amp; Grüne-Yanoff, T. (2017). Nudging and boosting: Steering or empowering good decisions. <em>Perspectives on Psychological Science</em>, <em>12</em>, 973–986.</p></li>
 <li><p>Hoffrage, U., Gigerenzer, G., Krauss, S., &amp; Martignon, L. (2002). Representation facilitates reasoning: What natural frequencies are and what they are not. <em>Cognition</em>, <em>84</em>, 343–352.</p></li>
-<li><p>Hoffrage, U., Krauss, S., Martignon, L., &amp; Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. <em>Frontiers in Psychology</em>, <em>6</em>, 1473.</p></li>
+<li><p>Hoffrage, U., Krauss, S., Martignon, L., &amp; Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. <em>Frontiers in Psychology</em>, <em>6</em>, 1473. [<a href="https://doi.org/10.3389/fpsyg.2015.01473">Available online</a>]</p></li>
 <li><p>Hoffrage, U., Lindsey, S., Hertwig, R., &amp; Gigerenzer, G. (2000). Communicating statistical information. <em>Science</em>, <em>290</em>, 2261–2262.</p></li>
 <li><p>Khan, A., Breslav, S., Glueck, M., &amp; Hornbæk, K. (2015). Benefits of visualization in the mammography problem. <em>International Journal of Human-Computer Studies</em>, <em>83</em>, 94–113.</p></li>
 <li><p>Kurzenhäuser, S., &amp; Hoffrage, U. (2002). Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. <em>Medical Teacher</em>, <em>24</em>, 516–521.</p></li>
 <li><p>Kurz-Milcke, E., Gigerenzer, G., &amp; Martignon, L. (2008). Transparency in risk communication. <em>Annals of the New York Academy of Sciences</em>, <em>1128</em>, 18–28.</p></li>
-<li><p>Mandel, D. R. &amp; Navarrete, G. (2015). Editorial: Improving Bayesian reasoning: What works and why? <em>Frontiers in Psychology</em>, <em>6</em>, 1872. doi: <a href="https://doi.org/10.3389/fpsyg.2015.01872">10.3389/fpsyg.2015.01872</a></p></li>
+<li><p>Mandel, D. R. &amp; Navarrete, G. (2015). Editorial: Improving Bayesian reasoning: What works and why? <em>Frontiers in Psychology</em>, <em>6</em>, 1872. [<a href="https://doi.org/10.3389/fpsyg.2015.01872">Available online</a>]</p></li>
 <li><p>Micallef, L., Dragicevic, P., &amp; Fekete, J.-D. (2012). Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. <em>IEEE Transactions on Visualization and Computer Graphics</em>, <em>18</em>, 2536–2545.</p></li>
 <li><p>Neth, H., &amp; Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott &amp; S. Kosslyn (Eds.), <em>Emerging trends in the social and behavioral sciences</em>. New York, NY: Wiley Online Library. [<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&amp;rep=rep1&amp;type=pdf">Available online</a>]</p></li>
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
 <li><p>Strevens, M. (2013). <em>Tychomancy: Inferring probability from causal structure</em>. Cambridge, MA: Harvard University Press.</p></li>
-<li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307.<br>
-doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307</a></p></li>
+<li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307. [<a href="https://doi.org/10.3389/fpubh.2017.00307">Available online</a>]</p></li>
 <li><p>Wassner, C., Martignon, L., &amp; Biehler, R. (2004). Bayesianisches Denken in der Schule. <em>Unterrichtswissenschaft</em>, <em>32</em>, 58–96.</p></li>
 </ul>
 <div id="resources" class="section level3">
@@ -710,7 +705,7 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
 <li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
-<li><p>Email us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> if you want to modify or share this software.</p></li>
+<li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
