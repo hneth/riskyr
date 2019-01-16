@@ -128,7 +128,8 @@ plot_curve()  # default curve plot, same as:
 # (2) Showing no/multiple prev values/points and uncertainty ranges:
 plot_curve(prev = NA)  # default curves, but no prev value (and points) shown
 plot_curve(show_points = FALSE, uc = .10)  # curves w/o points, 10\% uncertainty range
-plot_curve(prev = c(.10, .25, .75), uc = .10)  # 3 prev values, 10\% uncertainty range
+plot_curve(prev = c(.10, .33, .75))  # 3 prev values, with numeric point labels
+plot_curve(prev = c(.10, .33, .75), p_lbl = "no", uc = .10)  # 3 prev values, no labels, 10\% uncertainty
 
 # (3) Provide local parameters and select curves:
 plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
@@ -161,11 +162,12 @@ plot_curve(p_lbl = "num", what = "all")     # numeric values only
 plot_curve(p_lbl = "namnum", what = "all")  # names and values
 
 # Text and color settings:
-plot_curve(title_lbl = "Tiny text labels", cex_lbl = .60)
+plot_curve(title_lbl = "Tiny text labels", p_lbl = "namnum", cex_lbl = .60)
 plot_curve(title_lbl = "Specific colors", what = "all",
            uc = .1, what_col = c("grey", "red3", "green3", "blue3", "gold"))
 plot_curve(title_lbl = "Black-and-white print version",
            what = "all", col_pal = pal_bwp)
+
 
 }
 \seealso{
