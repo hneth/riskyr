@@ -267,12 +267,14 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     ## (2b) Multiple prev values were provided, and 2 other probabilities are valid:
 
-    message("Multiple prevalence values provided: Plotting curves without points.")
+    if (show_points) {
+      message("Multiple prevalence values provided: Using simple labels for points.")
+    }
 
     ## No point probabilities:
     # show_points <- FALSE
 
-    # point probabilities: (Need to be determined for each prev value below)
+    # Point probabilities need to be determined for each prev value (below):
     cur_PPV <- NA
     cur_NPV <- NA
 
