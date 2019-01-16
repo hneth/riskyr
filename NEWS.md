@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9004+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9005+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9004+
+# riskyr 0.2.0.9005+
 
 Log of changes since last release:
 
@@ -18,7 +18,8 @@ Log of changes since last release:
 ### Changes to existing visualization functions 
 
 - New options for `plot_curve` [2019-01]:  
-As probability curves (as a function of prevalence) do not require any specific prevalence value, setting the `prev` argument to either `NA` or to a vector of multiple probabilities are now supported as special cases.  
+Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
+Thus, setting the `prev` argument to either `NA` or to a vector of multiple probabilities are now supported. 
 
 - New options for `plot_prism` [2019-01]:  
 Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths of probability links by current probability values.  
