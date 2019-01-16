@@ -129,7 +129,7 @@ plot_curve()  # default curve plot, same as:
 plot_curve(prev = NA)  # default curves, but no prev value (and points) shown
 plot_curve(show_points = FALSE, uc = .10)  # curves w/o points, 10\% uncertainty range
 plot_curve(prev = c(.10, .33, .75))  # 3 prev values, with numeric point labels
-plot_curve(prev = c(.10, .33, .75), p_lbl = "no", uc = .10)  # 3 prev values, no labels, 10\% uncertainty
+plot_curve(prev = c(.10, .33, .75), p_lbl = "no", uc = .10) # 3 prev, no labels, 10\% uc
 
 # (3) Provide local parameters and select curves:
 plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)

@@ -124,7 +124,7 @@
 #' plot_curve(prev = NA)  # default curves, but no prev value (and points) shown
 #' plot_curve(show_points = FALSE, uc = .10)  # curves w/o points, 10% uncertainty range
 #' plot_curve(prev = c(.10, .33, .75))  # 3 prev values, with numeric point labels
-#' plot_curve(prev = c(.10, .33, .75), p_lbl = "no", uc = .10)  # 3 prev values, no labels, 10% uncertainty
+#' plot_curve(prev = c(.10, .33, .75), p_lbl = "no", uc = .10) # 3 prev, no labels, 10% uc
 #'
 #' # (3) Provide local parameters and select curves:
 #' plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
@@ -1275,8 +1275,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 # plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # => prev, PPV, NPV, and acc
 #
 # ## Visualizing uncertainty (as ranges):
-# plot_curve(what = c("prev", "PPV", "NPV"), uc = .10)  # => prev, PPV and NPV with 10% uncertainty range
-# plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc = .1)  # => all metrics with 10% uncertainty range
+# plot_curve(what = c("prev", "PPV", "NPV"), uc = .10)  # => prev, PPV and NPV, 10% uncertainty range
+# plot_curve(prev = .2, sens = .8, spec = .7, what = "all", uc = .1)  # 10% uncertainty range
 #
 # ## Other options:
 # plot_curve(show_points = FALSE)  # => default without points
