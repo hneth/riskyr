@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 13
+## 2019 01 22
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -2252,7 +2252,8 @@ make_cond_lbl <- function(prev, sens, spec) {
 
   # (2) Parts:
 
-  # (a) prev:
+  # (a) prev: ----
+
   if ( (length(prev) == 1) && is.na(prev) ) {  # prev is 1 NA value:
 
     prev_lbl <- "prev = NA, "
@@ -2283,20 +2284,69 @@ make_cond_lbl <- function(prev, sens, spec) {
   } # ( (length(prev) == 1) && is.na(prev) ) etc.
 
 
-  # (b) sens:
-  if (is.na(sens)) {
+  # (b) sens: ----
+
+  if ( (length(sens) == 1) && is.na(sens) ) {  # sens is 1 NA value:
+
     sens_lbl <- "sens = NA, "
-  } else {
-    sens_lbl <- paste0("sens = ", as_pc(sens, n_digits = 1), "%, ")
-  } # (is.na(sens)) etc.
+
+  } else if ( (length(sens) == 1) && !is.na(sens) ) {  # sens is 1 value, but not NA:
+
+    if (sens < .01) {
+      sens_lbl <- paste0("sens = ", as_pc(sens, n_digits = 4), "%, ")  # exact sens value
+    } else {
+      sens_lbl <- paste0("sens = ", as_pc(sens, n_digits = 1), "%, ")  # round sens value
+    }
+
+  } else if ( (length(sens) > 1) ) {  # sens contains multiple values:
+
+    if (min(sens) < .01) {
+      # sens_pcs <- paste0(as_pc(sens), "%", collapse = "/")  # percentages (with %)
+      sens_pcs <- paste0(as_pc(sens, n_digits = 4), collapse = "/")  # exact percentages (without %)
+    } else {
+      sens_pcs <- paste0(as_pc(sens, n_digits = 1), collapse = "/")  # rounded percentages (without %)
+    }
+
+    sens_lbl <- paste0("sens = ", sens_pcs, "%, ")
+
+  } else {  # sens is something else:
+
+    sens_lbl <- paste0("sens = ?, ")
+
+  } # ( (length(sens) == 1) && is.na(sens) ) etc.
 
 
-  # (c) spec:
-  if (is.na(spec)) {
+  # (c) spec: ----
+
+  if ( (length(spec) == 1) && is.na(spec) ) {  # spec is 1 NA value:
+
     spec_lbl <- "spec = NA, "
-  } else {
-    spec_lbl <- paste0("spec = ", as_pc(spec, n_digits = 1), "%")  # end of label.
-  } # (is.na(spec)) etc.
+
+  } else if ( (length(spec) == 1) && !is.na(spec) ) {  # spec is 1 value, but not NA:
+
+    if (spec < .01) {
+      spec_lbl <- paste0("spec = ", as_pc(spec, n_digits = 4), "%, ")  # exact spec value
+    } else {
+      spec_lbl <- paste0("spec = ", as_pc(spec, n_digits = 1), "%, ")  # round spec value
+    }
+
+  } else if ( (length(spec) > 1) ) {  # spec contains multiple values:
+
+    if (min(spec) < .01) {
+      # sens_pcs <- paste0(as_pc(spec), "%", collapse = "/")  # percentages (with %)
+      sens_pcs <- paste0(as_pc(spec, n_digits = 4), collapse = "/")  # exact percentages (without %)
+    } else {
+      sens_pcs <- paste0(as_pc(spec, n_digits = 1), collapse = "/")  # rounded percentages (without %)
+    }
+
+    spec_lbl <- paste0("spec = ", sens_pcs, "%, ")
+
+  } else {  # spec is something else:
+
+    spec_lbl <- paste0("spec = ?, ")
+
+  } # ( (length(spec) == 1) && is.na(spec) ) etc.
+
 
 
   # (3) Combine into overall label:
