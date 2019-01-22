@@ -1179,7 +1179,6 @@ comp_acc <- function(prev, sens, spec) {
 #' \code{\link{accu}} for other accuracy metrics
 #' and several possible interpretations of accuracy.
 #'
-#'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
 #'
