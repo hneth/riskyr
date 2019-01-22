@@ -155,6 +155,14 @@ Thus, they can be computed as ratios between frequencies:
 
 \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
+\item rate of hits, given accuracy \code{p_acc_hi}:
+
+\code{p_acc_hi = \link{hi}/\link{dec_cor} = (1 - \link{cr}/\link{dec_cor})}
+
+\item rate of false alarms, given inaccuracy \code{p_err_fa}:
+
+\code{p_err_fa = \link{fa}/\link{dec_err} = (1 - \link{mi}/\link{dec_err})}
+
 }
 
 Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
