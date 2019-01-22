@@ -358,7 +358,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<p>Note that the prism diagram (<code>plot_prism</code>) shows a total of 18 probabilities: 3 perspectives (<code>by = &quot;cd&quot;</code>, <code>by = &quot;dc&quot;</code>, and <code>by = &quot;ac&quot;</code>) and 6 links denoting probabilities per perspective. However, as some probabilities are the complements of others, we currently do not identify all possible probabilities.</p>
+<p>Note that the prism diagram (<code>plot_prism</code>) shows a total of 18 probabilities: 3 perspectives (<code>by = &quot;cd&quot;</code>, <code>by = &quot;dc&quot;</code>, and <code>by = &quot;ac&quot;</code>) and 6 links denoting probabilities per perspective. However, as some probabilities are the complements of others, we currently do not explicitly identify all possible probabilities.</p>
 </div>
 <div id="non-conditional-vs.conditional-probabilities" class="section level3">
 <h3>Non-conditional vs. conditional probabilities</h3>
@@ -370,11 +370,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>The other probabilities are <em>conditional</em> probabilities based on 3 perspectives:</p>
 <ol style="list-style-type: decimal">
-<li>by condition: conditional probabilities (2. to 5.) depend on the <em>condition</em>’s <code>prev</code> and features of the <em>decision</em>.<br />
+<li>by <em>condition</em>: conditional probabilities (2. to 5.) depend on the <em>condition</em>’s <code>prev</code> and features of the <em>decision</em>.<br />
 </li>
-<li>by decision: conditional probabilities (7. to 10.) depend on the <em>decision</em>’s <code>ppod</code> and features of the <em>condition</em>.<br />
+<li>by <em>decision</em>: conditional probabilities (7. to 10.) depend on the <em>decision</em>’s <code>ppod</code> and features of the <em>condition</em>.<br />
 </li>
-<li>by accuracy: conditional probabilities based on <em>accuracy</em> <code>acc</code> are currently not computed or defined.</li>
+<li>by <em>accuracy</em>: conditional probabilities based on <em>accuracy</em> <code>acc</code> are currently computed, but – in the absence of a commonly accepted term – named <code>p_acc_hi</code> and <code>p_err_fa</code> (12. and 13.).</li>
 </ol>
 </div>
 <div id="relationships-among-probabilities" class="section level3">

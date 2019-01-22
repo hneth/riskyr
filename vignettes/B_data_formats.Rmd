@@ -158,8 +158,7 @@ These numbers are defined to reflect particular quantities and can be expressed 
 | 12. | `p_acc_hi` | -- | The conditional probability of the _condition_ being `TRUE` provided that a decision or prediction is _accurate_. | 
 | 13. | `p_err_fa` | -- | The conditional probability of the _condition_ being `FALSE` provided that a decision or prediction is _inaccurate_ or _erroneous_. | 
 
-Note that the prism diagram (`plot_prism`) shows a total of 18 probabilities: 3 perspectives (`by = "cd"`, `by = "dc"`, and `by = "ac"`) and 6 links denoting probabilities per perspective. However, as some probabilities are the complements of others, we currently do not identify all possible probabilities.
-
+Note that the prism diagram (`plot_prism`) shows a total of 18 probabilities: 3 perspectives (`by = "cd"`, `by = "dc"`, and `by = "ac"`) and 6 links denoting probabilities per perspective. However, as some probabilities are the complements of others, we currently do not explicitly identify all possible probabilities.
 
 ### Non-conditional vs. conditional probabilities
 
@@ -171,9 +170,9 @@ Note that a typical `riskyr` scenario contains several _non-conditional_ probabi
 
 The other probabilities are _conditional_ probabilities based on 3 perspectives:
 
-1. by condition: conditional probabilities (2. to 5.) depend on the _condition_'s `prev` and features of the _decision_.  
-2. by decision: conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.  
-3. by accuracy: conditional probabilities based on _accuracy_ `acc` are currently not computed or defined.   
+1. by _condition_: conditional probabilities (2. to 5.) depend on the _condition_'s `prev` and features of the _decision_.  
+2. by _decision_: conditional probabilities (7. to 10.) depend on the _decision_'s `ppod` and features of the _condition_.  
+3. by _accuracy_: conditional probabilities based on _accuracy_ `acc` are currently computed, but -- in the absence of a commonly accepted term -- named `p_acc_hi` and `p_err_fa` (12. and 13.).
 
 ### Relationships among probabilities
 
