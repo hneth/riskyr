@@ -1,5 +1,5 @@
 ## init_freq_num.R | riskyr
-## 2018 12 20
+## 2019 01 22
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
@@ -257,6 +257,16 @@ init_freq <- function() {
 #'   \item accuracy \code{\link{acc}}:
 #'
 #'   \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
+#'
+#'
+#'   \item rate of hits, given accuracy \code{p_acc_hi}:
+#'
+#'   \code{p_acc_hi = \link{hi}/\link{dec_cor} = (1 - \link{cr}/\link{dec_cor})}
+#'
+#'
+#'   \item rate of false alarms, given inaccuracy \code{p_err_fa}:
+#'
+#'   \code{p_err_fa = \link{fa}/\link{dec_err} = (1 - \link{mi}/\link{dec_err})}
 #'
 #'    }
 #'

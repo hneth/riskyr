@@ -1,5 +1,5 @@
 ## init_prob_num.R | riskyr
-## 2018 12 20
+## 2019 01 22
 ## Define and initialize probability information prob
 ## by using basic parameter values of num:
 ## -----------------------------------------------
@@ -197,7 +197,17 @@ init_prob <- function() {
 #'
 #'   \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
-#'    }
+#'
+#'   \item rate of hits, given accuracy \code{p_acc_hi}:
+#'
+#'   \code{p_acc_hi = \link{hi}/\link{dec_cor} = (1 - \link{cr}/\link{dec_cor})}
+#'
+#'
+#'   \item rate of false alarms, given inaccuracy \code{p_err_fa}:
+#'
+#'   \code{p_err_fa = \link{fa}/\link{dec_err} = (1 - \link{mi}/\link{dec_err})}
+#'
+#'   }
 #'
 #'    Note: When frequencies are rounded (by \code{round = TRUE} in \code{\link{comp_freq}}),
 #'    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
@@ -209,7 +219,6 @@ init_prob <- function() {
 #' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
-#'
 #'
 #' @param prev The condition's prevalence value \code{\link{prev}}
 #' (i.e., the probability of the condition being \code{TRUE}).
@@ -466,7 +475,6 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'  (i.e., the probability of \code{\link{fa}} given that
 #'  the decision is erroneous \code{\link{dec_err}}).
 #'
-#'
 #' }
 #'
 #' These probabilities are computed from basic probabilities
@@ -497,17 +505,14 @@ comp_prob <- function(prev = num$prev,             # probabilities:
 #'
 #' }
 #'
-#'
 #' Functions translating between representational formats:
 #' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
-#'
 #' Visualizations of current probability information
 #' are provided by \code{\link{plot_area}},
 #' \code{\link{plot_prism}}, and \code{\link{plot_curve}}.
-#'
 #'
 #' @examples
 #' prob <- comp_prob()  # => initialize prob to default parameters
