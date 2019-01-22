@@ -7,7 +7,7 @@ as a function of sensitivity and specificity.}
 \usage{
 plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = "PPV", what_col = pal,
-  line_col = "grey85", point_col = "yellow", show_point = TRUE,
+  line_col = "grey85", point_col = "yellow", show_points = TRUE,
   step_size = 0.05, theta = -45, phi = 0, lbl_txt = txt,
   title_lbl = NA, p_lbl = "def", cex_lbl = 0.85, col_pal = pal,
   mar_notes = TRUE, ...)
@@ -19,7 +19,8 @@ plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
 \item{sens}{The decision's sensitivity \code{\link{sens}}
 (i.e., the conditional probability of a positive decision
 provided that the condition is \code{TRUE}).
-\code{sens} is optional when its complement \code{mirt} is provided.}
+\code{sens} is optional when its complement \code{mirt} is provided.
+If \code{sens = NA}, then \code{show_points = FALSE}.}
 
 \item{mirt}{The decision's miss rate \code{\link{mirt}}
 (i.e., the conditional probability of a negative decision
@@ -29,7 +30,8 @@ provided that the condition is \code{TRUE}).
 \item{spec}{The decision's specificity value \code{\link{spec}}
 (i.e., the conditional probability
 of a negative decision provided that the condition is \code{FALSE}).
-\code{spec} is optional when its complement \code{fart} is provided.}
+\code{spec} is optional when its complement \code{fart} is provided.
+If \code{spec = NA}, then \code{show_points = FALSE}.}
 
 \item{fart}{The decision's false alarm rate \code{\link{fart}}
 (i.e., the conditional probability
@@ -52,11 +54,11 @@ Default: \code{line_col = "grey85"}.}
 \item{point_col}{Fill color for showing current value on plane.
 Default: \code{point_col = "yellow"}.}
 
-\item{show_point}{Boolean option for showing the current value
+\item{show_points}{Boolean option for showing the current value
 of the selected metric for the current conditions
 (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}})
 as a point on the plane.
-Default: \code{show_point = TRUE}.}
+Default: \code{show_points = TRUE}.}
 
 \item{step_size}{Sets the granularity of the
 \code{\link{sens}}-by-\code{\link{spec}} grid.
@@ -121,9 +123,13 @@ plot_plane(what = "NPV")  # => plane of NPV
 plot_plane(what = "ppod") # => plane of ppod
 plot_plane(what = "acc")  # => plane of acc
 
+# Plane with no points or multiple points:
+plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")             # plane with 0 points
+plot_plane(prev = .5, sens = c(.2, .5, .8), spec = .6, what = "npv")  # plane with 3 points
+
 # Plot options:
 plot_plane(title_lbl = "Testing smaller text labels", cex_lbl = .60)
-plot_plane(show_point = FALSE)  # => no point shown on plane
+plot_plane(show_points = FALSE)  # => no point shown on plane
 
 plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
 plot_plane(title_lbl = "Testing plot in b/w", what_col = "white", line_col = "black")
