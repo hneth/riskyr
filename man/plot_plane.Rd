@@ -128,15 +128,15 @@ plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")             # plane wi
 plot_plane(prev = .5, sens = c(.2, .5, .8), spec = .6, what = "npv")  # plane with 3 points
 
 # Plot options:
-plot_plane(title_lbl = "Testing smaller text labels", cex_lbl = .60)
-plot_plane(show_points = FALSE)  # => no point shown on plane
+plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
 
 plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
-plot_plane(title_lbl = "Testing plot in b/w", what_col = "white", line_col = "black")
+plot_plane(title_lbl = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
+plot_plane(title_lbl = "Testing color pal_bwp", col_pal = pal_bwp)
 
 plot_plane(step_size = .333, what_col = "firebrick")    # => coarser granularity + color
 plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color
-plot_plane(what_col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
+plot_plane(what_col = "steelblue4", theta = -90, phi = 50)   # => rotated, from above
 
 }
 \seealso{

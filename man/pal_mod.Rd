@@ -4,7 +4,7 @@
 \name{pal_mod}
 \alias{pal_mod}
 \title{Modern color palette (in green/blue/orange).}
-\format{An object of class \code{character} of length 15.}
+\format{An object of class \code{character} of length 16.}
 \usage{
 pal_mod
 }
@@ -19,8 +19,8 @@ Assign \code{pal <- pal_mod} to use as default color scheme
 throughout the \code{riskyr} package.
 }
 \examples{
-pal_mod        # shows all current color names and values
-pal_mod["hi"]  # shows the current color for hits (true positives)
+pal_mod        # shows all color names and current values
+pal_mod["hi"]  # shows the current color for hits (true positives, TP)
 pal_mod["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 
 }

@@ -4,7 +4,7 @@
 \name{pal_org}
 \alias{pal_org}
 \title{Original color palette.}
-\format{An object of class \code{character} of length 15.}
+\format{An object of class \code{character} of length 16.}
 \usage{
 pal_org
 }
@@ -20,8 +20,8 @@ Assign \code{pal <- pal_org} to re-set default color scheme
 throughout the \code{riskyr} package.
 }
 \examples{
-pal_org        # shows all current color names and values
-pal_org["hi"]  # shows the current color for hits (true positives)
+pal_org        # shows all color names and current values
+pal_org["hi"]  # shows the current color for hits (true positives, TP)
 pal_org["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 
 }

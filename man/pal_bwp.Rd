@@ -4,7 +4,7 @@
 \name{pal_bwp}
 \alias{pal_bwp}
 \title{Alternative color palette for black-and-white graphs (for printing purposes).}
-\format{An object of class \code{character} of length 15.}
+\format{An object of class \code{character} of length 16.}
 \usage{
 pal_bwp
 }
@@ -38,8 +38,8 @@ Assign \code{pal <- pal_bwp} to use as default color scheme
 throughout the \code{riskyr} package.
 }
 \examples{
-pal_bwp        # shows all current color names and values
-pal_bwp["hi"]  # shows the current color for hits (true positives)
+pal_bwp        # shows all color names and current values
+pal_bwp["hi"]  # shows the current color for hits (true positives, TP)
 pal_bwp["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 
 }

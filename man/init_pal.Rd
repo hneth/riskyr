@@ -11,7 +11,8 @@ init_pal(N_col = pal_def["N"], cond_true_col = pal_def["cond_true"],
   hi_col = pal_def["hi"], mi_col = pal_def["mi"],
   fa_col = pal_def["fa"], cr_col = pal_def["cr"],
   PPV_col = pal_def["ppv"], NPV_col = pal_def["npv"],
-  txt_col = pal_def["txt"], brd_col = pal_def["brd"])
+  txt_col = pal_def["txt"], brd_col = pal_def["brd"],
+  bg_col = pal_def["bg"])
 }
 \arguments{
 \item{N_col}{Color representing the \emph{population} of \code{\link{N}} cases or individuals.}
@@ -49,6 +50,8 @@ the condition is FALSE, provided that the decision is negative).}
 \item{txt_col}{Color used for text labels.}
 
 \item{brd_col}{Color used for borders (e.g., around bars or boxes).}
+
+\item{bg_col}{Background color of plot (used to set \code{par(bg = bg_col)}).}
 }
 \description{
 \code{init_pal} initializes basic color information

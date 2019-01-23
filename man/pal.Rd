@@ -4,7 +4,7 @@
 \name{pal}
 \alias{pal}
 \title{List current values of scenario color palette.}
-\format{An object of class \code{character} of length 15.}
+\format{An object of class \code{character} of length 16.}
 \usage{
 pal
 }
@@ -58,6 +58,8 @@ the condition is FALSE, provided that the decision is negative).
 
 \item \code{brd} Color used for borders.
 
+\item \code{bg} Color used for plot background (used to set \code{par(bg = bg_col)}).
+
 }
 
 Note that color names for frequencies correspond to frequency names,
@@ -65,8 +67,8 @@ but are different for probabilities (which are written in lowercase
 and only \code{\link{PPV}} and \code{\link{NPV}} have assigned colors).
 }
 \examples{
-pal        # shows all current color names and values
-pal["hi"]  # shows the current color for hits (true positives)
+pal        # shows all color names and current values
+pal["hi"]  # shows the current color for hits (true positives, TP)
 pal["hi"] <- "gold"  # defines a new color for hits (true positives, TP)
 
 }

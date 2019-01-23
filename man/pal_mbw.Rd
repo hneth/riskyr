@@ -4,7 +4,7 @@
 \name{pal_mbw}
 \alias{pal_mbw}
 \title{Modern and reduced color palette (in green/blue/bw).}
-\format{An object of class \code{character} of length 15.}
+\format{An object of class \code{character} of length 16.}
 \usage{
 pal_mbw
 }
@@ -21,8 +21,8 @@ Assign \code{pal <- pal_mbw} to use as default color scheme
 throughout the \code{riskyr} package.
 }
 \examples{
-pal_mbw        # shows all current color names and values
-pal_mbw["hi"]  # shows the current color for hits (true positives)
+pal_mbw        # shows all color names and current values
+pal_mbw["hi"]  # shows the current color for hits (true positives, TP)
 pal_mbw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 
 }

@@ -4,7 +4,7 @@
 \name{pal_vir}
 \alias{pal_vir}
 \title{Alternative color palette using viridis colors.}
-\format{An object of class \code{character} of length 15.}
+\format{An object of class \code{character} of length 16.}
 \usage{
 pal_vir
 }
@@ -22,8 +22,8 @@ Assign \code{pal <- pal_vir} to use as default color scheme
 throughout the \code{riskyr} package.
 }
 \examples{
-pal_vir        # shows all current color names and values
-pal_vir["hi"]  # shows the current color for hits (true positives)
+pal_vir        # shows all color names and current values
+pal_vir["hi"]  # shows the current color for hits (true positives, TP)
 pal_vir["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 
 }
