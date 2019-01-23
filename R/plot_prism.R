@@ -527,9 +527,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## 5. Colors / color palettes: ----
 
   # (a) Set plot background color:
-  # par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
-  par(bg = "white")  # default
-  # par(bg = grey(level = .995, alpha = 1))
+  par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
 
   # (b) Detect and handle special cases of color equality (e.g., pal_bwp):
   if ( (par("bg") %in% col_pal[1:11]) && # if bg is equal to ANY fbox color AND

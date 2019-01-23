@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2019 01 22
+## 2019 01 23
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -126,15 +126,15 @@
 #' plot_plane(prev = .5, sens = c(.2, .5, .8), spec = .6, what = "npv")  # plane with 3 points
 #'
 #' # Plot options:
-#' plot_plane(title_lbl = "Testing smaller text labels", cex_lbl = .60)
-#' plot_plane(show_points = FALSE)  # => no point shown on plane
+#' plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
 #'
 #' plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
-#' plot_plane(title_lbl = "Testing plot in b/w", what_col = "white", line_col = "black")
+#' plot_plane(title_lbl = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
+#' plot_plane(title_lbl = "Testing color pal_bwp", col_pal = pal_bwp)
 #'
 #' plot_plane(step_size = .333, what_col = "firebrick")    # => coarser granularity + color
 #' plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color
-#' plot_plane(what_col = "steelblue4", theta = -90, phi = 45)   # => rotated, from above
+#' plot_plane(what_col = "steelblue4", theta = -90, phi = 50)   # => rotated, from above
 #'
 #' @family visualization functions
 #'
@@ -293,6 +293,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   }
 
   ## (3) Define plot and margin areas: ----------
+
+  ## Colors: ------
+
+  # Set plot background color:
+  par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
 
   ## (A) Define margin areas: ------
 

@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2019 01 11
+## 2019 01 23
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -379,6 +379,9 @@ plot_icons <- function(prev = num$prev,             # probabilities
   if ( arr_type == "equal" ) { arr_type <- "fillequal" }
 
   ## 2. Colors / color palettes: ----
+
+  # Set plot background color:
+  par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
 
   # (+) Detect and handle special case of color equality (e.g., pal_bwp):
   if (all_equal(c(col_pal[["hi"]], col_pal[["mi"]])) && (length(unique(icon_types)) < 4)) {

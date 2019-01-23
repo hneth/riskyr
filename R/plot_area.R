@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2019 01 11
+## 2019 01 23
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -616,16 +616,18 @@ plot_area <- function(prev = num$prev,    # probabilities
 
   ## 5. Colors / color palettes: ----
 
-  # (a) Detect and handle special case of color equality (e.g., pal_bwp):
-  # WAS: if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
-  # NOW more general: If color of hi is.equal to current background color:
-  if (all_equal(c(par("bg"), col_pal[["hi"]])) && (f_lwd <= tiny_lwd)) {
+  # (a) Set plot background color:
+  par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
+
+  # (b) Detect and handle special cases of color equality (e.g., pal_bwp):
+  if ( (par("bg") %in% col_pal[1:11]) && # if bg is equal to ANY fbox color AND
+       (f_lwd <= tiny_lwd) ) {           # f_lwd is tiny_lwd (default):
     f_lwd <- 1
     if (lty == 0) {lty <- 1}  # prevent lty = 0
     # message(paste0("f_lwd = ", f_lwd, "; col_pal[['brd']] = ",  col_pal[["brd"]], "; lty = ", lty)) # debugging
   }
 
-  # (b) Probability link colors:
+  # (c) Probability link colors:
   if (!is.na(p_lbl)) {  # only when labels OR links are being shown:
 
     # if (!all(col_p %in% colors())) { message("col_p must contain (1 to 3) valid color names.") }

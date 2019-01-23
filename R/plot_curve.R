@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 17
+## 2010 01 23
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -405,10 +405,17 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   } # if (show_points) etc.
 
+
   ## Colors:
+
+  # Set plot background color:
+  par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
+
+  # Currently fixed parameters:
   uc_alpha <- .20                     # transparency of uncertainty polygons
   col_axes <- grey(.10, alpha = .99)  # axes
   col_bord <- grey(.10, alpha = .50)  # borders (also of points)
+
 
   ## Text labels:
 

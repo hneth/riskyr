@@ -348,16 +348,19 @@ plot_bar <- function(prev = num$prev,             # probabilities
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
   if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
-  ## (3) Colors / color palettes: ----
 
-  # (+) Detect and handle special case of color equality (e.g., pal_bwp):
-  # WAS: if (all(col_pal == pal_bwp) && (f_lwd <= tiny_lwd)) {
-  # NOW more general: If color of hi is.equal to current background color:
-  if (all_equal(c(par("bg"), col_pal[["hi"]])) &&
-      ( (f_lwd <= tiny_lwd) || (lty == 0) ) ) {
-    f_lwd <- 1
-    lty <- 1
+  ## (3) Colors / color palettes: ---------
+
+  # (a) Set plot background color:
+  par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
+
+  # (b) Detect and handle special cases of color equality (e.g., pal_bwp):
+  if ( (par("bg") %in% col_pal[1:11]) && # if bg is equal to ANY fbox color AND
+       ((f_lwd <= tiny_lwd) || (lty == 0)) ) {  # f_lwd is tiny_lwd OR lty is zero (default):
+    if (f_lwd <= tiny_lwd) {f_lwd <- 1}
+    if (lty == 0) {lty <- 1}
   }
+
 
   ## (4) Define plot and margin areas: ----------
 
@@ -1159,7 +1162,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     # Note:
     note_lbl <- ""  # initialize
     #if (scale == "f") {
-      note_lbl <- label_note(area = "bar", scale = scale)
+    note_lbl <- label_note(area = "bar", scale = scale)
     #}
 
     plot_mar(show_freq = TRUE, show_cond = TRUE, show_dec = TRUE,
