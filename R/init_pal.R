@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2019 01 08
+## 2019 01 23
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -125,7 +125,7 @@ sdt.colors <- setNames(c(hi_col, mi_col, fa_col, cr_col),
                        c("hi", "mi", "fa", "cr")
 )
 
-## (f) Define 2 colors for PVs:
+## (f) Define 2 colors for main PVs:
 
 PPV_col <- my_orange  # "sienna1" # col_orange_2 # "orange3" "firebrick" "red3"
 NPV_col <- my_blue    # "steelblue3", col_blue_3, "green4" "gray50" "brown4"
@@ -137,6 +137,11 @@ NPV_col <- my_blue    # "steelblue3", col_blue_3, "green4" "gray50" "brown4"
 txt_col <- grey(.01, .99)  # near "black" text labels, NA removes text?
 brd_col <- grey(.20, .99)  # greyish borders, NA removes borders
 
+## Plot background:
+
+bg_col <- "white"  # background color, NA creates transparent background [set ONLY here]
+
+
 ## Probability lines (within Mosaic/area plots):
 # prev.li <- "gold"       # "aliceblue"
 # sens.li <- "cornsilk"   # "darkseagreen1" "olivedrab1"
@@ -147,18 +152,21 @@ brd_col <- grey(.20, .99)  # greyish borders, NA removes borders
 
 ## (3) Define corresponding default palette: ----------
 
+# vector of colors:
 pal_def <- c(N_col,
              cond_colors, dec_colors, acc_colors,
              sdt.colors,
              PPV_col, NPV_col,
-             txt_col, brd_col)  # vector of colors
+             txt_col, brd_col,
+             bg_col)
 
+# names of colors:
 pal_def <- setNames(object = pal_def,
                     nm = c("N",
                            names(cond_colors), names(dec_colors), names(acc_colors),
                            names(sdt.colors),
                            "ppv", "npv",
-                           "txt", "brd")
+                           "txt", "brd", "bg")
 )
 
 n_colors <- length(pal_def)  # number of colors for which defaults are currently defined
@@ -206,6 +214,7 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 #'
 #' @param txt_col Color used for text labels.
 #' @param brd_col Color used for borders (e.g., around bars or boxes).
+#' @param bg_col  Background color of plot (used to set \code{par(bg = bg_col)}).
 #'
 #' @examples
 #' init_pal()          # => define and return a vector of current (default) colors
@@ -258,7 +267,8 @@ init_pal <- function(N_col = pal_def["N"],          # population N
                      NPV_col = pal_def["npv"],      # negative predictive values
                      ## Text labels and borders:
                      txt_col = pal_def["txt"],      # text labels
-                     brd_col = pal_def["brd"]       # borders
+                     brd_col = pal_def["brd"],      # borders
+                     bg_col = pal_def["bg"]         # background
 ) {
 
   ## 1. Initialize pal as a VECTOR:
@@ -285,7 +295,9 @@ init_pal <- function(N_col = pal_def["N"],          # population N
            NPV_col,    # negative predictive values
            ## Text labels and borders:
            txt_col,    # text labels
-           brd_col     # borders
+           brd_col,    # borders
+           ## Background:
+           bg_col
   )
 
   ## 3. Name vector elements:
@@ -293,7 +305,7 @@ init_pal <- function(N_col = pal_def["N"],          # population N
                   nm = c("N",
                          names(cond_colors), names(dec_colors), names(acc_colors),
                          names(sdt.colors),
-                         "ppv", "npv", "txt", "brd")
+                         "ppv", "npv", "txt", "brd", "bg")
   )
 
   ## 4. Return vector:
@@ -304,7 +316,7 @@ init_pal <- function(N_col = pal_def["N"],          # population N
 ## Check:
 
 # init_pal()          # => define and return a vector of current (default) colors
-# length(init_pal())  # => 15 named colors
+# length(init_pal())  # => 16 named colors
 # pal <- init_pal(N_col = "steelblue4")  # => change a color (stored in pal)
 # pal <- init_pal(brd_col = NA)          # => remove a color
 
@@ -362,6 +374,8 @@ init_pal <- function(N_col = pal_def["N"],          # population N
 #'
 #' \item \code{brd} Color used for borders.
 #'
+#' \item \code{bg} Color used for plot background (used to set \code{par(bg = bg_col)}).
+#'
 #' }
 #'
 #' Note that color names for frequencies correspond to frequency names,
@@ -369,8 +383,8 @@ init_pal <- function(N_col = pal_def["N"],          # population N
 #' and only \code{\link{PPV}} and \code{\link{NPV}} have assigned colors).
 #'
 #' @examples
-#' pal        # shows all current color names and values
-#' pal["hi"]  # shows the current color for hits (true positives)
+#' pal        # shows all color names and current values
+#' pal["hi"]  # shows the current color for hits (true positives, TP)
 #' pal["hi"] <- "gold"  # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -412,8 +426,8 @@ pal <- init_pal()  ## apply
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_org        # shows all current color names and values
-#' pal_org["hi"]  # shows the current color for hits (true positives)
+#' pal_org        # shows all color names and current values
+#' pal_org["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_org["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -447,8 +461,8 @@ pal_org <- pal  # copy pal
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_bw        # shows all current color names and values
-#' pal_bw["hi"]  # shows the current color for hits (true positives)
+#' pal_bw        # shows all color names and current values
+#' pal_bw["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_bw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -513,8 +527,8 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_bwp        # shows all current color names and values
-#' pal_bwp["hi"]  # shows the current color for hits (true positives)
+#' pal_bwp        # shows all color names and current values
+#' pal_bwp["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_bwp["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -561,8 +575,8 @@ pal_bwp <- init_pal(N_col = my_white,          # grey(.95, .99), # nearly white
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_rgb        # shows all current color names and values
-#' pal_rgb["hi"]  # shows the current color for hits (true positives)
+#' pal_rgb        # shows all color names and current values
+#' pal_rgb["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_rgb["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -613,8 +627,8 @@ pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_mod        # shows all current color names and values
-#' pal_mod["hi"]  # shows the current color for hits (true positives)
+#' pal_mod        # shows all color names and current values
+#' pal_mod["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_mod["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -664,8 +678,8 @@ pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_mbw        # shows all current color names and values
-#' pal_mbw["hi"]  # shows the current color for hits (true positives)
+#' pal_mbw        # shows all color names and current values
+#' pal_mbw["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_mbw["hi"] <- "gold" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -717,8 +731,8 @@ pal_mbw <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_kn      # shows all current color names and values
-#' pal_kn["hi"]  # shows the current color for hits (true positives)
+#' pal_kn      # shows all color names and current values
+#' pal_kn["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_kn["hi"] <- "grey" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -786,8 +800,8 @@ vir_12 <- c("#440154FF", "#482173FF", "#433E85FF", "#38598CFF",
 #' throughout the \code{riskyr} package.
 #'
 #' @examples
-#' pal_vir        # shows all current color names and values
-#' pal_vir["hi"]  # shows the current color for hits (true positives)
+#' pal_vir        # shows all color names and current values
+#' pal_vir["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_vir["hi"] <- "green3" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
@@ -835,16 +849,16 @@ pal <- pal_mod
 
 ## (*) Done: ----------
 
-## - Clean up code.  [2018 09 01]
+## - Clean up code.        [2018 09 01]
 ## - Add some pre-defined color palettes.
 
-## (+) ToDo: ----------
+## - Addressed limitation: [2019 01 23]
+##   Lack of an explicit background color (e.g., "white" or NA by default).
+##   Solution implemented:
+#    1. bg_col <- "white"           # in all color palettes
+#    2. par(bg = col_pal[["bg"]])   # in all plot functions
 
-## Note current limitations:
-## - Lack of an explicit background color (e.g., "white").
-##   Possible solution:
-#    col_bg <- "grey95" # globally or in palette
-#    par(bg = col_bg)   # in plot_function
+## (+) ToDo: ----------
 
 ## - Lack of most probability colors:
 ##   Only PPV and NPV are assigned dedicated colors.
