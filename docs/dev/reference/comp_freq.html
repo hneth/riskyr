@@ -77,7 +77,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9005</span>
       </span>
     </div>
 
@@ -273,6 +273,10 @@ Thus, they can be computed as ratios between frequencies:</p>
 <p><code><a href='FOR.html'>FOR</a> = <a href='mi.html'>mi</a>/<a href='dec_neg.html'>dec_neg</a>  =  <a href='mi.html'>mi</a> / (<a href='mi.html'>mi</a> + <a href='cr.html'>cr</a>)  =  (1 - <a href='NPV.html'>NPV</a>)</code></p></li>
 <li><p>accuracy <code><a href='acc.html'>acc</a></code>:</p>
 <p><code><a href='acc.html'>acc</a> = <a href='dec_cor.html'>dec_cor</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='cr.html'>cr</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
+<li><p>rate of hits, given accuracy <code>p_acc_hi</code>:</p>
+<p><code>p_acc_hi = <a href='hi.html'>hi</a>/<a href='dec_cor.html'>dec_cor</a> = (1 - <a href='cr.html'>cr</a>/<a href='dec_cor.html'>dec_cor</a>)</code></p></li>
+<li><p>rate of false alarms, given inaccuracy <code>p_err_fa</code>:</p>
+<p><code>p_err_fa = <a href='fa.html'>fa</a>/<a href='dec_err.html'>dec_err</a> = (1 - <a href='mi.html'>mi</a>/<a href='dec_err.html'>dec_err</a>)</code></p></li>
 </ol>
     <p>Note: When frequencies are rounded (by <code>round = TRUE</code> in <code>comp_freq</code>),
    probabilities computed from <code><a href='freq.html'>freq</a></code> may differ from exact probabilities.</p></li>

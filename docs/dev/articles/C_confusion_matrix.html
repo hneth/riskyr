@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9005</span>
       </span>
     </div>
 
@@ -185,7 +185,7 @@
 </tbody>
 </table>
 <p>Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. This is no surprise when considering explanations like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.</p>
-<p>Fortunately, the basic matrix is also known as 2-by-2 contingency table, actually quite simple, and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.</p>
+<p>Fortunately, the basic matrix can also be understood as a 2-by-2 contingency table, which is actually quite simple, and rather straightforward in its implications. In the following, we aim to disentangle the multitude of measures and identify the elements of the confusion matrix that a risk-literate person should know.</p>
 <!-- 
 
 ## Terminology
@@ -311,13 +311,17 @@
 <h4 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h4>
 <p>To view a 2x2 confusion table in <code>riskyr</code>, use the <code>plot_tab</code> function or plot an existing scenario as <code>type = "tab"</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot table from basic input parameters: ----- </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## (1) Plot table from basic input parameters: ----- 
 <span class="kw"><a href="../reference/plot_tab.html">plot_tab</a></span>(<span class="dt">prev =</span> .<span class="dv">05</span>, <span class="dt">sens =</span> .<span class="dv">75</span>, <span class="dt">spec =</span> .<span class="dv">66</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
-         <span class="dt">p_lbl =</span> <span class="st">"def"</span>, <span class="dt">title_lbl =</span> <span class="st">"Scenario 1"</span>)
+         <span class="dt">p_lbl =</span> <span class="st">"def"</span>) <span class="co"># show condition probabilies (by default)</span>
 
-## Plot an existing riskyr scenario: ----- 
-<span class="co"># s &lt;- scenarios$n1</span>
-<span class="co"># plot(s, type = "tab", p_lbl = "def")</span></code></pre></div>
+## Alternative version (with horizontal p):
+<span class="co"># plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,</span>
+<span class="co">#          p_lbl = "def", p_split = "h") # show decision probabilities</span>
+
+## (2) Plot an existing riskyr scenario: ----- 
+<span class="co"># s1 &lt;- scenarios$n1  # identify s1 from scenarios</span>
+<span class="co"># plot(s1, type = "tab", p_lbl = "def")</span></code></pre></div>
 <div class="figure">
 <img src="C_confusion_matrix_files/figure-html/plot_tab_demo-1.png" alt="Example of a 2x2 confusion table in `riskyr`." width="672"><p class="caption">
 Example of a 2x2 confusion table in <code>riskyr</code>.
