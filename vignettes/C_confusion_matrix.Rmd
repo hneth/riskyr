@@ -34,7 +34,7 @@ Behold the aptly named "confusion matrix":
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-Fortunately, the basic matrix is also known as 2-by-2 contingency table, actually quite simple, and its implications rather straightforward. In the following, we aim to disentangle the profusion of measures and summarize those parts of the confusion matrix that a risk-literate person really needs to know.
+Fortunately, the basic matrix can also be understood as a 2-by-2 contingency table, which is actually quite simple, and rather straightforward in its implications. In the following, we aim to disentangle the multitude of measures and identify the elements of the confusion matrix that a risk-literate person should know.
 
 <!-- 
 
@@ -112,13 +112,17 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 To view a 2x2 confusion table in `riskyr`, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
 
 ```{r plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
-# Plot table from basic input parameters: ----- 
+## (1) Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
-         p_lbl = "def", title_lbl = "Scenario 1")
+         p_lbl = "def") # show condition probabilies (by default)
 
-## Plot an existing riskyr scenario: ----- 
-# s <- scenarios$n1
-# plot(s, type = "tab", p_lbl = "def")
+## Alternative version (with horizontal p):
+# plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
+#          p_lbl = "def", p_split = "h") # show decision probabilities
+
+## (2) Plot an existing riskyr scenario: ----- 
+# s1 <- scenarios$n1  # identify s1 from scenarios
+# plot(s1, type = "tab", p_lbl = "def")
 ```
 
 <!-- (The plots are not shown here, but please go ahead and generate them for yourself.) --> 
