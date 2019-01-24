@@ -74,7 +74,7 @@ used throughout the riskyr package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9006</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ used throughout the <code>riskyr</code> package.</p>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>character</code> of length 15.</p>
+    <p>An object of class <code>character</code> of length 16.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -188,6 +188,7 @@ the condition is TRUE, provided that the decision is positive).</p></li>
 the condition is FALSE, provided that the decision is negative).</p></li>
 <li><p><code>txt</code> Color used for text labels.</p></li>
 <li><p><code>brd</code> Color used for borders.</p></li>
+<li><p><code>bg</code> Color used for plot background (used to set <code><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par(bg = bg_col)</a></code>).</p></li>
 </ol>
     <p>Note that color names for frequencies correspond to frequency names,
 but are different for probabilities (which are written in lowercase
@@ -215,14 +216,14 @@ and only <code><a href='PPV.html'>PPV</a></code> and <code><a href='NPV.html'>NP
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
+    <pre class="examples"><div class='input'><span class='no'>pal</span>        <span class='co'># shows all color names and current values</span></div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
 #&gt;       "#E6E6E6FC" "lightgoldenrod1"       "#BFBFBFFC"         "#F7A97F" 
 #&gt;           dec_neg           dec_cor           dec_err                hi 
 #&gt;       "#A6A6A6FC"      "olivedrab4"      "steelblue3"         "#B8D989" 
 #&gt;                mi                fa                cr               ppv 
 #&gt;         "#73C8EA"         "#1D95C6"         "#80B139"         "#F26418" 
-#&gt;               npv               txt               brd 
-#&gt;         "#1D95C6"       "#000000FC"         "#3E3F3A" </div><div class='input'><span class='no'>pal</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;        hi 
+#&gt;               npv               txt               brd                bg 
+#&gt;         "#1D95C6"       "#000000FC"         "#3E3F3A"           "white" </div><div class='input'><span class='no'>pal</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives, TP)</span></div><div class='output co'>#&gt;        hi 
 #&gt; "#B8D989" </div><div class='input'><span class='no'>pal</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"gold"</span>  <span class='co'># defines a new color for hits (true positives, TP)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

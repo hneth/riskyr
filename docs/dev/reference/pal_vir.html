@@ -73,7 +73,7 @@ to define a scenario color scheme modeled on the viridis color scale." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9006</span>
       </span>
     </div>
 
@@ -156,7 +156,7 @@ to define a scenario color scheme modeled on the <code>viridis</code> color scal
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>character</code> of length 15.</p>
+    <p>An object of class <code>character</code> of length 16.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -182,12 +182,12 @@ throughout the <code>riskyr</code> package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal_vir</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;           N   cond_true  cond_false     dec_pos     dec_neg     dec_cor 
+    <pre class="examples"><div class='input'><span class='no'>pal_vir</span>        <span class='co'># shows all color names and current values</span></div><div class='output co'>#&gt;           N   cond_true  cond_false     dec_pos     dec_neg     dec_cor 
 #&gt; "#B3B3B3FC" "#D9D9D9FC" "#8C8C8CFC" "#CCCCCCFC" "#999999FC" "#E6E6E6FC" 
 #&gt;     dec_err          hi          mi          fa          cr         ppv 
 #&gt; "#808080FC" "#85D54AFF" "#FDE725FF" "#2D708EFF" "#2BB07FFF" "#51C56AFF" 
-#&gt;         npv         txt         brd 
-#&gt; "#433E85FF" "#000000FC" "#1A1A1AFC" </div><div class='input'><span class='no'>pal_vir</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;          hi 
+#&gt;         npv         txt         brd          bg 
+#&gt; "#433E85FF" "#000000FC" "#1A1A1AFC"     "white" </div><div class='input'><span class='no'>pal_vir</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives, TP)</span></div><div class='output co'>#&gt;          hi 
 #&gt; "#85D54AFF" </div><div class='input'><span class='no'>pal_vir</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"green3"</span> <span class='co'># defines a new color for hits (true positives, TP)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

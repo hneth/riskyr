@@ -74,7 +74,7 @@ pal is changed)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9005</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9006</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ pal is changed)." />
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>character</code> of length 15.</p>
+    <p>An object of class <code>character</code> of length 16.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -181,14 +181,14 @@ throughout the <code>riskyr</code> package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal_org</span>        <span class='co'># shows all current color names and values</span></div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
+    <pre class="examples"><div class='input'><span class='no'>pal_org</span>        <span class='co'># shows all color names and current values</span></div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
 #&gt;       "#E6E6E6FC" "lightgoldenrod1"   "lightskyblue2"      "rosybrown3" 
 #&gt;           dec_neg           dec_cor           dec_err                hi 
 #&gt; "lightsteelblue3"      "palegreen3"      "firebrick3"      "olivedrab4" 
 #&gt;                mi                fa                cr               ppv 
 #&gt;         "tomato3"    "lightsalmon2"      "olivedrab3"         "sienna1" 
-#&gt;               npv               txt               brd 
-#&gt;      "steelblue3"       "#030303FC"       "#333333FC" </div><div class='input'><span class='no'>pal_org</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives)</span></div><div class='output co'>#&gt;           hi 
+#&gt;               npv               txt               brd                bg 
+#&gt;      "steelblue3"       "#030303FC"       "#333333FC"           "white" </div><div class='input'><span class='no'>pal_org</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives, TP)</span></div><div class='output co'>#&gt;           hi 
 #&gt; "olivedrab4" </div><div class='input'><span class='no'>pal_org</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"gold"</span> <span class='co'># defines a new color for hits (true positives, TP)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
