@@ -31,7 +31,7 @@ Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths 
 ### Other changes
 
 - `make_cond_lbl` [2019-01]:  
-The condition label now allows for `prev = NA` and for multiple `prev` values. 
+The condition label now allows for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
 
 
 ## Micro changes

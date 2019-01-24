@@ -35,7 +35,8 @@ op <- par(no.readonly = TRUE)
 
 `riskyr` is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.
 
-This page assumes that you just installed the package and are eager to see what you can do with it. (See the [User guide](A_user_guide.html) for a more comprehensive introduction.)
+This page assumes that you just installed the package and are eager to see what you can do with it.   
+(See the [User guide](A_user_guide.html) for a more comprehensive introduction.)
 
 ## Getting started 
 
