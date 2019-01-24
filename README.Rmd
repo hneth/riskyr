@@ -12,6 +12,7 @@ output: github_document
 [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
 
+
 ```{r knitr_opts_chunk, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -77,15 +78,15 @@ Based on these assumptions and goals, `riskyr` provides a range of computational
 - The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ```{r install_CRAN, echo = TRUE, eval = FALSE}
-install.packages("riskyr")  # install riskyr from CRAN client
-library("riskyr")           # load to use the package
+install.packages('riskyr')  # install riskyr from CRAN client
+library('riskyr')           # load to use the package
 ```
 
 - The current development version can be installed from its [GitHub](https://github.com) repository at <https://github.com/hneth/riskyr/>: 
 
 ```{r install_github, echo = TRUE, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("hneth/riskyr")
+# install.packages('devtools')
+devtools::install_github('hneth/riskyr')
 ```
 
 ### Available resources
@@ -156,7 +157,7 @@ One of the best tricks in risk literacy education is to translate probabilistic 
 
 Here is how `riskyr` allows you to view and solve such problems:
 
-```{r load_riskyr, eval = TRUE, message = FALSE}
+```{r load_riskyr, eval = TRUE, message = FALSE, warning = FALSE}
 library(riskyr)  # loads the package
 ```
 
@@ -592,8 +593,10 @@ _Journal of Experimental Psychology: General_, _130_, 380–400.
 Bayesianisches Denken in der Schule. 
 _Unterrichtswissenschaft_, _32_, 58–96.
 
+
 <!-- Update: -->
 
 [Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](http://neth.de).]  
+
 
 <!-- eof -->
