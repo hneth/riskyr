@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9005+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9006+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9005+
+# riskyr 0.2.0.9006+
 
 Log of changes since last release:
 
@@ -19,7 +19,11 @@ Log of changes since last release:
 
 - New options for `plot_curve` [2019-01]:  
 Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
-Thus, setting the `prev` argument to either `NA` or to a vector of multiple probabilities are now supported. 
+Thus, setting the `prev` argument to either `NA` or to a vector of several probabilities are now supported. 
+
+- New options for `plot_plane` [2019-01]:  
+Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. 
+Thus, setting the `sens` and `spec` arguments to either `NA` or to a vector of several probabilities are now supported. 
 
 - New options for `plot_prism` [2019-01]:  
 Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths of probability links by current probability values.  
