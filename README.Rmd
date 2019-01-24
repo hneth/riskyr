@@ -447,7 +447,7 @@ Hopefully, this brief overview managed to whet your appetite for visual explorat
 </a>
 
 `riskyr` originated out of a series of lectures and workshops on risk literacy.  
-The current version (0.2.0, as of Dec. 20, 2018) is still under development. 
+The current version (0.2.0, as of Dec. 20, 2018) is under active development. 
 Its primary designers are 
 [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
 [Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), 
