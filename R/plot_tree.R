@@ -156,7 +156,7 @@ plot_tree <- function(prev = num$prev,             # probabilities
 
   ## (1) Handle deprecated function: ------
 
-  message("Function 'plot_tree' is deprecated; using 'plot_prism' instead.")
+  message("Function 'plot_tree' is deprecated; using 'plot_prism' (with by = 'cd'/'dc'/'ac') instead.")
 
   ## (2) Pass to current function: ------
 
