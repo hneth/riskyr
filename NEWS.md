@@ -20,6 +20,7 @@ Log of changes since last release:
 - New options for `plot_curve` [2019-01]:  
 Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
 Thus, setting the `prev` argument to either `NA` or to a vector of several probabilities are now supported. 
+In addition, setting `x_range` to a range within `c(0, 1)` allows zooming into prevalence ranges (on x-axis).  
 
 - New options for `plot_plane` [2019-01]:  
 Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. 
