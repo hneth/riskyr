@@ -1354,9 +1354,9 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 ## Check: ----------
 
 # ## Basics:
-# plot_curve()  # => default curves (prev, PPV, NPV)
+# plot_curve()  # default curves: what = c("prev", "PPV", "NPV")
 # plot_curve(what = "all")
-# plot_curve(prev = .25, sens = .85, spec = .75, uc = .05)  # => parameters with a 5% uncertainty range
+# plot_curve(prev = .25, sens = .85, spec = .75, uc = .05)  # parameters with a 5% uc-range
 #
 # ## Selected curves:
 # plot_curve(what = c("PPV", "NPV"))                  # => PPV and NPV
@@ -1371,6 +1371,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 # plot_curve(show_points = FALSE)  # => default without points
 # plot_curve(what = c("PPV", "NPV"), show_points = TRUE)  # prev not shown.
 # plot_curve(col_pal = pal_kn, what = "all", uc = .05)  # color palette
+#
+# ## prev = NA or vector, x_range other than c(0, 1):
+# plot_curve(prev = NA, what = "all")
+# plot_curve(prev = seq(0, 1, .20), what = "all")
+# plot_curve(prev = seq(0, .20, .05), what = "all", x_range = c(0, .25))
+# plot_curve(prev = seq(0, .20, .05), what = "all", log_scale = TRUE, x_range = c(0, .25))
 #
 # ## linear vs. log scale:
 # plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
@@ -1419,27 +1425,28 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 ## (*) Done: ----------
 
+# Added x_range argument (to allow zooming into prevalence ranges). [2019 01 25]
+
 # Curves do not need a specific prevalence value: [2019 01 16]
 # - allowed computing curves without a specific prevalence (prev = NA)
 # - allowed supplying a vector of prevalences (and corresponding labels) to show
 #   multiple vertical lines and points on curve(s).
 
-## - Add option uc to show _ranges_ (polygons) to better visualize uncertainty.
-## - Clean up code.  [2018 08 28]
-## - Compute and use local prob for all probability values
-## - Add p_lbl argument (to use label_prob helper)
+# - Added option uc to show _ranges_ (polygons) to visualize uncertainty.
+# - Compute and use local prob for all probability values.
+# - Add p_lbl argument (to use label_prob helper).
 
 ## (+) ToDo: ----------
 
-## - Revise function to:
-##   1. Plot all desired curves (with uc-ranges, and allowing for multiple curves of 1 type)
-##   2. Plot vertical prev lines for any prev specified (if desired)
-##   3. Plot points on curves for any prev specified (if desired)
-##   4. Label curves or points on curves (as specified)
+# - Revise function to:
+#   1. Plot all desired curves (with uc-ranges, and allowing for multiple curves of 1 type)
+#   2. Plot vertical prev lines for any prev specified (if desired)
+#   3. Plot points on curves for any prev specified (if desired)
+#   4. Label curves or points on curves (as specified)
 
-## - Add option to sample multiple points from given _prob_ distributions.
+# - Add option to sample multiple points from given _prob_ distributions.
 
-## - Fine-tune positions of labels and legend (on linear vs. log scale)
-##   [e.g., for plot_curve(what = "all", log_scale = T, p_lbl = "def", prev = .5) ]
+# - Fine-tune positions of labels and legend (on linear vs. log scale)
+#   [e.g., for plot_curve(what = "all", log_scale = T, p_lbl = "def", prev = .5) ]
 
 ## eof. ------------------------------------------

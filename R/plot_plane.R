@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2019 01 23
+## 2019 01 25
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -320,8 +320,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     message(paste0("Adjusting step_size to the maximum value of ", step_size_max, "."))
     step_size <- step_size_max }
 
-  sens_range <- seq(0, 1, by = step_size) # range of sensitivity values (x)
-  spec_range <- seq(0, 1, by = step_size) # range of specificity values (y)
+  sens_range <- seq(0, 1, by = step_size)  # range of sensitivity values (x)
+  spec_range <- seq(0, 1, by = step_size)  # range of specificity values (y)
 
 
   ## (2) Determine current parameters and matrix for selected what metric: ----------
@@ -779,23 +779,24 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
 ## (*) Done: ----------
 
-## - Clean up code          [2018 08 28].
-## - Adjust variable names  [2018 11 07].
-## - Update options (to use global variables col_pal, lbl_txt etc.)
-## - Update title composition and mar_notes option.
-## - Add point_col and min/max of step_size range.
+# - Update options (to use global variables col_pal, lbl_txt etc.)
+# - Update title composition and mar_notes option.
+# - Add point_col and min/max of step_size range.
 
-## Planes no longer need specific sens+spec values:  [2019 01 22]
-## - allowed computing planes without specific sens+spec values
-## - allowed supplying a vector of sens+spec values (and corresponding labels) to show multiple points on plane.
+# Planes no longer need specific sens+spec values:  [2019 01 22]
+# - allowed computing planes without specific sens+spec values
+# - allowed supplying a vector of sens+spec values (and corresponding labels) to show multiple points on plane.
 
 
 ## (+) ToDo: ----------
 
-## - Add p_lbl option (as in plot_curve) to use label_prob for cur_lbl.
-## - Use ... instead re-naming arguments passed on to persp?
-## - Generalize to additional metrics (e.g., wacc, mcc, etc.)
-## - Change labels for all axes to percentages (as in plot_curve)
-## - Pimp plot (titles, axes, grid, colors, transparency)
+# - Add x_range and z_range arguments (to zoom into specific sens and spec ranges)
+#   (as in plot_curve)
+
+# - Add p_lbl option (as in plot_curve) to use label_prob for cur_lbl.
+# - Use ... instead re-naming arguments passed on to persp?
+# - Generalize to additional metrics (e.g., wacc, mcc, etc.)
+# - Change labels for all axes to percentages (as in plot_curve)
+# - Pimp plot (titles, axes, grid, colors, transparency)
 
 ## eof. ------------------------------------------
