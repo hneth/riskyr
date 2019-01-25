@@ -119,17 +119,16 @@
 #'
 #' @examples
 #' # Basics:
-#' # (1) Plot current default values:
 #' plot_curve()  # default curve plot, same as:
-#' # plot_curve(what = c("prev", "PPV", "NPV"))
+#' # plot_curve(what = c("prev", "PPV", "NPV"), uc = 0, x_range = c(0, 1))
 #'
-#' # (2) Showing no/multiple prev values/points and uncertainty ranges:
-#' plot_curve(prev = NA)  # default curves, but no prev value (and points) shown
+#' # Showing no/multiple prev values/points and uncertainty ranges:
+#' plot_curve(prev = NA)  # default curves without prev value (and point) shown
 #' plot_curve(show_points = FALSE, uc = .10)  # curves w/o points, 10% uncertainty range
 #' plot_curve(prev = c(.10, .33, .75))  # 3 prev values, with numeric point labels
 #' plot_curve(prev = c(.10, .33, .75), p_lbl = "no", uc = .10) # 3 prev, no labels, 10% uc
 #'
-#' # (3) Provide local parameters and select curves:
+#' # Provide local parameters and select curves:
 #' plot_curve(prev = .2, sens = .8, spec = .6, what = c("PPV", "NPV", "acc"), uc = .2)
 #'
 #' # Selecting curves: what = ("prev", "PPV", "NPV", "ppod", "acc") = "all"
@@ -145,16 +144,14 @@
 #' #            uc = .05)  # prev, PPV and NPV with a 5% uncertainty range
 #'
 #' # X-axis on linear vs. log scale:
-#' plot_curve(prev = .01, sens = .9, spec = .8)                     # linear scale
-#' plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)   # log scale
+#' plot_curve(prev = .01, sens = .9, spec = .8)                    # linear scale
+#' plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)  # log scale
+#' # Several small prev values:
+#' plot_curve(prev = c(.00001, .0001, .001, .01, .05),
+#'            sens = .9, spec = .8, log_scale = TRUE)
 #'
-#' plot_curve(prev = .0001, sens = .7, spec = .6)                   # linear scale
-#' plot_curve(prev = .0001, sens = .7, spec = .6, log_scale = TRUE) # log scale
-#' plot_curve(prev = c(.00001, .0001, .001, .01),  # multiple prev values (< 1%)
-#'            sens = .6, spec = .4, log_scale = TRUE)
-#'
-#' # Zooming in by setting x_range:
-#' plot_curve(prev = c(.25, .30, .40), x_range = c(.20, .50), what = "all", uc = .05)
+#' # Zooming in by setting x_range (of prevalence values):
+#' plot_curve(prev = c(.25, .33, .40), x_range = c(.20, .50), what = "all", uc = .05)
 #'
 #' # Probability labels:
 #' plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
@@ -326,11 +323,13 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   lbl_digits <- 1     # n_digits to which numeric probability values (prev, PPV, NPV, ppod, acc) are rounded
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
 
-  # ## Set x_range (i.e., min and max values on x-axis):
-  # x_range <- c(0, 1)    # default x_range
-  # x_range <- c(0, .25)  # custom x_range (zoom)
+  ## (2) Define and interpret x_range: ------
 
-  # Check x_range:
+  ## Set x_range (i.e., min and max values on x-axis) [NOW a function argument]:
+  # x_range <- c(0, 1)    # default x_range
+  # x_range <- c(0, .25)  # custom x_range (for zooming in)
+
+  # Verify x_range argument:
   if ( !is.numeric(x_range) || (length(x_range) != 2) ) {
     message("x_range requires 2 numeric values in c(0, 1) range.")
     x_range <- c(0, 1)  # set to default x_range
@@ -341,11 +340,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     x_range <- c(0, 1)  # set to default x_range
   }
 
-  if ( (min(prev) < min(x_range)) || (max(prev) > max(x_range)) ) {
-    message("Some prev value(s) are beyond current x_range.")
+  if ( !is.na(prev) &&
+       (any((min(prev) < min(x_range))) || any((max(prev) > max(x_range)))) ) {
+    message("Some prev value(s) beyond current x_range.")
   }
-
-
 
   # Interpret x_range:
   x_min <- min(x_range)  # minimum x value
@@ -388,8 +386,8 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   } else {  # x_range is NOT the default 0 to 1 range:
 
-    # Zoom message:
-    message(paste0("Zooming into custom x_range (from ", min(x_range), " to ", max(x_range), ")."))
+    ## Zoom message:
+    # message(paste0("Zooming into custom x_range (from ", min(x_range), " to ", max(x_range), ")."))
 
     ## Set x-value (prevalence) range for plotting uncertainty polygons:
     if (uc > 0) {  # plot a polygon:
@@ -742,15 +740,26 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             prev_lbl <- paste0(as_pc(prev_i, n_digits = lbl_digits), "%")  # Shorter specific prev label for prev_i
 
             # Position of label:
-            if (prev_i < .91) {
-              prev_x <- (prev_i + h_shift)  # to right of prev_i
-            } else {
-              prev_x <- (prev_i - h_shift)  # to left of prev_i
+            if (log_scale) {
+
+              lbl_x <- (prev_i * 2)       # shift as a factor of prev_i
+              lbl_y <- (0 + 1/2 * v_shift)  # increase by factor (to avoid low PPV values)
+
+            } else {  # linear scale:
+
+              if (prev_i < .91) {
+                lbl_x <- (prev_i + h_shift)  # to right of prev_i
+              } else {
+                lbl_x <- (prev_i - h_shift)  # to left of prev_i
+              }
+
+              lbl_y <- (0 + 1 * v_shift)  # at bottom
+
             }
-            prev_y <- (0 + v_shift)
+
 
             # Print label:
-            text(x = prev_x, y = prev_y, labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)
+            text(x = lbl_x, y = lbl_y, labels = prev_lbl, col = col_prev, cex = cex_lbl_sm)
 
           } # if (p_lbl != "no") etc.
 
@@ -858,11 +867,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             point_lbl <- paste0(as_pc(cur_PPV, n_digits = lbl_digits), "%")  # Shorter specific label for current point
 
             # Position of label:
-            point_x <- (prev_i + h_shift)  # to right of prev_i
-            point_y <- cur_PPV - (cur_PPV * v_shift)  # weighted y shift
+            if (log_scale) {
+              lbl_x <- (prev_i * 2)  # shift as a factor of prev_i
+            } else {  # linear scale:
+              lbl_x <- (prev_i + h_shift)  # to right of prev_i
+            }
+            lbl_y <- cur_PPV - (cur_PPV * v_shift)  # weighted y shift
 
             # Print label:
-            text(x = point_x, y = point_y, labels = point_lbl, col = col_ppv, cex = cex_lbl_sm)
+            text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_ppv, cex = cex_lbl_sm)
 
           } # if (p_lbl != "no") etc.
 
@@ -969,11 +982,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             point_lbl <- paste0(as_pc(cur_NPV, n_digits = lbl_digits), "%")  # Shorter specific label for current point
 
             # Position of label:
-            point_x <- (prev_i + h_shift)  # to right of prev_i
-            point_y <- cur_NPV + (cur_NPV * v_shift)  # weighted y shift
+            if (log_scale) {
+              lbl_x <- (prev_i * 2)  # shift as a factor of prev_i
+            } else {  # linear scale:
+              lbl_x <- (prev_i + h_shift)  # to right of prev_i
+            }
+            lbl_y <- cur_NPV + (cur_NPV * v_shift)  # weighted y shift
 
             # Print label:
-            text(x = point_x, y = point_y, labels = point_lbl, col = col_npv, cex = cex_lbl_sm)
+            text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_npv, cex = cex_lbl_sm)
 
           } # if (p_lbl != "no") etc.
 
@@ -1083,11 +1100,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             point_lbl <- paste0(as_pc(cur_ppod, n_digits = lbl_digits), "%")  # Shorter specific label for current point
 
             # Position of label:
-            point_x <- (prev_i + h_shift)  # to right of prev_i
-            point_y <- cur_ppod - (cur_ppod * v_shift)  # weighted y shift
+            if (log_scale) {
+              lbl_x <- (prev_i * 2)  # shift as a factor of prev_i
+            } else {  # linear scale:
+              lbl_x <- (prev_i + h_shift)  # to right of prev_i
+            }
+            lbl_y <- cur_ppod - (cur_ppod * v_shift)  # weighted y shift
 
             # Print label:
-            text(x = point_x, y = point_y, labels = point_lbl, col = col_ppod, cex = cex_lbl_sm)
+            text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_ppod, cex = cex_lbl_sm)
 
           } # if (p_lbl != "no") etc.
 
@@ -1195,11 +1216,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             point_lbl <- paste0(as_pc(cur_acc, n_digits = lbl_digits), "%")  # Shorter specific label for current point
 
             # Position of label:
-            point_x <- (prev_i + h_shift)  # to right of prev_i
-            point_y <- cur_acc + (cur_acc * v_shift)  # weighted y shift
+            if (log_scale) {
+              lbl_x <- (prev_i * 2)  # shift as a factor of prev_i
+            } else {  # linear scale:
+              lbl_x <- (prev_i + h_shift)  # to right of prev_i
+            }
+            lbl_y <- cur_acc + (cur_acc * v_shift)  # weighted y shift
 
             # Print label:
-            text(x = point_x, y = point_y, labels = point_lbl, col = col_acc, cex = cex_lbl_sm)
+            text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_acc, cex = cex_lbl_sm)
 
           } # if (p_lbl != "no") etc.
 
