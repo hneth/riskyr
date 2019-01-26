@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 <!-- Status badges: -->
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build Status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
+[![CRAN\_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) [![Build\_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
 <!-- riskyr logo: -->
 riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
@@ -531,7 +531,7 @@ Calling `citation("riskyr")` in the package also displays this information.
 -   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- Update: -->
-\[Updated 2019-01-24 by [hn](http://neth.de).\]
+\[Updated 2019-01-26 by [hn](http://neth.de).\]
 
 <!-- eof -->
 
