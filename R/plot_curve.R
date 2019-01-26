@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 25
+## 2010 01 26
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -96,8 +96,9 @@
 #' to a logarithmic x-axis.
 #' Default: \code{log_scale = FALSE}.
 #'
-#' @param x_range Range (minimum and maximum) of values on x-axis (within \code{c(0, 1)}).
-#' Default: \code{x_range = c(0, 1)}.
+#' @param prev_range Range (minimum and maximum) of \code{\link{prev}} values
+#' on x-axis (i.e., values in \code{c(0, 1)} range).
+#' Default: \code{prev_range = c(0, 1)}.
 #'
 #' @param lbl_txt  Labels and text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
@@ -120,7 +121,7 @@
 #' @examples
 #' # Basics:
 #' plot_curve()  # default curve plot, same as:
-#' # plot_curve(what = c("prev", "PPV", "NPV"), uc = 0, x_range = c(0, 1))
+#' # plot_curve(what = c("prev", "PPV", "NPV"), uc = 0, prev_range = c(0, 1))
 #'
 #' # Showing no/multiple prev values/points and uncertainty ranges:
 #' plot_curve(prev = NA)  # default curves without prev value (and point) shown
@@ -150,8 +151,9 @@
 #' plot_curve(prev = c(.00001, .0001, .001, .01, .05),
 #'            sens = .9, spec = .8, log_scale = TRUE)
 #'
-#' # Zooming in by setting x_range (of prevalence values):
-#' plot_curve(prev = c(.25, .33, .40), x_range = c(.20, .50), what = "all", uc = .05)
+#' # Zooming in by setting prev_range (of prevalence values):
+#' plot_curve(prev = c(.25, .33, .40), prev_range = c(.20, .50),
+#'            what = "all", uc = .05)
 #'
 #' # Probability labels:
 #' plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
@@ -203,13 +205,13 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
                        what = c("prev", "PPV", "NPV"),  # what curves?  Options: "prev", "PPV", "NPV", "acc", "ppod", "all".
 
                        # Options:
-                       p_lbl = "def",       # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
-                       p_lwd = 2,           # line widths of what.
-                       what_col = pal,      # colors for what.
-                       uc = .00,            # Uncertainty range (as a percentage around current prev, sens, and spec values)
-                       show_points = TRUE,  # show points at current prev?
-                       log_scale = FALSE,   # x-axis on log scale?
-                       x_range = c(0, 1),   # Min and max values on x-axis (in range c(0, 1)).  Default: x_range = c(0, 1).
+                       p_lbl = "def",         # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels
+                       p_lwd = 2,             # line widths of what.
+                       what_col = pal,        # colors for what.
+                       uc = .00,              # Uncertainty range (as a percentage around current prev, sens, and spec values)
+                       show_points = TRUE,    # show points at current prev?
+                       log_scale = FALSE,     # x-axis on log scale?
+                       prev_range = c(0, 1),  # Min and max prev values on x-axis (in c(0, 1)). Default: prev_range = c(0, 1).
 
                        # Text and color:
                        lbl_txt = txt,      # labels and text elements
@@ -323,31 +325,26 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   lbl_digits <- 1     # n_digits to which numeric probability values (prev, PPV, NPV, ppod, acc) are rounded
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
 
-  ## (2) Define and interpret x_range: ------
+  ## (2) Define and interpret prev_range: ------
 
-  ## Set x_range (i.e., min and max values on x-axis) [NOW a function argument]:
-  # x_range <- c(0, 1)    # default x_range
-  # x_range <- c(0, .25)  # custom x_range (for zooming in)
+  ## Set prev_range (i.e., min and max values on x-axis) [NOW a function argument]:
+  # prev_range <- c(0, 1)    # default prev_range
+  # prev_range <- c(0, .25)  # custom prev_range (for zooming in)
 
-  # Verify x_range argument:
-  if ( !is.numeric(x_range) || (length(x_range) != 2) ) {
-    message("x_range requires 2 numeric values in c(0, 1) range.")
-    x_range <- c(0, 1)  # set to default x_range
+  # Verify prev_range argument:
+  if (is_prob_range(prev_range)) {
+    if ( !is.na(prev) &&
+         (any((min(prev) < min(prev_range))) || any((max(prev) > max(prev_range)))) ) {
+      message("Some prev value(s) beyond current prev_range.")
+    }
+  } else {
+    message("Using default prev_range = c(0, 1).")
+    prev_range <- c(0, 1)  # set to default prev_range
   }
 
-  if ( (min(x_range) < 0) || (max(x_range) > 1) ) {
-    message("x_range must be in range c(0, 1).")
-    x_range <- c(0, 1)  # set to default x_range
-  }
-
-  if ( !is.na(prev) &&
-       (any((min(prev) < min(x_range))) || any((max(prev) > max(x_range)))) ) {
-    message("Some prev value(s) beyond current x_range.")
-  }
-
-  # Interpret x_range:
-  x_min <- min(x_range)  # minimum x value
-  x_max <- max(x_range)  # maximum x value
+  # Interpret prev_range:
+  x_min <- min(prev_range)  # minimum x value
+  x_max <- max(prev_range)  # maximum x value
 
   # Avoid extreme x-values (for linear AND log scale):
   eps <- 10^-6  # some very small number
@@ -356,7 +353,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## Determine range of x-values used for plotting curves:
 
-  if ( (min(x_range) == 0) && (max(x_range) == 1) ) {  # default x_range:
+  if ( (min(prev_range) == 0) && (max(prev_range) == 1) ) {  # default prev_range:
 
     ## Set x-value (prevalence) range for plotting uncertainty polygons:
     if (uc > 0) {  # plot a polygon:
@@ -384,10 +381,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     } # if (uc > 0) etc.
 
-  } else {  # x_range is NOT the default 0 to 1 range:
+  } else {  # prev_range is NOT the default 0 to 1 range:
 
     ## Zoom message:
-    # message(paste0("Zooming into custom x_range (from ", min(x_range), " to ", max(x_range), ")."))
+    # message(paste0("Zooming into custom prev_range (from ", min(prev_range), " to ", max(prev_range), ")."))
 
     ## Set x-value (prevalence) range for plotting uncertainty polygons:
     if (uc > 0) {  # plot a polygon:
@@ -414,7 +411,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     } # if (uc > 0) etc.
 
-  } # if ( (x_min == 0) && (x_max == 1) ) {  # default x_range end.
+  } # if ( (x_min == 0) && (x_max == 1) ) {  # default prev_range end.
 
 
   if (show_points) {
@@ -422,15 +419,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     ## Positional parameters (for raising and shifting p labels):
     if (log_scale) {
       if ( (n_prev == 1) && (!is.na(prev)) ) {
-        h_shift <- prev * 2 * (max(x_range) - min(x_range))
+        h_shift <- prev * 2 * (max(prev_range) - min(prev_range))
       } else {
         h_shift <- 0  # ToDo
       }
     } else { # linear scale:
       if (p_lbl == "def" || p_lbl == "namnum" || p_lbl == "nam") {
-        h_shift <- .110 * (max(x_range) - min(x_range)) # larger horizontal shift
+        h_shift <- .110 * (max(prev_range) - min(prev_range)) # larger horizontal shift
       } else {  # p_lbl == "abb" || p_lbl == "num":
-        h_shift <- .060 * (max(x_range) - min(x_range))  # smaller horizontal shift
+        h_shift <- .060 * (max(prev_range) - min(prev_range))  # smaller horizontal shift
       }
     }
     v_shift <-  3/100
@@ -487,7 +484,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   ## (a) Define steps and labels of x- and y-axes:
 
   ## x-axis:
-  if ( (min(x_range) == 0) && (max(x_range) == 1) ) {  # default x_range:
+  if ( (min(prev_range) == 0) && (max(prev_range) == 1) ) {  # default prev_range:
 
     if (log_scale) {
       x_seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)  # log steps
@@ -499,7 +496,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       x_ax_lbl <- "Prevalence"            # linear x-axis label
     }
 
-  } else {  # x_range is NOT the default 0 to 1 range:
+  } else {  # prev_range is NOT the default 0 to 1 range:
 
     x_seq <- seq(x_min, x_max, length.out = 11)       # 10 equal intervals
     x_lbl <- paste0(as_pc(x_seq, n_digits = 1), "%")  # percentages
@@ -528,12 +525,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   axis(side = 1, at = x_seq, labels = FALSE, cex.axis = cex_lbl, cex.lab = (cex_lbl),
        las = 1, pos = 1, tck = -.01, col.axis = col_axes, col.ticks = col_axes)       # x at top
   axis(side = 2, at = y_seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
-       las = 1, pos = max(min(x_range), x_min), tck = -.02, col.axis = col_axes, col.ticks = col_axes)   # y at left
+       las = 1, pos = max(min(prev_range), x_min), tck = -.02, col.axis = col_axes, col.ticks = col_axes)   # y at left
   axis(side = 4, at = y_seq, labels = y_lbl, cex.axis = cex_lbl, cex.lab = (cex_lbl),
-       las = 1, pos = min(max(x_range), x_max), tck = -.02, col.axis = col_axes, col.ticks = col_axes)   # y at right
+       las = 1, pos = min(max(prev_range), x_max), tck = -.02, col.axis = col_axes, col.ticks = col_axes)   # y at right
 
-  # print(paste0("y at left: max(min(x_range), x_min) = ", max(min(x_range), x_min)))  # debugging
-  # print(paste0("y at right: min(max(x_range), x_max) = ", min(max(x_range), x_max))) # debugging
+  # print(paste0("y at left: max(min(prev_range), x_min) = ", max(min(prev_range), x_min)))  # debugging
+  # print(paste0("y at right: min(max(prev_range), x_max) = ", min(max(prev_range), x_max))) # debugging
 
   ## (d) Grid:
   grid(col = grey(.80, .80))
@@ -669,7 +666,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
       # Set horizontal shift (outside loop):
       if (show_points) {
-        h_shift <- 3/100 * (max(x_range) - min(x_range))  # small correction factor (due to shorter label)
+        h_shift <- 3/100 * (max(prev_range) - min(prev_range))  # small correction factor (due to shorter label)
       }
 
       for (i in 1:n_prev) {  # Loop through all i prev values prev_i:
@@ -850,7 +847,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
         # Set horizontal shift (outside loop):
         if (show_points) {
-          h_shift <- 4/100 * (max(x_range) - min(x_range))  # small correction factor (due to shorter label)
+          h_shift <- 4/100 * (max(prev_range) - min(prev_range))  # small correction factor (due to shorter label)
         }
 
         for (i in 1:n_prev) {  # Loop through all i prev values prev_i:
@@ -965,7 +962,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
         # Set horizontal shift (outside loop):
         if (show_points) {
-          h_shift <- 4/100 * (max(x_range) - min(x_range))  # small correction factor (due to shorter label)
+          h_shift <- 4/100 * (max(prev_range) - min(prev_range))  # small correction factor (due to shorter label)
         }
 
         for (i in 1:n_prev) {  # Loop through all i prev values prev_i:
@@ -1083,7 +1080,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
         # Set horizontal shift (outside loop):
         if (show_points) {
-          h_shift <- 4/100 * (max(x_range) - min(x_range))  # small correction factor (due to shorter label)
+          h_shift <- 4/100 * (max(prev_range) - min(prev_range))  # small correction factor (due to shorter label)
         }
 
         for (i in 1:n_prev) {  # Loop through all i prev values prev_i:
@@ -1199,7 +1196,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
         # Set horizontal shift (outside loop):
         if (show_points) {
-          h_shift <- 4/100 * (max(x_range) - min(x_range))  # small correction factor (due to shorter label)
+          h_shift <- 4/100 * (max(prev_range) - min(prev_range))  # small correction factor (due to shorter label)
         }
 
         for (i in 1:n_prev) {  # Loop through all i prev values prev_i:
@@ -1372,11 +1369,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 # plot_curve(what = c("PPV", "NPV"), show_points = TRUE)  # prev not shown.
 # plot_curve(col_pal = pal_kn, what = "all", uc = .05)  # color palette
 #
-# ## prev = NA or vector, x_range other than c(0, 1):
+# ## prev = NA or vector, prev_range other than c(0, 1):
 # plot_curve(prev = NA, what = "all")
 # plot_curve(prev = seq(0, 1, .20), what = "all")
-# plot_curve(prev = seq(0, .20, .05), what = "all", x_range = c(0, .25))
-# plot_curve(prev = seq(0, .20, .05), what = "all", log_scale = TRUE, x_range = c(0, .25))
+# plot_curve(prev = seq(0, .20, .05), what = "all", prev_range = c(0, .25))
+# plot_curve(prev = seq(0, .20, .05), what = "all", log_scale = TRUE, prev_range = c(0, .25))
 #
 # ## linear vs. log scale:
 # plot_curve(prev = .01, sens = .9, spec = .8)                     # => linear scale
@@ -1425,7 +1422,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
 ## (*) Done: ----------
 
-# Added x_range argument (to allow zooming into prevalence ranges). [2019 01 25]
+# Added prev_range argument (to allow zooming into prevalence ranges). [2019 01 25]
 
 # Curves do not need a specific prevalence value: [2019 01 16]
 # - allowed computing curves without a specific prevalence (prev = NA)
