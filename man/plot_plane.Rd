@@ -7,10 +7,11 @@ as a function of sensitivity and specificity.}
 \usage{
 plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = "PPV", what_col = pal,
-  line_col = "grey85", point_col = "yellow", show_points = TRUE,
-  step_size = 0.05, theta = -45, phi = 0, lbl_txt = txt,
-  title_lbl = NA, p_lbl = "def", cex_lbl = 0.85, col_pal = pal,
-  mar_notes = TRUE, ...)
+  line_col = "grey85", sens_range = c(0, 1), spec_range = c(0, 1),
+  step_size = 0.05, show_points = TRUE, point_col = "yellow",
+  theta = -45, phi = 0, lbl_txt = txt, title_lbl = NA,
+  p_lbl = "def", cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE,
+  ...)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -51,8 +52,18 @@ in current \code{col_pal}.}
 \item{line_col}{Color for lines between surface facets.
 Default: \code{line_col = "grey85"}.}
 
-\item{point_col}{Fill color for showing current value on plane.
-Default: \code{point_col = "yellow"}.}
+\item{sens_range}{Range (minimum and maximum) of \code{\link{sens}} values
+on x-axis (i.e., values in \code{c(0, 1)} range).
+Default: \code{sens_range = c(0, 1)}.}
+
+\item{spec_range}{Range (minimum and maximum) of \code{\link{spec}} values
+on y-axis (i.e., values in \code{c(0, 1)} range).
+Default: \code{spec_range = c(0, 1)}.}
+
+\item{step_size}{Sets the granularity of the
+\code{\link{sens}}-by-\code{\link{spec}} grid.
+(in range \code{.01 <= step_size <= 1}).
+Default: \code{step_size = .05}.}
 
 \item{show_points}{Boolean option for showing the current value
 of the selected metric for the current conditions
@@ -60,10 +71,8 @@ of the selected metric for the current conditions
 as a point on the plane.
 Default: \code{show_points = TRUE}.}
 
-\item{step_size}{Sets the granularity of the
-\code{\link{sens}}-by-\code{\link{spec}} grid.
-(in range \code{.01 <= step_size <= 1}).
-Default: \code{step_size = .05}.}
+\item{point_col}{Fill color for showing current value on plane.
+Default: \code{point_col = "yellow"}.}
 
 \item{theta}{Horizontal rotation angle (used by \code{\link{persp}}).
 Default: \code{theta = -45}.}

@@ -8,7 +8,7 @@ as a function of prevalence.}
 plot_curve(prev = num$prev, sens = num$sens, mirt = NA,
   spec = num$spec, fart = NA, what = c("prev", "PPV", "NPV"),
   p_lbl = "def", p_lwd = 2, what_col = pal, uc = 0,
-  show_points = TRUE, log_scale = FALSE, x_range = c(0, 1),
+  show_points = TRUE, log_scale = FALSE, prev_range = c(0, 1),
   lbl_txt = txt, title_lbl = NA, cex_lbl = 0.85, col_pal = pal,
   mar_notes = TRUE, ...)
 }
@@ -77,8 +77,9 @@ Default: \code{show_points = TRUE}.}
 to a logarithmic x-axis.
 Default: \code{log_scale = FALSE}.}
 
-\item{x_range}{Range (minimum and maximum) of values on x-axis (within \code{c(0, 1)}).
-Default: \code{x_range = c(0, 1)}.}
+\item{prev_range}{Range (minimum and maximum) of \code{\link{prev}} values
+on x-axis (i.e., values in \code{c(0, 1)} range).
+Default: \code{prev_range = c(0, 1)}.}
 
 \item{lbl_txt}{Labels and text elements.
 Default: \code{lbl_txt = \link{txt}}.}
@@ -125,7 +126,7 @@ that allows plotting additional dependent values.
 \examples{
 # Basics:
 plot_curve()  # default curve plot, same as:
-# plot_curve(what = c("prev", "PPV", "NPV"), uc = 0, x_range = c(0, 1))
+# plot_curve(what = c("prev", "PPV", "NPV"), uc = 0, prev_range = c(0, 1))
 
 # Showing no/multiple prev values/points and uncertainty ranges:
 plot_curve(prev = NA)  # default curves without prev value (and point) shown
@@ -155,8 +156,9 @@ plot_curve(prev = .01, sens = .9, spec = .8, log_scale = TRUE)  # log scale
 plot_curve(prev = c(.00001, .0001, .001, .01, .05),
            sens = .9, spec = .8, log_scale = TRUE)
 
-# Zooming in by setting x_range (of prevalence values):
-plot_curve(prev = c(.25, .33, .40), x_range = c(.20, .50), what = "all", uc = .05)
+# Zooming in by setting prev_range (of prevalence values):
+plot_curve(prev = c(.25, .33, .40), prev_range = c(.20, .50),
+           what = "all", uc = .05)
 
 # Probability labels:
 plot_curve(p_lbl = "abb", what = "all")     # abbreviated names
