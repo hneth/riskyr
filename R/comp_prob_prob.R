@@ -427,14 +427,14 @@ comp_complete_prob_set <- function(prev,
   prob_quintet <- rep(NA, 5)
 
   ## (2) Compute missing sens or mirt (if applicable):
-  cur.sens.mirt <- comp_comp_pair(sens, mirt)
-  sens <- cur.sens.mirt[1]  # 1st argument
-  mirt <- cur.sens.mirt[2]  # 2nd argument
+  cur_sens.mirt <- comp_comp_pair(sens, mirt)
+  sens <- cur_sens.mirt[1]  # 1st argument
+  mirt <- cur_sens.mirt[2]  # 2nd argument
 
   ## (3) Compute missing spec or fart (if applicable):
-  cur.spec.fart <- comp_comp_pair(spec, fart)
-  spec <- cur.spec.fart[1]  # 1st argument
-  fart <- cur.spec.fart[2]  # 2nd argument
+  cur_spec.fart <- comp_comp_pair(spec, fart)
+  spec <- cur_spec.fart[1]  # 1st argument
+  fart <- cur_spec.fart[2]  # 2nd argument
 
   ## (4) Assemble all probabilities:
   prob_quintet <- c(prev, sens, mirt, spec, fart)
@@ -1454,24 +1454,24 @@ comp_prob_pname <- function(pname, cur_prob = prob) {
 
 comp_prob_matrix <- function(prev, sens, spec,
                              metric = "PPV",  # metric to be computed: "PPV", "NPV", "ppod", "acc".
-                             nan.adjust = FALSE) {
+                             nan_adjust = FALSE) {
 
   # Initialize matrix (as df):
-  n.rows <- length(sens)
-  n.cols <- length(spec)
+  n_rows <- length(sens)
+  n_cols <- length(spec)
   matrix <- as.data.frame(matrix(NA,
-                                 nrow = n.rows,
-                                 ncol = n.cols))
-  names(matrix) <- sens
+                                 nrow = n_rows,
+                                 ncol = n_cols))
+  names(matrix) <- spec  # column names
 
   ## Loop through rows and columns of matrix:
-  for (row in 1:n.rows) {    # row = sens
-    for (col in 1:n.cols) {  # col = spec
+  for (row in 1:n_rows) {    # row = sens
+    for (col in 1:n_cols) {  # col = spec
 
-      cell.val <- NA  # initialize
+      cell_val <- NA  # initialize
 
-      cur.sens <- sens[row]
-      cur.spec <- spec[col]
+      cur_sens <- sens[row]
+      cur_spec <- spec[col]
 
       ## (A) metric == PPV: ----------
       if (metric == "PPV") {
@@ -1483,47 +1483,47 @@ comp_prob_matrix <- function(prev, sens, spec,
         ##     (b)  (prev = 0) & (spec = 1)
         ##     (c)  (sens = 0) & (spec = 1)
 
-        if (nan.adjust) {  ## Hack fix:
+        if (nan_adjust) {  ## Hack fix:
 
           eps <- 10^-9    # some very small value
 
           ## Catch and adjust in 3 cases:
 
           ## (1a) (prev = 1) & (sens = 0): Only mi ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-          if ((prev == 1) && (cur.sens == 0)) {
+          if ((prev == 1) && (cur_sens == 0)) {
 
             warning("Adjusting for extreme case (PPV:a): (prev = 1) & (sens = 0)!")
 
             ## Adjustment (to prevent NaN):
-            cur.sens <- (cur.sens + eps)  # adjust upwards
+            cur_sens <- (cur_sens + eps)  # adjust upwards
 
           }
 
           ## (1b) (prev = 0) & (spec = 1): Only cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-          if ((prev == 0) && (cur.spec == 1)) {
+          if ((prev == 0) && (cur_spec == 1)) {
 
             warning("Adjusting for extreme case (PPV:b): (prev = 0) & (spec = 1)!")
 
             ## Adjustment (to prevent NaN):
-            cur.spec <- (cur.spec - eps)  # adjust downwards
+            cur_spec <- (cur_spec - eps)  # adjust downwards
 
           }
 
           ## (1c) (sens = 0) & (spec = 1): Only mi + cr ==> hi = 0 and fa = 0:  PPV = 0/0 = NaN
-          if ((cur.sens == 0) && (cur.spec == 1)) {
+          if ((cur_sens == 0) && (cur_spec == 1)) {
 
             warning("Adjusting for extreme case (PPV:c): (sens = 0) & (spec = 1)!")
 
             ## Adjustment (to prevent NaN):
-            cur.sens <- (cur.sens + eps)  # adjust upwards
-            cur.spec <- (cur.spec - eps)  # adjust downwards
+            cur_sens <- (cur_sens + eps)  # adjust upwards
+            cur_spec <- (cur_spec - eps)  # adjust downwards
 
           }
 
-        } # if (nan.adjust)...
+        } # if (nan_adjust)...
 
         ## (2) Compute PPV:
-        cell.val <- comp_PPV(prev, cur.sens, cur.spec)
+        cell_val <- comp_PPV(prev, cur_sens, cur_spec)
 
       } # if (metric == "PPV")...
 
@@ -1537,46 +1537,46 @@ comp_prob_matrix <- function(prev, sens, spec,
         ##     (b)  (prev = 1) & (sens = 0)
         ##     (c)  (sens = 1) & (spec = 0)
 
-        if (nan.adjust) {  ## Hack fix:
+        if (nan_adjust) {  ## Hack fix:
 
           eps <- 10^-9    # some very small value
 
           ## Catch and adjust in 3 cases:
 
           ## (2a) (prev = 1) & (sens = 1): NPV = 0/0 = NaN
-          if ((prev == 1) && (cur.sens == 1)) {
+          if ((prev == 1) && (cur_sens == 1)) {
 
-            warning("Adjusting for extreme case (NPV:a): (prev = 1) & (sens = 1)!")
+            message("Adjusting for extreme case (NPV:a): (prev = 1) & (sens = 1)!")
 
             ## Adjustment (to prevent NaN):
-            cur.sens <- (cur.sens - eps)  # adjust downwards
+            cur_sens <- (cur_sens - eps)  # adjust downwards
 
           }
 
           ## (2b) (prev = 1) & (spec = 0): NPV = 0/0 = NaN
-          if ((prev == 1) && (cur.spec == 0)) {
+          if ((prev == 1) && (cur_spec == 0)) {
 
-            warning("Adjusting for extreme case (NPV:b): (prev = 1) & (spec = 0)!")
+            message("Adjusting for extreme case (NPV:b): (prev = 1) & (spec = 0)!")
 
             ## Adjustment (to prevent NaN):
-            cur.spec <- (cur.spec + eps)  # adjust upwards
+            cur_spec <- (cur_spec + eps)  # adjust upwards
 
           }
 
           ## (2c) (sens = 1) & (spec = 0): NPV = 0/0 = NaN
-          if ((cur.sens == 1) && (cur.spec == 0)) {
+          if ((cur_sens == 1) && (cur_spec == 0)) {
 
-            warning("Adjusting for extreme case (NPV:c): (sens = 1) & (spec = 0)!")
+            message("Adjusting for extreme case (NPV:c): (sens = 1) & (spec = 0)!")
 
             ## Adjustment (to prevent NaN):
-            cur.sens <- (cur.sens - eps)  # adjust downwards
-            cur.spec <- (cur.spec + eps)  # adjust upwards
+            cur_sens <- (cur_sens - eps)  # adjust downwards
+            cur_spec <- (cur_spec + eps)  # adjust upwards
 
           }
-        } #  if (nan.adjust)...
+        } #  if (nan_adjust)...
 
         ## (2) Compute NPV:
-        cell.val <- comp_NPV(prev, cur.sens, cur.spec)  # compute NPV
+        cell_val <- comp_NPV(prev, cur_sens, cur_spec)  # compute NPV
 
       } # if (metric == "NPV")...
 
@@ -1592,7 +1592,7 @@ comp_prob_matrix <- function(prev, sens, spec,
         ## no adjustments made for ppod
 
         ## (2) Compute ppod:
-        cell.val <- comp_ppod(prev, cur.sens, cur.spec)
+        cell_val <- comp_ppod(prev, cur_sens, cur_spec)
 
       } # if (metric == "ppod")...
 
@@ -1608,13 +1608,13 @@ comp_prob_matrix <- function(prev, sens, spec,
         ## no adjustments made for acc
 
         ## (2) Compute acc:
-        cell.val <- comp_acc(prev, cur.sens, cur.spec)
+        cell_val <- comp_acc(prev, cur_sens, cur_spec)
 
       } # if (metric == "acc")...
 
 
       ## (*) Store current value in matrix:
-      matrix[row, col] <- cell.val
+      matrix[row, col] <- cell_val
 
     } # for (col ...)
   } # for (row ...)
@@ -1626,27 +1626,37 @@ comp_prob_matrix <- function(prev, sens, spec,
 
 ## Check:
 
-## Basics:
-# sens.seq <- seq(0, 1, by = .10)
-# spec.seq <- seq(0, 1, by = .10)
+# ## (a) Square matrices:
+# sens_seq <- seq(0, 1, by = .10)  # sens range from 0 to 1
+# spec_seq <- seq(0, 1, by = .10)  # spec range from 0 to 1
+# #
+# ## Contrast PPV without and with NaN adjustment:
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "PPV", nan_adjust = FALSE)
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "PPV", nan_adjust = TRUE)
+# #
+# ## Contrast NPV without and with NaN adjustment:
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "NPV", nan_adjust = FALSE)
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "NPV", nan_adjust = TRUE)
+# #
+# ## Other metrics:
+# # ppod:
+# comp_prob_matrix(prev = 0, sens_seq, spec_seq, metric = "ppod")
+# comp_prob_matrix(prev = 1, sens_seq, spec_seq, metric = "ppod")
+# # acc:
+# comp_prob_matrix(prev = 0, sens_seq, spec_seq, metric = "acc")
+# comp_prob_matrix(prev = 1, sens_seq, spec_seq, metric = "acc")
 #
-## Contrast without and with NaN adjustment:
-# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = FALSE)
-# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "PPV", nan.adjust = TRUE)
+# ## (b) Non-square matrices:
+# sens_seq <- seq(.1, .5, by = .10)
+# spec_seq <- seq(.6, .9, by = .10)
 #
-## Contrast without and with NaN adjustment:
-# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = FALSE)
-# comp_prob_matrix(prev = .33, sens.seq, spec.seq, metric = "NPV", nan.adjust = TRUE)
-#
-## Other metrics:
-# comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "ppod")
-# comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "ppod")
-#
-# comp_prob_matrix(prev = 0, sens.seq, spec.seq, metric = "acc")
-# comp_prob_matrix(prev = 1, sens.seq, spec.seq, metric = "acc")
-
-
-
+# ## Contrast PPV without and with NaN adjustment:
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "PPV", nan_adjust = FALSE)
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "PPV", nan_adjust = TRUE)
+# #
+# ## Contrast NPV without and with NaN adjustment:
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "NPV", nan_adjust = FALSE)
+# comp_prob_matrix(prev = .33, sens_seq, spec_seq, metric = "NPV", nan_adjust = TRUE)
 
 
 ## (*) Done: ----------
