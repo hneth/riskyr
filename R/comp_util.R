@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 01 13
+## 2018 01 26
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -11,16 +11,18 @@
 
 ## (A) Verification functions: ----------
 
-## 1. is_prob               (exported)
-## 2. is_perc               (exported)
-## 3. is_freq               (exported)
-## 4. is_suff_prob_set      (exported)
-## +. is_suff_freq_set
-## 5. is_complement         (exported)
-## 6. is_extreme_prob_set   (exported)
-## 7. is_valid_prob_pair    (exported)
-## 8. is_valid_prob_set     (exported)
-## 9. is_valid_prob_triple  [exported, but deprecated]
+#  1. is_prob               (exported)
+#  2. is_perc               (exported)
+#  3. is_freq               (exported)
+#  4. is_suff_prob_set      (exported)
+#  +. is_suff_freq_set      (ToDo)
+#  5. is_complement         (exported)
+#  6. is_prob_range         (NOT exported)
+#  7. is_extreme_prob_set   (exported)
+#  8. is_valid_prob_pair    (exported)
+#  9. is_valid_prob_set     (exported)
+# 10. is_valid_prob_triple  [exported, but deprecated]
+
 
 ## is_prob: Verify that input is a probability ----------
 
@@ -486,12 +488,11 @@ is_suff_prob_set <- function(prev,
 #' \code{\link{is_suff_prob_set}} for this purpose.
 #'
 #' @param p1 A numeric argument (typically probability in range from 0 to 1).
-
+#'
 #' @param p2 A numeric argument (typically probability in range from 0 to 1).
 #'
 #' @param tol A numeric tolerance value.
 #' Default: \code{tol = .01}.
-#'
 #'
 #' @return \code{NA} or a Boolean value:
 #' \code{NA} if one or both arguments are \code{NA};
@@ -592,8 +593,38 @@ is_complement <- function(p1, p2, tol = .01) {
 # # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
 # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
 
+## is_prob_range: Verify that some_range includes exactly 2 numeric prob values (from 0 to 1): ------
 
+is_prob_range <- function(some_range) {
 
+  val <- NA
+
+  if (!is.numeric(some_range)) {
+    message(paste0("Range must be numeric."))
+    val <- FALSE
+  } else if (length(some_range) != 2) {
+    message(paste0("Range requires exactly 2 values."))
+    val <- FALSE
+  } else if (!is_prob(some_range)) {
+    message(paste0("Range requires probability values (from 0 to 1)."))
+    val <- FALSE
+  } else {
+    val <- TRUE
+  }
+
+  return(val)
+
+}
+
+# ## Check:
+# # succeeds:
+# is_prob_range(c(0, 1))   # TRUE
+# is_prob_range(c(0, 0))   # TRUE
+# # fails:
+# is_prob_range(c("a", 1))  # FALSE: not numeric
+# is_prob_range(c(0, 0, 1)) # FALSE: not 2 values
+# is_prob_range(c(0, 2))    # FALSE: not prob
+# is_prob_range(c(0, NA))   # FALSE: not prob
 
 
 ## (B) Beware of extreme cases: ----------
@@ -1189,6 +1220,7 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 # # is_valid_prob_triple(0, 0, 7)    # => FALSE + warning (beyond range)
 # # is_valid_prob_triple(0, NA, 0)   # => FALSE + warning (NA)
 # # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
+
 
 
 
