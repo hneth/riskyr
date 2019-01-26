@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2019 01 25
+## 2019 01 26
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -62,8 +62,18 @@
 #' @param line_col Color for lines between surface facets.
 #' Default: \code{line_col = "grey85"}.
 #'
-#' @param point_col Fill color for showing current value on plane.
-#' Default: \code{point_col = "yellow"}.
+#' @param sens_range Range (minimum and maximum) of \code{\link{sens}} values
+#' on x-axis (i.e., values in \code{c(0, 1)} range).
+#' Default: \code{sens_range = c(0, 1)}.
+#'
+#' @param spec_range Range (minimum and maximum) of \code{\link{spec}} values
+#' on y-axis (i.e., values in \code{c(0, 1)} range).
+#' Default: \code{spec_range = c(0, 1)}.
+#'
+#' @param step_size  Sets the granularity of the
+#' \code{\link{sens}}-by-\code{\link{spec}} grid.
+#' (in range \code{.01 <= step_size <= 1}).
+#' Default: \code{step_size = .05}.
 #'
 #' @param show_points Boolean option for showing the current value
 #' of the selected metric for the current conditions
@@ -71,10 +81,8 @@
 #' as a point on the plane.
 #' Default: \code{show_points = TRUE}.
 #'
-#' @param step_size  Sets the granularity of the
-#' \code{\link{sens}}-by-\code{\link{spec}} grid.
-#' (in range \code{.01 <= step_size <= 1}).
-#' Default: \code{step_size = .05}.
+#' @param point_col Fill color for showing current value on plane.
+#' Default: \code{point_col = "yellow"}.
 #'
 #' @param theta Horizontal rotation angle (used by \code{\link{persp}}).
 #' Default: \code{theta = -45}.
@@ -172,9 +180,13 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        # Options:
                        what_col = pal,       # color for facets of what (i.e., metric specified above)
                        line_col = "grey85",  # color for lines between facets
+
+                       sens_range = c(0, 1), # range of sens values plotted on x. Default: sens_range = c(0, 1).
+                       spec_range = c(0, 1), # range of spec values plotted on y. Default: spec_range = c(0, 1).
+                       step_size = .05,      # resolution of matrix (sens_values and spec_values)
+
+                       show_points = TRUE,   # show point(s) [resulting from all sens x spec combinations] on plane
                        point_col = "yellow", # fill color for showing current value on plane
-                       show_points = TRUE,    # show point(s) [resulting from all sens x spec combinations] on plane
-                       step_size = .05,      # resolution of matrix (sens_range and spec_range)
 
                        # Main persp() options [adjustable]:
                        theta = -45,
@@ -239,7 +251,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## (2b) Multiple sens/spec combinations were provided:
 
     if (show_points) {
-      message("Multiple sens/spec values provided: Showing multiple points on plane.")
+      message("Multiple sens/spec values provided: Plotting multiple points on plane.")
     }
 
 
@@ -309,9 +321,43 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## (B) Ranges on x- and y-axes: ------
 
+  ## Ranges of sens and spec values:
+  # sens_range <- c(0, 1)  # default sens range (on x axis)
+  # spec_range <- c(0, 1)  # default spec range (on y axis)
+
+  # Verify range arguments:
+  # Verify sens_range:
+  if (is_prob_range(sens_range)) {
+    if ( !is.na(sens) &&
+         (any((min(sens) < min(sens_range))) || any((max(sens) > max(sens_range)))) ) {
+      message("Some sens value(s) beyond current sens_range.")
+    }
+  } else {
+    message("Using default sens_range = c(0, 1).")
+    sens_range <- c(0, 1)  # set to default sens_range
+  }
+
+  # Verify spec_range:
+  if (is_prob_range(spec_range)) {
+    if ( !is.na(spec) &&
+         (any((min(spec) < min(spec_range))) || any((max(spec) > max(spec_range)))) ) {
+      message("Some spec value(s) beyond current spec_range.")
+    }
+  } else {
+    message("Using default spec_range = c(0, 1).")
+    spec_range <- c(0, 1)  # set to default spec_range
+  }
+
+  # Set min/max of sens and spec:
+  sens_min <- min(sens_range)
+  sens_max <- max(sens_range)
+
+  spec_min <- min(spec_range)
+  spec_max <- max(spec_range)
+
   ## Ensure that step_size is a reasonable value in [0, 1] range:
   step_size_min <- .01
-  step_size_max <- 1
+  step_size_max <- min(abs(sens_max - sens_min), abs(spec_max - spec_min))
 
   if (step_size < step_size_min) {
     message(paste0("Adjusting step_size to the minimum value of ", step_size_min, "."))
@@ -320,8 +366,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     message(paste0("Adjusting step_size to the maximum value of ", step_size_max, "."))
     step_size <- step_size_max }
 
-  sens_range <- seq(0, 1, by = step_size)  # range of sensitivity values (x)
-  spec_range <- seq(0, 1, by = step_size)  # range of specificity values (y)
+  # Range of sens and spec values:
+  sens_values <- seq(sens_min, sens_max, by = step_size)  # range of sens values (on x axis)
+  spec_values <- seq(spec_min, spec_max, by = step_size)  # range of spec values (on y axis)
 
 
   ## (2) Determine current parameters and matrix for selected what metric: ----------
@@ -367,10 +414,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 2. Matrix:
     ## Hack fix: Prevent values of 0 from occurring:
     eps <- 10^-9  # some very small value
-    sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
-    spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
+    if (sens_values[1] == 0) {sens_values[1] <- (sens_values[1] + eps)}  # prevent sens = 0
+    if (spec_values[1] == 0) {spec_values[1] <- (spec_values[1] + eps)}  # prevent spec = 0
 
-    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "PPV", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_values, spec_values, metric = "PPV", nan_adjust = FALSE)
 
   } # if (what == "ppv")...
 
@@ -415,10 +462,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 2. Matrix:
     ## Hack fix: Prevent values of 0 from occurring:
     eps <- 10^-9  # some very small value
-    sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
-    spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
+    if (sens_values[1] == 0) {sens_values[1] <- (sens_values[1] + eps)}  # prevent sens = 0
+    if (spec_values[1] == 0) {spec_values[1] <- (spec_values[1] + eps)}  # prevent spec = 0
 
-    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "NPV", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_values, spec_values, metric = "NPV", nan_adjust = FALSE)
 
   } # if (what == "npv")...
 
@@ -468,10 +515,10 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 2. Matrix:
     # ## Hack fix: Prevent values of 0 from occurring:
     # eps <- 10^-9  # some very small value
-    # sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
-    # spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
+    # if (sens_values[1] == 0) {sens_values[1] <- (sens_values[1] + eps)}  # prevent sens = 0
+    # if (spec_values[1] == 0) {spec_values[1] <- (spec_values[1] + eps)}  # prevent spec = 0
 
-    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "ppod", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_values, spec_values, metric = "ppod", nan_adjust = FALSE)
 
   } # if (what == "ppod")...
 
@@ -516,18 +563,18 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
     ## 2. Matrix:
     # ## Hack fix: Prevent values of 0 from occurring:
     # eps <- 10^-9  # some very small value
-    # sens_range[1] <- sens_range[1] + eps  # to prevent sens = 0 case
-    # spec_range[1] <- spec_range[1] + eps  # to prevent spec = 0 case
+    # if (sens_values[1] == 0) {sens_values[1] <- (sens_values[1] + eps)}  # prevent sens = 0
+    # if (spec_values[1] == 0) {spec_values[1] <- (spec_values[1] + eps)}  # prevent spec = 0
 
-    cur_mat <- comp_prob_matrix(prev = prev, sens_range, spec_range, metric = "acc", nan.adjust = FALSE)
+    cur_mat <- comp_prob_matrix(prev = prev, sens_values, spec_values, metric = "acc", nan_adjust = FALSE)
 
   } # if (what == "acc")...
 
 
   ## (3) Define persp parameters: ----------
 
-  x <- sens_range
-  y <- spec_range
+  x <- sens_values
+  y <- spec_values
   z <- as.matrix(cur_mat)
 
   ## Additional persp() parameters (currently fixed):
@@ -559,9 +606,12 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                  lwd = line_wd  # width of border and axes lines
   )
 
+
   ## (5) Add cur_val as point(s) to plot: ----------
 
-  if (show_points) {
+  if ( show_points &&
+       (sens >= sens_min) && (sens <= sens_max) &&   # sens in sens_range
+       (spec >= spec_min) && (spec <= spec_max) ) {  # spec in spec_range
 
     ## Parameters:
     pt_pch <- 21         # symbol of point
@@ -707,16 +757,16 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   #   cur.NPV.label <- paste0("NPV = ", as_pc(cur.NPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.NPV), "%)")
   #
   #   ## Ranges on x- and y-axes:
-  #   sens_range <- seq(0.0, 1.0, by = .05) # range of sensitivity values
-  #   spec_range <- seq(0.0, 1.0, by = .05) # range of specificity values
+  #   sens_values <- seq(0.0, 1.0, by = .05) # range of sensitivity values
+  #   spec_values <- seq(0.0, 1.0, by = .05) # range of specificity values
   #
   #   ## Compute PPV and NPV matrices:
-  #   PPV.mat <- comp_prob_matrix(prev, sens_range, spec_range, metric = "PPV")
-  #   NPV.mat <- comp_prob_matrix(prev, sens_range, spec_range, metric = "NPV")
+  #   PPV.mat <- comp_prob_matrix(prev, sens_values, spec_values, metric = "PPV")
+  #   NPV.mat <- comp_prob_matrix(prev, sens_values, spec_values, metric = "NPV")
   #
   #   ## Graph parameters:
-  #   x <- sens_range
-  #   y <- spec_range
+  #   x <- sens_values
+  #   y <- spec_values
   #   z.ppv <- as.matrix(PPV.mat)
   #   z.npv <- as.matrix(NPV.mat)
   #   z_lim <- c(0, 1) # range of z-axis
