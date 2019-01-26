@@ -1,10 +1,10 @@
 
 # Current version
 
-The current development version (0.2.0.9006+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9007+) is available at <https://github.com/hneth/riskyr/>. 
 
 
-# riskyr 0.2.0.9006+
+# riskyr 0.2.0.9007+
 
 Log of changes since last release:
 
@@ -19,21 +19,24 @@ Log of changes since last release:
 
 - New options for `plot_curve` [2019-01]:  
 Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
-Thus, setting the `prev` argument to either `NA` or to a vector of several probabilities are now supported. 
-In addition, setting `x_range` to a range within `c(0, 1)` allows zooming into prevalence ranges (on x-axis).  
+Thus, setting the `prev` argument to either `NA` or to a vector of several probabilities is now supported. 
+Setting the new `prev_range` argument to a range within `c(0, 1)` allows zooming into more specific ranges of `prev` values (on x-axis).  
 
 - New options for `plot_plane` [2019-01]:  
 Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. 
-Thus, setting the `sens` and `spec` arguments to either `NA` or to a vector of several probabilities are now supported. 
+Thus, setting the `sens` and `spec` arguments to either `NA` or to a vector of several probabilities is now supported. 
+Setting the new `sens_range` and `spec_range` arguments to ranges within `c(0, 1)` allows zooming into more specific ranges of `sens` values (on x-axis) and `spec` values (on y-axis). 
 
 - New options for `plot_prism` [2019-01]:  
-Add `p_lwd` and `p_scale` arguments to `plot_prism` to allow scaling the widths of probability links by current probability values.  
+Using the new `p_lwd` and `p_scale` arguments allows scaling the widths of probability links by current probability values.  
 
 ### Other changes
 
 - `make_cond_lbl` [2019-01]:  
 The condition label now allows for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
 
+- `is_prob_range` [2019-01]:
+Utility function to verify a range of 2 probability values (to check new arguments of `plot_curve` and `plot_plane`).  
 
 ## Micro changes
 
