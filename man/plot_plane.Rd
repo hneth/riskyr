@@ -136,7 +136,12 @@ plot_plane(what = "acc")  # => plane of acc
 plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")             # plane with 0 points
 plot_plane(prev = .5, sens = c(.2, .5, .8), spec = .6, what = "npv")  # plane with 3 points
 
-# Plot options:
+# Zooming into sens and spec ranges:
+plot_plane(prev = .05, sens = .9, spec = c(.80, .85, .90), what = "ppv")
+plot_plane(prev = .05, sens = .9, spec = c(.80, .85, .90), what = "ppv",
+           sens_range = c(.5, 1), spec_range = c(.5, 1))  # zooming in
+
+# Other options:
 plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
 
 plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
