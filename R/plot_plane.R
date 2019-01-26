@@ -129,14 +129,14 @@
 #' plot_plane(what = "ppod") # => plane of ppod
 #' plot_plane(what = "acc")  # => plane of acc
 #'
-#' # Plane with no points or multiple points:
+#' # Plane without points or multiple points:
 #' plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")             # plane with 0 points
 #' plot_plane(prev = .5, sens = c(.2, .5, .8), spec = .6, what = "npv")  # plane with 3 points
 #'
-#' # Zooming into sens and spec ranges:
-#' plot_plane(prev = .05, sens = .9, spec = c(.80, .85, .90), what = "ppv")
-#' plot_plane(prev = .05, sens = .9, spec = c(.80, .85, .90), what = "ppv",
-#'            sens_range = c(.5, 1), spec_range = c(.5, 1))  # zooming in
+#' # Zooming into specific sens and spec ranges:
+#' plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9))  # default ranges
+#' plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9),
+#'            sens_range = c(.7, 1), spec_range = c(.7, 1), step_size = .02)  # zooming in
 #'
 #' # Other options:
 #' plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
