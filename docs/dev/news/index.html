@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9008</span>
       </span>
     </div>
 
@@ -141,9 +141,9 @@
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="riskyr-0-2-0-9006" class="section level1">
+    <div id="riskyr-0-2-0-9008" class="section level1">
 <h1 class="page-header">
-<a href="#riskyr-0-2-0-9006" class="anchor"></a>riskyr 0.2.0.9006+<small> Unreleased </small>
+<a href="#riskyr-0-2-0-9008" class="anchor"></a>riskyr 0.2.0.9008+<small> Unreleased </small>
 </h1>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
@@ -161,20 +161,20 @@
 <a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
 <li><p>New options for <code>plot_curve</code> [2019-01]:<br>
-Plotting probability curves as a function of prevalence does not require any specific prevalence value. Thus, setting the <code>prev</code> argument to either <code>NA</code> or to a vector of several probabilities are now supported.</p></li>
+Plotting probability curves as a function of prevalence does not require any specific prevalence value. Thus, setting the <code>prev</code> argument to either <code>NA</code> or to a vector of several probabilities is now supported. Setting the new <code>prev_range</code> argument to a range within <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c(0, 1)</a></code> allows zooming into more specific ranges of <code>prev</code> values (on x-axis).</p></li>
 <li><p>New options for <code>plot_plane</code> [2019-01]:<br>
-Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. Thus, setting the <code>sens</code> and <code>spec</code> arguments to either <code>NA</code> or to a vector of several probabilities are now supported.</p></li>
+Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. Thus, setting the <code>sens</code> and <code>spec</code> arguments to either <code>NA</code> or to a vector of several probabilities is now supported. Setting the new <code>sens_range</code> and <code>spec_range</code> arguments to ranges within <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c(0, 1)</a></code> allows zooming into more specific ranges of <code>sens</code> values (on x-axis) and <code>spec</code> values (on y-axis).</p></li>
 <li><p>New options for <code>plot_prism</code> [2019-01]:<br>
-Add <code>p_lwd</code> and <code>p_scale</code> arguments to <code>plot_prism</code> to allow scaling the widths of probability links by current probability values.</p></li>
+Using the new <code>p_lwd</code> and <code>p_scale</code> arguments allows scaling the widths of probability links by current probability values.</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h3>
 <ul>
-<li>
-<code>make_cond_lbl</code> [2019-01]:<br>
-The condition label now allows for <code>NA</code> or vectors of several values (for <code>prev</code>, <code>sens</code>, and <code>spec</code>).</li>
+<li><p><code>make_cond_lbl</code> [2019-01]:<br>
+The condition label now allows for <code>NA</code> or vectors of several values (for <code>prev</code>, <code>sens</code>, and <code>spec</code>).</p></li>
+<li><p><code>is_prob_range</code> [2019-01]: Utility function to verify a range of 2 probability values (to check new arguments of <code>plot_curve</code> and <code>plot_plane</code>).</p></li>
 </ul>
 </div>
 </div>
@@ -344,7 +344,7 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#riskyr-0-2-0-9006">0.2.0.9006</a></li>
+        <li><a href="#riskyr-0-2-0-9008">0.2.0.9008</a></li>
         <li><a href="#riskyr-0-2-0">0.2.0</a></li>
         <li><a href="#riskyr-0-1-0">0.1.0</a></li>
       </ul>
