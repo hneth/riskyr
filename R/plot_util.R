@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 01 22
+## 2019 02 18
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -1003,10 +1003,10 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
   ## (0) Parameters (currently fixed):
 
   # Compute box coordinates:
-  x_left = (x - lx/2)
-  x_right = x_left + lx
-  y_bottom = (y - ly/2)
-  y_top = y_bottom + ly
+  x_left <- (x - lx/2)
+  x_right <- (x_left + lx)
+  y_bottom <- (y - ly/2)
+  y_top <- (y_bottom + ly)
 
   ## (1) Plot rectangle:
 
@@ -1057,9 +1057,9 @@ plot_cbox <- function(x,  y,    # coordinates of box CENTER (x and y)
 
 }
 
-## Check:
+# ## Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
-#     xlim = c(0, 10), ylim = c(0, 6))
+#      xlim = c(0, 10), ylim = c(0, 6))
 #
 # plot_cbox(1, 5, 1, 1)  # default color, no text labels
 #
@@ -1169,6 +1169,7 @@ plot_fbox <- function(fname,   # name of a known frequency (freq)
 ### Check:
 # plot(0:1, 0:1, type = "n", xlab = "x-axis", ylab = "y-axis",
 #        xlim = c(0, 10), ylim = c(0, 10))  # empty canvas
+#
 # # Aspect ratio of current plot:
 # plot_xy <- par("pin")                # use par("pin") OR dev.size("in")
 # plot_ratio <- plot_xy[1]/plot_xy[2]  # current aspect ratio
