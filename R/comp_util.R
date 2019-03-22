@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 01 26
+## 2018 03 22
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1407,7 +1407,9 @@ as_pb <- function(perc, n_digits = 4) {
 
 ## (D) Color and plotting functions: ----------
 
-## Note: Moved plotting help functions to file "plot_util.R".
+# Note:
+# - Moved plotting help functions to file "plot_util.R".
+# - Use unikn pkg or functions for color settings.
 
 ## make_transparent: Make colors transparent ------
 
@@ -1450,6 +1452,18 @@ capitalise_1st <- function(string) {
 # capitalise_1st("")         # ""
 # capitalise_1st(123)        # "123"
 
+## (F) Miscellaneous: ----------
+
+# kill_all: Kill all objects in current environment (without warning): ------
+
+kill_all <- function(){
+
+  rm(list = ls())
+
+}
+
+# Check: ----
+# kill_all()
 
 ## (*) Done: ----------
 
