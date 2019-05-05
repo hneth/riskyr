@@ -333,7 +333,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   # Verify prev_range argument:
   if (is_prob_range(prev_range)) {
-    if ( !is.na(prev) &&
+    if ( all(!is.na(prev)) &&
          (any((min(prev) < min(prev_range))) || any((max(prev) > max(prev_range)))) ) {
       message("Some prev value(s) beyond current prev_range.")
     }
@@ -418,7 +418,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
     ## Positional parameters (for raising and shifting p labels):
     if (log_scale) {
-      if ( (n_prev == 1) && (!is.na(prev)) ) {
+      if ( (n_prev == 1) && (all(!is.na(prev))) ) {
         h_shift <- prev * 2 * (max(prev_range) - min(prev_range))
       } else {
         h_shift <- 0  # ToDo
