@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2018 03 22
+## 2019 05 05
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -961,7 +961,7 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
        ( is.na(p2) && !is.na(p1) && is_prob(p1) ) |  # only p1 is provided and is_prob
 
        ( # !is.na(p1)  && !is.na(p2)  &&  # commented out to suppress NA warning messages
-         is_prob(p1) && is_prob(p2) &&               # both p1 and p2 are provided
+         all(is_prob(p1)) && all(is_prob(p2)) &&     # both p1 and p2 are provided
          is_complement(p1, p2, tol) ) ) {            # and both are complements
 
     val <- TRUE
@@ -983,6 +983,9 @@ is_valid_prob_pair <- function(p1, p2, tol = .01) {
 # is_valid_prob_pair(.50, .52)  # => FALSE (as beyond tol)
 # is_valid_prob_pair(1, 2)      # => FALSE + warning (beyond range)
 # is_valid_prob_pair(NA, NA)    # => FALSE + warning (NA)
+
+## multiple prev values:
+# is_valid_prob_pair(c(.301, .299), .7)   # => TRUE
 
 
 ## is_valid_prob_set: Verify a set of probability inputs ------------
@@ -1118,6 +1121,9 @@ is_valid_prob_set <- function(prev,
 # is_valid_prob_set(.3, .9, NA, .8, NA)            # => TRUE + warning (NAs)
 # is_valid_prob_set(.3, .9, NA, NA, .8)            # => TRUE + warning (NAs)
 # is_valid_prob_set(.3, .8, .1, .7, .2, tol = .1)  # => TRUE (due to increased tol)
+#
+## multiple prev values:
+# is_valid_prob_set(c(0, 1), 1, 0, 1, 0)           # => TRUE
 #
 # # watch out for:
 # is_valid_prob_set(1, 0, 1, 0, 1)    # => TRUE, but NO warning about extreme case!
