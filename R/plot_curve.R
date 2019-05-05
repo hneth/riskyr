@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2010 01 26
+## 2019 05 05
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
