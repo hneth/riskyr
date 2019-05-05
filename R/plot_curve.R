@@ -279,7 +279,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     cur_PPV <- NA
     cur_NPV <- NA
 
-  } else if ( (n_prev > 1) && is_prob(prev) &&  # Case 2b: MULTIPLE prev values provided:
+  } else if ( (n_prev > 1) && all(is_prob(prev)) &&  # Case 2b: MULTIPLE prev values provided:
               is_valid_prob_pair(sens, mirt, tol = .01) &&
               is_valid_prob_pair(spec, fart, tol = .01) ) {
 
