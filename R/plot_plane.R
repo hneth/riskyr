@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2019 05 05
+## 2019 05 06
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -344,7 +344,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   # Verify spec_range:
   if (is_prob_range(spec_range)) {
-    if ( !is.na(spec) &&
+    if ( all(!is.na(spec)) &&
          (any((min(spec) < min(spec_range))) || any((max(spec) > max(spec_range)))) ) {
       message("Some spec value(s) beyond current spec_range.")
     }
@@ -615,8 +615,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   ## (5) Add cur_val as point(s) to plot: ----------
 
   if ( show_points &&
-       (sens >= sens_min) && (sens <= sens_max) &&   # sens in sens_range
-       (spec >= spec_min) && (spec <= spec_max) ) {  # spec in spec_range
+       all(sens >= sens_min) && all(sens <= sens_max) &&   # sens in sens_range
+       all(spec >= spec_min) && all(spec <= spec_max) ) {  # spec in spec_range
 
     ## Parameters:
     pt_pch <- 21         # symbol of point
