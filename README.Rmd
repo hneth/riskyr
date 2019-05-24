@@ -4,13 +4,14 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 
-<!-- Status badges: -->
+<!-- Status badges: 
 
 [![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
 [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
 [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
 
+-->
 
 ```{r knitr_opts_chunk, echo = FALSE}
 knitr::opts_chunk$set(
@@ -36,7 +37,7 @@ knitr::opts_chunk$set(
 
 ### A toolbox for rendering risk literacy more transparent
 
-Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, `riskyr` computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
+Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
 
 ## Motivation 
 
@@ -47,8 +48,8 @@ Risk-related information — like the prevalence of conditions and the sensitivi
 
 <!-- Risk perception as representational effects: -->
 
-The goals of `riskyr` are less of a _computational_ and more of a _representational_ nature: 
-We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, `riskyr` allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.[^2]
+The goals of **riskyr** are less of a _computational_ and more of a _representational_ nature: 
+We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer & Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, **riskyr** allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.[^2]
 
 <!-- Defining "risk" (in footnote): -->
 
@@ -59,7 +60,7 @@ This notion of _risk_ is typically contrasted with the much wider notion of _unc
 
 <!-- On "riskyr": -->
 
-The basic assumptions and aspirations driving the current development of `riskyr` include:
+The basic assumptions and aspirations driving the current development of **riskyr** include:
 
 1. Effective training in risk literacy requires transparent representations, smart strategies, and simple tools. 
 
@@ -67,14 +68,14 @@ The basic assumptions and aspirations driving the current development of `riskyr
 
 3. Just as no single tool fits all tasks, no single graph illustrates all aspects of a problem. A variety of visualizations that illustrate the interplay of parameters and metrics can facilitate active and explorative learning. It is particularly helpful to view relationships from alternative perspectives and to observe the change of one parameter as a function of others. 
 
-Based on these assumptions and goals, `riskyr` provides a range of computational and representational tools. Importantly, the objects and functions in the `riskyr` toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately or explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that fit to different tasks and meet their personal needs and goals.  
+Based on these assumptions and goals, **riskyr** provides a range of computational and representational tools. Importantly, the objects and functions in the **riskyr** toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately or explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that fit to different tasks and meet their personal needs and goals.  
 
 
 ## Getting riskyr
 
 ### Installation
 
-- The current release of `riskyr` is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
+- The current release of **riskyr** is available from [CRAN](https://CRAN.R-project.org/) at <https://CRAN.R-project.org/package=riskyr>:
 
 ```{r install_CRAN, echo = TRUE, eval = FALSE}
 install.packages('riskyr')  # install riskyr from CRAN client
@@ -102,7 +103,7 @@ devtools::install_github('hneth/riskyr')
 
 ### Defining a scenario
 
-`riskyr` is designed to address problems like the following:[^3]
+**riskyr** is designed to address problems like the following:[^3]
 
 [^3]: See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.
 
@@ -154,7 +155,7 @@ One of the best tricks in risk literacy education is to translate probabilistic 
 
 #### Using riskyr
 
-Here is how `riskyr` allows you to view and solve such problems:
+Here is how **riskyr** allows you to view and solve such problems:
 
 ```{r load_riskyr, eval = TRUE, message = FALSE, warning = FALSE}
 library(riskyr)  # loads the package
@@ -162,7 +163,7 @@ library(riskyr)  # loads the package
 
 #### Creating a scenario from probabilities
 
-We define a new `riskyr` scenario (called `hustosis`) with the information provided by our problem:
+We define a new **riskyr** scenario (called `hustosis`) by using the `riskyr()` function and entering the information provided by our problem as its arguments: 
 
 ```{r ex1_definition, eval = TRUE}
 hustosis <- riskyr(scen_lbl = "Example", 
@@ -174,7 +175,7 @@ hustosis <- riskyr(scen_lbl = "Example",
                    )
 ```
 
-By providing the argument `N = 1000` we define the scenario for a target population of 1000 people. If we leave this parameter unspecified (or `NA`), `riskyr` will automatically pick a suitable value of `N`. 
+By providing the argument `N = 1000` we define the scenario for a target population of 1000 people. If we leave this parameter unspecified (or `NA`), the `riskyr()` function will automatically pick a suitable value of `N`. 
 
 #### Summary
 
@@ -191,7 +192,7 @@ The summary distinguishes between probabilities, frequencies, and accuracy infor
 - The conditional probability that Ms. Smith is actually free of hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
 
 If find these answers surprising, you are an ideal candidate for additional insights into the realm of risk literacy. 
-A key component of `riskyr` is to analyze and view a scenario from a variety of different perspectives. To get you started immediately, we only illustrate some introductory commands here and focus on different types of visualizations. (Call `riskyr.guide()` for various vignettes that provide more detailed information.) 
+A key component of **riskyr** is to analyze and view a scenario from a variety of different perspectives. To get you started immediately, we only illustrate some introductory commands here and focus on different types of visualizations. (Call `riskyr.guide()` for various vignettes that provide more detailed information.) 
 
 #### Creating a scenario from frequencies
 
@@ -214,11 +215,11 @@ all.equal(hustosis, hustosis_2)  # do both contain the same information?
 
 ### Visualizations
 
-Various visualizations of `riskyr` scenarios can be created by a range of plotting functions. 
+Various visualizations of **riskyr** scenarios can be created by a range of plotting functions. 
 
 #### Prism plot
 
-The default type of plot used in `riskyr` is a _prism plot_ (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:
+The default type of plot used in **riskyr** is a _prism plot_ (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:
 
 ```{r ex1_prism, eval = FALSE, fig.width = 7.0, fig.height = 5.4, fig.show = 'hold'}
 plot(hustosis)  # default plot
@@ -262,7 +263,7 @@ plot(hustosis, type = "icons")   # plot an icon array
 
 ![Icon array](inst/pix/README-ex1_icons-1.png)
 
-While this particular icon array is highly regular (as both the icons and classification types are ordered), `riskyr` provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see `?plot_icons` for details and examples). 
+While this particular icon array is highly regular (as both the icons and classification types are ordered), **riskyr** provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see `?plot_icons` for details and examples). 
 
 #### Area plot
 
@@ -320,7 +321,7 @@ The L-shape of this plane reveals a real problem with our current test: Given a 
 
 #### Plots currently under development
 
-The current development version of `riskyr` (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
+The current development version of **riskyr** (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
 
 ```{r preview_current_dev, echo = TRUE, eval = FALSE}
 ## Install current development version: 
@@ -341,7 +342,7 @@ plot(hustosis, type = "bar",   dir = 2)
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), `riskyr` provides a set of — currently `r length(scenarios) - 1` — pre-defined scenarios (stored in a list `scenarios`). 
+As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as "Bayesian reasoning"), **riskyr** provides a set of — currently `r length(scenarios) - 1` — pre-defined scenarios (stored in a list `scenarios`). 
 Here, we provide an example that shows how you can select and explore them. 
 
 #### Selecting a scenario
@@ -366,7 +367,7 @@ s10$scen_apa   # scenario source (APA)
 # summary(s10) # summarises a scenario
 ```
 
-Generating some `riskyr` plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.
+Generating some **riskyr** plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.
 
 #### Prism plots
 
@@ -379,7 +380,7 @@ plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
 
 ![Prism/tree plot (with scaled squares)](inst/pix/README-ex2_tree-1.png)
 
-The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). `riskyr` provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup: 
+The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). **riskyr** provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup: 
 
 ```{r ex2_prism_hr, eval = FALSE, fig.width = 7.0, fig.height = 4.8}
 plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
@@ -446,7 +447,7 @@ Hopefully, this brief overview managed to whet your appetite for visual explorat
 <!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --> 
 </a>
 
-`riskyr` originated out of a series of lectures and workshops on risk literacy.  
+**riskyr** originated out of a series of lectures and workshops on risk literacy.  
 The current version (0.2.0, as of Dec. 20, 2018) is under active development. 
 Its primary designers are 
 [Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
@@ -456,7 +457,7 @@ Its primary designers are
 [Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the 
 [University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
 
-The `riskyr` package is open source software written in [R](https://www.r-project.org/) and released under the 
+The **riskyr** package is open source software written in [R](https://www.r-project.org/) and released under the 
 [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
 [GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
 
@@ -467,19 +468,19 @@ The following resources and versions are currently available:
 
 Type:                    | Version:           | URL:                           |        
 :------------------------|:-------------------|:-------------------------------|
-A. `riskyr` (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
-    &nbsp;               | [Development version](https://github.com/hneth/riskyr)       | <https://github.com/hneth/riskyr> | 
-B. `riskyrApp` (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
-    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)    | <https://github.com/hneth/riskyrApp> | 
-C. Online documentation: | [Release version](https://hneth.github.io/riskyr)            | <https://hneth.github.io/riskyr> | 
-    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)    | <https://hneth.github.io/riskyr/dev> | 
+A. **riskyr** (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
+    &nbsp;               | [Development version](https://github.com/hneth/riskyr)         | <https://github.com/hneth/riskyr> | 
+B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
+    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)      | <https://github.com/hneth/riskyrApp> | 
+C. Online documentation: | [Release version](https://hneth.github.io/riskyr)              | <https://hneth.github.io/riskyr> | 
+    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)      | <https://hneth.github.io/riskyr/dev> | 
 
 
 ### Contact
 
 We appreciate your feedback, comments, or questions. 
 
-- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
+- Please report any **riskyr**-related issues at <https://github.com/hneth/riskyr/issues>. 
 
 - Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions. 
 
@@ -494,10 +495,10 @@ We appreciate your feedback, comments, or questions.
 <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> 
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
-To cite `riskyr` in derivations and publications please use:
+To cite **riskyr** in derivations and publications please use:
 
 - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
-  `riskyr`: A toolbox for rendering risk literacy more transparent.  
+  **riskyr**: A toolbox for rendering risk literacy more transparent.  
   Social Psychology and Decision Sciences, University of Konstanz, Germany.  
   Computer software (R package version 0.2.0, Dec. 20, 2018).  
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
@@ -595,7 +596,7 @@ _Unterrichtswissenschaft_, _32_, 58–96.
 
 <!-- Update: -->
 
-[Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](http://neth.de).]  
+[Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).]  
 
 
 <!-- eof -->

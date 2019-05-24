@@ -33,14 +33,14 @@ op <- par(no.readonly = TRUE)
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
 <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") -->
 
-`riskyr` is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.
+**riskyr** is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.
 
 This page assumes that you just installed the package and are eager to see what you can do with it.   
 (See the [User guide](A_user_guide.html) for a more comprehensive introduction.)
 
 ## Getting started 
 
-How can you use `riskyr`? Basically, there are two ways to get started:
+How can you use **riskyr**? Basically, there are two ways to get started:
 
 1. Define your own scenario from risk-related information (typically provided in terms of probabilities).
 
@@ -54,7 +54,7 @@ library("riskyr")  # loads the package
 
 ### Defining a scenario  
 
-Let's launch your `riskyr`-career by creating a ficticious risk scenario that we construct from scratch:^[The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.]
+Let's launch your **riskyr**-career by creating a ficticious risk scenario that we construct from scratch:^[The data is made-up, but the issue is real. See Dressel and Farid (2018) for a recent study on this issue.]
 
 #### Example
 
@@ -74,7 +74,7 @@ Let's launch your `riskyr`-career by creating a ficticious risk scenario that we
 > 
 > What is the probability that John D. will actually reoffend, given his test result? 
 
-To answer this question, you could calculate the corresponding probabilities or frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a `riskyr` scenario that you can modify, inspect, and visualize in various ways.
+To answer this question, you could calculate the corresponding probabilities or frequencies (as explained in the [user guide](A_user_guide.html)). Alternatively, you can use the `riskyr()` function to create a **riskyr** scenario that you can modify, inspect, and visualize in various ways.
 
 #### Necessary scenario information
 
@@ -192,7 +192,7 @@ The resulting graph maps frequency to the size of square boxes, which makes it e
 
 - Plot `my_scenario` with the option `area = "hr"`. What do you see? 
 - Add `by = "cdac"` as another argument to your plotting call. How does the resulting plot relate to the previous ones?
-- When calling `plot(my_scenario)`, `riskyr` creates a plot of `type = "prism"` by default. Use `?plot_prism` for the documentation of `plot_prism` to learn about and try out additional arguments.
+- When calling `plot(my_scenario)`, **riskyr** creates a plot of `type = "prism"` by default. Use `?plot_prism` for the documentation of `plot_prism` to learn about and try out additional arguments.
 
 ```{r prism_practice, echo = FALSE, eval = FALSE, fig.align = "center"}
 plot(my_scenario, area = "hr")
@@ -247,11 +247,11 @@ plot(my_scenario, type = "curve", uc = .05)
 
 As before, we can read off that the current values of `PPV = 59.76%` and `NPV = 96,56%`, but also see that our 5%-uncertainty implies relatively large fluctuations of the exact numeric values. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both `PPV` and `NPV`. For instance, if `prev` dropped further, the `PPV` of our test was also considerably lower. In fact, both the PPV and NPV always vary from 0 to 1 depending on the value of `prev`, which means that specifying them is actually meaningless when the corresponding value of `prev` is not communicated as well. (See the guide on [functional perspectives](D_functional_perspectives.html) for additional information and options.) 
 
-Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the `riskyr` package.
+Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the **riskyr** package.
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), `riskyr` provides a set of -- currently `r length(scenarios)`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios available, including their relevant condition, their population size `N`, and basic probability information: 
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), **riskyr** provides a set of -- currently `r length(scenarios)`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios available, including their relevant condition, their population size `N`, and basic probability information: 
 
 ```{r scenario_table, echo = FALSE, results = "asis"}
 library(knitr)
@@ -347,7 +347,7 @@ plot(s10, type = "curve",
      uc = .05)      # with a 5%-uncertainty range 
 ```
 
-The additional argument `what = "all"` instructed `riskyr` to provide us with additional curves, corresponding to the percentage of positive decisions (`ppod`) and overall accuracy (`acc`). Just like `PPV` and `NPV`, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis) and on our current range of uncertainty (shown as shaded polygons around the curves). Interestingly, the curves of `ppod` and `acc` appear to be linear, even though the `riskyr` function plots them in exactly the same way as `PPV` and `NPV`. Would you have predicted this without seeing it?
+The additional argument `what = "all"` instructed **riskyr** to provide us with additional curves, corresponding to the percentage of positive decisions (`ppod`) and overall accuracy (`acc`). Just like `PPV` and `NPV`, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis) and on our current range of uncertainty (shown as shaded polygons around the curves). Interestingly, the curves of `ppod` and `acc` appear to be linear, even though the **riskyr** function plots them in exactly the same way as `PPV` and `NPV`. Would you have predicted this without seeing it?
 
 ##### Practice 
 
@@ -376,11 +376,11 @@ This comparison shows that the curves of `PPV` and `NPV` (created by `type = "cu
 
 <!-- Conclusion: --> 
 
-In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What's the probability of having some condition when testing positive or negative for it? While `riskyr` cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent. 
+In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What's the probability of having some condition when testing positive or negative for it? While **riskyr** cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent. 
 
 ##### Practice 
 
-- Scenario 9 in the `riskyr` collection of `scenarios` contains a version of the same situation that assumes a different population (with a lower prevalence value for the same condition). Inspect and explore the consequence of this change by following the same steps for `s9` as for `s10` above. 
+- Scenario 9 in the **riskyr** collection of `scenarios` contains a version of the same situation that assumes a different population (with a lower prevalence value for the same condition). Inspect and explore the consequence of this change by following the same steps for `s9` as for `s10` above. 
 
 <!-- Spoiler alarm: `r scenarios$n9$scen.txt` --> 
 
@@ -401,7 +401,7 @@ Importantly, the properties of the test are identical for both scenarios -- only
 
 ### Conclusion
 
-This introduction should suffice to get you started with using `riskyr`. 
+This introduction should suffice to get you started with using **riskyr**. 
 Have fun by exploring the provided scenarios and creating your own examples! 
 
 
@@ -418,16 +418,17 @@ _Science Advances_, _4_, eaao5580.
 
 ### Resources
 
-The following resources and versions are currently available:
+The following resources and versions are currently available: 
 
 Type:                    | Version:           | URL:                           |        
 :------------------------|:-------------------|:-------------------------------|
-A. `riskyr` (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
-    &nbsp;               | [Development version](https://github.com/hneth/riskyr)       | <https://github.com/hneth/riskyr> | 
-B. `riskyrApp` (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
-    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)    | <https://github.com/hneth/riskyrApp> | 
-C. Online documentation: | [Release version](https://hneth.github.io/riskyr)            | <https://hneth.github.io/riskyr> | 
-    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)    | <https://hneth.github.io/riskyr/dev> | 
+A. **riskyr** (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
+    &nbsp;               | [Development version](https://github.com/hneth/riskyr)         | <https://github.com/hneth/riskyr> | 
+B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
+    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)      | <https://github.com/hneth/riskyrApp> | 
+C. Online documentation: | [Release version](https://hneth.github.io/riskyr)              | <https://hneth.github.io/riskyr> | 
+    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)      | <https://hneth.github.io/riskyr/dev> | 
+
 
 
 ## Contact
@@ -439,9 +440,9 @@ C. Online documentation: | [Release version](https://hneth.github.io/riskyr)    
 
 We appreciate your feedback, comments, or questions. 
 
-- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
+- Please report any **riskyr**-related issues at <https://github.com/hneth/riskyr/issues>.  
 
-- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions. 
+- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions.  
 
 
 ## All riskyr vignettes

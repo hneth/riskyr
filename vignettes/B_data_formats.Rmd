@@ -30,9 +30,9 @@ A smart and effective way to communicate probabilities is by expressing them in 
 
 ## Two representational formats
 
-The problems addressed by `riskyr` and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, information expressed in _frequencies_ is distinguished from information expressed in _probabilities_ (see the [user guide](A_user_guide.html) for background and references.)
+The problems addressed by **riskyr** and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, information expressed in _frequencies_ is distinguished from information expressed in _probabilities_ (see the [user guide](A_user_guide.html) for background and references.)
 
-`riskyr` reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called `freq`) and objects that contain probabilities (a list called `prob`). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined. 
+**riskyr** reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called `freq`) and objects that contain probabilities (a list called `prob`). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined. 
 
 In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following prism (or network) plot shows frequencies as its nodes and probabilities as the edges that link the nodes: 
 
@@ -52,7 +52,7 @@ For our purposes, frequencies simply are numbers that can be counted --- either 
 
 ### Definitions
 
-The following 11 frequencies are distinguished by `riskyr` and contained in `freq`:
+The following 11 frequencies are distinguished by **riskyr** and contained in `freq`:
 
 |Nr.| Variable | Definition |
 |--:|:----     |:------------------------------------------------------|
@@ -140,7 +140,7 @@ These numbers are defined to reflect particular quantities and can be expressed 
 
 ### Definitions
 
-`riskyr` distinguishes between 13 probabilities (see `prob` for current values):
+**riskyr** distinguishes between 13 probabilities (see `prob` for current values):
 
 |Nr.| Variable | Name | Definition |
 |--: |:---   |:------------  |:----------------------------------------------|
@@ -162,7 +162,7 @@ Note that the prism diagram (`plot_prism`) shows a total of 18 probabilities: 3 
 
 ### Non-conditional vs. conditional probabilities
 
-Note that a typical `riskyr` scenario contains several _non-conditional_ probabilities:
+Note that a typical **riskyr** scenario contains several _non-conditional_ probabilities:
 
 - The prevalence `prev` (1.) only depends on features of the _condition_.
 - The proportion of positive decisions `ppod` (6.) only depends on features of the _decision_. 
@@ -244,7 +244,7 @@ Note that the ratios of frequencies are straightforward consequences of the prob
 - the ratio's numerator is the frequency of the joint occurrence (i.e., both `X & Y`) being the case; 
 - the ratio's denominator is the frequency of the condition (`Y`) being the case.
 
-When computing probabilities from rounded frequencies, their numeric values may deviate from the true underlying probabilities, particularly for small population sizes `N`.  (Use the `scale` argument of many `riskyr` plotting functions to control whether probabilities are based on frequencies.) 
+When computing probabilities from rounded frequencies, their numeric values may deviate from the true underlying probabilities, particularly for small population sizes `N`.  (Use the `scale` argument of many **riskyr** plotting functions to control whether probabilities are based on frequencies.) 
 
 ## Practice
 
@@ -311,12 +311,12 @@ The following resources and versions are currently available:
 
 Type:                    | Version:           | URL:                           |        
 :------------------------|:-------------------|:-------------------------------|
-A. `riskyr` (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
-    &nbsp;               | [Development version](https://github.com/hneth/riskyr)       | <https://github.com/hneth/riskyr> | 
-B. `riskyrApp` (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
-    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)    | <https://github.com/hneth/riskyrApp> | 
-C. Online documentation: | [Release version](https://hneth.github.io/riskyr)            | <https://hneth.github.io/riskyr> | 
-    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)    | <https://hneth.github.io/riskyr/dev> | 
+A. **riskyr** (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
+    &nbsp;               | [Development version](https://github.com/hneth/riskyr)         | <https://github.com/hneth/riskyr> | 
+B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
+    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)      | <https://github.com/hneth/riskyrApp> | 
+C. Online documentation: | [Release version](https://hneth.github.io/riskyr)              | <https://hneth.github.io/riskyr> | 
+    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)      | <https://hneth.github.io/riskyr/dev> | 
 
 
 ## Contact
@@ -328,9 +328,9 @@ C. Online documentation: | [Release version](https://hneth.github.io/riskyr)    
 
 We appreciate your feedback, comments, or questions. 
 
-- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
+- Please report any **riskyr**-related issues at <https://github.com/hneth/riskyr/issues>.  
 
-- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions. 
+- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions.  
 
 
 ## All riskyr vignettes

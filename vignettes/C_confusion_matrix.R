@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 
 library("riskyr")  # load the "riskyr" package
 
-## ----plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."----
+## ----plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in **riskyr**."----
 ## (1) Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def") # show condition probabilies (by default)

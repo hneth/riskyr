@@ -109,9 +109,9 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 
 #### Example
 
-To view a 2x2 confusion table in `riskyr`, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
+To view a 2x2 confusion table in **riskyr**, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
 
-```{r plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in `riskyr`."}
+```{r plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in **riskyr**."}
 ## (1) Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def") # show condition probabilies (by default)
@@ -232,7 +232,7 @@ $$
 
 ### B. General metrics: Measures of accuracy
 
-In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. `riskyr` currently computes four general metrics (which are contained in `accu`):
+In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. **riskyr** currently computes four general metrics (which are contained in `accu`):
 
 #### 1. Overall accuracy `acc` 
 
@@ -317,12 +317,13 @@ The following resources and versions are currently available:
 
 Type:                    | Version:           | URL:                           |        
 :------------------------|:-------------------|:-------------------------------|
-A. `riskyr` (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
-    &nbsp;               | [Development version](https://github.com/hneth/riskyr)       | <https://github.com/hneth/riskyr> | 
-B. `riskyrApp` (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
-    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)    | <https://github.com/hneth/riskyrApp> | 
-C. Online documentation: | [Release version](https://hneth.github.io/riskyr)            | <https://hneth.github.io/riskyr> | 
-    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)    | <https://hneth.github.io/riskyr/dev> | 
+A. **riskyr** (R package): | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
+    &nbsp;               | [Development version](https://github.com/hneth/riskyr)         | <https://github.com/hneth/riskyr> | 
+B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org)                    | <http://riskyr.org> | 
+    &nbsp;               | [Development version](https://github.com/hneth/riskyrApp)      | <https://github.com/hneth/riskyrApp> | 
+C. Online documentation: | [Release version](https://hneth.github.io/riskyr)              | <https://hneth.github.io/riskyr> | 
+    &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev)      | <https://hneth.github.io/riskyr/dev> | 
+
 
 
 ## Contact
@@ -334,9 +335,9 @@ C. Online documentation: | [Release version](https://hneth.github.io/riskyr)    
 
 We appreciate your feedback, comments, or questions. 
 
-- Please report any `riskyr`-related issues at <https://github.com/hneth/riskyr/issues>. 
+- Please report any **riskyr**-related issues at <https://github.com/hneth/riskyr/issues>.  
 
-- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions. 
+- Contact us at <contact.riskyr@gmail.com> with any comments, questions, or suggestions.  
 
 
 ## All riskyr vignettes
