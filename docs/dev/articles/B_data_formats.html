@@ -125,8 +125,8 @@
 <div id="two-representational-formats" class="section level2">
 <h2 class="hasAnchor">
 <a href="#two-representational-formats" class="anchor"></a>Two representational formats</h2>
-<p>The problems addressed by <code>riskyr</code> and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, information expressed in <em>frequencies</em> is distinguished from information expressed in <em>probabilities</em> (see the <a href="A_user_guide.html">user guide</a> for background and references.)</p>
-<p><code>riskyr</code> reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called <code>freq</code>) and objects that contain probabilities (a list called <code>prob</code>). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined.</p>
+<p>The problems addressed by <strong>riskyr</strong> and the scientific discussion surrounding them can be framed in terms of two representational formats: Basically, information expressed in <em>frequencies</em> is distinguished from information expressed in <em>probabilities</em> (see the <a href="A_user_guide.html">user guide</a> for background and references.)</p>
+<p><strong>riskyr</strong> reflects this division by distinguishing between the same two data types and hence provides objects that contain frequencies (specifically, a list called <code>freq</code>) and objects that contain probabilities (a list called <code>prob</code>). But before we explain their contents, it is important to realize that any such separation is an abstract and artificial one. It may make sense to distinguish frequencies from probabilities for conceptual and educational reasons, but both in theory and in reality both representations are intimately intertwined.</p>
 <p>In the following, we will first consider frequencies and probabilities by themselves, but then show how both are related. As a sneak preview, the following prism (or network) plot shows frequencies as its nodes and probabilities as the edges that link the nodes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>) <span class="co"># load the "riskyr" package</span>
 
@@ -148,7 +148,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <div id="definitions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#definitions" class="anchor"></a>Definitions</h3>
-<p>The following 11 frequencies are distinguished by <code>riskyr</code> and contained in <code>freq</code>:</p>
+<p>The following 11 frequencies are distinguished by <strong>riskyr</strong> and contained in <code>freq</code>:</p>
 <table class="table">
 <colgroup>
 <col width="5%">
@@ -290,7 +290,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <div id="definitions-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#definitions-1" class="anchor"></a>Definitions</h3>
-<p><code>riskyr</code> distinguishes between 13 probabilities (see <code>prob</code> for current values):</p>
+<p><strong>riskyr</strong> distinguishes between 13 probabilities (see <code>prob</code> for current values):</p>
 <table class="table">
 <colgroup>
 <col width="5%">
@@ -390,7 +390,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <div id="non-conditional-vs-conditional-probabilities" class="section level3">
 <h3 class="hasAnchor">
 <a href="#non-conditional-vs-conditional-probabilities" class="anchor"></a>Non-conditional vs. conditional probabilities</h3>
-<p>Note that a typical <code>riskyr</code> scenario contains several <em>non-conditional</em> probabilities:</p>
+<p>Note that a typical <strong>riskyr</strong> scenario contains several <em>non-conditional</em> probabilities:</p>
 <ul>
 <li>The prevalence <code>prev</code> (1.) only depends on features of the <em>condition</em>.</li>
 <li>The proportion of positive decisions <code>ppod</code> (6.) only depends on features of the <em>decision</em>.</li>
@@ -595,7 +595,7 @@ A prism plot showing frequencies as nodes and probabilities as edges linking nod
 <li>the ratio’s numerator is the frequency of the joint occurrence (i.e., both <code>X &amp; Y</code>) being the case;</li>
 <li>the ratio’s denominator is the frequency of the condition (<code>Y</code>) being the case.</li>
 </ul>
-<p>When computing probabilities from rounded frequencies, their numeric values may deviate from the true underlying probabilities, particularly for small population sizes <code>N</code>. (Use the <code>scale</code> argument of many <code>riskyr</code> plotting functions to control whether probabilities are based on frequencies.)</p>
+<p>When computing probabilities from rounded frequencies, their numeric values may deviate from the true underlying probabilities, particularly for small population sizes <code>N</code>. (Use the <code>scale</code> argument of many <strong>riskyr</strong> plotting functions to control whether probabilities are based on frequencies.)</p>
 </div>
 <div id="practice" class="section level2">
 <h2 class="hasAnchor">
@@ -661,7 +661,7 @@ A prism plot showing how probabilities can be computed as ratios of frequencies.
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left">A. <strong>riskyr</strong> (R package):</td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
@@ -671,7 +671,7 @@ A prism plot showing how probabilities can be computed as ratios of frequencies.
 <td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
 </tr>
 <tr class="odd">
-<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
 <td align="left"><a href="http://riskyr.org">Online version</a></td>
 <td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
 </tr>
@@ -701,7 +701,7 @@ A prism plot showing how probabilities can be computed as ratios of frequencies.
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
 <li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>

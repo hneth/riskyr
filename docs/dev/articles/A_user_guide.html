@@ -126,13 +126,13 @@
 <!-- On riskyr: -->
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --></p>
-<p><code>riskyr</code> is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of <code>riskyr</code> is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig &amp; Grüne-Yanoff, 2017).</p>
+<p><strong>riskyr</strong> is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of <strong>riskyr</strong> is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig &amp; Grüne-Yanoff, 2017).</p>
 <p>This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:</p>
 <ol style="list-style-type: decimal">
 <li><p>We first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes’ formula) remains opaque and is rightfully perceived as difficult.</p></li>
 <li><p>We then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.</p></li>
 <li>
-<p>Finally, we show how <code>riskyr</code> renders the problem more transparent by providing three sets of tools:</p>
+<p>Finally, we show how <strong>riskyr</strong> renders the problem more transparent by providing three sets of tools:</p>
 <p>A. A fancy calculator that allows the computation of probabilities and frequencies;</p>
 <p>B. A set of functions that translate between different representational formats;</p>
 <p>C. A variety of visualizations that illustrate relationships between frequencies and probabilities.</p>
@@ -142,7 +142,7 @@
 <h2 class="hasAnchor">
 <a href="#motivation-a-problem-of-probabilities" class="anchor"></a>Motivation: A problem of probabilities</h2>
 <!-- Motivation: -->
-<p>A basic motivation for developing <code>riskyr</code> was to facilitate our understanding of problems like the following:</p>
+<p>A basic motivation for developing <strong>riskyr</strong> was to facilitate our understanding of problems like the following:</p>
 <blockquote>
 <p><strong>Mammography screening</strong></p>
 <p>The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening. If a woman has breast cancer, the probability is 80% that she will get a positive mammography. If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.</p>
@@ -261,42 +261,42 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div id="using-riskyr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-riskyr" class="anchor"></a>Using riskyr</h2>
-<p>Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer &amp; Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to <em>cope</em> with tricky problems, it would be even more desirable to <em>actually understand</em> the interplay between probabilities and frequencies in risk-related tasks and domains. This is where <code>riskyr</code> comes into play.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<p>Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer &amp; Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to <em>cope</em> with tricky problems, it would be even more desirable to <em>actually understand</em> the interplay between probabilities and frequencies in risk-related tasks and domains. This is where <strong>riskyr</strong> comes into play.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix//riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
-<p><code>riskyr</code> provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a <em>computational</em>, and more of a <em>representational</em> nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, <code>riskyr</code> is a toolbox that renders risk literacy education more transparent.</p>
+<p><strong>riskyr</strong> provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a <em>computational</em>, and more of a <em>representational</em> nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, <strong>riskyr</strong> is a toolbox that renders risk literacy education more transparent.</p>
 <div id="risk-vs-uncertainty" class="section level3">
 <h3 class="hasAnchor">
 <a href="#risk-vs-uncertainty" class="anchor"></a>Risk vs. uncertainty</h3>
 <!-- Defining the notion of "risk": -->
 <p>To clarify the concept of “risk” used in this context: In both basic research on the psychology of judgment and decision making and more applied research on risk perception and risk communication, the term <em>risk</em> refers to information or decisions for which all options and their consequences are known and <em>probabilities</em> for the different outcomes can be provided. This notion of <em>risk</em> is typically contrasted with the wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
-<p>For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the <code>riskyr</code> start-up message: Every time you load the package, the dice are cast and determine which particular message (out of a range of possible messages) is shown. Even if you notice this, determining the exact probability of a message would require extensive experience, explicit information (e.g., us telling you that we use R’s <code>sample</code> function to randomly select 1 of 5 possible messages), or cheating (by peeking at the source code). In real life, the events of interest are vastly more complex and numerous and both our experience and options for cheating are subject to hard constraints. Thus, provided we do not want to regress into superstition, we need science to figure out probabilities and transparent risk communication for understanding them.</p>
+<p>For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the <strong>riskyr</strong> start-up message: Every time you load the package, the dice are cast and determine which particular message (out of a range of possible messages) is shown. Even if you notice this, determining the exact probability of a message would require extensive experience, explicit information (e.g., us telling you that we use R’s <code>sample</code> function to randomly select 1 of 5 possible messages), or cheating (by peeking at the source code). In real life, the events of interest are vastly more complex and numerous and both our experience and options for cheating are subject to hard constraints. Thus, provided we do not want to regress into superstition, we need science to figure out probabilities and transparent risk communication for understanding them.</p>
 </div>
 <div id="promoting-risk-perception-and-communication" class="section level3">
 <h3 class="hasAnchor">
 <a href="#promoting-risk-perception-and-communication" class="anchor"></a>Promoting risk perception and communication</h3>
-<p><code>riskyr</code> facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<p><strong>riskyr</strong> facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
 <ul>
 <li><p>by organizing <em>data structures</em> and <em>computational functions</em> in useful ways;</p></li>
 <li><p>by providing <em>translations</em> between probabilities and frequencies;</p></li>
 <li><p>by providing transparent <em>visualizations</em> that illustrate relationships between variables and representations.</p></li>
 </ul>
-<p>If others find the ways in which <code>riskyr</code> computes, transforms, and represents risks helpful or useful, <code>riskyr</code> may facilitate teaching and training efforts in risk literacy and generally hopes to promote a more transparent communication of risk-related information. In the following, we show how we can address the above problem by using three types of tools provided by <code>riskyr</code>.</p>
+<p>If others find the ways in which <strong>riskyr</strong> computes, transforms, and represents risks helpful or useful, <strong>riskyr</strong> may facilitate teaching and training efforts in risk literacy and generally hopes to promote a more transparent communication of risk-related information. In the following, we show how we can address the above problem by using three types of tools provided by <strong>riskyr</strong>.</p>
 </div>
 <div id="a--a-fancy-calculator" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--a-fancy-calculator" class="anchor"></a>A. A fancy calculator</h3>
-<p><code>riskyr</code> provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value <code>PPV</code> from the 3 essential probabilities <code>prev</code>, <code>sens</code>, and <code>spec</code> (with <code>spec</code> = 1 – <code>fart</code>) that were provided in the original problem:</p>
+<p><strong>riskyr</strong> provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value <code>PPV</code> from the 3 essential probabilities <code>prev</code>, <code>sens</code>, and <code>spec</code> (with <code>spec</code> = 1 – <code>fart</code>) that were provided in the original problem:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
 <span class="co">#&gt; Welcome to riskyr!</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Ready to riskyr it...</span>
+<span class="co">#&gt; Ready to roll riskyr...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
 <span class="kw"><a href="../reference/comp_PPV.html">comp_PPV</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>))
 <span class="co">#&gt; [1] 0.07763975</span></code></pre></div>
-<p>It’s good to know that <code>riskyr</code> can apply Bayes’ formula, but so can any other decent calculator — including my brain on a good day and some environmental support in the form of paper and pencil. The R in <code>riskyr</code> only begins to make sense when considering functions like the following: <code>comp_prob_prob</code> computes probabilities from probabilities (hence its name). More precisely, <code>comp_prob_prob</code> takes 3 essential probabilities as inputs and returns a list of 13 probabilities as its output:</p>
+<p>It’s good to know that <strong>riskyr</strong> can apply Bayes’ formula, but so can any other decent calculator — including my brain on a good day and some environmental support in the form of paper and pencil. The R in <strong>riskyr</strong> only begins to make sense when considering functions like the following: <code>comp_prob_prob</code> computes probabilities from probabilities (hence its name). More precisely, <code>comp_prob_prob</code> takes 3 essential probabilities as inputs and returns a list of 13 probabilities as its output:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute probabilities from 3 essential probabilities:                 # Input arguments:</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>)  <span class="co"># prev, sens, NA,   fart</span>
 p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> .<span class="dv">904</span>, <span class="dt">fart =</span>   <span class="ot">NA</span>)  <span class="co"># prev, sens, spec, NA </span>
@@ -360,7 +360,7 @@ p4<span class="op">$</span>PPV
 <div id="b--translating-between-formats" class="section level3">
 <h3 class="hasAnchor">
 <a href="#b--translating-between-formats" class="anchor"></a>B. Translating between formats</h3>
-<p>Another function of <code>riskyr</code> is to translate between representational formats. This translation comes in two varieties:</p>
+<p>Another function of <strong>riskyr</strong> is to translate between representational formats. This translation comes in two varieties:</p>
 <div id="computing-frequencies-from-probabilities" class="section level4">
 <h4 class="hasAnchor">
 <a href="#computing-frequencies-from-probabilities" class="anchor"></a>Computing frequencies from probabilities</h4>
@@ -418,7 +418,7 @@ f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_fre
 <div id="computing-probabilities-from-frequencies" class="section level4">
 <h4 class="hasAnchor">
 <a href="#computing-probabilities-from-frequencies" class="anchor"></a>Computing probabilities from frequencies</h4>
-<p>A translator between 2 representational formats should work in both directions. Consequently, <code>riskyr</code> also allows to compute probabilities by providing frequencies:</p>
+<p>A translator between 2 representational formats should work in both directions. Consequently, <strong>riskyr</strong> also allows to compute probabilities by providing frequencies:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute probabilities from frequencies:</span>
 p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> <span class="dv">8</span>, <span class="dt">mi =</span> <span class="dv">2</span>, <span class="dt">fa =</span> <span class="dv">95</span>, <span class="dt">cr =</span> <span class="dv">895</span>)  <span class="co"># =&gt; provide 4 essential frequencies</span></code></pre></div>
 <p>Fortunately, the <code>comp_prob_freq</code> does not require all 11 frequencies that were returned by <code>comp_freq_prob</code> and contained in the list of frequencies <code>f1</code>. Instead, we must provide <code>comp_prob_freq</code> with the 4 essential frequencies that were listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in <code>f1</code>. The resulting probabilities (saved in <code>p5</code>) match our list of probabilities from above (saved in <code>p4</code>):</p>
@@ -478,7 +478,7 @@ freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_f
             <span class="dt">sens =</span> .<span class="dv">80</span>, 
             <span class="dt">spec =</span> <span class="ot">NA</span>, 
             <span class="dt">fart =</span> .<span class="dv">096</span>)</code></pre></div>
-<p>This <code>riskyr</code> command defined a new scenario <code>s</code> and initialized it with a suitable population size of <code>N = 1000</code>. Use the <code>summary</code> command to get an overview over its key parameters:</p>
+<p>Using the <strong>riskyr</strong> function <code><a href="../reference/riskyr.html">riskyr()</a></code> defined a new scenario <code>s</code> and initialized it with a suitable population size of <code>N = 1000</code>. Use the <code>summary</code> command to get an overview over its key parameters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s)  <span class="co"># provides an overview over key scenario information:</span>
 <span class="co">#&gt; Scenario:  Mammography screening </span>
 <span class="co">#&gt; </span>
@@ -529,8 +529,8 @@ freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_f
 <div id="c--visualizing-relationships-between-formats-and-variables" class="section level3">
 <h3 class="hasAnchor">
 <a href="#c--visualizing-relationships-between-formats-and-variables" class="anchor"></a>C. Visualizing relationships between formats and variables</h3>
-<p>Inspecting the lists of probabilities and frequencies shows that the two problem formulations cited above are only two possible instances out of an array of many alternative formulations. Essentially, the same scenario can be described in a variety of variables and formats. Gaining deeper insights into the interplay between these variables requires a solid understanding of the underlying concepts and their mathematical definitions. To facilitate the development of such an understanding, <code>riskyr</code> recruits the power of visual representations and shows the same scenario from a variety of angles and perspectives. It is mostly this graphical functionality that supports <code>riskyr</code>’s claim on being a toolbox for rendering risk literacy more transparent. Thus, in addition to being a fancy calculator and a translator between formats, <code>riskyr</code> is mostly a machine that turns risk-related information into pretty pictures.</p>
-<p><code>riskyr</code> provides many alternative visualizations that depict the same risk-related scenario in the form of different representations. As each type of graphic has its own properties and perspective — strengths that emphasize or illuminate some particular aspect and weaknesses that hide or obscure others — the different visualizations are somewhat redundant, yet complement and support each other.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+<p>Inspecting the lists of probabilities and frequencies shows that the two problem formulations cited above are only two possible instances out of an array of many alternative formulations. Essentially, the same scenario can be described in a variety of variables and formats. Gaining deeper insights into the interplay between these variables requires a solid understanding of the underlying concepts and their mathematical definitions. To facilitate the development of such an understanding, <strong>riskyr</strong> recruits the power of visual representations and shows the same scenario from a variety of angles and perspectives. It is mostly this graphical functionality that supports <strong>riskyr</strong>’s claim on being a toolbox for rendering risk literacy more transparent. Thus, in addition to being a fancy calculator and a translator between formats, <strong>riskyr</strong> is mostly a machine that turns risk-related information into pretty pictures.</p>
+<p><strong>riskyr</strong> provides many alternative visualizations that depict the same risk-related scenario in the form of different representations. As each type of graphic has its own properties and perspective — strengths that emphasize or illuminate some particular aspect and weaknesses that hide or obscure others — the different visualizations are somewhat redundant, yet complement and support each other.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
 <p>Here are some examples that depict particular aspects of the scenario described above:</p>
 <div id="icon-array" class="section level4">
 <h4 class="hasAnchor">
@@ -584,7 +584,7 @@ An area plot in which area sizes represent the probabilities/relative frequencie
 <div id="prism-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h4>
-<p>The prism plot (called network diagram in version 0.1.0 of <code>riskyr</code>) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by <code>comp_freq_prop</code> and <code>comp_freq_freq</code> and contained in <code>freq</code>) as nodes of a single graph and depicts 12 probabilities (computed by <code>comp_prop_prop</code> and <code>comp_prop_freq</code> and contained in <code>prob</code>) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, <code>riskyr</code> visualizes the interplay of frequencies and probabilities in a variety of ways:</p>
+<p>The prism plot (called network diagram in version 0.1.0 of <strong>riskyr</strong>) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by <code>comp_freq_prop</code> and <code>comp_freq_freq</code> and contained in <code>freq</code>) as nodes of a single graph and depicts 12 probabilities (computed by <code>comp_prop_prop</code> and <code>comp_prop_freq</code> and contained in <code>prob</code>) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, <strong>riskyr</strong> visualizes the interplay of frequencies and probabilities in a variety of ways:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"cddc"</span>, <span class="dt">area =</span> <span class="st">"sq"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <div class="figure">
@@ -597,7 +597,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <div id="alternative-perspectives" class="section level4">
 <h4 class="hasAnchor">
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
-<p>The variety of different graphical options provided by <code>riskyr</code> can be overwhelming at first – but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
+<p>The variety of different graphical options provided by <strong>riskyr</strong> can be overwhelming at first – but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
 <p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond_true</code> and <code>cond_false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec_pos</code> and <code>dec_neg</code> cases:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>, <span class="dt">col_pal =</span> pal_mod)</code></pre></div>
@@ -610,7 +610,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
           <span class="dt">by =</span> <span class="st">"cddc"</span>,    <span class="co"># show by condition x decision</span>
           <span class="dt">p_split =</span> <span class="st">"h"</span>,  <span class="co"># horizontal perspective is primary </span>
           <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
-<p><code>riskyr</code> uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option <code>area = "hr"</code> further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:</p>
+<p><strong>riskyr</strong> uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option <code>area = "hr"</code> further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
            <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">area =</span> <span class="st">"hr"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
 <p>Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. Even when relaxing the positional constraint of icons in the icon array, the similarity is still visible:</p>
@@ -664,7 +664,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left">A. <strong>riskyr</strong> (R package):</td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
@@ -674,7 +674,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
 </tr>
 <tr class="odd">
-<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
 <td align="left"><a href="http://riskyr.org">Online version</a></td>
 <td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
 </tr>
@@ -704,7 +704,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
 <li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
@@ -755,13 +755,13 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <ol>
 <li id="fn1"><p>Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>The actual sample size <code>N</code> chosen is irrelevant, but the numbers are easier to calculate when <code>N</code> is a round number and at least as large as the frequencies mentioned in the problem.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. <code>riskyr</code> extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.<a href="#fnref3">↩</a></p></li>
+<li id="fn3"><p>Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. <strong>riskyr</strong> extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>See Gigerenzer and Gaissmaier (2011) and Neth and Gigerenzer (2015) for discussions on different type of decision strategies that correspond to the distinction between risk and uncertainty.<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>The <code>riskyr</code> logo (showing 3 different dice facets) also represents its functionality in several ways:<br>
+<li id="fn5"><p>The <strong>riskyr</strong> logo (showing 3 different dice facets) also represents its functionality in several ways:<br>
 1. First, each facet provides a <em>frequency</em> (e.g., the number <span class="math inline">\(3\)</span>). Nevertheless, the dice is a paradigmatic example of a device that generates <em>probabilities</em>. (See Strevens, 2013, for inferring probabilistic properties from physical devices.)<br>
 2. The 3 facets indicate the 3 perspectives that classify a population of <span class="math inline">\(N\)</span> individuals into 3 binary categories of medical diagnostics: (1) by <em>condition</em> (true vs. false), (2) by <em>decision</em> (positive vs. negative), and (3) by <em>accuracy</em>/<em>correspondence</em> (correct vs. incorrect).<br>
-3. Any individual facet is informative by itself — and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. <code>riskyr</code> provides alternative perspectives that — when viewed together — render issues of risk literacy more transparent.<br>
-4. The 3 facets also hint at <code>riskyr</code>’s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualizing relationships between variables.<a href="#fnref5">↩</a></p></li>
+3. Any individual facet is informative by itself — and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. <strong>riskyr</strong> provides alternative perspectives that — when viewed together — render issues of risk literacy more transparent.<br>
+4. The 3 facets also hint at <strong>riskyr</strong>’s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualizing relationships between variables.<a href="#fnref5">↩</a></p></li>
 <li id="fn6"><p>Although we tend to be enthusiastic about the potential of visualizations, we should not expect graphs to provide a magic potion for solving all problems of understanding. (For instance, see Micallef et al. (2012) and Khan et al. (2015) for somewhat sceptical and sobering studies on the potential benefits of different static representations of Bayesian problems.)<a href="#fnref6">↩</a></p></li>
 </ol>
 </div>

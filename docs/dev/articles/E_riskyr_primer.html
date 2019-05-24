@@ -118,13 +118,13 @@
     
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
-<p><code>riskyr</code> is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.</p>
+<p><strong>riskyr</strong> is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.</p>
 <p>This page assumes that you just installed the package and are eager to see what you can do with it.<br>
 (See the <a href="A_user_guide.html">User guide</a> for a more comprehensive introduction.)</p>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<p>How can you use <code>riskyr</code>? Basically, there are two ways to get started:</p>
+<p>How can you use <strong>riskyr</strong>? Basically, there are two ways to get started:</p>
 <ol style="list-style-type: decimal">
 <li><p>Define your own scenario from risk-related information (typically provided in terms of probabilities).</p></li>
 <li><p>Inspect one of 24 predefined scenarios to get a glimpse of what types of scenarios are possible.</p></li>
@@ -134,7 +134,7 @@
 <div id="defining-a-scenario" class="section level3">
 <h3 class="hasAnchor">
 <a href="#defining-a-scenario" class="anchor"></a>Defining a scenario</h3>
-<p>Let’s launch your <code>riskyr</code>-career by creating a ficticious risk scenario that we construct from scratch:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Let’s launch your <strong>riskyr</strong>-career by creating a ficticious risk scenario that we construct from scratch:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 <div id="example" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h4>
@@ -152,7 +152,7 @@
 <p>John D. is about to get released and is tested. The test predicts that he will reoffend.</p>
 <p>What is the probability that John D. will actually reoffend, given his test result?</p>
 </blockquote>
-<p>To answer this question, you could calculate the corresponding probabilities or frequencies (as explained in the <a href="A_user_guide.html">user guide</a>). Alternatively, you can use the <code><a href="../reference/riskyr.html">riskyr()</a></code> function to create a <code>riskyr</code> scenario that you can modify, inspect, and visualize in various ways.</p>
+<p>To answer this question, you could calculate the corresponding probabilities or frequencies (as explained in the <a href="A_user_guide.html">user guide</a>). Alternatively, you can use the <code><a href="../reference/riskyr.html">riskyr()</a></code> function to create a <strong>riskyr</strong> scenario that you can modify, inspect, and visualize in various ways.</p>
 </div>
 <div id="necessary-scenario-information" class="section level4">
 <h4 class="hasAnchor">
@@ -258,7 +258,7 @@ my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <ul>
 <li>Plot <code>my_scenario</code> with the option <code>area = "hr"</code>. What do you see?</li>
 <li>Add <code>by = "cdac"</code> as another argument to your plotting call. How does the resulting plot relate to the previous ones?</li>
-<li>When calling <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(my_scenario)</a></code>, <code>riskyr</code> creates a plot of <code>type = "prism"</code> by default. Use <code><a href="../reference/plot_prism.html">?plot_prism</a></code> for the documentation of <code>plot_prism</code> to learn about and try out additional arguments.</li>
+<li>When calling <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot(my_scenario)</a></code>, <strong>riskyr</strong> creates a plot of <code>type = "prism"</code> by default. Use <code><a href="../reference/plot_prism.html">?plot_prism</a></code> for the documentation of <code>plot_prism</code> to learn about and try out additional arguments.</li>
 </ul>
 </div>
 <div id="icon-array" class="section level5">
@@ -327,13 +327,14 @@ my_scenario &lt;-<span class="st"> </span><span class="kw"><a href="../reference
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(my_scenario, <span class="dt">type =</span> <span class="st">"curve"</span>, <span class="dt">uc =</span> .<span class="dv">05</span>)</code></pre></div>
 <p><img src="E_riskyr_primer_files/figure-html/plotting_curve-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>As before, we can read off that the current values of <code>PPV = 59.76%</code> and <code>NPV = 96,56%</code>, but also see that our 5%-uncertainty implies relatively large fluctuations of the exact numeric values. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both <code>PPV</code> and <code>NPV</code>. For instance, if <code>prev</code> dropped further, the <code>PPV</code> of our test was also considerably lower. In fact, both the PPV and NPV always vary from 0 to 1 depending on the value of <code>prev</code>, which means that specifying them is actually meaningless when the corresponding value of <code>prev</code> is not communicated as well. (See the guide on <a href="D_functional_perspectives.html">functional perspectives</a> for additional information and options.)</p>
-<p>Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the <code>riskyr</code> package.</p>
+<p>Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the <strong>riskyr</strong> package.</p>
 </div>
 </div>
 <div id="using-existing-scenarios" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-existing-scenarios" class="anchor"></a>Using existing scenarios</h3>
-<p>As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), <code>riskyr</code> provides a set of – currently 25) – pre-defined scenarios (stored in a list <code>scenarios</code>). The following table provides a first overview of the scenarios available, including their relevant condition, their population size <code>N</code>, and basic probability information:</p>
+<p>As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), <strong>riskyr</strong> provides a set of – currently 25) – pre-defined scenarios (stored in a list <code>scenarios</code>). The following table provides a first overview of the scenarios available, including their relevant condition, their population size <code>N</code>, and basic probability information:</p>
+<pre><code>#&gt; Warning: package 'knitr' was built under R version 3.5.2</code></pre>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Scenario</th>
@@ -676,7 +677,7 @@ s10<span class="op">$</span>scen_apa  <span class="co"># shows current source: <
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s10, <span class="dt">type =</span> <span class="st">"curve"</span>, 
      <span class="dt">what =</span> <span class="st">"all"</span>,  <span class="co"># plot "all" available curves </span>
      <span class="dt">uc =</span> .<span class="dv">05</span>)      <span class="co"># with a 5%-uncertainty range </span></code></pre></div>
-<p>The additional argument <code>what = "all"</code> instructed <code>riskyr</code> to provide us with additional curves, corresponding to the percentage of positive decisions (<code>ppod</code>) and overall accuracy (<code>acc</code>). Just like <code>PPV</code> and <code>NPV</code>, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis) and on our current range of uncertainty (shown as shaded polygons around the curves). Interestingly, the curves of <code>ppod</code> and <code>acc</code> appear to be linear, even though the <code>riskyr</code> function plots them in exactly the same way as <code>PPV</code> and <code>NPV</code>. Would you have predicted this without seeing it?</p>
+<p>The additional argument <code>what = "all"</code> instructed <strong>riskyr</strong> to provide us with additional curves, corresponding to the percentage of positive decisions (<code>ppod</code>) and overall accuracy (<code>acc</code>). Just like <code>PPV</code> and <code>NPV</code>, the values of these metrics crucially depend on the value of the current prevalence (shown on the x-axis) and on our current range of uncertainty (shown as shaded polygons around the curves). Interestingly, the curves of <code>ppod</code> and <code>acc</code> appear to be linear, even though the <strong>riskyr</strong> function plots them in exactly the same way as <code>PPV</code> and <code>NPV</code>. Would you have predicted this without seeing it?</p>
 <div id="practice-2" class="section level5">
 <h5 class="hasAnchor">
 <a href="#practice-2" class="anchor"></a>Practice</h5>
@@ -690,13 +691,13 @@ s10<span class="op">$</span>scen_apa  <span class="co"># shows current source: <
 <p><img src="E_riskyr_primer_files/figure-html/s10_planes-1.png" width="556.8" style="display: block; margin: auto;"><img src="E_riskyr_primer_files/figure-html/s10_planes-2.png" width="556.8" style="display: block; margin: auto;"></p>
 <p>This comparison shows that the curves of <code>PPV</code> and <code>NPV</code> (created by <code>type = "curve"</code> above) were only two out of an infinite number of possible intersections of two planes (created by <code>type = "plane"</code> here). Consequently, the current values of <code>PPV</code> and <code>NPV</code> (shown as yellow points on the planes) crucially depend on the condition’s prevalence (<code>prev</code>), the decision’s sensitivity (<code>sens</code>), and the decision’s specificity (<code>spec</code>).</p>
 <!-- Conclusion: -->
-<p>In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What’s the probability of having some condition when testing positive or negative for it? While <code>riskyr</code> cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent.</p>
+<p>In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What’s the probability of having some condition when testing positive or negative for it? While <strong>riskyr</strong> cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent.</p>
 </div>
 <div id="practice-3" class="section level5">
 <h5 class="hasAnchor">
 <a href="#practice-3" class="anchor"></a>Practice</h5>
 <ul>
-<li>Scenario 9 in the <code>riskyr</code> collection of <code>scenarios</code> contains a version of the same situation that assumes a different population (with a lower prevalence value for the same condition). Inspect and explore the consequence of this change by following the same steps for <code>s9</code> as for <code>s10</code> above.</li>
+<li>Scenario 9 in the <strong>riskyr</strong> collection of <code>scenarios</code> contains a version of the same situation that assumes a different population (with a lower prevalence value for the same condition). Inspect and explore the consequence of this change by following the same steps for <code>s9</code> as for <code>s10</code> above.</li>
 </ul>
 <!-- Spoiler alarm:  --><p>Here are the first steps:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Select Scenario 9: </span>
@@ -714,7 +715,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 <div id="conclusion" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conclusion" class="anchor"></a>Conclusion</h3>
-<p>This introduction should suffice to get you started with using <code>riskyr</code>. Have fun by exploring the provided scenarios and creating your own examples!</p>
+<p>This introduction should suffice to get you started with using <strong>riskyr</strong>. Have fun by exploring the provided scenarios and creating your own examples!</p>
 </div>
 </div>
 <div id="references" class="section level2">
@@ -741,7 +742,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left">A. <strong>riskyr</strong> (R package):</td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
@@ -751,7 +752,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 <td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
 </tr>
 <tr class="odd">
-<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
 <td align="left"><a href="http://riskyr.org">Online version</a></td>
 <td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
 </tr>
@@ -781,7 +782,7 @@ s9<span class="op">$</span>popu_lbl  <span class="co"># shows current population
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
 <li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>

@@ -108,8 +108,14 @@
     
     
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
-<!-- Status badges: -->
+<!-- Status badges: 
 
+[![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
+[![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
+[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
+[![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr)
+
+-->
 <!-- riskyr logo: -->
 <div id="riskyr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -127,7 +133,7 @@
 <div id="a-toolbox-for-rendering-risk-literacy-more-transparent" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-toolbox-for-rendering-risk-literacy-more-transparent" class="anchor"></a>A toolbox for rendering risk literacy more transparent</h3>
-<p>Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, <code>riskyr</code> computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.</p>
+<p>Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, <strong>riskyr</strong> computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.</p>
 </div>
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
@@ -136,16 +142,16 @@
 <p>Solving a problem simply means representing it <br> so as to make the solution transparent. (H.A. Simon)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
 <!-- Risk perception as representational effects: -->
-<p>The goals of <code>riskyr</code> are less of a <em>computational</em> and more of a <em>representational</em> nature: We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer &amp; Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, <code>riskyr</code> allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>The goals of <strong>riskyr</strong> are less of a <em>computational</em> and more of a <em>representational</em> nature: We express risk-related information in multiple formats, facilitate the translation between them, and provide a variety of attractive visualizations that emphasize different aspects of risk-related scenarios. Whereas people find it difficult to understand and compute information expressed in terms of probabilities, the same information is easier to understand and compute when expressed in terms of frequencies (e.g., Gigerenzer, 2002, 2014; Gigerenzer &amp; Hoffrage, 1995). But rather than just expressing probabilities in terms of frequencies, <strong>riskyr</strong> allows translating between formats and illustrates the relationships between different representations in a variety of ways. Switching between and interacting with different representations fosters transparency and boosts human understanding of risk-related information.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <!-- Defining "risk" (in footnote): -->
 <!-- On "riskyr": -->
-<p>The basic assumptions and aspirations driving the current development of <code>riskyr</code> include:</p>
+<p>The basic assumptions and aspirations driving the current development of <strong>riskyr</strong> include:</p>
 <ol style="list-style-type: decimal">
 <li><p>Effective training in risk literacy requires transparent representations, smart strategies, and simple tools.</p></li>
 <li><p>We aim to provide a set of (computational and representational) functions that facilitate various calculations, translations between formats, and enable a range of alternative views on the interplay between probabilities and frequencies.</p></li>
 <li><p>Just as no single tool fits all tasks, no single graph illustrates all aspects of a problem. A variety of visualizations that illustrate the interplay of parameters and metrics can facilitate active and explorative learning. It is particularly helpful to view relationships from alternative perspectives and to observe the change of one parameter as a function of others.</p></li>
 </ol>
-<p>Based on these assumptions and goals, <code>riskyr</code> provides a range of computational and representational tools. Importantly, the objects and functions in the <code>riskyr</code> toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately or explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that fit to different tasks and meet their personal needs and goals.</p>
+<p>Based on these assumptions and goals, <strong>riskyr</strong> provides a range of computational and representational tools. Importantly, the objects and functions in the <strong>riskyr</strong> toolbox are not isolated, but complement, explain, and support each other. All functions and visualizations can be used separately or explored interactively, providing immediate feedback on the effect of changes in parameter values. By providing a variety of customization options, users can explore and design representations of risk-related information that fit to different tasks and meet their personal needs and goals.</p>
 </div>
 <div id="getting-riskyr" class="section level2">
 <h2 class="hasAnchor">
@@ -154,7 +160,7 @@
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <ul>
-<li>The current release of <code>riskyr</code> is available from <a href="https://CRAN.R-project.org/">CRAN</a> at <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>:</li>
+<li>The current release of <strong>riskyr</strong> is available from <a href="https://CRAN.R-project.org/">CRAN</a> at <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">'riskyr'</span>)  <span class="co"># install riskyr from CRAN client</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">'riskyr'</span>)           <span class="co"># load to use the package</span></code></pre></div>
@@ -187,7 +193,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div id="defining-a-scenario" class="section level3">
 <h3 class="hasAnchor">
 <a href="#defining-a-scenario" class="anchor"></a>Defining a scenario</h3>
-<p><code>riskyr</code> is designed to address problems like the following:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<p><strong>riskyr</strong> is designed to address problems like the following:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <!-- Example: -->
 <blockquote>
 <p><strong>Screening for hustosis</strong></p>
@@ -236,13 +242,13 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div id="using-riskyr" class="section level4">
 <h4 class="hasAnchor">
 <a href="#using-riskyr" class="anchor"></a>Using riskyr</h4>
-<p>Here is how <code>riskyr</code> allows you to view and solve such problems:</p>
+<p>Here is how <strong>riskyr</strong> allows you to view and solve such problems:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(riskyr)  <span class="co"># loads the package</span></code></pre></div>
 </div>
 <div id="creating-a-scenario-from-probabilities" class="section level4">
 <h4 class="hasAnchor">
 <a href="#creating-a-scenario-from-probabilities" class="anchor"></a>Creating a scenario from probabilities</h4>
-<p>We define a new <code>riskyr</code> scenario (called <code>hustosis</code>) with the information provided by our problem:</p>
+<p>We define a new <strong>riskyr</strong> scenario (called <code>hustosis</code>) by using the <code><a href="reference/riskyr.html">riskyr()</a></code> function and entering the information provided by our problem as its arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hustosis &lt;-<span class="st"> </span><span class="kw"><a href="reference/riskyr.html">riskyr</a></span>(<span class="dt">scen_lbl =</span> <span class="st">"Example"</span>, 
                    <span class="dt">cond_lbl =</span> <span class="st">"Hustosis"</span>,
                    <span class="dt">dec_lbl =</span> <span class="st">"Screening test"</span>,
@@ -250,7 +256,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
                    <span class="dt">N =</span> <span class="dv">1000</span>,  <span class="co"># population size</span>
                    <span class="dt">prev =</span> .<span class="dv">04</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">05</span>)  <span class="co"># 3 probabilities</span>
                    )</code></pre></div>
-<p>By providing the argument <code>N = 1000</code> we define the scenario for a target population of 1000 people. If we leave this parameter unspecified (or <code>NA</code>), <code>riskyr</code> will automatically pick a suitable value of <code>N</code>.</p>
+<p>By providing the argument <code>N = 1000</code> we define the scenario for a target population of 1000 people. If we leave this parameter unspecified (or <code>NA</code>), the <code><a href="reference/riskyr.html">riskyr()</a></code> function will automatically pick a suitable value of <code>N</code>.</p>
 </div>
 <div id="summary" class="section level4">
 <h4 class="hasAnchor">
@@ -262,7 +268,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <li><p>The conditional probability that Mr. Smith actually suffers from hustosis given his positive test result is 40% (as <code>PPV = 0.400</code>).</p></li>
 <li><p>The conditional probability that Ms. Smith is actually free of hustosis given her negative test result is 99.1% (as <code>NPV = 0.991</code>).</p></li>
 </ul>
-<p>If find these answers surprising, you are an ideal candidate for additional insights into the realm of risk literacy. A key component of <code>riskyr</code> is to analyze and view a scenario from a variety of different perspectives. To get you started immediately, we only illustrate some introductory commands here and focus on different types of visualizations. (Call <code><a href="reference/riskyr.guide.html">riskyr.guide()</a></code> for various vignettes that provide more detailed information.)</p>
+<p>If find these answers surprising, you are an ideal candidate for additional insights into the realm of risk literacy. A key component of <strong>riskyr</strong> is to analyze and view a scenario from a variety of different perspectives. To get you started immediately, we only illustrate some introductory commands here and focus on different types of visualizations. (Call <code><a href="reference/riskyr.guide.html">riskyr.guide()</a></code> for various vignettes that provide more detailed information.)</p>
 </div>
 <div id="creating-a-scenario-from-frequencies" class="section level4">
 <h4 class="hasAnchor">
@@ -282,11 +288,11 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div id="visualizations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visualizations" class="anchor"></a>Visualizations</h3>
-<p>Various visualizations of <code>riskyr</code> scenarios can be created by a range of plotting functions.</p>
+<p>Various visualizations of <strong>riskyr</strong> scenarios can be created by a range of plotting functions.</p>
 <div id="prism-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h4>
-<p>The default type of plot used in <code>riskyr</code> is a <em>prism plot</em> (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:</p>
+<p>The default type of plot used in <strong>riskyr</strong> is a <em>prism plot</em> (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(hustosis)  <span class="co"># default plot</span>
 
 <span class="co"># =&gt; internally calls plot_prism(...) with many additional arguments:</span>
@@ -325,7 +331,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div class="figure">
 <img src="inst/pix/README-ex1_icons-1.png" alt="Icon array"><p class="caption">Icon array</p>
 </div>
-<p>While this particular icon array is highly regular (as both the icons and classification types are ordered), <code>riskyr</code> provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see <code><a href="reference/plot_icons.html">?plot_icons</a></code> for details and examples).</p>
+<p>While this particular icon array is highly regular (as both the icons and classification types are ordered), <strong>riskyr</strong> provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see <code><a href="reference/plot_icons.html">?plot_icons</a></code> for details and examples).</p>
 </div>
 <div id="area-plot" class="section level4">
 <h4 class="hasAnchor">
@@ -376,7 +382,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 
 #### Plots currently under development
 
-The current development version of `riskyr` (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
+The current development version of **riskyr** (version 0.1.0.930+) replaces some of the above plots with a set of more powerful and more integrated functions. To use them and preview their effects, install the development version and explore the following commands:
 
 
 ```r
@@ -399,7 +405,7 @@ plot(hustosis, type = "bar",   dir = 2)
 <div id="using-existing-scenarios" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-existing-scenarios" class="anchor"></a>Using existing scenarios</h3>
-<p>As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as “Bayesian reasoning”), <code>riskyr</code> provides a set of — currently 24 — pre-defined scenarios (stored in a list <code>scenarios</code>). Here, we provide an example that shows how you can select and explore them.</p>
+<p>As defining your own scenarios can be cumbersome and the literature is full of risk-related problems (often referred to as “Bayesian reasoning”), <strong>riskyr</strong> provides a set of — currently 24 — pre-defined scenarios (stored in a list <code>scenarios</code>). Here, we provide an example that shows how you can select and explore them.</p>
 <div id="selecting-a-scenario" class="section level4">
 <h4 class="hasAnchor">
 <a href="#selecting-a-scenario" class="anchor"></a>Selecting a scenario</h4>
@@ -422,7 +428,7 @@ s10<span class="op">$</span>scen_apa   <span class="co"># scenario source (APA) 
 <span class="co">#&gt; [1] "Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."</span>
 
 <span class="co"># summary(s10) # summarises a scenario</span></code></pre></div>
-<p>Generating some <code>riskyr</code> plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.</p>
+<p>Generating some <strong>riskyr</strong> plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.</p>
 </div>
 <div id="prism-plots" class="section level4">
 <h4 class="hasAnchor">
@@ -433,7 +439,7 @@ s10<span class="op">$</span>scen_apa   <span class="co"># scenario source (APA) 
 <div class="figure">
 <img src="inst/pix/README-ex2_tree-1.png" alt="Prism/tree plot (with scaled squares)"><p class="caption">Prism/tree plot (with scaled squares)</p>
 </div>
-<p>The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). <code>riskyr</code> provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the <code>by = "acdc"</code> argument). In addition, the frequencies are represented as horizontal rectangles (<code>area = "hr"</code>) so that their relative width reflect the number of people in the corresponding subgroup:</p>
+<p>The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). <strong>riskyr</strong> provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the <code>by = "acdc"</code> argument). In addition, the frequencies are represented as horizontal rectangles (<code>area = "hr"</code>) so that their relative width reflect the number of people in the corresponding subgroup:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s10, <span class="dt">type =</span> <span class="st">"prism"</span>, <span class="dt">by =</span> <span class="st">"acdc"</span>, <span class="dt">area =</span> <span class="st">"hr"</span>,  <span class="co"># prism plot with horizontal rectangles</span>
      <span class="dt">p_lbl =</span> <span class="st">"num"</span>)                                  <span class="co"># numeric probability labels</span></code></pre></div>
 <div class="figure">
@@ -482,9 +488,9 @@ s10<span class="op">$</span>scen_apa   <span class="co"># scenario source (APA) 
 <!-- uni.kn logo and link to SPDS: -->
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="inst/pix/uniKn_logo.png" alt="spds.uni.kn" align="right" width="300" style="width: 300px; float: right; border:20;"><!-- <img src = "/Users/hneth/Desktop/stuff/Dropbox/GitHub/riskyr/inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --></a></p>
-<p><code>riskyr</code> originated out of a series of lectures and workshops on risk literacy.<br>
+<p><strong>riskyr</strong> originated out of a series of lectures and workshops on risk literacy.<br>
 The current version (0.2.0, as of Dec. 20, 2018) is under active development. Its primary designers are <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, and <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>, who are researchers at the department of <a href="https://www.spds.uni-konstanz.de">Social Psychology and Decision Sciences</a> at the <a href="https://www.uni-konstanz.de/en/">University of Konstanz</a>, Germany.</p>
-<p>The <code>riskyr</code> package is open source software written in <a href="https://www.r-project.org/">R</a> and released under the <a href="https://tldrlegal.com/license/gnu-general-public-license-v2">GPL 2</a> | <a href="https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)">GPL 3</a> licenses.</p>
+<p>The <strong>riskyr</strong> package is open source software written in <a href="https://www.r-project.org/">R</a> and released under the <a href="https://tldrlegal.com/license/gnu-general-public-license-v2">GPL 2</a> | <a href="https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)">GPL 3</a> licenses.</p>
 <div id="resources" class="section level3">
 <h3 class="hasAnchor">
 <a href="#resources" class="anchor"></a>Resources</h3>
@@ -502,7 +508,7 @@ The current version (0.2.0, as of Dec. 20, 2018) is under active development. It
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left">A. <strong>riskyr</strong> (R package):</td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
@@ -512,7 +518,7 @@ The current version (0.2.0, as of Dec. 20, 2018) is under active development. It
 <td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
 </tr>
 <tr class="odd">
-<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
+<td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
 <td align="left"><a href="http://riskyr.org">Online version</a></td>
 <td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
 </tr>
@@ -539,7 +545,7 @@ The current version (0.2.0, as of Dec. 20, 2018) is under active development. It
 <a href="#contact" class="anchor"></a>Contact</h3>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
 <li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
@@ -548,9 +554,9 @@ The current version (0.2.0, as of Dec. 20, 2018) is under active development. It
 <a href="#reference" class="anchor"></a>Reference</h3>
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img alt="riskyr logo" title="riskyr" src="./inst/pix/riskyr_cube.png" width="180px" align="right" style="float:right; border:20; width:180px;"></a> <!-- <img src = "/Users/hneth/Desktop/stuff/Dropbox/GitHub/riskyr/inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") --></p>
-<p>To cite <code>riskyr</code> in derivations and publications please use:</p>
+<p>To cite <strong>riskyr</strong> in derivations and publications please use:</p>
 <ul>
-<li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2018).<br><code>riskyr</code>: A toolbox for rendering risk literacy more transparent.<br>
+<li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2018).<br><strong>riskyr</strong>: A toolbox for rendering risk literacy more transparent.<br>
 Social Psychology and Decision Sciences, University of Konstanz, Germany.<br>
 Computer software (R package version 0.2.0, Dec. 20, 2018).<br>
 Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>.</li>
@@ -589,7 +595,7 @@ Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="uri">h
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
 <li><p>Wassner, C., Martignon, L., &amp; Biehler, R. (2004). Bayesianisches Denken in der Schule. <em>Unterrichtswissenschaft</em>, <em>32</em>, 58–96.</p></li>
 </ul>
-<!-- Update: --><p>[Updated 2019-05-06 by <a href="http://neth.de">hn</a>.]</p>
+<!-- Update: --><p>[Updated 2019-05-24 by <a href="https://neth.de">hn</a>.]</p>
 <!-- eof -->
 </div>
 </div>
@@ -648,16 +654,7 @@ This notion of <em>risk</em> is typically contrasted with the much wider notion 
 </ul>
 </div>
 
-      <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=riskyr"><img src="http://www.r-pkg.org/badges/version/riskyr" alt="CRAN_status"></a></li>
-<li><a href="https://travis-ci.org/hneth/riskyr"><img src="https://travis-ci.org/hneth/riskyr.svg?branch=master" alt="Build_status"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/riskyr"><img src="http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen" alt="Downloads"></a></li>
-<li><a href="http://www.rdocumentation.org/packages/riskyr"><img src="http://www.rdocumentation.org/badges/version/riskyr" alt="Rdoc"></a></li>
-</ul>
-</div>
-</div>
+      </div>
 
 </div>
 
