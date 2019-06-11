@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2019 05 05
+## 2019 06 11
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -324,6 +324,10 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   lbl_digits <- 1     # n_digits to which numeric probability values (prev, PPV, NPV, ppod, acc) are rounded
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
+
+  fx_x_shift <- .025
+  fx_y_shift <- .025
+
 
   ## (2) Define and interpret prev_range: ------
 
@@ -745,12 +749,15 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             } else {  # linear scale:
 
               if (prev_i < .91) {
-                lbl_x <- (prev_i + h_shift)  # to right of prev_i
+                # lbl_x <- (prev_i + h_shift)  # to right of prev_i
+                lbl_x <- prev_i + fx_x_shift
               } else {
-                lbl_x <- (prev_i - h_shift)  # to left of prev_i
+                # lbl_x <- (prev_i - h_shift)  # to left of prev_i
+                lbl_x <- prev_i - fx_x_shift
               }
 
-              lbl_y <- (0 + 1 * v_shift)  # at bottom
+              # lbl_y <- (0 + 1 * v_shift)  # at bottom
+              lbl_y <- 0 + fx_y_shift
 
             }
 
@@ -867,9 +874,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             if (log_scale) {
               lbl_x <- (prev_i * 2)  # shift as a factor of prev_i
             } else {  # linear scale:
-              lbl_x <- (prev_i + h_shift)  # to right of prev_i
+              # lbl_x <- (prev_i + h_shift)  # to right of prev_i
+              lbl_x <- prev_i + fx_x_shift  # fixed x shift
             }
-            lbl_y <- cur_PPV - (cur_PPV * v_shift)  # weighted y shift
+            # lbl_y <- cur_PPV - (cur_PPV * v_shift)  # weighted y shift
+            lbl_y <- cur_PPV - fx_y_shift  # fixed y shift
 
             # Print label:
             text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_ppv, cex = cex_lbl_sm)
@@ -982,9 +991,11 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
             if (log_scale) {
               lbl_x <- (prev_i * 2)  # shift as a factor of prev_i
             } else {  # linear scale:
-              lbl_x <- (prev_i + h_shift)  # to right of prev_i
+              # lbl_x <- (prev_i + h_shift)  # to right of prev_i
+              lbl_x <- prev_i + fx_x_shift  # fixed x shift
             }
-            lbl_y <- cur_NPV + (cur_NPV * v_shift)  # weighted y shift
+            # lbl_y <- cur_NPV + (cur_NPV * v_shift)  # weighted y shift
+            lbl_y <- cur_NPV + fx_y_shift  # fixed y shift
 
             # Print label:
             text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_npv, cex = cex_lbl_sm)
