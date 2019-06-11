@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 02 21
+## 2019 06 11
 ## Helper functions for plotting objects (freq/prob, boxes/lines).
 ## -----------------------------------------------
 
@@ -336,7 +336,7 @@ label_prob <- function(pname,
   p_type <- NA
 
   ## Additional parameters (currently fixed):
-  n_digits <- 2  # number of decimal digits to round percentage to.
+  n_digits <- 1  # number of decimal digits to round percentage to.
 
   ## (0) If pname is NA or lbl_type is NA/NULL/"no: ----
   if (is.na(pname) ||
