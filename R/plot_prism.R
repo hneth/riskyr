@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2019 01 23
+## 2019 06 11
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
