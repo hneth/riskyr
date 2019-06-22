@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2019 01 23
+## 2019 06 22
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.
@@ -8,23 +8,91 @@
 
 ## (1) Select and name some colors: ---------
 
-## (1) from uni.kn:
-seeblau <- rgb(0, 169, 224, max = 255)  # seeblau.4 (non-transparent)
+## (1) from unikn:
 
-pal_uni_kn = data.frame( ## in one df:
-  "seeblau1" = rgb(204, 238, 249, maxColorValue = 255),  #  1. seeblau1 (non-transparent)
-  "seeblau2" = rgb(166, 225, 244, maxColorValue = 255),  #  2. seeblau2 (non-transparent)
-  "seeblau3" = rgb( 89, 199, 235, maxColorValue = 255),  #  3. seeblau3 (non-transparent)
-  "seeblau4" = rgb(  0, 169, 224, maxColorValue = 255),  #  4. seeblau4 (= seeblau base color)
-  "black"    = rgb(  0,   0,   0, maxColorValue = 255),  #  5. black
-  "seegrau4" = rgb(102, 102, 102, maxColorValue = 255),  #  6. grey40 (non-transparent)
-  "seegrau3" = rgb(153, 153, 153, maxColorValue = 255),  #  7. grey60 (non-transparent)
-  "seegrau2" = rgb(204, 204, 204, maxColorValue = 255),  #  8. grey80 (non-transparent)
-  "seegrau1" = rgb(229, 229, 229, maxColorValue = 255),  #  9. grey90 (non-transparent)
-  "white"    = rgb(255, 255, 255, maxColorValue = 255),  # 10. white
+# seeblau <- rgb(0, 169, 224, max = 255)  # seeblau.4 (non-transparent)
+
+# pal_uni_kn = data.frame( ## in one df:
+#   "seeblau1" = rgb(204, 238, 249, maxColorValue = 255),  #  1. seeblau1 (non-transparent)
+#   "seeblau2" = rgb(166, 225, 244, maxColorValue = 255),  #  2. seeblau2 (non-transparent)
+#   "seeblau3" = rgb( 89, 199, 235, maxColorValue = 255),  #  3. seeblau3 (non-transparent)
+#   "seeblau4" = rgb(  0, 169, 224, maxColorValue = 255),  #  4. seeblau4 (= seeblau base color)
+#   "black"    = rgb(  0,   0,   0, maxColorValue = 255),  #  5. black
+#   "seegrau4" = rgb(102, 102, 102, maxColorValue = 255),  #  6. grey40 (non-transparent)
+#   "seegrau3" = rgb(153, 153, 153, maxColorValue = 255),  #  7. grey60 (non-transparent)
+#   "seegrau2" = rgb(204, 204, 204, maxColorValue = 255),  #  8. grey80 (non-transparent)
+#   "seegrau1" = rgb(229, 229, 229, maxColorValue = 255),  #  9. grey90 (non-transparent)
+#   "white"    = rgb(255, 255, 255, maxColorValue = 255),  # 10. white
+#   stringsAsFactors = FALSE)
+
+# individual palettes (from unikn):
+
+pal_seeblau <- data.frame(                               #  element:
+  "seeblau1" = rgb(204, 238, 249, maxColorValue = 255),  #  1. seeblau1 (non-transparent):  20%
+  "seeblau2" = rgb(166, 225, 244, maxColorValue = 255),  #  2. seeblau2 (non-transparent):  35%
+  "seeblau3" = rgb( 89, 199, 235, maxColorValue = 255),  #  3. seeblau3 (non-transparent):  65%: preferred color: "seeblau"
+  "seeblau4" = rgb(  0, 169, 224, maxColorValue = 255),  #  4. seeblau4 (non-transparent): 100%
+  "seeblau5" = rgb(  0, 142, 206, maxColorValue = 255),  #  5. seeblau5 (non-transparent): neu
+  stringsAsFactors = FALSE)
+
+pal_peach <- data.frame(                               #  Element:
+  "peach1" = rgb(254, 226, 221, maxColorValue = 255),  #  1.
+  "peach2" = rgb(254, 207, 199, maxColorValue = 255),  #  2.
+  "peach3" = rgb(255, 184, 172, maxColorValue = 255),  #  3.
+  "peach4" = rgb(254, 160, 144, maxColorValue = 255),  #  4. preferred color: "peach"
+  "peach5" = rgb(255, 142, 123, maxColorValue = 255),  #  5.
+  stringsAsFactors = FALSE)
+
+pal_petrol <- data.frame(                               #  element:
+  "petrol1" = rgb(156, 198, 207, maxColorValue = 255),  #  1. petrol1 (non-transparent)
+  "petrol2" = rgb(106, 170, 183, maxColorValue = 255),  #  2. petrol2 (non-transparent)
+  "petrol3" = rgb( 57, 141, 159, maxColorValue = 255),  #  3. petrol3 (non-transparent)
+  "petrol4" = rgb(  7, 113, 135, maxColorValue = 255),  #  4. petrol4 (non-transparent): preferred color: "petrol"
+  "petrol5" = rgb(  3,  95, 114, maxColorValue = 255),  #  5. petrol5 (non-transparent)
+  stringsAsFactors = FALSE)
+
+pal_seegruen <- data.frame(                               #  element:
+  "seegruen1" = rgb(113, 209, 204, maxColorValue = 255),  #  1. seegruen1 (non-transparent)
+  "seegruen2" = rgb( 84, 191, 183, maxColorValue = 255),  #  2. seegruen2 (non-transparent)
+  "seegruen3" = rgb( 10, 163, 152, maxColorValue = 255),  #  3. seegruen3 (non-transparent)
+  "seegruen4" = rgb( 10, 144, 134, maxColorValue = 255),  #  4. seegruen4 (non-transparent): preferred color: "seegruen"
+  "seegruen5" = rgb(  6, 126, 121, maxColorValue = 255),  #  5. seegruen5 (non-transparent)
+  stringsAsFactors = FALSE)
+
+pal_karpfenblau <- data.frame(                               #  element:
+  "karpfenblau1" = rgb(180, 188, 214, maxColorValue = 255),  #  1. karpfenblau1 (non-transparent)
+  "karpfenblau2" = rgb(130, 144, 187, maxColorValue = 255),  #  2. karpfenblau2 (non-transparent)
+  "karpfenblau3" = rgb( 88, 107, 164, maxColorValue = 255),  #  3. karpfenblau3 (non-transparent)
+  "karpfenblau4" = rgb( 62,  84, 150, maxColorValue = 255),  #  4. karpfenblau4 (non-transparent): preferred color: "karpfenblau"
+  "karpfenblau5" = rgb( 50,  67, 118, maxColorValue = 255),  #  5. karpfenblau5 (non-transparent)
+  stringsAsFactors = FALSE)
+
+pal_petrol <- data.frame(                               #  element:
+  "petrol1" = rgb(156, 198, 207, maxColorValue = 255),  #  1. petrol1 (non-transparent)
+  "petrol2" = rgb(106, 170, 183, maxColorValue = 255),  #  2. petrol2 (non-transparent)
+  "petrol3" = rgb( 57, 141, 159, maxColorValue = 255),  #  3. petrol3 (non-transparent)
+  "petrol4" = rgb(  7, 113, 135, maxColorValue = 255),  #  4. petrol4 (non-transparent): preferred color: "petrol"
+  "petrol5" = rgb(  3,  95, 114, maxColorValue = 255),  #  5. petrol5 (non-transparent)
+  stringsAsFactors = FALSE)
+
+pal_pinky <- data.frame(                               #  Element:
+  "pinky1" = rgb(243, 191, 203, maxColorValue = 255),  #  1. pinky1 (non-transparent)
+  "pinky2" = rgb(236, 160, 178, maxColorValue = 255),  #  2. pinky2 (non-transparent)
+  "pinky3" = rgb(230, 128, 152, maxColorValue = 255),  #  3. pinky3 (non-transparent)
+  "pinky4" = rgb(224,  96, 126, maxColorValue = 255),  #  4. pinky4 (non-transparent): preferred color: "pinky"
+  "pinky5" = rgb(202,  74, 104, maxColorValue = 255),  #  5. pinky5 (non-transparent)
+  stringsAsFactors = FALSE)
+
+pal_bordeaux <- data.frame(                               #  Element:
+  "bordeaux1" = rgb(210, 166, 180, maxColorValue = 255),  #  1. bordeaux1 (non-transparent)
+  "bordeaux2" = rgb(188, 122, 143, maxColorValue = 255),  #  2. bordeaux2 (non-transparent)
+  "bordeaux3" = rgb(165,  77, 105, maxColorValue = 255),  #  3. bordeaux3 (non-transparent)
+  "bordeaux4" = rgb(142,  32,  67, maxColorValue = 255),  #  4. bordeaux4 (non-transparent): preferred color: "bordeaux"
+  "bordeaux5" = rgb(119,  20,  52, maxColorValue = 255),  #  5. bordeaux5 (non-transparent)
   stringsAsFactors = FALSE)
 
 ## (2) from https://bootswatch.com/sandstone/:
+
 col_sand_light <- rgb(248, 245, 240, max = 255)
 col_sand_mid   <- rgb(142, 140, 132, max = 255)
 col_sand_dark  <- rgb(62, 63, 58, max = 255)
@@ -180,7 +248,7 @@ n_colors <- length(pal_def)  # number of colors for which defaults are currently
 #'
 #' \code{init_pal} initializes basic color information
 #' (i.e., all colors corresponding to functional roles in
-#' the current scenario and used throughout the \code{riskyr} package).
+#' the current scenario and used throughout the \bold{riskyr} package).
 #'
 #' All color information of the current scenario
 #' is stored as named colors in a list \code{pal}.
@@ -328,7 +396,7 @@ init_pal <- function(N_col = pal_def["N"],          # population N
 #'
 #' \code{pal} is initialized to a vector of named elements (colors)
 #' to define the scenario color scheme that is
-#' used throughout the \code{riskyr} package.
+#' used throughout the \bold{riskyr} package.
 #'
 #' All color information corresponding to the current scenario
 #' is stored as named colors in a vector \code{pal}.
@@ -423,7 +491,7 @@ pal <- init_pal()  ## apply
 #' See \code{\link{pal}} for default color information.
 #'
 #' Assign \code{pal <- pal_org} to re-set default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_org        # shows all color names and current values
@@ -458,7 +526,7 @@ pal_org <- pal  # copy pal
 #' See \code{\link{pal}} for default color information.
 #'
 #' Assign \code{pal <- pal_bw} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_bw        # shows all color names and current values
@@ -524,7 +592,7 @@ pal_bw <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' See \code{\link{pal}} for default color information.
 #'
 #' Assign \code{pal <- pal_bwp} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_bwp        # shows all color names and current values
@@ -572,7 +640,7 @@ pal_bwp <- init_pal(N_col = my_white,          # grey(.95, .99), # nearly white
 #' See \code{\link{pal}} for default color information.
 #'
 #' Assign \code{pal <- pal_rgb} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_rgb        # shows all color names and current values
@@ -624,7 +692,7 @@ pal_rgb <- init_pal(N_col = grey(.95, .99),     # nearly white
 #' See \code{\link{pal}} for default color information.
 #'
 #' Assign \code{pal <- pal_mod} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_mod        # shows all color names and current values
@@ -675,7 +743,7 @@ pal_mod <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 #' \code{\link{pal_bw}} for a more reduced black-and-white color palette.
 #'
 #' Assign \code{pal <- pal_mbw} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_mbw        # shows all color names and current values
@@ -720,24 +788,25 @@ pal_mbw <- init_pal(N_col = grey(.90, .99),  # "wheat3", nearly white
 
 ## pal_kn:  A uni.kn palette: --------
 
-#' Alternative color palette for uni.kn.
+#' Alternative color palette for kn.
 #'
 #' \code{pal_kn} is initialized to a vector of named elements (colors)
-#' to define an alternative (uni.kn) scenario color scheme.
+#' to define an alternative (kn) scenario color scheme.
 #'
 #' See \code{\link{pal}} for default color information.
 #'
 #' Assign \code{pal <- pal_kn} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
-#' pal_kn      # shows all color names and current values
+#' pal_kn        # shows all color names and current values
 #' pal_kn["hi"]  # shows the current color for hits (true positives, TP)
 #' pal_kn["hi"] <- "grey" # defines a new color for hits (true positives, TP)
 #'
 #' @family lists containing current scenario information
 #'
 #' @seealso
+#' \code{\link{pal_unikn}} contains more \bold{unikn} colors;
 #' \code{\link{pal}} contains current color information;
 #' \code{\link{init_pal}} initializes color information.
 #'
@@ -750,12 +819,12 @@ pal_kn <- init_pal(N_col = grey(.95, .99),     # nearly white
                    dec_neg_col = grey(.75, .99),   # darker white
                    dec_cor_col = grey(.50, .99),   # grey
                    dec_err_col = grey(.65, .99),   # darker white
-                   hi_col = pal_uni_kn$seeblau4,
-                   mi_col = pal_uni_kn$seeblau2,
-                   fa_col = pal_uni_kn$seeblau1,
-                   cr_col = pal_uni_kn$seeblau3,
+                   hi_col = pal_seeblau[[4]],
+                   mi_col = pal_seeblau[[2]],
+                   fa_col = pal_seeblau[[1]],
+                   cr_col = pal_seeblau[[3]],
                    PPV_col = col_orange_2,
-                   NPV_col = pal_uni_kn$seeblau4,
+                   NPV_col = pal_seeblau[[5]],
                    txt_col = grey(0, .99),     # black
                    brd_col = grey(.10, .99)    # almost black
 )
@@ -767,6 +836,55 @@ pal_kn <- init_pal(N_col = grey(.95, .99),     # nearly white
 ## Use uni.kn color scheme (as default):
 # pal <- pal_kn
 
+## pal_unikn:  A unikn palette: --------
+
+#' Alternative color palette for unikn.
+#'
+#' \code{pal_unikn} is initialized to a vector of named elements (colors)
+#' to define an alternative (unikn) scenario color scheme.
+#'
+#' See \code{\link{pal}} for default color information.
+#'
+#' Assign \code{pal <- pal_unikn} to use as default color scheme
+#' throughout the \bold{riskyr} package.
+#'
+#' @examples
+#' pal_unikn        # shows all color names and current values
+#' pal_unikn["hi"]  # shows the current color for hits (true positives, TP)
+#' pal_unikn["hi"] <- "grey" # defines a new color for hits (true positives, TP)
+#'
+#' @family lists containing current scenario information
+#'
+#' @seealso
+#' \code{\link{pal_kn}} contains fewer \bold{unikn} colors;
+#' \code{\link{pal}} contains current color information;
+#' \code{\link{init_pal}} initializes color information.
+#'
+#' @export
+
+pal_unikn <- init_pal(N_col = grey(.95, 1),   # nearly white
+                      cond_true_col =  pal_seeblau[[3]],
+                      cond_false_col = pal_seeblau[[1]],
+                      dec_pos_col = pal_pinky[[2]],
+                      dec_neg_col = pal_karpfenblau[[2]],
+                      dec_cor_col = pal_seegruen[[2]],
+                      dec_err_col = pal_bordeaux[[2]],
+                      hi_col = pal_petrol[[2]],
+                      mi_col = pal_bordeaux[[1]],
+                      fa_col = pal_bordeaux[[2]],
+                      cr_col = pal_petrol[[1]],
+                      PPV_col = pal_pinky[[4]],
+                      NPV_col = pal_karpfenblau[[4]],
+                      txt_col = grey(0, 1),   # black
+                      brd_col = grey(.10, 1)  # almost black
+)
+
+## Check:
+# pal_unikn
+# pal_unikn["hi"]
+
+## Use pal_unikn color scheme (as default):
+# pal <- pal_unikn
 
 ## pal_vir: A viridis color palette: ----------
 
@@ -797,7 +915,7 @@ vir_12 <- c("#440154FF", "#482173FF", "#433E85FF", "#38598CFF",
 #' for further information.
 #'
 #' Assign \code{pal <- pal_vir} to use as default color scheme
-#' throughout the \code{riskyr} package.
+#' throughout the \bold{riskyr} package.
 #'
 #' @examples
 #' pal_vir        # shows all color names and current values
@@ -843,6 +961,8 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 
 ## Use pal_mod by default (riskyr 0.2.0.9000+):
 pal <- pal_mod
+
+pal <- pal_unikn
 
 ## Test:
 # pal <- pal_bwp
