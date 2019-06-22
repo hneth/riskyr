@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2019 06 11
+## 2019 06 22
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -659,12 +659,17 @@ plot_prism <- function(prev = num$prev,    # probabilities
     # b_w <- comp_lx(b_h, mf = compromise, corf = scale_x)  # c. compromise + corrected
     # b_w <- comp_lx(b_h, mf = wider, corf = scale_x)       # d. wider + corrected
 
+    # b_w <- comp_lx(b_h, mf = 2, corf = scale_x)   # x. customized width
+
+
   } else {
 
     b_h <- 1
     two_to_one <- 2.0
 
-    b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # two_to_one + corrected for aspect ratio
+    b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # a. two_to_one + corrected for aspect ratio
+
+    b_w <- comp_lx(b_h, mf = 3.0, corf = scale_x)         # x. customized width (+++ here now +++)
 
   } # if ( !is.na(by_bot) ) etc.
 
