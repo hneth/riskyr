@@ -135,9 +135,10 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{pal_bwp}}, \code{\link{pal_bw}},
   \code{\link{pal_kn}}, \code{\link{pal_mbw}},
   \code{\link{pal_mod}}, \code{\link{pal_org}},
-  \code{\link{pal_rgb}}, \code{\link{pal_vir}},
-  \code{\link{pal}}, \code{\link{txt_TF}},
-  \code{\link{txt_org}}, \code{\link{txt}}
+  \code{\link{pal_rgb}}, \code{\link{pal_unikn}},
+  \code{\link{pal_vir}}, \code{\link{pal}},
+  \code{\link{txt_TF}}, \code{\link{txt_org}},
+  \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

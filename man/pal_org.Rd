@@ -17,7 +17,7 @@ pal_org
 See \code{\link{pal}} for default color information.
 
 Assign \code{pal <- pal_org} to re-set default color scheme
-throughout the \code{riskyr} package.
+throughout the \bold{riskyr} package.
 }
 \examples{
 pal_org        # shows all color names and current values
@@ -34,9 +34,10 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{pal_bwp}}, \code{\link{pal_bw}},
   \code{\link{pal_kn}}, \code{\link{pal_mbw}},
   \code{\link{pal_mod}}, \code{\link{pal_rgb}},
-  \code{\link{pal_vir}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt_TF}},
-  \code{\link{txt_org}}, \code{\link{txt}}
+  \code{\link{pal_unikn}}, \code{\link{pal_vir}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}, \code{\link{txt_org}},
+  \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

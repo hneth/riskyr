@@ -3,28 +3,29 @@
 \docType{data}
 \name{pal_kn}
 \alias{pal_kn}
-\title{Alternative color palette for uni.kn.}
+\title{Alternative color palette for kn.}
 \format{An object of class \code{character} of length 16.}
 \usage{
 pal_kn
 }
 \description{
 \code{pal_kn} is initialized to a vector of named elements (colors)
-to define an alternative (uni.kn) scenario color scheme.
+to define an alternative (kn) scenario color scheme.
 }
 \details{
 See \code{\link{pal}} for default color information.
 
 Assign \code{pal <- pal_kn} to use as default color scheme
-throughout the \code{riskyr} package.
+throughout the \bold{riskyr} package.
 }
 \examples{
-pal_kn      # shows all color names and current values
+pal_kn        # shows all color names and current values
 pal_kn["hi"]  # shows the current color for hits (true positives, TP)
 pal_kn["hi"] <- "grey" # defines a new color for hits (true positives, TP)
 
 }
 \seealso{
+\code{\link{pal_unikn}} contains more \bold{unikn} colors;
 \code{\link{pal}} contains current color information;
 \code{\link{init_pal}} initializes color information.
 
@@ -33,9 +34,10 @@ Other lists containing current scenario information: \code{\link{accu}},
   \code{\link{pal_bwp}}, \code{\link{pal_bw}},
   \code{\link{pal_mbw}}, \code{\link{pal_mod}},
   \code{\link{pal_org}}, \code{\link{pal_rgb}},
-  \code{\link{pal_vir}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt_TF}},
-  \code{\link{txt_org}}, \code{\link{txt}}
+  \code{\link{pal_unikn}}, \code{\link{pal_vir}},
+  \code{\link{pal}}, \code{\link{prob}},
+  \code{\link{txt_TF}}, \code{\link{txt_org}},
+  \code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

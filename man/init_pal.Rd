@@ -56,7 +56,7 @@ the condition is FALSE, provided that the decision is negative).}
 \description{
 \code{init_pal} initializes basic color information
 (i.e., all colors corresponding to functional roles in
-the current scenario and used throughout the \code{riskyr} package).
+the current scenario and used throughout the \bold{riskyr} package).
 }
 \details{
 All color information of the current scenario
