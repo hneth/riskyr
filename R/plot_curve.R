@@ -493,12 +493,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
       x_seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)  # log steps
       x_lbl <- paste0(as_pc(x_seq, n_digits = 5), "%")          # log percentages (rounded to 5 decimals)
       x_ax_lbl <- "Prevalence (on logarithmic scale)"           # log x-axis label (en)
-      x_ax_lbl <- "Prävalenz (logarithmische)"                  # log x-axis label (de)
+      # x_ax_lbl <- "Praevalenz (logarithmisch)"                  # log x-axis label (de)
     } else {
       x_seq <- seq(0, 1, by = .10)        # linear steps of 10%
       x_lbl <- paste0(as_pc(x_seq), "%")  # linear percentages
       x_ax_lbl <- "Prevalence"            # linear x-axis label (en)
-      x_ax_lbl <- "Prävalenz"             # linear x-axis label (de)
+      # x_ax_lbl <- "Praevalenz"            # linear x-axis label (de)
     }
 
   } else {  # prev_range is NOT the default 0 to 1 range:
@@ -514,7 +514,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   y_top <- .00                        # additional space on top of y (for NPV labels)
   y_lbl <- paste0(as_pc(y_seq), "%")  # linear percentages
   y_ax_lbl <- "Probability"           # y-axis label (en)
-  y_ax_lbl <- "Wahrscheinlichkeit"    # y-axis label (de)
+  # y_ax_lbl <- "Wahrscheinlichkeit"    # y-axis label (de)
 
   ## (b) Initialize plot:
   if (log_scale) {
