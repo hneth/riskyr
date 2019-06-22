@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2019 06 11
+## 2019 06 22
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -326,7 +326,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
 
   fx_x_shift <- .025
-  fx_y_shift <- .025
+  fx_y_shift <- .035
 
 
   ## (2) Define and interpret prev_range: ------
@@ -456,7 +456,6 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   col_axes <- grey(.10, alpha = .99)  # axes
   col_bord <- grey(.10, alpha = .50)  # borders (also of points)
 
-
   ## Text labels:
 
   # Plot title:
@@ -493,11 +492,13 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
     if (log_scale) {
       x_seq <- c(10^-5, 10^-4, 10^-3, 10^-2, .10, .25, .50, 1)  # log steps
       x_lbl <- paste0(as_pc(x_seq, n_digits = 5), "%")          # log percentages (rounded to 5 decimals)
-      x_ax_lbl <- "Prevalence (on logarithmic scale)"           # log x-axis label
+      x_ax_lbl <- "Prevalence (on logarithmic scale)"           # log x-axis label (en)
+      x_ax_lbl <- "Prävalenz (logarithmische)"                  # log x-axis label (de)
     } else {
       x_seq <- seq(0, 1, by = .10)        # linear steps of 10%
       x_lbl <- paste0(as_pc(x_seq), "%")  # linear percentages
-      x_ax_lbl <- "Prevalence"            # linear x-axis label
+      x_ax_lbl <- "Prevalence"            # linear x-axis label (en)
+      x_ax_lbl <- "Prävalenz"             # linear x-axis label (de)
     }
 
   } else {  # prev_range is NOT the default 0 to 1 range:
@@ -510,16 +511,18 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
 
   ## y-axis:
   y_seq <- seq(0, 1, by = .10)        # linear steps of 10%
+  y_top <- .00                        # additional space on top of y (for NPV labels)
   y_lbl <- paste0(as_pc(y_seq), "%")  # linear percentages
-  y_ax_lbl <- "Probability"           # y-axis label
+  y_ax_lbl <- "Probability"           # y-axis label (en)
+  y_ax_lbl <- "Wahrscheinlichkeit"    # y-axis label (de)
 
   ## (b) Initialize plot:
   if (log_scale) {
-    plot(0, xlim = c(x_min, 1), ylim = c(0, 1), axes = FALSE,
+    plot(0, xlim = c(x_min, 1), ylim = c(0, (1 + y_top)), axes = FALSE,
          log = "x",
          ylab = y_ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
   } else { # linear scale:
-    plot(0, xlim = c(x_min, x_max), ylim = c(0, 1), axes = FALSE,
+    plot(0, xlim = c(x_min, x_max), ylim = c(0, (1 + y_top)), axes = FALSE,
          ylab = y_ax_lbl, xlab = x_ax_lbl, cex.axis = cex_lbl, type = "n")
   }
 
@@ -693,7 +696,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
         if (prev_i < .01) {
           prev_i_lbl <- paste0("prev = ", as_pc(prev_i, n_digits = 4), "%")  # more specific prev = prev_i label
         } else {
-          prev_i_lbl <- paste0("prev = ", as_pc(prev_i), "%")  # specific prev = prev_i label
+          prev_i_lbl <- paste0("prev = ", as_pc(prev_i, n_digits = lbl_digits), "%")  # specific prev = prev_i label
         }
 
         legend_lbls <- c(legend_lbls, prev_i_lbl)   # add specific prev label
@@ -995,7 +998,12 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
               lbl_x <- prev_i + fx_x_shift  # fixed x shift
             }
             # lbl_y <- cur_NPV + (cur_NPV * v_shift)  # weighted y shift
-            lbl_y <- cur_NPV + fx_y_shift  # fixed y shift
+
+            if (cur_NPV > .95) {
+              lbl_y <- cur_NPV - fx_y_shift  # fixed y shift (down)
+            } else {
+              lbl_y <- cur_NPV + fx_y_shift  # fixed y shift (up)
+            }
 
             # Print label:
             text(x = lbl_x, y = lbl_y, labels = point_lbl, col = col_npv, cex = cex_lbl_sm)
