@@ -970,10 +970,9 @@ pal_vir <- init_pal(N_col = grey(.70, .99),     # mid-grey
 ## Use pal_mod by default (riskyr 0.2.0.9000+):
 pal <- pal_mod
 
-pal <- pal_unikn
-
 ## Test:
 # pal <- pal_bwp
+# pal <- pal_unikn
 
 ## (*) Done: ----------
 
