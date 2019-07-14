@@ -3,15 +3,13 @@
 
 The current development version (0.2.0.9008+) is available at <https://github.com/hneth/riskyr/>. 
 
-
-# riskyr 0.2.0.9008+
+# riskyr 0.2.0.9012+
 
 Log of changes since last release:
 
 ## Major changes
 
-- none so far
-
+- Prepare functions for cumulative lifetime risks (not yet integrated into package). 
 
 ## Minor changes
 
@@ -38,12 +36,17 @@ The condition label now allows for `NA` or vectors of several values (for `prev`
 - `is_prob_range` [2019-01]:
 Utility function to verify a range of 2 probability values (to check new arguments of `plot_curve` and `plot_plane`).  
 
+
 ## Micro changes
 
 ### New functionality
 
 - Add color palettes [2019-01]:   
-Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
+
+    - Add `pal_bwp` (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions. 
+    
+    - Add `pal_unikn` (based on color definitions of the **unikn** package). 
+
 
 ### General changes
 
