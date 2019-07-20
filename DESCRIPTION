@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: Rendering Risk Literacy more Transparent
-Version: 0.2.0.9014
+Version: 0.2.0.9015
 Date: 2018-07-20
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn"), 
@@ -19,11 +19,8 @@ Depends:
 Imports:
     utils (>= 3.4.0)
 Suggests:
-    devtools,
-    rmarkdown,
     knitr,
-    roxygen2,
-    pkgdown,
+    rmarkdown,
     spelling
 Collate: 'comp_util.R'
          'init_txt.R'
