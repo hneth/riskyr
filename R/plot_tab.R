@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2019 01 30
+## 2019 07 20
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -1231,8 +1231,8 @@ plot_tab <- function(prev = num$prev,    # probabilities
                  lbl_type = f_lbl, lbl_sep = f_lbl_sep, cex = cex_lbl, lwd = f_lwd, lty = lty)  # No ...!
 
   ##   (+) Check: Mark 2 key points/checkpoints (per plot): NOT RELEVANT for plot_tab! ------
-  mark_key_points <- FALSE  # default
-  mark_key_points <- TRUE   # debugging/test
+  mark_key_points <- FALSE   # default
+  # mark_key_points <- TRUE  # debugging/test
 
   if (mark_key_points) {
 
