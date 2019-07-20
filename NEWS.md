@@ -30,6 +30,9 @@ Using the new `p_lwd` and `p_scale` arguments allows scaling the widths of proba
 
 ### Other changes
 
+- `data` [2019-07]:  
+Remove data files `df_scenarios.RData` and `df_scenarios.csv`, as they were redundant to `df_scenarios.rda` (loaded from `\data`). 
+
 - `make_cond_lbl` [2019-01]:  
 The condition label now allows for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
 
