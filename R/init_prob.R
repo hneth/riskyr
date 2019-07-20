@@ -1,5 +1,5 @@
 ## init_prob.R | riskyr
-## 2018 12 20
+## 2019 07 20
 ## Define and initialize ALL probabilities
 ## -----------------------------------------------
 
@@ -21,11 +21,11 @@
 # [Note: *...is essential]
 
 
-# (B) by decision:                 Combined frequencies:
+# (B) by decision:                  Combined frequencies:
 
 # non-conditional:
-# ppod = proportion of dec_pos     dec_pos | dec_neg (rows)
-#                                  dec_cor | dec_err (diagonal)
+# ppod = proportion of dec_pos/bias dec_pos | dec_neg (rows)
+#                                   dec_cor | dec_err (diagonal)
 
 # conditional:
 # PPV = precision
@@ -529,12 +529,16 @@ fart <- 1 - spec   # default false alarm rate
 
 ## (0) Proportion of positive decisions (ppod, PR): -----
 
-## (0) ppod = proportion/base rate of decisions being positive (PR):
+## (0) ppod = proportion/base rate of decisions being positive/bias (PR):
 
-#' The proportion (or baseline) of a positive decision.
+#' The proportion (or baseline) of a positive decision (aka. bias).
 #'
 #' \code{ppod} defines the proportion (baseline probability or rate) of
 #' a decision being \code{positive} (but not necessarily accurate/correct).
+#'
+#' \code{ppod} is also known as \code{bias}, though the latter term is also
+#' used to describe a systematic tendency to deviate in any --- rather
+#' than just positive --- direction.
 #'
 #' Understanding or obtaining the proportion of positive decisions \code{ppod}:
 #'
@@ -581,7 +585,7 @@ fart <- 1 - spec   # default false alarm rate
 #' }
 #'
 #' @aliases
-#' baserate_dec_pos PR
+#' baserate_dec_pos bias PR
 #'
 #' @examples
 #' ppod <- .50     # sets a rate of positive decisions of 50%
@@ -602,7 +606,7 @@ fart <- 1 - spec   # default false alarm rate
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_values}{Wikipedia} for additional information.
 
-ppod <- 1/2  # default rate of positive decisions
+ppod <- 1/2  # default rate of positive decisions/bias
 
 
 ## Predictive values (PVs): ----------------------

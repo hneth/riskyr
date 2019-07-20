@@ -4,8 +4,9 @@
 \name{ppod}
 \alias{ppod}
 \alias{baserate_dec_pos}
+\alias{bias}
 \alias{PR}
-\title{The proportion (or baseline) of a positive decision.}
+\title{The proportion (or baseline) of a positive decision (aka. bias).}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
 ppod
@@ -15,6 +16,10 @@ ppod
 a decision being \code{positive} (but not necessarily accurate/correct).
 }
 \details{
+\code{ppod} is also known as \code{bias}, though the latter term is also
+used to describe a systematic tendency to deviate in any --- rather
+than just positive --- direction.
+
 Understanding or obtaining the proportion of positive decisions \code{ppod}:
 
 \itemize{
