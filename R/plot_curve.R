@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2019 07 20
+## 2019 07 22
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -328,7 +328,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
   fx_x_shift <- .025
   fx_y_shift <- .035
 
-  lang_de <- TRUE  # use German language labels?
+  lang_de <- FALSE # TRUE # use German language labels?
 
 
   ## (2) Define and interpret prev_range: ------
