@@ -41,10 +41,12 @@ as_pb(as_pc(2/3))   # => 0.6667 (rounded to 4 decimals)
 \code{\link{comp_complement}} computes a probability's complement;
 \code{\link{comp_comp_pair}} computes pairs of complements.
 
-Other utility functions: \code{\link{as_pc}},
-  \code{\link{plot.box}}
+Other utility functions: 
+\code{\link{as_pc}()},
+\code{\link{plot.box}()}
 
-Other display functions: \code{\link{as_pc}}
+Other display functions: 
+\code{\link{as_pc}()}
 }
 \concept{display functions}
 \concept{utility functions}

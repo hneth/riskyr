@@ -41,47 +41,47 @@ Understanding the probability \code{\link{acc}}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{\link{acc}} is the (non-conditional) probability:
 
-\code{acc = p(dec_cor) = dec_cor/N}
+  \code{acc = p(dec_cor) = dec_cor/N}
 
-or the base rate (or baseline probability)
+  or the base rate (or baseline probability)
   of a decision being correct, but not necessarily positive.
 
-\code{\link{acc}} values range
+  \code{\link{acc}} values range
   from 0 (no correct decision/prediction)
   to 1 (perfect decision/prediction).
 
-\item Computation: \code{\link{acc}} can be computed in 2 ways:
+  \item Computation: \code{\link{acc}} can be computed in 2 ways:
 
-(a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+   (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
-(b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
+   (b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
-When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+   When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 
-\item Perspective:
+  \item Perspective:
   \code{\link{acc}} classifies a population of \code{\link{N}} individuals
   by accuracy/correspondence (\code{acc = dec_cor/N}).
 
-\code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
+  \code{\link{acc}} is the "by accuracy" or "by correspondence" counterpart
   to \code{\link{prev}} (which adopts a "by condition" perspective) and
   to \code{\link{ppod}} (which adopts a "by decision" perspective).
 
-\item Alternative names of \code{\link{acc}}:
+  \item Alternative names of \code{\link{acc}}:
   base rate of correct decisions,
   non-erroneous cases
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{\link{acc}} is the ratio of
   \code{\link{dec_cor}} (i.e., \code{\link{hi} + \link{cr}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
+  \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
-\item Dependencies:
+  \item Dependencies:
   \code{\link{acc}} is a feature of both the environment (true condition) and
   of the decision process or diagnostic procedure. It reflects the
   correspondence of decisions to conditions.
@@ -127,22 +127,32 @@ comp_acc(0, 0, 0)  #  => 0
 \code{\link{prob}} contains current probability information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other functions computing probabilities: \code{\link{comp_FDR}},
-  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}},
-  \code{\link{comp_comp_pair}},
-  \code{\link{comp_complement}},
-  \code{\link{comp_complete_prob_set}},
-  \code{\link{comp_err}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
-  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
-  \code{\link{comp_sens}}, \code{\link{comp_spec}}
+Other functions computing probabilities: 
+\code{\link{comp_FDR}()},
+\code{\link{comp_FOR}()},
+\code{\link{comp_NPV}()},
+\code{\link{comp_PPV}()},
+\code{\link{comp_accu_freq}()},
+\code{\link{comp_accu_prob}()},
+\code{\link{comp_comp_pair}()},
+\code{\link{comp_complement}()},
+\code{\link{comp_complete_prob_set}()},
+\code{\link{comp_err}()},
+\code{\link{comp_fart}()},
+\code{\link{comp_mirt}()},
+\code{\link{comp_ppod}()},
+\code{\link{comp_prob_freq}()},
+\code{\link{comp_prob}()},
+\code{\link{comp_sens}()},
+\code{\link{comp_spec}()}
 
-Other metrics: \code{\link{accu}}, \code{\link{acc}},
-  \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}}, \code{\link{comp_err}},
-  \code{\link{err}}
+Other metrics: 
+\code{\link{accu}},
+\code{\link{acc}},
+\code{\link{comp_accu_freq}()},
+\code{\link{comp_accu_prob}()},
+\code{\link{comp_err}()},
+\code{\link{err}}
 }
 \concept{functions computing probabilities}
 \concept{metrics}

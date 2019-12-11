@@ -4,8 +4,7 @@
 \alias{is_valid_prob_set}
 \title{Verify that a set of probability inputs is valid.}
 \usage{
-is_valid_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA,
-  tol = 0.01)
+is_valid_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA, tol = 0.01)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -57,7 +56,7 @@ probabilities there is a choice:
   \item Either \code{\link{sens}} or \code{\link{mirt}} is necessary
         (as both are complements).
 
-\item Either \code{\link{spec}} or \code{\link{fart}} is necessary
+  \item Either \code{\link{spec}} or \code{\link{fart}} is necessary
        (as both are complements).
 }
 
@@ -108,11 +107,14 @@ is_valid_prob_set(1, 1, 0, 1, 1)      # => FALSE + warning (beyond complement ra
 \code{\link{as_pc}} displays a probability as a percentage;
 \code{\link{as_pb}} displays a percentage as probability.
 
-Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_extreme_prob_set}}, \code{\link{is_freq}},
-  \code{\link{is_perc}}, \code{\link{is_prob}},
-  \code{\link{is_suff_prob_set}},
-  \code{\link{is_valid_prob_pair}},
-  \code{\link{is_valid_prob_triple}}
+Other verification functions: 
+\code{\link{is_complement}()},
+\code{\link{is_extreme_prob_set}()},
+\code{\link{is_freq}()},
+\code{\link{is_perc}()},
+\code{\link{is_prob}()},
+\code{\link{is_suff_prob_set}()},
+\code{\link{is_valid_prob_pair}()},
+\code{\link{is_valid_prob_triple}()}
 }
 \concept{verification functions}

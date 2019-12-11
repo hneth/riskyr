@@ -4,8 +4,7 @@
 \alias{plot.box}
 \title{Plot a frequency box object.}
 \usage{
-\method{plot}{box}(x, cur_freq = freq, lbl_txt = txt, col_pal = pal,
-  ...)
+\method{plot}{box}(x, cur_freq = freq, lbl_txt = txt, col_pal = pal, ...)
 }
 \arguments{
 \item{x}{The box (i.e., an object of class \code{box}) to be plotted.}
@@ -30,7 +29,8 @@ underlying plotting functions.}
 specified in the "riskyr" object.
 }
 \seealso{
-Other utility functions: \code{\link{as_pb}},
-  \code{\link{as_pc}}
+Other utility functions: 
+\code{\link{as_pb}()},
+\code{\link{as_pc}()}
 }
 \concept{utility functions}

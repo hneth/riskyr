@@ -74,11 +74,14 @@ is_complement(.3, .6, tol = .1)  # => TRUE (due to increased tolerance)
 \code{\link{as_pc}} displays a probability as a percentage;
 \code{\link{as_pb}} displays a percentage as probability.
 
-Other verification functions: \code{\link{is_extreme_prob_set}},
-  \code{\link{is_freq}}, \code{\link{is_perc}},
-  \code{\link{is_prob}}, \code{\link{is_suff_prob_set}},
-  \code{\link{is_valid_prob_pair}},
-  \code{\link{is_valid_prob_set}},
-  \code{\link{is_valid_prob_triple}}
+Other verification functions: 
+\code{\link{is_extreme_prob_set}()},
+\code{\link{is_freq}()},
+\code{\link{is_perc}()},
+\code{\link{is_prob}()},
+\code{\link{is_suff_prob_set}()},
+\code{\link{is_valid_prob_pair}()},
+\code{\link{is_valid_prob_set}()},
+\code{\link{is_valid_prob_triple}()}
 }
 \concept{verification functions}

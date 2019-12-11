@@ -6,18 +6,38 @@
 \format{An object of class "riskyr" with textual and numeric information
 describing a risk-related scenario.}
 \usage{
-riskyr(scen_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
-  N_lbl = txt$N_lbl, cond_lbl = txt$cond_lbl,
+riskyr(
+  scen_lbl = txt$scen_lbl,
+  popu_lbl = txt$popu_lbl,
+  N_lbl = txt$N_lbl,
+  cond_lbl = txt$cond_lbl,
   cond_true_lbl = txt$cond_true_lbl,
-  cond_false_lbl = txt$cond_false_lbl, dec_lbl = txt$dec_lbl,
-  dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
-  acc_lbl = txt$acc_lbl, dec_cor_lbl = txt$dec_cor_lbl,
-  dec_err_lbl = txt$dec_err_lbl, sdt_lbl = txt$sdt_lbl,
-  hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
-  cr_lbl = txt$cr_lbl, prev = NA, sens = NA, spec = NA,
-  fart = NA, N = NA, hi = NA, mi = NA, fa = NA, cr = NA,
-  scen_lng = txt$scen_lng, scen_txt = txt$scen_txt,
-  scen_src = txt$scen_src, scen_apa = txt$scen_apa)
+  cond_false_lbl = txt$cond_false_lbl,
+  dec_lbl = txt$dec_lbl,
+  dec_pos_lbl = txt$dec_pos_lbl,
+  dec_neg_lbl = txt$dec_neg_lbl,
+  acc_lbl = txt$acc_lbl,
+  dec_cor_lbl = txt$dec_cor_lbl,
+  dec_err_lbl = txt$dec_err_lbl,
+  sdt_lbl = txt$sdt_lbl,
+  hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl,
+  cr_lbl = txt$cr_lbl,
+  prev = NA,
+  sens = NA,
+  spec = NA,
+  fart = NA,
+  N = NA,
+  hi = NA,
+  mi = NA,
+  fa = NA,
+  cr = NA,
+  scen_lng = txt$scen_lng,
+  scen_txt = txt$scen_txt,
+  scen_src = txt$scen_src,
+  scen_apa = txt$scen_apa
+)
 }
 \arguments{
 \item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
@@ -128,15 +148,15 @@ Note:
 
 \itemize{
 
-\item Basic text information and some numeric parameters
+  \item Basic text information and some numeric parameters
   (see \code{\link{num}} and \code{\link{init_num}})
   are integral parts of a \code{riskyr} scenario.
 
-\item By contrast, basic \emph{color} information
+  \item By contrast, basic \emph{color} information
   (see \code{\link{pal}} and \code{\link{init_pal}})
   is not an integral part, but independently defined.
 
-\item The names of \emph{probabilities}
+  \item The names of \emph{probabilities}
   (see \code{\link{prob}}) are currently
   not an integral part of \code{txt} and \code{riskyr} scenarios
   (but defined in \code{prob_lbl_def} and \code{label_prob}).
@@ -192,11 +212,15 @@ riskyr(prev = .5, sens = .5, spec = .5, hi = 25, mi = 25, fa = 25)           # w
 \code{\link{init_txt}} and \code{\link{txt}} for current text settings;
 \code{\link{init_pal}} and \code{\link{pal}} for current color settings.
 
-Other riskyr scenario functions: \code{\link{plot.riskyr}},
-  \code{\link{read_popu}}, \code{\link{summary.riskyr}}
+Other riskyr scenario functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{read_popu}()},
+\code{\link{summary.riskyr}()}
 
-Other functions initializing scenario information: \code{\link{init_num}},
-  \code{\link{init_pal}}, \code{\link{init_txt}}
+Other functions initializing scenario information: 
+\code{\link{init_num}()},
+\code{\link{init_pal}()},
+\code{\link{init_txt}()}
 }
 \concept{functions initializing scenario information}
 \concept{riskyr scenario functions}

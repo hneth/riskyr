@@ -24,39 +24,39 @@ Understanding or obtaining the proportion of positive decisions \code{ppod}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{ppod} is the (non-conditional) probability:
 
-\code{ppod = p(decision = positive)}
+  \code{ppod = p(decision = positive)}
 
-or the base rate (or baseline probability)
+  or the base rate (or baseline probability)
   of a decision being positive (but not necessarily accurate/correct).
 
-\item Perspective:
+  \item Perspective:
   \code{ppod} classifies a population of \code{\link{N}} individuals
   by decision (\code{ppod = dec_pos/N}).
 
-\code{ppod} is the "by decision" counterpart to \code{\link{prev}}
+  \code{ppod} is the "by decision" counterpart to \code{\link{prev}}
   (which adopts a "by condition" perspective).
 
-\item Alternative names:
+  \item Alternative names:
   base rate of positive decisions (\code{PR}),
   proportion predicted or diagnosed,
   rate of decision \code{= positive} cases
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{ppod} is the ratio of
   \code{\link{dec_pos}} (i.e., \code{\link{hi} + \link{fa}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
+  \code{ppod = dec_pos/N = (hi + fa)/(hi + mi + fa + cr)}
 
-\item Dependencies:
+  \item Dependencies:
   \code{ppod} is a feature of the decision process
   or diagnostic procedure.
 
-However, the conditional probabilities
+  However, the conditional probabilities
   \code{\link{sens}}, \code{\link{mirt}},
   \code{\link{spec}}, \code{\link{fart}},
   \code{\link{PPV}}, and \code{\link{NPV}}
@@ -82,11 +82,18 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
-  \code{\link{err}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

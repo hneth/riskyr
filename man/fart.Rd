@@ -21,53 +21,58 @@ Understanding or obtaining the false alarm rate \code{fart}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{fart} is the conditional probability
   for an incorrect positive decision given that
   the condition is \code{FALSE}:
 
-\code{fart = p(decision = positive | condition = FALSE)}
+  \code{fart = p(decision = positive | condition = FALSE)}
 
-or the probability of a false alarm.
+  or the probability of a false alarm.
 
-\item Perspective:
+
+  \item Perspective:
   \code{fart} further classifies
   the subset of \code{\link{cond_false}} individuals
   by decision (\code{fart = fa/cond_false}).
 
-\item Alternative names:
+
+  \item Alternative names:
   false positive rate (\code{FPR}),
   rate of type-I errors (\code{alpha}),
   statistical significance level,
   \code{fallout}
 
-\item Relationships:
 
-a. \code{fart} is the complement of the
+  \item Relationships:
+
+  a. \code{fart} is the complement of the
   specificity \code{\link{spec}}:
 
-\code{fart = 1 - spec}
+  \code{fart = 1 - spec}
 
-b. \code{fart} is the opposite conditional probability
+  b. \code{fart} is the opposite conditional probability
   -- but not the complement --
   of the false discovery rate
   or false detection rate \code{\link{FDR}}:
 
-\code{FDR = p(condition = FALSE | decision = positive)}
+  \code{FDR = p(condition = FALSE | decision = positive)}
 
-\item In terms of frequencies,
+
+  \item In terms of frequencies,
   \code{fart} is the ratio of
   \code{\link{fa}} divided by \code{\link{cond_false}}
   (i.e., \code{\link{fa} + \link{cr}}):
 
-\code{fart = fa/cond_false = fa/(fa + cr)}
+  \code{fart = fa/cond_false = fa/(fa + cr)}
 
-\item Dependencies:
+
+  \item Dependencies:
   \code{fart} is a feature of a decision process
   or diagnostic procedure and a measure of
   incorrect decisions (false positives).
 
-However, due to being a conditional probability,
+  However, due to being a conditional probability,
   the value of \code{fart} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -92,11 +97,18 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
-  \code{\link{err}}, \code{\link{mirt}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

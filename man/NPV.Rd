@@ -18,51 +18,53 @@ Understanding or obtaining the negative predictive value \code{NPV}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{NPV} is the conditional probability
   for the condition being \code{FALSE}
   given a negative decision:
 
-\code{NPV = p(condition = FALSE | decision = negative)}
+  \code{NPV = p(condition = FALSE | decision = negative)}
 
-or the probability of a negative decision being correct.
+  or the probability of a negative decision being correct.
 
-\item Perspective:
+  \item Perspective:
   \code{NPV} further classifies
   the subset of \code{\link{dec_neg}} individuals
   by condition (\code{NPV = cr/dec_neg = cr/(mi + cr)}).
 
-\item Alternative names:
+  \item Alternative names:
   true omission rate
 
-\item Relationships:
+  \item Relationships:
 
-a. \code{NPV} is the complement of the
+  a. \code{NPV} is the complement of the
   false omission rate \code{\link{FOR}}:
 
-\code{NPV = 1 - FOR}
+  \code{NPV = 1 - FOR}
 
-b. \code{NPV} is the opposite conditional probability
+  b. \code{NPV} is the opposite conditional probability
   -- but not the complement --
   of the specificity \code{\link{spec}}:
 
-\code{spec = p(decision = negative | condition = FALSE)}
+  \code{spec = p(decision = negative | condition = FALSE)}
 
-\item In terms of frequencies,
+
+  \item In terms of frequencies,
   \code{NPV} is the ratio of
   \code{\link{cr}} divided by \code{\link{dec_neg}}
   (i.e., \code{\link{cr} + \link{mi}}):
 
-\code{NPV = cr/dec_neg = cr/(cr + mi)}
+  \code{NPV = cr/dec_neg = cr/(cr + mi)}
 
-\item Dependencies:
+
+  \item Dependencies:
   \code{NPV} is a feature of a decision process
   or diagnostic procedure and
   -- similar to the specificity \code{\link{spec}} --
   a measure of correct decisions (negative decisions
   that are actually FALSE).
 
-However, due to being a conditional probability,
+  However, due to being a conditional probability,
   the value of \code{NPV} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -87,11 +89,18 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

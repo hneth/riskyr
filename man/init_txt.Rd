@@ -4,19 +4,29 @@
 \alias{init_txt}
 \title{Initialize basic text elements.}
 \usage{
-init_txt(scen_lbl = txt_lbl_def$scen_lbl,
-  scen_txt = txt_lbl_def$scen_txt, scen_src = txt_lbl_def$scen_src,
-  scen_apa = txt_lbl_def$scen_apa, scen_lng = txt_lbl_def$scen_lng,
-  popu_lbl = txt_lbl_def$popu_lbl, N_lbl = txt_lbl_def$N_lbl,
+init_txt(
+  scen_lbl = txt_lbl_def$scen_lbl,
+  scen_txt = txt_lbl_def$scen_txt,
+  scen_src = txt_lbl_def$scen_src,
+  scen_apa = txt_lbl_def$scen_apa,
+  scen_lng = txt_lbl_def$scen_lng,
+  popu_lbl = txt_lbl_def$popu_lbl,
+  N_lbl = txt_lbl_def$N_lbl,
   cond_lbl = txt_lbl_def$cond_lbl,
   cond_true_lbl = txt_lbl_def$cond_true_lbl,
   cond_false_lbl = txt_lbl_def$cond_false_lbl,
-  dec_lbl = txt_lbl_def$dec_lbl, dec_pos_lbl = txt_lbl_def$dec_pos_lbl,
-  dec_neg_lbl = txt_lbl_def$dec_neg_lbl, acc_lbl = txt_lbl_def$acc_lbl,
+  dec_lbl = txt_lbl_def$dec_lbl,
+  dec_pos_lbl = txt_lbl_def$dec_pos_lbl,
+  dec_neg_lbl = txt_lbl_def$dec_neg_lbl,
+  acc_lbl = txt_lbl_def$acc_lbl,
   dec_cor_lbl = txt_lbl_def$dec_cor_lbl,
-  dec_err_lbl = txt_lbl_def$dec_err_lbl, sdt_lbl = txt_lbl_def$sdt_lbl,
-  hi_lbl = txt_lbl_def$hi_lbl, mi_lbl = txt_lbl_def$mi_lbl,
-  fa_lbl = txt_lbl_def$fa_lbl, cr_lbl = txt_lbl_def$cr_lbl)
+  dec_err_lbl = txt_lbl_def$dec_err_lbl,
+  sdt_lbl = txt_lbl_def$sdt_lbl,
+  hi_lbl = txt_lbl_def$hi_lbl,
+  mi_lbl = txt_lbl_def$mi_lbl,
+  fa_lbl = txt_lbl_def$fa_lbl,
+  cr_lbl = txt_lbl_def$cr_lbl
+)
 }
 \arguments{
 \item{scen_lbl}{The current scenario title (sometimes in Title Caps).}
@@ -102,7 +112,9 @@ txt <- init_txt(scen_lbl = "My scenario",
 \code{\link{pal}} for current color settings;
 \code{\link{num}} for basic numeric parameters.
 
-Other functions initializing scenario information: \code{\link{init_num}},
-  \code{\link{init_pal}}, \code{\link{riskyr}}
+Other functions initializing scenario information: 
+\code{\link{init_num}()},
+\code{\link{init_pal}()},
+\code{\link{riskyr}()}
 }
 \concept{functions initializing scenario information}

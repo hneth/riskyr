@@ -19,51 +19,55 @@ Understanding or obtaining the positive predictive value \code{PPV}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{PPV} is the conditional probability
   for the condition being \code{TRUE}
   given a positive decision:
 
-\code{PPV = p(condition = TRUE | decision = positive)}
+  \code{PPV = p(condition = TRUE | decision = positive)}
 
-or the probability of a positive decision being correct.
+  or the probability of a positive decision being correct.
 
-\item Perspective:
+
+  \item Perspective:
   \code{PPV} further classifies
   the subset of \code{\link{dec_pos}} individuals
   by condition (\code{PPV = hi/dec_pos = hi/(hi + fa)}).
 
-\item Alternative names:
+
+  \item Alternative names:
   \code{precision}
 
-\item Relationships:
 
-a. \code{PPV} is the complement of the
+  \item Relationships:
+
+  a. \code{PPV} is the complement of the
   false discovery or false detection rate \code{\link{FDR}}:
 
-\code{PPV = 1 - FDR}
+  \code{PPV = 1 - FDR}
 
-b. \code{PPV} is the opposite conditional probability
+  b. \code{PPV} is the opposite conditional probability
   -- but not the complement --
   of the sensitivity \code{\link{sens}}:
 
-\code{sens = p(decision = positive | condition = TRUE)}
+  \code{sens = p(decision = positive | condition = TRUE)}
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{PPV} is the ratio of
   \code{\link{hi}} divided by \code{\link{dec_pos}}
   (i.e., \code{\link{hi} + \link{fa}}):
 
-\code{PPV = hi/dec_pos = hi/(hi + fa)}
+  \code{PPV = hi/dec_pos = hi/(hi + fa)}
 
-\item Dependencies:
+
+  \item Dependencies:
   \code{PPV} is a feature of a decision process
   or diagnostic procedure and
   -- similar to the sensitivity \code{\link{sens}} --
   a measure of correct decisions (positive decisions
   that are actually TRUE).
 
-However, due to being a conditional probability,
+  However, due to being a conditional probability,
   the value of \code{PPV} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -88,11 +92,18 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{acc}}, \code{\link{err}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

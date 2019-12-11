@@ -20,50 +20,52 @@ Understanding or obtaining the miss rate \code{mirt}:
 
 \itemize{
 
-\item Definition: \code{sens} is the conditional probability
+  \item Definition: \code{sens} is the conditional probability
   for an incorrect negative decision given that
   the condition is \code{TRUE}:
 
-\code{mirt = p(decision = negative | condition = TRUE)}
+  \code{mirt = p(decision = negative | condition = TRUE)}
 
-or the probability of failing to detect true cases
+  or the probability of failing to detect true cases
   (\code{condition = TRUE}).
 
-\item Perspective:
+  \item Perspective:
   \code{mirt} further classifies
   the subset of \code{\link{cond_true}} individuals
   by decision (\code{mirt = mi/cond_true}).
 
-\item Alternative names:
+
+  \item Alternative names:
   false negative rate (\code{FNR}),
   rate of type-II errors (\code{beta})
 
-\item Relationships:
+  \item Relationships:
 
-a. \code{mirt} is the complement of the
+  a. \code{mirt} is the complement of the
   sensitivity \code{\link{sens}} (aka. hit rate \code{HR}):
 
-\code{mirt = (1 - sens) = (1 - HR)}
+  \code{mirt = (1 - sens) = (1 - HR)}
 
-b. \code{mirt} is the _opposite_ conditional probability
+  b. \code{mirt} is the _opposite_ conditional probability
   -- but not the complement --
   of the false omission rate \code{\link{FOR}}:
 
-\code{FOR = p(condition = TRUE | decision = negative)}
+  \code{FOR = p(condition = TRUE | decision = negative)}
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{mirt} is the ratio of
   \code{\link{mi}} divided by \code{\link{cond_true}}
   (i.e., \code{\link{hi} + \link{mi}}):
 
-\code{mirt = mi/cond_true = mi/(hi + mi)}
+  \code{mirt = mi/cond_true = mi/(hi + mi)}
 
-\item Dependencies:
+
+  \item Dependencies:
   \code{mirt} is a feature of a decision process
   or diagnostic procedure and a measure of
   incorrect decisions (false negatives).
 
-However, due to being a conditional probability,
+  However, due to being a conditional probability,
   the value of \code{mirt} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -86,11 +88,18 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
-  \code{\link{err}}, \code{\link{fart}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

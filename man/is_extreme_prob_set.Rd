@@ -4,8 +4,7 @@
 \alias{is_extreme_prob_set}
 \title{Verify that a set of probabilities describes an extreme case.}
 \usage{
-is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA,
-  fart = NA)
+is_extreme_prob_set(prev, sens = NA, mirt = NA, spec = NA, fart = NA)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -105,11 +104,14 @@ plot_tree(prev, 1, NA, 0, NA, N = 650)     # => illustrates this case
 \code{\link{as_pc}} displays a probability as a percentage;
 \code{\link{as_pb}} displays a percentage as probability
 
-Other verification functions: \code{\link{is_complement}},
-  \code{\link{is_freq}}, \code{\link{is_perc}},
-  \code{\link{is_prob}}, \code{\link{is_suff_prob_set}},
-  \code{\link{is_valid_prob_pair}},
-  \code{\link{is_valid_prob_set}},
-  \code{\link{is_valid_prob_triple}}
+Other verification functions: 
+\code{\link{is_complement}()},
+\code{\link{is_freq}()},
+\code{\link{is_perc}()},
+\code{\link{is_prob}()},
+\code{\link{is_suff_prob_set}()},
+\code{\link{is_valid_prob_pair}()},
+\code{\link{is_valid_prob_set}()},
+\code{\link{is_valid_prob_triple}()}
 }
 \concept{verification functions}

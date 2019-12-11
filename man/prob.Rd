@@ -20,56 +20,58 @@ as well as 6 conditional) probabilities:
 
 \enumerate{
 
-\item the condition's prevalence \code{\link{prev}}
+ \item the condition's prevalence \code{\link{prev}}
  (i.e., the probability of the condition being \code{TRUE}):
  \code{prev = \link{cond_true}/\link{N}}.
 
-\item the decision's sensitivity \code{\link{sens}}
+ \item the decision's sensitivity \code{\link{sens}}
  (i.e., the conditional probability of a positive decision
  provided that the condition is \code{TRUE}).
 
-\item the decision's miss rate \code{\link{mirt}}
+ \item the decision's miss rate \code{\link{mirt}}
  (i.e., the conditional probability of a negative decision
  provided that the condition is \code{TRUE}).
 
-\item the decision's specificity \code{\link{spec}}
+ \item the decision's specificity \code{\link{spec}}
  (i.e., the conditional probability
  of a negative decision provided that the condition is \code{FALSE}).
 
-\item the decision's false alarm rate \code{\link{fart}}
+ \item the decision's false alarm rate \code{\link{fart}}
  (i.e., the conditional probability
  of a positive decision provided that the condition is \code{FALSE}).
 
-\item the proportion (baseline probability or rate)
+
+ \item the proportion (baseline probability or rate)
  of the decision being positive \code{\link{ppod}}
  (but not necessarily true):
  \code{ppod = \link{dec_pos}/\link{N}}.
 
-\item the decision's positive predictive value \code{\link{PPV}}
+ \item the decision's positive predictive value \code{\link{PPV}}
  (i.e., the conditional probability of the condition being \code{TRUE}
  provided that the decision is positive).
 
-\item the decision's false detection (or false discovery) rate \code{\link{FDR}}
+ \item the decision's false detection (or false discovery) rate \code{\link{FDR}}
  (i.e., the conditional probability of the condition being \code{FALSE}
  provided that the decision is positive).
 
-\item the decision's negative predictive value \code{\link{NPV}}
+ \item the decision's negative predictive value \code{\link{NPV}}
  (i.e., the conditional probability of the condition being \code{FALSE}
  provided that the decision is negative).
 
-\item the decision's false omission rate \code{\link{FOR}}
+ \item the decision's false omission rate \code{\link{FOR}}
  (i.e., the conditional probability of the condition being \code{TRUE}
  provided that the decision is negative).
 
-\item the accuracy \code{\link{acc}}
+
+ \item the accuracy \code{\link{acc}}
  (i.e., probability of correct decisions \code{\link{dec_cor}} or
  correspondence of decisions to conditions).
 
-\item the conditional probability \code{p_acc_hi}
+ \item the conditional probability \code{p_acc_hi}
  (i.e., the probability of \code{\link{hi}} given that
  the decision is correct \code{\link{dec_cor}}).
 
-\item the conditional probability \code{p_err_fa}
+ \item the conditional probability \code{p_err_fa}
  (i.e., the probability of \code{\link{fa}} given that
  the decision is erroneous \code{\link{dec_err}}).
 
@@ -87,18 +89,19 @@ may yield unexpected values (e.g., an \code{\link{NPV}}
 value of NaN when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
+
 Key relationships between frequencies and probabilities
 (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
 
 \itemize{
 
-\item Three perspectives on a population:
+  \item Three perspectives on a population:
 
-by condition / by decision / by accuracy.
+  by condition / by decision / by accuracy.
 
-\item Defining probabilities in terms of frequencies:
+  \item Defining probabilities in terms of frequencies:
 
-Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
 
@@ -130,15 +133,23 @@ length(prob)         # => 13
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{accu}} contains current accuracy information.
 
-Other lists containing current scenario information: \code{\link{accu}},
-  \code{\link{freq}}, \code{\link{num}},
-  \code{\link{pal_bwp}}, \code{\link{pal_bw}},
-  \code{\link{pal_kn}}, \code{\link{pal_mbw}},
-  \code{\link{pal_mod}}, \code{\link{pal_org}},
-  \code{\link{pal_rgb}}, \code{\link{pal_unikn}},
-  \code{\link{pal_vir}}, \code{\link{pal}},
-  \code{\link{txt_TF}}, \code{\link{txt_org}},
-  \code{\link{txt}}
+Other lists containing current scenario information: 
+\code{\link{accu}},
+\code{\link{freq}},
+\code{\link{num}},
+\code{\link{pal_bwp}},
+\code{\link{pal_bw}},
+\code{\link{pal_kn}},
+\code{\link{pal_mbw}},
+\code{\link{pal_mod}},
+\code{\link{pal_org}},
+\code{\link{pal_rgb}},
+\code{\link{pal_unikn}},
+\code{\link{pal_vir}},
+\code{\link{pal}},
+\code{\link{txt_TF}},
+\code{\link{txt_org}},
+\code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

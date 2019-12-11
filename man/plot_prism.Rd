@@ -4,13 +4,32 @@
 \alias{plot_prism}
 \title{Plot prism diagram of frequencies and probabilities.}
 \usage{
-plot_prism(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  area = "no", scale = "p", round = TRUE, f_lbl = "num",
-  f_lbl_sep = NA, f_lwd = 0, p_lwd = 1, p_scale = FALSE,
-  p_lbl = "mix", arr_c = NA, lbl_txt = txt,
-  title_lbl = txt$scen_lbl, cex_lbl = 0.9, cex_p_lbl = NA,
-  col_pal = pal, mar_notes = TRUE, ...)
+plot_prism(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = num$N,
+  by = "cddc",
+  area = "no",
+  scale = "p",
+  round = TRUE,
+  f_lbl = "num",
+  f_lbl_sep = NA,
+  f_lwd = 0,
+  p_lwd = 1,
+  p_scale = FALSE,
+  p_lbl = "mix",
+  arr_c = NA,
+  lbl_txt = txt,
+  title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9,
+  cex_p_lbl = NA,
+  col_pal = pal,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -198,14 +217,14 @@ plot_prism(f_lbl = "nam", lbl_txt = my_txt,
 
 ## Local values and custom color/txt settings:
 plot_prism(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
-           by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\\n",
+           by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
            f_lwd = 1, col_pal = pal_rgb)  # custom colors
 
 plot_prism(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 
 plot_prism(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # note scale!
-           area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\\n", # custom text
+           area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
            col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 
 ## Plot versions:
@@ -305,7 +324,7 @@ plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp
 plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 
 plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
-plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
+plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:
 plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)  # basic plot
@@ -330,11 +349,16 @@ plot_prism(area = "sq", f_lbl = "namnum", p_lbl = "mix", f_lwd = .5, col_pal = p
 \code{\link{pal}} contains current color settings;
 \code{\link{txt}} contains current text settings.
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

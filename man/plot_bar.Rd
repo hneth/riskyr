@@ -4,11 +4,26 @@
 \alias{plot_bar}
 \title{Plot bar charts of population frequencies.}
 \usage{
-plot_bar(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "all", dir = 1,
-  scale = "f", round = TRUE, f_lbl = "num", f_lwd = 1, lty = 0,
-  lbl_txt = txt, title_lbl = txt$scen_lbl, col_pal = pal,
-  mar_notes = TRUE, ...)
+plot_bar(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = num$N,
+  by = "all",
+  dir = 1,
+  scale = "f",
+  round = TRUE,
+  f_lbl = "num",
+  f_lwd = 1,
+  lty = 0,
+  lbl_txt = txt,
+  title_lbl = txt$scen_lbl,
+  col_pal = pal,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -200,11 +215,16 @@ plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_curve}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

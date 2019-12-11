@@ -4,15 +4,37 @@
 \alias{plot_tab}
 \title{Plot a 2 x 2 contingency table of population frequencies.}
 \usage{
-plot_tab(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  p_split = "v", area = "no", scale = "p", round = TRUE,
-  f_lbl = "num", f_lbl_sep = NA, f_lbl_sum = f_lbl,
-  f_lbl_hd = "nam", f_lwd = 0, gaps = c(NA, NA), brd_w = 0.1,
-  p_lbl = NA, arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow",
-  "yellow"), brd_dis = 0.3, lbl_txt = txt, title_lbl = txt$scen_lbl,
-  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
-  ...)
+plot_tab(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = num$N,
+  by = "cddc",
+  p_split = "v",
+  area = "no",
+  scale = "p",
+  round = TRUE,
+  f_lbl = "num",
+  f_lbl_sep = NA,
+  f_lbl_sum = f_lbl,
+  f_lbl_hd = "nam",
+  f_lwd = 0,
+  gaps = c(NA, NA),
+  brd_w = 0.1,
+  p_lbl = NA,
+  arr_c = -3,
+  col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
+  brd_dis = 0.3,
+  lbl_txt = txt,
+  title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9,
+  cex_p_lbl = NA,
+  col_pal = pal,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -250,12 +272,12 @@ plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
 plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
          by = "cddc", p_split = "v", area = "no",
          lbl_txt = txt_TF,  # custom text
-         f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
+         f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_vir, f_lwd = 3)  # custom colors
 plot_tab(prev = .5, sens = 3/5, spec = 4/5, N = 10,
          by = "cddc", p_split = "h", area = "sq",
          lbl_txt = txt_org,  # custom text
-         f_lbl = "namnum", f_lbl_sep = ":\\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
+         f_lbl = "namnum", f_lbl_sep = ":\n", f_lbl_sum = "num", f_lbl_hd  = "nam",
          col_pal = pal_kn, f_lwd = 1)  # custom colors
 
 ## Note some differences to plot_area (i.e., area/mosaic plot):
@@ -281,11 +303,16 @@ plot_tab(N = 5, prev = .3, sens = .9, spec = .5,
 \code{\link{pal}} contains current color settings;
 \code{\link{txt}} contains current text settings.
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_plane}}, \code{\link{plot_prism}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

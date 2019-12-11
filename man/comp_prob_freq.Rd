@@ -4,8 +4,7 @@
 \alias{comp_prob_freq}
 \title{Compute probabilities from (4 essential) frequencies.}
 \usage{
-comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa,
-  cr = freq$cr)
+comp_prob_freq(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -30,15 +29,16 @@ Key relationships between frequencies and probabilities
 
 \itemize{
 
-\item Three perspectives on a population:
+  \item Three perspectives on a population:
 
-by condition / by decision / by accuracy.
+  by condition / by decision / by accuracy.
 
-\item Defining probabilities in terms of frequencies:
+  \item Defining probabilities in terms of frequencies:
 
-Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
+
 
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{comp_prob_freq},
@@ -87,21 +87,29 @@ all.equal(prob, prob_freq)  # => should be TRUE!
 \code{\link{is_prob}} verifies probability inputs;
 \code{\link{is_freq}} verifies frequency inputs.
 
-Other functions computing probabilities: \code{\link{comp_FDR}},
-  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
-  \code{\link{comp_comp_pair}},
-  \code{\link{comp_complement}},
-  \code{\link{comp_complete_prob_set}},
-  \code{\link{comp_err}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
-  \code{\link{comp_prob}}, \code{\link{comp_sens}},
-  \code{\link{comp_spec}}
+Other functions computing probabilities: 
+\code{\link{comp_FDR}()},
+\code{\link{comp_FOR}()},
+\code{\link{comp_NPV}()},
+\code{\link{comp_PPV}()},
+\code{\link{comp_accu_freq}()},
+\code{\link{comp_accu_prob}()},
+\code{\link{comp_acc}()},
+\code{\link{comp_comp_pair}()},
+\code{\link{comp_complement}()},
+\code{\link{comp_complete_prob_set}()},
+\code{\link{comp_err}()},
+\code{\link{comp_fart}()},
+\code{\link{comp_mirt}()},
+\code{\link{comp_ppod}()},
+\code{\link{comp_prob}()},
+\code{\link{comp_sens}()},
+\code{\link{comp_spec}()}
 
-Other format conversion functions: \code{\link{comp_freq_freq}},
-  \code{\link{comp_freq_prob}},
-  \code{\link{comp_prob_prob}}
+Other format conversion functions: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_freq_prob}()},
+\code{\link{comp_prob_prob}()}
 }
 \concept{format conversion functions}
 \concept{functions computing probabilities}

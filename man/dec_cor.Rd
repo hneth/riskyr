@@ -26,19 +26,19 @@ the accuracy \code{\link{acc}}.
 \item to other frequencies:
 In a population of size \code{\link{N}} the following relationships hold:
 
-\itemize{
+  \itemize{
 
-\item \code{\link{N}  =  \link{cond_true} + \link{cond_false}} (by condition)
+    \item \code{\link{N}  =  \link{cond_true} + \link{cond_false}} (by condition)
 
-\item \code{\link{N}  =  \link{dec_pos} + \link{dec_neg}} (by decision)
+    \item \code{\link{N}  =  \link{dec_pos} + \link{dec_neg}} (by decision)
 
-\item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
+    \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 
-\item \code{\link{dec_cor} = \link{hi} + \link{cr}}
+    \item \code{\link{dec_cor} = \link{hi} + \link{cr}}
 
-\item \code{\link{dec_err} = \link{mi} + \link{fa}}
+    \item \code{\link{dec_err} = \link{mi} + \link{fa}}
 
-\item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+    \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
 \item correspondence:
@@ -71,11 +71,17 @@ Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusi
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other frequencies: \code{\link{N}},
-  \code{\link{cond_false}}, \code{\link{cond_true}},
-  \code{\link{cr}}, \code{\link{dec_err}},
-  \code{\link{dec_neg}}, \code{\link{dec_pos}},
-  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
+Other frequencies: 
+\code{\link{N}},
+\code{\link{cond_false}},
+\code{\link{cond_true}},
+\code{\link{cr}},
+\code{\link{dec_err}},
+\code{\link{dec_neg}},
+\code{\link{dec_pos}},
+\code{\link{fa}},
+\code{\link{hi}},
+\code{\link{mi}}
 }
 \concept{frequencies}
 \keyword{datasets}

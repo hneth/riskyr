@@ -5,13 +5,30 @@
 \title{Plot a plane of selected values (e.g., PPV or NPV)
 as a function of sensitivity and specificity.}
 \usage{
-plot_plane(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, what = "PPV", what_col = pal,
-  line_col = "grey85", sens_range = c(0, 1), spec_range = c(0, 1),
-  step_size = 0.05, show_points = TRUE, point_col = "yellow",
-  theta = -45, phi = 0, lbl_txt = txt, title_lbl = NA,
-  p_lbl = "def", cex_lbl = 0.85, col_pal = pal, mar_notes = TRUE,
-  ...)
+plot_plane(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  what = "PPV",
+  what_col = pal,
+  line_col = "grey85",
+  sens_range = c(0, 1),
+  spec_range = c(0, 1),
+  step_size = 0.05,
+  show_points = TRUE,
+  point_col = "yellow",
+  theta = -45,
+  phi = 0,
+  lbl_txt = txt,
+  title_lbl = NA,
+  p_lbl = "def",
+  cex_lbl = 0.85,
+  col_pal = pal,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -162,11 +179,16 @@ plot_plane(what_col = "steelblue4", theta = -90, phi = 50)   # => rotated, from 
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_mosaic}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

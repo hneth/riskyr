@@ -4,8 +4,15 @@
 \alias{comp_accu_prob}
 \title{Compute exact accuracy metrics based on probabilities.}
 \usage{
-comp_accu_prob(prev = prob$prev, sens = prob$sens, mirt = NA,
-  spec = prob$spec, fart = NA, tol = 0.01, w = 0.5)
+comp_accu_prob(
+  prev = prob$prev,
+  sens = prob$sens,
+  mirt = NA,
+  spec = prob$spec,
+  fart = NA,
+  tol = 0.01,
+  w = 0.5
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -83,18 +90,18 @@ Currently computed accuracy metrics include:
 
 \enumerate{
 
-\item \code{acc}: Overall accuracy as the proportion (or probability)
+   \item \code{acc}: Overall accuracy as the proportion (or probability)
    of correctly classifying cases or of \code{\link{dec_cor}} cases:
 
-(a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+   (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
-(b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
+   (b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
-When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
+   When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a).
 
-Values range from 0 (no correct prediction) to 1 (perfect prediction).
+   Values range from 0 (no correct prediction) to 1 (perfect prediction).
 
-\item \code{wacc}: Weighted accuracy, as a weighted average of the
+   \item \code{wacc}: Weighted accuracy, as a weighted average of the
    sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}}, \code{\link{TPR}},
    \code{\link{power}} or \code{\link{recall}})
    and the the specificity \code{\link{spec}} (aka. \code{\link{TNR}})
@@ -102,27 +109,27 @@ Values range from 0 (no correct prediction) to 1 (perfect prediction).
    (ranging from 0 to 1) and \code{\link{spec}} is multiplied by
    \code{w}'s complement \code{(1 - w)}:
 
-\code{wacc = (w * sens) + ((1 - w) * spec)}
+   \code{wacc = (w * sens) + ((1 - w) * spec)}
 
-If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
+   If \code{w = .50}, \code{wacc} becomes \emph{balanced} accuracy \code{bacc}.
 
-\item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
+   \item \code{mcc}: The Matthews correlation coefficient (with values ranging from -1 to +1):
 
-\code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
+   \code{mcc = ((hi * cr) - (fa * mi)) / sqrt((hi + fa) * (hi + mi) * (cr + fa) * (cr + mi))}
 
-A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
+   A value of \code{mcc = 0} implies random performance; \code{mcc = 1} implies perfect performance.
 
-See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
+   See \href{https://en.wikipedia.org/wiki/Matthews_correlation_coefficient}{Wikipedia: Matthews correlation coefficient}
    for additional information.
 
-\item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
+   \item \code{f1s}: The harmonic mean of the positive predictive value \code{\link{PPV}}
    (aka. \code{\link{precision}})
    and the sensitivity \code{\link{sens}} (aka. hit rate \code{\link{HR}},
    \code{\link{TPR}}, \code{\link{power}} or \code{\link{recall}}):
 
-\code{f1s =  2 * (PPV * sens) / (PPV + sens)}
+   \code{f1s =  2 * (PPV * sens) / (PPV + sens)}
 
-See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
+   See \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia: F1 score} for additional information.
 
 }
 
@@ -188,20 +195,32 @@ for additional information.
 \code{\link{pal}} for current color settings;
 \code{\link{popu}} for a table of the current population.
 
-Other metrics: \code{\link{accu}}, \code{\link{acc}},
-  \code{\link{comp_accu_freq}}, \code{\link{comp_acc}},
-  \code{\link{comp_err}}, \code{\link{err}}
+Other metrics: 
+\code{\link{accu}},
+\code{\link{acc}},
+\code{\link{comp_accu_freq}()},
+\code{\link{comp_acc}()},
+\code{\link{comp_err}()},
+\code{\link{err}}
 
-Other functions computing probabilities: \code{\link{comp_FDR}},
-  \code{\link{comp_FOR}}, \code{\link{comp_NPV}},
-  \code{\link{comp_PPV}}, \code{\link{comp_accu_freq}},
-  \code{\link{comp_acc}}, \code{\link{comp_comp_pair}},
-  \code{\link{comp_complement}},
-  \code{\link{comp_complete_prob_set}},
-  \code{\link{comp_err}}, \code{\link{comp_fart}},
-  \code{\link{comp_mirt}}, \code{\link{comp_ppod}},
-  \code{\link{comp_prob_freq}}, \code{\link{comp_prob}},
-  \code{\link{comp_sens}}, \code{\link{comp_spec}}
+Other functions computing probabilities: 
+\code{\link{comp_FDR}()},
+\code{\link{comp_FOR}()},
+\code{\link{comp_NPV}()},
+\code{\link{comp_PPV}()},
+\code{\link{comp_accu_freq}()},
+\code{\link{comp_acc}()},
+\code{\link{comp_comp_pair}()},
+\code{\link{comp_complement}()},
+\code{\link{comp_complete_prob_set}()},
+\code{\link{comp_err}()},
+\code{\link{comp_fart}()},
+\code{\link{comp_mirt}()},
+\code{\link{comp_ppod}()},
+\code{\link{comp_prob_freq}()},
+\code{\link{comp_prob}()},
+\code{\link{comp_sens}()},
+\code{\link{comp_spec}()}
 }
 \concept{functions computing probabilities}
 \concept{metrics}

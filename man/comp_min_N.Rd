@@ -70,8 +70,11 @@ population size \code{\link{N}};
 \code{\link{comp_prob_freq}} computes current probability information from (4 essential) frequencies;
 \code{\link{comp_prob_prob}} computes current probability information from (3 essential) probabilities.
 
-Other functions computing frequencies: \code{\link{comp_freq_freq}},
-  \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
-  \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
+Other functions computing frequencies: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_freq_prob}()},
+\code{\link{comp_freq}()},
+\code{\link{comp_popu}()},
+\code{\link{comp_prob_prob}()}
 }
 \concept{functions computing frequencies}

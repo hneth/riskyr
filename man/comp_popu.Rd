@@ -7,12 +7,23 @@
 with \code{\link{N}} rows
 and 3 columns (\code{"Truth", "Decision", "SDT"}).}
 \usage{
-comp_popu(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr,
-  cond_lbl = txt$cond_lbl, cond_true_lbl = txt$cond_true_lbl,
-  cond_false_lbl = txt$cond_false_lbl, dec_lbl = txt$dec_lbl,
-  dec_pos_lbl = txt$dec_pos_lbl, dec_neg_lbl = txt$dec_neg_lbl,
-  sdt_lbl = txt$sdt_lbl, hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl,
-  fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl)
+comp_popu(
+  hi = freq$hi,
+  mi = freq$mi,
+  fa = freq$fa,
+  cr = freq$cr,
+  cond_lbl = txt$cond_lbl,
+  cond_true_lbl = txt$cond_true_lbl,
+  cond_false_lbl = txt$cond_false_lbl,
+  dec_lbl = txt$dec_lbl,
+  dec_pos_lbl = txt$dec_pos_lbl,
+  dec_neg_lbl = txt$dec_neg_lbl,
+  sdt_lbl = txt$sdt_lbl,
+  hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl,
+  cr_lbl = txt$cr_lbl
+)
 }
 \arguments{
 \item{hi}{The number of hits \code{\link{hi}} (or true positives).}
@@ -93,8 +104,11 @@ the corresponding data frame \code{\link{popu}};
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other functions computing frequencies: \code{\link{comp_freq_freq}},
-  \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
-  \code{\link{comp_min_N}}, \code{\link{comp_prob_prob}}
+Other functions computing frequencies: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_freq_prob}()},
+\code{\link{comp_freq}()},
+\code{\link{comp_min_N}()},
+\code{\link{comp_prob_prob}()}
 }
 \concept{functions computing frequencies}

@@ -4,8 +4,14 @@
 \alias{comp_prob_prob}
 \title{Compute probabilities from (3 essential) probabilities.}
 \usage{
-comp_prob_prob(prev = prob$prev, sens = prob$sens, mirt = NA,
-  spec = prob$spec, fart = NA, tol = 0.01)
+comp_prob_prob(
+  prev = prob$prev,
+  sens = prob$sens,
+  mirt = NA,
+  spec = prob$spec,
+  fart = NA,
+  tol = 0.01
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence value \code{\link{prev}}
@@ -56,45 +62,47 @@ probabilities of 0 or 1) may yield unexpected values
 turning \code{NaN} when \code{\link{is_extreme_prob_set}}
 evaluates to \code{TRUE}).
 
+
 Key relationships between frequencies and probabilities
 (see documentation of \code{\link{comp_freq}} or \code{\link{comp_prob}} for details):
 
 \itemize{
 
-\item Three perspectives on a population:
+  \item Three perspectives on a population:
 
-by condition / by decision / by accuracy.
+  by condition / by decision / by accuracy.
 
-\item Defining probabilities in terms of frequencies:
+  \item Defining probabilities in terms of frequencies:
 
-Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
+
 
 Functions translating between representational formats:
 
 \enumerate{
 
-\item \code{comp_prob_prob} (defined here) is
+   \item \code{comp_prob_prob} (defined here) is
    a wrapper function for \code{\link{comp_prob}} and
    an analog to 3 other format conversion functions:
 
-\item \code{\link{comp_prob_freq}} computes
+   \item \code{\link{comp_prob_freq}} computes
    current \emph{probability} information contained in \code{\link{prob}}
    from 4 essential frequencies
    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 
-\item \code{\link{comp_freq_prob}} computes
+   \item \code{\link{comp_freq_prob}} computes
    current \emph{frequency} information contained in \code{\link{freq}}
    from 3 essential probabilities
    (\code{\link{prev}}, \code{\link{sens}}, \code{\link{spec}}).
 
-\item \code{\link{comp_freq_freq}} computes
+   \item \code{\link{comp_freq_freq}} computes
    current \emph{frequency} information contained in \code{\link{freq}}
    from 4 essential frequencies
    (\code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, \code{\link{cr}}).
 
-}
+ }
 }
 \examples{
 # Basics:
@@ -140,13 +148,17 @@ comp_prob_prob(1,  1, 1,  1)  # => only warning: is_complement not in tolerated 
 \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
-Other functions computing frequencies: \code{\link{comp_freq_freq}},
-  \code{\link{comp_freq_prob}}, \code{\link{comp_freq}},
-  \code{\link{comp_min_N}}, \code{\link{comp_popu}}
+Other functions computing frequencies: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_freq_prob}()},
+\code{\link{comp_freq}()},
+\code{\link{comp_min_N}()},
+\code{\link{comp_popu}()}
 
-Other format conversion functions: \code{\link{comp_freq_freq}},
-  \code{\link{comp_freq_prob}},
-  \code{\link{comp_prob_freq}}
+Other format conversion functions: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_freq_prob}()},
+\code{\link{comp_prob_freq}()}
 }
 \concept{format conversion functions}
 \concept{functions computing frequencies}

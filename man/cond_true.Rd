@@ -29,35 +29,37 @@ Perspectives:
 \enumerate{
   \item by condition:
 
-The frequency \code{\link{cond_true}} is determined by the population size \code{\link{N}} times the prevalence \code{\link{prev}}:
+  The frequency \code{\link{cond_true}} is determined by the population size \code{\link{N}} times the prevalence \code{\link{prev}}:
 
-\code{ \link{cond_true} = \link{N} x \link{prev}}
+  \code{ \link{cond_true} = \link{N} x \link{prev}}
 
-\item by decision:
+  \item by decision:
 
-a. The frequency \code{\link{hi}} is determined by \code{\link{cond_true}} times the sensitivity \code{\link{sens}}
+  a. The frequency \code{\link{hi}} is determined by \code{\link{cond_true}} times the sensitivity \code{\link{sens}}
   (aka. hit rate \code{\link{HR}}):
 
-\code{ \link{hi} = \link{cond_true} x \link{sens}}
+  \code{ \link{hi} = \link{cond_true} x \link{sens}}
 
-b. The frequency \code{\link{mi}} is determined by \code{\link{cond_true}} times the miss rate \code{\link{mirt} = (1 - \link{sens})}:
 
-\code{ \link{mi} = \link{cond_true} x \link{mirt}  =  \link{cond_true} x (1 - \link{sens})}
+  b. The frequency \code{\link{mi}} is determined by \code{\link{cond_true}} times the miss rate \code{\link{mirt} = (1 - \link{sens})}:
+
+  \code{ \link{mi} = \link{cond_true} x \link{mirt}  =  \link{cond_true} x (1 - \link{sens})}
 
 }
 
-\item to other frequencies:
+
+  \item to other frequencies:
   In a population of size \code{\link{N}} the following relationships hold:
 
-\itemize{
+  \itemize{
 
-\item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
+    \item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 
-\item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
+    \item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 
-\item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
+    \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+    \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
 }
@@ -83,11 +85,17 @@ Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusi
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other frequencies: \code{\link{N}},
-  \code{\link{cond_false}}, \code{\link{cr}},
-  \code{\link{dec_cor}}, \code{\link{dec_err}},
-  \code{\link{dec_neg}}, \code{\link{dec_pos}},
-  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
+Other frequencies: 
+\code{\link{N}},
+\code{\link{cond_false}},
+\code{\link{cr}},
+\code{\link{dec_cor}},
+\code{\link{dec_err}},
+\code{\link{dec_neg}},
+\code{\link{dec_pos}},
+\code{\link{fa}},
+\code{\link{hi}},
+\code{\link{mi}}
 }
 \concept{frequencies}
 \keyword{datasets}

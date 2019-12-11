@@ -4,10 +4,19 @@
 \alias{plot_mosaic}
 \title{Plot a mosaic plot of population frequencies.}
 \usage{
-plot_mosaic(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  show_accu = TRUE, w_acc = 0.5, title_lbl = txt$scen_lbl,
-  col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"]))
+plot_mosaic(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = num$N,
+  by = "cddc",
+  show_accu = TRUE,
+  w_acc = 0.5,
+  title_lbl = txt$scen_lbl,
+  col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}.}
@@ -55,11 +64,16 @@ plot_mosaic()  # plot with default options
 \seealso{
 \code{\link{plot_area}} is the new version of this function.
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_icons}}, \code{\link{plot_plane}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

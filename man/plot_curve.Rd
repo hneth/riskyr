@@ -5,12 +5,27 @@
 \title{Plot curves of selected values (e.g., PPV or NPV)
 as a function of prevalence.}
 \usage{
-plot_curve(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, what = c("prev", "PPV", "NPV"),
-  p_lbl = "def", p_lwd = 2, what_col = pal, uc = 0,
-  show_points = TRUE, log_scale = FALSE, prev_range = c(0, 1),
-  lbl_txt = txt, title_lbl = NA, cex_lbl = 0.85, col_pal = pal,
-  mar_notes = TRUE, ...)
+plot_curve(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  what = c("prev", "PPV", "NPV"),
+  p_lbl = "def",
+  p_lwd = 2,
+  what_col = pal,
+  uc = 0,
+  show_points = TRUE,
+  log_scale = FALSE,
+  prev_range = c(0, 1),
+  lbl_txt = txt,
+  title_lbl = NA,
+  cex_lbl = 0.85,
+  col_pal = pal,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -184,11 +199,16 @@ plot_curve(title_lbl = "Black-and-white print version",
 \code{\link{txt}} for current text settings;
 \code{\link{pal}} for current color settings.
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

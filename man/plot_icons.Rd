@@ -4,15 +4,35 @@
 \alias{plot_icons}
 \title{Plot an icon array of a population.}
 \usage{
-plot_icons(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = freq$N, arr_type = "array",
-  by = "all", ident_order = c("hi", "mi", "fa", "cr"),
-  icon_types = 22, icon_size = NULL, icon_brd_lwd = 1.5,
-  block_d = NULL, border_d = 0.1, block_size_row = 10,
-  block_size_col = 10, nblocks_row = NULL, nblocks_col = NULL,
-  fill_array = "left", fill_blocks = "rowwise", lbl_txt = txt,
-  title_lbl = txt$scen_lbl, cex_lbl = 0.9, col_pal = pal,
-  transparency = 0.5, mar_notes = TRUE, ...)
+plot_icons(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = freq$N,
+  arr_type = "array",
+  by = "all",
+  ident_order = c("hi", "mi", "fa", "cr"),
+  icon_types = 22,
+  icon_size = NULL,
+  icon_brd_lwd = 1.5,
+  block_d = NULL,
+  border_d = 0.1,
+  block_size_row = 10,
+  block_size_col = 10,
+  nblocks_row = NULL,
+  nblocks_col = NULL,
+  fill_array = "left",
+  fill_blocks = "rowwise",
+  lbl_txt = txt,
+  title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9,
+  col_pal = pal,
+  transparency = 0.5,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -229,11 +249,16 @@ plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray"
 
 }
 \seealso{
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_curve}}, \code{\link{plot_fnet}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

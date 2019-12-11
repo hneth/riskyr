@@ -18,48 +18,48 @@ Understanding or obtaining the false omission rate \code{FOR}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{FOR} is the so-called false omission rate:
   The conditional probability for the condition being \code{TRUE}
   given a negative decision:
 
-\code{FOR = p(condition = TRUE | decision = negative)}
+  \code{FOR = p(condition = TRUE | decision = negative)}
 
-\item Perspective:
+  \item Perspective:
   \code{FOR} further classifies
   the subset of \code{\link{dec_neg}} individuals
   by condition (\code{FOR = mi/dec_neg = mi/(mi + cr)}).
 
-\item Alternative names:
+  \item Alternative names:
   none?
 
-\item Relationships:
+  \item Relationships:
 
-a. \code{FOR} is the complement of the
+  a. \code{FOR} is the complement of the
   negative predictive value \code{\link{NPV}}:
 
-\code{FOR = 1 - NPV}
+  \code{FOR = 1 - NPV}
 
-b. \code{FOR} is the opposite conditional probability
+  b. \code{FOR} is the opposite conditional probability
   -- but not the complement --
   of the miss rate \code{\link{mirt}}
   (aka. false negative rate \code{FDR}):
 
-\code{mirt = p(decision = negative | condition = TRUE)}
+  \code{mirt = p(decision = negative | condition = TRUE)}
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{FOR} is the ratio of
   \code{\link{mi}} divided by \code{\link{dec_neg}}
   (i.e., \code{\link{mi} + \link{cr}}):
 
-\code{NPV = mi/dec_neg = mi/(mi + cr)}
+  \code{NPV = mi/dec_neg = mi/(mi + cr)}
 
-\item Dependencies:
+  \item Dependencies:
   \code{FOR} is a feature of a decision process
   or diagnostic procedure and a measure of incorrect
   decisions (negative decisions that are actually \code{FALSE}).
 
-However, due to being a conditional probability,
+  However, due to being a conditional probability,
   the value of \code{FOR} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -84,11 +84,18 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{NPV}},
-  \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

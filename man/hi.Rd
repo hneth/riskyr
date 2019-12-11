@@ -33,15 +33,15 @@ and is conditional on the prevalence \code{\link{prev}}.
 In a population of size \code{\link{N}}
 the following relationships hold:
 
-\itemize{
+  \itemize{
 
-\item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
+    \item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 
-\item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
+    \item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 
-\item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
+    \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+    \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
    }
 }
 }
@@ -55,15 +55,25 @@ the following relationships hold:
 \code{\link{comp_prob}} computes current probability information;
 \code{\link{is_freq}} verifies frequencies.
 
-Other frequencies: \code{\link{N}},
-  \code{\link{cond_false}}, \code{\link{cond_true}},
-  \code{\link{cr}}, \code{\link{dec_cor}},
-  \code{\link{dec_err}}, \code{\link{dec_neg}},
-  \code{\link{dec_pos}}, \code{\link{fa}}, \code{\link{mi}}
+Other frequencies: 
+\code{\link{N}},
+\code{\link{cond_false}},
+\code{\link{cond_true}},
+\code{\link{cr}},
+\code{\link{dec_cor}},
+\code{\link{dec_err}},
+\code{\link{dec_neg}},
+\code{\link{dec_pos}},
+\code{\link{fa}},
+\code{\link{mi}}
 
-Other essential parameters: \code{\link{cr}},
-  \code{\link{fa}}, \code{\link{mi}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other essential parameters: 
+\code{\link{cr}},
+\code{\link{fa}},
+\code{\link{mi}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{essential parameters}
 \concept{frequencies}

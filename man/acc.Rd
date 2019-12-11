@@ -24,49 +24,49 @@ Understanding or obtaining the accuracy metric \code{acc}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{acc} is the (non-conditional) probability:
 
-\code{acc = p(dec_cor) = dec_cor/N}
+  \code{acc = p(dec_cor) = dec_cor/N}
 
-or the base rate (or baseline probability)
+  or the base rate (or baseline probability)
   of a decision being correct, but not necessarily positive.
 
-\code{acc} values range
+  \code{acc} values range
   from 0 (no correct decision/prediction)
   to 1 (perfect decision/prediction).
 
-\item Computation: \code{acc} can be computed in several ways:
+  \item Computation: \code{acc} can be computed in several ways:
 
-(a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
+   (a) from \code{\link{prob}}: \code{acc = (prev x sens) + [(1 - prev) x spec]}
 
-(b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
+   (b) from \code{\link{freq}}: \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
-(c) as complement of the error rate \code{\link{err}}: \code{acc = 1 - err}
+   (c) as complement of the error rate \code{\link{err}}: \code{acc = 1 - err}
 
-When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a) and (c).
+   When frequencies in \code{\link{freq}} are not rounded, (b) coincides with (a) and (c).
 
-\item Perspective:
+  \item Perspective:
   \code{acc} classifies a population of \code{\link{N}} individuals
   by accuracy/correspondence (\code{acc = dec_cor/N}).
 
-\code{acc} is the "by accuracy" or "by correspondence" counterpart
+  \code{acc} is the "by accuracy" or "by correspondence" counterpart
   to \code{\link{prev}} (which adopts a "by condition" perspective) and
   to \code{\link{ppod}} (which adopts a "by decision" perspective).
 
-\item Alternative names:
+  \item Alternative names:
   base rate of correct decisions,
   non-erroneous cases
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{acc} is the ratio of
   \code{\link{dec_cor}} (i.e., \code{\link{hi} + \link{cr}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
+  \code{acc = dec_cor/N = (hi + cr)/(hi + mi + fa + cr)}
 
-\item Dependencies:
+  \item Dependencies:
   \code{acc} is a feature of both the environment (true condition) and
   of the decision process or diagnostic procedure. It reflects the
   correspondence of decisions to conditions.
@@ -98,16 +98,26 @@ Consult \href{https://en.wikipedia.org/wiki/Accuracy_and_precision}{Wikipedia:Ac
 \code{\link{prob}} contains current probability information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{err}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 
-Other metrics: \code{\link{accu}},
-  \code{\link{comp_accu_freq}},
-  \code{\link{comp_accu_prob}}, \code{\link{comp_acc}},
-  \code{\link{comp_err}}, \code{\link{err}}
+Other metrics: 
+\code{\link{accu}},
+\code{\link{comp_accu_freq}()},
+\code{\link{comp_accu_prob}()},
+\code{\link{comp_acc}()},
+\code{\link{comp_err}()},
+\code{\link{err}}
 }
 \concept{metrics}
 \concept{probabilities}

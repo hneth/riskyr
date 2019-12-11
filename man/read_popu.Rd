@@ -4,9 +4,17 @@
 \alias{read_popu}
 \title{Read a population (given as data frame) into a riskyr scenario.}
 \usage{
-read_popu(df = popu, ix_by_top = 1, ix_by_bot = 2, ix_sdt = 3,
-  hi_lbl = txt$hi_lbl, mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl,
-  cr_lbl = txt$cr_lbl, ...)
+read_popu(
+  df = popu,
+  ix_by_top = 1,
+  ix_by_bot = 2,
+  ix_sdt = 3,
+  hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl,
+  cr_lbl = txt$cr_lbl,
+  ...
+)
 }
 \arguments{
 \item{df}{A data frame providing a population \code{\link{popu}}
@@ -77,7 +85,9 @@ the corresponding data frame \code{\link{popu}};
 the corresponding generating function \code{\link{comp_popu}};
 \code{\link{riskyr}} initializes a \code{riskyr} scenario.
 
-Other riskyr scenario functions: \code{\link{plot.riskyr}},
-  \code{\link{riskyr}}, \code{\link{summary.riskyr}}
+Other riskyr scenario functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{riskyr}()},
+\code{\link{summary.riskyr}()}
 }
 \concept{riskyr scenario functions}

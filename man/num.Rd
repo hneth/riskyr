@@ -31,15 +31,23 @@ length(num)        # => 5
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other lists containing current scenario information: \code{\link{accu}},
-  \code{\link{freq}}, \code{\link{pal_bwp}},
-  \code{\link{pal_bw}}, \code{\link{pal_kn}},
-  \code{\link{pal_mbw}}, \code{\link{pal_mod}},
-  \code{\link{pal_org}}, \code{\link{pal_rgb}},
-  \code{\link{pal_unikn}}, \code{\link{pal_vir}},
-  \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt_TF}}, \code{\link{txt_org}},
-  \code{\link{txt}}
+Other lists containing current scenario information: 
+\code{\link{accu}},
+\code{\link{freq}},
+\code{\link{pal_bwp}},
+\code{\link{pal_bw}},
+\code{\link{pal_kn}},
+\code{\link{pal_mbw}},
+\code{\link{pal_mod}},
+\code{\link{pal_org}},
+\code{\link{pal_rgb}},
+\code{\link{pal_unikn}},
+\code{\link{pal_vir}},
+\code{\link{pal}},
+\code{\link{prob}},
+\code{\link{txt_TF}},
+\code{\link{txt_org}},
+\code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

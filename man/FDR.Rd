@@ -19,48 +19,52 @@ or false discovery rate (\code{FDR}):
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{FDR} is the conditional probability
   for the condition being \code{FALSE}
   given a positive decision:
 
-\code{FDR = p(condition = FALSE | decision = positive)}
+  \code{FDR = p(condition = FALSE | decision = positive)}
 
-\item Perspective:
+
+  \item Perspective:
   \code{FDR} further classifies
   the subset of \code{\link{dec_pos}} individuals
   by condition (\code{FDR = fa/dec_pos = fa/(hi + fa)}).
 
-\item Alternative names:
+
+  \item Alternative names:
   false discovery rate
 
-\item Relationships:
 
-a. \code{FDR} is the complement of the
+  \item Relationships:
+
+  a. \code{FDR} is the complement of the
   positive predictive value \code{\link{PPV}}:
 
-\code{FDR = 1 - PPV}
+  \code{FDR = 1 - PPV}
 
-b. \code{FDR} is the opposite conditional probability
+  b. \code{FDR} is the opposite conditional probability
   -- but not the complement --
   of the false alarm rate \code{\link{fart}}:
 
-\code{fart = p(decision = positive | condition = FALSE)}
+  \code{fart = p(decision = positive | condition = FALSE)}
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{FDR} is the ratio of
   \code{\link{fa}} divided by \code{\link{dec_pos}}
   (i.e., \code{\link{hi} + \link{fa}}):
 
-\code{FDR = fa/dec_pos = fa/(hi + fa)}
+  \code{FDR = fa/dec_pos = fa/(hi + fa)}
 
-\item Dependencies:
+
+  \item Dependencies:
   \code{FDR} is a feature of a decision process
   or diagnostic procedure and
   a measure of incorrect decisions (positive decisions
   that are actually \code{FALSE}).
 
-However, due to being a conditional probability,
+  However, due to being a conditional probability,
   the value of \code{FDR} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -85,11 +89,18 @@ Consult \href{https://en.wikipedia.org/wiki/Positive_and_negative_predictive_val
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FOR}}, \code{\link{NPV}},
-  \code{\link{PPV}}, \code{\link{acc}}, \code{\link{err}},
-  \code{\link{fart}}, \code{\link{mirt}},
-  \code{\link{ppod}}, \code{\link{prev}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{probabilities}
 \keyword{datasets}

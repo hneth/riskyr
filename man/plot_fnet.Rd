@@ -4,18 +4,38 @@
 \alias{plot_fnet}
 \title{Plot a network diagram of frequencies and probabilities.}
 \usage{
-plot_fnet(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = freq$N, round = TRUE,
-  by = "cddc", area = "no", p_lbl = "num", show_accu = TRUE,
-  w_acc = 0.5, title_lbl = txt$scen_lbl, popu_lbl = txt$popu_lbl,
+plot_fnet(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = freq$N,
+  round = TRUE,
+  by = "cddc",
+  area = "no",
+  p_lbl = "num",
+  show_accu = TRUE,
+  w_acc = 0.5,
+  title_lbl = txt$scen_lbl,
+  popu_lbl = txt$popu_lbl,
   cond_true_lbl = txt$cond_true_lbl,
-  cond_false_lbl = txt$cond_false_lbl, dec_pos_lbl = txt$dec_pos_lbl,
-  dec_neg_lbl = txt$dec_neg_lbl, hi_lbl = txt$hi_lbl,
-  mi_lbl = txt$mi_lbl, fa_lbl = txt$fa_lbl, cr_lbl = txt$cr_lbl,
-  col_txt = grey(0.01, alpha = 0.99), cex_lbl = 0.85,
-  col_boxes = pal, col_border = grey(0.33, alpha = 0.99), lwd = 1.5,
-  box_lwd = 1.5, col_shadow = grey(0.11, alpha = 0.99),
-  cex_shadow = 0)
+  cond_false_lbl = txt$cond_false_lbl,
+  dec_pos_lbl = txt$dec_pos_lbl,
+  dec_neg_lbl = txt$dec_neg_lbl,
+  hi_lbl = txt$hi_lbl,
+  mi_lbl = txt$mi_lbl,
+  fa_lbl = txt$fa_lbl,
+  cr_lbl = txt$cr_lbl,
+  col_txt = grey(0.01, alpha = 0.99),
+  cex_lbl = 0.85,
+  col_boxes = pal,
+  col_border = grey(0.33, alpha = 0.99),
+  lwd = 1.5,
+  box_lwd = 1.5,
+  col_shadow = grey(0.11, alpha = 0.99),
+  cex_shadow = 0
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}.}
@@ -128,11 +148,16 @@ plot_fnet(by = "dccd")  # frequency network by decision and condition
 \seealso{
 \code{\link{plot_prism}} is the new version of this function.
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_area}}, \code{\link{plot_bar}},
-  \code{\link{plot_curve}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_area}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

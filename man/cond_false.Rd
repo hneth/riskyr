@@ -29,35 +29,37 @@ Perspectives:
 \enumerate{
   \item by condition:
 
-The frequency \code{\link{cond_false}} is determined by the population size \code{\link{N}} times the complement of the prevalence \code{(1 - \link{prev})}:
+  The frequency \code{\link{cond_false}} is determined by the population size \code{\link{N}} times the complement of the prevalence \code{(1 - \link{prev})}:
 
-\code{\link{cond_false}= \link{N} x (1 - \link{prev})}
+  \code{\link{cond_false}= \link{N} x (1 - \link{prev})}
 
-\item by decision:
+  \item by decision:
 
-a. The frequency \code{\link{fa}} is determined by \code{\link{cond_false}} times the false alarm rate \code{\link{fart} = (1 - \link{spec})}
+  a. The frequency \code{\link{fa}} is determined by \code{\link{cond_false}} times the false alarm rate \code{\link{fart} = (1 - \link{spec})}
   (aka. \code{\link{FPR}}):
 
-\code{\link{fa} = \link{cond_false} x \link{fart} = \link{cond_false} x (1 - \link{spec}) }
+  \code{\link{fa} = \link{cond_false} x \link{fart} = \link{cond_false} x (1 - \link{spec}) }
 
-b. The frequency \code{\link{cr}} is determined by \code{\link{cond_false}} times the specificity \code{\link{spec} = (1 - \link{fart})}:
 
-\code{\link{cr}  =  \link{cond_false} x \link{spec}  =  \link{cond_false} x (1 - \link{fart}) }
+  b. The frequency \code{\link{cr}} is determined by \code{\link{cond_false}} times the specificity \code{\link{spec} = (1 - \link{fart})}:
+
+  \code{\link{cr}  =  \link{cond_false} x \link{spec}  =  \link{cond_false} x (1 - \link{fart}) }
 
 }
 
-\item to other frequencies:
+
+  \item to other frequencies:
   In a population of size \code{\link{N}} the following relationships hold:
 
-\itemize{
+  \itemize{
 
-\item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
+    \item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 
-\item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
+    \item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 
-\item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
+    \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 
-\item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+    \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
 }
@@ -83,11 +85,17 @@ Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusi
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other frequencies: \code{\link{N}},
-  \code{\link{cond_true}}, \code{\link{cr}},
-  \code{\link{dec_cor}}, \code{\link{dec_err}},
-  \code{\link{dec_neg}}, \code{\link{dec_pos}},
-  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
+Other frequencies: 
+\code{\link{N}},
+\code{\link{cond_true}},
+\code{\link{cr}},
+\code{\link{dec_cor}},
+\code{\link{dec_err}},
+\code{\link{dec_neg}},
+\code{\link{dec_pos}},
+\code{\link{fa}},
+\code{\link{hi}},
+\code{\link{mi}}
 }
 \concept{frequencies}
 \keyword{datasets}

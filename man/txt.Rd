@@ -25,15 +25,15 @@ Note:
 
 \itemize{
 
-\item Basic text information and some numeric parameters
+  \item Basic text information and some numeric parameters
   (see \code{\link{num}} and \code{\link{init_num}})
   are integral parts of a \code{riskyr} scenario.
 
-\item By contrast, basic \emph{color} information
+  \item By contrast, basic \emph{color} information
   (see \code{\link{pal}} and \code{\link{init_pal}})
   is not an integral part, but independently defined.
 
-\item The names of \emph{probabilities}
+  \item The names of \emph{probabilities}
   (see \code{\link{prob}}) are currently
   not an integral part of \code{txt} and \code{riskyr} scenarios
   (but defined in \code{prob_lbl_def} and \code{label_prob}).
@@ -55,9 +55,11 @@ Note:
 \item \code{scen_lng} The language of the current scenario (as character code).
 Options: \code{"en"}: English, \code{"de"}: German.
 
+
 \item \code{popu_lbl} A general name describing the current \emph{population}.
 
 \item \code{N_lbl} A short label for the current population \code{\link{popu}} or sample.
+
 
 \item \code{cond_lbl} A general name for the \emph{condition} dimension,
 or the feature (e.g., some disease) currently considered.
@@ -68,6 +70,7 @@ or \code{\link{cond_true}} cases (the condition's true state of being TRUE).
 \item \code{cond_false_lbl} A short label for the \emph{absence} of the current condition
 or \code{\link{cond_false}} cases (the condition's true state of being FALSE).
 
+
 \item \code{dec_lbl} A general name for the \emph{decision} dimension,
 or the judgment (e.g., some diagnostic test) currently made.
 
@@ -76,6 +79,7 @@ or \code{\link{dec_pos}} cases (e.g., predicting the presence of the condition).
 
 \item \code{dec_neg_lbl} A short label for \emph{negative} decisions
 or \code{\link{dec_neg}} cases (e.g., predicting the absence of the condition).
+
 
 \item \code{acc_lbl} A general name for the \emph{accuracy} dimension,
 or the correspondence between the condition currently considered
@@ -86,6 +90,7 @@ or \code{\link{dec_cor}} cases (accurate predictions).
 
 \item \code{dec_err_lbl} A short label for \emph{incorrect} decisions
 or \code{\link{dec_err}} cases (erroneous predictions).
+
 
 \item \code{sdt_lbl} A general name for all 4 \emph{cases/categories/cells}
 of the 2x2 contingency table (e.g., condition x decision, using SDT).
@@ -122,15 +127,23 @@ txt$scen_lbl <- "My example"  # Set a new scenario title
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other lists containing current scenario information: \code{\link{accu}},
-  \code{\link{freq}}, \code{\link{num}},
-  \code{\link{pal_bwp}}, \code{\link{pal_bw}},
-  \code{\link{pal_kn}}, \code{\link{pal_mbw}},
-  \code{\link{pal_mod}}, \code{\link{pal_org}},
-  \code{\link{pal_rgb}}, \code{\link{pal_unikn}},
-  \code{\link{pal_vir}}, \code{\link{pal}},
-  \code{\link{prob}}, \code{\link{txt_TF}},
-  \code{\link{txt_org}}
+Other lists containing current scenario information: 
+\code{\link{accu}},
+\code{\link{freq}},
+\code{\link{num}},
+\code{\link{pal_bwp}},
+\code{\link{pal_bw}},
+\code{\link{pal_kn}},
+\code{\link{pal_mbw}},
+\code{\link{pal_mod}},
+\code{\link{pal_org}},
+\code{\link{pal_rgb}},
+\code{\link{pal_unikn}},
+\code{\link{pal_vir}},
+\code{\link{pal}},
+\code{\link{prob}},
+\code{\link{txt_TF}},
+\code{\link{txt_org}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

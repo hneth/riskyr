@@ -4,9 +4,16 @@
 \alias{comp_freq_prob}
 \title{Compute frequencies from (3 essential) probabilities.}
 \usage{
-comp_freq_prob(prev = prob$prev, sens = prob$sens, mirt = NA,
-  spec = prob$spec, fart = NA, tol = 0.01, N = freq$N,
-  round = TRUE)
+comp_freq_prob(
+  prev = prob$prev,
+  sens = prob$sens,
+  mirt = NA,
+  spec = prob$spec,
+  fart = NA,
+  tol = 0.01,
+  N = freq$N,
+  round = TRUE
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -64,43 +71,43 @@ Defaults and constraints:
 
 \itemize{
 
-\item Initial values:
+   \item Initial values:
 
-By default, the values of \code{\link{prev}}, \code{\link{sens}},
+   By default, the values of \code{\link{prev}}, \code{\link{sens}},
    and \code{\link{spec}} are initialized to the probability information
    currently contained in \code{\link{prob}}.
 
-Similarly, the population size \code{\link{N}} uses the frequency
+   Similarly, the population size \code{\link{N}} uses the frequency
    information currently contained in \code{\link{freq}} as its default.
    If \code{\link{N}} is unknown (\code{NA}),
    a suitable minimum value is computed by \code{\link{comp_min_N}}.
 
-\item Constraints:
+   \item Constraints:
 
-When using \code{comp_freq_prob} with the arguments
+   When using \code{comp_freq_prob} with the arguments
    \code{\link{mirt}} and \code{\link{fart}}, their complements
    \code{\link{sens}} and \code{\link{spec}} must either be
    valid complements (as in \code{\link{is_complement}}) or
    set to \code{NA}.
 
-In addition to \code{\link{prev}}, both \code{\link{sens}}
+   In addition to \code{\link{prev}}, both \code{\link{sens}}
    and \code{\link{spec}} are necessary arguments.
    If only their complements \code{\link{mirt}} or \code{\link{fart}}
    are known, first use \code{\link{comp_complement}},
    \code{\link{comp_comp_pair}}, or \code{\link{comp_complete_prob_set}}
    to compute the 3 essential probabilities.
 
-\item Rounding:
+   \item Rounding:
 
-By default, \code{comp_freq_prob} and its basic function
+   By default, \code{comp_freq_prob} and its basic function
    \code{\link{comp_freq}} round frequencies to nearest integers
    to avoid decimal values in \code{\link{freq}}
    (i.e., \code{round = TRUE} by default).
 
-When frequencies are rounded, probabilities computed from
+   When frequencies are rounded, probabilities computed from
    \code{\link{freq}} may differ from exact probabilities.
 
-Using the option \code{round = FALSE} turns off rounding.
+   Using the option \code{round = FALSE} turns off rounding.
 
 }
 
@@ -109,15 +116,16 @@ Key relationships between frequencies and probabilities
 
 \itemize{
 
-\item Three perspectives on a population:
+  \item Three perspectives on a population:
 
-by condition / by decision / by accuracy.
+  by condition / by decision / by accuracy.
 
-\item Defining probabilities in terms of frequencies:
+  \item Defining probabilities in terms of frequencies:
 
-Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
+
 
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
@@ -181,13 +189,17 @@ comp_freq_prob(prev = 1, sens = 8, spec = 1,  100)  # => NAs + warning (sens & s
 \code{\link{comp_complete_prob_set}} completes valid sets of probabilities;
 \code{\link{comp_min_N}} computes a suitable population size \code{\link{N}} (if missing).
 
-Other functions computing frequencies: \code{\link{comp_freq_freq}},
-  \code{\link{comp_freq}}, \code{\link{comp_min_N}},
-  \code{\link{comp_popu}}, \code{\link{comp_prob_prob}}
+Other functions computing frequencies: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_freq}()},
+\code{\link{comp_min_N}()},
+\code{\link{comp_popu}()},
+\code{\link{comp_prob_prob}()}
 
-Other format conversion functions: \code{\link{comp_freq_freq}},
-  \code{\link{comp_prob_freq}},
-  \code{\link{comp_prob_prob}}
+Other format conversion functions: 
+\code{\link{comp_freq_freq}()},
+\code{\link{comp_prob_freq}()},
+\code{\link{comp_prob_prob}()}
 }
 \concept{format conversion functions}
 \concept{functions computing frequencies}

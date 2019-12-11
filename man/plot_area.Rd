@@ -4,15 +4,37 @@
 \alias{plot_area}
 \title{Plot an area diagram of probabilities or frequencies.}
 \usage{
-plot_area(prev = num$prev, sens = num$sens, mirt = NA,
-  spec = num$spec, fart = NA, N = num$N, by = "cddc",
-  p_split = "v", area = "sq", scale = "p", round = TRUE,
-  sum_w = 0.1, gaps = c(NA, NA), f_lbl = "num", f_lbl_sep = NA,
-  f_lbl_sum = "num", f_lbl_hd = "nam", f_lwd = 0, p_lbl = NA,
-  arr_c = -3, col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
-  brd_dis = 0.06, lbl_txt = txt, title_lbl = txt$scen_lbl,
-  cex_lbl = 0.9, cex_p_lbl = NA, col_pal = pal, mar_notes = TRUE,
-  ...)
+plot_area(
+  prev = num$prev,
+  sens = num$sens,
+  mirt = NA,
+  spec = num$spec,
+  fart = NA,
+  N = num$N,
+  by = "cddc",
+  p_split = "v",
+  area = "sq",
+  scale = "p",
+  round = TRUE,
+  sum_w = 0.1,
+  gaps = c(NA, NA),
+  f_lbl = "num",
+  f_lbl_sep = NA,
+  f_lbl_sum = "num",
+  f_lbl_hd = "nam",
+  f_lwd = 0,
+  p_lbl = NA,
+  arr_c = -3,
+  col_p = c(grey(0.15, 0.99), "yellow", "yellow"),
+  brd_dis = 0.06,
+  lbl_txt = txt,
+  title_lbl = txt$scen_lbl,
+  cex_lbl = 0.9,
+  cex_p_lbl = NA,
+  col_pal = pal,
+  mar_notes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{prev}{The condition's prevalence \code{\link{prev}}
@@ -217,7 +239,7 @@ plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
 plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
           by = "cdac", p_split = "h", scale = "f",
           title_lbl = "Custom text and color:",
-          lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\\n",
+          lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
           f_lwd = 1, col_pal = pal_kn)
 
 ## Versions:
@@ -263,7 +285,7 @@ plot_area(f_lbl = NA)      # NA/NULL: no freq labels (in main area & top/left bo
 plot_area(f_lbl = "abb")   # abbreviated name (i.e., variable name)
 plot_area(f_lbl = "nam")   # only freq name
 plot_area(f_lbl = "num")   # only freq number
-plot_area(f_lbl = "namnum", f_lbl_sep = ":\\n", cex_lbl = .75)  # explicit & smaller
+plot_area(f_lbl = "namnum", f_lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
 
 # prob labels:
 plot_area(p_lbl = NA)      # default: no prob labels, no links
@@ -301,11 +323,16 @@ plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb) # no borders around boxe
 \code{\link{pal}} contains current color settings;
 \code{\link{txt}} contains current text settings.
 
-Other visualization functions: \code{\link{plot.riskyr}},
-  \code{\link{plot_bar}}, \code{\link{plot_curve}},
-  \code{\link{plot_fnet}}, \code{\link{plot_icons}},
-  \code{\link{plot_mosaic}}, \code{\link{plot_plane}},
-  \code{\link{plot_prism}}, \code{\link{plot_tab}},
-  \code{\link{plot_tree}}
+Other visualization functions: 
+\code{\link{plot.riskyr}()},
+\code{\link{plot_bar}()},
+\code{\link{plot_curve}()},
+\code{\link{plot_fnet}()},
+\code{\link{plot_icons}()},
+\code{\link{plot_mosaic}()},
+\code{\link{plot_plane}()},
+\code{\link{plot_prism}()},
+\code{\link{plot_tab}()},
+\code{\link{plot_tree}()}
 }
 \concept{visualization functions}

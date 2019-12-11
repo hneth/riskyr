@@ -23,54 +23,57 @@ Understanding or obtaining the sensitivity \code{sens}
 
 \itemize{
 
-\item Definition: \code{sens} is the conditional probability
+  \item Definition: \code{sens} is the conditional probability
   for a (correct) positive decision given that
   the condition is \code{TRUE}:
 
-\code{sens = p(decision = positive | condition = TRUE)}
+  \code{sens = p(decision = positive | condition = TRUE)}
 
-or the probability of correctly detecting true cases
+  or the probability of correctly detecting true cases
   (\code{condition = TRUE}).
 
-\item Perspective:
+
+  \item Perspective:
   \code{sens} further classifies
   the subset of \code{\link{cond_true}} individuals
   by decision (\code{sens = hi/cond_true}).
 
-\item Alternative names:
+
+  \item Alternative names:
   true positive rate (\code{TPR}),
   hit rate (\code{HR}),
   probability of detection,
   \code{power = 1 - beta},
   \code{recall}
 
-\item Relationships:
+  \item Relationships:
 
-a. \code{sens} is the complement of the miss rate
+  a. \code{sens} is the complement of the miss rate
   \code{\link{mirt}} (aka. false negative rate \code{FNR} or the
   rate of Type-II errors):
 
-\code{sens = (1 - miss rate) = (1 - FNR)}
+  \code{sens = (1 - miss rate) = (1 - FNR)}
 
-b. \code{sens} is the opposite conditional probability
+  b. \code{sens} is the opposite conditional probability
   -- but not the complement --
   of the positive predictive value \code{\link{PPV}}:
 
-\code{PPV = p(condition = TRUE | decision = positive)}
+  \code{PPV = p(condition = TRUE | decision = positive)}
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{sens} is the ratio of
   \code{\link{hi}} divided by
   \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}}):
 
-\code{sens = hi/cond_true = hi/(hi + mi)}
+  \code{sens = hi/cond_true = hi/(hi + mi)}
 
-\item Dependencies:
+
+  \item Dependencies:
   \code{sens} is a feature of a decision process
   or diagnostic procedure and a measure of
   correct decisions (true positives).
 
-Due to being a conditional probability,
+  Due to being a conditional probability,
   the value of \code{sens} is not intrinsic to
   the decision process, but also depends on the
   condition's prevalence value \code{\link{prev}}.
@@ -94,15 +97,26 @@ Consult \href{https://en.wikipedia.org/wiki/Sensitivity_and_specificity}{Wikiped
 \code{\link{comp_freq}} computes current frequency information;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
-  \code{\link{err}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{ppod}},
-  \code{\link{prev}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{prev}},
+\code{\link{spec}}
 
-Other essential parameters: \code{\link{cr}},
-  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
-  \code{\link{prev}}, \code{\link{spec}}
+Other essential parameters: 
+\code{\link{cr}},
+\code{\link{fa}},
+\code{\link{hi}},
+\code{\link{mi}},
+\code{\link{prev}},
+\code{\link{spec}}
 }
 \concept{essential parameters}
 \concept{probabilities}

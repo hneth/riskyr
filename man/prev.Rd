@@ -19,44 +19,44 @@ Understanding or obtaining the prevalence value \code{prev}:
 
 \itemize{
 
-\item Definition:
+  \item Definition:
   \code{prev} is the (non-conditional) probability:
 
-\code{prev = p(condition = TRUE)}
+  \code{prev = p(condition = TRUE)}
 
-or the base rate (or baseline probability)
+  or the base rate (or baseline probability)
   of the condition's occurrence or truth.
 
-\item In terms of frequencies,
+  \item In terms of frequencies,
   \code{prev} is the ratio of
   \code{\link{cond_true}} (i.e., \code{\link{hi} + \link{mi}})
   divided by \code{\link{N}} (i.e.,
   \code{\link{hi} + \link{mi}} + \code{\link{fa} + \link{cr}}):
 
-\code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
+  \code{prev = cond_true/N = (hi + mi)/(hi + mi + fa + cr)}
 
-\item Perspective:
+  \item Perspective:
   \code{prev} classifies a population of \code{\link{N}} individuals
   by condition (\code{prev = cond_true/N}).
 
-\code{prev} is the "by condition" counterpart
+  \code{prev} is the "by condition" counterpart
   to \code{\link{ppod}} (when adopting a "by decision" perspective) and
   to \code{\link{acc}}  (when adopting a "by accuracy" perspective).
 
-\item Alternative names:
+  \item Alternative names:
   base rate of condition,
   proportion affected,
   rate of condition \code{= TRUE} cases.
 
-\code{prev} is often distinguished from the \emph{incidence rate}
+  \code{prev} is often distinguished from the \emph{incidence rate}
   (i.e., the rate of new cases within a certain time period).
 
-\item Dependencies:
+  \item Dependencies:
   \code{prev} is a feature of the population
   and of the condition, but independent of the decision process
   or diagnostic procedure.
 
-While the value of \code{prev} does \emph{not} depend
+  While the value of \code{prev} does \emph{not} depend
   on features of the decision process or diagnostic procedure,
   \code{prev} must be taken into account when
   computing the conditional probabilities
@@ -84,15 +84,26 @@ Consult \href{https://en.wikipedia.org/wiki/Prevalence}{Wikipedia} for additiona
 \code{\link{comp_freq}} computes natural frequencies from probabilities;
 \code{\link{is_prob}} verifies probabilities.
 
-Other probabilities: \code{\link{FDR}}, \code{\link{FOR}},
-  \code{\link{NPV}}, \code{\link{PPV}}, \code{\link{acc}},
-  \code{\link{err}}, \code{\link{fart}},
-  \code{\link{mirt}}, \code{\link{ppod}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other probabilities: 
+\code{\link{FDR}},
+\code{\link{FOR}},
+\code{\link{NPV}},
+\code{\link{PPV}},
+\code{\link{acc}},
+\code{\link{err}},
+\code{\link{fart}},
+\code{\link{mirt}},
+\code{\link{ppod}},
+\code{\link{sens}},
+\code{\link{spec}}
 
-Other essential parameters: \code{\link{cr}},
-  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}},
-  \code{\link{sens}}, \code{\link{spec}}
+Other essential parameters: 
+\code{\link{cr}},
+\code{\link{fa}},
+\code{\link{hi}},
+\code{\link{mi}},
+\code{\link{sens}},
+\code{\link{spec}}
 }
 \concept{essential parameters}
 \concept{probabilities}

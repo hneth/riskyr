@@ -15,18 +15,18 @@ containing 11 frequencies:
 \details{
 \enumerate{
 
-\item the population size \code{\link{N}}
+ \item the population size \code{\link{N}}
 
-\item the number of cases for which \code{\link{cond_true}}
+ \item the number of cases for which \code{\link{cond_true}}
  \item the number of cases for which \code{\link{cond_false}}
 
-\item the number of cases for which \code{\link{dec_pos}}
+ \item the number of cases for which \code{\link{dec_pos}}
  \item the number of cases for which \code{\link{dec_neg}}
 
-\item the number of cases for which \code{\link{dec_cor}}
+ \item the number of cases for which \code{\link{dec_cor}}
  \item the number of cases for which \code{\link{dec_err}}
 
-\item the number of true positives, or hits \code{\link{hi}}
+ \item the number of true positives, or hits \code{\link{hi}}
  \item the number of false negatives, or misses \code{\link{mi}}
  \item the number of false positives, or false alarms \code{\link{fa}}
  \item the number of true negatives, or correct rejections \code{\link{cr}}
@@ -49,20 +49,22 @@ Key relationships between frequencies and probabilities
 
 \itemize{
 
-\item Three perspectives on a population:
+  \item Three perspectives on a population:
 
-by condition / by decision / by accuracy.
+  by condition / by decision / by accuracy.
 
-\item Defining probabilities in terms of frequencies:
+  \item Defining probabilities in terms of frequencies:
 
-Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
+
 
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 (see documentation of \code{\link{comp_prob_prob}} for details).
+
 
 Visualizations of current frequency information
 are provided by \code{\link{plot_prism}} and
@@ -87,15 +89,23 @@ names(freq)          # => show names of known frequencies
 \code{\link{pal}} contains current color information;
 \code{\link{init_pal}} initializes color information.
 
-Other lists containing current scenario information: \code{\link{accu}},
-  \code{\link{num}}, \code{\link{pal_bwp}},
-  \code{\link{pal_bw}}, \code{\link{pal_kn}},
-  \code{\link{pal_mbw}}, \code{\link{pal_mod}},
-  \code{\link{pal_org}}, \code{\link{pal_rgb}},
-  \code{\link{pal_unikn}}, \code{\link{pal_vir}},
-  \code{\link{pal}}, \code{\link{prob}},
-  \code{\link{txt_TF}}, \code{\link{txt_org}},
-  \code{\link{txt}}
+Other lists containing current scenario information: 
+\code{\link{accu}},
+\code{\link{num}},
+\code{\link{pal_bwp}},
+\code{\link{pal_bw}},
+\code{\link{pal_kn}},
+\code{\link{pal_mbw}},
+\code{\link{pal_mod}},
+\code{\link{pal_org}},
+\code{\link{pal_rgb}},
+\code{\link{pal_unikn}},
+\code{\link{pal_vir}},
+\code{\link{pal}},
+\code{\link{prob}},
+\code{\link{txt_TF}},
+\code{\link{txt_org}},
+\code{\link{txt}}
 }
 \concept{lists containing current scenario information}
 \keyword{datasets}

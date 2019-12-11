@@ -19,13 +19,13 @@ Key relationships between frequencies and probabilities
 
 \itemize{
 
-\item Three perspectives on a population:
+  \item Three perspectives on a population:
 
-by condition / by decision / by accuracy.
+  by condition / by decision / by accuracy.
 
-\item Defining probabilities in terms of frequencies:
+  \item Defining probabilities in terms of frequencies:
 
-Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
+  Probabilities can be computed as ratios between frequencies, but beware of rounding issues.
 
 }
 
@@ -50,11 +50,17 @@ Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia: S
 \code{\link{prob}} contains current probability information;
 \code{\link{comp_prob}} computes current probability information.
 
-Other frequencies: \code{\link{cond_false}},
-  \code{\link{cond_true}}, \code{\link{cr}},
-  \code{\link{dec_cor}}, \code{\link{dec_err}},
-  \code{\link{dec_neg}}, \code{\link{dec_pos}},
-  \code{\link{fa}}, \code{\link{hi}}, \code{\link{mi}}
+Other frequencies: 
+\code{\link{cond_false}},
+\code{\link{cond_true}},
+\code{\link{cr}},
+\code{\link{dec_cor}},
+\code{\link{dec_err}},
+\code{\link{dec_neg}},
+\code{\link{dec_pos}},
+\code{\link{fa}},
+\code{\link{hi}},
+\code{\link{mi}}
 }
 \concept{frequencies}
 \keyword{datasets}
