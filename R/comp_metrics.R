@@ -1,11 +1,12 @@
 ## comp_metrics.R | riskyr
-## 2019 12 24
+## 2019 12 26
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
 # (0) 2x2 matrix: ------
 
 mx <- c(4, 2, 1, 3)
+
 
 
 # (1) Frequencies: ------
@@ -75,6 +76,7 @@ get_N <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 }
 
 
+
 # (2) Probabilities: ------
 
 # get_prev: -----
@@ -114,6 +116,7 @@ get_ACC <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
   return(out)
 
 }
+
 
 
 # (3) Conditional Probabilities: ------
@@ -251,6 +254,7 @@ get_NPV <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 }
 
 
+
 # (4) Likelihood/odds ratios: ------
 
 # get_LRp: -----
@@ -327,7 +331,9 @@ get_DOR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 }
 
 
+
 # (5) Integrated measures: ------
+
 
 # (a) Contingencies: ------
 
@@ -384,6 +390,8 @@ get_chi2 <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 }
 
 
+
+# (b) Other integrated measures:
 # get_MCC: -----
 
 get_MCC <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
@@ -425,6 +433,15 @@ get_F1s <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4], beta = 1){
   return(out)
 
 }
+
+
+
+# (6) Risk measures: ------
+
+# RR: Relative risk
+# RRR: Relative risk reduction
+# ARR: Absolute risk reduction
+
 
 
 ## (+) ToDo: ----------
