@@ -438,6 +438,10 @@ get_F1s <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4], beta = 1){
 
 # (6) Risk measures: ------
 
+# AR: Absolute risk (i.e., 2 conditional probabilities)
+#     - correspondence of AR+ to sens/PPV and
+#     -                of AR- to 1-spec/1-NPV depends on direction.
+
 # RR: Relative risk
 # RRR: Relative risk reduction
 # ARR: Absolute risk reduction
