@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2019 12 26
+## 2019 12 28
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
@@ -7,6 +7,57 @@
 
 mx <- c(4, 2, 1, 3)
 
+mx_00 <- c(25, 25, 25, 25)
+
+mx_01 <- c(10, 30, 30, 30)
+mx_02 <- c(30, 10, 30, 30)
+mx_03 <- c(30, 30, 10, 30)
+mx_04 <- c(30, 30, 30, 10)
+
+mx_05 <- c(10, 10, 40, 40)
+mx_06 <- c(10, 40, 10, 40)
+mx_07 <- c(10, 40, 40, 10)
+mx_08 <- c(40, 10, 10, 40)
+mx_09 <- c(40, 10, 40, 10)
+mx_10 <- c(40, 40, 10, 10)
+
+
+# Plot 2x2 matrix as ggplot tile plot: ------
+
+mx_data <- function(m = mx){
+  # turn mx into data for ggplot2:
+
+  out <- NA
+  xs <- c(0, 1, 0, 1)
+  ys <- c(1, 1, 0, 0)
+
+  out <- data.frame(x = xs, y = ys, n = m)
+
+  return(out)
+}
+
+## Check:
+# mx_data(mx)
+
+# plot_tbt <- function(m = mx){
+#
+#   d <- mx_data(m)
+#
+#   n_max <- sum(m)
+#
+#   ggplot2::ggplot(d, aes(x = x, y = y)) +
+#     geom_tile(aes(fill = n), color = "black", size = 1) +
+#     geom_text(aes(label = n), size = 5) +
+#     scale_fill_gradient(low = "white", high = "black", limits = c(0, n_max)) +
+#     coord_fixed() +
+#     theme_void() +
+#     theme(legend.position = "none")
+#
+# }
+#
+## Check:
+# plot_tbt()
+# plot_tbt(mx_07)
 
 
 # (1) Frequencies: ------
