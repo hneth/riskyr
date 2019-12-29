@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2019 12 28
+## 2019 12 29
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
@@ -7,19 +7,37 @@
 
 mx <- c(4, 2, 1, 3)
 
-mx_00 <- c(25, 25, 25, 25)
+# even distribution:
+mx_01 <- c(25, 25, 25, 25)
 
-mx_01 <- c(10, 30, 30, 30)
-mx_02 <- c(30, 10, 30, 30)
-mx_03 <- c(30, 30, 10, 30)
-mx_04 <- c(30, 30, 30, 10)
+# 1 cell with low frequency:
+mx_02 <- c(10, 30, 30, 30)
+mx_03 <- c(30, 10, 30, 30)
+mx_04 <- c(30, 30, 10, 30)
+mx_05 <- c(30, 30, 30, 10)
 
-mx_05 <- c(10, 10, 40, 40)
-mx_06 <- c(10, 40, 10, 40)
-mx_07 <- c(10, 40, 40, 10)
-mx_08 <- c(40, 10, 10, 40)
-mx_09 <- c(40, 10, 40, 10)
-mx_10 <- c(40, 40, 10, 10)
+# 1 cell with high frequency:
+mx_06 <- c(70, 10, 10, 10)
+mx_07 <- c(10, 70, 10, 10)
+mx_08 <- c(10, 10, 70, 10)
+mx_09 <- c(10, 10, 10, 70)
+
+# 2 low vs. 2 high frequency cells:
+mx_10 <- c(10, 10, 40, 40)
+mx_11 <- c(10, 40, 10, 40)
+mx_12 <- c(10, 40, 40, 10)
+mx_13 <- c(40, 10, 10, 40)
+mx_14 <- c(40, 10, 40, 10)
+mx_15 <- c(40, 40, 10, 10)
+
+# 4 different values:
+mx_16 <- c(10, 20, 30, 40)
+mx_17 <- c(10, 20, 40, 30)
+mx_18 <- c(10, 30, 20, 40)
+mx_19 <- c(10, 30, 40, 20)
+mx_20 <- c(10, 40, 20, 30)
+mx_21 <- c(10, 40, 30, 20)
+# etc. (swap 10 with 20, 30, 40, ...)
 
 
 # Plot 2x2 matrix as ggplot tile plot: ------
@@ -45,19 +63,25 @@ mx_data <- function(m = mx){
 #
 #   n_max <- sum(m)
 #
+#   # parameters:
+#   lbl_sz <- 5
+#   col_hi  <- unikn::pal_petrol[[5]] # "black" # unikn::pal_karpfenblau[[5]]
+#   col_brd <- grey(.33, 1)
+#   brd_sz <- 1
+#
 #   ggplot2::ggplot(d, aes(x = x, y = y)) +
-#     geom_tile(aes(fill = n), color = "black", size = 1) +
-#     geom_text(aes(label = n), size = 5) +
-#     scale_fill_gradient(low = "white", high = "black", limits = c(0, n_max)) +
+#     geom_tile(aes(fill = n), color = col_brd, size = brd_sz) +
+#     geom_text(aes(label = n), size = lbl_sz) +
+#     scale_fill_gradient(low = "white", high = col_hi, limits = c(0, n_max)) +
 #     coord_fixed() +
 #     theme_void() +
 #     theme(legend.position = "none")
 #
 # }
-#
+
 ## Check:
 # plot_tbt()
-# plot_tbt(mx_07)
+# plot_tbt(mx_21)
 
 
 # (1) Frequencies: ------
