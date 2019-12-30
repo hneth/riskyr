@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2019 12 29
+## 2019 12 30
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
@@ -61,7 +61,9 @@ mx_data <- function(m = mx){
 #
 #   d <- mx_data(m)
 #
-#   n_max <- sum(m)
+#   n_max <- sum(m)  # for frequency matrices.
+#                    # Note: n_max for conditional probability matrices:
+#                    # Max. value p(cell | row/col/diagonal)!
 #
 #   # parameters:
 #   lbl_sz <- 5
@@ -515,11 +517,11 @@ get_F1s <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4], beta = 1){
 
 # AR: Absolute risk (i.e., 2 conditional probabilities)
 #     - correspondence of AR+ to sens/PPV and
-#     -                of AR- to 1-spec/1-NPV depends on direction.
+#     -                of AR- to 1-spec/1-NPV (depending on matrix dimensions/direction).
 
-# RR: Relative risk
-# RRR: Relative risk reduction
-# ARR: Absolute risk reduction
+# ARR: Absolute risk reduction/increase
+# RR:  Relative risk
+# RRR: Relative risk reduction/increase
 
 
 
