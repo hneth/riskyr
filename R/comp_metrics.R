@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2019 12 30
+## 2020 01 08
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
@@ -83,7 +83,7 @@ mx_data <- function(m = mx){
 
 ## Check:
 # plot_tbt()
-# plot_tbt(mx_21)
+# plot_tbt(mx_11)
 
 
 # (1) Frequencies: ------
