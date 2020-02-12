@@ -1,9 +1,9 @@
 ## comp_metrics.R | riskyr
-## 2020 01 08
+## 2020 02 12
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
-# (0) 2x2 matrix: ------
+# (0) 2x2 matrices: ------
 
 mx <- c(4, 2, 1, 3)
 
@@ -69,7 +69,7 @@ mx_data <- function(m = mx){
 #   lbl_sz <- 5
 #   col_hi  <- unikn::pal_petrol[[5]] # "black" # unikn::pal_karpfenblau[[5]]
 #   col_brd <- grey(.33, 1)
-#   brd_sz <- 1
+#   brd_sz <- .5
 #
 #   ggplot2::ggplot(d, aes(x = x, y = y)) +
 #     geom_tile(aes(fill = n), color = col_brd, size = brd_sz) +
@@ -83,8 +83,8 @@ mx_data <- function(m = mx){
 
 ## Check:
 # plot_tbt()
-# plot_tbt(mx_11)
-
+# plot_tbt(mx_12)
+# plot_tbt(m = c(0, 0, 0, 100))
 
 # (1) Frequencies: ------
 
@@ -193,7 +193,6 @@ get_ACC <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
   return(out)
 
 }
-
 
 
 # (3) Conditional Probabilities: ------
