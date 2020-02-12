@@ -74,8 +74,8 @@ start_riskyr <- function(...) {
   ## Welcome message: ------
 
   pkg_version <- utils::packageVersion("riskyr", lib.loc = NULL)
-  # welcome_message <- paste0("Welcome to riskyr (v", pkg_version, ")!")
-  welcome_message <- paste0("Welcome to riskyr!")
+  welcome_message <- paste0("Welcome to riskyr (v", pkg_version, ")!")
+  # welcome_message <- paste0("Welcome to riskyr!")
 
   packageStartupMessage(welcome_message)
 
@@ -86,11 +86,11 @@ start_riskyr <- function(...) {
 
   ## Roll riskyr dice: ------
   ## (to illustrate the underlying notion of "risk")
-  dice <- sample(1:6, 1)
+  dice <- sample(1:7, 1)
 
   # if (dice == 0) {packageStartupMessage("citation('riskyr') provides citation info.")}
 
-  if (dice == 1) {
+  if (dice == 0) {
     pkg_version <- utils::packageVersion("riskyr", lib.loc = NULL)
     pkg_message <- paste0("Running riskyr (v", pkg_version, ")...")
 
@@ -99,19 +99,19 @@ start_riskyr <- function(...) {
     packageStartupMessage(" ")
   }
 
-  if (dice == 2) {
+  if (dice == 1) {
     packageStartupMessage(" ")
     packageStartupMessage("Ready to roll riskyr...")
     packageStartupMessage(" ")
   }
 
-  if (dice == 3) {
+  if (dice == 2) {
     packageStartupMessage(" ")
     packageStartupMessage("Ready to riskyr it...")
     packageStartupMessage(" ")
   }
 
-  if (dice == 4) {
+  if (dice == 3) {
     packageStartupMessage("             ")
     packageStartupMessage("   _____     ")
     packageStartupMessage("  /\\ r  \\  ")
@@ -121,7 +121,7 @@ start_riskyr <- function(...) {
     packageStartupMessage("             ")
   }
 
-  if (dice == 5) {
+  if (dice == 4) {
     packageStartupMessage("       ")
     packageStartupMessage(" hi fa ")
     packageStartupMessage("   +   ")
@@ -129,7 +129,7 @@ start_riskyr <- function(...) {
     packageStartupMessage("       ")
   }
 
-  if (dice == 6) {
+  if (dice == 5) {
     packageStartupMessage("              ")
     packageStartupMessage("      N       ")
     packageStartupMessage("    /  \\     ")
@@ -137,6 +137,14 @@ start_riskyr <- function(...) {
     packageStartupMessage(" / \\    / \\ ")
     packageStartupMessage("hi  mi fa  cr ")
     packageStartupMessage("              ")
+  }
+
+  if (dice == 6) {
+    packageStartupMessage("       ")
+    packageStartupMessage(" TP FP ")
+    packageStartupMessage("   x   ")
+    packageStartupMessage(" FN TN ")
+    packageStartupMessage("       ")
   }
 
   packageStartupMessage("riskyr.guide() opens user guides.")
