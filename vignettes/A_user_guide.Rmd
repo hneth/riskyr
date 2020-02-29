@@ -116,6 +116,10 @@ $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test})
 {p(\mathrm{cancer})     \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) + 
  p(\mathrm{no\ cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{no\ cancer}) } $$
 
+or --- when using $C$ to denote cancer and $T$ a positive test:
+
+$$ p(C|T) = \frac{p(C) \cdot p(T|C) } {p(C) \cdot p(T|C) + p(\neg C) \cdot p(T|\neg C) } $$
+
 By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., $p$(no cancer) = 1 -- `prev` = 99\%) we obtain:
 
 $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test}) 
