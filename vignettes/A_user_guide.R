@@ -1,15 +1,15 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----comp_PPV, messages = FALSE, warning = FALSE-------------------------
+## ----comp_PPV, messages = FALSE, warning = FALSE------------------------------
 library("riskyr")  # loads the package
 
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 
-## ----comp_prob_prob_1----------------------------------------------------
+## ----comp_prob_prob_1---------------------------------------------------------
 # Compute probabilities from 3 essential probabilities:                 # Input arguments:
 p1 <- comp_prob_prob(prev = .01, sens = .80, spec =   NA, fart = .096)  # prev, sens, NA,   fart
 p2 <- comp_prob_prob(prev = .01, sens = .80, spec = .904, fart =   NA)  # prev, sens, spec, NA 
@@ -19,16 +19,16 @@ p3 <- comp_prob_prob(prev = .01, sens = .80, spec = .904, fart = .096)  # prev, 
 all.equal(p1, p2)
 all.equal(p2, p3)
 
-## ----print_p1------------------------------------------------------------
+## ----print_p1-----------------------------------------------------------------
 p1
 
-## ----comp_prob_prob_2----------------------------------------------------
+## ----comp_prob_prob_2---------------------------------------------------------
 # Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:
 p4 <- comp_prob_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990) # prev, sens, NA, fart
 
 p4$PPV
 
-## ----comp_freq_prob_1----------------------------------------------------
+## ----comp_freq_prob_1---------------------------------------------------------
 # Compute frequencies from probabilities:
 f1 <- comp_freq_prob(prev =     .01, sens =  .80, spec = NA, fart =   .096, N = 1000)
 f2 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 1000)
@@ -36,7 +36,7 @@ f2 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 
 # Check equality of outputs:
 all.equal(f1, f2)
 
-## ----comp_freq_prob_2, eval = FALSE--------------------------------------
+## ----comp_freq_prob_2, eval = FALSE-------------------------------------------
 #  # Compute frequencies from probabilities (without rounding):
 #  f3 <- comp_freq_prob(prev =     .01, sens =  .80, spec = NA, fart =   .096, N = 1000, round = FALSE)
 #  f4 <- comp_freq_prob(prev = 10/1000, sens = 8/10, spec = NA, fart = 95/990, N = 1000, round = FALSE)
@@ -44,18 +44,18 @@ all.equal(f1, f2)
 #  ## Check equality of outputs:
 #  all.equal(f3, f4)  # => shows slight differences in some frequencies:
 
-## ----print_f1------------------------------------------------------------
+## ----print_f1-----------------------------------------------------------------
 f1
 
-## ----comp_prob_freq------------------------------------------------------
+## ----comp_prob_freq-----------------------------------------------------------
 # Compute probabilities from frequencies:
 p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essential frequencies
 
-## ----equality_p4p5, eval = FALSE-----------------------------------------
+## ----equality_p4p5, eval = FALSE----------------------------------------------
 #  # Check equality of outputs:
 #  all.equal(p5, p4)
 
-## ----full_circle, eval = FALSE-------------------------------------------
+## ----full_circle, eval = FALSE------------------------------------------------
 #  # Pick 3 random probability inputs:
 #  rand.p <- runif(n = 3, min = 0, max = 1)
 #  rand.p
@@ -71,7 +71,7 @@ p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essentia
 #  all.equal(prob$sens, rand.p[2])
 #  all.equal(prob$spec, rand.p[3])
 
-## ----full_circle_2, eval = FALSE-----------------------------------------
+## ----full_circle_2, eval = FALSE----------------------------------------------
 #  # Pick 4 random frequencies:
 #  rand.f <- round(runif(n = 4, min = 0, max = 10^3), 0)
 #  rand.f
@@ -92,7 +92,7 @@ p5 <- comp_prob_freq(hi = 8, mi = 2, fa = 95, cr = 895)  # => provide 4 essentia
 #  all.equal(freq$fa, rand.f[3])
 #  all.equal(freq$cr, rand.f[4])
 
-## ----riskyr_scenario_def-------------------------------------------------
+## ----riskyr_scenario_def------------------------------------------------------
 s <- riskyr(scen_lbl = "Mammography screening", 
             cond_lbl = "breast cancer",
             cond_true_lbl = "cancer", cond_false_lbl = "no cancer",
@@ -103,10 +103,10 @@ s <- riskyr(scen_lbl = "Mammography screening",
             spec = NA, 
             fart = .096)
 
-## ----riskyr_scenario_summary---------------------------------------------
+## ----riskyr_scenario_summary--------------------------------------------------
 summary(s)  # provides an overview over key scenario information:
 
-## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 6.4-------------
+## ----riskyr_scenario_plot, fig.width = 7.2, fig.height = 6.4------------------
 plot(s)  # a prism/network diagram of key frequencies and probabilities (by default):
 
 ## ----plot_icons_1, warning = FALSE, fig.width = 7.2, fig.height = 4.5, fig.show = 'hold', fig.cap = "An icon array showing the mammography scenario for a population of 1000 individuals."----
