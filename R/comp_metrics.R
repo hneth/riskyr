@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2020 02 20
+## 2020 03 01
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
@@ -62,8 +62,8 @@ mx_data <- function(m = mx){
 #   d <- mx_data(m)
 #
 #   n_max <- sum(m)  # for frequency matrices.
-#                    # Note: n_max for conditional probability matrices:
-#                    # Max. value p(cell | row/col/diagonal)!
+#   # Note: n_max for conditional probability matrices:
+#   # Max. value p(cell | row/col/diagonal)!
 #
 #   # parameters:
 #   lbl_sz <- 5
@@ -71,13 +71,13 @@ mx_data <- function(m = mx){
 #   col_brd <- grey(.33, 1)
 #   brd_sz <- .5
 #
-#   ggplot2::ggplot(d, aes(x = x, y = y)) +
-#     geom_tile(aes(fill = n), color = col_brd, size = brd_sz) +
-#     geom_text(aes(label = n), size = lbl_sz) +
-#     scale_fill_gradient(low = "white", high = col_hi, limits = c(0, n_max)) +
-#     coord_fixed() +
-#     theme_void() +
-#     theme(legend.position = "none")
+#     ggplot2::ggplot(d, aes(x = x, y = y)) +
+#       geom_tile(aes(fill = n), color = col_brd, size = brd_sz) +
+#       geom_text(aes(label = n), size = lbl_sz) +
+#       scale_fill_gradient(low = "white", high = col_hi, limits = c(0, n_max)) +
+#       coord_fixed() +
+#       theme_void() +
+#       theme(legend.position = "none")
 #
 # }
 
