@@ -1,6 +1,5 @@
 ## plot_util.R | riskyr
-## 2019 06 11
-## Helper functions for plotting objects (freq/prob, boxes/lines).
+## 2020 03 21
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -21,6 +20,21 @@ ex <- function() {
 ## Check:
 # ex()  # Note: dev.off() also restores default par settings.
 
+
+## plot_exists: Check whether a plot exists (using grDevices::dev.list) ------
+
+plot_exists <- function(){
+
+  out <- NA
+
+  if (is.null(dev.list())) {out <- FALSE} else {out <- TRUE}
+
+  return(out)
+
+}
+
+## Check:
+# plot_exists()  # TRUE iff there exists a plot, otherwise FALSE.
 
 
 ## (1) Define and create box objects: ----------
