@@ -1,5 +1,5 @@
 ## init_pal.R | riskyr
-## 2019 07 12
+## 2020 03 21
 ## Define custom color palettes (pal):
 ## -----------------------------------------------
 ## pal contains defaults for user inputs.

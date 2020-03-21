@@ -1,5 +1,5 @@
 ## comp_util.R | riskyr
-## 2019 05 05
+## 2020 03 20
 ## Generic utility functions:
 ## -----------------------------------------------
 
@@ -1417,15 +1417,17 @@ as_pb <- function(perc, n_digits = 4) {
 # - Moved plotting help functions to file "plot_util.R".
 # - Use unikn pkg or functions for color settings.
 
+
 ## make_transparent: Make colors transparent ------
 
 make_transparent <- function(..., alpha = .50) {
 
   if (alpha < 0 | alpha > 1) {
-    stop("alpha value must be in range from 0 to 1")
+    stop("make_transparent: alpha value must be in range from 0 to 1.")
   }
 
   alpha <- floor(255 * alpha)
+
   newColor <- col2rgb(col = unlist(list(...)), alpha = FALSE)
 
   .make_transparent <- function(col, alpha) {
@@ -1443,7 +1445,8 @@ make_transparent <- function(..., alpha = .50) {
 # make_transparent("black")
 
 ## See also:
-# adjustcolor(col = "green", alpha.f = .50)
+# grDevices::adjustcolor(col = "green", alpha.f = .50)
+
 
 ## (E) Text functions: ----------
 
@@ -1457,6 +1460,7 @@ capitalise_1st <- function(string) {
 # capitalise_1st("the end.") # "The end."
 # capitalise_1st("")         # ""
 # capitalise_1st(123)        # "123"
+
 
 ## (F) Miscellaneous: ----------
 
