@@ -27,7 +27,7 @@ plot_exists <- function(){
 
   out <- NA
 
-  if (is.null(dev.list())) {out <- FALSE} else {out <- TRUE}
+  if (is.null(grDevices::dev.list())) {out <- FALSE} else {out <- TRUE}
 
   return(out)
 
