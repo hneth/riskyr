@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2020 03 01
+## 2020 03 22
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
@@ -413,7 +413,7 @@ get_DOR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
 # (a) Contingencies: ------
 
-# get_dPr: -----
+# get_dPr: Row contingency -----
 
 get_dPr <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
@@ -426,7 +426,7 @@ get_dPr <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 }
 
 
-# get_dPc: -----
+# get_dPc: Column contingency -----
 
 get_dPc <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
 
@@ -511,17 +511,41 @@ get_F1s <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4], beta = 1){
 }
 
 
-
 # (6) Risk measures: ------
 
 # AR: Absolute risk (i.e., 2 conditional probabilities)
 #     - correspondence of AR+ to sens/PPV and
-#     -                of AR- to 1-spec/1-NPV (depending on matrix dimensions/direction).
+#     -                of AR- to FPR/1-spec/1-NPV (depending on matrix dimensions/direction).
 
-# ARR: Absolute risk reduction/increase
+# AR+: Same as sens -----
+
+get_ARp <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
+
+  get_sens(a, b, c, d)
+
+}
+
+# AR-: Same as FPR -----
+
+get_ARm <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
+
+  get_FPR(a, b, c, d)
+
+}
+
+# ARR (absolute risk reduction/increase): Same as Column Contingency (delta Pc) -----
+
+get_ARR <- function(a = mx[1], b = mx[2], c = mx[3], d = mx[4]){
+
+  get_dPc(a, b, c, d)
+
+}
+
+
+# +++ here now +++
+
 # RR:  Relative risk
 # RRR: Relative risk reduction/increase
-
 
 
 ## (+) ToDo: ----------
