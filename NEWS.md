@@ -1,15 +1,15 @@
 
 # Current version
 
-The current development version (0.2.0.9008+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9024+) is available at <https://github.com/hneth/riskyr/>. 
 
-# riskyr 0.2.0.9012+
+# riskyr 0.2.0.9001+
 
 Log of changes since last release:
 
 ## Major changes
 
-- Prepare functions for cumulative lifetime risks (not yet integrated into package). 
+- Compute key metrics based on 2x2 matrix of frequency counts (`comp_metrics.R`). 
 
 ## Minor changes
 
@@ -64,6 +64,12 @@ Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to hi
 
 - Bug fix in `plot_icons` [2019-01]:   
 Enforce 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
+
+
+## ToDo 
+
+- Prepare functions for cumulative lifetime risks (not yet integrated into package).  
+
 
 ---------- 
 
