@@ -7,7 +7,9 @@
 \alias{bias}
 \alias{PR}
 \title{The proportion (or baseline) of a positive decision (aka. bias).}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 ppod
 }

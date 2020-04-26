@@ -5,7 +5,9 @@
 \alias{PPV}
 \alias{precision}
 \title{The positive predictive value of a decision process or diagnostic procedure.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 PPV
 }

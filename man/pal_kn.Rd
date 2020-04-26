@@ -4,7 +4,9 @@
 \name{pal_kn}
 \alias{pal_kn}
 \title{Alternative color palette for kn.}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_kn
 }

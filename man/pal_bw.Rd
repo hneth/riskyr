@@ -4,7 +4,9 @@
 \name{pal_bw}
 \alias{pal_bw}
 \title{Alternative color palette for black-and-white (greyscale) graphs.}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_bw
 }

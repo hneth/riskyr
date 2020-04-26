@@ -4,7 +4,9 @@
 \name{pal_bwp}
 \alias{pal_bwp}
 \title{Alternative color palette for black-and-white graphs (for printing purposes).}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_bwp
 }

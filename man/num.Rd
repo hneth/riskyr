@@ -4,7 +4,9 @@
 \name{num}
 \alias{num}
 \title{List current values of basic numeric variables.}
-\format{An object of class \code{list} of length 5.}
+\format{
+An object of class \code{list} of length 5.
+}
 \usage{
 num
 }

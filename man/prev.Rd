@@ -5,7 +5,9 @@
 \alias{prev}
 \alias{baserate_cond_true}
 \title{The prevalence (baseline probability) of a condition.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 prev
 }

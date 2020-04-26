@@ -4,7 +4,9 @@
 \name{FOR}
 \alias{FOR}
 \title{The false omission rate (FOR) of a decision process or diagnostic procedure.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 FOR
 }

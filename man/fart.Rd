@@ -7,7 +7,9 @@
 \alias{alpha}
 \alias{fallout}
 \title{The false alarm rate (or false positive rate) of a decision process or diagnostic procedure.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 fart
 }

@@ -3,9 +3,11 @@
 \name{comp_popu}
 \alias{comp_popu}
 \title{Compute a population table from frequencies.}
-\format{An object of class \code{data.frame}
+\format{
+An object of class \code{data.frame}
 with \code{\link{N}} rows
-and 3 columns (\code{"Truth", "Decision", "SDT"}).}
+and 3 columns (\code{"Truth", "Decision", "SDT"}).
+}
 \usage{
 comp_popu(
   hi = freq$hi,

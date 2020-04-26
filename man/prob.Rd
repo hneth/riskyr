@@ -4,7 +4,9 @@
 \name{prob}
 \alias{prob}
 \title{List current probability information.}
-\format{An object of class \code{list} of length 13.}
+\format{
+An object of class \code{list} of length 13.
+}
 \usage{
 prob
 }

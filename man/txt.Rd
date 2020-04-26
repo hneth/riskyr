@@ -4,7 +4,9 @@
 \name{txt}
 \alias{txt}
 \title{Basic text elements.}
-\format{An object of class \code{list} of length 21.}
+\format{
+An object of class \code{list} of length 21.
+}
 \usage{
 txt
 }

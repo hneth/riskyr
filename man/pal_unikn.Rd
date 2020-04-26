@@ -4,7 +4,9 @@
 \name{pal_unikn}
 \alias{pal_unikn}
 \title{Alternative color palette for unikn.}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_unikn
 }

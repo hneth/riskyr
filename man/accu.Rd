@@ -4,7 +4,9 @@
 \name{accu}
 \alias{accu}
 \title{A list containing current accuracy information.}
-\format{An object of class \code{list} of length 5.}
+\format{
+An object of class \code{list} of length 5.
+}
 \usage{
 accu
 }

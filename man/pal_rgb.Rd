@@ -4,7 +4,9 @@
 \name{pal_rgb}
 \alias{pal_rgb}
 \title{Alternative color palette for graphs (with RGB colors).}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_rgb
 }

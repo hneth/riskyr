@@ -4,7 +4,9 @@
 \name{popu}
 \alias{popu}
 \title{A population table based on current frequencies.}
-\format{An object of class \code{NULL} of length 0.}
+\format{
+An object of class \code{NULL} of length 0.
+}
 \usage{
 popu
 }

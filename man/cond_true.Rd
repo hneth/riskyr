@@ -4,7 +4,9 @@
 \name{cond_true}
 \alias{cond_true}
 \title{Number of individuals for which the condition is true.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 cond_true
 }

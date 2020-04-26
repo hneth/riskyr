@@ -4,7 +4,9 @@
 \name{pal_vir}
 \alias{pal_vir}
 \title{Alternative color palette using viridis colors.}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_vir
 }

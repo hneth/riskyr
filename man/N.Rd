@@ -4,7 +4,9 @@
 \name{N}
 \alias{N}
 \title{Number of individuals in the population.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 N
 }

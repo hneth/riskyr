@@ -5,7 +5,9 @@
 \alias{spec}
 \alias{TNR}
 \title{The specificity of a decision process or diagnostic procedure.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 spec
 }

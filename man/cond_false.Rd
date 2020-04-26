@@ -4,7 +4,9 @@
 \name{cond_false}
 \alias{cond_false}
 \title{Number of individuals for which the condition is false.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 cond_false
 }

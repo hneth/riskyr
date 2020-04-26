@@ -4,7 +4,9 @@
 \name{dec_cor}
 \alias{dec_cor}
 \title{Number of individuals for which the decision is correct.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 dec_cor
 }

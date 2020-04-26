@@ -3,8 +3,10 @@
 \name{riskyr}
 \alias{riskyr}
 \title{Create a riskyr scenario.}
-\format{An object of class "riskyr" with textual and numeric information
-describing a risk-related scenario.}
+\format{
+An object of class "riskyr" with textual and numeric information
+describing a risk-related scenario.
+}
 \usage{
 riskyr(
   scen_lbl = txt$scen_lbl,

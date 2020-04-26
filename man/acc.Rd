@@ -6,7 +6,9 @@
 \alias{accurate}
 \alias{correct}
 \title{Accuracy (acc) is the probability of a correct decision.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 acc
 }

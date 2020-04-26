@@ -4,7 +4,9 @@
 \name{txt_org}
 \alias{txt_org}
 \title{List of original values of text elements.}
-\format{An object of class \code{list} of length 21.}
+\format{
+An object of class \code{list} of length 21.
+}
 \usage{
 txt_org
 }

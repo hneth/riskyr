@@ -4,7 +4,8 @@
 \name{df_scenarios}
 \alias{df_scenarios}
 \title{A collection of riskyr scenarios from various sources (as df).}
-\format{A data frame with currently 25 rows (i.e., scenarios)
+\format{
+A data frame with currently 25 rows (i.e., scenarios)
 and 21 columns (variables describing each scenario):
 
 See \code{\link{scenarios}} for a list of scenarios
@@ -15,7 +16,8 @@ correspond to a subset of \code{\link{init_txt}} (to initialize \code{\link{txt}
 and \code{\link{init_num}} (to initialize \code{\link{num}}).
 
 The variables \code{scen_src} and \code{scen_apa}
-provide a scenario's source information.}
+provide a scenario's source information.
+}
 \usage{
 df_scenarios
 }

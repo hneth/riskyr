@@ -4,7 +4,9 @@
 \name{pal_mod}
 \alias{pal_mod}
 \title{Modern color palette (in green/blue/orange).}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_mod
 }

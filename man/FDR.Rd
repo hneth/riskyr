@@ -4,7 +4,9 @@
 \name{FDR}
 \alias{FDR}
 \title{The false detection rate of a decision process or diagnostic procedure.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 FDR
 }

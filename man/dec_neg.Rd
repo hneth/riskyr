@@ -4,7 +4,9 @@
 \name{dec_neg}
 \alias{dec_neg}
 \title{Number of individuals for which the decision is negative.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 dec_neg
 }

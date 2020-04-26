@@ -4,7 +4,9 @@
 \name{pal}
 \alias{pal}
 \title{List current values of scenario color palette.}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal
 }

@@ -4,7 +4,9 @@
 \name{dec_err}
 \alias{dec_err}
 \title{Number of individuals for which the decision is erroneous.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 dec_err
 }

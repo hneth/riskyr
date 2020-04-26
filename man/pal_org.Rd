@@ -4,7 +4,9 @@
 \name{pal_org}
 \alias{pal_org}
 \title{Original color palette.}
-\format{An object of class \code{character} of length 16.}
+\format{
+An object of class \code{character} of length 16.
+}
 \usage{
 pal_org
 }

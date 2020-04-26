@@ -4,7 +4,9 @@
 \name{txt_TF}
 \alias{txt_TF}
 \title{Alternative text labels (TP, FN, FP, TN).}
-\format{An object of class \code{list} of length 21.}
+\format{
+An object of class \code{list} of length 21.
+}
 \usage{
 txt_TF
 }

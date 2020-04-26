@@ -4,7 +4,9 @@
 \name{dec_pos}
 \alias{dec_pos}
 \title{Number of individuals for which the decision is positive.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 dec_pos
 }

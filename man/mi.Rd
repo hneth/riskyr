@@ -6,7 +6,9 @@
 \alias{FN}
 \alias{type-II-errors}
 \title{Frequency of misses or false negatives (FN).}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 mi
 }

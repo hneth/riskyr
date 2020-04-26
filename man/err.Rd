@@ -4,7 +4,9 @@
 \name{err}
 \alias{err}
 \title{Error rate (err) as the probability of an incorrect decision.}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 err
 }

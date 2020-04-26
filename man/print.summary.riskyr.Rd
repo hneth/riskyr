@@ -3,7 +3,9 @@
 \name{print.summary.riskyr}
 \alias{print.summary.riskyr}
 \title{Print summary information of a riskyr scenario.}
-\format{Printed output of a "summary.riskyr" object.}
+\format{
+Printed output of a "summary.riskyr" object.
+}
 \usage{
 \method{print}{summary.riskyr}(x = NULL, ...)
 }
