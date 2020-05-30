@@ -1,13 +1,13 @@
 Package: riskyr
 Type: Package
 Title: Rendering Risk Literacy more Transparent
-Version: 0.2.0.9024
-Date: 2020-04-24
+Version: 0.2.0.9025
+Date: 2020-05-30
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
-                     email = "h.neth@uni.kn"), 
+                     email = "h.neth@uni.kn", comment = c(ORCID = "0000-0001-5427-3141")), 
              person("Felix", "Gaisbauer", role = "aut"), 
              person("Nico", "Gradwohl", role = "aut"),  
-             person("Wolfgang", "Gaissmaier", role = "aut")) 
+             person("Wolfgang", "Gaissmaier", role = "aut"))
 Author: Hansjoerg Neth [aut, cre],
         Felix Gaisbauer [aut],
         Nico Gradwohl [aut], 
