@@ -5,10 +5,10 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
 
 <!-- Used status badges: -->
-
 [![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr) 
 [![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) 
+
 
 <!-- Possible status badges: 
 
@@ -545,12 +545,12 @@ New York, NY: Penguin.
 - Gigerenzer, G., & Gaissmaier, W. (2011). 
 Heuristic decision making. 
 _Annual Review of Psychology_, _62_, 451–482. 
-[[Available online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346)] 
+([Available online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346)])
 
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 
 _Psychological Science in the Public Interest_, _8_, 53–96. 
-[[Available online](https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x)] 
+([Available online](https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x))
 
 - Gigerenzer, G., & Hoffrage, U. (1995). 
 How to improve Bayesian reasoning without instruction: Frequency formats. 
@@ -563,7 +563,7 @@ _Cognition_, _84_, 343–352.
 - Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). 
 Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. 
 _Frontiers in Psychology_, _6_, 1473. 
-[[Available online]( https://doi.org/10.3389/fpsyg.2015.01473)]
+([Available online]( https://doi.org/10.3389/fpsyg.2015.01473))
 
 - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
 Communicating statistical information. 
@@ -589,7 +589,7 @@ _IEEE Transactions on Visualization and Computer Graphics_, _18_, 2536–2545.
 Heuristics: Tools for an uncertain world. 
 In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
 New York, NY: Wiley Online Library. 
-[[Available online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf)]  
+([Available online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
 
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
@@ -602,7 +602,7 @@ _Unterrichtswissenschaft_, _32_, 58–96.
 
 <!-- Update: -->
 
-[Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).]  
+(Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).) 
 
 
 <!-- eof -->
