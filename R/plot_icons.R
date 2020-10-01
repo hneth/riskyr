@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2019 01 23
+## 2020 10 01
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -1172,5 +1172,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
 ## - More modular: Different plot types as separate (sub-)functions?
 
 ## - Understand cex: how does it work, when does it (not) change size?
+
+## - Check out the R package personograph
+##   at https://CRAN.R-project.org/package=personograph
 
 ## eof. ------------------------------------------
