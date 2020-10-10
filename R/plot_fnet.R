@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2018 12 20
+## 2020 10 10
 ## Deprecated function: Using plot_prism instead.
 ## -----------------------------------------------
 
