@@ -1,5 +1,5 @@
 ## comp_metrics.R | riskyr
-## 2020 03 22
+## 2020 03 30
 ## Compute key metrics from 4 basic frequencies:
 ## -----------------------------------------------
 
