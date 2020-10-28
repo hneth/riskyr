@@ -68,6 +68,14 @@ Enforce 2 different symbol types for icon arrays with a binary perspective (`by 
 
 ## ToDo 
 
+- Add frequency nets of Binder et al. (2020)  
+
+- Adopt general framework of matrix lens model and 2x2 matrix construct
+
+- Visualize and explain Bayesian brain teasers (cab problem, 3-option paradoxes, conjunction fallacy, etc.) 
+
+- Visual and explain other medical examples (e.g., Covid-19 and HIV tests, flu or terrorist detection, etc.)
+
 - Prepare functions for cumulative lifetime risks (not yet integrated into package).  
 
 
