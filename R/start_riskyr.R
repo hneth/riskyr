@@ -1,5 +1,5 @@
 ## start_riskyr.R | riskyr
-## 2018 12 20
+## 2020 10 28
 ## Final functions and start-up settings:
 ## -----------------------------------------------
 
@@ -101,7 +101,7 @@ start_riskyr <- function(...) {
 
   if (dice == 1) {
     packageStartupMessage(" ")
-    packageStartupMessage("Ready to roll riskyr...")
+    packageStartupMessage("Ready to roll...")
     packageStartupMessage(" ")
   }
 
