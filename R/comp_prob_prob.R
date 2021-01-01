@@ -456,12 +456,7 @@ comp_complete_prob_set <- function(prev,
 #   comp_complete_prob_set(8, 2, NA, 3, NA)    # => 8 2 NA 3 NA         + no warning (as valid set assumed)!
 
 
-
 ## Compute derived probabilities: ----------------
-
-
-
-
 
 
 ## (2) by decision: Compute probabilities of decisions/cases from probabilities: ------------------
@@ -691,8 +686,6 @@ comp_PPV <- function(prev, sens, spec) {
 #
 # comp_PPV(prev = .5, sens = 0, spec = 1)  # => NaN, only cr: hi = 0 and fa = 0: PPV = 0/0 = NaN
 # is_extreme_prob_set(prev = .5, sens = 0, spec = 1)  # => verifies extreme cases
-
-
 
 
 ## (+) False discovery/detection rate (FDR = complement of PPV): ------

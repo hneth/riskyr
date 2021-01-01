@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2020 12 31
+## 2021 01 01
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -55,8 +55,8 @@
 #' but is needed for computing frequency information
 #' \code{\link{freq}} from current probabilities \code{\link{prob}}.
 #'
-#' @param by  A character code specifying 1 or 2 perspectives
-#' that split the population into 2 subsets.
+#' @param by  A character code specifying 1 or 2 perspective(s)
+#' that split(s) the population into 2 subsets.
 #' Specifying 1 perspective plots a frequency tree (single tree)
 #' with 3 options:
 #'   \enumerate{
@@ -64,7 +64,7 @@
 #'   \item \code{"dc"}: by decision only;
 #'   \item \code{"ac"}: by accuracy only.
 #'   }
-#' Specifying 2 perspectives plots a frequency prism (network, double tree)
+#' Specifying 2 perspectives plots a frequency prism (double tree)
 #' with 6 options:
 #'   \enumerate{
 #'   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
@@ -540,7 +540,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
   ## 6. Additional parameters (currently fixed): ----
 
   lty <- 1
-  ftype_x <- -5.5    # x-value of ftype labels
+  ftype_x <- -5.5  # x-value of ftype labels
   ftype_pos <- 4   # pos of ftype labels (NULL: centered, 2: right justified, or 4: left justified)
 
 
@@ -576,7 +576,7 @@ plot_prism <- function(prev = num$prev,    # probabilities
 
   if ( !is.na(by_bot) ) {
     y_min <- -5
-  } else {
+  } else { # is.na(by_bot):
     y_min <- -1
   } # if ( !is.na(by_bot) ) etc.
   y_max <- +5
