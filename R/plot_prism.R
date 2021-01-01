@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2019 06 22
+## 2020 12 31
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -1665,7 +1665,9 @@ read_by <- function(by){
 
   # Finish:
   return(c(by_top, by_bot, by_now))
-}
+
+} # read_by() end.
+
 ## Check:
 # read_by(by = "cd")
 # read_by(by = "cddc")

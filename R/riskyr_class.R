@@ -53,7 +53,7 @@
 #'
 #' @return An object of class "riskyr" describing a risk-related scenario.
 #'
-#' Scenario-specific titles and text labels (see \code{\link{txt}}:
+#' Scenario-specific titles and text labels (see \code{\link{txt}}).
 #'
 #' @param scen_lbl The current scenario title (sometimes in Title Caps).
 #'
