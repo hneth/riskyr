@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2020 03 21
+## 2021 01 01
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -1957,7 +1957,7 @@ comp_p_lwd <- function(pname, cur_prob = prob, p_lwd_max = 10) {
 ##       then label_prob is used to automatically generate a p_lbl as lbl.
 
 plot_link <- function(box1, box2,                # 2 boxes
-                      pos1 = NULL, pos2 = NULL,  # 2 positions: NULL = center, bltr
+                      pos1 = NULL, pos2 = NULL,  # 2 positions: NULL = center, 1-4 := bltr
                       lbl = NA,                  # lbl (derived automatically, if NA)
                       lbl_type = "default",      # lbl_type ("default", "nam", "num", "namnum")
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
