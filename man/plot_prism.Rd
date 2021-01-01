@@ -62,8 +62,8 @@ for computing current probability information \code{\link{prob}},
 but is needed for computing frequency information
 \code{\link{freq}} from current probabilities \code{\link{prob}}.}
 
-\item{by}{A character code specifying 1 or 2 perspectives
-that split the population into 2 subsets.
+\item{by}{A character code specifying 1 or 2 perspective(s)
+that split(s) the population into 2 subsets.
 Specifying 1 perspective plots a frequency tree (single tree)
 with 3 options:
   \enumerate{
@@ -71,7 +71,7 @@ with 3 options:
   \item \code{"dc"}: by decision only;
   \item \code{"ac"}: by accuracy only.
   }
-Specifying 2 perspectives plots a frequency prism (network, double tree)
+Specifying 2 perspectives plots a frequency prism (double tree)
 with 6 options:
   \enumerate{
   \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
