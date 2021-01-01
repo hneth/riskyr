@@ -133,7 +133,7 @@ according to the American Psychological Association (APA style).}
 \value{
 An object of class "riskyr" describing a risk-related scenario.
 
-Scenario-specific titles and text labels (see \code{\link{txt}}:
+Scenario-specific titles and text labels (see \code{\link{txt}}).
 }
 \description{
 \code{riskyr} creates a scenario of class "riskyr",
