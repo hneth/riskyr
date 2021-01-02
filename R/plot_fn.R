@@ -1,5 +1,5 @@
 ## plot_fn.R | riskyr
-## 2021 01 01
+## 2021 01 02
 ## Plot frequency net from Binder et al. (2020):
 ## See doi: 10.3389/fpsyg.2020.00750
 ## -----------------------------------------------
@@ -163,7 +163,7 @@
 #' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes  Boolean option for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters.
 #'
@@ -180,6 +180,8 @@
 #'
 #' # (2) Providing values:
 #' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9) # Binder et al. (2020, Fig. 3)
+#' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
+#'
 #' plot_fn(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 #' plot_fn(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 #' plot_fn(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
@@ -382,7 +384,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
                     col_pal = pal,      # color palette
 
                     # Generic options:
-                    mar_notes = TRUE,   # show margin notes?
+                    mar_notes = FALSE,  # show margin notes?
                     ...                 # other (graphical) parameters (passed to plot_link and plot_ftype_label)
 ) {
 
@@ -701,7 +703,8 @@ plot_fn <- function(prev = num$prev,    # probabilities
   #   - define all boxes of current row (dimensions => x-pos)
   #   - plot all boxes of current row (from largest to smallest)
 
-  ##   1st and 5th rows (top/bot: y = +4/-4): population size N ------
+
+  ## Population size N: Center (formerly 1st and 5th rows, top/bot: y = +4/-4): ------
 
   # box 1 dimensions:
 
@@ -743,13 +746,13 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
   if ( !is.na(by_bot) ) {
 
-    # box 5 (SAME as box 1):
-    box_5_x <-  0  # center
-    box_5_y <-  0  # center
-    box_5 <- make_box("N", box_5_x, box_5_y, box_1_w, box_1_h)
+    ## box 5 (SAME as box 1):
+    # box_5_x <-  0  # center
+    # box_5_y <-  0  # center
+    # box_5 <- make_box("N", box_5_x, box_5_y, box_1_w, box_1_h)
 
-    # plot(box_5, lbl_type = f_lbl, cex = cex_lbl, lwd = 1.0, density = 20)  # N (bot): illustrate diagonal lines (via density)
-    row_1_boxes <- list(box_1, box_5)  # list of boxes (lists)
+    ## plot(box_5, lbl_type = f_lbl, cex = cex_lbl, lwd = 1.0, density = 20)  # N (bot): illustrate diagonal lines (via density)
+    # row_1_boxes <- list(box_1, box_5)  # list of boxes (lists)
 
     ## plot label:
     # plot_ftype_label("N", ftype_x, box_5_y, lbl_txt = lbl_txt, suffix = ":", pos = ftype_pos, col = pal["txt"], cex = cex_lbl, ...)  # Allow ...!
@@ -760,7 +763,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
   # plot_fbox_list(row_1_boxes, lbl_type = f_lbl, cex = cex_lbl, lwd = f_lwd)  # plot list of boxes
 
 
-  ##   3rd row (y = 0, center): SDT cases/cells as 4 boxes: ------
+  ## CELLS in 4 corners (formerly 3rd row, y = 0, center): SDT cases/cells as 4 boxes: ------
 
   # dimensions lx:
 
@@ -852,10 +855,16 @@ plot_fn <- function(prev = num$prev,    # probabilities
     if (by_top == "cd") {
 
       # by cd: hi mi fa cr
-      hi_x <- +3
-      mi_x <- -3
-      fa_x <- +3
-      cr_x <- -3
+      hi_x <- +3  # right
+      mi_x <- -3  # left
+      fa_x <- +3  # right
+      cr_x <- -3  # left
+
+      if (by_bot == "ac"){
+        # Swap X-coord. of fa and cr boxes:
+        fa_x <- -3  # left
+        cr_x <- +3  # right
+      }
 
     } else if (by_top == "dc") {
 
@@ -1268,20 +1277,19 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
   ## from top:
 
-  ##   row 1 to 2: ----
+  ##   row 1 (center) to 2 (marginals): ----
 
   plot_link(box_1, box_2_1, 3, 1, cur_prob = prob, arr_code = arr_c,
-            lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal,
-            p_lwd = p_lwd, p_scale = p_scale,
+            lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl,
+            col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale,
             ...)  # Allow ...!
   plot_link(box_1, box_2_2, 1, 3, cur_prob = prob, arr_code = arr_c,
             lbl_type = p_lbl, lbl_pos = NULL, lbl_off = 1, cex = cex_p_lbl,
             lbl_sep = "\n    = ",  # special case: cprev label !!!
-            col_pal = col_pal,
-            p_lwd = p_lwd, p_scale = p_scale,
+            col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale,
             ...)  # Allow ...!  # link label in 2 lines
 
-  ##   row 2 to 3: ----
+  ##   row 2 (vertical marginals) to 3 (cells): ----
 
   # Links depend on perspectives/box types:
 
@@ -1290,8 +1298,23 @@ plot_fn <- function(prev = num$prev,    # probabilities
     ## (a) by condition:
     plot_link(box_2_1, box_hi, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - hi
     plot_link(box_2_1, box_mi, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - mi
-    plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
-    plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+
+    if (by_bot == "dc"){ # base case:
+
+      plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+      plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+
+    } else if (by_bot == "ac"){ # swapped bottom boxes:
+
+      plot_link(box_2_2, box_fa, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+      plot_link(box_2_2, box_cr, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+
+    } else { # default:
+
+      plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+      plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+
+    }
 
   } else if (by_top == "dc") {  # row 2: by decision (dec_pos vs. dec_neg)
 
@@ -1312,10 +1335,10 @@ plot_fn <- function(prev = num$prev,    # probabilities
   } else {  # default on top: same as (by_top == "cd")
 
     ## (+) by condition:
-    plot_link(box_2_1, box_hi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - hi
-    plot_link(box_2_1, box_mi, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - mi
-    plot_link(box_2_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
-    plot_link(box_2_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+    plot_link(box_2_1, box_hi, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - hi
+    plot_link(box_2_1, box_mi, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - mi
+    plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+    plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
 
   }
 
@@ -1323,7 +1346,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
   if ( !is.na(by_bot) ) {
 
-    ##   row 4 to 3: ----
+    ##   row 4 (horizontal marginals) to 3 (cells): ----
 
     # Links depend on perspectives/box types:
 
@@ -1346,18 +1369,18 @@ plot_fn <- function(prev = num$prev,    # probabilities
     } else if (by_bot == "ac") {  # row 4: by accuracy (dec_cor vs. dec_err)
 
       ## (c) by accuracy:
-      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_cor - hi: acc_hi
-      plot_link(box_4_1, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_cor - cr: acc_cr
-      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_err - mi: err_mi
-      plot_link(box_4_2, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_err - fa: err_fa
+      plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_cor - hi: acc_hi
+      plot_link(box_4_1, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_cor - cr: acc_cr
+      plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_err - mi: err_mi
+      plot_link(box_4_2, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_err - fa: err_fa
 
     } else {  # default on bot: same as (by_bot == "dc")
 
       ## (+) by decision:
       plot_link(box_4_1, box_hi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_pos - hi
-      plot_link(box_4_1, box_fa, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_pos - fa !
+      plot_link(box_4_1, box_fa, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_pos - fa !
       plot_link(box_4_2, box_mi, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_neg - mi !
-      plot_link(box_4_2, box_cr, 3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_neg - cr
+      plot_link(box_4_2, box_cr, 1, 3, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # dec_neg - cr
 
       ## OLDER default: show 4 boxes (dec_pos / dec_neg) vs. (dec_cor / dec_err):
 
@@ -1375,25 +1398,23 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
     }
 
-    ##   row 5 to 4: ----
+    ## Center to horizontal (left/right) (formerly row 5 to 4): ----
 
-    if (by_bot == "cd" || by_bot == "dc" || by_bot == "ac" ) {
+    if (by_bot == "cd" || by_bot == "dc" || (by_bot == "ac")) {
 
       # link to 2 default boxes:
-      plot_link(box_5, box_4_1,  4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, cex = cex_p_lbl, col_pal = col_pal,
-                p_lwd = p_lwd, p_scale = p_scale,
-                ...)  # Allow ...!
-      plot_link(box_5, box_4_2,  2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, lbl_off = 4/4, cex = cex_p_lbl, col_pal = col_pal,
-                p_lwd = p_lwd, p_scale = p_scale,
-                ...)  # Allow ...!
+      plot_link(box_1, box_4_1,  4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+      plot_link(box_1, box_4_2,  2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, lbl_off = 4/4,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
 
     } else {  # link to 4 boxes (dec_pos / dec_neg) vs. (dec_cor / dec_err):
 
       # link to 2 default boxes:
-      plot_link(box_5, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal,
+      plot_link(box_1, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal,
                 p_lwd = p_lwd, p_scale = p_scale,
                 ...)  # Allow ...!
-      plot_link(box_5, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, col_pal = col_pal,
+      plot_link(box_1, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, col_pal = col_pal,
                 p_lwd = p_lwd, p_scale = p_scale,
                 ...)  # Allow ...!
 
@@ -1429,9 +1450,9 @@ plot_fn <- function(prev = num$prev,    # probabilities
     type_lbl <- ""        # assume that no subtitle is desired either
   } else {
     if ( !is.na(by_bot) ) {
-      type_lbl <- paste0(lbl["plot_fn_lbl"], " (by ", as.character(by), ")")  # plot name: prism/network/double tree.
+      type_lbl <- paste0(lbl["plot_fnet_lbl"], " (by ", as.character(by), ")")  # plot name: frequency net.
     } else {
-      type_lbl <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: tree/double tree.
+      type_lbl <- paste0(lbl["plot_tree_lbl"], " (by ", as.character(by), ")")  # plot name: frequency tree.
     } # if ( !is.na(by_bot) )
   }
 
@@ -1469,6 +1490,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
 
 ## Check: ------
+
 # ## Basics:
 #
 # ## Global freq and prob objects:
@@ -1605,6 +1627,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
 # plot_fn(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 # plot_fn(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
 
+
 read_by <- function(by){
   # Helper function with
   # - input:  by argument and
@@ -1692,66 +1715,19 @@ read_by <- function(by){
 # read_by(by = "cdxx")
 # read_by(by = "xxxxxx")
 
-## Done: [2018 11 17] ------
+## Done: [2021 01 01] ------
 
-## (0) Design as function plot_fn (generalizing plot_fnet).
+## (0) Design basic cddc case (area = "no") based on plot_prism().
 
-## (1) Rather than not computing anything (only using global objects freq & prob)
-##     this version computes local freq & prob lists when possible.
-
-## (2) Add lbl_txt and col_pal as arguments to customize txt and pal options.
-
-## (3) Strategy/rationale:
-##
-## (a) Always compute _dimensions_ (width and height) of boxes first.
-##  1. with fixed width & height
-##  2. widths scaled horizontally (sums = N)
-##  3. area as squares (area = freq/prob)
-##
-## (b) Distinguish 2 basic variants for all scaling operations and
-##     2 corresponding geometric layout versions:
-##   Compute current dimensions (locations of 4 boxes: hi mi fa cr) based on
-##   1. current freq (rounded or non-rounded)
-##   2. current prob ( == non-rounded frequencies ): always show ALL areas > 0.
-##
-## (c) Compute _positions_ of boxes from current layout,
-##     plus box dimensions (width and height).
-
-## (4) Plot sets/lists of boxes by their freq/prob values (from large to small,
-##     to prevent occlusion of freq labels of smaller boxes) => plot_util.R
-
-## (5) Add better options for box and link labels
-##     (e.g., analog to previous "mix" and "min".) => plot_util.R
-
-## (6) Add documentation and integrate in current riskyr package (./R)
-##     with sensible defaults.
-
-## (7) Now scaling prob by freq when scale == "f" (as in plot_area, plot_tab)!
-
-## (8) Add ftype_pos parameter and adjust ftype_x and x_min
-##     to control ftype labels on left.
-
-## (9) Allow ... to pass graphical parameters (to plot_link & plot_ftype_label, but NOT plot_fbox_list).
-
-## (10) Interpret by argument in separate read_by helper function.
-
-## (11) Generalise from 2 perspectives (prism, double tree) to
-##      only showing 1 perspective (by_top: single tree).
-
-## (12) Re-shuffle x positions of 4 SDT boxes by 1st perspective (by_top)
-##      so that prob-links from level 2 to 3 do not cross.
+## (1) Removed 2nd population box (box_5).
 
 
-## ToDo: [2019 01 12] ------
 
-## (1) Note: Prism may be confusing.
-##     Create a version of tree (by = "cd") that also shows PPV and NPV (as fractions).
+## ToDo: [2021 01 02] ------
 
-## (2) Add option to scale width of links (by prob).
-##     [done: see p_scale argument]
+## (+) Add diagnonals for joint probabilities.
 
-## (3) Link boxes by polygons (to show nested set relations).
-##     [partly done: see plot_poly and plot_link in plot_util.R]
+## (+) Add support for "cdac" and "dcac" cases.
 
 ## eof. ----------
 
