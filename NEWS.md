@@ -1,7 +1,7 @@
 
 # Current version
 
-The current development version (0.2.0.9025+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9030+) is available at <https://github.com/hneth/riskyr/>. 
 
 # riskyr 0.2.0.9001+
 
@@ -9,7 +9,8 @@ Log of changes since last release:
 
 ## Major changes
 
-- Compute key metrics based on 2x2 matrix of frequency counts (`comp_metrics.R`). 
+- Added `plot_fn()` for plotting _frequency nets_ (Binder et al., 2020). 
+- Computing key metrics based on 2x2 matrix of frequency counts (see `comp_metrics.R`). 
 
 ## Minor changes
 
@@ -60,15 +61,16 @@ Change default settings from  `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this 
 Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
 Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
 
+
 ### Details
 
-- Bug fix in `plot_icons` [2019-01]:   
+- Bug fix in `plot_prism()`: Allow plotting simple trees for `nchar(by) == 2`.
+
+- Bug fix in `plot_icons()` [2019-01]: 
 Enforce 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
 
 ## ToDo 
-
-- Add frequency nets of Binder et al. (2020)  
 
 - Adopt general framework of matrix lens model and 2x2 matrix construct
 
