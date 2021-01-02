@@ -1,5 +1,5 @@
 ## plot_prism.R | riskyr
-## 2021 01 01
+## 2021 01 02
 ## Plot prism: Plot a network diagram of
 ## frequencies (nodes) and probabilities (edges).
 ## -----------------------------------------------
@@ -211,7 +211,7 @@
 #' #     3 versions:
 #' plot_prism(by = "cd", f_lbl = "def", col_pal = pal_mod) # by condition (freq boxes: hi mi fa cr)
 #' plot_prism(by = "dc", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi fa mi cr)
-#' plot_prism(by = "ac", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi cr mi fa)
+#' plot_prism(by = "ac", f_lbl = "def", col_pal = pal_mod) # by accuracy  (freq boxes: hi cr mi fa)
 #'
 #' # (B) prism/double tree (nchar(by) == 4):
 #' #     6 (3 x 2) versions (+ 3 redundant ones):
