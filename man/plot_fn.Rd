@@ -27,7 +27,7 @@ plot_fn(
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -169,7 +169,7 @@ Default: \code{cex_p_lbl = cex_lbl - .05}.}
 Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters.}
 }
@@ -201,6 +201,8 @@ plot_fn()  # default prism plot,
 
 # (2) Providing values:
 plot_fn(N = 10000, prev = .02, sens = .8, spec = .9) # Binder et al. (2020, Fig. 3)
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
+
 plot_fn(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
 plot_fn(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
 plot_fn(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
