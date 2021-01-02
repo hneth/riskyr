@@ -83,10 +83,9 @@ with 6 options:
   }}
 
 \item{area}{A character code specifying the shapes of the frequency boxes,
-with 3 options:
+with 2 options:
   \enumerate{
   \item \code{"no"}: rectangular frequency boxes, not scaled (default);
-  \item \code{"hr"}: frequency boxes are horizontal rectangles (scaled relative to N).
   \item \code{"sq"}: frequency boxes are squares (scaled relative to N).
   }}
 
@@ -193,7 +192,7 @@ and providing many additional options.
 \examples{
 ## Basics:
 # (1) Using global prob and freq values:
-plot_fn()  # default prism plot,
+plot_fn()  # default frequency net,
 # same as:
 # plot_fn(by = "cddc", area = "no", scale = "p",
 #            f_lbl = "num", f_lwd = 0, cex_lbl = .90,
@@ -201,10 +200,15 @@ plot_fn()  # default prism plot,
 
 # (2) Providing values:
 plot_fn(N = 10000, prev = .02, sens = .8, spec = .9) # Binder et al. (2020, Fig. 3)
-plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
 
-plot_fn(N = 10, prev = 1/2, sens = 4/5, spec = 3/5)
-plot_fn(N = 10, prev = 1/3, sens = 3/5, spec = 4/5, area = "hr")
+# Variants:
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "dccd")
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "dcac")
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")
+
+# Area:
 plot_fn(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
 ## Custom color and text settings:
@@ -226,7 +230,7 @@ plot_fn(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
 plot_fn(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
            by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
 
-plot_fn(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # note scale!
+plot_fn(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",                 # note scale!
            area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
            col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 
@@ -235,7 +239,7 @@ plot_fn(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # n
 #     3 versions:
 plot_fn(by = "cd", f_lbl = "def", col_pal = pal_mod) # by condition (freq boxes: hi mi fa cr)
 plot_fn(by = "dc", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi fa mi cr)
-plot_fn(by = "ac", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi cr mi fa)
+plot_fn(by = "ac", f_lbl = "def", col_pal = pal_mod) # by accuracy  (freq boxes: hi cr fa mi)
 
 # (B) prism/double tree (nchar(by) == 4):
 #     6 (3 x 2) versions (+ 3 redundant ones):
@@ -255,14 +259,9 @@ plot_fn(by = "acac")  # (+) Message
 
 # area:
 plot_fn(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)
-plot_fn(area = "hr")  # horizontal rectangles (widths on each level sum to N)
 plot_fn(area = "sq")  # squares (areas on each level sum to N)
 
 # scale (matters for scaled areas and small N):
-plot_fn(N = 5, prev = .3, sens = .8, spec = .6,
-           area = "hr", scale = "p")  # widths scaled by prob
-plot_fn(N = 5, prev = .3, sens = .8, spec = .6,
-           area = "hr", scale = "f")  # widths scaled by (rounded or non-rounded) freq
 plot_fn(N = 4, prev = .2, sens = .7, spec = .8,
            area = "sq", scale = "p")  # areas scaled by prob
 plot_fn(N = 4, prev = .2, sens = .7, spec = .8,
@@ -335,17 +334,13 @@ plot_fn(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
 plot_fn(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
            f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
 
-plot_fn(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
-plot_fn(area = "hr", f_lbl = "nam", p_lbl = "num", p_lwd = 6, p_scale = TRUE)
-plot_fn(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_kn)
-
 plot_fn(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 plot_fn(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 plot_fn(area = "sq", f_lbl = "namnum", p_lbl = "mix", f_lwd = .5, col_pal = pal_kn)
 
 }
 \seealso{
-\code{\link{plot_fnet}} for older (obsolete) version;
+\code{\link{plot_prism}} for plotting prism plot (double tree);
 \code{\link{plot_area}} for plotting mosaic plot (scaling area dimensions);
 \code{\link{plot_bar}} for plotting frequencies as vertical bars;
 \code{\link{plot_tab}} for plotting table (without scaling area dimensions);
