@@ -580,7 +580,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
   if ( !is.na(by_bot) ) {
     y_min <- -5
   } else { # is.na(by_bot):
-    y_min <- -1
+    y_min <- -5  # WAS: -1 (in plot_prism)
   } # if ( !is.na(by_bot) ) etc.
   y_max <- +5
 
