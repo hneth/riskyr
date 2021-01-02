@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2021 01 01
+## 2021 01 02
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -1724,7 +1724,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
          ...)  # cex, etc.
   }
 
-}
+} # plot_line end.
 
 # ## Check:
 # plot(0:10, 0:10, type = "n")  # empty canvas
@@ -1842,7 +1842,7 @@ plot_poly <- function(x1, y1, x2, y2,      # coordinates of edge 1 (p1 and p2)
          ...)  # cex, etc.
   }
 
-}
+} # plot_poly end.
 
 # ## Check:
 # plot(0:10, 0:10, type = "n")  # empty canvas
