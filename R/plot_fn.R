@@ -845,14 +845,14 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
     } else {
 
-      message(paste0("Unknown primary perspective: by_top = ", by_top))
+      message(paste0("Unknown primary/vertical perspective: by_top = ", by_top))
 
     } # if (by_top == etc.)
 
   } else { # area == "no" OR "sq":
 
     # fixed x-coordinates:
-    if (by_top == "cd") {
+    if (by_top == "cd") {  # vertical marginal:
 
       # by cd: hi mi fa cr
       hi_x <- +3  # right
@@ -860,33 +860,38 @@ plot_fn <- function(prev = num$prev,    # probabilities
       fa_x <- +3  # right
       cr_x <- -3  # left
 
-      if (by_bot == "ac"){
-        # Swap X-coord. of fa and cr boxes:
-        fa_x <- -3  # left
-        cr_x <- +3  # right
-      }
-
     } else if (by_top == "dc") {
 
       # by dc: hi fa mi cr
-      hi_x <- -3
-      fa_x <- -1
-      mi_x <- +1
-      cr_x <- +3
+      hi_x <- +3  # right (cond pos)
+      fa_x <- -3  # left
+      mi_x <- +3  # right (cond pos)
+      cr_x <- -3  # left
 
     } else if (by_top == "ac") {
 
       # by ac: hi cr mi fa
-      hi_x <- -3
-      cr_x <- -1
-      mi_x <- +1
-      fa_x <- +3
+      hi_x <- +3  # right (cond pos)
+      cr_x <- -3  # left
+      mi_x <- +3  # right (cond pos)
+      fa_x <- -3  # left
 
     } else {
 
-      message(paste0("Unknown primary perspective: by_top = ", by_top))
+      message(paste0("Unknown primary/vertical perspective: by_top = ", by_top))
 
     } # if (by_top == etc.)
+
+    # Handle some fnet cases: +++ here now +++
+    if ( !is.na(by_bot) ) {  # Horizontal marginal dimension exists:
+
+      if (by_bot == "ac"){ # Swap X-coord. of fa and cr boxes:
+        fa_x <- -3  # left
+        cr_x <- +3  # right
+      }
+
+    }
+
 
   } # if (area == etc.)
 
@@ -1299,20 +1304,25 @@ plot_fn <- function(prev = num$prev,    # probabilities
     plot_link(box_2_1, box_hi, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - hi
     plot_link(box_2_1, box_mi, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_true  - mi
 
-    if (by_bot == "dc"){ # base case:
+    # Handle some fnet cases: +++ here now +++
+    if ( !is.na(by_bot) ) {  # Horizontal marginal dimension exists:
 
-      plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
-      plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+      if (by_bot == "dc"){ # base case:
 
-    } else if (by_bot == "ac"){ # swapped bottom boxes:
+        plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+        plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
 
-      plot_link(box_2_2, box_fa, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
-      plot_link(box_2_2, box_cr, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+      } else if (by_bot == "ac"){ # swapped bottom boxes:
 
-    } else { # default:
+        plot_link(box_2_2, box_fa, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+        plot_link(box_2_2, box_cr, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
 
-      plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
-      plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+      } else { # default:
+
+        plot_link(box_2_2, box_fa, 4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - fa
+        plot_link(box_2_2, box_cr, 2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 1, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!  # cond_false - cr
+
+      }
 
     }
 
@@ -1411,12 +1421,10 @@ plot_fn <- function(prev = num$prev,    # probabilities
     } else {  # link to 4 boxes (dec_pos / dec_neg) vs. (dec_cor / dec_err):
 
       # link to 2 default boxes:
-      plot_link(box_1, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, cex = cex_p_lbl, col_pal = col_pal,
-                p_lwd = p_lwd, p_scale = p_scale,
-                ...)  # Allow ...!
-      plot_link(box_1, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4, cex = cex_p_lbl, col_pal = col_pal,
-                p_lwd = p_lwd, p_scale = p_scale,
-                ...)  # Allow ...!
+      plot_link(box_1, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+      plot_link(box_1, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
 
       ## OLDER: link to 2 additional boxes:
       # plot_link(box_5, box_4_3,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 4, cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
