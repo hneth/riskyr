@@ -1,5 +1,5 @@
 ## init_txt.R | riskyr
-## 2019 01 11
+## 2021 01 02
 ## Define defaults and initialize the
 ## current set of all text elements (txt):
 ## -----------------------------------------------
@@ -461,17 +461,18 @@ txt_TF <- init_txt(# scen_lbl = "",  # no scenario title
 # (a) Define individual labels: ----
 plot_area_lbl  <- "Area plot"        # Mosaic plot
 plot_icons_lbl <- "Icon array"       #
-plot_prism_lbl <- "Prism plot"       # Network plot
+plot_prism_lbl <- "Prism plot"       # Double tree
 plot_tab_lbl   <- "Confusion table"  # Contingency table
 plot_tree_lbl  <- "Tree plot"        # Tree diagram
+plot_fnet_lbl  <- "Frequency net"    #
 
 sum_lbl <- "Sums"
 
 
 # (b) Collect all labels in named vector: ----
-lbl_en <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tree_lbl,
+lbl_en <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tree_lbl, plot_fnet_lbl,
             sum_lbl)
-names(lbl_en) <- c("plot_area_lbl", "plot_icons_lbl", "plot_prism_lbl", "plot_tab_lbl", "plot_tree_lbl",
+names(lbl_en) <- c("plot_area_lbl", "plot_icons_lbl", "plot_prism_lbl", "plot_tab_lbl", "plot_tree_lbl", "plot_fnet_lbl",
                    "sum_lbl")
 
 
@@ -499,12 +500,13 @@ plot_icons_lbl <- "H\u00e4ufigkeitsdiagram" # Gitter?
 plot_prism_lbl <- "Netzwerkdiagram"         # Prisma
 plot_tab_lbl   <- "Kontingenztabelle"       # Konfusion
 plot_tree_lbl  <- "Baumdiagram"             # Baum
+plot_fnet_lbl  <- "H\u00e4ufigkeitsnetz"    #
 
 sum_lbl <- "Summen"
 
 
 # (b) Collect all labels in named vector: ----
-lbl_de <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tree_lbl,
+lbl_de <- c(plot_area_lbl, plot_icons_lbl, plot_prism_lbl, plot_tab_lbl, plot_tree_lbl, plot_fnet_lbl,
             sum_lbl)
 names(lbl_de) <- names(lbl_en)
 
