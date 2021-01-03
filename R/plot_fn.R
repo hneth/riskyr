@@ -1,5 +1,5 @@
 ## plot_fn.R | riskyr
-## 2021 01 02
+## 2021 01 03
 ## Plot frequency net from Binder et al. (2020):
 ## See doi: 10.3389/fpsyg.2020.00750
 ## -----------------------------------------------
@@ -1665,22 +1665,18 @@ read_by <- function(by){
 # read_by(by = "cdxx")
 # read_by(by = "xxxxxx")
 
-## Done: [2021 01 01] ------
+## Done: [2021 01 02] ------
 
-## (0) Design basic cddc case (area = "no") based on plot_prism().
+## (0) Design basic cddc case based on plot_prism().
 
-## (1) Removed 2nd population box (box_5).
+## (1) Removed 2nd population box (box_5) and area = "hr" options.
 
 ## (2) Added support for "cdac" and "dcac" cases.
 
 
-## ToDo: [2021 01 02] ------
+## ToDo: [2021 01 03] ------
 
-## (+) Explore options for diagonal links.
-
-## (+) Add diagnonals for joint probabilities.
-
-
+## (+) Add diagonal links for joint probabilities (using new options in plot_link() for setting pos1/pos2 to 5-8).
 
 ## eof. ----------
 
