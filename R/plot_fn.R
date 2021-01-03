@@ -1671,13 +1671,16 @@ read_by <- function(by){
 
 ## (1) Removed 2nd population box (box_5).
 
+## (2) Added support for "cdac" and "dcac" cases.
 
 
 ## ToDo: [2021 01 02] ------
 
+## (+) Explore options for diagonal links.
+
 ## (+) Add diagnonals for joint probabilities.
 
-## (+) Add support for "cdac" and "dcac" cases.
+
 
 ## eof. ----------
 
