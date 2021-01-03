@@ -22,6 +22,7 @@ plot_fn(
   p_scale = FALSE,
   p_lbl = "mix",
   arr_c = NA,
+  joint_p = TRUE,
   lbl_txt = txt,
   title_lbl = txt$scen_lbl,
   cex_lbl = 0.9,
@@ -128,7 +129,7 @@ Default: \code{p_lwd = 1}, but consider increasing when setting \code{p_scale = 
 (as set by \code{p_lwd}) by the current probability values.
 Default: \code{p_scale = FALSE}.}
 
-\item{p_lbl}{Type of label for showing 3 key probability links and values,
+\item{p_lbl}{Type of label for showing probability links and values,
 with many options:
   \enumerate{
   \item \code{"abb"}: show links and abbreviated probability names;
@@ -151,6 +152,10 @@ with the following options:
   \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
 }
 Default: \code{arr_c = NA}, but adjusted by \code{area}.}
+
+\item{joint_p}{Boolean options for showing links to joint probabilities
+(i.e., diagonals from N in center to joint frequencies in 4 corners).
+Default: \code{joint_p = TRUE}.}
 
 \item{lbl_txt}{Default label set for text elements.
 Default: \code{lbl_txt = \link{txt}}.}
@@ -208,19 +213,24 @@ plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "dcac")
 plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")
 plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")
 
-# Area:
+# Trees (only 1 dimension):
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "cd")
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "dc")
+plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "ac")
+
+# Area and margin notes:
 plot_fn(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 
 ## Custom color and text settings:
 plot_fn(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
-           font = 3, cex_p_lbl = .75)                         # and text labels
+        font = 3, cex_p_lbl = .75)                         # and text labels
 
 my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
-plot_fn(f_lbl = "nam", lbl_txt = my_txt,
-           col_pal = my_col, f_lwd = .5)
+plot_fn(f_lbl = "nam", p_lbl = "num",
+        lbl_txt = my_txt, col_pal = my_col, f_lwd = .5)
 
 ## Local values and custom color/txt settings:
 plot_fn(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
@@ -234,41 +244,14 @@ plot_fn(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",                 
            area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
            col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 
-## Plot versions:
-# (A) tree/single tree (nchar(by) == 2):
-#     3 versions:
-plot_fn(by = "cd", f_lbl = "def", col_pal = pal_mod) # by condition (freq boxes: hi mi fa cr)
-plot_fn(by = "dc", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi fa mi cr)
-plot_fn(by = "ac", f_lbl = "def", col_pal = pal_mod) # by accuracy  (freq boxes: hi cr fa mi)
-
-# (B) prism/double tree (nchar(by) == 4):
-#     6 (3 x 2) versions (+ 3 redundant ones):
-plot_fn(by = "cddc")  # v01 (default)
-plot_fn(by = "cdac")  # v02
-plot_fn(by = "cdcd")  # (+) Message
-
-plot_fn(by = "dccd")  # v03
-plot_fn(by = "dcac")  # v04
-plot_fn(by = "dcdc")  # (+) Message
-
-plot_fn(by = "accd")  # v05
-plot_fn(by = "acdc")  # v06
-plot_fn(by = "acac")  # (+) Message
-
 ## Other options:
-
-# area:
-plot_fn(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)
-plot_fn(area = "sq")  # squares (areas on each level sum to N)
-
 # scale (matters for scaled areas and small N):
 plot_fn(N = 4, prev = .2, sens = .7, spec = .8,
-           area = "sq", scale = "p")  # areas scaled by prob
+        area = "sq", scale = "p")  # areas scaled by prob
 plot_fn(N = 4, prev = .2, sens = .7, spec = .8,
-           area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
+        area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 
 ## Frequency boxes:
-
 # f_lbl:
 plot_fn(f_lbl = "abb")     # abbreviated freq names (variable names)
 plot_fn(f_lbl = "nam")     # only freq names
@@ -285,7 +268,6 @@ plot_fn(f_lwd =  3)  # thicker lines
 plot_fn(f_lwd = .5)  # thinner lines
 
 ## Probability links:
-
 # Scale link widths (p_lwd & p_scale):
 plot_fn(p_lwd = 6, p_scale = TRUE)
 plot_fn(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
@@ -299,33 +281,23 @@ plot_fn(p_lbl = NA)        # no prob labels (NA/NULL/"none")
 plot_fn(p_lbl = "nam")     # only prob names
 plot_fn(p_lbl = "num")     # only numeric prob values
 plot_fn(p_lbl = "namnum")  # names and numeric prob values
-# plot_fn(p_lbl = "namnum", cex_p_lbl = .70)  # smaller prob labels
-# plot_fn(by = "cddc", p_lbl = "min")  # minimal labels
-# plot_fn(by = "cdac", p_lbl = "min")
-# plot_fn(by = "cddc", p_lbl = "mix")  # mix abbreviated names and numeric values
-# plot_fn(by = "cdac", p_lbl = "mix")
-# plot_fn(by = "cddc", p_lbl = "abb")  # abbreviated names
-# plot_fn(by = "cdac", p_lbl = "abb")
-# plot_fn(p_lbl = "any") # short name and value (abb = num)
 
 # arr_c:
 plot_fn(arr_c =  0)  # acc_c = 0: no arrows
 plot_fn(arr_c = -3)  # arr_c = -1 to -3: points at both ends
 plot_fn(arr_c = -2)  # point at far end
 plot_fn(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
-# plot_fn(arr_c = +3)  # V-shape arrows at both ends
-# plot_fn(arr_c = +6)  # arr_c = 4-6: T-shape arrows
+
+# Hide links to joint prob:
+plot_fn(by = "cddc", joint_p = FALSE)
+plot_fn(by = "cd", joint_p = FALSE)
 
 ## Plain plot versions:
 plot_fn(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
            title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
 plot_fn(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
-plot_fn(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 
-plot_fn(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
-plot_fn(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
-
-plot_fn(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
+plot_fn(area = "sq", f_lbl = "nam", p_lbl = "num", col_pal = pal_rgb)
 plot_fn(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:
@@ -334,9 +306,9 @@ plot_fn(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
 plot_fn(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
            f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
 
-plot_fn(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
+plot_fn(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF, col_pal = pal_bw)
 plot_fn(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
-plot_fn(area = "sq", f_lbl = "namnum", p_lbl = "mix", f_lwd = .5, col_pal = pal_kn)
+plot_fn(area = "sq", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_rgb)
 
 }
 \seealso{
