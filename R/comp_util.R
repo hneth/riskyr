@@ -1373,9 +1373,12 @@ as_pb <- function(perc, n_digits = 4) {
   if (is_perc(perc)) {
 
     prob <- round(perc/100, n_digits) # compute
+
   } else {
+
     warning("Percentage (perc) is not in range 0 to 100.")
     prob <- round(perc/100, n_digits) # still compute
+
   }
 
   return(prob)  # numeric value
