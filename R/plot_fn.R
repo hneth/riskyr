@@ -1377,6 +1377,86 @@ plot_fn <- function(prev = num$prev,    # probabilities
   } # if ( !is.na(by_bot) ) etc.
 
 
+  ## Plot diagonal links of joint probabilities (from N to joint frequencies): -----
+
+  show_joint_prob <- TRUE
+
+  if (show_joint_prob){
+
+    # compute joint probabilities:
+    n_digits <- 3
+    p_hi <- as_pc(round(freq$hi/freq$N, n_digits), 1)
+    p_mi <- as_pc(round(freq$mi/freq$N, n_digits), 1)
+    p_fa <- as_pc(round(freq$fa/freq$N, n_digits), 1)
+    p_cr <- as_pc(round(freq$cr/freq$N, n_digits), 1)
+
+    # create labels:
+    if (p_lbl == "def"){
+
+      p_hi_lbl <- paste0("p(hi) =", p_hi, "%")
+      p_mi_lbl <- paste0("p(mi) =", p_mi, "%")
+      p_fa_lbl <- paste0("p(fa) =", p_fa, "%")
+      p_cr_lbl <- paste0("p(cr) =", p_cr, "%")
+
+    } else if (p_lbl == "namnum"){
+
+      p_hi_lbl <- paste0("p(", txt$hi_lbl, ")\n = ", p_hi, "%")
+      p_mi_lbl <- paste0("p(", txt$mi_lbl, ")\n = ", p_mi, "%")
+      p_fa_lbl <- paste0("p(", txt$fa_lbl, ")\n = ", p_fa, "%")
+      p_cr_lbl <- paste0("p(", txt$cr_lbl, ")\n = ", p_cr, "%")
+
+    } else { # default: percentages only
+
+      p_hi_lbl <- paste0(p_hi, "%")
+      p_mi_lbl <- paste0(p_mi, "%")
+      p_fa_lbl <- paste0(p_fa, "%")
+      p_cr_lbl <- paste0(p_cr, "%")
+
+    }
+
+    # plot diagonal links:
+    if (by_top == "cd"){
+
+      plot_link(box_1, box_hi, 7, 5, lbl = p_hi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+      plot_link(box_1, box_mi, 6, 8, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+      # Handle fnet cases:
+      if ( !is.na(by_bot) ) {  # Horizontal marginal dimension exists:
+
+        if (by_bot == "dc"){
+
+          plot_link(box_1, box_fa, 8, 6, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+          plot_link(box_1, box_cr, 5, 7, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+        } else if (by_bot == "ac"){
+
+          plot_link(box_1, box_fa, 5, 7, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+          plot_link(box_1, box_cr, 8, 6, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+        } # if (by_bot ==...) end.
+
+      } else { # if is.na(by_bot) ) (i.e., by = "cd" only):
+
+        plot_link(box_1, box_fa, 8, 6, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                  cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+        plot_link(box_1, box_cr, 5, 7, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                  cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+      } # if ( !is.na(by_bot) ) end.
+
+    } # if (by_top == "cd") end.
+
+    # +++ here now +++
+
+  } # if (show_joint_p) end.
+
+
   ## (C) Plot other stuff: ------
 
   # box_else <- make_box("else_box", 9, -2, b_w, b_h)  # define some arbitrary box
