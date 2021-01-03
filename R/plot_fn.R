@@ -1795,18 +1795,16 @@ read_by <- function(by){
 # read_by(by = "cdxx")
 # read_by(by = "xxxxxx")
 
+
 ## Done: [2021 01 02] ------
 
 ## (0) Design basic cddc case based on plot_prism().
-
 ## (1) Removed 2nd population box (box_5) and area = "hr" options.
-
 ## (2) Added support for "cdac" and "dcac" cases.
-
+## (3) Added diagonal links for joint probabilities
+##     (using new options in plot_link() for setting pos1/pos2 to 5-8).
 
 ## ToDo: [2021 01 03] ------
-
-## (+) Add diagonal links for joint probabilities (using new options in plot_link() for setting pos1/pos2 to 5-8).
 
 ## eof. ----------
 
