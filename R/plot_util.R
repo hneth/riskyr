@@ -1953,7 +1953,7 @@ comp_p_lwd <- function(pname, cur_prob = prob, p_lwd_max = 10) {
 
 ## plot_link: Plot link between 2 boxes (given 2 boxes and pos values, using plot_line) ----------
 
-## Note: If boxes are 2 known freq and name_prob returns a known prob,
+## Note: If boxes are 2 known freq and name_prob() returns a known prob,
 ##       then label_prob is used to automatically generate a p_lbl as lbl.
 
 plot_link <- function(box1, box2,                # 2 boxes
@@ -2088,6 +2088,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 
         # (c) plot line as is:
         plot_line(x1, y1, x2, y2,
+                  lbl = lbl, # preserve/pass lbl
                   col_fill = col_brd, col_txt = col_txt, ...)
 
       } # if (!is.na(pname)) etc.
