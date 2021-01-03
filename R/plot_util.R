@@ -1,5 +1,5 @@
 ## plot_util.R | riskyr
-## 2021 01 02
+## 2021 01 03
 ## -----------------------------------------------
 
 ## (0) Generic plotting functions: ----------
@@ -1677,7 +1677,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
              col = col_fill,
              ...)  # lty, lwd, etc.
     }
-    else  if (arr_code > 3) {
+    else if (arr_code > 3) {
       # Draw T-shape arrow between both points:
       arrows(x0, y0, x1, y1,
              # length = .10, angle = 45/2, code = arr_code,    # V shape (small)
@@ -1689,7 +1689,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 
   } else { # no arrow heads, but point symbols on line end:
 
-    ## Draw a line with 2 points at line ends:
+    # Draw a line with 2 points at line ends:
     arrows(x0, y0, x1, y1,
            length = 0, angle = 0, code = 0,       # no arrows
            col = col_fill,
@@ -1746,7 +1746,7 @@ plot_line <- function(x0, y0, x1, y1,      # coordinates of p1 and p2
 #           lbl = "Label 1", cex = .8, lty = 1, lwd = 1)  # text label (on line) and options
 # plot_line(0, 2, 9, 2, lbl = "Label 2", arr_code = -3,
 #           lbl_pos = 4, lbl_off = 1,
-#           col_fill = "firebrick", col_txt = "forestgreen",
+#           col_fill = "firebrick", col_txt = "forestgreen", bg_col = "white",
 #           font = 2, cex = .8)  # basic with raised text label
 # plot_line(0, 1, 9, 9,  arr_code = -3,
 #           pt_pch = 22, pt_cex = 2, pt_lwd = 2,  # point paramters
@@ -1957,7 +1957,7 @@ comp_p_lwd <- function(pname, cur_prob = prob, p_lwd_max = 10) {
 ##       then label_prob is used to automatically generate a p_lbl as lbl.
 
 plot_link <- function(box1, box2,                # 2 boxes
-                      pos1 = NULL, pos2 = NULL,  # 2 positions: NULL = center, 1-4 := bltr
+                      pos1 = NULL, pos2 = NULL,  # 2 positions: NULL = center, 1-4 := bltr, 5-8 := SW/NW/NE/SE-corners.
                       lbl = NA,                  # lbl (derived automatically, if NA)
                       lbl_type = "default",      # lbl_type ("default", "nam", "num", "namnum")
                       lbl_sep = " = ",           # label separator (" = ", ":\n")
@@ -1969,7 +1969,7 @@ plot_link <- function(box1, box2,                # 2 boxes
 ) {
 
   use_poly <- FALSE  # default
-  ## use_poly <- TRUE  # +++ here now +++
+  ## use_poly <- TRUE  # debugging
 
   if (!use_poly) {  # link boxes by a line (via plot_line):
 
@@ -1993,6 +1993,18 @@ plot_link <- function(box1, box2,                # 2 boxes
     } else if (pos1 == 4) {
       x1 <- box1$x + box1$lx/2  # x at right of box1
       y1 <- box1$y              # y in center of box1
+    } else if (pos1 == 5) {
+      x1 <- box1$x - box1$lx/2  # x at left of box1
+      y1 <- box1$y - box1$ly/2  # y at bottom of box1
+    } else if (pos1 == 6) {
+      x1 <- box1$x - box1$lx/2  # x at left of box1
+      y1 <- box1$y + box1$ly/2  # y at top of box1
+    } else if (pos1 == 7) {
+      x1 <- box1$x + box1$lx/2  # x at right of box1
+      y1 <- box1$y + box1$ly/2  # y at top of box1
+    } else if (pos1 == 8) {
+      x1 <- box1$x + box1$lx/2  # x at right of box1
+      y1 <- box1$y - box1$ly/2  # y at bottom of box1
     } else { # default:
       x1 <- box1$x  # x in center of box1
       y1 <- box1$y  # y in center of box1
@@ -2014,15 +2026,27 @@ plot_link <- function(box1, box2,                # 2 boxes
     } else if (pos2 == 4) {
       x2 <- box2$x + box2$lx/2  # x at right of box2
       y2 <- box2$y              # y in center of box2
+    } else if (pos2 == 5) {
+      x2 <- box2$x - box2$lx/2  # x at left of box2
+      y2 <- box2$y - box2$ly/2  # y at bottom of box2
+    } else if (pos2 == 6) {
+      x2 <- box2$x - box2$lx/2  # x at left of box2
+      y2 <- box2$y + box2$ly/2  # y at top of box2
+    } else if (pos2 == 7) {
+      x2 <- box2$x + box2$lx/2  # x at right of box2
+      y2 <- box2$y + box2$ly/2  # y at top of box2
+    } else if (pos2 == 8) {
+      x2 <- box2$x + box2$lx/2  # x at right of box2
+      y2 <- box2$y - box2$ly/2  # y at bottom of box2
     } else { # default:
-      x2 <- box2$x  # x in center of box1
-      y2 <- box2$y  # y in center of box1
+      x2 <- box2$x  # x in center of box2
+      y2 <- box2$y  # y in center of box2
     }
 
     # (2) Interpret current color info:
 
     col_brd <- col_pal["brd"]  # current border color
-    col_txt <- col_pal["txt"]  # current label color
+    col_txt <- col_pal["txt"]  # current text color
 
     # (3) Check if a lbl exists and link is a known prob.
     #     If so, label it accordingly:
@@ -2031,7 +2055,8 @@ plot_link <- function(box1, box2,                # 2 boxes
 
       # (a) plot line with the current lbl:
       plot_line(x1, y1, x2, y2, lbl = lbl,
-                col_fill = col_brd, col_txt = col_txt, ...)
+                col_fill = col_brd, col_txt = col_txt,
+                ...) # Allow ...!
 
     } else {  # lbl is NA: Check whether link is between 2 freq boxes with a known prob:
 
@@ -2057,7 +2082,7 @@ plot_link <- function(box1, box2,                # 2 boxes
         plot_line(x1, y1, x2, y2, lbl = p_lbl,
                   col_fill = col_brd, col_txt = col_txt,
                   lwd = p_lwd,  # set lwd to p_lwd
-                  ...)
+                  ...) # Allow ...!
 
       } else {  # NO pname was found by name_prob:
 
@@ -2162,8 +2187,6 @@ plot_link <- function(box1, box2,                # 2 boxes
 
     plot_poly(x1, y1, x2, y2, x3, y3, x4, y4, col_fill = col_poly, lwd = .01, lbl = p_lbl)
 
-    # +++ here now +++: #
-
   } # if (!use_poly) etc.
 
 } # plot_link end.
@@ -2184,20 +2207,28 @@ plot_link <- function(box1, box2,                # 2 boxes
 # plot(box_N)
 # plot(box_ct)
 # plot(box_hi)  # plot box with known freq label (and type, color, etc.)
-
-## Link positions:
+#
+# ## Link positions:
 # plot_link(box_b1, box_b2, 0, 0)  # 0-0: link from center to center
 # plot_link(box_b1, box_b2, 2, 2)  # 2-2: link from left to left
 # plot_link(box_b1, box_b2, 1, 3)  # 1-3: link from bottom to top
 # plot_link(box_b1, box_b2, 3, 1)  # 3-1: link from top to bottom
 # plot_link(box_b1, box_b2, 4, 4)  # 1-3: link from right to right
-
-## Link options:
-## (a) Global prob: Link 2 freq boxes with a known prob:
+#
+# # Links to corners (with labels): # +++ here now +++: #
+# plot_link(box_b1, box_b2, 5, 6)  # 5-6: link from SW to NW corner
+# plot_link(box_b1, box_b2, 8, 7)  # 8-7: link from SE to NE corner
+# plot_link(box_N, box_ct, 7, 7, lbl_pos = 3)  # 7-8: link from NE to NE corner, lbl top
+# plot_link(box_N, box_ct, 8, 5, lbl_pos = 2)  # 7-8: link from SE to SW corner, lbl left
+# plot_link(box_ct, box_hi, 1, 7, arr_code = +2,
+#           lbl_pos = 3, srt = 90, lbl_off = 0)  # 1-7: arrow from bottom center to NW corner, vetical lbl
+#
+# ## Link options:
+# ## (a) Global prob: Link 2 freq boxes with a known prob:
 # plot_link(box_N, box_ct, 4, 3, lbl_pos = 3, cex = .8, arr_code = -2)
 # plot_link(box_N, box_ct, 4, 2, lbl = "given label", lbl_pos = 1, cex = .8)
-# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"],
-#          lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8)
+# plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"], # ToDo: col_fill and
+#           lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8) # col_txt matched by multiple arguments.
 #
 # ## (b) Local prob:
 # p2 <- comp_prob_prob(prev = .50, sens = .88, spec = .64)
@@ -2934,6 +2965,11 @@ add_legend <- function(...) {
 ## - Started this collection [2018 08 16].
 
 ## (+) ToDo: ----------
+
+## - plot_link(box_ct, box_hi, 1, 3, arr_code = -3, col_fill = pal["hi"], # ToDo: col_fill and
+##             lbl_type = "namnum", lbl_pos = 2, col_txt = pal["hi"], cex = .8) # col_txt matched by multiple arguments.
+
+## - plot_link/plot_line: Allow setting fill color for background of text label (if lbl_pos = NULL).
 
 ## - add plot_poly analog to plot_line (to link 2 fboxes with a probability polygon).
 
