@@ -121,7 +121,7 @@
 #' (as set by \code{p_lwd}) by the current probability values.
 #' Default: \code{p_scale = FALSE}.
 #'
-#' @param p_lbl  Type of label for showing 3 key probability links and values,
+#' @param p_lbl  Type of label for showing probability links and values,
 #' with many options:
 #'   \enumerate{
 #'   \item \code{"abb"}: show links and abbreviated probability names;
@@ -145,6 +145,9 @@
 #' }
 #' Default: \code{arr_c = NA}, but adjusted by \code{area}.
 #'
+#' @param joint_p  Boolean options for showing links to joint probabilities
+#' (i.e., diagonals from N in center to joint frequencies in 4 corners).
+#' Default: \code{joint_p = TRUE}.
 #'
 #' @param lbl_txt  Default label set for text elements.
 #' Default: \code{lbl_txt = \link{txt}}.
@@ -187,19 +190,24 @@
 #' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")
 #' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")
 #'
-#' # Area:
+#' # Trees (only 1 dimension):
+#' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "cd")
+#' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "dc")
+#' plot_fn(N = 10000, prev = .02, sens = .8, spec = .9, by = "ac")
+#'
+#' # Area and margin notes:
 #' plot_fn(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #'
 #' ## Custom color and text settings:
 #' plot_fn(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
-#'            font = 3, cex_p_lbl = .75)                         # and text labels
+#'         font = 3, cex_p_lbl = .75)                         # and text labels
 #'
 #' my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
 #'                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
 #' my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
 #'                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
-#' plot_fn(f_lbl = "nam", lbl_txt = my_txt,
-#'            col_pal = my_col, f_lwd = .5)
+#' plot_fn(f_lbl = "nam", p_lbl = "num",
+#'         lbl_txt = my_txt, col_pal = my_col, f_lwd = .5)
 #'
 #' ## Local values and custom color/txt settings:
 #' plot_fn(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
@@ -213,41 +221,14 @@
 #'            area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
 #'            col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 #'
-#' ## Plot versions:
-#' # (A) tree/single tree (nchar(by) == 2):
-#' #     3 versions:
-#' plot_fn(by = "cd", f_lbl = "def", col_pal = pal_mod) # by condition (freq boxes: hi mi fa cr)
-#' plot_fn(by = "dc", f_lbl = "def", col_pal = pal_mod) # by decision  (freq boxes: hi fa mi cr)
-#' plot_fn(by = "ac", f_lbl = "def", col_pal = pal_mod) # by accuracy  (freq boxes: hi cr fa mi)
-#'
-#' # (B) prism/double tree (nchar(by) == 4):
-#' #     6 (3 x 2) versions (+ 3 redundant ones):
-#' plot_fn(by = "cddc")  # v01 (default)
-#' plot_fn(by = "cdac")  # v02
-#' plot_fn(by = "cdcd")  # (+) Message
-#'
-#' plot_fn(by = "dccd")  # v03
-#' plot_fn(by = "dcac")  # v04
-#' plot_fn(by = "dcdc")  # (+) Message
-#'
-#' plot_fn(by = "accd")  # v05
-#' plot_fn(by = "acdc")  # v06
-#' plot_fn(by = "acac")  # (+) Message
-#'
 #' ## Other options:
-#'
-#' # area:
-#' plot_fn(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)
-#' plot_fn(area = "sq")  # squares (areas on each level sum to N)
-#'
 #' # scale (matters for scaled areas and small N):
 #' plot_fn(N = 4, prev = .2, sens = .7, spec = .8,
-#'            area = "sq", scale = "p")  # areas scaled by prob
+#'         area = "sq", scale = "p")  # areas scaled by prob
 #' plot_fn(N = 4, prev = .2, sens = .7, spec = .8,
-#'            area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
+#'         area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 #'
 #' ## Frequency boxes:
-#'
 #' # f_lbl:
 #' plot_fn(f_lbl = "abb")     # abbreviated freq names (variable names)
 #' plot_fn(f_lbl = "nam")     # only freq names
@@ -264,7 +245,6 @@
 #' plot_fn(f_lwd = .5)  # thinner lines
 #'
 #' ## Probability links:
-#'
 #' # Scale link widths (p_lwd & p_scale):
 #' plot_fn(p_lwd = 6, p_scale = TRUE)
 #' plot_fn(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
@@ -278,33 +258,23 @@
 #' plot_fn(p_lbl = "nam")     # only prob names
 #' plot_fn(p_lbl = "num")     # only numeric prob values
 #' plot_fn(p_lbl = "namnum")  # names and numeric prob values
-#' # plot_fn(p_lbl = "namnum", cex_p_lbl = .70)  # smaller prob labels
-#' # plot_fn(by = "cddc", p_lbl = "min")  # minimal labels
-#' # plot_fn(by = "cdac", p_lbl = "min")
-#' # plot_fn(by = "cddc", p_lbl = "mix")  # mix abbreviated names and numeric values
-#' # plot_fn(by = "cdac", p_lbl = "mix")
-#' # plot_fn(by = "cddc", p_lbl = "abb")  # abbreviated names
-#' # plot_fn(by = "cdac", p_lbl = "abb")
-#' # plot_fn(p_lbl = "any") # short name and value (abb = num)
 #'
 #' # arr_c:
 #' plot_fn(arr_c =  0)  # acc_c = 0: no arrows
 #' plot_fn(arr_c = -3)  # arr_c = -1 to -3: points at both ends
 #' plot_fn(arr_c = -2)  # point at far end
 #' plot_fn(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
-#' # plot_fn(arr_c = +3)  # V-shape arrows at both ends
-#' # plot_fn(arr_c = +6)  # arr_c = 4-6: T-shape arrows
+#'
+#' # Hide links to joint prob:
+#' plot_fn(by = "cddc", joint_p = FALSE)
+#' plot_fn(by = "cd", joint_p = FALSE)
 #'
 #' ## Plain plot versions:
 #' plot_fn(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
 #'            title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
 #' plot_fn(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
-#' plot_fn(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 #'
-#' plot_fn(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
-#' plot_fn(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
-#'
-#' plot_fn(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
+#' plot_fn(area = "sq", f_lbl = "nam", p_lbl = "num", col_pal = pal_rgb)
 #' plot_fn(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Suggested combinations:
@@ -313,9 +283,9 @@
 #' plot_fn(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
 #'            f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
 #'
-#' plot_fn(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
+#' plot_fn(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF, col_pal = pal_bw)
 #' plot_fn(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
-#' plot_fn(area = "sq", f_lbl = "namnum", p_lbl = "mix", f_lwd = .5, col_pal = pal_kn)
+#' plot_fn(area = "sq", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_rgb)
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
@@ -370,6 +340,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
                     p_lbl = "mix",      # prob labels: "def", "nam"/"num"/"namnum", "abb"/"mix"/"min", or NA/NULL/"no" to hide prob labels.
                     # p_lty,            # lty of prob links: set to default = 1 (currently not used)
                     arr_c = NA,         # arrow code (-3 to +6). Set to defaults of -2 or 0 (by area, below).
+                    joint_p = TRUE,     # show diagonal links from N (center) to joint probabilities (in 4 corners)?
 
                     # Text and color:
                     lbl_txt = txt,      # labels and text elements
@@ -665,7 +636,7 @@ plot_fn <- function(prev = num$prev,    # probabilities
   # two_to_one <- 2.0
 
   # b_w <- comp_lx(b_h, mf = two_to_one, corf = scale_x)  # a. two_to_one + corrected for aspect ratio
-  # b_w <- comp_lx(b_h, mf = 3.0, corf = scale_x)         # x. customized width (+++ here now +++)
+  # b_w <- comp_lx(b_h, mf = 3.0, corf = scale_x)         # x. customized width
 
   # } # if ( !is.na(by_bot) ) etc.
 
@@ -1359,17 +1330,9 @@ plot_fn <- function(prev = num$prev,    # probabilities
     if (by_bot == "cd" || by_bot == "dc" || (by_bot == "ac")) {
 
       # link to 2 default boxes:
-      plot_link(box_1, box_4_1,  4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+      plot_link(box_1, box_4_1,  4, 2, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3,
                 cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
-      plot_link(box_1, box_4_2,  2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL, lbl_off = 4/4,
-                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
-
-    } else {  # link to 4 boxes (dec_pos / dec_neg) vs. (dec_cor / dec_err):
-
-      # link to 2 default boxes:
-      plot_link(box_1, box_4_1,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2,
-                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
-      plot_link(box_1, box_4_2,  3, 1, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 2, lbl_off = 4/4,
+      plot_link(box_1, box_4_2,  2, 4, cur_prob = prob, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = 3, # lbl_off = 4/4,
                 cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
 
     }
@@ -1378,10 +1341,9 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
 
   ## Plot diagonal links of joint probabilities (from N to joint frequencies): -----
+  # +++ here now +++
 
-  show_joint_prob <- TRUE
-
-  if (show_joint_prob){
+  if (joint_p){
 
     # compute joint probabilities:
     n_digits <- 3
@@ -1391,26 +1353,49 @@ plot_fn <- function(prev = num$prev,    # probabilities
     p_cr <- as_pc(round(freq$cr/freq$N, n_digits), 1)
 
     # create labels:
-    if (p_lbl == "def"){
+    p_hi_lbl <- ""  # initialize
+    p_mi_lbl <- ""
+    p_fa_lbl <- ""
+    p_cr_lbl <- ""
 
-      p_hi_lbl <- paste0("p(hi) =", p_hi, "%")
-      p_mi_lbl <- paste0("p(mi) =", p_mi, "%")
-      p_fa_lbl <- paste0("p(fa) =", p_fa, "%")
-      p_cr_lbl <- paste0("p(cr) =", p_cr, "%")
+    if (!is.na(p_lbl)){
 
-    } else if (p_lbl == "namnum"){
+      if (p_lbl == "abb"){
 
-      p_hi_lbl <- paste0("p(", txt$hi_lbl, ")\n = ", p_hi, "%")
-      p_mi_lbl <- paste0("p(", txt$mi_lbl, ")\n = ", p_mi, "%")
-      p_fa_lbl <- paste0("p(", txt$fa_lbl, ")\n = ", p_fa, "%")
-      p_cr_lbl <- paste0("p(", txt$cr_lbl, ")\n = ", p_cr, "%")
+        p_hi_lbl <- paste0("p(hi)")
+        p_mi_lbl <- paste0("p(mi)")
+        p_fa_lbl <- paste0("p(fa)")
+        p_cr_lbl <- paste0("p(cr)")
 
-    } else { # default: percentages only
+      } else if (p_lbl == "def"){
 
-      p_hi_lbl <- paste0(p_hi, "%")
-      p_mi_lbl <- paste0(p_mi, "%")
-      p_fa_lbl <- paste0(p_fa, "%")
-      p_cr_lbl <- paste0(p_cr, "%")
+        p_hi_lbl <- paste0("p(hi) =", p_hi, "%")
+        p_mi_lbl <- paste0("p(mi) =", p_mi, "%")
+        p_fa_lbl <- paste0("p(fa) =", p_fa, "%")
+        p_cr_lbl <- paste0("p(cr) =", p_cr, "%")
+
+      } else if (p_lbl == "nam"){
+
+        p_hi_lbl <- paste0("p(", txt$hi_lbl, ")")
+        p_mi_lbl <- paste0("p(", txt$mi_lbl, ")")
+        p_fa_lbl <- paste0("p(", txt$fa_lbl, ")")
+        p_cr_lbl <- paste0("p(", txt$cr_lbl, ")")
+
+      } else if (p_lbl == "namnum"){
+
+        p_hi_lbl <- paste0("p(", txt$hi_lbl, ")\n = ", p_hi, "%")
+        p_mi_lbl <- paste0("p(", txt$mi_lbl, ")\n = ", p_mi, "%")
+        p_fa_lbl <- paste0("p(", txt$fa_lbl, ")\n = ", p_fa, "%")
+        p_cr_lbl <- paste0("p(", txt$cr_lbl, ")\n = ", p_cr, "%")
+
+      } else if (p_lbl == "num" | p_lbl == "min" | p_lbl == "mix"){ # percentages only:
+
+        p_hi_lbl <- paste0(p_hi, "%")
+        p_mi_lbl <- paste0(p_mi, "%")
+        p_fa_lbl <- paste0(p_fa, "%")
+        p_cr_lbl <- paste0(p_cr, "%")
+
+      }
 
     }
 
@@ -1422,7 +1407,6 @@ plot_fn <- function(prev = num$prev,    # probabilities
       plot_link(box_1, box_mi, 6, 8, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
                 cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
 
-      # Handle fnet cases:
       if ( !is.na(by_bot) ) {  # Horizontal marginal dimension exists:
 
         if (by_bot == "dc"){
@@ -1450,11 +1434,77 @@ plot_fn <- function(prev = num$prev,    # probabilities
 
       } # if ( !is.na(by_bot) ) end.
 
-    } # if (by_top == "cd") end.
+    } else if (by_top == "dc"){
 
-    # +++ here now +++
+      plot_link(box_1, box_hi, 7, 5, lbl = p_hi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+      plot_link(box_1, box_fa, 6, 8, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
 
-  } # if (show_joint_p) end.
+      if ( !is.na(by_bot) ) {  # Horizontal marginal dimension exists:
+
+        if (by_bot == "cd"){
+
+          plot_link(box_1, box_mi, 8, 6, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+          plot_link(box_1, box_cr, 5, 7, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+        } else if (by_bot == "ac"){
+
+          plot_link(box_1, box_mi, 5, 7, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+          plot_link(box_1, box_cr, 8, 6, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+        } # if (by_bot ==...) end.
+
+      } else { # if is.na(by_bot) ) (i.e., by = "dc" only):
+
+        plot_link(box_1, box_mi, 8, 6, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                  cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+        plot_link(box_1, box_cr, 5, 7, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                  cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+      } # if ( !is.na(by_bot) ) end.
+
+    } else if (by_top == "ac"){
+
+      plot_link(box_1, box_hi, 7, 5, lbl = p_hi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+      plot_link(box_1, box_cr, 6, 8, lbl = p_cr_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+      if ( !is.na(by_bot) ) {  # Horizontal marginal dimension exists:
+
+        if (by_bot == "cd"){
+
+          plot_link(box_1, box_fa, 5, 7, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+          plot_link(box_1, box_mi, 8, 6, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+        } else if (by_bot == "dc"){
+
+          plot_link(box_1, box_fa, 8, 6, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+          plot_link(box_1, box_mi, 5, 7, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                    cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+        } # if (by_bot ==...) end.
+
+      } else { # if is.na(by_bot) ) (i.e., by = "ac" only):
+
+        plot_link(box_1, box_fa, 5, 7, lbl = p_fa_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                  cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+        plot_link(box_1, box_mi, 8, 6, lbl = p_mi_lbl, arr_code = arr_c, lbl_type = p_lbl, lbl_pos = NULL,
+                  cex = cex_p_lbl, col_pal = col_pal, p_lwd = p_lwd, p_scale = p_scale, ...)  # Allow ...!
+
+      } # if ( !is.na(by_bot) ) end.
+
+    } # if (by_top == ...) end.
+
+  } # if (joint_p) end.
 
 
   ## (C) Plot other stuff: ------
