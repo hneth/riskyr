@@ -1,5 +1,5 @@
 ## riskyr_class.R | riskyr
-## 2018 12 20
+## 2021 01 04
 ## Define riskyr class and corresponding methods
 ## -----------------------------------------------
 
@@ -681,11 +681,13 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
   # Test type argument:
   if (!type %in% c(#
     # plot_prism:
-    "prism", "fprism", "tree", "ftree", "net", "fnet", "network",
+    "prism", "fprism", "tree", "ftree", "dtree", "double tree",
+    # plot_fnet:
+    "net", "fnet", "network", "fnetwork",
     # plot_area:
-    "area", "farea", "mosaic",
+    "area", "farea", "mosaic", "unit square",
     # plot_tab:
-    "tab", "table", "ftab", "ctab",
+    "tab", "table", "ftab", "ctab", "matrix",
     # plot_icons:
     "icon", "icons", "iconarray",
     # plot_bar:
@@ -761,9 +763,10 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 
   } # if (type == "tab")
 
-  ## 2. Area / mosaic plot:
+  ## 2. Area / mosaic plot / unit square:
   if ((substr(type, 1, 4) == "area") || (type == "farea") ||
-      (substr(type, 1, 6) == "mosaic")) {  # "mosaic"
+      (substr(type, 1, 6) == "mosaic") ||
+      (substr(type, 1, 4) == "unit")) {  # "mosaic"
 
     plot_area(prev = x$prev,
               sens = x$sens, mirt = NA,
@@ -792,10 +795,11 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 
   } #  if (type == "icon")
 
-  ## 4. Prism plot:
+  ## 4a. Prism plot:
   if ((substr(type, 1, 5) == "prism") || (substr(type, 1, 6) == "fprism") ||
       (substr(type, 1, 3) == "net")   || (substr(type, 1, 4) == "fnet")   ||
-      (substr(type, 1, 4) == "tree")  || (substr(type, 1, 5) == "ftree")) {
+      (substr(type, 1, 4) == "tree")  || (substr(type, 1, 5) == "ftree") ||
+      (substr(type, 1, 6) == "double")  || (substr(type, 1, 5) == "dtree")) {
 
     plot_prism(prev = x$prev,
                sens = x$sens, mirt = NA,
@@ -808,6 +812,22 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
     )
 
   } # if (type == "prism")
+
+  ## 4b. Frequency net plot:
+  if ((type == "frequency net") ||
+      (substr(type, 1, 3) == "net") || (substr(type, 1, 4) == "fnet")) {
+
+    plot_fnet(prev = x$prev,
+              sens = x$sens, mirt = NA,
+              spec = x$spec, fart = NA,
+              N = x$N,
+              # Options:
+              lbl_txt = x_txt,
+              title_lbl = x$scen_lbl,
+              ...
+    )
+
+  } # if (type == "fnet")
 
   ## 5. Bar plot / frequency bars:
   if ((substr(type, 1, 3) == "bar") || (substr(type, 1, 4) == "fbar")) {
