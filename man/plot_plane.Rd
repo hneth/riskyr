@@ -26,7 +26,7 @@ plot_plane(
   p_lbl = "def",
   cex_lbl = 0.85,
   col_pal = pal,
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -122,7 +122,7 @@ Default: \code{cex_lbl = .85}.}
 Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean value for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters.}
 }
