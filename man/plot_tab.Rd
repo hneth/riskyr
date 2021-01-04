@@ -32,7 +32,7 @@ plot_tab(
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -191,7 +191,7 @@ Default: \code{cex_p_lbl = cex_lbl - .05}.}
 Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters.}
 }
@@ -254,7 +254,7 @@ plot_tab(f_lbl = "namnum", f_lbl_sep = " = ",
 ## Misc. options:
 plot_tab(area = "sq")        # area: square
 plot_tab(title_lbl = "")     # no titles
-plot_tab(mar_notes = FALSE)  # no margin notes
+plot_tab(mar_notes = TRUE)   # show margin notes
 
 plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")    # gaps
 plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps

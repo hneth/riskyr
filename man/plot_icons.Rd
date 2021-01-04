@@ -30,7 +30,7 @@ plot_icons(
   cex_lbl = 0.9,
   col_pal = pal,
   transparency = 0.5,
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -167,7 +167,7 @@ Default: \code{col_pal = \link{pal}}.}
 (not for \code{arr_type = "array"} and \code{"shuffledarray"}).}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters.}
 }
@@ -239,7 +239,7 @@ plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
 
 # Text and color options:
 plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
-           title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = FALSE)
+           title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = TRUE)
 
 plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
            title_lbl = "Green vs. red", col_pal = pal_rgb, transparency = .5)

@@ -27,7 +27,7 @@ plot_prism(
   cex_lbl = 0.9,
   cex_p_lbl = NA,
   col_pal = pal,
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -169,7 +169,7 @@ Default: \code{cex_p_lbl = cex_lbl - .05}.}
 Default: \code{col_pal = \link{pal}}.}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters.}
 }

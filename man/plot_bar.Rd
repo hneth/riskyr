@@ -21,7 +21,7 @@ plot_bar(
   lbl_txt = txt,
   title_lbl = txt$scen_lbl,
   col_pal = pal,
-  mar_notes = TRUE,
+  mar_notes = FALSE,
   ...
 )
 }
@@ -112,7 +112,7 @@ Default: \code{title_lbl = txt$scen_lbl}.}
 Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).}
 
 \item{mar_notes}{Boolean option for showing margin notes.
-Default: \code{mar_notes = TRUE}.}
+Default: \code{mar_notes = FALSE}.}
 
 \item{...}{Other (graphical) parameters
 (e.g., \code{cex}, \code{font}, \code{lty}, etc.).}
