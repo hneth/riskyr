@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please only edit the latter (.Rmd) file! -->
+<!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
 <!-- Used status badges: -->
 
 [![CRAN\_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
@@ -16,8 +16,7 @@
 -->
 <!-- riskyr logo: -->
 
-riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
-=======================================================================================
+# riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
 <!-- 
@@ -31,8 +30,8 @@ riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "
 
 ### A toolbox for rendering risk literacy more transparent
 
-Risk-related information — like the prevalence of conditions and the
-sensitivity and specificity of diagnostic tests or treatment decisions —
+Risk-related information – like the prevalence of conditions and the
+sensitivity and specificity of diagnostic tests or treatment decisions –
 can be expressed in terms of probabilities or frequencies. By providing
 a toolbox of methods and metrics, **riskyr** computes, translates, and
 visualizes risk-related information in a variety of ways. Offering
@@ -40,8 +39,7 @@ multiple complementary perspectives on the interplay between key
 parameters renders teaching and training of risk literacy more
 transparent.
 
-Motivation
-----------
+## Motivation
 
 > Solving a problem simply means representing it <br> so as to make the
 > solution transparent. (H.A. Simon)[1]
@@ -94,8 +92,7 @@ customization options, users can explore and design representations of
 risk-related information that fit to different tasks and meet their
 personal needs and goals.
 
-Getting riskyr
---------------
+## Getting riskyr
 
 ### Installation
 
@@ -125,8 +122,7 @@ The current development version can be installed from its
     -   current development version:
         <a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a>
 
-Quick start guide
------------------
+## Quick start guide
 
 <!-- 1: Defining a scenario -->
 
@@ -288,7 +284,7 @@ key probabilities as edges linking the nodes:
     # => internally calls plot_prism(...) with many additional arguments:
     # plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
 
-![Prism plot](inst/pix/README-ex1_prism-1.png)
+![Prism plot](inst/pix/README-ex1-prism-1.png)
 
 #### Tree diagram
 
@@ -306,7 +302,7 @@ For instance, the following command plots a frequency tree by decisions:
 
     plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 
-![Tree diagram](inst/pix/README-ex1_tree-1.png)
+![Tree diagram](inst/pix/README-ex1-tree-1.png)
 
 This particular tree splits the population of `N = 1000` individuals
 into two subgroups *by decision* (`by = "dc"`) and contains the answer
@@ -329,6 +325,22 @@ diagram makes it easier to understand the decomposition of the
 population into subgroups and to see which frequencies are required to
 answer a particular question.
 
+#### Frequency net
+
+A new type of visualization combines elements from 2x2 tables with those
+of tree or double tree diagrams. The *frequency net* (Binder et al.,
+2020) is similar to a 2x2 table insofar as its perspectives (shown by
+arranging marginal frequencies in a vertical vs. horizontal fashion) do
+not suggest an order or dependency (in contrast to trees or mosaic
+plots). Additionally, the frequency net allows showing 3 kinds of
+(*marginal*, *conditional*, and *joint*) probabilities:
+
+    plot(hustosis, type = "fnet", by = "cddc")  # plot frequency net
+
+![Frequency net](inst/pix/README-ex1-fnet-1.png)
+
+See the `plot_fnet()` function for options and details.
+
 #### Icon array
 
 An icon array shows the classification result for each of `N = 1000`
@@ -336,7 +348,7 @@ individuals in our population:
 
     plot(hustosis, type = "icons")   # plot an icon array 
 
-![Icon array](inst/pix/README-ex1_icons-1.png)
+![Icon array](inst/pix/README-ex1-icons-1.png)
 
 While this particular icon array is highly regular (as both the icons
 and classification types are ordered), **riskyr** provides many
@@ -353,7 +365,7 @@ size of rectangles (see `?plot_area` for details and examples):
 
     plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 
-![Area/mosaic plot](inst/pix/README-ex1_area-1.png)
+![Area/mosaic plot](inst/pix/README-ex1-area-1.png)
 
 #### Table plot
 
@@ -362,9 +374,9 @@ probabilities, we can plot basic scenario information as a 2-by-2
 confusion (or contingency) table (see `?plot_tab` for details and
 examples):
 
-    plot(hustosis, type = "tab")  # plot 2x2 confusion table (by = "cddc") 
+    plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
 
-![Table plot](inst/pix/README-ex1_tab-1.png)
+![Table plot](inst/pix/README-ex1-tab-1.png)
 
 #### Bar plot
 
@@ -373,7 +385,7 @@ bars (see `?plot_bar` for details and examples):
 
     plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
 
-![Bar plot](inst/pix/README-ex1_bar-1.png)
+![Bar plot](inst/pix/README-ex1-bar-1.png)
 
 #### Curves
 
@@ -384,7 +396,7 @@ function of another (e.g., the condition’s prevalence `prev`, see
 
     plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 
-![Probability curves](inst/pix/README-ex1_curve-1.png)
+![Probability curves](inst/pix/README-ex1-curve-1.png)
 
 #### Planes
 
@@ -396,7 +408,7 @@ details and examples):
 
     plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 
-![Probability plane](inst/pix/README-ex1_plane-1.png)
+![Probability plane](inst/pix/README-ex1-plane-1.png)
 
 The L-shape of this plane reveals a real problem with our current test:
 Given a prevalence of 4% for hustosis in our target population, the
@@ -481,7 +493,7 @@ relative frequencies (using the `area = "sq"` argument):
     plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
          f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 
-![Prism/tree plot (with scaled squares)](inst/pix/README-ex2_tree-1.png)
+![Prism/tree plot (with scaled squares)](inst/pix/README-ex2-tree-1.png)
 
 The prism plot (or network diagram) combines 2 tree diagrams to
 simultaneously provide two perspectives on a population (see Wassner et
@@ -496,25 +508,25 @@ number of people in the corresponding subgroup:
          p_lbl = "num")                                  # numeric probability labels
 
 ![Prism plot (with scaled horizontal
-rectangles)](inst/pix/README-ex2_prism_hr-1.png)
+rectangles)](inst/pix/README-ex2-prism-hr-1.png)
 
 #### Icon array
 
     plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
 
-<!-- ![](inst/pix/README-ex2_icons-1.png) -->
+<!-- ![](inst/pix/README-ex2-icons-1.png) -->
 
 #### Area plot
 
     plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
 
-<!-- ![](inst/pix/README-ex2_area-1.png) -->
+<!-- ![](inst/pix/README-ex2-area-1.png) -->
 
 #### Table plot
 
     plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
 
-<!-- ![](inst/pix/README-ex2_tab-1.png) -->
+<!-- ![](inst/pix/README-ex2-tab-1.png) -->
 
 #### Curves
 
@@ -523,7 +535,7 @@ probabilities as a function of prevalence:
 
     plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 
-<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png) -->
+<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2-curve-1.png) -->
 
 Adding the argument `what = "all"` also shows the proportion of positive
 decisions (`ppod`) and the decision’s overall accuracy (`accu`) as a
@@ -537,14 +549,13 @@ function of sensitivity and specificity (for a given prevalence):
 
     plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 
-<!-- ![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png) -->
+<!-- ![Probability plane (NPV)](inst/pix/README-ex2-plane-1.png) -->
 
 Hopefully, this brief overview managed to whet your appetite for visual
 exploration. If so, call `riskyr.guide()` for viewing the package
 vignettes and obtaining additional information.
 
-About
------
+## About
 
 <!-- uni.kn logo and link to SPDS: -->
 <!-- ![](./inst/pix/uniKn_logo.png) -->
@@ -639,6 +650,11 @@ information.
     the prostate-cancer screening controversy. *Psychological Science*,
     *23*, 547–553.
 
+-   Binder, K., Krauss, S., and Wiesner, P. (2020). A new visualization
+    for probabilistic situations containing two binary events: The
+    frequency net. *Frontiers in Psychology*, *11*, 750. doi:
+    [10.3389/fpsyg.2020.00750](https://doi.org/10.3389/fpsyg.2020.00750)
+
 -   Garcia-Retamero, R., & Cokely, E. T. (2017). Designing visual aids
     that promote risk literacy: A systematic review of health research
     and evidence-based design heuristics. *Human Factors*, *59*,
@@ -708,7 +724,7 @@ information.
 
 <!-- Update: -->
 
-(Updated 2020-10-09 by [hn](https://neth.de).)
+(Updated 2021-01-04 by [hn](https://neth.de).)
 
 <!-- eof -->
 
