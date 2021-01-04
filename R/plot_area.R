@@ -1,5 +1,5 @@
 ## plot_area.R | riskyr
-## 2019 01 23
+## 2021 01 04
 ## Plot area diagram (replacing plot_mosaic.R).
 ## -----------------------------------------------
 
@@ -182,7 +182,7 @@
 #' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes  Boolean option for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters.
 #'
@@ -351,7 +351,7 @@ plot_area <- function(prev = num$prev,    # probabilities
                       col_pal = pal,      # color palette
 
                       ## Generic options:
-                      mar_notes = TRUE,   # show margin notes?
+                      mar_notes = FALSE,  # show margin notes?
                       ...                 # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 

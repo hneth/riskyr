@@ -1,5 +1,5 @@
 ## plot_bar.R | riskyr
-## 2019 01 04
+## 2021 01 04
 ## -----------------------------------------------
 
 ## Plot bar (a family of) charts that express freq types as lengths ------
@@ -140,7 +140,7 @@
 #' Default: \code{col_pal = \link{pal}} (see \code{\link{init_pal}}).
 #'
 #' @param mar_notes  Boolean option for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters
 #' (e.g., \code{cex}, \code{font}, \code{lty}, etc.).
@@ -246,7 +246,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      col_pal = pal,             # color palette
 
                      # Generic options:
-                     mar_notes = TRUE,   # show margin notes?
+                     mar_notes = FALSE,    # show margin notes?
                      # show_freq = TRUE,   # show essential freq values on plot margin
                      # show_prob = TRUE,   # show essential prob value on plot margin (NOT help_line between bars)
                      # show_accu = TRUE,   # show (exact OR freq-based) accuracy metrics on plot margin

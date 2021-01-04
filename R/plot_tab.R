@@ -1,5 +1,5 @@
 ## plot_tab.R | riskyr
-## 2019 07 20
+## 2021 01 04
 ## Plot contingency/frequency table
 ## (based on plot_area.R).
 ## -----------------------------------------------
@@ -179,7 +179,7 @@
 #' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes Boolean option for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters.
 #'
@@ -222,7 +222,7 @@
 #' ## Misc. options:
 #' plot_tab(area = "sq")        # area: square
 #' plot_tab(title_lbl = "")     # no titles
-#' plot_tab(mar_notes = FALSE)  # no margin notes
+#' plot_tab(mar_notes = TRUE)   # show margin notes
 #'
 #' plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")    # gaps
 #' plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps
@@ -331,7 +331,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
                      col_pal = pal,      # color palette
 
                      # Generic options:
-                     mar_notes = TRUE,   # show margin notes?
+                     mar_notes = FALSE,  # show margin notes?
                      ...                 # other (graphical) parameters (passed to plot_line and plot_ftype_label)
 ) {
 
@@ -2097,7 +2097,7 @@ plot_tab <- function(prev = num$prev,    # probabilities
 # ## Misc. options:
 # plot_tab(area = "sq")        # area: square
 # plot_tab(title_lbl = "")     # no titles
-# plot_tab(mar_notes = FALSE)  # no margin notes
+# plot_tab(mar_notes = TRUE)   # show margin notes
 #
 # plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")    # gaps
 # plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps

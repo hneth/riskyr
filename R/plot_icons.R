@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2020 10 01
+## 2021 01 04
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -182,7 +182,7 @@
 #' (not for \code{arr_type = "array"} and \code{"shuffledarray"}).
 #'
 #' @param mar_notes  Boolean option for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ...  Other (graphical) parameters.
 #'
@@ -235,7 +235,7 @@
 #'
 #' # Text and color options:
 #' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
-#'            title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = FALSE)
+#'            title_lbl = "", lbl_txt = txt_TF, col_pal = pal_vir, mar_notes = TRUE)
 #'
 #' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
 #'            title_lbl = "Green vs. red", col_pal = pal_rgb, transparency = .5)
@@ -299,10 +299,10 @@ plot_icons <- function(prev = num$prev,             # probabilities
                        # icon_brd_col = col_pal["brd"],   # border color of icons [was: grey(.10, .50)]
 
                        # Generic options:
-                       mar_notes = TRUE,   # show margin notes?
-                       # show_accu = TRUE,   # Option for showing current accuracy metrics.
+                       mar_notes = FALSE,   # show margin notes?
+                       # show_accu = TRUE,  # Option for showing current accuracy metrics.
                        # w_acc = 0.50,
-                       ...                 # other (graphical) parameters (passed to plot_link and plot_ftype_label)
+                       ...                  # other (graphical) parameters (passed to plot_link and plot_ftype_label)
 
 ) {
 
