@@ -4,10 +4,7 @@
 ## See doi: 10.3389/fpsyg.2020.00750
 ## -----------------------------------------------
 
-# This function complements plot_prism.R and the older functions
-# - plot_tree.R: plot single tree
-# - plot_fnet.R: plot double tree
-# (and removes dependency on 'diagram' pkg).
+# This function is based on plot_prism.R.
 
 ## plot_fnet: Documentation ----------
 
@@ -38,10 +35,10 @@
 #' Additionally, the frequency net allows showing
 #' 3 kinds of (marginal, conditional, and joint) probabilities.
 #'
-#' See Binder K, Krauss S and Wiesner P (2020).
+#' See the article by Binder K, Krauss S and Wiesner P (2020).
 #' A new visualization for probabilistic situations containing two binary events:
-#' The frequency net. Front. Psychol. 11:750.
-#' doi: 10.3389/fpsyg.2020.00750 for analysis and details.
+#' The frequency net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
+#' for analysis and details.
 #'
 #' @param prev  The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
