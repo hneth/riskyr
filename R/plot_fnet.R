@@ -306,9 +306,9 @@
 #' plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_rgb)
 #'
 #' @source
-#' Binder K, Krauss S and Wiesner P (2020).
-#' A new visualization for probabilistic situations containing two binary events:
-#' The frequency net. Front. Psychol. 11:750. doi: 10.3389/fpsyg.2020.00750
+#' Binder, K., Krauss, S., and Wiesner, P. (2020).
+#' A new visualization for probabilistic situations containing two binary events: The frequency net.
+#' Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
 #'
 #' @importFrom graphics par
 #' @importFrom graphics plot
