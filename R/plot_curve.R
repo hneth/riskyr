@@ -1,5 +1,5 @@
 ## plot_curve.R | riskyr
-## 2019 07 22
+## 2021 01 04
 ## plot_curve: Plots different probabilities
 ## (e.g., PPV, NPV, ppod, acc) as a function
 ## of prevalence (for given sens and spec).
@@ -114,7 +114,7 @@
 #' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes  Boolean value for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ... Other (graphical) parameters.
 #'
@@ -220,7 +220,7 @@ plot_curve <- function(prev = num$prev,  # probabilities (3 essential, 2 optiona
                        col_pal = pal,      # color palette
 
                        # Generic options:
-                       mar_notes = TRUE,   # show margin notes?
+                       mar_notes = FALSE,  # show margin notes?
                        ...                 # other (graphical) parameters
 ) {
 

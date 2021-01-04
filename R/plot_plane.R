@@ -1,5 +1,5 @@
 ## plot_plane.R | riskyr
-## 2019 05 06
+## 2021 01 04
 ## Plot a 3d-plane of some prob (e.g., PPV or NPV)
 ## as a function of both sens and spec (for given prev).
 ## (i.e., generalization of the former plot_PV3d.R).
@@ -115,7 +115,7 @@
 #' Default: \code{col_pal = \link{pal}}.
 #'
 #' @param mar_notes  Boolean value for showing margin notes.
-#' Default: \code{mar_notes = TRUE}.
+#' Default: \code{mar_notes = FALSE}.
 #'
 #' @param ... Other (graphical) parameters.
 #'
@@ -205,8 +205,8 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        col_pal = pal,   # color palette
 
                        # Generic options:
-                       mar_notes = TRUE,  # show margin notes?
-                       ...                # other (graphical) parameters
+                       mar_notes = FALSE,  # show margin notes?
+                       ...                 # other (graphical) parameters
 ) {
 
   ## Prepare parameters: ----------
