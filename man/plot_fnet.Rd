@@ -4,9 +4,9 @@
 \alias{plot_fnet}
 \title{Plot frequency net diagram of frequencies and probabilities.}
 \source{
-Binder K, Krauss S and Wiesner P (2020).
-A new visualization for probabilistic situations containing two binary events:
-The frequency net. Front. Psychol. 11:750. doi: 10.3389/fpsyg.2020.00750
+Binder, K., Krauss, S., and Wiesner, P. (2020).
+A new visualization for probabilistic situations containing two binary events: The frequency net.
+Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
 }
 \usage{
 plot_fnet(
@@ -347,7 +347,6 @@ Other visualization functions:
 \code{\link{plot_area}()},
 \code{\link{plot_bar}()},
 \code{\link{plot_curve}()},
-\code{\link{plot_fn}()},
 \code{\link{plot_icons}()},
 \code{\link{plot_mosaic}()},
 \code{\link{plot_plane}()},

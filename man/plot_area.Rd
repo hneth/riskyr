@@ -328,7 +328,6 @@ Other visualization functions:
 \code{\link{plot_bar}()},
 \code{\link{plot_curve}()},
 \code{\link{plot_fnet}()},
-\code{\link{plot_fn}()},
 \code{\link{plot_icons}()},
 \code{\link{plot_mosaic}()},
 \code{\link{plot_plane}()},
