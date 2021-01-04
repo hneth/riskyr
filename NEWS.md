@@ -9,35 +9,36 @@ Log of changes since last release:
 
 ## Major changes
 
-- Added `plot_fn()` for plotting _frequency nets_ (Binder et al., 2020). 
+- Added `plot_fnet()` for plotting _frequency nets_ (Binder et al., 2020). 
+
 - Computing key metrics based on 2x2 matrix of frequency counts (see `comp_metrics.R`). 
 
 ## Minor changes
 
 ### Changes to existing visualization functions 
 
-- New options for `plot_curve` [2019-01]:  
+- New options for `plot_curve()` [2019-01]:  
 Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
 Thus, setting the `prev` argument to either `NA` or to a vector of several probabilities is now supported. 
 Setting the new `prev_range` argument to a range within `c(0, 1)` allows zooming into more specific ranges of `prev` values (on x-axis).  
 
-- New options for `plot_plane` [2019-01]:  
+- New options for `plot_plane()` [2019-01]:  
 Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. 
 Thus, setting the `sens` and `spec` arguments to either `NA` or to a vector of several probabilities is now supported. 
 Setting the new `sens_range` and `spec_range` arguments to ranges within `c(0, 1)` allows zooming into more specific ranges of `sens` values (on x-axis) and `spec` values (on y-axis). 
 
-- New options for `plot_prism` [2019-01]:  
+- New options for `plot_prism()` [2019-01]:  
 Using the new `p_lwd` and `p_scale` arguments allows scaling the widths of probability links by current probability values.  
 
 ### Other changes
 
 - `data` [2019-07]:  
-Remove data files `df_scenarios.RData` and `df_scenarios.csv`, as they were redundant to `df_scenarios.rda` (loaded from `\data`). 
+Removed data files `df_scenarios.RData` and `df_scenarios.csv`, as they were redundant to `df_scenarios.rda` (loaded from `\data`). 
 
-- `make_cond_lbl` [2019-01]:  
+- `make_cond_lbl()` [2019-01]:  
 The condition label now allows for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
 
-- `is_prob_range` [2019-01]:
+- `is_prob_range()` [2019-01]:
 Utility function to verify a range of 2 probability values (to check new arguments of `plot_curve` and `plot_plane`).  
 
 
@@ -54,8 +55,11 @@ Utility function to verify a range of 2 probability values (to check new argumen
 
 ### General changes
 
-- Change default arguments for `plot_area` and `plot_tab` [2019-01]:   
-Change default settings from  `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for riskyrApp).  
+- Changed default setting of `mar_notes` in all plotting functions [2021-01]: 
+Using `mar_notes = FALSE` as those details are not needed and can be distracting in visualizations. 
+
+- Change default arguments for `plot_area()` and `plot_tab()` [2019-01]:   
+Change default settings from `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for riskyrApp).  
 
 - Changes to color palettes [2019-01]:  
 Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
