@@ -1,7 +1,7 @@
 Package: riskyr
 Type: Package
 Title: Rendering Risk Literacy more Transparent
-Version: 0.2.0.9031
+Version: 0.2.0.9032
 Date: 2021-01-04
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn", comment = c(ORCID = "0000-0001-5427-3141")), 
@@ -42,12 +42,11 @@ Collate: 'comp_util.R'
          'plot_area.R'
          'plot_tab.R'
          'plot_prism.R'
+         'plot_fnet.R'
          'plot_bar.R' 
          'plot_icons.R'
          'plot_curve.R' 
          'plot_plane.R' 
-         'plot_fnet.R'
-         'plot_fn.R'
          'plot_tree.R'
          'plot_mosaic.R'
          'data.R'
