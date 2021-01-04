@@ -211,7 +211,7 @@ as its arguments:
 
     hustosis <- riskyr(scen_lbl = "Example", 
                        cond_lbl = "Hustosis",
-                       dec_lbl = "Screening test",
+                       dec_lbl = "Screening",
                        popu_lbl = "Sample", 
                        N = 1000,  # population size
                        prev = .04, sens = .80, spec = (1 - .05)  # 3 probabilities
@@ -256,7 +256,7 @@ scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and
 
     hustosis_2 <- riskyr(scen_lbl = "Example", 
                          cond_lbl = "Hustosis",
-                         dec_lbl = "Screening test",
+                         dec_lbl = "Screening",
                          popu_lbl = "Sample", 
                          hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
                          )
@@ -335,7 +335,8 @@ not suggest an order or dependency (in contrast to trees or mosaic
 plots). Additionally, the frequency net allows showing 3 kinds of
 (*marginal*, *conditional*, and *joint*) probabilities:
 
-    plot(hustosis, type = "fnet", by = "cddc")  # plot frequency net
+    plot(hustosis, type = "fnet", by = "cddc",
+         f_lbl = "namnum")  # plot frequency net
 
 ![Frequency net](inst/pix/README-ex1-fnet-1.png)
 
@@ -509,6 +510,22 @@ number of people in the corresponding subgroup:
 
 ![Prism plot (with scaled horizontal
 rectangles)](inst/pix/README-ex2-prism-hr-1.png)
+
+#### Frequency net
+
+Just like the 2x2 table, area plot, and prism plot, the frequency net
+allows selecting two out of three perspectives. Additionally, the shape
+and size of the frequency boxes can be adjusted by using the
+`area = "sq"` option. The following example shows a frequency net by
+condition and accuracy (`by = "cdac"`) without the joint probabilities,
+with custom settings for labels, links, and colors:
+
+    plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
+         area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
+         f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
+
+![Frequency net (with custom perspective and
+options)](inst/pix/README-ex2-fnet-1.png)
 
 #### Icon array
 
