@@ -2,7 +2,12 @@
 % Please edit documentation in R/plot_fnet.R
 \name{plot_fnet}
 \alias{plot_fnet}
-\title{Plot a network diagram of frequencies and probabilities.}
+\title{Plot frequency net diagram of frequencies and probabilities.}
+\source{
+Binder K, Krauss S and Wiesner P (2020).
+A new visualization for probabilistic situations containing two binary events:
+The frequency net. Front. Psychol. 11:750. doi: 10.3389/fpsyg.2020.00750
+}
 \usage{
 plot_fnet(
   prev = num$prev,
@@ -10,143 +15,332 @@ plot_fnet(
   mirt = NA,
   spec = num$spec,
   fart = NA,
-  N = freq$N,
-  round = TRUE,
+  N = num$N,
   by = "cddc",
   area = "no",
-  p_lbl = "num",
-  show_accu = TRUE,
-  w_acc = 0.5,
+  scale = "p",
+  round = TRUE,
+  f_lbl = "num",
+  f_lbl_sep = NA,
+  f_lwd = 0,
+  p_lwd = 1,
+  p_scale = FALSE,
+  p_lbl = "mix",
+  arr_c = NA,
+  joint_p = TRUE,
+  lbl_txt = txt,
   title_lbl = txt$scen_lbl,
-  popu_lbl = txt$popu_lbl,
-  cond_true_lbl = txt$cond_true_lbl,
-  cond_false_lbl = txt$cond_false_lbl,
-  dec_pos_lbl = txt$dec_pos_lbl,
-  dec_neg_lbl = txt$dec_neg_lbl,
-  hi_lbl = txt$hi_lbl,
-  mi_lbl = txt$mi_lbl,
-  fa_lbl = txt$fa_lbl,
-  cr_lbl = txt$cr_lbl,
-  col_txt = grey(0.01, alpha = 0.99),
-  cex_lbl = 0.85,
-  col_boxes = pal,
-  col_border = grey(0.33, alpha = 0.99),
-  lwd = 1.5,
-  box_lwd = 1.5,
-  col_shadow = grey(0.11, alpha = 0.99),
-  cex_shadow = 0
+  cex_lbl = 0.9,
+  cex_p_lbl = NA,
+  col_pal = pal,
+  mar_notes = FALSE,
+  ...
 )
 }
 \arguments{
-\item{prev}{The condition's prevalence \code{\link{prev}}.}
+\item{prev}{The condition's prevalence \code{\link{prev}}
+(i.e., the probability of condition being \code{TRUE}).}
 
-\item{sens}{The decision's sensitivity \code{\link{sens}}.}
+\item{sens}{The decision's sensitivity \code{\link{sens}}
+(i.e., the conditional probability of a positive decision
+provided that the condition is \code{TRUE}).
+\code{sens} is optional when its complement \code{mirt} is provided.}
 
-\item{mirt}{The decision's miss rate \code{\link{mirt}}.}
+\item{mirt}{The decision's miss rate \code{\link{mirt}}
+(i.e., the conditional probability of a negative decision
+provided that the condition is \code{TRUE}).
+\code{mirt} is optional when its complement \code{sens} is provided.}
 
-\item{spec}{The decision's specificity value \code{\link{spec}}.}
+\item{spec}{The decision's specificity value \code{\link{spec}}
+(i.e., the conditional probability
+of a negative decision provided that the condition is \code{FALSE}).
+\code{spec} is optional when its complement \code{fart} is provided.}
 
-\item{fart}{The decision's false alarm rate \code{\link{fart}}.}
+\item{fart}{The decision's false alarm rate \code{\link{fart}}
+(i.e., the conditional probability
+of a positive decision provided that the condition is \code{FALSE}).
+\code{fart} is optional when its complement \code{spec} is provided.}
 
-\item{N}{The number of individuals in the population.}
+\item{N}{The number of individuals in the population.
+A suitable value of \code{\link{N}} is computed, if not provided.
+Note that a population size \code{\link{N}} is not needed
+for computing current probability information \code{\link{prob}},
+but is needed for computing frequency information
+\code{\link{freq}} from current probabilities \code{\link{prob}}.}
 
-\item{round}{A Boolean option specifying whether computed frequencies
+\item{by}{A character code specifying 1 or 2 perspective(s)
+that split(s) the population into 2 subsets.
+Specifying 1 perspective plots a frequency tree (single tree)
+with 3 options:
+  \enumerate{
+  \item \code{"cd"}: by condition only;
+  \item \code{"dc"}: by decision only;
+  \item \code{"ac"}: by accuracy only.
+  }
+Specifying 2 perspectives plots a frequency prism (double tree)
+with 6 options:
+  \enumerate{
+  \item \code{"cddc"}: by condition (cd) and by decision (dc) (default);
+  \item \code{"cdac"}: by condition (cd) and by accuracy (ac);
+  \item \code{"dccd"}: by decision (dc) and by condition (cd);
+  \item \code{"dcac"}: by decision (dc) and by accuracy (ac);
+  \item \code{"accd"}: by accuracy (ac) and by condition (cd);
+  \item \code{"acdc"}: by accuracy (ac) and by decision (dc).
+  }}
+
+\item{area}{A character code specifying the shapes of the frequency boxes,
+with 2 options:
+  \enumerate{
+  \item \code{"no"}: rectangular frequency boxes, not scaled (default);
+  \item \code{"sq"}: frequency boxes are squares (scaled relative to N).
+  }}
+
+\item{scale}{Scale probabilities and corresponding area dimensions either by
+exact probability or by (rounded or non-rounded) frequency, with 2 options:
+  \enumerate{
+  \item \code{"p"}: scale main area dimensions by exact probability (default);
+  \item \code{"f"}: re-compute probabilities from (rounded or non-rounded) frequencies
+  and scale main area dimensions by their frequency.
+  }
+ Note: \code{scale} setting matters for the display of probability values and for
+ area plots with small population sizes \code{\link{N}} when \code{round = TRUE}.}
+
+\item{round}{Boolean option specifying whether computed frequencies
 are rounded to integers. Default: \code{round = TRUE}.}
 
-\item{by}{A character code specifying the perspective (or categories by which the population is split into subsets) with 3 options:
-\enumerate{
-\item \code{"cddc"} ... 1st by condition, 2nd by decision;
-\item \code{"dccd"} ... 1st by decision, 2nd by condition;
-\item \code{"cdac"} ... 1st by condition, 2nd by accuracy.
-}}
-
-\item{area}{A character code specifying the area of the boxes (or their relative sizes) with
-3 options:
+\item{f_lbl}{Type of label for showing frequency values in 4 main areas,
+with 6 options:
   \enumerate{
-  \item \code{"no"} ... all boxes are shown with the same size;
-  \item \code{"sq"} ... boxes are squares with area sizes scaled proportional to frequencies (default);
-  \item \code{"hr"} ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies.
+  \item \code{"def"}: abbreviated names and frequency values;
+  \item \code{"abb"}: abbreviated frequency names only (as specified in code);
+  \item \code{"nam"}: names only (as specified in \code{lbl_txt = txt});
+  \item \code{"num"}: numeric frequency values only (default);
+  \item \code{"namnum"}: names (as specified in \code{lbl_txt = txt}) and numeric values;
+  \item \code{"no"}: no frequency labels (same for \code{f_lbl = NA} or \code{NULL}).
   }}
 
-\item{p_lbl}{A character code specifying the type of probability information (on edges) with
-4 options:
+\item{f_lbl_sep}{Label separator for main frequencies
+(used for \code{f_lbl = "def" OR "namnum"}).
+Use \code{f_lbl_sep = ":\n"} to add a line break between name and numeric value.
+Default: \code{f_lbl_sep = NA} (set to \code{" = "} or \code{":\n"} based on \code{f_lbl}).}
+
+\item{f_lwd}{Line width of areas.
+Default: \code{f_lwd = 0}.}
+
+\item{p_lwd}{Line width of probability links.
+Default: \code{p_lwd = 1}, but consider increasing when setting \code{p_scale = TRUE}.}
+
+\item{p_scale}{Boolean option for scaling current widths of probability links
+(as set by \code{p_lwd}) by the current probability values.
+Default: \code{p_scale = FALSE}.}
+
+\item{p_lbl}{Type of label for showing probability links and values,
+with many options:
   \enumerate{
-  \item \code{"nam"} ... names of probabilities;
-  \item \code{"num"} ... numeric values of probabilities (rounded to 3 decimals, default);
-  \item \code{"mix"} ... names of essential probabilities, values of complements;
-  \item \code{"min"} ... minimal labels: names of essential probabilities.
+  \item \code{"abb"}: show links and abbreviated probability names;
+  \item \code{"def"}: show links and abbreviated probability names and values;
+  \item \code{"min"}: show links and minimum (prominent) probability names;
+  \item \code{"mix"}: show links and prominent probability names and all values (default);
+  \item \code{"nam"}: show links and probability names (as specified in code);
+  \item \code{"num"}: show links and numeric probability values;
+  \item \code{"namnum"}: show links with names and numeric probability values;
+  \item \code{"no"}: show links with no labels (same for \code{p_lbl = NA} or \code{NULL}).
   }}
 
-\item{show_accu}{Option for showing current
-accuracy metrics \code{\link{accu}} on the margin of the plot.}
+\item{arr_c}{Arrow code for symbols at ends of probability links
+(as a numeric value \code{-3 <= arr_c <= +6}),
+with the following options:
+  \itemize{
+  \item \code{-1} to \code{-3}: points at one/other/both end/s;
+  \item \code{0}: no symbols;
+  \item \code{+1} to \code{+3}: V-arrow at one/other/both end/s;
+  \item \code{+4} to \code{+6}: T-arrow at one/other/both end/s.
+}
+Default: \code{arr_c = NA}, but adjusted by \code{area}.}
 
-\item{w_acc}{Weighting parameter \code{w} used to compute
-weighted accuracy \code{w_acc} in \code{\link{comp_accu_freq}}.
+\item{joint_p}{Boolean options for showing links to joint probabilities
+(i.e., diagonals from N in center to joint frequencies in 4 corners).
+Default: \code{joint_p = TRUE}.}
 
-Various other options allow the customization of text labels and colors:}
+\item{lbl_txt}{Default label set for text elements.
+Default: \code{lbl_txt = \link{txt}}.}
 
-\item{title_lbl}{Text label for current plot title.}
+\item{title_lbl}{Text label for current plot title.
+Default: \code{title_lbl = txt$scen_lbl}.}
 
-\item{popu_lbl}{Text label for current population \code{\link{popu}}.}
+\item{cex_lbl}{Scaling factor for text labels (frequencies and headers).
+Default: \code{cex_lbl = .90}.}
 
-\item{cond_true_lbl}{Text label for current cases of \code{\link{cond_true}}.}
+\item{cex_p_lbl}{Scaling factor for text labels (probabilities).
+Default: \code{cex_p_lbl = cex_lbl - .05}.}
 
-\item{cond_false_lbl}{Text label for current cases of \code{\link{cond_false}}.}
+\item{col_pal}{Color palette.
+Default: \code{col_pal = \link{pal}}.}
 
-\item{dec_pos_lbl}{Text label for current cases of \code{\link{dec_pos}}.}
+\item{mar_notes}{Boolean option for showing margin notes.
+Default: \code{mar_notes = FALSE}.}
 
-\item{dec_neg_lbl}{Text label for current cases of \code{\link{dec_neg}}.}
-
-\item{hi_lbl}{Text label for hits \code{\link{hi}}.}
-
-\item{mi_lbl}{Text label for misses \code{\link{mi}}.}
-
-\item{fa_lbl}{Text label for false alarms \code{\link{fa}}.}
-
-\item{cr_lbl}{Text label for correct rejections \code{\link{cr}}.}
-
-\item{col_txt}{Color for text labels (in boxes).}
-
-\item{cex_lbl}{Scaling factor for text labels (in boxes and on arrows).}
-
-\item{col_boxes}{Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
-Default: Current color information contained in \code{\link{pal}}.}
-
-\item{col_border}{Color of borders.
-Default: \code{col_border = grey(.33, alpha = .99)}.}
-
-\item{lwd}{Width of arrows.}
-
-\item{box_lwd}{Width of boxes.}
-
-\item{col_shadow}{Color of box shadows.
-Default: \code{col_shadow = grey(.11, alpha = .99)}.}
-
-\item{cex_shadow}{Scaling factor of shadows (values > 0 showing shadows).
-Default: \code{cex_shadow = 0}.}
+\item{...}{Other (graphical) parameters.}
 }
 \value{
 Nothing (NULL).
 }
 \description{
-\code{plot_fnet} drew a network diagram of
-frequencies (as nodes) and probabilities (as edges).
+\code{plot_fnet} plots a frequency net of
+from a sufficient and valid set of 3 essential probabilities
+(\code{\link{prev}}, and
+\code{\link{sens}} or its complement \code{\link{mirt}}, and
+\code{\link{spec}} or its complement \code{\link{fart}})
+or existing frequency information \code{\link{freq}}
+and a population size of \code{\link{N}} individuals.
 }
 \details{
-\code{plot_fnet} is deprecated -- please use \code{\link{plot_prism}} instead.
+\code{plot_fnet} shows frequencies as nodes and probabilities as links
+(like trees and double trees generated by \code{\link{plot_prism}}),
+but combines elements from 2x2 tables (see \code{\link{plot_tab}})
+and tree diagrams.
+
+Similar to other 2D-visualizations (e.g., ,
+\code{\link{plot_area}}, \code{\link{plot_prism}} and
+\code{\link{plot_tab}}), the
+frequency net selects and combines two perspectives
+(e.g., \code{by = "cddc"}).
+However, the frequency net is similar to a 2x2 table insofar as
+its perspectives (shown by arranging marginal frequencies in a
+vertical vs. horizontal fashion) do not suggest an order
+or dependency (in contrast to trees or mosaic plots).
+Additionally, the frequency net allows showing
+3 kinds of (marginal, conditional, and joint) probabilities.
+
+See Binder K, Krauss S and Wiesner P (2020).
+A new visualization for probabilistic situations containing two binary events:
+The frequency net. Front. Psychol. 11:750.
+doi: 10.3389/fpsyg.2020.00750 for analysis and details.
 }
 \examples{
-plot_fnet()  # frequency network with default options (by = "cddc")
+## Basics:
+# (1) Using global prob and freq values:
+plot_fnet()  # default frequency net,
+# same as:
+# plot_fnet(by = "cddc", area = "no", scale = "p",
+#            f_lbl = "num", f_lwd = 0, cex_lbl = .90,
+#            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 
-# alternative perspectives:
-plot_tree(by = "cdac")  # frequency network by condition and accuracy
-plot_fnet(by = "dccd")  # frequency network by decision and condition
+# (2) Providing values:
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9) # Binder et al. (2020, Fig. 3)
 
-# See plot_prism for details and additional options.
+# Variants:
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dccd")
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dcac")
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")
+
+# Trees (only 1 dimension):
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "cd")
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dc")
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "ac")
+
+# Area and margin notes:
+plot_fnet(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
+
+## Custom color and text settings:
+plot_fnet(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
+          font = 3, cex_p_lbl = .75)                         # and text labels
+
+my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
+                   hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
+my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
+                   hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
+plot_fnet(f_lbl = "nam", p_lbl = "num",
+          lbl_txt = my_txt, col_pal = my_col, f_lwd = .5)
+
+## Local values and custom color/txt settings:
+plot_fnet(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
+          by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
+          f_lwd = 1, col_pal = pal_rgb)  # custom colors
+
+plot_fnet(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
+          by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
+
+plot_fnet(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",                 # note scale!
+          area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
+          col_pal = pal_kn, f_lwd = .5)                                        # custom colors
+
+## Other options:
+# scale (matters for scaled areas and small N):
+plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
+          area = "sq", scale = "p")  # areas scaled by prob
+plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
+          area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
+
+## Frequency boxes:
+# f_lbl:
+plot_fnet(f_lbl = "abb")     # abbreviated freq names (variable names)
+plot_fnet(f_lbl = "nam")     # only freq names
+plot_fnet(f_lbl = "num")     # only numeric freq values (default)
+plot_fnet(f_lbl = "namnum")  # names and numeric freq values
+plot_fnet(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
+plot_fnet(f_lbl = NA)        # no freq labels
+plot_fnet(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
+
+# f_lwd:
+plot_fnet(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
+plot_fnet(f_lwd =  1)  # basic lines
+plot_fnet(f_lwd =  3)  # thicker lines
+plot_fnet(f_lwd = .5)  # thinner lines
+
+## Probability links:
+# Scale link widths (p_lwd & p_scale):
+plot_fnet(p_lwd = 6, p_scale = TRUE)
+plot_fnet(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
+plot_fnet(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
+          col_pal = pal_mod, p_lwd = 6, p_scale = TRUE)
+
+# p_lbl:
+plot_fnet(p_lbl = "mix")     # abbreviated names with numeric values (abb = num)
+plot_fnet(p_lbl = "min")     # minimal names (of key probabilities)
+plot_fnet(p_lbl = NA)        # no prob labels (NA/NULL/"none")
+plot_fnet(p_lbl = "nam")     # only prob names
+plot_fnet(p_lbl = "num")     # only numeric prob values
+plot_fnet(p_lbl = "namnum")  # names and numeric prob values
+
+# arr_c:
+plot_fnet(arr_c =  0)  # acc_c = 0: no arrows
+plot_fnet(arr_c = -3)  # arr_c = -1 to -3: points at both ends
+plot_fnet(arr_c = -2)  # point at far end
+plot_fnet(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
+
+# Hide links to joint prob:
+plot_fnet(by = "cddc", joint_p = FALSE)
+plot_fnet(by = "cd", joint_p = FALSE)
+
+## Plain plot versions:
+plot_fnet(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
+          title_lbl = "", mar_notes = FALSE)  # remove titles and margin notes
+plot_fnet(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
+
+plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "num", col_pal = pal_rgb)
+plot_fnet(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
+
+## Suggested combinations:
+plot_fnet(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)  # basic plot
+plot_fnet(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
+plot_fnet(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
+          f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
+
+plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF, col_pal = pal_bw)
+plot_fnet(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
+plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_rgb)
 
 }
 \seealso{
-\code{\link{plot_prism}} is the new version of this function.
+\code{\link{plot_prism}} for plotting prism plot (double tree);
+\code{\link{plot_area}} for plotting mosaic plot (scaling area dimensions);
+\code{\link{plot_bar}} for plotting frequencies as vertical bars;
+\code{\link{plot_tab}} for plotting table (without scaling area dimensions);
+\code{\link{pal}} contains current color settings;
+\code{\link{txt}} contains current text settings.
 
 Other visualization functions: 
 \code{\link{plot.riskyr}()},
