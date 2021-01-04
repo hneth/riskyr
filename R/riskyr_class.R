@@ -795,9 +795,8 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 
   } #  if (type == "icon")
 
-  ## 4a. Prism plot:
+  ## 4a. Prism plot (tree/double tree):
   if ((substr(type, 1, 5) == "prism") || (substr(type, 1, 6) == "fprism") ||
-      (substr(type, 1, 3) == "net")   || (substr(type, 1, 4) == "fnet")   ||
       (substr(type, 1, 4) == "tree")  || (substr(type, 1, 5) == "ftree") ||
       (substr(type, 1, 6) == "double")  || (substr(type, 1, 5) == "dtree")) {
 
@@ -813,7 +812,7 @@ plot.riskyr <- function(x = NULL,        # require riskyr scenario
 
   } # if (type == "prism")
 
-  ## 4b. Frequency net plot:
+  ## 4b. Frequency net plot (fnet):
   if ((type == "frequency net") ||
       (substr(type, 1, 3) == "net") || (substr(type, 1, 4) == "fnet")) {
 
