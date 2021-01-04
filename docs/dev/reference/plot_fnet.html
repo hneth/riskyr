@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a network diagram of frequencies and probabilities. — plot_fnet • riskyr</title>
+<title>Plot frequency net diagram of frequencies and probabilities. — plot_fnet • riskyr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,13 +45,17 @@
 
 
 
-<meta property="og:title" content="Plot a network diagram of frequencies and probabilities. — plot_fnet" />
 
-<meta property="og:description" content="plot_fnet drew a network diagram of
-frequencies (as nodes) and probabilities (as edges)." />
-
+<meta property="og:title" content="Plot frequency net diagram of frequencies and probabilities. — plot_fnet" />
+<meta property="og:description" content="plot_fnet plots a frequency net of
+from a sufficient and valid set of 3 essential probabilities
+(prev, and
+sens or its complement mirt, and
+spec or its complement fart)
+or existing frequency information freq
+and a population size of N individuals." />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -57,9 +69,10 @@ frequencies (as nodes) and probabilities (as edges)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +86,7 @@ frequencies (as nodes) and probabilities (as edges)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9010</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
       </span>
     </div>
 
@@ -81,7 +94,7 @@ frequencies (as nodes) and probabilities (as edges)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -120,11 +133,10 @@ frequencies (as nodes) and probabilities (as edges)." />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://hneth.github.io/riskyr/">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -135,227 +147,364 @@ frequencies (as nodes) and probabilities (as edges)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a network diagram of frequencies and probabilities.</h1>
+    <h1>Plot frequency net diagram of frequencies and probabilities.</h1>
     <small class="dont-index">Source: <a href='https://github.com/hneth/riskyr/blob/master/R/plot_fnet.R'><code>R/plot_fnet.R</code></a></small>
     <div class="hidden name"><code>plot_fnet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-    <p><code>plot_fnet</code> drew a network diagram of
-frequencies (as nodes) and probabilities (as edges).</p>
-    
+    <p><code>plot_fnet</code> plots a frequency net of
+from a sufficient and valid set of 3 essential probabilities
+(<code><a href='prev.html'>prev</a></code>, and
+<code><a href='sens.html'>sens</a></code> or its complement <code><a href='mirt.html'>mirt</a></code>, and
+<code><a href='spec.html'>spec</a></code> or its complement <code><a href='fart.html'>fart</a></code>)
+or existing frequency information <code><a href='freq.html'>freq</a></code>
+and a population size of <code><a href='N.html'>N</a></code> individuals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_fnet</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>N</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>show_accu</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>w_acc</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>popu_lbl</span>,
-  <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_true_lbl</span>,
-  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cond_false_lbl</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_pos_lbl</span>,
-  <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>dec_neg_lbl</span>, <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>,
-  <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>,
-  <span class='kw'>col_txt</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray'>grey</a></span>(<span class='fl'>0.01</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.99</span>), <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.85</span>,
-  <span class='kw'>col_boxes</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>col_border</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray'>grey</a></span>(<span class='fl'>0.33</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.99</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
-  <span class='kw'>box_lwd</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>col_shadow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray'>grey</a></span>(<span class='fl'>0.11</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.99</span>),
-  <span class='kw'>cex_shadow</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_fnet</span>(
+  <span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>,
+  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>,
+  <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>,
+  <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>,
+  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>,
+  <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
+  <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>,
+  <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>p_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>p_scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>,
+  <span class='kw'>arr_c</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>joint_p</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>,
+  <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>,
+  <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>,
+  <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>prev</th>
-      <td><p>The condition's prevalence <code><a href='prev.html'>prev</a></code>.</p></td>
+      <td><p>The condition's prevalence <code><a href='prev.html'>prev</a></code>
+(i.e., the probability of condition being <code>TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>sens</th>
-      <td><p>The decision's sensitivity <code><a href='sens.html'>sens</a></code>.</p></td>
+      <td><p>The decision's sensitivity <code><a href='sens.html'>sens</a></code>
+(i.e., the conditional probability of a positive decision
+provided that the condition is <code>TRUE</code>).
+<code>sens</code> is optional when its complement <code>mirt</code> is provided.</p></td>
     </tr>
     <tr>
       <th>mirt</th>
-      <td><p>The decision's miss rate <code><a href='mirt.html'>mirt</a></code>.</p></td>
+      <td><p>The decision's miss rate <code><a href='mirt.html'>mirt</a></code>
+(i.e., the conditional probability of a negative decision
+provided that the condition is <code>TRUE</code>).
+<code>mirt</code> is optional when its complement <code>sens</code> is provided.</p></td>
     </tr>
     <tr>
       <th>spec</th>
-      <td><p>The decision's specificity value <code><a href='spec.html'>spec</a></code>.</p></td>
+      <td><p>The decision's specificity value <code><a href='spec.html'>spec</a></code>
+(i.e., the conditional probability
+of a negative decision provided that the condition is <code>FALSE</code>).
+<code>spec</code> is optional when its complement <code>fart</code> is provided.</p></td>
     </tr>
     <tr>
       <th>fart</th>
-      <td><p>The decision's false alarm rate <code><a href='fart.html'>fart</a></code>.</p></td>
+      <td><p>The decision's false alarm rate <code><a href='fart.html'>fart</a></code>
+(i.e., the conditional probability
+of a positive decision provided that the condition is <code>FALSE</code>).
+<code>fart</code> is optional when its complement <code>spec</code> is provided.</p></td>
     </tr>
     <tr>
       <th>N</th>
-      <td><p>The number of individuals in the population.</p></td>
-    </tr>
-    <tr>
-      <th>round</th>
-      <td><p>A Boolean option specifying whether computed frequencies
-are rounded to integers. Default: <code>round = TRUE</code>.</p></td>
+      <td><p>The number of individuals in the population.
+A suitable value of <code><a href='N.html'>N</a></code> is computed, if not provided.
+Note that a population size <code><a href='N.html'>N</a></code> is not needed
+for computing current probability information <code><a href='prob.html'>prob</a></code>,
+but is needed for computing frequency information
+<code><a href='freq.html'>freq</a></code> from current probabilities <code><a href='prob.html'>prob</a></code>.</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>A character code specifying the perspective (or categories by which the population is split into subsets) with 3 options:</p><ol>
-<li><p><code>"cddc"</code> ... 1st by condition, 2nd by decision;</p></li>
-<li><p><code>"dccd"</code> ... 1st by decision, 2nd by condition;</p></li>
-<li><p><code>"cdac"</code> ... 1st by condition, 2nd by accuracy.</p></li>
+      <td><p>A character code specifying 1 or 2 perspective(s)
+that split(s) the population into 2 subsets.
+Specifying 1 perspective plots a frequency tree (single tree)
+with 3 options:</p><ol>
+<li><p><code>"cd"</code>: by condition only;</p></li>
+<li><p><code>"dc"</code>: by decision only;</p></li>
+<li><p><code>"ac"</code>: by accuracy only.</p></li>
+</ol><p>Specifying 2 perspectives plots a frequency prism (double tree)
+with 6 options:</p><ol>
+<li><p><code>"cddc"</code>: by condition (cd) and by decision (dc) (default);</p></li>
+<li><p><code>"cdac"</code>: by condition (cd) and by accuracy (ac);</p></li>
+<li><p><code>"dccd"</code>: by decision (dc) and by condition (cd);</p></li>
+<li><p><code>"dcac"</code>: by decision (dc) and by accuracy (ac);</p></li>
+<li><p><code>"accd"</code>: by accuracy (ac) and by condition (cd);</p></li>
+<li><p><code>"acdc"</code>: by accuracy (ac) and by decision (dc).</p></li>
 </ol></td>
     </tr>
     <tr>
       <th>area</th>
-      <td><p>A character code specifying the area of the boxes (or their relative sizes) with
-3 options:</p><ol>
-<li><p><code>"no"</code> ... all boxes are shown with the same size;</p></li>
-<li><p><code>"sq"</code> ... boxes are squares with area sizes scaled proportional to frequencies (default);</p></li>
-<li><p><code>"hr"</code> ... boxes are horizontal rectangles with area sizes scaled proportional to frequencies.</p></li>
+      <td><p>A character code specifying the shapes of the frequency boxes,
+with 2 options:</p><ol>
+<li><p><code>"no"</code>: rectangular frequency boxes, not scaled (default);</p></li>
+<li><p><code>"sq"</code>: frequency boxes are squares (scaled relative to N).</p></li>
 </ol></td>
+    </tr>
+    <tr>
+      <th>scale</th>
+      <td><p>Scale probabilities and corresponding area dimensions either by
+exact probability or by (rounded or non-rounded) frequency, with 2 options:</p><ol>
+<li><p><code>"p"</code>: scale main area dimensions by exact probability (default);</p></li>
+<li><p><code>"f"</code>: re-compute probabilities from (rounded or non-rounded) frequencies
+  and scale main area dimensions by their frequency.</p></li>
+</ol><p>Note: <code>scale</code> setting matters for the display of probability values and for
+ area plots with small population sizes <code><a href='N.html'>N</a></code> when <code>round = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>round</th>
+      <td><p>Boolean option specifying whether computed frequencies
+are rounded to integers. Default: <code>round = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>f_lbl</th>
+      <td><p>Type of label for showing frequency values in 4 main areas,
+with 6 options:</p><ol>
+<li><p><code>"def"</code>: abbreviated names and frequency values;</p></li>
+<li><p><code>"abb"</code>: abbreviated frequency names only (as specified in code);</p></li>
+<li><p><code>"nam"</code>: names only (as specified in <code>lbl_txt = txt</code>);</p></li>
+<li><p><code>"num"</code>: numeric frequency values only (default);</p></li>
+<li><p><code>"namnum"</code>: names (as specified in <code>lbl_txt = txt</code>) and numeric values;</p></li>
+<li><p><code>"no"</code>: no frequency labels (same for <code>f_lbl = NA</code> or <code>NULL</code>).</p></li>
+</ol></td>
+    </tr>
+    <tr>
+      <th>f_lbl_sep</th>
+      <td><p>Label separator for main frequencies
+(used for <code>f_lbl = "def" OR "namnum"</code>).
+Use <code>f_lbl_sep = ":\n"</code> to add a line break between name and numeric value.
+Default: <code>f_lbl_sep = NA</code> (set to <code>" = "</code> or <code>":\n"</code> based on <code>f_lbl</code>).</p></td>
+    </tr>
+    <tr>
+      <th>f_lwd</th>
+      <td><p>Line width of areas.
+Default: <code>f_lwd = 0</code>.</p></td>
+    </tr>
+    <tr>
+      <th>p_lwd</th>
+      <td><p>Line width of probability links.
+Default: <code>p_lwd = 1</code>, but consider increasing when setting <code>p_scale = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>p_scale</th>
+      <td><p>Boolean option for scaling current widths of probability links
+(as set by <code>p_lwd</code>) by the current probability values.
+Default: <code>p_scale = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>p_lbl</th>
-      <td><p>A character code specifying the type of probability information (on edges) with
-4 options:</p><ol>
-<li><p><code>"nam"</code> ... names of probabilities;</p></li>
-<li><p><code>"num"</code> ... numeric values of probabilities (rounded to 3 decimals, default);</p></li>
-<li><p><code>"mix"</code> ... names of essential probabilities, values of complements;</p></li>
-<li><p><code>"min"</code> ... minimal labels: names of essential probabilities.</p></li>
+      <td><p>Type of label for showing probability links and values,
+with many options:</p><ol>
+<li><p><code>"abb"</code>: show links and abbreviated probability names;</p></li>
+<li><p><code>"def"</code>: show links and abbreviated probability names and values;</p></li>
+<li><p><code>"min"</code>: show links and minimum (prominent) probability names;</p></li>
+<li><p><code>"mix"</code>: show links and prominent probability names and all values (default);</p></li>
+<li><p><code>"nam"</code>: show links and probability names (as specified in code);</p></li>
+<li><p><code>"num"</code>: show links and numeric probability values;</p></li>
+<li><p><code>"namnum"</code>: show links with names and numeric probability values;</p></li>
+<li><p><code>"no"</code>: show links with no labels (same for <code>p_lbl = NA</code> or <code>NULL</code>).</p></li>
 </ol></td>
     </tr>
     <tr>
-      <th>show_accu</th>
-      <td><p>Option for showing current
-accuracy metrics <code><a href='accu.html'>accu</a></code> on the margin of the plot.</p></td>
+      <th>arr_c</th>
+      <td><p>Arrow code for symbols at ends of probability links
+(as a numeric value <code>-3 &lt;= arr_c &lt;= +6</code>),
+with the following options:</p><ul>
+<li><p><code>-1</code> to <code>-3</code>: points at one/other/both end/s;</p></li>
+<li><p><code>0</code>: no symbols;</p></li>
+<li><p><code>+1</code> to <code>+3</code>: V-arrow at one/other/both end/s;</p></li>
+<li><p><code>+4</code> to <code>+6</code>: T-arrow at one/other/both end/s.</p></li>
+</ul><p>Default: <code>arr_c = NA</code>, but adjusted by <code>area</code>.</p></td>
     </tr>
     <tr>
-      <th>w_acc</th>
-      <td><p>Weighting parameter <code>w</code> used to compute
-weighted accuracy <code>w_acc</code> in <code><a href='comp_accu_freq.html'>comp_accu_freq</a></code>.</p>
-<p>Various other options allow the customization of text labels and colors:</p></td>
+      <th>joint_p</th>
+      <td><p>Boolean options for showing links to joint probabilities
+(i.e., diagonals from N in center to joint frequencies in 4 corners).
+Default: <code>joint_p = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>lbl_txt</th>
+      <td><p>Default label set for text elements.
+Default: <code>lbl_txt = <a href='txt.html'>txt</a></code>.</p></td>
     </tr>
     <tr>
       <th>title_lbl</th>
-      <td><p>Text label for current plot title.</p></td>
-    </tr>
-    <tr>
-      <th>popu_lbl</th>
-      <td><p>Text label for current population <code><a href='popu.html'>popu</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>cond_true_lbl</th>
-      <td><p>Text label for current cases of <code><a href='cond_true.html'>cond_true</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>cond_false_lbl</th>
-      <td><p>Text label for current cases of <code><a href='cond_false.html'>cond_false</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>dec_pos_lbl</th>
-      <td><p>Text label for current cases of <code><a href='dec_pos.html'>dec_pos</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>dec_neg_lbl</th>
-      <td><p>Text label for current cases of <code><a href='dec_neg.html'>dec_neg</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>hi_lbl</th>
-      <td><p>Text label for hits <code><a href='hi.html'>hi</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>mi_lbl</th>
-      <td><p>Text label for misses <code><a href='mi.html'>mi</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>fa_lbl</th>
-      <td><p>Text label for false alarms <code><a href='fa.html'>fa</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>cr_lbl</th>
-      <td><p>Text label for correct rejections <code><a href='cr.html'>cr</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>col_txt</th>
-      <td><p>Color for text labels (in boxes).</p></td>
+      <td><p>Text label for current plot title.
+Default: <code>title_lbl = txt$scen_lbl</code>.</p></td>
     </tr>
     <tr>
       <th>cex_lbl</th>
-      <td><p>Scaling factor for text labels (in boxes and on arrows).</p></td>
+      <td><p>Scaling factor for text labels (frequencies and headers).
+Default: <code>cex_lbl = .90</code>.</p></td>
     </tr>
     <tr>
-      <th>col_boxes</th>
-      <td><p>Colors of boxes (a single color or a vector with named colors matching the number of current boxes).
-Default: Current color information contained in <code><a href='pal.html'>pal</a></code>.</p></td>
+      <th>cex_p_lbl</th>
+      <td><p>Scaling factor for text labels (probabilities).
+Default: <code>cex_p_lbl = cex_lbl - .05</code>.</p></td>
     </tr>
     <tr>
-      <th>col_border</th>
-      <td><p>Color of borders.
-Default: <code>col_border = grey(.33, alpha = .99)</code>.</p></td>
+      <th>col_pal</th>
+      <td><p>Color palette.
+Default: <code>col_pal = <a href='pal.html'>pal</a></code>.</p></td>
     </tr>
     <tr>
-      <th>lwd</th>
-      <td><p>Width of arrows.</p></td>
+      <th>mar_notes</th>
+      <td><p>Boolean option for showing margin notes.
+Default: <code>mar_notes = FALSE</code>.</p></td>
     </tr>
     <tr>
-      <th>box_lwd</th>
-      <td><p>Width of boxes.</p></td>
-    </tr>
-    <tr>
-      <th>col_shadow</th>
-      <td><p>Color of box shadows.
-Default: <code>col_shadow = grey(.11, alpha = .99)</code>.</p></td>
-    </tr>
-    <tr>
-      <th>cex_shadow</th>
-      <td><p>Scaling factor of shadows (values &gt; 0 showing shadows).
-Default: <code>cex_shadow = 0</code>.</p></td>
+      <th>...</th>
+      <td><p>Other (graphical) parameters.</p></td>
     </tr>
     </table>
-    
+
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>Binder, K., Krauss, S., and Wiesner, P. (2020).
+A new visualization for probabilistic situations containing two binary events: The frequency net.
+Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Nothing (NULL).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>plot_fnet</code> is deprecated -- please use <code><a href='plot_prism.html'>plot_prism</a></code> instead.</p>
-    
+    <p><code>plot_fnet</code> shows frequencies as nodes and probabilities as links
+(like trees and double trees generated by <code><a href='plot_prism.html'>plot_prism</a></code>),
+but combines elements from 2x2 tables (see <code><a href='plot_tab.html'>plot_tab</a></code>)
+and tree diagrams.</p>
+<p>Similar to other 2D-visualizations (e.g., ,
+<code><a href='plot_area.html'>plot_area</a></code>, <code><a href='plot_prism.html'>plot_prism</a></code> and
+<code><a href='plot_tab.html'>plot_tab</a></code>), the
+frequency net selects and combines two perspectives
+(e.g., <code>by = "cddc"</code>).
+However, the frequency net is similar to a 2x2 table insofar as
+its perspectives (shown by arranging marginal frequencies in a
+vertical vs. horizontal fashion) do not suggest an order
+or dependency (in contrast to trees or mosaic plots).
+Additionally, the frequency net allows showing
+3 kinds of (marginal, conditional, and joint) probabilities.</p>
+<p>See the article by Binder K, Krauss S and Wiesner P (2020).
+A new visualization for probabilistic situations containing two binary events:
+The frequency net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
+for analysis and details.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='plot_prism.html'>plot_prism</a></code> is the new version of this function.</p>
-<p>Other visualization functions: <code><a href='plot.riskyr.html'>plot.riskyr</a></code>,
-  <code><a href='plot_area.html'>plot_area</a></code>, <code><a href='plot_bar.html'>plot_bar</a></code>,
-  <code><a href='plot_curve.html'>plot_curve</a></code>, <code><a href='plot_icons.html'>plot_icons</a></code>,
-  <code><a href='plot_mosaic.html'>plot_mosaic</a></code>, <code><a href='plot_plane.html'>plot_plane</a></code>,
-  <code><a href='plot_prism.html'>plot_prism</a></code>, <code><a href='plot_tab.html'>plot_tab</a></code>,
-  <code><a href='plot_tree.html'>plot_tree</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='plot_prism.html'>plot_prism</a></code> for plotting prism plot (double tree);
+<code><a href='plot_area.html'>plot_area</a></code> for plotting mosaic plot (scaling area dimensions);
+<code><a href='plot_bar.html'>plot_bar</a></code> for plotting frequencies as vertical bars;
+<code><a href='plot_tab.html'>plot_tab</a></code> for plotting table (without scaling area dimensions);
+<code><a href='pal.html'>pal</a></code> contains current color settings;
+<code><a href='txt.html'>txt</a></code> contains current text settings.</p>
+<p>Other visualization functions: 
+<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
+<code><a href='plot_area.html'>plot_area</a>()</code>,
+<code><a href='plot_bar.html'>plot_bar</a>()</code>,
+<code><a href='plot_curve.html'>plot_curve</a>()</code>,
+<code><a href='plot_icons.html'>plot_icons</a>()</code>,
+<code><a href='plot_mosaic.html'>plot_mosaic</a>()</code>,
+<code><a href='plot_plane.html'>plot_plane</a>()</code>,
+<code><a href='plot_prism.html'>plot_prism</a>()</code>,
+<code><a href='plot_tab.html'>plot_tab</a>()</code>,
+<code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plot_fnet</span>()  <span class='co'># frequency network with default options (by = "cddc")</span></div><div class='output co'>#&gt; <span class='message'>Function 'plot_fnet' is deprecated; using 'plot_prism' instead.</span></div><div class='img'><img src='plot_fnet-1.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># alternative perspectives:</span>
-<span class='fu'><a href='plot_tree.html'>plot_tree</a></span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>)  <span class='co'># frequency network by condition and accuracy</span></div><div class='output co'>#&gt; <span class='message'>Function 'plot_tree' is deprecated; using 'plot_prism' (with by = 'cd'/'dc'/'ac') instead.</span></div><div class='img'><img src='plot_fnet-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dccd"</span>)  <span class='co'># frequency network by decision and condition</span></div><div class='output co'>#&gt; <span class='message'>Function 'plot_fnet' is deprecated; using 'plot_prism' instead.</span></div><div class='img'><img src='plot_fnet-3.png' alt='' width='691' height='538' /></div><div class='input'>
-# See plot_prism for details and additional options.
+    <pre class="examples"><div class='input'><span class='co'>## Basics:</span>
+<span class='co'># (1) Using global prob and freq values:</span>
+<span class='fu'>plot_fnet</span>()  <span class='co'># default frequency net,</span></div><div class='img'><img src='plot_fnet-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
+<span class='co'># plot_fnet(by = "cddc", area = "no", scale = "p",</span>
+<span class='co'>#            f_lbl = "num", f_lwd = 0, cex_lbl = .90,</span>
+<span class='co'>#            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)</span>
 
+<span class='co'># (2) Providing values:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>) <span class='co'># Binder et al. (2020, Fig. 3)</span></div><div class='img'><img src='plot_fnet-2.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Variants:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>)</div><div class='img'><img src='plot_fnet-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dccd"</span>)</div><div class='img'><img src='plot_fnet-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dcac"</span>)</div><div class='img'><img src='plot_fnet-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"accd"</span>)</div><div class='img'><img src='plot_fnet-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"acdc"</span>)</div><div class='img'><img src='plot_fnet-7.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Trees (only 1 dimension):</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>)</div><div class='img'><img src='plot_fnet-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dc"</span>)</div><div class='img'><img src='plot_fnet-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>)</div><div class='img'><img src='plot_fnet-10.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Area and margin notes:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>4</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>5</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_fnet-11.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Custom color and text settings:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='co'># custom fbox color, prob links,</span>
+          <span class='kw'>font</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)                         <span class='co'># and text labels</span></div><div class='img'><img src='plot_fnet-12.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='no'>my_txt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='init_txt.html'>init_txt</a></span>(<span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"The Truth"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"so true"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"so false"</span>,
+                   <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='st'>"TP"</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='st'>"FN"</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='st'>"FP"</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='st'>"TN"</span>)
+<span class='no'>my_col</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='init_pal.html'>init_pal</a></span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span>(<span class='fl'>0</span>, <span class='fl'>169</span>, <span class='fl'>224</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>255</span>),  <span class='co'># seeblau</span>
+                   <span class='kw'>hi_col</span> <span class='kw'>=</span> <span class='st'>"gold"</span>, <span class='kw'>mi_col</span> <span class='kw'>=</span> <span class='st'>"firebrick1"</span>, <span class='kw'>fa_col</span> <span class='kw'>=</span> <span class='st'>"firebrick2"</span>, <span class='kw'>cr_col</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)
+<span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>,
+          <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>my_txt</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>my_col</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_fnet-13.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Local values and custom color/txt settings:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>,
+          <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)  <span class='co'># custom colors</span></div><div class='img'><img src='plot_fnet-14.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,  <span class='co'># note scale!</span>
+          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># custom colors</span></div><div class='img'><img src='plot_fnet-15.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,                 <span class='co'># note scale!</span>
+          <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='co'># custom text</span>
+          <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)                                        <span class='co'># custom colors</span></div><div class='img'><img src='plot_fnet-16.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Other options:</span>
+<span class='co'># scale (matters for scaled areas and small N):</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>,
+          <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>)  <span class='co'># areas scaled by prob</span></div><div class='img'><img src='plot_fnet-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>,
+          <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>)  <span class='co'># areas scaled by (rounded or non-rounded) freq</span></div><div class='img'><img src='plot_fnet-18.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Frequency boxes:</span>
+<span class='co'># f_lbl:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>)     <span class='co'># abbreviated freq names (variable names)</span></div><div class='img'><img src='plot_fnet-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>)     <span class='co'># only freq names</span></div><div class='img'><img src='plot_fnet-20.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)     <span class='co'># only numeric freq values (default)</span></div><div class='img'><img src='plot_fnet-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>)  <span class='co'># names and numeric freq values</span></div><div class='img'><img src='plot_fnet-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)  <span class='co'># smaller freq labels</span></div><div class='img'><img src='plot_fnet-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)        <span class='co'># no freq labels</span></div><div class='img'><img src='plot_fnet-24.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)     <span class='co'># informative default: short name and numeric value (abb = num)</span></div><div class='img'><img src='plot_fnet-25.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># f_lwd:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)</span></div><div class='img'><img src='plot_fnet-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>1</span>)  <span class='co'># basic lines</span></div><div class='img'><img src='plot_fnet-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>3</span>)  <span class='co'># thicker lines</span></div><div class='img'><img src='plot_fnet-28.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)  <span class='co'># thinner lines</span></div><div class='img'><img src='plot_fnet-29.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Probability links:</span>
+<span class='co'># Scale link widths (p_lwd &amp; p_scale):</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>p_lwd</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>p_scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_fnet-30.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>p_lwd</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>p_scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_fnet-31.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>arr_c</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+          <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>, <span class='kw'>p_lwd</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>p_scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_fnet-32.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># p_lbl:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>)     <span class='co'># abbreviated names with numeric values (abb = num)</span></div><div class='img'><img src='plot_fnet-33.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"min"</span>)     <span class='co'># minimal names (of key probabilities)</span></div><div class='img'><img src='plot_fnet-34.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)        <span class='co'># no prob labels (NA/NULL/"none")</span></div><div class='img'><img src='plot_fnet-35.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>)     <span class='co'># only prob names</span></div><div class='img'><img src='plot_fnet-36.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)     <span class='co'># only numeric prob values</span></div><div class='img'><img src='plot_fnet-37.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>)  <span class='co'># names and numeric prob values</span></div><div class='img'><img src='plot_fnet-38.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># arr_c:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># acc_c = 0: no arrows</span></div><div class='img'><img src='plot_fnet-39.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> -<span class='fl'>3</span>)  <span class='co'># arr_c = -1 to -3: points at both ends</span></div><div class='img'><img src='plot_fnet-40.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> -<span class='fl'>2</span>)  <span class='co'># point at far end</span></div><div class='img'><img src='plot_fnet-41.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>2</span>)  <span class='co'># crr_c = 1-3: V-shape arrows at far end</span></div><div class='img'><img src='plot_fnet-42.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Hide links to joint prob:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>joint_p</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_fnet-43.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>, <span class='kw'>joint_p</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_fnet-44.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Plain plot versions:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+          <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)  <span class='co'># remove titles and margin notes</span></div><div class='img'><img src='plot_fnet-45.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"min"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_fnet-46.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_fnet-47.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>)</div><div class='img'><img src='plot_fnet-48.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'>## Suggested combinations:</span>
+<span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>)  <span class='co'># basic plot</span></div><div class='img'><img src='plot_fnet-49.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.80</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)</div><div class='img'><img src='plot_fnet-50.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>,           <span class='co'># def/abb labels</span>
+          <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>p_lwd</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bwp</span>)  <span class='co'># black-&amp;-white</span></div><div class='img'><img src='plot_fnet-51.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_TF</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>)</div><div class='img'><img src='plot_fnet-52.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_fnet-53.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_fnet-54.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -363,13 +512,16 @@ Default: <code>cex_shadow = 0</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

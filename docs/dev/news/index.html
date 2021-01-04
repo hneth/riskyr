@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,10 +45,10 @@
 
 
 
-<meta property="og:title" content="Changelog" />
 
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -54,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9010</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
       </span>
     </div>
 
@@ -78,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -117,11 +126,10 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://hneth.github.io/riskyr/">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -132,25 +140,27 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/hneth/riskyr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="riskyr-0-2-0-9008" class="section level1">
-<h1 class="page-header">
-<a href="#riskyr-0-2-0-9008" class="anchor"></a>riskyr 0.2.0.9008+<small> Unreleased </small>
+    <div id="riskyr-0209001" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0.9001">
+<a href="#riskyr-0209001" class="anchor"></a>riskyr 0.2.0.9001+<small> Unreleased </small>
 </h1>
 <p>Log of changes since last release:</p>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li>none so far</li>
+<li><p>Added <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code> for plotting <em>frequency nets</em> (Binder et al., 2020).</p></li>
+<li><p>Computing key metrics based on 2x2 matrix of frequency counts (see <code>comp_metrics.R</code>).</p></li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">
@@ -160,11 +170,11 @@
 <h3 class="hasAnchor">
 <a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
 <ul>
-<li><p>New options for <code>plot_curve</code> [2019-01]:<br>
-Plotting probability curves as a function of prevalence does not require any specific prevalence value. Thus, setting the <code>prev</code> argument to either <code>NA</code> or to a vector of several probabilities is now supported. Setting the new <code>prev_range</code> argument to a range within <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c(0, 1)</a></code> allows zooming into more specific ranges of <code>prev</code> values (on x-axis).</p></li>
-<li><p>New options for <code>plot_plane</code> [2019-01]:<br>
-Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. Thus, setting the <code>sens</code> and <code>spec</code> arguments to either <code>NA</code> or to a vector of several probabilities is now supported. Setting the new <code>sens_range</code> and <code>spec_range</code> arguments to ranges within <code><a href="https://www.rdocumentation.org/packages/base/topics/c">c(0, 1)</a></code> allows zooming into more specific ranges of <code>sens</code> values (on x-axis) and <code>spec</code> values (on y-axis).</p></li>
-<li><p>New options for <code>plot_prism</code> [2019-01]:<br>
+<li><p>New options for <code><a href="../reference/plot_curve.html">plot_curve()</a></code> [2019-01]:<br>
+Plotting probability curves as a function of prevalence does not require any specific prevalence value. Thus, setting the <code>prev</code> argument to either <code>NA</code> or to a vector of several probabilities is now supported. Setting the new <code>prev_range</code> argument to a range within <code><a href="https://rdrr.io/r/base/c.html">c(0, 1)</a></code> allows zooming into more specific ranges of <code>prev</code> values (on x-axis).</p></li>
+<li><p>New options for <code><a href="../reference/plot_plane.html">plot_plane()</a></code> [2019-01]:<br>
+Plotting a probability plane as a function of sensitivity and specificity does not require specifying all values. Thus, setting the <code>sens</code> and <code>spec</code> arguments to either <code>NA</code> or to a vector of several probabilities is now supported. Setting the new <code>sens_range</code> and <code>spec_range</code> arguments to ranges within <code><a href="https://rdrr.io/r/base/c.html">c(0, 1)</a></code> allows zooming into more specific ranges of <code>sens</code> values (on x-axis) and <code>spec</code> values (on y-axis).</p></li>
+<li><p>New options for <code><a href="../reference/plot_prism.html">plot_prism()</a></code> [2019-01]:<br>
 Using the new <code>p_lwd</code> and <code>p_scale</code> arguments allows scaling the widths of probability links by current probability values.</p></li>
 </ul>
 </div>
@@ -172,9 +182,11 @@ Using the new <code>p_lwd</code> and <code>p_scale</code> arguments allows scali
 <h3 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h3>
 <ul>
-<li><p><code>make_cond_lbl</code> [2019-01]:<br>
+<li><p><code>data</code> [2019-07]:<br>
+Removed data files <code>df_scenarios.RData</code> and <code>df_scenarios.csv</code>, as they were redundant to <code>df_scenarios.rda</code> (loaded from <code>\data</code>).</p></li>
+<li><p><code>make_cond_lbl()</code> [2019-01]:<br>
 The condition label now allows for <code>NA</code> or vectors of several values (for <code>prev</code>, <code>sens</code>, and <code>spec</code>).</p></li>
-<li><p><code>is_prob_range</code> [2019-01]: Utility function to verify a range of 2 probability values (to check new arguments of <code>plot_curve</code> and <code>plot_plane</code>).</p></li>
+<li><p><code>is_prob_range()</code> [2019-01]: Utility function to verify a range of 2 probability values (to check new arguments of <code>plot_curve</code> and <code>plot_plane</code>).</p></li>
 </ul>
 </div>
 </div>
@@ -185,15 +197,21 @@ The condition label now allows for <code>NA</code> or vectors of several values 
 <h3 class="hasAnchor">
 <a href="#new-functionality" class="anchor"></a>New functionality</h3>
 <ul>
-<li>Add color palettes [2019-01]:<br>
-Add <code>pal_bwp</code> (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions.</li>
+<li>
+<p>Add color palettes [2019-01]:</p>
+<ul>
+<li><p>Add <code>pal_bwp</code> (a strict b+w color palette suited for printing purposes) and corresponding special cases to major plotting functions.</p></li>
+<li><p>Add <code>pal_unikn</code> (based on color definitions of the <strong>unikn</strong> package).</p></li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="general-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#general-changes" class="anchor"></a>General changes</h3>
 <ul>
-<li><p>Change default arguments for <code>plot_area</code> and <code>plot_tab</code> [2019-01]:<br>
+<li><p>Changed default setting of <code>mar_notes</code> in all plotting functions [2021-01]: Using <code>mar_notes = FALSE</code> as those details are not needed and can be distracting in visualizations.</p></li>
+<li><p>Change default arguments for <code><a href="../reference/plot_area.html">plot_area()</a></code> and <code><a href="../reference/plot_tab.html">plot_tab()</a></code> [2019-01]:<br>
 Change default settings from <code>f_lbl_hd = "abb"</code> to <code>f_lbl_hd = "nam"</code> (as this makes more sense for riskyrApp).</p></li>
 <li><p>Changes to color palettes [2019-01]:<br>
 Add a background color <code>pal[["bg"]]</code> to all palettes and plots (to preempt different system defaults).<br>
@@ -204,16 +222,26 @@ Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as default c
 <h3 class="hasAnchor">
 <a href="#details" class="anchor"></a>Details</h3>
 <ul>
-<li>Bug fix in <code>plot_icons</code> [2019-01]:<br>
-Enforce 2 different symbol types for icon arrays with a binary perspective (<code>by = cd</code> or <code>dc</code> or <code>ac</code>).</li>
+<li><p>Bug fix in <code><a href="../reference/plot_prism.html">plot_prism()</a></code>: Allow plotting simple trees for <code>nchar(by) == 2</code>.</p></li>
+<li><p>Bug fix in <code><a href="../reference/plot_icons.html">plot_icons()</a></code> [2019-01]: Enforce 2 different symbol types for icon arrays with a binary perspective (<code>by = cd</code> or <code>dc</code> or <code>ac</code>).</p></li>
+</ul>
+</div>
+</div>
+<div id="todo" class="section level2">
+<h2 class="hasAnchor">
+<a href="#todo" class="anchor"></a>ToDo</h2>
+<ul>
+<li><p>Adopt general framework of matrix lens model and 2x2 matrix construct</p></li>
+<li><p>Visualize and explain Bayesian brain teasers (cab problem, 3-option paradoxes, conjunction fallacy, etc.)</p></li>
+<li><p>Visual and explain other medical examples (e.g., Covid-19 and HIV tests, flu or terrorist detection, etc.)</p></li>
+<li><p>Prepare functions for cumulative lifetime risks (not yet integrated into package).</p></li>
 </ul>
 <hr>
 </div>
 </div>
-</div>
-    <div id="riskyr-0-2-0" class="section level1">
-<h1 class="page-header">
-<a href="#riskyr-0-2-0" class="anchor"></a>riskyr 0.2.0<small> 2019-01-03 </small>
+    <div id="riskyr-020" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0">
+<a href="#riskyr-020" class="anchor"></a>riskyr 0.2.0<small> 2019-01-03 </small>
 </h1>
 <p>riskyr 0.2.0 was ready to be released on December 20, 2018, and published on CRAN on January 03, 2019.</p>
 <p>Log of changes since last release:</p>
@@ -268,13 +296,12 @@ As an alternative to providing 3 essential frequencies, it is now possible to de
 Show icons separated into 2 subsets by 3 perspectives (condition, decision, accuracy), using the same <code>by</code> argument as the other plotting functions.</p></li>
 <li><p><code>plot_curve</code> and <code>plot_plane</code> functions [2018-11]:<br>
 Update variable names (to snake_case) and add arguments (e.g., <code>col_pal</code>, <code>lbl_txt</code> <code>mar_notes</code>, etc.) for consistency with newer plotting functions.</p></li>
-<li>
-<code>scale</code> argument [2018-10]:<br>
-The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</li>
+<li><p><code>scale</code> argument [2018-10]:<br>
+The new plotting functions feature a <code>scale</code> argument that allows scaling the size or areas of boxes either by (exact) probability or by (possibly rounded) frequency. When using <code>scale = "f"</code>, the probabilities shown are also re-computed from (possibly rounded) frequencies.</p></li>
 <li><p><code>plot_fnet</code> [2018-02]:<br>
 Change argument <code>box.cex</code> to <code>cex.lbl</code> to ensure consistency with <code>plot_curves</code> and <code>plot_plane</code> (and use it to scale arrow labels accordingly). Added warning when using deprecated argument.</p></li>
 <li><p><code>plot_mosaic</code> [2018-02]:<br>
-Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
+Change Boolean <code>vsplit</code> argument to <code>by = "cd"</code> vs. <code>by = "dc"</code> to ensure consistency with <code>plot_fnet</code> and <code>plot_tree</code>. Added warning when using deprecated argument.</p></li>
 <li><p><code>mar_notes</code> and <code>plot_mar</code> [2018-09]:<br>
 Use consistent plot margins and options for showing margin notes for all plots.</p></li>
 </ul>
@@ -286,7 +313,7 @@ Use consistent plot margins and options for showing margin notes for all plots.<
 <li><p><code>pal</code> and <code>freq</code> [2018-12]:<br>
 Use more consistent color and frequency names (e.g., <code>cond_true</code>, <code>dec_pos</code>, and <code>dec_cor</code> are now names of frequencies and the colors corresponding to these frequencies).</p></li>
 <li><p><code>freq</code> [2018-07]:<br>
-Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of <code>dec.cor</code> and <code>dec.err</code> (i.e., <code>hi + cr</code> vs. <code>mi + fa</code> as the diagonal of 4 SDT cases). This increases the number of frequencies in <code>freq</code> from 9 to 11. Also added corresponding labels in <code>init_txt.R</code> and colors in <code>init_pal.R</code>.</p></li>
+Add a 3rd perspective (by accuracy or by correspondence of decision to condition) and corresponding frequency pair of <code>dec.cor</code> and <code>dec.err</code> (i.e., <code>hi + cr</code> vs. <code>mi + fa</code> as the diagonal of 4 SDT cases). This increases the number of frequencies in <code>freq</code> from 9 to 11. Also added corresponding labels in <code>init_txt.R</code> and colors in <code>init_pal.R</code>.</p></li>
 <li><p><code>prob</code> [2018-09]:<br>
 Include accuracy metrics in probabilities (in <code>prob</code> and summary functions).</p></li>
 <li><p><code>pal</code> and <code>txt</code> [2018-10]:<br>
@@ -330,9 +357,9 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
 </div>
 </div>
 </div>
-    <div id="riskyr-0-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#riskyr-0-1-0" class="anchor"></a>riskyr 0.1.0<small> 2018-02-19 </small>
+    <div id="riskyr-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#riskyr-010" class="anchor"></a>riskyr 0.1.0<small> 2018-02-19 </small>
 </h1>
 <ul>
 <li>Initial release on CRAN: <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a> [2018-02-19]</li>
@@ -340,18 +367,14 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#riskyr-0-2-0-9008">0.2.0.9008</a></li>
-        <li><a href="#riskyr-0-2-0">0.2.0</a></li>
-        <li><a href="#riskyr-0-1-0">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -359,13 +382,16 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

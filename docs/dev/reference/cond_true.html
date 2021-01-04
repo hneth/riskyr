@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,14 +45,13 @@
 
 
 
-<meta property="og:title" content="Number of individuals for which the condition is true. — cond_true" />
 
+<meta property="og:title" content="Number of individuals for which the condition is true. — cond_true" />
 <meta property="og:description" content="cond_true is a frequency that describes the
 number of individuals in the current population N
 for which the condition is TRUE (i.e., actually true cases)." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -58,9 +65,10 @@ for which the condition is TRUE (i.e., actually true cases)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +82,7 @@ for which the condition is TRUE (i.e., actually true cases)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9010</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
       </span>
     </div>
 
@@ -82,7 +90,7 @@ for which the condition is TRUE (i.e., actually true cases)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -121,11 +129,10 @@ for which the condition is TRUE (i.e., actually true cases)." />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://hneth.github.io/riskyr/">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -136,6 +143,7 @@ for which the condition is TRUE (i.e., actually true cases)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -147,19 +155,17 @@ for which the condition is TRUE (i.e., actually true cases)." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>cond_true</code> is a frequency that describes the
 number of individuals in the current population <code><a href='N.html'>N</a></code>
 for which the condition is <code>TRUE</code> (i.e., actually true cases).</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>cond_true</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>An object of class <code>numeric</code> of length 1.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Key relationships:</p>
@@ -178,26 +184,26 @@ the condition's prevalence <code><a href='prev.html'>prev</a></code> and is spli
 <p>a. The frequency <code><a href='hi.html'>hi</a></code> is determined by <code>cond_true</code> times the sensitivity <code><a href='sens.html'>sens</a></code>
   (aka. hit rate <code><a href='sens.html'>HR</a></code>):</p>
 <p><code> <a href='hi.html'>hi</a> = cond_true x <a href='sens.html'>sens</a></code></p>
+
 <p>b. The frequency <code><a href='mi.html'>mi</a></code> is determined by <code>cond_true</code> times the miss rate <code><a href='mirt.html'>mirt</a> = (1 - <a href='sens.html'>sens</a>)</code>:</p>
 <p><code> <a href='mi.html'>mi</a> = cond_true x <a href='mirt.html'>mirt</a>  =  cond_true x (1 - <a href='sens.html'>sens</a>)</code></p></li>
 </ol></li>
 <li><p>to other frequencies:
   In a population of size <code><a href='N.html'>N</a></code> the following relationships hold:</p>
-<ul>
+<p></p><ul>
 <li><p><code><a href='N.html'>N</a> = cond_true + <a href='cond_false.html'>cond_false</a></code> (by condition)</p></li>
 <li><p><code><a href='N.html'>N</a> = <a href='dec_pos.html'>dec_pos</a> + <a href='dec_neg.html'>dec_neg</a></code> (by decision)</p></li>
 <li><p><code><a href='N.html'>N</a> = <a href='dec_cor.html'>dec_cor</a> + <a href='dec_err.html'>dec_err</a></code> (by correspondence of decision to condition)</p></li>
 <li><p><code><a href='N.html'>N</a> = <a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a></code> (by condition x decision)</p></li>
 </ul></li>
 </ol>
-    <p>Current frequency information is computed by
+
+<p>Current frequency information is computed by
 <code><a href='comp_freq.html'>comp_freq</a></code> and contained in a list
 <code><a href='freq.html'>freq</a></code>.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Consult <a href='https://en.wikipedia.org/wiki/Confusion_matrix'>Wikipedia: Confusion matrix</a> for additional information.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='is_freq.html'>is_freq</a></code> verifies frequencies;
@@ -207,34 +213,29 @@ the condition's prevalence <code><a href='prev.html'>prev</a></code> and is spli
 <code><a href='comp_freq.html'>comp_freq</a></code> computes current frequency information;
 <code><a href='prob.html'>prob</a></code> contains current probability information;
 <code><a href='comp_prob.html'>comp_prob</a></code> computes current probability information.</p>
-<p>Other frequencies: <code><a href='N.html'>N</a></code>,
-  <code><a href='cond_false.html'>cond_false</a></code>, <code><a href='cr.html'>cr</a></code>,
-  <code><a href='dec_cor.html'>dec_cor</a></code>, <code><a href='dec_err.html'>dec_err</a></code>,
-  <code><a href='dec_neg.html'>dec_neg</a></code>, <code><a href='dec_pos.html'>dec_pos</a></code>,
-  <code><a href='fa.html'>fa</a></code>, <code><a href='hi.html'>hi</a></code>, <code><a href='mi.html'>mi</a></code></p></div>
-    
+<p>Other frequencies: 
+<code><a href='N.html'>N</a></code>,
+<code><a href='cond_false.html'>cond_false</a></code>,
+<code><a href='cr.html'>cr</a></code>,
+<code><a href='dec_cor.html'>dec_cor</a></code>,
+<code><a href='dec_err.html'>dec_err</a></code>,
+<code><a href='dec_neg.html'>dec_neg</a></code>,
+<code><a href='dec_pos.html'>dec_pos</a></code>,
+<code><a href='fa.html'>fa</a></code>,
+<code><a href='hi.html'>hi</a></code>,
+<code><a href='mi.html'>mi</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>cond_true</span> <span class='kw'>&lt;-</span> <span class='fl'>1000</span> * <span class='fl'>.10</span>   <span class='co'># =&gt; sets cond_true to 10% of 1000 = 100 cases.</span>
 <span class='fu'><a href='is_freq.html'>is_freq</a></span>(<span class='no'>cond_true</span>)        <span class='co'># =&gt; TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='is_prob.html'>is_prob</a></span>(<span class='no'>cond_true</span>)        <span class='co'># =&gt; FALSE, as cond_true is no probability (but prev and sens are)</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -242,13 +243,16 @@ the condition's prevalence <code><a href='prev.html'>prev</a></code> and is spli
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

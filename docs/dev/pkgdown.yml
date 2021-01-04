@@ -1,5 +1,5 @@
-pandoc: 1.19.2.1
-pkgdown: 1.3.0
+pandoc: 2.10.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   A_user_guide: A_user_guide.html
@@ -7,6 +7,7 @@ articles:
   C_confusion_matrix: C_confusion_matrix.html
   D_functional_perspectives: D_functional_perspectives.html
   E_riskyr_primer: E_riskyr_primer.html
+last_built: 2021-01-04T18:36Z
 urls:
   reference: https://hneth.github.io/riskyr//reference
   article: https://hneth.github.io/riskyr//articles

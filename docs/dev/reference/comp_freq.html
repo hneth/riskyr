@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,17 +45,16 @@
 
 
 
-<meta property="og:title" content="Compute frequencies from (3 essential) probabilities. — comp_freq" />
 
+<meta property="og:title" content="Compute frequencies from (3 essential) probabilities. — comp_freq" />
 <meta property="og:description" content="comp_freq computes frequencies (typically
 as rounded integers) given 3 basic probabilities --
 prev, sens, and spec --
 for a population of N individuals.
 It returns a list of 11 frequencies freq
 as its output." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -61,9 +68,10 @@ as its output." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -77,7 +85,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9010</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
       </span>
     </div>
 
@@ -85,7 +93,7 @@ as its output." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -124,11 +132,10 @@ as its output." />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://hneth.github.io/riskyr/">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -139,6 +146,7 @@ as its output." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -150,19 +158,22 @@ as its output." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>comp_freq</code> computes frequencies (typically
 as rounded integers) given 3 basic probabilities --
 <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, and <code><a href='spec.html'>spec</a></code> --
 for a population of <code><a href='N.html'>N</a></code> individuals.
 It returns a list of 11 frequencies <code><a href='freq.html'>freq</a></code>
 as its output.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>,
-  <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>comp_freq</span>(
+  <span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>,
+  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>,
+  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>,
+  <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>,
+  <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -198,11 +209,10 @@ are to be rounded when <code>round = FALSE</code>.
 Default: <code>n_digits = 5</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list <code><a href='freq.html'>freq</a></code> containing 11 frequency values.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In addition to <code><a href='prev.html'>prev</a></code>, both
@@ -224,12 +234,13 @@ round frequencies to nearest integers to avoid decimal values in
 When frequencies are rounded, probabilities computed from
 <code><a href='freq.html'>freq</a></code> may differ from exact probabilities.
 Using the option <code>round = FALSE</code> turns off rounding.</p>
+
 <p>Key relationships between probabilities and frequencies:</p>
 <ul>
 <li><p>Three perspectives on a population:</p>
 <p>A population of <code><a href='N.html'>N</a></code> individuals can be split into 2 subsets of frequencies
 in 3 different ways:</p>
-<ol>
+<p></p><ol>
 <li><p>by condition:</p>
 <p><code><a href='N.html'>N</a> = <a href='cond_true.html'>cond_true</a> + <a href='cond_false.html'>cond_false</a></code></p>
 <p>The frequency <code><a href='cond_true.html'>cond_true</a></code> depends on the prevalence <code><a href='prev.html'>prev</a></code>
@@ -243,14 +254,15 @@ in 3 different ways:</p>
 <li><p>by accuracy (i.e., correspondence of decision to condition):</p>
 <p><code><a href='N.html'>N</a> = <a href='dec_cor.html'>dec_cor</a> + <a href='dec_err.html'>dec_err</a></code></p></li>
 </ol>
-    <p>Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).</p>
+
+<p>Each perspective combines 2 pairs of the 4 essential probabilities (hi, mi, fa, cr).</p>
 <p>When providing probabilities, the population size <code><a href='N.html'>N</a></code> is a free parameter (independent of the
 essential probabilities <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, and <code><a href='spec.html'>spec</a></code>).</p>
 <p>If <code><a href='N.html'>N</a></code> is unknown (<code>NA</code>), a suitable minimum value can be computed by <code><a href='comp_min_N.html'>comp_min_N</a></code>.</p></li>
 <li><p>Defining probabilities in terms of frequencies:</p>
 <p>Probabilities <em>are</em> -- determine, describe, or are defined as -- the relationships between frequencies.
 Thus, they can be computed as ratios between frequencies:</p>
-<ol>
+<p></p><ol>
 <li><p>prevalence <code><a href='prev.html'>prev</a></code>:</p>
 <p><code><a href='prev.html'>prev</a> = <a href='cond_true.html'>cond_true</a>/<a href='N.html'>N</a>  =  (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a>) / (<a href='hi.html'>hi</a> + <a href='mi.html'>mi</a> + <a href='fa.html'>fa</a> + <a href='cr.html'>cr</a>)</code></p></li>
 <li><p>sensitivity <code><a href='sens.html'>sens</a></code>:</p>
@@ -278,14 +290,16 @@ Thus, they can be computed as ratios between frequencies:</p>
 <li><p>rate of false alarms, given inaccuracy <code>p_err_fa</code>:</p>
 <p><code>p_err_fa = <a href='fa.html'>fa</a>/<a href='dec_err.html'>dec_err</a> = (1 - <a href='mi.html'>mi</a>/<a href='dec_err.html'>dec_err</a>)</code></p></li>
 </ol>
-    <p>Note: When frequencies are rounded (by <code>round = TRUE</code> in <code>comp_freq</code>),
+
+<p>Note: When frequencies are rounded (by <code>round = TRUE</code> in <code>comp_freq</code>),
    probabilities computed from <code><a href='freq.html'>freq</a></code> may differ from exact probabilities.</p></li>
 </ul>
-    <p>Functions translating between representational formats:
+
+
+<p>Functions translating between representational formats:
 <code><a href='comp_prob_prob.html'>comp_prob_prob</a></code>, <code><a href='comp_prob_freq.html'>comp_prob_freq</a></code>,
 <code><a href='comp_freq_prob.html'>comp_freq_prob</a></code>, <code><a href='comp_freq_freq.html'>comp_freq_freq</a></code>
 (see documentation of <code><a href='comp_prob_prob.html'>comp_prob_prob</a></code> for details).</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='comp_freq_prob.html'>comp_freq_prob</a></code> corresponding wrapper function;
@@ -298,10 +312,12 @@ Thus, they can be computed as ratios between frequencies:</p>
 <code><a href='comp_comp_pair.html'>comp_comp_pair</a></code> computes pairs of complements;
 <code><a href='comp_complete_prob_set.html'>comp_complete_prob_set</a></code> completes valid sets of probabilities;
 <code><a href='comp_min_N.html'>comp_min_N</a></code> computes a suitable population size <code><a href='N.html'>N</a></code> (if missing).</p>
-<p>Other functions computing frequencies: <code><a href='comp_freq_freq.html'>comp_freq_freq</a></code>,
-  <code><a href='comp_freq_prob.html'>comp_freq_prob</a></code>, <code><a href='comp_min_N.html'>comp_min_N</a></code>,
-  <code><a href='comp_popu.html'>comp_popu</a></code>, <code><a href='comp_prob_prob.html'>comp_prob_prob</a></code></p></div>
-    
+<p>Other functions computing frequencies: 
+<code><a href='comp_freq_freq.html'>comp_freq_freq</a>()</code>,
+<code><a href='comp_freq_prob.html'>comp_freq_prob</a>()</code>,
+<code><a href='comp_min_N.html'>comp_min_N</a>()</code>,
+<code><a href='comp_popu.html'>comp_popu</a>()</code>,
+<code><a href='comp_prob_prob.html'>comp_prob_prob</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>comp_freq</span>()                  <span class='co'># =&gt; ok, using current defaults</span></div><div class='output co'>#&gt; $N
@@ -336,7 +352,7 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 562
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='fu'>comp_freq</span>())          <span class='co'># =&gt; 11</span></div><div class='output co'>#&gt; [1] 11</div><div class='input'>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'>comp_freq</span>())          <span class='co'># =&gt; 11</span></div><div class='output co'>#&gt; [1] 11</div><div class='input'>
 <span class='co'># Rounding effects:</span>
 <span class='fu'>comp_freq</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1</span>)   <span class='co'># =&gt; yields fa = 1 (see ?round for reason)</span></div><div class='output co'>#&gt; $N
 #&gt; [1] 1
@@ -964,22 +980,13 @@ Thus, they can be computed as ratios between frequencies:</p>
 #&gt; </div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -987,13 +994,16 @@ Thus, they can be computed as ratios between frequencies:</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

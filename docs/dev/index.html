@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9025</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
       </span>
     </div>
 
@@ -47,7 +47,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home"></span>
+    <span class="fas fa-home"></span>
      
     Home
   </a>
@@ -89,7 +89,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://hneth.github.io/riskyr/">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -116,9 +116,9 @@
 
 -->
 <!-- riskyr logo: -->
-<div id="riskyr" class="section level1">
+<div id="riskyr-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#riskyr" class="anchor"></a>riskyr <img src="./inst/pix/logo.png" align="right" alt="riskyr" width="160">
+<a href="#riskyr-" class="anchor"></a>riskyr <img src="./inst/pix/logo.png" align="right" alt="riskyr" width="160">
 </h1></div>
 <!-- riskyr logo: -->
 <!-- 
@@ -132,7 +132,7 @@
 <div id="a-toolbox-for-rendering-risk-literacy-more-transparent" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-toolbox-for-rendering-risk-literacy-more-transparent" class="anchor"></a>A toolbox for rendering risk literacy more transparent</h3>
-<p>Risk-related information — like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions — can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, <strong>riskyr</strong> computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.</p>
+<p>Risk-related information – like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions – can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, <strong>riskyr</strong> computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent.</p>
 </div>
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
@@ -159,18 +159,19 @@
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <p>The current release of <strong>riskyr</strong> is available from <a href="https://CRAN.R-project.org/">CRAN</a> at <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'riskyr'</span>)  <span class="co"># install riskyr from CRAN client</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">'riskyr'</span>)           <span class="co"># load to use the package</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">'riskyr'</span>)  <span class="co"># install riskyr from CRAN client</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">library</span>(<span class="st">'riskyr'</span>)           <span class="co"># load to use the package</span></span></code></pre></div>
 <p>The current development version can be installed from its <a href="https://github.com">GitHub</a> repository at <a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a>:</p>
-<div class="sourceCode"><pre class="r"><span class="co"># install.packages('devtools')</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">'hneth/riskyr'</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co"># install.packages('devtools')</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'hneth/riskyr'</span>)</span></code></pre></div>
 </div>
 <div id="available-resources" class="section level3">
 <h3 class="hasAnchor">
 <a href="#available-resources" class="anchor"></a>Available resources</h3>
 <ul>
 <li><p>An <strong>interactive online version</strong> can be used at <a href="http://riskyr.org" class="uri">http://riskyr.org</a>.</p></li>
-<li>The <strong>package documentation</strong> is available online:
+<li>
+<p>The <strong>package documentation</strong> is available online:</p>
 <ul>
 <li>current release version: <a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a>
 </li>
@@ -194,18 +195,22 @@
 <p><strong>Screening for hustosis</strong></p>
 <p>A screening device for detecting the clinical condition of <em>hustosis</em> is developed. The current device is very good, but not perfect. We have the following information:</p>
 <ol>
-<li>About 4% of the people of the general population suffer from <em>hustosis</em>.</li>
-<li>If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.</li>
+<li>About 4% of the people of the general population suffer from <em>hustosis</em>.<br>
+</li>
+<li>If someone suffers from hustosis, there is a chance of 80% that he or she will test positively for the condition.<br>
+</li>
 <li>If someone is free from hustosis, there is a chance of 5% that he or she will still test positively for the condition.</li>
 </ol>
 <p>Mr. and Ms. Smith have both been screened with the device:</p>
 <ul>
-<li>Mr. Smith tested positively (i.e., received a diagnosis of hustosis).</li>
+<li>Mr. Smith tested positively (i.e., received a diagnosis of hustosis).<br>
+</li>
 <li>Ms. Smith tested negatively (i.e., was judged to be free of hustosis).</li>
 </ul>
 <p>Please answer the following questions:</p>
 <ul>
-<li>What is the probability that Mr. Smith actually suffers from hustosis?</li>
+<li>What is the probability that Mr. Smith actually suffers from hustosis?<br>
+</li>
 <li>What is the probability that Ms. Smith is actually free of hustosis?</li>
 </ul>
 </blockquote>
@@ -214,8 +219,10 @@
 <a href="#probabilities-provided" class="anchor"></a>Probabilities provided</h4>
 <p>The first challenge in solving such problems is in understanding the information that is being provided. The problem description provides three essential probabilities:</p>
 <ol>
-<li>The condition’s <em>prevalence</em> (in the general population) is 4%: <code>prev = .04</code>.</li>
-<li>The device’s or diagnostic decision’s <em>sensitivity</em> is 80%: <code>sens = .80</code>.</li>
+<li>The condition’s <em>prevalence</em> (in the general population) is 4%: <code>prev = .04</code>.<br>
+</li>
+<li>The device’s or diagnostic decision’s <em>sensitivity</em> is 80%: <code>sens = .80</code>.<br>
+</li>
 <li>The device’s or diagnostic decision’s <em>false alarm rate</em> is 5%: <code>fart = .05</code>, implying a <em>specificity</em> of (100% − 5%) = 95%: <code>spec = .95</code>.</li>
 </ol>
 </div>
@@ -235,7 +242,8 @@
 <blockquote>
 <p>Assuming a representative sample of 1000 individuals:</p>
 <ul>
-<li>What proportion of individuals with a positive test result actually suffer from hustosis?</li>
+<li>What proportion of individuals with a positive test result actually suffer from hustosis?<br>
+</li>
 <li>What proportion of individuals with a negative test result are actually free of hustosis?</li>
 </ul>
 </blockquote>
@@ -244,26 +252,26 @@
 <h4 class="hasAnchor">
 <a href="#using-riskyr" class="anchor"></a>Using riskyr</h4>
 <p>Here is how <strong>riskyr</strong> allows you to view and solve such problems:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">riskyr</span>)  <span class="co"># loads the package</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(riskyr)  <span class="co"># loads the package</span></span></code></pre></div>
 </div>
 <div id="creating-a-scenario-from-probabilities" class="section level4">
 <h4 class="hasAnchor">
 <a href="#creating-a-scenario-from-probabilities" class="anchor"></a>Creating a scenario from probabilities</h4>
 <p>We define a new <strong>riskyr</strong> scenario (called <code>hustosis</code>) by using the <code><a href="reference/riskyr.html">riskyr()</a></code> function and entering the information provided by our problem as its arguments:</p>
-<div class="sourceCode"><pre class="r"><span class="no">hustosis</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/riskyr.html">riskyr</a></span>(<span class="kw">scen_lbl</span> <span class="kw">=</span> <span class="st">"Example"</span>,
-                   <span class="kw">cond_lbl</span> <span class="kw">=</span> <span class="st">"Hustosis"</span>,
-                   <span class="kw">dec_lbl</span> <span class="kw">=</span> <span class="st">"Screening test"</span>,
-                   <span class="kw">popu_lbl</span> <span class="kw">=</span> <span class="st">"Sample"</span>,
-                   <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,  <span class="co"># population size</span>
-                   <span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.04</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> (<span class="fl">1</span> - <span class="fl">.05</span>)  <span class="co"># 3 probabilities</span>
-                   )</pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>hustosis &lt;-<span class="st"> </span><span class="kw">riskyr</span>(<span class="dt">scen_lbl =</span> <span class="st">"Example"</span>, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>                   <span class="dt">cond_lbl =</span> <span class="st">"Hustosis"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>                   <span class="dt">dec_lbl =</span> <span class="st">"Screening"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>                   <span class="dt">popu_lbl =</span> <span class="st">"Sample"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>                   <span class="dt">N =</span> <span class="dv">1000</span>,  <span class="co"># population size</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>                   <span class="dt">prev =</span> <span class="fl">.04</span>, <span class="dt">sens =</span> <span class="fl">.80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">.05</span>)  <span class="co"># 3 probabilities</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>                   )</span></code></pre></div>
 <p>By providing the argument <code>N = 1000</code> we define the scenario for a target population of 1000 people. If we leave this parameter unspecified (or <code>NA</code>), the <code><a href="reference/riskyr.html">riskyr()</a></code> function will automatically pick a suitable value of <code>N</code>.</p>
 </div>
 <div id="summary" class="section level4">
 <h4 class="hasAnchor">
 <a href="#summary" class="anchor"></a>Summary</h4>
 <p>To obtain a quick overview of key parameter values, we ask for the <code>summary</code> of <code>hustosis</code>:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">hustosis</span>)  <span class="co"># summarizes key parameter values: </span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">summary</span>(hustosis)  <span class="co"># summarizes key parameter values: </span></span></code></pre></div>
 <p>The summary distinguishes between probabilities, frequencies, and accuracy information. In <code>Probabilities</code> we find the answer to both of our questions that take into account all the information provided above:</p>
 <ul>
 <li><p>The conditional probability that Mr. Smith actually suffers from hustosis given his positive test result is 40% (as <code>PPV = 0.400</code>).</p></li>
@@ -275,15 +283,15 @@
 <h4 class="hasAnchor">
 <a href="#creating-a-scenario-from-frequencies" class="anchor"></a>Creating a scenario from frequencies</h4>
 <p>Rather than defining our <code>hustosis</code> scenario by providing 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code>), we could define the same scenario by providing 4 essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>) as follows:</p>
-<div class="sourceCode"><pre class="r"><span class="no">hustosis_2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/riskyr.html">riskyr</a></span>(<span class="kw">scen_lbl</span> <span class="kw">=</span> <span class="st">"Example"</span>,
-                     <span class="kw">cond_lbl</span> <span class="kw">=</span> <span class="st">"Hustosis"</span>,
-                     <span class="kw">dec_lbl</span> <span class="kw">=</span> <span class="st">"Screening test"</span>,
-                     <span class="kw">popu_lbl</span> <span class="kw">=</span> <span class="st">"Sample"</span>,
-                     <span class="kw">hi</span> <span class="kw">=</span> <span class="fl">32</span>, <span class="kw">mi</span> <span class="kw">=</span> <span class="fl">8</span>, <span class="kw">fa</span> <span class="kw">=</span> <span class="fl">48</span>, <span class="kw">cr</span> <span class="kw">=</span> <span class="fl">912</span>  <span class="co"># 4 key frequencies</span>
-                     )</pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>hustosis_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">riskyr</span>(<span class="dt">scen_lbl =</span> <span class="st">"Example"</span>, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>                     <span class="dt">cond_lbl =</span> <span class="st">"Hustosis"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>                     <span class="dt">dec_lbl =</span> <span class="st">"Screening"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>                     <span class="dt">popu_lbl =</span> <span class="st">"Sample"</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>                     <span class="dt">hi =</span> <span class="dv">32</span>, <span class="dt">mi =</span> <span class="dv">8</span>, <span class="dt">fa =</span> <span class="dv">48</span>, <span class="dt">cr =</span> <span class="dv">912</span>  <span class="co"># 4 key frequencies</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>                     )</span></code></pre></div>
 <p>As we took the values of these frequencies from the <code>summary</code> of <code>hustosis</code>, the <code>hustosis_2</code> scenario should contain exactly the same information as <code>hustosis</code>:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">hustosis</span>, <span class="no">hustosis_2</span>)  <span class="co"># do both contain the same information? </span>
-<span class="co">#&gt; [1] TRUE</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">all.equal</span>(hustosis, hustosis_<span class="dv">2</span>)  <span class="co"># do both contain the same information? </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div id="visualizations" class="section level3">
@@ -294,73 +302,83 @@
 <h4 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h4>
 <p>The default type of plot used in <strong>riskyr</strong> is a <em>prism plot</em> (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>)  <span class="co"># default plot</span>
-
-<span class="co"># =&gt; internally calls plot_prism(...) with many additional arguments:</span>
-<span class="co"># plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")</span></pre></div>
-<p><img src="inst/pix/README-ex1_prism-1.png" alt="Prism plot"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis)  <span class="co"># default plot</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="co"># =&gt; internally calls plot_prism(...) with many additional arguments:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a><span class="co"># plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-prism-1.png" alt="Prism plot"></p>
 </div>
 <div id="tree-diagram" class="section level4">
 <h4 class="hasAnchor">
 <a href="#tree-diagram" class="anchor"></a>Tree diagram</h4>
 <p>A <em>tree diagram</em> is the upper half of a prism plot, which can be obtained by plotting a scenario with 1 of 3 perspectives:</p>
 <ol>
-<li>by condition (<code>by = "cd"</code>), to split the population into <em>TRUE</em> vs. <em>FALSE</em> (<code>cond_true</code> vs. <code>cond_false</code>) cases;</li>
-<li>by decision (<code>by = "dc"</code>), to split the population into <em>negative</em> vs. <em>positive</em> (<code>dec_neg</code> vs. <code>dec_pos</code>) decisions;</li>
-<li>by accuracy (<code>by = "ac"</code>), to split the population into <em>correct</em> vs. <em>incorrect</em> (<code>dec_cor</code> vs. <code>dec_err</code>) decisions.</li>
+<li>by condition (<code>by = "cd"</code>), to split the population into <em>TRUE</em> vs. <em>FALSE</em> (<code>cond_true</code> vs. <code>cond_false</code>) cases;</li>
+<li>by decision (<code>by = "dc"</code>), to split the population into <em>negative</em> vs. <em>positive</em> (<code>dec_neg</code> vs. <code>dec_pos</code>) decisions;</li>
+<li>by accuracy (<code>by = "ac"</code>), to split the population into <em>correct</em> vs. <em>incorrect</em> (<code>dec_cor</code> vs. <code>dec_err</code>) decisions.</li>
 </ol>
 <p>For instance, the following command plots a frequency tree by decisions:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"dc"</span>)  <span class="co"># plot a tree diagram (by decision)</span></pre></div>
-<p><img src="inst/pix/README-ex1_tree-1.png" alt="Tree diagram"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">by =</span> <span class="st">"dc"</span>)  <span class="co"># plot a tree diagram (by decision)</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-tree-1.png" alt="Tree diagram"></p>
 <p>This particular tree splits the population of <code>N = 1000</code> individuals into two subgroups <em>by decision</em> (<code>by = "dc"</code>) and contains the answer to the second (frequency) version of our questions:</p>
 <ul>
-<li>The proportion of individuals with a positive test result who actually suffer from hustosis is the frequency of “true positive” cases (shown in darker green) divided by “decision positive” cases (shown in purple): <code>32/80 = .400</code> (corresponding to our value of <code>PPV</code> above).</li>
+<li>The proportion of individuals with a positive test result who actually suffer from hustosis is the frequency of “true positive” cases (shown in darker green) divided by “decision positive” cases (shown in purple): <code>32/80 = .400</code> (corresponding to our value of <code>PPV</code> above).<br>
+</li>
 <li>The proportion of individuals with a negative test result who are actually free from hustosis is the frequency of “true negative” cases (shown in lighter green) divided by “decision negative” cases (shown in blue): <code>912/920 = .991</code> (corresponding to our value of <code>NPV</code> above, except for minimal differences due to rounding).</li>
 </ul>
 <p>Of course, the frequencies of these ratios were already contained in the <code>hustosis</code> summary above. But the representation in the form of a tree diagram makes it easier to understand the decomposition of the population into subgroups and to see which frequencies are required to answer a particular question.</p>
+</div>
+<div id="frequency-net" class="section level4">
+<h4 class="hasAnchor">
+<a href="#frequency-net" class="anchor"></a>Frequency net</h4>
+<p>A new type of visualization combines elements from 2x2 tables with those of tree or double tree diagrams. The <em>frequency net</em> (Binder et al., 2020) is similar to a 2x2 table insofar as its perspectives (shown by arranging marginal frequencies in a vertical vs. horizontal fashion) do not suggest an order or dependency (in contrast to trees or mosaic plots). Additionally, the frequency net allows showing 3 kinds of (<em>marginal</em>, <em>conditional</em>, and <em>joint</em>) probabilities:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"fnet"</span>, <span class="dt">by =</span> <span class="st">"cddc"</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>     <span class="dt">f_lbl =</span> <span class="st">"namnum"</span>)  <span class="co"># plot frequency net</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-fnet-1.png" alt="Frequency net"></p>
+<p>See the <code><a href="reference/plot_fnet.html">plot_fnet()</a></code> function for options and details.</p>
 </div>
 <div id="icon-array" class="section level4">
 <h4 class="hasAnchor">
 <a href="#icon-array" class="anchor"></a>Icon array</h4>
 <p>An icon array shows the classification result for each of <code>N = 1000</code> individuals in our population:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"icons"</span>)   <span class="co"># plot an icon array </span></pre></div>
-<p><img src="inst/pix/README-ex1_icons-1.png" alt="Icon array"></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"icons"</span>)   <span class="co"># plot an icon array </span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-icons-1.png" alt="Icon array"></p>
 <p>While this particular icon array is highly regular (as both the icons and classification types are ordered), <strong>riskyr</strong> provides many different versions of this type of graph. This allows viewing the probability of diagnostic outcomes as either frequency, area, or density (see <code><a href="reference/plot_icons.html">?plot_icons</a></code> for details and examples).</p>
 </div>
 <div id="area-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#area-plot" class="anchor"></a>Area plot</h4>
 <p>An area plot (or mosaic plot) offers a way of expressing classification results as the relationship between areas. Here, the entire population is represented as a square and the probability of its subgroups as the size of rectangles (see <code><a href="reference/plot_area.html">?plot_area</a></code> for details and examples):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"area"</span>)  <span class="co"># plot an area/mosaic plot (by = "cddc")</span></pre></div>
-<p><img src="inst/pix/README-ex1_area-1.png" alt="Area/mosaic plot"></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"area"</span>)  <span class="co"># plot an area/mosaic plot (by = "cddc")</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-area-1.png" alt="Area/mosaic plot"></p>
 </div>
 <div id="table-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#table-plot" class="anchor"></a>Table plot</h4>
 <p>When not scaling the size of rectangles by their relative frequencies or probabilities, we can plot basic scenario information as a 2-by-2 confusion (or contingency) table (see <code><a href="reference/plot_tab.html">?plot_tab</a></code> for details and examples):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"tab"</span>)  <span class="co"># plot 2x2 confusion table (by = "cddc") </span></pre></div>
-<p><img src="inst/pix/README-ex1_tab-1.png" alt="Table plot"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"table"</span>)  <span class="co"># plot 2x2 confusion table (by = "cddc") </span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-tab-1.png" alt="Table plot"></p>
 </div>
 <div id="bar-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#bar-plot" class="anchor"></a>Bar plot</h4>
 <p>A <em>bar plot</em> allows comparing relative frequencies as the heights of bars (see <code><a href="reference/plot_bar.html">?plot_bar</a></code> for details and examples):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"bar"</span>, <span class="kw">f_lbl</span> <span class="kw">=</span> <span class="st">"abb"</span>)  <span class="co"># plot bar chart (by "all" perspectives): </span></pre></div>
-<p><img src="inst/pix/README-ex1_bar-1.png" alt="Bar plot"></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"bar"</span>, <span class="dt">f_lbl =</span> <span class="st">"abb"</span>)  <span class="co"># plot bar chart (by "all" perspectives): </span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-bar-1.png" alt="Bar plot"></p>
 </div>
 <div id="curves" class="section level4">
 <h4 class="hasAnchor">
 <a href="#curves" class="anchor"></a>Curves</h4>
 <p>By adopting a functional perspective, we can ask how the values of some probabilities (e.g., the predictive values <code>PPV</code> and <code>NPV</code>) change as a function of another (e.g., the condition’s prevalence <code>prev</code>, see <code><a href="reference/plot_curve.html">?plot_curve</a></code> for details and examples):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"curve"</span>, <span class="kw">uc</span> <span class="kw">=</span> <span class="fl">.05</span>)   <span class="co"># plot probability curves (by prevalence):</span></pre></div>
-<p><img src="inst/pix/README-ex1_curve-1.png" alt="Probability curves"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"curve"</span>, <span class="dt">uc =</span> <span class="fl">.05</span>)   <span class="co"># plot probability curves (by prevalence):</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-curve-1.png" alt="Probability curves"></p>
 </div>
 <div id="planes" class="section level4">
 <h4 class="hasAnchor">
 <a href="#planes" class="anchor"></a>Planes</h4>
 <p>When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the <code>PPV</code> as a function of the sensitivity (<code>sens</code>) and specificity (<code>spec</code>) of our test for a given prevalence (<code>prev</code>, see <code><a href="reference/plot_plane.html">?plot_plane</a></code> for details and examples):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">hustosis</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"plane"</span>)  <span class="co"># plot probability plane (by sens x spec):</span></pre></div>
-<p><img src="inst/pix/README-ex1_plane-1.png" alt="Probability plane"></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">plot</span>(hustosis, <span class="dt">type =</span> <span class="st">"plane"</span>)  <span class="co"># plot probability plane (by sens x spec):</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex1-plane-1.png" alt="Probability plane"></p>
 <p>The L-shape of this plane reveals a real problem with our current test: Given a prevalence of 4% for hustosis in our target population, the <code>PPV</code> remains very low for the majority of the possible range of sensitivity and specificity values. To achieve a high <code>PPV</code>, the key requirement for our test is an extremely high specificity. Although our current specificity value of 95% (<code>spec = .95</code>) may sound pretty good, it is still not high enough to yield a <code>PPV</code> beyond 40%.</p>
 <!--
 
@@ -394,70 +412,79 @@ plot(hustosis, type = "bar",   dir = 2)
 <h4 class="hasAnchor">
 <a href="#selecting-a-scenario" class="anchor"></a>Selecting a scenario</h4>
 <p>Let us assume you want to learn more about the controversy surrounding screening procedures of prostate-cancer (known as PSA screening). Scenario 10 in our collection of <code>scenarios</code> is from an article on this topic (Arkes &amp; Gaissmaier, 2012). To select a particular scenario, simply assign it to an R object. For instance, we can assign Scenario 10 to <code>s10</code>:</p>
-<div class="sourceCode"><pre class="r"><span class="no">s10</span> <span class="kw">&lt;-</span> <span class="no">scenarios</span>$<span class="no">n10</span>  <span class="co"># assign pre-defined Scenario 10 to s10</span></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>s10 &lt;-<span class="st"> </span>scenarios<span class="op">$</span>n10  <span class="co"># assign pre-defined Scenario 10 to s10</span></span></code></pre></div>
 </div>
 <div id="scenario-summary" class="section level4">
 <h4 class="hasAnchor">
 <a href="#scenario-summary" class="anchor"></a>Scenario summary</h4>
 <p>Our selected scenario object <code>s10</code> is a list with 30 elements, which describe it in both text and numeric variables. The following commands provide an overview of <code>s10</code> in text form:</p>
-<div class="sourceCode"><pre class="r"><span class="no">s10</span>$<span class="no">scen_lbl</span>   <span class="co"># a descriptive label</span>
-<span class="co">#&gt; [1] "PSA test (patients)"</span>
-<span class="no">s10</span>$<span class="no">cond_lbl</span>   <span class="co"># the current condition</span>
-<span class="co">#&gt; [1] "Prostate cancer"</span>
-<span class="no">s10</span>$<span class="no">dec_lbl</span>    <span class="co"># the current decision</span>
-<span class="co">#&gt; [1] "PSA-Test"</span>
-<span class="no">s10</span>$<span class="no">popu_lbl</span>   <span class="co"># the current population</span>
-<span class="co">#&gt; [1] "Male patients with symptoms"</span>
-<span class="no">s10</span>$<span class="no">scen_apa</span>   <span class="co"># scenario source (APA) </span>
-<span class="co">#&gt; [1] "Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."</span>
-
-<span class="co"># summary(s10) # summarises a scenario</span></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>s10<span class="op">$</span>scen_lbl   <span class="co"># a descriptive label</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="co">#&gt; [1] "PSA test (patients)"</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>s10<span class="op">$</span>cond_lbl   <span class="co"># the current condition</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a><span class="co">#&gt; [1] "Prostate cancer"</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>s10<span class="op">$</span>dec_lbl    <span class="co"># the current decision</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="co">#&gt; [1] "PSA-Test"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a>s10<span class="op">$</span>popu_lbl   <span class="co"># the current population</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a><span class="co">#&gt; [1] "Male patients with symptoms"</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a>s10<span class="op">$</span>scen_apa   <span class="co"># scenario source (APA) </span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a><span class="co">#&gt; [1] "Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true"></a><span class="co"># summary(s10) # summarises a scenario</span></span></code></pre></div>
 <p>Generating some <strong>riskyr</strong> plots allows a quick visual exploration of the scenario. We only illustrate some selected plots and options here, and trust that you will play with and explore the rest for yourself.</p>
 </div>
 <div id="prism-plots" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prism-plots" class="anchor"></a>Prism plots</h4>
 <p>A tree diagram is a prism plot that views the population from only one perspective, but provides a quick overview. In the following plot, the boxes are depicted as squares with area sizes that are scaled by relative frequencies (using the <code>area = "sq"</code> argument):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"tree"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cd"</span>, <span class="kw">area</span> <span class="kw">=</span> <span class="st">"sq"</span>,  <span class="co"># tree/prism plot with scaled squares </span>
-     <span class="kw">f_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>, <span class="kw">f_lbl_sep</span> <span class="kw">=</span> <span class="st">":\n"</span>)            <span class="co"># custom frequency labels </span></pre></div>
-<p><img src="inst/pix/README-ex2_tree-1.png" alt="Prism/tree plot (with scaled squares)"></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"tree"</span>, <span class="dt">by =</span> <span class="st">"cd"</span>, <span class="dt">area =</span> <span class="st">"sq"</span>,  <span class="co"># tree/prism plot with scaled squares </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true"></a>     <span class="dt">f_lbl =</span> <span class="st">"def"</span>, <span class="dt">f_lbl_sep =</span> <span class="st">":</span><span class="ch">\n</span><span class="st">"</span>)            <span class="co"># custom frequency labels </span></span></code></pre></div>
+<p><img src="inst/pix/README-ex2-tree-1.png" alt="Prism/tree plot (with scaled squares)"></p>
 <p>The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). <strong>riskyr</strong> provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the <code>by = "acdc"</code> argument). In addition, the frequencies are represented as horizontal rectangles (<code>area = "hr"</code>) so that their relative width reflect the number of people in the corresponding subgroup:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"prism"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"acdc"</span>, <span class="kw">area</span> <span class="kw">=</span> <span class="st">"hr"</span>,  <span class="co"># prism plot with horizontal rectangles</span>
-     <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"num"</span>)                                  <span class="co"># numeric probability labels</span></pre></div>
-<p><img src="inst/pix/README-ex2_prism_hr-1.png" alt="Prism plot (with scaled horizontal rectangles)"></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"prism"</span>, <span class="dt">by =</span> <span class="st">"acdc"</span>, <span class="dt">area =</span> <span class="st">"hr"</span>,  <span class="co"># prism plot with horizontal rectangles</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true"></a>     <span class="dt">p_lbl =</span> <span class="st">"num"</span>)                                  <span class="co"># numeric probability labels</span></span></code></pre></div>
+<p><img src="inst/pix/README-ex2-prism-hr-1.png" alt="Prism plot (with scaled horizontal rectangles)"></p>
+</div>
+<div id="frequency-net-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#frequency-net-1" class="anchor"></a>Frequency net</h4>
+<p>Just like the 2x2 table, area plot, and prism plot, the frequency net allows selecting two out of three perspectives. Additionally, the shape and size of the frequency boxes can be adjusted by using the <code>area = "sq"</code> option. The following example shows a frequency net by condition and accuracy (<code>by = "cdac"</code>) without the joint probabilities, with custom settings for labels, links, and colors:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"fnet"</span>, <span class="dt">by =</span> <span class="st">"cdac"</span>,  <span class="co"># frequency net (by condition and accuracy) </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true"></a>     <span class="dt">area =</span> <span class="st">"sq"</span>, <span class="dt">joint_p =</span> <span class="ot">FALSE</span>, <span class="dt">arr_c =</span> <span class="dv">2</span>,     <span class="co"># custom areas, links, and arrows </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true"></a>     <span class="dt">f_lbl =</span> <span class="st">"namnum"</span>, <span class="dt">p_lbl =</span> <span class="st">"num"</span>, <span class="dt">col_pal =</span> pal_rgb) <span class="co"># custom labels and colors </span></span></code></pre></div>
+<p><img src="inst/pix/README-ex2-fnet-1.png" alt="Frequency net (with custom perspective and options)"></p>
 </div>
 <div id="icon-array-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#icon-array-1" class="anchor"></a>Icon array</h4>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"icons"</span>, <span class="kw">arr_type</span> <span class="kw">=</span> <span class="st">"shuffled"</span>)   <span class="co"># plot a shuffled icon array </span></pre></div>
-<!-- ![](inst/pix/README-ex2_icons-1.png) -->
+<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"icons"</span>, <span class="dt">arr_type =</span> <span class="st">"shuffled"</span>)   <span class="co"># plot a shuffled icon array </span></span></code></pre></div>
+<!-- ![](inst/pix/README-ex2-icons-1.png) -->
 </div>
 <div id="area-plot-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#area-plot-1" class="anchor"></a>Area plot</h4>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"area"</span>, <span class="kw">p_split</span> <span class="kw">=</span> <span class="st">"v"</span>, <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>)  <span class="co"># plot an area/mosaic plot (with probabilities) </span></pre></div>
-<!-- ![](inst/pix/README-ex2_area-1.png) -->
+<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"area"</span>, <span class="dt">p_split =</span> <span class="st">"v"</span>, <span class="dt">p_lbl =</span> <span class="st">"def"</span>)  <span class="co"># plot an area/mosaic plot (with probabilities) </span></span></code></pre></div>
+<!-- ![](inst/pix/README-ex2-area-1.png) -->
 </div>
 <div id="table-plot-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#table-plot-1" class="anchor"></a>Table plot</h4>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"tab"</span>, <span class="kw">p_split</span> <span class="kw">=</span> <span class="st">"h"</span>, <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>)  <span class="co"># plot a 2x2 table (with probabilities)</span></pre></div>
-<!-- ![](inst/pix/README-ex2_tab-1.png) -->
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"tab"</span>, <span class="dt">p_split =</span> <span class="st">"h"</span>, <span class="dt">p_lbl =</span> <span class="st">"def"</span>)  <span class="co"># plot a 2x2 table (with probabilities)</span></span></code></pre></div>
+<!-- ![](inst/pix/README-ex2-tab-1.png) -->
 </div>
 <div id="curves-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#curves-1" class="anchor"></a>Curves</h4>
 <p>The following curves show the values of several conditional probabilities as a function of prevalence:</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"curve"</span>, <span class="kw">what</span> <span class="kw">=</span> <span class="st">"all"</span>, <span class="kw">uc</span> <span class="kw">=</span> <span class="fl">.05</span>)  <span class="co"># plot all curves (by prev):</span></pre></div>
-<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2_curve-1.png) -->
+<div class="sourceCode" id="cb25"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"curve"</span>, <span class="dt">what =</span> <span class="st">"all"</span>, <span class="dt">uc =</span> <span class="fl">.05</span>)  <span class="co"># plot all curves (by prev):</span></span></code></pre></div>
+<!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2-curve-1.png) -->
 <p>Adding the argument <code>what = "all"</code> also shows the proportion of positive decisions (<code>ppod</code>) and the decision’s overall accuracy (<code>accu</code>) as a function of the prevalence (<code>prev</code>). Would you have predicted their shape without seeing this graph?</p>
 </div>
 <div id="planes-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#planes-1" class="anchor"></a>Planes</h4>
 <p>The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence):</p>
-<div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"plane"</span>, <span class="kw">what</span> <span class="kw">=</span> <span class="st">"NPV"</span>)  <span class="co"># plot plane (as a function of sens x spec):</span></pre></div>
-<!-- ![Probability plane (NPV)](inst/pix/README-ex2_plane-1.png) -->
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="kw">plot</span>(s10, <span class="dt">type =</span> <span class="st">"plane"</span>, <span class="dt">what =</span> <span class="st">"NPV"</span>)  <span class="co"># plot plane (as a function of sens x spec):</span></span></code></pre></div>
+<!-- ![Probability plane (NPV)](inst/pix/README-ex2-plane-1.png) -->
 <p>Hopefully, this brief overview managed to whet your appetite for visual exploration. If so, call <code><a href="reference/riskyr.guide.html">riskyr.guide()</a></code> for viewing the package vignettes and obtaining additional information.</p>
 </div>
 </div>
@@ -468,7 +495,8 @@ plot(hustosis, type = "bar",   dir = 2)
 <!-- uni.kn logo and link to SPDS: -->
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="./inst/pix/uniKn_logo.png" alt="spds.uni.kn" align="right" width="300" style="width: 300px; float: right; border:20;"><!-- <img src = "./inst/pix/uniKn_logo_s.png" alt = "spds.uni.kn" style = "float: right; border:20;"/> --></a></p>
-<p><strong>riskyr</strong> originated out of a series of lectures and workshops on risk literacy. The current version (0.2.0, as of Dec. 20, 2018) is under active development. Its primary designers are <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, and <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>, who are researchers at the department of <a href="https://www.spds.uni-konstanz.de">Social Psychology and Decision Sciences</a> at the <a href="https://www.uni-konstanz.de/en/">University of Konstanz</a>, Germany.</p>
+<p><strong>riskyr</strong> originated out of a series of lectures and workshops on risk literacy.<br>
+The current version (0.2.0, as of Dec. 20, 2018) is under active development. Its primary designers are <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjörg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, and <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>, who are researchers at the department of <a href="https://www.spds.uni-konstanz.de">Social Psychology and Decision Sciences</a> at the <a href="https://www.uni-konstanz.de/en/">University of Konstanz</a>, Germany.</p>
 <p>The <strong>riskyr</strong> package is open source software written in <a href="https://www.r-project.org/">R</a> and released under the <a href="https://tldrlegal.com/license/gnu-general-public-license-v2">GPL 2</a> | <a href="https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)">GPL 3</a> licenses.</p>
 <div id="resources" class="section level3">
 <h3 class="hasAnchor">
@@ -476,9 +504,9 @@ plot(hustosis, type = "bar",   dir = 2)
 <p>The following resources and versions are currently available:</p>
 <table class="table">
 <colgroup>
-<col width="32%">
-<col width="26%">
-<col width="41%">
+<col width="16%">
+<col width="29%">
+<col width="53%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Type:</th>
@@ -525,7 +553,7 @@ plot(hustosis, type = "bar",   dir = 2)
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
 <li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
-<li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
+<li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com" class="email">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
 <div id="reference" class="section level3">
@@ -535,18 +563,21 @@ plot(hustosis, type = "bar",   dir = 2)
 <p><a href="https://github.com/hneth/riskyr"> <img alt="riskyr logo" title="riskyr" src="./inst/pix/riskyr_cube.png" width="180px" align="right" style="float:right; border:20; width:180px;"></a> <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> --> <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) --> <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") --></p>
 <p>To cite <strong>riskyr</strong> in derivations and publications please use:</p>
 <ul>
-<li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2018). <strong>riskyr</strong>: A toolbox for rendering risk literacy more transparent. Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.2.0, Dec. 20, 2018). Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>.</li>
+<li>Neth, H., Gaisbauer, F., Gradwohl, N., &amp; Gaissmaier, W. (2018).<br><strong>riskyr</strong>: A toolbox for rendering risk literacy more transparent.<br>
+Social Psychology and Decision Sciences, University of Konstanz, Germany.<br>
+Computer software (R package version 0.2.0, Dec. 20, 2018).<br>
+Retrieved from <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>.</li>
 </ul>
 <p>A BibTeX entry for LaTeX users is:</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="op">@</span>Manual{riskyr,
-  title =<span class="st"> </span>{riskyr<span class="op">:</span><span class="st"> </span>A toolbox <span class="cf">for</span> rendering risk literacy more transparent},
-  author =<span class="st"> </span>{Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
-  year =<span class="st"> </span>{<span class="dv">2018</span>},
-  organization =<span class="st"> </span>{Social Psychology and Decision Sciences, University of Konstanz},
-  address =<span class="st"> </span>{Konstanz, Germany},
-  note =<span class="st"> </span>{R <span class="kw">package</span> (version <span class="fl">0.2</span>.<span class="dv">0</span>, Dec. <span class="dv">20</span>, <span class="dv">2018</span>)},
-  url =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>CRAN.R<span class="op">-</span>project.org<span class="op">/</span>package=riskyr},
-  }    </code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a><span class="op">@</span>Manual{riskyr,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true"></a>  title =<span class="st"> </span>{riskyr<span class="op">:</span><span class="st"> </span>A toolbox <span class="cf">for</span> rendering risk literacy more transparent},</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true"></a>  author =<span class="st"> </span>{Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true"></a>  year =<span class="st"> </span>{<span class="dv">2018</span>},</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true"></a>  organization =<span class="st"> </span>{Social Psychology and Decision Sciences, University of Konstanz},</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true"></a>  address =<span class="st"> </span>{Konstanz, Germany},</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true"></a>  note =<span class="st"> </span>{R <span class="kw">package</span> (version <span class="dv">0</span>.<span class="fl">2.0</span>, Dec. <span class="dv">20</span>, <span class="dv">2018</span>)},</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true"></a>  url =<span class="st"> </span>{https<span class="op">:</span><span class="er">//</span>CRAN.R<span class="op">-</span>project.org<span class="op">/</span>package=riskyr},</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true"></a>  }    </span></code></pre></div>
 <p>Calling <code><a href="https://rdrr.io/r/utils/citation.html">citation("riskyr")</a></code> in the package also displays this information.</p>
 </div>
 <div id="references" class="section level3">
@@ -554,6 +585,7 @@ plot(hustosis, type = "bar",   dir = 2)
 <a href="#references" class="anchor"></a>References</h3>
 <ul>
 <li><p>Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. <em>Psychological Science</em>, <em>23</em>, 547–553.</p></li>
+<li><p>Binder, K., Krauss, S., and Wiesner, P. (2020). A new visualization for probabilistic situations containing two binary events: The frequency net. <em>Frontiers in Psychology</em>, <em>11</em>, 750. doi: <a href="https://doi.org/10.3389/fpsyg.2020.00750">10.3389/fpsyg.2020.00750</a></p></li>
 <li><p>Garcia-Retamero, R., &amp; Cokely, E. T. (2017). Designing visual aids that promote risk literacy: A systematic review of health research and evidence-based design heuristics. <em>Human Factors</em>, <em>59</em>, 582–627.</p></li>
 <li><p>Gigerenzer, G. (2002). <em>Reckoning with risk: Learning to live with uncertainty</em>. London, UK: Penguin.</p></li>
 <li><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin.</p></li>
@@ -571,12 +603,15 @@ plot(hustosis, type = "bar",   dir = 2)
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
 <li><p>Wassner, C., Martignon, L., &amp; Biehler, R. (2004). Bayesianisches Denken in der Schule. <em>Unterrichtswissenschaft</em>, <em>32</em>, 58–96.</p></li>
 </ul>
-<!-- Update: --><p>(Updated 2020-05-31 by <a href="https://neth.de">hn</a>.)</p>
+<!-- Update: --><p>(Updated 2021-01-04 by <a href="https://neth.de">hn</a>.)</p>
 <!-- eof -->
 <p>[1] Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).</p>
-<p>[2] To clarify our notion of “risk” in this context, we need to distinguish it from its everyday usage as anything implying a chance of danger or harm. In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term <em>risk</em> typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided. For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes). This notion of <em>risk</em> is typically contrasted with the much wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)</p>
-<p>[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.</p>
-<p>[4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of <em>natural frequencies</em>.</p>
+<p>[2] To clarify our notion of “risk” in this context, we need to distinguish it from its everyday usage as anything implying a chance of danger or harm.<br>
+In basic research on judgment and decision making and the more applied fields of risk perception and risk communication, the term <em>risk</em> typically refers to decisions or events for which the options and their consequences are known and probabilities for all possible outcomes can be provided.<br>
+For our present purposes, the notion of risk-related information refers to any scenario in which some events of interest are determined by probabilities. While it is important that quantitative (estimates of) probabilities are provided, their origin, reliability and validity is not questioned here. Thus, the probabilities provided can be based on clinical intuition, on recordings of extensive experience, or on statistical simulation models (e.g., repeatedly casting dice and counting the frequencies of outcomes).<br>
+This notion of <em>risk</em> is typically contrasted with the much wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and Gigerenzer, 2015, on this conceptual distinction and corresponding decision strategies.)</p>
+<p>[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995), Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific background information and similar problems. See Sedlmeier and Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related training programs (with remarkable results), and Micallef et al. (2012) and Khan et al. (2015) for (rather sceptical and somewhat sobering) studies on the potential benefits of static representations for solving Bayesian problems.</p>
+<p>[4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002) on the concept of <em>natural frequencies</em>.</p>
 </div>
 </div>
 </div>
