@@ -212,10 +212,10 @@ or dependency (in contrast to trees or mosaic plots).
 Additionally, the frequency net allows showing
 3 kinds of (marginal, conditional, and joint) probabilities.
 
-See Binder K, Krauss S and Wiesner P (2020).
+See the article by Binder K, Krauss S and Wiesner P (2020).
 A new visualization for probabilistic situations containing two binary events:
-The frequency net. Front. Psychol. 11:750.
-doi: 10.3389/fpsyg.2020.00750 for analysis and details.
+The frequency net. Frontiers in Psychology, 11, 750. doi: 10.3389/fpsyg.2020.00750
+for analysis and details.
 }
 \examples{
 ## Basics:
