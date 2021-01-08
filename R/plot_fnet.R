@@ -217,10 +217,11 @@
 #' # Define scenario:
 #' mammo <- riskyr(N = 10000, prev = .01, sens = .80, fart = .096,
 #'                 scen_lbl = "Mammography screening", N_lbl = "Women",
-#'                 cond_lbl = "Breast cancer", cond_true_lbl = "Cancer (C+)", cond_false_lbl = "no Cancer (C-)",
-#'                 dec_lbl = "Test result", dec_pos_lbl = "positive (T+)", dec_neg_lbl = "negative (T-)",
-#'                 hi_lbl = "B+ and T+", mi_lbl = "B+ and T-", fa_lbl = "B- and T+", cr_lbl = "B- and T-")
-#'
+#'                 cond_lbl = "Breast cancer", dec_lbl = "Test result",
+#'                 cond_true_lbl = "Cancer (C+)", cond_false_lbl = "no Cancer (C-)",
+#'                 dec_pos_lbl = "positive (T+)", dec_neg_lbl = "negative (T-)",
+#'                 hi_lbl = "B+ and T+", mi_lbl = "B+ and T-",
+#'                 fa_lbl = "B- and T+", cr_lbl = "B- and T-")
 #' # Colors:
 #' my_non <- "grey95"
 #' my_red <- "orange1"
