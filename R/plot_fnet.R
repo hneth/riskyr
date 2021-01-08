@@ -1,5 +1,5 @@
 ## plot_fnet.R | riskyr
-## 2021 01 04
+## 2021 01 08
 ## Plot frequency net from Binder et al. (2020):
 ## See doi: 10.3389/fpsyg.2020.00750
 ## -----------------------------------------------
@@ -187,15 +187,14 @@
 #' @return Nothing (NULL).
 #'
 #' @examples
-#' ## Basics:
-#' # (1) Using global prob and freq values:
-#' plot_fnet()  # default frequency net,
-#' # same as:
+#' # (1) Basics: ----
+#' # A. Using global prob and freq values:
+#' plot_fnet()  # default frequency net, same as:
 #' # plot_fnet(by = "cddc", area = "no", scale = "p",
 #' #            f_lbl = "num", f_lwd = 0, cex_lbl = .90,
 #' #            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 #'
-#' # (2) Providing values:
+#' # B. Providing values:
 #' plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9) # Binder et al. (2020, Fig. 3)
 #'
 #' # Variants:
@@ -213,18 +212,43 @@
 #' # Area and margin notes:
 #' plot_fnet(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
 #'
-#' ## Custom color and text settings:
+#'
+#' # (2) Use case (highlight horizontal vs. vertical perspectives: ----
+#' # Define scenario:
+#' mammo <- riskyr(N = 10000, prev = .01, sens = .80, fart = .096,
+#'                 scen_lbl = "Mammography screening", N_lbl = "Women",
+#'                 cond_lbl = "Breast cancer", cond_true_lbl = "Cancer (C+)", cond_false_lbl = "no Cancer (C-)",
+#'                 dec_lbl = "Test result", dec_pos_lbl = "positive (T+)", dec_neg_lbl = "negative (T-)",
+#'                 hi_lbl = "B+ and T+", mi_lbl = "B+ and T-", fa_lbl = "B- and T+", cr_lbl = "B- and T-")
+#'
+#' # Colors:
+#' my_non <- "grey95"
+#' my_red <- "orange1"
+#' my_blu <- "skyblue1"
+#'
+#' # A. Emphasize condition perspective (rows):
+#' my_col_1 <- init_pal(N_col = my_non,
+#'                      cond_true_col = my_blu, cond_false_col = my_red,
+#'                      dec_pos_col = my_non, dec_neg_col = my_non,
+#'                      hi_col = my_blu, mi_col = my_blu,
+#'                      fa_col = my_red, cr_col = my_red)
+#' plot(mammo, type = "fnet", col_pal = my_col_1,
+#'      f_lbl = "namnum", f_lwd = 2, p_lbl = "no", arr_c = 0)
+#'
+#' # B. Emphasize decision perspective (columns):
+#' my_col_2 <- init_pal(N_col = my_non,
+#'                      cond_true_col = my_non, cond_false_col = my_non,
+#'                      dec_pos_col = my_red, dec_neg_col = my_blu,
+#'                      hi_col = my_red, mi_col = my_blu,
+#'                      fa_col = my_red, cr_col = my_blu)
+#' plot(mammo, type = "fnet", col_pal = my_col_2,
+#'      f_lbl = "namnum", f_lwd = 2, p_lbl = "no", arr_c = 0)
+#'
+#'
+#' # (3) Custom color and text settings: ----
 #' plot_fnet(col_pal = pal_bw, f_lwd = .5, p_lwd = .5, lty = 2, # custom fbox color, prob links,
 #'           font = 3, cex_p_lbl = .75)                         # and text labels
 #'
-#' my_txt <- init_txt(cond_lbl = "The Truth", cond_true_lbl = "so true", cond_false_lbl = "so false",
-#'                    hi_lbl = "TP", mi_lbl = "FN", fa_lbl = "FP", cr_lbl = "TN")
-#' my_col <- init_pal(N_col = rgb(0, 169, 224, max = 255),  # seeblau
-#'                    hi_col = "gold", mi_col = "firebrick1", fa_col = "firebrick2", cr_col = "orange")
-#' plot_fnet(f_lbl = "nam", p_lbl = "num",
-#'           lbl_txt = my_txt, col_pal = my_col, f_lwd = .5)
-#'
-#' ## Local values and custom color/txt settings:
 #' plot_fnet(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
 #'           by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
 #'           f_lwd = 1, col_pal = pal_rgb)  # custom colors
@@ -236,53 +260,46 @@
 #'           area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
 #'           col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 #'
-#' ## Other options:
-#' # scale (matters for scaled areas and small N):
+#' # (4) Other options: ----
 #' plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
-#'           area = "sq", scale = "p")  # areas scaled by prob
+#'           area = "sq", scale = "p")  # areas scaled by prob (matters for small N)
 #' plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
 #'           area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 #'
-#' ## Frequency boxes:
-#' # f_lbl:
+#' ## Frequency boxes (f_lbl):
+#' # plot_fnet(f_lbl = NA)      # no freq labels
 #' plot_fnet(f_lbl = "abb")     # abbreviated freq names (variable names)
 #' plot_fnet(f_lbl = "nam")     # only freq names
 #' plot_fnet(f_lbl = "num")     # only numeric freq values (default)
 #' plot_fnet(f_lbl = "namnum")  # names and numeric freq values
 #' plot_fnet(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
-#' plot_fnet(f_lbl = NA)        # no freq labels
 #' plot_fnet(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
 #'
 #' # f_lwd:
-#' plot_fnet(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
-#' plot_fnet(f_lwd =  1)  # basic lines
-#' plot_fnet(f_lwd =  3)  # thicker lines
-#' plot_fnet(f_lwd = .5)  # thinner lines
+#' # plot_fnet(f_lwd =  1)  # basic lines
+#' # plot_fnet(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
+#' plot_fnet(f_lwd = .5)    # thinner lines
+#' plot_fnet(f_lwd =  3)    # thicker lines
 #'
-#' ## Probability links:
-#' # Scale link widths (p_lwd & p_scale):
-#' plot_fnet(p_lwd = 6, p_scale = TRUE)
-#' plot_fnet(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
-#' plot_fnet(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
-#'           col_pal = pal_mod, p_lwd = 6, p_scale = TRUE)
-#'
-#' # p_lbl:
+#' ## Probability links (p_lbl, p_lwd, p_scale):
+#' # plot_fnet(p_lbl = NA)      # no prob labels (NA/NULL/"none")
 #' plot_fnet(p_lbl = "mix")     # abbreviated names with numeric values (abb = num)
 #' plot_fnet(p_lbl = "min")     # minimal names (of key probabilities)
-#' plot_fnet(p_lbl = NA)        # no prob labels (NA/NULL/"none")
 #' plot_fnet(p_lbl = "nam")     # only prob names
 #' plot_fnet(p_lbl = "num")     # only numeric prob values
 #' plot_fnet(p_lbl = "namnum")  # names and numeric prob values
 #'
-#' # arr_c:
-#' plot_fnet(arr_c =  0)  # acc_c = 0: no arrows
-#' plot_fnet(arr_c = -3)  # arr_c = -1 to -3: points at both ends
-#' plot_fnet(arr_c = -2)  # point at far end
-#' plot_fnet(arr_c = +2)  # crr_c = 1-3: V-shape arrows at far end
+#' plot_fnet(p_lwd = 6, p_scale = TRUE)
+#' plot_fnet(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
 #'
-#' # Hide links to joint prob:
-#' plot_fnet(by = "cddc", joint_p = FALSE)
-#' plot_fnet(by = "cd", joint_p = FALSE)
+#' # arr_c:
+#' # plot_fnet(arr_c =  0)  # acc_c = 0: no arrows
+#' # plot_fnet(arr_c = -3)  # arr_c = -1 to -3: points at both ends
+#' plot_fnet(arr_c = -2)    # point at far end
+#' plot_fnet(arr_c = +2)    # crr_c = 1-3: V-shape arrows at far end
+#'
+#' plot_fnet(by = "cd", joint_p = FALSE)   # tree with hidden joint probability links
+#' plot_fnet(by = "cddc", joint_p = FALSE) # fnet ...
 #'
 #' ## Plain plot versions:
 #' plot_fnet(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
@@ -293,7 +310,7 @@
 #' plot_fnet(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 #'
 #' ## Suggested combinations:
-#' plot_fnet(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)  # basic plot
+#' # plot_fnet(f_lbl = "nam", p_lbl = "mix")  # basic plot
 #' plot_fnet(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
 #' plot_fnet(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
 #'           f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
@@ -1715,6 +1732,38 @@ plot_fnet <- function(prev = num$prev,    # probabilities
 # plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 # plot_fnet(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 # plot_fnet(area = "sq", f_lbl = "def", p_lbl = "mix", f_lwd = 1, col_pal = pal_kn)
+
+# # Use case: Highlight horizontal vs. vertical perspectives (example by Karin): ----
+#
+# # Colors:
+# my_non <- "grey95"
+# my_red <- "orange1"
+# my_blu <- "skyblue1"
+#
+# # Define scenario:
+# mammography <- riskyr(N = 10000, prev = .01, sens = .80, fart = .096,
+#                       scen_lbl = "Mammography screening",
+#                       N_lbl = "Women", cond_lbl = "Breast cancer", cond_true_lbl = "Cancer (C+)", cond_false_lbl = "no Cancer (C-)",
+#                       dec_lbl = "Test result", dec_pos_lbl = "positive (T+)", dec_neg_lbl = "negative (T-)",
+#                       hi_lbl = "B+ and T+", mi_lbl = "B+ and T-", fa_lbl = "B- and T+", cr_lbl = "B- and T-")
+#
+# # (a) Emphasize condition perspective (rows):
+# my_col_1 <- init_pal(N_col = my_non,
+#                      cond_true_col = my_blu, cond_false_col = my_red,
+#                      dec_pos_col = my_non, dec_neg_col = my_non,
+#                      hi_col = my_blu, mi_col = my_blu,
+#                      fa_col = my_red, cr_col = my_red)
+# plot(mammography, type = "fnet", col_pal = my_col_1,
+#      f_lbl = "namnum", f_lwd = 2, p_lbl = "no", arr_c = 0)
+#
+# # (b) Emphasize decision perspective (columns):
+# my_col_2 <- init_pal(N_col = my_non,
+#                      cond_true_col = my_non, cond_false_col = my_non,
+#                      dec_pos_col = my_red, dec_neg_col = my_blu,
+#                      hi_col = my_red, mi_col = my_blu,
+#                      fa_col = my_red, cr_col = my_blu)
+# plot(mammography, type = "fnet", col_pal = my_col_2,
+#      f_lbl = "namnum", f_lwd = 2, p_lbl = "no", arr_c = 0)
 
 
 read_by <- function(by){
