@@ -220,8 +220,8 @@
 #'                 cond_lbl = "Breast cancer", dec_lbl = "Test result",
 #'                 cond_true_lbl = "Cancer (C+)", cond_false_lbl = "no Cancer (C-)",
 #'                 dec_pos_lbl = "positive (T+)", dec_neg_lbl = "negative (T-)",
-#'                 hi_lbl = "B+ and T+", mi_lbl = "B+ and T-",
-#'                 fa_lbl = "B- and T+", cr_lbl = "B- and T-")
+#'                 hi_lbl = "C+ and T+", mi_lbl = "C+ and T-",
+#'                 fa_lbl = "C- and T+", cr_lbl = "C- and T-")
 #' # Colors:
 #' my_non <- "grey95"
 #' my_red <- "orange1"
