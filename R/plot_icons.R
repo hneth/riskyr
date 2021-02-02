@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2021 01 04
+## 2021 02 02
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -311,10 +311,17 @@ plot_icons <- function(prev = num$prev,             # probabilities
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
   on.exit(par(opar))  # par(opar)  # restore original settings
 
+  show_legend <- TRUE  # default
+  # show_legend <- FALSE  # debugging
+
   ## (2) Define plot and margin areas: ----------
 
   ## Define margin areas:
-  n_lines_mar <- 3 + 2  # to accommodate legend
+  if (show_legend){
+    n_lines_mar <- 3 + 2  # to accommodate legend
+  } else {
+    n_lines_mar <- 3  # no legend
+  }
   n_lines_oma <- 0
   par(mar = c(n_lines_mar, 1, 3, 1) + 0.1)  # margins; default: par("mar") = 5.1 4.1 4.1 2.1.
   par(oma = c(n_lines_oma, 0, 0, 0) + 0.1)  # outer margins; default: par("oma") = 0 0 0 0.
@@ -1031,39 +1038,44 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## Legend: -----
 
-  if (sum(nchar(type_lbls)) > 0) {
-    # reorder labels:
-    names(type_lbls) <- c("hi", "mi", "fa", "cr")
-    type_lbls <- type_lbls[ident_order]
+  if (show_legend){
+
+    if (sum(nchar(type_lbls)) > 0) {
+      # reorder labels:
+      names(type_lbls) <- c("hi", "mi", "fa", "cr")
+      type_lbls <- type_lbls[ident_order]
+    }
+
+    if(by == "all") {
+      legend_col <- icon_col
+      legend_ico <- icon_types
+      legend_lbls <- type_lbls
+    } else {
+      legend_col <- icon_col[c(1, 3)]
+      legend_ico <- icon_types[c(1, 3)]
+
+      if (by == "dc") {
+        legend_lbls <- c(txt$dec_pos_lbl, txt$dec_neg_lbl)
+      }
+
+      if (by == "cd") {
+        legend_lbls <- c(txt$cond_true_lbl, txt$cond_false_lbl)
+      }
+
+      if (by == "ac") {
+        legend_lbls <- c(txt$dec_cor_lbl, txt$dec_err_lbl)
+      }
+    }
+
+    legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
+           legend = legend_lbls,
+           horiz = TRUE, bty = "n",
+           pt.bg = legend_col, pch = legend_ico,
+           cex = cex_lbl, xjust = 0.5, xpd = TRUE)
+
+    ## TODO: fixed order of legend?
+
   }
-
-  if(by == "all") {
-    legend_col <- icon_col
-    legend_ico <- icon_types
-    legend_lbls <- type_lbls
-  } else {
-    legend_col <- icon_col[c(1, 3)]
-    legend_ico <- icon_types[c(1, 3)]
-
-    if (by == "dc") {
-      legend_lbls <- c(txt$dec_pos_lbl, txt$dec_neg_lbl)
-    }
-
-    if (by == "cd") {
-      legend_lbls <- c(txt$cond_true_lbl, txt$cond_false_lbl)
-    }
-
-    if (by == "ac") {
-      legend_lbls <- c(txt$dec_cor_lbl, txt$dec_err_lbl)
-    }
-  }
-
-  legend(x = xlim[2] / 2, y = ylim[1] - (ylim[2] / 20),
-         legend = legend_lbls,
-         horiz = TRUE, bty = "n",
-         pt.bg = legend_col, pch = legend_ico,
-         cex = cex_lbl, xjust = 0.5, xpd = TRUE)
-  ## TODO: fixed order of legend?
 
 
   ## Title: -----
