@@ -120,34 +120,42 @@ with 4 options:
 Default: \code{ident_order = c("hi", "mi", "fa", "cr")}}
 
 \item{icon_types}{Specifies the appearance of the icons as a vector.
+Default: \code{icon_types = 11} (i.e., squares with border).
 Accepts values from 1 to 25 (see \code{?points}).}
 
 \item{icon_size}{Manually specifies the size of the icons via \code{cex}
-(calculated dynamically by default).}
+Default: \code{icon_size = NULL} for automatic calculation.}
 
-\item{icon_brd_lwd}{Specifies the border width of icons (if applicable).}
+\item{icon_brd_lwd}{Specifies the border width of icons (if applicable).
+Default: \code{icon_brd_lwd = 1.5}. Set to \code{NA} for no border.}
 
-\item{block_d}{The distance between blocks
+\item{block_d}{The distance between blocks.
+Default: \code{block_d = NULL} for automatic calculation;
 (does not apply to "filleft", "filltop", and "scatter")}
 
 \item{border_d}{The distance of icons to the border.
+Default: \code{border_d = 0.1}.
 
 Additional options for controlling the arrangement of arrays
 (for \code{arr_type = "array"} and \code{"shuffledarray"}):}
 
-\item{block_size_row}{specifies how many icons should be in each block row.}
+\item{block_size_row}{specifies how many icons should be in each block row.
+Default: \code{block_size_row = 10}.}
 
-\item{block_size_col}{specifies how many icons should be in each block column.}
+\item{block_size_col}{specifies how many icons should be in each block column.
+Default: \code{block_size_col = 10}.}
 
-\item{nblocks_row}{specifies how many blocks there are in each row.  Is calculated by default.}
+\item{nblocks_row}{Number of blocks per row.
+Default: \code{nblocks_row = NULL} for automatic calculation.}
 
-\item{nblocks_col}{specifies how many blocks are there in each column.  Is calculated by default.}
+\item{nblocks_col}{Number of blocks per column.
+Default: \code{nblocks_col = NULL} for automatic calculation.}
 
-\item{fill_array}{specifies how the blocks are filled into the array
-(Options "left" (default) and "top").}
+\item{fill_array}{specifies how the blocks are filled into the array.
+Options: \code{fill_array = "left"} (default) vs. \code{"top"}.}
 
-\item{fill_blocks}{specifies how icons within blocks are filled
-(Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})
+\item{fill_blocks}{specifies how icons within blocks are filled.
+Options: \code{fill_blocks = "rowwise"} (default) and \code{"colwise"}.
 
 Generic text and color options:}
 
