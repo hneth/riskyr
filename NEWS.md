@@ -11,9 +11,11 @@ Log of changes since last release:
 
 - Added `plot_fnet()` for plotting _frequency nets_ (Binder et al., 2020). 
 
-- Computing key metrics based on 2x2 matrix of frequency counts (see `comp_metrics.R`). 
-
 ## Minor changes
+
+- Using colors of `pal` for fill colors of symbols in `plot_icon()`.  
+
+- Computing key metrics based on 2x2 matrix of frequency counts (see `comp_metrics.R`). 
 
 ### Changes to existing visualization functions 
 
