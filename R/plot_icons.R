@@ -135,34 +135,42 @@
 #' Default: \code{ident_order = c("hi", "mi", "fa", "cr")}
 #'
 #' @param icon_types Specifies the appearance of the icons as a vector.
+#' Default: \code{icon_types = 11} (i.e., squares with border).
 #' Accepts values from 1 to 25 (see \code{?points}).
 #'
 #' @param icon_size Manually specifies the size of the icons via \code{cex}
-#' (calculated dynamically by default).
+#' Default: \code{icon_size = NULL} for automatic calculation.
 #'
 #' @param icon_brd_lwd Specifies the border width of icons (if applicable).
+#' Default: \code{icon_brd_lwd = 1.5}. Set to \code{NA} for no border.
 #'
-#' @param block_d  The distance between blocks
+#' @param block_d  The distance between blocks.
+#' Default: \code{block_d = NULL} for automatic calculation;
 #' (does not apply to "filleft", "filltop", and "scatter")
 #'
 #' @param border_d  The distance of icons to the border.
+#' Default: \code{border_d = 0.1}.
 #'
 #' Additional options for controlling the arrangement of arrays
 #' (for \code{arr_type = "array"} and \code{"shuffledarray"}):
 #'
 #' @param block_size_row specifies how many icons should be in each block row.
+#' Default: \code{block_size_row = 10}.
 #'
 #' @param block_size_col specifies how many icons should be in each block column.
+#' Default: \code{block_size_col = 10}.
 #'
-#' @param nblocks_row specifies how many blocks there are in each row.  Is calculated by default.
+#' @param nblocks_row Number of blocks per row.
+#' Default: \code{nblocks_row = NULL} for automatic calculation.
 #'
-#' @param nblocks_col specifies how many blocks are there in each column.  Is calculated by default.
+#' @param nblocks_col Number of blocks per column.
+#' Default: \code{nblocks_col = NULL} for automatic calculation.
 #'
-#' @param fill_array specifies how the blocks are filled into the array
-#' (Options "left" (default) and "top").
+#' @param fill_array specifies how the blocks are filled into the array.
+#' Options: \code{fill_array = "left"} (default) vs. \code{"top"}.
 #'
-#' @param fill_blocks specifies how icons within blocks are filled
-#' (Options: \code{fill_blocks = "rowwise"} (default) and \code{fill_blocks = "colwise"})
+#' @param fill_blocks specifies how icons within blocks are filled.
+#' Options: \code{fill_blocks = "rowwise"} (default) and \code{"colwise"}.
 #'
 #' Generic text and color options:
 #'
@@ -989,12 +997,13 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
   ## TODO: Add text!
 
-  if (any(!pch.vec %in% c(NA, 21:25))) {
-    # if any of the plotting characters is not in the set of symbols with border,
-    # omit border and color accordingly.
+  if (any(!pch.vec %in% c(NA, 21:25))) {# if any symbol is NOT in the set of symbols with a border:
+    icon_brd_col <- col_vec  # use fill color for border color
+  }
 
-    icon_brd_col <- col_vec
-
+  if (is.na(icon_brd_lwd) | (icon_brd_lwd == 0)){# if border color is set to NA or 0:
+    icon_brd_col <- col_vec  # use fill color for border color
+    icon_brd_lwd <- 1        # (to keep original symbol size)
   }
 
   ## Plot setup: ------
