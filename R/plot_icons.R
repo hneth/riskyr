@@ -1,5 +1,5 @@
 ## plot_icons.R | riskyr
-## 2021 02 02
+## 2021 02 07
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
@@ -202,16 +202,12 @@
 #'
 #' # by argument:
 #' plot_icons(N = 1000, by = "all")  # hi, mi, fa, cr (TP, FN, FP, TN) cases
-#' plot_icons(N = 1000, by = "cd")   # (hi + mi) vs. (fa + cr) (TP + FN vs. FP + TN) cases
-#' plot_icons(N = 1000, by = "dc")   # (hi + fa) vs. (mi + cr) (TP + FP vs. FN + TN) cases
-#' plot_icons(N = 1000, by = "ac")   # (hi + cr) vs. (fa + mi) (TP + TN vs. FP + FN) cases
+#' plot_icons(N = 1000, by = "cd", title_lbl = "Cases by condition")  # (hi + mi) vs. (fa + cr)
+#' plot_icons(N = 1000, by = "dc", title_lbl = "Cases by decision")   # (hi + fa) vs. (mi + cr)
+#' plot_icons(N = 1000, by = "ac", title_lbl = "Cases by accuracy")   # (hi + cr) vs. (fa + mi)
 #'
-#' # Icons types and colors:
+#' # Custom icon types and colors:
 #' plot_icons(N = 600, by = "all", col_pal = pal_bwp) # by all: 4 symbol types
-#' plot_icons(N = 600, by = "ac", col_pal = pal_bwp)  # by accuracy: 2 symbol types
-#' plot_icons(N = 200, icon_types = c(21, 23, 24, 22), icon_size = 2,
-#'                block_size_row = 5, block_size_col = 5,
-#'                block_d = .5, border_d = .9, col_pal = pal_rgb)
 #' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
 #'            icon_types = c(21, 23, 24, 23),
 #'            block_size_row = 10, block_size_col = 5,
@@ -222,7 +218,6 @@
 #' # variants:
 #' plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
 #'            block_d = 0.5, border_d = 0.5, col_pal = pal_vir)
-#'
 #'
 #' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
 #'            block_d = 0.5, border_d = 0.5)
@@ -239,9 +234,6 @@
 #'
 #' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
 #'            title_lbl = "Green vs. red", col_pal = pal_rgb, transparency = .5)
-#'
-#' plot_icons(N = 1000, prev = .5, sens = .5, spec = .5, arr_type = "shuffledarray",
-#'            title_lbl = "Shades of blue", col_pal = pal_kn, transparency = .3)
 #'
 #' @family visualization functions
 #'
@@ -344,26 +336,31 @@ plot_icons <- function(prev = num$prev,             # probabilities
   } else if (by == "dc") {
 
     ident_order <- c("hi", "fa", "mi", "cr")  # order by (positive) decision.
-    icon_col <- c(col_pal["hi"], col_pal["hi"],
-                  col_pal["mi"], col_pal["mi"])
+    # icon_col <- c(col_pal["hi"], col_pal["hi"],
+    #               col_pal["mi"], col_pal["mi"])
+    icon_col <- c(col_pal["dec_pos"], col_pal["dec_pos"],
+                  col_pal["dec_neg"], col_pal["dec_neg"])
     names(icon_col) <- ident_order
 
-    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 23, 23) }  # square vs. diamond
 
   } else if (by == "cd") {
 
     ident_order <- c("hi", "mi", "cr", "fa")  # order by (positive) condition.
-    icon_col <- c(col_pal["hi"], col_pal["hi"],
-                  col_pal["mi"], col_pal["mi"])
+    # icon_col <- c(col_pal["hi"], col_pal["hi"],
+    #               col_pal["mi"], col_pal["mi"])
+    icon_col <- c(col_pal["cond_true"], col_pal["cond_true"],
+                  col_pal["cond_false"], col_pal["cond_false"])
     names(icon_col) <- ident_order
 
-    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
+    if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 21, 21) }  # square vs. circle
 
   } else if (by == "ac") {
 
     ident_order <- c("hi", "cr", "mi", "fa")  # order by accuracy/correctness.
     icon_col <- c(col_pal["hi"], col_pal["hi"],
                   col_pal["mi"], col_pal["mi"])
+    # ToDo: Add dedicated color for acc_true and acc_false in pal! +++ here now +++
     names(icon_col) <- ident_order
 
     if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
