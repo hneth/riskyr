@@ -204,7 +204,7 @@ plot_icons(arr_type = "fillleft",  N = 1000)  # icons filled from left to right 
 plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
 plot_icons(arr_type = "scatter",   N = 1000)  # icons randomly scattered
 
-# by argument:
+# by:
 plot_icons(N = 1000, by = "all")  # hi, mi, fa, cr (TP, FN, FP, TN) cases
 plot_icons(N = 1000, by = "cd", title_lbl = "Cases by condition")  # (hi + mi) vs. (fa + cr)
 plot_icons(N = 1000, by = "dc", title_lbl = "Cases by decision")   # (hi + fa) vs. (mi + cr)
