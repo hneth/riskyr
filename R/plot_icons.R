@@ -200,7 +200,7 @@
 #' plot_icons(arr_type = "filltop",   N = 1000)  # icons filled from top to bottom (in rows)
 #' plot_icons(arr_type = "scatter",   N = 1000)  # icons randomly scattered
 #'
-#' # by argument:
+#' # by:
 #' plot_icons(N = 1000, by = "all")  # hi, mi, fa, cr (TP, FN, FP, TN) cases
 #' plot_icons(N = 1000, by = "cd", title_lbl = "Cases by condition")  # (hi + mi) vs. (fa + cr)
 #' plot_icons(N = 1000, by = "dc", title_lbl = "Cases by decision")   # (hi + fa) vs. (mi + cr)
@@ -336,8 +336,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
   } else if (by == "dc") {
 
     ident_order <- c("hi", "fa", "mi", "cr")  # order by (positive) decision.
-    # icon_col <- c(col_pal["hi"], col_pal["hi"],
-    #               col_pal["mi"], col_pal["mi"])
     icon_col <- c(col_pal["dec_pos"], col_pal["dec_pos"],
                   col_pal["dec_neg"], col_pal["dec_neg"])
     names(icon_col) <- ident_order
@@ -347,8 +345,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
   } else if (by == "cd") {
 
     ident_order <- c("hi", "mi", "cr", "fa")  # order by (positive) condition.
-    # icon_col <- c(col_pal["hi"], col_pal["hi"],
-    #               col_pal["mi"], col_pal["mi"])
     icon_col <- c(col_pal["cond_true"], col_pal["cond_true"],
                   col_pal["cond_false"], col_pal["cond_false"])
     names(icon_col) <- ident_order
@@ -358,9 +354,8 @@ plot_icons <- function(prev = num$prev,             # probabilities
   } else if (by == "ac") {
 
     ident_order <- c("hi", "cr", "mi", "fa")  # order by accuracy/correctness.
-    icon_col <- c(col_pal["hi"], col_pal["hi"],
-                  col_pal["mi"], col_pal["mi"])
-    # ToDo: Add dedicated color for acc_true and acc_false in pal! +++ here now +++
+    icon_col <- c(col_pal["dec_cor"], col_pal["dec_cor"],
+                  col_pal["dec_err"], col_pal["dec_err"])
     names(icon_col) <- ident_order
 
     if (length(unique(icon_types)) < 2) { icon_types <- c(22, 22, 25, 25) }  # square vs. downwards triangle
