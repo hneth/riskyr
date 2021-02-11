@@ -67,6 +67,8 @@ Change default settings from `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this m
 Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
 Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
 
+- Added reference to article on theoretical background ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)).  
+
 
 ### Details
 
