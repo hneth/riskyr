@@ -713,8 +713,9 @@ information.
 
 -   Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015).
     Natural frequencies improve Bayesian reasoning in simple and complex
-    inference tasks. *Frontiers in Psychology*, *6*, 1473. ([Available
-    online](https://doi.org/10.3389/fpsyg.2015.01473))
+    inference tasks. *Frontiers in Psychology*, *6*, 1473. doi:
+    [10.3389/fpsyg.2015.01473](https://doi.org/10.3389/fpsyg.2015.01473)
+    ([Available online](https://doi.org/10.3389/fpsyg.2015.01473))
 
 -   Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000).
     Communicating statistical information. *Science*, *290*, 2261–2262.
@@ -739,7 +740,9 @@ information.
 -   Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an
     uncertain world. In R. Scott & S. Kosslyn (Eds.), *Emerging trends
     in the social and behavioral sciences*. New York, NY: Wiley Online
-    Library. ([Available
+    Library. doi:
+    [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394)
+    ([Available
     online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
 
 -   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
@@ -759,7 +762,7 @@ information.
 
 <!-- Update: -->
 
-(Updated 2021-02-11 by [hn](https://neth.de).)
+(`README.Rmd` updated on 2021-02-11 by [hn](https://neth.de).)
 
 <!-- eof -->
 

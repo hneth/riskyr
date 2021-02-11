@@ -209,3 +209,11 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 # riskyr 0.1.0
 
 - Initial release on CRAN: <https://CRAN.R-project.org/package=riskyr> [2018-02-19] 
+
+<!-- Update: -->
+
+---------- 
+
+(`NEWS.md` updated on 2021-02-11 by [hn](https://neth.de).) 
+
+<!-- eof -->

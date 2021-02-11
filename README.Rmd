@@ -639,7 +639,7 @@ doi: [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etr
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. _Frontiers in Psychology: Cognition_, _11_, 567817. 
 doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
-([Available online](https://doi.org/10.3389/fpsyg.2020.567817)) 
+([Available online](https://doi.org/10.3389/fpsyg.2020.567817))  
 
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 
@@ -652,7 +652,6 @@ _Unterrichtswissenschaft_, _32_, 58–96.
 
 <!-- Update: -->
 
-(Updated `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).) 
+(`README.Rmd` updated on `r format(Sys.time(), "%Y-%m-%d")` by [hn](https://neth.de).) 
 
-
-<!-- eof -->
+<!-- eof --> 
