@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Primer"
 author: "Nico Gradwohl & Hansjörg Neth, SPDS, uni.kn"
-date: "2018 03 12"
+date: "2021 02 10"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -35,8 +35,9 @@ op <- par(no.readonly = TRUE)
 
 **riskyr** is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.
 
-This page assumes that you just installed the package and are eager to see what you can do with it.   
-(See the [User guide](A_user_guide.html) for a more comprehensive introduction.)
+This page assumes that you just installed the **riskyr** package and are eager to see what you can do with it.   
+(See the [User guide](A_user_guide.html) for a more comprehensive introduction and 
+[Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817), for its theoretical background.)  
 
 ## Getting started 
 
@@ -93,7 +94,7 @@ First, we need to translate the numeric information provided in our example into
 
 The following code defines a perfectly valid `riskyr` scenario from 3 essential probabilities:
 
-```{r create_scenario_minimal_prob}
+```{r create-scenario-minimal-prob}
 # Create a minimal scenario (from probabilities):
 my_scenario <- riskyr(prev = .45, 
                       sens = .98,
@@ -106,7 +107,7 @@ This creates `my_scenario` from 3 essential probabilities (`prev`, `sens`, and `
 
 Alternatively, we could create the same minimal scenario from 4 essential frequencies (if they are known). The following code creates the scenario a second time, but now uses the frequencies of `my_scenario` to do so: 
 
-```{r create_scenario_min_freq}
+```{r create-scenario-min-freq}
 # Create a minimal scenario (from frequencies):
 my_scenario_2 <- riskyr(hi = my_scenario$hi, 
                         mi = my_scenario$mi,
@@ -116,7 +117,7 @@ my_scenario_2 <- riskyr(hi = my_scenario$hi,
 
 If this succeeds, `my_scenario` and `my_scenario_2` contain the same information: 
 
-```{r verify_equal_prob_freq}
+```{r verify-equal-prob-freq}
 all.equal(my_scenario, my_scenario_2)
 ```
 
@@ -145,7 +146,7 @@ To make various outputs more recognizable, many aspects of a `riskyr` scenario c
 
 Whereas specifying three essential probabilities is necessary to define a valid `riskyr` scenario, providing `N` and the other arguments are entirely optional. For illustrative purposes, we create a very well-specified `riskyr` scenario:
 
-```{r create_scenario_custom}
+```{r create-scenario-custom}
 # Create a scenario with custom labels: 
 my_scenario <- riskyr(scen_lbl = "Identifying reoffenders", 
                       popu_lbl = "prison inmates", 
@@ -175,13 +176,13 @@ We always _can_ inspect the details of `my_scenario` by computing additional met
 
 ##### Prism plot
 
-```{r plot_default, include = TRUE, fig.align = "center", fig.width = 7.2, fig.height = 6.0}
+```{r plot-default, include = TRUE, fig.align = "center", fig.width = 7.2, fig.height = 6.0}
 plot(my_scenario)
 ```
 
 A _prism plot_ (or network diagram) shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the boxes is fixed. However, we can visualize the relative size of frequencies by using the `area` argument and show the names of the frequencies (as provided by our text labels) by adding the `f_lbl = "nam"` argument. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r plot_area_sq, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 5.8}
+```{r plot-area-sq, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 5.8}
 plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 ```
@@ -194,7 +195,7 @@ The resulting graph maps frequency to the size of square boxes, which makes it e
 - Add `by = "cdac"` as another argument to your plotting call. How does the resulting plot relate to the previous ones?
 - When calling `plot(my_scenario)`, **riskyr** creates a plot of `type = "prism"` by default. Use `?plot_prism` for the documentation of `plot_prism` to learn about and try out additional arguments.
 
-```{r prism_practice, echo = FALSE, eval = FALSE, fig.align = "center"}
+```{r prism-practice, echo = FALSE, eval = FALSE, fig.align = "center"}
 plot(my_scenario, area = "hr")
 plot(my_scenario, area = "no", by = "cdac")
 plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
@@ -204,7 +205,7 @@ plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd 
 
 An _icon array_ displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test's predictions). We can plot this display for our scenario by using the `plot` function and specifying the `type = "icons"`:
 
-```{r icons, fig.align = "center", fig.width = 7.2, fig.height = 5.2}
+```{r icons, fig.align = "center", fig.width = 7.0, fig.height = 4.2}
 plot(my_scenario, type = "icons")
 ```
 
@@ -214,7 +215,7 @@ But where is John D.? His test result predicted that he would reoffend. Dependin
 
 To dig deeper into the dirty details of `my_scenario`, let us look at its `summary`:
 
-```{r full_summary}
+```{r full-summary}
 summary(my_scenario)
 ```
 
@@ -222,7 +223,7 @@ The text output (printed in R's console window) provides a brief description of 
 
 In the present case, we were interested in a person's conditional probability of reoffending given a positive test result. This metric is also known as the _positive predictive value_ (PPV). Our summary information shows `PPV = 0.598`. Thus, based on the information provided, John D.'s probability of reoffending is 59.8\% (quite in line with our visual estimate from the icon array above). 
 
-```{r summary_prob, include = FALSE}
+```{r summary-prob, include = FALSE}
 summary(my_scenario, summarize = "prob")
 ```
 
@@ -230,7 +231,7 @@ summary(my_scenario, summarize = "prob")
 
 An alternative way to view the our scenario is a _frequency tree_ that splits the population into two subgroups (e.g., by the two possible results of our test) and then classify all members of the population by the possible combinations of decision and actual condition, yielding the same four types of frequencies as identified above (and listed as `hi`, `mi`, `fa`, and `cr` in the `summary` above): 
 
-```{r tree, fig.align = "center", fig.width = 7.2, fig.height = 5.0}
+```{r tree, fig.align = "center", fig.width = 7.2, fig.height = 4.5}
 plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 ```
 
@@ -241,7 +242,7 @@ The tree also depicts additional information that corresponds to our `summary` f
 
 A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition's prevalence)? To answer this, the following code allows to show conditional probabilities (here `PPV` and `NPV`) as a function of `prev` (and additionally assumes a 5%-uncertainty concerning the exact parameter values): 
 
-```{r plotting_curve, fig.align = "center", fig.width = 7.0, fig.height = 5.6}
+```{r plotting-curve, fig.align = "center", fig.width = 7.0, fig.height = 5.0}
 plot(my_scenario, type = "curve", uc = .05)
 ```
 
@@ -253,7 +254,7 @@ Having illustrated how we can create a scenario from scratch and begin to inspec
 
 As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), **riskyr** provides a set of -- currently `r length(scenarios)`) -- pre-defined scenarios (stored in a list `scenarios`). The following table provides a first overview of the scenarios available, including their relevant condition, their population size `N`, and basic probability information: 
 
-```{r scenario_table, echo = FALSE, results = "asis"}
+```{r scenario-table, echo = FALSE, results = "asis"}
 library(knitr)
 scen_table <- df_scenarios[,
                            c("scen_lbl", "cond_lbl", "N", "prev",
@@ -277,7 +278,7 @@ s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10.
 
 As each scenario is stored as a list, different aspects of a scenario can be printed by their element names:
 
-```{r s10_info}
+```{r s10-info}
 # Show basic scenario information: 
 s10$scen_lbl  # shows descriptive label:
 s10$cond_lbl  # shows current condition:
@@ -292,7 +293,7 @@ A description of the scenario can be printed by calling `s10$scen.txt`:
 
 As explained above, an overview of the main parameters of a scenario is provided by `summary`: 
 
-```{r s10_summary}
+```{r s10-summary}
 summary(s10) # summarizes key scenario information:
 ```
 
@@ -303,7 +304,7 @@ Note that -- in this particular population -- the prevalence for the condition (
 
 To eyeball basic scenario information, we can visualize it in many different ways. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r s10_icons, eval = FALSE, fig.width = 7.2, fig.height = 4.8}
+```{r s10-icons, eval = FALSE, fig.width = 7.2, fig.height = 4.5}
 plot(s10, type = "tab")                   # plot 2x2 table 
 plot(s10, type = "icons", cex_lbl = .75)  # plot an icon array 
 plot(s10, type = "prism", area = "sq")    # plot a network/prism diagram
@@ -315,7 +316,7 @@ These initial inspections reveal that the overall accuracy of the decision consi
 
 Next, we could another prism diagram, to further illuminate the interplay between probabilities and frequencies in this scenario: 
 
-```{r s10_prism_1, fig.align = "center", fig.width = 7.2, fig.height = 5.8}
+```{r s10-prism-1, fig.align = "center", fig.width = 7.2, fig.height = 5.2}
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -332,7 +333,7 @@ A fact that was not so obvious in the icon array -- but shown in the lower half 
 
 - Re-create the prism plot of `s10` from different perspectives (e.g., `by = "cdac"`) and different area settings (e.g., `area = "sq"`, see "?plot_prism" for the options available). For instance, what would the following commands plot:   
 
-```{r s10_prism_2, eval = FALSE}
+```{r s10-prism-2, eval = FALSE}
 plot(s10, by = "cdac", area = "sq")
 plot(s10, by = "ac", area = "hr")
 ```
@@ -341,7 +342,7 @@ plot(s10, by = "ac", area = "hr")
 
 One way to further understand the relations between basic probabilities -- like the prevalence `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s10$cond_lbl`") -- and probabilities conditional on both the condition and on features of the decision (like `PPV` and `NPV`) is to plot the latter as a function of the former. Calling `type = "curve"` does this for us. To save space, we do not show the plots here, but please try and see for yourself:  
 
-```{r s10_curve, eval = FALSE, fig.align = "center", fig.width = 7.2, fig.height = 6.0}
+```{r s10-curve, eval = FALSE, fig.align = "center", fig.width = 7.2, fig.height = 6.0}
 plot(s10, type = "curve", 
      what = "all",  # plot "all" available curves 
      uc = .05)      # with a 5%-uncertainty range 
@@ -357,18 +358,18 @@ While the curves shown for `PPV` and `NPV` so far illustrate their dependence on
 How do these conditional probabilities vary as a function of the decisions sensitivity (`sens`) and specificity (`spec`)? 
 To provide a visual answer to this question, we plot them as 3D planes (i.e., as functions of both `sens` and `spec`, for a given value of `prev`) with the following commands:^[The `par()` commands before and after the calls to `plot` in this example are not needed if you re-create the plots for yourself. They only set and reset the R plotting space to allow plotting both planes next to each other.]
 
-```{r opar_set, echo = FALSE}
+```{r opar-set, echo = FALSE}
 # opar <- par(no.readonly = TRUE)  # save plot settings.
 # par(mfrow = c(1, 2))           # 1 row with 2 plots:
 ```
 
-```{r s10_planes, fig.align = "center", fig.show = "hold", fig.width = 5.8, fig.height = 4.0}
+```{r s10-planes, fig.align = "center", fig.show = "hold", fig.width = 5.2, fig.height = 3.5}
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
 plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
 plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
 ```
 
-```{r opar_reset, echo = FALSE}
+```{r opar-reset, echo = FALSE}
 # par(op)  # reset plot settings.
 ```
 
@@ -386,7 +387,7 @@ In retrospect, these dependencies make it clear why it is so hard to provide an 
 
 Here are the first steps:
 
-```{r s9_summary}
+```{r s9-summary}
 # Select Scenario 9: 
 s9 <- scenarios$n9  # assign pre-defined Scenario 9 to s9. 
 
@@ -401,7 +402,8 @@ Importantly, the properties of the test are identical for both scenarios -- only
 
 ### Conclusion
 
-This introduction should suffice to get you started with using **riskyr**. 
+This introduction should suffice to get you started with using **riskyr** 
+(see [Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817), for its theoretical background). 
 Have fun by exploring the provided scenarios and creating your own examples! 
 
 
@@ -414,6 +416,11 @@ _Psychological Science_, _23_, 547--553.
 - Dressel, J., & Farid, H. (2018). 
 The accuracy, fairness, and limits of predicting recidivism. 
 _Science Advances_, _4_, eaao5580. 
+
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
+Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. _Frontiers in Psychology: Cognition_, _11_, 567817. 
+doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
+([Available online](https://doi.org/10.3389/fpsyg.2020.567817))  
 
 
 ### Resources
