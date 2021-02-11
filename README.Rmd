@@ -496,7 +496,15 @@ Its primary designers are
 
 The **riskyr** package is open source software written in [R](https://www.r-project.org/) and released under the 
 [GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) | 
-[GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses. 
+[GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) licenses.  
+
+The theoretical background of **riskyr** is illuminated further in the following article:
+
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
+Perspectives on the 2x2 matrix: 
+Solving semantically distinct problems based on a shared structure of binary contingencies. 
+_Frontiers in Psychology: Cognition_, _11_, 567817. 
+doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 
 
 ### Resources
@@ -580,7 +588,7 @@ New York, NY: Penguin.
 - Gigerenzer, G., & Gaissmaier, W. (2011). 
 Heuristic decision making. 
 _Annual Review of Psychology_, _62_, 451–482. 
-([Available online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346)])
+([Available online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346)]) 
 
 - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., & Woloshin, S. (2007). 
 Helping doctors and patients make sense of health statistics. 
@@ -598,7 +606,8 @@ _Cognition_, _84_, 343–352.
 - Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015). 
 Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. 
 _Frontiers in Psychology_, _6_, 1473. 
-([Available online]( https://doi.org/10.3389/fpsyg.2015.01473))
+doi: [10.3389/fpsyg.2015.01473](https://doi.org/10.3389/fpsyg.2015.01473) 
+([Available online](https://doi.org/10.3389/fpsyg.2015.01473)) 
 
 - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000). 
 Communicating statistical information. 
@@ -624,7 +633,13 @@ _IEEE Transactions on Visualization and Computer Graphics_, _18_, 2536–2545.
 Heuristics: Tools for an uncertain world. 
 In R. Scott & S. Kosslyn (Eds.), _Emerging trends in the social and behavioral sciences_. 
 New York, NY: Wiley Online Library. 
-([Available online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
+doi: [10.1002/9781118900772.etrds0394](https://doi.org/10.1002/9781118900772.etrds0394) 
+([Available online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))  
+
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
+Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. _Frontiers in Psychology: Cognition_, _11_, 567817. 
+doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
+([Available online](https://doi.org/10.3389/fpsyg.2020.567817)) 
 
 - Sedlmeier, P., & Gigerenzer, G. (2001). 
 Teaching Bayesian reasoning in less than two hours. 

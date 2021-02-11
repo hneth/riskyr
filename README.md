@@ -600,6 +600,16 @@ The **riskyr** package is open source software written in
 3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
 licenses.
 
+The theoretical background of **riskyr** is illuminated further in the
+following article:
+
+-   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
+    (2021). Perspectives on the 2x2 matrix: Solving semantically
+    distinct problems based on a shared structure of binary
+    contingencies. *Frontiers in Psychology: Cognition*, *11*, 567817.
+    doi:
+    [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
+
 ### Resources
 
 The following resources and versions are currently available:
@@ -732,6 +742,14 @@ information.
     Library. ([Available
     online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
 
+-   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
+    (2021). Perspectives on the 2x2 matrix: Solving semantically
+    distinct problems based on a shared structure of binary
+    contingencies. *Frontiers in Psychology: Cognition*, *11*, 567817.
+    doi:
+    [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
+    ([Available online](https://doi.org/10.3389/fpsyg.2020.567817))
+
 -   Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning
     in less than two hours. *Journal of Experimental Psychology:
     General*, *130*, 380–400.
@@ -741,7 +759,7 @@ information.
 
 <!-- Update: -->
 
-(Updated 2021-01-04 by [hn](https://neth.de).)
+(Updated 2021-02-11 by [hn](https://neth.de).)
 
 <!-- eof -->
 
