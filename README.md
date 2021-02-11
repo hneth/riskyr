@@ -695,7 +695,7 @@ information.
 
 -   Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making.
     *Annual Review of Psychology*, *62*, 451–482. ([Available
-    online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346)\])
+    online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346))
 
 -   Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &
     Woloshin, S. (2007). Helping doctors and patients make sense of

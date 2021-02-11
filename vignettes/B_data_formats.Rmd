@@ -281,28 +281,33 @@ plot_prism(prev = .50, sens = .80, spec = .60,  # 3 essential probabilities
 
 - Gigerenzer, G. (2002). 
 _Reckoning with risk: Learning to live with uncertainty_. 
-London, UK: Penguin.
+London, UK: Penguin. 
 
 - Gigerenzer, G. (2014). 
 _Risk savvy: How to make good decisions_. 
-New York, NY: Penguin.
+New York, NY: Penguin. 
 
 - Gigerenzer, G., & Hoffrage, U. (1999). 
 Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). 
-_Psychological Review_, _106_, 425--430.
+_Psychological Review_, _106_, 425--430. 
 
 - Hájek, A (2012) [Interpretations of Probability](https://plato.stanford.edu/entries/probability-interpret/). 
 In Edward N. Zalta (Ed.), _The Stanford Encyclopedia of Philosophy_. 
-URL: https://plato.stanford.edu/entries/probability-interpret/ [2012 Archive](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/)
+URL: https://plato.stanford.edu/entries/probability-interpret/ [2012 Archive](https://plato.stanford.edu/archives/win2012/entries/probability-interpret/) 
 
 - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002). 
 Representation facilitates reasoning: What natural frequencies are and what they are not. 
-_Cognition_, _84_, 343--352.
+_Cognition_, _84_, 343--352. 
+
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
+Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. _Frontiers in Psychology: Cognition_, _11_, 567817. 
+doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
+([Available online](https://doi.org/10.3389/fpsyg.2020.567817))  
 
 - Trevethan, R. (2017). 
 Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. 
 _Frontiers in Public Health_, _5_, 307. 
-[[Available online](https://doi.org/10.3389/fpubh.2017.00307)]  
+([Available online](https://doi.org/10.3389/fpubh.2017.00307)) 
 
 
 ### Resources
