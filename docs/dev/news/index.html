@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
       </span>
     </div>
 
@@ -159,13 +159,16 @@
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li><p>Added <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code> for plotting <em>frequency nets</em> (Binder et al., 2020).</p></li>
-<li><p>Computing key metrics based on 2x2 matrix of frequency counts (see <code>comp_metrics.R</code>).</p></li>
+<li>Added <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code> for plotting <em>frequency nets</em> (Binder et al., 2020).</li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li><p>Using colors of <code>pal</code> for fill colors of symbols in <code>plot_icon()</code>.</p></li>
+<li><p>Computing key metrics based on 2x2 matrix of frequency counts (see <code>comp_metrics.R</code>).</p></li>
+</ul>
 <div id="changes-to-existing-visualization-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#changes-to-existing-visualization-functions" class="anchor"></a>Changes to existing visualization functions</h3>
@@ -216,6 +219,7 @@ Change default settings from <code>f_lbl_hd = "abb"</code> to <code>f_lbl_hd = "
 <li><p>Changes to color palettes [2019-01]:<br>
 Add a background color <code>pal[["bg"]]</code> to all palettes and plots (to preempt different system defaults).<br>
 Adopt <code>pal_mod</code> – rather than <code>pal_mbw</code> – as default color scheme <code>pal</code> (to highlight <code>cond_true</code> and <code>dec_pos</code> cases in default plots).</p></li>
+<li><p>Added reference to article on theoretical background (<a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al., 2021</a>).</p></li>
 </ul>
 </div>
 <div id="details" class="section level3">
@@ -364,6 +368,9 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.</p></
 <ul>
 <li>Initial release on CRAN: <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a> [2018-02-19]</li>
 </ul>
+<!-- Update: --><hr>
+<p>(<code>NEWS.md</code> updated on 2021-02-11 by <a href="https://neth.de">hn</a>.)</p>
+<!-- eof -->
 </div>
   </div>
 

@@ -87,7 +87,7 @@ and a population size of N individuals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
       </span>
     </div>
 
@@ -291,53 +291,61 @@ Default: <code>ident_order = c("hi", "mi", "fa", "cr")</code></p></td>
     <tr>
       <th>icon_types</th>
       <td><p>Specifies the appearance of the icons as a vector.
+Default: <code>icon_types = 11</code> (i.e., squares with border).
 Accepts values from 1 to 25 (see <code><a href='https://rdrr.io/r/graphics/points.html'>?points</a></code>).</p></td>
     </tr>
     <tr>
       <th>icon_size</th>
       <td><p>Manually specifies the size of the icons via <code>cex</code>
-(calculated dynamically by default).</p></td>
+Default: <code>icon_size = NULL</code> for automatic calculation.</p></td>
     </tr>
     <tr>
       <th>icon_brd_lwd</th>
-      <td><p>Specifies the border width of icons (if applicable).</p></td>
+      <td><p>Specifies the border width of icons (if applicable).
+Default: <code>icon_brd_lwd = 1.5</code>. Set to <code>NA</code> for no border.</p></td>
     </tr>
     <tr>
       <th>block_d</th>
-      <td><p>The distance between blocks
+      <td><p>The distance between blocks.
+Default: <code>block_d = NULL</code> for automatic calculation;
 (does not apply to "filleft", "filltop", and "scatter")</p></td>
     </tr>
     <tr>
       <th>border_d</th>
-      <td><p>The distance of icons to the border.</p>
+      <td><p>The distance of icons to the border.
+Default: <code>border_d = 0.1</code>.</p>
 <p>Additional options for controlling the arrangement of arrays
 (for <code>arr_type = "array"</code> and <code>"shuffledarray"</code>):</p></td>
     </tr>
     <tr>
       <th>block_size_row</th>
-      <td><p>specifies how many icons should be in each block row.</p></td>
+      <td><p>specifies how many icons should be in each block row.
+Default: <code>block_size_row = 10</code>.</p></td>
     </tr>
     <tr>
       <th>block_size_col</th>
-      <td><p>specifies how many icons should be in each block column.</p></td>
+      <td><p>specifies how many icons should be in each block column.
+Default: <code>block_size_col = 10</code>.</p></td>
     </tr>
     <tr>
       <th>nblocks_row</th>
-      <td><p>specifies how many blocks there are in each row.  Is calculated by default.</p></td>
+      <td><p>Number of blocks per row.
+Default: <code>nblocks_row = NULL</code> for automatic calculation.</p></td>
     </tr>
     <tr>
       <th>nblocks_col</th>
-      <td><p>specifies how many blocks are there in each column.  Is calculated by default.</p></td>
+      <td><p>Number of blocks per column.
+Default: <code>nblocks_col = NULL</code> for automatic calculation.</p></td>
     </tr>
     <tr>
       <th>fill_array</th>
-      <td><p>specifies how the blocks are filled into the array
-(Options "left" (default) and "top").</p></td>
+      <td><p>specifies how the blocks are filled into the array.
+Options: <code>fill_array = "left"</code> (default) vs. <code>"top"</code>.</p></td>
     </tr>
     <tr>
       <th>fill_blocks</th>
-      <td><p>specifies how icons within blocks are filled
-(Options: <code>fill_blocks = "rowwise"</code> (default) and <code>fill_blocks = "colwise"</code>)</p>
+      <td><p>specifies how icons within blocks are filled.
+Options: <code>fill_blocks = "rowwise"</code> (default) and <code>"colwise"</code>.</p>
 <p>Generic text and color options:</p></td>
     </tr>
     <tr>
@@ -406,34 +414,29 @@ to avoid decimal values in <code><a href='freq.html'>freq</a></code>.</p>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># icon array with default settings (arr_type = "array")</span></div><div class='img'><img src='plot_icons-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"shuffledarray"</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># icon array with shuffled IDs</span></div><div class='img'><img src='plot_icons-2.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># array types:</span>
 <span class='fu'>plot_icons</span>(<span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"mosaic"</span>,    <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># areas as in mosaic plot</span></div><div class='img'><img src='plot_icons-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"fillequal"</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># areas of equal size (probability as density)</span></div><div class='img'><img src='plot_icons-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"fillleft"</span>,  <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># icons filled from left to right (in columns)</span></div><div class='img'><img src='plot_icons-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"filltop"</span>,   <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># icons filled from top to bottom (in rows)</span></div><div class='img'><img src='plot_icons-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"scatter"</span>,   <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>)  <span class='co'># icons randomly scattered</span></div><div class='img'><img src='plot_icons-7.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># by argument:</span>
-<span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"all"</span>)  <span class='co'># hi, mi, fa, cr (TP, FN, FP, TN) cases</span></div><div class='img'><img src='plot_icons-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>)   <span class='co'># (hi + mi) vs. (fa + cr) (TP + FN vs. FP + TN) cases</span></div><div class='img'><img src='plot_icons-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dc"</span>)   <span class='co'># (hi + fa) vs. (mi + cr) (TP + FP vs. FN + TN) cases</span></div><div class='img'><img src='plot_icons-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>)   <span class='co'># (hi + cr) vs. (fa + mi) (TP + TN vs. FP + FN) cases</span></div><div class='img'><img src='plot_icons-11.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># Icons types and colors:</span>
-<span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>600</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bwp</span>) <span class='co'># by all: 4 symbol types</span></div><div class='img'><img src='plot_icons-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>600</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bwp</span>)  <span class='co'># by accuracy: 2 symbol types</span></div><div class='img'><img src='plot_icons-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>icon_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>22</span>), <span class='kw'>icon_size</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-               <span class='kw'>block_size_row</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>block_size_col</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-               <span class='kw'>block_d</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>border_d</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_icons-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1250</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+<span class='co'># by:</span>
+<span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"all"</span>)  <span class='co'># hi, mi, fa, cr (TP, FN, FP, TN) cases</span></div><div class='img'><img src='plot_icons-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Cases by condition"</span>)  <span class='co'># (hi + mi) vs. (fa + cr)</span></div><div class='img'><img src='plot_icons-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dc"</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Cases by decision"</span>)   <span class='co'># (hi + fa) vs. (mi + cr)</span></div><div class='img'><img src='plot_icons-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Cases by accuracy"</span>)   <span class='co'># (hi + cr) vs. (fa + mi)</span></div><div class='img'><img src='plot_icons-11.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Custom icon types and colors:</span>
+<span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>600</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bwp</span>) <span class='co'># by all: 4 symbol types</span></div><div class='img'><img src='plot_icons-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1250</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
            <span class='kw'>icon_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>23</span>),
            <span class='kw'>block_size_row</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>block_size_col</span> <span class='kw'>=</span> <span class='fl'>5</span>,
            <span class='kw'>nblocks_row</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>nblocks_col</span> <span class='kw'>=</span> <span class='fl'>5</span>,
            <span class='kw'>block_d</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>border_d</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-           <span class='kw'>fill_array</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</div><div class='img'><img src='plot_icons-15.png' alt='' width='691' height='538' /></div><div class='input'>
+           <span class='kw'>fill_array</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</div><div class='img'><img src='plot_icons-13.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># variants:</span>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>800</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"array"</span>, <span class='kw'>icon_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>, <span class='fl'>22</span>, <span class='fl'>23</span>, <span class='fl'>24</span>),
-           <span class='kw'>block_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>border_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_vir</span>)</div><div class='img'><img src='plot_icons-16.png' alt='' width='691' height='538' /></div><div class='input'>
-
+           <span class='kw'>block_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>border_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_vir</span>)</div><div class='img'><img src='plot_icons-14.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>800</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"shuffledarray"</span>, <span class='kw'>icon_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>22</span>),
-           <span class='kw'>block_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>border_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='plot_icons-17.png' alt='' width='691' height='538' /></div><div class='input'>
+           <span class='kw'>block_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>border_d</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='plot_icons-15.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>800</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"shuffledarray"</span>, <span class='kw'>icon_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>22</span>),
-           <span class='kw'>icon_brd_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>grey</a></span>(<span class='fl'>.33</span>, <span class='fl'>.99</span>), <span class='kw'>icon_brd_lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>1.2</span>)</div><div class='img'><img src='plot_icons-18.png' alt='' width='691' height='538' /></div><div class='input'>
+           <span class='kw'>icon_brd_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>grey</a></span>(<span class='fl'>.33</span>, <span class='fl'>.99</span>), <span class='kw'>icon_brd_lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>1.2</span>)</div><div class='img'><img src='plot_icons-16.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>800</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"fillequal"</span>, <span class='kw'>icon_types</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>21</span>, <span class='fl'>22</span>, <span class='fl'>22</span>, <span class='fl'>21</span>),
-           <span class='kw'>icon_brd_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>1.1</span>)</div><div class='img'><img src='plot_icons-19.png' alt='' width='691' height='538' /></div><div class='input'>
+           <span class='kw'>icon_brd_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>1.1</span>)</div><div class='img'><img src='plot_icons-17.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Text and color options:</span>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"shuffledarray"</span>,
-           <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_TF</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_vir</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_icons-20.png' alt='' width='691' height='538' /></div><div class='input'>
+           <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_TF</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_vir</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_icons-18.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"shuffledarray"</span>,
-           <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Green vs. red"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_icons-21.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_icons</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>arr_type</span> <span class='kw'>=</span> <span class='st'>"shuffledarray"</span>,
-           <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Shades of blue"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>.3</span>)</div><div class='img'><img src='plot_icons-22.png' alt='' width='691' height='538' /></div><div class='input'>
+           <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Green vs. red"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_icons-19.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

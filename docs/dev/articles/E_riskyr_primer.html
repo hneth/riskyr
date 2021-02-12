@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <h1 data-toc-skip>Quick Start Primer</h1>
                         <h4 class="author">Nico Gradwohl &amp; Hansjörg Neth, SPDS, uni.kn</h4>
             
-            <h4 class="date">2018 03 12</h4>
+            <h4 class="date">2021 02 10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/master/vignettes/E_riskyr_primer.Rmd"><code>vignettes/E_riskyr_primer.Rmd</code></a></small>
       <div class="hidden name"><code>E_riskyr_primer.Rmd</code></div>
@@ -121,8 +121,8 @@
 <!-- riskyr logo: -->
 <p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
 <p><strong>riskyr</strong> is a toolbox for rendering risk literacy more transparent. Its goal is to gain insights into risk-related scenarios with a minimum of hassle and maximum of fun.</p>
-<p>This page assumes that you just installed the package and are eager to see what you can do with it.<br>
-(See the <a href="A_user_guide.html">User guide</a> for a more comprehensive introduction.)</p>
+<p>This page assumes that you just installed the <strong>riskyr</strong> package and are eager to see what you can do with it.<br>
+(See the <a href="A_user_guide.html">User guide</a> for a more comprehensive introduction and <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al., 2021</a>, for its theoretical background.)</p>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
@@ -242,7 +242,7 @@
 <h5 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h5>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_scenario</span>)</pre></body></html></div>
-<p><img src="E_riskyr_primer_files/figure-html/plot_default-1.png" width="691.2" style="display: block; margin: auto;"></p>
+<p><img src="E_riskyr_primer_files/figure-html/plot-default-1.png" width="691.2" style="display: block; margin: auto;"></p>
 <p>A <em>prism plot</em> (or network diagram) shows key frequencies as colored boxes and corresponding probabilities as the edges that connect the boxes. In this particular version, the size of the boxes is fixed. However, we can visualize the relative size of frequencies by using the <code>area</code> argument and show the names of the frequencies (as provided by our text labels) by adding the <code>f_lbl = "nam"</code> argument. To save space, we do not show the plots here, but please try and see for yourself:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_scenario</span>, <span class="kw">area</span> <span class="kw">=</span> <span class="st">"sq"</span>, <span class="kw">f_lbl</span> <span class="kw">=</span> <span class="st">"nam"</span>, <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"mix"</span>)  <span class="co"># show frequency names</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_scenario</span>, <span class="kw">area</span> <span class="kw">=</span> <span class="st">"hr"</span>, <span class="kw">f_lbl</span> <span class="kw">=</span> <span class="st">"num"</span>, <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"num"</span>)  <span class="co"># only numeric labels</span></pre></body></html></div>
@@ -262,7 +262,7 @@
 <a href="#icon-array" class="anchor"></a>Icon array</h5>
 <p>An <em>icon array</em> displays the entire population of inmates classified by condition (whether they will reoffend or not) and decisions (our test’s predictions). We can plot this display for our scenario by using the <code>plot</code> function and specifying the <code>type = "icons"</code>:</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_scenario</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"icons"</span>)</pre></body></html></div>
-<p><img src="E_riskyr_primer_files/figure-html/icons-1.png" width="691.2" style="display: block; margin: auto;"></p>
+<p><img src="E_riskyr_primer_files/figure-html/icons-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>From the icon array, we can easily see that roughly half of the inmates reoffend (see the icons in dark green and dark blue). The majority of the reoffenders are classified correctly (shown in dark green rather than dark blue).</p>
 <p>But where is John D.? His test result predicted that he would reoffend. Depending on his actual behavior, this means that he will <em>either</em> be classified as a “reoffender found” (if he actually reoffends: dark green icons) <em>or</em> as a “false accusation” (if he does not reoffend: light red icons). As there are a similar number of both types of icons (with some skew towards “reoffenders found”), it appears that his chances of actually reoffending are only slightly higher than chance.</p>
 <p>To dig deeper into the dirty details of <code>my_scenario</code>, let us look at its <code>summary</code>:</p>
@@ -321,7 +321,7 @@
 <p>The tree also depicts additional information that corresponds to our <code>summary</code> from above. For instance, if we had wondered about the negative predictive value (NPV) of a negative test result (i.e., the conditional probability of not offending given that the test predicted this), the tree shows this to be <code>NPV = 190/197</code> or about 96.4% (as <code>NPV = cr/dec_neg</code>). Again, this closely corresponds to our <code>summary</code> information of <code>NPV = 0.966</code>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>A good question to ask is: To what extend do the positive and negative predictive values (PPV and NPV) depend on the likelihood of reoffending in our population (i.e., the condition’s prevalence)? To answer this, the following code allows to show conditional probabilities (here <code>PPV</code> and <code>NPV</code>) as a function of <code>prev</code> (and additionally assumes a 5%-uncertainty concerning the exact parameter values):</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">my_scenario</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"curve"</span>, <span class="kw">uc</span> <span class="kw">=</span> <span class="fl">.05</span>)</pre></body></html></div>
-<p><img src="E_riskyr_primer_files/figure-html/plotting_curve-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="E_riskyr_primer_files/figure-html/plotting-curve-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>As before, we can read off that the current values of <code>PPV = 59.76%</code> and <code>NPV = 96,56%</code>, but also see that our 5%-uncertainty implies relatively large fluctuations of the exact numeric values. Importantly, the curves also show that the prevalence value is absolutely crucial for the value of both <code>PPV</code> and <code>NPV</code>. For instance, if <code>prev</code> dropped further, the <code>PPV</code> of our test was also considerably lower. In fact, both the PPV and NPV always vary from 0 to 1 depending on the value of <code>prev</code>, which means that specifying them is actually meaningless when the corresponding value of <code>prev</code> is not communicated as well. (See the guide on <a href="D_functional_perspectives.html">functional perspectives</a> for additional information and options.)</p>
 <p>Having illustrated how we can create a scenario from scratch and begin to inspect it in a few ways, we can now turn towards loading scenarios that are contained in the <strong>riskyr</strong> package.</p>
 </div>
@@ -651,7 +651,7 @@
      <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cddc"</span>,      <span class="co"># perspective: upper half by condition, lower half by decision </span>
      <span class="kw">area</span> <span class="kw">=</span> <span class="st">"hr"</span>,      <span class="co"># frequency boxes as horizontal rectangles (scaled to N)</span>
      <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"num"</span>)    <span class="co"># probability labels: numeric only</span></pre></body></html></div>
-<p><img src="E_riskyr_primer_files/figure-html/s10_prism_1-1.png" width="691.2" style="display: block; margin: auto;"></p>
+<p><img src="E_riskyr_primer_files/figure-html/s10-prism-1-1.png" width="691.2" style="display: block; margin: auto;"></p>
 <p>This variant of the prism plot shows how the probability values of key condition and decision parameters split the assumed population of <code>N = 1000</code> patients into subgroups that correspond to 9 frequencies (also listed in the summary). Calling the same command with the optional argument <code>p_lbl = "nam"</code> would print the probability names, rather than their values (see also the options <code>p_lbl = "min"</code> and <code>"mix"</code>.) The middle row of boxes shows the four essential frequencies (of hits <code>hi</code>, misses <code>mi</code>, false alarms <code>fa</code>, and correct rejections <code>cr</code>) in colors corresponding to the icon array above. Setting <code>area = "hr"</code> in our <code>plot</code> command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence <code>hr</code>) and the box widths are scaled to add up to the population width <code>N</code> on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases.</p>
 <p>A fact that was not so obvious in the icon array – but shown in the lower half of the prism plot – is that the current scenario yields mostly negative decisions (865 out of 1000, or 86.5%). Of those negative decisions, 470 (or 54.34%) are correct (see <code>cr</code> shown in light green) and 395 (or 45.66%) are incorrect (see <code>mi</code> shown in dark red). The ratio <code>cr/dec_neg = 470/865 = 54.34</code>% indicates the negative predictive value (<code>NPV</code>) of the test.</p>
 <div id="practice-1" class="section level5">
@@ -683,7 +683,7 @@
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="co">## Plot plane of PPV and NPV as functions of sens and spec (for given prev): </span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"plane"</span>, <span class="kw">what</span> <span class="kw">=</span> <span class="st">"PPV"</span>, <span class="kw">cex_lbl</span> <span class="kw">=</span> <span class="fl">.7</span>)  <span class="co"># PPV by sens x spec (fixed prev)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s10</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"plane"</span>, <span class="kw">what</span> <span class="kw">=</span> <span class="st">"NPV"</span>, <span class="kw">cex_lbl</span> <span class="kw">=</span> <span class="fl">.7</span>)  <span class="co"># NPV by sens x spec (fixed prev)</span></pre></body></html></div>
-<p><img src="E_riskyr_primer_files/figure-html/s10_planes-1.png" width="556.8" style="display: block; margin: auto;"><img src="E_riskyr_primer_files/figure-html/s10_planes-2.png" width="556.8" style="display: block; margin: auto;"></p>
+<p><img src="E_riskyr_primer_files/figure-html/s10-planes-1.png" width="499.2" style="display: block; margin: auto;"><img src="E_riskyr_primer_files/figure-html/s10-planes-2.png" width="499.2" style="display: block; margin: auto;"></p>
 <p>This comparison shows that the curves of <code>PPV</code> and <code>NPV</code> (created by <code>type = "curve"</code> above) were only two out of an infinite number of possible intersections of two planes (created by <code>type = "plane"</code> here). Consequently, the current values of <code>PPV</code> and <code>NPV</code> (shown as yellow points on the planes) crucially depend on the condition’s prevalence (<code>prev</code>), the decision’s sensitivity (<code>sens</code>), and the decision’s specificity (<code>spec</code>).</p>
 <!-- Conclusion: -->
 <p>In retrospect, these dependencies make it clear why it is so hard to provide an answer to the seemingly simple question: What’s the probability of having some condition when testing positive or negative for it? While <strong>riskyr</strong> cannot simplify this issue, we hope that you are convinced that it helps to compute, transform, and see some relationships that are not immediately obvious from the mathematical definitions of the underlying concepts. If you feel that this improves your understanding, we came a little closer to our goal of rendering risk literacy more transparent.</p>
@@ -710,7 +710,7 @@
 <div id="conclusion" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conclusion" class="anchor"></a>Conclusion</h3>
-<p>This introduction should suffice to get you started with using <strong>riskyr</strong>. Have fun by exploring the provided scenarios and creating your own examples!</p>
+<p>This introduction should suffice to get you started with using <strong>riskyr</strong> (see <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al., 2021</a>, for its theoretical background). Have fun by exploring the provided scenarios and creating your own examples!</p>
 </div>
 </div>
 <div id="references" class="section level2">
@@ -719,6 +719,7 @@
 <ul>
 <li><p>Arkes, H. R., &amp; Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. <em>Psychological Science</em>, <em>23</em>, 547–553.</p></li>
 <li><p>Dressel, J., &amp; Farid, H. (2018). The accuracy, fairness, and limits of predicting recidivism. <em>Science Advances</em>, <em>4</em>, eaao5580.</p></li>
+<li><p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817">10.3389/fpsyg.2020.567817</a> (<a href="https://doi.org/10.3389/fpsyg.2020.567817">Available online</a>)</p></li>
 </ul>
 <div id="resources" class="section level3">
 <h3 class="hasAnchor">

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9032</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
       </span>
     </div>
 
@@ -109,7 +109,7 @@
       <h1 data-toc-skip>Confusion Matrix and Metrics</h1>
                         <h4 class="author">Hansjörg Neth, SPDS, uni.kn</h4>
             
-            <h4 class="date">2018 02 12</h4>
+            <h4 class="date">2021 02 10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/master/vignettes/C_confusion_matrix.Rmd"><code>vignettes/C_confusion_matrix.Rmd</code></a></small>
       <div class="hidden name"><code>C_confusion_matrix.Rmd</code></div>
@@ -187,7 +187,7 @@
 </tbody>
 </table>
 <p>Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. This is no surprise when considering explanations like the corresponding article on <a href="https://en.wikipedia.org/wiki/Confusion_matrix">Wikipedia</a>, which squeezes more than a dozen metrics out of four essential frequencies (<code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code>). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.</p>
-<p>Fortunately, the basic matrix can also be understood as a 2-by-2 contingency table, which is actually quite simple, and rather straightforward in its implications. In the following, we aim to disentangle the multitude of measures and identify the elements of the confusion matrix that a risk-literate person should know.</p>
+<p>Fortunately, the basic matrix can also be understood as a 2x2 matrix (aka. 2-by-2 contingency table), which is actually quite simple, and rather straightforward in its implications. In the following sections, we aim to disentangle the multitude of measures and identify the elements of the confusion matrix that a risk-literate person should know.</p>
 <!-- 
 
 ## Terminology
@@ -201,10 +201,15 @@
 | (a) by condition  | `ptl` = `tl`/`l` `pbl` = `bl`/`l`   | `spec` = `cr`/`cond_false` | `pt` = `nt`/`N` |  `acc` = `dec_cor`/`N` = (`hi`+`cr`)/`N` |
 
 -->
+<p>For a more complete account of <strong>riskyr</strong>’s theoretical background, see the following article:</p>
+<ul>
+<li>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817">10.3389/fpsyg.2020.567817</a>
+</li>
+</ul>
 <div id="basics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basics" class="anchor"></a>Basics</h2>
-<p>Condensed to its core, the confusion matrix cross-tabulates two binary dimensions and classifies each individual case into one of 4 possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:</p>
+<p>Condensed to its core, the confusion matrix cross-tabulates two binary dimensions and classifies each individual case into one of four possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="right"></th>
@@ -230,15 +235,12 @@
 </tbody>
 </table>
 <p>Fortunately, this is not so confusing any more. And, perhaps surprisingly, all other metrics follow from this simple core in a straightforward way. In the following, we illustrate how the other metrics can be constructed from the 4 essential frequencies in the core of the matrix.</p>
-<div id="adopting-2-perspectives-on-a-population" class="section level3">
+<div id="adopting-two-perspectives-on-a-population" class="section level3">
 <h3 class="hasAnchor">
-<a href="#adopting-2-perspectives-on-a-population" class="anchor"></a>Adopting 2 perspectives on a population</h3>
-<p>Essentially, the confusion matrix views a population of <code>N</code> individuals in different ways by adopting different perspectives. “Adopting a perspective” means that we can distinguish between individuals on the basis of some criterion. The 2 primary criteria used here are:</p>
-<ol style="list-style-type: lower-alpha">
-<li>each individual’s <em>condition</em>, which can either be present (<code>TRUE</code>) or absent (<code>FALSE</code>), and<br>
-</li>
-<li>each individual’s <em>decision</em>, which can either be <code>positive</code> (<code>TRUE</code>) or <code>negative</code> (<code>FALSE</code>).</li>
-</ol>
+<a href="#adopting-two-perspectives-on-a-population" class="anchor"></a>Adopting two perspectives on a population</h3>
+<p>Essentially, the confusion matrix views a population of <code>N</code> individuals in different ways by adopting different perspectives. “Adopting a perspective” means that we can distinguish between individuals on the basis of some criterion. The two primary criteria used here are:</p>
+<p>(a) each individual’s <em>condition</em>, which can either be present (<code>TRUE</code>) or absent (<code>FALSE</code>), and<br>
+(b) each individual’s <em>decision</em>, which can either be <code>positive</code> (<code>TRUE</code>) or <code>negative</code> (<code>FALSE</code>).</p>
 <p>Numerically, the adoption of each of these two perspectives splits the population into two subgroups.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Applying two different splits of a population into two subgroups results in <span class="math inline">\(2 \times 2 = 4\)</span> cases, which form the core of the confusion matrix:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -250,7 +252,7 @@
 <li>
 <code>cr</code> represents <em>correct rejections</em> (or true negatives): condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</li>
 </ol>
-<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="B_data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
+<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="B_data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
 <ol style="list-style-type: lower-alpha">
 <li>by condition (corresponding to the two columns of the confusion matrix):</li>
 </ol>
@@ -312,7 +314,7 @@
 <div id="example" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h4>
-<p>To view a 2x2 confusion table in <strong>riskyr</strong>, use the <code>plot_tab</code> function or plot an existing scenario as <code>type = "tab"</code>:</p>
+<p>To view a 2x2 matrix (or confusion table) in <strong>riskyr</strong>, use the <code>plot_tab</code> function or plot an existing scenario as <code>type = "tab"</code>:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## (1) Plot table from basic input parameters: ----- </span>
 <span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.05</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.75</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">.66</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
          <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>) <span class="co"># show condition probabilies (by default)</span>
@@ -346,10 +348,10 @@ Example of a 2x2 confusion table in <strong>riskyr</strong>.
 -->
 </div>
 </div>
-<div id="accuracy-as-a-3rd-perspective" class="section level3">
+<div id="accuracy-as-a-third-perspective" class="section level3">
 <h3 class="hasAnchor">
-<a href="#accuracy-as-a-3rd-perspective" class="anchor"></a>Accuracy as a 3rd perspective</h3>
-<p>A 3rd way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, answering the question about accuracy requires that the other dimensions have been determined and then considering the <em>correspondence</em> between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
+<a href="#accuracy-as-a-third-perspective" class="anchor"></a>Accuracy as a third perspective</h3>
+<p>A third way of grouping the four essential frequencies results from asking the question: Which of the four essential frequencies are <em>correct</em> decisions and which are <em>erroneous</em> decisions? Crucially, this question about decision <em>accuracy</em> can neither be answered by only considering each individual’s condition (i.e., the columns of the matrix), nor can it be answered by only considering each individual’s decision (i.e., the rows of the matrix). Instead, answering the question about accuracy requires that the other dimensions have been determined and then considering the <em>correspondence</em> between condition and decision. Checking the correspondence between rows and columns for the four essential frequencies yields an important insight: The confusion matrix contains <em>two</em> types of correct decisions and <em>two</em> types of errors:</p>
 <ul>
 <li>
 <p>A decision is <em>correct</em>, when it corresponds to the condition. This is the case for two cells in (or the "" diagonal of) the confusion matrix:</p>
@@ -383,7 +385,7 @@ Example of a 2x2 confusion table in <strong>riskyr</strong>.
 <div id="example-1" class="section level4">
 <h4 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example</h4>
-<p>Re-arranging the cells of the 2x2 confusion table allows illustrating accuracy as a 3rd perspective (e.g., by specifying the perspective <code>by = "cdac"</code>):</p>
+<p>Re-arranging the cells of the 2x2 matrix allows illustrating accuracy as a third perspective (e.g., by specifying the perspective <code>by = "cdac"</code>):</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.05</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.75</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">.66</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
          <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cdac"</span>, <span class="kw">p_split</span> <span class="kw">=</span> <span class="st">"h"</span>,
          <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Scenario 2"</span>)</pre></body></html></div>
@@ -509,6 +511,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 \end{aligned}
 \]</span></p>
 <p>See <a href="https://en.wikipedia.org/wiki/F1_score">Wikipedia: F1 score</a> for details.</p>
+<p>For many more additional scientific metrics that are defined on the basis of a 2x2 matrix, see Section <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2020.567817/full#h5">4. Integration</a> (e.g., Figure 6 and Table 3) of <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al. (2021)</a>.</p>
 </div>
 </div>
 </div>
@@ -516,7 +519,8 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <ul>
-<li>Phillips, N. D., Neth, H., Woike, J. K., &amp; Gaissmaier, W. (2017). FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. <em>Judgment and Decision Making</em>, <em>12</em>, 344–368. [Available online: <a href="http://journal.sjdm.org/17/17217/jdm17217.pdf">pdf</a> | <a href="http://journal.sjdm.org/17/17217/jdm17217.html">html</a> | <a href="https://CRAN.R-project.org/package=FFTrees">R package</a> ]</li>
+<li><p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817">10.3389/fpsyg.2020.567817</a> (<a href="https://doi.org/10.3389/fpsyg.2020.567817">Available online</a>)</p></li>
+<li><p>Phillips, N. D., Neth, H., Woike, J. K., &amp; Gaissmaier, W. (2017). FFTrees: A toolbox to create, visualize, and evaluate fast-and-frugal decision trees. <em>Judgment and Decision Making</em>, <em>12</em>, 344–368. (Available online: <a href="http://journal.sjdm.org/17/17217/jdm17217.pdf">pdf</a> | <a href="http://journal.sjdm.org/17/17217/jdm17217.html">html</a> | <a href="https://CRAN.R-project.org/package=FFTrees">R package</a> )</p></li>
 </ul>
 <p>Links to related Wikipedia articles:</p>
 <ul>
