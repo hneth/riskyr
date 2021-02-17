@@ -15,7 +15,7 @@ Log of changes since last release:
 
 - Using colors of `pal` for fill colors of symbols in `plot_icon()`.  
 
-- Computing key metrics based on 2x2 matrix of frequency counts (see `comp_metrics.R`). 
+- Computing key metrics based on the 2x2 matrix of frequency counts (see `comp_metrics.R`). 
 
 ### Changes to existing visualization functions 
 
@@ -80,7 +80,7 @@ Enforce 2 different symbol types for icon arrays with a binary perspective (`by 
 
 ## ToDo 
 
-- Adopt general framework of matrix lens model and 2x2 matrix construct
+- Adopt general framework of the matrix lens model and 2x2 matrix cube framework  
 
 - Visualize and explain Bayesian brain teasers (cab problem, 3-option paradoxes, conjunction fallacy, etc.) 
 
