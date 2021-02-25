@@ -81,7 +81,7 @@ to define all scenario titles and labels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ to define all scenario titles and labels." />
 to define all scenario titles and labels.</p>
     </div>
 
-    <pre class="usage"><span class='no'>txt_org</span></pre>
+    <pre class="usage"><span class='va'>txt_org</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -193,7 +193,8 @@ to define all scenario titles and labels.</p>
 <code><a href='txt.html'>txt</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>txt_org</span>        <span class='co'># shows original text labels</span></div><div class='output co'>#&gt; $scen_lbl
+    <pre class="examples"><div class='input'><span class='va'>txt_org</span>        <span class='co'># shows original text labels</span>
+</div><div class='output co'>#&gt; $scen_lbl
 #&gt; [1] "Scenario"
 #&gt; 
 #&gt; $scen_txt
@@ -255,9 +256,12 @@ to define all scenario titles and labels.</p>
 #&gt; 
 #&gt; $cr_lbl
 #&gt; [1] "cr"
-#&gt; </div><div class='input'><span class='no'>txt_org</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the original label for hits ("hi")</span></div><div class='output co'>#&gt; $&lt;NA&gt;
+#&gt; </div><div class='input'><span class='va'>txt_org</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span>  <span class='co'># shows the original label for hits ("hi")</span>
+</div><div class='output co'>#&gt; $&lt;NA&gt;
 #&gt; NULL
-#&gt; </div><div class='input'><span class='no'>txt_org</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"TP"</span> <span class='co'># defines a new label for hits (true positives, TP)</span></div></pre>
+#&gt; </div><div class='input'><span class='va'>txt_org</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"TP"</span> <span class='co'># defines a new label for hits (true positives, TP)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -273,7 +277,7 @@ to define all scenario titles and labels.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

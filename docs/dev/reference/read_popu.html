@@ -82,7 +82,7 @@ and returns a scenario of class &quot;riskyr&quot;." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -160,17 +160,17 @@ and returns a scenario of class &quot;riskyr&quot;." />
 and returns a scenario of class <code>"riskyr"</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_popu</span>(
-  <span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>popu</span>,
-  <span class='kw'>ix_by_top</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>ix_by_bot</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>ix_sdt</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>,
-  <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>,
-  <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>,
-  <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>read_popu</span><span class='op'>(</span>
+  df <span class='op'>=</span> <span class='va'>popu</span>,
+  ix_by_top <span class='op'>=</span> <span class='fl'>1</span>,
+  ix_by_bot <span class='op'>=</span> <span class='fl'>2</span>,
+  ix_sdt <span class='op'>=</span> <span class='fl'>3</span>,
+  hi_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>hi_lbl</span>,
+  mi_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>mi_lbl</span>,
+  fa_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>fa_lbl</span>,
+  cr_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>cr_lbl</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,24 +240,28 @@ the corresponding generating function <code><a href='comp_popu.html'>comp_popu</
     <pre class="examples"><div class='input'><span class='co'># Generating and interpreting different scenario types:</span>
 
 <span class='co'># (A) Diagnostic/screening scenario (using default labels): ------</span>
-<span class='no'>popu_diag</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='va'>popu_diag</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>4</span>, mi <span class='op'>=</span> <span class='fl'>1</span>, fa <span class='op'>=</span> <span class='fl'>2</span>, cr <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='co'># popu_diag</span>
-<span class='no'>scen_diag</span> <span class='kw'>&lt;-</span> <span class='fu'>read_popu</span>(<span class='no'>popu_diag</span>, <span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Diagnostics"</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Population tested"</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>scen_diag</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prism"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>)</div><div class='img'><img src='read_popu-1.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>scen_diag</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_diag</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Diagnostics"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population tested"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_diag</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-1.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># (B) Intervention/treatment scenario: ------</span>
-<span class='no'>popu_treat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>55</span>,
-                        <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Treatment"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"pill"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"placebo"</span>,
-                        <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Health status"</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"healthy"</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"sick"</span>)
+<span class='va'>popu_treat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>80</span>, mi <span class='op'>=</span> <span class='fl'>20</span>, fa <span class='op'>=</span> <span class='fl'>45</span>, cr <span class='op'>=</span> <span class='fl'>55</span>,
+                        cond_lbl <span class='op'>=</span> <span class='st'>"Treatment"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"pill"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"placebo"</span>,
+                        dec_lbl <span class='op'>=</span> <span class='st'>"Health status"</span>, dec_pos_lbl <span class='op'>=</span> <span class='st'>"healthy"</span>, dec_neg_lbl <span class='op'>=</span> <span class='st'>"sick"</span><span class='op'>)</span>
 <span class='co'># popu_treat</span>
-<span class='no'>scen_treat</span> <span class='kw'>&lt;-</span> <span class='fu'>read_popu</span>(<span class='no'>popu_treat</span>, <span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Treatment"</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Population treated"</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>scen_treat</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prism"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)</div><div class='img'><img src='read_popu-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>scen_treat</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"icon"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>)</div><div class='img'><img src='read_popu-3.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>scen_treat</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_treat</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Treatment"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population treated"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"icon"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-3.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># (C) Prevention scenario (e.g., vaccination): ------</span>
-<span class='no'>popu_vacc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>960</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>880</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>120</span>,
-                       <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Vaccination"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"no"</span>,
-                       <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Disease"</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"no flu"</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"flu"</span>)
+<span class='va'>popu_vacc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>960</span>, mi <span class='op'>=</span> <span class='fl'>40</span>, fa <span class='op'>=</span> <span class='fl'>880</span>, cr <span class='op'>=</span> <span class='fl'>120</span>,
+                       cond_lbl <span class='op'>=</span> <span class='st'>"Vaccination"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"yes"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"no"</span>,
+                       dec_lbl <span class='op'>=</span> <span class='st'>"Disease"</span>, dec_pos_lbl <span class='op'>=</span> <span class='st'>"no flu"</span>, dec_neg_lbl <span class='op'>=</span> <span class='st'>"flu"</span><span class='op'>)</span>
 <span class='co'># popu_vacc</span>
-<span class='no'>scen_vacc</span> <span class='kw'>&lt;-</span> <span class='fu'>read_popu</span>(<span class='no'>popu_vacc</span>, <span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Prevention"</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Population vaccinated"</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>scen_vacc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prism"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)</div><div class='img'><img src='read_popu-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>scen_vacc</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_vacc</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Prevention"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population vaccinated"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_vacc</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-4.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -274,7 +278,7 @@ the corresponding generating function <code><a href='comp_popu.html'>comp_popu</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

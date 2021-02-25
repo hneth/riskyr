@@ -81,7 +81,7 @@ as a percentage (rounded to n_digits decimals)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ as a percentage (rounded to n_digits decimals)." />
 as a percentage (rounded to <code>n_digits</code> decimals).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_pc</span>(<span class='no'>prob</span>, <span class='kw'>n_digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+    <pre class="usage"><span class='fu'>as_pc</span><span class='op'>(</span><span class='va'>prob</span>, n_digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,7 +201,11 @@ toggling the display of numeric values between percentages and probabilities.</p
 <code><a href='as_pb.html'>as_pb</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>.50</span>)                <span class='co'># 50</span></div><div class='output co'>#&gt; [1] 50</div><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>1</span>/<span class='fl'>3</span>)                <span class='co'># 33.33</span></div><div class='output co'>#&gt; [1] 33.33</div><div class='input'><span class='fu'>as_pc</span>(<span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>n_digits</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># 33</span></div><div class='output co'>#&gt; [1] 33</div><div class='input'><span class='fu'>as_pc</span>(<span class='fu'><a href='as_pb.html'>as_pb</a></span>(<span class='fl'>12.3</span>))        <span class='co'># 12.3</span></div><div class='output co'>#&gt; [1] 12.3</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>as_pc</span><span class='op'>(</span><span class='fl'>.50</span><span class='op'>)</span>                <span class='co'># 50</span>
+</div><div class='output co'>#&gt; [1] 50</div><div class='input'><span class='fu'>as_pc</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span>                <span class='co'># 33.33</span>
+</div><div class='output co'>#&gt; [1] 33.33</div><div class='input'><span class='fu'>as_pc</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, n_digits <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># 33</span>
+</div><div class='output co'>#&gt; [1] 33</div><div class='input'><span class='fu'>as_pc</span><span class='op'>(</span><span class='fu'><a href='as_pb.html'>as_pb</a></span><span class='op'>(</span><span class='fl'>12.3</span><span class='op'>)</span><span class='op'>)</span>        <span class='co'># 12.3</span>
+</div><div class='output co'>#&gt; [1] 12.3</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -218,7 +222,7 @@ toggling the display of numeric values between percentages and probabilities.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

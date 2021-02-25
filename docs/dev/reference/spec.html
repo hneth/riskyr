@@ -82,7 +82,7 @@ if the condition is FALSE." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ The conditional probability of the decision being negative
 if the condition is FALSE.</p>
     </div>
 
-    <pre class="usage"><span class='no'>spec</span></pre>
+    <pre class="usage"><span class='va'>spec</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -241,9 +241,10 @@ if the condition is FALSE.</p>
 <code><a href='sens.html'>sens</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='fl'>.75</span>     <span class='co'># sets a specificity value of 75%</span>
-<span class='no'>spec</span> <span class='kw'>&lt;-</span> <span class='fl'>75</span>/<span class='fl'>100</span>  <span class='co'># (decision = negative) for 75 out of 100 people with (condition = FALSE)</span>
-<span class='fu'><a href='is_prob.html'>is_prob</a></span>(<span class='no'>spec</span>)   <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>spec</span> <span class='op'>&lt;-</span> <span class='fl'>.75</span>     <span class='co'># sets a specificity value of 75%</span>
+<span class='va'>spec</span> <span class='op'>&lt;-</span> <span class='fl'>75</span><span class='op'>/</span><span class='fl'>100</span>  <span class='co'># (decision = negative) for 75 out of 100 people with (condition = FALSE)</span>
+<span class='fu'><a href='is_prob.html'>is_prob</a></span><span class='op'>(</span><span class='va'>spec</span><span class='op'>)</span>   <span class='co'># TRUE</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -260,7 +261,7 @@ if the condition is FALSE.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

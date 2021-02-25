@@ -84,7 +84,7 @@ prev, sens, and spec (spec = 1 - fart)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ reach or exceed a minimum value <code>min_freq</code> given the basic parameters
 <code><a href='prev.html'>prev</a></code>, <code><a href='sens.html'>sens</a></code>, and <code><a href='spec.html'>spec</a></code> (<code>spec = 1 - <a href='fart.html'>fart</a></code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>comp_min_N</span>(<span class='no'>prev</span>, <span class='no'>sens</span>, <span class='no'>spec</span>, <span class='kw'>min_freq</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='va'>prev</span>, <span class='va'>sens</span>, <span class='va'>spec</span>, min_freq <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -229,13 +229,21 @@ Using the option <code>round = FALSE</code> turns off rounding.</p>
 <code><a href='comp_prob_prob.html'>comp_prob_prob</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)  <span class='co'># =&gt; 1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
-#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)  <span class='co'># =&gt; 1</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+    <pre class="examples"><div class='input'><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># =&gt; 1</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 0 &amp; spec = 0):</span>
+#&gt; <span class='warning'>  N fa (FP) cases; 0 cond_true or dec_true cases; PPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># =&gt; 1</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'>
-<span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>min_freq</span> <span class='kw'>=</span> <span class='fl'>10</span>)  <span class='co'># =&gt;  10</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
-#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='kw'>min_freq</span> <span class='kw'>=</span> <span class='fl'>99</span>)  <span class='co'># =&gt; 100</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+<span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, min_freq <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>  <span class='co'># =&gt;  10</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
+#&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 10</div><div class='input'><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, min_freq <span class='op'>=</span> <span class='fl'>99</span><span class='op'>)</span>  <span class='co'># =&gt; 100</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Extreme case (prev = 1 &amp; sens = 1):</span>
 #&gt; <span class='warning'>  N hi (TP) cases; 0 cond_false or dec_false cases; NPV = NaN.</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'>
-<span class='fu'>comp_min_N</span>(<span class='fl'>.1</span>, <span class='fl'>.1</span>, <span class='fl'>.1</span>)        <span class='co'># =&gt;       100 = 10^2</span></div><div class='output co'>#&gt; [1] 100</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>.001</span>, <span class='fl'>.1</span>, <span class='fl'>.1</span>)      <span class='co'># =&gt;    10 000 = 10^4</span></div><div class='output co'>#&gt; [1] 10000</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>.001</span>, <span class='fl'>.001</span>, <span class='fl'>.1</span>)    <span class='co'># =&gt; 1 000 000 = 10^6</span></div><div class='output co'>#&gt; [1] 1e+06</div><div class='input'><span class='fu'>comp_min_N</span>(<span class='fl'>.001</span>, <span class='fl'>.001</span>, <span class='fl'>.001</span>)  <span class='co'># =&gt; 1 000 000 = 10^6</span></div><div class='output co'>#&gt; [1] 1e+06</div><div class='input'>
+<span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>.1</span>, <span class='fl'>.1</span>, <span class='fl'>.1</span><span class='op'>)</span>        <span class='co'># =&gt;       100 = 10^2</span>
+</div><div class='output co'>#&gt; [1] 100</div><div class='input'><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>.001</span>, <span class='fl'>.1</span>, <span class='fl'>.1</span><span class='op'>)</span>      <span class='co'># =&gt;    10 000 = 10^4</span>
+</div><div class='output co'>#&gt; [1] 10000</div><div class='input'><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>.001</span>, <span class='fl'>.001</span>, <span class='fl'>.1</span><span class='op'>)</span>    <span class='co'># =&gt; 1 000 000 = 10^6</span>
+</div><div class='output co'>#&gt; [1] 1e+06</div><div class='input'><span class='fu'>comp_min_N</span><span class='op'>(</span><span class='fl'>.001</span>, <span class='fl'>.001</span>, <span class='fl'>.001</span><span class='op'>)</span>  <span class='co'># =&gt; 1 000 000 = 10^6</span>
+</div><div class='output co'>#&gt; [1] 1e+06</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -252,7 +260,7 @@ Using the option <code>round = FALSE</code> turns off rounding.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

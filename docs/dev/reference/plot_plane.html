@@ -87,7 +87,7 @@ for a given prevalence (prev)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -169,30 +169,30 @@ specificity value <code><a href='spec.html'>spec</a></code>
 for a given prevalence (<code><a href='prev.html'>prev</a></code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_plane</span>(
-  <span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>,
-  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>,
-  <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>,
-  <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"PPV"</span>,
-  <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='no'>pal</span>,
-  <span class='kw'>line_col</span> <span class='kw'>=</span> <span class='st'>"grey85"</span>,
-  <span class='kw'>sens_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>spec_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>show_points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>point_col</span> <span class='kw'>=</span> <span class='st'>"yellow"</span>,
-  <span class='kw'>theta</span> <span class='kw'>=</span> -<span class='fl'>45</span>,
-  <span class='kw'>phi</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>,
-  <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>,
-  <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.85</span>,
-  <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>,
-  <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_plane</span><span class='op'>(</span>
+  prev <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>prev</span>,
+  sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
+  mirt <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
+  fart <span class='op'>=</span> <span class='cn'>NA</span>,
+  what <span class='op'>=</span> <span class='st'>"PPV"</span>,
+  what_col <span class='op'>=</span> <span class='va'>pal</span>,
+  line_col <span class='op'>=</span> <span class='st'>"grey85"</span>,
+  sens_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  spec_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  step_size <span class='op'>=</span> <span class='fl'>0.05</span>,
+  show_points <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  point_col <span class='op'>=</span> <span class='st'>"yellow"</span>,
+  theta <span class='op'>=</span> <span class='op'>-</span><span class='fl'>45</span>,
+  phi <span class='op'>=</span> <span class='fl'>0</span>,
+  lbl_txt <span class='op'>=</span> <span class='va'>txt</span>,
+  title_lbl <span class='op'>=</span> <span class='cn'>NA</span>,
+  p_lbl <span class='op'>=</span> <span class='st'>"def"</span>,
+  cex_lbl <span class='op'>=</span> <span class='fl'>0.85</span>,
+  col_pal <span class='op'>=</span> <span class='va'>pal</span>,
+  mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -365,19 +365,34 @@ that allows for additional dependent values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basics:</span>
-<span class='fu'>plot_plane</span>()              <span class='co'># =&gt; default plot (what = "PPV")</span></div><div class='img'><img src='plot_plane-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
+<span class='fu'>plot_plane</span><span class='op'>(</span><span class='op'>)</span>              <span class='co'># =&gt; default plot (what = "PPV")</span>
+</div><div class='img'><img src='plot_plane-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
 <span class='co'># plot_plane(what = "PPV")  # =&gt; plane of PPV</span>
 
-<span class='fu'>plot_plane</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"NPV"</span>)  <span class='co'># =&gt; plane of NPV</span></div><div class='img'><img src='plot_plane-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"ppod"</span>) <span class='co'># =&gt; plane of ppod</span></div><div class='img'><img src='plot_plane-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"acc"</span>)  <span class='co'># =&gt; plane of acc</span></div><div class='img'><img src='plot_plane-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"NPV"</span><span class='op'>)</span>  <span class='co'># =&gt; plane of NPV</span>
+</div><div class='img'><img src='plot_plane-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"ppod"</span><span class='op'>)</span> <span class='co'># =&gt; plane of ppod</span>
+</div><div class='img'><img src='plot_plane-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what <span class='op'>=</span> <span class='st'>"acc"</span><span class='op'>)</span>  <span class='co'># =&gt; plane of acc</span>
+</div><div class='img'><img src='plot_plane-4.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Plane without points or multiple points:</span>
-<span class='fu'>plot_plane</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"ppv"</span>)             <span class='co'># plane with 0 points</span></div><div class='output co'>#&gt; <span class='message'>No sens or no spec value provided: Plotting plane without points.</span></div><div class='img'><img src='plot_plane-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.2</span>, <span class='fl'>.5</span>, <span class='fl'>.8</span>), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"npv"</span>)  <span class='co'># plane with 3 points</span></div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-6.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_plane</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='cn'>NA</span>, spec <span class='op'>=</span> <span class='cn'>NA</span>, what <span class='op'>=</span> <span class='st'>"ppv"</span><span class='op'>)</span>             <span class='co'># plane with 0 points</span>
+</div><div class='output co'>#&gt; <span class='message'>No sens or no spec value provided: Plotting plane without points.</span></div><div class='img'><img src='plot_plane-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.2</span>, <span class='fl'>.5</span>, <span class='fl'>.8</span><span class='op'>)</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, what <span class='op'>=</span> <span class='st'>"npv"</span><span class='op'>)</span>  <span class='co'># plane with 3 points</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-6.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Zooming into specific sens and spec ranges:</span>
-<span class='fu'>plot_plane</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.8</span>, <span class='fl'>.9</span>), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.8</span>, <span class='fl'>.8</span>, <span class='fl'>.9</span>, <span class='fl'>.9</span>))  <span class='co'># default ranges</span></div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.02</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.8</span>, <span class='fl'>.9</span>), <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.8</span>, <span class='fl'>.8</span>, <span class='fl'>.9</span>, <span class='fl'>.9</span>),
-           <span class='kw'>sens_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.7</span>, <span class='fl'>1</span>), <span class='kw'>spec_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.7</span>, <span class='fl'>1</span>), <span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>.02</span>)  <span class='co'># zooming in</span></div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-8.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_plane</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>.9</span><span class='op'>)</span>, spec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>.8</span>, <span class='fl'>.9</span>, <span class='fl'>.9</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># default ranges</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>.9</span><span class='op'>)</span>, spec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>.8</span>, <span class='fl'>.9</span>, <span class='fl'>.9</span><span class='op'>)</span>,
+           sens_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.7</span>, <span class='fl'>1</span><span class='op'>)</span>, spec_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.7</span>, <span class='fl'>1</span><span class='op'>)</span>, step_size <span class='op'>=</span> <span class='fl'>.02</span><span class='op'>)</span>  <span class='co'># zooming in</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple sens/spec values provided: Plotting multiple points on plane.</span></div><div class='img'><img src='plot_plane-8.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Other options:</span>
-<span class='fu'>plot_plane</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"No point and smaller labels"</span>, <span class='kw'>show_points</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.60</span>)</div><div class='img'><img src='plot_plane-9.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_plane</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing plot colors"</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='st'>"royalblue4"</span>, <span class='kw'>line_col</span> <span class='kw'>=</span> <span class='st'>"sienna2"</span>)</div><div class='img'><img src='plot_plane-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing b/w plot"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"npv"</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>line_col</span> <span class='kw'>=</span> <span class='st'>"black"</span>)</div><div class='img'><img src='plot_plane-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing color pal_bwp"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bwp</span>)</div><div class='img'><img src='plot_plane-12.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_plane</span>(<span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>.333</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='st'>"firebrick"</span>)    <span class='co'># =&gt; coarser granularity + color</span></div><div class='img'><img src='plot_plane-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>step_size</span> <span class='kw'>=</span> <span class='fl'>.025</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='st'>"chartreuse4"</span>)  <span class='co'># =&gt; finer granularity + color</span></div><div class='img'><img src='plot_plane-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span>(<span class='kw'>what_col</span> <span class='kw'>=</span> <span class='st'>"steelblue4"</span>, <span class='kw'>theta</span> <span class='kw'>=</span> -<span class='fl'>90</span>, <span class='kw'>phi</span> <span class='kw'>=</span> <span class='fl'>50</span>)   <span class='co'># =&gt; rotated, from above</span></div><div class='img'><img src='plot_plane-15.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"No point and smaller labels"</span>, show_points <span class='op'>=</span> <span class='cn'>FALSE</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.60</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_plane-9.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing plot colors"</span>, what_col <span class='op'>=</span> <span class='st'>"royalblue4"</span>, line_col <span class='op'>=</span> <span class='st'>"sienna2"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_plane-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing b/w plot"</span>, what <span class='op'>=</span> <span class='st'>"npv"</span>, what_col <span class='op'>=</span> <span class='st'>"white"</span>, line_col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_plane-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Testing color pal_bwp"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bwp</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_plane-12.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_plane</span><span class='op'>(</span>step_size <span class='op'>=</span> <span class='fl'>.333</span>, what_col <span class='op'>=</span> <span class='st'>"firebrick"</span><span class='op'>)</span>    <span class='co'># =&gt; coarser granularity + color</span>
+</div><div class='img'><img src='plot_plane-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>step_size <span class='op'>=</span> <span class='fl'>.025</span>, what_col <span class='op'>=</span> <span class='st'>"chartreuse4"</span><span class='op'>)</span>  <span class='co'># =&gt; finer granularity + color</span>
+</div><div class='img'><img src='plot_plane-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_plane</span><span class='op'>(</span>what_col <span class='op'>=</span> <span class='st'>"steelblue4"</span>, theta <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span>, phi <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>   <span class='co'># =&gt; rotated, from above</span>
+</div><div class='img'><img src='plot_plane-15.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -394,7 +409,7 @@ that allows for additional dependent values.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

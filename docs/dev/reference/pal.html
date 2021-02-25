@@ -82,7 +82,7 @@ used throughout the riskyr package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ to define the scenario color scheme that is
 used throughout the <b>riskyr</b> package.</p>
     </div>
 
-    <pre class="usage"><span class='no'>pal</span></pre>
+    <pre class="usage"><span class='va'>pal</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -230,15 +230,19 @@ and only <code><a href='PPV.html'>PPV</a></code> and <code><a href='NPV.html'>NP
 <code><a href='txt.html'>txt</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>pal</span>        <span class='co'># shows all color names and current values</span></div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
+    <pre class="examples"><div class='input'><span class='va'>pal</span>        <span class='co'># shows all color names and current values</span>
+</div><div class='output co'>#&gt;                 N         cond_true        cond_false           dec_pos 
 #&gt;       "#E6E6E6FC" "lightgoldenrod1"       "#BFBFBFFC"         "#F7A97F" 
 #&gt;           dec_neg           dec_cor           dec_err                hi 
 #&gt;       "#A6A6A6FC"      "olivedrab4"      "steelblue3"         "#B8D989" 
 #&gt;                mi                fa                cr               ppv 
 #&gt;         "#73C8EA"         "#1D95C6"         "#80B139"         "#F26418" 
 #&gt;               npv               txt               brd                bg 
-#&gt;         "#1D95C6"       "#000000FC"         "#3E3F3A"           "white" </div><div class='input'><span class='no'>pal</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the current color for hits (true positives, TP)</span></div><div class='output co'>#&gt;        hi 
-#&gt; "#B8D989" </div><div class='input'><span class='no'>pal</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"gold"</span>  <span class='co'># defines a new color for hits (true positives, TP)</span></div></pre>
+#&gt;         "#1D95C6"       "#000000FC"         "#3E3F3A"           "white" </div><div class='input'><span class='va'>pal</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span>  <span class='co'># shows the current color for hits (true positives, TP)</span>
+</div><div class='output co'>#&gt;        hi 
+#&gt; "#B8D989" </div><div class='input'><span class='va'>pal</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"gold"</span>  <span class='co'># defines a new color for hits (true positives, TP)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -254,7 +258,7 @@ and only <code><a href='PPV.html'>PPV</a></code> and <code><a href='NPV.html'>NP
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

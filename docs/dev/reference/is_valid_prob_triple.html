@@ -82,7 +82,7 @@ valid set of 3 probabilities." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ a set of 3 numeric inputs can be interpreted as a
 valid set of 3 probabilities.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_valid_prob_triple</span>(<span class='no'>prev</span>, <span class='no'>sens</span>, <span class='no'>spec</span>)</pre>
+    <pre class="usage"><span class='fu'>is_valid_prob_triple</span><span class='op'>(</span><span class='va'>prev</span>, <span class='va'>sens</span>, <span class='va'>spec</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -223,12 +223,14 @@ Use <code><a href='is_extreme_prob_set.html'>is_extreme_prob_set</a></code> to v
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># ways to work:</span>
-<span class='fu'>is_valid_prob_triple</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)    <span class='co'># =&gt; TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_valid_prob_triple</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)    <span class='co'># =&gt; TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-## ways to fail:
-# is_valid_prob_triple(0, 0)       # =&gt; ERROR (as no triple)
-# is_valid_prob_triple(0, 0, 7)    # =&gt; FALSE + warning (beyond range)
-# is_valid_prob_triple(0, NA, 0)   # =&gt; FALSE + warning (NA)
-# is_valid_prob_triple("p", 0, 0)  # =&gt; FALSE + warning (non-numeric)
+<span class='fu'>is_valid_prob_triple</span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>    <span class='co'># =&gt; TRUE</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is_valid_prob_triple</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>    <span class='co'># =&gt; TRUE</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'>## ways to fail:</span>
+<span class='co'># is_valid_prob_triple(0, 0)       # =&gt; ERROR (as no triple)</span>
+<span class='co'># is_valid_prob_triple(0, 0, 7)    # =&gt; FALSE + warning (beyond range)</span>
+<span class='co'># is_valid_prob_triple(0, NA, 0)   # =&gt; FALSE + warning (NA)</span>
+<span class='co'># is_valid_prob_triple("p", 0, 0)  # =&gt; FALSE + warning (non-numeric)</span>
 
 </div></pre>
   </div>
@@ -246,7 +248,7 @@ Use <code><a href='is_extreme_prob_set.html'>is_extreme_prob_set</a></code> to v
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

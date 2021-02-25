@@ -83,7 +83,7 @@ for which the decision is correct/accurate
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@ for which the decision is correct/accurate
 (i.e., cases in which the decision corresponds to the condition).</p>
     </div>
 
-    <pre class="usage"><span class='no'>dec_cor</span></pre>
+    <pre class="usage"><span class='va'>dec_cor</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -219,8 +219,10 @@ When not rounding the frequencies of <code><a href='freq.html'>freq</a></code> t
 <code><a href='mi.html'>mi</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dec_cor</span> <span class='kw'>&lt;-</span> <span class='fl'>1000</span> * <span class='fl'>.50</span>   <span class='co'># =&gt; sets dec_cor to 50% of 1000 = 500 cases.</span>
-<span class='fu'><a href='is_freq.html'>is_freq</a></span>(<span class='no'>dec_cor</span>)        <span class='co'># =&gt; TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='is_prob.html'>is_prob</a></span>(<span class='no'>dec_cor</span>)        <span class='co'># =&gt; FALSE, as dec_cor is no probability (but acc, bacc/wacc ARE)</span></div><div class='output co'>#&gt; [1] FALSE</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>dec_cor</span> <span class='op'>&lt;-</span> <span class='fl'>1000</span> <span class='op'>*</span> <span class='fl'>.50</span>   <span class='co'># =&gt; sets dec_cor to 50% of 1000 = 500 cases.</span>
+<span class='fu'><a href='is_freq.html'>is_freq</a></span><span class='op'>(</span><span class='va'>dec_cor</span><span class='op'>)</span>        <span class='co'># =&gt; TRUE</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='is_prob.html'>is_prob</a></span><span class='op'>(</span><span class='va'>dec_cor</span><span class='op'>)</span>        <span class='co'># =&gt; FALSE, as dec_cor is no probability (but acc, bacc/wacc ARE)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -236,7 +238,7 @@ When not rounding the frequencies of <code><a href='freq.html'>freq</a></code> t
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

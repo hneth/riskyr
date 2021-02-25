@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -315,9 +315,10 @@
 <h4 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h4>
 <p>To view a 2x2 matrix (or confusion table) in <strong>riskyr</strong>, use the <code>plot_tab</code> function or plot an existing scenario as <code>type = "tab"</code>:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## (1) Plot table from basic input parameters: ----- </span>
-<span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.05</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.75</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">.66</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-         <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>) <span class="co"># show condition probabilies (by default)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## (1) Plot table from basic input parameters: ----- </span>
+<span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.05</span>, sens <span class="op">=</span> <span class="fl">.75</span>, spec <span class="op">=</span> <span class="fl">.66</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+         p_lbl <span class="op">=</span> <span class="st">"def"</span><span class="op">)</span> <span class="co"># show condition probabilies (by default)</span>
 
 <span class="co">## Alternative version (with horizontal p):</span>
 <span class="co"># plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,</span>
@@ -325,7 +326,7 @@
 
 <span class="co">## (2) Plot an existing riskyr scenario: ----- </span>
 <span class="co"># s1 &lt;- scenarios$n1  # identify s1 from scenarios</span>
-<span class="co"># plot(s1, type = "tab", p_lbl = "def")</span></pre></body></html></div>
+<span class="co"># plot(s1, type = "tab", p_lbl = "def")</span></code></pre></div>
 <div class="figure">
 <img src="C_confusion_matrix_files/figure-html/plot_tab_demo-1.png" alt="Example of a 2x2 confusion table in **riskyr**." width="672"><p class="caption">
 Example of a 2x2 confusion table in <strong>riskyr</strong>.
@@ -386,9 +387,10 @@ Example of a 2x2 confusion table in <strong>riskyr</strong>.
 <h4 class="hasAnchor">
 <a href="#example-1" class="anchor"></a>Example</h4>
 <p>Re-arranging the cells of the 2x2 matrix allows illustrating accuracy as a third perspective (e.g., by specifying the perspective <code>by = "cdac"</code>):</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.05</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.75</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">.66</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-         <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cdac"</span>, <span class="kw">p_split</span> <span class="kw">=</span> <span class="st">"h"</span>,
-         <span class="kw">p_lbl</span> <span class="kw">=</span> <span class="st">"def"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Scenario 2"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_tab.html">plot_tab</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.05</span>, sens <span class="op">=</span> <span class="fl">.75</span>, spec <span class="op">=</span> <span class="fl">.66</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+         by <span class="op">=</span> <span class="st">"cdac"</span>, p_split <span class="op">=</span> <span class="st">"h"</span>, 
+         p_lbl <span class="op">=</span> <span class="st">"def"</span>, title_lbl <span class="op">=</span> <span class="st">"Scenario 2"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="C_confusion_matrix_files/figure-html/plot_tab_cdac-1.png" alt="Arranging a 2x2 confusion table by condition and by accuracy." width="672"><p class="caption">
 Arranging a 2x2 confusion table by condition and by accuracy.
@@ -656,7 +658,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

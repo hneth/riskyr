@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -296,8 +296,9 @@ How many of these women do you expect to actually have breast cancer?</p>
 <h3 class="hasAnchor">
 <a href="#a--a-fancy-calculator" class="anchor"></a>A. A fancy calculator</h3>
 <p><strong>riskyr</strong> provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value <code>PPV</code> from the 3 essential probabilities <code>prev</code>, <code>sens</code>, and <code>spec</code> (with <code>spec</code> = 1 – <code>fart</code>) that were provided in the original problem:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
-<span class="co">#&gt; Welcome to riskyr (v0.2.0.9034)!</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="http://riskyr.org">"riskyr"</a></span><span class="op">)</span>  <span class="co"># loads the package</span>
+<span class="co">#&gt; Welcome to riskyr (v0.2.0.9035)!</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  TP FP</span>
 <span class="co">#&gt;    x</span>
@@ -305,22 +306,24 @@ How many of these women do you expect to actually have breast cancer?</p>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
-<span class="fu"><a href="../reference/comp_PPV.html">comp_PPV</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> (<span class="fl">1</span> - <span class="fl">.096</span>))
-<span class="co">#&gt; [1] 0.07763975</span></pre></body></html></div>
+<span class="fu"><a href="../reference/comp_PPV.html">comp_PPV</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.07763975</span></code></pre></div>
 <p>It’s good to know that <strong>riskyr</strong> can apply Bayes’ formula, but so can any other decent calculator — including my brain on a good day and some environmental support in the form of paper and pencil. The R in <strong>riskyr</strong> only begins to make sense when considering functions like the following: <code>comp_prob_prob</code> computes probabilities from probabilities (hence its name). More precisely, <code>comp_prob_prob</code> takes 3 essential probabilities as inputs and returns a list of 13 probabilities as its output:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Compute probabilities from 3 essential probabilities:                 # Input arguments:</span>
-<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span>   <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>)  <span class="co"># prev, sens, NA,   fart</span>
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">.904</span>, <span class="kw">fart</span> <span class="kw">=</span>   <span class="fl">NA</span>)  <span class="co"># prev, sens, spec, NA </span>
-<span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">.904</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>)  <span class="co"># prev, sens, spec, fart</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Compute probabilities from 3 essential probabilities:                 # Input arguments:</span>
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span>   <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span><span class="op">)</span>  <span class="co"># prev, sens, NA,   fart</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="fl">.904</span>, fart <span class="op">=</span>   <span class="cn">NA</span><span class="op">)</span>  <span class="co"># prev, sens, spec, NA </span>
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="fl">.904</span>, fart <span class="op">=</span> <span class="fl">.096</span><span class="op">)</span>  <span class="co"># prev, sens, spec, fart</span>
 
 <span class="co"># Check equality of outputs:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">p1</span>, <span class="no">p2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">p2</span>, <span class="no">p3</span>)
-<span class="co">#&gt; [1] TRUE</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">p3</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>The probabilities provided need to include a prevalence <code>prev</code>, a sensitivity <code>sens</code>, and either the specificity <code>spec</code> or the false alarm rate <code>fart</code> (with <code>spec</code> = 1 – <code>fart</code>). The code above illustrates 3 different ways in which 3 of these “essential” probabilities can be provided. Thus, the assigned objects <code>p1</code>, <code>p2</code>, and <code>p3</code> are all equal to each other.</p>
 <p>The probabilities computed by these “essential” probabilities include the <code>PPV</code>, which can be obtained by asking for <code>p1$PPV</code> = 0.0776398. But the object computed by <code>comp_prob_prob</code> is actually a list of 10 probabilities and can be inspected by printing <code>p1</code>:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">p1</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p1</span>
 <span class="co">#&gt; $prev</span>
 <span class="co">#&gt; [1] 0.01</span>
 <span class="co">#&gt; </span>
@@ -358,14 +361,15 @@ How many of these women do you expect to actually have breast cancer?</p>
 <span class="co">#&gt; [1] 0.00885975</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $p_err_fa</span>
-<span class="co">#&gt; [1] 0.9793899</span></pre></body></html></div>
+<span class="co">#&gt; [1] 0.9793899</span></code></pre></div>
 <p>The list of probabilities computed includes the 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code> or <code>fart</code>) and the desired probability (<code>p1$PPV</code> = 0.0776398), but also many other probabilities that may have been asked instead. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on these probabilities.)</p>
 <p>Incidentally, as R does not care whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem — the version reframed in terms of frequencies — yields the same solution:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co"># Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:</span>
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">10</span>/<span class="fl">1000</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">8</span>/<span class="fl">10</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">95</span>/<span class="fl">990</span>) <span class="co"># prev, sens, NA, fart</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, sens <span class="op">=</span> <span class="fl">8</span><span class="op">/</span><span class="fl">10</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">95</span><span class="op">/</span><span class="fl">990</span><span class="op">)</span> <span class="co"># prev, sens, NA, fart</span>
 
-<span class="no">p4</span>$<span class="no">PPV</span>
-<span class="co">#&gt; [1] 0.0776699</span></pre></body></html></div>
+<span class="va">p4</span><span class="op">$</span><span class="va">PPV</span>
+<span class="co">#&gt; [1] 0.0776699</span></code></pre></div>
 <p>This shows that the <code>PPV</code> computed in this version is only marginally different (<code>p4$PPV</code> = 0.0776699). More importantly, it is identical to the ratio <span class="math inline">\(\frac{8}{103}\)</span> = 0.0776699.</p>
 </div>
 <div id="b--translating-between-formats" class="section level3">
@@ -375,23 +379,26 @@ How many of these women do you expect to actually have breast cancer?</p>
 <div id="computing-frequencies-from-probabilities" class="section level4">
 <h4 class="hasAnchor">
 <a href="#computing-frequencies-from-probabilities" class="anchor"></a>Computing frequencies from probabilities</h4>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Compute frequencies from probabilities:</span>
-<span class="no">f1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span>     <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span>  <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span>   <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>)
-<span class="no">f2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">10</span>/<span class="fl">1000</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">8</span>/<span class="fl">10</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">95</span>/<span class="fl">990</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Compute frequencies from probabilities:</span>
+<span class="va">f1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span>     <span class="fl">.01</span>, sens <span class="op">=</span>  <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span>   <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
+<span class="va">f2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, sens <span class="op">=</span> <span class="fl">8</span><span class="op">/</span><span class="fl">10</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">95</span><span class="op">/</span><span class="fl">990</span>, N <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
 
 <span class="co"># Check equality of outputs:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">f1</span>, <span class="no">f2</span>)
-<span class="co">#&gt; [1] TRUE</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">f1</span>, <span class="va">f2</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>By providing our original probabilities to the function <code>comp_freq_prob</code> we can compute a list of frequencies from probabilities (hence the name). To compute frequencies for the specific sample size of 1000 individuals, we need to provide <code>N = 1000</code> as an additional argument. As before, it does not matter whether the probabilities are supplied as decimal numbers or as ratios (as long as they actually <em>are</em> probabilities, i.e., numbers from 0 to 1).</p>
 <p>As the ratio <code>fart</code> = 95/990 is not exactly equal to <code>fart</code> = .096 (but rather 95/100 = 0.95) the two versions of our problem actually vary by a bit. Here, the results <code>f1</code> and <code>f2</code> are only identical because the function <code>comp_freq_prob</code> rounds to nearest integers by default. To compute more precise frequencies (that no longer round to integers), use the <code>round = FALSE</code> argument:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Compute frequencies from probabilities (without rounding):</span>
-<span class="no">f3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span>     <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span>  <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span>   <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">round</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">f4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">10</span>/<span class="fl">1000</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">8</span>/<span class="fl">10</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">95</span>/<span class="fl">990</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">round</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Compute frequencies from probabilities (without rounding):</span>
+<span class="va">f3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span>     <span class="fl">.01</span>, sens <span class="op">=</span>  <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span>   <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">f4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, sens <span class="op">=</span> <span class="fl">8</span><span class="op">/</span><span class="fl">10</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">95</span><span class="op">/</span><span class="fl">990</span>, N <span class="op">=</span> <span class="fl">1000</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co">## Check equality of outputs:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">f3</span>, <span class="no">f4</span>)  <span class="co"># =&gt; shows slight differences in some frequencies:</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">f3</span>, <span class="va">f4</span><span class="op">)</span>  <span class="co"># =&gt; shows slight differences in some frequencies:</span></code></pre></div>
 <p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">f1</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f1</span>
 <span class="co">#&gt; $N</span>
 <span class="co">#&gt; [1] 1000</span>
 <span class="co">#&gt; </span>
@@ -423,74 +430,80 @@ How many of these women do you expect to actually have breast cancer?</p>
 <span class="co">#&gt; [1] 95</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cr</span>
-<span class="co">#&gt; [1] 895</span></pre></body></html></div>
+<span class="co">#&gt; [1] 895</span></code></pre></div>
 <p>In this list, the sample of <code>N</code> = <span class="math inline">\(1000\)</span> women is split into 3 different subgroups. For instance, the <span class="math inline">\(10\)</span> women with cancer appear as <code>cond_true</code> cases, whereas the <code>990</code> without cancer are listed as <code>cond_false</code> cases. The <span class="math inline">\(8\)</span> women with cancer and a positive test result appear as <em>hits</em> <code>hi</code> and the 95 women who receive a positive test result without having cancer are listed as <em>false alarms</em> <code>fa</code>. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on all frequencies.)</p>
 </div>
 <div id="computing-probabilities-from-frequencies" class="section level4">
 <h4 class="hasAnchor">
 <a href="#computing-probabilities-from-frequencies" class="anchor"></a>Computing probabilities from frequencies</h4>
 <p>A translator between 2 representational formats should work in both directions. Consequently, <strong>riskyr</strong> also allows to compute probabilities by providing frequencies:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Compute probabilities from frequencies:</span>
-<span class="no">p5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="kw">hi</span> <span class="kw">=</span> <span class="fl">8</span>, <span class="kw">mi</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">fa</span> <span class="kw">=</span> <span class="fl">95</span>, <span class="kw">cr</span> <span class="kw">=</span> <span class="fl">895</span>)  <span class="co"># =&gt; provide 4 essential frequencies</span></pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Compute probabilities from frequencies:</span>
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="fl">8</span>, mi <span class="op">=</span> <span class="fl">2</span>, fa <span class="op">=</span> <span class="fl">95</span>, cr <span class="op">=</span> <span class="fl">895</span><span class="op">)</span>  <span class="co"># =&gt; provide 4 essential frequencies</span></code></pre></div>
 <p>Fortunately, the <code>comp_prob_freq</code> does not require all 11 frequencies that were returned by <code>comp_freq_prob</code> and contained in the list of frequencies <code>f1</code>. Instead, we must provide <code>comp_prob_freq</code> with the 4 essential frequencies that were listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in <code>f1</code>. The resulting probabilities (saved in <code>p5</code>) match our list of probabilities from above (saved in <code>p4</code>):</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Check equality of outputs:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">p5</span>, <span class="no">p4</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Check equality of outputs:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">p4</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="switching-back-and-forth" class="section level4">
 <h4 class="hasAnchor">
 <a href="#switching-back-and-forth" class="anchor"></a>Switching back and forth</h4>
 <p>More generally, when we translate between formats twice — first from probabilities to frequencies and then from the resulting frequencies to probabilities — the original probabilities appear again:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># Pick 3 random probability inputs:</span>
-<span class="no">rand.p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">min</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">max</span> <span class="kw">=</span> <span class="fl">1</span>)
-<span class="no">rand.p</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Pick 3 random probability inputs:</span>
+<span class="va">rand.p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">rand.p</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities (without rounding):</span>
-<span class="no">freq</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="no">rand.p</span>[<span class="fl">1</span>], <span class="kw">sens</span> <span class="kw">=</span> <span class="no">rand.p</span>[<span class="fl">2</span>], <span class="kw">spec</span> <span class="kw">=</span> <span class="no">rand.p</span>[<span class="fl">3</span>], <span class="kw">round</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">rand.p</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sens <span class="op">=</span> <span class="va">rand.p</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, spec <span class="op">=</span> <span class="va">rand.p</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co"># Translation 2: Compute probabilities from frequencies:</span>
-<span class="no">prob</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="kw">hi</span> <span class="kw">=</span> <span class="no">freq</span>$<span class="no">hi</span>, <span class="kw">mi</span> <span class="kw">=</span> <span class="no">freq</span>$<span class="no">mi</span>, <span class="kw">fa</span> <span class="kw">=</span> <span class="no">freq</span>$<span class="no">fa</span>, <span class="kw">cr</span> <span class="kw">=</span> <span class="no">freq</span>$<span class="no">cr</span>)
+<span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">hi</span>, mi <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">mi</span>, fa <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">fa</span>, cr <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">cr</span><span class="op">)</span>
 
 <span class="co">## Verify that results match original probabilities: </span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">prob</span>$<span class="no">prev</span>, <span class="no">rand.p</span>[<span class="fl">1</span>])
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">prob</span>$<span class="no">sens</span>, <span class="no">rand.p</span>[<span class="fl">2</span>])
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">prob</span>$<span class="no">spec</span>, <span class="no">rand.p</span>[<span class="fl">3</span>])</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">prob</span><span class="op">$</span><span class="va">prev</span>, <span class="va">rand.p</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">prob</span><span class="op">$</span><span class="va">sens</span>, <span class="va">rand.p</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">prob</span><span class="op">$</span><span class="va">spec</span>, <span class="va">rand.p</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p>Similarly, going full circle from frequencies to probabilities and back returns the original frequencies:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># Pick 4 random frequencies:</span>
-<span class="no">rand.f</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">min</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">max</span> <span class="kw">=</span> <span class="fl">10</span>^<span class="fl">3</span>), <span class="fl">0</span>)
-<span class="no">rand.f</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Pick 4 random frequencies:</span>
+<span class="va">rand.f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">rand.f</span>  
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
-<span class="no">prob</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="kw">hi</span> <span class="kw">=</span> <span class="no">rand.f</span>[<span class="fl">1</span>], <span class="kw">mi</span> <span class="kw">=</span> <span class="no">rand.f</span>[<span class="fl">2</span>], <span class="kw">fa</span> <span class="kw">=</span> <span class="no">rand.f</span>[<span class="fl">3</span>], <span class="kw">cr</span> <span class="kw">=</span> <span class="no">rand.f</span>[<span class="fl">4</span>])
+<span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, mi <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, fa <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, cr <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
 <span class="co"># prob</span>
 
 <span class="co"># Translation 2: Compute frequencies from probabilities (for original N, without rounding):</span>
-<span class="no">freq</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="no">prob</span>$<span class="no">prev</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="no">prob</span>$<span class="no">sens</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="no">prob</span>$<span class="no">spec</span>,
-                       <span class="kw">N</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">rand.f</span>), <span class="kw">round</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">prob</span><span class="op">$</span><span class="va">prev</span>, sens <span class="op">=</span> <span class="va">prob</span><span class="op">$</span><span class="va">sens</span>, spec <span class="op">=</span> <span class="va">prob</span><span class="op">$</span><span class="va">spec</span>, 
+                       N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">rand.f</span><span class="op">)</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co"># freq</span>
 
 <span class="co"># Verify that results match original frequencies: </span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">freq</span>$<span class="no">hi</span>, <span class="no">rand.f</span>[<span class="fl">1</span>])
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">freq</span>$<span class="no">mi</span>, <span class="no">rand.f</span>[<span class="fl">2</span>])
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">freq</span>$<span class="no">fa</span>, <span class="no">rand.f</span>[<span class="fl">3</span>])
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="no">freq</span>$<span class="no">cr</span>, <span class="no">rand.f</span>[<span class="fl">4</span>])</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">hi</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">mi</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">fa</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">cr</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p>To obtain the same results when translating back and forth between probabilities and frequencies, it is important to switch off rounding when computing frequencies from probabilities with <code>comp_freq_prob</code>. Similarly, we need to scale the computed frequencies to the original population size <code>N</code> to arrive at the original frequencies.</p>
 </div>
 <div id="all-at-once-defining-a-riskyr-scenario" class="section level4">
 <h4 class="hasAnchor">
 <a href="#all-at-once-defining-a-riskyr-scenario" class="anchor"></a>All at once: Defining a <code>riskyr</code> scenario</h4>
 <p>In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key variables of a risk-related situation, you can always define a <code>riskyr</code> scenario:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/riskyr.html">riskyr</a></span>(<span class="kw">scen_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>,
-            <span class="kw">cond_lbl</span> <span class="kw">=</span> <span class="st">"breast cancer"</span>,
-            <span class="kw">cond_true_lbl</span> <span class="kw">=</span> <span class="st">"cancer"</span>, <span class="kw">cond_false_lbl</span> <span class="kw">=</span> <span class="st">"no cancer"</span>,
-            <span class="kw">dec_lbl</span> <span class="kw">=</span> <span class="st">"screening test"</span>,
-            <span class="kw">dec_pos_lbl</span> <span class="kw">=</span> <span class="st">"predict cancer"</span>, <span class="kw">dec_neg_lbl</span> <span class="kw">=</span> <span class="st">"predict no cancer"</span>,
-            <span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>,
-            <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>,
-            <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>,
-            <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/riskyr.html">riskyr</a></span><span class="op">(</span>scen_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, 
+            cond_lbl <span class="op">=</span> <span class="st">"breast cancer"</span>,
+            cond_true_lbl <span class="op">=</span> <span class="st">"cancer"</span>, cond_false_lbl <span class="op">=</span> <span class="st">"no cancer"</span>,
+            dec_lbl <span class="op">=</span> <span class="st">"screening test"</span>,
+            dec_pos_lbl <span class="op">=</span> <span class="st">"predict cancer"</span>, dec_neg_lbl <span class="op">=</span> <span class="st">"predict no cancer"</span>,
+            prev <span class="op">=</span> <span class="fl">.01</span>, 
+            sens <span class="op">=</span> <span class="fl">.80</span>, 
+            spec <span class="op">=</span> <span class="cn">NA</span>, 
+            fart <span class="op">=</span> <span class="fl">.096</span><span class="op">)</span></code></pre></div>
 <p>Using the <strong>riskyr</strong> function <code><a href="../reference/riskyr.html">riskyr()</a></code> defined a new scenario <code>s</code> and initialized it with a suitable population size of <code>N = 1000</code>. Use the <code>summary</code> command to get an overview over its key parameters:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s</span>)  <span class="co"># provides an overview over key scenario information:</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># provides an overview over key scenario information:</span>
 <span class="co">#&gt; Scenario:  Mammography screening </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Condition:  breast cancer </span>
@@ -530,9 +543,10 @@ How many of these women do you expect to actually have breast cancer?</p>
 <span class="co">#&gt; Accuracy:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  acc:</span>
-<span class="co">#&gt; 0.90296</span></pre></body></html></div>
+<span class="co">#&gt; 0.90296</span></code></pre></div>
 <p>The fastest way to get an overview over a scenario <code>s</code> is by plotting it:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">s</span>)  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></code></pre></div>
 <p><img src="A_user_guide_files/figure-html/riskyr_scenario_plot-1.png" width="691.2"></p>
 <p>There are many other types of plots and customization options available. In the following, we explain different visualizations by introducing their corresponding plotting functions. For the impatient: The <a href="E_riskyr_primer.html">Quick start primer</a> explains how to directly plot different visualizations of a given scenario.</p>
 </div>
@@ -547,9 +561,10 @@ How many of these women do you expect to actually have breast cancer?</p>
 <h4 class="hasAnchor">
 <a href="#icon-array" class="anchor"></a>Icon array</h4>
 <p>A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_icons.html">plot_icons</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">icon_types</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">21</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">22</span>),
-           <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_icons.html">plot_icons</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           icon_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">22</span><span class="op">)</span>,
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="A_user_guide_files/figure-html/plot_icons_1-1.png" alt="An icon array showing the mammography scenario for a population of 1000 individuals." width="691.2"><p class="caption">
 An icon array showing the mammography scenario for a population of 1000 individuals.
@@ -560,8 +575,9 @@ An icon array showing the mammography scenario for a population of 1000 individu
 <h4 class="hasAnchor">
 <a href="#tree-diagram" class="anchor"></a>Tree diagram</h4>
 <p>Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cd"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"cd"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="A_user_guide_files/figure-html/plot_tree_cd-1.png" alt="A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals." width="672"><p class="caption">
 A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals.
@@ -573,8 +589,9 @@ A tree diagram that applies the provided probabilities and frequencies to a popu
 <h4 class="hasAnchor">
 <a href="#area-plot" class="anchor"></a>Area plot</h4>
 <p>An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population. In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-          <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_area.html">plot_area</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+          title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="A_user_guide_files/figure-html/plot_mosaic_cd-1.png" alt="An area plot in which area sizes represent the probabilities/relative frequencies of subgroups." width="672"><p class="caption">
 An area plot in which area sizes represent the probabilities/relative frequencies of subgroups.
@@ -587,8 +604,9 @@ An area plot in which area sizes represent the probabilities/relative frequencie
 <h4 class="hasAnchor">
 <a href="#bar-plot" class="anchor"></a>Bar plot</h4>
 <p>The tree diagrams from above can also be depicted as a vertical bar plot:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_bar.html">plot_bar</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-         <span class="kw">by</span> <span class="kw">=</span> <span class="st">"all"</span>, <span class="kw">dir</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_bar.html">plot_bar</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+         by <span class="op">=</span> <span class="st">"all"</span>, dir <span class="op">=</span> <span class="fl">2</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <p>(The plot is not shown here, but please go ahead and create it for yourself.)</p>
 <p>However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here).</p>
 </div>
@@ -596,8 +614,9 @@ An area plot in which area sizes represent the probabilities/relative frequencie
 <h4 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h4>
 <p>The prism plot (called network diagram in version 0.1.0 of <strong>riskyr</strong>) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by <code>comp_freq_prop</code> and <code>comp_freq_freq</code> and contained in <code>freq</code>) as nodes of a single graph and depicts 12 probabilities (computed by <code>comp_prop_prop</code> and <code>comp_prop_freq</code> and contained in <code>prob</code>) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, <strong>riskyr</strong> visualizes the interplay of frequencies and probabilities in a variety of ways:</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cddc"</span>, <span class="kw">area</span> <span class="kw">=</span> <span class="st">"sq"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"cddc"</span>, area <span class="op">=</span> <span class="st">"sq"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="A_user_guide_files/figure-html/plot_fnet-1.png" alt="A prism plot that integrates 2 tree diagrams and represents relative frequency by area size." width="672"><p class="caption">
 A prism plot that integrates 2 tree diagrams and represents relative frequency by area size.
@@ -610,24 +629,29 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
 <p>The variety of different graphical options provided by <strong>riskyr</strong> can be overwhelming at first – but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
 <p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond_true</code> and <code>cond_false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec_pos</code> and <code>dec_neg</code> cases:</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">by</span> <span class="kw">=</span> <span class="st">"dc"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>, <span class="kw">col_pal</span> <span class="kw">=</span> <span class="no">pal_mod</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"dc"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, col_pal <span class="op">=</span> <span class="va">pal_mod</span><span class="op">)</span></code></pre></div>
 <p>(Note that using the <code>col_pal</code> argument changed the color scheme to the pre-defined <code>pal_mod</code> color palette.)</p>
 <p>Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (<code>dec_cor</code> and <code>dec_err</code>) decisions:</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">by</span> <span class="kw">=</span> <span class="st">"ac"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"ac"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <p>The same perspectives can also be applied to other plots. For instance, the population of the area/mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options <code>by = "cddc"</code> and <code>p_split = "h"</code>:</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-          <span class="kw">by</span> <span class="kw">=</span> <span class="st">"cddc"</span>,    <span class="co"># show by condition x decision</span>
-          <span class="kw">p_split</span> <span class="kw">=</span> <span class="st">"h"</span>,  <span class="co"># horizontal perspective is primary </span>
-          <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_area.html">plot_area</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+          by <span class="op">=</span> <span class="st">"cddc"</span>,    <span class="co"># show by condition x decision</span>
+          p_split <span class="op">=</span> <span class="st">"h"</span>,  <span class="co"># horizontal perspective is primary </span>
+          title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <p><strong>riskyr</strong> uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option <code>area = "hr"</code> further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">by</span> <span class="kw">=</span> <span class="st">"dc"</span>, <span class="kw">area</span> <span class="kw">=</span> <span class="st">"hr"</span>, <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"dc"</span>, area <span class="op">=</span> <span class="st">"hr"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <p>Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. Even when relaxing the positional constraint of icons in the icon array, the similarity is still visible:</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_icons.html">plot_icons</a></span>(<span class="kw">prev</span> <span class="kw">=</span> <span class="fl">.01</span>, <span class="kw">sens</span> <span class="kw">=</span> <span class="fl">.80</span>, <span class="kw">spec</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">fart</span> <span class="kw">=</span> <span class="fl">.096</span>, <span class="kw">N</span> <span class="kw">=</span> <span class="fl">1000</span>,
-           <span class="kw">arr_type</span> <span class="kw">=</span> <span class="st">"mosaic"</span>, <span class="kw">icon_types</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">21</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">22</span>), <span class="kw">icon_size</span> <span class="kw">=</span> <span class="fl">2</span>,
-           <span class="kw">title_lbl</span> <span class="kw">=</span> <span class="st">"Mammography screening"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_icons.html">plot_icons</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           arr_type <span class="op">=</span> <span class="st">"mosaic"</span>, icon_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">22</span><span class="op">)</span>, icon_size <span class="op">=</span> <span class="fl">2</span>,  
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></code></pre></div>
 <p>Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.)</p>
 <p>For more details, see the documentation and examples of the visualization functions (e.g., <code>plot_area</code>, <code>plot_icon</code>, and <code>plot_prism</code>).</p>
 </div>
@@ -794,7 +818,7 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -85,7 +85,7 @@ as its output." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -166,7 +166,7 @@ for a population of <code><a href='N.html'>N</a></code> individuals
 as its output.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>comp_freq_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>hi</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>mi</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>fa</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>cr</span>)</pre>
+    <pre class="usage"><span class='fu'>comp_freq_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>hi</span>, mi <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>mi</span>, fa <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>fa</span>, cr <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>cr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,7 +231,8 @@ as its output.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Basics:</span>
-<span class='fu'>comp_freq_freq</span>()</div><div class='output co'>#&gt; $N
+<span class='fu'>comp_freq_freq</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
 #&gt; $cond_true
@@ -263,13 +264,15 @@ as its output.</p>
 #&gt; 
 #&gt; $cr
 #&gt; [1] 562
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>freq</span>, <span class='fu'>comp_freq_freq</span>())  <span class='co'># =&gt; should be TRUE</span></div><div class='output co'>#&gt; [1] "Component “dec_cor”: Modes: numeric, logical"              
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>freq</span>, <span class='fu'>comp_freq_freq</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># =&gt; should be TRUE</span>
+</div><div class='output co'>#&gt; [1] "Component “dec_cor”: Modes: numeric, logical"              
 #&gt; [2] "Component “dec_cor”: target is numeric, current is logical"
 #&gt; [3] "Component “dec_err”: Modes: numeric, logical"              
 #&gt; [4] "Component “dec_err”: target is numeric, current is logical"</div><div class='input'>
 <span class='co'>## Circular chain:</span>
 <span class='co'># 1. Current numeric parameters:</span>
-<span class='no'>num</span></div><div class='output co'>#&gt; $prev
+<span class='va'>num</span>
+</div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.25
 #&gt; 
 #&gt; $sens
@@ -285,8 +288,9 @@ as its output.</p>
 #&gt; [1] 1000
 #&gt; </div><div class='input'>
 <span class='co'># 2. Compute all 10 probabilities in prob (from essential probabilities):</span>
-<span class='no'>prob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_prob.html'>comp_prob</a></span>()
-<span class='no'>prob</span></div><div class='output co'>#&gt; $prev
+<span class='va'>prob</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_prob.html'>comp_prob</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>prob</span>
+</div><div class='output co'>#&gt; $prev
 #&gt; [1] 0.25
 #&gt; 
 #&gt; $sens
@@ -326,8 +330,9 @@ as its output.</p>
 #&gt; [1] 0.8333333
 #&gt; </div><div class='input'>
 <span class='co'># 3. Compute 9 frequencies in freq from probabilities:</span>
-<span class='no'>freq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span>(<span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)   <span class='co'># no rounding (to obtain same probabilities later)</span>
-<span class='no'>freq</span></div><div class='output co'>#&gt; $N
+<span class='va'>freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span>round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>   <span class='co'># no rounding (to obtain same probabilities later)</span>
+<span class='va'>freq</span>
+</div><div class='output co'>#&gt; $N
 #&gt; [1] 1000
 #&gt; 
 #&gt; $cond_true
@@ -361,10 +366,11 @@ as its output.</p>
 #&gt; [1] 562.5
 #&gt; </div><div class='input'>
 <span class='co'># 4. Compute 9 frequencies AGAIN (but now from frequencies):</span>
-<span class='no'>freq_freq</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_freq_freq</span>()
+<span class='va'>freq_freq</span> <span class='op'>&lt;-</span> <span class='fu'>comp_freq_freq</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># 5. Check equality of results (steps 2. and 4.):</span>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>freq</span>, <span class='no'>freq_freq</span>)  <span class='co'># =&gt; should be TRUE!</span></div><div class='output co'>#&gt; [1] "Component “dec_cor”: Modes: numeric, logical"              
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>freq</span>, <span class='va'>freq_freq</span><span class='op'>)</span>  <span class='co'># =&gt; should be TRUE!</span>
+</div><div class='output co'>#&gt; [1] "Component “dec_cor”: Modes: numeric, logical"              
 #&gt; [2] "Component “dec_cor”: target is numeric, current is logical"
 #&gt; [3] "Component “dec_err”: Modes: numeric, logical"              
 #&gt; [4] "Component “dec_err”: target is numeric, current is logical"
@@ -388,7 +394,7 @@ as its output.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

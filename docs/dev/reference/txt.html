@@ -81,7 +81,7 @@ to define basic scenario titles and labels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ to define basic scenario titles and labels." />
 to define basic scenario titles and labels.</p>
     </div>
 
-    <pre class="usage"><span class='no'>txt</span></pre>
+    <pre class="usage"><span class='va'>txt</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -259,7 +259,8 @@ of the 2x2 contingency table (e.g., condition x decision, using SDT).</p></li>
 <code><a href='txt_org.html'>txt_org</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>txt</span>           <span class='co'># Show  all current names and elements</span></div><div class='output co'>#&gt; $scen_lbl
+    <pre class="examples"><div class='input'><span class='va'>txt</span>           <span class='co'># Show  all current names and elements</span>
+</div><div class='output co'>#&gt; $scen_lbl
 #&gt; [1] "Scenario"
 #&gt; 
 #&gt; $scen_txt
@@ -321,7 +322,10 @@ of the 2x2 contingency table (e.g., condition x decision, using SDT).</p></li>
 #&gt; 
 #&gt; $cr_lbl
 #&gt; [1] "TN"
-#&gt; </div><div class='input'><span class='no'>txt</span>$<span class='no'>scen_lbl</span>  <span class='co'># Show the current scenario label (e.g., used in plot titles)</span></div><div class='output co'>#&gt; [1] "Scenario"</div><div class='input'><span class='no'>txt</span>$<span class='no'>scen_lbl</span> <span class='kw'>&lt;-</span> <span class='st'>"My example"</span>  <span class='co'># Set a new scenario title</span></div></pre>
+#&gt; </div><div class='input'><span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lbl</span>  <span class='co'># Show the current scenario label (e.g., used in plot titles)</span>
+</div><div class='output co'>#&gt; [1] "Scenario"</div><div class='input'><span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lbl</span> <span class='op'>&lt;-</span> <span class='st'>"My example"</span>  <span class='co'># Set a new scenario title</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -337,7 +341,7 @@ of the 2x2 contingency table (e.g., condition x decision, using SDT).</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

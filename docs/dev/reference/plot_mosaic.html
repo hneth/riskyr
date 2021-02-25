@@ -82,7 +82,7 @@ population as relatives sizes of rectangular areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -160,19 +160,19 @@ represents the proportions of frequencies in the current
 population as relatives sizes of rectangular areas.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_mosaic</span>(
-  <span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>,
-  <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>,
-  <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>,
-  <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>,
-  <span class='kw'>show_accu</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>w_acc</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>,
-  <span class='kw'>col_sdt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>pal</span>[<span class='st'>"hi"</span>], <span class='no'>pal</span>[<span class='st'>"mi"</span>], <span class='no'>pal</span>[<span class='st'>"fa"</span>], <span class='no'>pal</span>[<span class='st'>"cr"</span>])
-)</pre>
+    <pre class="usage"><span class='fu'>plot_mosaic</span><span class='op'>(</span>
+  prev <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>prev</span>,
+  sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
+  mirt <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
+  fart <span class='op'>=</span> <span class='cn'>NA</span>,
+  N <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>N</span>,
+  by <span class='op'>=</span> <span class='st'>"cddc"</span>,
+  show_accu <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  w_acc <span class='op'>=</span> <span class='fl'>0.5</span>,
+  title_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lbl</span>,
+  col_sdt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pal</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span>, <span class='va'>pal</span><span class='op'>[</span><span class='st'>"mi"</span><span class='op'>]</span>, <span class='va'>pal</span><span class='op'>[</span><span class='st'>"fa"</span><span class='op'>]</span>, <span class='va'>pal</span><span class='op'>[</span><span class='st'>"cr"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -249,7 +249,8 @@ Default: <code>col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])</code>.</
 <code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plot_mosaic</span>()  <span class='co'># plot with default options</span></div><div class='output co'>#&gt; <span class='message'>Function 'plot_mosaic' is deprecated; using 'plot_area' instead.</span></div><div class='img'><img src='plot_mosaic-1.png' alt='' width='691' height='538' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>plot_mosaic</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># plot with default options</span>
+</div><div class='output co'>#&gt; <span class='message'>Function 'plot_mosaic' is deprecated; using 'plot_area' instead.</span></div><div class='img'><img src='plot_mosaic-1.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -266,7 +267,7 @@ Default: <code>col_sdt = c(pal["hi"], pal["mi"], pal["fa"], pal["cr"])</code>.</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

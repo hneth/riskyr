@@ -84,7 +84,7 @@ are contained in freq." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9034</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ that constitute the current confusion matrix and
 are contained in <code><a href='freq.html'>freq</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>hi</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>mi</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>fa</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>cr</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
+    <pre class="usage"><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>hi</span>, mi <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>mi</span>, fa <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>fa</span>, cr <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>cr</span>, w <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -285,7 +285,8 @@ for additional information.</p>
 <code><a href='comp_spec.html'>comp_spec</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>comp_accu_freq</span>()  <span class='co'># =&gt; accuracy metrics for freq of current scenario</span></div><div class='output co'>#&gt; $acc
+    <pre class="examples"><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># =&gt; accuracy metrics for freq of current scenario</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.774
 #&gt; 
 #&gt; $w
@@ -299,7 +300,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.6523077
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>)  <span class='co'># medium accuracy, but cr &gt; hi</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>3</span>, cr <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>  <span class='co'># medium accuracy, but cr &gt; hi</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $w
@@ -315,7 +317,8 @@ for additional information.</p>
 #&gt; [1] 0.2857143
 #&gt; </div><div class='input'>
 <span class='co'># Extreme cases:</span>
-<span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>1</span>)  <span class='co'># random performance</span></div><div class='output co'>#&gt; $acc
+<span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>1</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># random performance</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $w
@@ -329,7 +332,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.5
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>1</span>)  <span class='co'># random performance: wacc and f1s are NaN</span></div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>0</span>, mi <span class='op'>=</span> <span class='fl'>0</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># random performance: wacc and f1s are NaN</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $w
@@ -343,7 +347,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>1</span>)  <span class='co'># perfect accuracy/optimal performance</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>0</span>, fa <span class='op'>=</span> <span class='fl'>0</span>, cr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># perfect accuracy/optimal performance</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 1
 #&gt; 
 #&gt; $w
@@ -357,7 +362,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 1
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># zero accuracy/worst performance, but see f1s</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>0</span>, mi <span class='op'>=</span> <span class='fl'>1</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># zero accuracy/worst performance, but see f1s</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0
 #&gt; 
 #&gt; $w
@@ -371,7 +377,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># perfect accuracy, but see wacc and mcc</span></div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>0</span>, fa <span class='op'>=</span> <span class='fl'>0</span>, cr <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># perfect accuracy, but see wacc and mcc</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
 #&gt; [1] 1
 #&gt; 
 #&gt; $w
@@ -387,7 +394,8 @@ for additional information.</p>
 #&gt; [1] 1
 #&gt; </div><div class='input'>
 <span class='co'># Effects of w:</span>
-<span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>)  <span class='co'># equal weights to sens and spec</span></div><div class='output co'>#&gt; $acc
+<span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>3</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>4</span>, w <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>  <span class='co'># equal weights to sens and spec</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.7
 #&gt; 
 #&gt; $w
@@ -401,7 +409,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.6666667
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>)  <span class='co'># more weight to sens</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>3</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>4</span>, w <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span>  <span class='co'># more weight to sens</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.7
 #&gt; 
 #&gt; $w
@@ -415,7 +424,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.6666667
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>)  <span class='co'># more weight to spec</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>3</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>4</span>, w <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span>  <span class='co'># more weight to spec</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.7
 #&gt; 
 #&gt; $w
@@ -432,22 +442,24 @@ for additional information.</p>
 #&gt; </div><div class='input'>
 <span class='co'>## Contrasting comp_accu_freq and comp_accu_prob:</span>
 <span class='co'># (a) comp_accu_freq (based on rounded frequencies):</span>
-<span class='no'>freq1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>)   <span class='co'># =&gt; hi = 2, mi = 1, fa = 2, cr = 5</span>
-<span class='no'>accu1</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_accu_freq</span>(<span class='no'>freq1</span>$<span class='no'>hi</span>, <span class='no'>freq1</span>$<span class='no'>mi</span>, <span class='no'>freq1</span>$<span class='no'>fa</span>, <span class='no'>freq1</span>$<span class='no'>cr</span>)  <span class='co'># =&gt; accu1 (based on rounded freq).</span>
+<span class='va'>freq1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>4</span><span class='op'>)</span>   <span class='co'># =&gt; hi = 2, mi = 1, fa = 2, cr = 5</span>
+<span class='va'>accu1</span> <span class='op'>&lt;-</span> <span class='fu'>comp_accu_freq</span><span class='op'>(</span><span class='va'>freq1</span><span class='op'>$</span><span class='va'>hi</span>, <span class='va'>freq1</span><span class='op'>$</span><span class='va'>mi</span>, <span class='va'>freq1</span><span class='op'>$</span><span class='va'>fa</span>, <span class='va'>freq1</span><span class='op'>$</span><span class='va'>cr</span><span class='op'>)</span>  <span class='co'># =&gt; accu1 (based on rounded freq).</span>
 <span class='co'># accu1</span>
 <span class='co'>#</span>
 <span class='co'># (b) comp_accu_prob (based on probabilities):</span>
-<span class='no'>accu2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_accu_prob.html'>comp_accu_prob</a></span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>)      <span class='co'># =&gt; exact accu (based on prob).</span>
+<span class='va'>accu2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_accu_prob.html'>comp_accu_prob</a></span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>4</span><span class='op'>)</span>      <span class='co'># =&gt; exact accu (based on prob).</span>
 <span class='co'># accu2</span>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>accu1</span>, <span class='no'>accu2</span>)  <span class='co'># =&gt; 4 differences!</span></div><div class='output co'>#&gt; [1] "Component “acc”: Mean relative difference: 0.03174603" 
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>accu1</span>, <span class='va'>accu2</span><span class='op'>)</span>  <span class='co'># =&gt; 4 differences!</span>
+</div><div class='output co'>#&gt; [1] "Component “acc”: Mean relative difference: 0.03174603" 
 #&gt; [2] "Component “wacc”: Mean relative difference: 0.02586207"
 #&gt; [3] "Component “mcc”: Mean relative difference: 0.1306675"  
 #&gt; [4] "Component “f1s”: Mean relative difference: 0.07692308" </div><div class='input'><span class='co'>#</span>
 <span class='co'># (c) comp_accu_freq (exact values, i.e., without rounding):</span>
-<span class='no'>freq3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>accu3</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_accu_freq</span>(<span class='no'>freq3</span>$<span class='no'>hi</span>, <span class='no'>freq3</span>$<span class='no'>mi</span>, <span class='no'>freq3</span>$<span class='no'>fa</span>, <span class='no'>freq3</span>$<span class='no'>cr</span>)  <span class='co'># =&gt; accu3 (based on EXACT freq).</span>
+<span class='va'>freq3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>4</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>accu3</span> <span class='op'>&lt;-</span> <span class='fu'>comp_accu_freq</span><span class='op'>(</span><span class='va'>freq3</span><span class='op'>$</span><span class='va'>hi</span>, <span class='va'>freq3</span><span class='op'>$</span><span class='va'>mi</span>, <span class='va'>freq3</span><span class='op'>$</span><span class='va'>fa</span>, <span class='va'>freq3</span><span class='op'>$</span><span class='va'>cr</span><span class='op'>)</span>  <span class='co'># =&gt; accu3 (based on EXACT freq).</span>
 <span class='co'># accu3</span>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>accu2</span>, <span class='no'>accu3</span>)  <span class='co'># =&gt; TRUE (qed).</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>accu2</span>, <span class='va'>accu3</span><span class='op'>)</span>  <span class='co'># =&gt; TRUE (qed).</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 
 </div></pre>
   </div>
@@ -465,7 +477,7 @@ for additional information.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
