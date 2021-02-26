@@ -55,7 +55,7 @@ For a more complete account of **riskyr**'s theoretical background, see the foll
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: 
 Solving semantically distinct problems based on a shared structure of binary contingencies. 
-_Frontiers in Psychology: Cognition_, _11_, 567817. 
+_Frontiers in Psychology_, _11_, 567817. 
 doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 
 
@@ -311,7 +311,8 @@ For many more additional scientific metrics that are defined on the basis of a 2
 ## References
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
-Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. _Frontiers in Psychology: Cognition_, _11_, 567817. 
+Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. 
+_Frontiers in Psychology_, _11_, 567817. 
 doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 ([Available online](https://doi.org/10.3389/fpsyg.2020.567817))  
 
