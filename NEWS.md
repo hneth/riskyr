@@ -80,13 +80,17 @@ Enforce 2 different symbol types for icon arrays with a binary perspective (`by 
 
 ## ToDo 
 
-- Adopt general framework of the matrix lens model and 2x2 matrix cube framework  
+- Adopt the framework of the matrix lens model and the partial cube model 
 
-- Visualize and explain Bayesian brain teasers (cab problem, 3-option paradoxes, conjunction fallacy, etc.) 
+- Add visualizations (e.g., 2x2 squares in quadrants) 
 
-- Visual and explain other medical examples (e.g., Covid-19 and HIV tests, flu or terrorist detection, etc.)
+- Add more example contents: 
 
-- Prepare functions for cumulative lifetime risks (not yet integrated into package).  
+   - Visualize additional Bayesian situations (i.e., isomorphs of the mammography problem) 
+   - Visualize Bayesian brain teasers (e.g., the cab problem, 3-option paradoxes, conjunction fallacy, etc.) 
+   - Visual and explain other diagnostic or medical problems (e.g., Covid-19 and HIV tests, flu or terrorist detection, etc.)
+
+- Add functions for cumulative lifetime risks (not yet integrated into package).  
 
 
 ---------- 
@@ -214,6 +218,6 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 ---------- 
 
-(`NEWS.md` updated on 2021-02-11 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-12 by [hn](https://neth.de).) 
 
 <!-- eof -->
