@@ -2,7 +2,7 @@ Package: riskyr
 Type: Package
 Title: Rendering Risk Literacy more Transparent
 Version: 0.2.0.9035
-Date: 2021-03-12
+Date: 2021-03-17
 Authors@R: c(person("Hansjoerg", "Neth", role = c("aut", "cre"),
                      email = "h.neth@uni.kn", comment = c(ORCID = "0000-0001-5427-3141")), 
              person("Felix", "Gaisbauer", role = "aut", comment = c(ORCID = "0000-0002-1285-1246")), 
@@ -37,7 +37,6 @@ Collate: 'comp_util.R'
          'comp_xxxx_prob.R'
          'comp_popu.R'
          'comp_accu.R'
-         'comp_metrics.R'
          'plot_util.R'
          'plot_area.R'
          'plot_tab.R'
