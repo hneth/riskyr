@@ -1,9 +1,11 @@
 
 # Current version
 
-The current development version (0.2.0.9030+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9035+) is available at <https://github.com/hneth/riskyr/>. 
 
 # riskyr 0.2.0.9001+
+
+riskyr 0.3.0 is prepared for a release in March 2021, and published on CRAN on March XX, 2021.
 
 Log of changes since last release:
 
@@ -14,8 +16,6 @@ Log of changes since last release:
 ## Minor changes
 
 - Using colors of `pal` for fill colors of symbols in `plot_icon()`.  
-
-- Computing key metrics based on the 2x2 matrix of frequency counts (see `comp_metrics.R`). 
 
 ### Changes to existing visualization functions 
 
@@ -80,9 +80,9 @@ Enforce 2 different symbol types for icon arrays with a binary perspective (`by 
 
 ## ToDo 
 
-- Adopt the framework of the matrix lens model and the partial cube model 
+- Adopt the framework of the _matrix lens model_ ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)) and implement the steps of _filtering_ (from data or description), _framing_, and _focusing_, including key metrics based on a 2x2 contingency matrix of frequency counts (see `comp_metrics.R`). 
 
-- Add visualizations (e.g., 2x2 squares in quadrants) 
+- Add visualizations (e.g., for various types of fractions, proportions, ratios, probabilities, or 2x2 square leaves in quadrants) 
 
 - Add more example contents: 
 
@@ -218,6 +218,6 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-12 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-17 by [hn](https://neth.de).) 
 
 <!-- eof -->
