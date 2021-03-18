@@ -1,5 +1,5 @@
 ## comp_accu.R | riskyr
-## 2018 12 20
+## 2021 03 18
 ## Compute accuracy metrics based on only
 ## - 4 essential frequencies of freq (hi mi fa cr), or
 ## - 3 essential probabilities of prob (prev, sens, spec)
@@ -11,9 +11,7 @@
 
 ## (1) assumes that freq has been computed before.
 
-
 ## (A) Accuracy metrics for given classification results (i.e., based on freq) ------
-
 
 ## 1. ALL current accuracy metrics from 4 freq: ------
 
@@ -744,11 +742,9 @@ accu <- comp_accu_prob()
 ## (*) Done: ----------
 
 ## - Added comp_accu_prob to compute exact accuracy from prob.
-## - Clean up code.  [2018 08 30]
 
 ## (+) ToDo: ----------
 
-## - Provide separate functions for other common metrics (like wacc, mcc)
-##   (for plotting curves and planes...).
+## - Integrate measures from 2x2 matrix lens model (Table 3).
 
 ## eof. ------------------------------------------
