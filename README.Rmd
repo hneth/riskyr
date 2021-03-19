@@ -43,7 +43,10 @@ knitr::opts_chunk$set(
 
 ### A toolbox for rendering risk literacy more transparent
 
-Risk-related information -- like the prevalence of conditions and the sensitivity and specificity of diagnostic tests or treatment decisions -- can be expressed in terms of probabilities or frequencies. By providing a toolbox of methods and metrics, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Offering multiple complementary perspectives on the interplay between key parameters renders teaching and training of risk literacy more transparent. 
+<!-- Current package Description (updated on 2021-03-19): -->
+
+Risk-related information -- like the prevalence of conditions, the sensitivity and specificity of diagnostic tests, or the effectiveness of interventions or treatments -- can be expressed in terms of frequencies or probabilities. By providing a toolbox of corresponding metrics and representations, **riskyr** computes, translates, and visualizes risk-related information in a variety of ways. Adopting multiple complementary perspectives provides insights into the interplay between key parameters and renders teaching and training programs on risk literacy more transparent.
+
 
 ## Motivation 
 
