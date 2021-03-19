@@ -1,7 +1,7 @@
 
 # Current version
 
-The current development version (0.2.0.9035+) is available at <https://github.com/hneth/riskyr/>. 
+The current development version (0.2.0.9036+) is available at <https://github.com/hneth/riskyr/>. 
 
 # riskyr 0.2.0.9001+
 
@@ -11,13 +11,18 @@ Log of changes since last release:
 
 ## Major changes
 
-- Added `plot_fnet()` for plotting _frequency nets_ (Binder et al., 2020). 
+- Added `plot_fnet()` for plotting _frequency nets_ (Binder et al., 2020) [2020-12]. 
+
 
 ## Minor changes
 
-- Using colors of `pal` for fill colors of symbols in `plot_icon()`.  
-
 ### Changes to existing visualization functions 
+
+- Changed default setting of `mar_notes` in all plotting functions [2021-01]: 
+Using `mar_notes = FALSE` as those details are not needed and can be distracting in visualizations. 
+
+- Change default arguments for `plot_area()` and `plot_tab()` [2019-01]:   
+Change default settings from `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for riskyrApp).  
 
 - New options for `plot_curve()` [2019-01]:  
 Plotting probability curves as a function of prevalence does not require any specific prevalence value. 
@@ -32,21 +37,24 @@ Setting the new `sens_range` and `spec_range` arguments to ranges within `c(0, 1
 - New options for `plot_prism()` [2019-01]:  
 Using the new `p_lwd` and `p_scale` arguments allows scaling the widths of probability links by current probability values.  
 
-### Other changes
+
+### Data and functions 
 
 - `data` [2019-07]:  
 Removed data files `df_scenarios.RData` and `df_scenarios.csv`, as they were redundant to `df_scenarios.rda` (loaded from `\data`). 
 
-- `make_cond_lbl()` [2019-01]:  
+- `make_cond_lbl()` [2019-01]:   
 The condition label now allows for `NA` or vectors of several values (for `prev`, `sens`, and `spec`).  
 
-- `is_prob_range()` [2019-01]:
-Utility function to verify a range of 2 probability values (to check new arguments of `plot_curve` and `plot_plane`).  
+- `is_prob_range()` [2019-01]:  
+Add utility function to verify a range of two probability values (to check new arguments of `plot_curve()` and `plot_plane()`).  
 
 
 ## Micro changes
 
-### New functionality
+### Colors 
+
+- Using colors of `pal` for fill colors of symbols in `plot_icon()` [2021-02]. 
 
 - Add color palettes [2019-01]:   
 
@@ -54,23 +62,13 @@ Utility function to verify a range of 2 probability values (to check new argumen
     
     - Add `pal_unikn` (based on color definitions of the **unikn** package). 
 
-
-### General changes
-
-- Changed default setting of `mar_notes` in all plotting functions [2021-01]: 
-Using `mar_notes = FALSE` as those details are not needed and can be distracting in visualizations. 
-
-- Change default arguments for `plot_area()` and `plot_tab()` [2019-01]:   
-Change default settings from `f_lbl_hd = "abb"` to `f_lbl_hd = "nam"` (as this makes more sense for riskyrApp).  
-
 - Changes to color palettes [2019-01]:  
 Add a background color `pal[["bg"]]` to all palettes and plots (to preempt different system defaults).  
 Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to highlight `cond_true` and `dec_pos` cases in default plots).  
 
-- Added reference to article on theoretical background ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)).  
-
-
 ### Details
+
+- Added reference to article on theoretical background ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)).  
 
 - Bug fix in `plot_prism()`: Allow plotting simple trees for `nchar(by) == 2`.
 
@@ -80,15 +78,30 @@ Enforce 2 different symbol types for icon arrays with a binary perspective (`by 
 
 ## ToDo 
 
-- Adopt the framework of the _matrix lens model_ ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)) and implement the steps of _filtering_ (from data or description), _framing_, and _focusing_, including key metrics based on a 2x2 contingency matrix of frequency counts (see `comp_metrics.R`). 
+A roadmap of current tasks and upcoming changes: 
 
-- Add visualizations (e.g., for various types of fractions, proportions, ratios, probabilities, or 2x2 square leaves in quadrants) 
+- Adopt the framework of the _matrix lens model_ ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)). 
+Specifically, 
+
+    - start in three modes: (a) from description, (b) from simulation (sampling), or (c) from empirical data.  
+    - implement the steps of _filtering_ (from description, sampling, or datq), _framing_, and _focusing_, including key metrics based on a 2x2 contingency matrix of frequency counts (see `comp_metrics.R`). 
+
+<!-- Add blank line. --> 
+
+- Add visualizations 
+
+    - for various types of individual risks (as fractions, proportions, rates, ratios, probabilities, etc.), 
+    - for binary contingencies (e.g., 2x2 icon arrays, square leaves in quadrants, etc.) 
+
+<!-- Add blank line. --> 
 
 - Add more example contents: 
 
    - Visualize additional Bayesian situations (i.e., isomorphs of the mammography problem) 
    - Visualize Bayesian brain teasers (e.g., the cab problem, 3-option paradoxes, conjunction fallacy, etc.) 
    - Visual and explain other diagnostic or medical problems (e.g., Covid-19 and HIV tests, flu or terrorist detection, etc.)
+
+<!-- Add blank line. --> 
 
 - Add functions for cumulative lifetime risks (not yet integrated into package).  
 
@@ -214,10 +227,29 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 - Initial release on CRAN: <https://CRAN.R-project.org/package=riskyr> [2018-02-19] 
 
+
+# References
+
+To cite **riskyr** in derivations and publications please use:
+
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018). riskyr: A toolbox for rendering risk literacy more transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.2.0, Dec. 20, 2018).  
+  Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
+
+<!-- Background article: -->
+
+The following article provides details on the conceptual and theoretical background: 
+
+- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
+Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. 
+_Frontiers in Psychology_, _11_, 567817. 
+doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
+
+
 <!-- Update: -->
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-17 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-19 by [hn](https://neth.de).) 
 
 <!-- eof -->
