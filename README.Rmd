@@ -19,7 +19,7 @@ output: github_document
 
 -->
 
-```{r knitr_opts_chunk, echo = FALSE}
+```{r knitr-opts-chunk, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -218,7 +218,7 @@ hustosis_2 <- riskyr(scen_lbl = "Example",
 
 As we took the values of these frequencies from the `summary` of `hustosis`, the `hustosis_2` scenario should contain exactly the same information as `hustosis`:
 
-```{r ex1_all_equal, eval = TRUE}
+```{r ex1-all-equal, eval = TRUE}
 all.equal(hustosis, hustosis_2)  # do both contain the same information? 
 ```
 
@@ -230,7 +230,7 @@ Various visualizations of **riskyr** scenarios can be created by a range of plot
 
 The default type of plot used in **riskyr** is a _prism plot_ (or network diagram) that shows key frequencies of a scenario as nodes and key probabilities as edges linking the nodes:
 
-```{r ex1-prism, eval = FALSE, fig.width = 7.0, fig.height = 5.2, fig.show = 'hold'}
+```{r ex1-prism, eval = FALSE, fig.width = 6, fig.height = 5, fig.show = 'hold'}
 plot(hustosis)  # default plot
 
 # => internally calls plot_prism(...) with many additional arguments:
@@ -249,7 +249,7 @@ A _tree diagram_ is the upper half of a prism plot, which can be obtained by plo
 
 For instance, the following command plots a frequency tree by decisions:
 
-```{r ex1-tree, eval = FALSE, fig.width = 7.0, fig.height = 4.0}
+```{r ex1-tree, eval = FALSE, fig.width = 6, fig.height = 3.5}
 plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
 ```
 
@@ -268,7 +268,7 @@ A new type of visualization combines elements from 2x2 tables with those of tree
 The _frequency net_ (Binder et al., 2020) is similar to a 2x2 table insofar as its perspectives (shown by arranging marginal frequencies in a vertical vs. horizontal fashion) do not suggest an order or dependency (in contrast to trees or mosaic plots). 
 Additionally, the frequency net allows showing 3\ kinds of (_marginal_, _conditional_, and _joint_) probabilities:
 
-```{r ex1-fnet, eval = FALSE, fig.width = 7.0, fig.height = 5.0}
+```{r ex1-fnet, eval = FALSE, fig.width = 6, fig.height = 5}
 plot(hustosis, type = "fnet", by = "cddc",
      f_lbl = "namnum")  # plot frequency net
 ```
@@ -281,7 +281,7 @@ See the `plot_fnet()` function for options and details.
 
 An icon array shows the classification result for each of `N = 1000` individuals in our population: 
 
-```{r ex1-icons, eval = FALSE, fig.width = 7.0, fig.height = 4.0}
+```{r ex1-icons, eval = FALSE, fig.width = 5.5, fig.height = 3.5}
 plot(hustosis, type = "icons")   # plot an icon array 
 ```
 
@@ -293,7 +293,7 @@ While this particular icon array is highly regular (as both the icons and classi
 
 An area plot (or mosaic plot) offers a way of expressing classification results as the relationship between areas. Here, the entire population is represented as a square and the probability of its subgroups as the size of rectangles (see `?plot_area` for details and examples):  
 
-```{r ex1-area, eval = FALSE, fig.width = 7.0, fig.height = 4.5}
+```{r ex1-area, eval = FALSE, fig.width = 5.5, fig.height = 4.0}
 plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 ```
 
@@ -303,7 +303,7 @@ plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
 
 When not scaling the size of rectangles by their relative frequencies or probabilities, we can plot basic scenario information as a 2-by-2 confusion (or contingency) table (see `?plot_tab` for details and examples):  
 
-```{r ex1-tab, eval = FALSE, fig.width = 7.0, fig.height = 4.5}
+```{r ex1-tab, eval = FALSE, fig.width = 5.5, fig.height = 4}
 plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
 ```
 
@@ -313,7 +313,7 @@ plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc")
 
 A _bar plot_ allows comparing relative frequencies as the heights of bars (see `?plot_bar` for details and examples):  
 
-```{r ex1-bar, eval = FALSE, fig.width = 7.0, fig.height = 4.5}
+```{r ex1-bar, eval = FALSE, fig.width = 5.5, fig.height = 5.0}
 plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
 ```
 
@@ -323,7 +323,7 @@ plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspect
 
 By adopting a functional perspective, we can ask how the values of some probabilities (e.g., the predictive values `PPV` and `NPV`) change as a function of another (e.g., the condition's prevalence `prev`, see `?plot_curve` for details and examples):
 
-```{r ex1-curve, eval = FALSE, fig.width = 7.0, fig.height = 4.5}
+```{r ex1-curve, eval = FALSE, fig.width = 5.5, fig.height = 4.5}
 plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
 ```
 
@@ -333,7 +333,7 @@ plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevale
 
 When parameter values systematically depend on two other parameters, we can plot this as a plane in a 3D cube. The following graph plots the `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`) of our test for a given prevalence (`prev`, see `?plot_plane` for details and examples):
 
-```{r ex1-plane, eval = FALSE, fig.width = 5.5, fig.height = 4.0}
+```{r ex1-plane, eval = FALSE, fig.width = 5, fig.height = 4}
 plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
 ```
 
@@ -397,7 +397,7 @@ Generating some **riskyr** plots allows a quick visual exploration of the scenar
 
 A tree diagram is a prism plot that views the population from only one perspective, but provides a quick overview. In the following plot, the boxes are depicted as squares with area sizes that are scaled by relative frequencies (using the `area = "sq"` argument): 
 
-```{r ex2-tree, eval = FALSE, fig.width = 7.0, fig.height = 4.5}
+```{r ex2-tree, eval = FALSE, fig.width = 5.5, fig.height = 3.5}
 plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
      f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
 ```
@@ -406,7 +406,7 @@ plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled 
 
 The prism plot (or network diagram) combines 2 tree diagrams to simultaneously provide two perspectives on a population (see Wassner et al., 2004). **riskyr** provides several variants of prism plots. To avoid redundancy to the previous tree diagram, the following version splits the population by accuracy and by decision (see the `by = "acdc"` argument). In addition, the frequencies are represented as horizontal rectangles (`area = "hr"`) so that their relative width reflect the number of people in the corresponding subgroup: 
 
-```{r ex2-prism-hr, eval = FALSE, fig.width = 7.0, fig.height = 4.8}
+```{r ex2-prism-hr, eval = FALSE, fig.width = 6, fig.height = 4}
 plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
      p_lbl = "num")                                  # numeric probability labels
 ```
@@ -420,7 +420,7 @@ Additionally, the shape and size of the frequency boxes can be adjusted by using
 The following example shows a frequency net by condition and accuracy (`by = "cdac"`) without the joint probabilities, 
 with custom settings for labels, links, and colors: 
 
-```{r ex2-fnet, eval = FALSE, fig.width = 7.0, fig.height = 5.0}
+```{r ex2-fnet, eval = FALSE, fig.width = 5.5, fig.height = 3.5}
 plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
      area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
      f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
@@ -430,7 +430,7 @@ plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accurac
 
 #### Icon array
 
-```{r ex2-icons, eval = FALSE, fig.width = 7.2, fig.height = 4.0}
+```{r ex2-icons, eval = FALSE, fig.width = 5.5, fig.height = 3.5}
 plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
 ```
 
@@ -438,7 +438,7 @@ plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array
 
 #### Area plot
 
-```{r ex2-area, eval = FALSE, fig.width = 7.2, fig.height = 5.0}
+```{r ex2-area, eval = FALSE, fig.width = 5.5, fig.height = 4.5}
 plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
 ```
 
@@ -446,7 +446,7 @@ plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic pl
 
 #### Table plot
 
-```{r ex2-tab, eval = FALSE, fig.width = 6, fig.height = 5.0}
+```{r ex2-tab, eval = FALSE, fig.width = 5.5, fig.height = 4.5}
 plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
 ```
 
@@ -456,7 +456,7 @@ plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with 
 
 The following curves show the values of several conditional probabilities as a function of prevalence: 
 
-```{r ex2-curve, eval = FALSE, fig.width = 7, fig.height = 6.0}
+```{r ex2-curve, eval = FALSE, fig.width = 5.5, fig.height = 4.5}
 plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
 ```
 
@@ -468,7 +468,7 @@ Adding the argument `what = "all"` also shows the proportion of positive decisio
 
 The following surface shows the negative predictive value (NPV) as a function of sensitivity and specificity (for a given prevalence): 
 
-```{r ex2-plane, eval = FALSE, fig.width = 6, fig.height = 4.2}
+```{r ex2-plane, eval = FALSE, fig.width = 5.5, fig.height = 4}
 plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
 ```
 
