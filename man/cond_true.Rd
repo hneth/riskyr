@@ -49,7 +49,6 @@ Perspectives:
 
 }
 
-
   \item to other frequencies:
   In a population of size \code{\link{N}} the following relationships hold:
 

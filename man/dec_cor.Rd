@@ -30,9 +30,9 @@ In a population of size \code{\link{N}} the following relationships hold:
 
   \itemize{
 
-    \item \code{\link{N}  =  \link{cond_true} + \link{cond_false}} (by condition)
+    \item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 
-    \item \code{\link{N}  =  \link{dec_pos} + \link{dec_neg}} (by decision)
+    \item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 
     \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 
@@ -40,7 +40,7 @@ In a population of size \code{\link{N}} the following relationships hold:
 
     \item \code{\link{dec_err} = \link{mi} + \link{fa}}
 
-    \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+    \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
 
 \item correspondence:

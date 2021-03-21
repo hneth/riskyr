@@ -69,7 +69,6 @@ When frequencies are rounded, probabilities computed from
 \code{\link{freq}} may differ from exact probabilities.
 Using the option \code{round = FALSE} turns off rounding.
 
-
 Key relationships between probabilities and frequencies:
 
 \itemize{
@@ -110,7 +109,6 @@ essential probabilities \code{\link{prev}}, \code{\link{sens}}, and \code{\link{
 
 If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 
-
 \item Defining probabilities in terms of frequencies:
 
 Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
@@ -122,61 +120,49 @@ Thus, they can be computed as ratios between frequencies:
 
   \code{\link{prev} = \link{cond_true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
-
   \item sensitivity \code{\link{sens}}:
 
   \code{\link{sens} = \link{hi}/\link{cond_true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
-
 
   \item miss rate \code{\link{mirt}}:
 
   \code{\link{mirt} = \link{mi}/\link{cond_true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
 
-
   \item specificity \code{\link{spec}}:
 
   \code{\link{spec} = \link{cr}/\link{cond_false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
-
 
   \item false alarm rate \code{\link{fart}}:
 
   \code{\link{fart} = \link{fa}/\link{cond_false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 
-
   \item proportion of positive decisions \code{\link{ppod}}:
 
   \code{\link{ppod} = \link{dec_pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-
 
   \item positive predictive value \code{\link{PPV}}:
 
   \code{\link{PPV} = \link{hi}/\link{dec_pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 
-
   \item negative predictive value \code{\link{NPV}}:
 
   \code{\link{NPV} = \link{cr}/\link{dec_neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-
 
   \item false detection rate \code{\link{FDR}}:
 
   \code{\link{FDR} = \link{fa}/\link{dec_pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 
-
   \item false omission rate \code{\link{FOR}}:
 
   \code{\link{FOR} = \link{mi}/\link{dec_neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
-
 
   \item accuracy \code{\link{acc}}:
 
   \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 
-
   \item rate of hits, given accuracy \code{p_acc_hi}:
 
   \code{p_acc_hi = \link{hi}/\link{dec_cor} = (1 - \link{cr}/\link{dec_cor})}
-
 
   \item rate of false alarms, given inaccuracy \code{p_err_fa}:
 
@@ -188,7 +174,6 @@ Thus, they can be computed as ratios between frequencies:
    probabilities computed from \code{\link{freq}} may differ from exact probabilities.
 
 }
-
 
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},

@@ -49,7 +49,6 @@ Perspectives:
 
 }
 
-
   \item to other frequencies:
   In a population of size \code{\link{N}} the following relationships hold:
 
@@ -63,7 +62,6 @@ Perspectives:
 
     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
   }
-
 }
 
 Current frequency information is computed by

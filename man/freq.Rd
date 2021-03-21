@@ -61,12 +61,10 @@ Key relationships between frequencies and probabilities
 
 }
 
-
 Functions translating between representational formats:
 \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 (see documentation of \code{\link{comp_prob_prob}} for details).
-
 
 Visualizations of current frequency information
 are provided by \code{\link{plot_prism}} and
