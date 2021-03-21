@@ -3,11 +3,11 @@
 ## Compute minimum population size N (given prob)
 ## -----------------------------------------------
 
-## Compute suitable minimum population size value N: --------
+## Compute suitable minimum population size value N: ------
 
 ## Criterion: All 4 SDT cells should have a minimal frequency of min_freq:
 
-## comp_min_N: Documentation ------
+## comp_min_N: Documentation ----
 
 #' Compute a suitable minimum population size value N.
 #'
@@ -100,10 +100,10 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
            (n_cr > 0  &&  n_cr < min_freq) |
            (n_fa > 0  &&  n_fa < min_freq)) {
 
-      ## (a) Multiply N by 10:
+      # (a) Multiply N by 10:
       N <- (N * 10)
 
-      ## (b) Update frequency of 4 SDT cases for current N (in next loop):
+      # (b) Update frequency of 4 SDT cases for current N (in next loop):
       n_hi <- N * prev * sens
       n_mi <- N * prev * (1 - sens)
       n_cr <- N * (1 - prev) * spec
@@ -117,7 +117,7 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
 
 }
 
-## Check: -----
+## Check:
 # comp_min_N(0, 0, 0)  # => 1
 # comp_min_N(1, 1, 1)  # => 1
 # comp_min_N(1, 1, 1, min_freq = 10)  # =>  10
@@ -130,10 +130,9 @@ comp_min_N <- function(prev, sens, spec,  # 3 essential probabilities
 
 ## (*) Done: ----------
 
-## - Clean up code.                                         [2018 08 30]
-## - Rename file from "comp_freq_prob.R" to "comp_min_N.R". [2018 12 06]
+## - Clean up code [2021 03 20]
+
 
 ## (+) ToDo: ----------
-
 
 ## eof. ------------------------------------------
