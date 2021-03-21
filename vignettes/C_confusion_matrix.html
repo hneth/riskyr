@@ -434,7 +434,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><code>fa</code> represents <em>false alarms</em> (or false positives): condition absent (<code>FALSE</code>) &amp; decision positive (<code>TRUE</code>).</li>
 <li><code>cr</code> represents <em>correct rejections</em> (or true negatives): condition absent (<code>FALSE</code>) &amp; decision negative (<code>FALSE</code>).</li>
 </ol>
-<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="B_data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
+<p>Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies — which is why we refer to them as the four <em>essential</em> frequencies (see the vignette on <a href="B_data_formats.html">Data formats</a>). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population <code>N</code> (or splitting <code>N</code> into subgroups by applying two binary criteria):</p>
 <p>(a) by condition (<code>cd</code>) (corresponding to the two columns of the confusion matrix):</p>
 <p><span class="math display">\[ 
 \begin{aligned}
@@ -574,7 +574,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 </div>
 <div id="accuracy-metrics" class="section level2">
 <h2>Accuracy metrics</h2>
-<p>The perspective of accuracy raises an important question: How good is some decision process (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal — measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>The perspective of accuracy raises an important question: How good is some decision process (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal — measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or serve different purposes. We distinguish between specific and general metrics.</p>
 <div id="a.-specific-metrics-conditional-probabilities" class="section level3">
 <h3>A. Specific metrics: Conditional probabilities</h3>
@@ -602,11 +602,11 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 <p>In contrast to these specific metrics, general metrics of accuracy aim to capture overall performance (i.e., summarize the four essential frequencies of the confusion matrix) in a single quantity. <strong>riskyr</strong> currently computes four general metrics (which are contained in <code>accu</code>):</p>
 <div id="overall-accuracy-acc" class="section level4">
 <h4>1. Overall accuracy <code>acc</code></h4>
-<p>Overall accuracy (<code>acc</code>) divides the number of correct decisions (i.e., all <code>dec_cor</code> cases or the &quot;&quot; diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
+<p>Overall accuracy (<code>acc</code>) divides the number of correct decisions (i.e., all <code>dec_cor</code> cases or the &quot;&quot; diagonal of the confusion table) by the number <code>N</code> of all decisions (or individuals for which decisions have been made). Thus,</p>
 <blockquote>
 <p>Accuracy <code>acc</code> := Proportion or percentage of cases correctly classified.</p>
 </blockquote>
-<p>Numerically, overall accuracy <code>acc</code> is computed as:</p>
+<p>Numerically, overall accuracy <code>acc</code> is computed as:</p>
 <p><span class="math display">\[
 \begin{aligned}
 \texttt{acc} &amp;= \frac{\texttt{hi} + \texttt{cr}}{\texttt{hi} + \texttt{mi} + \texttt{fa} + \texttt{cr}} 
@@ -616,7 +616,7 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 </div>
 <div id="weighted-accuracy-wacc" class="section level4">
 <h4>2. Weighted accuracy <code>wacc</code></h4>
-<p>Whereas overall accuracy (<code>acc</code>) does not discriminate between different types of correct and incorrect cases, weighted accuracy (<code>wacc</code>) allows for taking into account the importance of errors. Essentially, <code>wacc</code> combines the sensitivity (<code>sens</code>) and specificity (<code>spec</code>), but multiplies <code>sens</code> by a weighting parameter <code>w</code> (ranging from 0 to 1) and <code>spec</code> by its complement <code>(1 - w)</code>:</p>
+<p>Whereas overall accuracy (<code>acc</code>) does not discriminate between different types of correct and incorrect cases, weighted accuracy (<code>wacc</code>) allows for taking into account the importance of errors. Essentially, <code>wacc</code> combines the sensitivity (<code>sens</code>) and specificity (<code>spec</code>), but multiplies <code>sens</code> by a weighting parameter <code>w</code> (ranging from 0 to 1) and <code>spec</code> by its complement <code>(1 - w)</code>:</p>
 <blockquote>
 <p>Weighted accuracy <code>wacc</code> := the average of sensitivity (<code>sens</code>) weighted by <code>w</code>, and specificity (<code>spec</code>), weighted by <code>(1 - w)</code>.</p>
 </blockquote>
@@ -627,9 +627,9 @@ Similarly, it may be tempting to refer to instances of <code>dec_cor</code> and 
 \]</span></p>
 <p>Three cases can be distinguished, based on the value of the weighting parameter <code>w</code>:</p>
 <ol style="list-style-type: decimal">
-<li><p>If <code>w = .5</code>, <code>sens</code> and <code>spec</code> are weighted equally and <code>wacc</code> becomes <em>balanced</em> accuracy <code>bacc</code>.</p></li>
-<li><p>If <code>0 &lt;= w &lt; .5</code>, <code>sens</code> is less important than <code>spec</code> (i.e., instances of <code>fa</code> are considered more serious errors than instances of <code>mi</code>).</p></li>
-<li><p>If <code>.5 &lt; w &lt;= 1</code>, <code>sens</code> is more important than <code>spec</code> (i.e., instances of <code>mi</code> are considered more serious errors than instances of <code>fa</code>).</p></li>
+<li><p>If <code>w = .5</code>, <code>sens</code> and <code>spec</code> are weighted equally and <code>wacc</code> becomes <em>balanced</em> accuracy <code>bacc</code>.</p></li>
+<li><p>If <code>0 &lt;= w &lt; .5</code>, <code>sens</code> is less important than <code>spec</code> (i.e., instances of <code>fa</code> are considered more serious errors than instances of <code>mi</code>).</p></li>
+<li><p>If <code>.5 &lt; w &lt;= 1</code>, <code>sens</code> is more important than <code>spec</code> (i.e., instances of <code>mi</code> are considered more serious errors than instances of <code>fa</code>).</p></li>
 </ol>
 </div>
 <div id="matthews-correlation-coefficient-mcc" class="section level4">

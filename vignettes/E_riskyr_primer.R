@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
 library("riskyr")  # loads the package
 op <- par(no.readonly = TRUE)
 
-## ----load_riskyr, message = FALSE---------------------------------------------
+## ----load-riskyr, message = FALSE---------------------------------------------
 library("riskyr")  # loads the package
 
 ## ----create-scenario-minimal-prob---------------------------------------------
@@ -44,10 +44,10 @@ my_scenario <- riskyr(scen_lbl = "Identifying reoffenders",
                       N = 753,     # population size
                       scen_src = "(a ficticious example)")
 
-## ----plot-default, include = TRUE, fig.align = "center", fig.width = 7.2, fig.height = 6.0----
+## ----plot-default, include = TRUE, fig.align = "center", fig.width = 6, fig.height = 5----
 plot(my_scenario)
 
-## ----plot-area-sq, eval = FALSE, fig.align = "center", fig.width = 7.0, fig.height = 5.8----
+## ----plot-area-sq, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5----
 #  plot(my_scenario, area = "sq", f_lbl = "nam", p_lbl = "mix")  # show frequency names
 #  plot(my_scenario, area = "hr", f_lbl = "num", p_lbl = "num")  # only numeric labels
 
@@ -56,7 +56,7 @@ plot(my_scenario)
 #  plot(my_scenario, area = "no", by = "cdac")
 #  plot(my_scenario, area = "hr", by = "acdc", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_bw)
 
-## ----icons, fig.align = "center", fig.width = 7.0, fig.height = 4.2-----------
+## ----icons, fig.align = "center", fig.width = 5.5, fig.height = 3.5-----------
 plot(my_scenario, type = "icons")
 
 ## ----full-summary-------------------------------------------------------------
@@ -65,22 +65,21 @@ summary(my_scenario)
 ## ----summary-prob, include = FALSE--------------------------------------------
 summary(my_scenario, summarize = "prob")
 
-## ----tree, fig.align = "center", fig.width = 7.2, fig.height = 4.5------------
+## ----tree-plot, fig.align = "center", fig.width = 6, fig.height = 3.5---------
 plot(my_scenario, type = "tree", by = "dc")  # plot tree diagram (splitting N by decision)
 
-## ----plotting-curve, fig.align = "center", fig.width = 7.0, fig.height = 5.0----
+## ----plotting-curve, fig.align = "center", fig.width = 5.5, fig.height = 4.5----
 plot(my_scenario, type = "curve", uc = .05)
 
 ## ----scenario-table, echo = FALSE, results = "asis"---------------------------
 library(knitr)
-scen_table <- df_scenarios[,
-                           c("scen_lbl", "cond_lbl", "N", "prev",
-                             "sens", "spec", "fart")]
+scen_table <- df_scenarios[, c("scen_lbl", "cond_lbl", "N", "prev",
+                               "sens", "spec", "fart")]
 scen_table[, -c(1:2)] <- round(scen_table[, -c(1:2)], 3)
 names(scen_table) <- c("Scenario", "Condition", "N", "prev", "sens", "spec", "fart")
 knitr::kable(scen_table)
 
-## ----s10_select---------------------------------------------------------------
+## ----s10-select---------------------------------------------------------------
 s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10.
 
 ## ----s10-info-----------------------------------------------------------------
@@ -101,7 +100,7 @@ summary(s10) # summarizes key scenario information:
 #  plot(s10, type = "area")                  # plot an area plot
 #  plot(s10, type = "bar", dir = 2)          # plot a bar chart
 
-## ----s10-prism-1, fig.align = "center", fig.width = 7.2, fig.height = 5.2-----
+## ----s10-prism-1, fig.align = "center", fig.width = 6, fig.height = 4.5-------
 plot(s10, 
      by = "cddc",      # perspective: upper half by condition, lower half by decision 
      area = "hr",      # frequency boxes as horizontal rectangles (scaled to N)
@@ -111,7 +110,7 @@ plot(s10,
 #  plot(s10, by = "cdac", area = "sq")
 #  plot(s10, by = "ac", area = "hr")
 
-## ----s10-curve, eval = FALSE, fig.align = "center", fig.width = 7.2, fig.height = 6.0----
+## ----s10-curve, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5----
 #  plot(s10, type = "curve",
 #       what = "all",  # plot "all" available curves
 #       uc = .05)      # with a 5%-uncertainty range
@@ -120,7 +119,7 @@ plot(s10,
 # opar <- par(no.readonly = TRUE)  # save plot settings.
 # par(mfrow = c(1, 2))           # 1 row with 2 plots:
 
-## ----s10-planes, fig.align = "center", fig.show = "hold", fig.width = 5.2, fig.height = 3.5----
+## ----s10-planes, fig.align = "center", fig.show = "hold", fig.width = 3.5, fig.height = 3----
 ## Plot plane of PPV and NPV as functions of sens and spec (for given prev): 
 plot(s10, type = "plane", what = "PPV", cex_lbl = .7)  # PPV by sens x spec (fixed prev)
 plot(s10, type = "plane", what = "NPV", cex_lbl = .7)  # NPV by sens x spec (fixed prev)
