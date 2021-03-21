@@ -78,13 +78,13 @@ Enforce 2 different symbol types for icon arrays with a binary perspective (`by 
 
 ## ToDo 
 
-A roadmap of current tasks and upcoming changes: 
+A road map of current tasks and upcoming changes: 
 
 - Adopt the framework of the _matrix lens model_ ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)). 
 Specifically, 
 
     - start in three modes: (a) from description, (b) from simulation (sampling), or (c) from empirical data.  
-    - implement the steps of _filtering_ (from description, sampling, or datq), _framing_, and _focusing_, including key metrics based on a 2x2 contingency matrix of frequency counts (see `comp_metrics.R`). 
+    - implement the steps of _filtering_ (from description, sampling, or data), _framing_, and _focusing_, including key metrics based on a 2x2 contingency matrix of frequency counts (see `comp_metrics.R`). 
 
 <!-- Add blank line. --> 
 
@@ -250,6 +250,6 @@ doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-19 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-20 by [hn](https://neth.de).) 
 
 <!-- eof -->
