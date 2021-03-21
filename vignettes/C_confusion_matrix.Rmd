@@ -34,7 +34,7 @@ Behold the aptly named "confusion matrix":
 Most people, including medical experts and social scientists, struggle to understand the implications of this matrix. 
 This is no surprise when considering explanations like the corresponding article on [Wikipedia](https://en.wikipedia.org/wiki/Confusion_matrix), which squeezes more than a dozen metrics out of four essential frequencies (`hi`, `mi`, `fa`, and `cr`). While each particular metric is quite simple, their abundance and inter-dependence can be overwhelming.
 
-Fortunately, the basic matrix can also be understood as a 2x2 matrix (aka. 2-by-2 contingency table), which is actually quite simple, and rather straightforward in its implications. In the following sections, we aim to disentangle the multitude of measures and identify the elements of the confusion matrix that a risk-literate person should know.
+Fortunately, the key representational structure can also be understood as a 2x2 matrix (aka. 2-by-2 contingency table), which is actually quite simple, and rather straightforward in its implications. In the following, we identify the most important aspects and some key measures that a risk-literate person should know (see [Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817), for a more detailed account). 
 
 <!-- 
 
@@ -50,18 +50,9 @@ Fortunately, the basic matrix can also be understood as a 2x2 matrix (aka. 2-by-
 
 -->
 
-For details on the theoretical background, see the following article: 
-
-- Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
-Perspectives on the 2x2 matrix: 
-Solving semantically distinct problems based on a shared structure of binary contingencies. 
-_Frontiers in Psychology_, _11_, 567817. 
-doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
-
-
 ## Basics
 
-Condensed to its core, the confusion matrix cross-tabulates two binary dimensions and classifies each individual case into one of four possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This may still sound complicated, but looks like this:
+Condensed to its core, the 2x2 matrix cross-tabulates (or "confuses") two binary dimensions and classifies each individual case into one of four possible categories that result from combining the two binary variables (e.g., the condition and decision of each case) with each other. This sounds more complicated than it is: 
 
 |              | Condition | |
 | ------:      |:----:|:----:|      
@@ -70,7 +61,9 @@ Condensed to its core, the confusion matrix cross-tabulates two binary dimension
 | negative (`FALSE`):    |  `mi`   |  `cr`    | 
 
 
-Fortunately, this is not so confusing any more. And, perhaps surprisingly, all other metrics follow from this simple core in a straightforward way. In the following, we illustrate how the other metrics can be constructed from the 4 essential frequencies in the core of the matrix.
+Fortunately, this table is not so confusing any more: It shows four frequency counts (or "joint" frequencies) that result from cross-tabulating two binary dimensions. 
+And, perhaps surprisingly, all other metrics of interest in various contexts and domains follow from this simple core in a straightforward way. 
+In the following, we illustrate how the other metrics can be constructed from the four essential frequencies.
 
 ### Adopting two perspectives on a population
 
@@ -117,21 +110,22 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 |      Sum:            | `cond_true`  | `cond_false` |       `N` |
 
 
-An third perspective is provided by considering the diagonals of the 2x2 matrix:
-
-(c)\ by accuracy\ (`ac`) (denotes the correspondence between the condition and decision, see below). 
-
+An third perspective is provided by considering the diagonals of the 2x2 matrix. In many semantic domains, the diagonals denote the _accuracy_ of the classification, or the _correspondence_ between dimensions (see below). 
 
 
 #### Example
 
-To view a 2x2 matrix (or confusion table) in **riskyr**, use the `plot_tab()` function or plot an existing scenario as `type = "tab"`: 
+To view a 2x2\ matrix (or confusion table) in **riskyr**, we can use the `plot_tab()` function (i.e., plot an existing scenario as `type = "tab"`): 
 
 ```{r plot-tab-demo, eval = TRUE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in **riskyr**."}
 ## (1) Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def") # show condition probabilies (by default)
+```
 
+<!-- (The plots are not shown here, but please go ahead and generate them for yourself.) --> 
+
+```{r plot-tab-demo-hide, echo = FALSE, eval = FALSE}
 ## Alternative version (with horizontal p):
 # plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
 #          p_lbl = "def", p_split = "h") # show decision probabilities
@@ -140,8 +134,6 @@ plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
 # s1 <- scenarios$n1  # identify s1 from scenarios
 # plot(s1, type = "tab", p_lbl = "def")
 ```
-
-<!-- (The plots are not shown here, but please go ahead and generate them for yourself.) --> 
 
 <!-- 
 
