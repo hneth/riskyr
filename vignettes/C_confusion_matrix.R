@@ -11,13 +11,14 @@ library("riskyr")  # load the "riskyr" package
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def") # show condition probabilies (by default)
 
-## Alternative version (with horizontal p):
-# plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
-#          p_lbl = "def", p_split = "h") # show decision probabilities
-
-## (2) Plot an existing riskyr scenario: ----- 
-# s1 <- scenarios$n1  # identify s1 from scenarios
-# plot(s1, type = "tab", p_lbl = "def")
+## ----plot-tab-demo-hide, echo = FALSE, eval = FALSE---------------------------
+#  ## Alternative version (with horizontal p):
+#  # plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
+#  #          p_lbl = "def", p_split = "h") # show decision probabilities
+#  
+#  ## (2) Plot an existing riskyr scenario: -----
+#  # s1 <- scenarios$n1  # identify s1 from scenarios
+#  # plot(s1, type = "tab", p_lbl = "def")
 
 ## ----plot-tab-cdac, eval = TRUE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."----
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
