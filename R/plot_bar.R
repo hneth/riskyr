@@ -148,36 +148,35 @@
 #' @examples
 #' # Basics:
 #' plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
-#'
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60,
 #'          title_lbl = "Test 2")  # by "all" (default)
 #'
 #' # Perspectives (by):
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
-#'          title_lbl = "Test 3a")  # by condition
+#' # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",
+#' #          title_lbl = "Test 3a")  # by condition
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd", dir = 2,
 #'          title_lbl = "Test 3b", f_lbl = "num")  # bi-directional
 #'
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
-#'          title_lbl = "Test 4a")  # by decision
+#' # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",
+#' #          title_lbl = "Test 4a")  # by decision
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc", dir = 2,
 #'          title_lbl = "Test 4b", f_lbl = "num")  # bi-directional
 #'
-#' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
-#'          title_lbl = "Test 5a")  # by accuracy
+#' # plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",
+#' #          title_lbl = "Test 5a")  # by accuracy
 #' plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac", dir = 2,
 #'          title_lbl = "Test 5b", f_lbl = "num")  # bi-directional
 #'
 #' # Customize colors and text:
 #' plot_bar(dir = 1, f_lbl = "num", col_pal = pal_org)
-#' plot_bar(dir = 2, f_lbl = "nam", col_pal = pal_mod)
+#' # plot_bar(dir = 2, f_lbl = "nam", col_pal = pal_bw)
 #'
 #' # Frequency labels (f_lbl):
-#' plot_bar(f_lbl = "def")  # default labels: name = num
+#' # plot_bar(f_lbl = "def")  # default labels: name = num
 #' plot_bar(f_lbl = "nam")  # name only
 #' plot_bar(f_lbl = "num")  # numeric value only
-#' plot_bar(f_lbl = "abb")  # abbreviated name
-#' plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
+#' # plot_bar(f_lbl = "abb")  # abbreviated name
+#' # plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")
 #'
 #' # Scaling and rounding effects:
 #' plot_bar(N = 3, prev = .1, sens = .7, spec = .6, dir = 2,
@@ -222,7 +221,7 @@
 #'
 #' @export
 
-## plot_bar: Definition ---------
+## plot_bar: Definition -------
 
 plot_bar <- function(prev = num$prev,             # probabilities
                      sens = num$sens, mirt = NA,
@@ -255,10 +254,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      ...  # other (graphical) parameters: cex, font, lty, etc.
 ) {
 
-  ## (0) Handle arguments and deprecated arguments: ----------
+  ## (0) Handle arguments and deprecated arguments: --------
 
-
-  ## (1) Prepare parameters: ----------
+  ## (1) Prepare parameters: --------
 
   ## (A) Generic:
 
@@ -314,7 +312,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   x_base <- 0  # offset x
   y_base <- 0  # offset y
 
-  ## (1) Compute or use current popu: ----------
+  ## (1) Compute or use current popu: --------
 
   ## (A) If a valid set of probabilities was provided:
   if (is_valid_prob_set(prev = prev, sens = sens, mirt = mirt, spec = spec, fart = fart, tol = .01)) {
@@ -342,14 +340,13 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   } # if (is_valid_prob_set...)
 
-  ## (2) Text labels: ----------
+  ## (2) Text labels: --------
 
   # Plot title:
   if (is.null(title_lbl)) { title_lbl <- "" }              # adjust NULL to "" (i.e., no title)
   if (is.na(title_lbl)) { title_lbl <- lbl_txt$scen_lbl }  # use scen_lbl as default plot title
 
-
-  ## (3) Colors / color palettes: ---------
+  ## (3) Colors / color palettes: -------
 
   # (a) Set plot background color:
   par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
@@ -361,8 +358,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     if (lty == 0) {lty <- 1}
   }
 
-
-  ## (4) Define plot and margin areas: ----------
+  ## (4) Define plot and margin areas: --------
 
   ## Define margin areas:
 
@@ -378,7 +374,6 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   ## Orientation of the tick mark labels (and corresponding mtext captions below):
   # par(las = 0)  # Options: parallel to the axis (0 = default), horizontal (1), perpendicular to axis (2), vertical (3).
-
 
   ## (5) Graphical parameters: ----
 
@@ -412,7 +407,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   # lwd_help <- 2.5  # line width
 
 
-  ## (6) Define plot area: ----------
+  ## (6) Define plot area: --------
 
   ## Plot dimensions:
   xlim = c(0, 1)
@@ -450,7 +445,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ## Horizontal base line (y = 0):
   lines(c(0, 1), c(0, 0), col = pal["brd"], lwd = par("lwd"))
 
-  ## (7) Custom bar plot: ----------
+  ## (7) Custom bar plot: --------
 
   ##   (A) Define N and 4 SDT cases (for all perspectives): ------
 
@@ -547,7 +542,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   ##   (B) Perspective-specific settings: ------
   if (by == "all") {
 
-    ## (a) SDT column: ----
+    # (a) SDT column: ----
 
     # Reverse some directions:
     if (dir == 2) {
@@ -563,7 +558,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
     cr_y <- fa_y + fa_ly
 
     if (dir == 2) {
-      ## reverse y-coordinates (y) of 2 bars:
+      # reverse y-coordinates (y) of 2 bars:
       cr_y <- y_base
       fa_y <- cr_y + cr_ly
     }
@@ -605,7 +600,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    ## (b) Condition column: ----
+    # (b) Condition column: ----
 
     # x-coordinates:
     col_nr <- 2
@@ -656,7 +651,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("cond_true"),
                      ...)
 
-    ## (c) Decision column: ----
+    # (c) Decision column: ----
 
     # x-coordinates:
     col_nr <- 4
@@ -707,7 +702,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
                      # col = comp_freq_col("dec_pos"),
                      ...)
 
-    ## (d) Accuracy column: ----
+    # (d) Accuracy column: ----
 
     # x-coordinates:
     col_nr <- 5
@@ -762,7 +757,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     ## (2): 3 vertical bars (condition in middle): ----------
 
-    ## (a) SDT column: ----
+    # (a) SDT column: ----
 
     # Reverse some directions:
     if (dir == 2) {
@@ -821,7 +816,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               ...)
 
 
-    ## (b) Condition column: ----
+    # (b) Condition column: ----
 
     # x-coordinates:
     col_nr <- 2
@@ -877,7 +872,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     ## (3): 3 vertical bars (decision in middle): ----------
 
-    ## (a) SDT column: ----
+    # (a) SDT column: ----
 
     # Reverse some directions:
     if (dir == 2) {
@@ -935,7 +930,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    ## (b) Decision column: ----
+    # (b) Decision column: ----
 
     # x-coordinates:
     col_nr <- 2
@@ -992,7 +987,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
     ## (4): 3 vertical bars (accuracy in middle): ----------
 
-    ## (a) SDT column: ----
+    # (a) SDT column: ----
 
     # Reverse some directions:
     if (dir == 2) {
@@ -1050,7 +1045,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
               lbl_type = f_lbl, lwd = f_lwd, lty = lty,
               ...)
 
-    ## (b) Accuracy column: ----
+    # (b) Accuracy column: ----
 
     # x-coordinates:
     col_nr <- 2
@@ -1103,7 +1098,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 
   } else if (by == "xxx") {
 
-    ## Using bar plot: ----------
+    ## Using bar plot: --------
 
     gap <- 0
 
@@ -1131,7 +1126,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (by == "xxx")
 
 
-  ## (8) Title: --------
+  ## (8) Title: ------
 
   # Define parts:
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
@@ -1173,7 +1168,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
   } # if (mar_notes) etc.
 
 
-  ## (+) Finish: ---------
+  ## (+) Finish: -------
 
   # on.exit(par(opar))  # par(opar)  # restore original settings
   invisible()# restores par(opar)
@@ -1181,8 +1176,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 } # plot_bar end.
 
 
-### Check: --------
-
+## Check: ------
 ## Basics:
 # plot_bar(prev = .33, sens = .75, spec = .66, title_lbl = "Test 1")
 #
@@ -1227,7 +1221,7 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # plot_bar(f_lbl = "any")  # default labels: name = num
 
 
-## Retired parameters: ----------
+## Retired parameters: -------
 
 # @param show_freq  Boolean option for showing essential frequencies
 # (i.e., of \code{\link{hi}}, \code{\link{mi}}, \code{\link{fa}}, and
@@ -1247,15 +1241,9 @@ plot_bar <- function(prev = num$prev,             # probabilities
 # weighted accuracy \code{w.acc} in \code{\link{comp_accu_freq}}.
 # Default: \code{w_acc = .50}.
 
-
 ## (*) Done: ----------
 
-## - Scale 1 dimension by N (and add axis).   [2018 08 13]
-## - Add area labels (in center of area).     [2018 08 14]
-## - Add options for by ("all", "cd", "dc", "ac") and
-##                   dir (1 vs. 2).           [2018 08 15]
-## - Add various f_lbl options.               [2018 09 21]
-## - Modify defaults and increase robustness. [2018 09 25]
+## - ...
 
 ## (+) ToDo: ----------
 
@@ -1263,6 +1251,5 @@ plot_bar <- function(prev = num$prev,             # probabilities
 ## - Use text labels defined in txt_def and init_txt (incl. accuracy).
 ## - Add probabilitiy links (arrows and labels).
 ## - Allow alternative arrangements: horizontal (flip coord?), dodged bars, ...
-## - ...
 
 ## eof. ----------
