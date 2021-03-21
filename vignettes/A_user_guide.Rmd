@@ -126,7 +126,7 @@ $$ p(\mathrm{cancer}\ |\ \mathrm{positive\ test})
 {p(\mathrm{cancer})     \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) + 
  p(\mathrm{no\ cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{no\ cancer}) } $$
 
-or --- when using $C$\ as denoting cancer and $T$\ as denoting a positive test:
+or, when using $C$\ as denoting cancer and $T$\ as denoting a positive test:
 
 $$ p(C|T) = \frac{p(C) \cdot p(T|C) } {p(C) \cdot p(T|C) + p(\neg C) \cdot p(T|\neg C) } $$
 
@@ -212,7 +212,7 @@ For our present purposes, the notion of risk-related information refers to any s
 1. First, each facet provides a _frequency_ (e.g., the number $3$). Nevertheless, the dice is a paradigmatic example of a device that generates _probabilities_. (See Strevens, 2013, for inferring probabilistic properties from physical devices.)  
 2. The 3\ facets indicate the 3\ perspectives that classify a population of $N$ individuals into 3 binary categories of medical diagnostics: (1) by _condition_ (true vs. false), (2) by _decision_ (positive vs. negative), and (3) by _accuracy_/_correspondence_ (correct vs. incorrect).  
 3. Any individual facet is informative by itself ---\ and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. **riskyr** provides alternative perspectives that ---\ when viewed together\ --- render issues of risk literacy more transparent.  
-4. The 3\ facets also hint at **riskyr**'s 3\ key functions of (1)\ organizing information, (2)\ translating between representational formats, and (3)\ visualizing relationships between variables. ] 
+4. The three facets also hint at **riskyr**'s 3\ key functions of (1)\ organizing information, (2)\ translating between representational formats, and (3)\ visualizing relationships between variables. ] 
 
 - by organizing _data structures_ and _computational functions_ in useful ways;  
 
@@ -232,7 +232,7 @@ library("riskyr")  # loads the package
 comp_PPV(prev = .01, sens = .80, spec = (1 - .096))
 ```
 
-It's good to know that **riskyr** can apply Bayes' formula, but so can any other decent calculator ---\ including my brain on a good day and some environmental support in the form of paper and pencil. The R in **riskyr** only begins to make sense when considering functions like the following: `comp_prob_prob()` computes probabilities from probabilities (hence its name). More precisely, `comp_prob_prob()` takes 3\ essential probabilities as inputs and returns a list of 13\ probabilities as its output: 
+It's good to know that **riskyr** can apply Bayes' formula, but so can any other decent calculator ---\ including my brain on a good day and some environmental support in the form of paper and pencil. The\ R in **riskyr** only begins to make sense when considering functions like the following: `comp_prob_prob()` computes probabilities from probabilities (hence its name). More precisely, `comp_prob_prob()` takes three essential probabilities as inputs and returns a list of 13\ probabilities as its output: 
 
 ```{r comp_prob_prob_1}
 # Compute probabilities from 3 essential probabilities:                 # Input arguments:
@@ -329,7 +329,7 @@ all.equal(p5, p4)
 
 #### Switching back and forth
 
-More generally, when we translate between formats twice --- first from probabilities to frequencies and then from the resulting frequencies to probabilities --- the original probabilities appear again:
+More generally, when we translate between formats twice ---\ first from probabilities to frequencies and then from the resulting frequencies to probabilities\ --- the original probabilities appear again:
 
 ```{r full-circle, eval = FALSE}
 # Pick 3 random probability inputs:
@@ -479,7 +479,7 @@ Changing the `by` and `area` options provides a variety of perspectives on a sce
 
 #### Alternative perspectives
 
-The variety of different graphical options provided by **riskyr** can be overwhelming at first --\ but fortunately the default options work reasonably well in most cases. 
+The variety of different graphical options provided by **riskyr** can be overwhelming at first ---\ but fortunately the default options work reasonably well in most cases. 
 In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself. 
 
 Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option `by = "cd"`). Rather than emphasizing the difference between `cond_true` and `cond_false` cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option `by = "dc"`, the tree diagram splits the population by decisions into `dec_pos` and `dec_neg` cases: 

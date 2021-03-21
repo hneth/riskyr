@@ -254,7 +254,7 @@ Having illustrated how we can create a scenario from scratch and begin to inspec
 
 ### Using existing scenarios
 
-As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), **riskyr** provides a set of --\ currently `r length(scenarios)`)\ -- pre-defined scenarios (stored in a list\ `scenarios`). 
+As defining your own scenarios can be cumbersome and the literature is full of existing problems (that study so-called Bayesian reasoning), **riskyr** provides a set of ---\ currently `r length(scenarios)`)\ --- pre-defined scenarios (stored in a list\ `scenarios`). 
 The following table provides a first overview of the scenarios available, including their relevant condition, their population size\ `N`, and basic probability information: 
 
 ```{r scenario-table, echo = FALSE, results = "asis"}
@@ -299,7 +299,7 @@ As explained above, an overview of the main parameters of a scenario is provided
 summary(s10) # summarizes key scenario information:
 ```
 
-Note that --\ in this particular population\ -- the prevalence for the condition (`r s10$cond_lbl`) is assumed to be relatively high (with a value of `r as_pc(s10$prev)`%).
+Note that ---\ in this particular population\ --- the prevalence for the condition (`r s10$cond_lbl`) is assumed to be relatively high (with a value of `r as_pc(s10$prev)`%).
 
 
 #### 3. Visualizing frequencies and probabilities 
@@ -327,7 +327,7 @@ plot(s10,
 
 This variant of the prism plot shows how the probability values of key condition and decision parameters split the assumed population of `N = 1000` patients into subgroups that correspond to 9 frequencies (also listed in the summary). Calling the same command with the optional argument `p_lbl = "nam"` would print the probability names, rather than their values (see also the options `p_lbl = "min"` and `"mix"`.) The middle row of boxes shows the four essential frequencies (of hits\ `hi`, misses\ `mi`, false alarms\ `fa`, and correct rejections\ `cr`) in colors corresponding to the icon array above. Setting `area = "hr"` in our `plot` command switched the default display (of rectangular boxes) to a version in which the frequency boxes at each level of the network are shown as horizontal rectangles (hence\ `hr`) and the box widths are scaled to add up to the population width\ `N` on each level. Thus, the relative width of each box illustrates the frequency of corresponding cases, making it easy to spot locations and paths with few or many cases. 
 
-A fact that was not so obvious in the icon array --\ but shown in the lower half of the prism plot\ -- is that the current scenario yields mostly negative decisions (865 out of\ 1000, or\ 86.5%).  Of those negative decisions, 470 (or 54.34%) are correct (see\ `cr` shown in light green) and 395 (or 45.66%) are incorrect (see\ `mi` shown in dark red). The ratio `cr/dec_neg = 470/865 = 54.34`% indicates the negative predictive value\ (`NPV`) of the test. 
+A fact that was not so obvious in the icon array ---\ but shown in the lower half of the prism plot\ --- is that the current scenario yields mostly negative decisions (865 out of\ 1000, or\ 86.5%).  Of those negative decisions, 470 (or 54.34%) are correct (see\ `cr` shown in light green) and 395 (or 45.66%) are incorrect (see\ `mi` shown in dark red). The ratio `cr/dec_neg = 470/865 = 54.34`% indicates the negative predictive value\ (`NPV`) of the test. 
 
 ##### Practice
 
@@ -342,7 +342,7 @@ plot(s10, by = "ac", area = "hr")
 
 #### 4. Visualizing probabilistic relationships
 
-One way to further understand the relations between basic probabilities --\ like the prevalence\ `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s10$cond_lbl`")\ -- and probabilities conditional on both the condition and on features of the decision (like\ `PPV` and\ `NPV`) is to plot the latter as a function of the former. Calling `type = "curve"` does this for us. To save space, we do not show the plots here, but please try and see for yourself:  
+One way to further understand the relations between basic probabilities ---\ like the prevalence\ `prev`, which does _not_ depend on our decision, but only on the environmental probability of the condition (here: "`r s10$cond_lbl`")\ --- and probabilities conditional on both the condition and on features of the decision (like\ `PPV` and\ `NPV`) is to plot the latter as a function of the former. Calling `type = "curve"` does this for us. To save space, we do not show the plots here, but please try and see for yourself:  
 
 ```{r s10-curve, eval = FALSE, fig.align = "center", fig.width = 6, fig.height = 5}
 plot(s10, type = "curve", 
@@ -402,8 +402,8 @@ s9$scen_lbl  # shows descriptive label:
 s9$popu_lbl  # shows current population:
 ```
 
-Now re-do the plots (for\ `s10` above) --\ and note the changes between\ `s9` and\ `s10`. 
-Importantly, the properties of the test are identical for both scenarios --\ only the population (i.e., its prevalence for the condition) has changed. 
+Now re-do the plots (for\ `s10` above), and note the changes between\ `s9` and\ `s10`. 
+Importantly, the properties of the test are identical for both scenarios ---\ only the population (i.e., its prevalence for the condition) has changed. 
 
 
 ### Conclusion

@@ -67,7 +67,8 @@ In the following, we illustrate how the other metrics can be constructed from th
 
 ### Adopting two perspectives on a population
 
-Essentially, the confusion matrix views a population of `N`\ individuals in different ways by adopting different perspectives. "Adopting a perspective" means that we can distinguish between individuals on the basis of some criterion. The two primary criteria used here are:
+Essentially, the confusion matrix views a population of `N`\ individuals in different ways by adopting different perspectives. 
+"Adopting a perspective" means that we can distinguish between individuals on the basis of some criterion. The two primary criteria used here are:
 
 (a)\ each individual's _condition_, which can either be present (`TRUE`) or absent (`FALSE`), and  
 (b)\ each individual's _decision_, which can either be `positive` (`TRUE`) or `negative` (`FALSE`).   
@@ -79,7 +80,7 @@ Numerically, the adoption of each of these two perspectives splits the populatio
 3. `fa` represents _false alarms_ (or false positives): condition absent (`FALSE`) & decision positive (`TRUE`). 
 4. `cr` represents _correct rejections_ (or true negatives): condition absent (`FALSE`) & decision negative (`FALSE`). 
 
-Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](B_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population\ `N` (or splitting\ `N` into subgroups by applying two binary criteria):
+Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies ---\ which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](B_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population\ `N` (or splitting\ `N` into subgroups by applying two binary criteria):
 
 (a)\ by condition\ (`cd`) (corresponding to the two columns of the confusion matrix): 
 
@@ -209,7 +210,7 @@ Similarly, it may be tempting to refer to instances of `dec_cor` and `dec_err` a
 
 ## Accuracy metrics
 
-The perspective of accuracy raises an important question: How good is some decision process (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal --- measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
+The perspective of accuracy raises an important question: How good is some decision process (e.g., a clinical judgment or some diagnostic test) in capturing the true state of the condition? Different accuracy metrics provide different answers to this question, but share a common goal ---\ measuring decision performance by capturing the correspondence of decisions to conditions in some quantitative fashion.^[It is convenient to think of accuracy metrics as _outcomes_ of the confusion table. However, when designing tests or decision algorithms, accuracy measures also serve as inputs that are to be maximized by some process (see Phillips et al., 2017, for examples).]
 
 While all accuracy metrics quantify the relationship between correct and erroneous decisions, different metrics emphasize different aspects or serve different purposes. We distinguish between specific and general metrics.
 
@@ -246,11 +247,11 @@ In contrast to these specific metrics, general metrics of accuracy aim to captur
 
 #### 1. Overall accuracy `acc` 
 
-Overall accuracy (`acc`) divides the number of correct decisions (i.e., all `dec_cor` cases or the "\" diagonal of the confusion table) by the number `N` of all decisions (or individuals for which decisions have been made). Thus, 
+Overall accuracy\ (`acc`) divides the number of correct decisions (i.e., all `dec_cor` cases or the "\" diagonal of the confusion table) by the number\ `N` of all decisions (or individuals for which decisions have been made). Thus, 
 
 > Accuracy `acc` := Proportion or percentage of cases correctly classified.
 
-Numerically, overall accuracy `acc` is computed as:
+Numerically, overall accuracy\ `acc` is computed as:
 
 $$
 \begin{aligned}
@@ -261,7 +262,7 @@ $$
 
 #### 2. Weighted accuracy `wacc`
 
-Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity (`sens`) and specificity (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from 0 to 1) and `spec` by its complement `(1 - w)`:
+Whereas overall accuracy (`acc`) does not discriminate between different types of correct and incorrect cases, weighted accuracy\ (`wacc`) allows for taking into account the importance of errors. Essentially, `wacc` combines the sensitivity\ (`sens`) and specificity\ (`spec`), but multiplies `sens` by a weighting parameter `w` (ranging from\ 0 to\ 1) and `spec` by its complement `(1 - w)`:
 
 > Weighted accuracy `wacc` := the average of sensitivity (`sens`) weighted by `w`, and specificity (`spec`), weighted by `(1 - w)`. 
 
@@ -273,11 +274,11 @@ $$
 
 Three cases can be distinguished, based on the value of the weighting parameter\ `w`:
 
-1. If `w = .5`, `sens` and `spec` are weighted equally and `wacc` becomes _balanced_ accuracy `bacc`.
+1. If `w = .5`, `sens` and `spec` are weighted equally and `wacc` becomes _balanced_ accuracy\ `bacc`.
 
-2. If `0 <= w < .5`, `sens` is less important than `spec` (i.e., instances of `fa` are considered more serious errors than instances of `mi`).
+2. If `0 <= w < .5`, `sens` is less important than `spec` (i.e., instances of `fa` are considered more serious errors than instances of\ `mi`).
 
-3. If `.5 < w <= 1`, `sens` is more important than `spec` (i.e., instances of `mi` are considered more serious errors than instances of `fa`).
+3. If `.5 < w <= 1`, `sens` is more important than `spec` (i.e., instances of `mi` are considered more serious errors than instances of\ `fa`).
 
 #### 3. Matthews correlation coefficient `mcc`
 

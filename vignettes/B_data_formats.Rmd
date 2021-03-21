@@ -169,13 +169,13 @@ Note that a typical **riskyr** scenario contains several _marginal_ or _non-cond
 
 - The prevalence\ `prev` (1.) only depends on features of the _condition_.
 - The proportion of positive decisions\ `ppod` (or bias) (6.) only depends on features of the _decision_. 
-- The accuracy `acc` (11.) depends on\ `prev` and\ `ppod`, but unconditionally dissects a population into two groups (`dec_cor` vs. `dec_err`). 
+- The accuracy `acc` (11.) depends on\ `prev` and\ `ppod`, but unconditionally dissects a population into two groups (`dec_cor` vs.\ `dec_err`). 
 
 The other probabilities are _conditional_ probabilities based on three perspectives:
 
 1. by _condition_: conditional probabilities (2. to\ 5.) depend on the _condition_'s\ `prev` and features of the _decision_.  
 2. by _decision_: conditional probabilities (7. to\ 10.) depend on the _decision_'s\ `ppod` and features of the _condition_.  
-3. by _accuracy_: conditional probabilities based on _accuracy_ `acc` are currently computed, but --\ in the absence of a commonly accepted term\ -- named `p_acc_hi` and `p_err_fa` (12. and 13.).
+3. by _accuracy_: conditional probabilities based on _accuracy_ `acc` are currently computed, but --\ in the absence of a commonly accepted term\ --- named `p_acc_hi` and `p_err_fa` (12. and 13.).
 
 ### Relationships among probabilities
 
