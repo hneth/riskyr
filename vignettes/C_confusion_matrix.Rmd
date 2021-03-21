@@ -1,7 +1,7 @@
 ---
 title: "Confusion Matrix and Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2021 02 10"
+date: "2021 03 20"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -50,7 +50,7 @@ Fortunately, the basic matrix can also be understood as a 2x2 matrix (aka. 2-by-
 
 -->
 
-For a more complete account of **riskyr**'s theoretical background, see the following article: 
+For details on the theoretical background, see the following article: 
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
 Perspectives on the 2x2 matrix: 
@@ -86,9 +86,9 @@ Numerically, the adoption of each of these two perspectives splits the populatio
 3. `fa` represents _false alarms_ (or false positives): condition absent (`FALSE`) & decision positive (`TRUE`). 
 4. `cr` represents _correct rejections_ (or true negatives): condition absent (`FALSE`) & decision negative (`FALSE`). 
 
-Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](B_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population\ `N` (or splitting `N` into subgroups by applying two binary criteria):
+Importantly, all frequencies required to understand and compute various metrics are combinations of these four frequencies --- which is why we refer to them as the four _essential_ frequencies (see the vignette on [Data formats](B_data_formats.html)). For instance, adding up the columns and rows of the matrix yields the frequencies of the two subgroups that result from adopting our two perspectives on the population\ `N` (or splitting\ `N` into subgroups by applying two binary criteria):
 
-(a) by condition (corresponding to the two columns of the confusion matrix): 
+(a)\ by condition\ (`cd`) (corresponding to the two columns of the confusion matrix): 
 
 $$ 
 \begin{aligned}
@@ -97,7 +97,7 @@ $$
 \end{aligned}
 $$ 
 
-(b) by decision (corresponding to the two rows of the confusion matrix): 
+(b)\ by decision\ (`dc`) (corresponding to the two rows of the confusion matrix): 
 
 $$ 
 \begin{aligned}
@@ -105,6 +105,7 @@ $$
            \ &= \ (\texttt{hi} + \texttt{fa}) & +\ \ \ \ \ &(\texttt{mi} + \texttt{cr})         \\
 \end{aligned}
 $$ 
+
 
 To reflect these two perspectives in the confusion matrix, we only need to add the sums of columns (i.e., by condition) and rows (by decision):
 
@@ -116,11 +117,17 @@ To reflect these two perspectives in the confusion matrix, we only need to add t
 |      Sum:            | `cond_true`  | `cond_false` |       `N` |
 
 
+An third perspective is provided by considering the diagonals of the 2x2 matrix:
+
+(c)\ by accuracy\ (`ac`) (denotes the correspondence between the condition and decision, see below). 
+
+
+
 #### Example
 
-To view a 2x2 matrix (or confusion table) in **riskyr**, use the `plot_tab` function or plot an existing scenario as `type = "tab"`: 
+To view a 2x2 matrix (or confusion table) in **riskyr**, use the `plot_tab()` function or plot an existing scenario as `type = "tab"`: 
 
-```{r plot_tab_demo, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in **riskyr**."}
+```{r plot-tab-demo, eval = TRUE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in **riskyr**."}
 ## (1) Plot table from basic input parameters: ----- 
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          p_lbl = "def") # show condition probabilies (by default)
@@ -168,7 +175,7 @@ Which of the four essential frequencies are _correct_ decisions and which are _e
 
 Splitting all `N` individuals into two subgroups of those with correct vs. those with erroneous decisions yields a third perspective on the population: 
 
-(c) by the correspondence of decisions to conditions (corresponding to the two diagonals of the confusion matrix): 
+(c)\ by accuracy\ (`ac`) or the correspondence between decisions and conditions (corresponding to the two diagonals of the confusion matrix): 
 
 $$ 
 \begin{aligned}
@@ -179,9 +186,9 @@ $$
 
 #### Example
 
-Re-arranging the cells of the 2x2 matrix allows illustrating accuracy as a third perspective (e.g., by specifying the perspective `by = "cdac"`): 
+Re-arranging the cells of the 2x2\ matrix allows illustrating accuracy as a third perspective (e.g., by specifying the perspective `by = "cdac"`): 
 
-```{r plot_tab_cdac, eval = TRUE, fig.width = 7, fig.height = 5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
+```{r plot-tab-cdac, eval = TRUE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Arranging a 2x2 confusion table by condition and by accuracy."}
 plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
          by = "cdac", p_split = "h", 
          p_lbl = "def", title_lbl = "Scenario 2")
@@ -193,15 +200,16 @@ plot_tab(prev = .05, sens = .75, spec = .66, N = 1000,
 
 It may be instructive to point out two possible sources of confusion, so that they can be deliberately avoided:
 
-1. Beware of alternative terms for `mi` and `cr`:  
+1. Beware of alternative terms for\ `mi` and\ `cr`:  
 
-    - Misses `mi` are often called "false negatives" (FN), but are nevertheless cases for which the condition is `TRUE` 
+    - Misses\ `mi` are often called "false negatives"\ (FN), but are nevertheless cases for which the condition is `TRUE` 
     (i.e., in the `cond_true` column of the confusion table).
 
-    - Correct rejections `cr` are often called "true negatives" (TN), but are nevertheless cases for which the condition is `FALSE` 
+    - Correct rejections\ `cr` are often called "true negatives"\ (TN), but are nevertheless cases for which the condition is `FALSE` 
     (i.e., in the `cond_false` column of the confusion table).
 
-Thus, the terms "true" and "false" are sometimes ambiguous by switching their referents. When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr` over "false negatives" (FN) and "true negatives" (TN), respectively, but offer both options as pre-defined lists of text labels (see `txt_org` and `txt_TF`).  
+Thus, the terms "true" and "false" are sometimes ambiguous by switching their referents. 
+When used to denote the four essential frequencies (e.g., describing `mi` as "false negatives" and `cr` as "true negatives") the terms refer to the correspondence of a decision to the condition, rather than to their condition. To avoid this source of confusion, we prefer the terms `mi` and `cr` over "false negatives"\ (FN) and "true negatives"\ (TN), respectively, but offer both options as pre-defined lists of text labels (see `txt_org` and `txt_TF`).  
 
 2. Beware of alternative terms for `dec_cor` and `dec_err`:  
 Similarly, it may be tempting to refer to instances of `dec_cor` and `dec_err` as "true decisions" and "false decisions". However, this would also invite conceptual confusion, as "true decisions" would include `cond_false` cases (`cr` or TN cases) and "false decisions" would include `cond_true` cases (`mi` or FN cases). Again, we prefer the less ambiguous terms "correct decisions" vs. "erroneous decisions". 
@@ -219,7 +227,7 @@ The goal of a specific accuracy metric is to quantify some particular aspect of 
 
 As we are dealing with two types of correct decisions (`hi` and `cr`) and two perspectives (by columns vs. by rows), we can provide 4 answers to these questions. To obtain a numeric quantity, we divide the frequency of correct cases (either `hi` or `cr`) by
 
-(a) column sums (`cond_true` vs. `cond_false`): This yields the decision's _sensitivity_ (`sens`) and _specificity_ (`spec`):
+(a)\ column sums (`cond_true` vs. `cond_false`): This yields the decision's _sensitivity_ (`sens`) and _specificity_ (`spec`):
 
 $$
 \begin{aligned}
@@ -229,7 +237,7 @@ $$
 \end{aligned}
 $$
 
-(b) row sums (`dec_pos` vs. `dec_neg`): This yields the decision's _positive predictive value_ (`PPV`) and _negative predictive value_ (`NPV`): 
+(b)\ row sums (`dec_pos` vs. `dec_neg`): This yields the decision's _positive predictive value_ (`PPV`) and _negative predictive value_ (`NPV`): 
 
 $$
 \begin{aligned}
@@ -271,7 +279,7 @@ $$
 \end{aligned}
 $$
 
-Three cases can be distinguished, based on the value of the weighting parameter `w`:
+Three cases can be distinguished, based on the value of the weighting parameter\ `w`:
 
 1. If `w = .5`, `sens` and `spec` are weighted equally and `wacc` becomes _balanced_ accuracy `bacc`.
 
@@ -289,7 +297,7 @@ $$
 \end{aligned}
 $$
 
-The `mcc` is a correlation coefficient specifying the correspondence between the actual and the predicted binary categories. A value of $0$ represents chance performance, a value of $+1$ represents perfect performance, and a value of $−1$ indicates complete disagreement between truth and predictions. 
+The `mcc` is a correlation coefficient specifying the correspondence between the actual and the predicted binary categories. A value of\ $0$ represents chance performance, a value of\ $+1$ represents perfect performance, and a value of\ $−1$ indicates complete disagreement between truth and predictions. 
 
 See [Wikipedia: Matthews correlation coefficient](https://en.wikipedia.org/wiki/Matthews_correlation_coefficient) for details. 
 
@@ -305,7 +313,7 @@ $$
 
 See [Wikipedia: F1 score](https://en.wikipedia.org/wiki/F1_score) for details. 
 
-For many more additional scientific metrics that are defined on the basis of a 2x2 matrix, see Section [4.\ Integration](https://www.frontiersin.org/articles/10.3389/fpsyg.2020.567817/full#h5) (e.g., Figure\ 6 and Table\ 3) of [Neth et al. (2021)](https://doi.org/10.3389/fpsyg.2020.567817).  
+For many more additional scientific metrics that are defined on the basis of a 2x2\ matrix, see Section [4.\ Integration](https://www.frontiersin.org/articles/10.3389/fpsyg.2020.567817/full#h5) (e.g., Figure\ 6 and Table\ 3) of [Neth et al. (2021)](https://doi.org/10.3389/fpsyg.2020.567817).  
 
 
 ## References

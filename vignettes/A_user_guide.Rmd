@@ -253,7 +253,8 @@ The probabilities computed by these "essential" probabilities include the `PPV`,
 unlist(p1)
 ```
 
-The list of probabilities computed includes the 3\ essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (The selection of 13\ probabilities include the most prominent candidate measures, but the Bayesian situation supports many additional probabilities. Which of them are considered is largely a matter of perspective. See the vignette on [data formats](B_data_formats.html) for details on these probabilities, and [Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817), for the conceptual background and relations between frequencies and probabilities.)
+The list of probabilities computed includes the 3\ essential probabilities (`prev`, `sens`, and `spec` or `fart`) and the desired probability (`p1$PPV` = `r p1$PPV`), but also many other probabilities that may have been asked instead. (The selection of 13\ probabilities include the most prominent candidate measures, but the Bayesian situation supports many additional probabilities. Which of them are considered is largely a matter of perspective. 
+See the vignette on [data formats](B_data_formats.html) for details, and [Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817) for the theoretical background.) 
 
 Incidentally, as R does not care whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem ---\ the version reframed in terms of frequencies\ --- yields the same solution:
 
