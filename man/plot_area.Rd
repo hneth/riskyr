@@ -235,26 +235,21 @@ plot_area(prev = .2, sens = 4/5, spec = 3/5, N = 10,
           by = "cddc", p_split = "v", scale = "p",
           title_lbl = "Custom text and color:",
           lbl_txt = txt_org, f_lbl = "namnum",
-          f_lwd = 2, col_pal = pal_rgb)
-plot_area(prev = .4, sens = 6/7, spec = 4/7, N = 5,
-          by = "cdac", p_split = "h", scale = "f",
-          title_lbl = "Custom text and color:",
-          lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
-          f_lwd = 1, col_pal = pal_kn)
+          f_lbl_sep = ":\n", f_lwd = 2, col_pal = pal_rgb)
 
 ## Versions:
 ## by x p_split (= [3 x 2 x 2] = 12 versions):
 plot_area(by = "cddc", p_split = "v")  # v01 (see v07)
 plot_area(by = "cdac", p_split = "v")  # v02 (see v11)
-plot_area(by = "cddc", p_split = "h")  # v03 (see v05)
-plot_area(by = "cdac", p_split = "h")  # v04 (see v09)
+# plot_area(by = "cddc", p_split = "h")  # v03 (see v05)
+# plot_area(by = "cdac", p_split = "h")  # v04 (see v09)
 
 # plot_area(by = "dccd", p_split = "v")  # v05 (is v03 rotated)
 plot_area(by = "dcac", p_split = "v")  # v06 (see v12)
 # plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)
-plot_area(by = "dcac", p_split = "h")  # v08 (see v10)
+# plot_area(by = "dcac", p_split = "h")  # v08 (see v10)
 
-plot_area(by = "accd", p_split = "v")  # v09 (is v04 rotated)
+# plot_area(by = "accd", p_split = "v")  # v09 (is v04 rotated)
 # plot_area(by = "acdc", p_split = "v")  # v10 (is v08 rotated)
 # plot_area(by = "accd", p_split = "h")  # v11 (is v02 rotated)
 # plot_area(by = "acdc", p_split = "h")  # v12 (is v06 rotated)
@@ -275,36 +270,36 @@ plot_area(N = 4, prev = .4, sens = .8, spec = .6,
           by = "cdac", p_split = "h", scale = "f", p_lbl = "def")  # scaled by freq (for small N)
 
 # gaps (sensible range: 0--.10):
-plot_area(gaps = NA)           # use default gaps (based on p_split)
-plot_area(gaps = c(0, 0))      # no gaps
-plot_area(gaps = c(.05, .01))  # v_gap > h_gap
+plot_area(gaps = NA)             # default gaps (based on p_split)
+plot_area(gaps = c(0, 0))        # no gaps
+# plot_area(gaps = c(.05, .01))  # v_gap > h_gap
 
 # freq labels:
 plot_area(f_lbl = "def", f_lbl_sep = " = ")  # default
-plot_area(f_lbl = NA)      # NA/NULL: no freq labels (in main area & top/left boxes)
-plot_area(f_lbl = "abb")   # abbreviated name (i.e., variable name)
-plot_area(f_lbl = "nam")   # only freq name
-plot_area(f_lbl = "num")   # only freq number
+plot_area(f_lbl = NA)       # NA/NULL: no freq labels (in main area & top/left boxes)
+plot_area(f_lbl = "abb")    # abbreviated name (i.e., variable name)
+# plot_area(f_lbl = "nam")  # only freq name
+# plot_area(f_lbl = "num")  # only freq number
 plot_area(f_lbl = "namnum", f_lbl_sep = ":\n", cex_lbl = .75)  # explicit & smaller
 
 # prob labels:
 plot_area(p_lbl = NA)      # default: no prob labels, no links
-plot_area(p_lbl = "no")    # show links, but no labels
+# plot_area(p_lbl = "no")  # show links, but no labels
 plot_area(p_lbl = "namnum", cex_lbl = .70)  # explicit & smaller labels
 
 # prob arrows:
-plot_area(arr_c = +3, f_lbl = NA)  # V-shape arrows
-plot_area(arr_c = +6, f_lbl = NA)  # T-shape arrows
-plot_area(arr_c = +6, f_lbl = NA,
-          brd_dis = -.02, col_p = c("black")) # adjust arrow type/position
+plot_area(arr_c = +3, p_lbl = "def", f_lbl = NA)  # V-shape arrows
+# plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA)  # T-shape arrows
+# plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA,
+#           brd_dis = -.02, col_p = c("black")) # adjust arrow type/position
 
 # f_lwd:
-plot_area(f_lwd =  3)  # thicker lines
-plot_area(f_lwd = .5)  # thinner lines
-plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
+plot_area(f_lwd =  3)    # thicker lines
+plot_area(f_lwd = .5)    # thinner lines
+# plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)
 
 # sum_w:
-plot_area(sum_w = .10)  # default (showing top and left freq panels & labels)
+# plot_area(sum_w = .10)  # default (showing top and left freq panels & labels)
 plot_area(sum_w =  0)   # remove top and left freq panels
 plot_area(sum_w =  1,         # top and left freq panels scaled to size of main areas
           col_pal = pal_org)  # custom colors
@@ -312,9 +307,9 @@ plot_area(sum_w =  1,         # top and left freq panels scaled to size of main 
 ## Plain and suggested plot versions:
 plot_area(sum_w = 0, f_lbl = "abb", p_lbl = NA)  # no compound indicators (on top/left)
 plot_area(gap = c(0, 0), sum_w = 0, f_lbl = "num", p_lbl = "num",  # no gaps, numeric labels
-          f_lwd = .5, col_pal = pal_bwp, title_lbl = "Black-and-white")  # b+w print version
-plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod) # plot with freq labels
-plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb) # no borders around boxes
+          f_lwd = .5, col_pal = pal_bw, title_lbl = "Black-and-white")  # b+w print version
+# plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod)  # plot with freq labels
+plot_area(f_lbl = "num", p_lbl = NA, col_pal = pal_rgb)  # no borders around boxes
 
 }
 \seealso{
