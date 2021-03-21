@@ -1,79 +1,13 @@
 ## init_freq_num.R | riskyr
-## 2019 01 22
+## 2021 03 20
 ## Compute all current frequencies (freq) based on num
 ## (using only the 4 necessary parameters of num):
 ## -----------------------------------------------
 
-## Table of current terminology: -----------------
-
-# Probabilities (13+):              Frequencies (11):
-# -------------------               ------------------
-# (A) by condition:
-
-# non-conditional:                          N
-# prev*                           cond_true | cond_false (columns)
-
-# conditional:
-# sens* = hit rate = TPR                hi* = TP
-# mirt  = miss rate = FNR               mi* = FN
-# fart  = false alarm rate = FPR        fa* = FP
-# spec* = true negative rate = TNR      cr* = TN
-
-# [Note: *...is essential]
-
-
-# (B) by decision:                 Combined frequencies:
-
-# non-conditional:
-# ppod = proportion of dec_pos     dec_pos | dec_neg (rows)
-#                                  dec_cor | dec_err (diagonal)
-
-# conditional:
-# PPV = precision
-# FDR = false detection rate
-# FOR = false omission rate
-# NPV = neg. pred. value
-
-# (C) by accuracy/correspondence of decision to condition (see accu):
-
-# acc  = overall accuracy (probability/proportion correct decision)
-# p_acc_hi = p(hi|acc)  # aka. acc-hi  "p(hi | dec_cor)"
-# p_err_fa = p(fa|err)  # aka. err-fa  "p(fa | dec_err)"
-
-# Other measures of accuracy (in accu):
-# wacc = weighted accuracy
-# mcc  = Matthews correlation coefficient
-# f1s  = harmonic mean of PPV and sens
-
-# err = error rate = (1 - acc)
-
-
-
-## Data flow: Two basic directions: --------------
-
-## (1) Probabilities ==> frequencies:
-##     Bayesian: based on 3 essential probabilities:
-##   - given:   prev;  sens, spec
-##   - derived: all other values
-
-## (2) Frequencies ==> probabilities:
-##     Frequentist: based on 4 essential natural frequencies:
-##   - given:   N = hi, mi, fa, cr
-##   - derived: all other values
-
-## 2 main functions convert between formats: ----------
-
-## a. comp_freq_prob: Computes freq from prob (in comp_xxxx_prob.R)
-## b. comp_prob_freq: Computes prob from freq (in comp_prob_freq.R)
-
-
-
-
-
 ## (1) Initialize all frequencies as a list (of NA values) freq: ---------
 ##     Currently 11 frequencies (4 essential ones):
 
-## init_freq Definition: ------
+## init_freq Definition: ----
 
 init_freq <- function() {
 
@@ -112,17 +46,14 @@ init_freq <- function() {
 
 }
 
-## Check: ------
+## Check:
 # init_freq()          # initializes empty freq
 # length(init_freq())  # =>  11 frequencies
 
 
+## (2) Compute all frequencies from 3 essential probabilities: --------
 
-
-
-## (2) Compute all frequencies from 3 essential probabilities: ----------
-
-## comp_freq: Documentation --------
+## comp_freq: Documentation ------
 
 #' Compute frequencies from (3 essential) probabilities.
 #'
@@ -154,7 +85,6 @@ init_freq <- function() {
 #' When frequencies are rounded, probabilities computed from
 #' \code{\link{freq}} may differ from exact probabilities.
 #' Using the option \code{round = FALSE} turns off rounding.
-#'
 #'
 #' Key relationships between probabilities and frequencies:
 #'
@@ -196,7 +126,6 @@ init_freq <- function() {
 #'
 #' If \code{\link{N}} is unknown (\code{NA}), a suitable minimum value can be computed by \code{\link{comp_min_N}}.
 #'
-#'
 #' \item Defining probabilities in terms of frequencies:
 #'
 #' Probabilities \emph{are} -- determine, describe, or are defined as -- the relationships between frequencies.
@@ -208,61 +137,49 @@ init_freq <- function() {
 #'
 #'   \code{\link{prev} = \link{cond_true}/\link{N}  =  (\link{hi} + \link{mi}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
-#'
 #'   \item sensitivity \code{\link{sens}}:
 #'
 #'   \code{\link{sens} = \link{hi}/\link{cond_true}  =  \link{hi} / (\link{hi} + \link{mi})  =  (1 - \link{mirt})}
-#'
 #'
 #'   \item miss rate \code{\link{mirt}}:
 #'
 #'   \code{\link{mirt} = \link{mi}/\link{cond_true}  =  \link{mi} / (\link{hi} + \link{mi})  =  (1 - \link{sens})}
 #'
-#'
 #'   \item specificity \code{\link{spec}}:
 #'
 #'   \code{\link{spec} = \link{cr}/\link{cond_false}  =  \link{cr} / (\link{fa} + \link{cr})  =  (1 - \link{fart})}
-#'
 #'
 #'   \item false alarm rate \code{\link{fart}}:
 #'
 #'   \code{\link{fart} = \link{fa}/\link{cond_false}  =  \link{fa} / (\link{fa} + \link{cr})  =  (1 - \link{spec})}
 #'
-#'
 #'   \item proportion of positive decisions \code{\link{ppod}}:
 #'
 #'   \code{\link{ppod} = \link{dec_pos}/\link{N}  =  (\link{hi} + \link{fa}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
-#'
 #'
 #'   \item positive predictive value \code{\link{PPV}}:
 #'
 #'   \code{\link{PPV} = \link{hi}/\link{dec_pos}  =  \link{hi} / (\link{hi} + \link{fa})  =  (1 - \link{FDR})}
 #'
-#'
 #'   \item negative predictive value \code{\link{NPV}}:
 #'
 #'   \code{\link{NPV} = \link{cr}/\link{dec_neg}  =  \link{cr} / (\link{mi} + \link{cr})  =  (1 - \link{FOR})}
-#'
 #'
 #'   \item false detection rate \code{\link{FDR}}:
 #'
 #'   \code{\link{FDR} = \link{fa}/\link{dec_pos}  =  \link{fa} / (\link{hi} + \link{fa})  =  (1 - \link{PPV})}
 #'
-#'
 #'   \item false omission rate \code{\link{FOR}}:
 #'
 #'   \code{\link{FOR} = \link{mi}/\link{dec_neg}  =  \link{mi} / (\link{mi} + \link{cr})  =  (1 - \link{NPV})}
-#'
 #'
 #'   \item accuracy \code{\link{acc}}:
 #'
 #'   \code{\link{acc} = \link{dec_cor}/\link{N}  =  (\link{hi} + \link{cr}) / (\link{hi} + \link{mi} + \link{fa} + \link{cr})}
 #'
-#'
 #'   \item rate of hits, given accuracy \code{p_acc_hi}:
 #'
 #'   \code{p_acc_hi = \link{hi}/\link{dec_cor} = (1 - \link{cr}/\link{dec_cor})}
-#'
 #'
 #'   \item rate of false alarms, given inaccuracy \code{p_err_fa}:
 #'
@@ -275,12 +192,10 @@ init_freq <- function() {
 #'
 #' }
 #'
-#'
 #' Functions translating between representational formats:
 #' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
-#'
 #'
 #' @param prev The condition's prevalence \code{\link{prev}}
 #' (i.e., the probability of condition being \code{TRUE}).
@@ -303,7 +218,6 @@ init_freq <- function() {
 #' Note: Removed \code{n_digits} parameter:  Number of digits to which frequency values
 #' are to be rounded when \code{round = FALSE}.
 #' Default: \code{n_digits = 5}.
-#'
 #'
 #' @return A list \code{\link{freq}} containing 11 frequency values.
 #'
@@ -365,7 +279,6 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
   ## (0) Initialize freq:
   freq <- init_freq()  # initialize freq (containing only NA values)
 
-
   ## (1) Only if 3 essential probabilities are valid:
   if (is_valid_prob_set(prev = prev, sens = sens, spec = spec)) {
     # if (is_valid_prob_triple(prev = prev, sens = sens, spec = spec)) {
@@ -389,7 +302,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     ## (5) Set or compute all values of freq:
     freq$N <- N # copy N from argument OR num (input)
 
-    ## (a) Number of cond_true vs. cond_false cases (by condition):
+    # (a) Number of cond_true vs. cond_false cases (by condition):
     if (round) {
       freq$cond_true <- round((N * prev), 0)  # 1a. cond_true  = N x prev [rounded to nearest integer]
     } else {
@@ -397,7 +310,7 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     }
     freq$cond_false <- (N - freq$cond_true)   # 2. cond_false = complement of cond_true (to N)
 
-    ## (b) Number of 4 SDT combinations:
+    # (b) Number of 4 SDT combinations:
     if (round) {
       freq$hi <- round((sens * freq$cond_true), 0)   # a1. N of hi [rounded to nearest integer]
     } else {
@@ -412,11 +325,11 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
     }
     freq$fa <- (freq$cond_false - freq$cr)           # d.  N of fa - complement of cr (to cond_false)
 
-    ## (c) Number of positive vs. negative decisions (by decision):
+    # (c) Number of positive vs. negative decisions (by decision):
     freq$dec_pos <- freq$hi + freq$fa  # 1. positive decisions (true & false positives)
     freq$dec_neg <- freq$mi + freq$cr  # 2. negative decisions (false & true negatives)
 
-    ## (d) Accuracy/Correspondence of decision to condition (by correspondence):
+    # (d) Accuracy/Correspondence of decision to condition (by correspondence):
     freq$dec_cor <- freq$hi + freq$cr  # N of correct decisions
     freq$dec_err <- freq$mi + freq$fa  # N of erroneous decisions
 
@@ -440,18 +353,16 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
   } # if (is_valid(prev, sens, spec, fart))
 
-
   ## (7) Round non-rounded freq (to n_digits):
   ## if (!round) { freq <- lapply(X = freq, FUN = round, digits = n_digits) }
   ## (REMOVED: only round values SHOWN, not computed!)
-
 
   ## (8) Return entire list freq:
   return(freq)
 
 }
 
-## Check: --------
+## Check:
 
 # comp_freq()                  # => ok, using current defaults
 # length(comp_freq())          # => 11
@@ -486,13 +397,9 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 # comp_freq(prev = 1,  sens = 8,  spec = 1,  100)  # => NAs + warning (sens beyond range)
 
 
+## (3) Apply to initialize freq: ----------
 
-
-
-
-## (3) Apply to initialize freq: -----------------
-
-## freq: Documentation --------
+## freq: Documentation ------
 
 #' List current frequency information.
 #'
@@ -545,17 +452,14 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 #'
 #' }
 #'
-#'
 #' Functions translating between representational formats:
 #' \code{\link{comp_prob_prob}}, \code{\link{comp_prob_freq}},
 #' \code{\link{comp_freq_prob}}, \code{\link{comp_freq_freq}}
 #' (see documentation of \code{\link{comp_prob_prob}} for details).
 #'
-#'
 #' Visualizations of current frequency information
 #' are provided by \code{\link{plot_prism}} and
 #' \code{\link{plot_icons}}.
-#'
 #'
 #' @examples
 #' freq <- comp_freq()  # => initialize freq to default parameters
@@ -583,14 +487,14 @@ comp_freq <- function(prev = num$prev, sens = num$sens, spec = num$spec, # 3 ess
 
 freq <- comp_freq()  # => initialize freq to default parameters
 
-## Check: ------
+## Check:
 # freq               # => show current values
 # length(freq)       # => 11 known frequencies
 # names(freq)        # => show names of known frequencies
 
 
 
-## comp_freq_type: Determine the type of a named frequency (freq):  ----------
+## comp_freq_type: Determine the type of a named frequency (freq):  -------
 
 comp_freq_type <- function(fname, lbl_txt = txt) {
 
@@ -620,7 +524,7 @@ comp_freq_type <- function(fname, lbl_txt = txt) {
 
 }
 
-## Check: --------
+## Check:
 # comp_freq_type("N")
 # comp_freq_type("cond_false")
 # comp_freq_type("dec_neg")
@@ -703,7 +607,7 @@ comp_freq_col <- function(fname,
 
 }
 
-## Check: --------
+## Check:
 
 # comp_freq_col("N")
 # comp_freq_col("hi")
@@ -716,18 +620,9 @@ comp_freq_col <- function(fname,
 # comp_freq_col("nn", col = "gold") # "gold"
 
 
-
 ## (*) Done: -----------
 
-## - Clean up code [2018 08 30].
-
-## - Added help functions comp_freq_type and comp_freq_col
-##   to classify freq into types and determine freq color
-##   based on freq name.                             [2018 08 18]
-
-## - Added 2 more frequencies for accuracy, i.e.,
-##   "decision correctness" or correspondence of decision to condition:
-##   "dec_cor" vs. "dec_err" (i.e., diagonal of confusion matrix)
+## - Clean up code [2021 03 20].
 
 ## (+) ToDo: -----------
 

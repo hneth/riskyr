@@ -127,7 +127,7 @@ is_prob <- function(prob, NA_warn = FALSE) {
 
 }
 
-## Checks:
+## Check:
 # ## ways to succeed:
 # is_prob(1/2)                  # => TRUE
 # p.seq <- seq(0, 1, by = .1)   # Define vector of probabilities.
@@ -441,7 +441,7 @@ is_suff_prob_set <- function(prev,
 
 }
 
-## Checks:
+## Check:
 # # ways to work:
 # is_suff_prob_set(prev = 1, sens = 1, spec = 1)  # => TRUE
 # is_suff_prob_set(prev = 1, mirt = 1, spec = 1)  # => TRUE
@@ -572,10 +572,8 @@ is_complement <- function(p1, p2, tol = .01) {
 
 }
 
-## Checks:
-
+## Check:
 ## Removed from documentation (to avoid ERRORS):
-
 # # ways to succeed:
 # is_complement(0, 1)           # => TRUE
 # is_complement(1/3, 2/3)       # => TRUE
@@ -592,6 +590,7 @@ is_complement <- function(p1, p2, tol = .01) {
 # # is_complement(0, 0)            # => FALSE + warning (beyond tolerance)
 # # is_complement(1, 1)            # => FALSE + warning (beyond tolerance)
 # # is_complement(8, 8)            # => FALSE + warning (beyond tolerance)
+
 
 ## is_prob_range: Verify that some_range includes exactly 2 numeric prob values (from 0 to 1): ------
 
@@ -1228,14 +1227,11 @@ is_valid_prob_triple <- function(prev, sens, spec) {
 # # is_valid_prob_triple("p", 0, 0)  # => FALSE + warning (non-numeric)
 
 
-
-
-
-## (C) Conversion functions: ------------------------
+## (C) Conversion functions: ----------------------
 
 ## Toggle between showing probabilities and percentages:
 
-## as_pc: Show a probability as a (numeric and rounded) percentage ----------
+## as_pc: Show a probability as a (numeric and rounded) percentage --------
 
 #' Display a probability as a (numeric and rounded) percentage.
 #'
@@ -1327,7 +1323,7 @@ as_pc <- function(prob, n_digits = 2) {
 
 ## Percentage as probability (4 decimals):
 
-## as_pb: Show a percentage as a (numeric and rounded) probability ----------
+## as_pb: Show a percentage as a (numeric and rounded) probability --------
 
 #' Display a percentage as a (numeric and rounded) probability.
 #'
@@ -1414,14 +1410,14 @@ as_pb <- function(perc, n_digits = 4) {
 
 
 
-## (D) Color and plotting functions: ----------
+## (D) Color and plotting functions: --------
 
 # Note:
 # - Moved plotting help functions to file "plot_util.R".
 # - Use unikn pkg or functions for color settings.
 
 
-## make_transparent: Make colors transparent ------
+## make_transparent: Make colors transparent ----
 
 make_transparent <- function(..., alpha = .50) {
 
@@ -1451,7 +1447,7 @@ make_transparent <- function(..., alpha = .50) {
 # grDevices::adjustcolor(col = "green", alpha.f = .50)
 
 
-## (E) Text functions: ----------
+## (E) Text functions: --------
 
 capitalise_1st <- function(string) {
   String <- ""
@@ -1465,9 +1461,9 @@ capitalise_1st <- function(string) {
 # capitalise_1st(123)        # "123"
 
 
-## (F) Miscellaneous: ----------
+## (F) Miscellaneous: --------
 
-# kill_all: Kill all objects in current environment (without warning): ------
+# kill_all: Kill all objects in current environment (without warning): ----
 
 kill_all <- function(){
 
@@ -1480,11 +1476,7 @@ kill_all <- function(){
 
 ## (*) Done: ----------
 
-## - Moved graphical help functions to file "plot_util.R" [2018 08 27].
-## - Clean up code                                        [2018 09 22].
-## - Export utility functions again,
-##   as they are used in some examples                    [2018 11 08].
-
+## - Clean up code [2021 03 20].
 
 ## (+) ToDo: ----------
 

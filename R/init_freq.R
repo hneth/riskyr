@@ -1,6 +1,6 @@
 ## init_freq.R | riskyr
-## 2018 12 10
-## Define and initialize ALL frequencies
+## 2021 03 20
+## Define and initialize key frequencies
 ## -----------------------------------------------
 
 ## Table of current terminology: -----------------
@@ -76,7 +76,6 @@
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
 #'
-#'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Statistical_population}{Wikipedia: Statistical population} for additional information.
 #'
@@ -100,9 +99,9 @@ N <- 0  # default population size N
 
 
 
-## ***: 4 ESSENTIAL frequencies: SDT cases/classes of hi mi fa cr  -------
+## 4 ESSENTIAL frequencies: SDT cases/classes of hi mi fa cr  -------
 
-##   (1) hi*** = TP: -------
+##   (1) hi*** = TP: ----
 
 #' Frequency of hits or true positives (TP).
 #'
@@ -159,7 +158,7 @@ N <- 0  # default population size N
 hi <- 0  # default hits (TP)
 
 
-##   (2) mi*** = FN: -------
+##   (2) mi*** = FN: ----
 
 #' Frequency of misses or false negatives (FN).
 #'
@@ -217,7 +216,7 @@ hi <- 0  # default hits (TP)
 mi <- 0  # default misses (FN)
 
 
-##   (3) fa*** = FP: -------
+##   (3) fa*** = FP: ----
 
 #' Frequency of false alarms or false positives (FP).
 #'
@@ -276,7 +275,7 @@ mi <- 0  # default misses (FN)
 fa <- 0  # default false alarms (FP)
 
 
-##   (4) cr*** = TN: -------
+##   (4) cr*** = TN: ----
 
 #' Frequency of correct rejections or true negatives (TN).
 #'
@@ -334,15 +333,15 @@ cr <- 0  # default correct rejections (TN)
 
 
 
-## (B) COMBINED frequencies: ---------
+## (B) COMBINED frequencies: -------
 
-## 3 perspectives: Each combines 2 pairs of essential frequencies: --------
+## 3 perspectives: Each combines 2 pairs of essential frequencies: -----
 
-## (a) by condition: cond_true vs. cond_false  ---------
+## (a) by condition: cond_true vs. cond_false  ------
 ##     (= 2 columns of confusion matrix)
 
 
-##   (5) cond_true -------
+##   (5) cond_true ----
 
 #' Number of individuals for which the condition is true.
 #'
@@ -383,7 +382,6 @@ cr <- 0  # default correct rejections (TN)
 #'
 #' }
 #'
-#'
 #'   \item to other frequencies:
 #'   In a population of size \code{\link{N}} the following relationships hold:
 #'
@@ -403,7 +401,6 @@ cr <- 0  # default correct rejections (TN)
 #' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
-#'
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
@@ -427,7 +424,7 @@ cr <- 0  # default correct rejections (TN)
 cond_true <- 0  # default frequency of true cases
 
 
-##   (6) cond_false -------
+##   (6) cond_false ----
 
 #' Number of individuals for which the condition is false.
 #'
@@ -468,7 +465,6 @@ cond_true <- 0  # default frequency of true cases
 #'
 #' }
 #'
-#'
 #'   \item to other frequencies:
 #'   In a population of size \code{\link{N}} the following relationships hold:
 #'
@@ -482,13 +478,11 @@ cond_true <- 0  # default frequency of true cases
 #'
 #'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
-#'
 #' }
 #'
 #' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
-#'
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
@@ -512,13 +506,11 @@ cond_true <- 0  # default frequency of true cases
 cond_false <- 0  # default frequency of false cases
 
 
-
-
 ## (b) by decision: dec_pos vs. dec_neg ----------
 ##     (= 2 rows of confusion matrix)
 
 
-##   (7) dec_pos  -------
+##   (7) dec_pos  ----
 
 #' Number of individuals for which the decision is positive.
 #'
@@ -560,7 +552,6 @@ cond_false <- 0  # default frequency of false cases
 #'
 #' }
 #'
-#'
 #'   \item to other frequencies:
 #'   In a population of size \code{\link{N}} the following relationships hold:
 #'
@@ -580,7 +571,6 @@ cond_false <- 0  # default frequency of false cases
 #' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
-#'
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
@@ -604,7 +594,7 @@ cond_false <- 0  # default frequency of false cases
 dec_pos <- 0  # default frequency of positive decisions
 
 
-##   (8) dec_neg -------
+##   (8) dec_neg ----
 
 #' Number of individuals for which the decision is negative.
 #'
@@ -645,7 +635,6 @@ dec_pos <- 0  # default frequency of positive decisions
 #'
 #' }
 #'
-#'
 #'   \item to other frequencies:
 #'   In a population of size \code{\link{N}} the following relationships hold:
 #'
@@ -659,13 +648,11 @@ dec_pos <- 0  # default frequency of positive decisions
 #'
 #'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
-#'
 #' }
 #'
 #' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
-#'
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
@@ -689,11 +676,10 @@ dec_pos <- 0  # default frequency of positive decisions
 dec_neg <- 0  # default frequency of negative decisions
 
 
-
 ## (c) by accuracy/correspondence of decision to condition: ---------
 ##     dec_cor vs. dec_err (= 2 diagonals of confusion matrix)
 
-##   (9) dec_cor --------
+##   (9) dec_cor ----
 
 # NOTE: "dec_cor" should better be called "dec_acc"
 #       (for consistency with probabilities "acc" vs. "err")!
@@ -718,9 +704,9 @@ dec_neg <- 0  # default frequency of negative decisions
 #'
 #'   \itemize{
 #'
-#'     \item \code{\link{N}  =  \link{cond_true} + \link{cond_false}} (by condition)
+#'     \item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 #'
-#'     \item \code{\link{N}  =  \link{dec_pos} + \link{dec_neg}} (by decision)
+#'     \item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 #'
 #'     \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 #'
@@ -728,7 +714,7 @@ dec_neg <- 0  # default frequency of negative decisions
 #'
 #'     \item \code{\link{dec_err} = \link{mi} + \link{fa}}
 #'
-#'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
+#'     \item \code{\link{N} = \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
 #'
 #' \item correspondence:
@@ -743,7 +729,6 @@ dec_neg <- 0  # default frequency of negative decisions
 #' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
-#'
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
@@ -767,8 +752,7 @@ dec_neg <- 0  # default frequency of negative decisions
 dec_cor <- 0  # default frequency of negative decisions
 
 
-
-##  (10) dec_err --------
+##  (10) dec_err ----
 
 #' Number of individuals for which the decision is erroneous.
 #'
@@ -790,9 +774,9 @@ dec_cor <- 0  # default frequency of negative decisions
 #'
 #'   \itemize{
 #'
-#'     \item \code{\link{N}  =  \link{cond_true} + \link{cond_false}} (by condition)
+#'     \item \code{\link{N} = \link{cond_true} + \link{cond_false}} (by condition)
 #'
-#'     \item \code{\link{N}  =  \link{dec_pos} + \link{dec_neg}} (by decision)
+#'     \item \code{\link{N} = \link{dec_pos} + \link{dec_neg}} (by decision)
 #'
 #'     \item \code{\link{N} = \link{dec_cor} + \link{dec_err}} (by correspondence of decision to condition)
 #'
@@ -802,13 +786,11 @@ dec_cor <- 0  # default frequency of negative decisions
 #'
 #'     \item \code{\link{N}  =  \link{hi} + \link{mi} + \link{fa} + \link{cr}} (by condition x decision)
 #'   }
-#'
 #' }
 #'
 #' Current frequency information is computed by
 #' \code{\link{comp_freq}} and contained in a list
 #' \code{\link{freq}}.
-#'
 #'
 #' @references
 #' Consult \href{https://en.wikipedia.org/wiki/Confusion_matrix}{Wikipedia: Confusion matrix} for additional information.
@@ -834,7 +816,7 @@ dec_err <- 0  # default frequency of negative decisions
 
 ## (*) Done: -----------
 
-## - Clean up code [2018 09 02].
+## - Clean up code [2021 03 20].
 
 ## (+) ToDo: ----------
 

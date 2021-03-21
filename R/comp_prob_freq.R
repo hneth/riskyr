@@ -111,10 +111,9 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 
   prob <- init_prob()  # initialize prob (containing only NA values)
 
-
   ## Compute compound freq from 4 essential freq:
 
-  ## (a) Using sum:
+  # (a) Using sum:
   N  <- sum(c(hi, mi, fa, cr), na.rm = TRUE)   # N
 
   cond_true  <- sum(c(hi, mi), na.rm = TRUE)   # freq of cond_true cases
@@ -126,7 +125,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   dec_cor  <-   sum(c(hi, cr), na.rm = TRUE)   # freq of dec_cor cases
   dec_err  <-   sum(c(mi, fa), na.rm = TRUE)   # freq of dec_err cases
 
-  # ## (b) Using +:
+  # # (b) Using +:
   # N <- (hi + mi + fa + cr) # N
   #
   # cond_true  <- (hi + mi)  # freq of cond_true cases
@@ -138,7 +137,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
   # dec_cor  <-   (hi + cr)  # freq of dec_cor cases
   # dec_err  <-   (mi + fa)  # freq of dec_err cases
 
-  ## Check for existence:
+  # Check for existence:
   if (is.na(N)) {
 
     warning("N is NA. At least one essential frequency is required.")
@@ -166,7 +165,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 
   }
 
-  ## Compute all (currently 13) probabilities in prob from frequencies:
+  # Compute all (currently 13) probabilities in prob from frequencies:
   prob$prev <- cond_true/N
   prob$sens <- hi/cond_true
   prob$mirt <- mi/cond_true
@@ -189,7 +188,7 @@ comp_prob_freq <- function(hi = freq$hi,  # 4 essential frequencies from freq (w
 
 }
 
-## Check: ------
+## Check:
 
 # ## Basics:
 # comp_prob_freq()  # => computes prob from current freq
@@ -300,8 +299,7 @@ comp_prev <- function(hi = freq$hi, mi = freq$mi, fa = freq$fa, cr = freq$cr   #
 
 }
 
-## Check: ------
-
+## Check:
 # num
 # freq <- comp_freq(round = FALSE)
 # freq
@@ -379,10 +377,10 @@ comp_NPV_freq <- function(n.cr = freq$cr, n.mi = freq$mi) {
 # all.equal(comp_PPV_freq(), comp_PPV()) # => TRUE
 # all.equal(comp_NPV_freq(), comp_NPV()) # => TRUE
 
+
 ## (*) Done: ----------
 
-## - Clean up code.  [2018 08 28]
-
+## - Clean up code.  [2021 03 20]
 
 ## (+) ToDo: ----------
 
