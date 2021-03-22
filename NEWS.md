@@ -1,13 +1,10 @@
 
-# Current version
+# riskyr 0.3.0
 
-The current development version (0.2.0.9036+) is available at <https://github.com/hneth/riskyr/>. 
-
-# riskyr 0.2.0.9001+
-
-riskyr 0.3.0 is prepared for a release in March 2021, and published on CRAN on March XX, 2021.
+**riskyr 0.3.0** is released on March 22, 2021, and published [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 2x, 2021. 
 
 Log of changes since last release:
+
 
 ## Major changes
 
@@ -76,41 +73,11 @@ Adopt `pal_mod` -- rather than `pal_mbw` -- as default color scheme `pal` (to hi
 Enforce 2 different symbol types for icon arrays with a binary perspective (`by = cd` or `dc` or `ac`).   
 
 
-## ToDo 
-
-A road map of current tasks and upcoming changes: 
-
-- Adopt the framework of the _matrix lens model_ ([Neth et al., 2021](https://doi.org/10.3389/fpsyg.2020.567817)). 
-Specifically, 
-
-    - start in three modes: (a) from description, (b) from simulation (sampling), or (c) from empirical data.  
-    - implement the steps of _filtering_ (from description, sampling, or data), _framing_, and _focusing_, including key metrics based on a 2x2 contingency matrix of frequency counts (see `comp_metrics.R`). 
-
-<!-- Add blank line. --> 
-
-- Add visualizations 
-
-    - for various types of individual risks (as fractions, proportions, rates, ratios, probabilities, etc.), 
-    - for binary contingencies (e.g., 2x2 icon arrays, square leaves in quadrants, etc.) 
-
-<!-- Add blank line. --> 
-
-- Add more example contents: 
-
-   - Visualize additional Bayesian situations (i.e., isomorphs of the mammography problem) 
-   - Visualize Bayesian brain teasers (e.g., the cab problem, 3-option paradoxes, conjunction fallacy, etc.) 
-   - Visual and explain other diagnostic or medical problems (e.g., Covid-19 and HIV tests, flu or terrorist detection, etc.)
-
-<!-- Add blank line. --> 
-
-- Add functions for cumulative lifetime risks (not yet integrated into package).  
-
-
 ---------- 
 
 # riskyr 0.2.0
 
-riskyr 0.2.0 was ready to be released on December 20, 2018, and published on CRAN on January 03, 2019.
+**riskyr 0.2.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on January 03, 2019.
 
 Log of changes since last release:
 
@@ -225,15 +192,16 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 # riskyr 0.1.0
 
-- Initial release on CRAN: <https://CRAN.R-project.org/package=riskyr> [2018-02-19] 
+**riskyr 0.1.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on February 19, 2018. 
 
+---------- 
 
 # References
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018). riskyr: A toolbox for rendering risk literacy more transparent.  
-  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.2.0, Dec. 20, 2018).  
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021). riskyr: A toolbox for rendering risk literacy more transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.3.0, March 22, 2021). 
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
 
 <!-- Background article: -->
@@ -250,6 +218,6 @@ doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-20 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-22 by [hn](https://neth.de).) 
 
 <!-- eof -->
