@@ -19,7 +19,7 @@ riskyr.guide <- function() {
 
 }
 
-## (2) Run some code when starting riskyr: -------
+## (2) Run some code when starting riskyr: ------
 
 start_riskyr <- function(...) {
 
@@ -149,15 +149,18 @@ start_riskyr <- function(...) {
 
   packageStartupMessage("riskyr.guide() opens user guides.")
 
-}
+  # Suppress check for difference in vignette titles (in \VignetteIndexEntry{})
+  # from the title in the YAML metadata:
+  options(rmarkdown.html_vignette.check_title = FALSE)
 
+}
 
 ## (*) Done: ----------
 
-## - Clean up code.  [2018 08 22].
+## - etc.
 
 ## (+) ToDo: ----------
 
-## - ...
+## - etc.
 
 ## eof. ------------------------------------------
