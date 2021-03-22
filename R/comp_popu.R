@@ -98,7 +98,6 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   ## (1) Compute combined frequencies from 4 essential frequencies:
   # cond_true  <- (hi + fa)
   # cond_false <- (mi + cr)
-
   # dec_pos <- (hi + mi)
   # dec_neg <- (mi + cr)
 
@@ -117,19 +116,19 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
            rep("fa", fa), rep("cr", cr))
 
   ## (2) Coerce 3 vectors into ordered factors:
-  ## (a) Condition (truth):
+  # (a) Condition (truth):
   truth <- factor(truth,
                   levels = c(TRUE, FALSE),                   # as Booleans
                   labels = c(cond_true_lbl, cond_false_lbl), # explicit labels: "true" vs. "false"
                   ordered = TRUE)
 
-  ## (b) Decision (ordered by ACTUAL truth values of condition):
+  # (b) Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
                      levels = c(TRUE, FALSE),              # also as Booleans, NOT: (-1, +1) or (0, 1)
                      labels = c(dec_pos_lbl, dec_neg_lbl), # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
-  ## (c) SDT (status decision/truth):
+  # (c) SDT (status decision/truth):
   sdt <- factor(sdt,
                 levels = c("hi", "mi", "fa", "cr"),         # as character: 4 cases
                 labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl), # explicit labels (e.g., "TP", "FN", "FP", "TN")
@@ -145,12 +144,12 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   # names(popu) <- c("Truth", "Decision", "STD")
   names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)
 
-  ## (4) Return the entire data frame pop:
+  ## (5) Return df:
   return(popu)
 
 }
 
-## Check: --------
+## Check:
 # popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 # dim(popu)            # => N x 3
 # head(popu)
@@ -227,27 +226,23 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 # popu <- comp_popu() # set to current global parameters
 
 ## INSTEAD:
-popu <- NULL          # initialize
+popu <- NULL  # initialize
 
-
-## Check: --------
+## Check:
 # popu
 # dim(popu)
 # head(popu)
 # tail(popu)
-
 
 ## (*) Done: -----------
 
 ## - changed on 2018 01 25 to use only
 ##   the 4 essential frequencies of freq (hi mi fa cr)
 ## - Called "popu" rather than "pop" as it is an output,
-##   rather than an input!
-## - Clean up code         [2018 09 02].
-## - Update variable names [2018 11 21].
+##   rather than an input.
 
 ## (+) ToDo: ----------
 
-## - ...
+## - etc.
 
 ## eof. ------------------------------------------
