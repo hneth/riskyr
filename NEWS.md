@@ -1,7 +1,7 @@
 
 # riskyr 0.3.0
 
-**riskyr 0.3.0** is released on March 22, 2021, and published [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 2x, 2021. 
+**riskyr 0.3.0** is published [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 23, 2021. 
 
 Log of changes since last release:
 
@@ -200,8 +200,9 @@ Cast dice to display probabilistic (i.e., risk-related) start-up messages.
 
 To cite **riskyr** in derivations and publications please use:
 
-- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021). riskyr: A toolbox for rendering risk literacy more transparent.  
-  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.3.0, March 22, 2021). 
+- Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021). 
+riskyr: A toolbox for rendering risk literacy more transparent.  
+  Social Psychology and Decision Sciences, University of Konstanz, Germany. Computer software (R package version 0.3.0, March 23, 2021). 
   Retrieved from <https://CRAN.R-project.org/package=riskyr>.  
 
 <!-- Background article: -->
@@ -218,6 +219,6 @@ doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-22 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-23 by [hn](https://neth.de).) 
 
 <!-- eof -->
