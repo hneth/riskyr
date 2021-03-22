@@ -133,7 +133,7 @@ devtools::install_github('hneth/riskyr')
     
       - current release version: <https://hneth.github.io/riskyr/>
       - current development version:
-        <https://hneth.github.io/riskyr/dev>
+        <https://hneth.github.io/riskyr/dev/>
 
 ## Quick start guide
 
@@ -659,11 +659,10 @@ vignettes and obtaining additional information.
 literacy.  
 The current version (0.3.0, as of Mar. 22, 2021) is under active
 development. Its primary designers are [Hansjörg
-Neth](https://www.spds.uni-konstanz.de/hans-neth/), [Felix
-Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer/), [Nico
-Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl/), and
-[Wolfgang
-Gaissmaier](https://www.spds.uni-konstanz.de/wolfgang-gaissmaier/), who
+Neth](https://www.spds.uni-konstanz.de/hans-neth), [Felix
+Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), [Nico
+Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and [Wolfgang
+Gaissmaier](https://www.spds.uni-konstanz.de/wolfgang-gaissmaier), who
 are researchers at the department of [Social Psychology and Decision
 Sciences](https://www.spds.uni-konstanz.de/) at the [University of
 Konstanz](https://www.uni-konstanz.de/en/), Germany.
@@ -692,11 +691,11 @@ available:
 | Type:                            | Version:                                                     | URL:                                        |
 | :------------------------------- | :----------------------------------------------------------- | :------------------------------------------ |
 | A. **riskyr** (R package):       | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
-|                                  | [Development version](https://github.com/hneth/riskyr/)      | <https://github.com/hneth/riskyr>           |
-| B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org/)                         | <http://riskyr.org>                         |
-|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <https://github.com/hneth/riskyrApp>        |
-| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <https://hneth.github.io/riskyr>            |
-|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <https://hneth.github.io/riskyr/dev>        |
+|                                  | [Development version](https://github.com/hneth/riskyr/)      | <https://github.com/hneth/riskyr/>          |
+| B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org/)                         | <http://riskyr.org/>                        |
+|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <https://github.com/hneth/riskyrApp/>       |
+| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <https://hneth.github.io/riskyr/>           |
+|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <https://hneth.github.io/riskyr/dev/>       |
 
 ### Contact
 
