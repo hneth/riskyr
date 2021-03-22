@@ -126,8 +126,8 @@ devtools::install_github('hneth/riskyr')
 
 ### Available resources
 
-  - An **interactive online version** can be used at
-    <http://riskyr.org>.
+  - An **interactive online version** is available at
+    <http://riskyr.org/>.
 
   - The **package documentation** is available online:
     
@@ -691,18 +691,18 @@ available:
 | Type:                            | Version:                                                     | URL:                                        |
 | :------------------------------- | :----------------------------------------------------------- | :------------------------------------------ |
 | A. **riskyr** (R package):       | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr> |
-|                                  | [Development version](https://github.com/hneth/riskyr)       | <https://github.com/hneth/riskyr>           |
-| B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org)                          | <http://riskyr.org>                         |
-|                                  | [Development version](https://github.com/hneth/riskyrApp)    | <https://github.com/hneth/riskyrApp>        |
-| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr)            | <https://hneth.github.io/riskyr>            |
-|                                  | [Development version](https://hneth.github.io/riskyr/dev)    | <https://hneth.github.io/riskyr/dev>        |
+|                                  | [Development version](https://github.com/hneth/riskyr/)      | <https://github.com/hneth/riskyr>           |
+| B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org/)                         | <http://riskyr.org>                         |
+|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <https://github.com/hneth/riskyrApp>        |
+| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <https://hneth.github.io/riskyr>            |
+|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <https://hneth.github.io/riskyr/dev>        |
 
 ### Contact
 
 We appreciate your feedback, comments, or questions.
 
   - Please report any **riskyr**-related issues at
-    <https://github.com/hneth/riskyr/issues>.
+    <https://github.com/hneth/riskyr/issues/>.
 
   - Contact us at <contact.riskyr@gmail.com> with any comments,
     questions, or suggestions.
