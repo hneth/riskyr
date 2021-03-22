@@ -23,7 +23,7 @@
 <!-- riskyr logo: -->
 
 <!-- 
-<a href = "https://github.com/hneth/riskyr">
+<a href = "https://github.com/hneth/riskyr/">
 <img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
 </a> 
 -->
@@ -712,7 +712,7 @@ We appreciate your feedback, comments, or questions.
 
 <!-- riskyr logo: -->
 
-<a href = "https://github.com/hneth/riskyr">
+<a href = "https://github.com/hneth/riskyr/">
 <img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
 </a>
 <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->

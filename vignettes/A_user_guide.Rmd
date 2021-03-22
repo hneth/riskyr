@@ -33,7 +33,7 @@ Decades of research on probabilistic reasoning and risk literacy have shown that
 <!-- On riskyr: -->
 
 <!-- riskyr logo: -->  
-<a href="https://github.com/hneth/riskyr">
+<a href="https://github.com/hneth/riskyr/">
 <img src = "../inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 125px; float: right; border:20;"/>
 </a>
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
@@ -190,7 +190,7 @@ Incidentally, the reformulation in terms of frequencies protected us from errone
 Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer & Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to _cope_ with tricky problems, it would be even more desirable to _actually understand_ the interplay between probabilities and frequencies in risk-related tasks and domains. This is where **riskyr** comes into play.^[Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. **riskyr** extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.] 
 
 <!-- riskyr logo: -->  
-<a href="https://github.com/hneth/riskyr">
+<a href="https://github.com/hneth/riskyr/">
 <img src = "../inst/pix//riskyr_cube.png" alt = "riskyr" style = "width: 125px; float: right; border:20;"/>
 </a>
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
@@ -655,7 +655,7 @@ We appreciate your feedback, comments, or questions.
 ## All riskyr vignettes
 
 <!-- riskyr logo: -->
-<a href="https://github.com/hneth/riskyr">
+<a href="https://github.com/hneth/riskyr/">
 <img src = "../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"/>
 </a>
 

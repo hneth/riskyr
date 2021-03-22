@@ -27,7 +27,7 @@ op <- par(no.readonly = TRUE)
 
 <!-- riskyr logo: -->  
 
-<a href="https://github.com/hneth/riskyr">
+<a href="https://github.com/hneth/riskyr/">
 <img src = "../inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 125px; float: right; border:20;"/>
 </a>
 <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> 
@@ -461,7 +461,7 @@ We appreciate your feedback, comments, or questions.
 ## All riskyr vignettes
 
 <!-- riskyr logo: -->
-<a href="https://github.com/hneth/riskyr">
+<a href="https://github.com/hneth/riskyr/">
 <img src = "../inst/pix/riskyr_cube.png" alt = "riskyr" style = "width: 125px; float: right; border:20;"/>
 </a>
 
