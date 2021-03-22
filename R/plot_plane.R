@@ -5,10 +5,9 @@
 ## (i.e., generalization of the former plot_PV3d.R).
 ## -----------------------------------------------
 
-## Plot a 3d-plane of what (e.g., PPV, NPV, ...)
-## (using persp):
+## Plot a 3d-plane of what (e.g., PPV, NPV, etc., using persp):
 
-## plot_plane: Documentation ----------
+## plot_plane: Documentation ------
 
 #' Plot a plane of selected values (e.g., PPV or NPV)
 #' as a function of sensitivity and specificity.
@@ -129,17 +128,17 @@
 #' plot_plane(what = "ppod") # => plane of ppod
 #' plot_plane(what = "acc")  # => plane of acc
 #'
-#' # Plane without points or multiple points:
-#' plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")             # plane with 0 points
+#' # Plane with/out points:
+#' # plot_plane(prev = .5, sens = NA, spec = NA, what = "ppv")           # plane with 0 points
 #' plot_plane(prev = .5, sens = c(.2, .5, .8), spec = .6, what = "npv")  # plane with 3 points
 #'
-#' # Zooming into specific sens and spec ranges:
-#' plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9))  # default ranges
+#' # Zooming into sens and spec ranges:
+#' # plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9))  # default ranges
 #' plot_plane(prev = .02, sens = c(.8, .9), spec = c(.8, .8, .9, .9),
 #'            sens_range = c(.7, 1), spec_range = c(.7, 1), step_size = .02)  # zooming in
 #'
-#' # Other options:
-#' plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
+#' # Options:
+#' # plot_plane(title_lbl = "No point and smaller labels", show_points = FALSE, cex_lbl = .60)
 #'
 #' plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
 #' plot_plane(title_lbl = "Testing b/w plot", what = "npv", what_col = "white", line_col = "black")
@@ -147,7 +146,7 @@
 #'
 #' plot_plane(step_size = .333, what_col = "firebrick")    # => coarser granularity + color
 #' plot_plane(step_size = .025, what_col = "chartreuse4")  # => finer granularity + color
-#' plot_plane(what_col = "steelblue4", theta = -90, phi = 50)   # => rotated, from above
+#' plot_plane(what_col = "steelblue4", theta = -90, phi = 50)  # => rotated, from above
 #'
 #' @family visualization functions
 #'
@@ -173,7 +172,7 @@
 #'
 #' @export
 
-## plot_plane: Definition ----------
+## plot_plane: Definition ------
 
 plot_plane <- function(prev = num$prev,             # probabilities (3 essential, 2 optional)
                        sens = num$sens, mirt = NA,
@@ -209,7 +208,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                        ...                 # other (graphical) parameters
 ) {
 
-  ## Prepare parameters: ----------
+  ## Prepare parameters: ------
 
   opar <- par(no.readonly = TRUE)  # all par settings that can be changed.
   on.exit(par(opar))  # par(opar)  # restore original settings
@@ -218,7 +217,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   n_sens <- length(sens)  # == 1 for NA or 1 value; but also allowing vectors > 1.
   n_spec <- length(spec)
 
-  ## (0) Collect or compute current probabilities: ----------
+  ## (0) Collect or compute current probabilities: ------
 
   if ((n_sens == 1) && !is.na(sens) &&  # Standard case A: 1 non-NA sens value provided:
       (n_spec == 1) && !is.na(spec) &&  # Standard case B: 1 non-NA spec value provided:
@@ -226,14 +225,14 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
     ## (1) A provided set of probabilities is valid:
 
-    ## (a) Compute the complete quintet of probabilities:
+    # (a) Compute the complete quintet of probabilities:
     prob_quintet <- comp_complete_prob_set(prev, sens, mirt, spec, fart)
     sens <- prob_quintet[2] # gets sens (if not provided)
     mirt <- prob_quintet[3] # gets mirt (if not provided)
     spec <- prob_quintet[4] # gets spec (if not provided)
     fart <- prob_quintet[5] # gets fart (if not provided)
 
-    ## (b) Compute LOCAL [freq and] prob based on current parameters (N and probabilities):
+    # (b) Compute LOCAL [freq and] prob based on current parameters (N and probabilities):
     # freq <- comp_freq(prev = prev, sens = sens, spec = spec, N = N, round = round)  # compute freq (default: round = TRUE)
     prob <- comp_prob_prob(prev = prev, sens = sens, spec = spec)
 
@@ -241,24 +240,21 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                 ((n_spec == 1) && is.na(spec)) ) &&  # Case 2a_2:  NO spec value provided)
               !is.na(prev) && is_prob(prev) ) {      #    AND a valid prev value provided:
 
-    ## (2a) No sens or no spec value was provided, but prev value is valid:
+    # (2a) No sens or no spec value was provided, but prev value is valid:
 
     message("No sens or no spec value provided: Plotting plane without points.")
 
     # No point probabilities:
     show_points <- FALSE
 
-
   } else if ( ( ((n_sens > 1) && all(is_prob(sens)) && all(is_prob(spec))) ||     # Case 2b_1: One or more sens values provided AND
                 ((n_spec > 1) && all(is_prob(spec)) && all(is_prob(sens)))  ) &&  # Case 2b_2: One or more spec values provided:
               !is.na(prev) && is_prob(prev) ) {                         #    AND a valid prev value provided:
 
-    ## (2b) Multiple sens/spec combinations were provided:
-
+    # (2b) Multiple sens/spec combinations were provided:
     if (show_points) {
       message("Multiple sens/spec values provided: Plotting multiple points on plane.")
     }
-
 
   } else {
 
@@ -285,9 +281,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   p_lbl_sep <- " = "  # separator for probability point labels (p_lbl)
 
 
-  ## (2) Interpret what argument: ----------
+  ## (2) Interpret what argument: ------
 
-  ## (a) handle NULL case (not needed to handle NA):
+  # (a) handle NULL case (not needed to handle NA):
   if ( is.null(what) ) { what <- NA }  # NULL case: NA/"no"/"nil"/"nada" yield same result.
 
   # (b) express what in lowercase:
@@ -303,7 +299,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   #   what <- c("ppv")
   # }
 
-  ## (e) change invalid what options:
+  # (e) change invalid what options:
   if ((what %in%  c("ppv", "npv", "acc", "ppod")) == FALSE) {
     message("Invalid what argument: Plotting PPV plane instead.")
     what <- "ppv"
@@ -313,7 +309,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   ## Colors: ------
 
-  # Set plot background color:
   par(bg = col_pal[["bg"]])  # col_pal[["bg"]] / "white" / NA (for transparent background)
 
   ## (A) Define margin areas: ------
@@ -376,9 +371,9 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   spec_values <- seq(spec_min, spec_max, by = step_size)  # range of spec values (on y axis)
 
 
-  ## (2) Determine current parameters and matrix for selected what metric: ----------
+  ## (2) Determine current parameters and matrix for selected what metric: ------
 
-  ## (a) PPV: ------
+  # (a) PPV: ------
 
   if (what == "ppv") {
 
@@ -400,7 +395,6 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
       # automatic label:
       cur_lbl <- label_prob(pname = "PPV", lbl_type = p_lbl, lbl_sep = p_lbl_sep, cur_prob = prob) # automatic label
     }
-
 
     type_lbl <- "Probability plane of positive predictive values (PPV)"
 
@@ -427,7 +421,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   } # if (what == "ppv")...
 
 
-  ## (b) NPV: ------
+  # (b) NPV: ------
 
   if (what == "npv") {
 
@@ -475,7 +469,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   } # if (what == "npv")...
 
 
-  ## (c) ppod: ------
+  # (c) ppod: ------
 
   if (what == "ppod") {
 
@@ -527,8 +521,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   } # if (what == "ppod")...
 
-
-  ## (d) acc: ------
+  # (d) acc: ------
 
   if (what == "acc") {
 
@@ -611,8 +604,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
                  lwd = line_wd  # width of border and axes lines
   )
 
-
-  ## (5) Add cur_val as point(s) to plot: ----------
+  ## (5) Add cur_val as point(s) to plot: ------
 
   if ( show_points &&
        all(sens >= sens_min) && all(sens <= sens_max) &&   # sens in sens_range
@@ -638,8 +630,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 
   }
 
-
-  ## (6) Title: ----------
+  ## (6) Title: ------
 
   # Define parts:
   if (nchar(title_lbl) > 0) { title_lbl <- paste0(title_lbl, ":\n") }  # put on top (in separate line)
@@ -656,9 +647,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
   # Plot title:
   title(cur_title_lbl, adj = 0, line = 0, font.main = 1, cex.main = 1.2)  # (left, not raised, normal font)
 
-
-
-  ## (7) Margin text: ----------
+  ## (7) Margin text: ------
 
   if (mar_notes) {
 
@@ -686,8 +675,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 } # plot_plane end.
 
 
-## Check: ----------
-
+## Check:
 # # Basics:
 # plot_plane()  # => current defaults (what = "PPV")
 # plot_plane(what = "PPV")  # => plane of PPV
@@ -704,6 +692,7 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 # plot_plane(title_lbl = "Testing plot options")
 # plot_plane(title_lbl = "Testing plot colors", what_col = "royalblue4", line_col = "sienna2")
 # plot_plane(title_lbl = "Testing plot in b/w", what_col = "white", line_col = "black")
+
 
 ## Note: ----------
 
@@ -730,118 +719,11 @@ plot_plane <- function(prev = num$prev,             # probabilities (3 essential
 # #' Default: \code{shade = .25}.
 
 
-## OLDER function (2 in 1 plot): ----------
-
-{
-
-  # ## Plot both PPV and NPV planes in 2 adjacent plots
-  # ## (combined into 1 plot):
-  # plot.PV.planes <- function(env, show.PVpoints = TRUE,
-  #                            theta = -45, phi = 0, # persp() parameters [adjustable by user inputs]
-  #                            d = 1.5, expand = 1.1, ltheta = 200, shade = .25 # persp() parameters [fixed]
-  # ) {
-  #
-  #   ## Current environment parameters:
-  #   name <- env$name
-  #   N    <- env$N
-  #   prev <- env$prev
-  #   sens <- env$sens
-  #   spec <- env$spec
-  #   source <- env$source
-  #
-  #   ## Current PPV and NPV values and labels:
-  #   ## (a) from current data:
-  #   # cur.PPV <- data$PPV # get.PPV(prev, sens, spec)
-  #   # cur.NPV <- data$NPV # get.NPV(prev, sens, spec)
-  #   # cur.PPV.label <- data$PPV.label # paste0("PPV = ", as_pc(cur.PPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.PPV), "%)")
-  #   # cur.NPV.label <- data$NPV.label # paste0("NPV = ", as_pc(cur.NPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.NPV), "%)")
-  #   ## (b) Compute from scratch:
-  #   cur.PPV <- comp_PPV(prev, sens, spec) # data()$PPV
-  #   cur.NPV <- comp_NPV(prev, sens, spec) # data()$NPV
-  #   cur.PPV.label <- paste0("PPV = ", as_pc(cur.PPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.PPV), "%)")
-  #   cur.NPV.label <- paste0("NPV = ", as_pc(cur.NPV), "%") # paste0("(", as_pc(prev), "%; ", as_pc(cur.NPV), "%)")
-  #
-  #   ## Ranges on x- and y-axes:
-  #   sens_values <- seq(0.0, 1.0, by = .05) # range of sensitivity values
-  #   spec_values <- seq(0.0, 1.0, by = .05) # range of specificity values
-  #
-  #   ## Compute PPV and NPV matrices:
-  #   PPV.mat <- comp_prob_matrix(prev, sens_values, spec_values, metric = "PPV")
-  #   NPV.mat <- comp_prob_matrix(prev, sens_values, spec_values, metric = "NPV")
-  #
-  #   ## Graph parameters:
-  #   x <- sens_values
-  #   y <- spec_values
-  #   z.ppv <- as.matrix(PPV.mat)
-  #   z.npv <- as.matrix(NPV.mat)
-  #   z_lim <- c(0, 1) # range of z-axis
-  #   # cur.par.label <- paste0("(",
-  #   #                         "prev = ", as_pc(prev), "%, ",
-  #   #                         "sens = ", as_pc(sens), "%, ",
-  #   #                         "spec = ", as_pc(spec), "%)")
-  #   cur.par.label <- paste0("(prev = ", as_pc(prev), "%)")
-  #
-  #   # Plot 2 plots (adjacent to each other):
-  #   {
-  #
-  #     ## Define special graphic settings:
-  #     par(mfrow = c(1, 2)) # Combine 2 plots in 1 row x 2 columns:
-  #     par(bg = "white")
-  #
-  #     ## 3D plot for PPV:
-  #     p.ppv <- persp(x, y, z.ppv,
-  #                    theta = theta, phi = phi,  d = d, expand = expand,
-  #                    col = col.ppv, border = NA, # col.ppv, col.orange.1,
-  #                    ltheta = ltheta, shade = shade,
-  #                    ticktype = "detailed", nticks = 6,
-  #                    xlab = "sens", ylab = "spec", zlab = "PPV", zlim = z_lim,
-  #                    main = paste0(cur.PPV.label, "\n", cur.par.label)
-  #     )
-  #
-  #     if (show.PVpoints) { # add cur.PPV to plot:
-  #       pmat <- p.ppv
-  #       add.PPV <- trans3d(sens, spec, cur.PPV, pmat)
-  #       points(add.PPV, pch = 21, col = "grey88", bg = col.ppv, lwd = 1.0, cex = 1.3)
-  #     }
-  #
-  #     ## 3D plot for NPV:
-  #     p.npv <- persp(x, y, z.npv,
-  #                    theta = theta, phi = phi,  d = d, expand = expand,
-  #                    col = col.npv, border = NA, # col.npv, col.blue.1,
-  #                    ltheta = ltheta, shade = shade,
-  #                    ticktype = "detailed", nticks = 6,
-  #                    xlab = "sens", ylab = "spec", zlab = "NPV", zlim = z_lim,
-  #                    main = paste0(cur.NPV.label, "\n", cur.par.label)
-  #     )
-  #
-  #     if (show.PVpoints) { # add cur.NPV to plot:
-  #       pmat <- p.npv
-  #       add.NPV <- trans3d(sens, spec, cur.NPV, pmat)
-  #       points(add.NPV, pch = 21, col = "grey88", bg = col.npv, lwd = 1.0, cex = 1.3)
-  #     }
-  #
-  #     ## Remove special graphic settings:
-  #     par(mfrow = c(1, 1))
-  #   }
-  #
-  # }
-  #
-  # ## Check:
-  # # plot.PV.planes(env, show.PVpoints = TRUE)
-
-}
-
-
 ## (*) Done: ----------
-
-# - Update options (to use global variables col_pal, lbl_txt etc.)
-# - Update title composition and mar_notes option.
-# - Add point_col and min/max of step_size range.
 
 # Planes no longer need specific sens+spec values:  [2019 01 22]
 # - allowed computing planes without specific sens+spec values
 # - allowed supplying a vector of sens+spec values (and corresponding labels) to show multiple points on plane.
-
 
 ## (+) ToDo: ----------
 

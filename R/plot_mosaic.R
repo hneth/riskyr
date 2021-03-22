@@ -3,7 +3,7 @@
 ## Deprecated function: Using plot_area instead.
 ## -----------------------------------------------
 
-## plot_mosaic: Documentation ----------
+## plot_mosaic: Documentation ------
 
 #' Plot a mosaic plot of population frequencies.
 #'
@@ -53,7 +53,7 @@
 #'
 #' @export
 
-## plot_mosaic: Definition ----------
+## plot_mosaic: Definition ------
 
 plot_mosaic <- function(prev = num$prev,             # probabilities
                         sens = num$sens, mirt = NA,
