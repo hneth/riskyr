@@ -3,32 +3,31 @@
 ## plot_icons: Plot a variety of icon arrays.
 ## -----------------------------------------------
 
-# Preparation:------------------------------------
+# Preparation: -----------------------------------
 
 # Note: The final function needs:
-# - A vector of identities (colors.)
-#   This can be obtained in different ways (e.g., calculation by respective function)
-# - the vector of positions (to be generated according to version.)
-# - the number of blocks.
+# - A vector of identities (colors).
+#   This can be obtained in different ways (e.g., calculation by respective function):
+# - the vector of positions (generated according to version)
+# - the number of blocks
 # - the size for the icons (cex)
-# - etc.?
 
 # Plotting symbols: -----
 
 # Note: An icon array is equivalent to an ordered (position constrained) scatterplot.
 # All variants display the population concerning some property.
 
-# (A) Distinguish 4 types:
-#  1. Random position, random colors (typical scatterplot)
-#  2. Random position, clustered colors (clustered scatterplot?)
-#  3. Fixed positions (sample of positions constrained), random colors (random icon array)
-#  4. Fixed positions, clustered colors (typical icon array)
+# (A) 4 types:
+#  1. random position, random colors (typical scatterplot)
+#  2. random position, clustered colors (clustered scatterplot?)
+#  3. fixed positions (sample of positions constrained), random colors (random icon array)
+#  4. fixed positions, clustered colors (typical icon array)
 
 # (B) 2 dimensions:
-#  1. Position
-#  2. Identity
+#  1. position
+#  2. identity
 
-# (C) Translating these dimensions into code:
+# (C) Code:
 
 ## plot_icons Documentation: ----------
 
@@ -197,7 +196,6 @@
 #' @return Nothing (NULL).
 #'
 #' @examples
-#' # ways to work:
 #' plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
 #' plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
 #'
@@ -215,23 +213,11 @@
 #' plot_icons(N = 1000, by = "ac", title_lbl = "Cases by accuracy")   # (hi + cr) vs. (fa + mi)
 #'
 #' # Custom icon types and colors:
-#' plot_icons(N = 600, by = "all", col_pal = pal_bwp) # by all: 4 symbol types
-#' plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-#'            icon_types = c(21, 23, 24, 23),
-#'            block_size_row = 10, block_size_col = 5,
-#'            nblocks_row = 5, nblocks_col = 5,
-#'            block_d = 0.8, border_d = 0.2,
-#'            fill_array = "top")
-#'
-#' # variants:
 #' plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
 #'            block_d = 0.5, border_d = 0.5, col_pal = pal_vir)
 #'
 #' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
 #'            block_d = 0.5, border_d = 0.5)
-#'
-#' plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
-#'            icon_brd_col = grey(.33, .99), icon_brd_lwd = 3, cex_lbl = 1.2)
 #'
 #' plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
 #'            icon_brd_lwd = .5, cex = 1, cex_lbl = 1.1)
@@ -1127,9 +1113,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 } # plot_icons end.
 
 
-## Check: ----------
-
-# # ways to work:
+## Check: -------
 # plot_icons()  # => plots icon array for default population (with default arr_type = "array")
 # plot_icons(arr_type = "shuffledarray")  # => icon array with shuffled IDs
 #
@@ -1144,7 +1128,6 @@ plot_icons <- function(prev = num$prev,             # probabilities
 # plot_icons(arr_type = "filltop",   N = 1000)  # => icons filled from top to bottom (in rows)
 #
 # plot_icons(arr_type = "scatter",   N = 1000)  # => icons randomly scattered.
-#
 
 # plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
 #                icon_types = c(21,23,24,23),
@@ -1169,9 +1152,7 @@ plot_icons <- function(prev = num$prev,             # probabilities
 
 ## (*) Done: ----------
 
-## - Use default txt and pal arguments.   [2018 11 25]
-## - Use default title and margin (mar_notes) options.
-
+## - etc.
 
 ## (+) ToDo: ----------
 
