@@ -201,7 +201,6 @@ By default, \code{\link{comp_freq}} rounds frequencies to nearest integers
 to avoid decimal values in \code{\link{freq}}.
 }
 \examples{
-# ways to work:
 plot_icons(N = 1000)  # icon array with default settings (arr_type = "array")
 plot_icons(arr_type = "shuffledarray", N = 1000)  # icon array with shuffled IDs
 
@@ -219,23 +218,11 @@ plot_icons(N = 1000, by = "dc", title_lbl = "Cases by decision")   # (hi + fa) v
 plot_icons(N = 1000, by = "ac", title_lbl = "Cases by accuracy")   # (hi + cr) vs. (fa + mi)
 
 # Custom icon types and colors:
-plot_icons(N = 600, by = "all", col_pal = pal_bwp) # by all: 4 symbol types
-plot_icons(N = 1250, sens = 0.9, spec = 0.9, prev = 0.9,
-           icon_types = c(21, 23, 24, 23),
-           block_size_row = 10, block_size_col = 5,
-           nblocks_row = 5, nblocks_col = 5,
-           block_d = 0.8, border_d = 0.2,
-           fill_array = "top")
-
-# variants:
 plot_icons(N = 800, arr_type = "array", icon_types = c(21, 22, 23, 24),
            block_d = 0.5, border_d = 0.5, col_pal = pal_vir)
 
 plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
            block_d = 0.5, border_d = 0.5)
-
-plot_icons(N = 800, arr_type = "shuffledarray", icon_types = c(21, 23, 24, 22),
-           icon_brd_col = grey(.33, .99), icon_brd_lwd = 3, cex_lbl = 1.2)
 
 plot_icons(N = 800, arr_type = "fillequal", icon_types = c(21, 22, 22, 21),
            icon_brd_lwd = .5, cex = 1, cex_lbl = 1.1)

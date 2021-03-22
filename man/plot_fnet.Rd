@@ -226,19 +226,19 @@ plot_fnet()  # default frequency net, same as:
 #            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)
 
 # B. Providing values:
-plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9) # Binder et al. (2020, Fig. 3)
+plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9)  # Binder et al. (2020, Fig. 3)
 
 # Variants:
 plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "cdac")
 plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dccd")
-plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dcac")
-plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")
-plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")
+# plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dcac")
+# plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")
+# plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")
 
 # Trees (only 1 dimension):
 plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "cd")
-plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dc")
-plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "ac")
+# plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dc")
+# plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "ac")
 
 # Area and margin notes:
 plot_fnet(N = 10, prev = 1/4, sens = 3/5, spec = 2/5, area = "sq", mar_notes = TRUE)
@@ -285,41 +285,41 @@ plot_fnet(N = 7, prev = 1/2, sens = 3/5, spec = 4/5, round = FALSE,
           by = "cdac", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n",
           f_lwd = 1, col_pal = pal_rgb)  # custom colors
 
-plot_fnet(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",  # note scale!
-          by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1) # custom colors
+# plot_fnet(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",   # Note scale!
+#           by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1)  # custom colors
 
-plot_fnet(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",                 # note scale!
+plot_fnet(N = 3, prev = .50, sens = .50, spec = .50, scale = "p",              # Note scale!
           area = "sq", lbl_txt = txt_org, f_lbl = "namnum", f_lbl_sep = ":\n", # custom text
           col_pal = pal_kn, f_lwd = .5)                                        # custom colors
 
 # (4) Other options: ----
 plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
           area = "sq", scale = "p")  # areas scaled by prob (matters for small N)
-plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
-          area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
+# plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,
+#           area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 
 ## Frequency boxes (f_lbl):
-# plot_fnet(f_lbl = NA)      # no freq labels
-plot_fnet(f_lbl = "abb")     # abbreviated freq names (variable names)
-plot_fnet(f_lbl = "nam")     # only freq names
-plot_fnet(f_lbl = "num")     # only numeric freq values (default)
-plot_fnet(f_lbl = "namnum")  # names and numeric freq values
+# plot_fnet(f_lbl = NA)       # no freq labels
+# plot_fnet(f_lbl = "abb")    # abbreviated freq names (variable names)
+plot_fnet(f_lbl = "nam")      # only freq names
+plot_fnet(f_lbl = "num")      # only numeric freq values (default)
+# plot_fnet(f_lbl = "namnum") # names and numeric freq values
 plot_fnet(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
-plot_fnet(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
+# plot_fnet(f_lbl = "def")    # informative default: short name and numeric value (abb = num)
 
 # f_lwd:
 # plot_fnet(f_lwd =  1)  # basic lines
 # plot_fnet(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
-plot_fnet(f_lwd = .5)    # thinner lines
+# plot_fnet(f_lwd = .5)  # thinner lines
 plot_fnet(f_lwd =  3)    # thicker lines
 
 ## Probability links (p_lbl, p_lwd, p_scale):
-# plot_fnet(p_lbl = NA)      # no prob labels (NA/NULL/"none")
-plot_fnet(p_lbl = "mix")     # abbreviated names with numeric values (abb = num)
-plot_fnet(p_lbl = "min")     # minimal names (of key probabilities)
-plot_fnet(p_lbl = "nam")     # only prob names
-plot_fnet(p_lbl = "num")     # only numeric prob values
-plot_fnet(p_lbl = "namnum")  # names and numeric prob values
+# plot_fnet(p_lbl = NA)       # no prob labels (NA/NULL/"none")
+plot_fnet(p_lbl = "mix")      # abbreviated names with numeric values (abb = num)
+# plot_fnet(p_lbl = "min")    # minimal names (of key probabilities)
+# plot_fnet(p_lbl = "nam")    # only prob names
+plot_fnet(p_lbl = "num")      # only numeric prob values
+# plot_fnet(p_lbl = "namnum") # names and numeric prob values
 
 plot_fnet(p_lwd = 6, p_scale = TRUE)
 plot_fnet(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
@@ -327,11 +327,11 @@ plot_fnet(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p
 # arr_c:
 # plot_fnet(arr_c =  0)  # acc_c = 0: no arrows
 # plot_fnet(arr_c = -3)  # arr_c = -1 to -3: points at both ends
-plot_fnet(arr_c = -2)    # point at far end
+# plot_fnet(arr_c = -2)  # point at far end
 plot_fnet(arr_c = +2)    # crr_c = 1-3: V-shape arrows at far end
 
-plot_fnet(by = "cd", joint_p = FALSE)   # tree with hidden joint probability links
-plot_fnet(by = "cddc", joint_p = FALSE) # fnet ...
+plot_fnet(by = "cd", joint_p = FALSE)      # tree without joint probability links
+# plot_fnet(by = "cddc", joint_p = FALSE)  # fnet ...
 
 ## Plain plot versions:
 plot_fnet(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 1,
@@ -339,15 +339,15 @@ plot_fnet(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd = 
 plot_fnet(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
 
 plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "num", col_pal = pal_rgb)
-plot_fnet(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
+# plot_fnet(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:
 # plot_fnet(f_lbl = "nam", p_lbl = "mix")  # basic plot
 plot_fnet(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
-plot_fnet(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
-          f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
+# plot_fnet(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
+#           f_lwd = .8, p_lwd = .8, lty = 2, col_pal = pal_bwp)  # black-&-white
 
-plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF, col_pal = pal_bw)
+# plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF, col_pal = pal_bw)
 plot_fnet(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "num", f_lwd = .5, col_pal = pal_rgb)
 
