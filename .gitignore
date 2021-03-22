@@ -69,16 +69,16 @@ data-raw
 desktop.ini
 
 # OLDER STUFF:
+inst/doc
+riskyrApp-master
+testing_package_private
 test_loadingPackage.R
 test_cex_private
 test.pdf
 mat.txt
-inst/doc
-testing_package_private
 dev_general_temp.R
 table_object_dev.R
 understandInputModel.Rmd
 understandInputModel.html
-riskyrApp-master
 
 ## eof.
