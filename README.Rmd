@@ -488,13 +488,13 @@ If so, call `riskyr.guide()` for viewing the package vignettes and obtaining add
 </a>
 
 **riskyr** originated out of a series of lectures and workshops on risk literacy.  
-The current version (0.2.0, as of Dec. 20, 2018) is under active development. 
+The current version (0.3.0, as of Mar. 22, 2021) is under active development. 
 Its primary designers are 
-[Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth), 
-[Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer), 
-[Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl), and 
-[Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier), who are researchers at the department of 
-[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de) at the 
+[Hansjörg Neth](https://www.spds.uni-konstanz.de/hans-neth/), 
+[Felix Gaisbauer](https://www.spds.uni-konstanz.de/felix-gaisbauer/), 
+[Nico Gradwohl](https://www.spds.uni-konstanz.de/nico-gradwohl/), and 
+[Wolfgang Gaissmaier](https://www.spds.uni-konstanz.de/wolfgang-gaissmaier/), who are researchers at the department of 
+[Social Psychology and Decision Sciences](https://www.spds.uni-konstanz.de/) at the 
 [University of Konstanz](https://www.uni-konstanz.de/en/), Germany. 
 
 The **riskyr** package is open source software written in [R](https://www.r-project.org/) and released under the 
