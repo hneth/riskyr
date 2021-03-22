@@ -236,22 +236,22 @@ plot_prism(by = "ac", f_lbl = "def", col_pal = pal_mod) # by accuracy  (freq box
 
 # (B) prism/double tree (nchar(by) == 4):
 #     6 (3 x 2) versions (+ 3 redundant ones):
-plot_prism(by = "cddc")  # v01 (default)
-plot_prism(by = "cdac")  # v02
-plot_prism(by = "cdcd")  # (+) Message
+plot_prism(by = "cddc")    # v01 (default)
+plot_prism(by = "cdac")    # v02
+# plot_prism(by = "cdcd")  # (+) Message
 
-plot_prism(by = "dccd")  # v03
-plot_prism(by = "dcac")  # v04
-plot_prism(by = "dcdc")  # (+) Message
+plot_prism(by = "dccd")    # v03
+plot_prism(by = "dcac")    # v04
+# plot_prism(by = "dcdc")  # (+) Message
 
-plot_prism(by = "accd")  # v05
-plot_prism(by = "acdc")  # v06
-plot_prism(by = "acac")  # (+) Message
+plot_prism(by = "accd")    # v05
+plot_prism(by = "acdc")    # v06
+# plot_prism(by = "acac")  # (+) Message
 
 ## Other options:
 
 # area:
-plot_prism(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)
+# plot_prism(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)
 plot_prism(area = "hr")  # horizontal rectangles (widths on each level sum to N)
 plot_prism(area = "sq")  # squares (areas on each level sum to N)
 
@@ -266,34 +266,30 @@ plot_prism(N = 4, prev = .2, sens = .7, spec = .8,
            area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq
 
 ## Frequency boxes:
-
 # f_lbl:
-plot_prism(f_lbl = "abb")     # abbreviated freq names (variable names)
-plot_prism(f_lbl = "nam")     # only freq names
-plot_prism(f_lbl = "num")     # only numeric freq values (default)
-plot_prism(f_lbl = "namnum")  # names and numeric freq values
-plot_prism(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
-plot_prism(f_lbl = NA)        # no freq labels
-plot_prism(f_lbl = "def")     # informative default: short name and numeric value (abb = num)
+plot_prism(f_lbl = "abb")      # abbreviated freq names (variable names)
+plot_prism(f_lbl = "nam")      # only freq names
+plot_prism(f_lbl = "num")      # only numeric freq values (default)
+plot_prism(f_lbl = "namnum")   # names and numeric freq values
+# plot_prism(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels
+# plot_prism(f_lbl = NA)       # no freq labels
+# plot_prism(f_lbl = "def")    # informative default: short name and numeric value (abb = num)
 
 # f_lwd:
-plot_prism(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
+# plot_prism(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)
 plot_prism(f_lwd =  1)  # basic lines
 plot_prism(f_lwd =  3)  # thicker lines
-plot_prism(f_lwd = .5)  # thinner lines
+# plot_prism(f_lwd = .5)  # thinner lines
 
 ## Probability links:
-
 # Scale link widths (p_lwd & p_scale):
 plot_prism(p_lwd = 6, p_scale = TRUE)
 plot_prism(area = "sq", f_lbl = "num", p_lbl = NA, col_pal = pal_bw, p_lwd = 6, p_scale = TRUE)
-plot_prism(area = "hr", f_lbl = "num", f_lwd = .5, p_lbl = NA, arr_c = 0,
-           col_pal = pal_mod, p_lwd = 6, p_scale = TRUE)
 
 # p_lbl:
 plot_prism(p_lbl = "mix")     # abbreviated names with numeric values (abb = num)
 plot_prism(p_lbl = "min")     # minimal names (of key probabilities)
-plot_prism(p_lbl = NA)        # no prob labels (NA/NULL/"none")
+# plot_prism(p_lbl = NA)      # no prob labels (NA/NULL/"none")
 plot_prism(p_lbl = "nam")     # only prob names
 plot_prism(p_lbl = "num")     # only numeric prob values
 plot_prism(p_lbl = "namnum")  # names and numeric prob values
@@ -320,23 +316,23 @@ plot_prism(area = "no", f_lbl = "def", p_lbl = "num", col_pal = pal_mod, f_lwd =
 plot_prism(area = "no", f_lbl = "nam", p_lbl = "min", col_pal = pal_rgb)
 plot_prism(area = "no", f_lbl = "num", p_lbl = "num", col_pal = pal_kn)
 
-plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
+# plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)
 plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lbl = "num")
 
-plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
+# plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)
 plot_prism(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)
 
 ## Suggested combinations:
 plot_prism(f_lbl = "nam", p_lbl = "mix", col_pal = pal_mod)  # basic plot
 plot_prism(f_lbl = "namnum", p_lbl = "num", cex_lbl = .80, cex_p_lbl = .75)
-plot_prism(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
-           f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
+# plot_prism(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels
+#            f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&-white
 
 plot_prism(area = "hr", f_lbl = "num", p_lbl = "mix", f_lwd = 1, cex_p_lbl = .75)
 plot_prism(area = "hr", f_lbl = "nam", p_lbl = "num", p_lwd = 6, p_scale = TRUE)
 plot_prism(area = "hr", f_lbl = "abb", p_lbl = "abb", f_lwd = 1, col_pal = pal_kn)
 
-plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
+# plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)
 plot_prism(area = "sq", f_lbl = "num", p_lbl = "num", f_lwd = 1, col_pal = pal_rgb)
 plot_prism(area = "sq", f_lbl = "namnum", p_lbl = "mix", f_lwd = .5, col_pal = pal_kn)
 
