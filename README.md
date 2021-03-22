@@ -720,11 +720,11 @@ We appreciate your feedback, comments, or questions.
 
 To cite **riskyr** in derivations and publications please use:
 
-  - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2018).  
+  - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).  
     riskyr: A toolbox for rendering risk literacy more transparent.  
     Social Psychology and Decision Sciences, University of Konstanz,
     Germany.  
-    Computer software (R package version 0.2.0, Dec. 20, 2018).  
+    Computer software (R package version 0.3.0, Mar. 22, 2021).  
     Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
@@ -733,10 +733,10 @@ A BibTeX entry for LaTeX users is:
 @Manual{riskyr,
   title = {riskyr: A toolbox for rendering risk literacy more transparent},
   author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
-  year = {2018},
+  year = {2021},
   organization = {Social Psychology and Decision Sciences, University of Konstanz},
   address = {Konstanz, Germany},
-  note = {R package (version 0.2.0, Dec. 20, 2018)},
+  note = {R package (version 0.3.0, Mar. 22, 2021)},
   url = {https://CRAN.R-project.org/package=riskyr},
   }    
 ```
@@ -834,7 +834,7 @@ information.
 
 <!-- Update: -->
 
-(`README.Rmd` updated on 2021-03-20 by [hn](https://neth.de).)
+(`README.Rmd` updated on 2021-03-22 by [hn](https://neth.de).)
 
 <!-- eof -->
 
