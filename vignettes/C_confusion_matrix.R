@@ -4,7 +4,11 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library("riskyr")  # load the "riskyr" package
+# URLs:
+url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+
+# Load pkg:
+library("riskyr")
 
 ## ----plot-tab-demo, eval = TRUE, fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Example of a 2x2 confusion table in **riskyr**."----
 ## (1) Plot table from basic input parameters: ----- 

@@ -4,8 +4,13 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## Initialize some stuff:
-library("riskyr")  # loads the package
+# URLs:
+url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+
+# Load pkg:
+library("riskyr")
+
+# init:
 op <- par(no.readonly = TRUE)
 
 ## ----load-riskyr, message = FALSE---------------------------------------------

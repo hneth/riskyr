@@ -4,6 +4,9 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+# URLs:
+url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+
 ## ----comp-PPV, messages = FALSE, warning = FALSE------------------------------
 library("riskyr")  # loads the package
 

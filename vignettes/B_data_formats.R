@@ -4,6 +4,9 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+# URLs:
+url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+
 ## ----prism-plot-1, message = FALSE, fig.width = 6, fig.height = 5, fig.show = 'asis', fig.cap = "A prism plot showing frequencies as nodes and probabilities as edges linking nodes."----
 library("riskyr") # load the "riskyr" package
 

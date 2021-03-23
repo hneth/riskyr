@@ -4,7 +4,11 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library("riskyr")  # load the "riskyr" package
+# URLs:
+url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+
+# Load pkg:
+library("riskyr")
 
 ## ----plot-curve-1, fig.align = "center", fig.width = 6, fig.height = 4.5, fig.show = 'hold', fig.cap = "Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario."----
 plot_curve(prev = .01, sens = .80, spec = (1 - .096), 
