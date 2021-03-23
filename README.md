@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please only edit this (.Rmd) file! -->
+
 <!-- Used status badges: -->
 
 [![CRAN\_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
@@ -14,18 +15,23 @@
 [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr/) 
 
 -->
+
 <!-- riskyr logo: -->
 
 # riskyr <img src = "./inst/pix/logo.png" align = "right" alt = "riskyr" width = "160" />
 
 <!-- riskyr logo: -->
+
 <!-- 
 <a href = "https://github.com/hneth/riskyr/">
 <img alt = "riskyr logo" title = "riskyr" src = "./inst/pix/riskyr_cube.png" width = "180px" align = "right" style = "float:right; border:20; width:180px;"/>
 </a> 
 -->
+
 <!-- <img src = "./inst/pix/riskyr_cube_s.png" alt = "riskyr" align = "right" style = "float: right; border:20;"/> -->
+
 <!-- ![riskyr](./inst/pix/riskyr_cube_s.png) -->
+
 <!-- knitr::include_graphics("./inst/pix/riskyr_cube_s.png") -->
 
 ### A toolbox for rendering risk literacy more transparent
@@ -45,7 +51,7 @@ literacy more transparent.
 ## Motivation
 
 > Solving a problem simply means representing it <br> so as to make the
-> solution transparent. (H.A. Simon)[1]
+> solution transparent. (H.A. Simon)\[1\]
 
 <!-- Risk perception as representational effects: -->
 
@@ -62,9 +68,10 @@ frequencies, **riskyr** allows translating between formats and
 illustrates the relationships between different representations in a
 variety of ways. Switching between and interacting with different
 representations fosters transparency and boosts human understanding of
-risk-related information.[2]
+risk-related information.\[2\]
 
 <!-- Defining "risk" (in footnote): -->
+
 <!-- On "riskyr": -->
 
 The basic assumptions and aspirations driving the current development of
@@ -101,29 +108,32 @@ personal needs and goals.
 
 The current release of **riskyr** is available from
 [CRAN](https://CRAN.R-project.org/) at
-<a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>:
+<https://CRAN.R-project.org/package=riskyr>:
 
-    install.packages('riskyr')  # install riskyr from CRAN client
-    library('riskyr')           # load to use the package
+``` r
+install.packages('riskyr')  # install riskyr from CRAN client
+library('riskyr')           # load to use the package
+```
 
 The current development version can be installed from its
 [GitHub](https://github.com) repository at
-<a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a>:
+<https://github.com/hneth/riskyr/>:
 
-    # install.packages('devtools')
-    devtools::install_github('hneth/riskyr')
+``` r
+# install.packages('devtools')
+devtools::install_github('hneth/riskyr')
+```
 
 ### Available resources
 
--   An **interactive online version** is available at
-    <a href="http://riskyr.org/" class="uri">http://riskyr.org/</a>.
+  - An **interactive online version** is available at
+    [http://riskyr.org/](http://134.34.54.61:3838/spds/riskyr/).
 
--   The **package documentation** is available online:
-
-    -   current release version:
-        <a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a>
-    -   current development version:
-        <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a>
+  - The **package documentation** is available online:
+    
+      - current release version: <https://hneth.github.io/riskyr/>
+      - current development version:
+        <https://hneth.github.io/riskyr/dev/>
 
 ## Quick start guide
 
@@ -131,32 +141,33 @@ The current development version can be installed from its
 
 ### Defining a scenario
 
-**riskyr** is designed to address problems like the following:[3]
+**riskyr** is designed to address problems like the following:\[3\]
 
 <!-- Example: -->
 
 > **Screening for hustosis**
->
+> 
 > A screening device for detecting the clinical condition of *hustosis*
 > is developed. The current device is very good, but not perfect. We
 > have the following information:  
-> 1. About 4% of the people of the general population suffer from
+> 1\. About 4% of the people of the general population suffer from
 > *hustosis*.  
-> 2. If someone suffers from hustosis, there is a chance of 80% that he
+> 2\. If someone suffers from hustosis, there is a chance of 80% that he
 > or she will test positively for the condition.  
-> 3. If someone is free from hustosis, there is a chance of 5% that he
+> 3\. If someone is free from hustosis, there is a chance of 5% that he
 > or she will still test positively for the condition.
->
+> 
 > Mr. and Ms. Smith have both been screened with the device:  
-> - Mr. Smith tested positively (i.e., received a diagnosis of
+> \- Mr. Smith tested positively (i.e., received a diagnosis of
 > hustosis).  
-> - Ms. Smith tested negatively (i.e., was judged to be free of
+> \- Ms. Smith tested negatively (i.e., was judged to be free of
 > hustosis).
->
+> 
 > Please answer the following questions:  
-> - What is the probability that Mr. Smith actually suffers from
+> \- What is the probability that Mr. Smith actually suffers from
 > hustosis?  
-> - What is the probability that Ms. Smith is actually free of hustosis?
+> \- What is the probability that Ms. Smith is actually free of
+> hustosis?
 
 #### Probabilities provided
 
@@ -166,10 +177,10 @@ three essential probabilities:
 
 1.  The condition’s *prevalence* (in the general population) is 4%:
     `prev = .04`.  
-2.  The device’s or diagnostic decision’s *sensitivity* is 80%:
-    `sens = .80`.  
+2.  The device’s or diagnostic decision’s *sensitivity* is 80%: `sens =
+    .80`.  
 3.  The device’s or diagnostic decision’s *false alarm rate* is 5%:
-    `fart = .05`, implying a *specificity* of (100% − 5%) = 95%:
+    `fart = .05`, implying a *specificity* of (100% \(-\) 5%) = 95%:
     `spec = .95`.
 
 #### Understanding the questions asked
@@ -179,32 +190,34 @@ being asked — and in realizing that their answers are *not* simply the
 decision’s sensitivity or specificity values. Instead, we are asked to
 provide two *conditional* probabilities:
 
--   The conditional probability of suffering from the condition given a
+  - The conditional probability of suffering from the condition given a
     positive test result, <br>aka. the *positive predictive value*
     (`PPV`).
--   The conditional probability of being free of the condition given a
+  - The conditional probability of being free of the condition given a
     negative test result, <br>aka. the *negative predictive value*
     (`NPV`).
 
 #### Translating into frequencies
 
 One of the best tricks in risk literacy education is to translate
-probabilistic information into frequencies.[4] To do this, we imagine a
-representative sample of `N = 1000` individuals. Rather than asking
+probabilistic information into frequencies.\[4\] To do this, we imagine
+a representative sample of `N = 1000` individuals. Rather than asking
 about the probabilities for Mr. and Ms. Smith, we could re-frame the
 questions as:
 
 > Assuming a representative sample of 1000 individuals:  
-> - What proportion of individuals with a positive test result actually
+> \- What proportion of individuals with a positive test result actually
 > suffer from hustosis?  
-> - What proportion of individuals with a negative test result are
+> \- What proportion of individuals with a negative test result are
 > actually free of hustosis?
 
 #### Using riskyr
 
 Here is how **riskyr** allows you to view and solve such problems:
 
-    library(riskyr)  # loads the package
+``` r
+library(riskyr)  # loads the package
+```
 
 #### Creating a scenario from probabilities
 
@@ -212,13 +225,15 @@ We define a new **riskyr** scenario (called `hustosis`) by using the
 `riskyr()` function and entering the information provided by our problem
 as its arguments:
 
-    hustosis <- riskyr(scen_lbl = "Example", 
-                       cond_lbl = "Hustosis",
-                       dec_lbl = "Screening",
-                       popu_lbl = "Sample", 
-                       N = 1000,  # population size
-                       prev = .04, sens = .80, spec = (1 - .05)  # 3 probabilities
-                       )
+``` r
+hustosis <- riskyr(scen_lbl = "Example", 
+                   cond_lbl = "Hustosis",
+                   dec_lbl = "Screening",
+                   popu_lbl = "Sample", 
+                   N = 1000,  # population size
+                   prev = .04, sens = .80, spec = (1 - .05)  # 3 probabilities
+                   )
+```
 
 By providing the argument `N = 1000` we define the scenario for a target
 population of 1000 people. If we leave this parameter unspecified (or
@@ -230,16 +245,18 @@ of `N`.
 To obtain a quick overview of key parameter values, we ask for the
 `summary` of `hustosis`:
 
-    summary(hustosis)  # summarizes key parameter values: 
+``` r
+summary(hustosis)  # summarizes key parameter values: 
+```
 
 The summary distinguishes between probabilities, frequencies, and
 accuracy information. In `Probabilities` we find the answer to both of
 our questions that take into account all the information provided above:
 
--   The conditional probability that Mr. Smith actually suffers from
+  - The conditional probability that Mr. Smith actually suffers from
     hustosis given his positive test result is 40% (as `PPV = 0.400`).
 
--   The conditional probability that Ms. Smith is actually free of
+  - The conditional probability that Ms. Smith is actually free of
     hustosis given her negative test result is 99.1% (as `NPV = 0.991`).
 
 If find these answers surprising, you are an ideal candidate for
@@ -257,19 +274,24 @@ probabilities (`prev`, `sens`, and `spec`), we could define the same
 scenario by providing 4 essential frequencies (`hi`, `mi`, `fa`, and
 `cr`) as follows:
 
-    hustosis_2 <- riskyr(scen_lbl = "Example", 
-                         cond_lbl = "Hustosis",
-                         dec_lbl = "Screening",
-                         popu_lbl = "Sample", 
-                         hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
-                         )
+``` r
+hustosis_2 <- riskyr(scen_lbl = "Example", 
+                     cond_lbl = "Hustosis",
+                     dec_lbl = "Screening",
+                     popu_lbl = "Sample", 
+                     hi = 32, mi = 8, fa = 48, cr = 912  # 4 key frequencies
+                     )
+```
 
 As we took the values of these frequencies from the `summary` of
 `hustosis`, the `hustosis_2` scenario should contain exactly the same
-information as `hustosis`:
+information as
+`hustosis`:
 
-    all.equal(hustosis, hustosis_2)  # do both contain the same information? 
-    #> [1] TRUE
+``` r
+all.equal(hustosis, hustosis_2)  # do both contain the same information? 
+#> [1] TRUE
+```
 
 ### Visualizations
 
@@ -282,10 +304,12 @@ The default type of plot used in **riskyr** is a *prism plot* (or
 network diagram) that shows key frequencies of a scenario as nodes and
 key probabilities as edges linking the nodes:
 
-    plot(hustosis)  # default plot
+``` r
+plot(hustosis)  # default plot
 
-    # => internally calls plot_prism(...) with many additional arguments:
-    # plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
+# => internally calls plot_prism(...) with many additional arguments:
+# plot(hustosis, type = "prism", by = "cddc", area = "no", f_lbl = "num", p_lbl = "mix")
+```
 
 ![Prism plot](inst/pix/README-ex1-prism-1.png)
 
@@ -294,16 +318,18 @@ key probabilities as edges linking the nodes:
 A *tree diagram* is the upper half of a prism plot, which can be
 obtained by plotting a scenario with 1 of 3 perspectives:
 
-1.  by condition (`by = "cd"`), to split the population into *TRUE*
-    vs. *FALSE* (`cond_true` vs. `cond_false`) cases;
+1.  by condition (`by = "cd"`), to split the population into *TRUE* vs.
+    *FALSE* (`cond_true` vs. `cond_false`) cases;
 2.  by decision (`by = "dc"`), to split the population into *negative*
-    vs. *positive* (`dec_neg` vs. `dec_pos`) decisions;
+    vs. *positive* (`dec_neg` vs. `dec_pos`) decisions;
 3.  by accuracy (`by = "ac"`), to split the population into *correct*
-    vs. *incorrect* (`dec_cor` vs. `dec_err`) decisions.
+    vs. *incorrect* (`dec_cor` vs. `dec_err`) decisions.
 
 For instance, the following command plots a frequency tree by decisions:
 
-    plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
+``` r
+plot(hustosis, by = "dc")  # plot a tree diagram (by decision)
+```
 
 ![Tree diagram](inst/pix/README-ex1-tree-1.png)
 
@@ -311,12 +337,12 @@ This particular tree splits the population of `N = 1000` individuals
 into two subgroups *by decision* (`by = "dc"`) and contains the answer
 to the second (frequency) version of our questions:
 
--   The proportion of individuals with a positive test result who
+  - The proportion of individuals with a positive test result who
     actually suffer from hustosis is the frequency of “true positive”
     cases (shown in darker green) divided by “decision positive” cases
     (shown in purple): `32/80 = .400` (corresponding to our value of
     `PPV` above).  
--   The proportion of individuals with a negative test result who are
+  - The proportion of individuals with a negative test result who are
     actually free from hustosis is the frequency of “true negative”
     cases (shown in lighter green) divided by “decision negative” cases
     (shown in blue): `912/920 = .991` (corresponding to our value of
@@ -338,8 +364,10 @@ not suggest an order or dependency (in contrast to trees or mosaic
 plots). Additionally, the frequency net allows showing 3 kinds of
 (*marginal*, *conditional*, and *joint*) probabilities:
 
-    plot(hustosis, type = "fnet", by = "cddc",
-         f_lbl = "namnum")  # plot frequency net
+``` r
+plot(hustosis, type = "fnet", by = "cddc",
+     f_lbl = "namnum")  # plot frequency net
+```
 
 ![Frequency net](inst/pix/README-ex1-fnet-1.png)
 
@@ -350,7 +378,9 @@ See the `plot_fnet()` function for options and details.
 An icon array shows the classification result for each of `N = 1000`
 individuals in our population:
 
-    plot(hustosis, type = "icons")   # plot an icon array 
+``` r
+plot(hustosis, type = "icons")   # plot an icon array 
+```
 
 ![Icon array](inst/pix/README-ex1-icons-1.png)
 
@@ -367,7 +397,9 @@ results as the relationship between areas. Here, the entire population
 is represented as a square and the probability of its subgroups as the
 size of rectangles (see `?plot_area` for details and examples):
 
-    plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
+``` r
+plot(hustosis, type = "area")  # plot an area/mosaic plot (by = "cddc")
+```
 
 ![Area/mosaic plot](inst/pix/README-ex1-area-1.png)
 
@@ -378,16 +410,21 @@ probabilities, we can plot basic scenario information as a 2-by-2
 confusion (or contingency) table (see `?plot_tab` for details and
 examples):
 
-    plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
+``` r
+plot(hustosis, type = "table")  # plot 2x2 confusion table (by = "cddc") 
+```
 
 ![Table plot](inst/pix/README-ex1-tab-1.png)
 
 #### Bar plot
 
 A *bar plot* allows comparing relative frequencies as the heights of
-bars (see `?plot_bar` for details and examples):
+bars (see `?plot_bar` for details and
+examples):
 
-    plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
+``` r
+plot(hustosis, type = "bar", f_lbl = "abb")  # plot bar chart (by "all" perspectives): 
+```
 
 ![Bar plot](inst/pix/README-ex1-bar-1.png)
 
@@ -396,9 +433,12 @@ bars (see `?plot_bar` for details and examples):
 By adopting a functional perspective, we can ask how the values of some
 probabilities (e.g., the predictive values `PPV` and `NPV`) change as a
 function of another (e.g., the condition’s prevalence `prev`, see
-`?plot_curve` for details and examples):
+`?plot_curve` for details and
+examples):
 
-    plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
+``` r
+plot(hustosis, type = "curve", uc = .05)   # plot probability curves (by prevalence):
+```
 
 ![Probability curves](inst/pix/README-ex1-curve-1.png)
 
@@ -408,9 +448,12 @@ When parameter values systematically depend on two other parameters, we
 can plot this as a plane in a 3D cube. The following graph plots the
 `PPV` as a function of the sensitivity (`sens`) and specificity (`spec`)
 of our test for a given prevalence (`prev`, see `?plot_plane` for
-details and examples):
+details and
+examples):
 
-    plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
+``` r
+plot(hustosis, type = "plane")  # plot probability plane (by sens x spec):
+```
 
 ![Probability plane](inst/pix/README-ex1-plane-1.png)
 
@@ -443,6 +486,7 @@ plot(hustosis, type = "bar",   dir = 2)
 ```
 
 -->
+
 <!-- 2: Loading and using pre-defined scenarios -->
 
 ### Using existing scenarios
@@ -462,7 +506,9 @@ topic (Arkes & Gaissmaier, 2012). To select a particular scenario,
 simply assign it to an R object. For instance, we can assign Scenario 10
 to `s10`:
 
-    s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
+``` r
+s10 <- scenarios$n10  # assign pre-defined Scenario 10 to s10
+```
 
 #### Scenario summary
 
@@ -470,18 +516,20 @@ Our selected scenario object `s10` is a list with 30 elements, which
 describe it in both text and numeric variables. The following commands
 provide an overview of `s10` in text form:
 
-    s10$scen_lbl   # a descriptive label
-    #> [1] "PSA test (patients)"
-    s10$cond_lbl   # the current condition
-    #> [1] "Prostate cancer"
-    s10$dec_lbl    # the current decision
-    #> [1] "PSA-Test"
-    s10$popu_lbl   # the current population
-    #> [1] "Male patients with symptoms"
-    s10$scen_apa   # scenario source (APA) 
-    #> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
+``` r
+s10$scen_lbl   # a descriptive label
+#> [1] "PSA test (patients)"
+s10$cond_lbl   # the current condition
+#> [1] "Prostate cancer"
+s10$dec_lbl    # the current decision
+#> [1] "PSA-Test"
+s10$popu_lbl   # the current population
+#> [1] "Male patients with symptoms"
+s10$scen_apa   # scenario source (APA) 
+#> [1] "Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and the prostate-cancer screening controversy. Psychological Science, 23(6), 547--553."
 
-    # summary(s10) # summarises a scenario
+# summary(s10) # summarises a scenario
+```
 
 Generating some **riskyr** plots allows a quick visual exploration of
 the scenario. We only illustrate some selected plots and options here,
@@ -492,10 +540,13 @@ and trust that you will play with and explore the rest for yourself.
 A tree diagram is a prism plot that views the population from only one
 perspective, but provides a quick overview. In the following plot, the
 boxes are depicted as squares with area sizes that are scaled by
-relative frequencies (using the `area = "sq"` argument):
+relative frequencies (using the `area = "sq"`
+argument):
 
-    plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
-         f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
+``` r
+plot(s10, type = "tree", by = "cd", area = "sq",  # tree/prism plot with scaled squares 
+     f_lbl = "def", f_lbl_sep = ":\n")            # custom frequency labels 
+```
 
 ![Prism/tree plot (with scaled squares)](inst/pix/README-ex2-tree-1.png)
 
@@ -506,10 +557,13 @@ avoid redundancy to the previous tree diagram, the following version
 splits the population by accuracy and by decision (see the `by = "acdc"`
 argument). In addition, the frequencies are represented as horizontal
 rectangles (`area = "hr"`) so that their relative width reflect the
-number of people in the corresponding subgroup:
+number of people in the corresponding
+subgroup:
 
-    plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
-         p_lbl = "num")                                  # numeric probability labels
+``` r
+plot(s10, type = "prism", by = "acdc", area = "hr",  # prism plot with horizontal rectangles
+     p_lbl = "num")                                  # numeric probability labels
+```
 
 ![Prism plot (with scaled horizontal
 rectangles)](inst/pix/README-ex2-prism-hr-1.png)
@@ -518,42 +572,54 @@ rectangles)](inst/pix/README-ex2-prism-hr-1.png)
 
 Just like the 2x2 table, area plot, and prism plot, the frequency net
 allows selecting two out of three perspectives. Additionally, the shape
-and size of the frequency boxes can be adjusted by using the
-`area = "sq"` option. The following example shows a frequency net by
-condition and accuracy (`by = "cdac"`) without the joint probabilities,
-with custom settings for labels, links, and colors:
+and size of the frequency boxes can be adjusted by using the `area =
+"sq"` option. The following example shows a frequency net by condition
+and accuracy (`by = "cdac"`) without the joint probabilities, with
+custom settings for labels, links, and
+colors:
 
-    plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
-         area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
-         f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
+``` r
+plot(s10, type = "fnet", by = "cdac",  # frequency net (by condition and accuracy) 
+     area = "sq", joint_p = FALSE, arr_c = 2,     # custom areas, links, and arrows 
+     f_lbl = "namnum", p_lbl = "num", col_pal = pal_rgb) # custom labels and colors 
+```
 
 ![Frequency net (with custom perspective and
 options)](inst/pix/README-ex2-fnet-1.png)
 
 #### Icon array
 
-    plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
+``` r
+plot(s10, type = "icons", arr_type = "shuffled")   # plot a shuffled icon array 
+```
 
 <!-- ![](inst/pix/README-ex2-icons-1.png) -->
 
 #### Area plot
 
-    plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
+``` r
+plot(s10, type = "area", p_split = "v", p_lbl = "def")  # plot an area/mosaic plot (with probabilities) 
+```
 
 <!-- ![](inst/pix/README-ex2-area-1.png) -->
 
 #### Table plot
 
-    plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
+``` r
+plot(s10, type = "tab", p_split = "h", p_lbl = "def")  # plot a 2x2 table (with probabilities)
+```
 
 <!-- ![](inst/pix/README-ex2-tab-1.png) -->
 
 #### Curves
 
 The following curves show the values of several conditional
-probabilities as a function of prevalence:
+probabilities as a function of
+prevalence:
 
-    plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
+``` r
+plot(s10, type = "curve", what = "all", uc = .05)  # plot all curves (by prev):
+```
 
 <!-- ![Probability curves (with uncertainty)](inst/pix/README-ex2-curve-1.png) -->
 
@@ -565,9 +631,12 @@ shape without seeing this graph?
 #### Planes
 
 The following surface shows the negative predictive value (NPV) as a
-function of sensitivity and specificity (for a given prevalence):
+function of sensitivity and specificity (for a given
+prevalence):
 
-    plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+``` r
+plot(s10, type = "plane", what = "NPV")  # plot plane (as a function of sens x spec):
+```
 
 <!-- ![Probability plane (NPV)](inst/pix/README-ex2-plane-1.png) -->
 
@@ -578,6 +647,7 @@ vignettes and obtaining additional information.
 ## About
 
 <!-- uni.kn logo and link to SPDS: -->
+
 <!-- ![](./inst/pix/uniKn_logo.png) -->
 
 <a href="https://www.spds.uni-konstanz.de/">
@@ -598,15 +668,15 @@ Sciences](https://www.spds.uni-konstanz.de/) at the [University of
 Konstanz](https://www.uni-konstanz.de/en/), Germany.
 
 The **riskyr** package is open source software written in
-[R](https://www.r-project.org/) and released under the [GPL
-2](https://tldrlegal.com/license/gnu-general-public-license-v2) \| [GPL
-3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
+[R](https://www.r-project.org/) and released under the
+[GPL 2](https://tldrlegal.com/license/gnu-general-public-license-v2) |
+[GPL 3](https://tldrlegal.com/license/gnu-general-public-license-v3-\(gpl-3\))
 licenses.
 
 The theoretical background of **riskyr** is illuminated further in the
 following article:
 
--   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
+  - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
     (2021). Perspectives on the 2x2 matrix: Solving semantically
     distinct problems based on a shared structure of binary
     contingencies. *Frontiers in Psychology: Cognition*, *11*, 567817.
@@ -615,27 +685,27 @@ following article:
 
 ### Resources
 
-The following resources and versions are currently available:
+The following resources and versions are currently
+available:
 
-| Type:                            | Version:                                                     | URL:                                                                                                          |
-|:---------------------------------|:-------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| A. **riskyr** (R package):       | [Release version](https://CRAN.R-project.org/package=riskyr) | <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a> |
-|                                  | [Development version](https://github.com/hneth/riskyr/)      | <a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a>                   |
-| B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org/)                         | <a href="http://riskyr.org/" class="uri">http://riskyr.org/</a>                                               |
-|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <a href="https://github.com/hneth/riskyrApp/" class="uri">https://github.com/hneth/riskyrApp/</a>             |
-| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a>                     |
-|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a>             |
+| Type:                            | Version:                                                     | URL:                                                        |
+| :------------------------------- | :----------------------------------------------------------- | :---------------------------------------------------------- |
+| A. **riskyr** (R package):       | [Release version](https://CRAN.R-project.org/package=riskyr) | <https://CRAN.R-project.org/package=riskyr>                 |
+|                                  | [Development version](https://github.com/hneth/riskyr/)      | <https://github.com/hneth/riskyr/>                          |
+| B. **riskyrApp** (R Shiny code): | [Online version](http://134.34.54.61:3838/spds/riskyr/)      | [http://riskyr.org/](http://134.34.54.61:3838/spds/riskyr/) |
+|                                  | [Development version](https://github.com/hneth/riskyrApp/)   | <https://github.com/hneth/riskyrApp/>                       |
+| C. Online documentation:         | [Release version](https://hneth.github.io/riskyr/)           | <https://hneth.github.io/riskyr/>                           |
+|                                  | [Development version](https://hneth.github.io/riskyr/dev/)   | <https://hneth.github.io/riskyr/dev/>                       |
 
 ### Contact
 
 We appreciate your feedback, comments, or questions.
 
--   Please report any **riskyr**-related issues at
-    <a href="https://github.com/hneth/riskyr/issues/" class="uri">https://github.com/hneth/riskyr/issues/</a>.
+  - Please report any **riskyr**-related issues at
+    <https://github.com/hneth/riskyr/issues/>.
 
--   Contact us at
-    <a href="mailto:contact.riskyr@gmail.com" class="email">contact.riskyr@gmail.com</a>
-    with any comments, questions, or suggestions.
+  - Contact us at <contact.riskyr@gmail.com> with any comments,
+    questions, or suggestions.
 
 ### Reference
 
@@ -650,96 +720,97 @@ We appreciate your feedback, comments, or questions.
 
 To cite **riskyr** in derivations and publications please use:
 
--   Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).  
+  - Neth, H., Gaisbauer, F., Gradwohl, N., & Gaissmaier, W. (2021).  
     riskyr: A toolbox for rendering risk literacy more transparent.  
     Social Psychology and Decision Sciences, University of Konstanz,
     Germany.  
     Computer software (R package version 0.3.0, Mar. 23, 2021).  
-    Retrieved from
-    <a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a>.
+    Retrieved from <https://CRAN.R-project.org/package=riskyr>.
 
 A BibTeX entry for LaTeX users is:
 
-    @Manual{riskyr,
-      title = {riskyr: A toolbox for rendering risk literacy more transparent},
-      author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
-      year = {2021},
-      organization = {Social Psychology and Decision Sciences, University of Konstanz},
-      address = {Konstanz, Germany},
-      note = {R package (version 0.3.0, Mar. 23, 2021)},
-      url = {https://CRAN.R-project.org/package=riskyr},
-      }    
+``` 
+@Manual{riskyr,
+  title = {riskyr: A toolbox for rendering risk literacy more transparent},
+  author = {Hansjörg Neth and Felix Gaisbauer and Nico Gradwohl and Wolfgang Gaissmaier},
+  year = {2021},
+  organization = {Social Psychology and Decision Sciences, University of Konstanz},
+  address = {Konstanz, Germany},
+  note = {R package (version 0.3.0, Mar. 23, 2021)},
+  url = {https://CRAN.R-project.org/package=riskyr},
+  }    
+```
 
 Calling `citation("riskyr")` in the package also displays this
 information.
 
 ### References
 
--   Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and
+  - Arkes, H. R., & Gaissmaier, W. (2012). Psychological research and
     the prostate-cancer screening controversy. *Psychological Science*,
     *23*, 547–553.
 
--   Binder, K., Krauss, S., and Wiesner, P. (2020). A new visualization
+  - Binder, K., Krauss, S., and Wiesner, P. (2020). A new visualization
     for probabilistic situations containing two binary events: The
     frequency net. *Frontiers in Psychology*, *11*, 750. doi:
     [10.3389/fpsyg.2020.00750](https://doi.org/10.3389/fpsyg.2020.00750)
 
--   Garcia-Retamero, R., & Cokely, E. T. (2017). Designing visual aids
+  - Garcia-Retamero, R., & Cokely, E. T. (2017). Designing visual aids
     that promote risk literacy: A systematic review of health research
     and evidence-based design heuristics. *Human Factors*, *59*,
     582–627.
 
--   Gigerenzer, G. (2002). *Reckoning with risk: Learning to live with
+  - Gigerenzer, G. (2002). *Reckoning with risk: Learning to live with
     uncertainty*. London, UK: Penguin.
 
--   Gigerenzer, G. (2014). *Risk savvy: How to make good decisions*. New
+  - Gigerenzer, G. (2014). *Risk savvy: How to make good decisions*. New
     York, NY: Penguin.
 
--   Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making.
+  - Gigerenzer, G., & Gaissmaier, W. (2011). Heuristic decision making.
     *Annual Review of Psychology*, *62*, 451–482. ([Available
     online](https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346))
 
--   Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &
+  - Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &
     Woloshin, S. (2007). Helping doctors and patients make sense of
     health statistics. *Psychological Science in the Public Interest*,
     *8*, 53–96. ([Available
     online](https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x))
 
--   Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian
+  - Gigerenzer, G., & Hoffrage, U. (1995). How to improve Bayesian
     reasoning without instruction: Frequency formats. *Psychological
     Review*, *102*, 684–704.
 
--   Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002).
+  - Hoffrage, U., Gigerenzer, G., Krauss, S., & Martignon, L. (2002).
     Representation facilitates reasoning: What natural frequencies are
     and what they are not. *Cognition*, *84*, 343–352.
 
--   Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015).
+  - Hoffrage, U., Krauss, S., Martignon, L., & Gigerenzer, G. (2015).
     Natural frequencies improve Bayesian reasoning in simple and complex
     inference tasks. *Frontiers in Psychology*, *6*, 1473. doi:
     [10.3389/fpsyg.2015.01473](https://doi.org/10.3389/fpsyg.2015.01473)
     ([Available online](https://doi.org/10.3389/fpsyg.2015.01473))
 
--   Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000).
+  - Hoffrage, U., Lindsey, S., Hertwig, R., & Gigerenzer, G. (2000).
     Communicating statistical information. *Science*, *290*, 2261–2262.
 
--   Khan, A., Breslav, S., Glueck, M., & Hornbæk, K. (2015). Benefits of
+  - Khan, A., Breslav, S., Glueck, M., & Hornbæk, K. (2015). Benefits of
     visualization in the mammography problem. *International Journal of
     Human-Computer Studies*, *83*, 94–113.
 
--   Kurzenhäuser, S., & Hoffrage, U. (2002). Teaching Bayesian
+  - Kurzenhäuser, S., & Hoffrage, U. (2002). Teaching Bayesian
     reasoning: An evaluation of a classroom tutorial for medical
     students. *Medical Teacher*, *24*, 516–521.
 
--   Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008).
+  - Kurz-Milcke, E., Gigerenzer, G., & Martignon, L. (2008).
     Transparency in risk communication. *Annals of the New York Academy
     of Sciences*, *1128*, 18–28.
 
--   Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). Assessing the
+  - Micallef, L., Dragicevic, P., & Fekete, J.-D. (2012). Assessing the
     effect of visualizations on Bayesian reasoning through
     crowd-sourcing. *IEEE Transactions on Visualization and Computer
     Graphics*, *18*, 2536–2545.
 
--   Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an
+  - Neth, H., & Gigerenzer, G. (2015). Heuristics: Tools for an
     uncertain world. In R. Scott & S. Kosslyn (Eds.), *Emerging trends
     in the social and behavioral sciences*. New York, NY: Wiley Online
     Library. doi:
@@ -747,18 +818,18 @@ information.
     ([Available
     online](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&rep=rep1&type=pdf))
 
--   Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
+  - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W.
     (2021). Perspectives on the 2x2 matrix: Solving semantically
     distinct problems based on a shared structure of binary
     contingencies. *Frontiers in Psychology*, *11*, 567817. doi:
     [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
     ([Available online](https://doi.org/10.3389/fpsyg.2020.567817))
 
--   Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning
+  - Sedlmeier, P., & Gigerenzer, G. (2001). Teaching Bayesian reasoning
     in less than two hours. *Journal of Experimental Psychology:
     General*, *130*, 380–400.
 
--   Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches
+  - Wassner, C., Martignon, L., & Biehler, R. (2004). Bayesianisches
     Denken in der Schule. *Unterrichtswissenschaft*, *32*, 58–96.
 
 <!-- Update: -->
@@ -767,39 +838,39 @@ information.
 
 <!-- eof -->
 
-[1] Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The
-MIT Press, Cambridge, MA. (p. 132).
+1.  Simon, H.A. (1996). *The Sciences of the Artificial* (3rd ed.). The
+    MIT Press, Cambridge, MA. (p. 132).
 
-[2] To clarify our notion of “risk” in this context, we need to
-distinguish it from its everyday usage as anything implying a chance of
-danger or harm.  
-In basic research on judgment and decision making and the more applied
-fields of risk perception and risk communication, the term *risk*
-typically refers to decisions or events for which the options and their
-consequences are known and probabilities for all possible outcomes can
-be provided.  
-For our present purposes, the notion of risk-related information refers
-to any scenario in which some events of interest are determined by
-probabilities. While it is important that quantitative (estimates of)
-probabilities are provided, their origin, reliability and validity is
-not questioned here. Thus, the probabilities provided can be based on
-clinical intuition, on recordings of extensive experience, or on
-statistical simulation models (e.g., repeatedly casting dice and
-counting the frequencies of outcomes).  
-This notion of *risk* is typically contrasted with the much wider notion
-of *uncertainty* in which options or probabilities are unknown or cannot
-be quantified. (See Gigerenzer and Gaissmaier, 2011, or Neth and
-Gigerenzer, 2015, on this conceptual distinction and corresponding
-decision strategies.)
+2.  To clarify our notion of “risk” in this context, we need to
+    distinguish it from its everyday usage as anything implying a chance
+    of danger or harm.  
+    In basic research on judgment and decision making and the more
+    applied fields of risk perception and risk communication, the term
+    *risk* typically refers to decisions or events for which the options
+    and their consequences are known and probabilities for all possible
+    outcomes can be provided.  
+    For our present purposes, the notion of risk-related information
+    refers to any scenario in which some events of interest are
+    determined by probabilities. While it is important that quantitative
+    (estimates of) probabilities are provided, their origin, reliability
+    and validity is not questioned here. Thus, the probabilities
+    provided can be based on clinical intuition, on recordings of
+    extensive experience, or on statistical simulation models (e.g.,
+    repeatedly casting dice and counting the frequencies of outcomes).  
+    This notion of *risk* is typically contrasted with the much wider
+    notion of *uncertainty* in which options or probabilities are
+    unknown or cannot be quantified. (See Gigerenzer and Gaissmaier,
+    2011, or Neth and Gigerenzer, 2015, on this conceptual distinction
+    and corresponding decision strategies.)
 
-[3] See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995),
-Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific
-background information and similar problems. See Sedlmeier and
-Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related
-training programs (with remarkable results), and Micallef et al. (2012)
-and Khan et al. (2015) for (rather sceptical and somewhat sobering)
-studies on the potential benefits of static representations for solving
-Bayesian problems.
+3.  See Gigerenzer (2002, 2014), Gigerenzer and Hoffrage, U. (1995),
+    Gigerenzer et al. (2007), and Hoffrage et al. (2015) for scientific
+    background information and similar problems. See Sedlmeier and
+    Gigerenzer (2001) and Kurzenhäuser and Hoffrage (2002) for related
+    training programs (with remarkable results), and Micallef et al.
+    (2012) and Khan et al. (2015) for (rather sceptical and somewhat
+    sobering) studies on the potential benefits of static
+    representations for solving Bayesian problems.
 
-[4] See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002)
-on the concept of *natural frequencies*.
+4.  See Gigerenzer and Hoffrage (1995) and Hoffrage et al. (2000, 2002)
+    on the concept of *natural frequencies*.

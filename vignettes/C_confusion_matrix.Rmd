@@ -1,7 +1,7 @@
 ---
 title: "Confusion Matrix and Metrics"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2021 03 20"
+date: "2021 03 23"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -17,7 +17,11 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-library("riskyr")  # load the "riskyr" package
+# URLs:
+url_riskyr_org <- "http://134.34.54.61:3838/spds/riskyr/" # Note: "http://riskyr.org/" redirects there.
+
+# Load pkg:
+library("riskyr")
 ```
 
 
@@ -338,7 +342,7 @@ Type:                    | Version:           | URL:                           |
 :------------------------|:-------------------|:-------------------------------|
 A. **riskyr** (R package): | [Release version](https://CRAN.R-project.org/package=riskyr)  | <https://CRAN.R-project.org/package=riskyr> |
     &nbsp;               | [Development version](https://github.com/hneth/riskyr/)         | <https://github.com/hneth/riskyr/> | 
-B. **riskyrApp** (R Shiny code): | [Online version](http://riskyr.org/)                    | <http://riskyr.org/> | 
+B. **riskyrApp** (R Shiny code): | [Online version](`r url_riskyr_org`)                    | [http://riskyr.org/](`r url_riskyr_org`) | 
     &nbsp;               | [Development version](https://github.com/hneth/riskyrApp/)      | <https://github.com/hneth/riskyrApp/> | 
 C. Online documentation: | [Release version](https://hneth.github.io/riskyr/)              | <https://hneth.github.io/riskyr/> | 
     &nbsp;               | [Development version](https://hneth.github.io/riskyr/dev/)      | <https://hneth.github.io/riskyr/dev/> | 
