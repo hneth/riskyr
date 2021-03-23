@@ -16,21 +16,29 @@ as a function of prevalence. — plot_curve • riskyr</title>
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,9 +46,9 @@ as a function of prevalence. — plot_curve • riskyr</title>
 
 
 
+
 <meta property="og:title" content="Plot curves of selected values (e.g., PPV or NPV)
 as a function of prevalence. — plot_curve" />
-
 <meta property="og:description" content="plot_curve draws curves of selected values
 (including PPV, NPV)
 as a function of the prevalence (prev)
@@ -49,9 +57,8 @@ sensitivity sens (or
 miss rate mirt) and
 specificity spec (or
 false alarm rate fart)." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -65,9 +72,10 @@ false alarm rate fart)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,7 +89,7 @@ false alarm rate fart)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -89,46 +97,49 @@ false alarm rate fart)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -139,6 +150,7 @@ false alarm rate fart)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -151,7 +163,6 @@ as a function of prevalence.</h1>
     </div>
 
     <div class="ref-description">
-    
     <p><code>plot_curve</code> draws curves of selected values
 (including <code><a href='PPV.html'>PPV</a></code>, <code><a href='NPV.html'>NPV</a></code>)
 as a function of the prevalence (<code><a href='prev.html'>prev</a></code>)
@@ -160,22 +171,39 @@ sensitivity <code><a href='sens.html'>sens</a></code> (or
 miss rate <code><a href='mirt.html'>mirt</a></code>) and
 specificity <code><a href='spec.html'>spec</a></code> (or
 false alarm rate <code><a href='fart.html'>fart</a></code>).</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"prev"</span>, <span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>),
-  <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>show_points</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log_scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.85</span>,
-  <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_curve</span><span class='op'>(</span>
+  prev <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>prev</span>,
+  sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
+  mirt <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
+  fart <span class='op'>=</span> <span class='cn'>NA</span>,
+  what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"prev"</span>, <span class='st'>"PPV"</span>, <span class='st'>"NPV"</span><span class='op'>)</span>,
+  p_lbl <span class='op'>=</span> <span class='st'>"def"</span>,
+  p_lwd <span class='op'>=</span> <span class='fl'>2</span>,
+  what_col <span class='op'>=</span> <span class='va'>pal</span>,
+  uc <span class='op'>=</span> <span class='fl'>0</span>,
+  show_points <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  log_scale <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  prev_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  lbl_txt <span class='op'>=</span> <span class='va'>txt</span>,
+  title_lbl <span class='op'>=</span> <span class='cn'>NA</span>,
+  cex_lbl <span class='op'>=</span> <span class='fl'>0.85</span>,
+  col_pal <span class='op'>=</span> <span class='va'>pal</span>,
+  mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>prev</th>
       <td><p>The condition's prevalence <code><a href='prev.html'>prev</a></code>
-(i.e., the probability of condition being <code>TRUE</code>).</p></td>
+(i.e., the probability of condition being <code>TRUE</code>).
+If <code>prev = NA</code>, the curves in <code>what</code>
+are plotted without points (i.e., <code>show_points = FALSE</code>).</p></td>
     </tr>
     <tr>
       <th>sens</th>
@@ -209,9 +237,26 @@ of a positive decision provided that the condition is <code>FALSE</code>).
       <th>what</th>
       <td><p>Vector of character codes that specify the
 selection of curves to be plotted. Currently available
-options are <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("prev", "PPV", "NPV", "ppod", "acc")</a></code>
+options are <code><a href='https://rdrr.io/r/base/c.html'>c("prev", "PPV", "NPV", "ppod", "acc")</a></code>
 (shortcut: <code>what = "all"</code>).
 Default: <code>what = c("prev", "PPV", "NPV")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>p_lbl</th>
+      <td><p>Type of label for shown probability values,
+with the following options:</p><ol>
+<li><p><code>"abb"</code>: show abbreviated probability names;</p></li>
+<li><p><code>"def"</code>: show abbreviated probability names and values (default);</p></li>
+<li><p><code>"nam"</code>: show only probability names (as specified in code);</p></li>
+<li><p><code>"num"</code>: show only numeric probability values;</p></li>
+<li><p><code>"namnum"</code>: show names and numeric probability values;</p></li>
+<li><p><code>"no"</code>: hide labels (same for <code>p_lbl = NA</code> or <code>NULL</code>).</p></li>
+</ol></td>
+    </tr>
+    <tr>
+      <th>p_lwd</th>
+      <td><p>Line widths of probability curves plotted.
+Default: <code>p_lwd = 2</code>.</p></td>
     </tr>
     <tr>
       <th>what_col</th>
@@ -241,6 +286,12 @@ to a logarithmic x-axis.
 Default: <code>log_scale = FALSE</code>.</p></td>
     </tr>
     <tr>
+      <th>prev_range</th>
+      <td><p>Range (minimum and maximum) of <code><a href='prev.html'>prev</a></code> values
+on x-axis (i.e., values in <code><a href='https://rdrr.io/r/base/c.html'>c(0, 1)</a></code> range).
+Default: <code>prev_range = c(0, 1)</code>.</p></td>
+    </tr>
+    <tr>
       <th>lbl_txt</th>
       <td><p>Labels and text elements.
 Default: <code>lbl_txt = <a href='txt.html'>txt</a></code>.</p></td>
@@ -249,18 +300,6 @@ Default: <code>lbl_txt = <a href='txt.html'>txt</a></code>.</p></td>
       <th>title_lbl</th>
       <td><p>Main plot title.
 Default: <code>title_lbl = NA</code> (using <code>lbl_txt$scen_lbl</code>).</p></td>
-    </tr>
-    <tr>
-      <th>p_lbl</th>
-      <td><p>Type of label for shown probability values,
-with the following options:</p><ol>
-<li><p><code>"abb"</code>: show abbreviated probability names;</p></li>
-<li><p><code>"def"</code>: show abbreviated probability names and values (default);</p></li>
-<li><p><code>"nam"</code>: show only probability names (as specified in code);</p></li>
-<li><p><code>"num"</code>: show only numeric probability values;</p></li>
-<li><p><code>"namnum"</code>: show names and numeric probability values;</p></li>
-<li><p><code>"no"</code>: hide labels (same for <code>p_lbl = NA</code> or <code>NULL</code>).</p></li>
-</ol></td>
     </tr>
     <tr>
       <th>cex_lbl</th>
@@ -276,20 +315,26 @@ Default: <code>col_pal = <a href='pal.html'>pal</a></code>.</p></td>
     <tr>
       <th>mar_notes</th>
       <td><p>Boolean value for showing margin notes.
-Default: <code>mar_notes = TRUE</code>.</p></td>
+Default: <code>mar_notes = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Other (graphical) parameters.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>plot_curve</code> is a generalization of
+    <p>If no prevalence value is provided (i.e., <code>prev = NA</code>),
+the desired probability curves are plotted without showing
+specific points (i.e., <code>show_points = FALSE</code>).</p>
+<p>Note that a population size <code><a href='N.html'>N</a></code> is not needed for
+computing probability information <code><a href='prob.html'>prob</a></code>.
+(An arbitrary value can be used when computing frequency information
+<code><a href='freq.html'>freq</a></code> from current probabilities <code><a href='prob.html'>prob</a></code>.)</p>
+<p><code>plot_curve</code> is a generalization of
 <code>plot_PV</code> (see legacy code)
-that allows for additional dependent values.</p>
-    
+that allows plotting additional dependent values.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='comp_prob.html'>comp_prob</a></code> computes current probability information;
@@ -299,71 +344,95 @@ that allows for additional dependent values.</p>
 <code><a href='num.html'>num</a></code> for basic numeric parameters;
 <code><a href='txt.html'>txt</a></code> for current text settings;
 <code><a href='pal.html'>pal</a></code> for current color settings.</p>
-<p>Other visualization functions: <code><a href='plot.riskyr.html'>plot.riskyr</a></code>,
-  <code><a href='plot_area.html'>plot_area</a></code>, <code><a href='plot_bar.html'>plot_bar</a></code>,
-  <code><a href='plot_fnet.html'>plot_fnet</a></code>, <code><a href='plot_icons.html'>plot_icons</a></code>,
-  <code><a href='plot_mosaic.html'>plot_mosaic</a></code>, <code><a href='plot_plane.html'>plot_plane</a></code>,
-  <code><a href='plot_prism.html'>plot_prism</a></code>, <code><a href='plot_tab.html'>plot_tab</a></code>,
-  <code><a href='plot_tree.html'>plot_tree</a></code></p></div>
-    
+<p>Other visualization functions: 
+<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
+<code><a href='plot_area.html'>plot_area</a>()</code>,
+<code><a href='plot_bar.html'>plot_bar</a>()</code>,
+<code><a href='plot_fnet.html'>plot_fnet</a>()</code>,
+<code><a href='plot_icons.html'>plot_icons</a>()</code>,
+<code><a href='plot_mosaic.html'>plot_mosaic</a>()</code>,
+<code><a href='plot_plane.html'>plot_plane</a>()</code>,
+<code><a href='plot_prism.html'>plot_prism</a>()</code>,
+<code><a href='plot_tab.html'>plot_tab</a>()</code>,
+<code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basics:</span>
-<span class='co'># (1) Plot current freq and prob values:</span>
-<span class='fu'>plot_curve</span>()  <span class='co'># default curve plot,</span></div><div class='img'><img src='plot_curve-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
-<span class='co'># plot_curve(what = c("prev", "PPV", "NPV"))</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># default curve plot, same as:</span>
+</div><div class='img'><img src='plot_curve-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_curve(what = c("prev", "PPV", "NPV"), uc = 0, prev_range = c(0, 1))</span>
 
-<span class='co'># hide points and show uncertainty:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>show_points</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.10</span>) <span class='co'># default w/o points, 10% uncertainty range</span></div><div class='img'><img src='plot_curve-2.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># (2) Provide local parameters and select curves:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>, <span class='st'>"acc"</span>), <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.2</span>)</div><div class='img'><img src='plot_curve-3.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># All curves: what = ("prev", "PPV", "NPV", "ppod", "acc")</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>) <span class='co'># all curves.</span></div><div class='img'><img src='plot_curve-4.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># Selected curves:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>))                  <span class='co'># PPV and NPV</span></div><div class='img'><img src='plot_curve-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"prev"</span>, <span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>, <span class='st'>"acc"</span>))   <span class='co'># prev, PPV, NPV, and acc</span></div><div class='img'><img src='plot_curve-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"prev"</span>, <span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>, <span class='st'>"ppod"</span>))  <span class='co'># prev, PPV, NPV, and ppod</span></div><div class='img'><img src='plot_curve-7.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Showing no/multiple prev values/points and uncertainty ranges:</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># default curves without prev value (and point) shown</span>
+</div><div class='output co'>#&gt; <span class='message'>No prevalence value provided: Plotting curves without points.</span></div><div class='img'><img src='plot_curve-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>show_points <span class='op'>=</span> <span class='cn'>FALSE</span>, uc <span class='op'>=</span> <span class='fl'>.10</span><span class='op'>)</span>  <span class='co'># curves w/o points, 10% uncertainty range</span>
+</div><div class='img'><img src='plot_curve-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.10</span>, <span class='fl'>.33</span>, <span class='fl'>.75</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># 3 prev values, with numeric point labels</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple prevalence values provided: Using numeric values to label points.</span></div><div class='img'><img src='plot_curve-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.10</span>, <span class='fl'>.33</span>, <span class='fl'>.75</span><span class='op'>)</span>, p_lbl <span class='op'>=</span> <span class='st'>"no"</span>, uc <span class='op'>=</span> <span class='fl'>.10</span><span class='op'>)</span> <span class='co'># 3 prev, no labels, 10% uc</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple prevalence values provided: Using numeric values to label points.</span></div><div class='img'><img src='plot_curve-5.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Provide local parameters and select curves:</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>, <span class='st'>"acc"</span><span class='op'>)</span>, uc <span class='op'>=</span> <span class='fl'>.2</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_curve-6.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Selecting curves: what = ("prev", "PPV", "NPV", "ppod", "acc") = "all"</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.3</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, what <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>  <span class='co'># all curves</span>
+</div><div class='img'><img src='plot_curve-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_curve(what = c("PPV", "NPV"))                  # PPV and NPV</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"prev"</span>, <span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>, <span class='st'>"acc"</span><span class='op'>)</span><span class='op'>)</span>     <span class='co'># prev, PPV, NPV, and acc</span>
+</div><div class='img'><img src='plot_curve-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_curve(what = c("prev", "PPV", "NPV", "ppod"))  # prev, PPV, NPV, and ppod</span>
+
 <span class='co'># Visualizing uncertainty (uc as percentage range):</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"prev"</span>, <span class='st'>"PPV"</span>, <span class='st'>"NPV"</span>),
-           <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.05</span>)  <span class='co'># =&gt; prev, PPV and NPV with a 5% uncertainty range</span></div><div class='img'><img src='plot_curve-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-           <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.10</span>)  <span class='co'># =&gt; all with a 10% uncertainty range</span></div><div class='img'><img src='plot_curve-9.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># X-axis as linear vs. log scale:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.01</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>)                     <span class='co'># linear scale</span></div><div class='img'><img src='plot_curve-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.01</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.9</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>log_scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)   <span class='co'># log scale</span></div><div class='img'><img src='plot_curve-11.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.0001</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>)                   <span class='co'># linear scale</span></div><div class='img'><img src='plot_curve-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.0001</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>log_scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># log scale</span></div><div class='img'><img src='plot_curve-13.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, what <span class='op'>=</span> <span class='st'>"all"</span>,
+           uc <span class='op'>=</span> <span class='fl'>.10</span><span class='op'>)</span>  <span class='co'># all with a 10% uncertainty range</span>
+</div><div class='img'><img src='plot_curve-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_curve(prev = .3, sens = .9, spec = .8, what = c("prev", "PPV", "NPV"),</span>
+<span class='co'>#            uc = .05)  # prev, PPV and NPV with a 5% uncertainty range</span>
+
+<span class='co'># X-axis on linear vs. log scale:</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.01</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span><span class='op'>)</span>                    <span class='co'># linear scale</span>
+</div><div class='img'><img src='plot_curve-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.01</span>, sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, log_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'># log scale</span>
+</div><div class='img'><img src='plot_curve-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># Several small prev values:</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.00001</span>, <span class='fl'>.0001</span>, <span class='fl'>.001</span>, <span class='fl'>.01</span>, <span class='fl'>.05</span><span class='op'>)</span>,
+           sens <span class='op'>=</span> <span class='fl'>.9</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>, log_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple prevalence values provided: Using numeric values to label points.</span></div><div class='img'><img src='plot_curve-12.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># Zooming in by setting prev_range (of prevalence values):</span>
+<span class='fu'>plot_curve</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.25</span>, <span class='fl'>.33</span>, <span class='fl'>.40</span><span class='op'>)</span>, prev_range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.20</span>, <span class='fl'>.50</span><span class='op'>)</span>,
+           what <span class='op'>=</span> <span class='st'>"all"</span>, uc <span class='op'>=</span> <span class='fl'>.05</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple prevalence values provided: Using numeric values to label points.</span></div><div class='img'><img src='plot_curve-13.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Probability labels:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)     <span class='co'># abbreviated names</span></div><div class='img'><img src='plot_curve-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)     <span class='co'># names only</span></div><div class='img'><img src='plot_curve-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)     <span class='co'># numeric values only</span></div><div class='img'><img src='plot_curve-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>)  <span class='co'># names and values</span></div><div class='img'><img src='plot_curve-17.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_curve</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"abb"</span>, what <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>     <span class='co'># abbreviated names</span>
+</div><div class='img'><img src='plot_curve-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, what <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>     <span class='co'># names only</span>
+</div><div class='img'><img src='plot_curve-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, what <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>     <span class='co'># numeric values only</span>
+</div><div class='img'><img src='plot_curve-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, what <span class='op'>=</span> <span class='st'>"all"</span><span class='op'>)</span>  <span class='co'># names and values</span>
+</div><div class='img'><img src='plot_curve-17.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Text and color settings:</span>
-<span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing tiny text labels"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.60</span>)</div><div class='img'><img src='plot_curve-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing specific colors"</span>, <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.05</span>,
-           <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>what_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"grey"</span>, <span class='st'>"red3"</span>, <span class='st'>"green3"</span>, <span class='st'>"blue3"</span>, <span class='st'>"gold"</span>))</div><div class='img'><img src='plot_curve-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span>(<span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Testing color palette"</span>, <span class='kw'>uc</span> <span class='kw'>=</span> <span class='fl'>.05</span>,
-           <span class='kw'>what</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>)</div><div class='img'><img src='plot_curve-20.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_curve</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Tiny text labels"</span>, p_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.60</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_curve-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Specific colors"</span>, what <span class='op'>=</span> <span class='st'>"all"</span>,
+           uc <span class='op'>=</span> <span class='fl'>.1</span>, what_col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"grey"</span>, <span class='st'>"red3"</span>, <span class='st'>"green3"</span>, <span class='st'>"blue3"</span>, <span class='st'>"gold"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_curve-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_curve</span><span class='op'>(</span>title_lbl <span class='op'>=</span> <span class='st'>"Black-and-white print version"</span>,
+           what <span class='op'>=</span> <span class='st'>"all"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bwp</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_curve-20.png' alt='' width='691' height='538' /></div><div class='input'>
+
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

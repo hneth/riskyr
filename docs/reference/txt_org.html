@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,13 +45,12 @@
 
 
 
-<meta property="og:title" content="List of original values of text elements. — txt_org" />
 
+<meta property="og:title" content="List of original values of text elements. — txt_org" />
 <meta property="og:description" content="txt_org is a copy of the initial list of text elements
 to define all scenario titles and labels." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,9 +64,10 @@ to define all scenario titles and labels." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -73,7 +81,7 @@ to define all scenario titles and labels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -81,46 +89,49 @@ to define all scenario titles and labels." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -131,6 +142,7 @@ to define all scenario titles and labels." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -142,41 +154,47 @@ to define all scenario titles and labels." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>txt_org</code> is a copy of the initial list of text elements
 to define all scenario titles and labels.</p>
-    
     </div>
 
-    <pre class="usage"><span class='no'>txt_org</span></pre>
-        
+    <pre class="usage"><span class='va'>txt_org</span></pre>
+
+
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>An object of class <code>list</code> of length 21.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>See <code><a href='txt.html'>txt</a></code> for details and default text information.</p>
 <p>Assign <code>txt &lt;- txt_org</code> to re-set default text labels.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='txt.html'>txt</a></code> contains current text information;
 <code><a href='init_txt.html'>init_txt</a></code> initializes text information;
 <code><a href='pal.html'>pal</a></code> contains current color information;
 <code><a href='init_pal.html'>init_pal</a></code> initializes color information.</p>
-<p>Other lists containing current scenario information: <code><a href='accu.html'>accu</a></code>,
-  <code><a href='freq.html'>freq</a></code>, <code><a href='num.html'>num</a></code>,
-  <code><a href='pal_bw.html'>pal_bw</a></code>, <code><a href='pal_kn.html'>pal_kn</a></code>,
-  <code><a href='pal_mbw.html'>pal_mbw</a></code>, <code><a href='pal_mod.html'>pal_mod</a></code>,
-  <code><a href='pal_org.html'>pal_org</a></code>, <code><a href='pal_rgb.html'>pal_rgb</a></code>,
-  <code><a href='pal_vir.html'>pal_vir</a></code>, <code><a href='pal.html'>pal</a></code>,
-  <code><a href='prob.html'>prob</a></code>, <code><a href='txt_TF.html'>txt_TF</a></code>,
-  <code><a href='txt.html'>txt</a></code></p></div>
-    
+<p>Other lists containing current scenario information: 
+<code><a href='accu.html'>accu</a></code>,
+<code><a href='freq.html'>freq</a></code>,
+<code><a href='num.html'>num</a></code>,
+<code><a href='pal_bwp.html'>pal_bwp</a></code>,
+<code><a href='pal_bw.html'>pal_bw</a></code>,
+<code><a href='pal_kn.html'>pal_kn</a></code>,
+<code><a href='pal_mbw.html'>pal_mbw</a></code>,
+<code><a href='pal_mod.html'>pal_mod</a></code>,
+<code><a href='pal_org.html'>pal_org</a></code>,
+<code><a href='pal_rgb.html'>pal_rgb</a></code>,
+<code><a href='pal_unikn.html'>pal_unikn</a></code>,
+<code><a href='pal_vir.html'>pal_vir</a></code>,
+<code><a href='pal.html'>pal</a></code>,
+<code><a href='prob.html'>prob</a></code>,
+<code><a href='txt_TF.html'>txt_TF</a></code>,
+<code><a href='txt.html'>txt</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>txt_org</span>        <span class='co'># shows original text labels</span></div><div class='output co'>#&gt; $scen_lbl
+    <pre class="examples"><div class='input'><span class='va'>txt_org</span>        <span class='co'># shows original text labels</span>
+</div><div class='output co'>#&gt; $scen_lbl
 #&gt; [1] "Scenario"
 #&gt; 
 #&gt; $scen_txt
@@ -238,39 +256,37 @@ to define all scenario titles and labels.</p>
 #&gt; 
 #&gt; $cr_lbl
 #&gt; [1] "cr"
-#&gt; </div><div class='input'><span class='no'>txt_org</span>[<span class='st'>"hi"</span>]  <span class='co'># shows the original label for hits ("hi")</span></div><div class='output co'>#&gt; $&lt;NA&gt;
+#&gt; </div><div class='input'><span class='va'>txt_org</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span>  <span class='co'># shows the original label for hits ("hi")</span>
+</div><div class='output co'>#&gt; $&lt;NA&gt;
 #&gt; NULL
-#&gt; </div><div class='input'><span class='no'>txt_org</span>[<span class='st'>"hi"</span>] <span class='kw'>&lt;-</span> <span class='st'>"TP"</span> <span class='co'># defines a new label for hits (true positives, TP)</span></div></pre>
+#&gt; </div><div class='input'><span class='va'>txt_org</span><span class='op'>[</span><span class='st'>"hi"</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"TP"</span> <span class='co'># defines a new label for hits (true positives, TP)</span>
+
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      
-      <li><a href="#format">Format</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

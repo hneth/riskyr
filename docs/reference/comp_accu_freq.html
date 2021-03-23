@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,16 +45,15 @@
 
 
 
-<meta property="og:title" content="Compute accuracy metrics of current classification results. — comp_accu_freq" />
 
+<meta property="og:title" content="Compute accuracy metrics of current classification results. — comp_accu_freq" />
 <meta property="og:description" content="comp_accu_freq computes a list of current accuracy metrics
 from the 4 essential frequencies (hi,
 mi, fa, cr)
 that constitute the current confusion matrix and
 are contained in freq." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -60,9 +67,10 @@ are contained in freq." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -76,7 +84,7 @@ are contained in freq." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -84,46 +92,49 @@ are contained in freq." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -134,6 +145,7 @@ are contained in freq." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -145,18 +157,15 @@ are contained in freq." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>comp_accu_freq</code> computes a list of current accuracy metrics
 from the 4 essential frequencies (<code><a href='hi.html'>hi</a></code>,
 <code><a href='mi.html'>mi</a></code>, <code><a href='fa.html'>fa</a></code>, <code><a href='cr.html'>cr</a></code>)
 that constitute the current confusion matrix and
 are contained in <code><a href='freq.html'>freq</a></code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>hi</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>mi</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>fa</span>,
-  <span class='kw'>cr</span> <span class='kw'>=</span> <span class='no'>freq</span>$<span class='no'>cr</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>hi</span>, mi <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>mi</span>, fa <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>fa</span>, cr <span class='op'>=</span> <span class='va'>freq</span><span class='op'>$</span><span class='va'>cr</span>, w <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -183,11 +192,10 @@ for computing weighted accuracy <code>wacc</code>.
 Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code>).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list <code><a href='accu.html'>accu</a></code> containing current accuracy metrics.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Currently computed accuracy metrics include:</p>
@@ -217,11 +225,12 @@ Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code
 <p><code>f1s =  2 * (PPV * sens) / (PPV + sens)</code></p>
 <p>See <a href='https://en.wikipedia.org/wiki/F1_score'>Wikipedia: F1 score</a> for additional information.</p></li>
 </ol>
-    <p>Notes:</p>
+
+<p>Notes:</p>
 <ul>
 <li><p>Accuracy metrics describe the <em>correspondence</em> of decisions (or predictions) to actual conditions (or truth).</p>
 <p>There are several possible interpretations of accuracy:</p>
-<ol>
+<p></p><ol>
 <li><p>as <em>probabilities</em> (i.e., <code>acc</code> being the proportion of correct classifications,
      or the ratio <code><a href='dec_cor.html'>dec_cor</a></code>/<code><a href='N.html'>N</a></code>),</p></li>
 <li><p>as <em>frequencies</em> (e.g., as classifying a population of <code><a href='N.html'>N</a></code>
@@ -235,12 +244,11 @@ Default: <code>w = .50</code> (i.e., yielding balanced accuracy <code>bacc</code
    <code>comp_accu_freq</code> correspond to these rounded values.
    Use <code><a href='comp_accu_prob.html'>comp_accu_prob</a></code> to obtain exact accuracy metrics from probabilities.</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Consult <a href='https://en.wikipedia.org/wiki/Confusion_matrix'>Wikipedia: Confusion matrix</a>
 for additional information.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='accu.html'>accu</a></code> for all accuracy metrics;
@@ -250,23 +258,35 @@ for additional information.</p>
 <code><a href='txt.html'>txt</a></code> for current text settings;
 <code><a href='pal.html'>pal</a></code> for current color settings;
 <code><a href='popu.html'>popu</a></code> for a table of the current population.</p>
-<p>Other metrics: <code><a href='accu.html'>accu</a></code>, <code><a href='acc.html'>acc</a></code>,
-  <code><a href='comp_accu_prob.html'>comp_accu_prob</a></code>, <code><a href='comp_acc.html'>comp_acc</a></code>,
-  <code><a href='comp_err.html'>comp_err</a></code>, <code><a href='err.html'>err</a></code></p>
-<p>Other functions computing probabilities: <code><a href='comp_FDR.html'>comp_FDR</a></code>,
-  <code><a href='comp_FOR.html'>comp_FOR</a></code>, <code><a href='comp_NPV.html'>comp_NPV</a></code>,
-  <code><a href='comp_PPV.html'>comp_PPV</a></code>, <code><a href='comp_accu_prob.html'>comp_accu_prob</a></code>,
-  <code><a href='comp_acc.html'>comp_acc</a></code>, <code><a href='comp_comp_pair.html'>comp_comp_pair</a></code>,
-  <code><a href='comp_complement.html'>comp_complement</a></code>,
-  <code><a href='comp_complete_prob_set.html'>comp_complete_prob_set</a></code>,
-  <code><a href='comp_err.html'>comp_err</a></code>, <code><a href='comp_fart.html'>comp_fart</a></code>,
-  <code><a href='comp_mirt.html'>comp_mirt</a></code>, <code><a href='comp_ppod.html'>comp_ppod</a></code>,
-  <code><a href='comp_prob_freq.html'>comp_prob_freq</a></code>, <code><a href='comp_prob.html'>comp_prob</a></code>,
-  <code><a href='comp_sens.html'>comp_sens</a></code>, <code><a href='comp_spec.html'>comp_spec</a></code></p></div>
-    
+<p>Other metrics: 
+<code><a href='accu.html'>accu</a></code>,
+<code><a href='acc.html'>acc</a></code>,
+<code><a href='comp_accu_prob.html'>comp_accu_prob</a>()</code>,
+<code><a href='comp_acc.html'>comp_acc</a>()</code>,
+<code><a href='comp_err.html'>comp_err</a>()</code>,
+<code><a href='err.html'>err</a></code></p>
+<p>Other functions computing probabilities: 
+<code><a href='comp_FDR.html'>comp_FDR</a>()</code>,
+<code><a href='comp_FOR.html'>comp_FOR</a>()</code>,
+<code><a href='comp_NPV.html'>comp_NPV</a>()</code>,
+<code><a href='comp_PPV.html'>comp_PPV</a>()</code>,
+<code><a href='comp_accu_prob.html'>comp_accu_prob</a>()</code>,
+<code><a href='comp_acc.html'>comp_acc</a>()</code>,
+<code><a href='comp_comp_pair.html'>comp_comp_pair</a>()</code>,
+<code><a href='comp_complement.html'>comp_complement</a>()</code>,
+<code><a href='comp_complete_prob_set.html'>comp_complete_prob_set</a>()</code>,
+<code><a href='comp_err.html'>comp_err</a>()</code>,
+<code><a href='comp_fart.html'>comp_fart</a>()</code>,
+<code><a href='comp_mirt.html'>comp_mirt</a>()</code>,
+<code><a href='comp_ppod.html'>comp_ppod</a>()</code>,
+<code><a href='comp_prob_freq.html'>comp_prob_freq</a>()</code>,
+<code><a href='comp_prob.html'>comp_prob</a>()</code>,
+<code><a href='comp_sens.html'>comp_sens</a>()</code>,
+<code><a href='comp_spec.html'>comp_spec</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>comp_accu_freq</span>()  <span class='co'># =&gt; accuracy metrics for freq of current scenario</span></div><div class='output co'>#&gt; $acc
+    <pre class="examples"><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># =&gt; accuracy metrics for freq of current scenario</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.774
 #&gt; 
 #&gt; $w
@@ -280,7 +300,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.6523077
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>)  <span class='co'># medium accuracy, but cr &gt; hi</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>3</span>, cr <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>  <span class='co'># medium accuracy, but cr &gt; hi</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $w
@@ -296,7 +317,8 @@ for additional information.</p>
 #&gt; [1] 0.2857143
 #&gt; </div><div class='input'>
 <span class='co'># Extreme cases:</span>
-<span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>1</span>)  <span class='co'># random performance</span></div><div class='output co'>#&gt; $acc
+<span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>1</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># random performance</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $w
@@ -310,7 +332,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.5
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>1</span>)  <span class='co'># random performance: wacc and f1s are NaN</span></div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>0</span>, mi <span class='op'>=</span> <span class='fl'>0</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># random performance: wacc and f1s are NaN</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.5
 #&gt; 
 #&gt; $w
@@ -324,7 +347,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>1</span>)  <span class='co'># perfect accuracy/optimal performance</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>0</span>, fa <span class='op'>=</span> <span class='fl'>0</span>, cr <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># perfect accuracy/optimal performance</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 1
 #&gt; 
 #&gt; $w
@@ -338,7 +362,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 1
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># zero accuracy/worst performance, but see f1s</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>0</span>, mi <span class='op'>=</span> <span class='fl'>1</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># zero accuracy/worst performance, but see f1s</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0
 #&gt; 
 #&gt; $w
@@ -352,7 +377,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] NaN
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>0</span>)  <span class='co'># perfect accuracy, but see wacc and mcc</span></div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>1</span>, mi <span class='op'>=</span> <span class='fl'>0</span>, fa <span class='op'>=</span> <span class='fl'>0</span>, cr <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># perfect accuracy, but see wacc and mcc</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: accu$mcc: A denominator of 0 was corrected to 1, resulting in mcc = 0.</span></div><div class='output co'>#&gt; $acc
 #&gt; [1] 1
 #&gt; 
 #&gt; $w
@@ -368,7 +394,8 @@ for additional information.</p>
 #&gt; [1] 1
 #&gt; </div><div class='input'>
 <span class='co'># Effects of w:</span>
-<span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>)  <span class='co'># equal weights to sens and spec</span></div><div class='output co'>#&gt; $acc
+<span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>3</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>4</span>, w <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>  <span class='co'># equal weights to sens and spec</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.7
 #&gt; 
 #&gt; $w
@@ -382,7 +409,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.6666667
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>)  <span class='co'># more weight to sens</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>3</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>4</span>, w <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span>  <span class='co'># more weight to sens</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.7
 #&gt; 
 #&gt; $w
@@ -396,7 +424,8 @@ for additional information.</p>
 #&gt; 
 #&gt; $f1s
 #&gt; [1] 0.6666667
-#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>)  <span class='co'># more weight to spec</span></div><div class='output co'>#&gt; $acc
+#&gt; </div><div class='input'><span class='fu'>comp_accu_freq</span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>3</span>, mi <span class='op'>=</span> <span class='fl'>2</span>, fa <span class='op'>=</span> <span class='fl'>1</span>, cr <span class='op'>=</span> <span class='fl'>4</span>, w <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span>  <span class='co'># more weight to spec</span>
+</div><div class='output co'>#&gt; $acc
 #&gt; [1] 0.7
 #&gt; 
 #&gt; $w
@@ -413,57 +442,51 @@ for additional information.</p>
 #&gt; </div><div class='input'>
 <span class='co'>## Contrasting comp_accu_freq and comp_accu_prob:</span>
 <span class='co'># (a) comp_accu_freq (based on rounded frequencies):</span>
-<span class='no'>freq1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>)   <span class='co'># =&gt; hi = 2, mi = 1, fa = 2, cr = 5</span>
-<span class='no'>accu1</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_accu_freq</span>(<span class='no'>freq1</span>$<span class='no'>hi</span>, <span class='no'>freq1</span>$<span class='no'>mi</span>, <span class='no'>freq1</span>$<span class='no'>fa</span>, <span class='no'>freq1</span>$<span class='no'>cr</span>)  <span class='co'># =&gt; accu1 (based on rounded freq).</span>
+<span class='va'>freq1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>4</span><span class='op'>)</span>   <span class='co'># =&gt; hi = 2, mi = 1, fa = 2, cr = 5</span>
+<span class='va'>accu1</span> <span class='op'>&lt;-</span> <span class='fu'>comp_accu_freq</span><span class='op'>(</span><span class='va'>freq1</span><span class='op'>$</span><span class='va'>hi</span>, <span class='va'>freq1</span><span class='op'>$</span><span class='va'>mi</span>, <span class='va'>freq1</span><span class='op'>$</span><span class='va'>fa</span>, <span class='va'>freq1</span><span class='op'>$</span><span class='va'>cr</span><span class='op'>)</span>  <span class='co'># =&gt; accu1 (based on rounded freq).</span>
 <span class='co'># accu1</span>
 <span class='co'>#</span>
 <span class='co'># (b) comp_accu_prob (based on probabilities):</span>
-<span class='no'>accu2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_accu_prob.html'>comp_accu_prob</a></span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>)      <span class='co'># =&gt; exact accu (based on prob).</span>
+<span class='va'>accu2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_accu_prob.html'>comp_accu_prob</a></span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>4</span><span class='op'>)</span>      <span class='co'># =&gt; exact accu (based on prob).</span>
 <span class='co'># accu2</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>accu1</span>, <span class='no'>accu2</span>)  <span class='co'># =&gt; 4 differences!</span></div><div class='output co'>#&gt; [1] "Component “acc”: Mean relative difference: 0.03174603" 
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>accu1</span>, <span class='va'>accu2</span><span class='op'>)</span>  <span class='co'># =&gt; 4 differences!</span>
+</div><div class='output co'>#&gt; [1] "Component “acc”: Mean relative difference: 0.03174603" 
 #&gt; [2] "Component “wacc”: Mean relative difference: 0.02586207"
 #&gt; [3] "Component “mcc”: Mean relative difference: 0.1306675"  
 #&gt; [4] "Component “f1s”: Mean relative difference: 0.07692308" </div><div class='input'><span class='co'>#</span>
 <span class='co'># (c) comp_accu_freq (exact values, i.e., without rounding):</span>
-<span class='no'>freq3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>3</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>4</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>accu3</span> <span class='kw'>&lt;-</span> <span class='fu'>comp_accu_freq</span>(<span class='no'>freq3</span>$<span class='no'>hi</span>, <span class='no'>freq3</span>$<span class='no'>mi</span>, <span class='no'>freq3</span>$<span class='no'>fa</span>, <span class='no'>freq3</span>$<span class='no'>cr</span>)  <span class='co'># =&gt; accu3 (based on EXACT freq).</span>
+<span class='va'>freq3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_freq.html'>comp_freq</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>3</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>4</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>accu3</span> <span class='op'>&lt;-</span> <span class='fu'>comp_accu_freq</span><span class='op'>(</span><span class='va'>freq3</span><span class='op'>$</span><span class='va'>hi</span>, <span class='va'>freq3</span><span class='op'>$</span><span class='va'>mi</span>, <span class='va'>freq3</span><span class='op'>$</span><span class='va'>fa</span>, <span class='va'>freq3</span><span class='op'>$</span><span class='va'>cr</span><span class='op'>)</span>  <span class='co'># =&gt; accu3 (based on EXACT freq).</span>
 <span class='co'># accu3</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>accu2</span>, <span class='no'>accu3</span>)  <span class='co'># =&gt; TRUE (qed).</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>accu2</span>, <span class='va'>accu3</span><span class='op'>)</span>  <span class='co'># =&gt; TRUE (qed).</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

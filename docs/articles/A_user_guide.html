@@ -12,19 +12,20 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="riskyr User Guide">
-<meta property="og:description" content="">
+<meta property="og:description" content="riskyr">
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -45,45 +46,49 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -96,13 +101,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>riskyr User Guide</h1>
+      <h1 data-toc-skip>riskyr User Guide</h1>
                         <h4 class="author">Hansjörg Neth, SPDS, uni.kn</h4>
             
-            <h4 class="date">2018 02 01</h4>
+            <h4 class="date">2021 03 23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/master/vignettes/A_user_guide.Rmd"><code>vignettes/A_user_guide.Rmd</code></a></small>
       <div class="hidden name"><code>A_user_guide.Rmd</code></div>
@@ -113,31 +119,36 @@
     
 <!-- Motto: -->
 <blockquote>
-<p>“Solving a problem simply means representing it so as to make the solution transparent.”<br> (H.A. Simon)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>“Solving a problem simply means representing it so as to make the solution transparent.”<br> (H.A. Simon)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
 <!-- Introduction: -->
-<p>What is the probability of a disease or clinical condition given a positive test result? This seems a simple and fairly common question, yet doctors, patients and medical students find it surprisingly difficult to answer.</p>
+<p>What is the probability of a disease or clinical condition given a positive test result? This is a common and fairly simple question, yet doctors, patients and medical students find it surprisingly difficult to answer.</p>
 <p>Decades of research on probabilistic reasoning and risk literacy have shown that people are perplexed and struggle when information is expressed in terms of probabilities (e.g., see Mandel &amp; Navarrete, 2015, and Trevethan, 2017, for overviews), but find it easier to understand and process the same information when it is expressed in terms of natural frequencies (see Gigerenzer and Hoffrage, 1995; Gigerenzer et al., 2007; Hoffrage et al., 2015).</p>
 <!-- On riskyr: -->
 <!-- riskyr logo: -->
-<p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
-<p><code>riskyr</code> is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between probabilities and frequencies. The main goal of <code>riskyr</code> is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in domains such as health, weather, and finances (Hertwig &amp; Grüne-Yanoff, 2017).</p>
-<p>This guide first illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:</p>
+<p><a href="https://github.com/hneth/riskyr/"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --></p>
+<p><strong>riskyr</strong> is a toolbox for rendering risk literacy more transparent by facilitating such changes in representation and offering multiple perspectives on the dynamic interplay between frequencies and probabilities. The main goal of <strong>riskyr</strong> is to provide a long-term boost in risk literacy by fostering competence in understanding statistical information in different applied domains (Hertwig &amp; Grüne-Yanoff, 2017). Although our motivation and the majority of our examples stem from health care and medical treatments, the same relationships and tasks also govern the interplay of risks and effects in other semantic domains (e.g., accidents, climate and weather risks, or financial risks).</p>
+<p>This guide illustrates a typical problem and then helps you solving it by viewing risk-related information in a variety of ways. It proceeds in three steps:</p>
 <ol style="list-style-type: decimal">
-<li><p>We first present a typical problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes’ formula) remains opaque and is rightfully perceived as difficult.</p></li>
+<li><p>We first present the problem in the probabilistic format that is commonly used in textbooks. This allows introducing some key probabilities, but also explains why both this problem and its traditional solution (via Bayes’ theorem) remains opaque and is rightfully perceived as difficult.</p></li>
 <li><p>We then translate the problem into natural frequencies and show how this facilitates its comprehension and solution.</p></li>
 <li>
-<p>Finally, we show how <code>riskyr</code> renders the problem more transparent by providing three sets of tools:</p>
+<p>Finally, we show how <strong>riskyr</strong> can help to render the problem more transparent by providing three sets of tools:</p>
 <p>A. A fancy calculator that allows the computation of probabilities and frequencies;</p>
 <p>B. A set of functions that translate between different representational formats;</p>
 <p>C. A variety of visualizations that illustrate relationships between frequencies and probabilities.</p>
 </li>
 </ol>
+<p>This introduction focuses on the practical aspects of using <strong>riskyr</strong>. The theoretical background is illuminated further in the following article:</p>
+<ul>
+<li>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817">10.3389/fpsyg.2020.567817</a>
+</li>
+</ul>
 <div id="motivation-a-problem-of-probabilities" class="section level2">
 <h2 class="hasAnchor">
 <a href="#motivation-a-problem-of-probabilities" class="anchor"></a>Motivation: A problem of probabilities</h2>
 <!-- Motivation: -->
-<p>A basic motivation for developing <code>riskyr</code> was to facilitate our understanding of problems like the following:</p>
+<p>A basic motivation for developing <strong>riskyr</strong> was to facilitate our understanding of problems like the following:</p>
 <blockquote>
 <p><strong>Mammography screening</strong></p>
 <p>The probability of breast cancer is 1% for a woman at age 40 who participates in routine screening. If a woman has breast cancer, the probability is 80% that she will get a positive mammography. If a woman does not have breast cancer, the probability is 9.6% that she will also get a positive mammography.</p>
@@ -148,9 +159,9 @@ What is the probability that she actually has breast cancer?</p>
 <div id="information-provided-and-asked" class="section level3">
 <h3 class="hasAnchor">
 <a href="#information-provided-and-asked" class="anchor"></a>Information provided and asked</h3>
-<p>Problems like this tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. They typically provide some risk-related information (i.e., specific probabilities of some clinical condition and likelihoods of some decision or test of detecting its presence or absence) and ask for some other risk-related quantity. In the most basic type of scenario, we are given 3 essential probabilities:</p>
+<p>Problems like this tend to appear in texts and tutorials on risk literacy and are ubiquitous in medical diagnostics. They typically provide some risk-related information (i.e., specific probabilities of some clinical condition and likelihoods of some decision or test of detecting its presence or absence) and ask for some other risk-related quantity. In the most basic type of scenario, we are given 3 essential probabilities:</p>
 <ol style="list-style-type: decimal">
-<li>The <em>prevalence</em> of some target population (here: women at age 40) for some condition (breast cancer):</li>
+<li>The <em>prevalence</em> of some target population (here: women at age 40) for some condition (breast cancer):</li>
 </ol>
 <ul>
 <li>
@@ -186,28 +197,30 @@ What is the probability that she actually has breast cancer?</p>
 </ul>
 <p>How can we compute the <em>positive predictive value</em> (<code>PPV</code>) from the information provided by the problem? In the following, we sketch three different paths to the solution.</p>
 </div>
-<div id="using-bayes-formula" class="section level3">
+<div id="using-bayes-theorem" class="section level3">
 <h3 class="hasAnchor">
-<a href="#using-bayes-formula" class="anchor"></a>Using Bayes’ formula</h3>
-<p>One way to solve problems concerning conditional probabilities is to remember and apply Bayes’ formula (which is why such problems are often called problems of “Bayesian reasoning”):</p>
+<a href="#using-bayes-theorem" class="anchor"></a>Using Bayes’ theorem</h3>
+<p>One way to solve problems concerning conditional probabilities is to remember and apply Bayes’ theorem (which is why such problems are often called problems of “Bayesian reasoning”):</p>
 <p><span class="math display">\[ p(H|D) = \frac{p(H) \cdot p(D|H) } {p(H) \cdot p(D|H) + p(\neg H) \cdot p(D|\neg H) } \]</span></p>
-<p>In our example, we are looking for the probability of breast cancer (<span class="math inline">\(H\)</span>) given a positive mammography test (<span class="math inline">\(D\)</span>):</p>
+<p>In our example, we are asking for the conditional probability of breast cancer (<span class="math inline">\(H\)</span>) given a positive mammography test (<span class="math inline">\(D\)</span>):</p>
 <p><span class="math display">\[ p(\mathrm{cancer}\ |\ \mathrm{positive\ test}) 
 = \frac{p(\mathrm{cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) } 
 {p(\mathrm{cancer})     \cdot p(\mathrm{positive\ test}\ |\ \mathrm{cancer}) + 
  p(\mathrm{no\ cancer}) \cdot p(\mathrm{positive\ test}\ |\ \mathrm{no\ cancer}) } \]</span></p>
-<p>By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., $p() = 1 - <span class="math inline">\(`prev` = 99\%\)</span>) we obtain:</p>
+<p>or, when using <span class="math inline">\(C\)</span> as denoting cancer and <span class="math inline">\(T\)</span> as denoting a positive test:</p>
+<p><span class="math display">\[ p(C|T) = \frac{p(C) \cdot p(T|C) } {p(C) \cdot p(T|C) + p(\neg C) \cdot p(T|\neg C) } \]</span></p>
+<p>By inserting the probabilities identified above and knowing that the probability for the absence of breast cancer in our target population is the complementary probability of its presence (i.e., <span class="math inline">\(p\)</span>(no cancer) = 1 – <code>prev</code> = 99%) we obtain:</p>
 <p><span class="math display">\[ p(\mathrm{cancer}\ |\ \mathrm{positive\ test}) 
 = \frac{1\% \cdot 80\% } 
 {  1\% \cdot 80\% + 
   99\% \cdot 9.6\% } \approx\ 7.8\%\]</span></p>
-<p>Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the <code>PPV</code> of this mammography screening test) is slightly below 8%.</p>
+<p>Thus, the information above and a few basic mathematical calculations tell us that the likelihood of a woman in our target population with a positive mammography screening test actually having breast cancer (i.e., the <code>PPV</code> of this mammography screening test for this population of women) is slightly below 8%.</p>
 </div>
 </div>
 <div id="using-natural-frequencies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-natural-frequencies" class="anchor"></a>Using natural frequencies</h2>
-<p>If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics find it difficult to think in these terms. Fortunately, researchers have found that a simple change in representation renders the same information much more transparent.</p>
+<p>If you fail to find the Bayesian solution easy and straightforward, you are in good company: Even people who have studied and taught statistics often find it difficult to think in these terms. Fortunately, researchers have discovered that a simple change in representation renders the same information much more transparent.</p>
 <p>Consider the following problem description:</p>
 <blockquote>
 <p><strong>Mammography screening</strong> (<code>freq</code>)</p>
@@ -249,232 +262,183 @@ How many of these women do you expect to actually have breast cancer?</p>
 <code>spec</code> = 1 – <code>fart</code> = <span class="math inline">\(p( \mathrm{negative\ test}\ |\ \mathrm{no\ cancer} ) = \frac{990 - 95}{990} = \frac{895}{990} (\approx\ 90.4\%)\)</span>
 </li>
 </ul>
-<p>Rather than asking us to compute a conditional probability (i.e., the <code>PPV</code>), the task now prompts us to imagine a new representative sample of women from our target population and focuses on the women with a positive test result. It then asks for a <em>frequency</em>: “How many of these women” do we expect to have cancer?</p>
-<p>To provide any answer in terms of frequencies, we need to imagine a specific sample size <span class="math inline">\(N\)</span>. As the problem referred to a population of <span class="math inline">\(1000\)</span> women, we conveniently pick a sample size of <span class="math inline">\(N = 1000\)</span> women with identical characteristics (which is suggested by mentioning a “representative” sample) and ask: How many women with a positive test result actually have cancer?<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
-<p>In this new sample, the frequency of women with cancer and with a positive test result should match the numbers of the original sample. Hence, we can assume that <span class="math inline">\(10\)</span> out of <span class="math inline">\(1000\)</span> women have cancer (<code>prev</code>) and <span class="math inline">\(8\)</span> of the <span class="math inline">\(10\)</span> women with cancer receive a positive test resul (<code>sens</code>). Importantly, <span class="math inline">\(95\)</span> out of the <span class="math inline">\(990\)</span> women without cancer also receive a positive test result (<code>fart</code>). Thus, the number of women with a positive test result is <span class="math inline">\(8 + 95 = 103\)</span>, but only <span class="math inline">\(8\)</span> of them actually have cancer. Of course the ratio <span class="math inline">\(\frac{8}{103}\)</span> is identical to our previous probability (of slightly below 7.8%). Incidentally, the reformulation in terms of frequencies protected us from erroneously taking the sensitivity (of <code>sens</code> = <span class="math inline">\(\frac{8}{10} = 80\%\)</span>) as an estimate of the desired frequency. Whereas it is easy to confuse the term <span class="math inline">\(p( \mathrm{positive\ test}\ |\ \mathrm{cancer} )\)</span> with <span class="math inline">\(p( \mathrm{cancer}\ |\ \mathrm{positive\ test} )\)</span> when the task is expressed in terms of probabilities, it is clearly unreasonable to assume that about 800 of 1000 women (i.e., 80%) actually have cancer (since the prevalence in the population was specified to be 10 in 1000, i.e., 10%). Thus, reframing the problem in terms of frequencies made us immune against a typical mistake.</p>
+<p>Rather than asking us to compute a conditional probability (i.e., the <code>PPV</code>), the task now prompts us to imagine a new representative sample of women from our target population and focuses on the women with a positive test result. It then asks for a <em>frequency</em> as a subset of a population: “How many of these women” do we expect to have cancer?</p>
+<p>To provide any answer in terms of frequencies, we need to imagine a specific population or sample size <span class="math inline">\(N\)</span>. As the problem referred to a population of <span class="math inline">\(1000\)</span> women, we conveniently pick a sample size of <span class="math inline">\(N = 1000\)</span> women with identical characteristics (which is suggested by mentioning a “representative” sample) and ask: How many women with a positive test result actually have cancer?<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>In this new sample, the frequency of women with cancer and with a positive test result should match the numbers of the original sample. Hence, we can assume that <span class="math inline">\(10\)</span> out of <span class="math inline">\(1000\)</span> women have cancer (<code>prev</code>) and <span class="math inline">\(8\)</span> of the <span class="math inline">\(10\)</span> women with cancer receive a positive test resul (<code>sens</code>). Importantly, <span class="math inline">\(95\)</span> out of the <span class="math inline">\(990\)</span> women without cancer also receive a positive test result (<code>fart</code>). Thus, the number of women with a positive test result is <span class="math inline">\(8 + 95 = 103\)</span>, but only <span class="math inline">\(8\)</span> of them actually have cancer. Of course the ratio <span class="math inline">\(\frac{8}{103}\)</span> is identical to our previous probability (of slightly below 7.8%). Incidentally, the reformulation in terms of frequencies protected us from erroneously taking the sensitivity (of <code>sens</code> = <span class="math inline">\(\frac{8}{10} = 80\%\)</span>) as an estimate of the desired frequency. Whereas it is easy to confuse the term <span class="math inline">\(p( \mathrm{positive\ test}\ |\ \mathrm{cancer} )\)</span> with <span class="math inline">\(p( \mathrm{cancer}\ |\ \mathrm{positive\ test} )\)</span> when the task is expressed in terms of probabilities, it is clearly unreasonable to assume that about 800 of 1000 women (i.e., 80%) actually have cancer (since the prevalence in the population was specified to be 10 in 1000, i.e., 10%). Thus, reframing the problem in terms of frequencies made us immune against a typical mistake.</p>
 </div>
 <div id="using-riskyr" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-riskyr" class="anchor"></a>Using riskyr</h2>
-<p>Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer &amp; Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to <em>cope</em> with tricky problems, it would be even more desirable to <em>actually understand</em> the interplay between probabilities and frequencies in risk-related tasks and domains. This is where <code>riskyr</code> comes into play.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<p>Reframing the probabilistic problem in terms of frequencies made its solution easier. This is neat and probably one of the best tricks in risk literacy education (as advocated by Gigerenzer &amp; Hoffrage, 1995; Gigerenzer 2002; 2014). While it is good to have a way to <em>cope</em> with tricky problems, it would be even more desirable to <em>actually understand</em> the interplay between probabilities and frequencies in risk-related tasks and domains. This is where <strong>riskyr</strong> comes into play.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <!-- riskyr logo: -->
-<p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
-<p><code>riskyr</code> provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a <em>computational</em>, and more of a <em>representational</em> nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, <code>riskyr</code> is a toolbox that renders risk literacy education more transparent.</p>
+<p><a href="https://github.com/hneth/riskyr/"> <img src="../inst/pix//riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a> <!-- ![riskyr](../inst/pix/riskyr_cube.png) --> <!-- knitr::include_graphics("../inst/pix/riskyr_cube.png") --></p>
+<p><strong>riskyr</strong> provides a set of basic risk literacy tools in R. As we have seen, the problems humans face when dealing with risk-related information are less of a <em>computational</em>, and more of a <em>representational</em> nature. As a statistical programming language, R is a pretty powerful computational tool, but for our present purposes it is more important that R is also great for designing and displaying aesthetic and informative visualizations. By applying these qualities to the task of training and instruction in risk literacy, <strong>riskyr</strong> is a toolbox that renders risk literacy education more transparent.</p>
 <div id="risk-vs-uncertainty" class="section level3">
 <h3 class="hasAnchor">
 <a href="#risk-vs-uncertainty" class="anchor"></a>Risk vs. uncertainty</h3>
 <!-- Defining the notion of "risk": -->
-<p>To clarify the concept of “risk” used in this context: In both basic research on the psychology of judgment and decision making and more applied research on risk perception and risk communication, the term <em>risk</em> refers to information or decisions for which all options and their consequences are known and <em>probabilities</em> for the different outcomes can be provided. This notion of <em>risk</em> is typically contrasted with the wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
-<p>For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the <code>riskyr</code> start-up message: Every time you load the package, the dice are cast and determine which particular message (out of a range of possible messages) is shown. Even if you notice this, determining the exact probability of a message would require extensive experience, explicit information (e.g., us telling you that we use R’s <code>sample</code> function to randomly select 1 of 5 possible messages), or cheating (by peeking at the source code). In real life, the events of interest are vastly more complex and numerous and both our experience and options for cheating are subject to hard constraints. Thus, provided we do not want to regress into superstition, we need science to figure out probabilities and transparent risk communication for understanding them.</p>
+<p>To clarify the concept of “risk” used in this context: In both basic research on the psychology of judgment and decision making and more applied research on risk perception and risk communication, the term <em>risk</em> refers to information or decisions for which all options and their consequences are known and <em>probabilities</em> for the different outcomes can be provided. This notion of <em>risk</em> is typically contrasted with the wider notion of <em>uncertainty</em> in which options or probabilities are unknown or cannot be quantified.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>For our present purposes, the notion of risk-related information refers to any scenario in which some events are determined by probabilities. A benign example of a risk-related situation is the <strong>riskyr</strong> start-up message: Every time you load the package, the dice are cast and determine which particular message (out of a range of possible messages) is shown. Even if you notice this, determining the exact probability of a message would require extensive experience, explicit information (e.g., us telling you that we use R’s <code>sample</code> function to randomly select 1 of 5 possible messages), or cheating (by peeking at the source code). In real life, the events of interest are vastly more complex and numerous and both our experience and options for cheating are subject to hard constraints. Thus, provided we do not want to regress into superstition, we need science to figure out probabilities and transparent risk communication for understanding them.</p>
 </div>
 <div id="promoting-risk-perception-and-communication" class="section level3">
 <h3 class="hasAnchor">
 <a href="#promoting-risk-perception-and-communication" class="anchor"></a>Promoting risk perception and communication</h3>
-<p><code>riskyr</code> facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<p><strong>riskyr</strong> facilitates risk perception and promotes a deeper understanding of risk-related information in three ways:<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <ul>
 <li><p>by organizing <em>data structures</em> and <em>computational functions</em> in useful ways;</p></li>
 <li><p>by providing <em>translations</em> between probabilities and frequencies;</p></li>
 <li><p>by providing transparent <em>visualizations</em> that illustrate relationships between variables and representations.</p></li>
 </ul>
-<p>If others find the ways in which <code>riskyr</code> computes, transforms, and represents risks helpful or useful, <code>riskyr</code> may facilitate teaching and training efforts in risk literacy and generally hopes to promote a more transparent communication of risk-related information. In the following, we show how we can address the above problem by using three types of tools provided by <code>riskyr</code>.</p>
+<p>If others find the ways in which <strong>riskyr</strong> computes, transforms, and represents risks helpful or useful, <strong>riskyr</strong> may facilitate teaching and training efforts in risk literacy and generally hopes to promote a more transparent communication of risk-related information. In the following, we show how we can address the above problem by using three types of tools provided by <strong>riskyr</strong>.</p>
 </div>
 <div id="a--a-fancy-calculator" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a--a-fancy-calculator" class="anchor"></a>A. A fancy calculator</h3>
-<p><code>riskyr</code> provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value <code>PPV</code> from the 3 essential probabilities <code>prev</code>, <code>sens</code>, and <code>spec</code> (with <code>spec</code> = 1 – <code>fart</code>) that were provided in the original problem:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"riskyr"</span>)  <span class="co"># loads the package</span>
-<span class="co">#&gt; Welcome to riskyr!</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Ready to roll riskyr...</span>
-<span class="co">#&gt; </span>
+<p><strong>riskyr</strong> provides a set of functions that allows us to calculate various desired outputs (probabilities and frequencies) from given inputs (probabilities and frequencies). For instance, the following function computes the positive predictive value <code>PPV</code> from the 3 essential probabilities <code>prev</code>, <code>sens</code>, and <code>spec</code> (with <code>spec</code> = 1 – <code>fart</code>) that were provided in the original problem:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://CRAN.R-project.org/package=riskyr">"riskyr"</a></span><span class="op">)</span>  <span class="co"># loads the package</span>
+<span class="co">#&gt; Welcome to riskyr (v0.3.0)!</span>
 <span class="co">#&gt; riskyr.guide() opens user guides.</span>
 
-<span class="kw"><a href="../reference/comp_PPV.html">comp_PPV</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>.<span class="dv">096</span>))
-<span class="co">#&gt; [1] 0.07763975</span></code></pre></div>
-<p>It’s good to know that <code>riskyr</code> can apply Bayes’ formula, but so can any other decent calculator — including my brain on a good day and some environmental support in the form of paper and pencil. The R in <code>riskyr</code> only begins to make sense when considering functions like the following: <code>comp_prob_prob</code> computes probabilities from probabilities (hence its name). More precisely, <code>comp_prob_prob</code> takes 3 essential probabilities as inputs and returns a list of 13 probabilities as its output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute probabilities from 3 essential probabilities:                 # Input arguments:</span>
-p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span>   <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>)  <span class="co"># prev, sens, NA,   fart</span>
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> .<span class="dv">904</span>, <span class="dt">fart =</span>   <span class="ot">NA</span>)  <span class="co"># prev, sens, spec, NA </span>
-p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> .<span class="dv">904</span>, <span class="dt">fart =</span> .<span class="dv">096</span>)  <span class="co"># prev, sens, spec, fart</span>
+<span class="fu"><a href="../reference/comp_PPV.html">comp_PPV</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.07763975</span></pre></div>
+<p>It’s good to know that <strong>riskyr</strong> can apply Bayes’ formula, but so can any other decent calculator — including my brain on a good day and some environmental support in the form of paper and pencil. The R in <strong>riskyr</strong> only begins to make sense when considering functions like the following: <code><a href="../reference/comp_prob_prob.html">comp_prob_prob()</a></code> computes probabilities from probabilities (hence its name). More precisely, <code><a href="../reference/comp_prob_prob.html">comp_prob_prob()</a></code> takes three essential probabilities as inputs and returns a list of 13 probabilities as its output:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># Compute probabilities from 3 essential probabilities:                 # Input arguments:</span>
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span>   <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span><span class="op">)</span>  <span class="co"># prev, sens, NA,   fart</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="fl">.904</span>, fart <span class="op">=</span>   <span class="cn">NA</span><span class="op">)</span>  <span class="co"># prev, sens, spec, NA </span>
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="fl">.904</span>, fart <span class="op">=</span> <span class="fl">.096</span><span class="op">)</span>  <span class="co"># prev, sens, spec, fart</span>
 
 <span class="co"># Check equality of outputs:</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(p1, p2)
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(p2, p3)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>The probabilities provided need to include a prevalence <code>prev</code>, a sensitivity <code>sens</code>, and either the specificity <code>spec</code> or the false alarm rate <code>fart</code> (with <code>spec</code> = 1 – <code>fart</code>). The code above illustrates 3 different ways in which 3 of these “essential” probabilities can be provided. Thus, the assigned objects <code>p1</code>, <code>p2</code>, and <code>p3</code> are all equal to each other.</p>
-<p>The probabilities computed by these “essential” probabilities include the <code>PPV</code>, which can be obtained by asking for <code>p1$PPV</code> = 0.0776398. But the object computed by <code>comp_prob_prob</code> is actually a list of 10 probabilities and can be inspected by printing <code>p1</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1
-<span class="co">#&gt; $prev</span>
-<span class="co">#&gt; [1] 0.01</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $sens</span>
-<span class="co">#&gt; [1] 0.8</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $mirt</span>
-<span class="co">#&gt; [1] 0.2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $spec</span>
-<span class="co">#&gt; [1] 0.904</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fart</span>
-<span class="co">#&gt; [1] 0.096</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $ppod</span>
-<span class="co">#&gt; [1] 0.10304</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $PPV</span>
-<span class="co">#&gt; [1] 0.07763975</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $FDR</span>
-<span class="co">#&gt; [1] 0.9223602</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $NPV</span>
-<span class="co">#&gt; [1] 0.9977702</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $FOR</span>
-<span class="co">#&gt; [1] 0.002229754</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $acc</span>
-<span class="co">#&gt; [1] 0.90296</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $p_acc_hi</span>
-<span class="co">#&gt; [1] 0.00885975</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $p_err_fa</span>
-<span class="co">#&gt; [1] 0.9793899</span></code></pre></div>
-<p>The list of probabilities computed includes the 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code> or <code>fart</code>) and the desired probability (<code>p1$PPV</code> = 0.0776398), but also many other probabilities that may have been asked instead. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on these probabilities.)</p>
-<p>Incidentally, as R does not care whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem — the version reframed in terms of frequencies — yields the same solution:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:</span>
-p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span>(<span class="dt">prev =</span> <span class="dv">10</span><span class="op">/</span><span class="dv">1000</span>, <span class="dt">sens =</span> <span class="dv">8</span><span class="op">/</span><span class="dv">10</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> <span class="dv">95</span><span class="op">/</span><span class="dv">990</span>) <span class="co"># prev, sens, NA, fart</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">p3</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></pre></div>
+<p>The probabilities provided need to include a prevalence <code>prev</code>, a sensitivity <code>sens</code>, and either the specificity <code>spec</code> or the false alarm rate <code>fart</code> (with <code>spec</code> = 1 – <code>fart</code>). The code above illustrates 3 different ways in which 3 of these “essential” probabilities can be provided. Thus, the assigned objects <code>p1</code>, <code>p2</code>, and <code>p3</code>, are all equal to each other.</p>
+<p>The probabilities computed by these “essential” probabilities include the <code>PPV</code>, which can be obtained by asking for <code>p1$PPV</code> = 0.0776398. But the object computed by <code>comp_prob_prob</code> is actually a list of 10 probabilities and can be inspected by printing <code>p1</code> (as a vector):</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>
+<span class="co">#&gt;        prev        sens        mirt        spec        fart        ppod </span>
+<span class="co">#&gt; 0.010000000 0.800000000 0.200000000 0.904000000 0.096000000 0.103040000 </span>
+<span class="co">#&gt;         PPV         FDR         NPV         FOR         acc    p_acc_hi </span>
+<span class="co">#&gt; 0.077639752 0.922360248 0.997770246 0.002229754 0.902960000 0.008859750 </span>
+<span class="co">#&gt;    p_err_fa </span>
+<span class="co">#&gt; 0.979389942</span></pre></div>
+<p>The list of probabilities computed includes the 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code> or <code>fart</code>) and the desired probability (<code>p1$PPV</code> = 0.0776398), but also many other probabilities that may have been asked instead. (The selection of 13 probabilities include the most prominent candidate measures, but the Bayesian situation supports many additional probabilities. Which of them are considered is largely a matter of perspective. See the vignette on <a href="B_data_formats.html">data formats</a> for details, and <a href="https://doi.org/10.3389/fpsyg.2020.567817">Neth et al., 2021</a> for the theoretical background.)</p>
+<p>Incidentally, as R does not care whether probabilities are entered as decimal numbers or fractions, we can check whether the 2nd version of our problem — the version reframed in terms of frequencies — yields the same solution:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="co"># Compute probabilities from 3 ratios of frequencies (probabilities):       # Input arguments:</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_prob.html">comp_prob_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, sens <span class="op">=</span> <span class="fl">8</span><span class="op">/</span><span class="fl">10</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">95</span><span class="op">/</span><span class="fl">990</span><span class="op">)</span> <span class="co"># prev, sens, NA, fart</span>
 
-p4<span class="op">$</span>PPV
-<span class="co">#&gt; [1] 0.0776699</span></code></pre></div>
-<p>This shows that the <code>PPV</code> computed in this version is only marginally different (<code>p4$PPV</code> = 0.0776699). More importantly, it is identical to the ratio <span class="math inline">\(\frac{8}{103}\)</span> = 0.0776699.</p>
+<span class="va">p4</span><span class="op">$</span><span class="va">PPV</span>
+<span class="co">#&gt; [1] 0.0776699</span></pre></div>
+<p>This shows that the <code>PPV</code> computed by this version is only marginally different (<code>p4$PPV</code> = 0.0776699). More importantly, it is identical to the ratio <span class="math inline">\(\frac{8}{103}\)</span> = 0.0776699.</p>
 </div>
 <div id="b--translating-between-formats" class="section level3">
 <h3 class="hasAnchor">
 <a href="#b--translating-between-formats" class="anchor"></a>B. Translating between formats</h3>
-<p>Another function of <code>riskyr</code> is to translate between representational formats. This translation comes in two varieties:</p>
+<p>Another function of <strong>riskyr</strong> is to translate between representational formats. This translation comes in two varieties:</p>
 <div id="computing-frequencies-from-probabilities" class="section level4">
 <h4 class="hasAnchor">
 <a href="#computing-frequencies-from-probabilities" class="anchor"></a>Computing frequencies from probabilities</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute frequencies from probabilities:</span>
-f1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span>     .<span class="dv">01</span>, <span class="dt">sens =</span>  .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span>   .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>)
-f2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> <span class="dv">10</span><span class="op">/</span><span class="dv">1000</span>, <span class="dt">sens =</span> <span class="dv">8</span><span class="op">/</span><span class="dv">10</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> <span class="dv">95</span><span class="op">/</span><span class="dv">990</span>, <span class="dt">N =</span> <span class="dv">1000</span>)
+<p>The <code><a href="../reference/comp_freq_prob.html">comp_freq_prob()</a></code> function computes desired frequencies from given probabilities:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co"># Compute frequencies from probabilities:</span>
+<span class="va">f1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span>     <span class="fl">.01</span>, sens <span class="op">=</span>  <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span>   <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
+<span class="va">f2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, sens <span class="op">=</span> <span class="fl">8</span><span class="op">/</span><span class="fl">10</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">95</span><span class="op">/</span><span class="fl">990</span>, N <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
 
 <span class="co"># Check equality of outputs:</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(f1, f2)
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>By providing our original probabilities to the function <code>comp_freq_prob</code> we can compute a list of frequencies from probabilities (hence the name). To compute frequencies for the specific sample size of 1000 individuals, we need to provide <code>N = 1000</code> as an additional argument. As before, it does not matter whether the probabilities are supplied as decimal numbers or as ratios (as long as they actually <em>are</em> probabilities, i.e., numbers from 0 to 1).</p>
-<p>As the ratio <code>fart</code> = 95/990 is not exactly equal to <code>fart</code> = .096 (but rather 95/100 = 0.95) the two versions of our problem actually vary by a bit. Here, the results <code>f1</code> and <code>f2</code> are only identical because the function <code>comp_freq_prob</code> rounds to nearest integers by default. To compute more precise frequencies (that no longer round to integers), use the <code>round = FALSE</code> argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute frequencies from probabilities (without rounding):</span>
-f3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span>     .<span class="dv">01</span>, <span class="dt">sens =</span>  .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span>   .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">round =</span> <span class="ot">FALSE</span>)
-f4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> <span class="dv">10</span><span class="op">/</span><span class="dv">1000</span>, <span class="dt">sens =</span> <span class="dv">8</span><span class="op">/</span><span class="dv">10</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> <span class="dv">95</span><span class="op">/</span><span class="dv">990</span>, <span class="dt">N =</span> <span class="dv">1000</span>, <span class="dt">round =</span> <span class="ot">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">f1</span>, <span class="va">f2</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></pre></div>
+<p>To compute a set of frequencies for the specific sample size of 1000 individuals, we need to provide <code>N = 1000</code> as an additional argument. As before, it does not matter whether the probabilities are supplied as decimal numbers or as ratios (as long as they actually <em>are</em> probabilities, i.e., numbers ranging from 0 to 1).</p>
+<p>As the ratio <code>fart</code> = 95/990 is not exactly equal to <code>fart</code> = .096 (but rather 95/100 = 0.95) the two versions of our problem actually vary by a bit. Here, the results <code>f1</code> and <code>f2</code> are only identical because the <code><a href="../reference/comp_freq_prob.html">comp_freq_prob()</a></code> function rounds to nearest integers by default. To compute more precise frequencies (that no longer round to integers), use the <code>round = FALSE</code> argument:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="co"># Compute frequencies from probabilities (without rounding):</span>
+<span class="va">f3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span>     <span class="fl">.01</span>, sens <span class="op">=</span>  <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span>   <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">f4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="fl">1000</span>, sens <span class="op">=</span> <span class="fl">8</span><span class="op">/</span><span class="fl">10</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">95</span><span class="op">/</span><span class="fl">990</span>, N <span class="op">=</span> <span class="fl">1000</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-## Check equality of outputs:
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(f3, f4)  <span class="co"># =&gt; shows slight differences in some frequencies:</span></code></pre></div>
-<p>As before, the function <code>comp_freq_prob</code> does not compute only one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1
-<span class="co">#&gt; $N</span>
-<span class="co">#&gt; [1] 1000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $cond_true</span>
-<span class="co">#&gt; [1] 10</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $cond_false</span>
-<span class="co">#&gt; [1] 990</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dec_pos</span>
-<span class="co">#&gt; [1] 103</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dec_neg</span>
-<span class="co">#&gt; [1] 897</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dec_cor</span>
-<span class="co">#&gt; [1] 903</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dec_err</span>
-<span class="co">#&gt; [1] 97</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $hi</span>
-<span class="co">#&gt; [1] 8</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $mi</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fa</span>
-<span class="co">#&gt; [1] 95</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $cr</span>
-<span class="co">#&gt; [1] 895</span></code></pre></div>
+<span class="co">## Check equality of outputs:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">f3</span>, <span class="va">f4</span><span class="op">)</span>  <span class="co"># =&gt; shows slight differences in some frequencies:</span></pre></div>
+<p>As before, <code><a href="../reference/comp_freq_prob.html">comp_freq_prob()</a></code> does not compute just one frequency, but a list of 11 frequencies. Their names and values can be inspected by printing <code>f1</code> (as a vector):</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">f1</span><span class="op">)</span>
+<span class="co">#&gt;          N  cond_true cond_false    dec_pos    dec_neg    dec_cor    dec_err </span>
+<span class="co">#&gt;       1000         10        990        103        897        903         97 </span>
+<span class="co">#&gt;         hi         mi         fa         cr </span>
+<span class="co">#&gt;          8          2         95        895</span></pre></div>
 <p>In this list, the sample of <code>N</code> = <span class="math inline">\(1000\)</span> women is split into 3 different subgroups. For instance, the <span class="math inline">\(10\)</span> women with cancer appear as <code>cond_true</code> cases, whereas the <code>990</code> without cancer are listed as <code>cond_false</code> cases. The <span class="math inline">\(8\)</span> women with cancer and a positive test result appear as <em>hits</em> <code>hi</code> and the 95 women who receive a positive test result without having cancer are listed as <em>false alarms</em> <code>fa</code>. (See the vignette on <a href="B_data_formats.html">data formats</a> for details on all frequencies.)</p>
 </div>
 <div id="computing-probabilities-from-frequencies" class="section level4">
 <h4 class="hasAnchor">
 <a href="#computing-probabilities-from-frequencies" class="anchor"></a>Computing probabilities from frequencies</h4>
-<p>A translator between 2 representational formats should work in both directions. Consequently, <code>riskyr</code> also allows to compute probabilities by providing frequencies:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute probabilities from frequencies:</span>
-p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> <span class="dv">8</span>, <span class="dt">mi =</span> <span class="dv">2</span>, <span class="dt">fa =</span> <span class="dv">95</span>, <span class="dt">cr =</span> <span class="dv">895</span>)  <span class="co"># =&gt; provide 4 essential frequencies</span></code></pre></div>
+<p>A translator between 2 representational formats should work in both directions. Consequently, <strong>riskyr</strong> also allows to compute probabilities by providing frequencies:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="co"># Compute probabilities from frequencies:</span>
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="fl">8</span>, mi <span class="op">=</span> <span class="fl">2</span>, fa <span class="op">=</span> <span class="fl">95</span>, cr <span class="op">=</span> <span class="fl">895</span><span class="op">)</span>  <span class="co"># =&gt; provide 4 essential frequencies</span></pre></div>
 <p>Fortunately, the <code>comp_prob_freq</code> does not require all 11 frequencies that were returned by <code>comp_freq_prob</code> and contained in the list of frequencies <code>f1</code>. Instead, we must provide <code>comp_prob_freq</code> with the 4 essential frequencies that were listed as <code>hi</code>, <code>mi</code>, <code>fa</code>, and <code>cr</code> in <code>f1</code>. The resulting probabilities (saved in <code>p5</code>) match our list of probabilities from above (saved in <code>p4</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Check equality of outputs:</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(p5, p4)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="co"># Check equality of outputs:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">p4</span><span class="op">)</span></pre></div>
 </div>
 <div id="switching-back-and-forth" class="section level4">
 <h4 class="hasAnchor">
 <a href="#switching-back-and-forth" class="anchor"></a>Switching back and forth</h4>
-<p>More generally, when we translate between formats twice — first from probabilities to frequencies and then from the resulting frequencies to probabilities — the original probabilities appear again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 3 random probability inputs:</span>
-rand.p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)
-rand.p
+<p>More generally, when we translate between formats twice — first from probabilities to frequencies and then from the resulting frequencies to probabilities — the original probabilities appear again:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="co"># Pick 3 random probability inputs:</span>
+<span class="va">rand.p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">rand.p</span>
 
 <span class="co"># Translation 1: Compute frequencies from probabilities (without rounding):</span>
-freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> rand.p[<span class="dv">1</span>], <span class="dt">sens =</span> rand.p[<span class="dv">2</span>], <span class="dt">spec =</span> rand.p[<span class="dv">3</span>], <span class="dt">round =</span> <span class="ot">FALSE</span>)
+<span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">rand.p</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sens <span class="op">=</span> <span class="va">rand.p</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, spec <span class="op">=</span> <span class="va">rand.p</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co"># Translation 2: Compute probabilities from frequencies:</span>
-prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> freq<span class="op">$</span>hi, <span class="dt">mi =</span> freq<span class="op">$</span>mi, <span class="dt">fa =</span> freq<span class="op">$</span>fa, <span class="dt">cr =</span> freq<span class="op">$</span>cr)
+<span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">hi</span>, mi <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">mi</span>, fa <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">fa</span>, cr <span class="op">=</span> <span class="va">freq</span><span class="op">$</span><span class="va">cr</span><span class="op">)</span>
 
-## Verify that results match original probabilities: 
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>prev, rand.p[<span class="dv">1</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>sens, rand.p[<span class="dv">2</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(prob<span class="op">$</span>spec, rand.p[<span class="dv">3</span>])</code></pre></div>
+<span class="co">## Verify that results match original probabilities: </span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">prob</span><span class="op">$</span><span class="va">prev</span>, <span class="va">rand.p</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">prob</span><span class="op">$</span><span class="va">sens</span>, <span class="va">rand.p</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">prob</span><span class="op">$</span><span class="va">spec</span>, <span class="va">rand.p</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p>Similarly, going full circle from frequencies to probabilities and back returns the original frequencies:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pick 4 random frequencies:</span>
-rand.f &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Round">round</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>), <span class="dv">0</span>)
-rand.f  
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="co"># Pick 4 random frequencies:</span>
+<span class="va">rand.f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">rand.f</span>  
 <span class="co"># sum(rand.f)</span>
 
 <span class="co"># Translation 1: Compute probabilities from frequencies:</span>
-prob &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span>(<span class="dt">hi =</span> rand.f[<span class="dv">1</span>], <span class="dt">mi =</span> rand.f[<span class="dv">2</span>], <span class="dt">fa =</span> rand.f[<span class="dv">3</span>], <span class="dt">cr =</span> rand.f[<span class="dv">4</span>])
+<span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_prob_freq.html">comp_prob_freq</a></span><span class="op">(</span>hi <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, mi <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, fa <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, cr <span class="op">=</span> <span class="va">rand.f</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
 <span class="co"># prob</span>
 
 <span class="co"># Translation 2: Compute frequencies from probabilities (for original N, without rounding):</span>
-freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span>(<span class="dt">prev =</span> prob<span class="op">$</span>prev, <span class="dt">sens =</span> prob<span class="op">$</span>sens, <span class="dt">spec =</span> prob<span class="op">$</span>spec, 
-                       <span class="dt">N =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(rand.f), <span class="dt">round =</span> <span class="ot">FALSE</span>)
+<span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/comp_freq_prob.html">comp_freq_prob</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">prob</span><span class="op">$</span><span class="va">prev</span>, sens <span class="op">=</span> <span class="va">prob</span><span class="op">$</span><span class="va">sens</span>, spec <span class="op">=</span> <span class="va">prob</span><span class="op">$</span><span class="va">spec</span>, 
+                       N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">rand.f</span><span class="op">)</span>, round <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co"># freq</span>
 
 <span class="co"># Verify that results match original frequencies: </span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>hi, rand.f[<span class="dv">1</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>mi, rand.f[<span class="dv">2</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>fa, rand.f[<span class="dv">3</span>])
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal</a></span>(freq<span class="op">$</span>cr, rand.f[<span class="dv">4</span>])</code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">hi</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">mi</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">fa</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">freq</span><span class="op">$</span><span class="va">cr</span>, <span class="va">rand.f</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p>To obtain the same results when translating back and forth between probabilities and frequencies, it is important to switch off rounding when computing frequencies from probabilities with <code>comp_freq_prob</code>. Similarly, we need to scale the computed frequencies to the original population size <code>N</code> to arrive at the original frequencies.</p>
 </div>
 <div id="all-at-once-defining-a-riskyr-scenario" class="section level4">
 <h4 class="hasAnchor">
 <a href="#all-at-once-defining-a-riskyr-scenario" class="anchor"></a>All at once: Defining a <code>riskyr</code> scenario</h4>
 <p>In the likely case that you are less interested in specific metrics or formats and only want to get a quick overview of the key variables of a risk-related situation, you can always define a <code>riskyr</code> scenario:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/riskyr.html">riskyr</a></span>(<span class="dt">scen_lbl =</span> <span class="st">"Mammography screening"</span>, 
-            <span class="dt">cond_lbl =</span> <span class="st">"breast cancer"</span>,
-            <span class="dt">cond_true_lbl =</span> <span class="st">"cancer"</span>, <span class="dt">cond_false_lbl =</span> <span class="st">"no cancer"</span>,
-            <span class="dt">dec_lbl =</span> <span class="st">"screening test"</span>,
-            <span class="dt">dec_pos_lbl =</span> <span class="st">"predict cancer"</span>, <span class="dt">dec_neg_lbl =</span> <span class="st">"predict no cancer"</span>,
-            <span class="dt">prev =</span> .<span class="dv">01</span>, 
-            <span class="dt">sens =</span> .<span class="dv">80</span>, 
-            <span class="dt">spec =</span> <span class="ot">NA</span>, 
-            <span class="dt">fart =</span> .<span class="dv">096</span>)</code></pre></div>
-<p>This <code>riskyr</code> command defined a new scenario <code>s</code> and initialized it with a suitable population size of <code>N = 1000</code>. Use the <code>summary</code> command to get an overview over its key parameters:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s)  <span class="co"># provides an overview over key scenario information:</span>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/riskyr.html">riskyr</a></span><span class="op">(</span>scen_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, 
+            cond_lbl <span class="op">=</span> <span class="st">"breast cancer"</span>,
+            cond_true_lbl <span class="op">=</span> <span class="st">"cancer"</span>, cond_false_lbl <span class="op">=</span> <span class="st">"no cancer"</span>,
+            dec_lbl <span class="op">=</span> <span class="st">"screening test"</span>,
+            dec_pos_lbl <span class="op">=</span> <span class="st">"predict cancer"</span>, dec_neg_lbl <span class="op">=</span> <span class="st">"predict no cancer"</span>,
+            prev <span class="op">=</span> <span class="fl">.01</span>, 
+            sens <span class="op">=</span> <span class="fl">.80</span>, 
+            spec <span class="op">=</span> <span class="cn">NA</span>, 
+            fart <span class="op">=</span> <span class="fl">.096</span><span class="op">)</span></pre></div>
+<p>Using the <strong>riskyr</strong> function <code><a href="../reference/riskyr.html">riskyr()</a></code> defined a new scenario <code>s</code> and initialized it with a suitable population size of <code>N = 1000</code>. Use the <code>summary</code> command to get an overview over its key parameters:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># provides an overview over key scenario information:</span>
 <span class="co">#&gt; Scenario:  Mammography screening </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Condition:  breast cancer </span>
@@ -514,28 +478,30 @@ freq &lt;-<span class="st"> </span><span class="kw"><a href="../reference/comp_f
 <span class="co">#&gt; Accuracy:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  acc:</span>
-<span class="co">#&gt; 0.90296</span></code></pre></div>
-<p>The fastest way to get an overview over a scenario <code>s</code> is by plotting it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s)  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></code></pre></div>
-<p><img src="A_user_guide_files/figure-html/riskyr_scenario_plot-1.png" width="691.2"></p>
-<p>There are many other types of plots and customization options available. In the following, we explain different visualizations by introducing their corresponding plotting functions. For the impatient: The <a href="E_riskyr_primer.html">Quick start primer</a> explains how to directly plot different visualizations of a given scenario.</p>
+<span class="co">#&gt; 0.90296</span></pre></div>
+<p>The fastest way to get an overview over a scenario <code>s</code> is by plotting it:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>  <span class="co"># a prism/network diagram of key frequencies and probabilities (by default):</span></pre></div>
+<p><img src="A_user_guide_files/figure-html/riskyr-scenario-plot-1.png" width="576"></p>
+<p>The default plot used by <strong>riskyr</strong> when not specifying a desired plot type is a so-called <em>prism</em> plot (aka. double tree). However, there are many other types of plots and customization options available. In the following, we explain different visualizations by introducing their corresponding plotting functions. For the impatient: The <a href="E_riskyr_primer.html">Quick start primer</a> explains how to directly plot different visualizations of a given scenario.</p>
 </div>
 </div>
 <div id="c--visualizing-relationships-between-formats-and-variables" class="section level3">
 <h3 class="hasAnchor">
 <a href="#c--visualizing-relationships-between-formats-and-variables" class="anchor"></a>C. Visualizing relationships between formats and variables</h3>
-<p>Inspecting the lists of probabilities and frequencies shows that the two problem formulations cited above are only two possible instances out of an array of many alternative formulations. Essentially, the same scenario can be described in a variety of variables and formats. Gaining deeper insights into the interplay between these variables requires a solid understanding of the underlying concepts and their mathematical definitions. To facilitate the development of such an understanding, <code>riskyr</code> recruits the power of visual representations and shows the same scenario from a variety of angles and perspectives. It is mostly this graphical functionality that supports <code>riskyr</code>’s claim on being a toolbox for rendering risk literacy more transparent. Thus, in addition to being a fancy calculator and a translator between formats, <code>riskyr</code> is mostly a machine that turns risk-related information into pretty pictures.</p>
-<p><code>riskyr</code> provides many alternative visualizations that depict the same risk-related scenario in the form of different representations. As each type of graphic has its own properties and perspective — strengths that emphasize or illuminate some particular aspect and weaknesses that hide or obscure others — the different visualizations are somewhat redundant, yet complement and support each other.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+<p>Inspecting the lists of probabilities and frequencies shows that the two problem formulations cited above are only two possible instances out of an array of many alternative formulations. Essentially, the same scenario can be described in a variety of variables and formats. Gaining deeper insights into the interplay between these variables requires a solid understanding of the underlying concepts and their mathematical definitions. To facilitate the development of such an understanding, <strong>riskyr</strong> recruits the power of visual representations and shows the same scenario from a variety of angles and perspectives. It is mostly this graphical functionality that supports <strong>riskyr</strong>’s claim on being a toolbox for rendering risk literacy more transparent. Thus, in addition to being a fancy calculator and a translator between formats, <strong>riskyr</strong> is mostly a machine that turns risk-related information into pretty pictures.</p>
+<p><strong>riskyr</strong> provides many alternative visualizations that depict the same risk-related scenario in the form of different representations. As each type of graphic has its own properties and perspective — strengths that emphasize or illuminate some particular aspect and weaknesses that hide or obscure others — the different visualizations are somewhat redundant, yet complement and support each other.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 <p>Here are some examples that depict particular aspects of the scenario described above:</p>
 <div id="icon-array" class="section level4">
 <h4 class="hasAnchor">
 <a href="#icon-array" class="anchor"></a>Icon array</h4>
-<p>A straightforward way of plotting an entire population of individuals is provided by an icon array that represents each individual as a symbol which is color-coded:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_icons.html">plot_icons</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">icon_types =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">22</span>),
-           <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<p>A straightforward way of plotting an entire population of individuals is provided by an <em>icon array</em> that represents each individual as a symbol which is color-coded:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_icons.html">plot_icons</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           icon_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">22</span><span class="op">)</span>,
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot_icons_1-1.png" alt="An icon array showing the mammography scenario for a population of 1000 individuals." width="691.2"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-icons-1-1.png" alt="An icon array showing the mammography scenario for a population of 1000 individuals." width="576"><p class="caption">
 An icon array showing the mammography scenario for a population of 1000 individuals.
 </p>
 </div>
@@ -543,24 +509,26 @@ An icon array showing the mammography scenario for a population of 1000 individu
 <div id="tree-diagram" class="section level4">
 <h4 class="hasAnchor">
 <a href="#tree-diagram" class="anchor"></a>Tree diagram</h4>
-<p>Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a tree diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">by =</span> <span class="st">"cd"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<p>Perhaps the most intuitive visualization of the relationships between probability and frequency information in our above scenario is provided by a <em>tree</em> diagram that shows the population and the frequency of subgroups as its nodes and the probabilities as its edges:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"cd"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot_tree_cd-1.png" alt="A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals." width="672"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-tree-cd-1.png" alt="A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals." width="576"><p class="caption">
 A tree diagram that applies the provided probabilities and frequencies to a population of 1000 individuals.
 </p>
 </div>
-<p>Importantly, the <code>plot_prism</code> function plot a simple frequency tree when providing a single perspective argument <code>by = "cd"</code> (as opposed to its default <code>by = "cddc"</code>). Here, it is called with the same 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code>) and 1 frequency (the number of individuals <code>N</code> of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (<code>hi</code>) depends on both the condition’s prevalence (<code>prev</code>) and the decision’s sensitivity (<code>sens</code>), or that the decision’s specificity <code>spec</code> can be expressed and computed as the ratio of the number of true negatives (<code>cr</code>) divided by the number of unaffected individuals (<code>cond_false</code> cases).</p>
+<p>Importantly, the <code><a href="../reference/plot_prism.html">plot_prism()</a></code> function plot a simple frequency tree when providing a single perspective argument <code>by = "cd"</code> (as opposed to its default <code>by = "cddc"</code>). Here, it is called with the same 3 essential probabilities (<code>prev</code>, <code>sens</code>, and <code>spec</code>) and 1 frequency (the number of individuals <code>N</code> of our sample or population). But in addition to computing risk-related information (e.g., the number of individuals in each of the 4 subgroups at the 2nd level of the tree), the tree diagram visualizes crucial dependencies and relationships between frequencies and probabilities. For instance, the diagram illustrates that the number of true positives (<code>hi</code>) depends on both the condition’s prevalence (<code>prev</code>) and the decision’s sensitivity (<code>sens</code>), or that the decision’s specificity <code>spec</code> can be expressed and computed as the ratio of the number of true negatives (<code>cr</code>) divided by the number of unaffected individuals (<code>cond_false</code> cases).</p>
 </div>
 <div id="area-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#area-plot" class="anchor"></a>Area plot</h4>
-<p>An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population. In the following area plot (aka. mosaic plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
-          <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<p>An alternative way to split a group of individuals into subgroups depicts the population as a square and dissects it into various rectangles that represent parts of the population. In the following <em>area</em> plot (aka. <em>mosaic</em> plot), the relative proportions of rectangle sizes represent the relative frequencies of the corresponding subgroups:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_area.html">plot_area</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+          title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <div class="figure" style="text-align: center">
-<img src="A_user_guide_files/figure-html/plot_mosaic_cd-1.png" alt="An area plot in which area sizes represent the probabilities/relative frequencies of subgroups." width="672"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-mosaic-cd-1.png" alt="An area plot in which area sizes represent the probabilities/relative frequencies of subgroups." width="576"><p class="caption">
 An area plot in which area sizes represent the probabilities/relative frequencies of subgroups.
 </p>
 </div>
@@ -571,49 +539,56 @@ An area plot in which area sizes represent the probabilities/relative frequencie
 <h4 class="hasAnchor">
 <a href="#bar-plot" class="anchor"></a>Bar plot</h4>
 <p>The tree diagrams from above can also be depicted as a vertical bar plot:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_bar.html">plot_bar</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-         <span class="dt">by =</span> <span class="st">"all"</span>, <span class="dt">dir =</span> <span class="dv">2</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_bar.html">plot_bar</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+         by <span class="op">=</span> <span class="st">"all"</span>, dir <span class="op">=</span> <span class="fl">2</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <p>(The plot is not shown here, but please go ahead and create it for yourself.)</p>
 <p>However, due to a number of categories with a very low number of members, many bars are barely visible (which is why they are not shown here).</p>
 </div>
 <div id="prism-plot" class="section level4">
 <h4 class="hasAnchor">
 <a href="#prism-plot" class="anchor"></a>Prism plot</h4>
-<p>The prism plot (called network diagram in version 0.1.0 of <code>riskyr</code>) is a generalization of the tree diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by <code>comp_freq_prop</code> and <code>comp_freq_freq</code> and contained in <code>freq</code>) as nodes of a single graph and depicts 12 probabilities (computed by <code>comp_prop_prop</code> and <code>comp_prop_freq</code> and contained in <code>prob</code>) as edges between these nodes. Thus, the network/prism diagram integrates 2 perspectives of the tree diagrams. By scaling nodes by either frequency or probability, <code>riskyr</code> visualizes the interplay of frequencies and probabilities in a variety of ways:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">by =</span> <span class="st">"cddc"</span>, <span class="dt">area =</span> <span class="st">"sq"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<p>The <em>prism</em> plot (called network diagram in version 0.1.0 of <strong>riskyr</strong>) is a generalization of the <em>tree</em> diagram (see Wassner et al., 2004). It plots 9 different frequencies (computed by <code>comp_freq_prop()</code> and <code><a href="../reference/comp_freq_freq.html">comp_freq_freq()</a></code> and contained in <code>freq</code>) as nodes of a single graph and depicts 12 probabilities (computed by <code>comp_prop_prop()</code> and <code>comp_prop_freq()</code> and contained in <code>prob</code>) as edges between these nodes. Thus, the prism diagram provides two distinct perspectives on the four frequencies in its center row. By scaling nodes by either frequency or probability, <strong>riskyr</strong> visualizes the interplay of frequencies and probabilities in a variety of ways:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"cddc"</span>, area <span class="op">=</span> <span class="st">"sq"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <div class="figure">
-<img src="A_user_guide_files/figure-html/plot_fnet-1.png" alt="A prism plot that integrates 2 tree diagrams and represents relative frequency by area size." width="672"><p class="caption">
+<img src="A_user_guide_files/figure-html/plot-prism-1.png" alt="A prism plot that integrates 2 tree diagrams and represents relative frequency by area size." width="576"><p class="caption">
 A prism plot that integrates 2 tree diagrams and represents relative frequency by area size.
 </p>
 </div>
-<p>Changing the <code>by</code> and <code>area</code> options provides a variety of perspectives on a scenario. Additionally, all plotting functions provide summary information on scenario parameters and current accuracy metrics on the lower margin. Setting <code>mar_notes = FALSE</code> gets rid of this display. Similarly, setting <code>scen_lbl = ""</code> removes the title and sub-title above the diagrams.</p>
+<p>Changing the <code>by</code> and <code>area</code> options provides a variety of perspectives on a scenario. Additionally, all plotting functions provide summary information on scenario parameters and current accuracy metrics on the lower margin. Setting <code>mar_notes = FALSE</code> gets rid of this display. Similarly, setting <code>scen_lbl = ""</code> removes the title and sub-title above the plot.</p>
 </div>
 <div id="alternative-perspectives" class="section level4">
 <h4 class="hasAnchor">
 <a href="#alternative-perspectives" class="anchor"></a>Alternative perspectives</h4>
-<p>The variety of different graphical options provided by <code>riskyr</code> can be overwhelming at first – but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
+<p>The variety of different graphical options provided by <strong>riskyr</strong> can be overwhelming at first — but fortunately the default options work reasonably well in most cases. In the following, we illustrate some additional parameters and points, and trust that you can evaluate and explore the corresponding commands yourself.</p>
 <p>Both the tree/prism diagrams and the mosaic plots shown above adopted a particular perspective by splitting the population into 2 subgroups by condition (via the default option <code>by = "cd"</code>). Rather than emphasizing the difference between <code>cond_true</code> and <code>cond_false</code> cases, an alternative perspective could ask: How many people are detected as positive vs. negative by the test? By using the option <code>by = "dc"</code>, the tree diagram splits the population by decisions into <code>dec_pos</code> and <code>dec_neg</code> cases:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>, <span class="dt">col_pal =</span> pal_mod)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"dc"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, col_pal <span class="op">=</span> <span class="va">pal_mod</span><span class="op">)</span></pre></div>
 <p>(Note that using the <code>col_pal</code> argument changed the color scheme to the pre-defined <code>pal_mod</code> color palette.)</p>
 <p>Similarly, we can plot a tree diagram that splits the population by accuracy into cases of TRUE and FALSE (<code>dec_cor</code> and <code>dec_err</code>) decisions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">by =</span> <span class="st">"ac"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"ac"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <p>The same perspectives can also be applied to other plots. For instance, the population of the area/mosaic plot can first be split by decisions (i.e., horizontally) by specifying the options <code>by = "cddc"</code> and <code>p_split = "h"</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_area.html">plot_area</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>,
-          <span class="dt">by =</span> <span class="st">"cddc"</span>,    <span class="co"># show by condition x decision</span>
-          <span class="dt">p_split =</span> <span class="st">"h"</span>,  <span class="co"># horizontal perspective is primary </span>
-          <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
-<p><code>riskyr</code> uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option <code>area = "hr"</code> further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_prism.html">plot_prism</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">by =</span> <span class="st">"dc"</span>, <span class="dt">area =</span> <span class="st">"hr"</span>, <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_area.html">plot_area</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>,
+          by <span class="op">=</span> <span class="st">"cddc"</span>,    <span class="co"># show by condition x decision</span>
+          p_split <span class="op">=</span> <span class="st">"h"</span>,  <span class="co"># horizontal perspective is primary </span>
+          title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
+<p><strong>riskyr</strong> uses a consistent color scheme to represent the same subgroups across different graphs. If this color coding is not sufficient, plotting the tree diagram with the option <code>area = "hr"</code> further highlights the correspondence by representing the relative frequencies of subgroups by the proportions of rectangles:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_prism.html">plot_prism</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           by <span class="op">=</span> <span class="st">"dc"</span>, area <span class="op">=</span> <span class="st">"hr"</span>, title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
 <p>Incidentally, as both an icon array and a mosaic plot depict probability by area size, both representations can be translated into each other. Even when relaxing the positional constraint of icons in the icon array, the similarity is still visible:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_icons.html">plot_icons</a></span>(<span class="dt">prev =</span> .<span class="dv">01</span>, <span class="dt">sens =</span> .<span class="dv">80</span>, <span class="dt">spec =</span> <span class="ot">NA</span>, <span class="dt">fart =</span> .<span class="dv">096</span>, <span class="dt">N =</span> <span class="dv">1000</span>, 
-           <span class="dt">arr_type =</span> <span class="st">"mosaic"</span>, <span class="dt">icon_types =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">22</span>), <span class="dt">icon_size =</span> <span class="dv">2</span>,  
-           <span class="dt">title_lbl =</span> <span class="st">"Mammography screening"</span>)</code></pre></div>
-<p>Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.)</p>
-<p>For more details, see the documentation and examples of the visualization functions (e.g., <code>plot_area</code>, <code>plot_icon</code>, and <code>plot_prism</code>).</p>
+<div class="sourceCode" id="cb24"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_icons.html">plot_icons</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="cn">NA</span>, fart <span class="op">=</span> <span class="fl">.096</span>, N <span class="op">=</span> <span class="fl">1000</span>, 
+           arr_type <span class="op">=</span> <span class="st">"mosaic"</span>, icon_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">21</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">22</span><span class="op">)</span>, icon_size <span class="op">=</span> <span class="fl">2</span>,  
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span><span class="op">)</span></pre></div>
+<p>Can you spot cases of hits (true positives) and misses (false negatives)? (Hint: Their frequency is 8 and 2, respectively.)</p>
+<p>For more details, see the documentation and examples of the visualization functions (e.g., <code><a href="../reference/plot_area.html">plot_area()</a></code>, <code><a href="../reference/plot_icons.html">plot_icons()</a></code>, and <code><a href="../reference/plot_prism.html">plot_prism()</a></code>).</p>
 </div>
 </div>
 </div>
@@ -623,24 +598,24 @@ A prism plot that integrates 2 tree diagrams and represents relative frequency b
 <ul>
 <li><p>Gigerenzer, G. (2002). <em>Reckoning with risk: Learning to live with uncertainty</em>. London, UK: Penguin.</p></li>
 <li><p>Gigerenzer, G. (2014). <em>Risk savvy: How to make good decisions</em>. New York, NY: Penguin.</p></li>
-<li><p>Gigerenzer, G., &amp; Gaissmaier, W. (2011). Heuristic decision making. <em>Annual Review of Psychology</em>, <em>62</em>, 451–482. [<a href="https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346">Available online</a>]</p></li>
-<li><p>Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &amp; Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. <em>Psychological Science in the Public Interest</em>, <em>8</em>, 53–96. [<a href="https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x">Available online</a>]</p></li>
+<li><p>Gigerenzer, G., &amp; Gaissmaier, W. (2011). Heuristic decision making. <em>Annual Review of Psychology</em>, <em>62</em>, 451–482. (<a href="https://www.annualreviews.org/doi/10.1146/annurev-psych-120709-145346">Available online</a>)</p></li>
+<li><p>Gigerenzer, G., Gaissmaier, W., Kurz-Milcke, E., Schwartz, L., &amp; Woloshin, S. (2007). Helping doctors and patients make sense of health statistics. <em>Psychological Science in the Public Interest</em>, <em>8</em>, 53–96. (<a href="https://journals.sagepub.com/doi/10.1111/j.1539-6053.2008.00033.x">Available online</a>)</p></li>
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1995). How to improve Bayesian reasoning without instruction: Frequency formats. <em>Psychological Review</em>, <em>102</em>, 684–704.</p></li>
 <li><p>Gigerenzer, G., &amp; Hoffrage, U. (1999). Overcoming difficulties in Bayesian reasoning: A reply to Lewis and Keren (1999) and Mellers and McGraw (1999). <em>Psychological Review</em>, <em>106</em>, 425–430.</p></li>
 <li><p>Hertwig, R., &amp; Grüne-Yanoff, T. (2017). Nudging and boosting: Steering or empowering good decisions. <em>Perspectives on Psychological Science</em>, <em>12</em>, 973–986.</p></li>
 <li><p>Hoffrage, U., Gigerenzer, G., Krauss, S., &amp; Martignon, L. (2002). Representation facilitates reasoning: What natural frequencies are and what they are not. <em>Cognition</em>, <em>84</em>, 343–352.</p></li>
-<li><p>Hoffrage, U., Krauss, S., Martignon, L., &amp; Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. <em>Frontiers in Psychology</em>, <em>6</em>, 1473.</p></li>
+<li><p>Hoffrage, U., Krauss, S., Martignon, L., &amp; Gigerenzer, G. (2015). Natural frequencies improve Bayesian reasoning in simple and complex inference tasks. <em>Frontiers in Psychology</em>, <em>6</em>, 1473. (<a href="https://doi.org/10.3389/fpsyg.2015.01473">Available online</a>)</p></li>
 <li><p>Hoffrage, U., Lindsey, S., Hertwig, R., &amp; Gigerenzer, G. (2000). Communicating statistical information. <em>Science</em>, <em>290</em>, 2261–2262.</p></li>
 <li><p>Khan, A., Breslav, S., Glueck, M., &amp; Hornbæk, K. (2015). Benefits of visualization in the mammography problem. <em>International Journal of Human-Computer Studies</em>, <em>83</em>, 94–113.</p></li>
 <li><p>Kurzenhäuser, S., &amp; Hoffrage, U. (2002). Teaching Bayesian reasoning: An evaluation of a classroom tutorial for medical students. <em>Medical Teacher</em>, <em>24</em>, 516–521.</p></li>
 <li><p>Kurz-Milcke, E., Gigerenzer, G., &amp; Martignon, L. (2008). Transparency in risk communication. <em>Annals of the New York Academy of Sciences</em>, <em>1128</em>, 18–28.</p></li>
-<li><p>Mandel, D. R. &amp; Navarrete, G. (2015). Editorial: Improving Bayesian reasoning: What works and why? <em>Frontiers in Psychology</em>, <em>6</em>, 1872. doi: <a href="https://doi.org/10.3389/fpsyg.2015.01872">10.3389/fpsyg.2015.01872</a></p></li>
+<li><p>Mandel, D. R. &amp; Navarrete, G. (2015). Editorial: Improving Bayesian reasoning: What works and why? <em>Frontiers in Psychology</em>, <em>6</em>, 1872. (<a href="https://doi.org/10.3389/fpsyg.2015.01872">Available online</a>)</p></li>
 <li><p>Micallef, L., Dragicevic, P., &amp; Fekete, J.-D. (2012). Assessing the effect of visualizations on Bayesian reasoning through crowd-sourcing. <em>IEEE Transactions on Visualization and Computer Graphics</em>, <em>18</em>, 2536–2545.</p></li>
-<li><p>Neth, H., &amp; Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott &amp; S. Kosslyn (Eds.), <em>Emerging trends in the social and behavioral sciences</em>. New York, NY: Wiley Online Library. [<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&amp;rep=rep1&amp;type=pdf">Available online</a>]</p></li>
+<li><p>Neth, H., &amp; Gigerenzer, G. (2015). Heuristics: Tools for an uncertain world. In R. Scott &amp; S. Kosslyn (Eds.), <em>Emerging trends in the social and behavioral sciences</em>. New York, NY: Wiley Online Library. doi: <a href="https://doi.org/10.1002/9781118900772.etrds0394">10.1002/9781118900772.etrds0394</a> (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.726.1656&amp;rep=rep1&amp;type=pdf">Available online</a>)</p></li>
+<li><p>Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., &amp; Gaissmaier, W. (2021). Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. <em>Frontiers in Psychology: Cognition</em>, <em>11</em>, 567817. doi: <a href="https://doi.org/10.3389/fpsyg.2020.567817">10.3389/fpsyg.2020.567817</a> (<a href="https://doi.org/10.3389/fpsyg.2020.567817">Available online</a>)</p></li>
 <li><p>Sedlmeier, P., &amp; Gigerenzer, G. (2001). Teaching Bayesian reasoning in less than two hours. <em>Journal of Experimental Psychology: General</em>, <em>130</em>, 380–400.</p></li>
 <li><p>Strevens, M. (2013). <em>Tychomancy: Inferring probability from causal structure</em>. Cambridge, MA: Harvard University Press.</p></li>
-<li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307.<br>
-doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307</a></p></li>
+<li><p>Trevethan, R. (2017). Sensitivity, specificity, and predictive values: Foundations, pliabilities, and pitfalls in research and practice. <em>Frontiers in Public Health</em>, <em>5</em>, 307. (<a href="https://doi.org/10.3389/fpubh.2017.00307">Available online</a>)</p></li>
 <li><p>Wassner, C., Martignon, L., &amp; Biehler, R. (2004). Bayesianisches Denken in der Schule. <em>Unterrichtswissenschaft</em>, <em>32</em>, 58–96.</p></li>
 </ul>
 <div id="resources" class="section level3">
@@ -650,7 +625,7 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 <table class="table">
 <colgroup>
 <col width="32%">
-<col width="26%">
+<col width="25%">
 <col width="41%">
 </colgroup>
 <thead><tr class="header">
@@ -660,34 +635,34 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">A. <code>riskyr</code> (R package):</td>
+<td align="left">A. <strong>riskyr</strong> (R package):</td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr">Release version</a></td>
 <td align="left"><a href="https://CRAN.R-project.org/package=riskyr" class="uri">https://CRAN.R-project.org/package=riskyr</a></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a></td>
-<td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
+<td align="left"> </td>
+<td align="left"><a href="https://github.com/hneth/riskyr/">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a></td>
 </tr>
 <tr class="odd">
-<td align="left">B. <code>riskyrApp</code> (R Shiny code):</td>
-<td align="left"><a href="http://riskyr.org">Online version</a></td>
-<td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
+<td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
+<td align="left"><a href="http://134.34.54.61:3838/spds/riskyr/">Online version</a></td>
+<td align="left"><a href="http://134.34.54.61:3838/spds/riskyr/">http://riskyr.org/</a></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a></td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
+<td align="left"> </td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp/">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp/" class="uri">https://github.com/hneth/riskyrApp/</a></td>
 </tr>
 <tr class="odd">
 <td align="left">C. Online documentation:</td>
-<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a></td>
-<td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/">Release version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a></td>
-<td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
+<td align="left"> </td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev/">Development version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a></td>
 </tr>
 </tbody>
 </table>
@@ -697,18 +672,18 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 <h2 class="hasAnchor">
 <a href="#contact" class="anchor"></a>Contact</h2>
 <!-- uni.kn logo and link to SPDS: -->
-<p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:10;"></a></p>
+<p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <code>riskyr</code>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
-<li><p>Email us at <a href="mailto:contact.riskyr@gmail.com">contact.riskyr@gmail.com</a> if you want to modify or share this software.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues/" class="uri">https://github.com/hneth/riskyr/issues/</a>.</p></li>
+<li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com" class="email">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
 <div id="all-riskyr-vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr vignettes</h2>
 <!-- riskyr logo: -->
-<p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:10;"></a></p>
+<p><a href="https://github.com/hneth/riskyr/"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:15;"></a></p>
 <!-- Index of vignettes: -->
 <table class="table">
 <thead><tr class="header">
@@ -749,66 +724,43 @@ doi: <a href="https://doi.org/10.3389/fpubh.2017.00307">10.3389/fpubh.2017.00307
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>The actual sample size <code>N</code> chosen is irrelevant, but the numbers are easier to calculate when <code>N</code> is a round number and at least as large as the frequencies mentioned in the problem.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. <code>riskyr</code> extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>See Gigerenzer and Gaissmaier (2011) and Neth and Gigerenzer (2015) for discussions on different type of decision strategies that correspond to the distinction between risk and uncertainty.<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>The <code>riskyr</code> logo (showing 3 different dice facets) also represents its functionality in several ways:<br>
+<li id="fn1"><p>Simon, H.A. (1996). <em>The Sciences of the Artificial</em> (3rd ed.). The MIT Press, Cambridge, MA. (p. 132).<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>The actual sample size <code>N</code> chosen is irrelevant for computing probabilities, but the numbers are easier to calculate when <code>N</code> is a round number and at least as large as the frequencies mentioned in the problem.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Full disclosure: As enthusiastic students and colleagues of Gerd Gigerenzer, we think that his recommendations are insightful, convincing, and correct. However, while expressing probabilities in terms of natural frequencies promotes a better understanding of risks, it does not automatically lead to a better understanding of conditional probabilities per se. <strong>riskyr</strong> extends beyond translations between representational formats by visualizing the interplay between frequencies and probabilities in a variety of ways.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>See Gigerenzer and Gaissmaier (2011) and Neth and Gigerenzer (2015) for discussions on different type of decision strategies that correspond to the distinction between risk and uncertainty.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>The <strong>riskyr</strong> logo (showing 3 different dice facets) also represents its functionality in several ways:<br>
 1. First, each facet provides a <em>frequency</em> (e.g., the number <span class="math inline">\(3\)</span>). Nevertheless, the dice is a paradigmatic example of a device that generates <em>probabilities</em>. (See Strevens, 2013, for inferring probabilistic properties from physical devices.)<br>
-2. The 3 facets indicate the 3 perspectives that classify a population of <span class="math inline">\(N\)</span> individuals into 3 binary categories of medical diagnostics: (1) by <em>condition</em> (true vs. false), (2) by <em>decision</em> (positive vs. negative), and (3) by <em>accuracy</em>/<em>correspondence</em> (correct vs. incorrect).<br>
-3. Any individual facet is informative by itself — and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. <code>riskyr</code> provides alternative perspectives that — when viewed together — render issues of risk literacy more transparent.<br>
-4. The 3 facets also hint at <code>riskyr</code>’s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualizing relationships between variables.<a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p>Although we tend to be enthusiastic about the potential of visualizations, we should not expect graphs to provide a magic potion for solving all problems of understanding. (For instance, see Micallef et al. (2012) and Khan et al. (2015) for somewhat sceptical and sobering studies on the potential benefits of different static representations of Bayesian problems.)<a href="#fnref6">↩</a></p></li>
+2. The 3 facets indicate the 3 perspectives that classify a population of <span class="math inline">\(N\)</span> individuals into 3 binary categories of medical diagnostics: (1) by <em>condition</em> (true vs. false), (2) by <em>decision</em> (positive vs. negative), and (3) by <em>accuracy</em>/<em>correspondence</em> (correct vs. incorrect).<br>
+3. Any individual facet is informative by itself — and often all that is of interest. However, to really understand the mechanism of the risk-generating device, it is crucial to view the dice from multiple angles. <strong>riskyr</strong> provides alternative perspectives that — when viewed together — render issues of risk literacy more transparent.<br>
+4. The three facets also hint at <strong>riskyr</strong>’s 3 key functions of (1) organizing information, (2) translating between representational formats, and (3) visualizing relationships between variables. <a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>Although we tend to be enthusiastic about the potential of visualizations, we should not expect graphs to provide a magic potion for solving all problems of understanding. (For instance, see Micallef et al. (2012) and Khan et al. (2015) for somewhat sceptical and sobering studies on the potential benefits of different static representations of Bayesian problems.)<a href="#fnref6" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#motivation-a-problem-of-probabilities">Motivation: A problem of probabilities</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#information-provided-and-asked">Information provided and asked</a></li>
-      <li><a href="#using-bayes-formula">Using Bayes’ formula</a></li>
-      </ul>
-</li>
-      <li><a href="#using-natural-frequencies">Using natural frequencies</a></li>
-      <li>
-<a href="#using-riskyr">Using riskyr</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#risk-vs-uncertainty">Risk vs. uncertainty</a></li>
-      <li><a href="#promoting-risk-perception-and-communication">Promoting risk perception and communication</a></li>
-      <li><a href="#a--a-fancy-calculator">A. A fancy calculator</a></li>
-      <li><a href="#b--translating-between-formats">B. Translating between formats</a></li>
-      <li><a href="#c--visualizing-relationships-between-formats-and-variables">C. Visualizing relationships between formats and variables</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#references">References</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#resources">Resources</a></li>
-      </ul>
-</li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#all-riskyr-vignettes">All riskyr vignettes</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

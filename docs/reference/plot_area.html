@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,17 +45,16 @@
 
 
 
-<meta property="og:title" content="Plot an area diagram of probabilities or frequencies. — plot_area" />
 
+<meta property="og:title" content="Plot an area diagram of probabilities or frequencies. — plot_area" />
 <meta property="og:description" content="plot_area assigns the total probability
 or population frequency to an area (square or rectangle)
 and shows the probability or frequency of
 4 classification cases (hi, mi,
 fa, cr)
 as relative proportions of this area." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -61,9 +68,10 @@ as relative proportions of this area." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -77,7 +85,7 @@ as relative proportions of this area." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -85,46 +93,49 @@ as relative proportions of this area." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -135,6 +146,7 @@ as relative proportions of this area." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -146,26 +158,46 @@ as relative proportions of this area." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>plot_area</code> assigns the total probability
 or population frequency to an area (square or rectangle)
 and shows the probability or frequency of
 4 classification cases (<code><a href='hi.html'>hi</a></code>, <code><a href='mi.html'>mi</a></code>,
 <code><a href='fa.html'>fa</a></code>, <code><a href='cr.html'>cr</a></code>)
 as relative proportions of this area.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_area</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>,
-  <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>sum_w</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>gaps</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>), <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>f_lbl_sum</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lbl_hd</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>arr_c</span> <span class='kw'>=</span> -<span class='fl'>3</span>, <span class='kw'>col_p</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray'>grey</a></span>(<span class='fl'>0.15</span>, <span class='fl'>0.99</span>), <span class='st'>"yellow"</span>, <span class='st'>"yellow"</span>),
-  <span class='kw'>brd_dis</span> <span class='kw'>=</span> <span class='fl'>0.06</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>,
-  <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_area</span><span class='op'>(</span>
+  prev <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>prev</span>,
+  sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
+  mirt <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
+  fart <span class='op'>=</span> <span class='cn'>NA</span>,
+  N <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>N</span>,
+  by <span class='op'>=</span> <span class='st'>"cddc"</span>,
+  p_split <span class='op'>=</span> <span class='st'>"v"</span>,
+  area <span class='op'>=</span> <span class='st'>"sq"</span>,
+  scale <span class='op'>=</span> <span class='st'>"p"</span>,
+  round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  sum_w <span class='op'>=</span> <span class='fl'>0.1</span>,
+  gaps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span><span class='op'>)</span>,
+  f_lbl <span class='op'>=</span> <span class='st'>"num"</span>,
+  f_lbl_sep <span class='op'>=</span> <span class='cn'>NA</span>,
+  f_lbl_sum <span class='op'>=</span> <span class='st'>"num"</span>,
+  f_lbl_hd <span class='op'>=</span> <span class='st'>"nam"</span>,
+  f_lwd <span class='op'>=</span> <span class='fl'>0</span>,
+  p_lbl <span class='op'>=</span> <span class='cn'>NA</span>,
+  arr_c <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3</span>,
+  col_p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>grey</a></span><span class='op'>(</span><span class='fl'>0.15</span>, <span class='fl'>0.99</span><span class='op'>)</span>, <span class='st'>"yellow"</span>, <span class='st'>"yellow"</span><span class='op'>)</span>,
+  brd_dis <span class='op'>=</span> <span class='fl'>0.06</span>,
+  lbl_txt <span class='op'>=</span> <span class='va'>txt</span>,
+  title_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lbl</span>,
+  cex_lbl <span class='op'>=</span> <span class='fl'>0.9</span>,
+  cex_p_lbl <span class='op'>=</span> <span class='cn'>NA</span>,
+  col_pal <span class='op'>=</span> <span class='va'>pal</span>,
+  mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -298,7 +330,7 @@ Default: <code>f_lbl_sum = "num"</code>: numeric values only.</p></td>
       <th>f_lbl_hd</th>
       <td><p>Type of label for showing frequency values in header,
 with same 6 options as <code>f_lbl</code> (above).
-Default: <code>f_lbl_hd = "abb"</code>: abbreviated names only.</p></td>
+Default: <code>f_lbl_hd = "nam"</code>: names only (as specified in <code>lbl_txt = txt</code>).</p></td>
     </tr>
     <tr>
       <th>f_lwd</th>
@@ -315,7 +347,7 @@ with 7 options:</p><ol>
 <li><p><code>"num"</code>: show links and numeric probability values;</p></li>
 <li><p><code>"namnum"</code>: show links with names and numeric probability values;</p></li>
 <li><p><code>"no"</code>: show links with no labels;</p></li>
-<li><p><code>NA</code>: no link (same for <code>p_lbl = NULL</code>, default).</p></li>
+<li><p><code>NA</code>: show no labels or links (same for <code>p_lbl = NULL</code>, default).</p></li>
 </ol></td>
     </tr>
     <tr>
@@ -371,18 +403,17 @@ Default: <code>col_pal = <a href='pal.html'>pal</a></code>.</p></td>
     <tr>
       <th>mar_notes</th>
       <td><p>Boolean option for showing margin notes.
-Default: <code>mar_notes = TRUE</code>.</p></td>
+Default: <code>mar_notes = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Other (graphical) parameters.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Nothing (NULL).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>plot_area</code> computes probabilities <code><a href='prob.html'>prob</a></code>
@@ -396,108 +427,140 @@ and a population size of <code><a href='N.html'>N</a></code> individuals.</p>
 <p><code>plot_area</code> generalizes and replaces <code><a href='plot_mosaic.html'>plot_mosaic</a></code>.
 by removing the dependency on the R packages <code>vcd</code> and <code>grid</code>
 and providing many additional options.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plot_mosaic.html'>plot_mosaic</a></code> for older (obsolete) version;
 <code><a href='plot_tab.html'>plot_tab</a></code> for plotting table (without scaling area dimensions);
 <code><a href='pal.html'>pal</a></code> contains current color settings;
 <code><a href='txt.html'>txt</a></code> contains current text settings.</p>
-<p>Other visualization functions: <code><a href='plot.riskyr.html'>plot.riskyr</a></code>,
-  <code><a href='plot_bar.html'>plot_bar</a></code>, <code><a href='plot_curve.html'>plot_curve</a></code>,
-  <code><a href='plot_fnet.html'>plot_fnet</a></code>, <code><a href='plot_icons.html'>plot_icons</a></code>,
-  <code><a href='plot_mosaic.html'>plot_mosaic</a></code>, <code><a href='plot_plane.html'>plot_plane</a></code>,
-  <code><a href='plot_prism.html'>plot_prism</a></code>, <code><a href='plot_tab.html'>plot_tab</a></code>,
-  <code><a href='plot_tree.html'>plot_tree</a></code></p></div>
-    
+<p>Other visualization functions: 
+<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
+<code><a href='plot_bar.html'>plot_bar</a>()</code>,
+<code><a href='plot_curve.html'>plot_curve</a>()</code>,
+<code><a href='plot_fnet.html'>plot_fnet</a>()</code>,
+<code><a href='plot_icons.html'>plot_icons</a>()</code>,
+<code><a href='plot_mosaic.html'>plot_mosaic</a>()</code>,
+<code><a href='plot_plane.html'>plot_plane</a>()</code>,
+<code><a href='plot_prism.html'>plot_prism</a>()</code>,
+<code><a href='plot_tab.html'>plot_tab</a>()</code>,
+<code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Basics:</span>
-<span class='fu'>plot_area</span>()  <span class='co'># default area plot,</span></div><div class='img'><img src='plot_area-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
+<span class='fu'>plot_area</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># default area plot,</span>
+</div><div class='img'><img src='plot_area-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
 <span class='co'># plot_area(by = "cddc", p_split = "v", area = "sq", scale = "p")</span>
 
 <span class='co'># Local freq and prob values:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='img'><img src='plot_area-2.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, N <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_area-2.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Customizing text and color:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
-          <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Custom text and color:"</span>,
-          <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>,
-          <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_area-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.4</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>6</span>/<span class='fl'>7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>7</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"h"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>,
-          <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Custom text and color:"</span>,
-          <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>,
-          <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>)</div><div class='img'><img src='plot_area-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, N <span class='op'>=</span> <span class='fl'>10</span>,
+          by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,
+          title_lbl <span class='op'>=</span> <span class='st'>"Custom text and color:"</span>,
+          lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>,
+          f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, f_lwd <span class='op'>=</span> <span class='fl'>2</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_area-3.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Versions:</span>
 <span class='co'>## by x p_split (= [3 x 2 x 2] = 12 versions):</span>
-<span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>)  <span class='co'># v01 (see v07)</span></div><div class='img'><img src='plot_area-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>)  <span class='co'># v02 (see v11)</span></div><div class='img'><img src='plot_area-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"h"</span>)  <span class='co'># v03 (see v05)</span></div><div class='img'><img src='plot_area-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"h"</span>)  <span class='co'># v04 (see v09)</span></div><div class='img'><img src='plot_area-8.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v01 (see v07)</span>
+</div><div class='img'><img src='plot_area-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v02 (see v11)</span>
+</div><div class='img'><img src='plot_area-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "cddc", p_split = "h")  # v03 (see v05)</span>
+<span class='co'># plot_area(by = "cdac", p_split = "h")  # v04 (see v09)</span>
+
 <span class='co'># plot_area(by = "dccd", p_split = "v")  # v05 (is v03 rotated)</span>
-<span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dcac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>)  <span class='co'># v06 (see v12)</span></div><div class='img'><img src='plot_area-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)</span>
-<span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dcac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"h"</span>)  <span class='co'># v08 (see v10)</span></div><div class='img'><img src='plot_area-10.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_area</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"accd"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>)  <span class='co'># v09 (is v04 rotated)</span></div><div class='img'><img src='plot_area-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "acdc", p_split = "v")  # v10 (is v08 rotated)</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"dcac"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span><span class='op'>)</span>  <span class='co'># v06 (see v12)</span>
+</div><div class='img'><img src='plot_area-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(by = "dccd", p_split = "h")  # v07 (is v01 rotated)</span>
+<span class='co'># plot_area(by = "dcac", p_split = "h")  # v08 (see v10)</span>
+
+<span class='co'># plot_area(by = "accd", p_split = "v")  # v09 (is v04 rotated)</span>
+<span class='co'># plot_area(by = "acdc", p_split = "v")  # v10 (is v08 rotated)</span>
 <span class='co'># plot_area(by = "accd", p_split = "h")  # v11 (is v02 rotated)</span>
 <span class='co'># plot_area(by = "acdc", p_split = "h")  # v12 (is v06 rotated)</span>
 
 <span class='co'>## Options:</span>
 <span class='co'># area:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>)  <span class='co'># main area as square (by scaling x-values)</span></div><div class='img'><img src='plot_area-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>)  <span class='co'># rectangular main area (using full plotting region)</span></div><div class='img'><img src='plot_area-13.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span><span class='op'>)</span>  <span class='co'># main area as square (by scaling x-values)</span>
+</div><div class='img'><img src='plot_area-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span><span class='op'>)</span>  <span class='co'># rectangular main area (using full plotting region)</span>
+</div><div class='img'><img src='plot_area-8.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># scale (matters for small N):</span>
-<span class='fu'>plot_area</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)  <span class='co'># scaled by prob (default)</span></div><div class='img'><img src='plot_area-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)  <span class='co'># scaled by freq (for small N)</span></div><div class='img'><img src='plot_area-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.4</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"h"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)  <span class='co'># scaled by prob (default)</span></div><div class='img'><img src='plot_area-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.4</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-          <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_split</span> <span class='kw'>=</span> <span class='st'>"h"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)  <span class='co'># scaled by freq (for small N)</span></div><div class='img'><img src='plot_area-17.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+          by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by prob (default)</span>
+</div><div class='img'><img src='plot_area-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+          by <span class='op'>=</span> <span class='st'>"cddc"</span>, p_split <span class='op'>=</span> <span class='st'>"v"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by freq (for small N)</span>
+</div><div class='img'><img src='plot_area-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.4</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+          by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"h"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by prob (default)</span>
+</div><div class='img'><img src='plot_area-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.4</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+          by <span class='op'>=</span> <span class='st'>"cdac"</span>, p_split <span class='op'>=</span> <span class='st'>"h"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>  <span class='co'># scaled by freq (for small N)</span>
+</div><div class='img'><img src='plot_area-12.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># gaps (sensible range: 0--.10):</span>
-<span class='fu'>plot_area</span>(<span class='kw'>gaps</span> <span class='kw'>=</span> <span class='fl'>NA</span>)           <span class='co'># use default gaps (based on p_split)</span></div><div class='img'><img src='plot_area-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>gaps</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>))      <span class='co'># no gaps</span></div><div class='img'><img src='plot_area-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>gaps</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.05</span>, <span class='fl'>.01</span>))  <span class='co'># v_gap &gt; h_gap</span></div><div class='img'><img src='plot_area-20.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>gaps <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>             <span class='co'># default gaps (based on p_split)</span>
+</div><div class='img'><img src='plot_area-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>gaps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>        <span class='co'># no gaps</span>
+</div><div class='img'><img src='plot_area-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(gaps = c(.05, .01))  # v_gap &gt; h_gap</span>
+
 <span class='co'># freq labels:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>" = "</span>)  <span class='co'># default</span></div><div class='img'><img src='plot_area-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)      <span class='co'># NA/NULL: no freq labels (in main area &amp; top/left boxes)</span></div><div class='img'><img src='plot_area-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>)   <span class='co'># abbreviated name (i.e., variable name)</span></div><div class='img'><img src='plot_area-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>)   <span class='co'># only freq name</span></div><div class='img'><img src='plot_area-24.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)   <span class='co'># only freq number</span></div><div class='img'><img src='plot_area-25.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)  <span class='co'># explicit &amp; smaller</span></div><div class='img'><img src='plot_area-26.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>" = "</span><span class='op'>)</span>  <span class='co'># default</span>
+</div><div class='img'><img src='plot_area-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>       <span class='co'># NA/NULL: no freq labels (in main area &amp; top/left boxes)</span>
+</div><div class='img'><img src='plot_area-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"abb"</span><span class='op'>)</span>    <span class='co'># abbreviated name (i.e., variable name)</span>
+</div><div class='img'><img src='plot_area-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lbl = "nam")  # only freq name</span>
+<span class='co'># plot_area(f_lbl = "num")  # only freq number</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>  <span class='co'># explicit &amp; smaller</span>
+</div><div class='img'><img src='plot_area-18.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># prob labels:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)      <span class='co'># no prob labels, no links</span></div><div class='img'><img src='plot_area-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"no"</span>)    <span class='co'># show links, but no labels</span></div><div class='img'><img src='plot_area-28.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.70</span>)  <span class='co'># explicit &amp; smaller labels</span></div><div class='img'><img src='plot_area-29.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>      <span class='co'># default: no prob labels, no links</span>
+</div><div class='img'><img src='plot_area-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(p_lbl = "no")  # show links, but no labels</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.70</span><span class='op'>)</span>  <span class='co'># explicit &amp; smaller labels</span>
+</div><div class='img'><img src='plot_area-20.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># prob arrows:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>3</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)  <span class='co'># V-shape arrows</span></div><div class='img'><img src='plot_area-30.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>6</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)  <span class='co'># T-shape arrows</span>
-<span class='fu'>plot_area</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>6</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-          <span class='kw'>brd_dis</span> <span class='kw'>=</span> -<span class='fl'>.02</span>, <span class='kw'>col_p</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"black"</span>)) <span class='co'># adjust arrow type/position</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>+</span><span class='fl'>3</span>, p_lbl <span class='op'>=</span> <span class='st'>"def"</span>, f_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># V-shape arrows</span>
+</div><div class='img'><img src='plot_area-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA)  # T-shape arrows</span>
+<span class='co'># plot_area(arr_c = +6, p_lbl = "def", f_lbl = NA,</span>
+<span class='co'>#           brd_dis = -.02, col_p = c("black")) # adjust arrow type/position</span>
 
 <span class='co'># f_lwd:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>3</span>)  <span class='co'># thicker lines</span></div><div class='img'><img src='plot_area-31.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)  <span class='co'># thinner lines</span></div><div class='img'><img src='plot_area-32.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># no lines (if f_lwd = 0/NULL/NA: lty = 0)</span></div><div class='img'><img src='plot_area-33.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>f_lwd <span class='op'>=</span>  <span class='fl'>3</span><span class='op'>)</span>    <span class='co'># thicker lines</span>
+</div><div class='img'><img src='plot_area-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>    <span class='co'># thinner lines</span>
+</div><div class='img'><img src='plot_area-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lwd =  0)  # no lines (if f_lwd = 0/NULL/NA: lty = 0)</span>
+
 <span class='co'># sum_w:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>sum_w</span> <span class='kw'>=</span> <span class='fl'>.10</span>)  <span class='co'># default (showing top and left freq panels &amp; labels)</span>
-<span class='fu'>plot_area</span>(<span class='kw'>sum_w</span> <span class='kw'>=</span>  <span class='fl'>0</span>)   <span class='co'># remove top and left freq panels</span></div><div class='img'><img src='plot_area-34.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>sum_w</span> <span class='kw'>=</span>  <span class='fl'>1</span>,         <span class='co'># top and left freq panels scaled to size of main areas</span>
-          <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>)  <span class='co'># custom colors</span></div><div class='img'><img src='plot_area-35.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_area(sum_w = .10)  # default (showing top and left freq panels &amp; labels)</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>   <span class='co'># remove top and left freq panels</span>
+</div><div class='img'><img src='plot_area-24.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span>  <span class='fl'>1</span>,         <span class='co'># top and left freq panels scaled to size of main areas</span>
+          col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>  <span class='co'># custom colors</span>
+</div><div class='img'><img src='plot_area-25.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Plain and suggested plot versions:</span>
-<span class='fu'>plot_area</span>(<span class='kw'>sum_w</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)  <span class='co'># no compound indicators (on top/left)</span></div><div class='img'><img src='plot_area-36.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>sum_w</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>) <span class='co'># no gaps, numeric labels</span></div><div class='img'><img src='plot_area-37.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>) <span class='co'># plot with freq labels</span></div><div class='img'><img src='plot_area-38.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>) <span class='co'># no borders around boxes</span></div><div class='img'><img src='plot_area-39.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_area</span><span class='op'>(</span>sum_w <span class='op'>=</span> <span class='fl'>0</span>, f_lbl <span class='op'>=</span> <span class='st'>"abb"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>  <span class='co'># no compound indicators (on top/left)</span>
+</div><div class='img'><img src='plot_area-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_area</span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, sum_w <span class='op'>=</span> <span class='fl'>0</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>,  <span class='co'># no gaps, numeric labels</span>
+          f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, title_lbl <span class='op'>=</span> <span class='st'>"Black-and-white"</span><span class='op'>)</span>  <span class='co'># b+w print version</span>
+</div><div class='img'><img src='plot_area-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_area(f_lbl = "nam", p_lbl = NA, col_pal = pal_mod)  # plot with freq labels</span>
+<span class='fu'>plot_area</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>  <span class='co'># no borders around boxes</span>
+</div><div class='img'><img src='plot_area-28.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

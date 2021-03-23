@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Plot prism diagram of frequencies and probabilities. — plot_prism" />
 
+<meta property="og:title" content="Plot prism diagram of frequencies and probabilities. — plot_prism" />
 <meta property="og:description" content="plot_prism plots a network diagram of
 from a sufficient and valid set of 3 essential probabilities
 (prev, and
@@ -46,9 +54,8 @@ sens or its complement mirt, and
 spec or its complement fart)
 or existing frequency information freq
 and a population size of N individuals." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -62,9 +69,10 @@ and a population size of N individuals." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +86,7 @@ and a population size of N individuals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -86,46 +94,49 @@ and a population size of N individuals." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -136,6 +147,7 @@ and a population size of N individuals." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -147,7 +159,6 @@ and a population size of N individuals." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>plot_prism</code> plots a network diagram of
 from a sufficient and valid set of 3 essential probabilities
 (<code><a href='prev.html'>prev</a></code>, and
@@ -155,16 +166,35 @@ from a sufficient and valid set of 3 essential probabilities
 <code><a href='spec.html'>spec</a></code> or its complement <code><a href='fart.html'>fart</a></code>)
 or existing frequency information <code><a href='freq.html'>freq</a></code>
 and a population size of <code><a href='N.html'>N</a></code> individuals.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_prism</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>,
-  <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>,
-  <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>arr_c</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_prism</span><span class='op'>(</span>
+  prev <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>prev</span>,
+  sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
+  mirt <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
+  fart <span class='op'>=</span> <span class='cn'>NA</span>,
+  N <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>N</span>,
+  by <span class='op'>=</span> <span class='st'>"cddc"</span>,
+  area <span class='op'>=</span> <span class='st'>"no"</span>,
+  scale <span class='op'>=</span> <span class='st'>"p"</span>,
+  round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  f_lbl <span class='op'>=</span> <span class='st'>"num"</span>,
+  f_lbl_sep <span class='op'>=</span> <span class='cn'>NA</span>,
+  f_lwd <span class='op'>=</span> <span class='fl'>0</span>,
+  p_lwd <span class='op'>=</span> <span class='fl'>1</span>,
+  p_scale <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  p_lbl <span class='op'>=</span> <span class='st'>"mix"</span>,
+  arr_c <span class='op'>=</span> <span class='cn'>NA</span>,
+  lbl_txt <span class='op'>=</span> <span class='va'>txt</span>,
+  title_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lbl</span>,
+  cex_lbl <span class='op'>=</span> <span class='fl'>0.9</span>,
+  cex_p_lbl <span class='op'>=</span> <span class='cn'>NA</span>,
+  col_pal <span class='op'>=</span> <span class='va'>pal</span>,
+  mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -205,20 +235,21 @@ of a positive decision provided that the condition is <code>FALSE</code>).
       <th>N</th>
       <td><p>The number of individuals in the population.
 A suitable value of <code><a href='N.html'>N</a></code> is computed, if not provided.
-Note: <code><a href='N.html'>N</a></code> is not represented in the plot,
-but used for computing frequency information <code><a href='freq.html'>freq</a></code>
-from current probabilities <code><a href='prob.html'>prob</a></code>.</p></td>
+Note that a population size <code><a href='N.html'>N</a></code> is not needed
+for computing current probability information <code><a href='prob.html'>prob</a></code>,
+but is needed for computing frequency information
+<code><a href='freq.html'>freq</a></code> from current probabilities <code><a href='prob.html'>prob</a></code>.</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>A character code specifying 1 or 2 perspectives
-that split the population into 2 subsets.
+      <td><p>A character code specifying 1 or 2 perspective(s)
+that split(s) the population into 2 subsets.
 Specifying 1 perspective plots a frequency tree (single tree)
 with 3 options:</p><ol>
 <li><p><code>"cd"</code>: by condition only;</p></li>
 <li><p><code>"dc"</code>: by decision only;</p></li>
 <li><p><code>"ac"</code>: by accuracy only.</p></li>
-</ol><p>Specifying 2 perspectives plots a frequency prism (network, double tree)
+</ol><p>Specifying 2 perspectives plots a frequency prism (double tree)
 with 6 options:</p><ol>
 <li><p><code>"cddc"</code>: by condition (cd) and by decision (dc) (default);</p></li>
 <li><p><code>"cdac"</code>: by condition (cd) and by accuracy (ac);</p></li>
@@ -249,7 +280,7 @@ exact probability or by (rounded or non-rounded) frequency, with 2 options:</p><
     </tr>
     <tr>
       <th>round</th>
-      <td><p>A Boolean option specifying whether computed frequencies
+      <td><p>Boolean option specifying whether computed frequencies
 are rounded to integers. Default: <code>round = TRUE</code>.</p></td>
     </tr>
     <tr>
@@ -275,6 +306,17 @@ Default: <code>f_lbl_sep = NA</code> (set to <code>" = "</code> or <code>":\n"</
       <th>f_lwd</th>
       <td><p>Line width of areas.
 Default: <code>f_lwd = 0</code>.</p></td>
+    </tr>
+    <tr>
+      <th>p_lwd</th>
+      <td><p>Line width of probability links.
+Default: <code>p_lwd = 1</code>, but consider increasing when setting <code>p_scale = TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>p_scale</th>
+      <td><p>Boolean option for scaling current widths of probability links
+(as set by <code>p_lwd</code>) by the current probability values.
+Default: <code>p_scale = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>p_lbl</th>
@@ -329,24 +371,22 @@ Default: <code>col_pal = <a href='pal.html'>pal</a></code>.</p></td>
     <tr>
       <th>mar_notes</th>
       <td><p>Boolean option for showing margin notes.
-Default: <code>mar_notes = TRUE</code>.</p></td>
+Default: <code>mar_notes = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Other (graphical) parameters.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Nothing (NULL).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>plot_prism</code> generalizes and replaces <code><a href='plot_fnet.html'>plot_fnet</a></code>
 by removing the dependency on the R package <code>diagram</code>
 and providing many additional options.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='plot_fnet.html'>plot_fnet</a></code> for older (obsolete) version;
@@ -355,113 +395,190 @@ and providing many additional options.</p>
 <code><a href='plot_tab.html'>plot_tab</a></code> for plotting table (without scaling area dimensions);
 <code><a href='pal.html'>pal</a></code> contains current color settings;
 <code><a href='txt.html'>txt</a></code> contains current text settings.</p>
-<p>Other visualization functions: <code><a href='plot.riskyr.html'>plot.riskyr</a></code>,
-  <code><a href='plot_area.html'>plot_area</a></code>, <code><a href='plot_bar.html'>plot_bar</a></code>,
-  <code><a href='plot_curve.html'>plot_curve</a></code>, <code><a href='plot_fnet.html'>plot_fnet</a></code>,
-  <code><a href='plot_icons.html'>plot_icons</a></code>, <code><a href='plot_mosaic.html'>plot_mosaic</a></code>,
-  <code><a href='plot_plane.html'>plot_plane</a></code>, <code><a href='plot_tab.html'>plot_tab</a></code>,
-  <code><a href='plot_tree.html'>plot_tree</a></code></p></div>
-    
+<p>Other visualization functions: 
+<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
+<code><a href='plot_area.html'>plot_area</a>()</code>,
+<code><a href='plot_bar.html'>plot_bar</a>()</code>,
+<code><a href='plot_curve.html'>plot_curve</a>()</code>,
+<code><a href='plot_fnet.html'>plot_fnet</a>()</code>,
+<code><a href='plot_icons.html'>plot_icons</a>()</code>,
+<code><a href='plot_mosaic.html'>plot_mosaic</a>()</code>,
+<code><a href='plot_plane.html'>plot_plane</a>()</code>,
+<code><a href='plot_tab.html'>plot_tab</a>()</code>,
+<code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Basics:</span>
 <span class='co'># (1) Using global prob and freq values:</span>
-<span class='fu'>plot_prism</span>()  <span class='co'># default prism plot,</span></div><div class='img'><img src='plot_prism-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span><span class='op'>)</span>  <span class='co'># default prism plot,</span>
+</div><div class='img'><img src='plot_prism-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># same as:</span>
 <span class='co'># plot_prism(by = "cddc", area = "no", scale = "p",</span>
 <span class='co'>#            f_lbl = "num", f_lwd = 0, cex_lbl = .90,</span>
 <span class='co'>#            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)</span>
 
 <span class='co'># (2) Providing values:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>)</div><div class='img'><img src='plot_prism-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>)</div><div class='img'><img src='plot_prism-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>4</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>2</span>/<span class='fl'>5</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plot_prism-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, sens <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>, sens <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, area <span class='op'>=</span> <span class='st'>"hr"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>4</span>, sens <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>5</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, mar_notes <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-4.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Custom color and text settings:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='co'># custom fbox color, prob links,</span>
-           <span class='kw'>font</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)                       <span class='co'># and text labels</span></div><div class='img'><img src='plot_prism-5.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='no'>my_txt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='init_txt.html'>init_txt</a></span>(<span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"The Truth"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"so true"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"so false"</span>,
-                   <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='st'>"TP"</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='st'>"FN"</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='st'>"FP"</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='st'>"TN"</span>)
-<span class='no'>my_col</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='init_pal.html'>init_pal</a></span>(<span class='kw'>N_col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/rgb'>rgb</a></span>(<span class='fl'>0</span>, <span class='fl'>169</span>, <span class='fl'>224</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>255</span>),  <span class='co'># seeblau</span>
-                   <span class='kw'>hi_col</span> <span class='kw'>=</span> <span class='st'>"gold"</span>, <span class='kw'>mi_col</span> <span class='kw'>=</span> <span class='st'>"firebrick1"</span>, <span class='kw'>fa_col</span> <span class='kw'>=</span> <span class='st'>"firebrick2"</span>, <span class='kw'>cr_col</span> <span class='kw'>=</span> <span class='st'>"orange"</span>)
-<span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>my_txt</span>,
-           <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>my_col</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_prism-6.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, p_lwd <span class='op'>=</span> <span class='fl'>.5</span>, lty <span class='op'>=</span> <span class='fl'>2</span>, <span class='co'># custom fbox color, prob links,</span>
+           font <span class='op'>=</span> <span class='fl'>3</span>, cex_p_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>                         <span class='co'># and text labels</span>
+</div><div class='img'><img src='plot_prism-5.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>my_txt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='init_txt.html'>init_txt</a></span><span class='op'>(</span>cond_lbl <span class='op'>=</span> <span class='st'>"The Truth"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"so true"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"so false"</span>,
+                   hi_lbl <span class='op'>=</span> <span class='st'>"TP"</span>, mi_lbl <span class='op'>=</span> <span class='st'>"FN"</span>, fa_lbl <span class='op'>=</span> <span class='st'>"FP"</span>, cr_lbl <span class='op'>=</span> <span class='st'>"TN"</span><span class='op'>)</span>
+<span class='va'>my_col</span> <span class='op'>&lt;-</span> <span class='fu'><a href='init_pal.html'>init_pal</a></span><span class='op'>(</span>N_col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>169</span>, <span class='fl'>224</span>, max <span class='op'>=</span> <span class='fl'>255</span><span class='op'>)</span>,  <span class='co'># seeblau</span>
+                   hi_col <span class='op'>=</span> <span class='st'>"gold"</span>, mi_col <span class='op'>=</span> <span class='st'>"firebrick1"</span>, fa_col <span class='op'>=</span> <span class='st'>"firebrick2"</span>, cr_col <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, lbl_txt <span class='op'>=</span> <span class='va'>my_txt</span>,
+           col_pal <span class='op'>=</span> <span class='va'>my_col</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-6.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Local values and custom color/txt settings:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>3</span>/<span class='fl'>5</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>4</span>/<span class='fl'>5</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-           <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>,
-           <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)  <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-7.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,  <span class='co'># note scale!</span>
-           <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-8.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.50</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>,              <span class='co'># note scale!</span>
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='co'># custom text</span>
-           <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)                                        <span class='co'># custom colors</span></div><div class='img'><img src='plot_prism-9.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>7</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, sens <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span>,
+           by <span class='op'>=</span> <span class='st'>"cdac"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>,
+           f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>  <span class='co'># custom colors</span>
+</div><div class='img'><img src='plot_prism-7.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,  <span class='co'># note scale!</span>
+           by <span class='op'>=</span> <span class='st'>"cddc"</span>, area <span class='op'>=</span> <span class='st'>"hr"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='co'># custom colors</span>
+</div><div class='img'><img src='plot_prism-8.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.50</span>, sens <span class='op'>=</span> <span class='fl'>.50</span>, spec <span class='op'>=</span> <span class='fl'>.50</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,              <span class='co'># note scale!</span>
+           area <span class='op'>=</span> <span class='st'>"sq"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, <span class='co'># custom text</span>
+           col_pal <span class='op'>=</span> <span class='va'>pal_kn</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>                                        <span class='co'># custom colors</span>
+</div><div class='img'><img src='plot_prism-9.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Plot versions:</span>
 <span class='co'># (A) tree/single tree (nchar(by) == 2):</span>
 <span class='co'>#     3 versions:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>) <span class='co'># by condition (freq boxes: hi mi fa cr)</span></div><div class='img'><img src='plot_prism-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dc"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>) <span class='co'># by decision  (freq boxes: hi fa mi cr)</span></div><div class='img'><img src='plot_prism-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>) <span class='co'># by decision  (freq boxes: hi cr mi fa)</span></div><div class='img'><img src='plot_prism-12.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cd"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_mod</span><span class='op'>)</span> <span class='co'># by condition (freq boxes: hi mi fa cr)</span>
+</div><div class='img'><img src='plot_prism-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"dc"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_mod</span><span class='op'>)</span> <span class='co'># by decision  (freq boxes: hi fa mi cr)</span>
+</div><div class='img'><img src='plot_prism-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"ac"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_mod</span><span class='op'>)</span> <span class='co'># by accuracy  (freq boxes: hi cr mi fa)</span>
+</div><div class='img'><img src='plot_prism-12.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># (B) prism/double tree (nchar(by) == 4):</span>
 <span class='co'>#     6 (3 x 2) versions (+ 3 redundant ones):</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>)  <span class='co'># v01 (default)</span></div><div class='img'><img src='plot_prism-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>)  <span class='co'># v02</span></div><div class='img'><img src='plot_prism-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdcd"</span>)  <span class='co'># (+) Message</span></div><div class='output co'>#&gt; <span class='message'>Specified 2 identical perspectives.</span></div><div class='img'><img src='plot_prism-15.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dccd"</span>)  <span class='co'># v03</span></div><div class='img'><img src='plot_prism-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dcac"</span>)  <span class='co'># v04</span></div><div class='img'><img src='plot_prism-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dcdc"</span>)  <span class='co'># (+) Message</span></div><div class='output co'>#&gt; <span class='message'>Specified 2 identical perspectives.</span></div><div class='img'><img src='plot_prism-18.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"accd"</span>)  <span class='co'># v05</span></div><div class='img'><img src='plot_prism-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"acdc"</span>)  <span class='co'># v06</span></div><div class='img'><img src='plot_prism-20.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"acac"</span>)  <span class='co'># (+) Message</span></div><div class='output co'>#&gt; <span class='message'>Specified 2 identical perspectives.</span></div><div class='img'><img src='plot_prism-21.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cddc"</span><span class='op'>)</span>    <span class='co'># v01 (default)</span>
+</div><div class='img'><img src='plot_prism-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cdac"</span><span class='op'>)</span>    <span class='co'># v02</span>
+</div><div class='img'><img src='plot_prism-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(by = "cdcd")  # (+) Message</span>
+
+<span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"dccd"</span><span class='op'>)</span>    <span class='co'># v03</span>
+</div><div class='img'><img src='plot_prism-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"dcac"</span><span class='op'>)</span>    <span class='co'># v04</span>
+</div><div class='img'><img src='plot_prism-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(by = "dcdc")  # (+) Message</span>
+
+<span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"accd"</span><span class='op'>)</span>    <span class='co'># v05</span>
+</div><div class='img'><img src='plot_prism-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"acdc"</span><span class='op'>)</span>    <span class='co'># v06</span>
+</div><div class='img'><img src='plot_prism-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(by = "acac")  # (+) Message</span>
+
 <span class='co'>## Other options:</span>
 
 <span class='co'># area:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>)  <span class='co'># rectangular boxes (default): (same if area = NA/NULL)</span></div><div class='img'><img src='plot_prism-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>)  <span class='co'># horizontal rectangles (widths on each level sum to N)</span></div><div class='img'><img src='plot_prism-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>)  <span class='co'># squares (areas on each level sum to N)</span></div><div class='img'><img src='plot_prism-24.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_prism(area = "no")  # rectangular boxes (default): (same if area = NA/NULL)</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"hr"</span><span class='op'>)</span>  <span class='co'># horizontal rectangles (widths on each level sum to N)</span>
+</div><div class='img'><img src='plot_prism-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span><span class='op'>)</span>  <span class='co'># squares (areas on each level sum to N)</span>
+</div><div class='img'><img src='plot_prism-20.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># scale (matters for scaled areas and small N):</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>)  <span class='co'># widths scaled by prob</span></div><div class='img'><img src='plot_prism-25.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.3</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.8</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>,
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>)  <span class='co'># widths scaled by (rounded or non-rounded) freq</span></div><div class='img'><img src='plot_prism-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>,
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>)  <span class='co'># areas scaled by prob</span></div><div class='img'><img src='plot_prism-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.2</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.8</span>,
-           <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>)  <span class='co'># areas scaled by (rounded or non-rounded) freq</span></div><div class='img'><img src='plot_prism-28.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.3</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+           area <span class='op'>=</span> <span class='st'>"hr"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span><span class='op'>)</span>  <span class='co'># widths scaled by prob</span>
+</div><div class='img'><img src='plot_prism-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>.3</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>,
+           area <span class='op'>=</span> <span class='st'>"hr"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span><span class='op'>)</span>  <span class='co'># widths scaled by (rounded or non-rounded) freq</span>
+</div><div class='img'><img src='plot_prism-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>,
+           area <span class='op'>=</span> <span class='st'>"sq"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span><span class='op'>)</span>  <span class='co'># areas scaled by prob</span>
+</div><div class='img'><img src='plot_prism-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>,
+           area <span class='op'>=</span> <span class='st'>"sq"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span><span class='op'>)</span>  <span class='co'># areas scaled by (rounded or non-rounded) freq</span>
+</div><div class='img'><img src='plot_prism-24.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Frequency boxes:</span>
 <span class='co'># f_lbl:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>)     <span class='co'># abbreviated freq names (variable names)</span></div><div class='img'><img src='plot_prism-29.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>)     <span class='co'># only freq names</span></div><div class='img'><img src='plot_prism-30.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)     <span class='co'># only numeric freq values (default)</span></div><div class='img'><img src='plot_prism-31.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>)  <span class='co'># names and numeric freq values</span></div><div class='img'><img src='plot_prism-32.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)  <span class='co'># smaller freq labels</span></div><div class='img'><img src='plot_prism-33.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)        <span class='co'># no freq labels</span></div><div class='img'><img src='plot_prism-34.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)     <span class='co'># informative default: short name and numeric value (abb = num)</span></div><div class='img'><img src='plot_prism-35.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"abb"</span><span class='op'>)</span>      <span class='co'># abbreviated freq names (variable names)</span>
+</div><div class='img'><img src='plot_prism-25.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"nam"</span><span class='op'>)</span>      <span class='co'># only freq names</span>
+</div><div class='img'><img src='plot_prism-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>      <span class='co'># only numeric freq values (default)</span>
+</div><div class='img'><img src='plot_prism-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>   <span class='co'># names and numeric freq values</span>
+</div><div class='img'><img src='plot_prism-28.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(f_lbl = "namnum", cex_lbl = .75)  # smaller freq labels</span>
+<span class='co'># plot_prism(f_lbl = NA)       # no freq labels</span>
+<span class='co'># plot_prism(f_lbl = "def")    # informative default: short name and numeric value (abb = num)</span>
+
 <span class='co'># f_lwd:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)</span></div><div class='img'><img src='plot_prism-36.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>1</span>)  <span class='co'># basic lines</span></div><div class='img'><img src='plot_prism-37.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span>  <span class='fl'>3</span>)  <span class='co'># thicker lines</span></div><div class='img'><img src='plot_prism-38.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)  <span class='co'># thinner lines</span></div><div class='img'><img src='plot_prism-39.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_prism(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>f_lwd <span class='op'>=</span>  <span class='fl'>1</span><span class='op'>)</span>  <span class='co'># basic lines</span>
+</div><div class='img'><img src='plot_prism-29.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>f_lwd <span class='op'>=</span>  <span class='fl'>3</span><span class='op'>)</span>  <span class='co'># thicker lines</span>
+</div><div class='img'><img src='plot_prism-30.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(f_lwd = .5)  # thinner lines</span>
+
 <span class='co'>## Probability links:</span>
+<span class='co'># Scale link widths (p_lwd &amp; p_scale):</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>p_lwd <span class='op'>=</span> <span class='fl'>6</span>, p_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-31.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, p_lwd <span class='op'>=</span> <span class='fl'>6</span>, p_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-32.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># p_lbl:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>)     <span class='co'># abbreviated names with numeric values (abb = num)</span></div><div class='img'><img src='plot_prism-40.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)        <span class='co'># no prob labels (NA/NULL/"none")</span></div><div class='img'><img src='plot_prism-41.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>)     <span class='co'># only prob names</span></div><div class='img'><img src='plot_prism-42.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)     <span class='co'># only numeric prob values</span></div><div class='img'><img src='plot_prism-43.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>)  <span class='co'># names and numeric prob values</span></div><div class='img'><img src='plot_prism-44.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>.70</span>)  <span class='co'># smaller prob labels</span></div><div class='img'><img src='plot_prism-45.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"min"</span>)  <span class='co'># minimal labels</span></div><div class='img'><img src='plot_prism-46.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"min"</span>)</div><div class='img'><img src='plot_prism-47.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>)  <span class='co'># mix abbreviated names and numeric values</span></div><div class='img'><img src='plot_prism-48.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>)</div><div class='img'><img src='plot_prism-49.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cddc"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>)  <span class='co'># abbreviated names</span></div><div class='img'><img src='plot_prism-50.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cdac"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>)</div><div class='img'><img src='plot_prism-51.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"any"</span>) <span class='co'># short name and value (abb = num)</span></div><div class='img'><img src='plot_prism-52.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"mix"</span><span class='op'>)</span>     <span class='co'># abbreviated names with numeric values (abb = num)</span>
+</div><div class='img'><img src='plot_prism-33.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>     <span class='co'># minimal names (of key probabilities)</span>
+</div><div class='img'><img src='plot_prism-34.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(p_lbl = NA)      # no prob labels (NA/NULL/"none")</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"nam"</span><span class='op'>)</span>     <span class='co'># only prob names</span>
+</div><div class='img'><img src='plot_prism-35.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>     <span class='co'># only numeric prob values</span>
+</div><div class='img'><img src='plot_prism-36.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>  <span class='co'># names and numeric prob values</span>
+</div><div class='img'><img src='plot_prism-37.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(p_lbl = "namnum", cex_p_lbl = .70)  # smaller prob labels</span>
+<span class='co'># plot_prism(by = "cddc", p_lbl = "min")  # minimal labels</span>
+<span class='co'># plot_prism(by = "cdac", p_lbl = "min")</span>
+<span class='co'># plot_prism(by = "cddc", p_lbl = "mix")  # mix abbreviated names and numeric values</span>
+<span class='co'># plot_prism(by = "cdac", p_lbl = "mix")</span>
+<span class='co'># plot_prism(by = "cddc", p_lbl = "abb")  # abbreviated names</span>
+<span class='co'># plot_prism(by = "cdac", p_lbl = "abb")</span>
+<span class='co'># plot_prism(p_lbl = "any") # short name and value (abb = num)</span>
+
 <span class='co'># arr_c:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span>  <span class='fl'>0</span>)  <span class='co'># acc_c = 0: no arrows</span></div><div class='img'><img src='plot_prism-53.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> -<span class='fl'>3</span>)  <span class='co'># arr_c = -1 to -3: points at both ends</span></div><div class='img'><img src='plot_prism-54.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> -<span class='fl'>2</span>)  <span class='co'># point at far end</span></div><div class='img'><img src='plot_prism-55.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>2</span>)  <span class='co'># crr_c = 1-3: V-shape arrows at far end</span></div><div class='img'><img src='plot_prism-56.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>3</span>)  <span class='co'># V-shape arrows at both ends</span></div><div class='img'><img src='plot_prism-57.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>arr_c</span> <span class='kw'>=</span> +<span class='fl'>6</span>)  <span class='co'># arr_c = 4-6: T-shape arrows</span></div><div class='img'><img src='plot_prism-58.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>arr_c <span class='op'>=</span>  <span class='fl'>0</span><span class='op'>)</span>  <span class='co'># acc_c = 0: no arrows</span>
+</div><div class='img'><img src='plot_prism-38.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3</span><span class='op'>)</span>  <span class='co'># arr_c = -1 to -3: points at both ends</span>
+</div><div class='img'><img src='plot_prism-39.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>  <span class='co'># point at far end</span>
+</div><div class='img'><img src='plot_prism-40.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span>  <span class='co'># crr_c = 1-3: V-shape arrows at far end</span>
+</div><div class='img'><img src='plot_prism-41.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(arr_c = +3)  # V-shape arrows at both ends</span>
+<span class='co'># plot_prism(arr_c = +6)  # arr_c = 4-6: T-shape arrows</span>
+
 <span class='co'>## Plain plot versions:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-           <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)  <span class='co'># remove titles and margin notes</span></div><div class='img'><img src='plot_prism-59.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"min"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_prism-60.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>)</div><div class='img'><img src='plot_prism-61.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>)</div><div class='img'><img src='plot_prism-62.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>arr_c</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-           <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_prism-63.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>)</div><div class='img'><img src='plot_prism-64.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)</div><div class='img'><img src='plot_prism-65.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_prism-66.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>)</div><div class='img'><img src='plot_prism-67.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>, <span class='kw'>f_lbl_sep</span> <span class='kw'>=</span> <span class='st'>":\n"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>)</div><div class='img'><img src='plot_prism-68.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_mod</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>,
+           title_lbl <span class='op'>=</span> <span class='st'>""</span>, mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># remove titles and margin notes</span>
+</div><div class='img'><img src='plot_prism-42.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"min"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-43.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_kn</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-44.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_prism(area = "hr", f_lbl = "nam", f_lwd = .5, p_lwd = .5, col_pal = pal_bwp)</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"hr"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-45.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_prism(area = "sq", f_lbl = "nam", p_lbl = NA, col_pal = pal_rgb)</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_kn</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-46.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Suggested combinations:</span>
-<span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>)</div><div class='img'><img src='plot_prism-69.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>cex_lbl</span> <span class='kw'>=</span> <span class='fl'>.80</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)</div><div class='img'><img src='plot_prism-70.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>)</div><div class='img'><img src='plot_prism-71.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>)</div><div class='img'><img src='plot_prism-72.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"hr"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cex_p_lbl</span> <span class='kw'>=</span> <span class='fl'>.75</span>)</div><div class='img'><img src='plot_prism-73.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_TF</span>)</div><div class='img'><img src='plot_prism-74.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_rgb</span>)</div><div class='img'><img src='plot_prism-75.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"mix"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_kn</span>)</div><div class='img'><img src='plot_prism-76.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"mix"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_mod</span><span class='op'>)</span>  <span class='co'># basic plot</span>
+</div><div class='img'><img src='plot_prism-47.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.80</span>, cex_p_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-48.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_prism(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels</span>
+<span class='co'>#            f_lwd = .8, p_lwd = .8, lty = 3, col_pal = pal_bwp)  # black-&amp;-white</span>
+
+<span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"hr"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"mix"</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, cex_p_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-49.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"hr"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lwd <span class='op'>=</span> <span class='fl'>6</span>, p_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-50.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"hr"</span>, f_lbl <span class='op'>=</span> <span class='st'>"abb"</span>, p_lbl <span class='op'>=</span> <span class='st'>"abb"</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_kn</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-51.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_prism(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF)</span>
+<span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-52.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_prism</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, p_lbl <span class='op'>=</span> <span class='st'>"mix"</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_kn</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_prism-53.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

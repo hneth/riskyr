@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,14 +45,13 @@
 
 
 
-<meta property="og:title" content="Initialize basic text elements. — init_txt" />
 
+<meta property="og:title" content="Initialize basic text elements. — init_txt" />
 <meta property="og:description" content="init_txt initializes basic text elements txt
 (i.e., all titles and labels corresponding to the current scenario)
 that are used throughout the riskyr package." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -58,9 +65,10 @@ that are used throughout the riskyr package." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +82,7 @@ that are used throughout the riskyr package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -82,46 +90,49 @@ that are used throughout the riskyr package." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -132,6 +143,7 @@ that are used throughout the riskyr package." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -143,27 +155,35 @@ that are used throughout the riskyr package." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>init_txt</code> initializes basic text elements <code><a href='txt.html'>txt</a></code>
 (i.e., all titles and labels corresponding to the current scenario)
 that are used throughout the <code>riskyr</code> package.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>init_txt</span>(<span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_lbl</span>,
-  <span class='kw'>scen_txt</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_txt</span>, <span class='kw'>scen_src</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_src</span>,
-  <span class='kw'>scen_apa</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_apa</span>, <span class='kw'>scen_lng</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>scen_lng</span>,
-  <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>popu_lbl</span>, <span class='kw'>N_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>N_lbl</span>,
-  <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond_lbl</span>,
-  <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond_true_lbl</span>,
-  <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cond_false_lbl</span>,
-  <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_lbl</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_pos_lbl</span>,
-  <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_neg_lbl</span>, <span class='kw'>acc_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>acc_lbl</span>,
-  <span class='kw'>dec_cor_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_cor_lbl</span>,
-  <span class='kw'>dec_err_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>dec_err_lbl</span>, <span class='kw'>sdt_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>sdt_lbl</span>,
-  <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>hi_lbl</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>mi_lbl</span>,
-  <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>fa_lbl</span>, <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt_lbl_def</span>$<span class='no'>cr_lbl</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>init_txt</span><span class='op'>(</span>
+  scen_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>scen_lbl</span>,
+  scen_txt <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>scen_txt</span>,
+  scen_src <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>scen_src</span>,
+  scen_apa <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>scen_apa</span>,
+  scen_lng <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>scen_lng</span>,
+  popu_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>popu_lbl</span>,
+  N_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>N_lbl</span>,
+  cond_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>cond_lbl</span>,
+  cond_true_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>cond_true_lbl</span>,
+  cond_false_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>cond_false_lbl</span>,
+  dec_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>dec_lbl</span>,
+  dec_pos_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>dec_pos_lbl</span>,
+  dec_neg_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>dec_neg_lbl</span>,
+  acc_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>acc_lbl</span>,
+  dec_cor_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>dec_cor_lbl</span>,
+  dec_err_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>dec_err_lbl</span>,
+  sdt_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>sdt_lbl</span>,
+  hi_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>hi_lbl</span>,
+  mi_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>mi_lbl</span>,
+  fa_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>fa_lbl</span>,
+  cr_lbl <span class='op'>=</span> <span class='va'>txt_lbl_def</span><span class='op'>$</span><span class='va'>cr_lbl</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -264,7 +284,7 @@ or <code><a href='dec_err.html'>dec_err</a></code> cases (e.g., inaccurately pre
 (i.e., a correct decision of the absence of the condition, when the condition is actually absent).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>All textual elements that specify titles and details of the current scenario
@@ -273,18 +293,19 @@ are stored as named elements (of type character) in a list <code><a href='txt.ht
 objects to existing names.</p>
 <p>However, you can directly specify scenario-specific text elements
 when defining a scenario with the <code><a href='riskyr.html'>riskyr</a></code> function.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='txt.html'>txt</a></code> for current text settings;
 <code><a href='pal.html'>pal</a></code> for current color settings;
 <code><a href='num.html'>num</a></code> for basic numeric parameters.</p>
-<p>Other functions initializing scenario information: <code><a href='init_num.html'>init_num</a></code>,
-  <code><a href='init_pal.html'>init_pal</a></code>, <code><a href='riskyr.html'>riskyr</a></code></p></div>
-    
+<p>Other functions initializing scenario information: 
+<code><a href='init_num.html'>init_num</a>()</code>,
+<code><a href='init_pal.html'>init_pal</a>()</code>,
+<code><a href='riskyr.html'>riskyr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>init_txt</span>()          <span class='co'># defines a list of (default) text elements</span></div><div class='output co'>#&gt; $scen_lbl
+    <pre class="examples"><div class='input'><span class='fu'>init_txt</span><span class='op'>(</span><span class='op'>)</span>          <span class='co'># defines a list of (default) text elements</span>
+</div><div class='output co'>#&gt; $scen_lbl
 #&gt; [1] "Scenario"
 #&gt; 
 #&gt; $scen_txt
@@ -346,40 +367,39 @@ when defining a scenario with the <code><a href='riskyr.html'>riskyr</a></code> 
 #&gt; 
 #&gt; $cr_lbl
 #&gt; [1] "cr"
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='fu'>init_txt</span>())  <span class='co'># 21</span></div><div class='output co'>#&gt; [1] 21</div><div class='input'>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='fu'>init_txt</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># 21</span>
+</div><div class='output co'>#&gt; [1] 21</div><div class='input'>
 <span class='co'># Customizing current text elements:</span>
-<span class='no'>txt</span> <span class='kw'>&lt;-</span> <span class='fu'>init_txt</span>(<span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"My scenario"</span>,
-                <span class='kw'>scen_src</span> <span class='kw'>=</span> <span class='st'>"My source"</span>,
-                <span class='kw'>N_lbl</span> <span class='kw'>=</span> <span class='st'>"My population"</span>)</div></pre>
+<span class='va'>txt</span> <span class='op'>&lt;-</span> <span class='fu'>init_txt</span><span class='op'>(</span>scen_lbl <span class='op'>=</span> <span class='st'>"My scenario"</span>,
+                scen_src <span class='op'>=</span> <span class='st'>"My source"</span>,
+                N_lbl <span class='op'>=</span> <span class='st'>"My population"</span><span class='op'>)</span>
+
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

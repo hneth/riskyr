@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,14 +45,13 @@
 
 
 
-<meta property="og:title" content="Read a population (given as data frame) into a riskyr scenario. — read_popu" />
 
+<meta property="og:title" content="Read a population (given as data frame) into a riskyr scenario. — read_popu" />
 <meta property="og:description" content="read_popu interprets a data frame df
 (that contains individual observations of some population)
 and returns a scenario of class &quot;riskyr&quot;." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -58,9 +65,10 @@ and returns a scenario of class &quot;riskyr&quot;." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +82,7 @@ and returns a scenario of class &quot;riskyr&quot;." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -82,46 +90,49 @@ and returns a scenario of class &quot;riskyr&quot;." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -132,6 +143,7 @@ and returns a scenario of class &quot;riskyr&quot;." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -143,17 +155,23 @@ and returns a scenario of class &quot;riskyr&quot;." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>read_popu</code> interprets a data frame <code>df</code>
 (that contains individual observations of some population)
 and returns a scenario of class <code>"riskyr"</code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>read_popu</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>popu</span>, <span class='kw'>ix_by_top</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ix_by_bot</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>ix_sdt</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>hi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>hi_lbl</span>, <span class='kw'>mi_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>mi_lbl</span>, <span class='kw'>fa_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>fa_lbl</span>,
-  <span class='kw'>cr_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>cr_lbl</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>read_popu</span><span class='op'>(</span>
+  df <span class='op'>=</span> <span class='va'>popu</span>,
+  ix_by_top <span class='op'>=</span> <span class='fl'>1</span>,
+  ix_by_bot <span class='op'>=</span> <span class='fl'>2</span>,
+  ix_sdt <span class='op'>=</span> <span class='fl'>3</span>,
+  hi_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>hi_lbl</span>,
+  mi_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>mi_lbl</span>,
+  fa_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>fa_lbl</span>,
+  cr_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>cr_lbl</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -200,79 +218,76 @@ Default: <code>ix_by_bot = 3</code> (3rd column).</p></td>
       <td><p>Additional parameters (to be passed to <code><a href='riskyr.html'>riskyr</a></code> function).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class "riskyr" describing a risk-related scenario.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that <code>df</code> needs to be structured according to
 the <code><a href='popu.html'>popu</a></code> created by <code><a href='comp_popu.html'>comp_popu</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>the corresponding data frame <code><a href='popu.html'>popu</a></code>;
 the corresponding generating function <code><a href='comp_popu.html'>comp_popu</a></code>;
 <code><a href='riskyr.html'>riskyr</a></code> initializes a <code>riskyr</code> scenario.</p>
-<p>Other riskyr scenario functions: <code><a href='plot.riskyr.html'>plot.riskyr</a></code>,
-  <code><a href='riskyr.html'>riskyr</a></code>, <code><a href='summary.riskyr.html'>summary.riskyr</a></code></p></div>
-    
+<p>Other riskyr scenario functions: 
+<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
+<code><a href='riskyr.html'>riskyr</a>()</code>,
+<code><a href='summary.riskyr.html'>summary.riskyr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generating and interpreting different scenario types:</span>
 
 <span class='co'># (A) Diagnostic/screening scenario (using default labels): ------</span>
-<span class='no'>popu_diag</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='va'>popu_diag</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>4</span>, mi <span class='op'>=</span> <span class='fl'>1</span>, fa <span class='op'>=</span> <span class='fl'>2</span>, cr <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='co'># popu_diag</span>
-<span class='no'>scen_diag</span> <span class='kw'>&lt;-</span> <span class='fu'>read_popu</span>(<span class='no'>popu_diag</span>, <span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Diagnostics"</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Population tested"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_diag</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prism"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"no"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>)</div><div class='img'><img src='read_popu-1.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>scen_diag</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_diag</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Diagnostics"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population tested"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_diag</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-1.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># (B) Intervention/treatment scenario: ------</span>
-<span class='no'>popu_treat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>55</span>,
-                        <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Treatment"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"pill"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"placebo"</span>,
-                        <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Health status"</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"healthy"</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"sick"</span>)
+<span class='va'>popu_treat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>80</span>, mi <span class='op'>=</span> <span class='fl'>20</span>, fa <span class='op'>=</span> <span class='fl'>45</span>, cr <span class='op'>=</span> <span class='fl'>55</span>,
+                        cond_lbl <span class='op'>=</span> <span class='st'>"Treatment"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"pill"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"placebo"</span>,
+                        dec_lbl <span class='op'>=</span> <span class='st'>"Health status"</span>, dec_pos_lbl <span class='op'>=</span> <span class='st'>"healthy"</span>, dec_neg_lbl <span class='op'>=</span> <span class='st'>"sick"</span><span class='op'>)</span>
 <span class='co'># popu_treat</span>
-<span class='no'>scen_treat</span> <span class='kw'>&lt;-</span> <span class='fu'>read_popu</span>(<span class='no'>popu_treat</span>, <span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Treatment"</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Population treated"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_treat</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prism"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)</div><div class='img'><img src='read_popu-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_treat</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"icon"</span>, <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt_org</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>)</div><div class='img'><img src='read_popu-3.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>scen_treat</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_treat</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Treatment"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population treated"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-2.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_treat</span>, type <span class='op'>=</span> <span class='st'>"icon"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-3.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># (C) Prevention scenario (e.g., vaccination): ------</span>
-<span class='no'>popu_vacc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span>(<span class='kw'>hi</span> <span class='kw'>=</span> <span class='fl'>960</span>, <span class='kw'>mi</span> <span class='kw'>=</span> <span class='fl'>40</span>, <span class='kw'>fa</span> <span class='kw'>=</span> <span class='fl'>880</span>, <span class='kw'>cr</span> <span class='kw'>=</span> <span class='fl'>120</span>,
-                       <span class='kw'>cond_lbl</span> <span class='kw'>=</span> <span class='st'>"Vaccination"</span>, <span class='kw'>cond_true_lbl</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>cond_false_lbl</span> <span class='kw'>=</span> <span class='st'>"no"</span>,
-                       <span class='kw'>dec_lbl</span> <span class='kw'>=</span> <span class='st'>"Disease"</span>, <span class='kw'>dec_pos_lbl</span> <span class='kw'>=</span> <span class='st'>"no flu"</span>, <span class='kw'>dec_neg_lbl</span> <span class='kw'>=</span> <span class='st'>"flu"</span>)
+<span class='va'>popu_vacc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='comp_popu.html'>comp_popu</a></span><span class='op'>(</span>hi <span class='op'>=</span> <span class='fl'>960</span>, mi <span class='op'>=</span> <span class='fl'>40</span>, fa <span class='op'>=</span> <span class='fl'>880</span>, cr <span class='op'>=</span> <span class='fl'>120</span>,
+                       cond_lbl <span class='op'>=</span> <span class='st'>"Vaccination"</span>, cond_true_lbl <span class='op'>=</span> <span class='st'>"yes"</span>, cond_false_lbl <span class='op'>=</span> <span class='st'>"no"</span>,
+                       dec_lbl <span class='op'>=</span> <span class='st'>"Disease"</span>, dec_pos_lbl <span class='op'>=</span> <span class='st'>"no flu"</span>, dec_neg_lbl <span class='op'>=</span> <span class='st'>"flu"</span><span class='op'>)</span>
 <span class='co'># popu_vacc</span>
-<span class='no'>scen_vacc</span> <span class='kw'>&lt;-</span> <span class='fu'>read_popu</span>(<span class='no'>popu_vacc</span>, <span class='kw'>scen_lbl</span> <span class='kw'>=</span> <span class='st'>"Prevention"</span>, <span class='kw'>popu_lbl</span> <span class='kw'>=</span> <span class='st'>"Population vaccinated"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>scen_vacc</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"prism"</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"sq"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"namnum"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_bw</span>, <span class='kw'>p_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)</div><div class='img'><img src='read_popu-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='va'>scen_vacc</span> <span class='op'>&lt;-</span> <span class='fu'>read_popu</span><span class='op'>(</span><span class='va'>popu_vacc</span>, scen_lbl <span class='op'>=</span> <span class='st'>"Prevention"</span>, popu_lbl <span class='op'>=</span> <span class='st'>"Population vaccinated"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>scen_vacc</span>, type <span class='op'>=</span> <span class='st'>"prism"</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>
+</div><div class='img'><img src='read_popu-4.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -15,21 +15,29 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,15 +45,14 @@
 
 
 
-<meta property="og:title" content="Plot bar charts of population frequencies. — plot_bar" />
 
+<meta property="og:title" content="Plot bar charts of population frequencies. — plot_bar" />
 <meta property="og:description" content="plot_bar draws bar charts that
 represent the proportions of frequencies in the current
 population popu as relatives sizes of
 rectangular areas." />
-
 <meta property="og:image" content="https://hneth.github.io/riskyr/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -59,9 +66,10 @@ rectangular areas." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -75,7 +83,7 @@ rectangular areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -83,46 +91,49 @@ rectangular areas." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home"></span>
      
+    Home
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/E_riskyr_primer.html">Getting started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
+    All articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/A_user_guide.html">riskyr User Guide</a>
+      <a href="../articles/A_user_guide.html">User guide</a>
     </li>
     <li>
-      <a href="../articles/B_data_formats.html">Data Formats</a>
+      <a href="../articles/B_data_formats.html">Data formats</a>
     </li>
     <li>
-      <a href="../articles/C_confusion_matrix.html">Confusion Matrix and Metrics</a>
+      <a href="../articles/C_confusion_matrix.html">Confusion matrix</a>
     </li>
     <li>
-      <a href="../articles/D_functional_perspectives.html">Adopting Functional Perspectives</a>
+      <a href="../articles/D_functional_perspectives.html">Functional perspectives</a>
     </li>
     <li>
-      <a href="../articles/E_riskyr_primer.html">Quick Start Primer</a>
+      <a href="../articles/E_riskyr_primer.html">Quick start primer</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hneth/riskyr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://hneth.github.io/riskyr/">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -133,6 +144,7 @@ rectangular areas." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -144,20 +156,33 @@ rectangular areas." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>plot_bar</code> draws bar charts that
 represent the proportions of frequencies in the current
 population <code><a href='popu.html'>popu</a></code> as relatives sizes of
 rectangular areas.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>plot_bar</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>prev</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>sens</span>, <span class='kw'>mirt</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>spec</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>spec</span>, <span class='kw'>fart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>N</span> <span class='kw'>=</span> <span class='no'>num</span>$<span class='no'>N</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>f_lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>lbl_txt</span> <span class='kw'>=</span> <span class='no'>txt</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='no'>txt</span>$<span class='no'>scen_lbl</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal</span>,
-  <span class='kw'>mar_notes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>plot_bar</span><span class='op'>(</span>
+  prev <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>prev</span>,
+  sens <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>sens</span>,
+  mirt <span class='op'>=</span> <span class='cn'>NA</span>,
+  spec <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>spec</span>,
+  fart <span class='op'>=</span> <span class='cn'>NA</span>,
+  N <span class='op'>=</span> <span class='va'>num</span><span class='op'>$</span><span class='va'>N</span>,
+  by <span class='op'>=</span> <span class='st'>"all"</span>,
+  dir <span class='op'>=</span> <span class='fl'>1</span>,
+  scale <span class='op'>=</span> <span class='st'>"f"</span>,
+  round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  f_lbl <span class='op'>=</span> <span class='st'>"num"</span>,
+  f_lwd <span class='op'>=</span> <span class='fl'>1</span>,
+  lty <span class='op'>=</span> <span class='fl'>0</span>,
+  lbl_txt <span class='op'>=</span> <span class='va'>txt</span>,
+  title_lbl <span class='op'>=</span> <span class='va'>txt</span><span class='op'>$</span><span class='va'>scen_lbl</span>,
+  col_pal <span class='op'>=</span> <span class='va'>pal</span>,
+  mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -278,7 +303,7 @@ Default: <code>col_pal = <a href='pal.html'>pal</a></code> (see <code><a href='i
     <tr>
       <th>mar_notes</th>
       <td><p>Boolean option for showing margin notes.
-Default: <code>mar_notes = TRUE</code>.</p></td>
+Default: <code>mar_notes = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -286,7 +311,7 @@ Default: <code>mar_notes = TRUE</code>.</p></td>
 (e.g., <code>cex</code>, <code>font</code>, <code>lty</code>, etc.).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If a sufficient and valid set of 3 essential probabilities
@@ -318,7 +343,6 @@ See <code><a href='plot_mosaic.html'>plot_mosaic</a></code> for 2-dimensional vi
 and various <code>box</code>) options in
 <code><a href='plot_tree.html'>plot_tree</a></code> and <code><a href='plot_fnet.html'>plot_fnet</a></code>
 for related functions.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='comp_popu.html'>comp_popu</a></code> computes the current population;
@@ -328,73 +352,91 @@ for related functions.</p>
 <code><a href='num.html'>num</a></code> for basic numeric parameters;
 <code><a href='txt.html'>txt</a></code> for current text settings;
 <code><a href='pal.html'>pal</a></code> for current color settings</p>
-<p>Other visualization functions: <code><a href='plot.riskyr.html'>plot.riskyr</a></code>,
-  <code><a href='plot_area.html'>plot_area</a></code>, <code><a href='plot_curve.html'>plot_curve</a></code>,
-  <code><a href='plot_fnet.html'>plot_fnet</a></code>, <code><a href='plot_icons.html'>plot_icons</a></code>,
-  <code><a href='plot_mosaic.html'>plot_mosaic</a></code>, <code><a href='plot_plane.html'>plot_plane</a></code>,
-  <code><a href='plot_prism.html'>plot_prism</a></code>, <code><a href='plot_tab.html'>plot_tab</a></code>,
-  <code><a href='plot_tree.html'>plot_tree</a></code></p></div>
-    
+<p>Other visualization functions: 
+<code><a href='plot.riskyr.html'>plot.riskyr</a>()</code>,
+<code><a href='plot_area.html'>plot_area</a>()</code>,
+<code><a href='plot_curve.html'>plot_curve</a>()</code>,
+<code><a href='plot_fnet.html'>plot_fnet</a>()</code>,
+<code><a href='plot_icons.html'>plot_icons</a>()</code>,
+<code><a href='plot_mosaic.html'>plot_mosaic</a>()</code>,
+<code><a href='plot_plane.html'>plot_plane</a>()</code>,
+<code><a href='plot_prism.html'>plot_prism</a>()</code>,
+<code><a href='plot_tab.html'>plot_tab</a>()</code>,
+<code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Basics:</span>
-<span class='fu'>plot_bar</span>(<span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.66</span>, <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 1"</span>)</div><div class='img'><img src='plot_bar-1.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 2"</span>)  <span class='co'># by "all" (default)</span></div><div class='img'><img src='plot_bar-2.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_bar</span><span class='op'>(</span>prev <span class='op'>=</span> <span class='fl'>.33</span>, sens <span class='op'>=</span> <span class='fl'>.75</span>, spec <span class='op'>=</span> <span class='fl'>.66</span>, title_lbl <span class='op'>=</span> <span class='st'>"Test 1"</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_bar-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.33</span>, sens <span class='op'>=</span> <span class='fl'>.75</span>, spec <span class='op'>=</span> <span class='fl'>.60</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Test 2"</span><span class='op'>)</span>  <span class='co'># by "all" (default)</span>
+</div><div class='img'><img src='plot_bar-2.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Perspectives (by):</span>
-<span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 3a"</span>)  <span class='co'># by condition</span></div><div class='img'><img src='plot_bar-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"cd"</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 3b"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)  <span class='co'># bi-directional</span></div><div class='img'><img src='plot_bar-4.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dc"</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 4a"</span>)  <span class='co'># by decision</span></div><div class='img'><img src='plot_bar-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"dc"</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 4b"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)  <span class='co'># bi-directional</span></div><div class='img'><img src='plot_bar-6.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 5a"</span>)  <span class='co'># by accuracy</span></div><div class='img'><img src='plot_bar-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.33</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.75</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.60</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"ac"</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Test 5b"</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)  <span class='co'># bi-directional</span></div><div class='img'><img src='plot_bar-8.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "cd",</span>
+<span class='co'>#          title_lbl = "Test 3a")  # by condition</span>
+<span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.33</span>, sens <span class='op'>=</span> <span class='fl'>.75</span>, spec <span class='op'>=</span> <span class='fl'>.60</span>, by <span class='op'>=</span> <span class='st'>"cd"</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Test 3b"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>  <span class='co'># bi-directional</span>
+</div><div class='img'><img src='plot_bar-3.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "dc",</span>
+<span class='co'>#          title_lbl = "Test 4a")  # by decision</span>
+<span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.33</span>, sens <span class='op'>=</span> <span class='fl'>.75</span>, spec <span class='op'>=</span> <span class='fl'>.60</span>, by <span class='op'>=</span> <span class='st'>"dc"</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Test 4b"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>  <span class='co'># bi-directional</span>
+</div><div class='img'><img src='plot_bar-4.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_bar(N = 1000, prev = .33, sens = .75, spec = .60, by = "ac",</span>
+<span class='co'>#          title_lbl = "Test 5a")  # by accuracy</span>
+<span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.33</span>, sens <span class='op'>=</span> <span class='fl'>.75</span>, spec <span class='op'>=</span> <span class='fl'>.60</span>, by <span class='op'>=</span> <span class='st'>"ac"</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Test 5b"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>  <span class='co'># bi-directional</span>
+</div><div class='img'><img src='plot_bar-5.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Customize colors and text:</span>
-<span class='fu'>plot_bar</span>(<span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_org</span>)</div><div class='img'><img src='plot_bar-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>, <span class='kw'>col_pal</span> <span class='kw'>=</span> <span class='no'>pal_mod</span>)</div><div class='img'><img src='plot_bar-10.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_bar</span><span class='op'>(</span>dir <span class='op'>=</span> <span class='fl'>1</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_org</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_bar-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_bar(dir = 2, f_lbl = "nam", col_pal = pal_bw)</span>
+
 <span class='co'># Frequency labels (f_lbl):</span>
-<span class='fu'>plot_bar</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"def"</span>)  <span class='co'># default labels: name = num</span></div><div class='img'><img src='plot_bar-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"nam"</span>)  <span class='co'># name only</span></div><div class='img'><img src='plot_bar-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"num"</span>)  <span class='co'># numeric value only</span></div><div class='img'><img src='plot_bar-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='st'>"abb"</span>)  <span class='co'># abbreviated name</span></div><div class='img'><img src='plot_bar-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>f_lbl</span> <span class='kw'>=</span> <span class='fl'>NA</span>)     <span class='co'># no labels (NA/NULL/"no")</span></div><div class='img'><img src='plot_bar-15.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_bar(f_lbl = "def")  # default labels: name = num</span>
+<span class='fu'>plot_bar</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"nam"</span><span class='op'>)</span>  <span class='co'># name only</span>
+</div><div class='img'><img src='plot_bar-7.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>  <span class='co'># numeric value only</span>
+</div><div class='img'><img src='plot_bar-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_bar(f_lbl = "abb")  # abbreviated name</span>
+<span class='co'># plot_bar(f_lbl = NA)     # no labels (NA/NULL/"no")</span>
+
 <span class='co'># Scaling and rounding effects:</span>
-<span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Rounding (1)"</span>) <span class='co'># =&gt; Scale by freq and round freq.</span></div><div class='img'><img src='plot_bar-16.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Rounding (2)"</span>) <span class='co'># =&gt; Scale by prob and round freq.</span></div><div class='img'><img src='plot_bar-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"f"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Rounding (3)"</span>) <span class='co'># =&gt; Scale by freq and do NOT round freq.</span></div><div class='img'><img src='plot_bar-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>prev</span> <span class='kw'>=</span> <span class='fl'>.1</span>, <span class='kw'>sens</span> <span class='kw'>=</span> <span class='fl'>.7</span>, <span class='kw'>spec</span> <span class='kw'>=</span> <span class='fl'>.6</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-         <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>round</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-         <span class='kw'>title_lbl</span> <span class='kw'>=</span> <span class='st'>"Rounding (4)"</span>) <span class='co'># =&gt; Scale by prob and do NOT round freq.</span></div><div class='img'><img src='plot_bar-19.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         scale <span class='op'>=</span> <span class='st'>"f"</span>, round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Rounding (1)"</span><span class='op'>)</span> <span class='co'># =&gt; Scale by freq and round freq.</span>
+</div><div class='img'><img src='plot_bar-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         scale <span class='op'>=</span> <span class='st'>"p"</span>, round <span class='op'>=</span> <span class='cn'>TRUE</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Rounding (2)"</span><span class='op'>)</span> <span class='co'># =&gt; Scale by prob and round freq.</span>
+</div><div class='img'><img src='plot_bar-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         scale <span class='op'>=</span> <span class='st'>"f"</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Rounding (3)"</span><span class='op'>)</span> <span class='co'># =&gt; Scale by freq and do NOT round freq.</span>
+</div><div class='img'><img src='plot_bar-11.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_bar</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.1</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.6</span>, dir <span class='op'>=</span> <span class='fl'>2</span>,
+         scale <span class='op'>=</span> <span class='st'>"p"</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span>,
+         title_lbl <span class='op'>=</span> <span class='st'>"Rounding (4)"</span><span class='op'>)</span> <span class='co'># =&gt; Scale by prob and do NOT round freq.</span>
+</div><div class='img'><img src='plot_bar-12.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
