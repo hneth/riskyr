@@ -89,7 +89,7 @@ Log of changes since last release:
 To use selected `riskyr` functions without the need for coding 
 an updated version of `riskyrApp` is available 
 at <https://github.com/hneth/riskyrApp/> (R Shiny code) and 
-at <http://riskyr.org/> (interactive online version). 
+at [http://riskyr.org/](http://134.34.54.61:3838/spds/riskyr/) (interactive online version). 
 
 - Using `pkgdown` [2018-12]:   
 Provide package documentation online at <https://hneth.github.io/riskyr/> (latest release version) and <https://hneth.github.io/riskyr/dev/> (current development version). 
