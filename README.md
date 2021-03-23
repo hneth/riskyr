@@ -4,13 +4,13 @@
 
 [![CRAN\_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr)
 [![Build\_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/)
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr)
+[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr)
 
 <!-- Possible status badges: 
 
 [![CRAN_status](http://www.r-pkg.org/badges/version/riskyr)](https://CRAN.R-project.org/package=riskyr) 
 [![Build_status](https://travis-ci.org/hneth/riskyr.svg?branch=master)](https://travis-ci.org/hneth/riskyr/) 
-[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](http://www.r-pkg.org/pkg/riskyr) 
+[![Downloads](http://cranlogs.r-pkg.org/badges/riskyr?color=brightgreen)](https://www.r-pkg.org:443/pkg/riskyr) 
 [![Rdoc](http://www.rdocumentation.org/badges/version/riskyr)](http://www.rdocumentation.org/packages/riskyr/) 
 
 -->
