@@ -1,14 +1,35 @@
 
+# Current version
+
+The current development version (0.3.0.9001+) is available at <https://github.com/hneth/riskyr/>. 
+
+Log of changes since last release:
+
+## Major changes
+
+- none yet 
+
+## Minor changes
+
+- none yet 
+
+## Micro changes
+
+- none yet 
+
+
+---------- 
+
 # riskyr 0.3.0
 
-**riskyr 0.3.0** is published [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 23, 2021. 
+**riskyr 0.3.0** was published [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 23, 2021. 
 
 Log of changes since last release:
 
 
 ## Major changes
 
-- Added `plot_fnet()` for plotting _frequency nets_ (Binder et al., 2020) [2020-12]. 
+- Added `plot_fnet()` for plotting _frequency nets_ ([Binder et al., 2020](https://www.frontiersin.org/articles/10.3389/fpsyg.2020.00750/full)) [2020-12]. 
 
 
 ## Minor changes
@@ -219,6 +240,6 @@ doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817)
 
 ---------- 
 
-(`NEWS.md` updated on 2021-03-23 by [hn](https://neth.de).) 
+(`NEWS.md` updated on 2021-03-24 by [hn](https://neth.de).) 
 
 <!-- eof -->
