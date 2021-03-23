@@ -86,7 +86,7 @@ and a population size of N individuals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -443,23 +443,23 @@ for analysis and details.</p>
 <span class='co'>#            p_lbl = "mix", arr_c = -2, cex_p_lbl = NA)</span>
 
 <span class='co'># B. Providing values:</span>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span><span class='op'>)</span> <span class='co'># Binder et al. (2020, Fig. 3)</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span><span class='op'>)</span>  <span class='co'># Binder et al. (2020, Fig. 3)</span>
 </div><div class='img'><img src='plot_fnet-2.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Variants:</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"cdac"</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_fnet-3.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"dccd"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"dcac"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"accd"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-6.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"acdc"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-7.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-4.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dcac")</span>
+<span class='co'># plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "accd")</span>
+<span class='co'># plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "acdc")</span>
+
 <span class='co'># Trees (only 1 dimension):</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"cd"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-8.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"dc"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-9.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10000</span>, prev <span class='op'>=</span> <span class='fl'>.02</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.9</span>, by <span class='op'>=</span> <span class='st'>"ac"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-10.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-5.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "dc")</span>
+<span class='co'># plot_fnet(N = 10000, prev = .02, sens = .8, spec = .9, by = "ac")</span>
+
 <span class='co'># Area and margin notes:</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>4</span>, sens <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>2</span><span class='op'>/</span><span class='fl'>5</span>, area <span class='op'>=</span> <span class='st'>"sq"</span>, mar_notes <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-11.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-6.png' alt='' width='691' height='538' /></div><div class='input'>
 
 <span class='co'># (2) Use case (highlight horizontal vs. vertical perspectives: ----</span>
 <span class='co'># Define scenario:</span>
@@ -483,7 +483,7 @@ for analysis and details.</p>
                      fa_col <span class='op'>=</span> <span class='va'>my_red</span>, cr_col <span class='op'>=</span> <span class='va'>my_red</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>mammo</span>, type <span class='op'>=</span> <span class='st'>"fnet"</span>, col_pal <span class='op'>=</span> <span class='va'>my_col_1</span>,
      f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lwd <span class='op'>=</span> <span class='fl'>2</span>, p_lbl <span class='op'>=</span> <span class='st'>"no"</span>, arr_c <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-12.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-7.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># B. Emphasize decision perspective (columns):</span>
 <span class='va'>my_col_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='init_pal.html'>init_pal</a></span><span class='op'>(</span>N_col <span class='op'>=</span> <span class='va'>my_non</span>,
                      cond_true_col <span class='op'>=</span> <span class='va'>my_non</span>, cond_false_col <span class='op'>=</span> <span class='va'>my_non</span>,
@@ -492,82 +492,82 @@ for analysis and details.</p>
                      fa_col <span class='op'>=</span> <span class='va'>my_red</span>, cr_col <span class='op'>=</span> <span class='va'>my_blu</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>mammo</span>, type <span class='op'>=</span> <span class='st'>"fnet"</span>, col_pal <span class='op'>=</span> <span class='va'>my_col_2</span>,
      f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lwd <span class='op'>=</span> <span class='fl'>2</span>, p_lbl <span class='op'>=</span> <span class='st'>"no"</span>, arr_c <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-13.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-8.png' alt='' width='691' height='538' /></div><div class='input'>
 
 <span class='co'># (3) Custom color and text settings: ----</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, p_lwd <span class='op'>=</span> <span class='fl'>.5</span>, lty <span class='op'>=</span> <span class='fl'>2</span>, <span class='co'># custom fbox color, prob links,</span>
           font <span class='op'>=</span> <span class='fl'>3</span>, cex_p_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>                         <span class='co'># and text labels</span>
-</div><div class='img'><img src='plot_fnet-14.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-9.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>7</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, sens <span class='op'>=</span> <span class='fl'>3</span><span class='op'>/</span><span class='fl'>5</span>, spec <span class='op'>=</span> <span class='fl'>4</span><span class='op'>/</span><span class='fl'>5</span>, round <span class='op'>=</span> <span class='cn'>FALSE</span>,
           by <span class='op'>=</span> <span class='st'>"cdac"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>,
           f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>  <span class='co'># custom colors</span>
-</div><div class='img'><img src='plot_fnet-15.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>5</span>, prev <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span>, sens <span class='op'>=</span> <span class='fl'>.8</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,  <span class='co'># note scale!</span>
-          by <span class='op'>=</span> <span class='st'>"cddc"</span>, area <span class='op'>=</span> <span class='st'>"hr"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='co'># custom colors</span>
-</div><div class='img'><img src='plot_fnet-16.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.50</span>, sens <span class='op'>=</span> <span class='fl'>.50</span>, spec <span class='op'>=</span> <span class='fl'>.50</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,                 <span class='co'># note scale!</span>
+</div><div class='img'><img src='plot_fnet-10.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_fnet(N = 5, prev = 1/2, sens = .8, spec = .5, scale = "p",   # Note scale!</span>
+<span class='co'>#           by = "cddc", area = "hr", col_pal = pal_bw, f_lwd = 1)  # custom colors</span>
+
+<span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>3</span>, prev <span class='op'>=</span> <span class='fl'>.50</span>, sens <span class='op'>=</span> <span class='fl'>.50</span>, spec <span class='op'>=</span> <span class='fl'>.50</span>, scale <span class='op'>=</span> <span class='st'>"p"</span>,              <span class='co'># Note scale!</span>
           area <span class='op'>=</span> <span class='st'>"sq"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_org</span>, f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, <span class='co'># custom text</span>
           col_pal <span class='op'>=</span> <span class='va'>pal_kn</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>                                        <span class='co'># custom colors</span>
-</div><div class='img'><img src='plot_fnet-17.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-11.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># (4) Other options: ----</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>,
           area <span class='op'>=</span> <span class='st'>"sq"</span>, scale <span class='op'>=</span> <span class='st'>"p"</span><span class='op'>)</span>  <span class='co'># areas scaled by prob (matters for small N)</span>
-</div><div class='img'><img src='plot_fnet-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>4</span>, prev <span class='op'>=</span> <span class='fl'>.2</span>, sens <span class='op'>=</span> <span class='fl'>.7</span>, spec <span class='op'>=</span> <span class='fl'>.8</span>,
-          area <span class='op'>=</span> <span class='st'>"sq"</span>, scale <span class='op'>=</span> <span class='st'>"f"</span><span class='op'>)</span>  <span class='co'># areas scaled by (rounded or non-rounded) freq</span>
-</div><div class='img'><img src='plot_fnet-19.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(N = 4, prev = .2, sens = .7, spec = .8,</span>
+<span class='co'>#           area = "sq", scale = "f")  # areas scaled by (rounded or non-rounded) freq</span>
+
 <span class='co'>## Frequency boxes (f_lbl):</span>
-<span class='co'># plot_fnet(f_lbl = NA)      # no freq labels</span>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"abb"</span><span class='op'>)</span>     <span class='co'># abbreviated freq names (variable names)</span>
-</div><div class='img'><img src='plot_fnet-20.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"nam"</span><span class='op'>)</span>     <span class='co'># only freq names</span>
-</div><div class='img'><img src='plot_fnet-21.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>     <span class='co'># only numeric freq values (default)</span>
-</div><div class='img'><img src='plot_fnet-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>  <span class='co'># names and numeric freq values</span>
-</div><div class='img'><img src='plot_fnet-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>  <span class='co'># smaller freq labels</span>
-</div><div class='img'><img src='plot_fnet-24.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"def"</span><span class='op'>)</span>     <span class='co'># informative default: short name and numeric value (abb = num)</span>
-</div><div class='img'><img src='plot_fnet-25.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_fnet(f_lbl = NA)       # no freq labels</span>
+<span class='co'># plot_fnet(f_lbl = "abb")    # abbreviated freq names (variable names)</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"nam"</span><span class='op'>)</span>      <span class='co'># only freq names</span>
+</div><div class='img'><img src='plot_fnet-13.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>      <span class='co'># only numeric freq values (default)</span>
+</div><div class='img'><img src='plot_fnet-14.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(f_lbl = "namnum") # names and numeric freq values</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>  <span class='co'># smaller freq labels</span>
+</div><div class='img'><img src='plot_fnet-15.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(f_lbl = "def")    # informative default: short name and numeric value (abb = num)</span>
+
 <span class='co'># f_lwd:</span>
 <span class='co'># plot_fnet(f_lwd =  1)  # basic lines</span>
 <span class='co'># plot_fnet(f_lwd =  0)  # no lines (default), set to tiny_lwd = .001, lty = 0 (same if NA/NULL)</span>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>f_lwd <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>    <span class='co'># thinner lines</span>
-</div><div class='img'><img src='plot_fnet-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>f_lwd <span class='op'>=</span>  <span class='fl'>3</span><span class='op'>)</span>    <span class='co'># thicker lines</span>
-</div><div class='img'><img src='plot_fnet-27.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_fnet(f_lwd = .5)  # thinner lines</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>f_lwd <span class='op'>=</span>  <span class='fl'>3</span><span class='op'>)</span>    <span class='co'># thicker lines</span>
+</div><div class='img'><img src='plot_fnet-16.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'>## Probability links (p_lbl, p_lwd, p_scale):</span>
-<span class='co'># plot_fnet(p_lbl = NA)      # no prob labels (NA/NULL/"none")</span>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"mix"</span><span class='op'>)</span>     <span class='co'># abbreviated names with numeric values (abb = num)</span>
-</div><div class='img'><img src='plot_fnet-28.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>     <span class='co'># minimal names (of key probabilities)</span>
-</div><div class='img'><img src='plot_fnet-29.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"nam"</span><span class='op'>)</span>     <span class='co'># only prob names</span>
-</div><div class='img'><img src='plot_fnet-30.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>     <span class='co'># only numeric prob values</span>
-</div><div class='img'><img src='plot_fnet-31.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"namnum"</span><span class='op'>)</span>  <span class='co'># names and numeric prob values</span>
-</div><div class='img'><img src='plot_fnet-32.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_fnet(p_lbl = NA)       # no prob labels (NA/NULL/"none")</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"mix"</span><span class='op'>)</span>      <span class='co'># abbreviated names with numeric values (abb = num)</span>
+</div><div class='img'><img src='plot_fnet-17.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(p_lbl = "min")    # minimal names (of key probabilities)</span>
+<span class='co'># plot_fnet(p_lbl = "nam")    # only prob names</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>p_lbl <span class='op'>=</span> <span class='st'>"num"</span><span class='op'>)</span>      <span class='co'># only numeric prob values</span>
+</div><div class='img'><img src='plot_fnet-18.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(p_lbl = "namnum") # names and numeric prob values</span>
+
 <span class='fu'>plot_fnet</span><span class='op'>(</span>p_lwd <span class='op'>=</span> <span class='fl'>6</span>, p_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-33.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, p_lwd <span class='op'>=</span> <span class='fl'>6</span>, p_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-34.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-19.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span>, p_lwd <span class='op'>=</span> <span class='fl'>6</span>, p_scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_fnet-20.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># arr_c:</span>
 <span class='co'># plot_fnet(arr_c =  0)  # acc_c = 0: no arrows</span>
 <span class='co'># plot_fnet(arr_c = -3)  # arr_c = -1 to -3: points at both ends</span>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>    <span class='co'># point at far end</span>
-</div><div class='img'><img src='plot_fnet-35.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span>    <span class='co'># crr_c = 1-3: V-shape arrows at far end</span>
-</div><div class='img'><img src='plot_fnet-36.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cd"</span>, joint_p <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>   <span class='co'># tree with hidden joint probability links</span>
-</div><div class='img'><img src='plot_fnet-37.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cddc"</span>, joint_p <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># fnet ...</span>
-</div><div class='img'><img src='plot_fnet-38.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='co'># plot_fnet(arr_c = -2)  # point at far end</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>arr_c <span class='op'>=</span> <span class='op'>+</span><span class='fl'>2</span><span class='op'>)</span>    <span class='co'># crr_c = 1-3: V-shape arrows at far end</span>
+</div><div class='img'><img src='plot_fnet-21.png' alt='' width='691' height='538' /></div><div class='input'>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>by <span class='op'>=</span> <span class='st'>"cd"</span>, joint_p <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>      <span class='co'># tree without joint probability links</span>
+</div><div class='img'><img src='plot_fnet-22.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(by = "cddc", joint_p = FALSE)  # fnet ...</span>
+
 <span class='co'>## Plain plot versions:</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_mod</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>,
           title_lbl <span class='op'>=</span> <span class='st'>""</span>, mar_notes <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>  <span class='co'># remove titles and margin notes</span>
-</div><div class='img'><img src='plot_fnet-39.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"min"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-40.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-23.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"min"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_fnet-24.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-41.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, f_lbl_sep <span class='op'>=</span> <span class='st'>":\n"</span>, p_lbl <span class='op'>=</span> <span class='cn'>NA</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_kn</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-42.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-25.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(area = "sq", f_lbl = "def", f_lbl_sep = ":\n", p_lbl = NA, f_lwd = 1, col_pal = pal_kn)</span>
+
 <span class='co'>## Suggested combinations:</span>
 <span class='co'># plot_fnet(f_lbl = "nam", p_lbl = "mix")  # basic plot</span>
 <span class='fu'>plot_fnet</span><span class='op'>(</span>f_lbl <span class='op'>=</span> <span class='st'>"namnum"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, cex_lbl <span class='op'>=</span> <span class='fl'>.80</span>, cex_p_lbl <span class='op'>=</span> <span class='fl'>.75</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-43.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"no"</span>, f_lbl <span class='op'>=</span> <span class='st'>"def"</span>, p_lbl <span class='op'>=</span> <span class='st'>"abb"</span>,           <span class='co'># def/abb labels</span>
-          f_lwd <span class='op'>=</span> <span class='fl'>.8</span>, p_lwd <span class='op'>=</span> <span class='fl'>.8</span>, lty <span class='op'>=</span> <span class='fl'>3</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bwp</span><span class='op'>)</span>  <span class='co'># black-&amp;-white</span>
-</div><div class='img'><img src='plot_fnet-44.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"abb"</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_TF</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bw</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-45.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-46.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_fnet-47.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_fnet-26.png' alt='' width='691' height='538' /></div><div class='input'><span class='co'># plot_fnet(area = "no", f_lbl = "def", p_lbl = "abb",           # def/abb labels</span>
+<span class='co'>#           f_lwd = .8, p_lwd = .8, lty = 2, col_pal = pal_bwp)  # black-&amp;-white</span>
+
+<span class='co'># plot_fnet(area = "sq", f_lbl = "nam", p_lbl = "abb", lbl_txt = txt_TF, col_pal = pal_bw)</span>
+<span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"num"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, f_lwd <span class='op'>=</span> <span class='fl'>1</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_fnet-27.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_fnet</span><span class='op'>(</span>area <span class='op'>=</span> <span class='st'>"sq"</span>, f_lbl <span class='op'>=</span> <span class='st'>"nam"</span>, p_lbl <span class='op'>=</span> <span class='st'>"num"</span>, f_lwd <span class='op'>=</span> <span class='fl'>.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_fnet-28.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -580,7 +580,7 @@ for analysis and details.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

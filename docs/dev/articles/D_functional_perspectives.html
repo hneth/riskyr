@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -103,13 +103,13 @@
 
       
 
-      </header><script src="D_functional_perspectives_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Adopting Functional Perspectives</h1>
                         <h4 class="author">Hansjörg Neth, SPDS, uni.kn</h4>
             
-            <h4 class="date">2018 02 10</h4>
+            <h4 class="date">2021 03 20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hneth/riskyr/blob/master/vignettes/D_functional_perspectives.Rmd"><code>vignettes/D_functional_perspectives.Rmd</code></a></small>
       <div class="hidden name"><code>D_functional_perspectives.Rmd</code></div>
@@ -124,13 +124,13 @@
 (John W. Tukey)<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 </blockquote>
 <!-- riskyr logo: -->
-<p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a></p>
+<p><a href="https://github.com/hneth/riskyr/"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a></p>
 <!-- Introduction: -->
-<p>The <strong>riskyr</strong> data structures essentially describe networks of dependencies. This is best illustrated by the network diagram (see examples of <code>plot_fnet</code> in the <a href="A_user_guide.html">user guide</a> and <a href="B_data_formats.html">data formats</a>). However, sometimes it is instructive to view all possible values of some parameter as a function of others. A functional perspective illustrates how the value of some parameter (or its values) changes as a function of other parameters (and their values).</p>
+<p>The key <strong>riskyr</strong> data structure essentially describes a network of dependencies. This is best illustrated by the network diagram (see examples of <code><a href="../reference/plot_fnet.html">plot_fnet()</a></code> in the <a href="A_user_guide.html">user guide</a> and <a href="B_data_formats.html">data formats</a>). However, sometimes it is instructive to view all possible values of a parameter as a function of some other variable. A functional perspective illustrates how the value of some variable (or its values) changes as a function of another (and their values).</p>
 <div id="functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h2>
-<p>The basic format of a function is <span class="math inline">\(y = f(x)\)</span>, which illustrates how values of <span class="math inline">\(y\)</span> depend on values of <span class="math inline">\(x\)</span> given some function <span class="math inline">\(f\)</span>. <strong>riskyr</strong> provides 2 functions for viewing parameters as a function of other parameters (and their values).</p>
+<p>The basic format of a function is <span class="math inline">\(y = f(x)\)</span>, which illustrates how values of <span class="math inline">\(y\)</span> depend on values of <span class="math inline">\(x\)</span> given some function <span class="math inline">\(f\)</span>. <strong>riskyr</strong> provides two functions for viewing parameters as a function of other parameters (and their values).</p>
 <!-- 
 $$
 \begin{aligned}
@@ -144,64 +144,64 @@ $$
 <div id="curves-as-a-function-of-prevalence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#curves-as-a-function-of-prevalence" class="anchor"></a>Curves as a function of prevalence</h2>
-<p>The function <code>plot_curve</code> draws the curves (or lines) of selected parameters as a function of the prevalence (with <code>prev</code> ranging from 0 to 1) for a given decision process or diagnostic test (i.e., given values of <code>sens</code> and <code>spec</code>):</p>
+<p>The <code><a href="../reference/plot_curve.html">plot_curve()</a></code> function draws the curves (or lines) of selected parameters as a function of the prevalence (with <code>prev</code> ranging from 0 to 1) for a given decision process or diagnostic test (i.e., given values of <code>sens</code> and <code>spec</code>):</p>
 <p><span class="math display">\[y \ = \ f(\texttt{prev} \textrm{, from 0 to 1})  \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \   (1)\]</span></p>
-<p>As an example, reconsider our original scenario (on mammography screening, see <a href="A_user_guide.html">user guide</a>). Earlier, we computed a positive predictive value (PPV) of 7.8%. But rather than just computing a single value, we could ask: How do values of PPV develop as a function of prevalence? The <code>plot_curve</code> function illustrates this relationship:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, 
+<p>As an example, reconsider our original scenario (on mammography screening, see <a href="A_user_guide.html">user guide</a>). Earlier, we computed a positive predictive value (PPV) of 7.8%. But rather than just computing a single value, we could ask: How do values of PPV develop as a function of prevalence? The <code><a href="../reference/plot_curve.html">plot_curve()</a></code> function illustrates this relationship:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="fl">.01</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, 
            what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span><span class="op">)</span>, 
-           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></code></pre></div>
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></pre></div>
 <div class="figure" style="text-align: center">
-<img src="D_functional_perspectives_files/figure-html/plot_curve_1-1.png" alt="Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario." width="624"><p class="caption">
+<img src="D_functional_perspectives_files/figure-html/plot-curve-1-1.png" alt="Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario." width="576"><p class="caption">
 Showing PPV and NPV as a function of prevalence (for a prevalance of 1% and given values of sensitivity and specificity) in the original mammography screening scenario.
 </p>
 </div>
-<p>The curves illustrate that values of <code>PPV</code> and <code>NPV</code> crucially depend on the value of prevalence <code>prev</code> in the current population. In fact, they actually vary across their entire range (i.e., from 0 to 1), rendering any communication of their value utterly meaningless without specifying the current population’s prevalence value <code>prev</code>.</p>
-<p>The dependency of <code>PPV</code> and <code>NPV</code> on <code>prev</code> can be illustrated by assuming a higher prevalence rate. For instance, if we knew that some woman was genetically tested and known to exhibit the notorious BRCA1 mutation, the prevalence value of her corresponding population (given a positive mammography result in a routine screening) is increased to about 60% (graph not shown here to save space, but try running the following code for yourself):</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">high.prev</span> <span class="op">&lt;-</span> <span class="fl">.60</span>   <span class="co"># assume increased prevalence due to BRCA1 mutation</span>
+<p>The curves illustrate that values of <code>PPV</code> and <code>NPV</code> crucially depend on the prevalence value <code>prev</code> in the current population. In fact, they actually vary across their entire range (i.e., from 0 to 1), rendering any communication of their value utterly meaningless without specifying the current population’s prevalence value.</p>
+<p>The dependency of <code>PPV</code> and <code>NPV</code> on <code>prev</code> can be illustrated by assuming a higher prevalence rate. For instance, if we knew that some woman was genetically tested and known to exhibit the notorious BRCA1 mutation, the prevalence value of her corresponding population (given a positive mammography result in a routine screening) is increased to about 60% (graph not shown here to save space, but try running the following code for yourself):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">high.prev</span> <span class="op">&lt;-</span> <span class="fl">.60</span>   <span class="co"># assume increased prevalence due to BRCA1 mutation</span>
 
 <span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, 
            what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span><span class="op">)</span>, 
-           title_lbl <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></code></pre></div>
-<p>This shows that — given an increased prevalence value <code>prev</code> of 60% — the positive predictive value <code>PPV</code> of a positive test result increases from 7.8% (in the standard population) to around 93% (given the BRCA1 mutation).</p>
-<p>In addition, the actual values of population and test parameters are often unclear. The <code>plot_curve</code> function reflects this by providing an uncertainty parameter <code>uc</code> that is expressed as a percentage of the specified value. For instance, the following assumes that our parameter values may deviate up to 5% from the specified values and marks the corresponding ranges of uncertainty as shaded areas around the curves that assume exact parameter values.</p>
-<p>Both the notions of expressing probabilities as a function of prevalence and of uncertainty ranges for imprecise parameter estimates can be extended to other probabilities. The following curves show the full set of curves currently drawn by <code>plot_curve</code>. In addition to the predictive values <code>PPV</code> and <code>NPV</code>, we see that the proportion of positive decisions <code>ppod</code> and the overall accuracy <code>acc</code> also vary as a function of prevalence <code>prev</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">high.prev</span> <span class="op">&lt;-</span> <span class="fl">.60</span>   <span class="co"># assume increased prevalence due to BRCA1 mutation</span>
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></pre></div>
+<p>This shows that — given an increased prevalence value <code>prev</code> of 60% — the positive predictive value <code>PPV</code> of a positive test result increases from 7.8% (in the standard population) to around 93% (given the BRCA1 mutation).</p>
+<p>In addition, the actual values of population and test parameters are often unclear. The <code><a href="../reference/plot_curve.html">plot_curve()</a></code> function reflects this by providing an uncertainty parameter <code>uc</code> that is expressed as a percentage of the specified value. For instance, the following assumes that our parameter values may deviate up to 5% from the specified values and marks the corresponding ranges of uncertainty as shaded areas around the curves that assume exact parameter values.</p>
+<p>Both the notions of expressing probabilities as a function of prevalence and of uncertainty ranges for imprecise parameter estimates can be extended to other probabilities. The following curves show the full set of curves currently drawn by <code><a href="../reference/plot_curve.html">plot_curve()</a></code>. In addition to the predictive values <code>PPV</code> and <code>NPV</code>, we see that the bias or proportion of positive decisions <code>ppod</code> and the overall accuracy <code>acc</code> also vary as a function of the prevalence <code>prev</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">high.prev</span> <span class="op">&lt;-</span> <span class="fl">.60</span>   <span class="co"># assume increased prevalence due to BRCA1 mutation</span>
 
 <span class="fu"><a href="../reference/plot_curve.html">plot_curve</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, 
            what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"prev"</span>, <span class="st">"PPV"</span>, <span class="st">"NPV"</span>, <span class="st">"ppod"</span>, <span class="st">"acc"</span><span class="op">)</span>, 
-           title_lbl <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, uc <span class="op">=</span> <span class="fl">.05</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></code></pre></div>
+           title_lbl <span class="op">=</span> <span class="st">"Mammography screening (BRCA1 mutation)"</span>, uc <span class="op">=</span> <span class="fl">.05</span>, cex.lbl <span class="op">=</span> <span class="fl">.80</span><span class="op">)</span></pre></div>
 <div class="figure" style="text-align: center">
-<img src="D_functional_perspectives_files/figure-html/plot_curve_3-1.png" alt="Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%." width="624"><p class="caption">
+<img src="D_functional_perspectives_files/figure-html/plot-curve-3-1.png" alt="Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%." width="576"><p class="caption">
 Curves that show PPV/NPV, ppod, and acc as a function of an prevalence (for given values of sensitivity and specificity) when assuming an increased prevalence of 60% and an uncertainty range of 5%.
 </p>
 </div>
 </div>
-<div id="planes-as-a-function-of-sensitivity-and-specificity-for-given-prevalence" class="section level2">
+<div id="planes-as-a-function-of-sensitivity-and-specificity-given-a-prevalence" class="section level2">
 <h2 class="hasAnchor">
-<a href="#planes-as-a-function-of-sensitivity-and-specificity-for-given-prevalence" class="anchor"></a>Planes as a function of sensitivity and specificity (for given prevalence)</h2>
-<p>The function <code>plot_plane</code> draws a plane for a selected parameter as a function of sensitivity and specificity (with <code>sens</code> and <code>spec</code> both ranging from 0 to 1) for a given prevalence <code>prev</code>:</p>
+<a href="#planes-as-a-function-of-sensitivity-and-specificity-given-a-prevalence" class="anchor"></a>Planes as a function of sensitivity and specificity (given a prevalence)</h2>
+<p>The <code><a href="../reference/plot_plane.html">plot_plane()</a></code> function draws a plane for a selected parameter as a function of sensitivity and specificity values (with <code>sens</code> and <code>spec</code> both ranging from 0 to 1) for a given prevalence <code>prev</code>:</p>
 <p><span class="math display">\[y \ = \ f(\texttt{sens} \times\ \texttt{spec} \textrm{, both from 0 to 1, for given value of } \texttt{prev}) \textrm{ with } y \in \{\texttt{PPV}, \texttt{NPV}, \texttt{ppod}, \texttt{acc}\}  \ \ \ \ \ \ \ (2)\]</span></p>
 <p>Some examples (not shown here, but please try evaluating the following function calls):</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"PPV"</span>,  
-           title_lbl <span class="op">=</span> <span class="st">"A. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"PPV"</span>,  
+           title_lbl <span class="op">=</span> <span class="st">"A. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></pre></div>
 <div class="figure" style="text-align: center">
-<img src="D_functional_perspectives_files/figure-html/plot_plane_PPV-1.png" alt="Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence." width="528"><p class="caption">
+<img src="D_functional_perspectives_files/figure-html/plot-plane-PPV-1.png" alt="Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence." width="480"><p class="caption">
 Plane showing the positive predictive value (PPV) as a function of sensitivity and specificity for a given prevalence.
 </p>
 </div>
 <p>Related plots (showing different probabilities) include:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"NPV"</span>,  
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"NPV"</span>,  
            title_lbl <span class="op">=</span> <span class="st">"B. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"ppod"</span>, what_col <span class="op">=</span> <span class="st">"firebrick"</span>, 
            title_lbl <span class="op">=</span> <span class="st">"C. Mammography (BRCA1)"</span>, phi <span class="op">=</span> <span class="fl">45</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_plane.html">plot_plane</a></span><span class="op">(</span>prev <span class="op">=</span> <span class="va">high.prev</span>, sens <span class="op">=</span> <span class="fl">.80</span>, spec <span class="op">=</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">.096</span><span class="op">)</span>, what <span class="op">=</span> <span class="st">"acc"</span>,  what_col <span class="op">=</span> <span class="st">"forestgreen"</span>, 
-           title_lbl <span class="op">=</span> <span class="st">"D. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></code></pre></div>
-<p>Overall, viewing conditional probabilities (like <code>PPV</code>/<code>NPV</code>, but also <code>ppod</code> and <code>acc</code>) as a function of other probabilities (e.g., <code>prev</code>, <code>sens</code>, <code>spec</code> or <code>fart</code>) often provides unexpected relationships and new insights.</p>
+           title_lbl <span class="op">=</span> <span class="st">"D. Mammography (BRCA1)"</span>, cex.lbl <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></pre></div>
+<p>Overall, viewing conditional probabilities (like <code>PPV</code> or <code>NPV</code>, but also <code>ppod</code> or <code>acc</code>) as a function of other probabilities (e.g., <code>prev</code>, <code>sens</code>, <code>spec</code> or <code>fart</code>) often reveals unexpected relationships and can enable new insights.</p>
 <div id="resources" class="section level3">
 <h3 class="hasAnchor">
 <a href="#resources" class="anchor"></a>Resources</h3>
@@ -225,28 +225,28 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 </tr>
 <tr class="even">
 <td align="left"> </td>
-<td align="left"><a href="https://github.com/hneth/riskyr">Development version</a></td>
-<td align="left"><a href="https://github.com/hneth/riskyr" class="uri">https://github.com/hneth/riskyr</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr/">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyr/" class="uri">https://github.com/hneth/riskyr/</a></td>
 </tr>
 <tr class="odd">
 <td align="left">B. <strong>riskyrApp</strong> (R Shiny code):</td>
-<td align="left"><a href="http://riskyr.org">Online version</a></td>
-<td align="left"><a href="http://riskyr.org" class="uri">http://riskyr.org</a></td>
+<td align="left"><a href="http://134.34.54.61:3838/spds/riskyr/">Online version</a></td>
+<td align="left"><a href="http://134.34.54.61:3838/spds/riskyr/">http://riskyr.org/</a></td>
 </tr>
 <tr class="even">
 <td align="left"> </td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp">Development version</a></td>
-<td align="left"><a href="https://github.com/hneth/riskyrApp" class="uri">https://github.com/hneth/riskyrApp</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp/">Development version</a></td>
+<td align="left"><a href="https://github.com/hneth/riskyrApp/" class="uri">https://github.com/hneth/riskyrApp/</a></td>
 </tr>
 <tr class="odd">
 <td align="left">C. Online documentation:</td>
-<td align="left"><a href="https://hneth.github.io/riskyr">Release version</a></td>
-<td align="left"><a href="https://hneth.github.io/riskyr" class="uri">https://hneth.github.io/riskyr</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/">Release version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/" class="uri">https://hneth.github.io/riskyr/</a></td>
 </tr>
 <tr class="even">
 <td align="left"> </td>
-<td align="left"><a href="https://hneth.github.io/riskyr/dev">Development version</a></td>
-<td align="left"><a href="https://hneth.github.io/riskyr/dev" class="uri">https://hneth.github.io/riskyr/dev</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev/">Development version</a></td>
+<td align="left"><a href="https://hneth.github.io/riskyr/dev/" class="uri">https://hneth.github.io/riskyr/dev/</a></td>
 </tr>
 </tbody>
 </table>
@@ -259,7 +259,7 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 <p><a href="https://www.spds.uni-konstanz.de/"> <img src="../inst/pix/uniKn_logo.png" alt="spds.uni.kn" style="width: 280px; float: right; border:15;"></a></p>
 <p>We appreciate your feedback, comments, or questions.</p>
 <ul>
-<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues" class="uri">https://github.com/hneth/riskyr/issues</a>.</p></li>
+<li><p>Please report any <strong>riskyr</strong>-related issues at <a href="https://github.com/hneth/riskyr/issues/" class="uri">https://github.com/hneth/riskyr/issues/</a>.</p></li>
 <li><p>Contact us at <a href="mailto:contact.riskyr@gmail.com" class="email">contact.riskyr@gmail.com</a> with any comments, questions, or suggestions.</p></li>
 </ul>
 </div>
@@ -267,7 +267,7 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 <h2 class="hasAnchor">
 <a href="#all-riskyr-vignettes" class="anchor"></a>All riskyr vignettes</h2>
 <!-- riskyr logo: -->
-<p><a href="https://github.com/hneth/riskyr"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a></p>
+<p><a href="https://github.com/hneth/riskyr/"> <img src="../inst/pix/riskyr_cube.png" alt="riskyr" style="width: 125px; float: right; border:20;"></a></p>
 <!-- Index of vignettes: -->
 <table class="table">
 <thead><tr class="header">
@@ -308,7 +308,7 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Tukey, J.W. (1977), <em>Exploratory data analysis</em>. Reading, MA: Addison-Wesley. (p. vi).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Tukey, J.W. (1977), <em>Exploratory data analysis</em>. Reading, MA: Addison-Wesley. (p. vi).<a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
   </div>
@@ -324,7 +324,7 @@ Plane showing the positive predictive value (PPV) as a function of sensitivity a
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href="https://www.spds.uni-konstanz.de/hans-neth">Hansjoerg Neth</a>, <a href="https://www.spds.uni-konstanz.de/felix-gaisbauer">Felix Gaisbauer</a>, <a href="https://www.spds.uni-konstanz.de/nico-gradwohl">Nico Gradwohl</a>, <a href="https://www.spds.uni-konstanz.de/wolfgang-gaissmaier">Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">

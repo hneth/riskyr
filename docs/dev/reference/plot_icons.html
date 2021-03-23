@@ -87,7 +87,7 @@ and a population size of N individuals." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">riskyr</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.0.9035</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9001</span>
       </span>
     </div>
 
@@ -410,8 +410,7 @@ to avoid decimal values in <code><a href='freq.html'>freq</a></code>.</p>
 <code><a href='plot_tree.html'>plot_tree</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># ways to work:</span>
-<span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icon array with default settings (arr_type = "array")</span>
+    <pre class="examples"><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icon array with default settings (arr_type = "array")</span>
 </div><div class='img'><img src='plot_icons-1.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>, N <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>  <span class='co'># icon array with shuffled IDs</span>
 </div><div class='img'><img src='plot_icons-2.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># array types:</span>
@@ -428,34 +427,22 @@ to avoid decimal values in <code><a href='freq.html'>freq</a></code>.</p>
 </div><div class='img'><img src='plot_icons-10.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, by <span class='op'>=</span> <span class='st'>"ac"</span>, title_lbl <span class='op'>=</span> <span class='st'>"Cases by accuracy"</span><span class='op'>)</span>   <span class='co'># (hi + cr) vs. (fa + mi)</span>
 </div><div class='img'><img src='plot_icons-11.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Custom icon types and colors:</span>
-<span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>600</span>, by <span class='op'>=</span> <span class='st'>"all"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_bwp</span><span class='op'>)</span> <span class='co'># by all: 4 symbol types</span>
-</div><div class='img'><img src='plot_icons-12.png' alt='' width='691' height='538' /></div><div class='input'><span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1250</span>, sens <span class='op'>=</span> <span class='fl'>0.9</span>, spec <span class='op'>=</span> <span class='fl'>0.9</span>, prev <span class='op'>=</span> <span class='fl'>0.9</span>,
-           icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>23</span><span class='op'>)</span>,
-           block_size_row <span class='op'>=</span> <span class='fl'>10</span>, block_size_col <span class='op'>=</span> <span class='fl'>5</span>,
-           nblocks_row <span class='op'>=</span> <span class='fl'>5</span>, nblocks_col <span class='op'>=</span> <span class='fl'>5</span>,
-           block_d <span class='op'>=</span> <span class='fl'>0.8</span>, border_d <span class='op'>=</span> <span class='fl'>0.2</span>,
-           fill_array <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-13.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='co'># variants:</span>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"array"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>22</span>, <span class='fl'>23</span>, <span class='fl'>24</span><span class='op'>)</span>,
            block_d <span class='op'>=</span> <span class='fl'>0.5</span>, border_d <span class='op'>=</span> <span class='fl'>0.5</span>, col_pal <span class='op'>=</span> <span class='va'>pal_vir</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-14.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-12.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>22</span><span class='op'>)</span>,
            block_d <span class='op'>=</span> <span class='fl'>0.5</span>, border_d <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-15.png' alt='' width='691' height='538' /></div><div class='input'>
-<span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>23</span>, <span class='fl'>24</span>, <span class='fl'>22</span><span class='op'>)</span>,
-           icon_brd_col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>grey</a></span><span class='op'>(</span><span class='fl'>.33</span>, <span class='fl'>.99</span><span class='op'>)</span>, icon_brd_lwd <span class='op'>=</span> <span class='fl'>3</span>, cex_lbl <span class='op'>=</span> <span class='fl'>1.2</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-16.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-13.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>800</span>, arr_type <span class='op'>=</span> <span class='st'>"fillequal"</span>, icon_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>21</span>, <span class='fl'>22</span>, <span class='fl'>22</span>, <span class='fl'>21</span><span class='op'>)</span>,
            icon_brd_lwd <span class='op'>=</span> <span class='fl'>.5</span>, cex <span class='op'>=</span> <span class='fl'>1</span>, cex_lbl <span class='op'>=</span> <span class='fl'>1.1</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-17.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-14.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='co'># Text and color options:</span>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>,
            title_lbl <span class='op'>=</span> <span class='st'>""</span>, lbl_txt <span class='op'>=</span> <span class='va'>txt_TF</span>, col_pal <span class='op'>=</span> <span class='va'>pal_vir</span>, mar_notes <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-18.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-15.png' alt='' width='691' height='538' /></div><div class='input'>
 <span class='fu'>plot_icons</span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>1000</span>, prev <span class='op'>=</span> <span class='fl'>.5</span>, sens <span class='op'>=</span> <span class='fl'>.5</span>, spec <span class='op'>=</span> <span class='fl'>.5</span>, arr_type <span class='op'>=</span> <span class='st'>"shuffledarray"</span>,
            title_lbl <span class='op'>=</span> <span class='st'>"Green vs. red"</span>, col_pal <span class='op'>=</span> <span class='va'>pal_rgb</span>, transparency <span class='op'>=</span> <span class='fl'>.5</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_icons-19.png' alt='' width='691' height='538' /></div><div class='input'>
+</div><div class='img'><img src='plot_icons-16.png' alt='' width='691' height='538' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -468,7 +455,7 @@ to avoid decimal values in <code><a href='freq.html'>freq</a></code>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/prof-dr-wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
+  <p>Developed by <a href='https://www.spds.uni-konstanz.de/hans-neth'>Hansjoerg Neth</a>, <a href='https://www.spds.uni-konstanz.de/felix-gaisbauer'>Felix Gaisbauer</a>, <a href='https://www.spds.uni-konstanz.de/nico-gradwohl'>Nico Gradwohl</a>, <a href='https://www.spds.uni-konstanz.de/wolfgang-gaissmaier'>Wolfgang Gaissmaier</a>.</p>
 </div>
 
 <div class="pkgdown">
