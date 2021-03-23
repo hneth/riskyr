@@ -1,7 +1,7 @@
 ---
 title: "Data Formats"
 author: "Hansjörg Neth, SPDS, uni.kn"
-date: "2021 03 20"
+date: "2021 03 22"
 output: 
   rmarkdown::html_vignette: 
     fig_caption: yes
@@ -104,7 +104,7 @@ $$
 
 Similarly, each of the subsets resulting from using the splits by _condition_\ (`cd`), by _decision_\ (`dc`), or by _accuracy_\ (`ac`), can also be expressed as a sum of two of the four essential frequencies. This results in three different ways of grouping the four essential frequencies:
 
-(a) by condition\ (`cd`) (corresponding to the two columns of the [confusion matrix](confusion_matrix.html)): 
+(a) by condition\ (`cd`) (corresponding to the two columns of the [confusion matrix](C_confusion_matrix.html)): 
 
 $$ 
 \begin{aligned}
@@ -113,7 +113,7 @@ $$
 \end{aligned}
 $$
 
-(b) by decision\ (`dc`) (corresponding to the two rows of the [confusion matrix](confusion_matrix.html)): 
+(b) by decision\ (`dc`) (corresponding to the two rows of the [confusion matrix](C_confusion_matrix.html)): 
 
 $$ 
 \begin{aligned}
@@ -122,7 +122,7 @@ $$
 \end{aligned}
 $$ 
 
-(c) by accuracy\ (`ac`) (or the correspondence of decisions to conditions, corresponding to the two diagonals of the [confusion matrix](confusion_matrix.html)): 
+(c) by accuracy\ (`ac`) (or the correspondence of decisions to conditions, corresponding to the two diagonals of the [confusion matrix](C_confusion_matrix.html)): 
 
 $$ 
 \begin{aligned}
