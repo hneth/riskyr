@@ -202,39 +202,34 @@
 #' plot_tab(by = "cddc", p_split = "h", p_lbl = "def")  # v03 (see v05)
 #' plot_tab(by = "cdac", p_split = "h", p_lbl = "def")  # v04 (see v09)
 #'
-#' plot_tab(by = "dccd", p_split = "v", p_lbl = "def")  # v05 (is v03 rotated)
-#' plot_tab(by = "dcac", p_split = "v", p_lbl = "def")  # v06 (see v12)
-#' plot_tab(by = "dccd", p_split = "h", p_lbl = "def")  # v07 (is v01 rotated)
-#' plot_tab(by = "dcac", p_split = "h", p_lbl = "def")  # v08 (see v10)
+#' # plot_tab(by = "dccd", p_split = "h", p_lbl = "def")  # v07 (v01 rotated)
+#' # plot_tab(by = "dccd", p_split = "v", p_lbl = "def")  # v05 (v03 rotated)
+#' plot_tab(by = "dcac", p_split = "v", p_lbl = "def")    # v06 (see v12)
+#' plot_tab(by = "dcac", p_split = "h", p_lbl = "def")    # v08 (see v10)
 #'
-#' plot_tab(by = "accd", p_split = "v", p_lbl = "def")  # v09 (is v04 rotated)
-#' plot_tab(by = "acdc", p_split = "v", p_lbl = "def")  # v10 (is v08 rotated)
-#' plot_tab(by = "accd", p_split = "h", p_lbl = "def")  # v11 (is v02 rotated)
-#' plot_tab(by = "acdc", p_split = "h", p_lbl = "def")  # v12 (is v06 rotated)
+#' # plot_tab(by = "accd", p_split = "v", p_lbl = "def")  # v09 (v04 rotated)
+#' # plot_tab(by = "acdc", p_split = "v", p_lbl = "def")  # v10 (v08 rotated)
+#' # plot_tab(by = "accd", p_split = "h", p_lbl = "def")  # v11 (v02 rotated)
+#' # plot_tab(by = "acdc", p_split = "h", p_lbl = "def")  # v12 (v06 rotated)
 #'
 #' ## Explore labels and links:
-#' plot_tab(f_lbl = "abb", p_lbl = NA)  # abbreviated labels, no probability links
-#' plot_tab(f_lbl = "num", f_lbl_sum = "abb", p_lbl = "num", f_lbl_hd = "abb")
+#' # plot_tab(f_lbl = "abb", p_lbl = NA)  # abbr. labels, no probability links
+#' # plot_tab(f_lbl = "num", f_lbl_sum = "abb", p_lbl = "num", f_lbl_hd = "abb")
 #' plot_tab(f_lbl = "def", f_lbl_sum = "def", p_lbl = "def", f_lbl_hd = "nam")
 #' plot_tab(f_lbl = "namnum", f_lbl_sep = " = ",
 #'          f_lbl_sum = "namnum", f_lbl_hd = "num", p_lbl = "namnum")
 #'
 #' ## Misc. options:
 #' plot_tab(area = "sq")        # area: square
-#' plot_tab(title_lbl = "")     # no titles
-#' plot_tab(mar_notes = TRUE)   # show margin notes
-#'
-#' plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")    # gaps
-#' plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps
+#' # plot_tab(title_lbl = "")     # no titles
+#' # plot_tab(mar_notes = TRUE)   # show margin notes
+#' plot_tab(by = "cddc", gaps = c(.08, .00), area = "sq")      # gaps
+#' # plot_tab(by = "cddc", gaps = c(.02, .08), p_split = "h")  # gaps
 #'
 #' # Showing prob as lines:
 #' plot_tab(prev = 1/4, sens = 6/7, spec = 3/5, N = 100,
 #'          by = "cddc", p_split = "v", col_pal = pal_rgb,
-#'          p_lbl = "def", brd_dis = .25, arr_c = -3)
-#' plot_tab(prev = 1/3, sens = 6/7, spec = 3/4, N = 100, scale = "f",
-#'          by = "cddc", p_split = "h",
-#'          lwd = 2, p_lbl = "def", brd_dis = .20, arr_c = +3,
-#'          f_lwd = .5, col_pal = pal_bwp)  # bw-print version
+#'          p_lbl = "def", brd_dis = .25, arr_c = +3, lwd = 2)
 #'
 #' # Custom text labels and colors:
 #' plot_tab(prev = .5, sens = 4/5, spec = 3/5, N = 10,
@@ -249,9 +244,7 @@
 #'          col_pal = pal_kn, f_lwd = 1)  # custom colors
 #'
 #' ## Note some differences to plot_area (i.e., area/mosaic plot):
-#' #
 #' # In plot_tab:
-#' #
 #' # (1) p_split does not matter (except for selecting different prob links):
 #' plot_tab(by = "cddc", p_split = "v")  # v01 (see v07)
 #' plot_tab(by = "cddc", p_split = "h")  # v03 (see v05)
@@ -2126,7 +2119,6 @@ plot_tab <- function(prev = num$prev,    # probabilities
 # ## Note some differences to plot_area (area/mosaic plot):
 # #
 # # In plot_tab:
-# #
 # # (1) p_split does not matter (except for selecting different prob links):
 # plot_tab(by = "cddc", p_split = "v")  # v01 (see v07)
 # plot_tab(by = "cddc", p_split = "h")  # v03 (see v05)
@@ -2141,18 +2133,12 @@ plot_tab <- function(prev = num$prev,    # probabilities
 ## (+) ToDo: ------
 
 ## - Allow showing more than 1 set of probabilities at once.
-
-## - Shorten and simplify code:
+## - Simplify:
 #    a. specify perspectives => position of 4 table cells
 #    b. specify probabilities (lines) to be shown
 
 ## (*) Done: ------
 
-## - Make a function of 3 essential probabilities (generating local freq and prob),
-##   and pass local txt and pal arguments (to allow changes when calling function).
-## - Add probability link options for perspectives beyond "cd.."
-## - Use scale == "f" to re-compute prob values from (rounded or non-rounded) freq.
-## - Set sensible defaults.
-## - Add documentation and integrate in riskyr package  [2018 10 24].
+## - etc.
 
 ## eof. ----------
