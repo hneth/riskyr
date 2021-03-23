@@ -50,7 +50,7 @@ vignettes/*.pdf
 
 # CRAN:
 cran-comments.md
-^CRAN-RELEASE$
+CRAN-RELEASE
 
 # pkgdown:
 ^_pkgdown\.yml$
