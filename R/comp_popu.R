@@ -1,5 +1,5 @@
 ## comp_popu.R | riskyr
-## 2018 12 20
+## 2021 03 24
 ## Compute a population (popu) as 3 x N data frame
 ## based on only the 4 essential frequencies:
 ##  [a. the current N from num (not needed)]
@@ -13,17 +13,14 @@
 
 #' Compute a population table from frequencies.
 #'
-#' \code{comp_popu} is a function that computes
-#' a table \code{\link{popu}} (as an R data frame)
-#' from the current frequency information
-#' (contained in \code{\link{freq}}).
+#' \code{comp_popu} computes a table \code{\link{popu}} (as an R data frame)
+#' from the current frequency information (contained in \code{\link{freq}}).
 #'
-#' \code{comp_popu} also uses the current text settings
+#' By default, \code{comp_popu} uses the text settings
 #' contained in \code{\link{txt}}.
 #'
 #' A visualization of the current population
-#' contained in \code{\link{popu}}
-#' is provided by \code{plot_icon}.
+#' \code{popu} is provided by \code{\link{plot_icons}}.
 #'
 #' @format An object of class \code{data.frame}
 #' with \code{\link{N}} rows
@@ -102,33 +99,35 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
   # dec_neg <- (mi + cr)
 
   ## (2) Define and initialize 3 vectors of length N:
-  ## (a) Truth (= true condition or state):
+
+  # (a) X: Truth (= true condition or state):
   # truth <- c(rep(TRUE, cond_true), rep(FALSE, cond_false))  # a. using combined freq
   truth <- c(rep(TRUE, hi), rep(TRUE, mi),   # = cond true  # b. using 4 essential freq
              rep(FALSE, fa), rep(FALSE, cr)) # = cond_false
 
-  ## (b) Decision (ordered by ACTUAL truth values of condition):
+  # (b) Y: Decision (ordered by ACTUAL truth values of condition):
   decision <- c(rep(TRUE, hi), rep(FALSE, mi),
                 rep(TRUE, fa), rep(FALSE, cr))
 
-  ## (c) SDT (status decision/truth):
+  # (c) cells/SDT cases (status decision/truth):
   sdt <- c(rep("hi", hi), rep("mi", mi),
            rep("fa", fa), rep("cr", cr))
 
   ## (2) Coerce 3 vectors into ordered factors:
-  # (a) Condition (truth):
+
+  # (a) X: Condition (truth):
   truth <- factor(truth,
                   levels = c(TRUE, FALSE),                   # as Booleans
                   labels = c(cond_true_lbl, cond_false_lbl), # explicit labels: "true" vs. "false"
                   ordered = TRUE)
 
-  # (b) Decision (ordered by ACTUAL truth values of condition):
+  # (b) Y: Decision (ordered by ACTUAL truth values of condition):
   decision <- factor(decision,
                      levels = c(TRUE, FALSE),              # also as Booleans, NOT: (-1, +1) or (0, 1)
                      labels = c(dec_pos_lbl, dec_neg_lbl), # explicit labels: "pos" vs. "neg"
                      ordered = TRUE)
 
-  # (c) SDT (status decision/truth):
+  # (c) cells/SDT cases (status decision/truth):
   sdt <- factor(sdt,
                 levels = c("hi", "mi", "fa", "cr"),         # as character: 4 cases
                 labels = c(hi_lbl, mi_lbl, fa_lbl, cr_lbl), # explicit labels (e.g., "TP", "FN", "FP", "TN")
@@ -141,32 +140,32 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
                      sdt = sdt)
 
   ## (4) Name variables (by labels of dimensions):
-  # names(popu) <- c("Truth", "Decision", "STD")
-  names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)
+  names(popu) <- c(cond_lbl, dec_lbl, sdt_lbl)  # e.g., c("Truth", "Test", "STD")
 
   ## (5) Return df:
   return(popu)
 
-}
+} # comp_popu() end.
 
 ## Check:
 # popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
 # dim(popu)            # => N x 3
 # head(popu)
-#
+
 # # (A) Diagnostic/screening scenario (using default labels):
 # comp_popu(hi = 4, mi = 1, fa = 2, cr = 3)  # => computes a table of N = 10 cases.
 #
-# # (B) Intervention/treatment scenario:
+# # (B) Intervention/treatment scenario (prev = .50):
 # comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
 #           cond_lbl = "Treatment", cond_true_lbl = "pill", cond_false_lbl = "placebo",
 #           dec_lbl = "Health status", dec_pos_lbl = "healthy", dec_neg_lbl = "sick")
 #
-# # (C) Prevention scenario (e.g., vaccination):
+# # (C) Prevention scenario (e.g., vaccination, prev = .50):
 # comp_popu(hi = 3, mi = 2, fa = 1, cr = 4,
 #           cond_lbl = "Vaccination", cond_true_lbl = "yes", cond_false_lbl = "no",
 #           dec_lbl = "Disease", dec_pos_lbl = "no flu", dec_neg_lbl = "flu")
-
+# # Note: Distinguish between "prev" of vaccination vs. "prev_2" of
+# #       infection in unvaccinated population (as conditional probability)
 
 ## (2) Apply to initialize popu (as data frame): ----------
 
@@ -192,10 +191,8 @@ comp_popu <- function(hi = freq$hi,  # 4 essential frequencies
 #' and needs to be computed by calling \code{\link{comp_popu}}
 #' with current parameter settings.
 #'
-#' \code{comp_popu} uses the current text information
-#' contained in \code{\link{txt}} to define
-#' the labels of conditions, decisions, and
-#' SDT classifications.
+#' By default, \code{\link{comp_popu}} uses the current information
+#' contained in \code{\link{txt}} to define text labels.
 #'
 #' A visualization of the current population
 #' \code{popu} is provided by \code{\link{plot_icons}}.
@@ -234,15 +231,25 @@ popu <- NULL  # initialize
 # head(popu)
 # tail(popu)
 
+
 ## (*) Done: -----------
 
-## - changed on 2018 01 25 to use only
-##   the 4 essential frequencies of freq (hi mi fa cr)
 ## - Called "popu" rather than "pop" as it is an output,
 ##   rather than an input.
 
+
 ## (+) ToDo: ----------
 
-## - etc.
+## - A. comp_popu() generates data/cases from description:
+
+## - comp_popu() current defines a 2x2 matrix
+##   (a) from 4 cell frequencies (i.e., specifying the result).
+
+## - Add simulations: Add options to generate popu (as df)
+##   (b) from probabilities and N (using exact or rounded values)
+##   (c) from probabilities and N (and sample from N)
+
+## - Define a complementary function:
+##   B. desc_data() that generates description from (binary) data/cases.
 
 ## eof. ------------------------------------------
