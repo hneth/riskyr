@@ -22,7 +22,7 @@ Log of changes since last release:
 
 # riskyr 0.3.0
 
-**riskyr 0.3.0** was published [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 23, 2021. 
+**riskyr 0.3.0** was released [on CRAN](https://CRAN.R-project.org/package=riskyr) on March 23, 2021. 
 
 Log of changes since last release:
 
@@ -231,9 +231,9 @@ riskyr: A toolbox for rendering risk literacy more transparent.
 The following article provides details on the conceptual and theoretical background: 
 
 - Neth, H., Gradwohl, N., Streeb, D., Keim, D.A., & Gaissmaier, W. (2021). 
-Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies. 
-_Frontiers in Psychology_, _11_, 567817. 
-doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
+Perspectives on the 2x2 matrix: Solving semantically distinct problems based on a shared structure of binary contingencies.  
+  _Frontiers in Psychology_, _11_, 567817. 
+  doi: [10.3389/fpsyg.2020.567817](https://doi.org/10.3389/fpsyg.2020.567817) 
 
 
 <!-- Update: -->
