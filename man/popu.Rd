@@ -37,10 +37,8 @@ true negative (an individual correct rejection \code{\link{cr}}).
 and needs to be computed by calling \code{\link{comp_popu}}
 with current parameter settings.
 
-\code{comp_popu} uses the current text information
-contained in \code{\link{txt}} to define
-the labels of conditions, decisions, and
-SDT classifications.
+By default, \code{\link{comp_popu}} uses the current information
+contained in \code{\link{txt}} to define text labels.
 
 A visualization of the current population
 \code{popu} is provided by \code{\link{plot_icons}}.

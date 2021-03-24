@@ -66,18 +66,15 @@ encoded as ordered factors
 (with 2, 2, and 4 levels, respectively).
 }
 \description{
-\code{comp_popu} is a function that computes
-a table \code{\link{popu}} (as an R data frame)
-from the current frequency information
-(contained in \code{\link{freq}}).
+\code{comp_popu} computes a table \code{\link{popu}} (as an R data frame)
+from the current frequency information (contained in \code{\link{freq}}).
 }
 \details{
-\code{comp_popu} also uses the current text settings
+By default, \code{comp_popu} uses the text settings
 contained in \code{\link{txt}}.
 
 A visualization of the current population
-contained in \code{\link{popu}}
-is provided by \code{plot_icon}.
+\code{popu} is provided by \code{\link{plot_icons}}.
 }
 \examples{
 popu <- comp_popu()  # => initializes popu (with current values of freq and txt)
